@@ -1,7 +1,31 @@
+const path = require("node:path");
 const expoPreset = require("jest-expo/jest-preset");
 
 module.exports = {
   ...expoPreset,
+  // Only crawl folders that hold tests or the code they import. The haste map
+  // otherwise walks `dist/` (web export, GBs), `android/` / `ios/` build trees,
+  // `coverage/` and `store-assets/` before the first test starts. Modules
+  // outside these roots (assets, packages/*) still resolve normally.
+  roots: ["<rootDir>/src", "<rootDir>/plugins", "<rootDir>/modules"],
+  // CI: a stable, repo-local transform cache that the workflow persists between
+  // runs (`.github/workflows/ci.yml` → "Cache Jest transforms") — a cold run
+  // spends ~45% of its time in Babel / istanbul transforms. Locally keep Jest's
+  // default (the OS temp dir), which is usually the fastest disk; a repo on a
+  // spinning disk made a repo-local cache I/O-bound. `JEST_CACHE_DIRECTORY`
+  // overrides both.
+  ...(process.env.JEST_CACHE_DIRECTORY || process.env.GITHUB_ACTIONS === "true"
+    ? {
+        cacheDirectory:
+          process.env.JEST_CACHE_DIRECTORY ??
+          path.join(__dirname, "../../node_modules/.cache/jest"),
+      }
+    : {}),
+  // CI runners are dedicated: use every core (Jest defaults to cores − 1, i.e.
+  // 3 of 4 on GitHub's runners). Locally keep the default headroom.
+  // `GITHUB_ACTIONS`, not `CI`: turbo's strict env mode only passes the vars in
+  // `turbo.json` `globalPassThroughEnv` through to tasks.
+  ...(process.env.GITHUB_ACTIONS === "true" ? { maxWorkers: "100%" } : {}),
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   // Component suites render real provider/theme trees; the first test in a file
   // can exceed Jest's 5s default on a loaded CI runner. One budget for all suites

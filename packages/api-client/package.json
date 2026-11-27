@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./datetime": "./src/datetime.ts",
+    "./models": "./src/generated/models/index.ts",
     "./provider": "./src/provider.tsx"
   },
   "scripts": {

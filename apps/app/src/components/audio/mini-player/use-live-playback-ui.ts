@@ -39,16 +39,22 @@ export function useLivePlaybackUi({
     }
 
     let frame = 0;
+    // Same values → same state object, so React skips the re-render. The clock
+    // often stands still between frames (TTS has no engine clock; buffering,
+    // sub-frame updates), and a new object every frame re-rendered the whole
+    // player at 60 fps for nothing.
+    const publish = (position: number, progress: number) =>
+      setLive((prev) =>
+        prev.position === position && prev.progress === progress ? prev : { position, progress },
+      );
     const tick = () => {
       const trackPos = Math.max(0, readSeconds());
       if (hasQueue) {
         const position = computeQueuePosition(queue, index, trackPos, trackDurations);
         const duration = queueDurationForProgress(queue, index, trackPos, trackDurations);
-        const progress = duration > 0 ? Math.min(position / duration, 1) : 0;
-        setLive({ position, progress });
+        publish(position, duration > 0 ? Math.min(position / duration, 1) : 0);
       } else {
-        const progress = trackDuration > 0 ? Math.min(trackPos / trackDuration, 1) : 0;
-        setLive({ position: trackPos, progress });
+        publish(trackPos, trackDuration > 0 ? Math.min(trackPos / trackDuration, 1) : 0);
       }
       frame = requestAnimationFrame(tick);
     };

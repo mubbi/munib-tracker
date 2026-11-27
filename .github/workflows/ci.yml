@@ -50,6 +50,23 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # apps/app Jest: Babel (+ istanbul) transforms of ~11k modules are the bulk of a
+      # cold run. The cache is content-addressed, so restoring an older one is safe;
+      # the key resets with the lockfile, Babel/Jest config and month to drop stale
+      # entries. Restored after install so pnpm never sees it (jest.config.js
+      # `cacheDirectory`, GitHub Actions only — locally Jest keeps the OS temp dir).
+      - name: Jest cache key
+        id: jest-cache
+        run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Jest transforms
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.cache/jest
+          key: jest-${{ runner.os }}-${{ steps.jest-cache.outputs.month }}-${{ hashFiles('pnpm-lock.yaml', 'apps/app/babel.config.js', 'apps/app/jest.config.js') }}-${{ github.sha }}
+          restore-keys: |
+            jest-${{ runner.os }}-${{ steps.jest-cache.outputs.month }}-${{ hashFiles('pnpm-lock.yaml', 'apps/app/babel.config.js', 'apps/app/jest.config.js') }}-
+
       - name: Type-check, lint, test, build, OpenAPI generate drift
         run: pnpm check:ci
 

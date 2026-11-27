@@ -101,7 +101,28 @@ const BIT_REVERSE = (() => {
   return out;
 })();
 
-/** In-place iterative radix-2 FFT. */
+/**
+ * Twiddle factors for every FFT stage, computed once with the exact expression
+ * the butterflies used to evaluate inline (so results are bit-identical). The
+ * stage with `half` butterflies starts at index `half - 1`; 511 entries in all.
+ * Saves ~2.3k `cos`/`sin` calls per 10 ms frame.
+ */
+const [TWIDDLE_RE, TWIDDLE_IM] = (() => {
+  const re = new Float64Array(FFT_SIZE - 1);
+  const im = new Float64Array(FFT_SIZE - 1);
+  for (let size = 2; size <= FFT_SIZE; size <<= 1) {
+    const half = size >> 1;
+    const step = (-2 * Math.PI) / size;
+    for (let k = 0; k < half; k++) {
+      const angle = step * k;
+      re[half - 1 + k] = Math.cos(angle);
+      im[half - 1 + k] = Math.sin(angle);
+    }
+  }
+  return [re, im];
+})();
+
+/** In-place iterative radix-2 FFT (`FFT_SIZE` points). */
 function fft(re: Float32Array, im: Float32Array): void {
   const n = re.length;
   for (let i = 0; i < n; i++) {
@@ -113,12 +134,11 @@ function fft(re: Float32Array, im: Float32Array): void {
   }
   for (let size = 2; size <= n; size <<= 1) {
     const half = size >> 1;
-    const step = (-2 * Math.PI) / size;
+    const twiddle = half - 1;
     for (let start = 0; start < n; start += size) {
       for (let k = 0; k < half; k++) {
-        const angle = step * k;
-        const wr = Math.cos(angle);
-        const wi = Math.sin(angle);
+        const wr = TWIDDLE_RE[twiddle + k];
+        const wi = TWIDDLE_IM[twiddle + k];
         const a = start + k;
         const b = a + half;
         const tr = re[b] * wr - im[b] * wi;

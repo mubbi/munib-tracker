@@ -34,7 +34,7 @@ Script: `apps/app/scripts/android-release-all.js` (shared runner `apps/app/scrip
 ## Running it as an agent
 
 1. `pnpm release:app:android:all --dry-run` and tell the user the planned file names.
-2. Make sure no emulators are running (they starve the build), then start the real run **in the background** with output redirected to a log in the scratchpad. On this Windows box a full run takes ~1.5–2 h (phone ≈ 50 min, wear ≈ 10 min, TV ≈ 30 min).
+2. Make sure no emulators are running (they starve the build), then start the real run **in the background** with output redirected to a log in the scratchpad. On this Windows box a full run takes ~1.5–2 h (Nov 2026 run: phone ≈ 45 min, wear ≈ 10 min, TV ≈ 40 min).
 3. On failure: read the log tail, fix, then resume with `--only <remaining devices> --start <next unused code>`. Gaps in versionCodes are fine on Play; reused codes are not.
 4. Report the root `.aab` paths and sizes, plus the final `EXPO_ANDROID_VERSION_CODE`.
 

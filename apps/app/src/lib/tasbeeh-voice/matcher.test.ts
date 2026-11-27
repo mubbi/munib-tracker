@@ -29,11 +29,17 @@ import {
 const TAUGHT = ["a", "i", "u", "e"] as const;
 const OTHER = ["o", "e", "a", "a"] as const;
 
-/** Three teaching takes of the same "zikr" at slightly different speeds and pitch. */
+/**
+ * Three teaching takes of the same "zikr" at slightly different speeds and pitch.
+ * Feature matrices are never mutated (matching / learning copy), so they are
+ * extracted once per file.
+ */
+let takes: ReturnType<typeof sampleFeatures>[] | undefined;
 function teachTakes() {
-  return [0.95, 1.05, 1].map((stretch, i) =>
+  takes ??= [0.95, 1.05, 1].map((stretch, i) =>
     sampleFeatures(withPauses([syntheticPhrase(TAUGHT, { stretch, pitch: 136 + i * 4 })])),
   );
+  return [...takes];
 }
 
 function taughtPattern() {

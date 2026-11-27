@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { SyncRecordDtoEntity } from "@munib-tracker/api-client";
+import { SyncRecordDtoEntity } from "@munib-tracker/api-client/models";
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
 
 import { BACKUP_KEYS } from "@/db/keys";

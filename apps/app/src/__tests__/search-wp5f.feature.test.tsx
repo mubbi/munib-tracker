@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
+import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import SearchScreen from "@/app/search";
 import * as search from "@/lib/search";
@@ -9,10 +9,9 @@ jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoR
 
 async function typeQuery(text: string) {
   await waitFor(() => expect(screen.getByText("Try searching")).toBeTruthy(), { timeout: 15_000 });
+  // Callers wait for the debounced (180 ms) results with `waitFor` / `findBy*`,
+  // so there is no fixed sleep here.
   await fireEvent.changeText(screen.getByPlaceholderText(/Search Qur'an/i), text);
-  await act(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-  });
 }
 
 describe("Universal search (P5-33)", () => {
@@ -26,6 +25,8 @@ describe("Universal search (P5-33)", () => {
 
   it("returns Library destinations as a result group", async () => {
     await renderWithProviders(<SearchScreen />);
+    // The group only exists once the debounced search ran.
+    expect(screen.queryAllByText("Library")).toHaveLength(0);
     await typeQuery("zakat");
     await waitFor(() => expect(screen.getAllByText("Library").length).toBeGreaterThan(0), {
       timeout: 5_000,

@@ -48,6 +48,10 @@ beforeEach(async () => {
   await resetTrackerStore();
 });
 
+afterEach(() => {
+  jest.useRealTimers();
+});
+
 async function tap(times: number) {
   const pad = screen.getAllByLabelText("Tasbeeh counter")[0];
   await act(async () => {
@@ -57,6 +61,8 @@ async function tap(times: number) {
 
 describe("After-Salah tasbeeh sequence (D69)", () => {
   it("counts 33 / 33 / 34, moving to the next phrase by itself, and logs the salah's adhkar", async () => {
+    // Fake timers: step past the auto-advance pause instead of sleeping on it.
+    jest.useFakeTimers();
     setMockSearchParams({ prayer: "dhuhr" });
     await renderWithProviders(<TasbeehSequenceScreen />);
     expect(await screen.findByText("After-Salah tasbeeh")).toBeTruthy();
@@ -65,9 +71,9 @@ describe("After-Salah tasbeeh sequence (D69)", () => {
     await tap(33);
     await waitFor(() => expect(counts()[zikrCountKey(SEQUENCE_ZIKR.tasbih, "dhuhr")]).toBe(33));
     expect(screen.getByText("33 of 100")).toBeTruthy();
-    // After the short pause the next phrase takes over by itself.
+    // After the short pause (650 ms) the next phrase takes over by itself.
     await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      await jest.advanceTimersByTimeAsync(1000);
     });
     await tap(1);
     expect(screen.getByText("34 of 100")).toBeTruthy();

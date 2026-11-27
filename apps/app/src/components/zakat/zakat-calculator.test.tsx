@@ -33,19 +33,23 @@ const fullLivestock = buildZakatResult({
 
 describe("ZakatCalculator", () => {
   describe("with live market data", () => {
-    it.each([
-      "US Dollar",
-      "22,000.03",
-      "$80",
-      "MetalsAPI · FX 2026-11-01",
-      "Nisab and metal prices are prefilled from live rates.",
-      "Adds $733 to wealth",
-      "Gold nisab (~87.5 g): $7000",
-      "Using nisab (Lower of gold and silver): $600",
-      "Ushr 10% when watered naturally without costly irrigation.",
-    ])("shows %s", async (text) => {
+    // One render for the whole summary: the calculator is a large tree (~0.6 s
+    // per mount), and these are all read-only facts of the same screen.
+    it("shows the currency, totals, live source and nisab summary", async () => {
       await renderCalc();
-      expect(screen.getByText(text)).toBeTruthy();
+      for (const text of [
+        "US Dollar",
+        "22,000.03",
+        "$80",
+        "MetalsAPI · FX 2026-11-01",
+        "Nisab and metal prices are prefilled from live rates.",
+        "Adds $733 to wealth",
+        "Gold nisab (~87.5 g): $7000",
+        "Using nisab (Lower of gold and silver): $600",
+        "Ushr 10% when watered naturally without costly irrigation.",
+      ]) {
+        expect(screen.getByText(text)).toBeTruthy();
+      }
     });
 
     it("tags both weight calculators as live", async () => {
@@ -195,16 +199,18 @@ describe("ZakatCalculator", () => {
       expect(state.applyLivePrices).toHaveBeenCalled();
     });
 
-    it.each([
-      "1 sheep/goat",
-      "1 tabi' (1-year cattle)",
-      "1 jadhah (4-year camel)",
-      "Cash estimate: $250",
-      "Ushr due: $45",
-      "22.000,03",
-    ])("shows %s", async (text) => {
+    it("shows the livestock dues, cash estimate, ushr and the chosen number format", async () => {
       await renderCalc(overrides);
-      expect(screen.getByText(text)).toBeTruthy();
+      for (const text of [
+        "1 sheep/goat",
+        "1 tabi' (1-year cattle)",
+        "1 jadhah (4-year camel)",
+        "Cash estimate: $250",
+        "Ushr due: $45",
+        "22.000,03",
+      ]) {
+        expect(screen.getByText(text)).toBeTruthy();
+      }
     });
 
     it("drops the live badges and the lower-threshold hint", async () => {

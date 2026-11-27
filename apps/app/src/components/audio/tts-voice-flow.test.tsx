@@ -17,11 +17,6 @@ import { setMockLiquidGlass } from "@/test-support/mocks/glass-surface";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithProviders } from "@/test-support/render";
 
-// End-to-end flow through the real provider + mini-player (its rAF progress loop
-// re-renders every frame). ~1.5 s per test alone, but under `check:ci` — every
-// package's tests in parallel — a case exceeded the 30 s default; give it room.
-jest.setTimeout(120_000);
-
 const SAMANTHA = {
   identifier: "com.apple.voice.compact.en-US.Samantha",
   name: "Samantha",

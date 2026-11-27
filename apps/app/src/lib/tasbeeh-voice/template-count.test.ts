@@ -19,11 +19,15 @@ import {
 const TAUGHT = ["a", "i", "u", "e"] as const;
 const OTHER = ["o", "e", "a", "a"] as const;
 
-function pattern() {
-  const takes = [0.95, 1.05, 1]
-    .map((stretch) => sampleFeatures(withPauses([syntheticPhrase(TAUGHT, { stretch })])))
-    .filter((t) => t != null);
-  return buildPattern(takes);
+/** Patterns are immutable (learning returns a new one): build the taught one once per file. */
+let taught: TaughtPattern | undefined;
+function pattern(): TaughtPattern {
+  taught ??= buildPattern(
+    [0.95, 1.05, 1]
+      .map((stretch) => sampleFeatures(withPauses([syntheticPhrase(TAUGHT, { stretch })])))
+      .filter((t) => t != null),
+  );
+  return taught;
 }
 
 describe("template counter (streaming)", () => {

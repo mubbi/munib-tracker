@@ -26,7 +26,7 @@
       "description": "Runs unit and feature tests",
       "dependsOn": ["transit"],
       "inputs": ["$TURBO_DEFAULT$", "**/*.{test,spec,feature.test}.{ts,tsx}"],
-      "outputs": ["coverage/**"]
+      "outputs": []
     },
     "test:coverage": {
       "description": "Runs tests with HTML and Clover coverage reports",

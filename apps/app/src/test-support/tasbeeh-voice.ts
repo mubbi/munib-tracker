@@ -111,6 +111,8 @@ export function seededNoise(seed: number): () => number {
   };
 }
 
+const SYLLABLE_CACHE = new Map<string, Float32Array>();
+
 /**
  * One synthetic "syllable": a 140 Hz voiced tone whose harmonics are shaped by
  * two formant peaks, with a smooth attack / release — enough spectral structure
@@ -121,6 +123,25 @@ export function syllable(
   [f1, f2]: readonly [number, number],
   ms: number,
   { amplitude = 0.25, pitch = 140 } = {},
+): Float32Array {
+  // Pure and deterministic, but ~50 harmonics × every sample of `Math.sin`:
+  // synthesising was as costly as the MFCC + DTW under test. Memoise per
+  // parameter set and hand out copies (callers may mutate their buffer).
+  const key = `${f1}:${f2}:${ms}:${amplitude}:${pitch}`;
+  let cached = SYLLABLE_CACHE.get(key);
+  if (!cached) {
+    cached = synthesizeSyllable(f1, f2, ms, amplitude, pitch);
+    SYLLABLE_CACHE.set(key, cached);
+  }
+  return cached.slice();
+}
+
+function synthesizeSyllable(
+  f1: number,
+  f2: number,
+  ms: number,
+  amplitude: number,
+  pitch: number,
 ): Float32Array {
   const n = Math.round((ms * 16_000) / 1000);
   const out = new Float32Array(n);
