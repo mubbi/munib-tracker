@@ -100,8 +100,10 @@ pnpm release:app:android-tv:apk   # Leanback APK (Amazon / sideload)
 pnpm release:app:android-tv:upload
 pnpm release:app:wear             # Wear OS AAB (phone prebuild; :wear module)
 pnpm release:app:wear:upload      # upload to the Play wear:internal track
+pnpm release:app:android:all      # phone+Wear+TV AABs → root <device>-<code>-<ver>.aab (bumps versionCode; /android-release-all)
 pnpm release:app:ios              # local signed IPA (xcodebuild, macOS)
 pnpm release:app:ios:upload       # upload IPA to App Store Connect
+pnpm release:app:ios:all          # macOS: bump build numbers, iPhone(+Watch) then Apple TV prebuild → release → upload (/ios-release-all)
 pnpm release:app:tvos             # tvOS IPA (macOS; after TV prebuild)
 pnpm release:app:tvos:upload      # altool --type appletvos
 pnpm build:app:android:tv         # EAS production_tv
@@ -161,3 +163,5 @@ Local (project-owned):
 - `nestjs` — official NestJS markdown guides mirrored from [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestjs.com/tree/master/content); refresh with `pnpm sync:nestjs-docs`
 - `fuse-js` — Fuse.js fuzzy search (from [krisk/Fuse/docs](https://github.com/krisk/Fuse/tree/main/docs)); use for all search bars and `apps/app/src/lib/search.ts`
 - `screenshot-studio` — store screenshot pipeline (Maestro capture → studio → store PNGs)
+- `android-release-all` (`.claude/skills/`, Claude Code `/android-release-all`) — one-shot phone + Wear + TV Play AABs via `pnpm release:app:android:all`
+- `ios-release-all` (`.claude/skills/`, Claude Code `/ios-release-all`) — one-shot iPhone (+ embedded Watch) + Apple TV build → App Store Connect upload via `pnpm release:app:ios:all` (macOS)

@@ -39,6 +39,8 @@
     "release:app:android-tv:upload": "pnpm --filter app android:upload:release:tv",
     "release:app:wear": "pnpm --filter app android:bundle:release:wear",
     "release:app:wear:upload": "pnpm --filter app android:upload:release:wear",
+    "release:app:android:all": "node apps/app/scripts/android-release-all.js",
+    "release:app:ios:all": "node apps/app/scripts/ios-release-all.js",
     "release:app:ios": "pnpm --filter app ios:archive:release",
     "release:app:ios:upload": "pnpm --filter app ios:upload:release",
     "release:app:ios:upload:validate": "pnpm --filter app ios:upload:release:validate",
