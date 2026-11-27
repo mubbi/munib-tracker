@@ -152,7 +152,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
     title: "Inderatlatmalar we umumy ýalňyşlyklar",
     summary: "Aglamakdan, görkezmek üçin gijä galmakdan we esassyz däp-dessurlardan gaça duruň.",
     body: [
-      "Pygamberimiz, gözýaşly gam-gussa ýol berip, ölüleriň üstünde aglamagy gadagan etdi. Abdylla ibn Umar Sa'd ibn Ubadanyň jynaza namazynda aglandygyny we Pygamber alaýhyssalamyň Allanyň gözüň ýyrtylmagy ýa-da ýüregiň hasraty üçin jeza bermeýändigini, ýöne munuň üçin dilini görkezendigini düşündirdi (Sahih al-Buhari 1304).",
+      "Pygamberimiz, gözýaşly gam-gussa ýol berip, ölüleriň üstünde aglamagy gadagan etdi. Abdylla ibn Umar Sa'd ibn Ubada syrkawlanda Pygamber alaýhyssalamyň onuň halyny soramaga baryp aglandygyny we Allanyň gözüň ýyrtylmagy ýa-da ýüregiň hasraty üçin jeza bermeýändigini, ýöne munuň üçin dilini görkezendigini düşündirdi (Sahih al-Buhari 1304).",
       "Abraýly ýygnanyşyklar üçin jaýlanmagy gijikdirmäň, garyplary äsgermezlik edip, kelläňize we toýuňyza köp sarp etmäň. Jynaza bilen baglanyşykly täzelikleri hakyky esassyz okamaň ýa-da amal etmäň. Gynanç, asuda dua we maşgala üçin amaly kömek sünnet ýoludyr.",
       "Aýal-gyzlaryň namaza we jaýlanyşa gatnaşmagy mekdeplerde we döwürlerde uly gyzyklanma döredýär; rehimdarlyga we pygamberlik çäklerine hormat goýýan ygtybarly ýerli görkezmä eýeriň.",
     ],

@@ -9,7 +9,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Les 13e, 14e et 15e jours de chaque mois hégirien — des nuits lumineuses au clair de lune.",
     body: [
       "Les Ayyām al-Bīḍ, « les Jours blancs », correspondent aux 13e, 14e et 15e jours de chaque mois islamique (hégirien). Ils sont dits « blancs » parce que leurs nuits sont lumineuses : la lune est pleine ou presque pleine et éclaire la majeure partie de la nuit ; les nuits semblent ainsi blanches de son clair de lune.",
-      "Jeûner trois jours par mois est une sunna fortement recommandée du Prophète ﷺ, et les Jours blancs sont les trois jours conseillés. Jarir ibn Abdullah a rapporté que le Prophète ﷺ a dit : « Jeûner trois jours de chaque mois équivaut à jeûner toute une vie, et les Jours blancs (Ayyām al-Bīḍ) sont le treizième, le quatorzième et le quinzième » (Sunan an-Nasa'i 2422).",
+      "Jeûner trois jours par mois est une sunna fortement recommandée du Prophète ﷺ, et les Jours blancs sont les trois jours conseillés. Jarir ibn Abdullah a rapporté que le Prophète ﷺ a dit : « Jeûner trois jours de chaque mois équivaut à jeûner toute une vie, et les Jours blancs (Ayyām al-Bīḍ) sont le treizième, le quatorzième et le quinzième » (Sunan an-Nasa'i 2420).",
       "Puisque le mois hégirien suit la lune, ces trois jours se déplacent dans le calendrier grégorien chaque mois et peuvent commencer un jour plus tôt ou plus tard selon l'observation de la nouvelle lune dans votre région. Cette application les calcule à partir de son propre calendrier hégirien, afin que vous sachiez toujours à quelles dates ils tombent.",
     ],
     hadith: [{}],

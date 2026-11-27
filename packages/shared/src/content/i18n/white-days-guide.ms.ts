@@ -8,7 +8,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Hari ke-13, ke-14 dan ke-15 setiap bulan Hijrah — malam-malam yang terang disinari bulan.",
     body: [
       "Ayyām al-Bīḍ, atau Hari-hari Putih, ialah hari ke-13, ke-14 dan ke-15 dalam setiap bulan Islam (Hijrah). Ia dinamakan ‘putih’ kerana malamnya cerah: bulan purnama atau hampir purnama menerangi sebahagian besar malam, lalu malam itu kelihatan putih dengan cahaya bulan.",
-      "Berpuasa tiga hari setiap bulan ialah sunnah Nabi ﷺ yang sangat dianjurkan, dan Hari-hari Putih ialah tiga hari yang disarankan. Jarir ibn Abdullah meriwayatkan bahawa Nabi ﷺ bersabda: ‘Berpuasa tiga hari setiap bulan adalah seperti berpuasa sepanjang masa, dan Hari-hari Putih ialah hari ke-13, ke-14 dan ke-15.’ (Sunan an-Nasa’i 2422).",
+      "Berpuasa tiga hari setiap bulan ialah sunnah Nabi ﷺ yang sangat dianjurkan, dan Hari-hari Putih ialah tiga hari yang disarankan. Jarir ibn Abdullah meriwayatkan bahawa Nabi ﷺ bersabda: ‘Berpuasa tiga hari setiap bulan adalah seperti berpuasa sepanjang masa, dan Hari-hari Putih ialah hari ke-13, ke-14 dan ke-15.’ (Sunan an-Nasa’i 2420).",
       "Oleh sebab bulan Hijrah mengikuti peredaran bulan, tiga hari ini berubah kedudukannya dalam kalendar Gregorian setiap bulan dan mungkin bermula sehari lebih awal atau lewat, bergantung pada cerapan anak bulan di kawasan anda. Aplikasi ini mengiranya daripada kalendar Hijrahnya sendiri supaya anda sentiasa tahu tarikhnya.",
     ],
     hadith: [{}],

@@ -151,7 +151,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
     title: "Vikumbusho na makosa ya kawaida",
     summary: "Epuka kulia, kuchelewesha kwa maonyesho, na matambiko yasiyo na msingi.",
     body: [
-      "Mtume ﷺ amekataza kuwalilia wafu huku akiruhusu huzuni ya machozi. Imepokewa kutoka kwa Abdullah bin Umar kwamba Sa'd bin Ubadah alilia kwenye mazishi na Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) akaeleza kwamba Mwenyezi Mungu haadhibu kwa machozi au huzuni ya moyo, bali kwa ajili ya hayo - na akaashiria kwenye ulimi wake (Sahih al-Bukhari 1304).",
+      "Mtume ﷺ amekataza kuwalilia wafu huku akiruhusu huzuni ya machozi. Imepokewa kutoka kwa Abdullah bin Umar kwamba Sa'd bin Ubadah alipougua, Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alimtembelea akalia, na akaeleza kwamba Mwenyezi Mungu haadhibu kwa machozi au huzuni ya moyo, bali kwa ajili ya hayo - na akaashiria kwenye ulimi wake (Sahih al-Bukhari 1304).",
       "Usichelewe kuzika kwa ajili ya mikusanyiko ya heshima, wala usitumie kwa anasa kwenye sanda na karamu huku ukiwasahau maskini. Usikariri au kujizoeza ubunifu unaohusishwa na mazishi bila msingi halisi. Rambirambi, dua ya utulivu, na usaidizi wa kivitendo kwa familia ndio njia ya sunnah.",
       "Mahudhurio ya wanawake kwenye sala na maziko yanazingatiwa kwa njia tofauti katika shule na zama; fuata mwongozo wenye kutegemeka wa wenyeji unaoheshimu huruma na mipaka ya kiunabii.",
     ],

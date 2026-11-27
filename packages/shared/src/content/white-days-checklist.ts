@@ -9,7 +9,7 @@ import type { WhiteDaysChecklistItem } from "../types/white-days";
  * `white_days_checklist` store is local-only legacy.
  */
 export const WHITE_DAYS_CHECKLIST: WhiteDaysChecklistItem[] = [
-  { id: "day13", hijriDay: 13, reference: "Nasa'i 2422" },
+  { id: "day13", hijriDay: 13, reference: "Nasa'i 2420" },
   { id: "day14", hijriDay: 14, reference: "Abu Dawud 2449" },
   { id: "day15", hijriDay: 15, reference: "Tirmidhi 761" },
 ];

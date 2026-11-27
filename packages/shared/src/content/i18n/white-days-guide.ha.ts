@@ -7,7 +7,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
     summary: "Rana ta 13, 14 da 15 na kowane watan Hijira — dararen da hasken wata yake haskakawa.",
     body: [
       "Ayyām al-Bīḍ, wato «Fararen Ranaku», su ne rana ta 13, 14 da 15 na kowane watan Musulunci (Hijira). Ana kiransu «farare» ne saboda dararensu suna da haske: wata yana cikakke ko kusa da cika kuma yana haskaka yawancin dare, don haka dararen suna bayyana farare da hasken wata.",
-      "Azumin kwana uku na kowane wata Sunna ce mai ƙarfi ta Annabi ﷺ, kuma Fararen Ranaku su ne kwanaki ukun da aka so. Jarir bn Abdullahi ya ruwaito cewa Annabi ﷺ ya ce: «Azumin kwana uku daga kowane wata azumin zamani ne, kuma Fararen Ranaku su ne rana ta goma sha uku, ta goma sha huɗu da ta goma sha biyar» (Sunan an-Nasa'i 2422).",
+      "Azumin kwana uku na kowane wata Sunna ce mai ƙarfi ta Annabi ﷺ, kuma Fararen Ranaku su ne kwanaki ukun da aka so. Jarir bn Abdullahi ya ruwaito cewa Annabi ﷺ ya ce: «Azumin kwana uku daga kowane wata azumin zamani ne, kuma Fararen Ranaku su ne rana ta goma sha uku, ta goma sha huɗu da ta goma sha biyar» (Sunan an-Nasa'i 2420).",
       "Saboda watan Hijira yana bin wata, waɗannan kwanaki uku suna motsawa a cikin kalandar Miladiyya kowane wata, kuma suna iya farawa rana ɗaya da wuri ko daga baya gwargwadon lokacin da aka ga sabon wata a yankinku. Wannan manhaja tana ƙididdige su daga kalandar Hijirarta, don haka koyaushe za ku san ranakun da suka faɗa.",
     ],
     hadith: [{}],

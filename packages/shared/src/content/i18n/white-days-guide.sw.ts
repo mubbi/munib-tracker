@@ -7,7 +7,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
     summary: "Tarehe 13, 14 na 15 za kila mwezi wa Hijri — usiku wenye mwanga mkali wa mwezi.",
     body: [
       "Ayyām al-Bīḍ, yaani «Siku Nyeupe», ni tarehe 13, 14 na 15 za kila mwezi wa Kiislamu (Hijri). Huitwa «nyeupe» kwa sababu usiku wake huwa na mwanga: mwezi huwa mpevu au karibu kujaa na hubaki uking'aa kwa sehemu kubwa ya usiku, hivyo usiku wenyewe huonekana mweupe kwa mwanga wa mwezi.",
-      "Kufunga siku tatu za kila mwezi ni Sunna iliyosisitizwa ya Mtume ﷺ, na Siku Nyeupe ndizo siku tatu zinazopendekezwa. Jarir ibn Abdullah alisimulia kwamba Mtume ﷺ alisema: «Kufunga siku tatu za kila mwezi ni kufunga maisha yote, na Siku Nyeupe (Ayyām al-Bīḍ) ni ya kumi na tatu, ya kumi na nne na ya kumi na tano» (Sunan an-Nasa'i 2422).",
+      "Kufunga siku tatu za kila mwezi ni Sunna iliyosisitizwa ya Mtume ﷺ, na Siku Nyeupe ndizo siku tatu zinazopendekezwa. Jarir ibn Abdullah alisimulia kwamba Mtume ﷺ alisema: «Kufunga siku tatu za kila mwezi ni kufunga maisha yote, na Siku Nyeupe (Ayyām al-Bīḍ) ni ya kumi na tatu, ya kumi na nne na ya kumi na tano» (Sunan an-Nasa'i 2420).",
       "Kwa kuwa mwezi wa Hijri hufuata mwezi, siku hizi tatu hubadilika katika kalenda ya Gregori kila mwezi na zinaweza kuanza siku moja mapema au baadaye kulingana na wakati mwezi mwandamo ulionekana katika eneo lako. Programu hii huzihesabu kutoka kalenda yake ya Hijri, kwa hiyo utajua daima tarehe zinapoangukia.",
     ],
     hadith: [{}],

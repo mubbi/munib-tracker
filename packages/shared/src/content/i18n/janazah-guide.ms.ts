@@ -154,7 +154,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
     title: "Peringatan dan kesilapan biasa",
     summary: "Elakkan meratap, menangguhkan pertunjukan, dan ritual yang tidak berasas.",
     body: [
-      "Rasulullah ﷺ melarang meratap ke atas si mati sambil membiarkan kesedihan yang mencucurkan air mata. Abdullah ibn Umar melaporkan bahawa Sa'd ibn Ubadah menangis di pengebumian dan Nabi ﷺ menjelaskan bahawa Allah tidak menghukum kerana air mata atau kesedihan hati, tetapi kerana ini - dan baginda menunjukkan lidahnya (Sahih al-Bukhari 1304).",
+      "Rasulullah ﷺ melarang meratap ke atas si mati sambil membiarkan kesedihan yang mencucurkan air mata. Abdullah ibn Umar melaporkan bahawa ketika Sa'd ibn Ubadah jatuh sakit, Nabi ﷺ menziarahinya lalu menangis, dan menjelaskan bahawa Allah tidak menghukum kerana air mata atau kesedihan hati, tetapi kerana ini - dan baginda menunjukkan lidahnya (Sahih al-Bukhari 1304).",
       "Jangan tangguhkan pengebumian untuk majlis-majlis kehormatan, dan jangan berbelanja berfoya-foya untuk kain kafan dan kenduri sambil mengabaikan orang miskin. Jangan membaca atau mengamalkan bid'ah yang dikaitkan dengan pengebumian tanpa asas yang sahih. Takziah, doa tenang, dan bantuan praktikal untuk keluarga adalah jalan sunnah.",
       "Kehadiran wanita di sembahyang dan pengebumian dilayan dengan nuansa di seluruh sekolah dan era; ikuti panduan tempatan yang boleh dipercayai yang menghormati kedua-dua belas kasihan dan had kenabian.",
     ],

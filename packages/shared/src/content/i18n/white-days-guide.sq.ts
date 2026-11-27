@@ -8,7 +8,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Dita e 13-të, e 14-të dhe e 15-të e çdo muaji hixhri — net të ndritshme nën dritën e hënës.",
     body: [
       "Ejjam el-Bid, “Ditët e Bardha”, janë dita e trembëdhjetë, e katërmbëdhjetë dhe e pesëmbëdhjetë e çdo muaji islam (hixhri). Quhen “të bardha” sepse netët e tyre janë të ndritshme: hëna është e plotë ose pranë plotësisë dhe ndriçon pjesën më të madhe të natës.",
-      "Agjërimi i tri ditëve të çdo muaji është sunet i theksuar i Profetit ﷺ, ndërsa Ditët e Bardha janë tri ditët e rekomanduara. Xherir ibn Abdullah transmeton se Profeti ﷺ ka thënë: “Agjërimi i tri ditëve të çdo muaji është si agjërimi gjatë gjithë jetës, dhe Ditët e Bardha janë e trembëdhjeta, e katërmbëdhjeta dhe e pesëmbëdhjeta” (Sunen en-Nesai 2422).",
+      "Agjërimi i tri ditëve të çdo muaji është sunet i theksuar i Profetit ﷺ, ndërsa Ditët e Bardha janë tri ditët e rekomanduara. Xherir ibn Abdullah transmeton se Profeti ﷺ ka thënë: “Agjërimi i tri ditëve të çdo muaji është si agjërimi gjatë gjithë jetës, dhe Ditët e Bardha janë e trembëdhjeta, e katërmbëdhjeta dhe e pesëmbëdhjeta” (Sunen en-Nesai 2420).",
       "Meqë muaji hixhri ndjek hënën, këto tri ditë lëvizin çdo muaj në kalendarin gregorian dhe mund të nisin një ditë më herët ose më vonë, sipas shikimit të hënës së re në rajonin tuaj. Aplikacioni i llogarit sipas kalendarit të vet hixhri.",
     ],
     hadith: [{}],

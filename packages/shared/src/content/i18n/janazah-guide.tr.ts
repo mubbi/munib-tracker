@@ -154,7 +154,7 @@ export const JANAZAH_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
     title: "Hatırlatmalar ve yaygın hatalar",
     summary: "Feryat etmekten, gösteriyi geciktirmekten ve temelsiz ritüellerden kaçının.",
     body: [
-      "Peygamber Efendimiz (s.a.v.) gözyaşı dökerek üzüntüye izin verirken ölüler için feryat etmeyi yasakladı. Abdullah ibn Ömer, Sa'd ibn Ubâde'nin bir cenazede ağladığını ve Peygamber Efendimiz'in (s.a.v.) Allah'ın göz yaşı veya kalbin acısından değil, bunun için cezalandırdığını açıkladığını ve dilini işaret ettiğini bildirmiştir (Sahih el-Buhari 1304).",
+      "Peygamber Efendimiz (s.a.v.) gözyaşı dökerek üzüntüye izin verirken ölüler için feryat etmeyi yasakladı. Abdullah ibn Ömer, Sa'd ibn Ubâde hastalandığında Peygamber Efendimiz'in (s.a.v.) onu ziyaret edip ağladığını ve Allah'ın göz yaşı veya kalbin acısından değil, bunun için cezalandırdığını açıkladığını ve dilini işaret ettiğini bildirmiştir (Sahih el-Buhari 1304).",
       "Prestij toplantıları için cenazeyi geciktirmeyin ve fakirleri ihmal ederek kefen ve ziyafet için cömertçe harcamayın. Cenazelere atfedilen yenilikleri asılsız olarak okumayın veya uygulamayın. Taziye, sessiz dua ve aileye pratik yardım sünnet yoludur.",
       "Kadınların duaya ve cenaze törenine katılımı, okullar ve çağlar arasında farklı ayrıntılarla ele alınır; Hem şefkate hem de kehanet sınırlarına saygı duyan güvenilir yerel rehberliği takip edin.",
     ],

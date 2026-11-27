@@ -152,7 +152,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
     title: "Eslatmalar va keng tarqalgan xatolar",
     summary: "Yig'lamaslik, namoyishni kechiktirish va asossiz marosimlardan saqlaning.",
     body: [
-      "Rasululloh sollallohu alayhi vasallam o'liklarni yig'lab yig'lashni man qilganlar. Abdulloh ibn Umar raziyallohu anhu rivoyat qiladilar: “Sa’d ibn Uboda janozada yig‘lagan edi, Rasululloh sollallohu alayhi vasallam Alloh taolo ko‘z yoshlari yoki qalb qayg‘usi uchun emas, balki buning uchun jazolashini tushuntirib, tiliga ishora qildilar (Sahih al-Buxoriy 1304).",
+      "Rasululloh sollallohu alayhi vasallam o'liklarni yig'lab yig'lashni man qilganlar. Abdulloh ibn Umar raziyallohu anhu rivoyat qiladilar: “Sa’d ibn Uboda kasal bo‘lganida, Rasululloh sollallohu alayhi vasallam uni ziyorat qilib, yig‘ladilar va Alloh taolo ko‘z yoshlari yoki qalb qayg‘usi uchun emas, balki buning uchun jazolashini tushuntirib, tiliga ishora qildilar (Sahih al-Buxoriy 1304).",
       "Obro'li yig'inlar uchun dafn qilishni kechiktirmang va kambag'allarni e'tiborsiz qoldirib, kafan va ziyofatga pul sarflamang. Dafn marosimiga taalluqli yangiliklarni haqiqiy asossiz tilovat qilmang yoki amalda qilmang. Ta’ziya, sokin duo, oilaga amaliy yordam berish sunnat yo‘lidir.",
       "Ayollarning namoz va dafn marosimida qatnashishi maktablar va davrlar bo'yicha nuance bilan ko'rib chiqiladi; shafqat va bashorat chegaralarini hurmat qiladigan ishonchli mahalliy yo'l-yo'riqlarga amal qiling.",
     ],

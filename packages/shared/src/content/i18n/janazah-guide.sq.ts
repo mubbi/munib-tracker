@@ -151,7 +151,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
     title: "Përkujtues dhe gabime të zakonshme",
     summary: "Shmang vajtimet, vonesat për shfaqje dhe ritualet e pabaza.",
     body: [
-      "Pejgamberi ﷺ e ndaloi vajtimin për të vdekurin duke lejuar pikëllimin e përlotur. Abdullah ibn Omar transmetoi se Sa'd ibn Ubadah qau në një varrim dhe Profeti (sal-lAllahu 'alejhi ue sel-lem) shpjegoi se Allahu nuk dënon për lotin e syrit apo pikëllimin e zemrës, por për këtë - dhe ai tregoi gjuhën e tij (Sahih el-Bukhari 1304).",
+      "Pejgamberi ﷺ e ndaloi vajtimin për të vdekurin duke lejuar pikëllimin e përlotur. Abdullah ibn Omar transmetoi se kur Sa'd ibn Ubadah u sëmur, Profeti (sal-lAllahu 'alejhi ue sel-lem) e vizitoi, qau dhe shpjegoi se Allahu nuk dënon për lotin e syrit apo pikëllimin e zemrës, por për këtë - dhe ai tregoi gjuhën e tij (Sahih el-Bukhari 1304).",
       "Mos e vononi varrimin për tubime prestigji, as mos shpenzoni bujarisht në qefin dhe gosti duke lënë pas dore të varfërit. Mos recitoni ose praktikoni risitë që i atribuohen funeraleve pa bazë autentike. Ngushëllimi, duaja e qetë dhe ndihma praktike për familjen janë rruga e sunetit.",
       "Pjesëmarrja e grave në namaz dhe varrim trajtohet me nuanca nëpër shkolla dhe epoka; ndiqni udhëzimet e besueshme vendore që respektojnë kufijtë e dhembshurisë dhe profetikës.",
     ],

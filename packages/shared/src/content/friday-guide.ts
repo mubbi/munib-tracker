@@ -78,7 +78,7 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
       {
         collection: "Sunan Abi Dawud",
         citation: "1067",
-        grade: "hasan",
+        grade: "sahih",
         excerpt:
           "The Friday prayer in congregation is a binding duty upon every Muslim, except four: a slave, a woman, a child, or one who is ill.",
       },

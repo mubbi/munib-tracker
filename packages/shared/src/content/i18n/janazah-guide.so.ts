@@ -155,7 +155,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
     summary:
       "Iska ilaali baroorta, dib u dhigista bandhigga, iyo caadooyinka aan sal iyo raadka lahayn.",
     body: [
-      "Rasuulku ﷺ wuxuu reebay in loo baroorto meydka iyadoo la ogolyahay murugada oohinta. Cabdullaahi ibnu Cumar waxa laga wariyey in Sacad ibnu Cubadah uu ku ooyay janaasada, nabiguna ﷺ wuxuu sharaxay in aanu Eebe ciqaabin jeexjeexa isha ama murugada qalbiga, balse uu u cadaabo midaas – wuxuuna u tilmaamay carabkiisa (Saxiix Al-Bukhaari 1304).",
+      "Rasuulku ﷺ wuxuu reebay in loo baroorto meydka iyadoo la ogolyahay murugada oohinta. Cabdullaahi ibnu Cumar waxa laga wariyey in markii Sacad ibnu Cubadah uu xanuunsaday, nabigu ﷺ uu booqday oo uu ooyay, wuxuuna sharaxay in aanu Eebe ciqaabin jeexjeexa isha ama murugada qalbiga, balse uu u cadaabo midaas – wuxuuna u tilmaamay carabkiisa (Saxiix Al-Bukhaari 1304).",
       "Ha ku daahin aasitaanka shirarka sharafta leh, hana ku bixin si qurux badan gogosha iyo diyaafadda adoo dayacayn masaakiinta. Ha akhrin hana ku celcelin wax cusub oo loo nisbeeyo aaska iyada oo aan sal dhab ahayn. Tacsi, duco deggan, iyo caawinta qoyska waa tubta sunnada ah.",
       "ka qayb galka haweenka ee salaada iyo aaska waxa loola dhaqmaa si dhib yar dhamaan dugsiyada iyo waayaha; raac hanuunin maxalli ah oo la aamini karo oo ixtiraamaya naxariista iyo xadka nebiyada labadaba.",
     ],

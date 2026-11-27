@@ -55,7 +55,7 @@ describe("WhiteDaysTrackerSection", () => {
   it("dates each fast and cites its source", async () => {
     await renderSection();
 
-    expect(screen.getByText(/Nasa'i 2422/)).toBeTruthy();
+    expect(screen.getByText(/Nasa'i 2420/)).toBeTruthy();
   });
 
   it("falls back to ISO dates when the locale cannot format them", async () => {

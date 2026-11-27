@@ -341,6 +341,7 @@ function buildDuaCorpus(hisnDuas, translitLookup) {
     const translit = findTranslit(h.arabic, translitLookup);
     if (translit) item.transliteration = translit;
     if (h.audioFile) item.audioUri = `${HISN_AUDIO_CDN}/${h.audioFile}`;
+    applyHisnDuaFix(item);
     merged.push(item);
   }
 
@@ -2116,6 +2117,48 @@ const REFERENCE_FIXES = [
     to: "an-Nasa'i No. 1336",
   },
 ];
+
+/**
+ * Hisnul Muslim dua corrections, verified against the source hadith (fawazahmed0
+ * hadith-api, 2026-11-27). Each step must match the upstream text exactly — the
+ * build fails if one stops matching, so an upstream change is reviewed, not skipped.
+ *
+ * hisn-74 (Istikhara, Sahih al-Bukhari 1166 / 6382 — "1162" is a different
+ * hadith in that numbering): the Arabic runs two words together (هَذَاالأَمْرَ),
+ * and both the Arabic and the English append the compiler's closing advice plus
+ * Qur'an 3:159 to the Dua as if they were part of it. Keep the Dua only.
+ */
+const HISN_DUA_FIXES = {
+  "hisn-74": [
+    { field: "arabic", from: "أَنْ هَذَاالأَمْرَ", to: "أَنْ هَذَا الأَمْرَ" },
+    { field: "arabic", cutFrom: " وَ مَا نَدِمَ مَنْ اسْتَخَارَ", trimEnd: "." },
+    { field: "translation", cutFrom: "\n\nOne who seeks guidance from his Creator" },
+    {
+      field: "reference",
+      from: "(1) Al-Bukhârî [1162](7/162).\n(2) Qur'an Al-'Imran [3:159].",
+      to: "Al-Bukhârî [1166], [6382].",
+    },
+  ],
+};
+
+function applyHisnDuaFix(item) {
+  for (const step of HISN_DUA_FIXES[item.id] ?? []) {
+    const value = item[step.field] ?? "";
+    if (step.from !== undefined) {
+      if (!value.includes(step.from)) {
+        throw new Error(`[adhkar] ${item.id}.${step.field}: fix no longer matches upstream`);
+      }
+      item[step.field] = value.replace(step.from, step.to);
+    } else {
+      const at = value.indexOf(step.cutFrom);
+      if (at < 0)
+        throw new Error(`[adhkar] ${item.id}.${step.field}: cut point not found upstream`);
+      let kept = value.slice(0, at).trimEnd();
+      if (step.trimEnd && kept.endsWith(step.trimEnd)) kept = kept.slice(0, -step.trimEnd.length);
+      item[step.field] = kept;
+    }
+  }
+}
 
 /** Harakat corrections verified against the source hadith (Muslim 2726: عَدَدَ خَلْقِهِ). */
 const ARABIC_FIXES = [{ id: "morning-read-tasbih", from: "خَلْقَهِ", to: "خَلْقِهِ" }];

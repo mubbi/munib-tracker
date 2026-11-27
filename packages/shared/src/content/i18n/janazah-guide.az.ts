@@ -154,7 +154,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
     title: "Xatırlatmalar və ümumi səhvlər",
     summary: "Ağlamaqdan, nümayişi gecikdirməkdən və əsassız ayinlərdən çəkinin.",
     body: [
-      "Peyğəmbər (salləllahu aleyhi və səlləm) ölü üçün ağlamağı və göz yaşı tökməyi qadağan etmişdir. Abdullah ibn Ömər rəvayət edir ki, Səd ibn Ubadə bir dəfn mərasimində ağladı və Peyğəmbər (salləllahu aleyhi və səlləm) izah etdi ki, Allah göz yaşına və qəlb kədərinə görə deyil, bunun üçün cəzalandırır - və dilini işarə etdi (Səhih əl-Buxari 1304).",
+      "Peyğəmbər (salləllahu aleyhi və səlləm) ölü üçün ağlamağı və göz yaşı tökməyi qadağan etmişdir. Abdullah ibn Ömər rəvayət edir ki, Səd ibn Ubadə xəstələndikdə Peyğəmbər (salləllahu aleyhi və səlləm) onu ziyarət edib ağladı və izah etdi ki, Allah göz yaşına və qəlb kədərinə görə deyil, bunun üçün cəzalandırır - və dilini işarə etdi (Səhih əl-Buxari 1304).",
       "Dəfn mərasimini möhtərəm məclislər üçün gecikdirməyin, yoxsulları laqeyd qoyaraq kəfən və ziyafətdə bol xərcləmə. Səhih əsası olmayan dəfn mərasimlərinə aid edilən yenilikləri oxumayın və tətbiq etməyin. Başsağlığı, sakit dua və ailə üçün əməli yardım sünnə yoludur.",
       "Qadınların dua və dəfn mərasimində iştirakına məktəblər və dövrlər arasında nüanslarla yanaşılır; həm şəfqət, həm də peyğəmbərlik məhdudiyyətlərinə hörmət edən etibarlı yerli rəhbərliyə əməl edin.",
     ],

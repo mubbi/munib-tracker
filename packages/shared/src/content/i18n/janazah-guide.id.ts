@@ -152,7 +152,7 @@ export const JANAZAH_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
     title: "Pengingat dan kesalahan umum",
     summary: "Hindari meratap, menunda pertunjukan, dan melakukan ritual yang tidak berdasar.",
     body: [
-      "Nabi ﷺ melarang meratapi orang mati sambil membiarkan kesedihan berlinang air mata. Abdullah bin Umar melaporkan bahwa Sa'd bin Ubadah menangis di pemakaman dan Nabi ﷺ menjelaskan bahwa Allah tidak menghukum karena air mata atau kesedihan hati, tetapi untuk ini - dan dia menunjuk ke lidahnya (Sahih al-Bukhari 1304).",
+      "Nabi ﷺ melarang meratapi orang mati sambil membiarkan kesedihan berlinang air mata. Abdullah bin Umar melaporkan bahwa ketika Sa'd bin Ubadah jatuh sakit, Nabi ﷺ menjenguknya lalu menangis, dan menjelaskan bahwa Allah tidak menghukum karena air mata atau kesedihan hati, tetapi untuk ini - dan dia menunjuk ke lidahnya (Sahih al-Bukhari 1304).",
       "Jangan menunda penguburan untuk acara-acara bergengsi, dan jangan pula menghabiskan banyak uang untuk membeli kain kafan dan berpesta sambil mengabaikan orang-orang miskin. Jangan membaca atau mengamalkan inovasi yang dikaitkan dengan pemakaman tanpa dasar yang otentik. Belasungkawa, doa renungan, dan bantuan praktis untuk keluarga adalah jalan yang sunnah.",
       "Kehadiran perempuan pada acara sembahyang dan penguburan diperlakukan dengan nuansa berbeda di berbagai sekolah dan era; ikuti panduan lokal yang dapat dipercaya dan menghormati batasan belas kasih dan kenabian.",
     ],

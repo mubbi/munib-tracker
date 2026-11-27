@@ -152,7 +152,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
     title: "Podsjetnici i uobičajene greške",
     summary: "Izbjegavajte zapomaganje, odlaganje za emisiju i rituale bez osnova.",
     body: [
-      "Poslanik, sallallahu alejhi ve sellem, je zabranio naricanje nad mrtvima dok je dozvolio tugu u suzama. Abdullah ibn Omer je izvijestio da je Sa'd ibn Ubadah plakao na dženazi i da je Poslanik, sallallahu alejhi ve sellem, objasnio da Allah ne kažnjava zbog suze oka ili žalosti srca, već zbog toga — i on je pokazao na svoj jezik (Sahih al-Buhari 1304).",
+      "Poslanik, sallallahu alejhi ve sellem, je zabranio naricanje nad mrtvima dok je dozvolio tugu u suzama. Abdullah ibn Omer je izvijestio da je, kada se Sa'd ibn Ubadah razbolio, Poslanik, sallallahu alejhi ve sellem, posjetio ga, zaplakao i objasnio da Allah ne kažnjava zbog suze oka ili žalosti srca, već zbog toga — i on je pokazao na svoj jezik (Sahih al-Buhari 1304).",
       "Ne odgađajte sahranu zbog prestižnih skupova, niti trošite raskošno na pokrov i gozbu, zanemarujući siromahe. Nemojte recitirati ili prakticirati inovacije koje se pripisuju sahranama bez autentične osnove. Saučešće, tiha dova i praktična pomoć porodici su sunnet put.",
       "Dolazak žena na molitvu i sahranu tretira se s nijansama u svim školama i epohama; slijedite pouzdano lokalno vodstvo koje poštuje i samilost i proročke granice.",
     ],

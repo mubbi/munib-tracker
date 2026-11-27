@@ -8,7 +8,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
     summary: "Hər hicri ayın 13-cü, 14-cü və 15-ci günləri — ay işığı ilə nurlanan parlaq gecələr.",
     body: [
       "Əyyamül-Bid, yəni «Ağ günlər», hər islam (hicri) ayının 13-cü, 14-cü və 15-ci günləridir. Bu günlər «ağ» adlanır, çünki gecələri parlaq olur: ay tam və ya tam aya yaxın olur və gecənin böyük hissəsini işıqlandırır; buna görə gecələr ay işığında ağ görünür.",
-      "Hər ay üç gün oruc tutmaq Peyğəmbərin ﷺ təkid olunmuş sünnəsidir və Ağ günlər tövsiyə edilən həmin üç gündür. Cərir ibn Abdullah rəvayət etmişdir ki, Peyğəmbər ﷺ buyurdu: «Hər ay üç gün oruc tutmaq ömür boyu oruc tutmaq kimidir və Ağ günlər (Əyyamül-Bid) on üçüncü, on dördüncü və on beşinci günlərdir» (Sünən ən-Nəsai 2422).",
+      "Hər ay üç gün oruc tutmaq Peyğəmbərin ﷺ təkid olunmuş sünnəsidir və Ağ günlər tövsiyə edilən həmin üç gündür. Cərir ibn Abdullah rəvayət etmişdir ki, Peyğəmbər ﷺ buyurdu: «Hər ay üç gün oruc tutmaq ömür boyu oruc tutmaq kimidir və Ağ günlər (Əyyamül-Bid) on üçüncü, on dördüncü və on beşinci günlərdir» (Sünən ən-Nəsai 2420).",
       "Hicri ay ayın hərəkətinə əsaslandığı üçün bu üç gün hər ay miladi təqvimdə yerini dəyişir və bölgənizdə yeni ayın nə vaxt görüldüyünə görə bir gün tez və ya gec başlaya bilər. Bu tətbiq onları öz hicri təqvimindən hesablayır ki, onların hansı tarixlərə düşdüyünü həmişə biləsiniz.",
     ],
     hadith: [{}],

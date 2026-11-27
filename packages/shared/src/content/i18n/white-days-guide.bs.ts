@@ -8,7 +8,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
     summary: "13., 14. i 15. dan svakog hidžretskog mjeseca — svijetle noći obasjane mjesečinom.",
     body: [
       "Ayyām al-Bīḍ, „Bijeli dani“, jesu 13., 14. i 15. dan svakog islamskog (hidžretskog) mjeseca. Nazivaju se „bijelim“ jer su njihove noći svijetle: mjesec je pun ili skoro pun i osvjetljava veći dio noći, pa noći izgledaju bijele od mjesečine.",
-      "Postiti tri dana svakog mjeseca potvrđeni je sunnet Poslanika ﷺ, a Bijeli dani su preporučena tri dana. Džerir ibn Abdullah prenosi da je Poslanik ﷺ rekao: „Postiti tri dana svakog mjeseca kao je postiti cijeli život, a Bijeli dani (Ayyām al-Bīḍ) su trinaesti, četrnaesti i petnaesti“ (Sunan an-Nasa'i 2422).",
+      "Postiti tri dana svakog mjeseca potvrđeni je sunnet Poslanika ﷺ, a Bijeli dani su preporučena tri dana. Džerir ibn Abdullah prenosi da je Poslanik ﷺ rekao: „Postiti tri dana svakog mjeseca kao je postiti cijeli život, a Bijeli dani (Ayyām al-Bīḍ) su trinaesti, četrnaesti i petnaesti“ (Sunan an-Nasa'i 2420).",
       "Budući da hidžretski mjesec prati mjesec, ova tri dana se svakog mjeseca pomjeraju kroz gregorijanski kalendar i mogu početi dan ranije ili kasnije, ovisno o viđenju mlađaka u vašoj regiji. Aplikacija ih izračunava prema vlastitom hidžretskom kalendaru, pa uvijek znate na koje datume padaju.",
     ],
     hadith: [{}],

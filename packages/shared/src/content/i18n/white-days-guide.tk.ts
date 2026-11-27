@@ -7,7 +7,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
     summary: "Her Hijri aýynyň 13-nji, 14-nji we 15-nji günleri - ýagty aý gijeleri.",
     body: [
       "“Ak günler” Aýym al-Bīḍ, her yslam (hijri) aýynyň 13, 14 we 15-nji günlerine gabat gelýär. Gijeleri ýagty bolany üçin olara “ak” diýilýär: Aý doly ýa-da doly diýen ýaly we gijäniň köp bölegini ýagtylandyrýar; gijeler aý şöhlesi bilen ak ýaly görünýär.",
-      "Aýda üç gün agyz beklemek Pygamberimiziň iň ýokary sünnetidir, Ak günler bolsa üç gün maslahat berilýär. Jarir ibn Abdylla pygamberiň: “Her aýyň üç güni agyz beklemek ömürboýy agyz beklemäge deňdir, Ak günler (Aýym al-Bīḍ) on üçünji, on dördünji we on bäşinji günlerdir” (Sunan an-Nasa'i 2422).",
+      "Aýda üç gün agyz beklemek Pygamberimiziň iň ýokary sünnetidir, Ak günler bolsa üç gün maslahat berilýär. Jarir ibn Abdylla pygamberiň: “Her aýyň üç güni agyz beklemek ömürboýy agyz beklemäge deňdir, Ak günler (Aýym al-Bīḍ) on üçünji, on dördünji we on bäşinji günlerdir” (Sunan an-Nasa'i 2420).",
       "Hijri aýy Aýyň yzyndan gelýänligi sebäpli, bu üç gün her aý Gregorian senenamasynda aýlanýar we sebitiňizde Täze Aýyň görülmegine baglylykda bir gün öň ýa-da giç başlap biler. Bu programma olary öz Hijri senenamasyndan hasaplaýar, şonuň üçin haýsy senelere düşýändigini hemişe bilýärsiňiz.",
     ],
     hadith: [{}],

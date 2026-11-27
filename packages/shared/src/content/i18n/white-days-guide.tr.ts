@@ -9,7 +9,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
     summary: "Her Hicrî ayın 13, 14 ve 15. günleri — ay ışığıyla aydınlanan geceler.",
     body: [
       "Eyyâm-ı Bîd, yani Beyaz Günler, her İslami (Hicrî) ayın 13, 14 ve 15. günleridir. Geceleri aydınlık olduğu için “beyaz” denir: ay dolunay ya da dolunaya yakın olur ve gecenin çoğunda parlar; geceler ay ışığıyla beyaz görünür.",
-      "Her ay üç gün oruç tutmak, Peygamberimizin ﷺ kuvvetle tavsiye ettiği bir sünnettir; Eyyâm-ı Bîd de tavsiye edilen bu üç gündür. Cerîr bin Abdullah, Peygamberimizin ﷺ şöyle buyurduğunu rivayet etmiştir: “Her ay üç gün oruç tutmak ömür boyu oruç tutmak gibidir. Beyaz Günler (Eyyâm-ı Bîd) ise ayın on üçüncü, on dördüncü ve on beşinci günleridir” (Sunan an-Nasa'i 2422).",
+      "Her ay üç gün oruç tutmak, Peygamberimizin ﷺ kuvvetle tavsiye ettiği bir sünnettir; Eyyâm-ı Bîd de tavsiye edilen bu üç gündür. Cerîr bin Abdullah, Peygamberimizin ﷺ şöyle buyurduğunu rivayet etmiştir: “Her ay üç gün oruç tutmak ömür boyu oruç tutmak gibidir. Beyaz Günler (Eyyâm-ı Bîd) ise ayın on üçüncü, on dördüncü ve on beşinci günleridir” (Sunan an-Nasa'i 2420).",
       "Hicrî ay ayın hareketine göre belirlendiği için bu üç gün, Miladi takvimde her ay yer değiştirir; bulunduğunuz bölgede hilalin görülmesine göre bir gün erken veya geç başlayabilir. Uygulama bunları kendi Hicrî takviminden hesaplar; böylece hangi tarihlere denk geldiğini her zaman bilirsiniz.",
     ],
     hadith: [{}],

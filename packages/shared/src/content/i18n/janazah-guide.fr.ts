@@ -155,7 +155,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
     summary:
       "Évitez les lamentations, les retards dans le spectacle et les rituels sans fondement.",
     body: [
-      "Le Prophète ﷺ a interdit de pleurer sur les morts tout en permettant un chagrin en larmes. Abdullah ibn Umar a rapporté que Sa'd ibn Ubadah a pleuré lors d'un enterrement et le Prophète ﷺ a expliqué qu'Allah ne punit pas pour les larmes aux yeux ou le chagrin du cœur, mais pour cela - et il a montré sa langue (Sahih al-Bukhari 1304).",
+      "Le Prophète ﷺ a interdit de pleurer sur les morts tout en permettant un chagrin en larmes. Abdullah ibn Umar a rapporté que, lorsque Sa'd ibn Ubadah est tombé malade, le Prophète ﷺ lui a rendu visite et a pleuré, puis a expliqué qu'Allah ne punit pas pour les larmes aux yeux ou le chagrin du cœur, mais pour cela - et il a montré sa langue (Sahih al-Bukhari 1304).",
       "Ne retardez pas l'enterrement pour des rassemblements de prestige, et ne dépensez pas sans compter pour le linceul et les festins en négligeant les pauvres. Ne récitez pas et ne pratiquez pas les innovations attribuées aux funérailles sans fondement authentique. Les condoléances, la dua tranquille et l'aide pratique à la famille sont la voie de la sunna.",
       "La participation des femmes à la prière et à l'enterrement est traitée avec nuance selon les écoles et les époques ; suivez des conseils locaux dignes de confiance qui respectent à la fois la compassion et les limites prophétiques.",
     ],

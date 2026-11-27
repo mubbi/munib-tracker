@@ -151,7 +151,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
     title: "Tunatarwa da kurakurai na gama gari",
     summary: "Guji makoki, jinkirin nunawa, da al'adu marasa tushe.",
     body: [
-      "Annabi ﷺ ya hana yin kuka ga matattu alhalin yana barin bakin ciki mai hawaye. Abdullahi bn Umar ya ruwaito cewa Sa’ad bn Ubadah ya yi kuka a wajen jana’iza, kuma Annabi (SAW) ya yi bayanin cewa Allah ba ya azabtar da hawayen ido ko baqin cikin zuciya, sai don haka – sai ya yi nuni da harshensa (Sahihul Bukhari 1304).",
+      "Annabi ﷺ ya hana yin kuka ga matattu alhalin yana barin bakin ciki mai hawaye. Abdullahi bn Umar ya ruwaito cewa lokacin da Sa’ad bn Ubadah ya kamu da rashin lafiya, Annabi (SAW) ya ziyarce shi ya yi kuka, kuma ya yi bayanin cewa Allah ba ya azabtar da hawayen ido ko baqin cikin zuciya, sai don haka – sai ya yi nuni da harshensa (Sahihul Bukhari 1304).",
       "Kada ku jinkirta jana'iza don tarurruka masu daraja, kuma kada ku ciyar da kayan ado da liyafa tare da sakaci ga matalauta. Kar a karanta ko aiwatar da sabbin abubuwa da aka danganta ga jana'iza ba tare da ingantaccen tushe ba. Ta'aziyya, natsuwa da addu'a, da taimako na zahiri ga iyali su ne tafarkin sunna.",
       "Halartar mata wajen sallah da jana’iza ba ta da kyau a makarantu da zamani; bi amintaccen jagorar gida wanda ke mutunta tausayi da iyakoki na annabci.",
     ],

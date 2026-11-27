@@ -10,7 +10,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Tanggal 13, 14, dan 15 setiap bulan Hijriah — malam-malam yang terang oleh cahaya bulan.",
     body: [
       "Ayyām al-Bīḍ, atau Hari-Hari Putih, adalah tanggal 13, 14, dan 15 setiap bulan Islam (Hijriah). Disebut “putih” karena malam-malamnya terang: bulan purnama atau hampir purnama dan bersinar sepanjang sebagian besar malam, sehingga malam tampak putih oleh cahaya bulan.",
-      "Puasa tiga hari setiap bulan adalah sunnah muakkadah Nabi ﷺ, dan Ayyām al-Bīḍ adalah tiga hari yang dianjurkan itu. Jarir bin Abdullah meriwayatkan bahwa Nabi ﷺ bersabda: “Puasa tiga hari setiap bulan adalah puasa sepanjang masa, dan Hari-Hari Putih (Ayyām al-Bīḍ) ialah hari ketiga belas, keempat belas, dan kelima belas” (Sunan an-Nasa'i 2422).",
+      "Puasa tiga hari setiap bulan adalah sunnah muakkadah Nabi ﷺ, dan Ayyām al-Bīḍ adalah tiga hari yang dianjurkan itu. Jarir bin Abdullah meriwayatkan bahwa Nabi ﷺ bersabda: “Puasa tiga hari setiap bulan adalah puasa sepanjang masa, dan Hari-Hari Putih (Ayyām al-Bīḍ) ialah hari ketiga belas, keempat belas, dan kelima belas” (Sunan an-Nasa'i 2420).",
       "Karena bulan Hijriah mengikuti peredaran bulan, ketiga hari ini bergeser dalam kalender Masehi setiap bulan dan dapat dimulai sehari lebih awal atau lambat, bergantung pada rukyat hilal di daerah Anda. Aplikasi ini menghitungnya dari kalender Hijriahnya sendiri agar Anda selalu tahu tanggalnya.",
     ],
     hadith: [{}],
