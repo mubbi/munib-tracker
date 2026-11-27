@@ -175,11 +175,13 @@ export default function ZikrHomeScreen() {
         label={t("zikr.favorites")}
         count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
         onPress={() => router.push("/zikr/favorites")}
+        href="/zikr/favorites"
       />
       <NavRow
         icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
         label={t("customAdhkar.title")}
         onPress={() => router.push("/adhkar-builder")}
+        href="/adhkar-builder"
       />
     </ResponsiveGrid>
   );
@@ -331,6 +333,7 @@ function CategoryGroup({
               progress={progress}
               hue={hue}
               onPress={() => onOpen(id)}
+              href={`/zikr/${id}`}
             />
           );
         })}

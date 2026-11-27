@@ -85,6 +85,7 @@ export default function FreeTasbeehScreen() {
         label={t("handsFreeZikr.sequence.title")}
         badge="33 · 33 · 34"
         onPress={() => router.push("/tasbeeh/sequence")}
+        href="/tasbeeh/sequence"
       />
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("handsFreeZikr.sequence.entryBody")}

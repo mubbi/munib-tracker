@@ -686,21 +686,24 @@ export default function VoluntaryFastingScreen() {
             {/* NF-3.0a: eating or drinking forgetfully while fasting. */}
             <GuideMadhhabNotes ids={FORGETFUL_EATING} />
 
-            <Card>
+            <Card padding="two" style={styles.linkRows}>
               <NavRow
                 icon={{ ios: "moon.circle.fill", android: "brightness_3", web: "brightness_3" }}
                 label={t("voluntaryFasting.links.whiteDays")}
                 onPress={() => router.push("/white-days" as Href)}
+                href="/white-days"
               />
               <NavRow
                 icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
                 label={t("voluntaryFasting.links.ramadan")}
                 onPress={() => router.push("/ramadan" as Href)}
+                href="/ramadan"
               />
               <NavRow
                 icon={{ ios: "arrow.uturn.backward.circle", android: "history", web: "history" }}
                 label={t("voluntaryFasting.links.qazaRoza")}
                 onPress={() => router.push("/qaza/roza" as Href)}
+                href="/qaza/roza"
               />
             </Card>
 
@@ -796,6 +799,8 @@ const styles = StyleSheet.create({
   groupTitle: { marginTop: Spacing.three, marginBottom: Spacing.one },
   evidenceRow: { gap: Spacing.half, paddingVertical: Spacing.two },
   disclaimer: { marginTop: Spacing.two },
+  // NavRows are bordered tiles of their own — space them like the Circles/Partner hubs.
+  linkRows: { gap: Spacing.two },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

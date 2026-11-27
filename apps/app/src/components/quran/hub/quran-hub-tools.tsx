@@ -45,6 +45,7 @@ export function QuranHubTools({
         icon: { ios: "book.pages.fill", android: "menu_book", web: "menu_book" },
         tint: sky,
         onPress: () => router.push("/quran/pages"),
+        href: "/quran/pages",
       },
       {
         id: "juz",
@@ -52,6 +53,7 @@ export function QuranHubTools({
         icon: { ios: "square.grid.3x3.fill", android: "grid_view", web: "grid_view" },
         tint: accent,
         onPress: () => router.push("/quran/juz"),
+        href: "/quran/juz",
       },
       {
         id: "find",
@@ -61,6 +63,7 @@ export function QuranHubTools({
         icon: { ios: "text.magnifyingglass", android: "manage_search", web: "manage_search" },
         tint: violet,
         onPress: () => router.push("/quran/search"),
+        href: "/quran/search",
       },
       {
         id: "saved",
@@ -71,6 +74,7 @@ export function QuranHubTools({
         icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
         tint: dawn,
         onPress: () => router.push("/quran/bookmarks"),
+        href: "/quran/bookmarks",
       },
     ],
     [accent, bookmarkCount, dawn, router, sky, t, violet],
@@ -88,22 +92,26 @@ export function QuranHubTools({
           icon={{ ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" }}
           label={t("learnQuran.title")}
           onPress={() => router.push("/learn-quran")}
+          href="/learn-quran"
         />
         <NavRow
           icon={{ ios: "chart.line.uptrend.xyaxis", android: "trending_up", web: "trending_up" }}
           label={t("khatm.short")}
           onPress={() => router.push("/quran/khatm")}
+          href="/quran/khatm"
         />
         <NavRow
           icon={{ ios: "brain.head.profile", android: "psychology", web: "psychology" }}
           label={t("hifz.short")}
           onPress={() => router.push("/quran/hifz")}
+          href="/quran/hifz"
         />
         {practiceAvailable ? (
           <NavRow
             icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
             label={t("quranCompanion.entry.practise")}
             onPress={() => router.push("/quran/practice" as Href)}
+            href="/quran/practice"
           />
         ) : null}
         {practiceAvailable && dueCount > 0 ? (
@@ -111,6 +119,7 @@ export function QuranHubTools({
             icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
             label={t("quranCompanion.entry.toRevise", { count: dueCount })}
             onPress={() => router.push("/quran/revision" as Href)}
+            href="/quran/revision"
           />
         ) : null}
         {/* D68: recite a few words and the on-device listener finds the ayah. */}
@@ -125,6 +134,7 @@ export function QuranHubTools({
           icon={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
           label={t("quranNotes.title")}
           onPress={() => router.push("/quran/notes")}
+          href="/quran/notes"
         />
         <NavRow
           icon={{ ios: "character.book.closed", android: "spellcheck", web: "spellcheck" }}

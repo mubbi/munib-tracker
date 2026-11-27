@@ -571,6 +571,7 @@ export function HomeBelowFold({
 
       <PressableScale
         onPress={() => router.push("/achievements")}
+        href="/achievements"
         haptic="light"
         scaleTo={0.98}
         accessibilityRole="button"

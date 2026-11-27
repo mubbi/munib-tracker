@@ -47,6 +47,7 @@ export function KhatmDailyChecklist() {
   return (
     <Card
       onPress={() => router.push("/quran/khatm")}
+      href="/quran/khatm"
       accessibilityLabel={t("tracker.khatm.a11y", {
         day: dayNumber,
         total: plan.days,

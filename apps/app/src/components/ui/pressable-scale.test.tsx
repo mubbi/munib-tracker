@@ -67,6 +67,16 @@ const themeTokens = async () =>
 afterEach(() => jest.mocked(triggerHaptic).mockClear());
 
 describe("PressableScale", () => {
+  it("ignores href on native (keeps button semantics)", async () => {
+    const onPress = jest.fn();
+    await renderPressable({ href: "/quran/1", onPress });
+
+    expect(target().props.accessibilityRole).toBe("button");
+    expect(pressablePropsOf<{ href?: string }>(target()).href).toBeUndefined();
+    await fireEvent.press(target());
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
   it("fires onPress", async () => {
     const onPress = jest.fn();
     await renderPressable({ onPress });
@@ -416,6 +426,70 @@ describe("PressableScale on web", () => {
 
     expect(screen.getByLabelText("Outer").props.accessibilityRole).toBe("button");
     expect(screen.getByLabelText("Inner").props.accessibilityRole).toBeUndefined();
+  });
+
+  describe("href (crawlable link)", () => {
+    const hrefOf = () => pressablePropsOf<{ href?: string }>(target()).href;
+
+    it("renders a link with the href instead of a button", async () => {
+      await renderPressable({ href: "/quran/1", accessibilityRole: "button" });
+
+      expect(target().props.accessibilityRole).toBe("link");
+      expect(hrefOf()).toBe("/quran/1");
+    });
+
+    it("runs onPress for a plain click and stops the full page load", async () => {
+      const onPress = jest.fn();
+      await renderPressable({ href: "/quran/1", onPress });
+      const preventDefault = jest.fn();
+
+      await fireEvent.press(target(), { button: 0, preventDefault });
+
+      expect(preventDefault).toHaveBeenCalled();
+      expect(onPress).toHaveBeenCalledTimes(1);
+    });
+
+    it("leaves modified clicks (new tab) to the browser", async () => {
+      const onPress = jest.fn();
+      await renderPressable({ href: "/quran/1", onPress });
+      const preventDefault = jest.fn();
+
+      await fireEvent.press(target(), { button: 0, ctrlKey: true, preventDefault });
+
+      expect(preventDefault).not.toHaveBeenCalled();
+      expect(onPress).not.toHaveBeenCalled();
+    });
+
+    it("drops the href while disabled", async () => {
+      await renderPressable({ href: "/quran/1", disabled: true });
+
+      expect(hrefOf()).toBeUndefined();
+    });
+
+    it("never nests a link inside a web button", async () => {
+      await renderWithTheme(
+        <PressableScale accessibilityLabel="Outer" onPress={jest.fn()}>
+          <PressableScale accessibilityLabel="Target" onPress={jest.fn()} href="/quran/1">
+            <Text>Child</Text>
+          </PressableScale>
+        </PressableScale>,
+      );
+
+      expect(hrefOf()).toBeUndefined();
+      expect(target().props.accessibilityRole).not.toBe("link");
+    });
+
+    it("keeps nested pressables inside a link from defaulting to buttons", async () => {
+      await renderWithTheme(
+        <PressableScale accessibilityLabel="Outer" onPress={jest.fn()} href="/dua">
+          <PressableScale accessibilityLabel="Inner" onPress={jest.fn()}>
+            <Text>Child</Text>
+          </PressableScale>
+        </PressableScale>,
+      );
+
+      expect(screen.getByLabelText("Inner").props.accessibilityRole).toBeUndefined();
+    });
   });
 
   it("shows a pointer cursor on interactive surfaces", async () => {

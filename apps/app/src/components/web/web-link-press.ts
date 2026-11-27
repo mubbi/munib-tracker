@@ -41,3 +41,14 @@ export function inAppLinkPress(navigate: () => void): (event?: unknown) => void 
     navigate();
   };
 }
+
+/**
+ * A plain path for an `<a href>` from an expo-router `Href`, or `undefined` when
+ * it is not a concrete in-app path (object hrefs, external URLs, unresolved
+ * `[param]` templates) — those keep button semantics.
+ */
+export function anchorHref(route: unknown): string | undefined {
+  if (typeof route !== "string") return undefined;
+  if (!route.startsWith("/") || route.startsWith("//") || /[[\]]/.test(route)) return undefined;
+  return route;
+}

@@ -135,18 +135,21 @@ export default function CirclesHubScreen() {
                 auth.isAccount ? t("circles.hub.familyShort") : t("circles.hub.familyNeedsAccount")
               }
               onPress={() => router.push("/family")}
+              href="/family"
             />
             <NavRow
               icon={TYPE_ICON.partner}
               label={t("partnerCircle.title")}
               subtitle={t("partnerCircle.subtitle")}
               onPress={() => router.push("/partner" as Href)}
+              href="/partner"
             />
             <NavRow
               icon={TYPE_ICON.khatm_group}
               label={t("khatmGroups.title")}
               subtitle={t("khatmGroups.subtitle")}
               onPress={() => router.push("/khatm-groups" as Href)}
+              href="/khatm-groups"
             />
           </Card>
         </View>

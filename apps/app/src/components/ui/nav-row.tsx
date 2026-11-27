@@ -29,6 +29,8 @@ type NavRowProps = {
   /** Success tint when today's remaining work in this destination is finished. */
   completed?: boolean;
   onPress: () => void;
+  /** Web: in-app route this opens — renders a crawlable `<a href>` (see `PressableScale`). */
+  href?: string;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
   /** Show a "New" pill after the label (recently released features). */
@@ -48,6 +50,7 @@ export function NavRow({
   badge,
   completed,
   onPress,
+  href,
   preferredFocus,
   isNew,
   newLabel,
@@ -71,6 +74,7 @@ export function NavRow({
         .filter(Boolean)
         .join(", ")}
       onPress={onPress}
+      href={href}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.row,

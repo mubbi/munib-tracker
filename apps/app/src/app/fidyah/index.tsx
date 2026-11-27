@@ -14,7 +14,7 @@ import { CurrencyField } from "@/components/money/currency-field";
 import { useMoneyNumberFormat } from "@/components/money/use-number-format";
 import { amountFromText, amountToText } from "@/components/records/amount-text";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
@@ -181,6 +181,7 @@ export default function FidyahScreen() {
                   params: { topic: topic.id },
                 } as Href)
               }
+              href={`/fidyah/${topic.id}`}
             />
           ))}
         </LearnColumnsGrid>
@@ -196,7 +197,7 @@ export default function FidyahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
       maxContentWidth={wide.maxContentWidth}
     >
-      <Seo path="/fidyah" />
+      <ToolSeo path="/fidyah" name={t("fidyah.title")} />
       {madhhabPrompt.sheet}
       {wide.twoPane ? (
         <Stagger>

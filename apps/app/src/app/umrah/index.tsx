@@ -144,11 +144,13 @@ export default function UmrahModeScreen() {
             icon={CHECKLIST_ICON}
             label={t("umrahMode.prepare.checklist")}
             onPress={() => router.push("/umrah/checklist" as Href)}
+            href="/umrah/checklist"
           />
           <NavRow
             icon={GUIDE_ICON}
             label={t("umrahMode.openGuide")}
             onPress={() => router.push("/hajj" as Href)}
+            href="/hajj"
           />
           <JannahDisclaimer textKey="hajj.disclaimer" />
         </Stagger>

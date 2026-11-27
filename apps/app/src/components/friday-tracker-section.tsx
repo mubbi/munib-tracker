@@ -83,6 +83,7 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
       <PressableScale
         accessibilityRole="link"
         onPress={() => router.push("/friday" as Href)}
+        href="/friday"
         scaleTo={0.98}
         style={[styles.learnLink, isTV() ? styles.learnLinkTv : null]}
       >

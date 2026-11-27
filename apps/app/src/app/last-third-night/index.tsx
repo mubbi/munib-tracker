@@ -6,7 +6,7 @@ import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { HadithExcerptCard } from "@/components/hadith/hadith-excerpt-card";
 import { NightTimeline } from "@/components/night-timeline";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -244,7 +244,7 @@ export default function LastThirdNightScreen() {
       subtitle={t("lastThirdNight.subtitle")}
       onBack={() => goBackOrReplace(router, "/tahajjud")}
     >
-      <Seo path="/last-third-night" />
+      <ToolSeo path="/last-third-night" name={t("lastThirdNight.title")} />
       <Stagger>
         {twoPane ? (
           <View style={styles.split}>

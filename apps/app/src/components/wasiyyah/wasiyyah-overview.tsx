@@ -201,6 +201,7 @@ export function WasiyyahOverview() {
           title={t("wasiyyah.debtsLink")}
           subtitle={t("wasiyyah.debtsLinkHint")}
           onPress={() => router.push("/debts" as Href)}
+          href="/debts"
         />
       </Card>
 

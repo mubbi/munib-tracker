@@ -105,6 +105,7 @@ export function FuneralStep({ data, update }: WasiyyahStepProps) {
         icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
         title={t("wasiyyah.funeral.guideLink")}
         onPress={() => router.push("/janazah" as Href)}
+        href="/janazah"
       />
     </>
   );
@@ -162,6 +163,7 @@ export function DebtsStep({
         icon={{ ios: "list.bullet.rectangle", android: "receipt_long", web: "receipt_long" }}
         title={t("wasiyyah.debts.openRecord")}
         onPress={() => router.push("/debts" as Href)}
+        href="/debts"
       />
       <View nativeID="debts">
         <MadhhabNote id="wasiyyah.debtsToAllah" />

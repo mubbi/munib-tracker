@@ -135,6 +135,7 @@ export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) 
       <PressableScale
         accessibilityRole="link"
         onPress={() => router.push("/white-days" as Href)}
+        href="/white-days"
         scaleTo={0.98}
         style={[styles.learnLink, isTV() ? styles.learnLinkTv : null]}
       >

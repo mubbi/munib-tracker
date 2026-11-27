@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { PrivateRecordsTvUnavailable } from "@/components/records/tv-unavailable";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { VaultLockGate } from "@/components/vault";
 import { WasiyyahOverview } from "@/components/wasiyyah/wasiyyah-overview";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -21,7 +21,7 @@ export default function WasiyyahScreen() {
       subtitle={t("wasiyyah.subtitle")}
       onBack={() => goBackOrReplace(router, "/library")}
     >
-      <Seo path="/wasiyyah" />
+      <ToolSeo path="/wasiyyah" name={t("wasiyyah.title")} />
       {isTV() ? (
         <PrivateRecordsTvUnavailable bodyKey="wasiyyah.tvBody" />
       ) : (

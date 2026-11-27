@@ -26,6 +26,7 @@ import {
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import { forgetTvFocus, noteTvFocus, type TvFocusHandle } from "@/components/ui/tv-focus-memory";
+import { inAppLinkPress } from "@/components/web/web-link-press";
 import { Springs } from "@/constants/motion";
 import { Opacity, Radius, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
@@ -272,6 +273,14 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
    * Defaults to `Radius.md` so unstyled rows/chips still match rounded surfaces.
    */
   rippleRadius?: number;
+  /**
+   * Web only: the in-app route this control opens (e.g. `/quran/1`). Renders a
+   * real `<a href>` with `role="link"` so search engines can crawl the link and
+   * Ctrl/Cmd/middle-click opens a new tab; a plain click still runs `onPress`
+   * (client-side navigation, default prevented). Ignored on native / TV, and
+   * dropped inside another web button/link (nested interactive HTML is invalid).
+   */
+  href?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -366,6 +375,7 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
     accessibilityState,
     accessibilityRole,
     role,
+    href,
     ...rest
   },
   ref,
@@ -385,11 +395,27 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
   const tvFocusMemory = useTvFocusMemory(tv, ref);
 
   const interactive = Boolean(onPress || rest.onLongPress);
+  // Web anchor: `href` turns the host into `<a href>` (react-native-web emits an
+  // anchor for any View with `href`) — never inside another button/link.
+  const webHref = web && !tv && href && !insideWebButton && !disabled ? href : undefined;
   const explicitRole = accessibilityRole != null || role != null;
-  const resolvedRole =
-    accessibilityRole ??
-    (!explicitRole && interactive && !(web && insideWebButton) ? ("button" as const) : undefined);
-  const rendersWebButton = web && (resolvedRole === "button" || role === "button");
+  const resolvedRole = webHref
+    ? ("link" as const)
+    : (accessibilityRole ??
+      (!explicitRole && interactive && !(web && insideWebButton)
+        ? ("button" as const)
+        : undefined));
+  const resolvedWebRole = webHref ? ("link" as const) : role;
+  const rendersWebButton =
+    web && (Boolean(webHref) || resolvedRole === "button" || role === "button");
+  // Plain click → caller's onPress (in-app navigation) with the browser's full
+  // page load prevented; modified clicks fall through to the browser.
+  const handlePress = useMemo(() => {
+    if (!webHref || !onPress) return onPress;
+    return (event: GestureResponderEvent) => {
+      inAppLinkPress(() => onPress(event))(event);
+    };
+  }, [webHref, onPress]);
 
   // Disabled always wins. An explicit `disabled={false}` still reports
   // `disabled: false` (as RN's Pressable did) unless the caller set the state
@@ -527,12 +553,12 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
       // state (TV bounds stay focusable but report disabled).
       disabled={disabled ? true : undefined}
       accessibilityRole={resolvedRole}
-      role={role}
+      role={resolvedWebRole}
       accessibilityState={mergedAccessibilityState}
       android_ripple={androidRipple}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      onPress={onPress}
+      onPress={handlePress}
       onHoverIn={handleHoverIn}
       onHoverOut={handleHoverOut}
       onFocus={(event) => {
@@ -596,6 +622,8 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
         return StyleSheet.flatten([pressableStyle, webPointer, hover, disabledDim, focusRing]);
       }}
       {...rest}
+      // RN Web renders a Pressable with `href` as `<a href>` (not in RN's types).
+      {...(webHref ? ({ href: webHref } as object) : null)}
     >
       <Animated.View style={[styles.inner, innerStyle, animatedStyle]}>
         {/* Always mounted (stable tree): only the value flips with the role. */}

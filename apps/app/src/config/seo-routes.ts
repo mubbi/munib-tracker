@@ -25,6 +25,12 @@ export type RouteSeo = {
   imageAlt?: string;
   /** Defaults to `true`. Set `false` to emit `noindex` and skip the sitemap. */
   index?: boolean;
+  /**
+   * Interactive tool page (calculator, finder, converter): its schema.org
+   * `applicationCategory`, e.g. `FinanceApplication`. Emits WebApplication
+   * JSON-LD — client `<ToolSeo>` and build-time `inject-seo-head.mjs`.
+   */
+  applicationCategory?: string;
 };
 
 export const SEO_ROUTES: Record<string, RouteSeo> = seoRoutesData;

@@ -17,7 +17,7 @@ import { MasjidRow } from "@/components/masjid/masjid-row";
 import { openDirections } from "@/components/masjid/open-directions";
 import { OsmAttribution } from "@/components/masjid/osm-attribution";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -396,7 +396,7 @@ export default function MasjidsScreen() {
       subtitle={t("masjids.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
     >
-      <Seo path="/masjids" />
+      <ToolSeo path="/masjids" name={t("masjids.title")} />
       <MasjidFinder />
     </ScreenLayout>
   );

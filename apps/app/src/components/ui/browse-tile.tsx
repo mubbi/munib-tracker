@@ -27,6 +27,8 @@ type BrowseTileProps = {
    */
   progress?: { completed: number; total: number };
   onPress: () => void;
+  /** Web: in-app route this opens — renders a crawlable `<a href>` (see `PressableScale`). */
+  href?: string;
   preferredFocus?: boolean;
   /**
    * `card` (default): icon well on top-start, label + count below (category
@@ -49,6 +51,7 @@ export function BrowseTile({
   hue,
   progress,
   onPress,
+  href,
   preferredFocus,
   variant = "card",
   isNew,
@@ -65,6 +68,7 @@ export function BrowseTile({
           .filter(Boolean)
           .join(", ")}
         onPress={onPress}
+        href={href}
         scaleTo={0.95}
         {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
         style={[styles.compact, tv && styles.compactTv]}
@@ -99,6 +103,7 @@ export function BrowseTile({
       accessibilityRole="button"
       accessibilityLabel={[label, countLabel].filter(Boolean).join(", ")}
       onPress={onPress}
+      href={href}
       {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.tile,

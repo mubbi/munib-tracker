@@ -750,6 +750,9 @@ export default function QuranPageReaderScreen() {
         path={`/quran/page/${currentPage}`}
         title={t("quran.pageReaderTitle", { page: currentPage, total: QURAN_TOTAL_PAGES })}
         description={t("quran.pageReaderDesc", { page: currentPage })}
+        // Mushaf glyph-font pages duplicate /quran/{surah}; noindex in the static
+        // HTML too (scripts/lib/seo-route-policy.mjs) — keep both in agreement.
+        index={false}
       />
       <ScreenLayout
         scrollable={false}

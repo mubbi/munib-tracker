@@ -90,6 +90,7 @@ export function JannahNavRow({
   subtitle,
   badge,
   onPress,
+  href,
   tint,
   preferredFocus,
 }: {
@@ -98,6 +99,8 @@ export function JannahNavRow({
   subtitle?: string;
   badge?: string;
   onPress: () => void;
+  /** Web: crawlable `<a href>` for the destination (see `PressableScale`). */
+  href?: string;
   tint?: string;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
@@ -113,6 +116,7 @@ export function JannahNavRow({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
+      href={href}
       {...(preferredFocus && isTV() ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.navRow,
@@ -256,6 +260,8 @@ export function JannahQuickLinkGrid({
     subtitle: string;
     tint: string;
     onPress: () => void;
+    /** Web: crawlable `<a href>` for the destination (see `PressableScale`). */
+    href?: string;
   }[];
 }) {
   const { colors } = useThemeTokens();
@@ -268,6 +274,7 @@ export function JannahQuickLinkGrid({
           accessibilityRole="button"
           accessibilityLabel={`${item.title}. ${item.subtitle}`}
           onPress={item.onPress}
+          href={item.href}
           style={[
             styles.quickTile,
             columns === 4 && !isTV() ? styles.quickTileQuarter : null,

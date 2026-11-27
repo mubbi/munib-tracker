@@ -10,7 +10,7 @@ import {
   useFocusLockPrefs,
 } from "@/components/focus-lock/focus-lock-settings-form";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -82,7 +82,7 @@ export default function FocusLockScreen() {
       subtitle={t("focusLock.subtitle")}
       onBack={() => goBackOrReplace(router, "/settings")}
     >
-      <Seo path="/focus-lock" />
+      <ToolSeo path="/focus-lock" name={t("focusLock.title")} />
       <Stagger>
         <Card padding="four">
           <SectionHeader

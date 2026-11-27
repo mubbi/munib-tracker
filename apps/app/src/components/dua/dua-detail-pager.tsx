@@ -68,6 +68,7 @@ function PagerButton({
       accessibilityRole="button"
       accessibilityLabel={`${label}: ${heading}`}
       onPress={() => onOpen(item)}
+      href={`/dua/detail/${encodeURIComponent(item.id)}`}
       style={[
         styles.button,
         styles.buttonFilled,

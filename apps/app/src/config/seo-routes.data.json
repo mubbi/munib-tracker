@@ -108,7 +108,8 @@
       "islamic calendar converter",
       "gregorian to hijri",
       "date converter"
-    ]
+    ],
+    "applicationCategory": "UtilitiesApplication"
   },
   "/credits": {
     "title": "Credits & Data Sources",
@@ -312,9 +313,16 @@
     ]
   },
   "/masjids": {
-    "title": "Masjid Finder",
+    "title": "Masjid Finder — Masjids Near Me",
     "description": "Find nearby masjids from OpenStreetMap, sorted by distance, with directions and Jumu'ah times where public data has them. Set a home masjid and keep your own iqamah times privately.",
-    "index": false
+    "applicationCategory": "TravelApplication",
+    "keywords": [
+      "masjid near me",
+      "mosque finder",
+      "nearest masjid",
+      "jumuah times",
+      "masjid directions"
+    ]
   },
   "/partner": {
     "title": "Accountability Partner",
@@ -349,7 +357,14 @@
   "/wasiyyah": {
     "title": "Wasiyyah — Islamic Will Builder",
     "description": "Write a guided Islamic will: funeral wishes, debts first, bequests within one third, guardians, executor and witnesses. Private and encrypted on your device.",
-    "index": false
+    "applicationCategory": "LifestyleApplication",
+    "keywords": [
+      "islamic will",
+      "wasiyyah",
+      "muslim will template",
+      "islamic will builder",
+      "bequest one third"
+    ]
   },
   "/wasiyyah/edit": {
     "title": "Write Your Wasiyyah",
@@ -366,7 +381,8 @@
       "inheritance shares",
       "hanafi inheritance",
       "shafii inheritance"
-    ]
+    ],
+    "applicationCategory": "FinanceApplication"
   },
   "/muhasabah": {
     "title": "Nightly Muhasabah",
@@ -775,12 +791,14 @@
       "mid night islam",
       "night prayer calculator",
       "qiyam al-layl time"
-    ]
+    ],
+    "applicationCategory": "UtilitiesApplication"
   },
   "/qibla": {
     "title": "Qibla Direction Finder — Face the Kaaba",
     "description": "Find the qibla direction toward the Kaaba in Makkah from anywhere. A compass and precise bearing help you face the right direction for prayer.",
-    "keywords": ["qibla direction", "qibla finder", "qibla compass", "direction of Kaaba", "kaaba"]
+    "keywords": ["qibla direction", "qibla finder", "qibla compass", "direction of Kaaba", "kaaba"],
+    "applicationCategory": "UtilitiesApplication"
   },
   "/quran": {
     "title": "Read the Qur'an Online — All 114 Surahs",
@@ -1123,7 +1141,8 @@
   "/zakat": {
     "title": "Zakat Calculator & Guide",
     "description": "Learn the essentials of zakat and estimate what you owe — 2.5% of qualifying wealth held for one lunar year above nisab — with guides, evidence, and a checklist.",
-    "keywords": ["zakat calculator", "zakat guide", "nisab", "pillar of Islam", "calculate zakat"]
+    "keywords": ["zakat calculator", "zakat guide", "nisab", "pillar of Islam", "calculate zakat"],
+    "applicationCategory": "FinanceApplication"
   },
   "/zakat/checklist": {
     "title": "Zakat Checklist — Before You Pay",
@@ -1165,5 +1184,62 @@
     "title": "Set Up Salah Focus",
     "description": "Grant permissions, choose apps and pick your Salah windows, timing and unlock mode.",
     "index": false
+  },
+  "/fidyah": {
+    "title": "Fidyah & Kaffarah Calculator — Missed Ramadan Fasts",
+    "description": "Estimate fidyah or kaffarah for missed or broken Ramadan fasts from the number of days and your local meal cost, with the Qur'an and Sunnah basics. A planning aid, not a ruling.",
+    "keywords": [
+      "fidyah calculator",
+      "kaffarah calculator",
+      "fidya for missed fasts",
+      "kaffarah for breaking fast",
+      "ramadan fidyah"
+    ],
+    "applicationCategory": "FinanceApplication"
+  },
+  "/sadaqah": {
+    "title": "Sadaqah Tracker — Daily & Weekly Charity Goals",
+    "description": "Set a daily or weekly sadaqah intention and keep a simple private log of what you give, with progress toward your goal. Zakat is calculated separately.",
+    "keywords": [
+      "sadaqah tracker",
+      "charity tracker",
+      "sadaqah goal",
+      "voluntary charity islam",
+      "daily sadaqah"
+    ],
+    "applicationCategory": "FinanceApplication"
+  },
+  "/library": {
+    "title": "Islamic Library — Qur'an, Hadith, Duas, Guides & Tools",
+    "description": "Everything in one place: read the Qur'an and hadith, browse duas and adhkar, study guided Islamic courses, and use tools like Qibla, Zakat and the Hijri date converter.",
+    "keywords": [
+      "islamic library",
+      "quran and hadith online",
+      "islamic guides",
+      "islamic tools",
+      "duas and adhkar"
+    ]
+  },
+  "/friday": {
+    "title": "Friday & Jumu'ah Guide — Virtues, Surah al-Kahf & Salawat",
+    "description": "Prepare for Jumu'ah: the virtues of Friday, ghusl and going early, reciting Surah al-Kahf, sending salawat on the Prophet ﷺ, and seeking the hour when dua is answered.",
+    "keywords": [
+      "jumuah",
+      "friday sunnah",
+      "surah al kahf friday",
+      "salawat on friday",
+      "virtues of friday"
+    ]
+  },
+  "/janazah": {
+    "title": "Janazah Guide — Funeral Prayer, Washing & Burial",
+    "description": "How to pray Salat al-Janazah step by step, wash and shroud the deceased, bury them and console the family — with the authentic duas for the deceased and the bereaved.",
+    "keywords": [
+      "janazah prayer",
+      "how to pray janazah",
+      "islamic funeral",
+      "janazah dua",
+      "ghusl mayyit"
+    ]
   }
 }

@@ -1,8 +1,10 @@
 import {
+  entryLocaleForPath,
   isAppLocaleCode,
   LOCALE_PATH_BOOT_SCRIPT,
   LOCALE_PATH_DEFAULT,
   localizedUrl,
+  MUNIB_ENTRY_LOCALE_GLOBAL,
   MUNIB_LOCALE_BOOT_KEY,
   prependLocalePath,
   stripLocalePrefix,
@@ -57,5 +59,56 @@ describe("locale-path edge cases", () => {
   it("ships a boot script keyed to the session storage key", () => {
     expect(LOCALE_PATH_BOOT_SCRIPT).toContain(MUNIB_LOCALE_BOOT_KEY);
     expect(LOCALE_PATH_BOOT_SCRIPT.startsWith("(function(){")).toBe(true);
+  });
+  describe("boot script + entryLocaleForPath", () => {
+    const g = globalThis as Record<string, unknown>;
+    let previousWindow: unknown;
+    beforeEach(() => {
+      previousWindow = g.window;
+    });
+    afterEach(() => {
+      g.window = previousWindow;
+    });
+
+    /** Runs the inline boot script against a fake browser at `pathname`. */
+    function boot(pathname: string) {
+      const storage = new Map<string, string>();
+      const replaceState = jest.fn();
+      const win: Record<string, unknown> = {};
+      new Function("location", "sessionStorage", "history", "window", LOCALE_PATH_BOOT_SCRIPT)(
+        { pathname, search: "", hash: "" },
+        { setItem: (k: string, v: string) => storage.set(k, v) },
+        { replaceState },
+        win,
+      );
+      g.window = win;
+      return { storage, replaceState, win };
+    }
+
+    it("strips the locale prefix and remembers the entry locale + app path", () => {
+      const { storage, replaceState, win } = boot("/ar/quran/1/");
+      expect(storage.get(MUNIB_LOCALE_BOOT_KEY)).toBe("ar");
+      expect(replaceState).toHaveBeenCalledWith({ munibLocale: "ar" }, "", "/quran/1");
+      expect(win[MUNIB_ENTRY_LOCALE_GLOBAL]).toEqual({ locale: "ar", path: "/quran/1" });
+      expect(entryLocaleForPath("/quran/1")).toBe("ar");
+      expect(entryLocaleForPath("/quran/2")).toBeNull();
+    });
+
+    it("leaves English entry URLs untouched", () => {
+      const { replaceState, win } = boot("/quran/1");
+      expect(replaceState).not.toHaveBeenCalled();
+      expect(win[MUNIB_ENTRY_LOCALE_GLOBAL]).toBeUndefined();
+      expect(entryLocaleForPath("/quran/1")).toBeNull();
+    });
+
+    it("maps a bare locale root to the app home", () => {
+      boot("/ur");
+      expect(entryLocaleForPath("/")).toBe("ur");
+    });
+
+    it("ignores a malformed global", () => {
+      g.window = { [MUNIB_ENTRY_LOCALE_GLOBAL]: { locale: "xx", path: "/" } };
+      expect(entryLocaleForPath("/")).toBeNull();
+    });
   });
 });

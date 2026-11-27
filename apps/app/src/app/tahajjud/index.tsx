@@ -295,6 +295,7 @@ export default function TahajjudScreen() {
 
       <PressableScale
         onPress={() => router.push("/last-third-night")}
+        href="/last-third-night"
         accessibilityRole="button"
         accessibilityLabel={t("tahajjud.calculatorCta")}
         accessibilityHint={t("tahajjud.calculatorHint")}

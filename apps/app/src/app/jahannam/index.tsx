@@ -175,6 +175,7 @@ export default function JahannamScreen() {
         title={t("jahannam.jannahPairTitle")}
         subtitle={t("jahannam.jannahPairHint")}
         onPress={() => router.push("/jannah" as Href)}
+        href="/jannah"
       />
     </View>
   );

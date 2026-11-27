@@ -71,6 +71,7 @@ export function SunnahHabitsSection({ date, variant = "tracker" }: SunnahHabitsS
             icon={SUNNAH_HABITS_ICON}
             label={t("sunnahHabits.choose")}
             onPress={() => router.push("/habits" as Href)}
+            href="/habits"
           />
         </View>
       ) : (
@@ -94,6 +95,7 @@ export function SunnahHabitsSection({ date, variant = "tracker" }: SunnahHabitsS
                 : undefined
             }
             onPress={() => router.push("/habits" as Href)}
+            href="/habits"
           />
         </View>
       )}

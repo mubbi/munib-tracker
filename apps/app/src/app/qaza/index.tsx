@@ -331,6 +331,7 @@ export default function QazaHomeScreen() {
         icon: { ios: "plus.forwardslash.minus", android: "calculate", web: "calculate" },
         tint: colors.accent,
         onPress: () => router.push("/qaza/calculator"),
+        href: "/qaza/calculator",
       },
       {
         id: "planner",
@@ -338,6 +339,7 @@ export default function QazaHomeScreen() {
         icon: { ios: "calendar.badge.clock", android: "event", web: "event" },
         tint: tokens.status.info.color,
         onPress: () => router.push("/qaza/planner"),
+        href: "/qaza/planner",
       },
       {
         id: "roza",
@@ -345,6 +347,7 @@ export default function QazaHomeScreen() {
         icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
         tint: tokens.status.warning.color,
         onPress: () => router.push("/qaza/roza"),
+        href: "/qaza/roza",
       },
       {
         id: "history",
@@ -352,6 +355,7 @@ export default function QazaHomeScreen() {
         icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
         tint: tokens.status.success.color,
         onPress: () => router.push("/qaza/history"),
+        href: "/qaza/history",
       },
     ],
     [colors.accent, router, t, tokens],

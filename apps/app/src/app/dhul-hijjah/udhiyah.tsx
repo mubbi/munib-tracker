@@ -118,6 +118,7 @@ export default function UdhiyahPlannerScreen() {
                 icon={{ ios: "scalemass.fill", android: "balance", web: "balance" }}
                 label={t("dhulHijjah.udhiyah.nisabLink")}
                 onPress={() => router.push("/zakat" as Href)}
+                href="/zakat"
               />
             ) : null}
             <ToggleRow

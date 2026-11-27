@@ -5,7 +5,7 @@ import type { ScrollViewInstance } from "react-native";
 
 import { MirathCalculator } from "@/components/mirath/mirath-calculator";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { useWizardFooterSlot } from "@/components/wizard/wizard-shell";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -35,7 +35,7 @@ export default function MirathScreen() {
       scrollRef={scrollRef}
       footer={footerSlot.footer}
     >
-      <Seo path="/mirath" />
+      <ToolSeo path="/mirath" name={t("mirath.title")} />
       {madhhabPrompt.sheet}
       <footerSlot.Provider>
         <MirathCalculator fromWasiyyah={fromWasiyyah} scrollRef={scrollRef} />

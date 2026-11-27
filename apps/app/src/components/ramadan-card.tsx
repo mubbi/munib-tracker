@@ -41,6 +41,7 @@ export function RamadanCard() {
     <Card
       style={[styles.card, { borderColor: colors.accent }]}
       onPress={() => router.push("/ramadan")}
+      href="/ramadan"
       accessibilityLabel={t("ramadan.title")}
     >
       <View style={styles.header}>

@@ -155,6 +155,7 @@ export default function DhulHijjahScreen() {
               icon={{ ios: "list.bullet.clipboard", android: "assignment", web: "assignment" }}
               label={t("dhulHijjah.udhiyah.openPlanner")}
               onPress={() => router.push("/dhul-hijjah/udhiyah" as Href)}
+              href="/dhul-hijjah/udhiyah"
             />
           </View>
         </Card>
@@ -170,6 +171,7 @@ export default function DhulHijjahScreen() {
               icon={DHUL_HIJJAH_ICON}
               label={t("dhulHijjah.eid.link")}
               onPress={() => router.push("/eid" as Href)}
+              href="/eid"
             />
           </View>
         </Card>

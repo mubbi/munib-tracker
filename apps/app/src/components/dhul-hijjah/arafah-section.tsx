@@ -107,6 +107,7 @@ export function ArafahSection({ year, isToday }: { year: number; isToday: boolea
           icon={{ ios: "star.fill", android: "star", web: "star" }}
           label={t("dhulHijjah.arafah.myDuas")}
           onPress={() => router.push("/dua/favorites" as Href)}
+          href="/dua/favorites"
         />
       </View>
     </Card>

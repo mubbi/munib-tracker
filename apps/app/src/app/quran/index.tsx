@@ -144,6 +144,8 @@ const SurahRow = memo(function SurahRow({
       accessibilityState={{ selected: isSelected }}
       accessibilityLabel={surahRowA11yLabel(surah, t, isContinue)}
       onPress={() => onPress(surah.number)}
+      // Web: a crawlable `<a href>` to the surah page (click still opens in-app).
+      href={`/quran/${surah.number}`}
       style={[
         styles.row,
         tv ? styles.rowTv : styles.rowCompact,

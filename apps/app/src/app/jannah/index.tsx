@@ -186,6 +186,7 @@ export default function JannahScreen() {
         title={t("jannah.jahannamPointerTitle")}
         subtitle={t("jannah.jahannamPointerHint")}
         onPress={() => router.push("/jahannam" as Href)}
+        href="/jahannam"
       />
       <JannahNavRow
         icon={{ ios: "map.fill", android: "map", web: "map" }}

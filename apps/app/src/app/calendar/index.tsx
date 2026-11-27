@@ -399,6 +399,7 @@ export default function CalendarScreen() {
   const converterCard = (
     <Card
       onPress={() => router.push("/calendar/converter")}
+      href="/calendar/converter"
       accessibilityLabel={t("calendar.converterRowTitle")}
     >
       <View style={styles.converterRow}>

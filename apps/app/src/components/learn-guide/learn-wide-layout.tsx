@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { JannahNavRow } from "@/components/jannah/primitives";
+import { useStickyHeaderOffset } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
@@ -39,8 +40,8 @@ export const LEARN_ASIDE_WIDTH = 320;
  */
 const LEARN_MAIN_MAX_WIDTH = LEARN_SPLIT_MAX_WIDTH - LEARN_ASIDE_WIDTH - Spacing.four;
 /**
- * Offset for the sticky aside on web so it settles beneath the floating
- * AppHeader rather than under it.
+ * Sticky aside offset on web before the floating header is measured (the live
+ * value comes from `useStickyHeaderOffset`).
  */
 const STICKY_TOP = 88;
 
@@ -121,11 +122,9 @@ function gridStyle(cols: number, style: StyleProp<ViewStyle>): StyleProp<ViewSty
   return cols > 1 ? [style, styles.noColumnGap] : style;
 }
 
-const webSticky: ViewStyle | null =
-  Platform.OS === "web"
-    ? // `position: sticky` is valid CSS on react-native-web but missing from RN's types.
-      ({ position: "sticky", top: STICKY_TOP } as unknown as ViewStyle)
-    : null;
+// `position: sticky` is valid CSS on react-native-web but missing from RN's types.
+const webSticky = (top: number): ViewStyle | null =>
+  Platform.OS === "web" ? ({ position: "sticky", top } as unknown as ViewStyle) : null;
 
 /**
  * Two-column Learn layout at ≥1200 (non-TV): readable main column + a
@@ -147,10 +146,11 @@ export function LearnSplitLayout({
 }) {
   const { split, height } = useLearnWideLayout();
   const [asideHeight, setAsideHeight] = useState(0);
+  const stickyTop = useStickyHeaderOffset(STICKY_TOP);
   if (!split) return <>{fallback ?? children}</>;
   // Only pin the aside while it fits in the viewport — a taller aside would
   // otherwise hide its lower half until the end of the page.
-  const fits = asideHeight > 0 && asideHeight <= height - STICKY_TOP - Spacing.four;
+  const fits = asideHeight > 0 && asideHeight <= height - stickyTop - Spacing.four;
   return (
     <View style={styles.split}>
       <View style={styles.main}>{children}</View>
@@ -158,7 +158,7 @@ export function LearnSplitLayout({
         // Web landmark: complementary navigation beside the article.
         {...(Platform.OS === "web" ? { role: "complementary" as const } : {})}
         onLayout={(event) => setAsideHeight(event.nativeEvent.layout.height)}
-        style={[styles.aside, { width: asideWidth }, fits ? webSticky : null]}
+        style={[styles.aside, { width: asideWidth }, fits ? webSticky(stickyTop) : null]}
       >
         {aside}
       </View>
@@ -178,6 +178,8 @@ export type LearnTopicGridItem = {
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
   onPress: () => void;
+  /** Web: crawlable `<a href>` for the topic page. */
+  href?: string;
 };
 
 /**
@@ -214,6 +216,7 @@ export function LearnTopicGrid({
           tint={item.tint}
           preferredFocus={item.preferredFocus}
           onPress={item.onPress}
+          href={item.href}
         />
       ),
     );
@@ -280,6 +283,7 @@ function LearnTopicTile({ item }: { item: LearnTopicGridItem }) {
       accessibilityRole="button"
       accessibilityLabel={[item.title, item.subtitle, item.badge].filter(Boolean).join(". ")}
       onPress={item.onPress}
+      href={item.href}
       style={[styles.tile, { backgroundColor: colors.muted }]}
     >
       <IconWell icon={item.icon} tint={tint} background={withAlpha(tint, 0.12)} />

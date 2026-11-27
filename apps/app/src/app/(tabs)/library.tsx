@@ -19,6 +19,7 @@ import { SearchField } from "@/components/ui/search-field";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { anchorHref } from "@/components/web/web-link-press";
 import { type CategoryHueKey, Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
@@ -91,6 +92,8 @@ type ListItem = {
   isNew?: boolean;
   preferredFocus?: boolean;
   onPress: () => void;
+  /** Web: crawlable `<a href>` for the destination. */
+  href?: string;
 };
 
 function PrimaryTile({
@@ -99,12 +102,14 @@ function PrimaryTile({
   isNew,
   preferredFocus,
   onPress,
+  href,
 }: {
   entry: LibraryMenuDef;
   label: string;
   isNew: boolean;
   preferredFocus: boolean;
   onPress: () => void;
+  href?: string;
 }) {
   const { t } = useTranslation();
   const hue = useCategoryHue(PRIMARY_HUES[entry.id] ?? "accent");
@@ -118,6 +123,7 @@ function PrimaryTile({
       newLabel={t("common.newBadge")}
       preferredFocus={preferredFocus}
       onPress={onPress}
+      href={href}
     />
   );
 }
@@ -140,6 +146,7 @@ function LibraryRow({ item }: { item: ListItem }) {
           .join(", ")
       }
       onPress={item.onPress}
+      href={item.href}
       {...(tv && item.preferredFocus ? { hasTVPreferredFocus: true } : {})}
       style={[styles.row, tv && styles.rowTv]}
     >
@@ -355,6 +362,7 @@ export default function LibraryScreen() {
     label: entry.label,
     isNew: newFeatureIds.has(entry.id),
     onPress: () => router.push(entry.route),
+    href: anchorHref(entry.route),
     ...extra,
   });
 
@@ -510,6 +518,7 @@ export default function LibraryScreen() {
                   isNew={newFeatureIds.has(entry.id)}
                   preferredFocus={tv && index === 0}
                   onPress={() => router.push(entry.route)}
+                  href={anchorHref(entry.route)}
                 />
               ))}
             </ResponsiveGrid>

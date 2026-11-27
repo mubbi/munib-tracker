@@ -157,6 +157,7 @@ export function DebtsScreenBody({
             title={t("debts.wasiyyahLink")}
             subtitle={t("debts.wasiyyahLinkHint")}
             onPress={() => router.push("/wasiyyah" as Href)}
+            href="/wasiyyah"
           />
           <JannahNavRow
             icon={{ ios: "square.and.arrow.up", android: "ios_share", web: "ios_share" }}

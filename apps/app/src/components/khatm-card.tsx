@@ -68,6 +68,7 @@ export function KhatmCard() {
   return (
     <Card
       onPress={() => router.push("/quran/khatm")}
+      href="/quran/khatm"
       accessibilityLabel={t("home.khatmCard.a11y", {
         day: dayNumber,
         total: plan.days,

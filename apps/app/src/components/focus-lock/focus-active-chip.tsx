@@ -31,6 +31,7 @@ function FocusActiveChipInner() {
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={() => router.push("/focus-lock")}
+      href="/focus-lock"
       style={[styles.chip, { backgroundColor: colors.muted }]}
     >
       <SymbolView

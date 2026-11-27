@@ -46,6 +46,7 @@ export function MyNotesSection() {
           label={t("quranNotes.viewAll")}
           count={live.length}
           onPress={() => router.push("/quran/notes")}
+          href="/quran/notes"
         />
       </View>
     </Card>

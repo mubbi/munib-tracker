@@ -523,6 +523,7 @@ export function TrackerDayChecklist({
               ))}
               <NavRow
                 icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
+                href="/tahajjud"
                 label={t("tahajjud.streakRow")}
                 onPress={() => router.push("/tahajjud")}
               />
@@ -536,6 +537,7 @@ export function TrackerDayChecklist({
             <View style={styles.rows}>
               <NavRow
                 icon={{ ios: "square.and.pencil", android: "edit", web: "edit" }}
+                href="/journal"
                 label={t("journal.navRow")}
                 onPress={() => router.push("/journal")}
               />

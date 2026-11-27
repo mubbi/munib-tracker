@@ -152,6 +152,7 @@ export default function RawatibScreen() {
               icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
               label={t("rawatib.hub.openStats")}
               onPress={() => router.push("/statistics")}
+              href="/statistics"
             />
           </View>
         </Card>

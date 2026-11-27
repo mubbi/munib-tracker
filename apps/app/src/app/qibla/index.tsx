@@ -21,7 +21,7 @@ import type { QiblaMotion } from "@/components/qibla/faces/types";
 import { QiblaStyleSheet } from "@/components/qibla/qibla-style-sheet";
 import { QiblaTurnIcon } from "@/components/qibla/qibla-turn-icon";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Callout } from "@/components/ui/callout";
@@ -582,12 +582,9 @@ export default function QiblaScreen() {
         />
       }
     >
-      <Seo
+      <ToolSeo
         path="/qibla"
-        breadcrumbs={[
-          { name: t("tabs.home"), path: "/" },
-          { name: t("actions.qibla"), path: "/qibla" },
-        ]}
+        name={t("actions.qibla")}
         jsonLd={[
           webPageSchema({
             path: "/qibla",

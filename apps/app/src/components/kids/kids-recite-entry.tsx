@@ -19,6 +19,7 @@ export function KidsReciteEntry() {
         icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
         label={t("kids.recite.entry")}
         onPress={() => router.push("/kids/recite")}
+        href="/kids/recite"
       />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {t("kids.recite.entryHint")}

@@ -85,6 +85,8 @@ export const DuaListRow = memo(function DuaListRow({
         accessibilityRole="button"
         accessibilityLabel={label}
         onPress={handleOpen}
+        // Web: crawlable `<a href>` to the dua page (click still opens in-app).
+        href={`/dua/detail/${encodeURIComponent(item.id)}`}
         {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
         style={[
           styles.row,

@@ -9,7 +9,7 @@ import {
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -167,6 +167,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickCalendarHint"),
         tint: colors.accent,
         onPress: () => router.push("/calendar" as Href),
+        href: "/calendar",
       },
       {
         id: "events",
@@ -175,6 +176,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickEventsHint"),
         tint: tokens.status.info.color,
         onPress: () => router.push("/events" as Href),
+        href: "/events",
       },
       {
         id: "ramadan",
@@ -183,6 +185,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickRamadanHint"),
         tint: tokens.status.success.color,
         onPress: () => router.push("/ramadan" as Href),
+        href: "/ramadan",
       },
       {
         id: "history",
@@ -191,6 +194,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickHistoryHint"),
         tint: tokens.status.warning.color,
         onPress: () => router.push("/history" as Href),
+        href: "/history",
       },
     ],
     [router, t, colors.accent, tokens],
@@ -323,7 +327,7 @@ export default function DateConverterScreen() {
       subtitle={t("dateConverter.subtitle")}
       onBack={() => goBackOrReplace(router, "/calendar")}
     >
-      <Seo path="/calendar/converter" />
+      <ToolSeo path="/calendar/converter" name={t("dateConverter.title")} />
       <Stagger>
         <JannahCallout tone="info">{t("dateConverter.intro")}</JannahCallout>
 

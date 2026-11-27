@@ -14,6 +14,8 @@ type CardProps = {
   radius?: keyof typeof Radius;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
+  /** Web: in-app route this opens — renders a crawlable `<a href>` (see `PressableScale`). */
+  href?: string;
   accessibilityLabel?: string;
   accessibilityState?: AccessibilityState;
   /** TV: request initial D-pad focus on this card. */
@@ -29,6 +31,7 @@ export function Card({
   radius = "lg",
   style,
   onPress,
+  href,
   accessibilityLabel,
   accessibilityState,
   preferredFocus,
@@ -73,6 +76,7 @@ export function Card({
         accessibilityLabel={accessibilityLabel}
         accessibilityState={accessibilityState}
         onPress={onPress}
+        href={href}
         testID={testID}
         scaleTo={0.985}
         haptic="light"

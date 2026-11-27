@@ -462,6 +462,7 @@ export default function TrackerScreen() {
   const achievementCard = (
     <PressableScale
       onPress={() => router.push("/achievements")}
+      href="/achievements"
       haptic="light"
       scaleTo={0.98}
       accessibilityRole="button"
@@ -559,6 +560,7 @@ export default function TrackerScreen() {
           label={t("jannah.journeySubtitle")}
           onPress={() => router.push("/jannah/journey")}
         />
+        href="/jannah/journey"
       </View>
     </Card>
   );

@@ -121,6 +121,7 @@ export default function DuaHomeScreen() {
       label={t("dua.favorites")}
       count={favoriteCount > 0 ? favoriteCount : undefined}
       onPress={() => router.push("/dua/favorites")}
+      href="/dua/favorites"
     />
   );
 
@@ -301,6 +302,7 @@ function CategoryGroupSection({
             countLabel={countLabel(categoryId)}
             hue={hue}
             onPress={() => onOpen(categoryId)}
+            href={`/dua/${categoryId}`}
           />
         ))}
       </ResponsiveGrid>

@@ -27,6 +27,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { anchorHref } from "@/components/web/web-link-press";
 import {
   type CategoryHueKey,
   CategoryHues,
@@ -157,6 +158,7 @@ function HubRows({
         disabled: item.disabled,
         preferredFocus: item.preferredFocus,
         onPress: () => router.push(item.href),
+        href: anchorHref(item.href),
       }))}
     />
   );
@@ -210,6 +212,7 @@ export function LearnProgressSummary({ title, completed, total, hint, href }: Le
       accessibilityRole="link"
       accessibilityLabel={[title, count, hint].filter(Boolean).join(". ")}
       onPress={() => router.push(href)}
+      href={anchorHref(href)}
       style={[styles.progressRow, styles.progressPressable, { backgroundColor: colors.muted }]}
     >
       {body}

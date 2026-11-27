@@ -16,7 +16,7 @@ import {
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -26,6 +26,7 @@ import { ZakatFiltersToolbar } from "@/components/zakat/zakat-filters-toolbar";
 import { ZAKAT_TOPIC_ICONS } from "@/components/zakat/zakat-guide-icons";
 import { ZakatResultHero } from "@/components/zakat/zakat-result-hero";
 import { ZakatSummaryBar } from "@/components/zakat/zakat-summary-bar";
+import { getRouteSeo } from "@/config/seo-routes";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
@@ -36,6 +37,7 @@ import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 
 /** Fallback bar chrome height before onLayout (excludes safe-area already in ScreenLayout). */
 const SUMMARY_BAR_FALLBACK = 72;
@@ -90,6 +92,7 @@ export default function ZakatScreen() {
         subtitle: t("zakat.quickHawlHint"),
         tint: colors.accent,
         onPress: () => router.push("/zakat/hawl"),
+        href: "/zakat/hawl",
       },
       {
         id: "basics",
@@ -98,6 +101,7 @@ export default function ZakatScreen() {
         subtitle: t("zakat.quickBasicsHint"),
         tint: tokens.status.info.color,
         onPress: () => router.push("/zakat/basics"),
+        href: "/zakat/basics",
       },
       {
         id: "checklist",
@@ -106,6 +110,7 @@ export default function ZakatScreen() {
         subtitle: t("zakat.quickChecklistHint"),
         tint: tokens.status.success.color,
         onPress: () => router.push("/zakat/checklist"),
+        href: "/zakat/checklist",
       },
       {
         id: "evidence",
@@ -114,10 +119,47 @@ export default function ZakatScreen() {
         subtitle: t("zakat.quickEvidenceHint"),
         tint: tokens.status.warning.color,
         onPress: () => router.push("/zakat/evidence"),
+        href: "/zakat/evidence",
       },
     ],
     [router, t, colors.accent, tokens],
   );
+
+  // Structured data: the hub is a CollectionPage whose ItemList names every
+  // guide topic + the checklist / evidence pages (same URLs as the links below).
+  const seoBreadcrumbs = useMemo(
+    () => [
+      { name: t("tabs.home"), path: "/" },
+      { name: t("zakat.title"), path: "/zakat" },
+    ],
+    [t],
+  );
+  const seoJsonLd = useMemo(() => {
+    const entry = getRouteSeo("/zakat");
+    return [
+      collectionPageSchema({
+        path: "/zakat",
+        name: entry?.title ?? t("zakat.title"),
+        description: entry?.description ?? t("zakat.subtitle"),
+        items: [
+          ...guideSections.map((topicId) => ({
+            name: t(`zakat.guide.${topicId}.title`),
+            path: `/zakat/${topicId}`,
+          })),
+          // Page titles (not the short tile labels, e.g. "Before you pay").
+          {
+            name: getRouteSeo("/zakat/checklist")?.title ?? t("zakat.quickChecklist"),
+            path: "/zakat/checklist",
+          },
+          {
+            name: getRouteSeo("/zakat/evidence")?.title ?? t("zakat.quickEvidence"),
+            path: "/zakat/evidence",
+          },
+        ],
+        breadcrumbs: seoBreadcrumbs,
+      }),
+    ];
+  }, [guideSections, seoBreadcrumbs, t]);
 
   const resultHero = (
     <ZakatResultHero
@@ -180,12 +222,14 @@ export default function ZakatScreen() {
           title={t("zakat.linkSadaqah")}
           subtitle={t("zakat.linkSadaqahHint")}
           onPress={() => router.push("/sadaqah")}
+          href="/sadaqah"
         />
         <JannahNavRow
           icon={{ ios: "fork.knife", android: "restaurant", web: "restaurant" }}
           title={t("zakat.linkFidyah")}
           subtitle={t("zakat.linkFidyahHint")}
           onPress={() => router.push("/fidyah")}
+          href="/fidyah"
         />
       </LearnColumnsGrid>
     </Card>
@@ -208,6 +252,7 @@ export default function ZakatScreen() {
             title={t(`zakat.guide.${topicId}.title`)}
             subtitle={t(`zakat.guide.${topicId}.summary`)}
             onPress={() => router.push({ pathname: "/zakat/[topic]", params: { topic: topicId } })}
+            href={`/zakat/${topicId}`}
           />
         ))}
       </LearnColumnsGrid>
@@ -247,7 +292,7 @@ export default function ZakatScreen() {
           )
         }
       >
-        <Seo path="/zakat" />
+        <ToolSeo path="/zakat" name={t("zakat.title")} jsonLd={seoJsonLd} />
         {madhhabPrompt.sheet}
         {wide.twoPane ? (
           <Stagger>

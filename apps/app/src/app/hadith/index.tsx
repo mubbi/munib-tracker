@@ -137,6 +137,7 @@ export default function HadithHomeScreen() {
                 .filter(Boolean)
                 .join(" · ")}
               onPress={() => open(collection.id)}
+              href={`/hadith/${collection.id}`}
             />
           );
         })}
@@ -179,6 +180,7 @@ export default function HadithHomeScreen() {
     <Card
       key="today"
       onPress={() => router.push("/hadith/daily")}
+      href="/hadith/daily"
       accessibilityLabel={t("dailyHadith.title")}
       style={{
         backgroundColor: tokens.status.info.soft,

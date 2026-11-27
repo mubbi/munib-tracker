@@ -7,7 +7,7 @@ import { JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { CurrencyField } from "@/components/money/currency-field";
 import { useMoneyNumberFormat } from "@/components/money/use-number-format";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { TvNumberStepper } from "@/components/tv-number-stepper";
 import { Button } from "@/components/ui/button";
@@ -309,6 +309,7 @@ export default function SadaqahScreen() {
           title={t("sadaqah.linkZakat")}
           subtitle={t("sadaqah.linkZakatHint")}
           onPress={() => router.push("/zakat" as Href)}
+          href="/zakat"
         />
         <JannahNavRow
           icon={{ ios: "text.book.closed", android: "article", web: "article" }}
@@ -320,6 +321,7 @@ export default function SadaqahScreen() {
               params: { topic: "sadaqah-voluntary-giving" },
             } as Href)
           }
+          href="/finance/sadaqah-voluntary-giving"
         />
       </View>
     </Card>
@@ -333,7 +335,7 @@ export default function SadaqahScreen() {
       subtitle={t("sadaqah.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
     >
-      <Seo path="/sadaqah" />
+      <ToolSeo path="/sadaqah" name={t("sadaqah.title")} />
       <Stagger>
         <Callout tone="info">{t("sadaqah.intro")}</Callout>
 

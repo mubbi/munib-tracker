@@ -106,6 +106,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
                 icon={HAYD_ICON}
                 label={t("umrahMode.lock.haydGuide")}
                 onPress={() => router.push("/hayd" as Href)}
+                href="/hayd"
               />
             </View>
           ) : null}
@@ -118,6 +119,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
                 icon={CHECKLIST_ICON}
                 label={t("umrahMode.prepare.checklist")}
                 onPress={() => router.push("/umrah/checklist" as Href)}
+                href="/umrah/checklist"
               />
               <NavRow
                 icon={GUIDE_ICON}
@@ -163,6 +165,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
               icon={DUA_ICON}
               label={t("umrahMode.tawaf.myDuas")}
               onPress={() => router.push("/dua/favorites" as Href)}
+              href="/dua/favorites"
             />
           </View>
         </Card>
@@ -196,11 +199,13 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
               icon={DUA_ICON}
               label={t("umrahMode.tawaf.myDuas")}
               onPress={() => router.push("/dua/favorites" as Href)}
+              href="/dua/favorites"
             />
             <NavRow
               icon={DUA_ICON}
               label={t("umrahMode.complete.browseDuas")}
               onPress={() => router.push("/dua" as Href)}
+              href="/dua"
             />
           </View>
         </Card>
