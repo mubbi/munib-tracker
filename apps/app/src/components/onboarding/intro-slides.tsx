@@ -83,7 +83,7 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
   const brandBlock = (
     <>
       <ThemedText
-        type="header"
+        type={tv ? "header" : "display"}
         style={[styles.bismillah, tv ? null : styles.bismillahLarge, { color: Brand.heroAccent }]}
       >
         ﷽
@@ -387,11 +387,12 @@ const styles = StyleSheet.create({
   bismillah: {
     textAlign: "center",
   },
-  // ﷽ is a single ligature glyph, so it needs a much larger size than a word to
-  // read at the same weight. Phone / web only — the TV column is height-bound.
+  // ﷽ is a single ligature glyph, so it uses the `display` type size (phone /
+  // web only — the TV column is height-bound) with a taller line so the
+  // ligature's ascenders and descenders are not clipped.
   bismillahLarge: {
-    fontSize: 54,
     lineHeight: 72,
+    letterSpacing: 0,
   },
   logoWrap: {
     width: 180,
