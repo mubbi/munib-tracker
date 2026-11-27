@@ -49,13 +49,14 @@ function routeForFile(file) {
   return `/${rel}`.replace(/\/+$/, "") || "/";
 }
 
+// `&amp;` is decoded last so `&amp;lt;` stays the literal text `&lt;` (no double unescape).
 const decode = (s) =>
   s
-    .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
     .replace(/&#x27;|&#39;/g, "'")
     .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
 
 function headOf(html) {
   const head = html.split(/<\/head>/i)[0];

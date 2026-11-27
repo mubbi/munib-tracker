@@ -559,7 +559,13 @@ function injectHeadIntoHtml(html, fullTitle, tags, htmlLang, { mode = "fill" } =
   if (mode === "replace") {
     // Locale copies are cloned from the English page — drop its JSON-LD so the
     // localized blocks below are the only ones (no English + localized twins).
-    html = html.replace(STATIC_JSON_LD_RE, "");
+    // Repeat until stable: one pass over `<scr<script …>…</script>ipt …>` would
+    // leave a freshly assembled block behind.
+    let previous;
+    do {
+      previous = html;
+      html = html.replace(STATIC_JSON_LD_RE, "");
+    } while (html !== previous);
   }
   const missing = [];
   for (const tag of tags) {
