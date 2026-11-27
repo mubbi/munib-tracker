@@ -19,13 +19,13 @@ Script: `apps/app/scripts/android-release-all.js` (shared runner `apps/app/scrip
 
 ## What it does
 
-| Device   | versionName key (apps/app/.env) | Prebuild                                 | Release                       | Root output               |
-| -------- | ------------------------------- | ---------------------------------------- | ----------------------------- | ------------------------- |
-| `mobile` | `EXPO_ANDROID_APP_VERSION`      | `pnpm cleanbuild:app:android`            | `pnpm release:app:android`    | `mobile-<code>-<ver>.aab` |
-| `wearos` | `EXPO_ANDROID_APP_VERSION`      | none (reuses the phone tree's `:wear`)\* | `pnpm release:app:wear`       | `wearos-<code>-<ver>.aab` |
-| `tv`     | `EXPO_ANDROID_TV_APP_VERSION`   | `pnpm prebuild:app:tv:android` (clean)   | `pnpm release:app:android-tv` | `tv-<code>-<ver>.aab`     |
+| Device   | versionName key (apps/app/.env) | Prebuild                                                    | Release                       | Root output               |
+| -------- | ------------------------------- | ----------------------------------------------------------- | ----------------------------- | ------------------------- |
+| `mobile` | `EXPO_ANDROID_APP_VERSION`      | `pnpm cleanbuild:app:android`                               | `pnpm release:app:android`    | `mobile-<code>-<ver>.aab` |
+| `wearos` | `EXPO_ANDROID_APP_VERSION`      | none if `android/` is already the phone tree with `:wear`\* | `pnpm release:app:wear`       | `wearos-<code>-<ver>.aab` |
+| `tv`     | `EXPO_ANDROID_TV_APP_VERSION`   | `pnpm prebuild:app:tv:android` (clean)                      | `pnpm release:app:android-tv` | `tv-<code>-<ver>.aab`     |
 
-\* When Wear runs without mobile in the same invocation, the script clean-prebuilds the phone tree first.
+\* If `android/` is missing, is the TV tree, or lacks `:wear`, the script clean-prebuilds the phone tree first.
 
 - Phone, Wear and TV share Play package `app.munibtracker` → one `EXPO_ANDROID_VERSION_CODE` counter, +1 per device. The script rewrites it in `apps/app/.env` right before each device's build, so after a full run `.env` holds the TV code.
 - Phases are strictly sequential, because a clean prebuild wipes `apps/app/android/`. Before each prebuild it runs `adb kill-server` + `gradlew --stop` to avoid EBUSY.

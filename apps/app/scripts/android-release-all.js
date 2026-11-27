@@ -11,7 +11,7 @@
  *
  * Phases run strictly one at a time — a clean prebuild wipes android/:
  *   mobile  pnpm cleanbuild:app:android      → pnpm release:app:android     (EXPO_ANDROID_APP_VERSION)
- *   wearos  (reuses the phone tree; `:wear`) → pnpm release:app:wear        (EXPO_ANDROID_APP_VERSION)
+ *   wearos  (reuses the phone tree's `:wear`) → pnpm release:app:wear        (EXPO_ANDROID_APP_VERSION)
  *   tv      pnpm prebuild:app:tv:android     → pnpm release:app:android-tv  (EXPO_ANDROID_TV_APP_VERSION)
  *
  * Usage (from the repo root):
@@ -26,6 +26,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { appRoot, run, runReleaseAll } = require("./lib/release-all.cjs");
+const { isAndroidTvProject } = require("./lib/tv-native-project.cjs");
 
 const androidDir = path.join(appRoot, "android");
 const CODE_KEY = "EXPO_ANDROID_VERSION_CODE";
@@ -42,6 +43,19 @@ function releaseAndroidDirLocks() {
   if (adb && fs.existsSync(adb)) run(`"${adb}"`, ["kill-server"], { stdio: "ignore" });
   const gradlew = path.join(androidDir, process.platform === "win32" ? "gradlew.bat" : "gradlew");
   if (fs.existsSync(gradlew)) run(`"${gradlew}"`, ["--stop"], { cwd: androidDir, stdio: "ignore" });
+}
+
+/** android/ is already the phone tree with the `:wear` module (e.g. from an earlier phone build). */
+function hasPhoneTreeWithWear() {
+  const settings = ["settings.gradle", "settings.gradle.kts"]
+    .map((f) => path.join(androidDir, f))
+    .find((f) => fs.existsSync(f));
+  return (
+    !!settings &&
+    fs.readFileSync(settings, "utf8").includes(":wear") &&
+    fs.existsSync(path.join(androidDir, "wear")) &&
+    !isAndroidTvProject(appRoot)
+  );
 }
 
 const artifact =
@@ -62,20 +76,14 @@ runReleaseAll({
       prebuild: PHONE_PREBUILD,
       release: ["release:app:android"],
       artifact: artifact("app-release.aab"),
-      after: (state) => {
-        state.phoneTree = true;
-      },
     },
     wearos: {
       codeKey: CODE_KEY,
       versionKey: "EXPO_ANDROID_APP_VERSION",
-      // `:wear` only exists in the phone tree — reuse it when mobile just ran, else clean-prebuild it.
-      prebuild: (state) => (state.phoneTree ? null : PHONE_PREBUILD),
+      // `:wear` only exists in the phone tree — reuse it when present, else clean-prebuild it.
+      prebuild: () => (hasPhoneTreeWithWear() ? null : PHONE_PREBUILD),
       release: ["release:app:wear"],
       artifact: artifact("wear", "wear-release.aab"),
-      after: (state) => {
-        state.phoneTree = true;
-      },
     },
     tv: {
       codeKey: CODE_KEY,
@@ -83,9 +91,6 @@ runReleaseAll({
       prebuild: ["prebuild:app:tv:android"],
       release: ["release:app:android-tv"],
       artifact: artifact("tv", "app-release.aab"),
-      after: (state) => {
-        state.phoneTree = false;
-      },
     },
   },
 });
