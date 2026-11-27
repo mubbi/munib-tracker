@@ -13,6 +13,7 @@ import { ReadingTtsButton } from "@/components/content/reading-tts-button";
 import { resetTtsVoicesCache } from "@/lib/tts";
 import { AudioPlayerProvider, useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { devicePreferencesStore } from "@/stores/device-preferences-store";
+import { captureAnimationFrames } from "@/test-support/animation-frames";
 import { setMockLiquidGlass } from "@/test-support/mocks/glass-surface";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithProviders } from "@/test-support/render";
@@ -167,6 +168,9 @@ async function pickVoiceFromListen(name: string) {
 }
 
 beforeEach(() => {
+  // The mini-player's progress loop runs on requestAnimationFrame (real timers
+  // under the RN preset): hold the frames so it never ticks outside act().
+  captureAnimationFrames();
   caught.length = 0;
   unhandled.length = 0;
   resetTtsVoicesCache();
@@ -176,6 +180,7 @@ beforeEach(() => {
 
 afterEach(() => {
   process.off("unhandledRejection", onUnhandled);
+  jest.restoreAllMocks();
 });
 
 function expectNoCrash() {
