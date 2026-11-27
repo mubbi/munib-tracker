@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({
     locale,
     path,
+    markdown: true,
     title: article.seoTitle,
     description: article.seoDescription,
     type: "article",

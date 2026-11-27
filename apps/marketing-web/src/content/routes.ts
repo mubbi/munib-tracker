@@ -22,6 +22,15 @@ export const FEATURE_SLUGS = [
   "fasting-tracker",
   "umrah-mode",
   "private-reflection",
+  "tasbeeh-counter",
+  "duas-hisnul-muslim",
+  "99-names-of-allah",
+  "zakat-calculator",
+  "qibla-finder",
+  "hijri-calendar",
+  "ramadan-tracker",
+  "hifz-tracker",
+  "kids-mode",
 ] as const;
 
 export const COMPARE_SLUGS = [
@@ -32,6 +41,9 @@ export const COMPARE_SLUGS = [
   "munib-tracker-vs-pillars",
   "munib-tracker-vs-athan",
   "islamic-habit-tracker-apps",
+  "muslim-pro-alternatives",
+  "best-quran-memorization-apps",
+  "best-free-islamic-apps",
 ] as const;
 
 export const AUDIENCE_SLUGS = ["new-muslims", "quran-learners", "beginners", "families"] as const;
@@ -42,8 +54,17 @@ export const ARTICLE_SLUGS: Readonly<Record<string, readonly string[]>> = {
     "how-to-build-a-consistent-salah-habit",
     "what-is-qaza-salah",
     "how-to-track-missed-prayers",
+    "how-to-pray-salah-step-by-step",
+    "how-to-make-wudu",
+    "how-to-pray-tahajjud",
+    "sunnahs-of-friday-jumuah",
+    "how-to-pray-witr",
+    "salat-al-istikhara",
+    "how-to-pray-janazah",
+    "how-to-pray-while-travelling",
+    "eid-prayer-and-sunnahs",
   ],
-  zikr: ["how-to-build-a-daily-zikr-routine", "morning-and-evening-adhkar"],
+  zikr: ["how-to-build-a-daily-zikr-routine", "morning-and-evening-adhkar", "how-to-make-dua"],
   "quran-learning": [
     "how-to-start-learning-the-quran",
     "how-to-improve-quran-recitation",
@@ -54,6 +75,16 @@ export const ARTICLE_SLUGS: Readonly<Record<string, readonly string[]>> = {
   "islamic-habits": [
     "how-to-stay-consistent-with-daily-worship",
     "how-to-build-better-islamic-habits",
+  ],
+  "ramadan-fasting": [
+    "how-to-prepare-for-ramadan",
+    "sunnah-fasts-through-the-year",
+    "laylat-al-qadr-guide",
+  ],
+  "zakat-hajj": [
+    "how-to-calculate-zakat",
+    "how-to-perform-umrah-step-by-step",
+    "how-to-perform-hajj-step-by-step",
   ],
 };
 

@@ -20,7 +20,7 @@ import { SITE_PATHS } from "@/lib/site";
  */
 
 /** Last substantive edit of the static (non-registry) pages. Bump when they change. */
-const STATIC_PAGES_UPDATED = "2026-11-23";
+const STATIC_PAGES_UPDATED = "2026-11-27";
 
 const STATIC_PRIORITY: Partial<Record<string, number>> = {
   "/": 1,

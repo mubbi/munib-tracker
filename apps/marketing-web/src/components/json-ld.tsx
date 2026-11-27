@@ -58,7 +58,7 @@ export function SoftwareJsonLd() {
   );
 }
 
-/** FAQPage structured data — only on the dedicated /faq page. */
+/** FAQPage structured data for the /faq page (content templates use `faqNodes`). */
 export function FaqJsonLd({ items }: { items: readonly FaqItem[] }) {
   return <JsonLdScript data={graph(faqPageSchema(items))} />;
 }

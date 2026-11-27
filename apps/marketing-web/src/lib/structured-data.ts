@@ -18,8 +18,10 @@ import { GITHUB_REPO_URL, productAppUrl, SITE_URL, storeUrls } from "@/lib/site"
  * - Describe only what is visible on the page.
  * - No aggregateRating / review — we have no first-party review data and
  *   never invent ratings.
- * - FAQPage only on the dedicated /faq page (FAQ rich results are limited to
- *   authoritative government/health sites; markup elsewhere adds nothing).
+ * - FAQPage wherever a page shows visible Q&A (/faq, feature, audience,
+ *   comparison and guide pages). Google limits FAQ rich results to
+ *   authoritative government/health sites, but answer engines and AI
+ *   assistants still read the markup, and every answer is on the page itself.
  *
  * Builders take the page's `locale`: URLs point at that locale's pages and
  * `inLanguage` is its BCP 47 tag. Prose (descriptions, names) is passed in
@@ -188,6 +190,8 @@ export function webPageSchema(p: {
   path: string;
   name: string;
   description: string;
+  /** ISO date of the last substantive edit (a content page's `updated`). */
+  modified?: string;
 }): Json {
   const url = localizedUrl(p.path, p.locale);
   return {
@@ -196,6 +200,7 @@ export function webPageSchema(p: {
     url,
     name: p.name,
     description: p.description,
+    ...(p.modified ? { dateModified: p.modified } : {}),
     inLanguage: inLanguage(p.locale),
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": SOFTWARE_ID },
@@ -227,6 +232,11 @@ export function faqPageSchema(items: readonly FaqItem[]): Json {
       acceptedAnswer: { "@type": "Answer", text: stripMarkup(item.answer) },
     })),
   };
+}
+
+/** FAQPage for a page's visible FAQ, or nothing when it has none (spread into `graph`). */
+export function faqNodes(items: readonly FaqItem[] | undefined): Json[] {
+  return items?.length ? [faqPageSchema(items)] : [];
 }
 
 /** Wraps nodes in a single `@graph` document. */

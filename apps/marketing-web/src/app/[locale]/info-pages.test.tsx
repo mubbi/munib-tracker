@@ -23,7 +23,7 @@ const PAGES: [string, ComponentType, string][] = [
   ["features hub", FeaturesPage, "Everything Munib Tracker can do"],
   ["audiences hub", AudienceHub, "Who Munib Tracker is for"],
   ["compare hub", CompareHub, "Compare Munib Tracker with other Islamic apps"],
-  ["resources hub", ResourcesHub, "Guides for Salah, Zikr and learning the Qur'an"],
+  ["resources hub", ResourcesHub, "Guides for Salah, Zikr, the Qur'an, fasting and zakat"],
 ];
 
 afterEach(() => {

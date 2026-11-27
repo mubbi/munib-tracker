@@ -1,18 +1,17 @@
 {
   "dialogLabel": "Cookie consent",
-  "noAds": "<strong>No advertising or marketing tracking — ever.</strong> We never use cookies to build an ad profile, retarget you, or sell your data. Optional analytics, if you enable them, only help us improve {appName}.",
   "summary": {
-    "title": "Your privacy, your choice",
-    "body": "We use essential cookies to keep the site running and, with your permission, optional analytics to understand how people use it. See our <link>Privacy Policy</link>."
+    "title": "Help us improve, privately",
+    "body": "Allow Google Analytics so we can see, in overall numbers, which pages help people most. <link>How we use it</link>"
   },
   "details": {
-    "title": "Cookie preferences",
-    "body": "Choose which cookies you allow. Essential cookies stay on. Full details are in our <link>Privacy Policy</link>."
+    "title": "Cookie settings",
+    "body": "Essential cookies keep the site working. Analytics are optional and stay off until you allow them. <link>Privacy Policy</link>"
   },
-  "managePreferences": "Manage preferences",
+  "managePreferences": "Choose what to allow",
   "essentialOnly": "Essential only",
-  "acceptAll": "Accept all",
-  "saveChoices": "Save my choices",
+  "acceptAll": "Allow analytics",
+  "saveChoices": "Save choices",
   "close": "Close",
   "back": "Back",
   "alwaysOn": "Always on",
@@ -22,11 +21,16 @@
   "items": {
     "essential": {
       "title": "Essential",
-      "description": "Required for the site to work — security, session management, and core features. These cannot be turned off."
+      "description": "Needed for the site to work, such as security and remembering this choice."
     },
     "analytics": {
       "title": "Analytics",
-      "description": "Helps us understand which pages people find useful and how the site performs, so we can keep improving it. Never used for advertising."
+      "description": "Page statistics through Google Analytics, so we know which pages help. Never used for ads or ad profiles."
     }
+  },
+  "promises": {
+    "noAds": "No ads",
+    "noProfiling": "No profiling",
+    "neverSold": "Never sold"
   }
 }

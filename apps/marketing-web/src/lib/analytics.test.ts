@@ -13,9 +13,12 @@ import {
   trackDownloadClick,
   trackFaqToggle,
   trackFileDownload,
+  trackLanguageSwitch,
   trackMarketingEvent,
+  trackMenuOpen,
   trackNavClick,
   trackOutboundClick,
+  trackScrollDepth,
   trackSelectContent,
   trackWebDemoLaunch,
 } from "./analytics";
@@ -124,6 +127,30 @@ describe("analytics", () => {
       platform: "web",
       placement: "cta",
     });
+  });
+
+  it("attributes downloads and web trials to the feature page they came from", () => {
+    trackWebDemoLaunch("feature_hero", "qibla-finder");
+    expect(trackGtagEvent).toHaveBeenCalledWith("download_click", {
+      platform: "web",
+      placement: "feature_hero",
+      feature: "qibla-finder",
+    });
+  });
+
+  it("tracks menus, language switches and scroll depth", () => {
+    trackMenuOpen("features", "desktop");
+    expect(trackGtagEvent).toHaveBeenCalledWith("menu_open", {
+      menu: "features",
+      device: "desktop",
+    });
+    trackLanguageSwitch("en", "ur");
+    expect(trackGtagEvent).toHaveBeenCalledWith("language_switch", {
+      from_language: "en",
+      to_language: "ur",
+    });
+    trackScrollDepth(75);
+    expect(trackGtagEvent).toHaveBeenCalledWith("scroll_depth", { percent: 75 });
   });
 
   it("trackMarketingEvent forwards arbitrary events", () => {

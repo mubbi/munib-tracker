@@ -19,7 +19,7 @@ import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
 import type { AudiencePage } from "@/content/types";
 import { Link } from "@/i18n/navigation";
-import { graph, webPageSchema } from "@/lib/structured-data";
+import { faqNodes, graph, webPageSchema } from "@/lib/structured-data";
 
 export function AudienceTemplate({ page }: { page: AudiencePage }) {
   const t = useTranslations("templates");
@@ -33,7 +33,14 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
     <>
       <JsonLdScript
         data={graph(
-          webPageSchema({ locale, path, name: page.title, description: page.seoDescription }),
+          webPageSchema({
+            locale,
+            path,
+            name: page.title,
+            description: page.seoDescription,
+            modified: page.updated,
+          }),
+          ...faqNodes(page.faqs),
         )}
       />
       <PageHero

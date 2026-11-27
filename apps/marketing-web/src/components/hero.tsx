@@ -164,8 +164,11 @@ export function Hero() {
         </HeroStagger>
 
         {/* Real captures of the home screen, in the visitor's language */}
-        <HeroDevice className="relative flex justify-center lg:justify-end">
+        <HeroDevice className="relative flex flex-col items-center lg:items-end">
           <HeroDevices />
+          <p className="hero-text-shadow-soft mt-3 max-w-md text-balance text-center text-[13px] leading-relaxed text-white/70 lg:me-[4%] lg:max-w-lg">
+            {t("platforms")}
+          </p>
         </HeroDevice>
       </div>
 
@@ -181,11 +184,14 @@ export function Hero() {
         <MosqueSkyline />
       </div>
 
-      {/* Golden crescent moon glowing over the water */}
+      {/* Golden crescent moon low in the evening sky over the water, at the
+          height of the mosque's domes and minarets — above the horizon line,
+          never resting on it. Offsets follow the skyline strip (200px / 240px
+          tall); logical `start` mirrors it in RTL. */}
       <svg
         aria-hidden
         viewBox="0 0 100 100"
-        className="pointer-events-none absolute bottom-[5%] left-[69%] z-[1] size-11 rotate-[24deg] drop-shadow-[0_0_22px_rgba(246,214,130,0.9)] sm:size-12"
+        className="pointer-events-none absolute bottom-[128px] start-[69%] z-[1] size-10 rotate-[24deg] drop-shadow-[0_0_22px_rgba(246,214,130,0.9)] sm:bottom-[158px] sm:size-12"
       >
         <title>{t("moonTitle")}</title>
         <path d="M68 54a30 30 0 11-26-32 24 24 0 1026 32z" fill="#f2cd7e" />
@@ -195,24 +201,42 @@ export function Hero() {
 }
 
 /**
- * The home screen on four devices standing on one floor line, like a product
- * line-up: every device's bottom edge sits on the same baseline, with a soft
- * ground shadow and a faint floor reflection (Chromium/Safari).
+ * The home screen on four devices, staged like a product-family photo so each
+ * reads as its own device:
  *
- * - `sm`+: Apple TV at the back, iPad overlapping it on the inline-end side,
- *   the iPhone in front of both with an Apple Watch right beside it.
- * - phones: iPad, iPhone and watch (a TV would be too small to read).
+ * - **Front row** on one tabletop line: Apple Watch, iPhone (the hero / LCP
+ *   image) and iPad, side by side with even gaps — no device hides
+ *   another.
+ * - **Back:** the TV, centred behind the row and raised on its stand, slightly
+ *   dimmed so it recedes; the row covers only its lower part (`sm`+ only — on
+ *   phones a TV would be too small to read).
  *
- * The TV shows the tvOS capture where it exists in the page locale (English),
- * otherwise the localized Android TV capture — never an English TV screen on
- * an Arabic/Urdu page. Widths are % of a fixed-aspect stage, so the line-up
- * scales as one; logical `start`/`end` offsets mirror it in RTL. Only the
- * iPhone (the LCP image) is preloaded.
+ * Every device has a warm rim light that traces its outline, a drop shadow and
+ * its own contact shadow on a softly lit tabletop, so dark screens stay apart
+ * on the dark sky. The TV shows the tvOS capture where it exists in the page
+ * locale (English), otherwise the localized Android TV capture. Positions are
+ * % of a fixed-aspect stage, so it scales as one; logical `start` mirrors it
+ * in RTL. Only the iPhone is preloaded.
  */
-const FLOOR = "bottom-[6%]";
-/** Faint mirror image on the floor (no-op where box-reflect is unsupported). */
-const REFLECT =
-  "[-webkit-box-reflect:below_0.25rem_linear-gradient(transparent_80%,rgba(255,255,255,0.13))]";
+
+/** Warm 1px rim light along the device outline + a soft drop shadow (follows rounded corners). */
+const RIM =
+  "[filter:drop-shadow(0_0_0.6px_rgba(255,236,205,0.75))_drop-shadow(0_0_14px_rgba(255,214,150,0.14))_drop-shadow(0_24px_30px_rgba(2,6,14,0.55))]";
+/** Back layer: fainter rim, dimmed so it reads as further away. */
+const RIM_BACK =
+  "[filter:drop-shadow(0_0_0.6px_rgba(255,236,205,0.45))_drop-shadow(0_22px_30px_rgba(2,6,14,0.5))_brightness(0.82)_saturate(0.9)]";
+/** The tabletop line every front-row device stands on. */
+const ROW = "bottom-[7%]";
+
+/** An oval contact shadow on the tabletop under one device. */
+function ContactShadow({ className }: { className: string }) {
+  return (
+    <div
+      aria-hidden
+      className={`absolute bottom-[5%] -z-10 h-[4.5%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(2,6,14,0.75),transparent)] blur-[5px] ${className}`}
+    />
+  );
+}
 
 function HeroDevices() {
   const locale = useLocale();
@@ -223,50 +247,48 @@ function HeroDevices() {
   const tv = appleTv.locale === locale ? appleTv : androidTv;
   const watch = useCapture("watch", "schedule");
   return (
-    <div className="relative aspect-[10/9] w-full max-w-[480px] sm:aspect-[16/10.4] sm:max-w-[700px] lg:-me-[10%] lg:w-[128%] lg:max-w-none">
+    <div className="relative aspect-[10/8] w-full max-w-[520px] sm:aspect-[16/11] sm:max-w-[720px] lg:-me-[8%] lg:w-[124%] lg:max-w-none">
       {/* Warm bloom behind the line-up */}
       <div
         aria-hidden
-        className="absolute left-1/2 top-[45%] -z-10 aspect-square w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.3)_0%,rgba(240,185,104,0.08)_45%,transparent_68%)]"
+        className="absolute left-1/2 top-[45%] -z-20 aspect-square w-[105%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.24)_0%,rgba(240,185,104,0.07)_45%,transparent_68%)]"
       />
-      {/* Floor: a hairline of light and the ground shadow under every device */}
+      {/* Tabletop: a soft lit surface and a hairline edge under the front row */}
       <div
         aria-hidden
-        className="absolute inset-x-[2%] bottom-[6%] -z-10 h-px bg-[linear-gradient(90deg,transparent,rgba(255,236,200,0.35)_20%,rgba(255,236,200,0.35)_80%,transparent)]"
+        className="absolute inset-x-[4%] bottom-0 -z-10 h-[16%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(255,226,180,0.13),transparent)]"
       />
       <div
         aria-hidden
-        className="absolute inset-x-[4%] bottom-[3%] -z-10 h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(6,10,20,0.65),transparent)] blur-md"
+        className="absolute inset-x-[10%] bottom-[6.5%] -z-10 h-px bg-[linear-gradient(90deg,transparent,rgba(255,236,200,0.28)_25%,rgba(255,236,200,0.28)_75%,transparent)]"
       />
 
-      {/* Back: TV (sm+) */}
-      <div className={`absolute ${FLOOR} start-0 hidden w-[84%] sm:block ${REFLECT}`}>
-        <DeviceScreen shot={tv} className="w-full" sizes="(min-width: 1024px) 640px, 560px" />
+      {/* Back: TV centred behind the row, raised on its stand (sm+) */}
+      <div className={`absolute bottom-[33%] start-[15%] hidden w-[70%] sm:block ${RIM_BACK}`}>
+        <DeviceScreen shot={tv} className="w-full" sizes="(min-width: 1024px) 560px, 500px" />
       </div>
 
-      {/* iPad: overlapping the TV on the inline-end side */}
-      <div className={`absolute ${FLOOR} end-0 z-10 w-[60%] sm:w-[36%] ${REFLECT}`}>
-        <DeviceScreen shot={ipad} className="w-full" sizes="(min-width: 640px) 280px, 60vw" />
+      {/* Front row, phones: watch · iPhone · iPad, evenly spaced. sm+: the same
+          row, narrower, under the TV. */}
+      <div className={`absolute ${ROW} start-[2%] z-30 w-[15%] sm:start-[18%] sm:w-[11%] ${RIM}`}>
+        <DeviceScreen shot={watch} className="w-full" sizes="(min-width: 640px) 90px, 16vw" />
       </div>
+      <ContactShadow className="start-[3%] w-[13%] sm:start-[18.5%] sm:w-[10%]" />
 
-      {/* Front: the iPhone — the hero (LCP) image, overlapping TV and iPad */}
-      <div
-        className={`absolute ${FLOOR} end-[42%] z-30 w-[36%] sm:end-[26%] sm:w-[24%] ${REFLECT}`}
-      >
+      <div className={`absolute ${ROW} start-[21%] z-40 w-[31%] sm:start-[32%] sm:w-[19%] ${RIM}`}>
         <DeviceScreen
           shot={iphone}
           className="w-full"
-          sizes="(min-width: 640px) 200px, 36vw"
+          sizes="(min-width: 640px) 170px, 30vw"
           preload
         />
       </div>
+      <ContactShadow className="start-[22%] w-[29%] sm:start-[32.5%] sm:w-[18%]" />
 
-      {/* Front: Apple Watch right beside the iPhone */}
-      <div
-        className={`absolute ${FLOOR} end-[76%] z-40 w-[22%] sm:end-[48.5%] sm:w-[14%] ${REFLECT}`}
-      >
-        <DeviceScreen shot={watch} className="w-full" sizes="(min-width: 640px) 120px, 22vw" />
+      <div className={`absolute ${ROW} start-[57%] z-30 w-[40%] sm:start-[54%] sm:w-[28%] ${RIM}`}>
+        <DeviceScreen shot={ipad} className="w-full" sizes="(min-width: 640px) 240px, 40vw" />
       </div>
+      <ContactShadow className="start-[58%] w-[38%] sm:start-[55%] sm:w-[26%]" />
     </div>
   );
 }

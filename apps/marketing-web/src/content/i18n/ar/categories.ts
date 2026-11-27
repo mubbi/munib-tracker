@@ -42,4 +42,22 @@ export const TRANSLATIONS: readonly ResourceCategory[] = [
     description: "ابنِ عادات تدوم وواظب على العبادة اليومية دون أن تُنهك نفسك.",
     feature: "daily-islamic-habits",
   },
+  {
+    slug: "ramadan-fasting",
+    title: "رمضان والصيام",
+    seoTitle: "أدلة رمضان والصيام — صيام التطوع وليلة القدر",
+    seoDescription:
+      "أدلة موثّقة بالمصادر للاستعداد لرمضان، وصيام التطوع المستحب على مدار العام، وتحرّي ليلة القدر في العشر الأواخر.",
+    description: "استعد لرمضان، وحافظ على صيام السنة طوال العام، وتحرَّ ليلة القدر.",
+    feature: "ramadan-tracker",
+  },
+  {
+    slug: "zakat-hajj",
+    title: "الزكاة والحج والعمرة",
+    seoTitle: "أدلة الزكاة والحج والعمرة — خطوة بخطوة مع المصادر",
+    seoDescription:
+      "أدلة عملية موثّقة لحساب زكاة المال والذهب، وأداء الحج والعمرة خطوة بخطوة، مع أبرز مواضع اختلاف المذاهب.",
+    description: "احسب زكاتك، وأدِّ الحج والعمرة خطوة بخطوة.",
+    feature: "zakat-calculator",
+  },
 ];

@@ -65,8 +65,13 @@ describe("TrackedLink", () => {
     ],
     [
       "web_demo",
-      { track: "web_demo", href: "https://my.munibtracker.app", placement: "footer" },
-      () => expect(trackWebDemoLaunch).toHaveBeenCalledWith("footer"),
+      {
+        track: "web_demo",
+        href: "https://my.munibtracker.app/zakat",
+        placement: "feature_hero",
+        feature: "zakat-calculator",
+      },
+      () => expect(trackWebDemoLaunch).toHaveBeenCalledWith("feature_hero", "zakat-calculator"),
     ],
   ])("fires the %s event on click", (_name, props, assertTracked) => {
     fireEvent.click(setup(props));

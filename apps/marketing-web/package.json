@@ -12,14 +12,14 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "sync:screenshots": "node scripts/sync-screenshots.mjs",
-    "transit": "echo transit"
+    "transit": "echo transit",
+    "indexnow": "node scripts/indexnow.ts"
   },
   "dependencies": {
     "@munib-tracker/db": "workspace:*",
     "@munib-tracker/shared": "workspace:*",
     "@munib-tracker/theme": "workspace:*",
     "drizzle-orm": "^0.45.4",
-    "framer-motion": "^14.14.0",
     "lucide-react": "^1.79.0",
     "next": "16.4.6",
     "next-intl": "4.16.1",

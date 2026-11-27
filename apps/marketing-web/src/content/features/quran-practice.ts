@@ -21,7 +21,7 @@ export const quranPractice: FeaturePage = {
   ],
   cluster: "quran-practice",
   published: "2026-11-23",
-  updated: "2026-11-24",
+  updated: "2026-11-27",
   eyebrow: "Qur'an practice",
   intro:
     "Tap the microphone and recite. An AI listener running on your own device follows along word by word, then shows which words to try again. Use it to memorize, revise and build confidence between lessons with your teacher, privately and for free.",
@@ -74,6 +74,15 @@ export const quranPractice: FeaturePage = {
           "Plain explanations of each rule, such as qalqalah, ghunnah, shaddah, madd and the sun letters",
           "Short sound drills for qalqalah, ghunnah and shaddah, and listen-and-repeat cards for the others",
           "Spaced practice: each sound shows how often you've practised it and when it comes back, never a score",
+        ],
+      },
+      {
+        title: "Recite anywhere in the app",
+        items: [
+          "**Recite to find:** recite a few words of any ayah and the app finds it, so you can open it in the reader or practise from there",
+          "Recite-along shortcuts where you need them: check your al-Fatihah from the Salah guide, recite al-Kahf on Friday, Ayat al-Kursi after Salah, today's khatm portion, and Qur'anic duas",
+          "Ayahs you recite in practice count towards your daily reading log and your khatm plan (you can turn this off)",
+          "A kids recite-along in kids mode: short surahs, words that light up as the child recites, and no scores",
         ],
       },
       {
@@ -188,7 +197,12 @@ export const quranPractice: FeaturePage = {
     {
       question: "Is it suitable for children?",
       answer:
-        "Children can use it with a parent, but the listener may be less reliable for children's voices. See our page for [families](/for/families).",
+        "Yes, with a parent. Kids mode has its own recite-along with short surahs: words light up as the child recites, with gentle try-again words and no scores. The listener may be less reliable for children's voices. See our page for [families](/for/families).",
+    },
+    {
+      question: "Can I find an ayah by reciting it?",
+      answer:
+        "Yes. Open Recite to find from the Qur'an tab, search or the Verse Detector, recite a few words, and the app lists the matching ayahs with the strongest match first. It listens on your device, works offline once the listener is downloaded, and is not available on TV.",
     },
     {
       question: "Which devices support it?",

@@ -20,7 +20,7 @@ export const familyAndFriends: FeaturePage = {
   ],
   cluster: "audience",
   published: "2026-11-23",
-  updated: "2026-11-24",
+  updated: "2026-11-27",
   eyebrow: "Family & friends",
   intro:
     "Some habits are easier together. Help your children learn to pray with a simple kids mode, encourage a friend without either of you sharing details, and finish the Qur'an as a family or a Masjid circle.",
@@ -32,7 +32,7 @@ export const familyAndFriends: FeaturePage = {
         title: "Family and kids mode",
         items: [
           "A parent creates a child profile with just a nickname and birth year; no email for the child",
-          "Link the child's device with a one-time QR code, or log their Salah for them on your phone",
+          "Link the child's device with a one-time QR code or, when the phones are side by side, over Bluetooth with a 4-digit code you approve; or log their Salah for them on your phone",
           "A simple kids view: five big Salah buttons, a kids Salah path (wudu, the five prayers and how to pray), stories of the prophets, and a short, curated set of daily duas, adhkar and short surahs with audio",
           "Kids content is chosen from the app's own sourced guides and duas, and a linked child's device can't open the adult guides",
           "Stickers, stars and a real reward you set, like a park trip for a week of Salah",
@@ -58,7 +58,7 @@ export const familyAndFriends: FeaturePage = {
           "Split it by juz (default), hizb or surah",
           "Members pick their part, the creator assigns parts, or parts are dealt out in turn",
           "Read your part in the app and mark it done; everyone sees the progress",
-          "Invite by link or QR code; people without the app can join on the web as a guest",
+          "Invite by link or QR code, or add someone next to you over Bluetooth; people without the app can join on the web as a guest",
           "Start another round when the khatm is complete",
         ],
       },

@@ -20,7 +20,7 @@ export const masjidFinder: FeaturePage = {
   ],
   cluster: "prayer-times",
   published: "2026-11-23",
-  updated: "2026-11-24",
+  updated: "2026-11-27",
   eyebrow: "Masjid finder",
   intro:
     "Travelling, new to the area, or just want to pray in congregation more often? See the masjids around you, open directions in your maps app, save the one you usually pray at, and keep its iqamah times on your phone, even if they come from a printed timetable on the noticeboard.",
@@ -34,7 +34,8 @@ export const masjidFinder: FeaturePage = {
           "A list of masjids within about 7 km, nearest first",
           "Name, address, website, phone, opening hours and facilities such as wheelchair access, when OpenStreetMap has them",
           "Jumu'ah times when they are mapped on OpenStreetMap, clearly labelled as such",
-          "Open any masjid in your maps app for directions",
+          "An optional map view with a pin for each masjid: tap a pin to see the masjid and get directions",
+          "Open directions to any masjid in Google Maps",
           "Data from OpenStreetMap, credited on every list and detail screen",
         ],
       },
@@ -44,6 +45,7 @@ export const masjidFinder: FeaturePage = {
           "Save the masjid you usually pray at",
           "Type in its daily iqamah and Jumu'ah times as your own private times",
           "Or photograph its printed timetable: the text is read on your device, and you check every time before saving",
+          "For LED boards and other hard-to-read timetables, mark each time on the photo yourself and the app reads just those boxes",
           "An iqamah countdown on the home screen when the next iqamah is close",
           'An optional "time to head to the Masjid" reminder before iqamah, with your travel time',
           "Use iqamah times as the start of the Salah focus lock window",
@@ -143,7 +145,7 @@ export const masjidFinder: FeaturePage = {
     {
       tone: "info",
       title: "What it doesn't do",
-      text: "Public iqamah timetables aren't shown, because no source has passed our licence review; only your own times are used. The list has no map view: directions open in your own maps app. Timetable scanning works in the iPhone and Android apps and in the web app (after a one-time download of about 7 MB), not on TV, and you always review the times before they are saved.",
+      text: "Public iqamah timetables aren't shown, because no source has passed our licence review; only your own times are used. The map is optional and stays off until you open it, because its tiles load from OpenFreeMap, which can see the area shown on the map; directions open in Google Maps, which receives only the masjid's coordinates. Timetable scanning works in the iPhone and Android apps and in the web app (after a one-time download of about 7 MB), not on TV, and you always review the times before they are saved.",
     },
   ],
   faqs: [
@@ -156,6 +158,11 @@ export const masjidFinder: FeaturePage = {
       question: "Why doesn't my Masjid show iqamah times?",
       answer:
         "Public data rarely includes iqamah times, and no timetable source has passed our licence review yet. You can add your home masjid's times yourself, by typing them or scanning its timetable. They stay private to you.",
+    },
+    {
+      question: "Is there a map of nearby masjids?",
+      answer:
+        "Yes. The finder opens as a list, nearest first, and you can switch to a map with a pin for each masjid. The map is optional because its tiles load from OpenFreeMap, which can see the area you are looking at. Directions open in Google Maps.",
     },
     {
       question: "Is my location shared?",

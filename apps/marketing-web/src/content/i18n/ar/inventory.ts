@@ -84,7 +84,7 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
       {
         name: "البحث عن المساجد",
         detail:
-          "المساجد القريبة من OpenStreetMap، ومسجدك الأساسي مع أوقات إقامة خاصة بك، وعدّ تنازلي للإقامة، وخيار «صليت في المسجد»",
+          "المساجد القريبة من OpenStreetMap في قائمة أو خريطة اختيارية، ومسجدك الأساسي مع أوقات إقامة خاصة بك، وعدّ تنازلي للإقامة، وخيار «صليت في المسجد»",
         status: "shipped",
         nf: "NF-3.11",
         href: "/features/masjid-finder",
@@ -201,6 +201,12 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         status: "shipped",
       },
       {
+        name: "تسلسل تسبيح ما بعد الصلاة",
+        detail: "33 و33 و34 في عدّاد واحد ينتقل وحده، بالضغط أو دون لمس",
+        status: "shipped",
+        href: "/features/zikr-tracker",
+      },
+      {
         name: "منشئ الأذكار المخصصة",
         detail: "أذكارك الخاصة، مع تحويل الكلام إلى نص",
         status: "shipped",
@@ -275,7 +281,7 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
       },
       {
         name: "كاشف الآيات",
-        detail: "اعرف السورة والآية من نص عربي أو إنجليزي منطوق أو مكتوب",
+        detail: "اعرف السورة والآية من نص عربي أو إنجليزي مكتوب، أو من بضع كلمات تتلوها",
         status: "shipped",
       },
       {
@@ -314,6 +320,13 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         name: "المراجعة المتباعدة",
         detail: "تعود الآيات للمراجعة بعد 1 و3 و7 و14 و30 يومًا",
         status: "shipped",
+      },
+      {
+        name: "اتلُ لتجد والقراءة مع المستمع",
+        detail:
+          "اعثر على آية بتلاوتها، واقرأ مع المستمع من شاشات دليل الصلاة والجمعة والأذكار والختمة",
+        status: "shipped",
+        href: "/features/quran-practice",
       },
       {
         name: "تدريبات النطق",
@@ -518,6 +531,13 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         nf: "NF-3.18",
         href: "/features/family-and-friends",
       },
+      {
+        name: "الانضمام بالجوار",
+        detail:
+          "أضف شخصًا بجانبك عبر Bluetooth برمز من 4 أرقام توافق عليه؛ مع رمز QR ورموز الدعوة أيضًا",
+        status: "shipped",
+        href: "/features/family-and-friends",
+      },
     ],
   },
   {
@@ -545,7 +565,7 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
       },
       {
         name: "Apple Watch وWear OS",
-        detail: "الجدول، وتسجيل الصلاة، وإضافات واجهة الساعة، والمربّعات",
+        detail: "الجدول، وتسجيل الصلاة، والتسبيح على المعصم، وإضافات واجهة الساعة، والمربّعات",
         status: "shipped",
       },
       {
@@ -595,8 +615,8 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         status: "shipped",
       },
       {
-        name: "السمات والخطوط",
-        detail: "فاتح وداكن، و12 لونًا مميِّزًا، وسمات موسمية، وخطوط عربية",
+        name: "السمات والأيقونات والخطوط",
+        detail: "فاتح وداكن، و12 لونًا مميِّزًا، وسمات وأيقونات تطبيق موسمية، وخطوط عربية",
         status: "shipped",
       },
       {

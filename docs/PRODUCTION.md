@@ -200,12 +200,55 @@ Production client env (baked at build time):
 
 ### Marketing on Vercel
 
-| Variable                        | Example                                                                                                          |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`          | `https://munibtracker.app`                                                                                       |
-| `NEXT_PUBLIC_PRODUCT_APP_URL`   | `https://my.munibtracker.app`                                                                                    |
-| `NEXT_PUBLIC_API_URL`           | `https://api.munibtracker.app/api/v1` (if the site calls the API)                                                |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-XXXXXXXX` (optional GA4; empty disables). First-party cookie banner + Consent Mode v2 gates analytics storage |
+| Variable                           | Example                                                                                                                                                                                |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`             | `https://munibtracker.app`                                                                                                                                                             |
+| `NEXT_PUBLIC_PRODUCT_APP_URL`      | `https://my.munibtracker.app`                                                                                                                                                          |
+| `NEXT_PUBLIC_API_URL`              | `https://api.munibtracker.app/api/v1` (if the site calls the API)                                                                                                                      |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID`    | `G-XXXXXXXX` (optional GA4; empty disables). First-party cookie banner + Consent Mode v2 gates analytics storage                                                                       |
+| `NEXT_PUBLIC_APPLE_PROVIDER_TOKEN` | Optional. App Store Connect provider token (`pt`): App Analytics → Sources → Campaigns → generate any link and copy its `pt=` value. Adds `pt`/`ct` campaign tokens to App Store links |
+
+#### After every production deploy: IndexNow
+
+```bash
+cd apps/marketing-web && vercel deploy --prod
+pnpm indexnow:marketing            # from the repo root
+```
+
+`scripts/indexnow.ts` reads the live sitemap and submits the pages whose `<lastmod>` changed
+since the last ping (first run: the last 7 days) to IndexNow — Bing, Yandex, Seznam, Naver and
+others share it, and ChatGPT search uses Bing's index, so new pages are picked up within hours.
+`--dry-run` prints the URLs, `--all` submits every page, `--since YYYY-MM-DD` picks a date. It
+refuses to run until the key file `https://munibtracker.app/413e0ed5370853ba9114f22952893236.txt`
+(from `apps/marketing-web/public/`) is live. Google doesn't use IndexNow: submit
+`https://munibtracker.app/sitemap.xml` once in Search Console (it re-reads it on its own after that),
+and the same sitemap in Bing Webmaster Tools.
+
+#### One-time setup: store attribution
+
+- **Google Play:** nothing to set up. Play links carry an install `referrer` with
+  `utm_campaign` (where the link sits, e.g. `feature_hero`) and `utm_content` (the feature page).
+  See Play Console → Grow users → Store listing acquisition → filter by UTM.
+- **App Store:** set `NEXT_PUBLIC_APPLE_PROVIDER_TOKEN` (above), redeploy, then see App Store
+  Connect → App Analytics → Sources → Campaigns. Campaign name = `<placement>-<feature>`.
+- **Web app:** links carry the same UTM tags, but `my.munibtracker.app` has no analytics by design,
+  so web-app visits are measured on the marketing side only (`download_click` with
+  `platform: web`, `placement`, `feature`).
+
+#### One-time setup: Google Analytics 4 (≈ 3 minutes, do it on launch day)
+
+Events are collected automatically, but their **parameters only appear in reports after you
+register them**, and registration is not retroactive.
+
+1. GA4 → **Admin → Data display → Custom definitions → Create custom dimension**, scope **Event**,
+   once for each parameter: `feature`, `placement`, `platform`, `menu`, `percent`, `page_language`
+   (dimension name = parameter name). `content_group` is built in — nothing to register.
+2. **Admin → Data display → Events**: once `download_click` has fired at least once (click any
+   store badge on the live site with analytics allowed), toggle **Mark as key event**. Optionally
+   also `contact_form_submit`.
+3. Check it works: **Admin → DebugView**, or Reports → Realtime, while clicking around the site.
+
+Event reference: [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md#analytics--consent).
 
 ## Verify after deploy
 

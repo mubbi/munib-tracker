@@ -59,7 +59,10 @@ export type TopicCluster =
   | "prayer-times"
   | "devices"
   | "audience"
-  | "comparison";
+  | "comparison"
+  | "duas"
+  | "fasting"
+  | "tools";
 
 /** Shared SEO + editorial fields for every content page. */
 export type PageMeta = {
@@ -144,7 +147,16 @@ export type FeatureSlug =
   | "my-madhhab"
   | "fasting-tracker"
   | "umrah-mode"
-  | "private-reflection";
+  | "private-reflection"
+  | "tasbeeh-counter"
+  | "duas-hisnul-muslim"
+  | "99-names-of-allah"
+  | "zakat-calculator"
+  | "qibla-finder"
+  | "hijri-calendar"
+  | "ramadan-tracker"
+  | "hifz-tracker"
+  | "kids-mode";
 
 export type FeatureIconKey =
   | "salah"
@@ -165,7 +177,16 @@ export type FeatureIconKey =
   | "madhhab"
   | "fasting"
   | "umrah"
-  | "reflection";
+  | "reflection"
+  | "tasbeeh"
+  | "dua"
+  | "names"
+  | "zakat"
+  | "qibla"
+  | "calendar"
+  | "ramadan"
+  | "hifz"
+  | "kids";
 
 export type ScreenshotSlot = {
   key: ScreenshotKey;
@@ -282,7 +303,13 @@ export type AudiencePage = PageMeta & {
 
 // ── Articles (resources hub) ─────────────────────────────────────────────
 
-export type ResourceCategorySlug = "salah" | "zikr" | "quran-learning" | "islamic-habits";
+export type ResourceCategorySlug =
+  | "salah"
+  | "zikr"
+  | "quran-learning"
+  | "islamic-habits"
+  | "ramadan-fasting"
+  | "zakat-hajj";
 
 export type ResourceCategory = {
   slug: ResourceCategorySlug;

@@ -21,7 +21,7 @@ export const quran: FeaturePage = {
   ],
   cluster: "quran-reading",
   published: "2026-11-23",
-  updated: "2026-11-24",
+  updated: "2026-11-27",
   eyebrow: "Qur'an reader",
   intro:
     "Open the Qur'an anywhere, even without a connection. Read by surah, juz or mushaf page, follow word by word, listen to a reciter, and keep a steady pace with a khatm plan.",
@@ -50,7 +50,7 @@ export const quran: FeaturePage = {
           "Tafsir on demand in several languages",
           "Search ayahs by words, or find a surah by name, meaning or number",
           "Arabic root-word search: every word from a root, from the Quranic Arabic Corpus (an optional download of about 6 MB, credited in the app)",
-          "Verse Detector: find the surah and ayah from a verse you say or type, in Arabic or English",
+          "Verse Detector: find the surah and ayah from a verse you type in Arabic or English, or recite a few words and an on-device listener finds it",
         ],
       },
       {

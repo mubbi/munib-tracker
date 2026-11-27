@@ -7,13 +7,13 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { DeviceScreen } from "@/components/content/device-screen";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { StoreBadges } from "@/components/store-badges";
-import { TrackedButton } from "@/components/tracked-button";
-import { TrackedWebAppButton } from "@/components/tracked-web-app-button";
+import { TrackedLink } from "@/components/tracked-link";
+import { buttonClass } from "@/components/ui/button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { capture, captureAlt, type Device } from "@/lib/screenshots";
 import { pageMetadata } from "@/lib/seo";
-import { productAppUrl, storeUrls } from "@/lib/site";
+import { storeUrls, webAppUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,15 +32,29 @@ const STORE_NAMES = { appStore: "App Store", googlePlay: "Google Play" } as cons
 /** A real capture shown on a platform card; `size` is its width within the card. */
 type CardShot = { device: Device; scene: string; size: string; sizes: string };
 
-/** Structure only; copy is keyed by `id` in `download.platforms`. */
+/**
+ * Structure only; copy is keyed by `id` in `download.platforms`.
+ * Watch and TV apps ship in the same store listings as the phone apps (one
+ * App Store id with the Watch app embedded and Apple TV on the same bundle;
+ * one Play package for phone, Wear OS and Android TV), so their cards link to
+ * those listings, labelled by device, with a line on installing on the device.
+ */
 type Platform =
   | {
       id: "web" | "ios" | "android";
       icon: LucideIcon;
-      cta: { kind: "web" } | { kind: "store"; store: "ios" | "android"; cta: "get_app" };
+      cta: { kind: "web" } | { kind: "store"; store: "ios" | "android" };
       shots?: readonly CardShot[];
     }
-  | { id: "watch" | "tv"; icon: LucideIcon; cta: null; shots: readonly CardShot[] };
+  | {
+      id: "watch" | "tv";
+      icon: LucideIcon;
+      cta: { kind: "devices"; placement: "download_watch" | "download_tv" };
+      shots: readonly CardShot[];
+    };
+
+/** PWA install steps on the web card (`download.install.items.<id>`), as the web app words them. */
+const INSTALL_STEPS = ["desktop", "iphone", "mac", "android"] as const;
 
 const PHONE = { size: "w-[27%]", sizes: "(min-width: 768px) 120px, 27vw" };
 const WATCH = { size: "w-[30%]", sizes: "(min-width: 768px) 130px, 30vw" };
@@ -54,7 +68,7 @@ const PLATFORMS: Platform[] = [
   {
     id: "ios",
     icon: Apple,
-    cta: { kind: "store", store: "ios", cta: "get_app" },
+    cta: { kind: "store", store: "ios" },
     shots: [
       { device: "ipad", scene: "home", size: "w-[50%]", sizes: "(min-width: 768px) 220px, 50vw" },
       { device: "iphone", scene: "tracker", ...PHONE },
@@ -63,7 +77,7 @@ const PLATFORMS: Platform[] = [
   {
     id: "android",
     icon: Smartphone,
-    cta: { kind: "store", store: "android", cta: "get_app" },
+    cta: { kind: "store", store: "android" },
     shots: [
       {
         device: "android-tablet",
@@ -77,7 +91,7 @@ const PLATFORMS: Platform[] = [
   {
     id: "watch",
     icon: Watch,
-    cta: null,
+    cta: { kind: "devices", placement: "download_watch" },
     shots: [
       { device: "watch", scene: "schedule", ...WATCH },
       { device: "wear", scene: "tasbeeh-tile", ...WATCH },
@@ -86,7 +100,7 @@ const PLATFORMS: Platform[] = [
   {
     id: "tv",
     icon: Tv,
-    cta: null,
+    cta: { kind: "devices", placement: "download_tv" },
     shots: [
       { device: "tv", scene: "quran", size: "w-[88%]", sizes: "(min-width: 768px) 380px, 88vw" },
     ],
@@ -130,13 +144,103 @@ function PlatformShots({ shots }: { shots: readonly CardShot[] }) {
   );
 }
 
+/**
+ * A platform card's actions: the web app (with PWA install steps), a store
+ * button, or, for Watch and TV, both store listings labelled by device.
+ * Every button records `download_click` with its platform and placement.
+ */
+function PlatformActions({ platform }: { platform: Platform }) {
+  const t = useTranslations("download");
+  const locale = useLocale();
+  // Each button carries its own campaign, so store reports show which card sold the install.
+  const stores = storeUrls(locale, { placement: "download" });
+  const deviceStores =
+    platform.id === "watch" || platform.id === "tv"
+      ? storeUrls(locale, { placement: platform.cta.placement })
+      : stores;
+  const values = { appName: APP_NAME, ...STORE_NAMES };
+  const actions = "mt-6 flex flex-wrap gap-2.5";
+
+  if (platform.id === "watch" || platform.id === "tv") {
+    const { placement } = platform.cta;
+    return (
+      <>
+        <p className="mt-3 text-sm leading-relaxed text-muted">
+          {t(`platforms.${platform.id}.how`, values)}
+        </p>
+        <div className={actions}>
+          <TrackedLink
+            track="download"
+            platform="ios"
+            placement={placement}
+            href={deviceStores.ios}
+            className={buttonClass("outline", "sm")}
+          >
+            {t(`platforms.${platform.id}.ctaIos`, values)}
+          </TrackedLink>
+          <TrackedLink
+            track="download"
+            platform="android"
+            placement={placement}
+            href={deviceStores.android}
+            className={buttonClass("outline", "sm")}
+          >
+            {t(`platforms.${platform.id}.ctaAndroid`, values)}
+          </TrackedLink>
+        </div>
+      </>
+    );
+  }
+
+  if (platform.cta.kind === "store") {
+    return (
+      <div className={actions}>
+        <TrackedLink
+          track="download"
+          platform={platform.cta.store}
+          placement="download"
+          href={stores[platform.cta.store]}
+          className={buttonClass("primary", "sm")}
+        >
+          {t(`platforms.${platform.id}.cta`, values)}
+        </TrackedLink>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="mt-5 rounded-2xl border border-border/60 bg-surface/50 p-4">
+        <p className="text-sm font-semibold text-foreground">{t("install.title")}</p>
+        <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-sm text-muted sm:grid-cols-2">
+          {INSTALL_STEPS.map((id) => (
+            <li key={id} className="flex gap-2">
+              <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />
+              {t(`install.items.${id}`)}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={actions}>
+        <TrackedLink
+          track="download"
+          platform="web"
+          placement="download"
+          href={webAppUrl(locale, "/", { placement: "download" })}
+          className={buttonClass("primary", "sm")}
+        >
+          {t(`platforms.${platform.id}.cta`, values)}
+        </TrackedLink>
+      </div>
+    </>
+  );
+}
+
 const REQUIREMENTS = ["web", "ios", "android", "watch", "tv", "internet"] as const;
 
 export default function DownloadPage() {
   const t = useTranslations("download");
-  const locale = useLocale();
   // Store listings and the web app open in the visitor's language.
-  const stores = storeUrls(locale);
   const values = { appName: APP_NAME, ...STORE_NAMES };
   return (
     <ContentPage
@@ -173,25 +277,7 @@ export default function DownloadPage() {
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
                   {t(`platforms.${platform.id}.description`, values)}
                 </p>
-                {platform.cta ? (
-                  <div className="mt-6">
-                    {platform.cta.kind === "web" ? (
-                      <TrackedWebAppButton
-                        href={productAppUrl(locale)}
-                        label={t(`platforms.${platform.id}.cta`, values)}
-                      />
-                    ) : (
-                      <TrackedButton
-                        href={stores[platform.cta.store]}
-                        cta={platform.cta.cta}
-                        placement="download"
-                        size="sm"
-                      >
-                        {t(`platforms.${platform.id}.cta`, values)}
-                      </TrackedButton>
-                    )}
-                  </div>
-                ) : null}
+                <PlatformActions platform={platform} />
               </SpotlightCard>
             </StaggerItem>
           );

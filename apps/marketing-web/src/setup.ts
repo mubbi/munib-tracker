@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { vi } from "vitest";
 
-// jsdom lacks the observers and matchMedia that framer-motion relies on.
+// jsdom lacks IntersectionObserver / ResizeObserver and matchMedia (used by Counter, Magnetic and the header).
 class MockObserver {
   observe() {}
   unobserve() {}

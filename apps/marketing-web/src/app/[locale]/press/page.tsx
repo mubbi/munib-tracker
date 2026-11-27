@@ -64,7 +64,7 @@ export default function PressPage() {
   const tMeta = useTranslations("metadata");
   const tOpenSource = useTranslations("openSource");
   const locale = useLocale();
-  const stores = storeUrls(locale);
+  const stores = storeUrls(locale, { placement: "press" });
   return (
     <ContentPage
       path="/press"

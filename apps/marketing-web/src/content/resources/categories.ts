@@ -45,6 +45,25 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
       "Build habits that last and stay consistent with daily worship, without burning out.",
     feature: "daily-islamic-habits",
   },
+  {
+    slug: "ramadan-fasting",
+    title: "Ramadan & fasting",
+    seoTitle: "Ramadan and Fasting Guides — Sunnah Fasts and Laylat al-Qadr",
+    seoDescription:
+      "Cited guides to preparing for Ramadan, the recommended Sunnah fasts through the year, and seeking Laylat al-Qadr in the last ten nights.",
+    description:
+      "Prepare for Ramadan, keep the Sunnah fasts through the year, and seek Laylat al-Qadr.",
+    feature: "ramadan-tracker",
+  },
+  {
+    slug: "zakat-hajj",
+    title: "Zakat, Hajj & Umrah",
+    seoTitle: "Zakat, Hajj and Umrah Guides — Step by Step, With Sources",
+    seoDescription:
+      "Practical, cited guides on calculating zakat on savings and gold, and performing Hajj and Umrah step by step, with the main differences between the schools.",
+    description: "Work out your zakat, and perform Hajj and Umrah step by step.",
+    feature: "zakat-calculator",
+  },
 ];
 
 /** Translated categories per locale (see `content/localized.ts`). */

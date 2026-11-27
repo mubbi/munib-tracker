@@ -1,9 +1,12 @@
 import type { ComparePage } from "@/content/types";
 import { vsAthanUr } from "./compare/athan";
+import { bestFreeIslamicAppsUr } from "./compare/best-free-islamic-apps";
+import { bestQuranMemorizationAppsUr } from "./compare/best-quran-memorization-apps";
 import { bestSalahTrackerAppsUr } from "./compare/best-salah-tracker-apps";
 import { vsIslam360Ur } from "./compare/islam360";
 import { islamicHabitTrackerAppsUr } from "./compare/islamic-habit-tracker-apps";
 import { vsMuslimProUr } from "./compare/muslim-pro";
+import { muslimProAlternativesUr } from "./compare/muslim-pro-alternatives";
 import { vsPillarsUr } from "./compare/pillars";
 import { vsTarteelUr } from "./compare/tarteel";
 
@@ -20,4 +23,7 @@ export const TRANSLATIONS: readonly ComparePage[] = [
   vsPillarsUr,
   vsAthanUr,
   islamicHabitTrackerAppsUr,
+  muslimProAlternativesUr,
+  bestQuranMemorizationAppsUr,
+  bestFreeIslamicAppsUr,
 ];

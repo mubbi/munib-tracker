@@ -6,7 +6,9 @@ import {
   type CtaName,
   type CtaPlacement,
   type DownloadPlacement,
+  type DownloadPlatform,
   trackCtaClick,
+  trackDownloadClick,
   trackFileDownload,
   trackOutboundClick,
   trackSelectContent,
@@ -51,9 +53,20 @@ type FileDownloadProps = BaseProps & {
 type WebDemoProps = BaseProps & {
   track: "web_demo";
   placement: DownloadPlacement;
+  /** Feature slug the link promotes (analytics attribution). */
+  feature?: string;
+};
+
+/** A store listing or the web app (`download_click`), opened in a new tab. */
+type DownloadProps = BaseProps & {
+  track: "download";
+  platform: DownloadPlatform;
+  placement: DownloadPlacement;
+  feature?: string;
 };
 
 type TrackedLinkProps =
+  | DownloadProps
   | CtaProps
   | SelectContentProps
   | OutboundProps
@@ -62,6 +75,9 @@ type TrackedLinkProps =
 
 function fire(props: TrackedLinkProps): void {
   switch (props.track) {
+    case "download":
+      trackDownloadClick(props.platform, props.placement, props.feature);
+      return;
     case "cta":
       trackCtaClick(props.cta, props.placement);
       return;
@@ -84,7 +100,7 @@ function fire(props: TrackedLinkProps): void {
       });
       return;
     case "web_demo":
-      trackWebDemoLaunch(props.placement);
+      trackWebDemoLaunch(props.placement, props.feature);
       return;
   }
 }
@@ -96,14 +112,17 @@ function newTabAttrs(props: TrackedLinkProps): { target?: string; rel?: string }
   if (props.track === "outbound") {
     return { target: props.target ?? NEW_TAB.target, rel: props.rel ?? NEW_TAB.rel };
   }
-  return props.track === "web_demo" ? NEW_TAB : {};
+  return props.track === "web_demo" || props.track === "download" ? NEW_TAB : {};
 }
 
 /** Client link that fires a GA4 marketing event on click. */
 export function TrackedLink(props: TrackedLinkProps) {
   const { href, children, className, "aria-label": ariaLabel } = props;
   const isExternal =
-    href.startsWith("http") || props.track === "outbound" || props.track === "web_demo";
+    href.startsWith("http") ||
+    props.track === "outbound" ||
+    props.track === "web_demo" ||
+    props.track === "download";
   const isDownload = props.track === "file_download";
 
   if (isExternal || isDownload) {

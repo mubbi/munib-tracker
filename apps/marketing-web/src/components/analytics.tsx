@@ -39,26 +39,22 @@ export function Analytics() {
   const measurementId = getGaMeasurementId();
   if (!measurementId) return null;
 
+  // Consent defaults, the restored choice and the GA config are queued first
+  // (tiny inline script), so every later page_view / event has its
+  // destination. The ~180 KB gtag.js library itself loads after the page has
+  // finished loading (`lazyOnload`) and then processes the queue — it never
+  // competes with the page's own rendering and hydration.
   return (
     <>
       <Script id="ga-consent-default" strategy="beforeInteractive">
-        {CONSENT_DEFAULT_SCRIPT}
+        {`${CONSENT_DEFAULT_SCRIPT}
+gtag('js', new Date());
+gtag('config', '${measurementId}', { anonymize_ip: true, send_page_view: false });`}
       </Script>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="ga4-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${measurementId}', {
-            anonymize_ip: true,
-            send_page_view: false
-          });
-        `}
-      </Script>
       <Suspense fallback={null}>
         <GoogleAnalyticsPageViews />
       </Suspense>

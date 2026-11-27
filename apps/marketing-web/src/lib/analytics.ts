@@ -5,12 +5,16 @@ export type DownloadPlacement =
   | "hero"
   | "cta"
   | "download"
+  | "download_watch"
+  | "download_tv"
   | "features"
   | "header"
   | "footer"
   | "learn"
   | "not_found"
   | "feature_page"
+  | "feature_hero"
+  | "article_tie_in"
   | "audience_page"
   | "compare_page"
   | "article"
@@ -41,8 +45,17 @@ export type CtaPlacement =
   | "home_how_it_works"
   | "home_compare";
 
-export function trackDownloadClick(platform: DownloadPlatform, placement: DownloadPlacement): void {
-  trackGtagEvent("download_click", { platform, placement });
+/**
+ * A store badge or web-app link was clicked. `feature` is the feature page
+ * (slug) the click came from, so installs and web trials can be attributed to
+ * the feature that convinced the visitor.
+ */
+export function trackDownloadClick(
+  platform: DownloadPlatform,
+  placement: DownloadPlacement,
+  feature?: string,
+): void {
+  trackGtagEvent("download_click", { platform, placement, feature });
 }
 
 export function trackCtaClick(cta: CtaName, placement: CtaPlacement): void {
@@ -99,8 +112,23 @@ export function trackOutboundClick(url: string, linkText: string, placement?: st
   });
 }
 
-export function trackWebDemoLaunch(placement: DownloadPlacement): void {
-  trackDownloadClick("web", placement);
+export function trackWebDemoLaunch(placement: DownloadPlacement, feature?: string): void {
+  trackDownloadClick("web", placement, feature);
+}
+
+/** A header menu was opened (desktop mega-menu or the mobile drawer). */
+export function trackMenuOpen(menu: string, device: "desktop" | "mobile"): void {
+  trackGtagEvent("menu_open", { menu, device });
+}
+
+/** The visitor picked another site language. */
+export function trackLanguageSwitch(from: string, to: string): void {
+  trackGtagEvent("language_switch", { from_language: from, to_language: to });
+}
+
+/** How far down a page the visitor read (25 / 50 / 75 / 90 %, once each per page view). */
+export function trackScrollDepth(percent: number): void {
+  trackGtagEvent("scroll_depth", { percent });
 }
 
 export function trackMarketingEvent(eventName: string, params?: GtagEventParams): void {

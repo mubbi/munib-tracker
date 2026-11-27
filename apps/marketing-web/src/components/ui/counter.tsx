@@ -1,6 +1,5 @@
 "use client";
 
-import { animate, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 type CounterProps = {
@@ -14,10 +13,22 @@ type CounterProps = {
   locale?: string;
 };
 
+/** Ease-out (expo-like), matching the site's other motion. */
+function easeOut(t: number): number {
+  return t >= 1 ? 1 : 1 - 2 ** (-10 * t);
+}
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && typeof window.matchMedia === "function"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+}
+
 /**
  * Counts up from 0 to `value` the first time it scrolls into view. The server
  * renders the final value so crawlers and no-JS readers see the real number;
- * the client resets to 0 after hydration and animates when visible.
+ * the client resets to 0 after hydration and animates when visible. Uses the
+ * browser's IntersectionObserver + requestAnimationFrame (no animation library).
  */
 export function Counter({
   value,
@@ -29,31 +40,33 @@ export function Counter({
   locale = "en-US",
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const reduce = useReducedMotion();
   const [display, setDisplay] = useState(value);
-  const [armed, setArmed] = useState(false);
 
-  // After hydration, hide the number until it animates (unless motion is reduced).
   useEffect(() => {
-    if (reduce) return;
+    const el = ref.current;
+    if (!el || prefersReducedMotion() || typeof IntersectionObserver === "undefined") return;
     setDisplay(0);
-    setArmed(true);
-  }, [reduce]);
-
-  useEffect(() => {
-    if (!inView || (!armed && !reduce)) return;
-    if (reduce) {
-      setDisplay(value);
-      return;
-    }
-    const controls = animate(0, value, {
-      duration,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (v) => setDisplay(v),
-    });
-    return () => controls.stop();
-  }, [inView, armed, reduce, value, duration]);
+    let frame = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        observer.disconnect();
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / (duration * 1000));
+          setDisplay(value * easeOut(t));
+          if (t < 1) frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+      },
+      { rootMargin: "0px 0px -60px 0px" },
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [value, duration]);
 
   const formatted = display.toLocaleString(locale, {
     minimumFractionDigits: decimals,

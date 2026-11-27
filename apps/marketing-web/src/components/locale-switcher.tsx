@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { LOCALE_META } from "@/i18n/locales";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LOCALES } from "@/i18n/routing";
+import { trackLanguageSwitch } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type LocaleSwitcherProps = {
@@ -61,7 +62,8 @@ export function LocaleSwitcher({
     };
   }, [open]);
 
-  const choose = () => {
+  const choose = (code: string) => {
+    if (code !== current) trackLanguageSwitch(current, code);
     setOpen(false);
     onNavigate?.();
   };
@@ -80,7 +82,7 @@ export function LocaleSwitcher({
           hrefLang={meta.hreflang}
           dir={meta.dir}
           aria-current={selected ? "true" : undefined}
-          onClick={choose}
+          onClick={() => choose(code)}
           className={cn(
             variant === "menu"
               ? "flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-[15px] transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]"

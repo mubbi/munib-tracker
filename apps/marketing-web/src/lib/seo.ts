@@ -19,6 +19,8 @@ export type PageSeo = {
   /** Override the OG image (absolute path or URL). Defaults to the route's opengraph-image. */
   image?: { url: string; width: number; height: number; alt: string };
   noindex?: boolean;
+  /** The page has a Markdown edition at its English URL + `.md` (`lib/llms.ts`); linked from English pages. */
+  markdown?: boolean;
 };
 
 export function absoluteUrl(path: string): string {
@@ -79,6 +81,9 @@ export async function pageMetadata(seo: PageSeo): Promise<Metadata> {
     alternates: {
       canonical: url,
       languages: languageAlternates(seo.path),
+      ...(seo.markdown && seo.locale === DEFAULT_LOCALE
+        ? { types: { "text/markdown": `${url}.md` } }
+        : {}),
     },
     openGraph: {
       type: seo.type ?? "website",

@@ -1,69 +1,42 @@
-"use client";
-
-import { motion, stagger, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
-import { EASE } from "@/components/ui/motion";
+import { Children, type CSSProperties, isValidElement, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 /**
- * Entrance animation for the home hero. Only the motion wrappers are client
- * code; the copy, links and artwork inside them render on the server.
+ * Entrance animation for the home hero, in CSS only (`.hero-rise`,
+ * `.hero-device-in` in `globals.css`). Each step rises a little on first paint,
+ * staggered by `--hero-i`; nothing is ever hidden (transform only), so the hero
+ * copy counts for FCP/LCP immediately and no animation library ships.
  */
 
-const container: Variants = {
-  hidden: {},
-  show: { transition: { delayChildren: stagger(0.09, { startDelay: 0.05 }) } },
-};
-
-const item: Variants = {
-  // Opacity + translate only — filter blur forces expensive paint on load
-  // and can leave the GPU layer thrashing under the sticky header.
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
-};
-
-/** Staggers its `<HeroItem>` children in on mount. */
+/** Numbers its `<HeroItem>` children for the stagger (`--hero-i`). */
 export function HeroStagger({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <motion.div variants={container} initial="hidden" animate="show" className={className}>
-      {children}
-    </motion.div>
-  );
+  let index = 0;
+  const numbered = Children.map(children, (child) => {
+    if (!isValidElement<HeroItemProps>(child) || child.type !== HeroItem) return child;
+    const i = index++;
+    return <HeroItem {...child.props} index={i} />;
+  });
+  return <div className={className}>{numbered}</div>;
 }
 
-const ITEM_TAGS = { div: motion.div, p: motion.p, ul: motion.ul } as const;
-
-/** One staggered step inside `<HeroStagger>`. */
-export function HeroItem({
-  as = "div",
-  children,
-  className,
-}: {
-  as?: keyof typeof ITEM_TAGS;
+type HeroItemProps = {
+  as?: "div" | "p" | "ul";
   children: ReactNode;
   className?: string;
-}) {
-  const Tag = ITEM_TAGS[as];
+  /** Position in the stagger (set by `<HeroStagger>`). */
+  index?: number;
+};
+
+/** One staggered step inside `<HeroStagger>`. */
+export function HeroItem({ as: Tag = "div", children, className, index = 0 }: HeroItemProps) {
   return (
-    <Tag variants={item} className={className}>
+    <Tag className={cn("hero-rise", className)} style={{ "--hero-i": index } as CSSProperties}>
       {children}
     </Tag>
   );
 }
 
-/**
- * Subtle rise for the hero's device cluster. Transform only, never opacity: the
- * iPhone is the hero's main (preloaded) image and must be visible in the server
- * HTML from first paint.
- */
+/** Subtle rise for the hero's device line-up (the iPhone is the preloaded image). */
 export function HeroDevice({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <motion.div
-      initial={{ y: 16, scale: 0.98 }}
-      animate={{ y: 0, scale: 1 }}
-      transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={cn("hero-device-in", className)}>{children}</div>;
 }

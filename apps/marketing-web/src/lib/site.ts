@@ -2,6 +2,7 @@ import {
   buildLocalizedAndroidPlayStoreUrl,
   buildLocalizedIosAppStoreUrl,
 } from "@munib-tracker/shared/constants";
+import type { FeatureIconKey } from "@/content/types";
 import { DEFAULT_LOCALE, type Locale } from "@/i18n/config";
 import type footerMessages from "@/messages/en/footer.json";
 import type navMessages from "@/messages/en/nav.json";
@@ -31,20 +32,86 @@ export function productAppUrl(locale: Locale, path = "/"): string {
   return `${PRODUCT_APP_URL}${prefix}${tail}` || PRODUCT_APP_URL;
 }
 
+/**
+ * Product web app link with campaign tags, so visits from the marketing site
+ * are attributable in the app's analytics: `utm_campaign` is where the link
+ * sits (e.g. `feature_hero`), `utm_content` the feature or page it promotes.
+ * On phones with the app installed, `my.munibtracker.app` universal / App
+ * Links open the app itself.
+ */
+export function webAppUrl(
+  locale: Locale,
+  path = "/",
+  campaign?: { placement: string; content?: string },
+): string {
+  const url = productAppUrl(locale, path);
+  if (!campaign) return url;
+  // `https://my.munibtracker.app?…` → `https://my.munibtracker.app/?…`
+  const base = /^https?:\/\/[^/]+$/.test(url) ? `${url}/` : url;
+  const params = new URLSearchParams({
+    utm_source: "munibtracker.app",
+    utm_medium: "referral",
+    utm_campaign: campaign.placement,
+    ...(campaign.content ? { utm_content: campaign.content } : {}),
+  });
+  return `${base}${base.includes("?") ? "&" : "?"}${params.toString()}`;
+}
+
 /** Deep link into the product app's Qur'an reader, focused on one ayah. */
 export function appQuranAyahUrl(surah: number, ayah: number, locale: Locale): string {
   return `${productAppUrl(locale, `/quran/${surah}`)}?ayah=${ayah}`;
+}
+
+/** Where a store link sits (`placement`) and what it promotes (`content`, e.g. a feature slug). */
+export type StoreCampaign = { placement: string; content?: string };
+
+/**
+ * App Store Connect provider token (App Analytics → Campaigns). When set,
+ * App Store links carry `pt` + `ct` so page views and downloads are reported
+ * per campaign. Public by design (it appears in every campaign link).
+ */
+const APPLE_PROVIDER_TOKEN = (process.env.NEXT_PUBLIC_APPLE_PROVIDER_TOKEN ?? "").trim();
+
+/** Apple campaign names allow up to 40 characters. */
+function appleCampaignName({ placement, content }: StoreCampaign): string {
+  return (content ? `${placement}-${content}` : placement).slice(0, 40);
+}
+
+function withParams(url: string, params: Record<string, string>): string {
+  return `${url}${url.includes("?") ? "&" : "?"}${new URLSearchParams(params).toString()}`;
 }
 
 /**
  * App Store / Google Play listings in the visitor's language — the same
  * storefront hints the app uses (shared `buildLocalized*StoreUrl`: Arabic →
  * Saudi storefront / `hl=ar`, Urdu → Pakistan storefront / `hl=ur`).
+ *
+ * With a `campaign`, installs become attributable in the stores themselves
+ * (the app has no analytics of its own):
+ * - Google Play: the install `referrer` carries UTM tags, reported in Play
+ *   Console → Store listing acquisition (`utm_campaign` = placement,
+ *   `utm_content` = feature).
+ * - App Store: `pt` + `ct` campaign tokens, reported in App Store Connect →
+ *   App Analytics → Sources → Campaigns (only when the provider token is set).
  */
-export function storeUrls(locale: Locale): { ios: string; android: string } {
+export function storeUrls(
+  locale: Locale,
+  campaign?: StoreCampaign,
+): { ios: string; android: string } {
+  const ios = buildLocalizedIosAppStoreUrl(locale);
+  const android = buildLocalizedAndroidPlayStoreUrl(locale);
+  if (!campaign) return { ios, android };
+  const referrer = new URLSearchParams({
+    utm_source: "munibtracker.app",
+    utm_medium: "referral",
+    utm_campaign: campaign.placement,
+    ...(campaign.content ? { utm_content: campaign.content } : {}),
+  }).toString();
   return {
-    ios: buildLocalizedIosAppStoreUrl(locale),
-    android: buildLocalizedAndroidPlayStoreUrl(locale),
+    ios: APPLE_PROVIDER_TOKEN
+      ? withParams(ios, { pt: APPLE_PROVIDER_TOKEN, ct: appleCampaignName(campaign), mt: "8" })
+      : ios,
+    android: withParams(android, { referrer }),
   };
 }
 
@@ -96,56 +163,79 @@ export type FooterGroupId = keyof FooterMessages["groups"];
 /** Key under `footer.links`. */
 export type FooterLinkId = keyof FooterMessages["links"];
 
-export type NavItem = { id: NavItemId; href: string };
+export type NavItem = {
+  id: NavItemId;
+  href: string;
+  /**
+   * Icon for compact rows (label + icon, no hint). Menus whose items all have
+   * an icon render compactly; others show each item's hint.
+   */
+  icon?: FeatureIconKey;
+};
 export type NavColumn = { id: NavColumnId; items: readonly NavItem[] };
 export type NavMenu = {
   id: NavMenuId;
   /** Landing page for the whole menu. */
   href: string;
   columns: readonly NavColumn[];
-  /** Optional highlighted card in the panel. */
+  /** Optional highlighted link (a card beside short menus, a strip under wide ones). */
   feature?: { id: NavFeaturedId; href: string };
 };
 
 /** Header mega-menus. */
 export const NAV_MENUS: readonly NavMenu[] = [
   {
+    // Curated: the most searched and most used features, six per column so the
+    // panel fits a laptop screen. Every feature is on /features ("View all").
     id: "features",
     href: SITE_PATHS.features,
     columns: [
       {
         id: "trackWorship",
         items: [
-          { id: "salahTracker", href: "/features/salah-tracker" },
-          { id: "qazaTracker", href: "/features/qaza-salah-tracker" },
-          { id: "salahFocusLock", href: "/features/salah-focus-lock" },
-          { id: "fastingTracker", href: "/features/fasting-tracker" },
-          { id: "zikrTracker", href: "/features/zikr-tracker" },
-          { id: "dailyHabits", href: "/features/daily-islamic-habits" },
-          { id: "worshipProgress", href: "/features/worship-progress" },
+          { id: "salahTracker", href: "/features/salah-tracker", icon: "salah" },
+          { id: "qazaTracker", href: "/features/qaza-salah-tracker", icon: "qaza" },
+          { id: "zikrTracker", href: "/features/zikr-tracker", icon: "zikr" },
+          { id: "tasbeehCounter", href: "/features/tasbeeh-counter", icon: "tasbeeh" },
+          { id: "ramadanTracker", href: "/features/ramadan-tracker", icon: "ramadan" },
+          { id: "worshipProgress", href: "/features/worship-progress", icon: "progress" },
         ],
       },
       {
         id: "quranHadith",
         items: [
-          { id: "quranReader", href: "/features/quran" },
-          { id: "quranPractice", href: "/features/quran-practice" },
-          { id: "learnQuran", href: "/features/learn-quran" },
-          { id: "hadithLibrary", href: "/features/hadith" },
-          { id: "learningLibrary", href: SITE_PATHS.learn },
+          { id: "quranReader", href: "/features/quran", icon: "quran" },
+          { id: "quranPractice", href: "/features/quran-practice", icon: "practice" },
+          { id: "hifzTracker", href: "/features/hifz-tracker", icon: "hifz" },
+          { id: "learnQuran", href: "/features/learn-quran", icon: "learn" },
+          { id: "hadithLibrary", href: "/features/hadith", icon: "hadith" },
+          { id: "duasHisnulMuslim", href: "/features/duas-hisnul-muslim", icon: "dua" },
         ],
       },
       {
-        id: "everydayFamily",
+        id: "timesTools",
         items: [
-          { id: "prayerTimesQibla", href: "/features/prayer-times-qibla" },
-          { id: "masjidFinder", href: "/features/masjid-finder" },
-          { id: "myMadhhab", href: "/features/my-madhhab" },
-          { id: "umrahMode", href: "/features/umrah-mode" },
-          { id: "widgetsAndDevices", href: "/features/widgets-and-devices" },
-          { id: "familyAndFriends", href: "/features/family-and-friends" },
-          { id: "privateReflection", href: "/features/private-reflection" },
-          { id: "willAndInheritance", href: "/features/islamic-will-and-inheritance" },
+          { id: "prayerTimesQibla", href: "/features/prayer-times-qibla", icon: "times" },
+          { id: "qiblaFinder", href: "/features/qibla-finder", icon: "qibla" },
+          { id: "masjidFinder", href: "/features/masjid-finder", icon: "masjid" },
+          { id: "hijriCalendar", href: "/features/hijri-calendar", icon: "calendar" },
+          { id: "zakatCalculator", href: "/features/zakat-calculator", icon: "zakat" },
+          { id: "salahFocusLock", href: "/features/salah-focus-lock", icon: "focus" },
+        ],
+      },
+      {
+        id: "familyLife",
+        items: [
+          { id: "kidsMode", href: "/features/kids-mode", icon: "kids" },
+          { id: "familyAndFriends", href: "/features/family-and-friends", icon: "family" },
+          { id: "widgetsAndDevices", href: "/features/widgets-and-devices", icon: "devices" },
+          { id: "umrahMode", href: "/features/umrah-mode", icon: "umrah" },
+          { id: "privateReflection", href: "/features/private-reflection", icon: "reflection" },
+          {
+            id: "willAndInheritance",
+            href: "/features/islamic-will-and-inheritance",
+            icon: "will",
+          },
         ],
       },
     ],
@@ -183,12 +273,15 @@ export const NAV_MENUS: readonly NavMenu[] = [
           { id: "salahGuides", href: "/resources/salah" },
           { id: "zikrGuides", href: "/resources/zikr" },
           { id: "quranLearningGuides", href: "/resources/quran-learning" },
+          { id: "ramadanGuides", href: "/resources/ramadan-fasting" },
+          { id: "zakatHajjGuides", href: "/resources/zakat-hajj" },
           { id: "habitGuides", href: "/resources/islamic-habits" },
         ],
       },
       {
         id: "help",
         items: [
+          { id: "learningLibrary", href: SITE_PATHS.learn },
           { id: "faq", href: SITE_PATHS.faq },
           { id: "contentSources", href: SITE_PATHS.credits },
           { id: "contact", href: SITE_PATHS.contact },
@@ -253,6 +346,8 @@ export const FOOTER_GROUPS: readonly FooterGroup[] = [
       { id: "allGuides", href: SITE_PATHS.resources },
       { id: "salahGuides", href: "/resources/salah" },
       { id: "quranLearning", href: "/resources/quran-learning" },
+      { id: "ramadanGuides", href: "/resources/ramadan-fasting" },
+      { id: "zakatHajjGuides", href: "/resources/zakat-hajj" },
       { id: "learningLibrary", href: SITE_PATHS.learn },
       { id: "faq", href: SITE_PATHS.faq },
       { id: "contentSources", href: SITE_PATHS.credits },
@@ -266,6 +361,9 @@ export const FOOTER_GROUPS: readonly FooterGroup[] = [
       { id: "vsIslam360", href: "/compare/munib-tracker-vs-islam360" },
       { id: "vsTarteel", href: "/compare/munib-tracker-vs-tarteel" },
       { id: "vsPillars", href: "/compare/munib-tracker-vs-pillars" },
+      { id: "muslimProAlternatives", href: "/compare/muslim-pro-alternatives" },
+      { id: "quranMemorizationApps", href: "/compare/best-quran-memorization-apps" },
+      { id: "freeIslamicApps", href: "/compare/best-free-islamic-apps" },
       { id: "allComparisons", href: SITE_PATHS.compare },
     ],
   },

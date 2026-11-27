@@ -21,7 +21,7 @@ export const widgetsAndDevices: FeaturePage = {
   ],
   cluster: "devices",
   published: "2026-11-23",
-  updated: "2026-11-23",
+  updated: "2026-11-27",
   eyebrow: "Every device",
   intro:
     "Check the next Salah on your lock screen, mark it from your wrist, read the Qur'an on the big screen, and pick up on your laptop where you left off on your phone.",
@@ -47,14 +47,15 @@ export const widgetsAndDevices: FeaturePage = {
           "Mark a Salah straight from a widget",
           "Live Activities and the Dynamic Island on iOS; Live Updates and an ongoing notification on Android",
           "App-icon quick actions and Siri / Google Assistant shortcuts",
+          "Seasonal app icons on iPhone and Android for Ramadan, the last ten nights, both Eids, Dhul-Hijjah, the Islamic New Year and Ashura, or keep the classic icon",
         ],
       },
       {
         title: "Watch",
         items: [
-          "An Apple Watch app to view the schedule and mark Salah",
-          "Apple Watch complications for the next Salah",
-          "Wear OS tiles for the next Salah and Tasbeeh",
+          "An Apple Watch app with Now, Today, Tasbeeh and Overview pages: view the schedule, mark Salah and count tasbeeh with the Digital Crown",
+          "Eight Apple Watch face complications, including the next Salah, the Islamic date and Tasbeeh",
+          "A Wear OS app with Next Salah, Today and Tasbeeh tiles and two watch-face complications",
           "Watch apps are companions to the phone app",
         ],
       },

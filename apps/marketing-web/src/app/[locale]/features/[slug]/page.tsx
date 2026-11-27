@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({
     locale,
     path,
+    markdown: true,
     title: feature.seoTitle,
     description: feature.seoDescription,
     image: routeOgImage(path, locale, t("feature.alt", { appName: APP_NAME })),

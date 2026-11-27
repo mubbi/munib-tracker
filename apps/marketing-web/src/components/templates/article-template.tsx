@@ -12,6 +12,7 @@ import {
   Screenshot,
 } from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
+import { TryFeatureLink } from "@/components/content/try-feature";
 import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
 import { categoryHref, getCategory } from "@/content/resources/categories";
@@ -20,7 +21,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { type Frame, getScreenshot } from "@/lib/screenshots";
 import { readingMinutes } from "@/lib/seo";
-import { articleSchema, graph } from "@/lib/structured-data";
+import { articleSchema, faqNodes, graph } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
 const PHONE_FRAMES = new Set<Frame>(["phone", "android"]);
@@ -74,6 +75,7 @@ export function ArticleTemplate({ article }: { article: Article }) {
             keywords: article.keywords,
             wordCount: words,
           }),
+          ...faqNodes(article.faqs),
         )}
       />
       <PageHero
@@ -138,15 +140,18 @@ export function ArticleTemplate({ article }: { article: Article }) {
                 tieInShot && "grid items-center gap-8 sm:grid-cols-[minmax(0,1fr)_auto]",
               )}
             >
-              <Note
-                tone="app"
-                title={t("article.tieInTitle", { feature: tieIn.navLabel })}
-                text={t("article.tieInText", {
-                  text: article.appTieIn.text,
-                  feature: tieIn.navLabel.toLocaleLowerCase(locale),
-                  href: featureHref(tieIn.slug),
-                })}
-              />
+              <div className="flex flex-col gap-3">
+                <Note
+                  tone="app"
+                  title={t("article.tieInTitle", { feature: tieIn.navLabel })}
+                  text={t("article.tieInText", {
+                    text: article.appTieIn.text,
+                    feature: tieIn.navLabel.toLocaleLowerCase(locale),
+                    href: featureHref(tieIn.slug),
+                  })}
+                />
+                <TryFeatureLink slug={tieIn.slug} className="px-1" />
+              </div>
               {tieInShot ? (
                 <Screenshot
                   slot={tieInShot}

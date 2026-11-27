@@ -21,7 +21,7 @@ export const worshipProgress: FeaturePage = {
   ],
   cluster: "progress",
   published: "2026-11-23",
-  updated: "2026-11-24",
+  updated: "2026-11-27",
   eyebrow: "Worship progress",
   intro:
     "Look back at your week, month or year of worship and see what's growing. Statistics, a weekly report and Noor devotion levels show your progress honestly, and always point to the next small step.",
@@ -54,6 +54,7 @@ export const worshipProgress: FeaturePage = {
         title: "Achievements",
         items: [
           "Salah, Streak, Zikr and Consistency tracks that never cap out",
+          "A personal Recitation track from Qur'an practice: your first session, revision streaks and ayahs recited",
           "Qaza and fasting goals that match your current debt and disappear once cleared",
           "Optional achievement notifications",
         ],
@@ -61,7 +62,7 @@ export const worshipProgress: FeaturePage = {
       {
         title: "Noor devotion levels",
         items: [
-          "Earn Noor from Salah, Qaza, zikr and perfect days",
+          "Earn Noor from Salah, Qaza, zikr, Qur'an practice and perfect days",
           "Levels keep growing; there is always a next one",
           "Your level shows on the tracker and home screen",
         ],

@@ -88,11 +88,25 @@ describe("content integrity", () => {
     expect(hrefs.filter((h) => !ROUTES.has(h))).toEqual([]);
   });
 
-  it("every feature page is in the Features menu with its own label", () => {
-    const items = NAV_MENUS.find((m) => m.id === "features")?.columns.flatMap((c) => c.items) ?? [];
-    for (const f of FEATURE_PAGES) {
-      const item = items.find((i) => i.href === featureHref(f.slug));
-      expect(item && navMessages.items[item.id].label, f.slug).toBe(f.navLabel);
+  it("the Features menu is a curated set: page labels, short columns, a link to all features", () => {
+    const menu = NAV_MENUS.find((m) => m.id === "features");
+    const items = menu?.columns.flatMap((c) => c.items) ?? [];
+    // Every feature is on /features; the menu only carries the most important ones.
+    expect(menu?.href).toBe(SITE_PATHS.features);
+    for (const item of items) {
+      const page = FEATURE_PAGES.find((f) => featureHref(f.slug) === item.href);
+      expect(page, item.href).toBeDefined();
+      expect(navMessages.items[item.id].label, item.href).toBe(page?.navLabel);
+      expect(item.icon, `${item.href} needs an icon`).toBe(page?.icon);
+    }
+    expect(new Set(items.map((i) => i.href)).size).toBe(items.length);
+  });
+
+  it("keeps every mega-menu column short enough to scan", () => {
+    for (const menu of NAV_MENUS) {
+      for (const col of menu.columns) {
+        expect(col.items.length, `${menu.id} › ${col.id}`).toBeLessThanOrEqual(6);
+      }
     }
   });
 

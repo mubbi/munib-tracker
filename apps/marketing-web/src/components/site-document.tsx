@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import type { ReactNode } from "react";
 import { FONT_VARIABLES, LOCALE_FONT_STYLE } from "@/app/fonts";
 import { Analytics } from "@/components/analytics";
+import { BackToTop } from "@/components/back-to-top";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { SiteBackground } from "@/components/day-arc/site-background";
 import { Footer } from "@/components/footer";
@@ -45,6 +46,7 @@ export async function SiteDocument({ locale, children }: { locale: Locale; child
             {children}
           </main>
           <Footer />
+          <BackToTop />
           <CookieConsentBanner />
         </NextIntlClientProvider>
       </body>

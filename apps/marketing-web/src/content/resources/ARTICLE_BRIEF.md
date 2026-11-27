@@ -69,6 +69,11 @@ Inline markup inside strings: `[label](/path)` links and `**bold**` only. No HTM
 Features: /features/salah-tracker · /features/qaza-salah-tracker · /features/zikr-tracker ·
 /features/quran · /features/quran-practice · /features/learn-quran · /features/daily-islamic-habits ·
 /features/worship-progress · /features/prayer-times-qibla · /features/widgets-and-devices
+/features/masjid-finder · /features/salah-focus-lock · /features/family-and-friends · /features/hadith ·
+/features/my-madhhab · /features/fasting-tracker · /features/umrah-mode · /features/private-reflection ·
+/features/islamic-will-and-inheritance · /features/tasbeeh-counter · /features/duas-hisnul-muslim ·
+/features/99-names-of-allah · /features/zakat-calculator · /features/qibla-finder · /features/hijri-calendar ·
+/features/ramadan-tracker · /features/hifz-tracker · /features/kids-mode
 Audiences: /for/new-muslims · /for/quran-learners · /for/beginners · /for/families
 Articles:
 /resources/salah/how-to-build-a-consistent-salah-habit · /resources/salah/what-is-qaza-salah ·
@@ -136,7 +141,7 @@ Use 2–4 contextual internal links in the body, plus 3–5 hrefs in `related`.
   ruling); Umrah mode (miqat check, tawaf and sa'i counters); ayah notes and highlights; Arabic root-word
   search (Quranic Arabic Corpus, optional ~6 MB download, credited); Salah focus lock (iPhone and
   Android: blocks chosen apps; gentle / firm / strict, emergency unlocks; app choices stay on the device);
-  Masjid finder (OpenStreetMap, list-first with "open in Maps", no in-app map; no public iqamah
+  Masjid finder (OpenStreetMap, list-first with an optional in-app map and Google Maps directions; no public iqamah
   timetables; private home-masjid iqamah times typed in or scanned from a timetable photo — read on the
   device, iOS Vision / Android ML Kit / in-browser engine after a one-time ~7 MB download, always
   reviewed before saving, photo copy deleted; iqamah countdown on home and an iqamah reminder;

@@ -565,6 +565,58 @@ html.is-scrolling .animate-float-slow {
   animation: reveal-up 0.6s ease-out both;
 }
 
+/* ── Motion without JavaScript (components/ui/motion.tsx, hero-motion.tsx) ──
+ * Content is never hidden waiting for script: the hero rises on first paint
+ * (transform only, so text counts for FCP/LCP at once), and sections reveal
+ * with scroll-driven animations where the browser supports them — elsewhere
+ * they are simply shown. */
+@keyframes hero-rise {
+  from {
+    transform: translateY(18px);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--hero-i, 0) * 90ms + 50ms);
+}
+
+@keyframes hero-device-in {
+  from {
+    transform: translateY(16px) scale(0.98);
+  }
+}
+
+.hero-device-in {
+  animation: hero-device-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: scroll-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.consent-in {
+  animation: consent-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html {

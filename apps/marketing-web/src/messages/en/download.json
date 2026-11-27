@@ -9,7 +9,7 @@
   "available": "Available",
   "platforms": {
     "web": {
-      "name": "Web",
+      "name": "Web app (PWA)",
       "status": "Available now",
       "description": "Use {appName} in any modern browser. Works offline as a progressive web app with notification support and the full learning library.",
       "cta": "Open web app"
@@ -29,12 +29,18 @@
     "watch": {
       "name": "Apple Watch & Wear OS",
       "status": "With the phone app",
-      "description": "See the next Salah and mark it from your wrist, with complications on Apple Watch and Salah and Tasbeeh tiles on Wear OS. Installs alongside the phone app."
+      "description": "See the next Salah and mark it from your wrist, with complications on Apple Watch and Salah and Tasbeeh tiles on Wear OS. Installs alongside the phone app.",
+      "ctaIos": "{appStore} · Apple Watch",
+      "ctaAndroid": "{googlePlay} · Wear OS",
+      "how": "The Apple Watch app installs with the iPhone app. On Wear OS, install it from Google Play on your phone or watch."
     },
     "tv": {
       "name": "Apple TV & Android TV",
       "status": "{appStore} and {googlePlay}",
-      "description": "Read the Qur'an, follow adhkar and check your tracker on the big screen, designed for the remote."
+      "description": "Read the Qur'an, follow adhkar and check your tracker on the big screen, designed for the remote.",
+      "ctaIos": "{appStore} · Apple TV",
+      "ctaAndroid": "{googlePlay} · Android TV",
+      "how": "On your TV, open the App Store or Google Play and search for {appName}."
     }
   },
   "grabIt": "Grab it your way",
@@ -52,5 +58,14 @@
   "guest": {
     "heading": "Guest mode",
     "body": "No account needed for personal use. Install or open the app and start tracking straight away. Export a local backup anytime, or sign in with Google, Apple or Facebook to sync your Salah, Qaza, Zikr and learning progress across devices, or to use family circles, an accountability partner and group khatm."
+  },
+  "install": {
+    "title": "Install it like an app",
+    "items": {
+      "desktop": "Computer (Chrome or Edge): click Install in the address bar.",
+      "iphone": "iPhone and iPad: in Safari, tap Share, then Add to Home Screen.",
+      "mac": "Mac (Safari): choose File, then Add to Dock.",
+      "android": "Android: open the browser menu (⋮) and tap Install app."
+    }
   }
 }

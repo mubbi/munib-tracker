@@ -112,7 +112,7 @@ export function AiPracticeHighlight() {
             <p className="mt-4 text-xs leading-relaxed text-muted">{t("footnote")}</p>
           </div>
 
-          <Reveal delay={0.1}>
+          <Reveal>
             <PracticePreview />
           </Reveal>
         </div>

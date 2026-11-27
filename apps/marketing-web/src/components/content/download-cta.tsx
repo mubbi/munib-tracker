@@ -16,10 +16,16 @@ export function DownloadCta({
   title,
   text,
   placement,
+  feature,
+  webAppPath,
 }: {
   title: string;
   text: string;
   placement: DownloadPlacement;
+  /** Feature slug the page promotes (analytics attribution). */
+  feature?: string;
+  /** Web-app route for the web badge; `null` hides it (app-only feature). */
+  webAppPath?: string | null;
 }) {
   const t = useTranslations("templates.downloadCta");
   return (
@@ -44,7 +50,12 @@ export function DownloadCta({
             <p className="mx-auto mt-4 max-w-xl text-pretty text-lg leading-relaxed text-white/75">
               {text}
             </p>
-            <StoreBadges className="mt-9 justify-center" placement={placement} />
+            <StoreBadges
+              className="mt-9 justify-center"
+              placement={placement}
+              feature={feature}
+              webAppPath={webAppPath}
+            />
             <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-white/70">
               {PROOF.map(({ id, icon: Icon }) => (
                 <li key={id} className="inline-flex items-center gap-2">

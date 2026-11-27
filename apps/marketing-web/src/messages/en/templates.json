@@ -123,5 +123,12 @@
     "disclaimer": "This guide is educational and was prepared by {appName} from the sources listed above. It is not a fatwa. For questions about your own situation, please ask a qualified scholar. Found an error? <link>Let us know</link>.",
     "onThisPage": "On this page",
     "keepReading": "Keep reading"
+  },
+  "tryIt": {
+    "button": "Try it free in your browser",
+    "hint": "Opens the web app. No download or account needed.",
+    "orApp": "Or get the app on your phone:",
+    "appOnly": "This feature needs the iPhone or Android app.",
+    "link": "Try it in your browser"
   }
 }

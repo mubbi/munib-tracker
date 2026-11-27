@@ -4,10 +4,13 @@ import { type ContentTranslations, localizeEntries } from "@/content/localized";
 import type { ComparePage } from "@/content/types";
 import { DEFAULT_LOCALE, type Locale } from "@/i18n/routing";
 import { vsAthan } from "./athan";
+import { bestFreeIslamicApps } from "./best-free-islamic-apps";
+import { bestQuranMemorizationApps } from "./best-quran-memorization-apps";
 import { bestSalahTrackerApps } from "./best-salah-tracker-apps";
 import { vsIslam360 } from "./islam360";
 import { islamicHabitTrackerApps } from "./islamic-habit-tracker-apps";
 import { vsMuslimPro } from "./muslim-pro";
+import { muslimProAlternatives } from "./muslim-pro-alternatives";
 import { vsPillars } from "./pillars";
 import { vsTarteel } from "./tarteel";
 
@@ -19,6 +22,9 @@ export const COMPARE_PAGES: readonly ComparePage[] = [
   vsPillars,
   vsAthan,
   islamicHabitTrackerApps,
+  muslimProAlternatives,
+  bestQuranMemorizationApps,
+  bestFreeIslamicApps,
 ];
 
 /** Translated comparison pages per locale (see `content/localized.ts`). */

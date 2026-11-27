@@ -86,11 +86,30 @@ export function trackGtagEvent(eventName: string, params?: GtagEventParams): voi
   gtag("event", eventName, cleaned);
 }
 
+/**
+ * GA4 content group for a page path (`/en/features/x` → "feature"), so
+ * reports and path explorations can compare page types across languages.
+ */
+export function contentGroup(path: string): { content_group: string; page_language: string } {
+  const [locale = "", section = "", ...rest] = path.split("?")[0]?.split("/").filter(Boolean) ?? [];
+  const page_language = /^[a-z]{2}$/.test(locale) ? locale : "";
+  const groups: Record<string, string> = {
+    features: rest.length ? "feature" : "features_hub",
+    compare: rest.length ? "comparison" : "compare_hub",
+    for: rest.length ? "audience" : "audience_hub",
+    resources: rest.length >= 2 ? "guide" : "guides_hub",
+  };
+  const content_group = section ? (groups[section] ?? section.replace(/-/g, "_")) : "home";
+  return { content_group, page_language };
+}
+
 export function trackGtagPageView(path: string, title?: string): void {
   const id = getGaMeasurementId();
   const gtag = ensureGtag();
   if (!id || !gtag) return;
 
+  // Set once so every later event on this page carries the same group.
+  gtag("set", contentGroup(path));
   gtag("event", "page_view", {
     page_path: path,
     page_title: title ?? (typeof document !== "undefined" ? document.title : undefined),

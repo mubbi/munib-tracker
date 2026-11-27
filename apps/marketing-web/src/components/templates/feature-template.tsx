@@ -17,11 +17,12 @@ import {
 } from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
 import { ScreenshotGallery, slotFrame } from "@/components/content/screenshot-gallery";
-import { StoreBadges } from "@/components/store-badges";
+import { TryFeature } from "@/components/content/try-feature";
 import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
 import type { FeaturePage } from "@/content/types";
-import { graph, webPageSchema } from "@/lib/structured-data";
+import { featureWebAppPath } from "@/content/web-app";
+import { faqNodes, graph, webPageSchema } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
 /**
@@ -51,7 +52,9 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
             path,
             name: feature.title,
             description: feature.seoDescription,
+            modified: feature.updated,
           }),
+          ...faqNodes(feature.faqs),
         )}
       />
       <PageHero
@@ -62,7 +65,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         eyebrow={feature.eyebrow}
         title={feature.title}
         intro={<RichText text={feature.intro} />}
-        actions={<StoreBadges placement="feature_page" />}
+        actions={<TryFeature slug={feature.slug} />}
         screenshot={feature.hero}
         visual={
           feature.slug === "quran-practice" ? (
@@ -244,7 +247,13 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         </div>
       </PageSection>
 
-      <DownloadCta title={feature.cta.title} text={feature.cta.text} placement="feature_page" />
+      <DownloadCta
+        title={feature.cta.title}
+        text={feature.cta.text}
+        placement="feature_page"
+        feature={feature.slug}
+        webAppPath={featureWebAppPath(feature.slug)}
+      />
     </>
   );
 }

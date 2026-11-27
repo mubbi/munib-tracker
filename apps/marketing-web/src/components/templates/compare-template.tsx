@@ -23,7 +23,7 @@ import { PLANNED_FEATURES, SHIPPED_FEATURE_COUNT } from "@/content/munib-feature
 import { articleByHref } from "@/content/resources";
 import type { ComparePage, ScreenshotSlot } from "@/content/types";
 import type { Locale } from "@/i18n/routing";
-import { graph, webPageSchema } from "@/lib/structured-data";
+import { faqNodes, graph, webPageSchema } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
 type TemplatesT = ReturnType<typeof useTranslations<"templates">>;
@@ -81,7 +81,14 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
     <>
       <JsonLdScript
         data={graph(
-          webPageSchema({ locale, path, name: page.title, description: page.seoDescription }),
+          webPageSchema({
+            locale,
+            path,
+            name: page.title,
+            description: page.seoDescription,
+            modified: page.updated,
+          }),
+          ...faqNodes(page.faqs),
         )}
       />
       <PageHero

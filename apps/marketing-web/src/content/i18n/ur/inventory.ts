@@ -86,7 +86,7 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
       {
         name: "مسجد تلاش",
         detail:
-          'OpenStreetMap سے قریبی مساجد، اقامت کے نجی اوقات کے ساتھ اپنی مستقل مسجد، اقامت کا کاؤنٹ ڈاؤن اور "مسجد میں ادا کی"',
+          'OpenStreetMap سے قریبی مساجد فہرست یا اختیاری نقشے میں، اقامت کے نجی اوقات کے ساتھ اپنی مستقل مسجد، اقامت کا کاؤنٹ ڈاؤن اور "مسجد میں ادا کی"',
         status: "shipped",
         nf: "NF-3.11",
         href: "/features/masjid-finder",
@@ -197,6 +197,12 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         detail: "33، 99، 100، لامحدود یا اپنی مرضی کے اہداف؛ Wear OS ٹائل",
       },
       {
+        name: "نماز کے بعد کی تسبیح کی ترتیب",
+        status: "shipped",
+        detail: "ایک ہی کاؤنٹر میں 33، 33 اور 34 جو خود آگے بڑھتا ہے، ٹیپ سے یا بغیر ہاتھ لگائے",
+        href: "/features/zikr-tracker",
+      },
+      {
         name: "اپنے اذکار بنانے کا ٹول",
         status: "shipped",
         detail: "اپنا ذکر، آواز سے متن (speech-to-text) کے ساتھ",
@@ -262,7 +268,8 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
       {
         name: "آیت کی شناخت (Verse Detector)",
         status: "shipped",
-        detail: "بولی گئی یا ٹائپ کی گئی عربی یا انگریزی سے سورت اور آیت تلاش کریں",
+        detail:
+          "ٹائپ کی گئی عربی یا انگریزی سے، یا تلاوت کیے گئے چند الفاظ سے سورت اور آیت تلاش کریں",
       },
       {
         name: "تلاش اور بُک مارکس",
@@ -301,6 +308,13 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         name: "وقفے وقفے سے دہرائی",
         status: "shipped",
         detail: "آیات 1، 3، 7، 14 اور 30 دن بعد دوبارہ سامنے آتی ہیں",
+      },
+      {
+        name: "تلاوت سے تلاش اور ساتھ ساتھ پڑھنا",
+        status: "shipped",
+        detail:
+          "تلاوت کر کے آیت تلاش کریں، اور نماز گائیڈ، جمعہ، اذکار اور ختم کی اسکرینوں سے ساتھ ساتھ پڑھیں",
+        href: "/features/quran-practice",
       },
       {
         name: "تلفظ کی ڈرلز",
@@ -496,6 +510,13 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         nf: "NF-3.18",
         href: "/features/family-and-friends",
       },
+      {
+        name: "آس پاس شامل ہوں",
+        detail:
+          "اپنے پاس موجود کسی شخص کو بلوٹوتھ کے ذریعے 4 ہندسوں کے کوڈ سے شامل کریں جس کی منظوری آپ دیتے ہیں؛ QR اور دعوتی کوڈز بھی",
+        status: "shipped",
+        href: "/features/family-and-friends",
+      },
     ],
   },
   {
@@ -521,7 +542,7 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
       {
         name: "Apple Watch اور Wear OS",
         status: "shipped",
-        detail: "شیڈول، نماز درج کرنا، کمپلیکیشنز اور ٹائلز",
+        detail: "شیڈول، نماز درج کرنا، کلائی پر تسبیح، کمپلیکیشنز اور ٹائلز",
       },
       {
         name: "Siri اور Google Assistant شارٹ کٹس",
@@ -566,9 +587,9 @@ export const TRANSLATIONS: readonly InventoryGroup[] = [
         detail: "عربی، اردو، فارسی، پشتو اور کردی کے لیے دائیں سے بائیں لے آؤٹس",
       },
       {
-        name: "تھیمز اور فونٹس",
+        name: "تھیمز، آئیکن اور فونٹس",
         status: "shipped",
-        detail: "لائٹ اور ڈارک، 12 لہجہ رنگ، موسمی تھیمز، عربی فونٹس",
+        detail: "لائٹ اور ڈارک، 12 لہجہ رنگ، موسمی تھیمز اور ایپ آئیکن، عربی فونٹس",
       },
       {
         name: "حسبِ منشا ہوم اسکرین",

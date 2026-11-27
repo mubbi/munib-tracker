@@ -5,11 +5,12 @@ import { ArrowRight, ChevronDown, Menu, Sparkles, X } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { FeatureIcon } from "@/components/content/feature-icon";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { Link, usePathname } from "@/i18n/navigation";
-import { trackCtaClick, trackNavClick } from "@/lib/analytics";
-import { isActivePath, menuIsActive } from "@/lib/nav";
+import { trackCtaClick, trackMenuOpen, trackNavClick } from "@/lib/analytics";
+import { isActivePath, isCompactMenu, menuIsActive } from "@/lib/nav";
 import { NAV_LINKS, NAV_MENUS, type NavMenu, SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +19,65 @@ import { cn } from "@/lib/utils";
 const CTA_CLASS =
   "items-center justify-center rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(4,34,24,0.8),inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 [text-shadow:0_1px_3px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98]";
 
-/** Desktop mega-menu panel. */
+/** One menu link: compact (icon + label) or detailed (label + hint). */
+function MenuItem({
+  item,
+  pathname,
+  onNavigate,
+}: {
+  item: NavMenu["columns"][number]["items"][number];
+  pathname: string;
+  onNavigate: (navId: string) => void;
+}) {
+  const t = useTranslations("nav");
+  const label = t(`items.${item.id}.label`, { appName: APP_NAME });
+  const current = pathname === item.href;
+  if (item.icon) {
+    return (
+      <Link
+        href={item.href}
+        aria-current={current ? "page" : undefined}
+        className={cn(
+          "group flex items-center gap-3 rounded-xl px-3 py-2 text-[15px] font-medium transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]",
+          current ? "text-brand" : "text-white/90 hover:text-white",
+        )}
+        onClick={() => onNavigate(item.href)}
+      >
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-brand transition-colors group-hover:bg-brand/15">
+          <FeatureIcon icon={item.icon} className="size-4" />
+        </span>
+        <span className="leading-snug">{label}</span>
+      </Link>
+    );
+  }
+  return (
+    <Link
+      href={item.href}
+      aria-current={current ? "page" : undefined}
+      className="group block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]"
+      onClick={() => onNavigate(item.href)}
+    >
+      <span
+        className={cn(
+          "block text-[15px] font-medium group-hover:text-brand",
+          current ? "text-brand" : "text-white",
+        )}
+      >
+        {label}
+      </span>
+      <span className="mt-0.5 block text-[13px] leading-snug text-white/55">
+        {t(`items.${item.id}.hint`)}
+      </span>
+    </Link>
+  );
+}
+
+/**
+ * Desktop mega-menu panel. Wide (compact) menus put the featured link in a
+ * strip under the columns so each column gets the full width; short menus
+ * keep it as a card beside the columns. The panel never grows past the
+ * viewport: it scrolls inside instead of being cut off on short screens.
+ */
 function MegaPanel({
   menu,
   id,
@@ -32,76 +91,114 @@ function MegaPanel({
   onNavigate: (navId: string) => void;
 }) {
   const t = useTranslations("nav");
+  const compact = isCompactMenu(menu);
+  const columns = (
+    <div
+      className={cn(
+        "grid",
+        menu.columns.length >= 4
+          ? "grid-cols-4 gap-x-4 gap-y-6"
+          : menu.columns.length === 3
+            ? "grid-cols-3 gap-8"
+            : "grid-cols-2 gap-8",
+      )}
+    >
+      {menu.columns.map((col) => (
+        <div key={col.id} className="min-w-0">
+          <p className="px-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+            {t(`columns.${col.id}`)}
+          </p>
+          <ul className={cn("mt-3 flex flex-col", compact ? "gap-1" : "gap-0.5")}>
+            {col.items.map((item) => (
+              <li key={item.href}>
+                <MenuItem item={item} pathname={pathname} onNavigate={onNavigate} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+  const viewAll = (
+    <Link
+      href={menu.href}
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-1 text-sm font-semibold text-white/80 hover:text-brand"
+      onClick={() => onNavigate(`all_${menu.id}`)}
+    >
+      {t(`menus.${menu.id}.viewAll`)}
+      <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
+    </Link>
+  );
+
   return (
     <div
       id={id}
-      className="absolute inset-x-0 top-full border-y border-white/[0.08] bg-[#081a27] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]"
+      className="absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-y border-white/[0.08] bg-[#081a27] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]"
     >
-      <div className="mx-auto grid max-w-7xl gap-8 px-8 py-8 lg:grid-cols-[1fr_18rem]">
-        <div className={cn("grid gap-8", menu.columns.length >= 3 ? "grid-cols-3" : "grid-cols-2")}>
-          {menu.columns.map((col) => (
-            <div key={col.id}>
-              <p className="px-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                {t(`columns.${col.id}`)}
-              </p>
-              <ul className="mt-3 flex flex-col gap-0.5">
-                {col.items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={pathname === item.href ? "page" : undefined}
-                      className="group block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]"
-                      onClick={() => onNavigate(item.href)}
-                    >
-                      <span className="block text-[15px] font-medium text-white group-hover:text-brand">
-                        {t(`items.${item.id}.label`, { appName: APP_NAME })}
-                      </span>
-                      <span className="mt-0.5 block text-[13px] leading-snug text-white/55">
-                        {t(`items.${item.id}.hint`)}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-col gap-4">
-          {menu.feature ? (
-            <Link
-              href={menu.feature.href}
-              className="group flex flex-1 flex-col rounded-2xl border border-brand/25 bg-[#0d2a2a] p-5 transition-colors hover:border-brand/50"
-              onClick={() => onNavigate(`feature_${menu.id}`)}
-            >
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                <Sparkles aria-hidden className="size-3.5" />
-                {t(`featured.${menu.feature.id}.eyebrow`)}
-              </span>
-              <span className="mt-2 font-display text-lg font-semibold leading-snug text-white">
-                {t(`featured.${menu.feature.id}.label`)}
-              </span>
-              <span className="mt-1.5 text-sm leading-relaxed text-white/65">
-                {t(`featured.${menu.feature.id}.hint`)}
-              </span>
-              <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-brand">
-                {t("learnMore")}
+      {compact ? (
+        <div className="mx-auto max-w-7xl px-6 pt-7 xl:px-8">
+          {columns}
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-white/[0.08] py-4">
+            {menu.feature ? (
+              <Link
+                href={menu.feature.href}
+                className="group flex min-w-0 items-center gap-3 rounded-full border border-brand/25 bg-[#0d2a2a] py-1.5 ps-2 pe-4 text-sm transition-colors hover:border-brand/50"
+                onClick={() => onNavigate(`feature_${menu.id}`)}
+              >
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-gold/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
+                  <Sparkles aria-hidden className="size-3" />
+                  {t(`featured.${menu.feature.id}.eyebrow`)}
+                </span>
+                <span className="truncate font-semibold text-white">
+                  {t(`featured.${menu.feature.id}.label`)}
+                </span>
+                <span className="hidden truncate text-white/55 xl:inline">
+                  {t(`featured.${menu.feature.id}.hint`)}
+                </span>
                 <ArrowRight
                   aria-hidden
-                  className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
+                  className="size-4 shrink-0 text-brand transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
                 />
-              </span>
-            </Link>
-          ) : null}
-          <Link
-            href={menu.href}
-            className="inline-flex items-center gap-1.5 px-1 text-sm font-semibold text-white/80 hover:text-brand"
-            onClick={() => onNavigate(`all_${menu.id}`)}
-          >
-            {t(`menus.${menu.id}.viewAll`)}
-            <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
-          </Link>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {viewAll}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-8 lg:grid-cols-[1fr_17rem] xl:px-8">
+          {columns}
+          <div className="flex flex-col gap-4">
+            {menu.feature ? (
+              <Link
+                href={menu.feature.href}
+                className="group flex flex-col rounded-2xl border border-brand/25 bg-[#0d2a2a] p-5 transition-colors hover:border-brand/50"
+                onClick={() => onNavigate(`feature_${menu.id}`)}
+              >
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+                  <Sparkles aria-hidden className="size-3.5" />
+                  {t(`featured.${menu.feature.id}.eyebrow`)}
+                </span>
+                <span className="mt-2 font-display text-lg font-semibold leading-snug text-white">
+                  {t(`featured.${menu.feature.id}.label`)}
+                </span>
+                <span className="mt-1.5 text-sm leading-relaxed text-white/65">
+                  {t(`featured.${menu.feature.id}.hint`)}
+                </span>
+                <span className="inline-flex items-center gap-1 pt-4 text-sm font-semibold text-brand">
+                  {t("learnMore")}
+                  <ArrowRight
+                    aria-hidden
+                    className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
+                  />
+                </span>
+              </Link>
+            ) : null}
+            {viewAll}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -135,6 +232,18 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Report a mega-menu only once it has stayed open briefly, so sweeping the
+  // pointer across the bar doesn't log every menu it passes.
+  useEffect(() => {
+    if (!openMenu) return;
+    const timer = setTimeout(() => trackMenuOpen(openMenu, "desktop"), 500);
+    return () => clearTimeout(timer);
+  }, [openMenu]);
+
+  useEffect(() => {
+    if (mobileOpen) trackMenuOpen("drawer", "mobile");
+  }, [mobileOpen]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: close menus on route change
   useEffect(() => {
@@ -235,7 +344,7 @@ export function SiteHeader() {
           </Link>
 
           <nav aria-label={t("mainLabel")} className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center gap-0.5 xl:gap-1">
               {NAV_MENUS.map((menu) => {
                 const open = openMenu === menu.id;
                 const panelId = `${baseId}-panel-${menu.id}`;
@@ -261,7 +370,7 @@ export function SiteHeader() {
                       aria-expanded={open}
                       aria-controls={open ? panelId : undefined}
                       className={cn(
-                        "inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.35)]",
+                        "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.35)] xl:px-3.5",
                         open || active ? "text-white" : "text-white/75 hover:text-white",
                         open && "bg-white/[0.07]",
                       )}
@@ -297,7 +406,7 @@ export function SiteHeader() {
                       href={link.href}
                       aria-current={pathname === link.href ? "page" : undefined}
                       className={cn(
-                        "inline-flex rounded-full px-3.5 py-2 text-sm font-medium transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.35)]",
+                        "inline-flex whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.35)] xl:px-3.5",
                         active ? "text-white" : "text-white/75 hover:text-white",
                       )}
                       onClick={() => onNavigate(link.href)}

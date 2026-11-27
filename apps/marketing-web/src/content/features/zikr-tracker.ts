@@ -21,7 +21,7 @@ export const zikrTracker: FeaturePage = {
   ],
   cluster: "zikr",
   published: "2026-11-23",
-  updated: "2026-11-24",
+  updated: "2026-11-27",
   eyebrow: "Zikr tracker",
   intro:
     "Remember Allah throughout the day with the adhkar the Prophet ﷺ taught, each shown with its source. Follow a guided session after Salah, count with a tactile tasbeeh, and keep track of what you've said today.",
@@ -48,6 +48,7 @@ export const zikrTracker: FeaturePage = {
           "Sessions for morning, evening, before sleep and after each Salah",
           "Done, pending and missed status based on the time windows of your day",
           "Mark one zikr or the whole session complete",
+          "Optional hands-free counting inside a session: each short repeated zikr listens for its own phrase and moves on by itself",
         ],
       },
       {
@@ -57,8 +58,9 @@ export const zikrTracker: FeaturePage = {
           "Eight counter designs, all free: the classic Ring (the default), sliding beads (misbaha), a digital clicker, a dim Focus / Night face, date pits / pebbles, finger counting, a geometric rosette and a night sky",
           "Optional click sounds (natural wood, stone and glass; no music, no bells) and haptics",
           "Hands-free counting for any zikr: say it up to 3 times to teach it, then only its repeats count, on your device; or skip teaching to count every pause (less accurate). Tap to correct any miscount",
+          "An after-Salah sequence in one counter: 33, 33 and 34 (or 33, 33, 33 and the tahlil), moving from phrase to phrase by itself, by tap or hands-free",
           "Undo and reset, with haptic feedback on phones",
-          "A Tasbeeh tile on Wear OS and a shortcut on Apple Watch",
+          "Tasbeeh on your wrist: count with the Digital Crown on Apple Watch or the rotating crown on Wear OS, plus a Wear OS tile",
           "Counts linked to a zikr save towards your daily goal",
         ],
       },
@@ -171,6 +173,11 @@ export const zikrTracker: FeaturePage = {
       question: "Is there a free tasbeeh counter?",
       answer:
         "Yes. The tasbeeh counter is free, has no ads, and lets you set 33, 99, 100, unlimited or any custom target.",
+    },
+    {
+      question: "Is there a 33, 33, 34 tasbeeh counter for after Salah?",
+      answer:
+        "Yes. The after-Salah sequence counts SubhanAllah 33 times, Alhamdulillah 33 times and Allahu Akbar 34 times in one counter (Sahih Muslim 596), or 33 of each followed by the tahlil (Sahih Muslim 597). It moves to the next phrase by itself, by tap or hands-free, and logs the after-Salah adhkar for the Salah you choose.",
     },
     {
       question: "Can I get reminders for morning and evening adhkar?",

@@ -10,18 +10,28 @@
     "body": "Free, no ads, no account needed for personal use."
   },
   "menus": {
-    "features": { "label": "Features", "viewAll": "View all features" },
-    "solutions": { "label": "Who it's for", "viewAll": "See everyone it's for" },
-    "resources": { "label": "Resources", "viewAll": "Browse all guides" }
+    "features": {
+      "label": "Features",
+      "viewAll": "View all features"
+    },
+    "solutions": {
+      "label": "Who it's for",
+      "viewAll": "See everyone it's for"
+    },
+    "resources": {
+      "label": "Resources",
+      "viewAll": "Browse all guides"
+    }
   },
   "columns": {
     "trackWorship": "Track your worship",
     "quranHadith": "Qur'an and hadith",
-    "everydayFamily": "Everyday and family",
+    "timesTools": "Times and tools",
+    "familyLife": "Family and life",
     "whoFor": "Who it's for",
     "getToKnow": "Get to know the app",
     "guides": "Guides",
-    "help": "Help"
+    "help": "Library & help"
   },
   "featured": {
     "quranPractice": {
@@ -36,34 +46,58 @@
     }
   },
   "items": {
-    "salahTracker": { "label": "Salah tracker", "hint": "Log the five daily Salah" },
-    "qazaTracker": { "label": "Qaza tracker", "hint": "Make up missed Salah at your pace" },
+    "salahTracker": {
+      "label": "Salah tracker",
+      "hint": "Log the five daily Salah"
+    },
+    "qazaTracker": {
+      "label": "Qaza tracker",
+      "hint": "Make up missed Salah at your pace"
+    },
     "salahFocusLock": {
       "label": "Salah focus lock",
       "hint": "Block distracting apps at Salah time"
     },
-    "fastingTracker": {
-      "label": "Fasting & Dhul-Hijjah",
-      "hint": "Voluntary fasts, Ramadan and the ten days"
+    "zikrTracker": {
+      "label": "Zikr & tasbeeh",
+      "hint": "Daily adhkar and a tasbeeh counter"
     },
-    "zikrTracker": { "label": "Zikr & tasbeeh", "hint": "Daily adhkar and a tasbeeh counter" },
-    "dailyHabits": { "label": "Daily habits", "hint": "Today's Goal, reminders and checklists" },
     "worshipProgress": {
       "label": "Worship progress",
       "hint": "Statistics, streaks and Noor levels"
     },
-    "quranReader": { "label": "Qur'an reader", "hint": "Read, listen and reflect offline" },
-    "quranPractice": { "label": "Qur'an practice (AI)", "hint": "Recite and it follows along" },
-    "learnQuran": { "label": "Learn the Qur'an", "hint": "From the letters to tajweed" },
-    "hadithLibrary": { "label": "Hadith library", "hint": "Collections, grades and explanation" },
-    "learningLibrary": { "label": "Learning library", "hint": "Aqeedah, seerah and fiqh guides" },
+    "quranReader": {
+      "label": "Qur'an reader",
+      "hint": "Read, listen and reflect offline"
+    },
+    "quranPractice": {
+      "label": "Qur'an practice (AI)",
+      "hint": "Recite and it follows along"
+    },
+    "learnQuran": {
+      "label": "Learn the Qur'an",
+      "hint": "From the letters to tajweed"
+    },
+    "hadithLibrary": {
+      "label": "Hadith library",
+      "hint": "Collections, grades and explanation"
+    },
+    "learningLibrary": {
+      "label": "Learning library",
+      "hint": "Aqeedah, seerah and fiqh guides"
+    },
     "prayerTimesQibla": {
       "label": "Salah times & Qibla",
       "hint": "Accurate times, Adhan and compass"
     },
-    "masjidFinder": { "label": "Masjid finder", "hint": "Nearby masjids and your home masjid" },
-    "myMadhhab": { "label": "My madhhab", "hint": "Your school in every guide and calculator" },
-    "umrahMode": { "label": "Umrah mode", "hint": "A step-by-step companion during Umrah" },
+    "masjidFinder": {
+      "label": "Masjid finder",
+      "hint": "Nearby masjids and your home masjid"
+    },
+    "umrahMode": {
+      "label": "Umrah mode",
+      "hint": "A step-by-step companion during Umrah"
+    },
     "widgetsAndDevices": {
       "label": "Widgets, watch & TV",
       "hint": "iPhone, Android, web, watch and TV"
@@ -76,26 +110,106 @@
       "label": "Private reflection",
       "hint": "Muhasabah, weekly coach and family ties"
     },
-    "willAndInheritance": { "label": "Will & inheritance", "hint": "Mirath, wasiyyah and debts" },
+    "willAndInheritance": {
+      "label": "Will & inheritance",
+      "hint": "Mirath, wasiyyah and debts"
+    },
     "returningToSalah": {
       "label": "Returning to Salah",
       "hint": "Rebuild the habit without guilt"
     },
-    "newMuslims": { "label": "New Muslims", "hint": "Learn Salah and the basics, step by step" },
-    "quranLearners": { "label": "Qur'an learners", "hint": "Read, recite, memorize and revise" },
-    "families": { "label": "Families", "hint": "Learn the Qur'an and Salah at home" },
-    "howItWorks": { "label": "How it works", "hint": "Set up your routine in a minute" },
-    "whyApp": { "label": "Why {appName}", "hint": "Private, ad-free, authentic" },
-    "salahGuides": { "label": "Salah", "hint": "Consistency, Qaza and missed prayers" },
-    "zikrGuides": { "label": "Zikr & adhkar", "hint": "Daily routine, morning and evening" },
-    "quranLearningGuides": { "label": "Qur'an learning", "hint": "Read, recite and memorize" },
-    "habitGuides": { "label": "Islamic habits", "hint": "Stay consistent in worship" },
-    "faq": { "label": "FAQ", "hint": "Privacy, platforms and content" },
-    "contentSources": { "label": "Content sources", "hint": "Where our content comes from" },
-    "contact": { "label": "Contact & support", "hint": "Questions, feedback and corrections" }
+    "newMuslims": {
+      "label": "New Muslims",
+      "hint": "Learn Salah and the basics, step by step"
+    },
+    "quranLearners": {
+      "label": "Qur'an learners",
+      "hint": "Read, recite, memorize and revise"
+    },
+    "families": {
+      "label": "Families",
+      "hint": "Learn the Qur'an and Salah at home"
+    },
+    "howItWorks": {
+      "label": "How it works",
+      "hint": "Set up your routine in a minute"
+    },
+    "whyApp": {
+      "label": "Why {appName}",
+      "hint": "Private, ad-free, authentic"
+    },
+    "salahGuides": {
+      "label": "Salah",
+      "hint": "Consistency, Qaza and missed prayers"
+    },
+    "zikrGuides": {
+      "label": "Zikr & adhkar",
+      "hint": "Daily routine, morning and evening"
+    },
+    "quranLearningGuides": {
+      "label": "Qur'an learning",
+      "hint": "Read, recite and memorize"
+    },
+    "habitGuides": {
+      "label": "Islamic habits",
+      "hint": "Stay consistent in worship"
+    },
+    "faq": {
+      "label": "FAQ",
+      "hint": "Privacy, platforms and content"
+    },
+    "contentSources": {
+      "label": "Content sources",
+      "hint": "Where our content comes from"
+    },
+    "contact": {
+      "label": "Contact & support",
+      "hint": "Questions, feedback and corrections"
+    },
+    "tasbeehCounter": {
+      "label": "Tasbeeh counter",
+      "hint": "Eight designs, targets and hands-free"
+    },
+    "duasHisnulMuslim": {
+      "label": "Duas (Hisnul Muslim)",
+      "hint": "The full collection, by occasion"
+    },
+    "zakatCalculator": {
+      "label": "Zakat calculator",
+      "hint": "Estimate zakat against nisab"
+    },
+    "qiblaFinder": {
+      "label": "Qibla finder",
+      "hint": "Compass, bearing and distance"
+    },
+    "hijriCalendar": {
+      "label": "Hijri calendar",
+      "hint": "Islamic dates, events, converter"
+    },
+    "ramadanTracker": {
+      "label": "Ramadan tracker",
+      "hint": "Fasting log, suhoor, iftar and the last ten"
+    },
+    "hifzTracker": {
+      "label": "Hifz tracker",
+      "hint": "Mark ayahs, hide and recite, revise on time"
+    },
+    "kidsMode": {
+      "label": "Kids mode",
+      "hint": "Salah, duas and stories for children"
+    },
+    "ramadanGuides": {
+      "label": "Ramadan & fasting",
+      "hint": "Ramadan, Sunnah fasts, Laylat al-Qadr"
+    },
+    "zakatHajjGuides": {
+      "label": "Zakat, Hajj & Umrah",
+      "hint": "Calculate zakat, Hajj and Umrah step by step"
+    }
   },
   "links": {
     "compare": "Compare",
     "about": "About"
-  }
+  },
+  "backToTop": "Back to top"
 }

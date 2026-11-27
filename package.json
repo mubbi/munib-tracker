@@ -112,7 +112,8 @@
     "sync:screenshot-brand-assets": "node tools/screenshot-studio/scripts/sync-brand-assets.mjs",
     "sync:screenshot-captures": "node tools/screenshot-studio/scripts/sync-app-screenshots.mjs",
     "export:screenshot-studio": "node tools/screenshot-studio/scripts/export-all.mjs",
-    "distribute:screenshot-exports": "node tools/screenshot-studio/scripts/distribute-exports.mjs"
+    "distribute:screenshot-exports": "node tools/screenshot-studio/scripts/distribute-exports.mjs",
+    "indexnow:marketing": "pnpm --filter marketing-web indexnow"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.9",

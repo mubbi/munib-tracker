@@ -87,7 +87,7 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       shipped(
         "Qibla compass",
         "Bearing and distance to Makkah, with an alignment haptic",
-        "/features/prayer-times-qibla",
+        "/features/qibla-finder",
       ),
       shipped(
         "Salah history import",
@@ -108,7 +108,7 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       nf(
         "NF-3.11",
         "Masjid finder",
-        'Nearby masjids from OpenStreetMap, a home masjid with private iqamah times, an iqamah countdown and "prayed at the Masjid"',
+        'Nearby masjids from OpenStreetMap in a list or an optional map, a home masjid with private iqamah times, an iqamah countdown and "prayed at the Masjid"',
         "/features/masjid-finder",
       ),
       nf(
@@ -150,7 +150,7 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       shipped("Qaza history", "Every make-up Salah, logged"),
       shipped("Missed fasts tracker", "Track and make up missed fasts"),
       shipped("Fidyah and kaffarah helpers", "Planning estimates with guidance"),
-      shipped("Ramadan tracker", "Fasting times and a fasting log"),
+      shipped("Ramadan tracker", "Fasting times and a fasting log", "/features/ramadan-tracker"),
       shipped(
         "White Days fasting",
         "Hub, checklist and reminder for the 13th to 15th of each Hijri month",
@@ -179,12 +179,26 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "/features/zikr-tracker",
       ),
       shipped("Guided adhkar sessions", "Morning, evening, before sleep and after each Salah"),
-      shipped("Tasbeeh counter", "33, 99, 100, unlimited or custom targets; Wear OS tile"),
+      shipped(
+        "Tasbeeh counter",
+        "33, 99, 100, unlimited or custom targets; Wear OS tile",
+        "/features/tasbeeh-counter",
+      ),
+      shipped(
+        "After-Salah tasbeeh sequence",
+        "33, 33 and 34 in one counter that moves on by itself, by tap or hands-free",
+        "/features/zikr-tracker",
+      ),
       shipped("Custom adhkar builder", "Your own zikr, with speech-to-text"),
-      shipped(`${DUA_COUNT} duas`, "The full Hisnul Muslim in 16 categories"),
+      shipped(
+        `${DUA_COUNT} duas`,
+        "The full Hisnul Muslim in 16 categories",
+        "/features/duas-hisnul-muslim",
+      ),
       shipped(
         "Duroods and the 99 Names",
         "Nine salawat, and the Names of Allah with meanings and audio",
+        "/features/99-names-of-allah",
       ),
       nf(
         "NF-3.5",
@@ -219,8 +233,15 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
       shipped("25 translations", "Two bundled, the rest on demand, side by side"),
       shipped("Tafsir on demand"),
       shipped("Recitation audio", "Several reciters, ayah or surah playback, offline downloads"),
-      shipped("Khatm plan and hifz tracker", "Daily reading target and memorized ayahs"),
-      shipped("Verse Detector", "Find the surah and ayah from spoken or typed Arabic or English"),
+      shipped(
+        "Khatm plan and hifz tracker",
+        "Daily reading target and memorized ayahs",
+        "/features/hifz-tracker",
+      ),
+      shipped(
+        "Verse Detector",
+        "Find the surah and ayah from typed Arabic or English, or from a few recited words",
+      ),
       shipped("Search and bookmarks", "Ayah search, universal search and one bookmarks hub"),
       nf(
         "NF-3.21",
@@ -246,6 +267,11 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "/features/quran-practice",
       ),
       shipped("Spaced revision", "Ayahs come back after 1, 3, 7, 14 and 30 days"),
+      shipped(
+        "Recite to find and recite-along",
+        "Find an ayah by reciting it, and recite along from the Salah guide, Friday, adhkar and khatm screens",
+        "/features/quran-practice",
+      ),
       shipped("Pronunciation drills", "Optional, for selected tajweed lessons"),
       shipped(
         "Learn the Qur'an",
@@ -294,10 +320,18 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
     id: "tools",
     title: "Calculators and planning",
     items: [
-      shipped("Zakat calculator", "With nisab, checklist and guidance"),
+      shipped(
+        "Zakat calculator",
+        "With nisab, checklist and guidance",
+        "/features/zakat-calculator",
+      ),
       shipped("Hajj and Umrah", "Learning guide and separate rite checklists"),
       shipped("Sadaqah goals", "A giving intention and log"),
-      shipped("Islamic events calendar and date converter", "Hijri and Gregorian"),
+      shipped(
+        "Islamic events calendar and date converter",
+        "Hijri and Gregorian",
+        "/features/hijri-calendar",
+      ),
       nf(
         "NF-3.4",
         "Umrah mode",
@@ -372,7 +406,7 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "NF-3.16",
         "Family and kids mode",
         "Parent-managed profiles for children under 13, a kids Salah path and prophet stories; parents see fard Salah status only",
-        "/features/family-and-friends",
+        "/features/kids-mode",
       ),
       nf(
         "NF-3.17",
@@ -384,6 +418,11 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "NF-3.18",
         "Group khatm",
         "Share a khatm by juz, hizb or surah with family or friends",
+        "/features/family-and-friends",
+      ),
+      shipped(
+        "Nearby join",
+        "Add someone next to you over Bluetooth with a 4-digit code you approve; QR and invite codes too",
         "/features/family-and-friends",
       ),
     ],
@@ -399,7 +438,10 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "Widgets and Live Activities",
         "Home and lock screen, Dynamic Island, Android Live Updates",
       ),
-      shipped("Apple Watch and Wear OS", "Schedule, marking Salah, complications and tiles"),
+      shipped(
+        "Apple Watch and Wear OS",
+        "Schedule, marking Salah, a wrist tasbeeh, complications and tiles",
+      ),
       shipped("Siri and Google Assistant shortcuts", "Plus app-icon quick actions"),
     ],
   },
@@ -417,7 +459,10 @@ export const MUNIB_FEATURE_INVENTORY: readonly InventoryGroup[] = [
         "24 languages",
         "Right-to-left layouts for Arabic, Urdu, Persian, Pashto and Kurdish",
       ),
-      shipped("Themes and fonts", "Light and dark, 12 accents, seasonal themes, Arabic fonts"),
+      shipped(
+        "Themes, icons and fonts",
+        "Light and dark, 12 accents, seasonal themes and app icons, Arabic fonts",
+      ),
       shipped("Customisable home", "Choose home modules and quick actions"),
       shipped("Source code on GitHub", "Non-commercial licence", "/open-source"),
       nf(
@@ -444,5 +489,19 @@ const TRANSLATIONS: ContentTranslations<InventoryGroup> = { ar: arInventory, ur:
 
 /** The feature inventory in `locale`, English where a group isn't translated yet. */
 export function getFeatureInventory(locale: Locale = DEFAULT_LOCALE): readonly InventoryGroup[] {
-  return localizeEntries(MUNIB_FEATURE_INVENTORY, TRANSLATIONS, locale, (g) => g.id);
+  const groups = localizeEntries(MUNIB_FEATURE_INVENTORY, TRANSLATIONS, locale, (g) => g.id);
+  if (locale === DEFAULT_LOCALE) return groups;
+  // Links are structure, not prose: translated items always follow the English
+  // item at the same position (parity is tested), so a new page link is added once.
+  return groups.map((group) => {
+    const english = MUNIB_FEATURE_INVENTORY.find((g) => g.id === group.id);
+    return {
+      ...group,
+      items: group.items.map((item, i) => {
+        const { href: _ignored, ...rest } = item;
+        const href = english?.items[i]?.href;
+        return href ? { ...rest, href } : rest;
+      }),
+    };
+  });
 }

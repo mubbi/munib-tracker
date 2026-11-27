@@ -11,11 +11,21 @@
     "getApp": "Get the app",
     "exploreFeatures": "Explore features",
     "trust": {
-      "noAds": { "top": "No ads", "bottom": "Ever" },
-      "noAccount": { "top": "No account", "bottom": "Needed" },
-      "offline": { "top": "Works", "bottom": "Offline" }
+      "noAds": {
+        "top": "No ads",
+        "bottom": "Ever"
+      },
+      "noAccount": {
+        "top": "No account",
+        "bottom": "Needed"
+      },
+      "offline": {
+        "top": "Works",
+        "bottom": "Offline"
+      }
     },
-    "moonTitle": "Crescent moon"
+    "moonTitle": "Crescent moon",
+    "platforms": "On iPhone, iPad, Android, Apple Watch, Wear OS, Apple TV, Android TV and the web"
   },
   "stats": {
     "ayahs": "Qur'an ayahs, fully offline",
@@ -149,15 +159,42 @@
     "title": "A cited library in your pocket",
     "description": "Every lesson is referenced to the Qur'an and authenticated hadith, with per-topic progress so you always know where you are.",
     "areas": {
-      "aqeedah": { "title": "Aqeedah", "meta": "24 topics on the articles of faith" },
-      "prophets": { "title": "The Prophets", "meta": "25 prophets, a timeline and family tree" },
-      "seerah": { "title": "Seerah & battles", "meta": "30-event life + 21 battles" },
-      "jannah": { "title": "Jannah", "meta": "45 topics · the eight gates" },
-      "jahannam": { "title": "Jahannam", "meta": "16 topics & repentance" },
-      "last_day": { "title": "The Last Day", "meta": "20 lessons + an interactive quiz" },
-      "learn_quran": { "title": "Learn the Qur'an", "meta": "Letters, tajweed & memorization" },
-      "learn_dua": { "title": "Learn dua", "meta": "46 topics on when & how to supplicate" },
-      "fiqh_guides": { "title": "Fiqh guides", "meta": "Salah, zakat, Hajj & Umrah & purification" }
+      "aqeedah": {
+        "title": "Aqeedah",
+        "meta": "24 topics on the articles of faith"
+      },
+      "prophets": {
+        "title": "The Prophets",
+        "meta": "25 prophets, a timeline and family tree"
+      },
+      "seerah": {
+        "title": "Seerah & battles",
+        "meta": "30-event life + 21 battles"
+      },
+      "jannah": {
+        "title": "Jannah",
+        "meta": "45 topics · the eight gates"
+      },
+      "jahannam": {
+        "title": "Jahannam",
+        "meta": "16 topics & repentance"
+      },
+      "last_day": {
+        "title": "The Last Day",
+        "meta": "20 lessons + an interactive quiz"
+      },
+      "learn_quran": {
+        "title": "Learn the Qur'an",
+        "meta": "Letters, tajweed & memorization"
+      },
+      "learn_dua": {
+        "title": "Learn dua",
+        "meta": "46 topics on when & how to supplicate"
+      },
+      "fiqh_guides": {
+        "title": "Fiqh guides",
+        "meta": "Salah, zakat, Hajj & Umrah & purification"
+      }
     },
     "explore": "Explore the learning library"
   },

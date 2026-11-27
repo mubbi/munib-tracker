@@ -76,6 +76,14 @@ const LEGACY_REDIRECTS: readonly { source: string; destination: string }[] = [
 const nextConfig: NextConfig = {
   transpilePackages: ["@munib-tracker/shared", "@munib-tracker/theme"],
   poweredByHeader: false,
+  images: {
+    // AVIF first (typically 20–30% smaller than WebP for the app screenshots),
+    // WebP for browsers without it.
+    formats: ["image/avif", "image/webp"],
+    // Optimized images are cached for a week; screenshot files only change
+    // when `sync:screenshots` re-captures them.
+    minimumCacheTTL: 604_800,
+  },
   async headers() {
     return [{ source: "/:path*", headers: [...SECURITY_HEADERS] }];
   },
@@ -87,6 +95,9 @@ const nextConfig: NextConfig = {
     // The root layout lives under `app/[locale]`, so unmatched URLs (and the
     // proxy's unknown-slug rewrite) render `app/global-not-found.tsx`.
     globalNotFound: true,
+    // Not `inlineCss`: measured 2026-11-27 it doubled the CSS in the HTML (also
+    // in the RSC payload) and cut mobile Lighthouse from 85 to 72 (TBT 156 →
+    // 506 ms). The external, cacheable stylesheet wins.
   },
   async redirects() {
     return [
@@ -100,6 +111,8 @@ const nextConfig: NextConfig = {
         // Legacy alias without a locale → its English page in one hop.
         { source, destination: `/${DEFAULT_LOCALE}${destination}`, permanent: true },
       ]),
+      // Common misspelling of the AI-assistant index (https://llmstxt.org).
+      { source: "/llm.txt", destination: "/llms.txt", permanent: true },
       // Any page URL without a locale (including `/`) → the English page.
       // Skips API routes, Next internals and files (anything with a dot:
       // sitemap.xml, robots.txt, images, the web manifest, /.well-known).
@@ -110,6 +123,24 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ];
+  },
+  async rewrites() {
+    // Markdown editions of content pages (llmstxt.org): `/en/features/x.md`
+    // is served by `app/markdown/[...path]/route.ts`. English only, like
+    // `/llms.txt`. Dotted paths skip the proxy and the locale redirect above.
+    const slug = "[a-z0-9-]+";
+    return {
+      beforeFiles: [
+        {
+          source: `/${DEFAULT_LOCALE}/:section(features|compare|for)/:slug(${slug})\\.md`,
+          destination: "/markdown/:section/:slug",
+        },
+        {
+          source: `/${DEFAULT_LOCALE}/resources/:category(${slug})/:slug(${slug})\\.md`,
+          destination: "/markdown/resources/:category/:slug",
+        },
+      ],
+    };
   },
 };
 

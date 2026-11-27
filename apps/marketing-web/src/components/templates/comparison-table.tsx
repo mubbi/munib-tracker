@@ -1,5 +1,6 @@
 import { Check, CircleHelp, Clock, Minus, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { SyncedScroll } from "@/components/templates/synced-scroll";
 import type { CompareCell, ComparePage } from "@/content/types";
 import { cn } from "@/lib/utils";
 
@@ -57,44 +58,74 @@ function Legend({ page }: { page: ComparePage }) {
   );
 }
 
+/** Same fixed column widths for the sticky header bar and the body table. */
+function Columns({ page }: { page: ComparePage }) {
+  return (
+    <colgroup>
+      <col className="w-56" />
+      {page.apps.map((app) => (
+        <col key={app.id} />
+      ))}
+    </colgroup>
+  );
+}
+
 /**
- * Side-by-side comparison: a sticky-column table from `md` up, one card per
- * feature on small screens. A legend lists only the statuses the page uses.
+ * Side-by-side comparison: a table from `md` up whose column headers stay in
+ * view below the site header while you scroll (`SyncedScroll`), with a sticky
+ * feature column; one card per feature on small screens. A legend lists only
+ * the statuses the page uses.
  */
 export function ComparisonTable({ page }: { page: ComparePage }) {
   const t = useTranslations("templates.comparisonTable");
   const roundup = page.kind === "roundup";
+  const tableClass = cn(
+    "w-full table-fixed border-collapse text-start text-[15px]",
+    roundup ? "min-w-[64rem]" : "min-w-[40rem]",
+  );
+  const appHeaderClass = (id: string) =>
+    cn("px-4 py-3 font-semibold", id === "munib" ? "bg-brand/[0.06] text-brand" : "text-white");
+
+  // Visible, sticky header bar (decorative copy; the real headers are in the table below).
+  const headerBar = (
+    <table className={tableClass}>
+      <Columns page={page} />
+      <thead>
+        <tr className="bg-white/[0.04]">
+          <th className="sticky start-0 z-10 bg-[#0b1b28] px-4 py-3 font-semibold text-white">
+            {t("featureColumn")}
+          </th>
+          {page.apps.map((app) => (
+            <th key={app.id} className={appHeaderClass(app.id)}>
+              {app.name}
+            </th>
+          ))}
+        </tr>
+      </thead>
+    </table>
+  );
+
   return (
     <>
       <Legend page={page} />
-      <div className="mt-6 hidden overflow-x-auto rounded-2xl border border-white/10 bg-[#07141f]/60 md:block">
-        <table
-          className={cn(
-            "w-full border-collapse text-start text-[15px]",
-            roundup ? "min-w-[64rem]" : "min-w-[40rem]",
-          )}
-        >
+      <SyncedScroll
+        header={headerBar}
+        className="mt-6 hidden rounded-2xl border border-white/10 bg-[#07141f]/60 md:block"
+      >
+        <table className={tableClass}>
           <caption className="sr-only">
             {t("caption", { title: page.title, date: page.verifiedOn })}
           </caption>
+          <Columns page={page} />
+          {/* Real column headers for assistive tech; the sticky bar above shows them. */}
           <thead>
-            <tr className="border-b border-white/10 bg-white/[0.04]">
-              <th
-                scope="col"
-                className="sticky start-0 z-10 w-56 bg-[#0b1b28] px-4 py-3 font-semibold text-white"
-              >
-                {t("featureColumn")}
+            <tr>
+              <th scope="col" className="h-0 p-0">
+                <span className="sr-only">{t("featureColumn")}</span>
               </th>
               {page.apps.map((app) => (
-                <th
-                  key={app.id}
-                  scope="col"
-                  className={cn(
-                    "px-4 py-3 font-semibold",
-                    app.id === "munib" ? "text-brand" : "text-white",
-                  )}
-                >
-                  {app.name}
+                <th key={app.id} scope="col" className="h-0 p-0">
+                  <span className="sr-only">{app.name}</span>
                 </th>
               ))}
             </tr>
@@ -131,7 +162,7 @@ export function ComparisonTable({ page }: { page: ComparePage }) {
             </tbody>
           ))}
         </table>
-      </div>
+      </SyncedScroll>
       {/* Small screens: one card per feature instead of a wide table. */}
       <div className="mt-6 flex flex-col gap-8 md:hidden">
         {page.table.map((group) => (
