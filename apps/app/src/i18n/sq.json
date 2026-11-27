@@ -3764,7 +3764,9 @@
       "playPhrase": "Luaj frazën {{n}}: {{title}}",
       "followAlongNote": "Thekson fjalët më poshtë gjatë luajtjes",
       "listenHintTv": "Zgjidhni një regjistrim për ta luajtur. Medina thekson çdo fjali ndërsa thuhet. Përdorni Mëso fjalët më poshtë për audio të qartë fjali pas fjali."
-    }
+    },
+    "optional": "Opsionale",
+    "rakatsNote": "Sunet: revatibet e përforcuara, 12 rekate në ditë (medhhebet që numërojnë 10 falin 2 rekate para Drekës). Opsionale: të pëlqyera, por jo të përforcuara (gajri muekkede), si 4 rekatet para Ikindisë. Vitri falet pas Jacisë, me numër tek rekatesh."
   },
   "battles": {
     "eyebrow": "Mëso",

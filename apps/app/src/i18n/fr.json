@@ -3764,7 +3764,9 @@
       "playPhrase": "Lire la phrase {{n}} : {{title}}",
       "followAlongNote": "Met en surbrillance les mots ci-dessous pendant la lecture",
       "listenHintTv": "Sélectionnez un enregistrement pour le lire. Celui de Médine met en surbrillance chaque phrase au fil de l'appel. Utilisez Apprendre les mots ci-dessous pour un audio clair, phrase par phrase."
-    }
+    },
+    "optional": "Facultative",
+    "rakatsNote": "Sunnah : les rawatib confirmées, 12 rakahs par jour (les écoles qui en retiennent 10 prient 2 rakahs avant Dhuhr). Facultative : recommandée mais non soulignée (ghayr mu'akkadah), comme les 4 rakahs avant Asr. Le Witr se prie après Isha, en nombre impair de rakahs."
   },
   "battles": {
     "eyebrow": "Apprendre",

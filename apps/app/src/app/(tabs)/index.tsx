@@ -21,7 +21,6 @@ import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
-import { triggerHaptic } from "@/lib/haptics";
 import { useIqamahCountdown } from "@/lib/masjid/use-iqamah-countdown";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_SLOT_ORDER } from "@/lib/prayer-times";
@@ -171,12 +170,9 @@ export default function HomeScreen() {
     scheduleLocationLabel: hero.location,
     // "Mark {{salah}}" in Today's Goal while the running Salah is unlogged.
     markPrayer: markPrayer && markStatus === "pending" ? markPrayer : null,
-    onMarkPrayer: markPrayer
-      ? () => {
-          triggerHaptic("success");
-          void prayerStatus.quickSelect(markPrayer, "completed");
-        }
-      : undefined,
+    // Opens the status sheet (Completed / Missed / Delayed / Qaza, congregation,
+    // note) instead of logging "completed" outright.
+    onMarkPrayer: markPrayer ? () => prayerStatus.open(markPrayer) : undefined,
   };
 
   return (

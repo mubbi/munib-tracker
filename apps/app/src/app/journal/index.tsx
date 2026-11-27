@@ -29,6 +29,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useUndoToast } from "@/hooks/use-undo-toast";
@@ -243,6 +244,7 @@ export default function JournalScreen() {
   }, [formOpen, stt.abort]);
 
   const groups = useMemo(() => sortedGroups(entries), [entries]);
+  const shownGroups = useProgressiveList(groups, { initial: 8, batch: 8 });
   const avg = averageRating(entries);
   const today = getLocalDateString();
 
@@ -522,7 +524,7 @@ export default function JournalScreen() {
               gap={Spacing.three}
               style={styles.groupList}
             >
-              {groups.map((group) => (
+              {shownGroups.map((group) => (
                 <Card key={group.date} style={styles.groupCard}>
                   <ThemedText type="smallBold" style={styles.groupDate}>
                     {formatDate(group.date, "long")}

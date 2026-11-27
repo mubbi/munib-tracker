@@ -3817,7 +3817,9 @@
       "playPhrase": "Play phrase {{n}}: {{title}}",
       "followAlongNote": "Highlights the words below as it plays",
       "listenHintTv": "Select a recording to play. Medina highlights each sentence as it is called. Use Learn the words below for clear phrase-by-phrase audio."
-    }
+    },
+    "optional": "Optional",
+    "rakatsNote": "Sunnah: the confirmed rawatib, 12 rakahs a day (schools that count 10 pray 2 before Dhuhr). Optional: recommended but not emphasized (ghayr mu'akkadah), such as the 4 before Asr. Witr is prayed after Isha in an odd number of rakahs."
   },
   "battles": {
     "eyebrow": "Learn",

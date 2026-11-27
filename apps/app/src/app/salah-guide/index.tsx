@@ -147,6 +147,9 @@ export default function SalahGuideScreen() {
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
                 {t("salahGuide.sunnah")}
               </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
+                {t("salahGuide.optional")}
+              </ThemedText>
             </View>
             {rakats.map((row) => (
               <View
@@ -162,8 +165,18 @@ export default function SalahGuideScreen() {
                 <ThemedText type="small" style={styles.colNum}>
                   {row.sunnahBefore + row.sunnahAfter || "—"}
                 </ThemedText>
+                <ThemedText type="small" themeColor="mutedForeground" style={styles.colNum}>
+                  {row.optionalBefore + row.optionalAfter || "—"}
+                </ThemedText>
               </View>
             ))}
+            <ThemedText
+              type="caption"
+              themeColor="mutedForeground"
+              style={[styles.tableNote, { borderTopColor: tokens.hairline }]}
+            >
+              {t("salahGuide.rakatsNote")}
+            </ThemedText>
           </View>
         ),
       },
@@ -242,6 +255,10 @@ const styles = StyleSheet.create({
   },
   colName: { flex: 1 },
   colNum: { width: tvDp(64), textAlign: "center" },
+  tableNote: {
+    paddingTop: Spacing.twoHalf,
+    borderTopWidth: BorderWidth.hairline,
+  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

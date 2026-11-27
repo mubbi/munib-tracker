@@ -20,7 +20,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
 
 APP_ROOT = Path(__file__).resolve().parent.parent
-LOGO = APP_ROOT / "assets" / "images" / "munib-logo.png"
+LOGO = APP_ROOT / "assets" / "images" / "munib-logo-gold.png"  # gold-rimmed mark (generate-brand-assets.py)
 ANDROID_OUT = APP_ROOT / "modules" / "munib-tv-home" / "android" / "src" / "main" / "res" / "drawable-nodpi"
 TVOS_OUT = APP_ROOT / "tv-targets" / "top-shelf" / "Art"
 

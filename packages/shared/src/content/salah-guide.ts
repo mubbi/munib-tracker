@@ -11,7 +11,7 @@ export { SALAH_GUIDE_QUIZ, SALAH_GUIDE_QUIZ_VERSION } from "./salah-guide-quiz";
  * difference is noted respectfully rather than presented as one ruling.
  * Bump the version whenever content changes so caches refresh.
  */
-export const SALAH_GUIDE_CONTENT_VERSION = 8;
+export const SALAH_GUIDE_CONTENT_VERSION = 9;
 
 /** Ordered journey phases shown on the hub. */
 export const SALAH_GUIDE_JOURNEY_ORDER = [
@@ -1588,6 +1588,8 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 2,
     sunnahBefore: 2,
     sunnahAfter: 0,
+    optionalBefore: 0,
+    optionalAfter: 0,
     note: "2 before — sunnah mu'akkadah (rawatib). No regular sunnah after.",
   },
   {
@@ -1595,13 +1597,17 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 4,
     sunnahBefore: 4,
     sunnahAfter: 2,
-    note: "4 before & 2 after — sunnah mu'akkadah (rawatib). Extra nafl optional.",
+    optionalBefore: 0,
+    optionalAfter: 2,
+    note: "4 before & 2 after — sunnah mu'akkadah (rawatib). 2 more after are recommended (ghayr mu'akkadah).",
   },
   {
     prayerId: "asr",
     fard: 4,
     sunnahBefore: 0,
     sunnahAfter: 0,
+    optionalBefore: 4,
+    optionalAfter: 0,
     note: "4 before Asr recommended (ghayr mu'akkadah) — not counted in the 12 rawatib.",
   },
   {
@@ -1609,6 +1615,8 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 3,
     sunnahBefore: 0,
     sunnahAfter: 2,
+    optionalBefore: 2,
+    optionalAfter: 0,
     note: "2 after — sunnah mu'akkadah. 2 before optional nafl.",
   },
   {
@@ -1616,13 +1624,17 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 4,
     sunnahBefore: 0,
     sunnahAfter: 2,
-    note: "2 after — sunnah mu'akkadah. Witr separate; optional nafl before/after.",
+    optionalBefore: 2,
+    optionalAfter: 0,
+    note: "2 after — sunnah mu'akkadah. 2 (or 4) before, between adhan and iqamah, optional. Witr separate.",
   },
   {
     prayerId: "witr",
     fard: 0,
     sunnahBefore: 0,
     sunnahAfter: 0,
+    optionalBefore: 0,
+    optionalAfter: 0,
     note: "Prayed after Isha — sunnah mu'akkadah (wajib in the Hanafi school).",
   },
 ];

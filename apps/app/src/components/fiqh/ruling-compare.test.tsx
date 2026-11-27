@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react-native";
+import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { RULING_COMPARE_COLUMNS_MIN_WIDTH, RulingCompare } from "@/components/fiqh/ruling-compare";
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
@@ -52,6 +52,23 @@ describe("RulingCompare", () => {
   it("uses columns on TV regardless of width", async () => {
     onPlatform({ OS: "android", isTV: true });
     await renderWithTheme(<RulingCompare id="hayd.max" />);
+    expect(cellDirection()).toBe("row");
+  });
+
+  it("stacks rows when the card is too narrow for its cells, even on a wide window", async () => {
+    setMockWindowSize(RULING_COMPARE_COLUMNS_MIN_WIDTH + 400);
+    await renderWithTheme(<RulingCompare id="witr.status" />);
+    expect(cellDirection()).toBe("row");
+
+    const layout = (width: number) =>
+      act(() => {
+        fireEvent(screen.getByTestId("ruling-compare-grid"), "layout", {
+          nativeEvent: { layout: { x: 0, y: 0, width, height: 100 } },
+        });
+      });
+    await layout(340);
+    expect(cellDirection()).toBe("column");
+    await layout(900);
     expect(cellDirection()).toBe("row");
   });
 

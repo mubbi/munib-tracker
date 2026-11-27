@@ -3764,7 +3764,9 @@
       "playPhrase": "{{n}}-iborani ijro etish: {{title}}",
       "followAlongNote": "Ijro paytida pastdagi so'zlarni ajratadi",
       "listenHintTv": "Ijro uchun yozuvni tanlang. Medina har bir jumlani aytish bilan yoritadi. Aniq jumla-bo'yicha audio uchun pastdagi So'zlarni o'rganingdan foydalaning."
-    }
+    },
+    "optional": "Ixtiyoriy",
+    "rakatsNote": "Sunnat: muakkada ravotib, kuniga 12 rakat (10 deb hisoblaydigan mazhablar Peshindan oldin 2 rakat o'qiydi). Ixtiyoriy: mustahab, ammo muakkada emas (g'ayri muakkada), masalan, Asrdan oldin 4 rakat. Vitr Xuftondan keyin toq sonli rakat bilan o'qiladi."
   },
   "battles": {
     "eyebrow": "O'rganish",

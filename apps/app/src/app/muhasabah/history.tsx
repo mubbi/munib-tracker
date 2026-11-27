@@ -18,6 +18,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { VaultLockGate } from "@/components/vault";
 import { Radius, Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { MUHASABAH_TREND_DAYS, promptTrends } from "@/lib/muhasabah/logic";
 import { muhasabahDayKey } from "@/lib/muhasabah/model";
@@ -45,6 +46,7 @@ function HistoryContent() {
   const run = useRecordAction();
   const { formatIso } = useFormatCalendarDate();
   const { config, entries, status, error } = useMuhasabah();
+  const shownEntries = useProgressiveList(entries, { initial: 10, batch: 10 });
   const [pendingDelete, setPendingDelete] = useState<string | "all" | null>(null);
   const today = muhasabahDayKey(new Date());
   const trends = useMemo(
@@ -112,7 +114,7 @@ function HistoryContent() {
         </View>
       </Card>
 
-      {entries.map((entry) => (
+      {shownEntries.map((entry) => (
         <Card key={entry.date}>
           <View style={styles.entry}>
             <ThemedText type="smallBold">{formatIso(entry.date)}</ThemedText>

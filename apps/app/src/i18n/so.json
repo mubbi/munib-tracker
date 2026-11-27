@@ -3764,7 +3764,9 @@
       "playPhrase": "Daar jumladda {{n}}: {{title}}",
       "followAlongNote": "Wuxuu iftiimiyaa erayada hoose marka uu ciyaarayo",
       "listenHintTv": "Dooro duubista si ay u ciyaarto. Madiina waxay iftiiminaysaa jumlad kasta marka la dhawaaqo. Isticmaal Baro ereyada hoose si aad u hesho maqal cad oo jumlad-jumlad ah."
-    }
+    },
+    "optional": "Ikhtiyaari",
+    "rakatsNote": "Sunnada: rawaatibta la adkeeyay, 12 rakcadood maalintii (madaahibta tiriya 10 waxay tukadaan 2 rakcadood ka hor Duhurka). Ikhtiyaari: la jecel yahay laakiin aan la adkeyn (ghayr mu'akkadah), sida 4 rakcadood ka hor Casarka. Witirka waxaa la tukadaa Cishaha kadib, tiro rakcadood oo kisi ah."
   },
   "battles": {
     "eyebrow": "Baro",

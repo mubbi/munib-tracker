@@ -69,8 +69,15 @@ export interface SalahGuidePhrase {
 export interface PrayerRakatSummary {
   prayerId: QazaPrayer;
   fard: number;
+  /** Sunnah mu'akkadah (the rawatib) before / after the fard. */
   sunnahBefore: number;
   sunnahAfter: number;
+  /**
+   * Recommended but not emphasised (ghayr mu'akkadah) — the rawatib hub's optional
+   * extras, at their default rakahs (`RAWATIB_RAKAH_OPTIONS`). Never part of the 12 / 10.
+   */
+  optionalBefore: number;
+  optionalAfter: number;
   /** Extra note, e.g. Witr being wajib for Hanafis. */
   note?: string;
 }

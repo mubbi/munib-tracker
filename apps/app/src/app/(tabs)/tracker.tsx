@@ -491,8 +491,9 @@ export default function TrackerScreen() {
       preferredHints={preferredHints}
       zikrCounts={zikrCounts}
       prayerTimes={prayerTimes}
+      // No one-tap quick mark: the row's status circle sits inside the row press,
+      // so tapping it opens the status sheet like the rest of the row.
       onPrayerPress={(prayerId) => prayerStatus.open(prayerId)}
-      onPrayerQuickSelect={(prayerId, next) => void prayerStatus.quickSelect(prayerId, next)}
       scrollRef={scrollRef}
       getScrollY={() => scrollYRef.current}
       registerFocus={register}
@@ -559,8 +560,8 @@ export default function TrackerScreen() {
           icon={{ ios: "leaf.fill", android: "park", web: "park" }}
           label={t("jannah.journeySubtitle")}
           onPress={() => router.push("/jannah/journey")}
+          href="/jannah/journey"
         />
-        href="/jannah/journey"
       </View>
     </Card>
   );

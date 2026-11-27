@@ -3784,7 +3784,9 @@
       "playPhrase": "Pusti frazu {{n}}: {{title}}",
       "followAlongNote": "Ističe riječi ispod tokom reprodukcije",
       "listenHintTv": "Odaberite snimak za reprodukciju. Medina ističe svaku rečenicu dok se uči. Koristite Naučite riječi ispod za jasan audio rečenicu po rečenicu."
-    }
+    },
+    "optional": "Po izboru",
+    "rakatsNote": "Sunnet: pritvrđeni revatib, 12 rekata dnevno (mezhebi koji broje 10 klanjaju 2 rekata prije podne-namaza). Po izboru: preporučeno, ali nepritvrđeno (gajri muekkede), npr. 4 rekata prije ikindije. Vitr se klanja poslije jacije, u neparnom broju rekata."
   },
   "battles": {
     "eyebrow": "Nauči",

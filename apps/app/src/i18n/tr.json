@@ -3764,7 +3764,9 @@
       "playPhrase": "{{n}}. cümleyi çal: {{title}}",
       "followAlongNote": "Çalarken aşağıdaki kelimeleri vurgular",
       "listenHintTv": "Çalmak için bir kayıt seçin. Medine, okunurken her cümleyi vurgular. Net, cümle cümle ses için aşağıdaki Kelimeleri öğren'i kullanın."
-    }
+    },
+    "optional": "İsteğe bağlı",
+    "rakatsNote": "Sünnet: müekked revâtib, günde 12 rekât (10 kabul eden mezhepler Öğle'den önce 2 rekât kılar). İsteğe bağlı: müstehap ama müekked olmayan (gayr-i müekkede), örneğin İkindi'den önce 4 rekât. Vitir, Yatsı'dan sonra tek sayıda rekâtla kılınır."
   },
   "battles": {
     "eyebrow": "Öğren",

@@ -328,7 +328,7 @@ function TvSideRail({ expanded, leading, style, children, ...props }: SideRailPr
             importantForAccessibility="no-hide-descendants"
           >
             <Image
-              source={require("@/assets/images/munib-logo.png")}
+              source={require("@/assets/images/munib-logo-gold.png")}
               style={expanded ? styles.tvBrandLogo : styles.tvBrandLogoCollapsed}
               contentFit="contain"
             />

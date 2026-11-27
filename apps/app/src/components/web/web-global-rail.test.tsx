@@ -1,7 +1,11 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { focusMainContent } from "@/components/web/skip-to-content-link";
-import { WebGlobalRail } from "@/components/web/web-global-rail";
+import {
+  RAIL_LOGO_SIZE_COMPACT,
+  RAIL_LOGO_SIZE_EXPANDED,
+  WebGlobalRail,
+} from "@/components/web/web-global-rail";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { defined } from "@/test-support/assert";
 import { pressableProps } from "@/test-support/fiber";
@@ -150,23 +154,26 @@ describe("WebGlobalRail", () => {
     expect(flattenStyle(skip().props.style).opacity).toBe(0);
   });
 
-  it("shows a small logo beside the wordmark when expanded", async () => {
+  it("stacks the logo above the wordmark when expanded", async () => {
     await renderWithTheme(<WebGlobalRail windowWidth={1400} />);
     const logo = flattenStyle(screen.getByTestId("rail-logo").props.style);
-    expect(logo.width).toBeLessThanOrEqual(40);
-    expect(logo.height).toBeLessThanOrEqual(40);
+    expect(logo.width).toBe(RAIL_LOGO_SIZE_EXPANDED);
+    expect(logo.height).toBe(RAIL_LOGO_SIZE_EXPANDED);
     expect(screen.getByText("Munib Tracker")).toBeTruthy();
     const brand = defined(screen.getAllByLabelText("Munib Tracker")[0], "brand link");
     const brandStyle = pressableProps<{ style: (s: object) => unknown }>(brand).style({
       pressed: false,
     });
-    expect(flattenStyle(brandStyle).flexDirection).toBe("row");
+    expect(flattenStyle(brandStyle).flexDirection).toBeUndefined();
+    expect(flattenStyle(brandStyle).alignItems).toBe("center");
     expect(brand.props.href).toBe("/");
   });
 
-  it("keeps the compact logo within 40px and hides the wordmark", async () => {
+  it("shows the compact logo without the wordmark", async () => {
     await renderWithTheme(<WebGlobalRail windowWidth={900} />);
-    expect(flattenStyle(screen.getByTestId("rail-logo").props.style).width).toBeLessThanOrEqual(40);
+    expect(flattenStyle(screen.getByTestId("rail-logo").props.style).width).toBe(
+      RAIL_LOGO_SIZE_COMPACT,
+    );
     expect(screen.queryByText("Munib Tracker")).toBeNull();
   });
 

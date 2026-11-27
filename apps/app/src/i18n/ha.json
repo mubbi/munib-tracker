@@ -3764,7 +3764,9 @@
       "playPhrase": "Kunna jumla {{n}}: {{title}}",
       "followAlongNote": "Yana haskaka kalmomi a ƙasa yayin kunna",
       "listenHintTv": "Zaɓi rikodi don kunnawa. Madina tana haskaka kowace jumla yayin da ake kiranta. Yi amfani da Koyi kalmomin a ƙasa don sautin jumla-jumla a bayyane."
-    }
+    },
+    "optional": "Na zaɓi",
+    "rakatsNote": "Sunnah: rawatib masu ƙarfi, raka'o'i 12 a rana (mazhabobin da ke ƙirga 10 suna yin raka'o'i 2 kafin Azahar). Na zaɓi: abin so amma ba mai ƙarfi ba (ghairu mu'akkada), kamar raka'o'i 4 kafin La'asar. Ana yin Wutiri bayan Isha da raka'o'i mara, kamar 1, 3 ko 5."
   },
   "battles": {
     "eyebrow": "Koyo",

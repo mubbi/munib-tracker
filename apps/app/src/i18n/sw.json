@@ -3764,7 +3764,9 @@
       "playPhrase": "Cheza usemi {{n}}: {{title}}",
       "followAlongNote": "Inaangazia maneno yaliyo chini inapocheza",
       "listenHintTv": "Chagua rekodi ili uicheze. Rekodi ya Madina huangazia kila sentensi inapotamkwa. Tumia Jifunze maneno hapa chini kupata sauti wazi sentensi kwa sentensi."
-    }
+    },
+    "optional": "Hiari",
+    "rakatsNote": "Sunna: rawatib zilizokokotezwa, rakaa 12 kwa siku (madhehebu yanayohesabu 10 huswali rakaa 2 kabla ya Adhuhuri). Hiari: zinapendekezwa lakini hazijakokotezwa (ghayr mu'akkadah), kama rakaa 4 kabla ya Alasiri. Witri huswaliwa baada ya Isha kwa idadi ya witiri ya rakaa."
   },
   "battles": {
     "eyebrow": "Jifunze",

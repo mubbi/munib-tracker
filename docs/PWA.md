@@ -35,7 +35,7 @@ vendor rules:
   `start_url`, `display: standalone`, `prefer_related_applications: false`.
 - Maskable icons (`icon-{192,512}-maskable.png`) are separate files with the logo
   inside the 40 %-radius safe zone — never the full-bleed `any` icon.
-- Richer install dialog: `narrow` (540×1200) and `wide` (1280×800) screenshots,
+- Richer install dialog: `narrow` (720×1280) and `wide` (1280×800) screenshots,
   one aspect ratio per form factor, ≤ 2.3:1, 320–3840 px, ≤ 8 total. Desktop
   Chrome / Edge only show the richer dialog with a `wide` screenshot.
 - `launch_handler: { client_mode: ["navigate-existing", "auto"] }` — shortcuts and
@@ -43,9 +43,11 @@ vendor rules:
 - Shortcuts: Mark Salah (`/tracker`), Qibla, Tasbeeh.
 
 Images come from `python apps/app/scripts/generate-pwa-assets.py` (Pillow): the
-maskable icons, the shortcut glyphs, narrow shots from
-`store-assets/captures/android/en/light`, wide shots from the English 10-inch
-tablet landscape store set.
+maskable icons (from the gold-rimmed `munib-logo-gold.png`), the shortcut glyphs,
+narrow shots from the English Play phone store set
+(`store-assets/android/screenshots/phone/en`), wide shots from the English 10-inch
+tablet landscape store set. Re-run it after exporting new store decks; the `any`
+icons and favicons come from `generate-brand-assets.py`.
 
 Not used on purpose: `edge_side_panel` (Microsoft is deprecating the Edge
 sidebar), `display_override: window-controls-overlay` (the UI doesn't draw a

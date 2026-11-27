@@ -82,7 +82,10 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
 
   const brandBlock = (
     <>
-      <ThemedText type="header" style={[styles.bismillah, { color: Brand.heroAccent }]}>
+      <ThemedText
+        type="header"
+        style={[styles.bismillah, tv ? null : styles.bismillahLarge, { color: Brand.heroAccent }]}
+      >
         ﷽
       </ThemedText>
 
@@ -100,7 +103,7 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
         <Image
           accessible={false}
           style={[styles.logo, tv ? styles.logoTv : null]}
-          source={require("@/assets/images/munib-logo.png")}
+          source={require("@/assets/images/munib-logo-gold.png")}
           contentFit="contain"
           cachePolicy="memory"
           transition={0}
@@ -384,23 +387,29 @@ const styles = StyleSheet.create({
   bismillah: {
     textAlign: "center",
   },
+  // ﷽ is a single ligature glyph, so it needs a much larger size than a word to
+  // read at the same weight. Phone / web only — the TV column is height-bound.
+  bismillahLarge: {
+    fontSize: 54,
+    lineHeight: 72,
+  },
   logoWrap: {
-    width: 132,
-    height: 132,
+    width: 180,
+    height: 180,
     alignItems: "center",
     justifyContent: "center",
     marginVertical: Spacing.one,
   },
   logoGlow: {
     position: "absolute",
-    width: 168,
-    height: 168,
+    width: 228,
+    height: 228,
     opacity: 0.85,
   },
   logo: {
-    width: 108,
-    height: 108,
-    borderRadius: 24,
+    width: 156,
+    height: 156,
+    borderRadius: 32,
   },
   // TV slides don't scroll: keep the brand column (bismillah → logo → title →
   // tagline) inside the ~235dp band between the top bar and the dots.

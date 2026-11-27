@@ -1,6 +1,14 @@
 import { describe, expect, it } from "vitest";
 
-import { QAZA_PRAYERS } from "../constants";
+import {
+  QAZA_PRAYERS,
+  RAWATIB_EXTRA_PRAYERS,
+  RAWATIB_IDS,
+  RAWATIB_PARENT,
+  RAWATIB_POSITION,
+  RAWATIB_PRAYERS,
+  RAWATIB_RAKAH_OPTIONS,
+} from "../constants";
 import {
   PRAYER_RAKATS,
   SALAH_GUIDE_CONTENT_VERSION,
@@ -53,6 +61,34 @@ describe("salah guide content", () => {
   it("has a rakats row for every tracked qaza prayer", () => {
     const covered = new Set(PRAYER_RAKATS.map((r) => r.prayerId));
     for (const prayer of QAZA_PRAYERS) expect(covered.has(prayer)).toBe(true);
+  });
+
+  it("matches the rakahs table to the rawatib tracker (mu'akkadah 12 + optional extras)", () => {
+    const byPrayer = (id: string) => PRAYER_RAKATS.find((r) => r.prayerId === id);
+    const sum = (part: "sunnah" | "optional", parent: string, position: "before" | "after") =>
+      RAWATIB_IDS.filter(
+        (id) =>
+          RAWATIB_PARENT[id] === parent &&
+          RAWATIB_POSITION[id] === position &&
+          (part === "sunnah"
+            ? (RAWATIB_PRAYERS as readonly string[]).includes(id)
+            : (RAWATIB_EXTRA_PRAYERS as readonly string[]).includes(id)),
+      ).reduce(
+        (total, id) => total + (id === "dhuhr_before" ? 4 : (RAWATIB_RAKAH_OPTIONS[id][0] ?? 0)),
+        0,
+      );
+
+    for (const parent of ["fajr", "dhuhr", "asr", "maghrib", "isha"]) {
+      const row = byPrayer(parent);
+      expect(row?.sunnahBefore).toBe(sum("sunnah", parent, "before"));
+      expect(row?.sunnahAfter).toBe(sum("sunnah", parent, "after"));
+      expect(row?.optionalBefore).toBe(sum("optional", parent, "before"));
+      expect(row?.optionalAfter).toBe(sum("optional", parent, "after"));
+    }
+    // The 4 before Asr: recommended, never part of the fixed 12.
+    expect(byPrayer("asr")).toMatchObject({ sunnahBefore: 0, optionalBefore: 4 });
+    const twelve = PRAYER_RAKATS.reduce((n, r) => n + r.sunnahBefore + r.sunnahAfter, 0);
+    expect(twelve).toBe(12);
   });
 
   it("ships an authored quiz with scored multiple-choice questions", () => {

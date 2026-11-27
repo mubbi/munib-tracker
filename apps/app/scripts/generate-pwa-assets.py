@@ -3,15 +3,18 @@
 
 Writes to apps/app/assets/images/pwa/ (copied to public/ by sync-pwa-manifest.mjs):
 
-- icon-{192,512}-maskable.png  maskable icons: the logo inside the 80% safe zone on
-                          the brand background, so Android's circle / squircle masks never
+- icon-{192,512}-maskable.png  maskable icons: the gold-rimmed logo (munib-logo-gold.png,
+                          from generate-brand-assets.py) inside the 80% safe zone on the
+                          brand background, so Android's circle / squircle masks never
                           crop it (the "any" icon-512.png is full-bleed).
 - shortcut-*.png          96px app-shortcut icons from the native quick-action glyphs.
-- screenshot-*.png        "narrow" install-dialog screenshots from the light English
-                          store captures (store-assets/captures/android/en/light).
+- screenshot-*.jpg        "narrow" install-dialog screenshots from the English Play phone
+                          store set (store-assets/android/screenshots/phone/en, 9:16).
 - screenshot-wide-*.jpg   "wide" (desktop) install-dialog screenshots from the English
                           10-inch tablet landscape store set — Chrome / Edge desktop only
                           show the richer install dialog with a "wide" screenshot.
+
+Re-run after exporting new store decks (docs/STORE_ASSETS.md) or a new logo.
 
 Run from anywhere: python apps/app/scripts/generate-pwa-assets.py
 """
@@ -30,7 +33,7 @@ except ImportError:
 APP_ROOT = Path(__file__).resolve().parent.parent
 IMAGES = APP_ROOT / "assets" / "images"
 OUT = IMAGES / "pwa"
-CAPTURES = APP_ROOT / "store-assets" / "captures" / "android" / "en" / "light"
+STORE_SCREENSHOTS = APP_ROOT / "store-assets" / "android" / "screenshots"
 
 BRAND_BG = (21, 41, 33)  # #152921 — same as generate-brand-assets.py
 
@@ -47,17 +50,19 @@ SHORTCUTS = {
     "tasbeeh": "quick_tasbeeh.png",
 }
 
-# Manifest screenshot id → store capture (1080×2400, PNG data despite .jpg).
+NARROW_CAPTURES = STORE_SCREENSHOTS / "phone" / "en"
+# Manifest screenshot id → phone store image (1080×1920, 9:16).
 SCREENSHOTS = {
-    "home": "home.jpg",
-    "tracker": "tracker.jpg",
-    "qibla": "qibla.jpg",
+    "home": "01-home.png",
+    "salah": "02-salah.png",
+    "qaza": "03-qaza.png",
+    "library": "04-library.png",
+    "qibla": "05-qibla.png",
 }
-SCREENSHOT_SIZE = (540, 1200)
+# Same 9:16 ratio for every narrow shot (Chrome requires one ratio per form factor).
+SCREENSHOT_SIZE = (720, 1280)
 
-WIDE_CAPTURES = (
-    APP_ROOT / "store-assets" / "android" / "screenshots" / "tablet-10-inch" / "landscape" / "en"
-)
+WIDE_CAPTURES = STORE_SCREENSHOTS / "tablet-10-inch" / "landscape" / "en"
 # Manifest wide screenshot id → tablet landscape store image (2560×1600, 16:10).
 WIDE_SCREENSHOTS = {
     "home": "01-home.png",
@@ -68,9 +73,10 @@ WIDE_SCREENSHOTS = {
 WIDE_SCREENSHOT_SIZE = (1280, 800)
 
 
-def _on_brand_bg(img: Image.Image, size: int, share: float) -> Image.Image:
+def _on_brand_bg(img: Image.Image, size: int, share: float, *, min_alpha: int = 1) -> Image.Image:
     rgba = img.convert("RGBA")
-    bbox = rgba.split()[3].getbbox() or (0, 0, rgba.width, rgba.height)
+    solid = rgba.split()[3].point(lambda a: 255 if a >= min_alpha else 0)
+    bbox = solid.getbbox() or (0, 0, rgba.width, rgba.height)
     cropped = rgba.crop(bbox)
     box = round(size * share)
     fitted = ImageOps.contain(cropped, (box, box), method=Image.Resampling.LANCZOS)
@@ -89,9 +95,10 @@ def _save(img: Image.Image, path: Path) -> None:
 
 
 def main() -> None:
-    logo = Image.open(IMAGES / "munib-logo.png")
+    logo = Image.open(IMAGES / "munib-logo-gold.png")
     for size in (192, 512):
-        _save(_on_brand_bg(logo, size, MASKABLE_LOGO_SHARE), OUT / f"icon-{size}-maskable.png")
+        # min_alpha: size the box to the rim, not the gold logo's faint outer glow.
+        _save(_on_brand_bg(logo, size, MASKABLE_LOGO_SHARE, min_alpha=48), OUT / f"icon-{size}-maskable.png")
 
     for name, glyph in SHORTCUTS.items():
         source = Image.open(IMAGES / "quick-actions" / glyph)
@@ -101,14 +108,14 @@ def main() -> None:
         )
 
     for name, capture in SCREENSHOTS.items():
-        source = CAPTURES / capture
+        source = NARROW_CAPTURES / capture
         if not source.exists():
-            print(f"  missing {source.relative_to(APP_ROOT)} — run the store capture first")
+            print(f"  missing {source.relative_to(APP_ROOT)} — export the store screenshots first")
             continue
-        shot = Image.open(source).convert("RGB").resize(
-            SCREENSHOT_SIZE, Image.Resampling.LANCZOS
+        shot = ImageOps.fit(
+            Image.open(source).convert("RGB"), SCREENSHOT_SIZE, Image.Resampling.LANCZOS
         )
-        _save(shot, OUT / f"screenshot-{name}.png")
+        _save(shot, OUT / f"screenshot-{name}.jpg")
 
     for name, capture in WIDE_SCREENSHOTS.items():
         source = WIDE_CAPTURES / capture

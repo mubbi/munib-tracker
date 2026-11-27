@@ -1,6 +1,6 @@
 import { resolveTheme } from "@munib-tracker/theme/resolve";
 import type { AccentColorId } from "@munib-tracker/theme/types";
-import { useRouter } from "expo-router";
+import { useCanDismiss, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { ActivityIndicator, I18nManager, StyleSheet, Text, View } from "react-native";
@@ -43,10 +43,12 @@ export function SuspenseFallback({ route }: SuspenseFallbackProps) {
   const palette = useFallbackPalette(scheme, accent.accentColorId, accent.customAccent);
   const insets = useAppSafeAreaInsets();
   const router = useRouter();
+  // Hook, not `router.canDismiss()`: the imperative call is stale during render.
+  const canDismiss = useCanDismiss();
   const title = i18n.t("common.loadingRoute");
   const hint = i18n.t("common.loadingRouteHint");
   // TV: the remote's Back / Menu is the only back affordance.
-  const showBack = !isTV() && offersBack(route) && router.canDismiss();
+  const showBack = !isTV() && offersBack(route) && canDismiss;
 
   return (
     <View

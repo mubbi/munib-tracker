@@ -23,6 +23,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -82,6 +83,7 @@ export default function QuranNotesScreen() {
     }
     return out;
   }, [query, visible]);
+  const shownGroups = useProgressiveList(groups, { initial: 8, batch: 8 });
 
   const filtersActive = query.trim().length > 0 || tag != null || color != null;
 
@@ -198,7 +200,7 @@ export default function QuranNotesScreen() {
             ) : null}
           </View>
 
-          {groups.map((group, groupIndex) => (
+          {shownGroups.map((group, groupIndex) => (
             <Card key={group.notes[0]?.id ?? group.surah}>
               <ThemedText type="subtitle" style={styles.groupTitle}>
                 {group.surah}. {getSurahByNumber(group.surah)?.nameTransliteration ?? ""}

@@ -16,6 +16,7 @@ import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { VaultLockGate } from "@/components/vault";
 import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { familyTiesActions, useFamilyTies } from "@/lib/family-ties/family-ties-store";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -27,6 +28,7 @@ function HistoryContent() {
   const { formatIso } = useFormatCalendarDate();
   const { relatives, logs, status, error } = useFamilyTies();
   const names = useMemo(() => new Map(relatives.map((r) => [r.id, r.name])), [relatives]);
+  const shownLogs = useProgressiveList(logs, { initial: 12, batch: 12 });
 
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
@@ -49,7 +51,7 @@ function HistoryContent() {
 
   return (
     <View style={styles.stack}>
-      {logs.map((log) => (
+      {shownLogs.map((log) => (
         <Card key={log.id}>
           <View style={styles.row}>
             <View style={styles.flex}>

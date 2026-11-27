@@ -42,9 +42,9 @@ import { WEB_RAIL_EXPANDED_BREAKPOINT, webRailWidthFor } from "@/lib/web/web-rai
 import { SkipToContentLink } from "./skip-to-content-link";
 import { inAppLinkPress } from "./web-link-press";
 
-/** Brand mark sizes — a compact logo, not a hero (`platform-ux-guidelines.md` → Rail: 32–40px). */
-export const RAIL_LOGO_SIZE_EXPANDED = 36;
-export const RAIL_LOGO_SIZE_COMPACT = 40;
+/** Brand mark sizes (`platform-ux-guidelines.md` → Rail): stacked logo above the wordmark. */
+export const RAIL_LOGO_SIZE_EXPANDED = 110;
+export const RAIL_LOGO_SIZE_COMPACT = 64;
 
 /** A route string — rendered verbatim as the anchor's `href`. */
 type RailHref = Extract<Href, string>;
@@ -218,7 +218,7 @@ export function WebGlobalRail({ windowWidth }: { windowWidth: number }) {
         >
           <Image
             testID="rail-logo"
-            source={require("@/assets/images/munib-logo.png")}
+            source={require("@/assets/images/munib-logo-gold.png")}
             style={expanded ? styles.logoExpanded : styles.logoCompact}
             contentFit="contain"
             accessible={false}
@@ -252,13 +252,13 @@ const styles = StyleSheet.create({
     // Sticky column beside the scrolling stack content.
     flexShrink: 0,
   } as ViewStyle,
-  // Expanded rail (248px): small logo + wordmark in one row.
+  // Expanded rail (248px): logo centred with the wordmark underneath.
   brandExpanded: {
-    flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.twoHalf,
+    gap: Spacing.two,
     minHeight: Control.md,
     paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.one,
     marginBottom: Spacing.four,
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -283,6 +283,7 @@ const styles = StyleSheet.create({
   },
   brandTitle: {
     flexShrink: 1,
+    textAlign: "center",
   },
   group: {
     gap: Spacing.one,

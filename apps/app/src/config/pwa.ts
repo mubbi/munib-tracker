@@ -81,7 +81,7 @@ export const PWA_SHORTCUTS = [
 
 /**
  * Install-dialog screenshots for Chrome / Edge's richer install UI: "narrow"
- * (phone, from the light English store captures) and "wide" (desktop, from the
+ * (phone, from the English Play phone store set) and "wide" (desktop, from the
  * English 10-inch tablet landscape store set) — desktop only shows the richer
  * dialog with a "wide" one. One aspect ratio per form factor, ≤ 2.3:1, 320–3840px
  * (developer.chrome.com "richer PWA installation"). Made by
@@ -89,46 +89,60 @@ export const PWA_SHORTCUTS = [
  */
 export const PWA_SCREENSHOTS = [
   {
-    src: "/assets/images/pwa/screenshot-home.png",
-    sizes: "540x1200",
-    type: "image/png",
+    src: "/assets/images/pwa/screenshot-home.jpg",
+    sizes: "720x1280",
+    type: "image/jpeg",
     form_factor: "narrow",
-    label: "Home with today's Salah times",
+    label: "Track your journey back to Allah",
   },
   {
-    src: "/assets/images/pwa/screenshot-tracker.png",
-    sizes: "540x1200",
-    type: "image/png",
+    src: "/assets/images/pwa/screenshot-salah.jpg",
+    sizes: "720x1280",
+    type: "image/jpeg",
     form_factor: "narrow",
-    label: "Tracker with today's Salah progress",
+    label: "Build unshakeable Salah habits",
   },
   {
-    src: "/assets/images/pwa/screenshot-qibla.png",
-    sizes: "540x1200",
-    type: "image/png",
+    src: "/assets/images/pwa/screenshot-qaza.jpg",
+    sizes: "720x1280",
+    type: "image/jpeg",
     form_factor: "narrow",
-    label: "Qibla compass",
+    label: "Clear your Qaza with clarity",
+  },
+  {
+    src: "/assets/images/pwa/screenshot-library.jpg",
+    sizes: "720x1280",
+    type: "image/jpeg",
+    form_factor: "narrow",
+    label: "Qur'an, Zikr and hadith — offline",
+  },
+  {
+    src: "/assets/images/pwa/screenshot-qibla.jpg",
+    sizes: "720x1280",
+    type: "image/jpeg",
+    form_factor: "narrow",
+    label: "Find the Qibla in seconds",
   },
   {
     src: "/assets/images/pwa/screenshot-wide-home.jpg",
     sizes: "1280x800",
     type: "image/jpeg",
     form_factor: "wide",
-    label: "Home with the next Salah and today's date",
+    label: "Track your journey back to Allah",
   },
   {
     src: "/assets/images/pwa/screenshot-wide-salah.jpg",
     sizes: "1280x800",
     type: "image/jpeg",
     form_factor: "wide",
-    label: "Salah tracker",
+    label: "Build unshakeable Salah habits",
   },
   {
     src: "/assets/images/pwa/screenshot-wide-library.jpg",
     sizes: "1280x800",
     type: "image/jpeg",
     form_factor: "wide",
-    label: "Library of Qur'an, hadith, duas and adhkar",
+    label: "Qur'an, Zikr and hadith — offline",
   },
 ];
 

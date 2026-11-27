@@ -3764,7 +3764,9 @@
       "playPhrase": "{{n}}. ifadini oxut: {{title}}",
       "followAlongNote": "Oxuyarkən altdakı sözləri vurğulayır",
       "listenHintTv": "Oxutmaq üçün yazını seçin. Mədinə azan zamanı hər cümləni vurğulayır. Aydın cümlə-cümlə audio üçün aşağıdakı Sözləri öyrənin hissəsindən istifadə edin."
-    }
+    },
+    "optional": "İsteğe bağlı",
+    "rakatsNote": "Sünnə: təkidli rəvatib, gündə 12 rükət (10 sayan məzhəblər Zöhrdən əvvəl 2 rükət qılır). İsteğe bağlı: tövsiyə olunan, lakin təkidli olmayan (qeyri-müəkkədə), məsələn, Əsrdən əvvəl 4 rükət. Vitr İşadan sonra tək sayda rükətlə qılınır."
   },
   "battles": {
     "eyebrow": "Öyrən",

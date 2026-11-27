@@ -52,6 +52,12 @@ export const READING_MEASURE = 880;
 export interface ScreenChrome {
   title: string;
   onBack?: () => void;
+  /**
+   * Measured height of the floating header overlay (title bar + any revealed
+   * `headerAccessory`), or 0 before the first layout. Content scrolls beneath
+   * it, so sticky elements must offset by at least this much.
+   */
+  headerHeight: number;
 }
 
 const ScreenChromeContext = createContext<ScreenChrome | null>(null);
@@ -63,6 +69,17 @@ const ScreenChromeContext = createContext<ScreenChrome | null>(null);
  */
 export function useScreenChrome(): ScreenChrome | null {
   return useContext(ScreenChromeContext);
+}
+
+/**
+ * `top` for a web `position: sticky` element inside a `ScreenLayout` scroller:
+ * clears the floating header overlay (incl. a revealed `headerAccessory`
+ * toolbar) plus a small gap. Falls back to `fallback` before the header has
+ * been measured or outside a `ScreenLayout`.
+ */
+export function useStickyHeaderOffset(fallback: number): number {
+  const headerHeight = useContext(ScreenChromeContext)?.headerHeight ?? 0;
+  return headerHeight > 0 ? headerHeight + Spacing.three : fallback;
 }
 
 type ScreenLayoutProps = {
@@ -226,7 +243,10 @@ export function ScreenLayout({
   /** Pinned footer bar (phones / tablets); inline after the content otherwise. */
   const footerPinned = hasFooter && !tv && width < Breakpoints.wide;
   const footerInline = hasFooter && !footerPinned;
-  const chrome = useMemo<ScreenChrome>(() => ({ title, onBack }), [title, onBack]);
+  const chrome = useMemo<ScreenChrome>(
+    () => ({ title, onBack, headerHeight }),
+    [title, onBack, headerHeight],
+  );
 
   // Phone/web: cap the column so it doesn't stretch into a sparse strip.
   // TV: fill the tab pane (minus overscan padding on the content wrapper).

@@ -97,7 +97,7 @@ export default function LoginScreen() {
       <MosqueSilhouette color={Brand.heroBottom} opacity={0.4} scale={wide ? 1.6 : 1.15} />
       <Image
         style={[styles.logo, tv && styles.logoTv, wide && styles.logoWide]}
-        source={require("@/assets/images/munib-logo.png")}
+        source={require("@/assets/images/munib-logo-gold.png")}
         accessibilityLabel={t("common.appName")}
       />
       <ThemedText type="title" style={[styles.wordmark, { color: Brand.heroText }]}>

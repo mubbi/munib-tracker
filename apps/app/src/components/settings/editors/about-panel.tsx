@@ -50,7 +50,7 @@ export function AboutPanel() {
     <Card padding="four" style={styles.hero}>
       <Image
         style={styles.logo}
-        source={require("@/assets/images/munib-logo.png")}
+        source={require("@/assets/images/munib-logo-gold.png")}
         accessibilityLabel={APP_NAME}
       />
       <ThemedText type="subtitle">{APP_NAME}</ThemedText>

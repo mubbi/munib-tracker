@@ -309,7 +309,9 @@ export function TrackerDayChecklist({
         </View>
       ) : null}
 
-      <View testID="tracker-obligatory">
+      {/* `?focus=rawatib` lands here: the Sunnah rawatib are chips on each Salah
+          row of this card, so the card top (Fajr + its Sunnah) is the target. */}
+      <View ref={setRawatibRef} testID="tracker-obligatory">
         <Card>
           <SectionHeader
             title={t("tracker.obligatory")}
@@ -353,11 +355,7 @@ export function TrackerDayChecklist({
             })}
           </View>
 
-          {rawatib.summary ? (
-            <View ref={setRawatibRef} testID="rawatib-card">
-              {rawatib.summary}
-            </View>
-          ) : null}
+          {rawatib.summary ? <View testID="rawatib-card">{rawatib.summary}</View> : null}
 
           {dayExcused == null ? (
             <Button
@@ -523,9 +521,9 @@ export function TrackerDayChecklist({
               ))}
               <NavRow
                 icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
-                href="/tahajjud"
                 label={t("tahajjud.streakRow")}
                 onPress={() => router.push("/tahajjud")}
+                href="/tahajjud"
               />
             </View>
           </Card>
@@ -537,9 +535,9 @@ export function TrackerDayChecklist({
             <View style={styles.rows}>
               <NavRow
                 icon={{ ios: "square.and.pencil", android: "edit", web: "edit" }}
-                href="/journal"
                 label={t("journal.navRow")}
                 onPress={() => router.push("/journal")}
+                href="/journal"
               />
             </View>
           </Card>

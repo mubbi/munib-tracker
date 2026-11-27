@@ -18,6 +18,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useUndoToast } from "@/hooks/use-undo-toast";
@@ -49,6 +50,7 @@ export default function HadithBookmarksScreen() {
   const tv = isTV();
 
   const [entries, setEntries] = useState<BookmarkedHadith[]>([]);
+  const shownEntries = useProgressiveList(entries, { initial: 10, batch: 10 });
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [attempt, setAttempt] = useState(0);
   const undoToast = useUndoToast();
@@ -146,7 +148,7 @@ export default function HadithBookmarksScreen() {
           <Stagger>
             {/* Wide web / tablets: saved hadith in two columns (TV keeps one). */}
             <ResponsiveGrid columns={tv ? 1 : undefined} maxColumns={2} gap={Spacing.two}>
-              {entries.map((entry) => (
+              {shownEntries.map((entry) => (
                 <View
                   key={entry.bookmark.id}
                   style={[styles.row, { backgroundColor: colors.muted }]}

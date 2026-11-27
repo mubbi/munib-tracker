@@ -3764,7 +3764,9 @@
       "playPhrase": "Putar frasa {{n}}: {{title}}",
       "followAlongNote": "Menyoroti kata di bawah saat diputar",
       "listenHintTv": "Pilih rekaman untuk diputar. Madinah menyorot setiap kalimat saat dikumandangkan. Gunakan Pelajari kata-kata di bawah untuk audio frasa demi frasa yang jelas."
-    }
+    },
+    "optional": "Opsional",
+    "rakatsNote": "Sunah: rawatib muakkad, 12 rakaat sehari (mazhab yang menghitung 10 salat 2 rakaat sebelum Zuhur). Opsional: dianjurkan tetapi tidak ditekankan (ghairu muakkad), seperti 4 rakaat sebelum Asar. Witir dikerjakan setelah Isya dengan jumlah rakaat ganjil."
   },
   "battles": {
     "eyebrow": "Belajar",

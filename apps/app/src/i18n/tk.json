@@ -3764,7 +3764,9 @@
       "playPhrase": "{{n}}-nji jümläni oýnat: {{title}}",
       "followAlongNote": "Çalýarka aşakdaky sözleri belleýär",
       "listenHintTv": "Oýnatmak üçin ýazgyny saýlaň. Medine ýazgysynda her jümle aýdylanda bellenýär. Aýdyň, jümle-jümle ses üçin aşakdaky «Sözleri öwreniň» bölümini ulanyň."
-    }
+    },
+    "optional": "Islege bagly",
+    "rakatsNote": "Sünnet: müekkede rewatib, günde 12 rekagat (10 diýip hasaplaýan mezhepler Öýleden öň 2 rekagat okaýar). Islege bagly: müstehap, ýöne müekkede däl (gaýry müekkede), meselem, Ikindiden öň 4 rekagat. Witr Ýassydan soň täk sanly rekagat bilen okalýar."
   },
   "battles": {
     "eyebrow": "Öwren",

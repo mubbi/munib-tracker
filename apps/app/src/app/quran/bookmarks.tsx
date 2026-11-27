@@ -18,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import type { QuranBookmark } from "@/db/repositories/quran-repository";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useUndoToast } from "@/hooks/use-undo-toast";
@@ -64,6 +65,7 @@ export default function QuranBookmarksScreen() {
   const prefs = useQuranPrefs();
   const ready = useQuranReady();
   const bookmarks = useQuranBookmarks();
+  const shownBookmarks = useProgressiveList(bookmarks, { initial: 8, batch: 8 });
   const { load, removeBookmark: removeStoredBookmark, restoreBookmark } = useQuranActions();
   // B-26: the store loads at start-up; if that load failed, the list would sit on
   // its skeleton forever. Load here too and offer Try again on failure.
@@ -151,7 +153,7 @@ export default function QuranBookmarksScreen() {
         <Stagger>
           {/* TV: one focus column. Tablet / desktop: 2–3 bookmark cards per row. */}
           <ResponsiveGrid gap={Spacing.two} maxColumns={3} columns={tv ? 1 : undefined}>
-            {bookmarks.map((bm, index) => {
+            {shownBookmarks.map((bm, index) => {
               const surah = getSurahByNumber(bm.surah);
               const arabic = getSurahAyahs(bm.surah)[bm.ayah - 1]?.arabic ?? "";
               const translation = getBundledEdition(editionId, bm.surah)[String(bm.ayah)] ?? "";

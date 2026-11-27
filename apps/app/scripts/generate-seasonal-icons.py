@@ -500,18 +500,28 @@ def _clip_to_mark(decorated: Image.Image, mark: Image.Image) -> Image.Image:
     return out
 
 
+def _inset(img: Image.Image, size: int) -> Image.Image:
+    fg_size = int(size * 0.72)
+    fg = ImageOps.contain(img, (fg_size, fg_size), method=Image.Resampling.LANCZOS)
+    canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    canvas.paste(fg, ((size - fg.width) // 2, (size - fg.height) // 2), fg)
+    return canvas
+
+
 def _android_layers(decorated: Image.Image, bg: RGB) -> Tuple[Image.Image, Image.Image, Image.Image]:
-    """Adaptive layers — same geometry as `generate-brand-assets._generate_android_adaptive`."""
+    """Adaptive layers — same geometry as `generate-brand-assets._generate_android_adaptive`.
+
+    The foreground carries the gilt rim + glow like the primary icon; the monochrome
+    layer uses the rim without its glow so the themed icon gets a crisp outline.
+    """
     size = 432
     background = Image.new("RGB", (size, size), bg)
-    fg_size = int(size * 0.72)
-    fg = ImageOps.contain(decorated, (fg_size, fg_size), method=Image.Resampling.LANCZOS)
-    foreground = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    foreground.paste(fg, ((size - fg.width) // 2, (size - fg.height) // 2), fg)
+    foreground = _inset(brand._with_gold_rim_padded(decorated), size)
+    mono_fg = _inset(_with_rim_only_padded(decorated), size)
     # Monochrome (Android 13+ themed icons tint it): the same inset geometry as the
     # foreground, keeping only what is clearly brighter than the seasonal field so the
     # field itself drops out instead of tinting as a noisy slab.
-    flat = Image.alpha_composite(background.convert("RGBA"), foreground)
+    flat = Image.alpha_composite(background.convert("RGBA"), mono_fg)
     lum = np.asarray(ImageOps.grayscale(flat.convert("RGB"))).astype(np.float32)
     field = float(np.median(lum[size // 2 - 40 : size // 2 + 40, 40:80]))
     alpha = np.clip((lum - (field + 28)) * 2.4, 0, 255).astype(np.uint8)
@@ -519,6 +529,14 @@ def _android_layers(decorated: Image.Image, bg: RGB) -> Tuple[Image.Image, Image
     mono[..., :3] = 255
     mono[..., 3] = alpha
     return foreground, background, Image.fromarray(mono, "RGBA")
+
+
+def _with_rim_only_padded(img: Image.Image) -> Image.Image:
+    """`brand._with_gold_rim_padded` without the glow (same padding, so same framing)."""
+    pad = brand._rim_padding(img)
+    canvas = Image.new("RGBA", (img.width + pad * 2, img.height + pad * 2), (0, 0, 0, 0))
+    canvas.paste(img, (pad, pad), img)
+    return brand._with_gold_rim(canvas, glow=False)
 
 
 def _save(img: Image.Image, path: Path) -> None:
