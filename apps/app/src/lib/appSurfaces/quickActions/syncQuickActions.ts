@@ -1,3 +1,4 @@
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import type { Action } from "expo-quick-actions";
 import * as QuickActions from "expo-quick-actions";
 import type { TFunction } from "i18next";
@@ -10,9 +11,13 @@ import {
   type QuickActionDefinition,
 } from "@/lib/appSurfaces/quickActions/registry";
 import { isTV } from "@/lib/platform/is-tv";
+import { buildDueQueue } from "@/lib/quran-companion/due-queue";
 import { getRamadanInfo } from "@/lib/ramadan";
 import { captureAppException } from "@/lib/sentry";
+import { hifzStore } from "@/stores/hifz-store";
 import { locationStore } from "@/stores/location-store";
+import { quranCompanionPrefsStore } from "@/stores/quran-companion-prefs-store";
+import { quranMemorizationStore } from "@/stores/quran-memorization-store";
 
 function translatedLabel(t: TFunction, key: string, fallback: string): string {
   const value = t(key, { defaultValue: fallback });
@@ -41,8 +46,29 @@ export function definitionToAction(
   return action;
 }
 
+/** Registry id of the "Practise Qur'an" shortcut (href resolved when opened). */
+export const PRACTICE_QUICK_ACTION_ID = "quran-practice";
+
+/**
+ * "Practise Qur'an": the revision queue while ayahs are due, otherwise the
+ * practice hub. Reads the loaded stores only — on a cold start before they load
+ * it opens the hub, which shows the due queue itself once ready.
+ */
+export function practiceQuickActionHref(): string {
+  const memorization = quranMemorizationStore.getState();
+  if (!memorization.isReady) return "/quran/practice";
+  const due = buildDueQueue({
+    records: memorization.records,
+    hifz: hifzStore.getState().statuses,
+    includeHifzReview: quranCompanionPrefsStore.getState().prefs.includeHifzReview,
+    today: getLocalDateString(),
+  });
+  return due.length > 0 ? "/quran/revision" : "/quran/practice";
+}
+
 /** Resolve a cold-start / long-press quick action to an Expo Router href. */
 export function resolveQuickActionHref(action: Action): string | null {
+  if (action.id === PRACTICE_QUICK_ACTION_ID) return practiceQuickActionHref();
   const href = action.params?.href;
   if (typeof href === "string" && href.trim()) return href.trim();
   const def = getQuickActionById(action.id ?? "");

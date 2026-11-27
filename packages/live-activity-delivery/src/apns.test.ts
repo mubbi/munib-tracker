@@ -172,6 +172,21 @@ describe("ApnsLiveActivityClient", () => {
     });
   });
 
+  it.each(["../../3/other", "abc?x=1", "abc def", "", "f".repeat(513)])(
+    "invalidates a non-hex device token %j without contacting APNs",
+    async (token) => {
+      const { send, requests } = setup([]);
+      await expect(send({ token })).resolves.toEqual({
+        ok: false,
+        status: 0,
+        reason: "BadDeviceToken",
+        retryable: false,
+        invalidateToken: true,
+      });
+      expect(requests()).toHaveLength(0);
+    },
+  );
+
   it("posts a liveactivity update to the sandbox host", async () => {
     vi.useFakeTimers({ toFake: ["Date"] });
     vi.setSystemTime(new Date("2026-01-01T07:00:00Z"));

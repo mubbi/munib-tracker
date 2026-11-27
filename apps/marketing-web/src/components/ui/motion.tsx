@@ -1,74 +1,34 @@
-"use client";
-
-import { motion, stagger, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+/**
+ * Scroll reveals, in CSS only (`.scroll-reveal` in `globals.css`): a fade +
+ * rise driven by the element's own scroll position (`animation-timeline:
+ * view()`). Browsers without scroll-driven animations simply show the content.
+ *
+ * Server components: no JavaScript ships for them, and content is never hidden
+ * waiting for hydration (which used to delay LCP and hid sections when JS
+ * failed). Reduced motion turns the animation off (global rule in `globals.css`).
+ */
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
-  delay?: number;
-  y?: number;
-  /** @deprecated Kept for call-site compat; blur was removed for scroll perf. */
-  blur?: boolean;
 };
 
 /** Fade + rise as the element scrolls into view. */
-export function Reveal({ children, className, delay = 0, y = 22 }: RevealProps) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
-    >
-      {children}
-    </motion.div>
-  );
+export function Reveal({ children, className }: RevealProps) {
+  return <div className={cn("scroll-reveal", className)}>{children}</div>;
 }
 
-const container: Variants = {
-  hidden: {},
-  show: (interval: number) => ({
-    transition: { delayChildren: stagger(interval, { startDelay: 0.05 }) },
-  }),
-};
-
-export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
-};
-
-/** Container that reveals its <StaggerItem> children in sequence. */
-export function Stagger({
-  children,
-  className,
-  stagger = 0.08,
-}: {
-  children: ReactNode;
-  className?: string;
-  stagger?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      custom={stagger}
-      variants={container}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-80px" }}
-    >
-      {children}
-    </motion.div>
-  );
+/**
+ * A group whose `<StaggerItem>` children reveal as they scroll into view.
+ * Items in the same row enter together; rows below follow as they arrive.
+ */
+export function Stagger({ children, className }: { children: ReactNode; className?: string }) {
+  return <div className={className}>{children}</div>;
 }
 
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <motion.div className={className} variants={staggerItem}>
-      {children}
-    </motion.div>
-  );
+  return <div className={cn("scroll-reveal", className)}>{children}</div>;
 }

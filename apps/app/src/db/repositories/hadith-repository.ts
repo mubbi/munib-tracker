@@ -33,7 +33,6 @@ export interface HadithBookmark {
 /** Reader display toggles for hadith collection / bookmark screens. */
 export interface HadithPrefs {
   showArabic: boolean;
-  showTranslation: boolean;
   showNarrator: boolean;
   showGrade: boolean;
   /** NF-2.9 structured isnad chain */
@@ -44,7 +43,6 @@ export interface HadithPrefs {
 
 export const DEFAULT_HADITH_PREFS: HadithPrefs = {
   showArabic: true,
-  showTranslation: true,
   showNarrator: true,
   showGrade: true,
   showIsnad: true,
@@ -125,6 +123,27 @@ export const HadithRepository = {
       number: item.number,
       createdAt: new Date().toISOString(),
     });
+    await this.touchBookmarks();
+    return true;
+  },
+
+  /** Removes a saved hadith and returns the removed record (for an exact Undo). */
+  async removeBookmark(hadithId: string): Promise<HadithBookmark | null> {
+    const existing = await bookmarks.get(hadithId);
+    if (!existing) return null;
+    await bookmarks.remove(hadithId);
+    await this.touchBookmarks();
+    return existing;
+  },
+
+  /**
+   * Undo of a removal: puts back the exact record (same id + createdAt) so the
+   * saved order and sync identity are unchanged (B-13 pattern). No-op if the
+   * hadith was saved again in the meantime.
+   */
+  async restoreBookmark(bookmark: HadithBookmark): Promise<boolean> {
+    if (await bookmarks.get(bookmark.hadithId)) return false;
+    await bookmarks.upsert(bookmark.hadithId, { ...bookmark });
     await this.touchBookmarks();
     return true;
   },

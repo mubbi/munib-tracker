@@ -13,7 +13,7 @@ import {
   revokeUserSession,
   sendTestPushToUser,
 } from "@/lib/actions/support";
-import { getRequestMeta, requirePageSession } from "@/lib/auth/guards";
+import { getActionContext, requirePageSession } from "@/lib/auth/guards";
 import { assertModuleAccess } from "@/lib/auth/module-guard";
 import { canPerformSupportActions } from "@/lib/permissions";
 import { getUserDetail } from "@/lib/queries/users";
@@ -33,7 +33,6 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
   if (!detail) notFound();
 
   const canAct = canPerformSupportActions(session.role);
-  const meta = await getRequestMeta();
 
   return (
     <PageShell
@@ -94,7 +93,9 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
                   <form
                     action={async () => {
                       "use server";
-                      const ctx = { ...session, ...meta };
+                      // Re-resolve the session at call time: render-time closures would let a
+                      // revoked / demoted admin replay the encrypted bound args.
+                      const ctx = await getActionContext();
                       await revokeUserSession(ctx, s.id, userId);
                     }}
                   >
@@ -133,7 +134,9 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
             <form
               action={async () => {
                 "use server";
-                const ctx = { ...session, ...meta };
+                // Re-resolve the session at call time: render-time closures would let a
+                // revoked / demoted admin replay the encrypted bound args.
+                const ctx = await getActionContext();
                 await sendTestPushToUser(ctx, userId);
               }}
             >
@@ -144,7 +147,9 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
             <form
               action={async () => {
                 "use server";
-                const ctx = { ...session, ...meta };
+                // Re-resolve the session at call time: render-time closures would let a
+                // revoked / demoted admin replay the encrypted bound args.
+                const ctx = await getActionContext();
                 await clearUserPushTokens(ctx, userId);
               }}
             >
@@ -155,7 +160,9 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
             <form
               action={async () => {
                 "use server";
-                const ctx = { ...session, ...meta };
+                // Re-resolve the session at call time: render-time closures would let a
+                // revoked / demoted admin replay the encrypted bound args.
+                const ctx = await getActionContext();
                 await markAllNotificationsRead(ctx, userId);
               }}
             >

@@ -6,13 +6,38 @@ import type {
   UserPreferences,
   ZikrProgress,
 } from "@munib-tracker/shared/types";
-
+import {
+  stripPrivatePrayerLogFields,
+  stripPrivatePreferenceFields,
+} from "@munib-tracker/shared/validators/private-sync";
 import { prayerLogKey, zikrProgressKey } from "@/db/keys";
 import type { HadithBookmark } from "@/db/repositories/hadith-repository";
 import type { QuranBookmark, QuranLastRead } from "@/db/repositories/quran-repository";
 import type { Tombstone } from "@/db/repositories/tombstone-repository";
 import type { FavoritesBlob } from "@/stores/create-favorites-store";
 import type { CustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
+import { stripDevicePreferenceFields } from "@/stores/device-preferences-store";
+
+/**
+ * Entities synced through the typed (per-record) path below and applied by the
+ * `switch` in `sync-engine.ts`. Everything else goes through `blob-sync.ts`.
+ * `sync-entities-parity.test.ts` checks this list + `BLOB_ENTITIES` against the
+ * API's `SYNC_ENTITIES` whitelist.
+ */
+export const TYPED_SYNC_ENTITIES = [
+  "prayer_logs",
+  "zikr_progress",
+  "qaza_entries",
+  "preferences",
+  "favorites",
+  "dua_favorites",
+  "durood_favorites",
+  "name_favorites",
+  "quran_bookmarks",
+  "quran_last_read",
+  "hadith_bookmarks",
+  "custom_tasbeeh",
+] as const satisfies readonly SyncRecordDto["entity"][];
 
 export interface LocalSnapshot {
   nowIso: string;
@@ -33,6 +58,15 @@ export interface LocalSnapshot {
   hadithBookmarks: HadithBookmark[];
   hadithBookmarksUpdatedAt?: string;
   customTasbeeh: CustomTasbeehBlob;
+}
+
+/**
+ * The `preferences` record payload: device-only fields (B4) and the D46
+ * private fields (the active excused period, which syncs only through the
+ * vault) are left out. Shared by the full sync and the debounced prefs push.
+ */
+export function syncedPreferencesData(prefs: UserPreferences): Record<string, unknown> {
+  return stripPrivatePreferenceFields(stripDevicePreferenceFields(prefs));
 }
 
 /** Reconstructs the minimal payload a tombstone needs from its record id. */
@@ -74,7 +108,8 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
     records.push({
       entity: "prayer_logs",
       id: prayerLogKey(log.prayerId, log.date),
-      data: { ...log },
+      // D46: the per-day excused reason syncs only through the vault.
+      data: stripPrivatePrayerLogFields({ ...log }),
       updatedAt: log.updatedAt,
     });
   }
@@ -111,7 +146,8 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
     records.push({
       entity: "preferences",
       id: "preferences",
-      data: { ...snapshot.preferences },
+      // B4: device preferences (haptics, cache toggles, volume…) never sync.
+      data: syncedPreferencesData(snapshot.preferences),
       updatedAt: snapshot.preferences.updatedAt,
     });
   }

@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { QuranGuideClipPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -15,7 +16,7 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -34,7 +35,7 @@ function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
   const topicSize = Math.max(12, sizes.transliteration);
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <View style={styles.cardHeader}>
         <Pill
           compact
@@ -75,6 +76,20 @@ function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
           ))}
         </View>
       </TvReadableBlock>
+      {/* D68: read the level's practice ayah aloud and see which words sounded off. */}
+      {level.practiceAudio ? (
+        <ReciteAlongButton
+          passage={{
+            surah: level.practiceAudio.surah,
+            ayahStart: level.practiceAudio.ayah,
+            ayahEnd: level.practiceAudio.ayah,
+          }}
+          mode="check"
+          variant="ghost"
+          size="sm"
+          style={styles.recite}
+        />
+      ) : null}
     </Card>
   );
 }
@@ -137,12 +152,13 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   badge: { alignSelf: "flex-start" },
+  recite: { alignSelf: "flex-start" },
   prose: { gap: Spacing.two },
   topics: {
     gap: Spacing.one,
     marginTop: Spacing.one,
     paddingTop: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
 });
 

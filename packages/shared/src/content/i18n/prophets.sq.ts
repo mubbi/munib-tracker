@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Historitë e tyre në Kuran nuk janë vetëm histori e largët; ato janë mësime praktike për besimin, durimin, jetën familjare, udhëheqjen dhe pendimin.",
       "Besimi në të gjithë profetët është pjesë e imanit. Myslimanët i nderojnë të gjithë, shmangin teprimet dhe ndjekin mesazhin përfundimtar të sjellë nga Muhamedi ﷺ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Të dërguarit si përgëzues dhe paralajmërues, kështu që njerëzit nuk do të kenë argument kundër Allahut pas të dërguarve.",
-      },
-      {
-        excerpt:
-          "Ne, me siguri, në çdo popull dërguam të dërguar: Adhuroni Allahun dhe largohuni prej zotave të rremë.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Profetët nuk janë hyjnorë dhe nuk adhurohen kurrë. Ata janë krijesat më të mira në bindje, karakter dhe besueshmëri, ndërsa mbeten robër të Allahut.",
       "Misioni i tyre është një në themel: adhuroni vetëm Allahun. Detajet specifike ligjore mund të ndryshojnë ndërmjet komuniteteve sipas urtësisë së Allahut.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Të dërguarit e tyre u thanë atyre: Ne jemi vetëm njerëz si ju, por Allahu e favorizon atë që do prej robërve të Tij.",
-      },
-      {
-        excerpt:
-          "Ne nuk dërguam asnjë të dërguar para teje, përveç që i shpallëm atij: Nuk ka zot tjetër përveç Meje, andaj më adhuroni Mua.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Kur'ani i përdor të dy termat me nder, dhe muslimanët besojnë në të gjithë profetët dhe të dërguarit pa refuzuar asnjë.",
       "Përkufizimet e sakta teknike mund të ndryshojnë sipas frazave shkencore, por mësimi praktik është i qëndrueshëm: pranoni shpalljen me përulësi dhe ndiqni udhëzimin e Allahut.",
     ],
-    quran: [
-      {
-        excerpt: "Ai u zgjodh dhe ishte i dërguar dhe profet.",
-      },
-      {
-        excerpt: "Ne nuk bëjmë dallim ndërmjet asnjë prej të dërguarve të Tij.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Detajet e terminologjisë janë paraqitur në një mënyrë të gjerë, asnjanëse nga ana e studiuesve; konsultohuni me mësues të kualifikuar për klasifikime të avancuara teologjike.",
     appLinks: [{}],
@@ -74,14 +49,7 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Jetët e tyre demonstrojnë gjithashtu sabr nën refuzim, besim në Allahun gjatë pasigurisë dhe gatishmëri për të reformuar shoqërinë me urtësi dhe guxim.",
       "Studimi i tyre krijon elasticitet: besimtarët mësojnë të pendohen shpejt, të udhëheqin në mënyrë etike dhe të mbeten parimorë edhe kur e vërteta nuk është e pëlqyer.",
     ],
-    quran: [
-      {
-        excerpt: "Në tregimet e tyre është një mësim për njerëzit që kuptojnë.",
-      },
-      {
-        excerpt: "Ata janë të cilët Allahu i ka udhëzuar, andaj ndiqni udhëzimin e tyre.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Zgjidhni një mësim profetik çdo javë dhe zbatojeni atë me qëllim.",
       "Reflektoni pas namazit se ku keni nevojë për më shumë durim ose pendim.",
@@ -97,16 +65,7 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Mrekullitë nuk janë fuqi të pavarura të profetëve; ato ndodhin me vullnetin e Allahut për të mbështetur shpalljen dhe për të vendosur prova.",
       "Kur'ani tregon se disa ende refuzuan pavarësisht shenjave, dëshmimi i udhëzimit varet nga sinqeriteti dhe nënshtrimi, jo vetëm nga spektakli.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne i dërguam të dërguarit Tanë me argumente të qarta dhe me ta zbritëm Librin dhe Peshoren.",
-      },
-      {
-        excerpt:
-          "Thuaj: Shenjat janë vetëm te All-llahu... A nuk u mjafton atyre që Ne të shpallëm ty Librin që u lexohet atyre?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -117,16 +76,7 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Megjithëse cilësimet ndryshojnë, thirrja e tyre është një: teuhid, drejtësi, llogaridhënie dhe mëshirë përmes pendimit.",
       "Ky modul qëndron i bazuar në Kur'an dhe i mban të shkurtra detajet dytësore historike, përveç nëse mbështetet nga prova të besueshme.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne kemi dërguar të dërguar edhe para jush; prej tyre janë ata që të kemi lidhur me ty dhe prej tyre janë ata që nuk të kemi lidhur me ty.",
-      },
-      {
-        excerpt:
-          "Ne besojmë në Allahun dhe atë që u shpall... dhe atë që iu dha Musait, Isait dhe profetëve nga Zoti i tyre.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -137,18 +87,8 @@ export const PROPHETS_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       "Shmangni raportet e bujshme ose të dobëta që bien ndesh me parimet Kur'anore ose me dinjitetin profetik. Jo çdo histori popullore ka prova të shëndosha.",
       "Përdorni biografitë profetike për të reformuar adhurimin dhe karakterin tuaj, jo vetëm për të mbledhur fakte historike.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata që e dëgjojnë fjalën dhe e ndjekin atë më të mirën, të tillët janë të cilët i ka udhëzuar Allahu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kush ecën në një rrugë për të kërkuar dituri, Allahu ia lehtëson rrugën për në Xhenet.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Lexoni çdo javë një tregim profeti drejtpërdrejt nga Kurani.",
       "Mbani shënime për mësimet praktike, jo vetëm për faktet e afateve kohore.",
@@ -198,26 +138,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Pendimi i tij është modeli i parë i teubes në Kur'an",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe [përmend] kur Zoti yt u tha engjëjve: Unë do të bëj në tokë një autoritet të njëpasnjëshëm... Pastaj Ademi pranoi fjalë nga Zoti i tij dhe ia pranoi pendimin.",
-      },
-      {
-        excerpt:
-          "Ata thanë: “O Zoti ynë, ne i kemi bërë padrejtësi vetes, e nëse nuk na falë dhe nuk na mëshiron, ne me siguri do të jemi prej të humburve.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Në Ditën e Kijametit njerëzit do të vijnë te Ademi dhe do t'i thonë: Ti je babai i njerëzve; ndërmjetëso për ne te Zoti yt.",
-      },
-      {
-        excerpt:
-          "Ademi dhe Musa u grindën. Musai tha: Ti je ai që Allahu e krijoi me dorën e Tij. Ademi tha: A më fajësoni mua për një çështje që më ka caktuar Allahu para se të më krijonte? Kështu Ademi e fitoi Musain në argument.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -242,16 +164,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "I përshkruar si i ngritur në një pozitë të lartë nga Allahu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe përmendeni në libër Idrisin. Vërtet, ai ishte njeri i së vërtetës dhe profet. Dhe Ne e ngritëm atë në një lartësi të lartë.",
-      },
-      {
-        excerpt:
-          "Dhe Ismaili, Idrisi dhe Dhul-Kifli, të gjithë ishin prej durimtarëve. Dhe Ne i futëm ata në mëshirën Tonë; me të vërtetë, ata ishin nga të drejtët.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -289,22 +202,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Historia e tij shfaqet në shumë sure, duke përfshirë një me emrin e tij",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe Nuhut i është shpallur se askush nga populli yt nuk do të besojë përveç atyre që kanë besuar, andaj mos u brengos për atë që kanë bërë.",
-      },
-      {
-        excerpt:
-          "Ai tha: “O Zoti im, vërtet unë i ftova njerëzit e mi natë e ditë, por ftesa ime i shtoi ata vetëm në arrati.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Njerëzit do të vijnë te Nuhu dhe do t'i thonë: O Nuh, ti je i dërguari i parë për banorët e tokës dhe Allahu të ka emëruar rob mirënjohës; ndërmjetësoni për ne.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -341,16 +240,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Historia e Adit përsëritet nëpër Kuran si një paralajmërim për komunitetet e mëvonshme",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe Adit [Ne dërguam] vëllanë e tyre Hudin. Ai tha: O populli im, adhuroni Allahun; ju nuk keni zot tjetër përveç Tij. A nuk do t'i frikësoheni Atij?",
-      },
-      {
-        excerpt:
-          "E kur e panë atë si një re që u afrohet luginave të tyre, thanë: Kjo është një re që na sjell shi! Përkundrazi, është ajo për të cilën keni qenë të paduruar: një erë brenda saj është një dënim i dhembshëm.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -385,16 +275,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Themudi ishte i njohur për gdhendjen e shtëpive të përpunuara në male"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kjo është deveja e Allahut si shenjë për ju, andaj lëreni të hajë në tokën e Allahut dhe mos e prekni atë me dëm, se mos ju kapë një dënim i dhembshëm.",
-      },
-      {
-        excerpt:
-          "Themudi përgënjeshtroi për shkak të shkeljes së tyre, kur u dërgua më i mjeri prej tyre... Andaj Zoti i tyre solli mbi ta shkatërrimin për mëkatin e tyre dhe i rrafshoi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -436,22 +317,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Paraardhësi i profetëve përmes Ismailit dhe Is'hakut",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe [përmend] kur Ibrahimi u sprovua nga Zoti i tij me urdhra dhe ai i përmbushi ato. Ai tha: Me të vërtetë, unë do të të bëj prijës për njerëzit.",
-      },
-      {
-        excerpt:
-          "Ne thamë: O zjarr, bëhu qetësi dhe shpëtim për Ibrahimin. Dhe ata synuan t'i dëmtojë, por Ne i bëmë ata më të humburit.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do të mblidheni këmbëzbathur, lakuriq dhe të parrethprerë. I pari që do të vishet në Ditën e Kijametit do të jetë Ibrahimi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -485,16 +352,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Një i afërm i Ibrahimit që migroi me të dhe u dërgua në Sodomë"],
     },
-    quran: [
-      {
-        excerpt:
-          "A u afroheni meshkujve të botëve dhe a e lini atë që Zoti juaj ka krijuar për ju si çift? Përkundrazi, ju jeni një popull shkelës.",
-      },
-      {
-        excerpt:
-          "Pra, kur erdhi urdhri Ynë, Ne i bëmë pjesët më të larta të qyteteve më të ulëtat e tyre dhe lëshuam mbi to gurë prej balte të fortë.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -532,16 +390,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Paraardhësi i fiseve arabe dhe linja e fundit profetike",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe përmendni në libër Ismailin. Vërtet, ai ishte besnik ndaj premtimit të tij dhe ishte i dërguar dhe profet. Ai e urdhëronte familjen e tij për namaz dhe zekat dhe ishte i kënaqur me Zotin e tij.",
-      },
-      {
-        excerpt:
-          "Dhe kur Ibrahimi po ngrinte themelet e shtëpisë dhe Ismaili, [ata u lutën]: Zoti ynë, pranoje këtë prej nesh. Vërtet, Ti je Dëgjuesi, i Dijshmi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -570,16 +419,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Babai i Jakubit", "I quajtur përkrah Ibrahimit dhe Jakubit si familje e zgjedhur"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe gruaja e tij ishte në këmbë dhe ajo qeshi. Pastaj Ne e përgëzuam atë për Is'hakun dhe, pas Is'hakut, Jakubin.",
-      },
-      {
-        excerpt:
-          "Dhe përkujtoni robërit Tanë Ibrahimin, Is'hakun dhe Jakubin, të fuqishmit dhe të pamurit. Në të vërtetë, Ne i zgjodhëm ato për një cilësi ekskluzive: përkujtimin e Shtëpisë.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -613,16 +453,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Quhet edhe Izraeli", "Babai i Jusufit dhe fiseve Beni Isra'il"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ai tha: Përkundrazi, shpirtrat tuaj ju kanë joshur për diçka. Kështu që durimi është më i përshtatshmi. Ndoshta Allahu do t'i bashkojë të gjithë tek unë.",
-      },
-      {
-        excerpt:
-          "Ata thanë: Ne do të adhurojmë Zotin tuaj dhe Zotin e baballarëve tuaj, Ibrahimit, Ismailit dhe Is'hakut, një Zot dhe Atij i nënshtrohemi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -657,18 +488,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["E gjithë sureja Jusuf, e quajtur historia më e mirë, përqendrohet në jetën e tij"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ai tha: Nuk do të keni asnjë faj sot. Allahu ju faltë; dhe Ai është më i mëshirshmi i mëshiruesve.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Fisniku, i biri i fisnikut, i biri i fisnikut, i biri i fisnikut: Jusufi, i biri i Jakubit, i biri i Is'hakut, i biri i Ibrahimit.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -698,16 +519,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["I njohur për theksimin vetëm të peshave dhe masave"],
     },
-    quran: [
-      {
-        excerpt:
-          "O populli im, adhuroni Allahun; ju nuk keni zot tjetër përveç Tij. Jepni masën dhe peshën e plotë dhe mos i privoni njerëzit nga e drejta e tyre dhe mos bëni prishje në tokë.",
-      },
-      {
-        excerpt:
-          "Dhe suksesi im nuk është veçse nëpërmjet Allahut. Tek Ai jam mbështetur dhe tek Ai kthehem.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -739,16 +551,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Cituar në të gjithë traditën islame si model i sabrit"],
     },
-    quran: [
-      {
-        excerpt:
-          "E Ejubi, kur thirri Zotin e tij: Vërtet, më ka prekur fatkeqësia dhe Ti je më i mëshirshmi i mëshiruesve.",
-      },
-      {
-        excerpt:
-          "Vërtet, Ne e gjetëm atë të durueshëm, një rob të shkëlqyer. Vërtet, ai ishte nga ata që i ktheheshin vazhdimisht Allahut.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -773,16 +576,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "I numëruar ndër profetët në listat kryesore të muslimanëve",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe Ismaili, Idrisi dhe Dhul-Kifli, të gjithë ishin prej durimtarëve. Dhe Ne i futëm ata në mëshirën Tonë; me të vërtetë, ata ishin nga të drejtët.",
-      },
-      {
-        excerpt:
-          "Dhe kujtoni Ismailin, El-Jasain dhe Dhul-Kiflin, dhe të gjithë janë ndër të shquarit.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -824,22 +618,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "I quajtur Kalimullah - ai të cilit Allahu i foli drejtpërdrejt",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe unë të kam zgjedhur ty, prandaj dëgjo atë që të shpallet. Vërtet, unë jam Allahu. Nuk ka zot tjetër përveç Meje, andaj më adhuroni Mua dhe falni namazin për të më kujtuar Mua.",
-      },
-      {
-        excerpt:
-          'Dhe Ne e frymëzuam nënën e Musait: "Të jepni gji, por kur të keni frikë për të, hidheni në lumë dhe mos u frikësoni e as mos u pikëlloni". Vërtet, Ne do ta kthejmë atë tek ju.',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Meleku i vdekjes iu dërgua Musait. Kur ai erdhi tek ai, Musai e goditi dhe Allahu ia ktheu syrin dhe i dha një zgjedhje për kohën e vdekjes së tij.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -872,16 +652,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Vëllai i madh i Musait", "I lavdëruar në Kuran për elokuencën e tij"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe më cakto një ministër nga familja ime - Harunin, vëllain tim. Rriteni forcën time nëpërmjet tij dhe lëreni të ndajë detyrën time.",
-      },
-      {
-        excerpt:
-          "Ai tha: “Biri i nënës sime, me të vërtetë njerëzit më mundën dhe do të më vrisnin, e të mos gëzohen për mua armiqtë.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -919,22 +690,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Marrësi i Zaburit (Psalmeve)", "Mundi Xhalut (Goliath) si i ri"],
     },
-    quran: [
-      {
-        excerpt:
-          "O Davud, vërtet Ne të kemi bërë pasardhës në tokë, prandaj gjyko mes njerëzve me të vërtetën dhe mos ndiq dëshirën, sepse ajo do të të largojë nga rruga e Allahut.",
-      },
-      {
-        excerpt:
-          "Dhe Ne i nënshtruam malet për t'u lavdëruar me Davudin, dhe zogjtë gjithashtu... Dhe i mësuam atij modelimin e parzmoreve për t'ju mbrojtur nga armiku juaj.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namazi më i dashur tek Allahu është namazi i Davudit, kurse agjërimi më i dashur tek Allahu është agjërimi i Davudit: ai një ditë agjëronte dhe ditën tjetër e prishte agjërimin.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -973,16 +730,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ndër mbretërit-profetë më të përshkruar në Kur'an"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ai buzëqeshi, u argëtua me fjalën e saj dhe tha: Zoti im, më mundëso të jem mirënjohës për dhuntinë Tënde që më ke dhënë ndaj meje dhe ndaj prindërve të mi, dhe të bëj atë që Ti e miraton.",
-      },
-      {
-        excerpt:
-          "Dhe Sulejmanit (Ia nënshtruam) erën - era e saj në mëngjes një muaj udhëtim dhe ecja e pasdites një muaj udhëtim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1011,15 +759,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["I emëruar ndër të drejtët", "U përball me adhurimin e idhullit Ba'l"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kur i tha popullit të vet: A nuk e keni frikë Allahun? A e thërrisni Ba'l-in dhe i lini krijuesit më të mirë?",
-      },
-      {
-        excerpt: "Dhe Zekerija, Jahja, Isai dhe Iljasi - dhe të gjithë ishin nga të devotshmit.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1042,16 +782,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["I emërtuar drejtpërdrejt në Kur'an ndër të shquarit dhe të zgjedhurit"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe Ismaili, El-Jasa', Junusi dhe Luti - dhe gjithçka që Ne i preferuam mbi botët.",
-      },
-      {
-        excerpt:
-          "Dhe kujtoni Ismailin, El-Jasain dhe Dhul-Kiflin, dhe të gjithë janë ndër të shquarit.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1090,22 +821,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Në Kuran quhet edhe Dhun-Nun (njeriu i peshkut)."],
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe ai thirri brenda errësirave: Nuk ka zot përveç Teje; lavdia qofte Ty. Vërtet, unë kam qenë prej zullumqarëve.",
-      },
-      {
-        excerpt:
-          "A nuk ka pasur ndonjë qytet që ka besuar kështu që besimi i tij i ka sjellë dobi përveç popullit të Junusit? Kur ata besuan, Ne ua hoqëm dënimin e poshtërimit.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Lutja e Dhun-Nunit kur e luti Allahun nga brenda barkut të peshkut ishte: La ilahe illa Anta, subhanaka, inni kuntu minaz-zalimin. Asnjë musliman nuk lutet me të për asgjë përveç që Allahu t'i përgjigjet atij.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1146,16 +863,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Babai i Jahjas, lindja e të cilit iu përgjigj lutjes së tij",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Aty, Zekerije iu lut Zotit të tij, duke i thënë: Zoti im, më dhuro nga ana Jote një pasardhës të mirë. Vërtet, Ti je Dëgjuesi i lutjes.",
-      },
-      {
-        excerpt:
-          "Tha: “O Zoti im, me të vërtetë më janë dobësuar kockat dhe më është mbushur koka me të bardha, dhe kurrë nuk kam qenë i pakënaqur në lutjen time ndaj Teje, o Zoti im.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1191,16 +899,7 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "I nderuar me paqe në lindje, vdekje dhe ringjallje",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "O Jahja, pranoje Shkrimin me vendosmëri. Dhe Ne i dhamë atij urtësi kur ishte fëmijë, butësi prej Nesh dhe pastërti, dhe ai ishte i vetëdijshëm për Allahun.",
-      },
-      {
-        excerpt:
-          "Allahu ju përgëzon për Jahja-n, duke vërtetuar fjalën e Allahut - të nderuar, të përmbajtur dhe një profet nga mesi i të drejtëve.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1242,22 +941,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
         "Do të kthehet para Ditës së Fundit në besimin sunit",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "[Isai tha]: Vërtet, Allahu është Zoti im dhe Zoti juaj, andaj adhuronie Atë. Kjo është një rrugë e drejtë.",
-      },
-      {
-        excerpt:
-          "Dhe ata nuk e vranë as nuk e kryqëzuan; por atyre iu shfaq kështu... Përkundrazi, Allahu e ngriti pranë Vetes.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Unë jam më i afërti i të gjithë njerëzve me Isain, birin e Merjemes. Profetët janë vëllezër të nënave të ndryshme, por feja e tyre është një dhe nuk ka pasur asnjë profet mes nesh.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1297,21 +982,8 @@ export const PROPHETS_BIO_TOPICS_SQ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Vula e profetëve", "Shembulli më i mirë (usveh hasenah) për besimtarët"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhamedi nuk është babai i asnjërit prej burrave tuaj, por ai është i Dërguari i Allahut dhe vula e profetëve.",
-      },
-      {
-        excerpt: "Dhe Ne nuk të dërguam vetëm si mëshirë për botët.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Shembulli im dhe shembulli i profetëve para meje është ai i një njeriu që ndërtoi një shtëpi bukur dhe plotësisht, përveç vendit të një tulle. Unë jam ajo tullë dhe unë jam vula e profetëve.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

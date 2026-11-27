@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "A cikin ginshiƙai na musamman, ba a saukar da salati ta hannun mala'ika da yake saukowa duniya ba, amma an yi umarni da shi kai tsaye ga Annabi SAW lokacin da aka tashe shi a cikin sama a Tafiyar Dare (al-Isra' wa al-Mi'raj). An fara farilla salloli hamsin, sannan - ta hanyar Manzon Allah ﷺ maimaicin dawowa yana neman sauki ga al'ummarsa - ya rage zuwa biyar a aikace tare da kiyaye ladan hamsin.",
       "Don haka ne ma Sallah ke zama a tsakiyar rayuwar Musulunci: maimaituwa sau biyar a kullum, tana katse aiki, da hutu, da jin dadi don sake dora zuciya ga Allah, kuma ita ce aikin farko da za a yi wa bawa hisabi a ranar kiyama. Idan an sami sauti, sauran rikodin yana son bi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waɗanda suke yin ĩmãni da gaibi, kuma suka tsai da salla, kuma daga abin da Muka azurta su da su sunã ciyarwa.",
-      },
-      {
-        excerpt:
-          "Ka karanta abin da aka saukar zuwa gare ka na Littãfi kuma ka tsai da salla. Lallai sallah tana hani daga alfasha da zalunci, kuma ambaton Allah ya fi girma.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "A cikin Tafiyar Dare Allah ya wajabta salloli hamsin; Annabi Sallallahu Alaihi Wasallama ya yi ta komawa don neman agaji har suka kai shekara biyar – ‘Wadannan biyar ne, waxannan kuma hamsin ne, domin magana a wurina ba ta canzawa. (Sahih Musulmi 162)",
-      },
-      {
-        excerpt:
-          "Farkon abin da za a fara wa bawa hisabi a ranar qiyama shi ne sallarsa; idan ya gyaru sauran ayyukansa sun inganta. (kuma Abu Dawud 864, an-Nasa'i 3991).",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,30 +32,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "'Ya'yanta na biyu shine kwanciyar hankali. Alkur'ani ya yi alkawarin cewa zukata suna samun natsuwa da ambaton Allah, kuma Annabi (SAW) a lokacin damuwa yakan ce, 'Ka kwantar mana da hankali da shi ya Bilal,' yana kiran salla. Ya kwatanta farin cikin idanunsa da aka sanya a cikin sallah.",
       "'Ya'yanta na zamantakewa da na dindindin sun cika bayanin: matakan sallar jam'i masu wadata da matalauta a cikin sahu daya da gina 'yan uwantaka, tare da kiyaye salla yana daga cikin tabbatattun hanyoyin neman gafarar Allah da shiga Aljannah. Manzon Allah SAW ya yi alkawarin Aljanna ga duk wanda ya kiyaye sallolin asuba da la'asar biyu masu sanyi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lallai ni ne Allah. Bãbu abin bautãwa fãce Ni, sabõda haka ku bauta Mini, kuma ku tsayar da salla dõmin ambatoNa.",
-      },
-      {
-        excerpt:
-          "Lalle ne mũminai, waɗanda suka yi tawali'u a cikin addu'arsu, sun yi babban rabo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "'Da akwai wani kogi a kofar dayanku wanda yake wanka a cikinsa sau biyar a rana, shin wani datti zai saura a kansa? Suka ce, 'Babu.' Sai ya ce: \"Misalin salloli biyar kenan, Allah yana kankare zunubai da su.\" (Sahihu Musulmi 667)",
-      },
-      {
-        excerpt:
-          "Wanda ya sallaci salloli guda biyu masu sanyi – Fajr da La’asar – zai shiga Aljanna.",
-      },
-      {
-        excerpt:
-          "An sanya mini ƙaunatacce a gare ni daga duniyarku mata da turare, kuma sanyin idona ya sanya a cikin addu'a.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Yi addu'a guda ɗaya cikakke akan lokaci a yau - daidaito, ba kamala ba, shine manufa ta farko.",
       "Karanta ma'anar fatiha sau ɗaya kafin sallarka ta gaba don jin ana amsa maka.",
@@ -90,29 +50,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Akan hukuncin wanda ya bar sallah, akwai sabani sananne da girmamawa a tsakanin malaman Sunna. Wasu suna ganin cewa da gangan barinsa gaba daya - alhalin suna tabbatar da cewa wajibi ne - ya kai babban kafirci da ya kore mutum daga Musulunci; mafi rinjaye (Hanafi, Maliki, Shafi'i) suna ganin cewa irin wannan mutum ya kasance musulmi mai zunubi da laifin daya daga cikin manya manyan zunubai, matukar bai yi inkarin wajibcinsa ba. Dukkansu sun haxu a kan cewa barin salla bala’i ne, kuma duk wanda ya qi wajabcinta ya fita daga Musulunci bisa ijma’i.",
       "Darasin a aikace daya ne akan kowace mahanga: kiyaye salloli biyar ba nafila ba ne ko kuma nasiha ga mumini. Sallar nafila (sunnah da nafila) sannan sai ta zama hanyar kariya, ta hanyar yin tawaya a cikin sallolin farilla ranar kiyama.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku tsayar da salla da tsakiyar salla kuma ku tsayu ga Allah, kunã mãsu tsarkake addini.",
-      },
-      {
-        excerpt:
-          "Sai kuma wasu magada daga bayansu suka bar sallah kuma suka bi son zuciya; To, zã su haɗu da mummuna.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "An gina Musulunci a kan biyar: Shaidawa babu abin bautawa da gaskiya sai Allah, kuma Muhammadu ManzonSa ne, da tsayar da Sallah, da bayar da zakka, da Hajji, da Azumin Ramadan. (Sahihul Bukhari 8)",
-      },
-      {
-        excerpt:
-          "Alkawarin dake tsakaninmu da su shine sallah; wanda ya bar ta ya yi kafirci. (Buraydah; kuma an-Nasa'i, Ibn Majah 1079).",
-      },
-      {
-        excerpt: "Tsakanin mutum da kafirci da shirka akwai barin sallah. (Jabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Malamai sun yi sabani a kan hakikanin hukuncin wanda ya bar sallah saboda kasala (babban zunubi ga mafi rinjaye; kafircin wasu) da wanda ya musanta wajibcinta (kafircin ijma'i). Wannan app ɗin baya bayar da hukunci akan kowane mutum - tuntuɓi ƙwararren malami don shari'o'in sirri.",
   },
@@ -126,17 +65,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Matan da ke cikin haila (hayd) ko jinin haila (nifas) ba sa sallah a wannan lokacin; Sallar farilla da aka rasa ba a bayanta ba - rahama ce da hukunci da malamai suka yi ittifaqi a kansu. (Azumin da ba a yi ba, ba kamar sallah ake yin su ba) Mace ta koma sallah da zarar jini ya kare sai ta yi tsarki da gyale.",
       "Rashin iyawa na gaske yana haifar da rangwame, ba za a sake sokewa ba: rashin lafiya mai tsanani, rashin sani, da tsoro mai yawa na iya ba wa mutum uzuri na wani lokaci, kuma marasa lafiya suna yin addu'a gwargwadon iyawarsu - zaune, karya, ko ma da ishara. Tafiya ba ta gusar da sallah sai dai tana saukaka ta ta hanyar gajarta (qasr) da hada (jam'i), wanda aka rufe a cikin jagoran tafiyar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kuma ku umurci yaranku da su yi salla idan sun kai bakwai, kuma ku ladabtar da su da ita goma, kuma ku kebe wuraren barcinsu. (Amr bn Shu'aib daga babansa daga kakansa)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Kuma ka umurci iyãlanka da salla, kuma ka yi haƙuri a cikinta.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -197,16 +127,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Baya ga wadannan jahohin na ibada, najasa (najasah) - kamar fitsari, zubar jini, jini mai gudana, da makamantansu - dole ne a cire jiki daga jiki, da tufafi, da wurin da za ku yi sallah. Yana yiwuwa a yi alwala mai inganci duk da haka har yanzu kuna buƙatar tsaftace tabo daga tufafinku kafin yin addu'a.",
       "Ruwa shine farkon mai tsarkakewa. Lokacin da babu ruwa da gaske, ko kuma zai cutar da ku saboda rashin lafiya ko sanyi mai tsanani, Musulunci ya ba da izinin tayamum - bushewar tsarkakewa ta amfani da ƙasa mai tsabta - a matsayin cikakken madadin. Ba a taba nufin tsarkakewa ya zama wahala ba; hanya ce ta kusantowa.",
     ],
-    hadith: [
-      {
-        excerpt: "Tsarkake rabin imani ne... (Abu Malik al-Ash'ari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Lallai Allah yana son masu tuba kuma yana son masu tsarkakewa.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Koyi wudu mataki-mataki kafin sallarka ta gaba don haka kowace gaɓa ta wanke daidai.",
       "Ka ajiye tufafi mai tsabta don yin addu'a idan kana aiki a cikin yanayi mara kyau.",
@@ -263,18 +185,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         body: "Cika addu'a: 'Ashhadu an la ilaha illallah...'- ana bude kofofin Aljannah guda takwas ga wanda ya fadi ta bayan alwala.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Idan bawa ya wanke fuskarsa a cikin alwala, duk zunubin da ya kalle shi da idonsa yana barin ruwan… har sai ya fito yana mai tsarkake zunubi.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ya ku waxanda suka yi imani, idan kun tashi yin sallah, to ku wanke fusknakinku da gabbanku zuwa gwiwar hannu, ku shafe kawunanku, kuma ku wanke qafafunku zuwa idon sawu.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Yi wudu a hankali sau ɗaya yayin karanta kowane mataki da ƙarfi, duba gwiwar hannu da diddige.",
       "Haddace gajeriyar addu'a bayan alwala - duba Kalmomin Sallah.",
@@ -313,18 +225,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -341,11 +243,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Ga mata, dukkan jiki a cikin salla ne aura, in ban da fuska da hannaye, kamar yadda mafi rinjayen malamai suka ce; mace tana rufe gashinta, wuyanta, da ƙafafu, yawanci da sutura mara kyau da gyale. Malamai sun bambanta akan ƙafafu, wasu suna la'akari da su a cikin abin da za a iya nunawa - yin addu'a tare da su a rufe shine mafi aminci kuma mafi rinjaye.",
       "Hukunce-hukunce hukunce-hukuncen tufa guda biyu su ma suna aiki a wajen sallar: siliki da zinare haramun ne ga maza su sanya (halatta wa mata), kuma kada tufafin su kasance masu matsewa, ko shege, ko mai da hankali, har ya kau da addu’ar da ake buqata na girman kai. A matsayinka na babban yatsan hannu, yi addu'a cikin abin da za ku sa don saduwa da wanda kuke girmamawa - ba rigar dare ko rigar bakin ruwa ba.",
     ],
-    quran: [
-      {
-        excerpt: "Ya ku ’ya’yan Adam, ku riki adonku a kowane wurin sallah.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ajiye tufafi guda ɗaya mai tsafta, tsafta ko rigar addu'a da aka keɓe domin ku kasance cikin shiri koyaushe.",
       "Lokacin da rashin tabbas ko wani abu ya isa ya rufe, rufe fiye da ƙasa.",
@@ -385,21 +283,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         body: "Tun daga faɗuwar faɗuwar rana har zuwa wayewar gari; mafi kyau kafin tsakar dare. Witr ya biyo baya.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Akwai sau uku da Manzon Allah Sallallahu Alaihi Wasallama ya hana mu yin sallah a cikinsu: lokacin da rana za ta fito har sai ta fito, da lokacin da ta tsaya da rana, da lokacin da za ta faxi har sai ta faxi. (Uqbah bin Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Lalle ne, an wajabta yin salla a kan muminai, a kan idda, ajali ambatacce.",
-      },
-      {
-        excerpt:
-          "Kuma ku tsayar da salla a gẽfe biyu na yini da gabãtar dare. Lallai aikin kwarai yana kore munanan ayyuka.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Farkon Asr yana da ra'ayoyi guda biyu da aka ruwaito (inuwa daidai, ko sau biyu, tsayin abu). Dukansu suna da inganci; bi lissafin gida da al'umma.",
@@ -412,18 +297,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Ana buƙatar ku fuskanci alƙibla daidai da yadda za ku iya tantancewa - tare da kamfas, mihrabin masallaci, ingantaccen app, ko rana da taurari lokacin tafiya. An gafarta ƙaramar karkata da ba za a iya gujewa ba; Abin da ke da muhimmanci shi ne ƙoƙari na gaske zuwa ga madaidaiciyar alkibla.",
       "Idan da gaske ba za ku iya tantance alkibla ba - bata a teku, cikin gajimare, a cikin ƙasa da ba ku sani ba da dare - kuna ƙoƙarin aiwatar da shi sannan ku yi addu'a zuwa ga mafi kyawun hukuncinku; Sallar tana da inganci ko da kuwa daga baya ta yi kadan. A kan abin hawa ko jirgin sama da yake fuskantar alqibla don yin sallar farilla, sai ka fuskanci duk abin da za ka iya, tunda Allah ba Ya kallafa wa rai fiye da karfinsa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Don haka ka juyar da fuskarka wajen masallacin Harami. Kuma duk inda kuka kasance, to, ku juyar da fuskõkinku zuwa gare shi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Idan ka tashi yin sallah, sai ka yi alwala da kyau, sannan ka fuskanci alkibla, ka yi takbir. (daga hadisin mutumin da yayi munanan addu'a).",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -464,12 +339,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         body: "Bãbu abin bautãwa fãce Allah, kiran yã kasance a kan kalmar da aka buɗa masa.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya ce idan ya ji kira, ‘Ya Allah Ubangijin wannan cikakkiyar kira da addu’a tabbatacciya, Ka ba wa Muhammadu wasila da kyawawan halaye…’ – cetona zai kasance gareshi ranar kiyama. (Jabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -492,26 +362,19 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Bude takbir (Takbirat al-Ihram).",
         body: "Ka ɗaga hannunka zuwa kafadu ko kunun kunne sannan ka faɗi takbir, sannan ka sanya hannun dama akan hagu akan ƙirji. Da wannan ne ake fara sallah, kuma yanzu an hana magana da motsi na yau da kullun har sai an yi sallama.",
-        translation: "Allah shi ne mafi girma.",
         tip: "Ɗaga hannu (raf'ul-yadayn) da takbir sunnah ce tabbatacciya ba ginshiƙi ba.",
       },
       {
         title: "3. Addu'a (Du'a al-Istiftah)",
         body: "Karanta gajeriyar addu'ar budewa cikin nutsuwa don daidaita zuciya a gaban fadin Allah. An ba da rahoton sahihan kalmomi da dama; wannan yana daya daga cikin mafi yawan.",
-        translation:
-          "Tsarki ya tabbata a gare Ka, Ya Allah, da godiya. Albarka tā tabbata ga sunanka, kuma ɗaukaka ta ɗaukaka. Babu abin bautawa face Kai.",
       },
       {
         title: "4. Ta'awwudh & Basmalah",
         body: "Ku nemi tsarin Allah daga Shaidan, sannan ku fara da Basmalah, kafin Fatiha. Duka a natse ake yin su, ko da a cikin sautin sallah.",
-        translation:
-          "Ina neman tsarin Allah daga Shaidan La'ananne. Da sunan Allah, Mai rahama, Mai jin kai.",
       },
       {
         title: "5. Karanta Fatiha",
         body: "Karanta Buɗe Littafin a cikin kowace raka'a - 'Babu addu'a ga wanda bai karanta Buɗe Littafin ba. Limami da mai bauta shi kadai suna karanta ta a cikin sautin addu'a; in ba haka ba sai a yi shiru.",
-        translation:
-          "Da sunan Allah, Mai rahama, Mai jin kai. Godiya ta tabbata ga Allah Ubangijin talikai, Mai rahama, Mai jin kai, Mamallakin ranar sakamako. Kai ne muke bauta wa, kuma Kai muke neman taimako. Ka shiryar da mu zuwa ga tafarki madaidaici, tafarkin waɗanda Ka yi wa ni'ima, ba waɗanda suka yi tsiwirwirinsu ba, kuma ba waɗanda suka yi tsirfanci ba.",
         tip: "Sai kace ameen bayansa (a cikin sautin sallah). Ajin Hanafiyya suna karanta wani Alqur'ani a matsayin ginshiƙi da fatiha musamman a matsayin wajibi; mafi rinjaye suna riko da fatiha ita kanta ita ce ginshiqin kowace raka'ah.",
       },
       {
@@ -522,32 +385,26 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Ruku'u",
         body: "Ka ce Allahu Akbar, ka yi ruku'u da lebur, mizani na baya, hannayensu suna kame gwiwoyi, ka yi tasbihi sau uku ko fiye, ba tare da gaggawa ba.",
-        translation: "Tsarki ya tabbata ga Ubangijina, Mabuwãyi.",
         tip: "Bakan da kanta, wanda yake riƙe da shit, ita ce ginshiƙi; tasbihin da ake karantawa a cikinta sunna ne (wajib a wasu makarantu).",
       },
       {
         title: "8. Tashi daga ruku (i'tidal)",
         body: "Tashi cikakke - liman kuma mai bauta shi kadai yana cewa tasmi'u, da duk wanda yake cewa tahmid - kuma ku tsaya gaba daya kafin saukowa.",
-        translation:
-          "Kuma Allah yana jin wanda ya gode masa. Ya Ubangijinmu, Gõdiya ta tabbata a gare Ka.",
         tip: "Tsayuwa a tsaye a cikin kwanciyar hankali ginshiƙi ne, kada ku nutsu a cikin sujuda har sai kun zauna a nan.",
       },
       {
         title: "9. Sujuda.",
         body: "Ka ce Allahu Akbar, ka yi sujjada a kan kasusuwa bakwai - goshi tare da hanci, da tafin hannu biyu, da gwiwoyi biyu, da yatsun qafafu biyu - suna yin tasbihi sau uku ko sama da haka. Wannan shine mafi kusanci ga Allah, don haka ku zubar da addu'a bayan tasbihi.",
-        translation: "Tsarki ya tabbata ga Ubangijina, Maɗaukaki.",
         tip: "Ci gaba da ɗora hannuwan gaba daga ƙasa kuma daga gefe, da ciki daga cinya.",
       },
       {
         title: "10. Zama tsakanin sujjada guda biyu (jalsah).",
         body: "Ka tashi daga farkon sujuda kana cewa Allahu Akbar, ka zauna cikin natsuwa da misaltuwa, ka nemi gafarar Ubangijinka kafin ka sake sujjada.",
-        translation: "Ubangijina Ka gafarta mini.",
         tip: "Zauna har sai kun sami kwanciyar hankali - wannan ɗan gajeren zama, tare da natsuwa, ginshiƙi ne a kansa.",
       },
       {
         title: "11. Sujjada ta biyu",
         body: "Ka ce Allahu Akbar, ka yi sujada a karo na biyu daidai da ta farko, da tasbihi iri daya da nutsuwa. Wannan ya cika raka'a daya cikakkiya.",
-        translation: "Tsarki ya tabbata ga Ubangijina, Maɗaukaki.",
       },
       {
         title: "12. Tsaya ga raka'a ta gaba",
@@ -557,8 +414,6 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Tashahud na farko (a cikin sallah raka'a 3 da 4).",
         body: "Bayan raka'a ta biyu na Magriba, ko Zuhr, La'asar, ko Isha, sai a zauna a karanta At-Tahiyyat, sannan a tsaya ga sauran raka'o'in. Sallar raka'a biyu ba ta da tashahud ta farko.",
-        translation:
-          "Dukkan gaisuwa da addu'o'i da zance masu tsafta na Allah ne. Amincin Allah ya tabbata a gareka ya Annabi, da rahamar Allah da albarkarSa. Amincin Allah ya tabbata a gare mu da bayin Allah salihai. Ina shaidawa babu abin bautawa da gaskiya sai Allah, kuma ina shaidawa Muhammadu bawanSa ne kuma ManzonSa ne.",
         tip: "Ɗaga yatsan hannun dama a cikin zama. Idan ka manta tashahud na farko kuma ka fara tsayuwa, ka ci gaba da yin sujud as-sahw kafin sallama- kar ka zauna.",
       },
       {
@@ -568,36 +423,19 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Salati ga Annabi SAW.",
         body: "Bayan kammala At-Tahiyyat, ka yi salati ga Annabi SAW da kalmomin da shi da kansa ya karantar da Sahabbansa.",
-        translation:
-          "Ya Allah ka yi salati ga Muhammadu da alayen Muhammadu, kamar yadda Ka yi salati ga Ibrahim da alayen Ibrahim; Lalle Kai, Gõdadde ne, Mai girma. Ya Allah ka yi salati ga Muhammadu da alayen Muhammad, kamar yadda ka yi wa Ibrahima da iyalan Ibrahim albarka; Lalle Kai, Gõdadde ne, Mai girma.",
         tip: "Mazhabar Shafi'iyya da Hanbaliyya suna ganin salawati a zama na karshe wajibi ne.",
       },
       {
         title: "16. Addu'a kafin sallama",
         body: "Kafin ka gama, ka nemi tsarin Allah daga fitintinu guda huɗu, sannan ka yi duk abin da kake so, na duniya da na lahira, da Larabci ko harshenka.",
-        translation:
-          "Ya Allah ina neman tsarinka daga azabar kabari, da azabar wuta, da fitinar rayuwa da ta mutuwa, da sharrin fitintinu na Masihu Qarya (Dajjal).",
       },
       {
         title: "17. Rufe sallama (Taslim)",
         body: "Karshen Sallah da juyar da fuska zuwa dama, sannan hagu, tare da yin sallama a kowane lokaci. Da sallama an gama sallah.",
-        translation: "Aminci da rahamar Allah su tabbata a gare ku.",
         tip: "Taslim na farko (a hannun dama) shi ne ginshiƙi; na biyu (a hagu) sunna ce a wasu makarantu.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Ka yi addu'a kamar yadda ka ga ina addu'a. (Malik bn al-Huwayrith)",
-      },
-      {
-        excerpt:
-          "\"Ka koma ka yi sallah, domin ba ka yi sallah ba\" - ya maimaita sau uku - sannan ya koyar da cewa: ka yi takbir, ka karanta abin da za ka iya na Alqur'ani, sannan ka yi ruku'u har ka natsu, ka tashi har sai ka mike, ka yi sujjada har sai ka samu nutsuwa ...",
-      },
-      {
-        excerpt:
-          "Babu addu'a ga wanda bai karanta Bukin Littafi ba. (Ubadah bn as-Samit; da kuma Sahih Musulmi 394).",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, {}, {}, {}, { label: "Karatu a bayyane da a ɓoye" }],
   },
   {
@@ -654,27 +492,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         body: "Babu bambanci a abin da kake karantawa — sai ko ka ɗaga murya. Kowace raka'a: Al-Fatihah. Raka'o'i biyu na farko: ƙara sura. Raka'a ko raka'o'in ƙarshe: Al-Fatihah kaɗai. A Fajr, Maghrib da Isha Sunnah ce a karanta a bayyane; Dhuhr da Asr a ɓoye ake karantawa.",
       },
     ],
-    quran: [
-      { excerpt: "Lalle kuna da kyakkyawan abin koyi a cikin Manzon Allah." },
-      {
-        excerpt:
-          "Idan ana karanta Qur'ani, ku saurare shi kuma ku yi shiru domin a yi muku rahama.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Annabi ﷺ yana karanta Al-Fatihah da wata sura a raka'o'i biyu na farko na Dhuhr da Asr, a biyun ƙarshe kuma Al-Fatihah kaɗai. (Abu Qatadah; also Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Babu sallah ga wanda bai karanta Buɗewar Littafi ba. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "A raka'o'i biyu na farko na Dhuhr da Asr yana karanta abin da zai sa ka zaci dogayen surori yake karantawa, a biyun ƙarshe kuma abin da zai sa ka zaci gajerun surori yake karantawa. (Abu Qatadah)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "A sallar jam'i ta gaba, lura da raka'o'in da liman yake karantawa a bayyane.",
       "Tambayi malami daga mazhabarka ko kana karanta Al-Fatihah a bayan liman a sallolin bayyane.",
@@ -725,12 +544,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         body: "Juya fuska dalla-dalla zuwa dama, sannan zuwa hagu, tare da kalmomin aminci - ƙare addu'a yayin da kuke gaishe da mala'iku a kowace kafaɗa.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi kusancin bawa zuwa ga Ubangijinsa shi ne idan yana sujada, sai ku yawaita addu'a. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Ƙananan bambance-bambance a wurin sanya hannu, yanayin zama, da ɗaga hannu duk sun samo asali ne daga ingantattun rahotanni; makarantu kowanne yana bin ingantaccen ruwaya. Babu mai bata sallar wani.",
   },
@@ -793,20 +607,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Ku shiga masallaci da kafar dama ku fita da hagu, kowa da addu'arsa.",
       "Karanta zakkar da aka kafa bayan kowace sallah - duba Bayan Sallah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ba don na dorawa ummata ba, da na umarce su da su rika amfani da siwak kafin kowace sallah. (Abu Huraira, kuma Sahih Musulmi 252).",
-      },
-      {
-        excerpt:
-          "Annabi ﷺ bai taɓa barin raka'a biyu kafin Fajr ba. (Aishah; kuma Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Duk wanda ya dawwama yana yin raka'a goma sha biyu dare da rana, Allah zai gina masa gida a Aljanna — biyu kafin Fajr, huɗu kafin Dhuhr, biyu bayan Dhuhr, biyu bayan Maghrib, da biyu bayan Isha. (Umm Habibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       { label: "Nau'o'in sallah — jagorar rawatib" },
       { label: "Sunnah da azkar bayan sallah" },
@@ -822,21 +623,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "An gina Khushu, ba a so ba. Koyi ma'anar abin da kuke karantawa don kalmomin su motsa ku. Cire abubuwan shagaltuwa kafin takbir. Sannu a hankali kuma a ba kowane matsayi kwanciyar hankali. Ka yi tunani a kan girman wanda kake magana da shi da gaskiyar cewa wannan addu'ar za ta iya zama ta ƙarshe. Ku yi kowace sallah a matsayin sallar bankwana, kamar yadda Annabi SAW ya shawarce shi.",
       "Kada ka karaya da tunani mai yawo - har Sahabbai sun yi ta fama da su. Gwagwarmayar dawo da hankalinku akai-akai, ita kanta wani bangare ne na ibada. Khushu yana girma a duk tsawon rayuwarsa; daidaito shine abin da ke raya shi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne mũminai, waɗanda suka yi tawali'u a cikin addu'arsu, sun yi babban rabo.",
-      },
-      {
-        excerpt: "To, bone yã tabbata ga mãsu salla, ga mãsu shagala daga sallarsu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsani shi ne ka bauta wa Allah kamar kana ganinsa, domin duk da ba ka ganinsa, to lalle shi yana ganinka. (Hadisin Jibril, Umar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Karanta ma'anar jumla ɗaya daga Kalmomin Sallah kafin kowace addu'a a wannan makon.",
       "Dakata na daƙiƙa uku marasa gaggawa a kowane matsayi kafin ci gaba.",
@@ -883,16 +671,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Idan kun kasance cikin shakka na gaskiya, manufar shiriya ita ce: ku jefar da shakka, ku yi gini a kan abin da kuke yaqini da shi (karamin adadi), sannan ku cika salla, sannan ku yi sujjada guda biyu. Wannan yana juyar da rudani zuwa addu'a tabbatacciya, maimakon zato mai damuwa.",
       "A aikace: kayi sujuda guda biyu daidai da sujudarka ta al'ada, tare da takbir gaba da baya, sannan kayi sallama. Malamai sun yi sabani a kan ko sun zo gabanin Salla ko bayan Salla, bisa la’akari da nau’in kuskure – dukkansu an ruwaito su ingantacce, don haka ko dai karbabbe ne, kuma ba ya bata Sallah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Idan dayanku bai tabbata a cikin sallarsa ba, kuma bai san yawan sallarsa ba – uku ko hudu – to ya bar shakka, ya yi gini a kan abin da yake da yakini a kansa, sannan ya yi sujjada sau biyu kafin sallama. (Abu Sa'id al-Khudri)",
-      },
-      {
-        excerpt:
-          "Idan ɗayanku ya yi shakka a cikin sallarsa, to ya nemi abin da yake daidai kuma ya cika a kanta, sa'an nan kuma ya yi sallama kuma ya yi sujada sau biyu. (Ibn Mas'ud; da kuma Sahihu Musulmi 572).",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ka haddace ƙa'idar don shakka: gina kan ƙaramin lamba, gama, sannan ku yi sujada sau biyu.",
       "Idan ka fahimci tsakiyar sallar ka bar tashahud na farko, ka ci gaba da yin sujud al-sahw a karshen.",
@@ -988,42 +767,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
         ruling: "fard",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Annabi ﷺ bai taɓa barin raka'a biyu kafin Fajr ba. (Aishah; kuma Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Duk wanda ya dawwama yana yin raka'a goma sha biyu dare da rana, Allah zai gina masa gida a Aljanna — biyu kafin Fajr, huɗu kafin Dhuhr, biyu bayan Dhuhr, biyu bayan Maghrib, da biyu bayan Isha. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Duk wanda ya yi raka'a huɗu kafin Dhuhr da huɗu bayansa, Allah zai haramta masa Wuta. (Umm Habibah; malamai da yawa sun inganta shi)",
-      },
-      {
-        excerpt: "Allah ya jiƙan wanda ya yi raka'a huɗu kafin Asr.",
-      },
-      {
-        excerpt:
-          "Ku yi sallah kafin Maghrib, ku yi sallah kafin Maghrib — sannan ya ce: ga wanda ya so. (Ibn 'Umar)",
-      },
-      {
-        excerpt:
-          "Tsakanin kowane kira biyu (adhan da iqamah) akwai sallah. (Anas ibn Malik; kuma Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Witr haƙƙi ne; wanda ya so ya yi biyar, wanda ya so ya yi uku, wanda ya so ya yi ɗaya. (Ibn 'Umar)",
-      },
-      {
-        excerpt: "Mafificiyar sallah bayan sallolin farilla ita ce sallar dare. (Abu Huraira)",
-      },
-      {
-        excerpt:
-          "Bawana yana ci gaba da kusantar Ni da nafiloli har sai Na ƙaunace shi. (Hadith Qudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "Fara da rawatib goma sha biyu — gina ɗabi'ar kafin ƙara nafl na zaɓi.",
       "Yi amfani da teburin raka'o'i a wannan shafi domin bibiyar sunnah da aka jaddada kusa da kowace farilla.",
@@ -1046,25 +790,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Rashin kula da ita babban haxari ne: Manzon Allah Sallallahu Alaihi Wasallama ya yi gargaxi cewa duk wanda ya bar Juma’a uku bisa gafala, Allah ya rufe zuciyarsa. Amma duk da haka ladanta suna da yawa - Juma'a ita ce mafificin ranar da rana ta fito, kuma tana da sa'a da ake amsa addu'a a cikinta.",
       "Ka yi tanadi domin ta kamar yadda Annabi SAW ya yi: Ka yi zage-zage, ka sanya mafi kyawun tufafinka, ka shafa kamshi, ka tafi da wuri, ka saurari khutbah a nutsu (maganin banza a cikinta yana bata lada). Karanta Suratul Kahfi a ranar Juma'a yana kawo haske tsakanin juma'a biyu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya ku waxanda suka yi imani idan aka yi kiran sallah ranar juma’a, ku yi gaggawar ambaton Allah, kuma ku bar ciniki. Wancan ne mafi alhẽri a gare ku, idan kun kasance kuna sani.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sallar juma'a a cikin jam'i farilla ce akan kowane musulmi, face guda hudu: bawa, ko mace, ko yaro, ko mara lafiya. (Tariq ibn Shihab)",
-      },
-      {
-        excerpt:
-          "Wanda ya bar sallar juma'a uku a cikin gafala, Allah zai sanya hatimi a kan zuciyarsa. (Abu al-Ja'd; da Abu Dawud 1052, at-Tirmizi 500).",
-      },
-      {
-        excerpt: "Ghusl ranar juma'a tana wajaba akan duk wanda ya balaga. (Abu Sa'id al-Khudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Yi ghusl, sanya tufafi masu tsabta da ƙamshi, kuma ku isa da wuri - farkon masu halarta suna samun lada mafi girma.",
       "Karanta Suratul Kahf wani lokaci a ranar Juma'a don haske tsakanin Juma'a biyu.",
@@ -1083,18 +810,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Idan kun zo bayan liman ya fara (wanda ake kira da marigayi masbuq), nan da nan ku shiga duk wani matsayi da kuka same shi - har yanzu wannan sashin yana da alaƙa da yin addu'a tare da shi. Idan yayi sallama ta karshe sai ka tsaya ka cika raka'oin da ka rasa da kanka, sannan ka gama.",
       "Jama’a ba a masallaci kadai ba: mutane biyu da suke yin sallah tare suna yin jam’a, don haka uba da dansa, ko abokan tafiya biyu, zai iya samun lada. Mata suna iya yin addu'a a cikin jam'i kuma su halarci masallacin da ya dace, kodayake sallarsu a gida tana da lada mai yawa.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sallar cikin jam'i ta fi falalar darajoji ashirin da bakwai fiye da sallar da aka yi ita kadai. (Ibn Umar; Sahih Musulmi 650).",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Kuma ku tsayar da salla, kuma ku ba da zakka, kuma ku yi ruku'u tare da masu ruku'i.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Yi addu'a aƙalla sallah ɗaya a cikin masallaci yau, ko tara dangin ku a jere a gida.",
       "Koyi abin da za ku yi a matsayin mai zuwa: shiga nan take, sannan ku cika raka'o'in da kuka rasa bayan sallamar liman.",
@@ -1108,12 +825,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Ana yin sallar gyaran fuska kamar yadda aka yi ta asali: Za a yi Zuhur raka'a hudu da ba ta yi ba kamar raka'a hudu ko da kuwa da daddare ne ko a cikin tafiya. Wanda ya bar sallah saboda uzuri na gaskiya (kamar barci mai nauyi) ba ya da wani laifi ga jinkirtawa. wanda ya yashe su da gangan dole ne ya sanya su tare da tuba na gaskiya, da gaggawa.",
       "Malamai suna kwadaitar da rama sallolin da aka rasa nan da nan kuma a cikin tsari, ba tare da bari su taru ba - domin nauyin yana kara nauyi da lokaci da jinkiri. Idan an rasa adadi mai yawa tsawon shekaru, tuntuɓi shi tare da ingantaccen shirin yau da kullun maimakon yanke ƙauna; Kofar Allah a bude take.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Wanda ya manta wata sallah ko ya kwana da ita, kaffararta shine ya sallaceta idan ya tuna. (Anas; da Sahih Musulmi 684).",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Yi kiyasin gaskiya adadin addu'o'in da kuke bi kuma ku kafa manufa ta zahiri ta yau da kullun.",
       "A hada kowace sallar farilla da yin gyaran jiki guda daya har sai bayan ya bace.",
@@ -1129,16 +841,7 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       "Kafaffen tsarin bayan sallah mai sauki ne kuma mai nauyi: ka ce 'Astaghfirullah' sau uku; sai lafazin tauhidi da yabo; sannan 'SubhanAllah', 'Alhamdulillah', da 'Allahu Akbar' sau talatin da uku kowanne, suna hatimi na dari da 'La ilaha illallah...' - duk wanda ya aikata haka, an gafarta masa zunubansa, alhali kuwa sun kasance kamar kumfar teku.",
       "Karanta ayatul Kursiyyu bayan kowace sallar farilla tana kawar da mutuwa kawai daga tsakanin mutum da Aljanna, kamar yadda Annabi SAW ya yi alkawari. A bi shi da Qulsirai guda uku (Al-ikhlas, Al-Falaq, An-Nas), sannan a kara zazzafar azkar bayan Asubahi da la'asar bayan La'asar ko Magrib a inda ake nema.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya yi tasbihi, yabo, kuma ya girmama Allah sau talatin da uku kowanne bayan kowace sallah… kuma ya cika dari da lafazin tauhidi, an gafarta masa zunubansa ko da sun kasance kamar kumfar teku. (Abu Huraira)",
-      },
-      {
-        excerpt:
-          "Duk wanda ya karanta ayatul Kursiyyu bayan kowace sallar farilla, babu abin da ke tsakaninsa da shiga Aljanna sai mutuwa. (Abu Umamah; al-Albani grade sahih)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ku haddace tasbihi bayan salla (33/33/33 + tahlil) a wannan makon.",
       "Karanta ayatul Kursiyyi da Qulsirai guda uku kafin ka tashi.",
@@ -1152,91 +855,72 @@ export const SALAH_GUIDE_PHRASES_HA: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Bayan kammala alwala",
     when: "Nan take bayan an gama alwala, kafin sallah.",
-    translation:
-      "Ina shaidawa babu abin bautawa da gaskiya sai Allah Shi kadai, ba shi da abokin tarayya, kuma ina shaidawa Muhammadu bawanSa ne kuma ManzonSa ne.",
     meaning:
       "Sabunta shaidar bangaskiya yayin da jikinka ya tsarkaka. Annabi SAW ya yi alkawarin cewa duk wanda ya fadi haka bayan alwala, an bude masa kofofin Aljannah guda takwas ya shiga da duk wanda ya so.",
   },
   {
     title: "Takbirat al-Ihram",
     when: "A farkon sallah, da lokacin tafiya tsakanin mukamai.",
-    translation: "Allah shi ne mafi girma.",
     meaning:
       "Anan aka fara addu'a - 'al-ihrami' na nufin ta haramta muku abubuwan duniya (magana, cin abinci, bijirewa). Kun bayyana Allah ne Mafi girma daga duk abin da zai shagaltar da ku, kuma ku shiga gabanSa. Duk takbir da ya biyo baya sai ya sabunta wanda ya sallama.",
   },
   {
     title: "Du'a al-Istiftah (budaddiyar addu'a)",
     when: "Shiru yayi bayan bude takbir, kafin fatiha.",
-    translation:
-      "Tsarki ya tabbata a gare Ka, Ya Allah, da godiya. Albarka tā tabbata ga sunanka, kuma ɗaukaka ta ɗaukaka. Babu abin bautawa face Kai.",
     meaning:
       "Kuna bude zance ta hanyar yin tasbihi da godewa Allah da tabbatar da kadaitakarSa, da sanyaya zuciya kafin ku karanta fadinSa. Akwai ingantattun addu'o'in buɗewa da yawa - wannan shine ɗayan mafi yawan amfani da su.",
   },
   {
     title: "Suratul Fatiha",
     when: "Tsayuwa a cikin kowace raka'a - ginshiƙi wanda raka'a ba ta da inganci ba tare da shi ba.",
-    translation:
-      "Da sunan Allah, Mai rahama, Mai jin kai. Godiya ta tabbata ga Allah Ubangijin talikai, Mai rahama, Mai jin kai, Mamallakin ranar sakamako. Kai ne muke bauta wa, kuma Kai muke neman taimako. Ka shiryar da mu zuwa ga tafarki madaidaici, tafarkin waɗanda Ka yi wa ni'ima, ba waɗanda suka yi tsiwirwirinsu ba, kuma ba waɗanda suka yi tsirfanci ba.",
     meaning:
       "'Uwar Littafi': Rabin yabo ga Allah da rabin neman shiriya, tare da 'Kai muke bautawa' ya zama madogara a tsakaninsu. Allah ya ce ya raba wannan sura tsakaninsa da bawansa - yayin da kuke karanta kowane layi sai ya amsa. Annabi SAW yace babu sallah ga wanda bai karanta ta ba.",
   },
   {
     title: "Zikiri in ruku",
     when: "Yayin ruku'u, tare da lebur, ya koma baya.",
-    translation: "Tsarki ya tabbata ga Ubangijina, Mabuwãyi.",
     meaning:
       "Ruku'u matsayi ne na girmamawa, don haka kuna ɗaukaka girman Allah - sau uku ko fiye, ba tare da gaggawa ba. Annabi ﷺ ya koyar da cewa a ruku'u muna ɗaukaka Ubangiji, don haka fatan a amsa addu'arka.",
   },
   {
     title: "Tashi daga ruku",
     when: "Tsaye sosai bayan sunkuyar da kai.",
-    translation:
-      "Kuma Allah yana jin wanda ya gode masa. Ya Ubangijinmu, Gõdiya ta tabbata a gare Ka.",
     meaning:
       "Kun tabbatar da cewa lallai Allah yana jin wanda ya gode masa, sa'an nan kuma ya mayar ma sa dukkan godiya. Annabi s.a.w yace idan liman ya fadi haka sai jama'a suka amsa, duk wanda maganarsa ta zo daidai da mala'iku an gafarta masa zunubansa da suka gabata.",
   },
   {
     title: "Zikiri in sujud",
     when: "A cikin sujada - matsayi mafi kusanci ga Allah.",
-    translation: "Tsarki ya tabbata ga Ubangijina, Maɗaukaki.",
     meaning:
       "A mafi ƙasƙanci na zahiri kuna ɗaukaka Maɗaukaki - abin da ke cikin zuciyar ibada. Manzon Allah SAW yace bawa shine mafi kusanci ga Ubangijinsa yayin da yake sujjada, sai ka zuba addu'a anan bayan zikiri.",
   },
   {
     title: "Tsakanin sujuda biyu",
     when: "Zauna cikin nutsuwa tsakanin sujud ta farko da ta biyu na kowace raka'ah.",
-    translation: "Ubangijina Ka gafarta mini. Ubangijina Ka gafarta mini.",
     meaning:
       "Istigfari a takaice amma kai tsaye a cikin kowace raka'a - tunatarwa cewa ko da tsakiyar sallar mu muna bukatar gafarar Allah. Zauna har sai kun sami nutsuwa kafin sujjada ta biyu.",
   },
   {
     title: "At-Tahiyyat (Tashahhud)",
     when: "A zaune na tsakiya da zaman karshe na sallah.",
-    translation:
-      "Dukkan gaisuwa da addu'o'i da zance masu tsafta na Allah ne. Amincin Allah ya tabbata a gareka ya Annabi, da rahamar Allah da albarkarSa. Amincin Allah ya tabbata a gare mu da bayin Allah salihai. Ina shaidawa babu abin bautawa da gaskiya sai Allah, kuma ina shaidawa Muhammadu bawanSa ne kuma ManzonSa ne.",
     meaning:
       "ZUCIYAR ZUCIYA: Ka yi wa Allah Shi kadai, ka yi sallama ga Annabi Sallallahu Alaihi Wasallama da salihai, kuma ka sake bayyana shaidu biyu. Ibn Mas'ud ya koyi shi ne daga Annabi ﷺ kalma da kalma, kamar yadda ake koyon sura.",
   },
   {
     title: "Salawat Ibrahimiyyah",
     when: "A karshe tashahud, bayan At-Tahiyyat.",
-    translation:
-      "Ya Allah ka yi salati ga Muhammadu da alayen Muhammadu, kamar yadda Ka yi salati ga Ibrahim da alayen Ibrahim; Lalle Kai, Gõdadde ne, Mai girma. Ya Allah ka yi salati ga Muhammadu da alayen Muhammad, kamar yadda ka yi wa Ibrahima da iyalan Ibrahim albarka; Lalle Kai, Gõdadde ne, Mai girma.",
     meaning:
       "Lokacin da Sahabbai suka tambayi yadda za su yi salati a gare shi, Annabi SAW ya koya musu wadannan kalmomi daidai-wasu salawati mafi inganci a cikin Sunnah. Kuna girmama Manzon Allah SAW kamar yadda Allah ya umarce ku, kuna cika sallah da son wanda ya koya muku yin sallah.",
   },
   {
     title: "Neman tsari kafin sallama",
     when: "Bayan kammala tashahud da salawat, daf da idar da sallah.",
-    translation:
-      "Ya Allah ina neman tsarinka daga azabar kabari, da azabar wuta, da fitinar rayuwa da ta mutuwa, da sharrin fitintinu na Masihu Qarya (Dajjal).",
     meaning:
       "Manzon Allah (SAW) ya yi umarni da cewa bayan tahudawan karshe mutum ya nemi tsari daga wadannan hatsarori guda hudu kafin yin sallama - addu’ar karshe ta addu’a ta shafi rayuwar duniya, da kabari, da wuta, da fitintinu mafi girma a nan gaba.",
   },
   {
     title: "Taslim (sallama)",
     when: "Karshen sallah - juya fuska zuwa dama, sannan zuwa hagu.",
-    translation: "Aminci da rahamar Allah su tabbata a gare ku.",
     meaning:
       "Kuna barin salla kamar yadda kuke barin jama'ar masu daraja - tare da gaisuwa ga mala'iku da suke rubuce a kowace kafada da masu yin addu'a a gefenku. Sallama ginshiki ne; da ita ake cika sallah.",
   },
@@ -1244,10 +928,10 @@ export const SALAH_GUIDE_PHRASES_HA: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_HA: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Raka'o'in sunna rawatib nawa aka yarda a kowace rana?",
+    prompt: "Raka'o'in sunna rawatib na kowace rana nawa hadisin Ummu Habiba ya ambata?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Rawatib goma sha biyu sune: 2 kafin Asuba, 4 kafin Zuhr, 2 bayan Zuhr, 2 bayan Maghrib, da 2 bayan Isha (Sahih Muslim 728).",
+      "Hadisin Ummu Habiba ya yi alkawarin gida a Aljanna ga wanda ya yi raka'o'i goma sha biyu na sunna a yini da dare (Sahih Muslim 728); Jami' at-Tirmidhi 415 ya lissafa su: 2 kafin Asuba, 4 kafin Zuhr, 2 bayan Zuhr, 2 bayan Maghrib, da 2 bayan Isha.",
   },
   {
     prompt: "Kafin Asuba, sunnar da aka jaddada (mu'akkadah) ita ce:",
@@ -1256,10 +940,10 @@ export const SALAH_GUIDE_QUIZ_HA: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Raka'a biyu kafin Asuba sunna mu'akkadah ne — Annabi ﷺ bai taɓa barinsu ba (Sahih al-Bukhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Rawatib da aka yarda a kusa da Zuhr sune:",
+    prompt: "A cikin hadisin Ummu Habiba (Jami' at-Tirmidhi 415), rawatib na kusa da Zuhr sune:",
     options: ["2 kafin, 2 bayan", "4 kafin, 2 bayan", "4 kafin, 4 bayan", "2 kafin kawai"],
     explanation:
-      "Huɗu kafin Zuhr da biyu bayan suna cikin rawatib goma sha biyu. Ƙarin raka'o'in da suka wuce waɗannan sunna ce mai ba da shawara, ba rawatib ba.",
+      "Hadisin Ummu Habiba ya ambaci huɗu kafin Zuhr da biyu bayansa. Ruwayar Ibn Umar (Sahih al-Bukhari 1180) ta ambaci biyu kafinsa, don haka mazhabobi sun saɓa kan wanne ne suke ƙirgawa a matsayin rawatib mai ƙarfi; abin da ya wuce haka nafila ne.",
   },
   {
     prompt:

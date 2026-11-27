@@ -28,6 +28,7 @@ let mockState: PronunciationState;
 
 jest.mock("@/stores/quran-pronunciation-store", () => ({
   quranPronunciationStore: { getState: () => mockActions },
+  pronunciationClient: { setSharingTheme: jest.fn() },
   useEnsurePronunciationLoaded: jest.fn(),
   usePronunciationState: () => mockState,
 }));
@@ -200,7 +201,10 @@ describe("pronunciationErrorKey", () => {
   it.each([
     ["needs_connection", "quranCompanion.pronunciation.error.noConnection"],
     ["invalid_key", "quranCompanion.pronunciation.error.paused"],
-    ["server_rejected", "quranCompanion.pronunciation.error.paused"],
+    ["server_rejected", "quranCompanion.pronunciation.error.deviceRefused"],
+    ["download_failed", "quranCompanion.pronunciation.error.busy"],
+    ["sdk_too_old", "quranCompanion.pronunciation.error.updateApp"],
+    ["session_open", "quranCompanion.pronunciation.error.inUse"],
     ["storage_full", "quranCompanion.pronunciation.error.noSpace"],
     ["model_unavailable", "quranCompanion.pronunciation.error.notYet"],
     ["microphone_denied", "quranCompanion.pronunciation.error.micDenied"],
@@ -208,5 +212,14 @@ describe("pronunciationErrorKey", () => {
     [null, "quranCompanion.pronunciation.error.generic"],
   ])("maps %p", (code, key) => {
     expect(pronunciationErrorKey(code)).toBe(key);
+  });
+
+  it("tells 'connect to download' from 'connect to renew' (SDK 4 errorCause.needs)", () => {
+    expect(pronunciationErrorKey("needs_connection", "model")).toBe(
+      "quranCompanion.pronunciation.error.noConnection",
+    );
+    expect(pronunciationErrorKey("needs_connection", "lease")).toBe(
+      "quranCompanion.pronunciation.error.needsRenewal",
+    );
   });
 });

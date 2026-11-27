@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       "Vjernik čini dovu lako i teško, naglas i u tajnosti, siguran da Allah čuje svaki poziv i nikada ne odbija iskrenog praznih ruku. On je toliko blizu da kaže: 'Odgovaram na poziv pozivaoca kada Me on pozove.'",
       "Odgovor ima jedan od tri oblika, koje je učio Poslanik, sallallahu alejhi ve sellem: Allah daje ono što je traženo; ili ga uskrati i spremi jednaku ili veću nagradu za ahiret; ili On odbija štetu jednaku tome. Dakle, nijedna iskrena dova nikada nije zaista neodgovorena - ponekad je najveća milost u odgovoru koji ne vidimo.",
     ],
-    quran: [
-      {
-        excerpt: "I vaš Gospodar kaže: 'Pozovite me; Ja ću vam odgovoriti.'",
-      },
-      {
-        excerpt:
-          "I kada vas moje sluge pitaju u vezi sa mnom - zaista sam blizu. Odazivam se na poziv pozivaoca kada Me on pozove.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dova je ibadet. — zatim je proučio: 'A vaš Gospodar kaže: Pozovite me; Ja ću vam odgovoriti.' (an-Nu'man ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       "Pozovite Allaha sa tri unutrašnje kvalitete: poniznošću, sigurnošću da On može i da će odgovoriti, i dobrim mišljenjem o Njemu (husn al-zann). Suočite se s kiblom gdje god možete, podignite ruke, odaberite mubarek vremena i pitajte za poslove na ovom i na budućem svijetu. Preporučljivo je ponoviti važne zahtjeve, a završiti kako ste započeli — pohvalom i salavatom.",
       "Iznad svega, ne žurite. Poslanik, sallallahu alejhi ve sellem, je upozorio da se dova odgovara sve dok osoba ne očajava i ne kaže: 'Zvao sam i zvao, ali mi nije odgovoreno', a zatim je napusti. Upornost u traženju je sama po sebi ibadet, a Allah voli slugu koji stalno kuca na Njegova vrata.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Na sluginu dovu se i dalje odgovara sve dok ne žuri — govoreći: 'Učinio sam dovu, ali nisam odgovorio.' (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Kada neko od vas moli, neka počne hvaljenjem i veličanjem svog Gospodara, zatim pošalji blagoslov na Poslanika, sallallahu alejhi ve sellem, a zatim zatraži ono što želi. (Fadalah ibn 'Ubayd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Otvorite svaku dovu sa Alhamdulillahom i salavatom na Poslanika, sallallahu alejhi ve sellem.",
       "Pitajte Allaha za imena koja najviše odgovaraju vašim potrebama (npr. Ya Razzaq za opskrbu, Ya Ghafur za oprost).",
@@ -65,16 +43,7 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       "Zakonito izdržavanje je moćan ključ. Poslanik, sallallahu alejhi ve sellem, je opisao putnika koji je podigao ruke prema nebu vičući 'O Gospodaru, o Gospodaru', ali 'njegova hrana je zabranjena, njegovo piće je zabranjeno, njegova odjeća je nezakonita, a hrani se nedozvoljenim - pa kako mu se može odgovoriti?' Čuvanje nečijeg prihoda, pokajanje od grijeha i ne traženje bilo čega grešnog ili raskid porodičnih veza uklanja prepreke između dove i njenog prihvatanja.",
       "Čak i tako, prihvatanje je na kraju Allahova milost, a ne transakcija koju kontrolišemo. Vjernik stoga kombinuje svoj najbolji trud – iskrenost, halal život, pokajanje – sa poniznim povjerenjem i nikada ne očajava ako odgovor kasni. Slabost i prošli grijesi nisu razlog da prestanete pitati; oni su razlog više da se vratimo Milostivom.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…njegova hrana je nezakonita, njegovo piće nezakonito, njegova odjeća nezakonita, hrani se nezakonitim – pa kako mu se može odgovoriti? (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Služinu dovu se odgovara sve dok ne traži nešto grešno ili raskid porodičnih veza. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Pregledajte svoje prihode i potrošnju na zakonitost – to direktno utiče na vašu dovu.",
       "Prethodite dugim molitvama sa istighfarom i iskrenim pokajanjem.",
@@ -89,16 +58,7 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       "Među najjačima su: posljednja trećina noći, kada se Allah spušta (na način koji dolikuje Njegovom veličanstvu) na najniže nebo i poziva: 'Ko će od Mene tražiti da mu dam?'; sedždu u namazu, položaj najbliži Allahu; trenutak između ezana i ikameta; dok osoba posti, posebno u vrijeme prekida posta; tokom kiše; i posljednji sat petka prije zalaska sunca, u kojem postoji sat kada se dova ne odbija.",
       "Blagoslovljena mjesta i stanja uključuju stajanje na Arefatu za vrijeme hadža, boravak u svetim prostorima i dovu putnika, roditelja za njihovo dijete i onoga koji je povrijeđen. Koristite ih kao fiksna sidra za dosljedan vijek molbe.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Naš Gospodar silazi svake noći na najniže nebo u posljednjoj trećini noći i kaže: Ko Me zove da mu odgovorim? Ko od Mene traži da mu dam? (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Najbliži je sluga svome Gospodaru dok je na sedždi, zato se u tome mnogo dove. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -112,14 +72,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyid al-Istighfar (poglavar traženja oprosta)",
         when: "Jednom ujutru i uveče",
-        translation:
-          "O Allahu, Ti si moj Gospodar; nema boga osim Tebe. Ti si me stvorio i ja sam Tvoj sluga, i držim se Tvog saveza i obećavam koliko god mogu. Tražim utočište u Tebi od zla koje sam učinio. Priznajem Tvoju naklonost prema meni i priznajem svoj grijeh, zato mi oprosti - jer niko ne oprašta grijehe osim Tebe.",
       },
       {
         title: "Hasbijallahu la ilahe illa Huwa",
         when: "Sedam puta svako jutro i veče",
-        translation:
-          "Allah mi je dovoljan; nema boga osim Njega. Na Njega se oslanjam, i On je Gospodar Moćnog Trona.",
       },
     ],
     appLinks: [{}, {}],
@@ -135,19 +91,14 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dva nakon buđenja",
         when: "Odmah po buđenju",
-        translation:
-          "Sva hvala Allahu koji nam je dao život nakon što nas je umro, a Njemu je proživljenje.",
       },
       {
         title: "Dua prije spavanja",
         when: "Kada legnete na spavanje",
-        translation: "U Tvoje ime, Allahu, umirem i živim.",
       },
       {
         title: "Ayat al-Kursi prije spavanja",
         when: "Prije spavanja",
-        translation:
-          "Allah — nema boga osim Njega, Vječno Živog, Održavatelja svega. Ni pospanost ni san Ga ne obuzimaju. Njemu pripada sve što je na nebesima i na zemlji. Ko može posredovati kod Njega osim uz Njegovu dozvolu? On zna šta leži ispred njih i iza njih, a oni ne obuhvataju ništa od Njegovog znanja osim onoga što On hoće. Njegov se prijesto prostire preko nebesa i zemlje, i njihovo očuvanje Ga ne umara. On je Svevišnji, Veličanstveni.",
       },
     ],
     appLinks: [{}, {}],
@@ -163,12 +114,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua prilikom odlaska od kuće",
         when: "Kada izađete iz kuće",
-        translation: "U ime Allaha; Ja se uzdam u Allaha; nema moći i moći osim kod Allaha.",
       },
       {
         title: "Dova ulazak u džamiju",
         when: "Pri ulasku, zakoračiti desnom nogom",
-        translation: "O Allahu, otvori mi vrata svoje milosti.",
       },
     ],
     appLinks: [{}, {}],
@@ -184,13 +133,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Prije jela",
         when: "Na početku obroka",
-        translation: "U ime Allaha.",
       },
       {
         title: "Nakon jela",
         when: "Po završetku obroka",
-        translation:
-          "Sva hvala Allahu koji me je nahranio ovim i obezbijedio mi bez ikakve moći ili moći s moje strane.",
       },
     ],
     appLinks: [{}],
@@ -206,14 +152,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Nakon vudua",
         when: "Odmah po završetku abdesta",
-        translation:
-          "Svjedočim da nema boga osim jedinog Allaha, bez partnera, i svjedočim da je Muhamed Njegov sluga i Poslanik.",
       },
       {
         title: "Prije selama u namazu",
         when: "U završnom tešehudu, prije završetka namaza",
-        translation:
-          "O Allahu, utječem Ti se od džehennemske kazne, kaburske kazne, iskušenja života i smrti, i zla iskušenja Lažnog Mesije (Dedžala).",
       },
     ],
     appLinks: [{}, {}],
@@ -229,16 +171,9 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dova nakon ezana",
         when: "Kada se ezan završi",
-        translation:
-          "O Allahu, Gospodaru ovog savršenog poziva i utvrđene molitve, podari Muhammedu el-Vasilahu i el-Fadilu i uzdigni ga na hvaljeno mjesto koje si mu obećao.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dova između ezana i ikameta se ne odbija. (Anas ibn Malik; također at-Tirmizi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -252,13 +187,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua za anksioznost i tugu",
         when: "U nevolji, brizi ili ogromnoj tuzi",
-        translation:
-          "O Allahu, utječem Ti se od tjeskobe i žalosti, od nesposobnosti i lijenosti, od škrtosti i kukavičluka, od tereta duga i od toga da me drugi savladaju.",
       },
       {
         title: "Allah nam je dovoljan",
         when: "Kada ste uplašeni ili preplavljeni",
-        translation: "Allah nam je dovoljan, i On je najbolji raspolagač stvarima.",
       },
     ],
     appLinks: [{}, {}],
@@ -274,8 +206,6 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dva za lečenje",
         when: "Kada je bolestan, ili molitva nad nekim ko je bolestan",
-        translation:
-          "O Allahu, Gospodaru čovječanstva, otkloni nevolju i daj ozdravljenje - Ti si iscjelitelj; nema lijeka osim Tvog lijeka — lijeka koji ne ostavlja za sobom bolest.",
       },
     ],
     appLinks: [{}, {}],
@@ -291,12 +221,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Često pokajanje",
         when: "Ponavljano, tokom dana",
-        translation: "Tražim oprost od Allaha i obraćam se Njemu u pokajanju.",
       },
       {
         title: "Dua za postojano srce",
         when: "Kada se bojite pogrešnih smjernica ili pokolebanja",
-        translation: "O okretaču srca, učini moje srce čvrstim na Tvojoj vjeri.",
       },
     ],
     appLinks: [{}, {}],
@@ -312,13 +240,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua kada krenete na put",
         when: "O montiranju vašeg transporta i odlasku",
-        translation:
-          "Neka je slava Onome koji nam je ovo podredio, kada to sami nismo mogli učiniti; i zaista, našem Gospodaru ćemo se sigurno vratiti.",
       },
       {
         title: "Dua kada pada kiša",
         when: "Na početku padavina",
-        translation: "O Allahu, učini da pljusak bude blagotvoran.",
       },
     ],
     appLinks: [{}, {}],
@@ -330,18 +255,11 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       "Opskrba (rizq) je samo od Allaha; vjernik veže svoju kamilu - radeći i zarađujući - zatim traži od Opskrbitelja zakonitu hranu, barakatu u onome što zarađuje, slobodu od dugova i nezavisnost od potrebe za drugima. Poslanik, sallallahu alejhi ve sellem, je učio prelijepu dovu koja traži upravo to.",
       "Za dom, sam Kur'an podučava molitvu pravednika: da se daju supružnici i djeca koji su 'utjeha za oči' i da se vodi kućanstvo povezana vjerom, molitvom i milošću.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Gospodaru naš, daj nam iz supružnika i potomstva utjehu našim očima i učini nas vođama pravednih.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Dua za zakonitu odredbu",
         when: "Ujutro, nakon molitve, iu finansijskom stresu",
-        translation:
-          "O Allahu, dosta mi je sa onim što si zabranio protiv onoga što si učinio nedozvoljenim, i obogati me Svojom blagodaću da mi niko osim Tebe ne treba.",
       },
     ],
     appLinks: [{}],
@@ -357,14 +275,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dobro u oba svijeta",
         when: "Opća, univerzalna dova — najčešća Poslanikova ﷺ",
-        translation:
-          "Gospodaru naš, podari nam dobro na ovom svijetu i dobro na onom svijetu i zaštiti nas od kazne vatre.",
       },
       {
         title: "Postojanost u vjeri",
         when: "Kada se bojite odstupanja ili nakon što ste vođeni",
-        translation:
-          "Gospodaru naš, neka naša srca ne odstupe nakon što si nas uputio, i daj nam milost od Sebe. Zaista, Ti si Darovatelj.",
       },
     ],
     appLinks: [{}, {}],
@@ -380,7 +294,6 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sveobuhvatna dua od četiri",
         when: "Opća dnevna molitva",
-        translation: "O Allahu, molim Te za uputu, bogobojaznost, čednost i zadovoljnu dovoljnost.",
       },
     ],
     appLinks: [{}],
@@ -396,12 +309,10 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Voljene riječi koje brišu grijeh",
         when: "Tokom dana; 100 puta briše grijehe",
-        translation: "Slavljen neka je Allah, i svaka mu je hvala.",
       },
       {
         title: "Dvije riječi teške na vagi",
         when: "Bilo kada",
-        translation: "Neka je slavljen Allah i hvala mu; neka je slava Allahu Veličanstvenom.",
       },
     ],
     appLinks: [{}],
@@ -414,18 +325,11 @@ export const LEARN_DUA_TOPICS_BS: DeepPartial<LearnDuaTopic>[] = [
       "Slanje salavata na Poslanika, sallallahu alejhi ve sellem, je naređeno od strane Allaha u Kur'anu: 'Zaista, Allah i Njegovi meleki salju blagoslov na Poslanika; O vjernici, pošaljite mu blagoslov i selam' — i nijedna druga dova ne nosi takav zagarantovan povratak: Poslanik, sallallahu alejhi ve sellem, je rekao da onome ko mu pošalje jedan blagoslov, Allah šalje deset na tu osobu.",
       "Česti salavati donose milost, podižu činove, brišu grijehe i privlače osobu koja je najbliža Poslaniku, sallallahu alejhi ve sellem, na Sudnjem danu. Potpuni Ibrahimov oblik u nastavku - onaj kojem je naučio svoje ashabe kada su pitali kako da mu pošalju blagoslov - uči se u tešahudu svake molitve i odličan je za držanje na jeziku tokom cijelog dana.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, Allah i Njegovi meleki salje blagoslov na Poslanika. O vjernici, pošaljite mu blagoslov i pozdrav mira.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Kompletan salavat Ibrahimiyyah",
         when: "U tešahudu namaza i tokom cijelog dana",
-        translation:
-          "Allahu, pošalji blagoslov na Muhammeda i porodicu Muhammedovu, kao što si blagoslovio Ibrahima i porodicu Ibrahimovu; zaista si hvale dostojan, slavan. O Allahu, daj milost Muhammedu i porodici Muhammedovoj, kao što si dao naklonost Ibrahimu i porodici Ibrahimov; zaista si hvale dostojan, slavan.",
       },
     ],
     appLinks: [{}],

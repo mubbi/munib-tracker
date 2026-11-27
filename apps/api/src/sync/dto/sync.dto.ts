@@ -43,11 +43,21 @@ export const SYNC_ENTITIES = [
   "khatm",
   "hifz",
   "custom_adhkar",
-  "khushu_journal",
   "hajj_checklist",
   "umrah_checklist",
   "friday_checklist",
-  "white_days_checklist",
+  // NF-3.11 the user's private iqamah times per masjid (own devices only, never shared).
+  "home_masjid_times",
+  // NF-3.5 daily Sunnah habits; NF-3.3 Dhul-Hijjah mode (per Hijri year).
+  "sunnah_habits",
+  "dhul_hijjah",
+  "voluntary_fasting",
+  // NF-3.14 weekly coach: shown insight ids, micro-goals + outcomes, dismiss/snooze (no raw data).
+  "coach_history",
+  // D40 daily Qur'an reading log (date → seconds/ayahs/pages; counts only).
+  "quran_reading_log",
+  // NF-3.4 Umrah mode sessions (live guided companion).
+  "umrah_sessions",
   "jannah_intentions",
   "jahannam_intentions",
   "salah_guide_progress",
@@ -64,10 +74,9 @@ export const SYNC_ENTITIES = [
   "qaza_schedule",
   "qaza_daily_progress",
   "qaza_daily_plans",
-  // Portable settings previously device-local (location calc + place, reading
-  // text toggles, zakat draft, feature-tour dismissals).
+  // Portable settings previously device-local (location calc + place, zakat
+  // draft, feature-tour dismissals).
   "location",
-  "reading_text_visibility",
   "zakat_calculator",
   "fidyah_calculator",
   "sadaqah_goals",
@@ -76,9 +85,50 @@ export const SYNC_ENTITIES = [
   "quran_companion_prefs",
   "quran_practice_sessions",
   "quran_memorization",
+  // NF-3.15 tajweed coaching: drill counts, spacing and the last plan (no audio).
+  "tajweed_coaching",
+  // NF-3.21 personal ayah notes/highlights (D15: normal sync, not the vault).
+  // `data.value` is shape-checked + capped at ~1 MB per record (isValidQuranNotesRecord).
+  "quran_notes",
+  // E2E-encrypted vault (plan §4.2, D2) — ciphertext only, opt-in per device.
+  // `data.value` is shape-checked + capped at 256 KB per record (isValidVaultPayload)
+  // and never logged.
+  "vault_keyring",
+  "vault_muhasabah",
+  "vault_debts",
+  "vault_wasiyyah",
+  "vault_relatives",
+  // D46: the excused period (hayd / nifas / illness / travel) and the khushu
+  // journal sync only through the vault, never as plaintext.
+  "vault_excused",
+  "vault_khushu",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];
+
+/**
+ * Retired entities that app builds still in the wild may push. They pass
+ * validation (so `@IsIn` doesn't 400 an old client's whole batch) but are not in
+ * the OpenAPI enum: SyncService stores nothing for them, drops any old row on
+ * push and never returns one on pull.
+ *
+ * - `khushu_journal` (D46): the journal syncs only as `vault_khushu`.
+ * - `reading_text_visibility` (D13): the pair lives in `preferences.readingDisplay`.
+ * - `white_days_checklist` (NF-3.2): White Days fasts live in `voluntary_fasting`.
+ */
+export const RETIRED_SYNC_ENTITIES = [
+  "khushu_journal",
+  "reading_text_visibility",
+  "white_days_checklist",
+] as const;
+
+export type RetiredSyncEntity = (typeof RETIRED_SYNC_ENTITIES)[number];
+
+export function isRetiredSyncEntity(entity: unknown): entity is RetiredSyncEntity {
+  return (RETIRED_SYNC_ENTITIES as readonly unknown[]).includes(entity);
+}
+
+const ACCEPTED_SYNC_ENTITIES: readonly string[] = [...SYNC_ENTITIES, ...RETIRED_SYNC_ENTITIES];
 
 export class SyncPullQueryDto {
   @ApiPropertyOptional({
@@ -91,11 +141,12 @@ export class SyncPullQueryDto {
 }
 
 export class SyncRecordDto {
+  // The contract lists live entities only; retired ones are still accepted on push.
   @ApiProperty({ enum: SYNC_ENTITIES })
   @IsString()
   @IsNotEmpty()
-  @IsIn(SYNC_ENTITIES)
-  entity!: SyncEntity;
+  @IsIn(ACCEPTED_SYNC_ENTITIES)
+  entity!: SyncEntity | RetiredSyncEntity;
 
   @ApiProperty()
   @IsString()
@@ -103,6 +154,9 @@ export class SyncRecordDto {
   id!: string;
 
   @ApiProperty({ type: "object", additionalProperties: true })
+  // Vault / quran_notes payloads are shape- and size-checked per record in
+  // SyncService.push (an invalid one is skipped, never stored), not here: a
+  // DTO-level check would reject the whole batch and stall every entity (H2).
   @IsObject()
   data!: Record<string, unknown>;
 

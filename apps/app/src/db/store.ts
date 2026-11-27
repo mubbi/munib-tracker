@@ -1,3 +1,4 @@
+import { utf8ByteLength as sharedUtf8ByteLength } from "@munib-tracker/shared/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { captureAppException } from "@/lib/sentry";
@@ -19,6 +20,9 @@ import { captureAppException } from "@/lib/sentry";
  */
 export const MAX_SAFE_ASYNC_STORAGE_VALUE_BYTES = 1_000_000;
 
+/** Suffix {@link readJSON} uses to quarantine an unparseable value (see `quarantineCorrupt`). */
+export const CORRUPT_KEY_SUFFIX = "__corrupt";
+
 /** Keys that threw CursorWindow (or similar) and could not be deleted this session. */
 const unreadableKeys = new Set<string>();
 
@@ -30,11 +34,12 @@ export function isOversizedRowError(error: unknown): boolean {
   return /Row too big to fit into CursorWindow/i.test(message);
 }
 
+/** Native `TextEncoder` when present (fast on MB-sized cache rows), else the shared JS count. */
 function utf8ByteLength(value: string): number {
   if (typeof TextEncoder !== "undefined") {
     return new TextEncoder().encode(value).length;
   }
-  return value.length;
+  return sharedUtf8ByteLength(value);
 }
 
 /** Best-effort quarantine so a corrupt value is not silently treated as "empty". */
@@ -44,7 +49,7 @@ async function quarantineCorrupt(key: string, raw: string, error: unknown): Prom
     extra: { rawLength: raw.length },
   });
   try {
-    await AsyncStorage.setItem(`${key}__corrupt`, raw);
+    await AsyncStorage.setItem(`${key}${CORRUPT_KEY_SUFFIX}`, raw);
     await AsyncStorage.removeItem(key);
   } catch {
     // Quarantine is best-effort; callers still get the fallback.
@@ -144,10 +149,15 @@ export function withKeyLock<T>(key: string, task: () => Promise<T>): Promise<T> 
   return run;
 }
 
+/**
+ * `baseKey`, every `${baseKey}/…` shard, and the quarantined `__corrupt` copy of
+ * either — so reset / account deletion can't leave a copy of user data behind.
+ */
 export async function listKeyTree(baseKey: string): Promise<string[]> {
   const keys = await AsyncStorage.getAllKeys();
   const prefix = `${baseKey}/`;
-  return keys.filter((key) => key === baseKey || key.startsWith(prefix));
+  const corrupt = `${baseKey}${CORRUPT_KEY_SUFFIX}`;
+  return keys.filter((key) => key === baseKey || key === corrupt || key.startsWith(prefix));
 }
 
 /**

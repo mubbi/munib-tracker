@@ -127,9 +127,11 @@ Regenerate client after OpenAPI changes: `pnpm generate:api`.
 
 ---
 
-## Future: Fly.io worker (when required)
+## Not planned: Fly.io worker (D60)
 
-**When to add:** measured backlog under prayer-time spikes (due jobs not draining within acceptable latency), or you want a long-running poller independent of Vercel function timeouts. **Not required** while QStash + cron keep up.
+**Dropped on 2026-11-25 (D60):** QStash + cron is the delivery path. The design below is kept for reference only, in case a new decision reopens it.
+
+**Original trigger:** measured backlog under prayer-time spikes (due jobs not draining within acceptable latency), or you want a long-running poller independent of Vercel function timeouts.
 
 **Do not add Redis/BullMQ** unless you need multi-job-type delayed queues beyond “DB + poll.” The shared package already supports Postgres-poll delivery.
 

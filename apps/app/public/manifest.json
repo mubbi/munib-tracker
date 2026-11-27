@@ -2,16 +2,19 @@
   "id": "/",
   "name": "Munib Tracker",
   "short_name": "Munib Tracker",
-  "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
+  "description": "Track Your Journey Back to Allah. A free, offline-first companion for Salah, Zikr, Qaza, Qur'an, hadith, and daily worship.",
   "lang": "en",
   "dir": "ltr",
   "categories": ["lifestyle", "education", "utilities"],
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "theme_color": "#152921",
-  "background_color": "#152921",
+  "orientation": "any",
+  "theme_color": "#F5F0E6",
+  "background_color": "#F5F0E6",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
   "prefer_related_applications": false,
   "icons": [
     {
@@ -33,10 +36,115 @@
       "purpose": "any"
     },
     {
-      "src": "/assets/images/icon-192.png",
+      "src": "/assets/images/pwa/icon-192-maskable.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/pwa/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mark Salah",
+      "short_name": "Mark Salah",
+      "description": "Open today's Salah tracker",
+      "url": "/tracker",
+      "icons": [
+        {
+          "src": "/assets/images/pwa/shortcut-tracker.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Qibla",
+      "short_name": "Qibla",
+      "description": "Find the Qibla direction",
+      "url": "/qibla",
+      "icons": [
+        {
+          "src": "/assets/images/pwa/shortcut-qibla.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Tasbeeh",
+      "short_name": "Tasbeeh",
+      "description": "Open the Tasbeeh counter",
+      "url": "/tasbeeh/free",
+      "icons": [
+        {
+          "src": "/assets/images/pwa/shortcut-tasbeeh.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/images/pwa/screenshot-home.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Track your journey back to Allah"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-salah.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Build unshakeable Salah habits"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-qaza.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Clear your Qaza with clarity"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-library.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Qur'an, Zikr and hadith — offline"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-qibla.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Find the Qibla in seconds"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-wide-home.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Track your journey back to Allah"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-wide-salah.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Build unshakeable Salah habits"
+    },
+    {
+      "src": "/assets/images/pwa/screenshot-wide-library.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Qur'an, Zikr and hadith — offline"
     }
   ]
 }

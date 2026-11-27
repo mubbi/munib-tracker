@@ -6,6 +6,7 @@ import {
 import Constants from "expo-constants";
 import { Linking, Platform } from "react-native";
 import { markWebSoftUpdateDismissedSync } from "@/lib/app/app-update-dismiss";
+import { isFireTV, isTV } from "@/lib/platform/is-tv";
 
 const TRUSTED_STORE_HOSTS = ["play.google.com", "apps.apple.com", "testflight.apple.com"];
 
@@ -31,7 +32,23 @@ export function reloadWebWithCacheBust(): void {
   }
 }
 
+/**
+ * Android TV / Fire TV store listing as an app deep link. A web store URL would
+ * launch a browser, which TVs either lack or must not be sent to (Android TV
+ * quality TV-WB). Fire TV has no Play Store at all — it installs from the
+ * Amazon Appstore (`amzn://apps/android?p=…`).
+ */
+function resolveTvAndroidStoreUrl(): string | null {
+  const pkg = Constants.expoConfig?.android?.package;
+  if (!pkg) return null;
+  const id = encodeURIComponent(pkg);
+  return isFireTV() ? `amzn://apps/android?p=${id}` : `market://details?id=${id}`;
+}
+
 export function resolveStoreUrl(meta: AppVersionMeta, locale?: string): string | null {
+  if (Platform.OS === "android" && isTV()) {
+    return resolveTvAndroidStoreUrl();
+  }
   if (meta.storeUrl && isTrustedStoreUrl(meta.storeUrl)) {
     return meta.storeUrl;
   }

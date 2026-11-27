@@ -173,10 +173,21 @@ const mockPrefs: {
 } = { ready: true, prefs: {}, update: jest.fn(async () => undefined) };
 
 jest.mock("@/stores/preferences-store", () => ({
-  preferencesStore: {
-    getState: () => ({ prefs: mockPrefs.prefs, update: mockPrefs.update }),
-  },
   usePreferencesReady: () => mockPrefs.ready,
+}));
+
+// Speed / volume are registered settings (Settings › Audio & voice); the player
+// follows their stored value and writes through the single settings path.
+jest.mock("@/lib/settings/use-setting", () => ({
+  useSetting: (id: string) => ({
+    value:
+      id === "audio.speed"
+        ? (mockPrefs.prefs.audioSpeed ?? 1)
+        : Math.round((mockPrefs.prefs.audioVolume ?? 1) * 100),
+  }),
+}));
+jest.mock("@/lib/settings/shortcuts", () => ({
+  setSetting: (id: string, value: unknown) => mockPrefs.update(id, value),
 }));
 
 const asMock = (fn: unknown) => fn as jest.Mock;
@@ -349,6 +360,21 @@ describe("AudioPlayerProvider shell", () => {
     expect({ rate: h.ctx.rate, volume: h.ctx.volume }).toEqual({ rate: 1.5, volume: 0.4 });
   });
 
+  it("follows a speed / volume change made in Settings while it is running", async () => {
+    const { rerender } = await renderAudioPlayer();
+    mockPrefs.prefs = { audioSpeed: 2, audioVolume: 0.5 };
+    await rerender(
+      <AudioPlayerProvider>
+        <Probe />
+        <Text>child</Text>
+      </AudioPlayerProvider>,
+    );
+    await flush();
+    expect(A().setPlaybackRate).toHaveBeenCalledWith(2, "high");
+    expect({ rate: h.ctx.rate, volume: h.ctx.volume }).toEqual({ rate: 2, volume: 0.5 });
+    expect(mockPrefs.update).not.toHaveBeenCalled();
+  });
+
   it("ignores saved preferences until they are ready", async () => {
     mockPrefs.ready = false;
     mockPrefs.prefs = { audioSpeed: 2 };
@@ -398,7 +424,6 @@ describe("AudioPlayerProvider remote playback", () => {
       A(),
       queue[0],
       expect.objectContaining({ queueIndex: 0, queueLength: 3 }),
-      "r1",
     );
   });
 
@@ -579,7 +604,7 @@ describe("AudioPlayerProvider remote playback", () => {
     expect(A().setPlaybackRate).toHaveBeenCalledWith(2, "high");
     expect(B().setPlaybackRate).toHaveBeenCalledWith(2, "high");
     expect(A().shouldCorrectPitch).toBe(true);
-    expect(mockPrefs.update).toHaveBeenCalledWith({ audioSpeed: 2 });
+    expect(mockPrefs.update).toHaveBeenCalledWith("audio.speed", 2);
   });
 
   it.each([
@@ -591,7 +616,7 @@ describe("AudioPlayerProvider remote playback", () => {
     await run(() => h.ctx.setVolume(input));
     expect(h.ctx.volume).toBe(expected);
     expect(B().volume).toBe(expected);
-    expect(mockPrefs.update).toHaveBeenCalledWith({ audioVolume: expected });
+    expect(mockPrefs.update).toHaveBeenCalledWith("audio.volume", Math.round(expected * 100));
   });
 
   it("keeps rate and volume state when the players reject them", async () => {
@@ -847,7 +872,6 @@ describe("AudioPlayerProvider auto-advance", () => {
       B(),
       queue[1],
       expect.objectContaining({ queueIndex: 1 }),
-      "r2",
     );
   });
 

@@ -131,7 +131,7 @@ import { resolveTheme } from "@munib-tracker/theme/resolve";
 | **Turborepo**  | Task orchestration (`pnpm turbo run build lint check-types test`)                                                      |
 | **Husky**      | `pre-commit`: Biome autofix staged files; `commit-msg`: commitlint (Conventional Commits); `pre-push`: `pnpm check:ci` |
 | **Commitizen** | Interactive conventional commits via `pnpm commit`                                                                     |
-| **Vitest**     | marketing-web, api, and package tests                                                                                  |
+| **Vitest**     | marketing-web, admin, api, and package tests                                                                           |
 | **Jest**       | apps/app unit + feature tests                                                                                          |
 
 ## Testing
@@ -154,7 +154,7 @@ Unit + feature tests only — no Playwright or Maestro **E2E in CI**. Maestro dr
 - API: [`apps/api/AGENTS.md`](apps/api/AGENTS.md) — NestJS backend
 - Planning: [`docs/`](docs) — [`BACKLOG.md`](docs/BACKLOG.md), [`FEATURES.md`](docs/FEATURES.md), and topic guides ([`docs/README.md`](docs/README.md))
 
-Official skills installed: `vercel/turborepo`, `expo/skills`, `vercel/next.js`, plus `.agents/skills/{nestjs,fuse-js}`.
+Skills in `.agents/skills/`: vendored `vercel/turborepo`, `expo/skills`, `vercel/next.js` (pinned in `skills-lock.json`), plus local `nestjs`, `fuse-js` and `screenshot-studio`.
 
 ## Contributing
 

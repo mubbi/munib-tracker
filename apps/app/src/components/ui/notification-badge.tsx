@@ -1,7 +1,7 @@
-import { bestForeground } from "@munib-tracker/theme/color";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type NotificationBadgeProps = {
@@ -17,17 +17,21 @@ export function NotificationBadge({ count, borderColor }: NotificationBadgeProps
 
   return (
     <View
+      accessible={false}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
       style={[
         styles.badge,
         {
-          backgroundColor: tokens.status.danger.color,
+          backgroundColor: tokens.status.danger.fill,
           borderColor: borderColor ?? colors.background,
         },
       ]}
     >
       <ThemedText
         type="caption"
-        style={[styles.text, { color: bestForeground(tokens.status.danger.color) }]}
+        maxFontSizeMultiplier={1.2}
+        style={[styles.text, { color: tokens.status.danger.onFill }]}
       >
         {count > 9 ? "9+" : String(count)}
       </ThemedText>
@@ -41,12 +45,12 @@ const styles = StyleSheet.create({
     top: 3,
     end: 3,
     minWidth: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 1.5,
+    minHeight: 18,
+    borderRadius: Radius.pill,
+    borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 3,
+    paddingHorizontal: Spacing.one,
   },
   text: {
     fontSize: 11,

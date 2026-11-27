@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from "@testing-library/react-native";
 import type { ReactNode } from "react";
-import { Alert } from "react-native";
 
 import {
   LearnTtsProvider,
@@ -16,8 +15,13 @@ import {
   resetAudioPlayerMock,
 } from "@/test-support/mocks/audio-player-provider";
 import { resetExpoRouterMock, setMockPathname } from "@/test-support/mocks/expo-router";
+import { mockToast } from "@/test-support/mocks/toast-provider";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
 jest.mock("@/lib/tts", () => ({
   ...jest.requireActual("@/lib/tts"),
   isTtsAvailable: jest.fn(async () => true),
@@ -30,10 +34,11 @@ jest.mock(
 );
 
 const mockQuranPrefs: { ttsVoiceByLang?: Record<string, string> } = {};
-const mockUpdatePrefs = jest.fn(async () => {});
-jest.mock("@/stores/quran-store", () => ({
-  useQuranPrefs: () => mockQuranPrefs,
-  useQuranActions: () => ({ updatePrefs: mockUpdatePrefs }),
+const mockSetTtsVoice = jest.fn(async (_lang: string, _voiceId?: string) => {});
+// Device voices are read and written through the settings layer (B4, §4.5.4).
+jest.mock("@/lib/settings/tts-voice", () => ({
+  useTtsVoice: (lang: string) => mockQuranPrefs.ttsVoiceByLang?.[lang],
+  setTtsVoice: (lang: string, voiceId?: string) => mockSetTtsVoice(lang, voiceId),
 }));
 
 const LANG = localeToBcp47("en");
@@ -175,9 +180,7 @@ describe("LearnTtsProvider startWithVoice", () => {
 
     await act(async () => result.current.startWithVoice("voice-2"));
 
-    await waitFor(() =>
-      expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: { [LANG]: "voice-2" } }),
-    );
+    await waitFor(() => expect(mockSetTtsVoice).toHaveBeenCalledWith(LANG, "voice-2"));
     expect(resolveTtsVoice).toHaveBeenCalledWith(LANG, "voice-2");
   });
 
@@ -187,7 +190,7 @@ describe("LearnTtsProvider startWithVoice", () => {
 
     await act(async () => result.current.startWithVoice(undefined));
 
-    await waitFor(() => expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: {} }));
+    await waitFor(() => expect(mockSetTtsVoice).toHaveBeenCalledWith(LANG, undefined));
   });
 
   it.each([
@@ -224,16 +227,14 @@ describe("LearnTtsProvider startWithVoice", () => {
     expect(mockAudio.play).not.toHaveBeenCalled();
   });
 
-  it("alerts when text-to-speech is unavailable", async () => {
+  it("shows a toast when text-to-speech is unavailable", async () => {
     jest.mocked(isTtsAvailable).mockResolvedValue(false);
-    const alert = jest.spyOn(Alert, "alert").mockImplementation(() => {});
     const { result } = await renderLearnTts({ first: "Intro" });
 
     await act(async () => result.current.startWithVoice("v"));
 
-    await waitFor(() => expect(alert).toHaveBeenCalled());
+    await waitFor(() => expect(mockToast.info).toHaveBeenCalled());
     expect(mockAudio.play).not.toHaveBeenCalled();
-    alert.mockRestore();
   });
 });
 

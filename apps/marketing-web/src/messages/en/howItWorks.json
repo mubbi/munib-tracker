@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "How It Works — Set Up Your Salah, Zikr & Qur'an Routine",
+    "description": "Set up Munib Tracker in a minute: choose your location, log each Salah, follow your adhkar, plan Qaza, read and practise the Qur'an, and review your week."
+  },
+  "schemaName": "How Munib Tracker works",
+  "crumb": "How it works",
+  "eyebrow": "How it works",
+  "title": "Set up your worship routine in a minute",
+  "intro": "Munib Tracker fits around the five daily Salah. Here's how to get started, and what a typical day looks like once you do.",
+  "heroCaption": "The home screen.",
+  "stepsTitle": "Getting started, step by step",
+  "steps": {
+    "download": {
+      "title": "Download and open the app",
+      "text": "Install from the App Store or Google Play, or open the [web app]({webAppUrl}). There's no account to create: everything works straight away and stays on your device."
+    },
+    "location": {
+      "title": "Set your location",
+      "text": "Allow location or search for your city, then choose your calculation method and Asr madhab. Your Salah times appear on the home screen with the Hijri date and a countdown. [More on Salah times](/features/prayer-times-qibla)."
+    },
+    "log": {
+      "title": "Log each Salah",
+      "text": "After you pray, tap the Salah and mark it completed, delayed, missed or Qaza. Your streak and progress ring update instantly. [About the Salah tracker](/features/salah-tracker)."
+    },
+    "adhkar": {
+      "title": "Add your adhkar",
+      "text": "Open the session for the time of day (morning, evening, after Salah or before sleep) and tap to count. Each zikr shows its source. [About the Zikr tracker](/features/zikr-tracker)."
+    },
+    "qaza": {
+      "title": "Make a plan for missed Salah",
+      "text": "If you have Qaza to make up, estimate it once and pick a daily pace. The app shows what's left and when you'll finish. [About the Qaza tracker](/features/qaza-salah-tracker)."
+    },
+    "quran": {
+      "title": "Read and practise the Qur'an",
+      "text": "Set a khatm plan for a daily target, and use [Qur'an practice](/features/quran-practice) to recite with an on-device listener and revise what you're memorizing."
+    },
+    "reminders": {
+      "title": "Turn on only the reminders you want",
+      "text": "Salah, Adhan, adhkar, Qaza, Friday and more. Every reminder is off until you switch it on, so the app never nags you."
+    },
+    "review": {
+      "title": "Look back once a week",
+      "text": "Check your statistics and weekly report, see what's growing, and choose one small thing to improve next week. [About worship progress](/features/worship-progress)."
+    }
+  },
+  "stepCaptions": {
+    "location": "Today's Salah times and the next Salah countdown.",
+    "log": "The tracker with today's progress and streak.",
+    "adhkar": "Adhkar grouped by time of day.",
+    "qaza": "Qaza remaining, made up, and the finish date.",
+    "quran": "Continue reading or start a khatm plan."
+  },
+  "day": {
+    "eyebrow": "A typical day",
+    "title": "What a day with Munib Tracker looks like",
+    "intro": "An example routine. Start with whatever part of it feels easy, and add the rest over time.",
+    "prayers": {
+      "fajr": {
+        "time": "Fajr",
+        "text": "Mark Fajr, run the after-Salah adhkar, then the morning adhkar and today's khatm pages."
+      },
+      "dhuhr": {
+        "time": "Dhuhr",
+        "text": "A reminder at work; mark it from the widget once you've prayed."
+      },
+      "asr": {
+        "time": "Asr",
+        "text": "Pray, then make up one Qaza Salah alongside it if you have a plan."
+      },
+      "maghrib": {
+        "time": "Maghrib",
+        "text": "Evening adhkar, and ten minutes of Qur'an practice on what you're memorizing."
+      },
+      "isha": {
+        "time": "Isha",
+        "text": "Mark Isha and Witr, then the before-sleep adhkar when you go to bed."
+      }
+    }
+  },
+  "data": {
+    "eyebrow": "Your data",
+    "title": "Where your information lives",
+    "cards": {
+      "device": {
+        "title": "On your device by default",
+        "text": "Without signing in, your Salah, Qaza, zikr and notes are stored only on your phone, tablet or browser."
+      },
+      "sync": {
+        "title": "Synced only if you choose",
+        "text": "Sign in with Google, Apple or Facebook to sync between devices. You can delete your account and data at any time."
+      },
+      "backups": {
+        "title": "Backups you control",
+        "text": "Export a backup file from Settings and import it on another device, without an account."
+      }
+    },
+    "more": "Read the full <privacy>privacy policy</privacy> or see <why>why we built it this way</why>.",
+    "devicesCaption": "The same tracker on the TV, an Android tablet, iPhone and iPad. Sign in to keep them in step."
+  },
+  "cta": {
+    "title": "Ready when you are",
+    "text": "Download Munib Tracker and set your location. Your first Salah log is one tap away."
+  }
+}

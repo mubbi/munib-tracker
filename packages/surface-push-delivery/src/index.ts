@@ -21,5 +21,23 @@ export type {
   SurfaceSendResult,
 } from "./types.js";
 export { SurfaceDeliveryError } from "./types.js";
+export type {
+  VisibleNotification,
+  VisiblePushItem,
+  VisiblePushSender,
+} from "./visible.js";
+export {
+  buildExpoVisibleMessage,
+  buildWebVisiblePayload,
+  createExpoVisiblePushSender,
+  createWebVisiblePushSender,
+  EXPO_PUSH_BATCH_SIZE,
+  VISIBLE_WEB_PUSH_CONCURRENCY,
+} from "./visible.js";
 export type { WebPushSenderConfig, WebPushSubscription } from "./web-push.js";
-export { createWebPushSender, isValidWebPushSubscription } from "./web-push.js";
+export {
+  createWebPushSender,
+  isAllowedWebPushEndpoint,
+  isValidWebPushSubscription,
+  WEB_PUSH_SERVICE_HOSTS,
+} from "./web-push.js";

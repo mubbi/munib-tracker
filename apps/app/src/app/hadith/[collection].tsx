@@ -1,7 +1,7 @@
 import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   BackHandler,
@@ -12,36 +12,38 @@ import {
   type NativeSyntheticEvent,
   type ScrollViewInstance,
   StyleSheet,
-  TextInput,
   View,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
-import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { ContentActions, REPORT_FLAG_ICON } from "@/components/content/content-actions";
+import { ControlLabel, PrefToggle } from "@/components/content/pref-toggle";
+import { ContentReportContext } from "@/components/content-report/content-report-context";
+import { useCollectionName } from "@/components/hadith/collection-name";
 import { HadithIsnadChain } from "@/components/hadith/hadith-isnad-chain";
 import { HadithSharhBlock } from "@/components/hadith/hadith-sharh-block";
 import { HadithReadingToolbar } from "@/components/hadith/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { EmptyState } from "@/components/ui/empty-state";
-import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { BorderWidth, Opacity, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { HadithRepository } from "@/db";
-import type { HadithPrefs } from "@/db/repositories/hadith-repository";
+import type { HadithBookmark, HadithPrefs } from "@/db/repositories/hadith-repository";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
@@ -49,6 +51,7 @@ import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
@@ -67,16 +70,21 @@ import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { setSetting } from "@/lib/settings/shortcuts";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 import { buildHadithSharePayload } from "@/lib/share";
 import { resolveHadithTranslation } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
-import { useHadithActions, useHadithPrefs } from "@/stores/hadith-store";
+import { useHadithPrefs } from "@/stores/hadith-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Stable empty sentinels so `?? []` does not churn effect deps every render. */
 const EMPTY_HADITH_ITEMS: HadithItem[] = [];
 const EMPTY_SECTIONS: HadithSection[] = [];
+
+/** Hadith display toggles + the app-wide translation visibility (D13). */
+type HadithDisplayPrefs = HadithPrefs & { showTranslation: boolean };
 
 /** Extra width so the hadith list and filters pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
@@ -100,28 +108,44 @@ export default function HadithCollectionScreen() {
   // secondary pane kept overflowing past overscan no matter how we capped it.
   const showSideFilters = isListDetail && !tv;
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
-  const params = useLocalSearchParams<{ collection: string; q?: string }>();
+  const params = useLocalSearchParams<{ collection: string; q?: string; book?: string }>();
   const collectionId = params.collection ?? "";
   const remote = isRemoteCollection(collectionId);
+  const collectionLabel = useCollectionName();
 
   const [bundled, setBundled] = useState(() => getBundledCollection(collectionId));
   const [bundledData, setBundledData] = useState(() => getBundledCollectionData(collectionId));
 
+  // Bundled collections load lazily: show a skeleton (not "Not found") until they
+  // land, and Try again if the chunk fails (P8-01 / P8-02).
+  const isBundledId = useMemo(
+    () => getBundledCollections().some((c) => c.id === collectionId),
+    [collectionId],
+  );
+  const [bundledFailed, setBundledFailed] = useState(false);
+  const [bundledAttempt, setBundledAttempt] = useState(0);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `bundledAttempt` re-runs the load on retry
   useEffect(() => {
     let cancelled = false;
-    void (async () => {
-      const [collection, data] = await Promise.all([
-        ensureBundledCollection(collectionId),
-        ensureBundledCollectionData(collectionId),
-      ]);
-      if (cancelled) return;
-      setBundled(collection);
-      setBundledData(data);
-    })();
+    setBundledFailed(false);
+    Promise.all([
+      ensureBundledCollection(collectionId),
+      ensureBundledCollectionData(collectionId),
+    ]).then(
+      ([collection, data]) => {
+        if (cancelled) return;
+        setBundled(collection);
+        setBundledData(data);
+      },
+      () => {
+        if (!cancelled) setBundledFailed(true);
+      },
+    );
     return () => {
       cancelled = true;
     };
-  }, [collectionId]);
+  }, [collectionId, bundledAttempt]);
   const remoteQuery = useRemoteCollection(remote ? collectionId : null);
 
   const collection = bundled?.collection ?? getRemoteCollection(collectionId);
@@ -137,8 +161,23 @@ export default function HadithCollectionScreen() {
   const hasSharh = useMemo(() => allItems.some((item) => Boolean(item.sharhArabic)), [allItems]);
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const { translationLocale, fontPrefs } = usePreferences();
-  const prefs = useHadithPrefs();
-  const { updatePrefs } = useHadithActions();
+  const hadithPrefs = useHadithPrefs();
+  const { showTranslation, setShowTranslation } = useReadingDisplayToggles();
+  const prefs = useMemo<HadithDisplayPrefs>(
+    () => ({ ...hadithPrefs, showTranslation }),
+    [hadithPrefs, showTranslation],
+  );
+  // Toolbar + filter card are shortcuts to Settings › Hadith (and Text & fonts
+  // for translation): every write goes through the registered setting.
+  const updatePrefs = useCallback(
+    async (patch: Partial<HadithDisplayPrefs>) => {
+      for (const [key, value] of Object.entries(patch) as [keyof HadithDisplayPrefs, boolean][]) {
+        if (key === "showTranslation") await setShowTranslation(value);
+        else await setSetting(`content.hadith.${key}`, value);
+      }
+    },
+    [setShowTranslation],
+  );
   const readingSizes = resolveReadingFontSizes("hadith", fontPrefs);
   const listRef = useRef<FlatList<HadithItem>>(null);
   const screenScrollRef = useRef<ScrollViewInstance>(null);
@@ -191,10 +230,10 @@ export default function HadithCollectionScreen() {
             tintColor={colors.accent}
           />
           <ThemedText
+            weight="semibold"
             type="caption"
             style={{
-              color: colors.accentText,
-              fontWeight: "600",
+              color: tokens.accentOnSoft,
             }}
           >
             {t("hadith.backToTop")}
@@ -216,7 +255,7 @@ export default function HadithCollectionScreen() {
             {
               backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
               borderColor: fullscreen.active ? colors.accent : "transparent",
-              borderWidth: 1,
+              borderWidth: BorderWidth.thin,
             },
           ]}
         >
@@ -238,10 +277,10 @@ export default function HadithCollectionScreen() {
             tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
           />
           <ThemedText
+            weight="semibold"
             type="caption"
             style={{
-              color: fullscreen.active ? colors.accentText : colors.mutedForeground,
-              fontWeight: "600",
+              color: fullscreen.active ? tokens.accentOnSoft : colors.mutedForeground,
             }}
           >
             {fullscreen.active ? t("hadith.exitFullscreen") : t("hadith.enterFullscreen")}
@@ -270,7 +309,13 @@ export default function HadithCollectionScreen() {
   // Seed the in-collection search from a `q` param (e.g. arriving from universal
   // search) so the matched hadith is already filtered into view.
   const [query, setQuery] = useState(params.q ?? "");
-  const [sectionId, setSectionId] = useState<string | null>(null);
+  // The open book lives in the URL (`?book=`) so web Back / deep links work; the
+  // route file stays the same (P5-34, C-18).
+  const sectionId = typeof params.book === "string" && params.book ? params.book : null;
+  const setSectionId = useCallback(
+    (id: string | null) => router.setParams({ book: id ?? undefined }),
+    [router],
+  );
   const searching = query.trim().length > 0;
   // Cap mapped TV cards to avoid OOM on ~1GB TV AVDs when a collection has thousands.
   const TV_MAPPED_PAGE_SIZE = 40;
@@ -360,11 +405,14 @@ export default function HadithCollectionScreen() {
   const activeSectionIndex = activeSection ? sections.indexOf(activeSection) : -1;
 
   /** Jump to another book in place (wide-screen aside + arrow keys on web). */
-  const openSection = useCallback((id: string) => {
-    setSectionId(id);
-    setQuery("");
-    listRef.current?.scrollToOffset({ offset: 0, animated: false });
-  }, []);
+  const openSection = useCallback(
+    (id: string) => {
+      setSectionId(id);
+      setQuery("");
+      listRef.current?.scrollToOffset({ offset: 0, animated: false });
+    },
+    [setSectionId],
+  );
 
   const stepSection = useCallback(
     (delta: number) => {
@@ -400,20 +448,49 @@ export default function HadithCollectionScreen() {
         return true;
       });
       return () => sub.remove();
-    }, [tv, hasActiveSection]),
+    }, [tv, hasActiveSection, setSectionId]),
   );
 
   const collectionName = collection?.nameEnglish ?? "";
+  const localCollectionName = collection ? collectionLabel(collection) : "";
 
-  const toggleBookmark = useCallback(async (item: HadithItem) => {
-    const added = await HadithRepository.toggleBookmark(item);
+  const markSaved = useCallback((id: string, saved: boolean) => {
     setBookmarked((prev) => {
+      if (prev.has(id) === saved) return prev;
       const next = new Set(prev);
-      if (added) next.add(item.id);
-      else next.delete(item.id);
+      if (saved) next.add(id);
+      else next.delete(id);
       return next;
     });
   }, []);
+
+  // Saving is instant; un-saving offers Undo, which restores the exact record
+  // (same id + saved date) instead of re-saving it as new (B-13 pattern).
+  const undoToast = useUndoToast();
+  const runUndo = undoToast.run;
+  const toggleBookmark = useCallback(
+    async (item: HadithItem) => {
+      if (!(await HadithRepository.isBookmarked(item.id))) {
+        await HadithRepository.toggleBookmark(item);
+        markSaved(item.id, true);
+        return;
+      }
+      let removed: HadithBookmark | null = null;
+      await runUndo({
+        do: async () => {
+          removed = await HadithRepository.removeBookmark(item.id);
+          markSaved(item.id, false);
+        },
+        undo: async () => {
+          if (removed && (await HadithRepository.restoreBookmark(removed))) {
+            markSaved(item.id, true);
+          }
+        },
+        messageKey: "hadith.removedFromSaved",
+      });
+    },
+    [markSaved, runUndo],
+  );
 
   const keyExtractor = useCallback((item: HadithItem) => item.id, []);
 
@@ -454,7 +531,7 @@ export default function HadithCollectionScreen() {
 
   const readerFilters = useMemo(
     () => (
-      <Card padding="three" style={[styles.filtersCard, tv && styles.filtersCardTv]}>
+      <Card style={[styles.filtersCard, tv && styles.filtersCardTv]}>
         <View
           style={[
             styles.controlRow,
@@ -512,10 +589,28 @@ export default function HadithCollectionScreen() {
             onToggle={() => void updatePrefs({ showSharh: !prefs.showSharh })}
           />
         ) : null}
+        <MoreInSettingsLink settingId="content.hadith.showArabic" />
       </Card>
     ),
     [hasGrade, hasIsnad, hasNarrator, hasSharh, prefs, t, tv, updatePrefs],
   );
+
+  if (!collection && isBundledId) {
+    return (
+      <ScreenLayout title={t("hadith.title")} onBack={() => goBackOrReplace(router, "/")}>
+        {bundledFailed ? (
+          <ContentState status="error" onRetry={() => setBundledAttempt((n) => n + 1)} />
+        ) : (
+          <ContentState
+            status="loading"
+            skeleton="rows"
+            skeletonCount={6}
+            loadingLabel={t("hadith.loading")}
+          />
+        )}
+      </ScreenLayout>
+    );
+  }
 
   if (!collection) {
     return (
@@ -535,15 +630,24 @@ export default function HadithCollectionScreen() {
     );
   }
 
-  const isLoading = remote && remoteQuery.isPending;
+  const isLoading = remote ? remoteQuery.isPending : !bundledData && !bundledFailed;
   const failedOffline = remote && remoteQuery.isError && !remoteQuery.data;
+  const failedBundled = !remote && bundledFailed && !bundledData;
+  const failed = failedOffline || failedBundled;
 
   const goBackToBooks = () => {
     setSectionId(null);
     setQuery("");
   };
 
-  const useFlatList = !isLoading && !failedOffline && !showSectionList;
+  // D-UX11 list–detail (wide tablet / desktop, not TV): the start pane lists the
+  // books — the selection is the `?book=` param, so deep links and Back behave
+  // as on a phone — and the detail pane reads the chosen book (or search hits).
+  const listDetail = showSideFilters && !isLoading && !failed;
+  // Wide, no book chosen and no search: books pane + a "choose a book" prompt.
+  // The URL is left alone (no book is written until the reader picks one).
+  const awaitingBook = listDetail && showSectionList;
+  const useFlatList = !isLoading && !failed && (!showSectionList || listDetail);
   // TV: ScreenLayout ScrollView + mapped cards — nested FlatList flex hosts still
   // collapse to zero height on Leanback (same failure mode as dua/zikr categories).
   const tvMappedList = tv && useFlatList;
@@ -555,44 +659,65 @@ export default function HadithCollectionScreen() {
     { name: collectionName, path: `/hadith/${collectionId}` },
   ];
 
+  const searchCard = (countLabel: string) => (
+    <Card padding="four">
+      <View style={styles.searchCard}>
+        <SearchField
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t("hadith.searchPlaceholder")}
+        />
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}
+        >
+          {countLabel}
+        </ThemedText>
+      </View>
+    </Card>
+  );
+
   const readingListHeader = (
     <View
       style={[styles.readingColumn, styles.listHeader, tvMappedList && styles.listHeaderTv]}
       onLayout={onHeaderCardLayout}
     >
-      <Card padding="four">
-        <View style={styles.searchCard}>
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("hadith.searchPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("hadith.searchPlaceholder")}
-            style={[
-              styles.input,
-              tv && styles.inputTv,
-              tokens.inputSurface,
-              { color: colors.foreground },
-            ]}
-          />
-          <ThemedText
-            type="caption"
-            themeColor="mutedForeground"
-            style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}
-          >
-            {t("hadith.hadithCount", { count: listItems.length })}
-          </ThemedText>
-        </View>
-      </Card>
+      <TvUndoButton controller={undoToast} preferredFocus />
+      {searchCard(
+        awaitingBook
+          ? t("hadith.bookCount", { count: sections.length })
+          : t("hadith.hadithCount", { count: listItems.length }),
+      )}
       {!showSideFilters ? readerFilters : null}
     </View>
+  );
+
+  const listEmpty = awaitingBook ? (
+    <EmptyState
+      icon={{ ios: "books.vertical", android: "library_books", web: "library_books" }}
+      title={t("hadith.chooseBookTitle")}
+      description={t("hadith.chooseBookDesc")}
+    />
+  ) : (
+    <EmptyState
+      icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
+      title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
+      description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
+    />
   );
 
   return (
     <ScreenLayout
       eyebrow={t("hadith.title")}
-      title={activeSection ? activeSection.name : collection.nameEnglish}
-      subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
+      title={activeSection ? activeSection.name : localCollectionName}
+      subtitle={
+        activeSection
+          ? localCollectionName
+          : localCollectionName === collection.nameArabic
+            ? collection.nameEnglish
+            : collection.nameArabic
+      }
       onBack={activeSection ? goBackToBooks : () => goBackOrReplace(router, "/")}
       scrollable={tvMappedList ? true : useFlatList ? false : undefined}
       scrollRef={tvMappedList ? screenScrollRef : undefined}
@@ -652,42 +777,23 @@ export default function HadithCollectionScreen() {
         ]}
       />
       {isLoading ? (
-        <EmptyState
-          icon={{ ios: "arrow.down.circle", android: "download", web: "download" }}
-          title={t("hadith.loading")}
+        <ContentState
+          status="loading"
+          skeleton="rows"
+          skeletonCount={6}
+          loadingLabel={t("hadith.loadingCollection", { name: collectionName })}
         />
       ) : failedOffline ? (
-        <EmptyState
-          icon={{ ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }}
-          title={t("hadith.offlineTitle")}
-          description={t("hadith.offlineDesc")}
+        <ContentState
+          status="offline"
+          errorMessage={t("hadith.offlineDesc")}
+          onRetry={() => void remoteQuery.refetch()}
         />
-      ) : showSectionList ? (
+      ) : failedBundled ? (
+        <ContentState status="error" onRetry={() => setBundledAttempt((n) => n + 1)} />
+      ) : showSectionList && !listDetail ? (
         <View style={styles.contentStack}>
-          <Card padding="four">
-            <View style={styles.searchCard}>
-              <TextInput
-                value={query}
-                onChangeText={setQuery}
-                placeholder={t("hadith.searchPlaceholder")}
-                placeholderTextColor={colors.mutedForeground}
-                accessibilityLabel={t("hadith.searchPlaceholder")}
-                style={[
-                  styles.input,
-                  tv && styles.inputTv,
-                  tokens.inputSurface,
-                  { color: colors.foreground },
-                ]}
-              />
-              <ThemedText
-                type="caption"
-                themeColor="mutedForeground"
-                style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}
-              >
-                {t("hadith.bookCount", { count: sections.length })}
-              </ThemedText>
-            </View>
-          </Card>
+          {searchCard(t("hadith.bookCount", { count: sections.length }))}
           <Card padding="four">
             {/* TV: two-column book grid uses the landscape width; the first book
                 takes initial focus instead of the search field. */}
@@ -721,11 +827,7 @@ export default function HadithCollectionScreen() {
         <View style={[styles.contentStack, { paddingBottom: contentBottomInset }]}>
           {readingListHeader}
           {listItems.length === 0 ? (
-            <EmptyState
-              icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
-              title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
-              description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
-            />
+            listEmpty
           ) : (
             <>
               {tvListItems.map((item, index) => (
@@ -752,11 +854,38 @@ export default function HadithCollectionScreen() {
         /* No Stagger wrapper: its item view has no flex, which would break the
            FlatList's height chain (matches the dua category screen). */
         <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
+          {showSideFilters ? (
+            <View style={[styles.listPane, { borderEndColor: tokens.hairline }]}>
+              {readerChrome}
+              <TvScrollView
+                style={styles.listPaneScroll}
+                contentContainerStyle={[
+                  styles.listPaneContent,
+                  { paddingBottom: contentBottomInset },
+                ]}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                {sections.length > 0 ? (
+                  <BookNavCard
+                    sections={sections}
+                    activeId={activeSection?.id ?? null}
+                    onSelect={openSection}
+                    onStep={stepSection}
+                    title={t("hadith.bookCount", { count: sections.length })}
+                    previousLabel={t("common.previous")}
+                    nextLabel={t("common.next")}
+                  />
+                ) : null}
+                {readerFilters}
+              </TvScrollView>
+            </View>
+          ) : null}
           <TvFlatList
             ref={listRef}
             style={[styles.flatList, showSideFilters ? styles.listDetailPrimary : null]}
             contentContainerStyle={[styles.flatListContent, { paddingBottom: contentBottomInset }]}
-            data={listItems}
+            data={awaitingBook ? EMPTY_HADITH_ITEMS : listItems}
             keyExtractor={keyExtractor}
             renderItem={renderHadithItem}
             extraData={prefs}
@@ -770,47 +899,8 @@ export default function HadithCollectionScreen() {
             onScroll={onListScroll}
             scrollEventThrottle={16}
             ListHeaderComponent={readingListHeader}
-            ListEmptyComponent={
-              <EmptyState
-                icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
-                title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
-                description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
-              />
-            }
+            ListEmptyComponent={listEmpty}
           />
-          {showSideFilters ? (
-            <View
-              style={[
-                styles.listDetailSecondary,
-                tv && styles.listDetailSecondaryTv,
-                { borderStartColor: tokens.hairline },
-              ]}
-            >
-              {readerChrome}
-              <TvScrollView
-                style={styles.listDetailSecondaryScroll}
-                contentContainerStyle={[
-                  styles.listDetailSecondaryContent,
-                  { paddingBottom: contentBottomInset },
-                ]}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-              >
-                {readerFilters}
-                {sections.length > 0 ? (
-                  <BookNavCard
-                    sections={sections}
-                    activeId={activeSection?.id ?? null}
-                    onSelect={openSection}
-                    onStep={stepSection}
-                    title={t("hadith.bookCount", { count: sections.length })}
-                    previousLabel={t("common.previous")}
-                    nextLabel={t("common.next")}
-                  />
-                ) : null}
-              </TvScrollView>
-            </View>
-          ) : null}
         </View>
       )}
     </ScreenLayout>
@@ -850,7 +940,7 @@ function BookNavCard({
   const prevIcon = useChevronBackward();
   const nextIcon = useChevronForward();
   return (
-    <Card padding="three" style={styles.bookNavCard}>
+    <Card style={styles.bookNavCard}>
       <View style={styles.bookNavHead}>
         <SymbolView
           name={{ ios: "books.vertical", android: "library_books", web: "library_books" }}
@@ -872,11 +962,11 @@ function BookNavCard({
             onPress={() => onStep(-1)}
             style={[
               styles.readerChromeBtn,
-              { backgroundColor: colors.muted, opacity: atFirst ? 0.5 : 1 },
+              { backgroundColor: colors.muted, opacity: atFirst ? Opacity.disabled : 1 },
             ]}
           >
             <SymbolView name={prevIcon} size={14} tintColor={colors.mutedForeground} />
-            <ThemedText type="caption" style={{ color: colors.mutedForeground, fontWeight: "600" }}>
+            <ThemedText weight="semibold" type="caption" style={{ color: colors.mutedForeground }}>
               {previousLabel}
             </ThemedText>
           </PressableScale>
@@ -889,10 +979,10 @@ function BookNavCard({
             onPress={() => onStep(1)}
             style={[
               styles.readerChromeBtn,
-              { backgroundColor: colors.muted, opacity: atLast ? 0.5 : 1 },
+              { backgroundColor: colors.muted, opacity: atLast ? Opacity.disabled : 1 },
             ]}
           >
-            <ThemedText type="caption" style={{ color: colors.mutedForeground, fontWeight: "600" }}>
+            <ThemedText weight="semibold" type="caption" style={{ color: colors.mutedForeground }}>
               {nextLabel}
             </ThemedText>
             <SymbolView name={nextIcon} size={14} tintColor={colors.mutedForeground} />
@@ -917,18 +1007,16 @@ function BookNavCard({
                 type="caption"
                 style={[
                   styles.bookNavIndex,
-                  { color: active ? colors.accentText : colors.mutedForeground },
+                  { color: active ? tokens.accentOnSoft : colors.mutedForeground },
                 ]}
               >
                 {index + 1}
               </ThemedText>
               <ThemedText
                 type="small"
+                weight={active ? "semibold" : undefined}
                 numberOfLines={2}
-                style={[
-                  styles.bookNavLabel,
-                  active && { color: colors.accentText, fontWeight: "600" },
-                ]}
+                style={[styles.bookNavLabel, active && { color: tokens.accentOnSoft }]}
               >
                 {section.name}
               </ThemedText>
@@ -984,7 +1072,7 @@ function HadithCard({
   onShare: (item: HadithItem) => void;
   isSharing: (shareKey: string) => boolean;
   isGesturePending: (shareKey: string) => boolean;
-  prefs: HadithPrefs;
+  prefs: HadithDisplayPrefs;
   arabicSize: number;
   translationSize: number;
 }) {
@@ -992,6 +1080,8 @@ function HadithCard({
   const { t, i18n } = useTranslation();
   const tv = isTV();
   const audio = useAudioPlayerContext();
+  // Optional: outside the report provider (tests) the card just omits "Report".
+  const contentReport = useContext(ContentReportContext);
   const locale = i18n.language?.split("-")[0] ?? "en";
   const displayTranslation = useHadithTranslation(item);
 
@@ -1025,10 +1115,31 @@ function HadithCard({
     systemIcon: isBookmarked ? "bookmark.slash" : "bookmark",
   });
 
+  const reportRef = () =>
+    buildContentReportRef("hadith", item.id, `/hadith/${item.collection}`, locale, {
+      parentId: item.collection,
+      snapshot: {
+        title: item.reference,
+        arabic: item.arabic,
+        translation: displayTranslation,
+        reference: item.reference,
+      },
+    });
+  if (contentReport) {
+    menuActions.push({
+      id: "report",
+      title: t("contentReport.reportIssue"),
+      shortTitle: t("contentReport.short"),
+      systemIcon: "flag",
+      icon: REPORT_FLAG_ICON,
+    });
+  }
+
   const onMenuAction = (id: string) => {
     if (id === "play") onPlay();
     else if (id === "share") onShare();
     else if (id === "bookmark") onBookmarkPress();
+    else if (id === "report") contentReport?.openReport(reportRef());
   };
 
   const showArabic = prefs.showArabic && Boolean(item.arabic);
@@ -1044,7 +1155,7 @@ function HadithCard({
       <Card padding="four">
         <View style={styles.cardHeader}>
           <View style={styles.cardRef}>
-            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+            <ThemedText type="smallBold" style={{ color: colors.accentText }}>
               {item.reference}
             </ThemedText>
             {showGrade && item.grade ? (
@@ -1055,70 +1166,50 @@ function HadithCard({
               />
             ) : null}
           </View>
+          {/* Play · Save · Share · More (report) — the shared row (P5-37, D-UX9). */}
           <View style={styles.cardActions}>
-            {item.audioUri ? (
-              <LabeledIconButton
-                name={PLAY_CIRCLE_ICON}
-                label={t("common.play")}
-                iconSize={20}
-                tintColor={colors.accent}
-                accessibilityLabel={t("common.play")}
-                onPress={onPlay}
-              />
-            ) : null}
-            {/* No share sheet on TV (phone-only capability). */}
-            {tv ? null : (
-              <LabeledIconButton
-                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                label={isGesturePending(item.id) ? t("share.tapToShare") : t("common.share")}
-                iconSize={18}
-                tintColor={colors.mutedForeground}
-                accessibilityLabel={t("hadith.share")}
-                loading={isSharing(item.id)}
-                loadingLabel={t("share.preparing")}
-                onPress={onShare}
-              />
-            )}
-            <LabeledIconButton
-              name={
-                isBookmarked
-                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
+            <ContentActions
+              labelled
+              play={item.audioUri ? { trackId: item.id, onPlay } : undefined}
+              save={{ saved: isBookmarked, onToggle: onBookmarkPress }}
+              share={
+                tv
+                  ? undefined
+                  : {
+                      onShare,
+                      loading: isSharing(item.id),
+                      loadingLabel: t("share.preparing"),
+                      accessibilityLabel: t("hadith.share"),
+                      label: isGesturePending(item.id) ? t("share.tapToShare") : undefined,
+                    }
               }
-              label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
-              iconSize={18}
-              tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-              labelColor={isBookmarked ? tokens.status.warning.color : undefined}
-              accessibilityLabel={
-                isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")
+              more={
+                contentReport
+                  ? {
+                      actions: [
+                        {
+                          id: "report",
+                          title: t("contentReport.reportIssue"),
+                          shortTitle: t("contentReport.short"),
+                          systemIcon: "flag",
+                          icon: REPORT_FLAG_ICON,
+                        },
+                      ],
+                      onAction: onMenuAction,
+                    }
+                  : undefined
               }
-              accessibilityState={{ selected: isBookmarked }}
-              haptic="selection"
-              onPress={onBookmarkPress}
-            />
-            <ContentReportButton
-              contentRef={buildContentReportRef(
-                "hadith",
-                item.id,
-                `/hadith/${item.collection}`,
-                locale,
-                {
-                  parentId: item.collection,
-                  snapshot: {
-                    title: item.reference,
-                    arabic: item.arabic,
-                    translation: displayTranslation,
-                    reference: item.reference,
-                  },
-                },
-              )}
             />
           </View>
         </View>
 
         {showArabic ? (
           <>
-            <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
+            <ThemedText
+              type="arabic"
+              accessibilityLanguage="ar"
+              style={[styles.arabic, arabicReadingLayout(arabicSize)]}
+            >
               {item.arabic}
             </ThemedText>
             {showNarrator || showIsnad || showTranslation || showSharh ? (
@@ -1168,102 +1259,6 @@ const CONTROL_ICONS = {
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
 } as const satisfies Record<string, SymbolViewProps["name"]>;
 
-function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
-  const { colors } = useThemeTokens();
-  const tv = isTV();
-  return (
-    <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
-
-function PrefToggle({
-  icon,
-  label,
-  enabled,
-  onToggle,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  onToggle: () => void;
-}) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-
-  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
-  // clear on/off chrome are easier to focus and activate with Select.
-  if (tv) {
-    return (
-      <PressableScale
-        haptic="selection"
-        accessibilityRole="switch"
-        accessibilityLabel={label}
-        accessibilityState={{ checked: enabled }}
-        onPress={onToggle}
-        scaleTo={0.98}
-        style={[
-          styles.prefToggleTv,
-          {
-            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-            borderColor: enabled ? colors.accent : tokens.hairline,
-          },
-        ]}
-      >
-        <SymbolView
-          name={icon}
-          size={22}
-          tintColor={enabled ? colors.accent : colors.mutedForeground}
-        />
-        <ThemedText
-          type="smallBold"
-          numberOfLines={2}
-          style={{
-            flex: 1,
-            minWidth: 0,
-            fontSize: TvLayout.bodyFontSize,
-            color: enabled ? colors.accentText : colors.foreground,
-          }}
-        >
-          {label}
-        </ThemedText>
-        <View
-          style={[
-            styles.prefToggleStateTv,
-            {
-              backgroundColor: enabled ? colors.accent : withAlpha(colors.mutedForeground, 0.2),
-            },
-          ]}
-        >
-          <ThemedText
-            type="caption"
-            style={{
-              color: enabled ? colors.accentForeground : colors.mutedForeground,
-              fontWeight: "700",
-            }}
-          >
-            {enabled ? t("common.on") : t("common.off")}
-          </ThemedText>
-        </View>
-      </PressableScale>
-    );
-  }
-
-  return (
-    <View style={[styles.controlRow, styles.toggleRow]}>
-      <ControlLabel icon={icon} label={label} />
-      <View style={styles.controlValue}>
-        <ThemedSwitch value={enabled} onValueChange={onToggle} accessibilityLabel={label} />
-      </View>
-    </View>
-  );
-}
-
 /** Comfortable line length for long-form hadith reading on wide screens. */
 const HadithReadingMaxWidth = 720;
 
@@ -1274,7 +1269,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: Spacing.four,
     marginTop: Spacing.two,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
@@ -1291,39 +1286,36 @@ const styles = StyleSheet.create({
     minWidth: 0,
     minHeight: 0,
   },
-  listDetailSecondary: {
+  /** List–detail start pane: books (the list) + reader filters. */
+  listPane: {
     flex: 1,
     minWidth: 280,
     maxWidth: 400,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderEndWidth: BorderWidth.hairline,
     gap: Spacing.three,
     minHeight: 0,
   },
-  listDetailSecondaryTv: {
-    minWidth: TvLayout.detailPaneMinWidth,
-    maxWidth: TvLayout.detailPaneMaxWidth,
-  },
-  listDetailSecondaryScroll: {
+  listPaneScroll: {
     flex: 1,
   },
-  listDetailSecondaryContent: {
-    paddingStart: Spacing.four,
+  listPaneContent: {
+    paddingEnd: Spacing.four,
     flexGrow: 1,
     gap: Spacing.three,
   },
   readerChromeRow: {
     flexDirection: "row",
     gap: Spacing.two,
-    paddingStart: Spacing.four,
+    paddingEnd: Spacing.four,
   },
   readerChromeBtn: {
     flex: 1,
-    minHeight: 36,
+    minHeight: 44,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
@@ -1336,30 +1328,18 @@ const styles = StyleSheet.create({
   filtersCardTv: { gap: Spacing.three },
   hadithSeparator: { height: Spacing.three },
   searchCard: { gap: Spacing.three },
-  input: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 15,
-  },
-  inputTv: {
-    minHeight: TvLayout.minFocusTarget,
-    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
-  },
   list: { gap: Spacing.two },
   bookNavCard: { gap: Spacing.two },
   bookNavHead: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   bookNavTitle: { flex: 1 },
   bookNavStepRow: { flexDirection: "row", gap: Spacing.two },
-  bookNavList: { gap: 2 },
+  bookNavList: { gap: Spacing.half },
   bookNavRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.one + 2,
+    minHeight: 44,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
@@ -1391,41 +1371,12 @@ const styles = StyleSheet.create({
   translationRow: {
     alignItems: "center",
   },
-  toggleRow: {
-    paddingVertical: Spacing.half,
-  },
-  controlLabel: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexShrink: 1,
-    minWidth: 0,
-  },
   controlValue: {
     flexShrink: 0,
   },
   controlValueTv: {
     width: "100%",
     flexShrink: 1,
-  },
-  prefToggleTv: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    minHeight: TvLayout.minFocusTarget,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
-  prefToggleStateTv: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    minWidth: 44,
-    alignItems: "center",
   },
   cardHeader: {
     flexDirection: "row",

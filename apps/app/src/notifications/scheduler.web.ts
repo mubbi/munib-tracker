@@ -1,48 +1,42 @@
-import type { ObligatoryPrayer, UserPreferences } from "@munib-tracker/shared/types";
-
+import type { UserPreferences } from "@munib-tracker/shared/types";
+import i18n from "@/i18n";
 import { handleExternalCommand } from "@/lib/external-commands";
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import {
   type BuiltReminder,
   buildReminders,
-  hasOutstandingQazaDebt,
+  type ScheduledReminderRow,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
 import {
   readNotificationPermissionUiState,
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
+import {
+  isObligatoryPrayerId,
+  MARK_ACTION_IDENTIFIER,
+  markCommandFromReminderData,
+  PRAYER_NOW_CATEGORY,
+  type ReminderActionData,
+  SNOOZE_ACTION_IDENTIFIER,
+  SNOOZE_ID_PREFIX,
+  SNOOZE_MINUTES,
+} from "@/lib/notifications/reminder-actions";
+import { collectReminderOptions } from "@/lib/notifications/reminder-options";
 import { getWebNotificationBlockingReason } from "@/lib/notifications/web-environment";
 import {
   armWebReminderTimer,
   cancelWebReminderTimers,
   scheduleWebReminderTimers,
 } from "@/lib/notifications/web-reminder-scheduler";
-import { quranRevisionReminderOptions } from "@/lib/quran-companion/reminder-options";
 import { captureAppException } from "@/lib/sentry";
-import { trackerStore } from "@/stores/tracker-store";
+
+export { MARK_ACTION_IDENTIFIER, PRAYER_NOW_CATEGORY, SNOOZE_ACTION_IDENTIFIER };
 
 /**
  * Web build of the notification scheduler. Uses in-app timers + optional browser
  * notifications instead of expo-notifications (which is native-only).
  */
-
-export const PRAYER_NOW_CATEGORY = "prayer_now";
-export const MARK_ACTION_IDENTIFIER = "markcurrent";
-export const SNOOZE_ACTION_IDENTIFIER = "snooze";
-const SNOOZE_MINUTES = 10;
-
-/**
- * Async: also reads the Qur'an practice revision-reminder inputs straight from
- * their repositories (the practice stores are lazy and usually not loaded at launch).
- */
-async function buildReminderOptions() {
-  const { qazaCounters, roza } = trackerStore.getState();
-  return {
-    hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza),
-    ...(await quranRevisionReminderOptions()),
-  };
-}
 
 export async function configureNotifications(): Promise<void> {
   return;
@@ -71,26 +65,20 @@ export async function rescheduleAll(
   }
 
   try {
-    const reminders = buildReminders(prefs, location, new Date(), await buildReminderOptions());
+    const reminders = buildReminders(prefs, location, new Date(), await collectReminderOptions());
     scheduleWebReminderTimers(reminders);
   } catch (error) {
-    // Home fires `void rescheduleAll()` after location changes; a throw here
-    // becomes an unhandledrejection (Sentry `M_ID` / crescent math).
+    // Callers fire-and-forget (provider effects, `requestReminderReschedule`); a
+    // throw here would become an unhandledrejection (Sentry `M_ID` / crescent math).
     captureAppException(error, { tags: { area: "notifications", phase: "reschedule" } });
   }
 }
 
-type ReminderActionData = {
-  prayerId?: string;
-  prayerDate?: string;
+type WebReminderData = ReminderActionData & {
   channelId?: string;
   reminderId?: string;
   route?: string;
-  title?: string;
-  body?: string;
 };
-
-const OBLIGATORY_IDS = new Set(["fajr", "dhuhr", "asr", "maghrib", "isha"]);
 
 /**
  * Re-arms a prayer-time reminder `SNOOZE_MINUTES` from now via the web timer
@@ -99,7 +87,7 @@ const OBLIGATORY_IDS = new Set(["fajr", "dhuhr", "asr", "maghrib", "isha"]);
 export async function snoozeNotification(response: {
   notification?: {
     request?: {
-      content?: { title?: string | null; body?: string | null; data?: ReminderActionData };
+      content?: { title?: string | null; body?: string | null; data?: WebReminderData };
     };
   };
 }): Promise<void> {
@@ -107,19 +95,16 @@ export async function snoozeNotification(response: {
   const data = content?.data ?? {};
   const fireAt = new Date(Date.now() + SNOOZE_MINUTES * 60_000);
   const reminder: BuiltReminder = {
-    id: `snooze:${data.reminderId ?? data.prayerId ?? "prayer"}:${fireAt.getTime()}`,
+    id: `${SNOOZE_ID_PREFIX}${data.reminderId ?? data.prayerId ?? "prayer"}:${fireAt.getTime()}`,
     fireAt,
-    title: content?.title ?? "Reminder",
+    title: content?.title ?? i18n.t("notif.defaultTitle"),
     body: content?.body ?? "",
     channelId: (data.channelId as BuiltReminder["channelId"]) ?? "prayer",
     repeat: "date",
     route: data.route ?? "/tracker",
     priority: 10,
-    ...(data.prayerId && OBLIGATORY_IDS.has(data.prayerId)
-      ? {
-          prayerId: data.prayerId as ObligatoryPrayer,
-          prayerDateKey: data.prayerDate,
-        }
+    ...(isObligatoryPrayerId(data.prayerId)
+      ? { prayerId: data.prayerId, prayerDateKey: data.prayerDate }
       : {}),
   };
   armWebReminderTimer(reminder, new Date());
@@ -131,34 +116,19 @@ export async function snoozeNotification(response: {
 export async function markFromNotification(response: {
   notification?: { request?: { content?: { data?: ReminderActionData } } };
 }): Promise<void> {
-  const data = response.notification?.request?.content?.data ?? {};
-  const prayerId = data.prayerId;
-  const prayerDate = data.prayerDate;
-  if (prayerId && prayerDate && OBLIGATORY_IDS.has(prayerId)) {
-    await handleExternalCommand({
-      type: "mark-prayer",
-      prayerId: prayerId as ObligatoryPrayer,
-      date: prayerDate,
-      source: "notification",
-    });
-    return;
-  }
-  await handleExternalCommand({
-    type: "mark-current-obligatory",
-    source: "notification",
-  });
+  await handleExternalCommand(
+    markCommandFromReminderData(response.notification?.request?.content?.data),
+  );
 }
 
 export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation = DEFAULT_LOCATION,
-): Promise<
-  { id: string; title: string; body: string; time?: string; fireAt: string; route?: string }[]
-> {
+): Promise<ScheduledReminderRow[]> {
   if (!prefs.notificationPrefs.masterEnabled) return [];
   try {
     return summarizeReminders(
-      buildReminders(prefs, location, new Date(), await buildReminderOptions()),
+      buildReminders(prefs, location, new Date(), await collectReminderOptions()),
       prefs.timeFormat,
       new Date(),
       location.timeZone,

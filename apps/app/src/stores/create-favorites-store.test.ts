@@ -5,6 +5,7 @@ import { readJSON, writeJSON } from "@/db/store";
 
 import {
   createFavoritesStore,
+  reinsertFavorite,
   useEnsureFavoritesLoaded,
   useFavoritesOrder,
   useIsInFavorites,
@@ -31,6 +32,20 @@ describe("createFavoritesStore", () => {
     // Toggling again removes it.
     await api.store.getState().toggle("a");
     expect(api.store.getState().order).toEqual(["b"]);
+  });
+
+  it("restores an un-saved id at its old position (B-30)", async () => {
+    const api = createFavoritesStore(STORAGE_KEY, UPDATED_AT_KEY);
+    await api.store.getState().load();
+    await api.actions.setOrder(["a", "b", "c"]);
+    await api.actions.toggle("b");
+    await api.actions.restore("b", 1);
+    expect(api.store.getState().order).toEqual(["a", "b", "c"]);
+    expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["a", "b", "c"]);
+    // Already back (e.g. re-saved meanwhile): no duplicate.
+    await api.actions.restore("b", 0);
+    expect(api.store.getState().order).toEqual(["a", "b", "c"]);
+    expect(reinsertFavorite(["a"], "z", 99)).toEqual(["a", "z"]);
   });
 
   it("union-merges remote favorites and keeps the newer watermark", async () => {

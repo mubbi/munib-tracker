@@ -105,3 +105,9 @@ describe("assertLibraryMenuParity", () => {
     expect(() => assertLibraryMenuParity(ids.slice(1))).toThrow("Extra in library: none.");
   });
 });
+
+describe("verse detector quick action (D68)", () => {
+  it("opens Recite mode", () => {
+    expect(QUICK_ACTION_ROUTES.verseDetector).toBe("/verse-detector?mode=recite");
+  });
+});

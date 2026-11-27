@@ -36,6 +36,27 @@ describe.concurrent("content", () => {
     }
   });
 
+  it("restores Qur'an recitations Hisnul Muslim abbreviates (never just the opening words)", () => {
+    const byId = new Map(DUA_ITEMS.map((item) => [item.id, item]));
+    // Letters only — mushaf marks are ordered differently from typed Arabic.
+    const letters = (text = "") => text.replace(/[ٱأإآ]/g, "ا").replace(/[^ء-ي]/g, "");
+    // Ayat al-Kursi after salah, morning & evening, and before sleep: the full
+    // verse (ends "…al-'Aliyy al-'Azim"), not "Allahu la ilaha illa huwa…".
+    for (const id of ["hisn-71", "hisn-75", "hisn-100"]) {
+      const item = byId.get(id);
+      expect(letters(item?.arabic).endsWith("وهوالعليالعظيم")).toBe(true);
+      expect(item?.virtues?.length ?? 0).toBeGreaterThan(0);
+    }
+    // The three Quls (after salah, morning & evening, before sleep) — all three surahs.
+    for (const id of ["hisn-70", "hisn-76", "hisn-99"]) {
+      expect(byId.get(id)?.arabic.split("\n")).toHaveLength(3);
+    }
+    // Last two of Al-Baqarah, Al-'Imran 190-200, As-Sajdah + Al-Mulk, Al-Kahf 1-10.
+    for (const id of ["hisn-101", "hisn-4", "hisn-110", "hisn-199"]) {
+      expect(byId.get(id)?.arabic.length ?? 0).toBeGreaterThan(400);
+    }
+  });
+
   it("ships the full Hisnul Muslim dua corpus across many categories", () => {
     expect(DUA_ITEMS.length).toBeGreaterThan(200);
     const categories = new Set(DUA_ITEMS.map((item) => item.categoryId));

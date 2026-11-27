@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Əbu Hureyra rəvayət edir ki, Allahın Elçisi ﷺ demişdir: «Kim Allah üçün həcc edər, cinsi əlaqəyə girməz və günah işləməzsə, anadan olduğu gündəki kimi qayıdar» (Səhih əl-Buxari 1521; Səhih Müslim 1350).",
       "O, həmçinin demişdir: «Qəbul olunmuş həccin (həcc-i məbrurun) mükafatı Cənnətdən başqa bir şey deyildir» (Səhih əl-Buxari 1773; Səhih Müslim 1349). Qəbul olunma səmimiyyətlə və həccin pozğunluqdan və günahdan uzaq saxlanılması ilə bağlıdır — sadəcə zahiri əməllərin tamamlanması ilə deyil.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah üçün həcc edər, cinsi əlaqəyə girməz və günah işləməzsə, anadan olduğu gündəki kimi qayıdar.",
-      },
-      {
-        excerpt:
-          "Kim Allah üçün həcc edər, cinsi əlaqəyə girməz və günah işləməzsə, anadan olduğu gündəki kimi qayıdar.",
-      },
-      { excerpt: "Qəbul olunmuş həccin mükafatı Cənnətdən başqa bir şey deyildir." },
-      { excerpt: "Qəbul olunmuş həccin mükafatı Cənnətdən başqa bir şey deyildir." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Həcci yalnız Allah üçün niyyət et — bütün səfər boyu dilini və xarakterini qoru.",
       "Tətbiqdəki Həcc siyahısından yalnız yaddaş köməkçisi kimi istifadə et; qəlbini qəbul olunmağa yönəlt.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Əbu Hureyra rəvayət edir ki, Peyğəmbər ﷺ demişdir: «Ümrə etmək onunla əvvəlki arasında işlənən günahlara kəffarədir, qəbul olunmuş həccin mükafatı isə Cənnətdən başqa bir şey deyildir» (Səhih əl-Buxari 1773; Səhih Müslim 1349).",
       "Ümrə ilin istənilən vaxtında əda oluna bilər. O, Həccdən qısadır, lakin hələ də böyük bir ibadətdir: ehram, təvaf, səy, saç kəsmə və ya qırxdırma.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ümrə etmək onunla əvvəlki arasında işlənən günahlara kəffarədir, qəbul olunmuş həccin mükafatı isə Cənnətdən başqa bir şey deyildir.",
-      },
-      {
-        excerpt:
-          "Ümrə etmək onunla əvvəlki arasında işlənən günahlara kəffarədir, qəbul olunmuş həccin mükafatı isə Cənnətdən başqa bir şey deyildir.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Əməlləri ardıcıllıqla yerinə yetirməyə hazır olduqda Ümrə siyahısını aç."],
     appLinks: [{ label: "Ümrə əməlləri siyahısı" }],
   },
@@ -58,14 +38,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Abdürrəhman ibn Yamər rəvayət edir ki, Peyğəmbər ﷺ demişdir: «Həcc Ərəfədir» (Sünən Əbu Davud 1949; Camiüt-Tirmizi 889). Ərəfə sərhədləri daxilində öz vaxtında dayanmağı buraxan kəs, həmin ilin həccini buraxmış olar.",
       "Həccə getməyənlər üçün Ərəfə günü oruc tutmaq çox tövsiyə olunan bir əməldir: Əbu Qatadə rəvayət edir ki, Ərəfə günü oruc keçmiş ilin və gələn ilin günahlarına kəffarə olur (Səhih Müslim 1162). Hacılar özləri oruc tutmurlar ki, günü duaya həsr edə bilsinlər.",
     ],
-    hadith: [
-      { excerpt: "Həcc Ərəfədir." },
-      { excerpt: "Həcc Ərəfədir." },
-      {
-        excerpt:
-          "Ərəfə günü oruc tutmaq, Allahdan ümid edirəm ki, ondan əvvəlki və sonrakı ilin günahlarına kəffarə olur.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Həcc — beşinci rükn",
@@ -75,24 +48,8 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Bütün insanlara çağırış edildi: «İnsanlar arasında həcci elan et; onlar sənə piyada və hər arıq dəvə üzərində gələcəklər; onlar hər uzaq yoldan gələcəklər» (Qurani-Kərim 22:27).",
       "İbn Ömər rəvayət edir ki, Peyğəmbər ﷺ demişdir ki, İslam beş əsas üzərində qurulmuşdur: şəhadət, namaz, zəkat, Ramazan orucu və imkanı olan üçün Evə həcc (Səhih əl-Buxari 8; Səhih Müslim 16). Alimlər razılaşırlar ki, şərtlər yerinə yetirildikdə ömürdə bir dəfə vacibdir; onu təkrarlamaq isə könüllü bir fəzilətdir.",
     ],
-    quran: [
-      {
-        excerpt: "İnsanlardan Evə yol tapa bilənlərin həcc etməsi Allahın haqqıdır...",
-      },
-      {
-        excerpt:
-          "İnsanlar arasında həcci elan et; onlar sənə piyada və hər arıq dəvə üzərində gələcəklər...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İslam beş əsas üzərində qurulmuşdur: Allahdan başqa ilah olmadığına və Muhəmmədin Onun Elçisi olduğuna şəhadət etmək, namaz qılmaq, zəkat vermək, Ramazan orucunu tutmaq və imkanı olan üçün Evə həcc etmək.",
-      },
-      {
-        excerpt: "İslam beş əsas üzərində qurulmuşdur... və yol tapa bilən üçün Evə həcc.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "İmkan (istitaə)",
@@ -102,7 +59,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Qurani-Kərim 3:97-də qeyd olunan şərt imkandır (istitaə). Klassik alimlər onu belə xülasə edirlər: səfər üçün bədən sağlamlığı, səfəri və uzaqdaykən himayəsindəkilərin ehtiyaclarını ödəmək üçün kifayət qədər halal mal-dövlət, təhlükəsiz və açıq yol.",
       "Bu il bu vasitələrə malik olmayan kəs, imkanlı olana qədər gecikdirdiyi üçün günahkar deyildir. İmkan hər kəsin öz vəziyyətinə görə qiymətləndirilir — xəstəlik, ödənilməli borc və ya təhlükəli səfər dərhal vacibliyi qaldıra bilər. Vəziyyətin aydın olmadıqda ixtisaslı bir alimə müraciət et.",
     ],
-    quran: [{ excerpt: "...yol tapa bilən üçün." }],
+    quran: [{}],
     actions: [
       "Rezervasiya etməzdən əvvəl vacib borcları ödə və himayəndəkilərin təminatını təşkil et.",
       "Paketləri yalnız rəsmi kanallar vasitəsilə yoxla (Hazırlıq mövzularına bax).",
@@ -116,16 +73,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "İbn Abbas rəvayət edir ki, Peyğəmbər ﷺ demişdir ki, qadın məhrəmsiz səfər etməməli, kişi də məhrəm olmadan onun yanına girməməlidir (Səhih əl-Buxari 1862; Səhih Müslim 1341). Çoxlu alim bunu Həcc və Ümrə səfərinə tətbiq edir.",
       "Bəzi sonrakı alimlər — təhlükəsizliyi, zərurəti və müasir səfər imkanlarını nəzərə alaraq — məhrəm olmadıqda qadına vacib Həcc üçün etibarlı bir qrupla səfər etməyə icazə verir. Bu, hələ də mübahisəli bir fiqh məsələsidir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qadın məhrəmsiz səfər etməməli, kişi də məhrəm onunla olmadan onun yanına girməməlidir.",
-      },
-      {
-        excerpt:
-          "Allaha və Axirət gününə iman edən qadına məhrəmsiz bir gün-gecə səfər etmək halal deyildir.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Əksəriyyət hesab edir ki, qadın həcc səfəri üçün məhrəmə ehtiyac duyur. Bəzi sonrakı alimlər vacib Həcc üçün etibarlı qadın qrupu ilə səfərə icazə verir. Etibar etdiyin bir alimə və öz Həcc idarənin qaydalarına əməl et.",
     disclaimer: "Bu, ümumi bir baxışdır, sənin vəziyyətin üçün şəxsi fətva deyildir.",
@@ -139,12 +87,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Təməttö': Həcc aylarında tam bir Ümrə əda etmək, ehramdan çıxmaq, sonra 8 Zilhiccədə Həcc üçün yenidən ehrama girmək. Bu, bu gün hacıların əksəriyyətinin etdiyi şeydir; bu da hədy tələb edir.",
       "Allah əməlləri birləşdirənlər haqqında buyurur: «...Kim Ümrədən Həccə qədər faydalanarsa, qurbanlıq heyvandan asanlıqla əldə edilə biləni versin...» bunu edə bilməyənlər isə Həcc zamanı üç gün, qayıtdıqdan sonra isə yeddi gün oruc tutsunlar (Qurani-Kərim 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həcci və Ümrəni Allah üçün tamamlayın... Kim Ümrədən Həccə qədər faydalanarsa, qurbanlıq heyvandan asanlıqla əldə edilə biləni versin. Tapa bilməyən isə — Həcc zamanı üç gün və qayıtdıqda yeddi gün oruc tutsun...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Miqatdan əvvəl növünü qrup rəhbərinlə birlikdə müəyyənləşdir.",
       "Təməttö' edirsənsə, Həcc üçün yenidən ehrama girmədən əvvəl Ümrəni tam başa çatdır.",
@@ -158,16 +101,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "İbn Abbas rəvayət edir ki, Peyğəmbər ﷺ insanlar üçün miqatları müəyyən etdi: Mədinə üçün Zül-Huleyfə, Şam üçün Cuhfə, Nəcd üçün Qərnul-Mənazil və Yəmən üçün Yələmləm; İraq əhli üçün isə Zatü-İrq. Dedi ki, bunlar onlar üçün və Həcc və ya Ümrə niyyəti ilə oraya gələn hər kəs üçündür; bu yerlərin daxilində yaşayan hər kəs isə çıxdığı yerdən ehrama girsin, hətta Məkkə əhli Məkkədən (Səhih əl-Buxari 1524; Səhih Müslim 1181).",
       "Müasir hava limanları və dəniz limanlarında müvafiq ehram nöqtələri və ya elan olunmuş qaydalar mövcuddur — sərhədi ehramsız keçməmək üçün daşıyıcının və Həcc və Ümrə Nazirliyinin göstərişlərinə əməl et.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahın Elçisi ﷺ Mədinə əhli üçün Zül-Huleyfəni, Şam əhli üçün Cuhfəni, Nəcd əhli üçün Qərnul-Mənazili və Yəmən əhli üçün Yələmləmi müəyyən etdi... Bu miqatlar bu yerlərin əhalisi üçün, həmçinin Həcc və ya Ümrə niyyəti ilə oraya gələnlər üçündür...",
-      },
-      {
-        excerpt:
-          "Allahın Elçisi ﷺ miqatları müəyyən etdi... Bu sərhədlər daxilində yaşayan hər kəs çıxdığı yerdən ehrama girsin...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ehrama girmək",
@@ -177,17 +111,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Kişilər ehramdan əvvəl bədənə ətir sürtə bilər, ancaq həmin hala girdikdən sonra ehram geyiminə deyil (Səhih əl-Buxari 1539). Sonra niyyət et və təlbiyəyə başla.",
       "Peyğəmbərin ﷺ öyrətdiyi təlbiyə belədir: «Ləbbəyk Allahummə ləbbəyk, ləbbəykə lə şərikə ləkə ləbbəyk, innəl-həmdə vən-ni'mətə ləkə vəl-mülk, lə şərikə lək» — bu, Ümrə üçün təvafa başlayana qədər, ya da Həcc üçün Cəmrətul-Əqəbəni daşlayana qədər məşhur əmələ görə davam edir (Səhih əl-Buxari 1549; Səhih Müslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aişə dedi: Mən Allahın Elçisini ﷺ ehrama girmədən əvvəl ehramı üçün ətirləyirdim...",
-      },
-      {
-        excerpt:
-          "Ləbbəyk Allahummə ləbbəyk, ləbbəykə lə şərikə ləkə ləbbəyk, innəl-həmdə vən-ni'mətə ləkə vəl-mülk, lə şərikə lək.",
-      },
-      { excerpt: "Peyğəmbər ﷺ təlbiyə ilə səsini ucaldırdı: Ləbbəyk Allahummə ləbbəyk..." },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Kişilər üçün ən azı iki dəst ehram götür; qoxusuz gigiyena vasitələrini hazır saxla.",
       "Yol boyu asanlıqla deyilsin deyə səfərdən əvvəl təlbiyəni məşq et.",
@@ -223,12 +147,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Kişilər Ümrənin bu gəliş təvafında ilk üç dövrədə rəml (sürətli yerimə) və idtiba' (sağ çiyini açıq saxlamaq) edirlər, məşhur Sünnəyə görə.",
       "Yəmən guşəsi ilə Qara Daş arasında demək tövsiyə olunur: «Ey Rəbbimiz, bizə dünyada da yaxşılıq, axirətdə də yaxşılıq ver və bizi Odun əzabından qoru» (Qurani-Kərim 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey Rəbbimiz, bizə dünyada yaxşı olanı, axirətdə də yaxşı olanı ver və bizi Odun əzabından qoru.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "İki rükət və Zəmzəm",
@@ -237,9 +156,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Təvafdan sonra, yer varsa Məqami-İbrahimin arxasında iki rükət namaz qıl, ya da sıxlıq varsa məsciddə başqa bir yerdə — Allahın sözlərinə əsasən: «...Və İbrahimin dayandığı yeri namaz yeri olaraq götürün, (ey möminlər)...» (Qurani-Kərim 2:125).",
       "Sonra Zəmzəm suyu iç. Cabirin Peyğəmbərin ﷺ Həccini təsviri təvafdan sonra Zəmzəm içməyi ehtiva edir; Peyğəmbər ﷺ demişdir ki, Zəmzəm nə üçün içilirsə onun üçündür (sonrakı alimlər tərəfindən toplanmış səhih rəvayətlər; niyyəti və duayı tövsiyə olunan kimi qəbul et).",
     ],
-    quran: [
-      { excerpt: "...Və İbrahimin dayandığı yeri namaz yeri olaraq götürün, (ey möminlər)..." },
-    ],
+    quran: [{}],
   },
   {
     title: "Səfa ilə Mərvə arasında səy",
@@ -248,12 +165,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Allah buyurur: «Həqiqətən, Səfa və Mərvə Allahın nişanələrindəndir. Beləliklə, Evə həcc edən və ya Ümrə əda edən kəs — onların arasında getməkdə heç bir günah yoxdur...» (Qurani-Kərim 2:158).",
       "Səfadan başlayaraq Səfa ilə Mərvə arasında yeddi dəfə get. Səfada Kəbəyə üz tut, Peyğəmbərin ﷺ etdiyi kimi əllərini qaldırıb təkbir və dua et. Kişilər yaşıl işarələr arasında yüngül qaçırlar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Səfa və Mərvə Allahın nişanələrindəndir. Beləliklə, Evə həcc edən və ya Ümrə əda edən kəs — onların arasında getməkdə heç bir günah yoxdur...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Həlq və ya təqsir — Ümrənin tamamlanması",
@@ -263,13 +175,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Kişilər başlarını qırxdırır (həlq) — Peyğəmbərin ﷺ üç dəfə dua etdiyi şey — ya da bərabər qısaldırlar (təqsir). Qadınlar saçlarını yığıb barmaq ucu qədər qısaldırlar. Bununla Ümrə tamamlanır və ehram qadağaları sona çatır.",
       "Abdullah ibn Ömər rəvayət edir ki, Allahın Elçisi ﷺ demişdir: «Allahım, başlarını qırxdıranlara rəhm et.» Dedilər: «Bəs qısaldanlara, ey Allahın Elçisi?» Dedi: «Allahım, başlarını qırxdıranlara rəhm et.» Dedilər: «Bəs qısaldanlara?» Üçüncü dəfə dedi: «Və qısaldanlara» (Səhih əl-Buxari 1727; Səhih Müslim 1301).",
     ],
-    hadith: [
-      { excerpt: "Allahım, başlarını qırxdıranlara rəhm et... Və (üçüncü dəfə) qısaldanlara." },
-      {
-        excerpt:
-          "Allahım, başlarını qırxdıranları bağışla... sonra üçüncü dəfə dedi: və saçlarını qısaldanları da.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Zilhiccə — Tərviyə günü",
@@ -278,12 +184,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Təməttö' hacıları üçün: Həcc üçün niyyət edin və Məkkədəki mənzilinizdən yenidən ehrama girin, təlbiyəni yeniləyin. İfrad və Qiran hacıları artıq ehramdadır.",
       "Minaya gedin və Zöhr, Əsr, Məğrib, İşa və növbəti Sübh namazlarını qılın, hər biri öz vaxtında iki rükətə qısaldılmış şəkildə, Cabirin rəvayət etdiyi kimi Peyğəmbərin ﷺ Vida Həccindəki əməlinə uyğun (Səhih Müslim 1218). Ərəfəyi gözləyərək gün və gecəni ibadətlə keçirin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Cabirin Peyğəmbərin ﷺ Vida Həcci haqqında uzun rəvayəti — Minada qalma və əməllərin ardıcıllığını əhatə edir.",
-      },
-    ],
+    hadith: [{}],
     actions: ["8-in səhəri Həcc siyahısını aç."],
     appLinks: [{ label: "Həcc siyahısı" }],
   },
@@ -295,13 +196,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Zöhr və Əsri Zöhr vaxtında birlikdə və qısaldılmış şəkildə qıl (cəm-i təqdim), sonra günün qalan hissəsini nafilə namaz əvəzinə duaya həsr et — Peyğəmbərin ﷺ əməlinə uyğun (Səhih Müslim 1218).",
       "Gün batdıqdan sonra sakitcə Müzdəlifəyə səfər et. Məğrib və İşanı birləşdir (İşa qısaldılmış), gecə istirahət et və daşlama üçün kiçik daşlar topla. Zəiflər və qadınlar Sünnədəki məşhur icazələrə görə gecə yarısından sonra Minaya gedə bilərlər.",
     ],
-    hadith: [
-      { excerpt: "Həcc Ərəfədir." },
-      {
-        excerpt:
-          "Peyğəmbər ﷺ Ərəfədə Zöhr və Əsri birləşdirdi, sonra gün batdıqdan sonra Müzdəlifəyə yola çıxdı...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Zilhiccə — Nəhr günü",
@@ -312,12 +207,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Qırxdırın (həlq) ya da qısaldın (təqsir); qadınlar barmaq ucu qədər qısaltsın. Daşlama və qırxdırma/qısaltmadan sonra ilk azadlıq (təhəllüli-əvvəl) tətbiq olunur — cinsi yaxınlıq istisna olmaqla ehram qadağalarının əksəriyyəti sona çatır.",
       "Təvafi-İfadə üçün — Həccin bir rükni — və Təməttö' hacıları üçün səy üçün Məkkəyə gedin (gəliş təvafı ilə artıq səy edən İfrad/Qiran hacıları öz məzhəblərinin hökmünə əməl edir). Bu, ehramdan tam azadlıqla tamamlanır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kim Ümrədən Həccə qədər faydalanarsa, qurbanlıq heyvandan asanlıqla əldə edilə biləni versin...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Nəhr günü əməllərinin ardıcıllığı Sünnədə çeviklik daşıyır; məzhəblər dəqiq ardıcıllıq və hər Həcc növü üçün səyin nə vaxt tələb olunduğu barədə fərqlənir. Qrupunuzun bələdçisinə əməl edin.",
   },
@@ -329,22 +219,8 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Hər gün Zöhrdən sonra üç dirəkdən hər birinə ardıcıllıqla — kiçik, sonra orta, sonra böyük — hər atışda təkbir deyərək yeddi daş atın. Tələsən kəs 12-nin daşlamasından sonra çıxa bilər (Qurani-Kərim 2:203).",
       "Məkkədən çıxmadan əvvəl, Evlə son əməlin vida olması üçün Təvafi-Vida edin. İbn Abbas rəvayət edir ki, insanlara son əməllərinin Evdə olması buyurulmuşdu, ancaq heyzli qadın üçün bu yüngülləşdirilmişdi (Səhih əl-Buxari 1755; Səhih Müslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allahı müəyyən sayda günlərdə zikr edin. Kim iki gündə tələsərsə — ona günah yoxdur; kim gecikdirsə — ona da günah yoxdur — Allahdan qorxan üçün...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsanlara son əməl olaraq Kəbənin vida təvafını etmək buyuruldu, ancaq heyzli qadınlar bundan azad edildi.",
-      },
-      {
-        excerpt:
-          "İnsanlara son əməllərinin Evdə olması buyuruldu, ancaq heyzli qadın üçün yüngülləşdirildi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Rüknlər və vaciblər",
@@ -364,12 +240,7 @@ export const HAJJ_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Günahsız qayıdış hədisi (Buxari 1521; Müslim 1350) aydın göstərir ki, Həcc pozğunluq (rəfəs), günah (füsuq) və mübahisə ilə pozulur. Səbir, yumşaqlıq və digər hacılara kömək ibadətin bir hissəsidir.",
       "Telefonların və boş söhbətlərin Ərəfəyə və məscidə hakim olmasına imkan vermə. Təvafda başqalarına yol ver; Qara Daşa tərəf itələmə. Qəbul olunmuş Həcc Cənnətin yoldaşıdır — bütün səfər boyu gözəl xarakter üçün çalış.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah üçün həcc edər, cinsi əlaqəyə girməz və günah işləməzsə, anadan olduğu gündəki kimi qayıdar.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Hər gün üçün niyyət qoy: izdihamdan üstün bir yaxşılıq əməli və bir səmimi dua."],
   },
   {

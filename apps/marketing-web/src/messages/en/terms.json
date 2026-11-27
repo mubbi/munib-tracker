@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "Terms of Service",
+    "description": "The terms for using the Munib Tracker app and website: the non-commercial licence, religious and practical disclaimers, circles, the private vault and your responsibilities."
+  },
+  "eyebrow": "Legal",
+  "title": "Terms of Service",
+  "intro": "By using {appName}, you agree to these terms.",
+  "effectiveDate": "Effective date: 26 November 2026",
+  "service": {
+    "heading": "The service",
+    "body": "{appName} is a free worship companion for personal and educational use on iPhone, iPad, Android, the web, Apple Watch, Wear OS, Apple TV and Android TV. It is provided by {author}. Features include Salah and Qaza tracking, Zikr, Qur'an and hadith libraries, Qur'an practice, learning content, prayer times, reminders, family and group circles, a private vault, optional cloud sync, and related tools described on our <features>Features</features> page."
+  },
+  "use": {
+    "heading": "Personal & educational use",
+    "body": "You may use the app to support your own worship and share it with others for non-commercial personal or educational purposes. The source code may be used, modified, and redistributed under the PolyForm Noncommercial License with required attribution to {appName} and a link to munibtracker.app. You may not resell it, sell customized versions, redistribute it as your own commercial product, scrape or bulk-redistribute bundled datasets in violation of their licenses, or use the service to harass others or break the law. {appName} does not currently accept sponsorship, funding, or donations — do not send money to anyone claiming to collect funds on its behalf."
+  },
+  "accounts": {
+    "heading": "Accounts",
+    "body": "Guest mode requires no account. If you sign in with Google, Apple or Facebook, you are responsible for keeping access to that provider account secure. You must not impersonate others or attempt to access another user's synced data. We may suspend or terminate accounts that abuse the service, attempt unauthorized access, or submit malicious content reports."
+  },
+  "circles": {
+    "heading": "Circles, partners & kids mode",
+    "body": "When you use family circles, accountability partners or a group khatm, choose display names and nudges that are respectful, and invite only people who agree to join. Don't use circles to pressure, monitor or embarrass anyone: they share only the small signals described in the Privacy Policy. A parent or guardian who sets up kids mode confirms they may give consent for the child and is responsible for supervising the child's use, the devices they link, and unlinking them when needed. We may remove circles, names or invites that abuse these features."
+  },
+  "vault": {
+    "heading": "Your private vault & backups",
+    "body": "Vault sync is end-to-end encrypted, so only you hold the key. Keep your passphrase and 24-word recovery code safe: if you lose both, nobody — including us — can recover the synced vault, and we can't reset it for you. You are also responsible for backups you export and for sharing, printing or deleting documents you create, such as a will or debts statement."
+  },
+  "disclaimer": {
+    "heading": "Religious content disclaimer",
+    "body": "Calculators and estimates (such as lifetime Qaza and missed-fast estimates), fiqh guides, and learning lessons are aids for education — not fatwas. For rulings specific to your situation, consult a qualified scholar. We strive for accuracy and cite open sources (see <credits>Credits</credits>), but the app is not a substitute for scholarly guidance. Scripture text and translations remain subject to their original licenses and attributions."
+  },
+  "practical": {
+    "heading": "Wills, calculators & practical tools",
+    "body": "The wasiyyah (will) builder helps you write down your wishes; it is not a legal document by itself and is not legal advice. To make a will effective, have it executed, witnessed and, where needed, registered under the law where you live, and ask a qualified scholar or lawyer about your situation. The inheritance, zakat and fidyah calculators, Qaza and fasting estimates and the debts and trusts record are aids, not legal, tax, financial or religious rulings. Masjid locations come from OpenStreetMap and Geoapify and may be incomplete or out of date; iqamah times and scanned timetables are entered or checked by you. The Salah focus lock pauses apps only because you choose to — keep its emergency unlock in mind, and don't rely on it, reminders or Live Activities where missing an alert could cause harm."
+  },
+  "ip": {
+    "heading": "Intellectual property",
+    "body": "The {appName} name, branding, UI, and original software are owned by {author} or its licensors. The source code is available under the <license>PolyForm Noncommercial License 1.0.0</license>: you may use, modify, and redistribute it for personal and educational (non-commercial) purposes, provided you credit {appName} and link to <home>munibtracker.app</home>. You may not sell the software or sell customized versions of it. Open-source libraries and Islamic datasets remain under their respective licenses. You retain ownership of the personal worship data you create; by syncing, you grant us a limited license to store and process that data solely to provide sync and related account features."
+  },
+  "privacy": {
+    "heading": "Privacy",
+    "body": "How we handle personal data is described in our <privacy>Privacy Policy</privacy>, which forms part of these terms."
+  },
+  "thirdParty": {
+    "heading": "Third-party services & app stores",
+    "body": "Some optional features rely on other services — for example sign-in with Google, Apple or Facebook, Quran Lab's pronunciation listener, maps, weather and push delivery — and their own terms and policies also apply when you use them. If you install the app from the App Store or Google Play, their terms apply to your download and device, and Apple or Google are not responsible for the app or its support. On iOS, Apple's standard licensed application end user licence agreement applies alongside these terms."
+  },
+  "warranty": {
+    "heading": "No warranty",
+    "body": "The app and website are provided “as is” without warranties of any kind, express or implied, including fitness for a particular purpose and non-infringement. We do not warrant uninterrupted availability, perfect prayer-time accuracy in every locale, or that content is free of error. We are not liable for any loss arising from use of the service, including loss of locally stored data — enable sync or export a backup if preserving history matters to you."
+  },
+  "liability": {
+    "heading": "Limitation of liability",
+    "body": "To the fullest extent permitted by law, {author} and contributors are not liable for indirect, incidental, special, consequential, or punitive damages, or any loss of data, profits, or goodwill, whether based on contract, tort, or otherwise, even if advised of the possibility. Our total liability for any claim relating to the service shall not exceed the amount you paid us for the service in the twelve months before the claim (which is zero while the app remains free)."
+  },
+  "age": {
+    "heading": "Age",
+    "body": "If you are under the age of digital consent in your region, use the app only with a parent or guardian's permission. Parents are responsible for supervising minors' use and any linked accounts."
+  },
+  "changes": {
+    "heading": "Changes to these terms",
+    "body": "We may update these terms as the app evolves. The effective date above will change when we do. Continued use after an update constitutes acceptance of the revised terms. If you do not agree, stop using the service and delete your account if you have one."
+  },
+  "contact": {
+    "heading": "Contact",
+    "body": "Questions about these terms: <contact>contact form</contact>."
+  }
+}

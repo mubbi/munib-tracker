@@ -110,7 +110,7 @@ export default async function FeedbackPage({ searchParams }: FeedbackPageProps) 
       title="App feedback & reviews"
       moduleLabel="4"
       icon={<Star className="h-5 w-5" />}
-      description="Low-star in-app review submissions (ratings 1–3) with optional free-text messages."
+      description="User-sent app feedback (Settings → Send feedback): a 1–5 rating with an optional message. Store ratings never pass through here."
     >
       <SearchForm
         action="/feedback"

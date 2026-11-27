@@ -7,6 +7,7 @@ import type {
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
+import { groupBySection } from "@/lib/sectioned-guide";
 
 /**
  * English corpus is statically imported with the `/taharah` route chunk.
@@ -32,15 +33,7 @@ export function getTaharahTopic(id: string | undefined): TaharahTopic | undefine
 }
 
 export function getTaharahTopicsBySection(): Record<TaharahSection, TaharahTopic[]> {
-  const grouped = Object.fromEntries(
-    corpus.TAHARAH_SECTION_ORDER.map((section) => [section, [] as TaharahTopic[]]),
-  ) as Record<TaharahSection, TaharahTopic[]>;
-
-  for (const topic of getTaharahTopics()) {
-    const bucket = grouped[topic.section];
-    if (bucket) bucket.push(topic);
-  }
-  return grouped;
+  return groupBySection(getTaharahTopics(), corpus.TAHARAH_SECTION_ORDER);
 }
 
 export function getTaharahChecklist(): TaharahChecklistItem[] {

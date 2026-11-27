@@ -2,198 +2,158 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ky overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_KY: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
+    title: "Ислам каржылоосу деген эмне?",
     summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+      "Акчага этикалык көз караш, өзүнчө продукт категориясы эмес — бул жол көрсөткүч билим берүү үчүн гана.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "Ислам каржылоосу — инвестициялык продукттун бир бренди эмес; ал акчаны кантип табуу, карызга берүү, жумшоо жана башкаларга берүү маселесине исламдык этиканы колдонуу. Анын өзөгүндө бир нече принцип турат: байлык өзүнчө максат эмес, Аллахтын аманаты; бүтүмдөр эксплуатациядан жана ашыкча белгисиздиктен таза болушу керек; ал эми пайда карызга кепилденген төлөм эмес, чыныгы экономикалык иш жана бөлүшүлгөн тобокелдик менен байланышкан болушу керек.",
+      "Бул жол көрсөткүч ошол принциптерди жалпы, агартуучулук деңгээлде тааныштырат: рибага (пайызга/сүткордукка) тыюу салуу, соодадагы адилеттик, зекеттин жана ыктыярдуу садаканын милдеттери, ошондой эле такафулдун (кооперативдик камсыздандыруунун) негизги түшүнүгү. Ал атайылап фонддорду иргебейт, акциялардын же биржалык фонддордун тизмесин бербейт жана эч кандай конкреттүү продуктту же провайдерди сунуштабайт.",
+      "Заманбап каржы продукттары (ипотека, кредиттик карталар, камсыздандыруу полистери, пенсиялык эсептер жана башкалар) ар кандай жолдор менен түзүлөт, алар боюнча өкүмдөр келишимдин так шарттарынан жана сиз жашаган өлкөнүн мыйзамдарынан көз каранды болушу мүмкүн. Бул жол көрсөткүч сизге негизги принциптерди берет; өзүңүздүн кырдаалыңыз боюнча өкүм алуу үчүн квалификациялуу, тастыкталган исламдык каржы аалымына же мекемесине кайрылыңыз.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "Билим берүүчү мазмун гана — каржылык кеңеш да, фатва да эмес. Ал эч кандай конкреттүү фондду, акцияны, провайдерди же каржы продуктун сунуштабайт, иргебейт жана баалабайт.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
-    body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
-    ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
-    ],
-  },
-  {
-    title: "The Prohibition of Riba",
+    title: "Байлык — аманат",
     summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+      "Колуңуздагы бардык нерсе акыры Аллахка таандык — сиз анын акыркы ээси эмес, аманатчысысыз.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
+      "Куранда кайра-кайра кездешкен тема: байлык биринчи кезекте Аллахка таандык; адам ага убактылуу гана аманатчы (аманат), аны кантип тапканы жана кантип колдонгону үчүн жооп берет. Бул акчаны таза жеке менчиктен сизден суралчу нерсеге — каяктан келди жана кайда кетти деген суроого — айлантат.",
+      "Бул аманаттын башка адамдар менен болгон мамилелерде кандай ишке ашарын эки буйрук бекемдейт: келишимдерди жана макулдашууларды толук аткаруу, жана башка бирөөнүн мүлкүн эч качан адилетсиздик, алдамчылык же эксплуатация жолу менен эмес, өз ара макулдук менен болгон адилеттүү соода аркылуу гана алуу.",
+      "Ушул принциптер биригип, исламдык каржы этикасы эмне үчүн ошол эле бир нече суроого кайра-кайра кайтарын түшүндүрөт: бул пайда чыныгы эмгек, тобокелдик жана баалуулук жаратуу аркылуу табылдыбы? Экинчи тарапка толук чынчылдык менен мамиле жасалдыбы? Жана мен алган ар бир милдеттенме аткарылып жатабы?",
     ],
   },
   {
-    title: "Why Trade Differs from Interest",
+    title: "Рибага тыюу салынышы",
+    summary: "Риба (пайыз/сүткордук) — Куранда эң катуу айыпталган бүтүмдөрдүн бири.",
+    body: [
+      "Риба — көбүнчө пайыз же сүткордук деп которулат, кеңири мааниде карызга алдын ала белгиленген, кепилденген ар кандай кошумча — Бакара сүрөсүнүн катар келген беш аятында (2:275–279) өзгөчө катуу тил менен тыюу салынган; бул Куранда бир эле темага берилген эң катуу эскертүүлөрдүн катарына кирет.",
+      "Бул үзүндү атайын карама-каршылык түзөт: «Аллаһ сооданы адал, сүткордукту арам кылган» (2:275). Соода — эки тарап тең чыныгы тобокелдикти жана эмгекти бөлүшкөн сатып алуу, сатуу жана инвестициялоо — макталат; ал эми риба — натыйжага карабай төлөнүүчү белгиленген төлөм — айыпталат. Андан ары сүрө ыймандууларга калган рибадан толугу менен баш тартууну буйруп, аны уланта бергендерге олуттуу кесепеттер жөнүндө эскертет, ал эми тообо кылган адам баштапкы капиталын гана — ашык да эмес, кем да эмес — алып кала аларын убада кылат.",
+      "Бул — ар бир заманбап каржы продуктун өзүңүз текшерүү үчүн тизме эмес, билип жүрүү керек болгон негизги окуу. Белгилүү бир келишимде (ипотека, карыз, аманат эсеби) иш жүзүндө риба барбы же жокпу, аны аныктоо үчүн келишимдин чыныгы шарттарын исламдык каржы боюнча квалификациялуу адам менен карап чыгуу керек.",
+    ],
+  },
+  {
+    title: "Соода пайыздан эмнеси менен айырмаланат",
     summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+      "Мыйзамдуу пайда тобокелдик жана эмгек менен байланышкан; риба болсо натыйжага карабай кепилденген төлөм.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
-    ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
+      "Бул айырманы эсте сактоонун жөнөкөй жолу: соодада же чыныгы инвестицияда капитал же товар берген адам натыйжага катышат — ал пайда табышы мүмкүн, бирок жоготушу да мүмкүн, анткени ал иштин чыныгы жыйынтыгына көз каранды. Рибага негизделген карызда болсо, карыз алуучунун иши ийгиликтүү болобу, кыйналабы же кыйрайбы — карыз берүүчүгө белгиленген киреше кепилденет.",
+      "Классикалык илим муну адилеттик маселеси катары карайт: шашылыш муктаж болуп карыз алган адам алгандан алда канча көп төлөөгө мажбур болуп, туткунга түшүп калышы мүмкүн, бүт тобокелдик ага жүктөлүп, карыз берүүчүгө эч кандай тобокелдик калбайт — так ушул тең салмаксыздыкты Куран «Аллаһ сүткорлукту(н пайдасын) жоготот жана садакаларды пайдалуу кылат» (2:276) деген сөз менен айыптайт; бул эксплуатация аркылуу курулган байлык менен марттык аркылуу өскөн байлыктын түз салыштырылышы.",
+      "Бул — жалпы агартуучулук салыштыруу, эч бир конкреттүү каржы куралы боюнча өкүм эмес (айрым заманбап түзүмдөр сооданы жана карызды татаал жолдор менен аралаштырат). Белгилүү бир продукт бул шкаланын кайсы жеринде турганы — жалпы принциптерден гана чечим чыгарбастан, квалификациялуу исламдык каржы аалымына же тастыкталган кеңешчиге алып баруучу суроо.",
     ],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
-    body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
-    ],
-  },
-  {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
-    body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
-    ],
-  },
-  {
-    title: "Navigating Modern Financial Products",
+    title: "Сүннөт рибага канчалык олуттуу мамиле кылат",
     summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
+      "Пайгамбар ﷺ риба бүтүмүнө катышкандардын баары анын күнөөсүнө шерик экенин эскерткен.",
     body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "Курандын өз эскертүүлөрүнөн тышкары, Пайгамбар ﷺ риба үчүн жоопкерчилик аны түздөн-түз алган адам менен эле чектелбестигин ачык көрсөткөн. Сахих хадисте айтылгандай, ал ﷺ рибаны жеген адамга, аны төлөгөн адамга, келишимди жазган адамга жана ага күбө болгон экөөнө лаанат айтып, алардын баары бул жагынан бирдей деген.",
+      "Мындан көбүнчө чыгарылган сабак — жеке күнөөлөө гана эмес, жалпы четтөө: риба бир гана карыз берүүчү менен карыз алуучунун ортосундагы жеке иш эмес, бүтүндөй бүтүм жана ага билип туруп катышкандардын баары алыс болушу керек болгон нерсе катары каралат.",
+      "Куран аяттары сыяктуу эле, бул хадис да принциптин олуттуулугун аныктайт; бирок ал белгилүү бир заманбап каржы продуктун кантип баалоо керектигин өзү айтпайт. Ал чечим чыныгы келишимди карап чыккан квалификациялуу аалымдарга таандык.",
+    ],
+  },
+  {
+    title: "Соодадагы чынчылдык",
+    summary: "Чынчыл, ишенимдүү соодагерге Акыретте эң жогорку даражалардын бири берилет.",
+    body: [
+      "Риба тууралуу эскертүүлөрдөн кескин айырмаланып, чынчыл соода кайра-кайра макталат. Пайгамбар Мухаммад ﷺ өзү пайгамбарлыкка чейин соодагер болуп иштеген жана пайгамбар катары таанылганга чейин эле соода иштериндеги ак ниеттүүлүгү үчүн Меккеде аль-Амин — «Ишенимдүү» — деген ат менен белгилүү болгон.",
+      "Кийин ал ﷺ Кыямат күнү тууралуу мындай деп үйрөткөн: «the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs» (англисче мааниси) — бул базардагы адилеттүү мамиле сыяктуу кадимки нерсеге берилген өтө жогорку даража.",
+      "Иш жүзүндө адилеттүү соода мындайды билдирет: товарларды жана кызматтарды так сүрөттөө, белгилүү кемчиликтерди жашырбай ачык айтуу, макулдашылган баалар менен шарттарды сактоо, алдамчылыктан, жалган жарнамадан же сатып алуучунун же сатуучунун билбестигинен пайдалануудан алыс болуу. Бул — ар кандай салтта жакшы, туруктуу бизнести түзгөн ошол эле сапаттар; Ислам аларды түбөлүк сыйлык менен да байланыштырат.",
+    ],
+  },
+  {
+    title: "Заманбап каржы продукттарын түшүнүү",
+    summary:
+      "Ипотека, карталар жана камсыздандыруу чындап татаал — бул жол көрсөткүч принциптер менен чектелет.",
+    body: [
+      "Заманбап каржы жашоосу алгачкы мусулман муундары азыркы түрүндө эч качан кезиктирбеген продукттарды камтыйт: ипотека, кредиттик карталар, пенсиялык эсептер, камсыздандыруу жана ар кандай түзүлгөн инвестициялык фонддор. Кылымдар мурунку принциптерди бул продукттарга колдонуу — бир нече жалпы аяттан өз алдынча чыгара турган нерсе эмес, чыныгы, кылдат илимий иш.",
+      "Ошондуктан азыркы исламдык каржы мекемелери жана тастыкталган аалымдар заманбап келишимдерди ушул принциптерге шайкештигин текшерүүгө атайын адистешип, көбүнчө белгилүү бир продукттар же түзүмдөр боюнча толук өкүмдөрдү чыгарышат. Мындай адистештирилген текшерүү бул колдонмонун чегинен тышкары.",
+      "Эгер сиз чыныгы каржылык чечимди — үй сатып алуу, карыз, инвестиция, камсыздандыруу полиси — салмактап жатсаңыз, жоопкерчиликтүү кийинки кадам — бул сыяктуу жалпы агартуучу мазмунга таянбастан, келишимдин чыныгы шарттарын карап чыга алган квалификациялуу, тастыкталган исламдык каржы кеңешчисине же аалымга кайрылуу.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "Бул колдонмо эч кандай конкреттүү каржы продуктун, фондду же провайдерди баалабайт, иргебейт жана сунуштабайт, ал эми бул жол көрсөткүч сиздин чыныгы каржыңыз боюнча квалификациялуу кесипкөй же аалымдык кеңештин ордун баспайт.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
-    summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+    title: "Зекет: байлык аркылуу ибадат",
+    summary: "Зекет — сөз же кыймыл менен эмес, мал-мүлк менен аткарылуучу милдеттүү ибадат.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "Зекет — минималдуу чектен (нисабдан) ашкан, шартка жооп берген байлыктан жыл сайын берилүүчү белгиленген милдеттүү үлүш — Исламдын беш түркүгүнүн бири; ал берүүнү ыктыярдуу марттык катары эмес, намаз жана орозо менен бир катарга коёт.",
+      "Куран зекетти чыныгы ыймандын белгиси катары ар дайым намаз менен жанаша келтирет жана намаз менен зекетти аткаргандар жөнүндө мындай убада кылат: «Раббисинин алдында сооптору даяр. Жана аларга коркунуч да болбойт, кайгы-капага да батышпайт» (2:277). Каржылык жактан ал байлыкты тазалоочу механизм катары иштейт — топтолгон байлыктын кичине, туруктуу үлүшүн муктаждарга бөлүштүрүп, анын бир нече адамдын колунда чексиз бош жатып калышына жол бербейт.",
+      "Эсеп сиздин конкреттүү аманаттарыңыздан, активдериңизден жана жергиликтүү нисаб өлчөмдөрүнөн көз каранды болгондуктан, бул колдонмодо атайын Зекет жол көрсөткүчү жана калькулятору бар — бул жердеги жалпы принциптерден болжолдоонун ордуна, түз ошону колдонуңуз.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    appLinks: [{ label: "Зекет жол көрсөткүчү жана калькулятору" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "Садака: ыктыярдуу берүү",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "Милдеттүү зекеттен тышкары ар кандай ыктыярдуу берүү садака деп аталат — жана ал байлыгыңызды эч качан чындап азайтпайт.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "Садака — зекеттин белгиленген милдетинен тышкары, Аллах үчүн каалаган өлчөмдө, каалаган убакта берилүүчү ыктыярдуу кайрымдуулук. Ал олуттуу каржылык белектерден баштап жылуу сөзгө же бирөөнүн жолунан зыяндуу нерсени алып салууга чейинки нерселерди камтыйт — хадистерде булардын баары садаканын түрлөрү катары эсептелет.",
+      "Берүүдөн тартынган ар бир адам үчүн эң көңүл тынчыткан окуулардын бири — Пайгамбардын ﷺ садака байлыкты азайтпайт деген сөзү; Куран да башка жерлерде Аллахтын жолунда жумшалганды жөн эле түгөнүп калуучу нерсе эмес, Аллах ордун толтуруп, сыйлай турган нерсе катары сүрөттөп, муну колдойт.",
+      "Иш жүзүндө бул марттыкты башкача көрүүгө үйрөтөт: берүү сиздин каржылык коопсуздугуңузга каршы турбайт, тескерисинче, аны коргоочу жана өстүрүүчү нерсе катары көрсөтүлөт — ар дайым эле эсеп-кысапта көрүнбөгөн жолдор менен.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    appLinks: [{ label: "Зекет жана садака жол көрсөткүчү" }, { label: "Садака максаттары" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
+    title: "Такафул: тобокелдикти биргелешип бөлүшүү",
     summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+      "Кадимки камсыздандырууга исламдык альтернативалардын негизиндеги түшүнүккө жалпы көз караш.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "Такафул (араб тилиндеги «өз ара кепилдик» дегенди билдирген уңгудан) — камсыздандырууга окшош коргоого исламдык мамилелердин жалпы түшүнүгү: катышуучулар тобу жалпы фондго салым кошот, ал фонд камтылган жоготууга учураган мүчөлөргө жардам берүү үчүн колдонулат, ал эми ашып калган каражат өзүнчө камсыздандыруучунун кепилденген пайдасы катары калбастан, адатта катышуучулардын ортосунда бөлүштүрүлөт же кийинкиге которулат.",
+      "Негизги идея — кепилденген төлөм үчүн тобокелдикти башкага өткөрүп берүү эмес, тобокелдикти биргелешип бөлүшүү: катышуучулар бири-бирине жардам берүүчүлөр катары каралат, ал эми фонддун оператору адатта тобокелдикти көтөрүүчү тарап эмес, акы үчүн иштеген башкаруучу же агент болот.",
+      "Бул — жалпы, концептуалдык сүрөттөмө гана. Чыныгы такафул продукттары провайдерлерге жана өлкөлөргө жараша түзүлүшү боюнча абдан ар түрдүү, ал эми белгилүү бир план чындап эле ушундай түзүлгөнбү деп баалоо үчүн анын чыныгы шарттарын квалификациялуу исламдык каржы аалымы же мекемеси менен карап чыгуу керек — бул колдонмо эч кандай конкреттүү такафул (же камсыздандыруу) провайдерин же планын сунуштабайт жана баалабайт.",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "Жалпы билим берүү гана. Бул такафулду кадимки камсыздандыруудан артык коюу же кандайдыр бир конкреттүү провайдерди же планды сунуштоо эмес — өз кырдаалыңыз боюнча квалификациялуу кеңешчиге кайрылыңыз.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
-    body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
-    ],
-    disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
-  },
-  {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
-    body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
-    ],
-    disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
-  },
-  {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
+    title: "Такафул жана кадимки камсыздандыруу: жалпы салыштыруу",
     summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+      "Экөөнүн максаты бир — тобокелдикти башкаруу, бирок ал тобокелдиктин кантип түзүлгөнү менен айырмаланат.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "Кадимки камсыздандыруу адатта келишим катары түзүлөт: полис ээси төлөм (премия) төлөйт, ал эми камсыздандыруучу өзүнчө коммерциялык тарап катары ошол акынын ордуна тобокелдикти көтөрөт жана көбүнчө премиялар фондун пайыздык куралдарды камтышы мүмкүн болгон жолдор менен инвестициялайт. Айрым классикалык аалымдар бул түзүм риба, гарар (төлөм боюнча ашыкча белгисиздик) жана тобокелдикти бөлүшүүнүн ордуна белгиленген акы үчүн өткөрүп берүү маселелерине тиешелүү экенин белгилешкен.",
+      "Жалпысынан алганда, такафул ошол конкреттүү тынчсызданууларды өз ара, кооперативдик түзүм аркылуу чечүү аракети катары иштелип чыккан — бирок кайсы түзүмдөр бул максатка толук жетери боюнча аалымдардын жана мекемелердин пикирлери ар түрдүү, ал эми такафул провайдерлеринин өздөрү да түзүлүшү боюнча бир топ айырмаланат.",
+      "Тынчсыздануулар да, альтернативдүү түзүмдөр да чыныгы техникалык деталдарды камтыгандыктан (жана жашаган жер, камсыздандыруу муктаждыктары жана жеткиликтүү провайдерлер сыяктуу жеке жагдайлар абдан ар түрдүү болгондуктан), бул салыштыруу сиз карап жаткан белгилүү бир полис боюнча өкүм катары эмес, жалпы маалымат катары гана сунушталат.",
+    ],
+    disclaimer:
+      "Агартуучу салыштыруу гана; жалпы эле камсыздандыруу же такафул боюнча, же кандайдыр бир конкреттүү продукт боюнча фатва эмес. Заманбап камсыздандыруу түзүмдөрү боюнча аалымдардын ар түрдүү көз караштары бар; өз кырдаалыңыз боюнча квалификациялуу кеңешчиге кайрылыңыз.",
+  },
+  {
+    title: "Суроо-жооп: Бул каржылык кеңешпи?",
+    summary:
+      "Жок — бул жол көрсөткүч принциптерди гана үйрөтөт жана квалификациялуу кеңештин ордун баса албайт.",
+    body: [
+      "Суроо: Белгилүү бир карыз, инвестиция же камсыздандыруу продукту мага уруксатпы же жокпу, ушул жол көрсөткүч аркылуу чечсем болобу? Жооп: Жок. Бул жол көрсөткүч акча тууралуу жалпы исламдык принциптерди түшүндүрөт — ал келишимдерди карап чыкпайт, продукттарды сунуштабайт жана өкүм чыгарбайт. Конкреттүү каржылык чечимдерди квалификациялуу каржы адиси менен, ал эми уруксат маселелери боюнча квалификациялуу исламдык каржы аалымы менен кабыл алуу керек.",
+      "Суроо: Бул колдонмо адал акцияларды, фонддорду же биржалык фонддорду баалайбы же тизмелейби? Жооп: Жок, бул жол көрсөткүчтүн алкагында эч качан андай кылбайт — фонддорду иргөө жана инвестициялык сунуштар анын чегинен тышкары жана бул мазмун бере албаган лицензияланган каржылык билимди талап кылат.",
+      "Суроо: Бул жол көрсөткүч фатвабы? Жооп: Жок. Фатва — квалификациялуу аалым белгилүү бир суроого жана жагдайга жооп катары чыгарган конкреттүү диний өкүм. Бул жол көрсөткүч жалпы принциптерди гана үйрөтөт; өз кырдаалыңыз боюнча чыныгы өкүм алуу үчүн түздөн-түз квалификациялуу, ишенимдүү аалымга кайрылыңыз.",
+    ],
+    disclaimer:
+      "Бул жол көрсөткүч толугу менен агартуучу мазмун — каржылык кеңеш да, фатва да эмес. Өз акчаңыз боюнча чечимдер үчүн ар дайым квалификациялуу каржы жана дин адистерине кайрылыңыз.",
+  },
+  {
+    title: "Суроо-жооп: Шариятка ылайык варианттарды кантип тапсам болот?",
+    summary:
+      "Тизме эмес, тастыкталган адистикти издеңиз — бул колдонмо атайылап андай тизме бербейт.",
+    body: [
+      "Суроо: Адал банктардын, фонддордун же инвестициялык платформалардын тизмесин кайдан тапсам болот? Жооп: Бул колдонмодон эмес, бул атайылап ушундай — продукттардын тизмелери тынымсыз өзгөрөт, өлкөгө жараша кескин айырмаланат жана адистешкен мекемелер гана туура жүргүзө алган туруктуу шайкештик көзөмөлүн талап кылат. Анын ордуна аты аталган чыныгы Шарият көзөмөл кеңеши жана жарыяланган шайкештик методологиясы бар мекемелерди издеңиз.",
+      "Суроо: Аалымдын же сертификаттын чыныгы экенин кантип билем? Жооп: Интернеттеги расмий эмес дооматтарга эмес, сиздин аймактагы же эл аралык деңгээлдеги таанылган исламдык каржы стандарттарын белгилөөчү уюмдар тааныган аалымдарды же кеңештерди издеңиз. Абройлуу мекеме өзүнүн продукттарын ким жана кантип текшерерин ачык көрсөтөт.",
+      "Суроо: Мен жашаган жерде эч кандай исламдык каржы варианттарын таба албасам эмне кылам? Жооп: Бул — чыныгы жана кеңири таралган абал. Муну билимдүү жергиликтүү имам же аалым менен талкуулаңыз — алар сиздин конкреттүү жагдайыңызда жеткиликтүү варианттарды салмактоого жардам бере алышат, анткени бул жердеги көрсөтмө сиз үчүн чындап кандай альтернативалар бар экенинен көп көз каранды болушу мүмкүн.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "Маркетингдик дооматтарга таянбастан, аты аталган, ачык-айкын Шарият көзөмөл кеңеши бар мекемелерди издеңиз.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "Суроо-жооп: Ипотека, карталар жана карыздар",
+    summary: "Бул дал жалпы жол көрсөткүч эмес, квалификациялуу аалым керек болгон суроолор.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "Суроо: Ипотека ар дайым рибабы? Жооп: Түзүмдөр ар түрдүү — айрым кадимки ипотекалар пайызга негизделген карыздар, ал эми айрым провайдерлер пайыздан качууга багытталган альтернативдүү түзүмдөрдү (мисалы, азаюучу шериктик же ижарадан менчикке өтүү моделдери) сунушташат. Белгилүү бир продукт иш жүзүндө буга жетеби — бул анын чыныгы келишими боюнча илимий суроо, кайсы тарапка болбосун алдын ала божомолдой турган нерсе эмес.",
+      "Суроо: Эгер мен ар дайым толук балансты төлөп, эч качан пайыз төлөбөсөм, кредиттик картаны колдонсом болобу? Жооп: Аалымдардын бул боюнча пикирлери ар түрдүү, мунун бир себеби — иш жүзүндө эч качан ишке киргизбесеңиз да, негизги келишимде техникалык жактан пайыз шарты болушу мүмкүн. Бул — квалификациялуу пикирлер чындап айырмаланган маселе; бир универсалдуу жоопту божомолдобостон, өзүңүз ишенген аалымдан сураңыз.",
+      "Суроо: Студенттик карыздар же айрым жагдайларда качып кутулуу мүмкүн болбогон башка карыздар жөнүндө эмне айтасыз? Жооп: Зарылчылык жана кыйынчылык — аалымдар кылдат салмактаган чыныгы жагдайлар, жана көз караштар кырдаалга жана өлкөнүн мыйзамдарына жараша айырмаланат. Эгер сиз ушундай чечимдин алдында турсаңыз, жалпы окуудан гана чечүүгө аракет кылбастан, өзүңүздүн конкреттүү жагдайыңызды квалификациялуу аалымга алып барыңыз.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "Бул — чындап пикир келишпестиги бар, келишимге жараша болгон суроолор. Бул суроо-жооп ар бир суроонун кандай түрдөгү суроо экенин гана көрсөтөт — алардын бирине да сиздин жагдайыңыз үчүн жооп бербейт.",
   },
 ];

@@ -6,6 +6,7 @@ import type {
   ZikrProgress,
 } from "@munib-tracker/shared/types";
 import { isQazaPrayer } from "@munib-tracker/shared/validators";
+import { stripPrivatePreferenceFields } from "@munib-tracker/shared/validators/private-sync";
 
 import { syncPull, syncPush } from "@/api/endpoints";
 import { SessionStore, type StoredSession } from "@/auth/session-store";
@@ -21,13 +22,15 @@ import {
 import { DB_KEYS } from "@/db/keys";
 import type { HadithBookmark } from "@/db/repositories/hadith-repository";
 import type { QuranBookmark } from "@/db/repositories/quran-repository";
-import { readJSON, writeJSON } from "@/db/store";
+import { readJSON, removeKey, writeJSON } from "@/db/store";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
+import { reconcilePrivateMirrors } from "@/lib/private-sync";
 import {
   clearPreferencesDirty,
   filterRemotePreferencesPatch,
   hasPendingPreferenceChanges,
 } from "@/lib/sync/preferences-cloud-sync";
+import { updateVaultSyncState } from "@/lib/vault/sync-state";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import {
   applyRemoteCustomTasbeeh,
@@ -60,6 +63,18 @@ async function blobSync() {
 }
 
 export interface SyncMetadata {
+  /**
+   * The account these cursors belong to. Cursors are per account: reusing them
+   * after signing in to a different account would skip that account's older
+   * records on pull (and its older local rows on push). See {@link readMetaFor}.
+   */
+  accountId?: string;
+  /**
+   * D46 one-time cleanup done for this account: preferences and excused prayer
+   * logs were re-pushed without their private fields (so the server copy loses
+   * the old plaintext).
+   */
+  privacyCleanup?: 1;
   /** Server clock at our last successful pull — the `since` cursor for the next pull. */
   lastSyncedAt?: string;
   /** Local clock at our last successful push — the watermark for delta pushes. */
@@ -85,6 +100,27 @@ export type SyncResult =
 
 async function readMeta(): Promise<SyncMetadata> {
   return readJSON<SyncMetadata>(DB_KEYS.syncMetadata, {});
+}
+
+/**
+ * The cursors for `accountId`. When they were written for a different account
+ * (sign-out → sign in to another one on the same device), every per-account
+ * sync cursor is dropped so the next sync is a full push + full pull reconciled
+ * by last-write-wins: the pull cursor and push watermark, the blob content
+ * fingerprints, the parked blob merges and the parked vault records (another
+ * account's server ciphertext — the vault sync switch itself is kept).
+ * Cursors written before `accountId` existed are adopted as-is.
+ */
+async function readMetaFor(accountId: string): Promise<SyncMetadata> {
+  const meta = await readMeta();
+  if (meta.accountId == null || meta.accountId === accountId) return meta;
+  await Promise.all([
+    removeKey(DB_KEYS.syncMetadata),
+    removeKey(DB_KEYS.blobSyncState),
+    removeKey(DB_KEYS.blobSyncHold),
+    updateVaultSyncState((state) => ({ ...state, inbox: {} })),
+  ]);
+  return {};
 }
 
 /** Public accessor for the last sync/push timestamps (drives the sync-status UI). */
@@ -161,8 +197,10 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
         break;
       }
       case "preferences": {
+        // D46: the excused period never comes from the plaintext record (an
+        // old client or old server row); it arrives through the vault only.
         const patch = filterRemotePreferencesPatch(
-          data as Partial<UserPreferences>,
+          stripPrivatePreferenceFields(data) as Partial<UserPreferences>,
           hasPendingPreferenceChanges(),
         );
         await PreferencesRepository.applyRemotePreferences({
@@ -231,6 +269,17 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
 }
 
 /**
+ * Records re-pushed once (D46) so the server's copy is rewritten without the
+ * plaintext it used to hold: the preferences record and every excused prayer
+ * log (both already stripped by `buildSyncRecords`). Their own `updatedAt` is
+ * reused, so last-write-wins on the server is unchanged.
+ */
+function isPrivacyCleanupRecord(record: SyncRecordDto): boolean {
+  if (record.entity === "preferences") return true;
+  return record.entity === "prayer_logs" && (record.data as Partial<PrayerLog>)?.isExcused === true;
+}
+
+/**
  * Push local changes then pull remote changes (last-write-wins on `updatedAt`).
  * Guest accounts never sync — the server returns 403 for them anyway.
  */
@@ -238,10 +287,13 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   if (session.accountType === "guest") return { status: "skipped", reason: "guest" };
   if (isAppReloadInProgress()) return { status: "skipped", reason: "reload" };
 
-  const meta = await readMeta();
+  const meta = await readMetaFor(session.userId);
   // Watermark must precede reads so an edit that lands while this sync is
   // reading still has updatedAt > lastPushedAt and is included on the next push.
   const nowIso = new Date().toISOString();
+  // D46: local edits of the excused period / khushu journal → their vault docs
+  // (no-op while vault sync is off), so the blob push below carries them.
+  await reconcilePrivateMirrors(nowIso);
 
   const [
     prayerLogs,
@@ -305,8 +357,15 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   // every tombstone (until the server acknowledges the deletion). The first sync
   // (no watermark yet) pushes everything so the account starts fully populated.
   const since = meta.lastPushedAt;
+  // Only a device that synced before D46 can have put plaintext on the server.
+  const needsCleanup = meta.privacyCleanup !== 1 && meta.lastSyncedAt != null;
   const records = since
-    ? allRecords.filter((record) => record.deletedAt != null || record.updatedAt > since)
+    ? allRecords.filter(
+        (record) =>
+          record.deletedAt != null ||
+          record.updatedAt > since ||
+          (needsCleanup && isPrivacyCleanupRecord(record)),
+      )
     : allRecords;
 
   // Pull-only syncs are common on foreground. Do not POST an empty change set.
@@ -327,6 +386,8 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
     meta.lastSyncedAt,
   );
   if (pullResult.changes.length) await applyRemoteRecords(pullResult.changes);
+  // D46: vault docs merged from other devices → the local excused period / journal.
+  await reconcilePrivateMirrors(nowIso);
 
   // Deletions we pushed were accepted (or superseded by a conflict applied above).
   // Any tombstone created during this sync is not in `tombstones` and is preserved.
@@ -338,6 +399,8 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   // last-write-wins conflicts and cross-device changes (NF-2.19).
   const conflictEntities = [...new Set(pushResult.conflicts.map((record) => record.entity))];
   await writeJSON<SyncMetadata>(DB_KEYS.syncMetadata, {
+    accountId: session.userId,
+    privacyCleanup: 1,
     lastSyncedAt: pullResult.serverTime,
     // Preserve the watermark when no push occurred so a concurrent local write
     // cannot be skipped by an empty foreground sync.

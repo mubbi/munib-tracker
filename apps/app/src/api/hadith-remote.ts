@@ -7,6 +7,7 @@ import type {
 } from "@munib-tracker/shared/types";
 
 import { HadithRepository } from "@/db";
+import { shouldCacheHadith } from "@/lib/cache-prefs";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 import { preferencesStore } from "@/stores/preferences-store";
@@ -222,7 +223,7 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
 
   // Persist to disk only when the user allows saving hadith locally; otherwise
   // it stays in the session cache and refetches next launch.
-  const persist = preferencesStore.getState().prefs.cacheHadithLocally !== false;
+  const persist = shouldCacheHadith();
   const data: HadithCollectionData = { sections, items };
   await HadithRepository.setCachedBook(cacheKey, data, persist);
   return data;

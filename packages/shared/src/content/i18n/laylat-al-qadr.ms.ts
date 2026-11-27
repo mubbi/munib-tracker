@@ -2,137 +2,112 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ms overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Apakah Lailatul Qadar?",
+    summary: "Malam Ketetapan — lebih baik daripada seribu bulan.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Lailatul Qadar, Malam Ketetapan (atau Malam Kemuliaan), ialah malam yang padanya al-Quran mula diturunkan kepada Nabi ﷺ. Allah mengkhususkan satu surah penuh untuknya, yang dimulakan dengan: 'Sesungguhnya Kami telah menurunkan (Al-Quran) ini pada Malam Lailatul-Qadar' (Qur'an 97:1). Nilainya dinyatakan dengan sejelas-jelasnya beberapa ayat kemudian: 'Malam Lailatul-Qadar lebih baik daripada seribu bulan' (Qur'an 97:3) — ibadah pada satu malam ini mengatasi ibadah yang dilakukan sepanjang lebih lapan puluh tiga tahun.",
+      "Surah itu menggambarkan malam tersebut dengan lebih lanjut: para malaikat dan Ruh (Jibril) turun padanya dengan izin Tuhan mereka membawa segala ketetapan, dan tentangnya difirmankan: 'Sejahteralah Malam (yang berkat) itu hingga terbit fajar' (Qur'an 97:4–5). Ia ialah malam yang penuh dengan rahmat yang besar, ketenangan dan ketetapan Ilahi — malam yang Nabi ﷺ gesa para sahabat baginda untuk bersungguh-sungguh mencarinya dan bukan membiarkannya berlalu tanpa disedari.",
+      "Inilah sebabnya sepuluh malam terakhir Ramadan mempunyai nilai rohani yang begitu besar: di antara malam-malam itu terdapat satu malam yang lebih berharga daripada mana-mana malam lain dalam hidup seseorang. Hikmah di sebalik tidak didedahkan tarikhnya secara jelas ialah supaya orang beriman bersungguh-sungguh pada setiap satu daripada sepuluh malam terakhir itu dan tidak bersantai pada semua malam kecuali satu.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Ganjaran berdiri menunaikan solat",
+    summary: "Ibadah yang ikhlas pada malam ini menghapuskan dosa-dosa yang lalu.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Nabi ﷺ mengaitkan satu janji yang luar biasa dengan malam ini: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (maksud dalam bahasa Inggeris) (Bukhari 1901). Dua syarat disertakan — iman (keyakinan sebenar bahawa ibadah ini ialah apa yang Allah cintai dan syariatkan) dan ihtisab (mengharapkan ganjaran Allah semata-mata, bukan untuk dilihat atau dipuji).",
+      "Keampunan ini tidak diberikan secara automatik kepada sesiapa sahaja yang sekadar hadir; ia untuk orang yang beribadah dengan hati yang ikhlas dan penuh harapan. Itulah sebabnya sepuluh malam terakhir lazimnya dipenuhi dengan solat malam tambahan (qiamullail), al-Quran dan zikir — bukan kerana ganjarannya bersifat urus niaga, tetapi kerana usaha yang ikhlas dan berterusan itu sendiri ialah apa yang digambarkan oleh hadis sebagai iman dan ihtisab.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Perbaharui niat anda sebelum setiap malam ibadah — kerana Allah, mengharapkan ganjaran-Nya.",
+      "Dirikan qiamullail pada sepuluh malam terakhir, walaupun hanya beberapa rakaat.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Bila hendak mencarinya",
+    summary:
+      "Malam-malam ganjil pada sepuluh malam terakhir Ramadan — bukan satu tarikh yang tetap.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Nabi ﷺ memerintahkan: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (maksud dalam bahasa Inggeris) (Bukhari 2017), diriwayatkan daripada Aisyah. Dalam Ramadan biasa yang berjumlah 30 hari, malam-malam ganjil lazimnya dikira sebagai malam ke-21, 23, 25, 27 dan 29. Riwayat-riwayat sahih yang lain meluaskannya kepada keseluruhan sepuluh malam terakhir, dan Nabi ﷺ sendiri bersabda bahawa tarikh tepat malam itu pernah ditunjukkan kepada baginda kemudian baginda dibuat terlupa — supaya ummah bersungguh-sungguh pada semua malam itu dan bukan pada satu malam sahaja.",
+      "Malam ke-27 ialah malam yang dianggap paling berkemungkinan oleh ramai ulama dan masyarakat (berdasarkan riwayat-riwayat lain yang menimbang tanda-tandanya dan kekerapan laporan para sahabat), tetapi ini ialah kesimpulan ulama daripada hadis, bukan tarikh tetap tersendiri yang dinyatakan dengan pasti dalam nas. Ia boleh jatuh pada malam yang berbeza pada tahun-tahun yang berlainan dan di kawasan yang berlainan, kerana tarikh permulaan Ramadan itu sendiri berbeza mengikut rukyah anak bulan.",
+      "Ada pihak yang menerbitkan satu tarikh tercetak setiap tahun seolah-olah ia telah ditetapkan dengan pasti, dan senarai 'tanda-tanda' rakyat (malam yang luar biasa tenang, mimpi, cahaya tertentu) tersebar luas dalam talian. Tiada satu pun daripadanya mempunyai asas hadis yang kukuh, maka panduan ini tidak mengulanginya. Pendekatan yang boleh dipercayai dan berasaskan nas hanyalah dengan menambah ibadah pada semua malam ganjil — dan sebaik-baiknya sepanjang sepuluh malam terakhir — supaya pada malam mana pun ia berlaku, anda sedang beribadah padanya.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Panduan ini tidak menyokong mana-mana satu tarikh kalendar yang tetap atau sebarang 'tanda-tanda' rakyat untuk mengenal pasti malam tersebut — hanya apa yang dinyatakan oleh hadis: carilah ia pada malam-malam ganjil dalam sepuluh malam terakhir Ramadan.",
   },
   {
-    title: "Apa yang perlu diucapkan jika menemuinya",
-    summary: "Aisyah bertanya kepada Nabi ﷺ tepat apa yang perlu diucapkan.",
+    title: "Apa yang perlu dibaca jika anda menemuinya",
+    summary: "Aisyah bertanya kepada Nabi ﷺ apa sebenarnya yang patut dibaca.",
     body: [
-      "Aisyah (radhiallahu 'anha) bertanya kepada Nabi ﷺ: 'Wahai Rasulullah, jika aku mengetahui malam mana Lailatul Qadar, apa yang patut kukatakan padanya?' Beliau ﷺ mengajarnya doa permohonan keampunan pendek yang ditunjukkan di bawah (Tirmidhi 3513, dinilai hasan sahih oleh al-Tirmidhi).",
-      "Doa ini pendek, mudah dihafal, dan sengaja tentang keampunan bukan permintaan duniawi — peringatan bahawa keuntungan terbesar dari malam ini ialah keampunan Allah. Ulangi kerap sepanjang sepuluh malam terakhir, dalam solat, dalam sujud, dan di antaranya, bukannya menahannya untuk satu malam yang diteka.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Aku berkata: Wahai Rasulullah, jika aku mengetahui malam mana Lailatul Qadar, apa yang patut kukatakan padanya? Beliau ﷺ bersabda: Ucapkan — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ya Allah, Engkau Maha Pengampun dan mencintai keampunan, maka ampunilah aku).",
-      },
+      "Aisyah (semoga Allah meredainya) bertanya kepada Nabi ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' (maksud dalam bahasa Inggeris) Baginda mengajarnya doa memohon keampunan yang ringkas seperti yang ditunjukkan di bawah (Tirmidhi 3513, dinilai hasan sahih oleh al-Tirmidhi).",
+      "Doa ini ringkas, mudah dihafal, dan sengaja tertumpu kepada keampunan dan bukan permintaan duniawi — satu peringatan bahawa keuntungan terbesar daripada malam ini ialah keampunan Allah. Ulanginya dengan kerap sepanjang sepuluh malam terakhir, dalam solat, dalam sujud dan di antaranya, dan bukan menyimpannya untuk satu malam yang diteka sahaja.",
     ],
     actions: [
-      "Hafal doa keampunan yang ditunjukkan di atas.",
-      "Ulangi kerap sepanjang sepuluh malam terakhir, terutamanya pada malam ganjil.",
+      "Hafalkan doa memohon keampunan yang ditunjukkan di atas.",
+      "Ulanginya dengan kerap pada sepuluh malam terakhir, terutamanya pada malam-malam ganjil.",
+    ],
+    appLinks: [{ label: "Buka doa ini" }],
+  },
+  {
+    title: "Cara menghidupkan malam itu",
+    summary: "Solat malam, al-Quran, zikir dan doa, serta sedekah.",
+    body: [
+      "Tiada satu 'ritual' wajib yang khusus untuk Lailatul Qadar selain ibadah yang ikhlas, maka Sunnah hanya mempertingkatkan amalan-amalan yang sudah disyariatkan: berdiri menunaikan solat sunat malam (qiamullail / tarawih), membaca dan merenungi al-Quran, mengulang zikir dan istighfar, serta berdoa — terutamanya doa yang Nabi ﷺ ajarkan kepada Aisyah. Ramai sahabat dan ulama kemudiannya juga memperbanyakkan sedekah pada malam-malam ini, sejajar dengan kemurahan hati Nabi ﷺ sendiri yang memuncak pada bulan Ramadan.",
+      "Jika anda hanya mampu melakukan sedikit, lakukanlah sedikit itu secara berterusan dan bukan tidak melakukan apa-apa langsung: walaupun qiam yang pendek, beberapa muka surat al-Quran, dan doa memohon keampunan yang diulang dengan ikhlas sudah memenuhi 'iman dan ihtisab' yang digambarkan oleh hadis. Mereka yang mampu mengambil cuti kerja atau memperbanyakkan masa bersendirian juga boleh beriktikaf (berdiam diri di masjid) pada sepuluh malam terakhir, mengikut amalan Nabi ﷺ sendiri.",
+    ],
+    actions: [
+      "Dirikan solat malam tambahan (qiamullail/tarawih) pada sepuluh malam terakhir.",
+      "Baca dan renungi sebahagian al-Quran setiap malam.",
+      "Perbanyakkan istighfar, zikir dan doa memohon keampunan.",
+      "Bersedekahlah, walaupun sedikit, pada malam-malam ini.",
+    ],
+    appLinks: [
+      { label: "Pembaca al-Quran" },
+      { label: "Zikir pagi & petang" },
+      { label: "Penjejak solat" },
+      { label: "Zakat & sedekah" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Iktikaf pada sepuluh malam terakhir",
+    summary: "Berdiam diri di masjid — amalan Nabi ﷺ pada penghujung Ramadan.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Iktikaf ialah berdiam diri di masjid untuk beribadah, dengan memutuskan gangguan duniawi biasa bagi satu tempoh tertentu. Nabi ﷺ sentiasa beriktikaf pada sepuluh malam terakhir Ramadan, mencari Lailatul Qadar dengan ibadah yang tertumpu dan tidak meninggalkan masjid untuk urusan biasa (Sahih al-Bukhari 2026).",
+      "Ajaran klasik menganggap iktikaf penuh sepanjang sepuluh malam terakhir sebagai sunat muakkad bagi sesiapa yang mampu. Butiran tentang perkara yang membatalkannya, sama ada wanita boleh beriktikaf di ruang masjid yang dikhaskan, dan bagaimana tanggungjawab kerja atau keluarga berkait dengannya berbeza mengikut mazhab — panduan ini hanya menjelaskan amalan itu dan tujuannya: al-Quran, solat dan doa yang berterusan pada malam-malam yang paling berkemungkinan merangkumi Lailatul Qadar.",
+      "Jika berdiam diri sepenuhnya di masjid tidak mungkin, kurangkan jaraknya: tinggal lebih lama selepas tarawih, khususkan waktu-waktu malam yang lebih tenang di rumah untuk qiam dan al-Quran, dan lindungi waktu-waktu itu daripada gangguan yang tidak perlu. Ganjarannya terikat dengan ibadah yang ikhlas, bukan semata-mata dengan label rasmi iktikaf.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Jika masjid anda menganjurkan iktikaf, tanyakan awal-awal tentang pendaftaran dan peraturan yang mereka ikuti.",
+      "Jika anda tidak dapat bermalam di sana, tetaplah memanjangkan kehadiran anda untuk al-Quran dan qiam pada sepuluh malam terakhir.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "Iktikaf mempunyai syarat-syarat fiqh yang terperinci (niat, keluar dari masjid, hubungan suami isteri, susunan untuk wanita). Sahkan dengan ulama tempatan yang bertauliah atau pihak masjid anda sebelum memulakannya.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Beribadah bersama keluarga pada sepuluh malam terakhir",
+    summary: "Libatkan anak-anak dan ahli keluarga tanpa mengejar satu tarikh yang tetap.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Sepuluh malam terakhir ialah peluang untuk seisi keluarga, bukan hanya untuk mereka yang mampu berjaga malam bersendirian. Ajarkan anak-anak makna Lailatul Qadar dengan bahasa yang mudah — bahawa Allah menjadikan satu malam lebih baik daripada seribu bulan — dan ajak mereka melakukan amalan yang ringkas dan mampu dilakukan: beberapa muka surat al-Quran, menyertai tarawih selama yang mereka mampu, mengulang doa memohon keampunan, dan memberikan sedikit sedekah.",
+      "Kekalkan suasana yang lembut. Matlamatnya ialah usaha yang ikhlas pada malam-malam ganjil, bukan meletihkan semua orang demi satu tarikh kalendar yang diteka. Bergilir-gilir mengetuai zikir keluarga yang ringkas, tetapkan niat bersama sebelum Maghrib, dan jaga waktu tidur secukupnya supaya ibadah kekal berterusan dan bukan semangat satu malam yang diikuti keletihan.",
+      "Mereka yang mempunyai tanggungjawab menjaga orang lain atau kekangan kerja tetap boleh berkongsi kelebihan malam itu dengan menyediakan sahur, memberi ruang kepada orang lain untuk solat di masjid, atau berdoa ketika orang lain berdiri solat — setiap sumbangan yang ikhlas dikira sebagai usaha mencari malam itu bersama-sama.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Sepakati sebagai satu keluarga malam-malam ganjil mana yang akan diutamakan untuk al-Quran dan solat tambahan.",
+      "Hafalkan doa memohon keampunan bersama-sama dan ulanginya selepas Maghrib dan sebelum tidur.",
+      "Biarkan anak-anak memberikan sedikit sedekah pada sepuluh malam terakhir.",
     ],
+    appLinks: [{ label: "Doa Hisnul Muslim" }, { label: "Pembaca al-Quran" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Kekalkan ia mudah dan ikhlas",
+    summary:
+      "Tinggalkan tarikh tetap dan tanda-tanda rakyat; tumpukan pada ibadah sepanjang malam-malam itu.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Dua amalan lazim wajar dielakkan kerana ia melampaui apa yang ditetapkan oleh nas. Pertama, menganggap satu tarikh tercetak sebagai pasti Lailatul Qadar — hadis sengaja membiarkannya di antara beberapa malam ganjil, bukan satu hari kalendar, dan ini berbeza mengikut rukyah anak bulan dan tempat. Kedua, mengejar 'tanda-tanda' rakyat (mimpi tertentu, malam yang luar biasa sunyi, haiwan yang berkelakuan aneh) sebagai bukti bahawa malam itu telah tiba — perkara ini tidak disokong oleh hadis yang kukuh dan boleh mengalihkan perhatian daripada ibadah sebenar yang dituntut pada malam itu.",
+      "Kesimpulan praktikalnya mudah: tingkatkan ibadah anda secara konsisten sepanjang sepuluh malam terakhir, kerap membaca doa memohon keampunan, dan jadikan rahmat Allah — bukan tarikh yang diteka — sebagai tumpuan. Jika anda tidak berjaya menemui malam itu dengan sedar, usaha yang ikhlas sepanjang malam-malam itu sendiri diberi ganjaran yang besar.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Ini ialah kandungan pendidikan umum yang meringkaskan ajaran arus perdana Ahli Sunnah daripada al-Quran dan hadis sahih. Ia bukan fatwa. Untuk hukum berkaitan iktikaf, solat yang tertinggal, atau keadaan khusus anda, rujuklah ulama tempatan yang bertauliah.",
   },
 ];

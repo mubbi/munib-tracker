@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Generate Munib Tracker brand assets from the official munib-logo.png."""
+"""Generate Munib Tracker brand assets from the official munib-logo.png.
+
+Every surface (app / store icons, Android adaptive + Wear OS, TV, Fire TV, Watch, PWA,
+favicons, marketing, screenshot studio) uses the gold-rimmed mark — the plain
+munib-logo.png is kept only as the source for other generators.
+"""
 
 from __future__ import annotations
 
@@ -145,11 +150,12 @@ def _odd(n: int) -> int:
     return n if n % 2 == 1 else n + 1
 
 
-def _with_gold_rim(img: Image.Image) -> Image.Image:
+def _with_gold_rim(img: Image.Image, *, glow: bool = True) -> Image.Image:
     """Gold stroke + soft glow around the opaque silhouette.
 
     The logo fill matches the dark splash background (#152921), so without a
     rim the squircle disappears. Native splash cannot use CSS shadows.
+    `glow=False` keeps only the stroke (themed / monochrome layers).
     """
     if img.mode != "RGBA":
         img = img.convert("RGBA")
@@ -169,7 +175,8 @@ def _with_gold_rim(img: Image.Image) -> Image.Image:
     ring.putalpha(ImageChops.subtract(dilated, eroded))
 
     out = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    out = Image.alpha_composite(out, glow_layer)
+    if glow:
+        out = Image.alpha_composite(out, glow_layer)
     out = Image.alpha_composite(out, img)
     return Image.alpha_composite(out, ring)
 
@@ -198,8 +205,14 @@ def _generate_logo_glow(size: int = 512) -> Image.Image:
     return img.filter(ImageFilter.GaussianBlur(radius=8))
 
 
-def _generate_android_adaptive(logo: Image.Image) -> tuple[Image.Image, Image.Image, Image.Image]:
-    """Android adaptive icon layers (108dp safe zone in 432/512 canvas)."""
+def _generate_android_adaptive(
+    logo: Image.Image, mono_source: Image.Image
+) -> tuple[Image.Image, Image.Image, Image.Image]:
+    """Android adaptive icon layers (108dp safe zone in 432/512 canvas).
+
+    `logo` is the gold-rimmed mark; `mono_source` the rim without its glow, so the
+    themed (monochrome) icon gets a crisp outline instead of a tinted halo.
+    """
     size = 432
     bg = Image.new("RGBA", (size, size), (*BRAND_BG, 255))
 
@@ -210,14 +223,10 @@ def _generate_android_adaptive(logo: Image.Image) -> tuple[Image.Image, Image.Im
     fg_canvas.paste(fg, ((size - fg.width) // 2, (size - fg.height) // 2), fg)
 
     # Monochrome: luminance silhouette for themed icons
-    flat = _flatten_on_bg(logo, size)
+    flat = _flatten_on_bg(mono_source, size)
     gray = ImageOps.grayscale(flat.convert("RGB"))
-    mono = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    for y in range(size):
-        for x in range(size):
-            lum = gray.getpixel((x, y))
-            if lum > 30:
-                mono.putpixel((x, y), (255, 255, 255, min(255, lum + 40)))
+    mono = Image.new("RGBA", (size, size), (255, 255, 255, 0))
+    mono.putalpha(gray.point(lambda lum: min(255, lum + 40) if lum > 30 else 0))
 
     return fg_canvas, bg, mono
 
@@ -235,9 +244,9 @@ def _write_ico(icon_48: Image.Image, ico_path: Path) -> None:
 def _write_favicon_set(logo: Image.Image, dest_dir: Path, *, ico_path: Path | None = None) -> None:
     """Write favicon.png (48), 16/32 PNGs, optional multi-size .ico, and SVG shim."""
     dest_dir.mkdir(parents=True, exist_ok=True)
-    icon_48 = _flatten_full_bleed(logo, 48)
-    icon_32 = _flatten_full_bleed(logo, 32)
-    icon_16 = _flatten_full_bleed(logo, 16)
+    icon_48 = _flatten_full_bleed(logo, 48, gold_rim=True)
+    icon_32 = _flatten_full_bleed(logo, 32, gold_rim=True)
+    icon_16 = _flatten_full_bleed(logo, 16, gold_rim=True)
     _save_png(icon_48, dest_dir / "favicon.png")
     _save_png(icon_32, dest_dir / "favicon-32.png")
     _save_png(icon_16, dest_dir / "favicon-16.png")
@@ -322,6 +331,19 @@ def _generate_watch_app_icon() -> None:
     src = Image.open(WATCH_ICON_SOURCE).convert("RGBA")
     box = _non_near_white_bbox(src)
     cropped = src.crop(box)
+    # The art is a dark disc on white: cut it to a circle and add the same gilt rim
+    # as every other icon (stroke + glow), still on the light Watch canvas.
+    side = max(cropped.size)
+    disc = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    disc.paste(cropped, ((side - cropped.width) // 2, (side - cropped.height) // 2))
+    circle = Image.new("L", (side * 4, side * 4), 0)
+    ImageDraw.Draw(circle).ellipse((0, 0, side * 4 - 1, side * 4 - 1), fill=255)
+    disc.putalpha(
+        ImageChops.multiply(
+            disc.split()[3], circle.resize((side, side), Image.Resampling.LANCZOS)
+        )
+    )
+    cropped = _with_gold_rim_padded(disc)
     size = 1024
     target = int(size * WATCH_ICON_FILL)
     fitted = ImageOps.contain(cropped, (target, target), method=Image.Resampling.LANCZOS)
@@ -376,25 +398,39 @@ def _generate_tv_assets(logo: Image.Image) -> None:
     _save_png(_flatten_on_bg(logo, 114), tv_dir / "firetv-icon-114.png")
 
 
+def _save_gold_logo(logo: Image.Image) -> None:
+    """In-app logo with the splash's gilt rim + glow (onboarding brand slide, sidebars).
+
+    Same canvas and framing as munib-logo.png — the rim and glow sit inside its
+    transparent padding — so it drops into existing logo boxes without layout changes.
+    """
+    _save_png(_with_gold_rim(logo), APP_IMAGES / "munib-logo-gold.png")
+
+
 def main() -> None:
     print(f"Source: {SOURCE.relative_to(REPO_ROOT)}")
     logo = _ensure_source()
+    gold = _with_gold_rim(logo)
+    gold_rim_only = _with_gold_rim(logo, glow=False)
 
-    # Canonical in-app logo (keep original with transparency for UI overlays)
+    # Canonical in-app logo (plain source for other generators) + the gold-rimmed
+    # mark every UI surface uses.
     _save_png(logo, APP_IMAGES / "munib-logo.png")
+    _save_gold_logo(logo)
 
     # App / store icon (1024×1024). Full-bleed + gilt rim; iOS applies the squircle mask.
     icon_1024 = _flatten_full_bleed(logo, 1024, gold_rim=True)
     _save_png(icon_1024, APP_IMAGES / "icon.png")
 
-    # PWA sizes. 180 / 512 are full-bleed (iOS home screen + "any" purpose).
-    # 192 stays inset so Android maskable icons keep the 80% safe zone.
+    # PWA "any" icons: full-bleed + gilt rim (iOS home screen, install dialogs, the
+    # notification icon). Maskable icons are separate files with the logo inside the
+    # 80% safe zone — see scripts/generate-pwa-assets.py.
     _save_png(_flatten_full_bleed(logo, 180, gold_rim=True), APP_IMAGES / "icon-180.png")
-    _save_png(_flatten_on_bg(logo, 192), APP_IMAGES / "icon-192.png")
+    _save_png(_flatten_full_bleed(logo, 192, gold_rim=True), APP_IMAGES / "icon-192.png")
     _save_png(_flatten_full_bleed(logo, 512, gold_rim=True), APP_IMAGES / "icon-512.png")
 
     # App favicon (48px PNG for expo web.favicon + multi-size .ico for /favicon.ico)
-    icon_48 = _flatten_full_bleed(logo, 48)
+    icon_48 = _flatten_full_bleed(logo, 48, gold_rim=True)
     _save_png(icon_48, APP_IMAGES / "favicon.png")
     _write_ico(icon_48, APP_PUBLIC / "favicon.ico")
     shutil.copy2(APP_IMAGES / "favicon.png", APP_PUBLIC_IMAGES / "favicon.png")
@@ -412,13 +448,13 @@ def main() -> None:
     _save_png(_generate_logo_glow(), APP_IMAGES / "logo-glow.png")
 
     # Android adaptive layers
-    fg, bg, mono = _generate_android_adaptive(logo)
+    fg, bg, mono = _generate_android_adaptive(gold, gold_rim_only)
     _save_png(fg, APP_IMAGES / "android-icon-foreground.png")
     _save_png(bg, APP_IMAGES / "android-icon-background.png")
     _save_png(mono, APP_IMAGES / "android-icon-monochrome.png")
 
     # Apple TV / Android TV (Leanback banner, TV icon, top shelf)
-    _generate_tv_assets(logo)
+    _generate_tv_assets(gold)
 
     # Apple Watch AppIcon (light canvas — required for App Review Guideline 4)
     _generate_watch_app_icon()
@@ -433,7 +469,7 @@ def main() -> None:
 
     # Marketing site assets
     MARKETING_PUBLIC.mkdir(parents=True, exist_ok=True)
-    _save_png(_flatten_on_bg(logo, 192), MARKETING_PUBLIC / "icon-192.png")
+    _save_png(_flatten_full_bleed(logo, 192, gold_rim=True), MARKETING_PUBLIC / "icon-192.png")
     _save_png(_flatten_full_bleed(logo, 512, gold_rim=True), MARKETING_PUBLIC / "icon-512.png")
     _save_png(_flatten_full_bleed(logo, 180, gold_rim=True), MARKETING_PUBLIC / "apple-touch-icon.png")
 
@@ -444,7 +480,7 @@ def main() -> None:
         ico_path=marketing_app / "favicon.ico",
     )
 
-    _save_png(logo, MARKETING_PUBLIC / "munib-logo.png")
+    _save_png(gold, MARKETING_PUBLIC / "munib-logo.png")
 
     # Screenshot studio (tools/screenshot-studio/public)
     studio_public = REPO_ROOT / "tools" / "screenshot-studio" / "public"
@@ -452,7 +488,7 @@ def main() -> None:
     studio_public.mkdir(parents=True, exist_ok=True)
     studio_app.mkdir(parents=True, exist_ok=True)
     shutil.copy2(APP_IMAGES / "icon.png", studio_public / "app-icon.png")
-    shutil.copy2(APP_IMAGES / "munib-logo.png", studio_public / "munib-logo.png")
+    shutil.copy2(APP_IMAGES / "munib-logo-gold.png", studio_public / "munib-logo.png")
     shutil.copy2(APP_IMAGES / "favicon.png", studio_app / "icon.png")
     shutil.copy2(APP_IMAGES / "icon-180.png", studio_app / "apple-icon.png")
     print("  synced screenshot-studio brand assets")

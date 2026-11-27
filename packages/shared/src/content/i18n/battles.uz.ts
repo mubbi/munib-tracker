@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       "Qur'on bu ruxsat atrofida doimiy chegara belgilab qo'ygan: \"Sizlar bilan jang qilganlar bilan Alloh yo'lida jang qilinglar, lekin haddan oshib ketmanglar\" (Baqara surasi, 190-oyat). Jang jamiyatga qarshi tajovuz bilan bog'liq edi va u hech qachon adolat chegarasidan chiqmasligi kerak edi.",
       "Bu yurishlar tarixdir: ular VII asrda arablarning qabila urushi, buzilgan shartnomalar va qamal sharoitida sodir bo'lgan. Tinchlik, adolat, rahm-shafqat va qo'shnichilik haqidagi umumiy islom ta'limotlari ramka; Bu janglarning tafsilotlari undan yirtilgan shiorlarga aylanib qolmasdan, shu ramka ichida o'qilishi kerak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O'z yurtlaridan nohaq haydalganlarga, zulmga uchragani uchun urushayotganlarga, albatta, Alloh g'alaba qozonishga qodirdir. Agar Alloh odamlarning bir qismini ba'zilari bilan daf qilmaganida edi, Allohning nomi ko'p zikr qilingan monastirlar, cherkovlar, sinagogalar va masjidlar vayron qilingan bo'lar edi.",
-      },
-      {
-        excerpt:
-          "Sizlar bilan urushayotganlar bilan Alloh yo'lida jang qilinglar, lekin haddan oshib ketmanglar. Albatta, Alloh zolimlarni sevmas.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       "Shartnomani buzish oxirigacha hal qiluvchi bo'lib qoldi. Aynan Quraysh ittifoqchilari musulmonlarning ittifoqchilari bo'lmish Banu Xuzoaga hujum qilib, Hudaybiya shartnomasini bekor qildilar va Makkani qirg'inga emas, deyarli qonsiz ochilishiga olib keldilar.",
       "Bularning barchasida maqsadlar izchil edi: hayot va dinni himoya qilish, zaiflarni himoya qilish va tavhidni ta'qiblarsiz amalga oshirish mumkin bo'lgan xavfsizlikni ta'minlash. Maqsad hech qachon o'z manfaati uchun cheksiz kengayish bo'lmagan va manbalarda Rasululloh sollallohu alayhi vasallam dushman tinchlikka moyil bo'lganda sulh va ahdni afzal ko'rganliklarini qayd etadilar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Menga odamlar Allohdan o‘zga iloh yo‘qligiga va Muhammad Allohning rasuli ekanligiga guvohlik bergunlaricha, namozni to‘kis ado etgunlaricha va zakot bergunlaricha ular bilan jang qilishga buyurildim. Agar shunday qilsalar, ularning jonlari va mollari mendan faqat Islomning haqqi bo‘lmasa, himoya qilinadi va ularning hisobi Allohning huzuridadir. - Klassik olimlar “xalq”ni Arabistonning o'ziga xos butparastlari, so'ngra ularga xabar yetib borganidan keyin Islomga qarshi urush olib borayotganlar deb o'qidilar; Bu Qur'on 2:256 to'g'ridan-to'g'ri man etilgan tinch musulmon bo'lmaganlarga hujum qilish yoki e'tiqodni majburlash uchun ruxsatnoma emas, balki dushman jangchilar haqidagi bayonotdir.",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Dinda majburlash yo'q. To'g'ri yo'l xatodan ajralib turdi.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Yuqoridagi hadis ko'pincha o'z joyidan olib tashlanadi. Mumtoz ulamolar buni o'z davrining o'ziga xos dushmanliklari doirasida va Qur'onning dinda majburlashni taqiqlash (2:256) va jang faqat siz bilan jang qilganlarga qarshi bo'lgan chegara (2:190) bilan birga joylashtirdilar.",
     appLinks: [{}],
@@ -72,30 +54,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       "Mulk va yerning o'zi himoyalangan. Umumiy ko'rsatmalar mevali daraxtlarni behuda kesish, ekinlarni yoqish va zaruratdan tashqari chorva mollarini so'yishni taqiqlagan. Qamoqqa olinganlar yeb-ichganlaridek, mahbuslar ovqatlantirilishi va kiyinishlari kerak edi; Qur'on Allohning sevgisi uchun asirni boqadiganlarni maqtaydi (76:8) va ko'plari to'lov, ayirboshlash yoki oddiy rahm-shafqat bilan ozod qilindilar - ba'zilari Badrda musulmonlarga o'qishni o'rgatish evaziga ozod qilindi.",
       "Bu dinning me'yoriy ta'limotlari. Tarix bo'ylab ularni buzgan musulmonlar Islomni ta'riflamasdan, uni buzganlar - xuddi har qanday e'tiqod tarafdorlari tomonidan qilingan buzilishlar bu e'tiqod buyurgan narsalarni qayta yozmagani kabi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sizlar bilan urushayotganlar bilan Alloh yo'lida jang qilinglar, lekin haddan oshib ketmanglar.",
-      },
-      {
-        excerpt:
-          "Agar ular tinchlikka moyil bo'lsalar, unga ham mayl qilinglar va Allohga tavakkal qilinglar. Albatta, U eshitguvchi va bilguvchi zotdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Umar raziyallohu anhu rivoyat qiladilar: «Rasululloh sollallohu alayhi vasallamning g‘azotlaridan birida bir ayol o‘ldirilgan holda topilib, ayollar va bolalarni o‘ldirishdan qaytardilar.",
-      },
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam bir qoʻshinga qoʻmondon etib tayinlaganlarida, unga buyurdilar: “Alloh nomi bilan jang qil... oʻljani oʻzlashtirma, ahdingni buzma, bolani oʻldirma. Dushmanga duch kelsangiz, avvalo ularni Islomga da’vat qiling; Agar rad etsalar, ularga tinchlik taklif qiling; Agar ikkalasi ham rad qilsalar, jang qilinglar.",
-      },
-      {
-        excerpt:
-          "Cholni ham, yosh bolani ham, ayolni ham o‘ldirmang. — Aynan shu lafzning baʼzi zanjirlari zaif deb baholangan, ammo u aytilgan hukm yuqoridagi sahih rivoyat va fiqhlar ijmosi bilan tasdiqlangan.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Islom nima amr qilgani va tarixdagi har qanday armiya aslida nima qilganini aniq ajrating.",
       "Har qanday jangovar hikoyadan oldin ushbu axloq bo'limini o'qing - boshqaruv tamoyillarisiz tarix tushunmovchilikni keltirib chiqaradi.",
@@ -141,26 +101,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
         "Madinalik bolalarga savod o‘rgatish evaziga ba’zi asirlar ozod qilindi.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "O'shanda sizlar Robbingizdan yordam so'ragan edingiz va U sizlarga javob berdi: Men sizlarni bir-biringizga ergashgan mingta farishta bilan quvvatlayman.",
-      },
-      {
-        excerpt:
-          "To'qnash kelgan ikki lashkarda sizlar uchun oyat-belgi bor edi: biri Alloh yo'lida, biri kofirlardandir.",
-      },
-      {
-        excerpt:
-          "Ularni siz o'ldirmadingiz, balki Alloh ularni o'ldirgan. Otganingda ham tashlamading, balki Alloh tashlagandir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Umar raziyallohu anhu rivoyat qiladirlar: «Rasululloh sollallohu alayhi vasallam Badr kuni sahobalari uch yuzdan sal oshiqroq bo‘lganlarida mingta dushmanga qaradilar, so‘ng qiblaga qarab qo‘llarini cho‘zdilar va Parvardigoriga duo qildilar: «Allohim, menga va’da qilganingni vafo qilgin. Allohim, agar bu mo'minlar guruhi halok bo'lsa, Senga yer yuzida ibodat qilinmaydi. Toki ridosi yelkasidan tushgunicha yolvorib turdi va Abu Bakr uni o‘rniga qo‘yib: “Bo‘ldi, ey Allohning payg‘ambari, Alloh senga bergan va’dasini vafo qiladi”, dedi.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -197,22 +139,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Sinovlar imonlilarni tozalaydi; muvaffaqiyatsizlik tavba bilan uchrashdi va mustahkamlik o'sishga olib keladi.",
     },
-    quran: [
-      {
-        excerpt:
-          "Albatta, siz ularni O'zining izni bilan o'ldirayotganingizda, Alloh sizga bergan va'dasini vafo qilgan edi, toki sizlar yaxshi ko'rgan narsalaringizni ko'rsatgandan keyin jasoratingizni yo'qotib, amr ustida tortishib, osiy bo'ldingiz.",
-      },
-      {
-        excerpt:
-          "Bas, zaiflashmang va xafa bo'lmang, chunki agar haqiqiy mo'min bo'lsangiz, sizlar ustun bo'lasiz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam Uhud kuni Abdulloh ibn Jubayrni ellikta kamonchiga tayinladilar va dedilar: Agar bizni qushlar olib ketayotganini ko'rsangiz ham, men sizni chaqirmagunimcha uni tark etmangiz - va agar biz ularni mag'lub qilganimizni ko'rsangiz ham, men sizni chaqirmagunimcha ketmang. Dushman tor-mor etib, o‘ljalarni ko‘rgan kamonchilar: “O‘lja! va o'z lavozimini tark etdilar - bizdan yetmish kishi halok bo'ldi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -251,22 +179,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Qamalda qattiq turing va natijani Allohga topshiring, U lashkarni shamol bilan qaytara oladi.",
     },
-    quran: [
-      {
-        excerpt:
-          "Ey mo'minlar, Allohning sizga bergan ne'matini eslang, o'shanda sizlarga qo'shinlar kelganda, Biz ularga shamol va siz ko'rmagan qo'shinlarni yubordik... U erda mo'minlar imtihon qilindi va qattiq larzaga tushdi.",
-      },
-      {
-        excerpt:
-          "Mo'minlar ittifoqchilarni ko'rganlarida: \"Bu Alloh va Uning Rasuli bizga va'da qilgan narsadir\", dedilar va bu ularning iymon va bo'ysunishlarini oshirdi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam Ahzob kuni ittifoqchilarga duo qilib: “Ey, kitobni nozil qiluvchi, hisobda tez bo‘lgan Allohim, ittifoqchilarni mag‘lub et”, dedilar. Allohim, ularni mag'lub et va ularni silkit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -300,22 +214,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Umumiy xavf-xatar paytida o'zaro himoya ahdini buzish xiyonatning eng og'irlaridan biridir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Va u kitob ahlidan o'zlariga yordam bergan va qalblariga qo'rquv solgan kimsalarni, o'zingiz o'ldirgan toifani va sizlar asir olgan toifani tushirdi. Va sizlarga ularning yerlarini va uylarini voris qildi.",
-      },
-      {
-        excerpt:
-          "Alloh sizlarni din tufayli sizlar bilan urushmagan va sizlarni o'z yurtlaringizdan chiqarib yubormagan kimsalarga yaxshilik qilishdan va ularga nisbatan adolatli bo'lishdan qaytarmaydi. Albatta, Alloh adolat qiluvchilarni sevadi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Banu Qurayza Sa’d ibn Muozning hukmini qabul qilishga rozi bo‘lgach, Rasululloh sollallohu alayhi vasallam uni chaqirtirdilar. U keldi, Rasululloh sollallohu alayhi vasallam: «Boshlig'ingga turinglar», dedilar. Sa'd ularning jangchilari o'ldirilishi va ayollari va bolalari asirga olinishi haqida hukm qildi. Rasululloh sollallohu alayhi vasallam: «Sizlar Allohning hukmi bilan hukm qildingiz yoki podshohning hukmi bilan hukm qildingiz», dedilar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Bu qabila o'zi tanlagan hakam tomonidan hukm qilingan jangchilar tomonidan urush davridagi xiyonat uchun jazo edi. Bu hech bir xalqning diniga qarshi hukm emas va Islom adolat va mehribonlik bilan muomala qilishni buyurgan yahudiylar yoki diniy jamoalar bilan munosabatlar uchun namuna emas (Qur'on 60:8). Keyinchalik ba'zi olimlar uzatilgan raqamlarning tafsilotlarini shubha ostiga qo'yishdi.",
   },
@@ -349,22 +249,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Qarorning hikmati yashirin bo'lsa, Allohga va Uning Rasuliga ishoning - sabr eng haqiqiy g'alaba bo'lishi mumkin.",
     },
-    quran: [
-      {
-        excerpt:
-          "Darhaqiqat, Alloh sizning oldingi va keyingi gunohlaringizni mag'firat qilishi, sizga bo'lgan ne'matini to'ldirishi va sizni to'g'ri yo'lga hidoyat qilishi uchun sizga ochiq-oydin g'alabani berdik.",
-      },
-      {
-        excerpt:
-          "Albatta, Alloh mo'minlar daraxt tagida senga bay'at qilganlarida ulardan rozi bo'ldi va ularning qalblaridagi narsani bildi, bas, ularga xotirjamlik tushirdi va ularni yaqinlashib kelayotgan g'alaba bilan mukofotladi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jobir ibn Abdulloh aytadilar: “Hudaybiyya kuni biz o‘n to‘rt yuz kishi edik. Daraxt tagida Rasululloh sollallohu alayhi vasallamga bay’at qildik, u zot odamlarning eng yaxshisi edi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -398,12 +284,7 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Uzoq davom etgan mashaqqatlarga sabr qilish, ixlosga qo'shilish Allohning yordamini keltiradi.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Xaybar kuni Rasululloh sollallohu alayhi vasallam aytdilar: Ertaga men bu bayroqni Alloh va Uning Rasulini sevadigan, Alloh va Uning Rasuli yaxshi ko‘radigan va uning qo‘li bilan Alloh g‘alaba qozonadigan kishiga beraman. Ertasi kuni ko'zlari og'riyotgan Alini chaqirdi; uning ko'zlariga tupurib duo qildi va Ali hech qachon kasal bo'lmagandek tuzalib ketdi va unga bayroq berildi.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -470,16 +351,7 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Maqsad qasos emas, yo'l-yo'riq edi - kuch o'z-o'ziga emas, xabarga xizmat qilish uchun yaratilgan.",
     },
-    quran: [
-      {
-        excerpt:
-          "Qachon Allohning g‘alabasi va g‘alabasi kelganda va odamlarning ko‘p bo‘lib Allohning diniga kirganlarini ko‘rsangiz, Robbingizga hamd aytib, tasbeh ayting va Undan mag‘firat so‘rang. Albatta, U tavbalarni qabul qilguvchidir.",
-      },
-      {
-        excerpt:
-          "U zot: «Bugun sizlarga ayb yo'q», dedilar. Alloh sizni mag'firat qilsin, U rahmlilarning eng mehribonidir. - Yusuf payg'ambarning so'zlari, Payg'ambarimiz sollallohu alayhi vasallam Qurayshni fath kunida takrorladilar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -513,18 +385,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Hech qachon raqamlarga yoki so'nggi muvaffaqiyatlarga tayanmang; g'alaba va osoyishtalik faqat Allohdandir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Alloh sizlarni ko'p hududlarda g'alaba qildi va Hunayn kunida ko'pligingiz sizga yoqsa-da, hech qanday foyda bermaganda, yer kengligi bilan sizlarni o'rab oldi va siz orqaga qaytdingiz. So‘ngra Alloh taolo O‘z payg‘ambariga va mo‘minlarga sokinlikni nozil qildi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Al-Baro ibn Ozibdan Hunayn kuni qochdilarmi, deb so‘rashdi. Rasululloh sollallohu alayhi vasallam qochmadilar, dedilar. Odamlar orqaga qaytishdi, Rasululloh sollallohu alayhi vasallam oq xachirlariga minib: «Men Payg'ambarman, bu yolg'on emas. Men Abdulmuttalibning o‘g‘liman.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -561,22 +423,8 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ko‘zga ko‘rinmas ajrsiz qurbonlik va sinovda rostgo‘ylik iymonning eng oliy sinovlaridandir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Orqada qolganlar esa, Rasululloh sollallohu alayhi vasallamdan orqada qolishlaridan xursand bo‘lib, mollari va jonlari bilan Alloh yo‘lida jihod qilishni yoqtirmay, «Issiqda urushga chiqmanglar», dedilar. Ayting: «Agar ular tushunib yetsalar, jahannam olovi issiqroqdir.",
-      },
-      {
-        excerpt:
-          "Va Alloh taolodan o'zga panoh yo'qligiga amin bo'lgunicha, er yuzlari keng bo'lsa ham, ularning ustiga o'z jonlari ham qamalib qolib ketguncha, qolgan uch kishini mag'firat qildi. So'ngra tavba qilishlari uchun ularga rahmat qilib tavba qildi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Molik uzrsiz Tabukdan qolib, yolg'on gapirmasligini aytdi. Rasululloh sollallohu alayhi vasallam mo'minlarga ellik kecha davomida u va uning ikki sahobasi bilan gaplashmaslikni buyurdilar, to ular uchun yer tor bo'ldi, keyin ularning mag'firatlari vahiy keldi va u zotning hayotining eng baxtli kunlaridan edi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -636,20 +484,7 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
       "G'azot haqidagi hadislarga tayanishdan oldin ularning ishonchliligi tekshirilishi kerak. Quyidagi rivoyatlar “Sahih” to‘plamlaridan olingan bo‘lib, bu kampaniyalarning o‘tkazilishi va ruhiga taalluqlidir; har biri o'z darajasini oladi.",
       "Muayyan mashg'ulot bilan bog'liq rivoyatlar uchun ushbu jangning o'z mavzusiga qarang. Toʻliq zanjirlarni oʻqish va kontekst boʻyicha baholash uchun Munibning hadis brauzeridan foydalaning.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dushman bilan uchrashishni hohlamang va Allohdan omonlik so'rang. Ularga duch kelganingizda sabr qiling va bilingki, jannat qilichlar soyasi ostidadir.",
-      },
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam aytdilar: Urush makkorlikdir. — Olimlar buni jangda taktik strategiyaga ruxsat (fiintlar, kutilmagan hodisalar, notoʻgʻri yoʻnalish), hech qachon shartnomani buzish yoki himoyalangan tomonga xiyonat qilish uchun ruxsatnoma sifatida tushuntiradilar.",
-      },
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam unga qo'mondon tayinlaganlarida Allohdan qo'rqishni, jang qilishdan oldin dushmanni Islomga da'vat qilishni, bay'atni buzmaslikni, o'ldirmaslikni va bolani o'ldirmaslikni buyurdilar.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -671,70 +506,46 @@ export const BATTLES_TOPICS_UZ: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_UZ: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Jang qilganlarga zulmga uchragani uchun izn berildi... Agar Alloh bir guruh qavmni boshqasi bilan tekshirmaganida edi, monastirlar, cherkovlar, sinagogalar va masjidlar vayron bo'lar edi.",
     context:
       "Jang qilish uchun birinchi umumiy ruxsat - Makkada yillar davomida qurolsiz ta'qiblardan keyin.",
   },
   {
-    excerpt:
-      "Sizlar bilan urushayotganlar bilan Alloh yo'lida jang qilinglar, lekin haddan oshib ketmanglar. Albatta, Alloh zolimlarni sevmas.",
     context: "Asosiy chegara: faqat mudofaa, chegaradan oshib ketishni qat'iy taqiqlash.",
   },
   {
-    excerpt:
-      "Robbingdan madad so‘raganingda, U: «Men seni darajama-bosqich mingta farishta bilan quvvatlayman», dedi.",
     context: "Badr haqida nozil bo'lgan - ko'p mo'minlarga ilohiy yordam.",
   },
   {
-    excerpt:
-      "Sizlar uchun to'qnash kelgan ikki lashkarda oyat-mo''jiza bor edi: biri Alloh yo'lida urushayotgan, ikkinchisi kofirlar bo'lib, ularni ko'zlari bilan ikki baravar ko'rar ekan.",
     context:
       "Alloh taolo musulmonlarni Badrda dushmanga kattaroq qilib, qalblarni mustahkam qildi.",
   },
   {
-    excerpt:
-      "Albatta, siz ularni O'zining izni bilan o'ldirayotganingizda, Alloh sizga bergan va'dasini vafo qilgan edi, toki sizlar yaxshi ko'rgan narsalaringizni ko'rsatganidan keyin jasoratingiz qolmadi va buyruq haqida tortishuvga tushdingiz.",
     context: "Kamonchilarning itoatsizligi va Uhuddagi burilish nuqtasiga murojaat qiladi.",
   },
   {
-    excerpt:
-      "Ey iymon keltirganlar, Allohning sizga bergan ne'matini eslang, o'shanda sizlarga qo'shinlar kelganda, Biz ularga shamol va siz ko'rmagan qo'shinlarni yubordik.",
     context: "Konfederativ qamal va ilohiy yordam haqida Ahzob surasi.",
   },
   {
-    excerpt:
-      "Va u kitob ahlidan o'zlariga yordam bergan va qalblariga qo'rquv solgan kimsalarni, o'zingiz o'ldirgan toifani va sizlar asir olgan toifani tushirdi. Va sizlarga ularning yerlarini va uylarini voris qildi.",
     context:
       "Qamal paytida ahdni buzgan Banu Qurayza haqida Ahzob surasi - urush davridagi xiyonatning chegaralangan epizodi, dinga qarshi hukm emas.",
   },
   {
-    excerpt:
-      "Darhaqiqat, Alloh sizning oldingi va keyingi gunohlaringizni mag'firat qilishi, sizga bo'lgan ne'matini to'ldirishi va sizni to'g'ri yo'lga hidoyat qilishi uchun sizga ochiq-oydin g'alabani berdik.",
     context:
       "Hudaybiyyadan qaytishda nozil bo'ldi - sahobalar birinchi bo'lib achchiq murosa sifatida his qilgan narsani ochiq g'alaba deb nomlash.",
   },
   {
-    excerpt:
-      "Albatta, Alloh mo'minlar daraxt tagida senga bay'at qilganlarida ulardan rozi bo'ldi va ularning qalblaridagi narsani bildi, bas, ularga xotirjamlik tushirdi va ularni yaqinlashib kelayotgan g'alaba bilan mukofotladi.",
     context:
       "Ridvon bay’ati — 1400 ga yaqin sahobalar akas daraxti ostida qochmaslikka ahd qildilar va Alloh taolo ulardan roziligini bildirdi.",
   },
   {
-    excerpt:
-      "Qachon Allohning g‘alabasi va g‘alabasi kelganda va odamlarning ko‘p bo‘lib Allohning diniga kirganlarini ko‘rsangiz, Robbingizga hamd aytib, tasbeh ayting va Undan mag‘firat so‘rang. Albatta, U tavbalarni qabul qilguvchidir.",
     context:
       "Makka ochilishida Nasr surasi - zafar bilan emas, balki maqtov toji kiygan, mag'firat so'rab, ko'pchilikning iymonga kirishi.",
   },
   {
-    excerpt:
-      "Alloh sizga ko'p hududlarda g'alaba berdi... So'ngra Alloh O'z payg'ambariga va mo'minlarga osoyishtaligini nozil qildi.",
     context:
       "Alloh taolo mo‘minlarga g‘alaba Uning ne’mati ekanini eslatadi, son bilan maqtanishning natijasi emas.",
   },
   {
-    excerpt:
-      "Orqada qolganlar esa, Rasululloh sollallohu alayhi vasallamdan orqada qolishlaridan xursand bo'lib, Alloh yo'lida mollari va jonlari bilan jihod qilishni yoqtirmasdilar.",
     context: "Tavba surasi og'ir Tabuk yurishidan uzr so'raganlarga murojaat qiladi.",
   },
 ];

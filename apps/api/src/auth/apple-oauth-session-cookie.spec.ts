@@ -6,6 +6,7 @@ import {
   readAppleOAuthSessionCookie,
   setAppleOAuthSessionCookie,
 } from "./apple-oauth-session-cookie";
+import { openAuthCookieValue, sealAuthCookieValue } from "./auth-cookies";
 
 const PAYLOAD = {
   codeVerifier: "verifier-123",
@@ -13,9 +14,11 @@ const PAYLOAD = {
   returnUrl: "https://app.example/login",
 };
 
-function requestWithCookie(value?: string) {
+/** Request carrying `value` sealed the way the API writes it (`raw` skips sealing). */
+function requestWithCookie(value?: string, { raw = false } = {}) {
+  const cookie = value === undefined || raw ? value : sealAuthCookieValue(value);
   return buildRequest({
-    cookies: value === undefined ? {} : { [APPLE_OAUTH_SESSION_COOKIE]: value },
+    cookies: cookie === undefined ? {} : { [APPLE_OAUTH_SESSION_COOKIE]: cookie },
   });
 }
 
@@ -30,17 +33,41 @@ describe("apple-oauth-session-cookie", () => {
   it.each([
     ["development", "lax"],
     ["production", "none"],
-  ])("sets the JSON session cookie in %s with SameSite=%s", (nodeEnv, sameSite) => {
+  ])("sets the sealed session cookie in %s with SameSite=%s", (nodeEnv, sameSite) => {
     process.env.NODE_ENV = nodeEnv;
     const res = buildResponse();
     setAppleOAuthSessionCookie(res, PAYLOAD);
-    expect(res.cookie).toHaveBeenCalledWith(APPLE_OAUTH_SESSION_COOKIE, JSON.stringify(PAYLOAD), {
+    expect(res.cookie).toHaveBeenCalledWith(APPLE_OAUTH_SESSION_COOKIE, expect.any(String), {
       httpOnly: true,
       secure: true,
       sameSite,
       path: "/api/v1/auth",
       maxAge: 10 * 60 * 1000,
     });
+    const [, sealed] = res.cookie.mock.calls[0] as [string, string];
+    // The PKCE verifier is never written in clear text.
+    expect(sealed).not.toContain(PAYLOAD.codeVerifier);
+    expect(openAuthCookieValue(sealed)).toBe(JSON.stringify(PAYLOAD));
+  });
+
+  it("round-trips a cookie it wrote", () => {
+    const res = buildResponse();
+    setAppleOAuthSessionCookie(res, PAYLOAD);
+    const [, sealed] = res.cookie.mock.calls[0] as [string, string];
+    expect(readAppleOAuthSessionCookie(requestWithCookie(sealed, { raw: true }))).toEqual(PAYLOAD);
+  });
+
+  it("rejects a plain JSON cookie planted by another origin (cookie tossing)", () => {
+    expect(
+      readAppleOAuthSessionCookie(requestWithCookie(JSON.stringify(PAYLOAD), { raw: true })),
+    ).toBeNull();
+  });
+
+  it("rejects a tampered sealed cookie", () => {
+    const [version, iv, tag, data] = sealAuthCookieValue(JSON.stringify(PAYLOAD)).split(".");
+    const flipped = `${data?.startsWith("A") ? "B" : "A"}${data?.slice(1)}`;
+    const tampered = [version, iv, tag, flipped].join(".");
+    expect(readAppleOAuthSessionCookie(requestWithCookie(tampered, { raw: true }))).toBeNull();
   });
 
   it("clears the session cookie with matching options and no maxAge", () => {

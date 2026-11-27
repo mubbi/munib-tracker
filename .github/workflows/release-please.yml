@@ -15,14 +15,19 @@ on:
       - main
   workflow_dispatch:
 
+# Least privilege by default: every job authenticates with RELEASE_PLEASE_TOKEN,
+# so GITHUB_TOKEN only needs write access on the release-please action jobs
+# (its fallback token when the PAT input is empty).
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
 
 jobs:
   release-please:
     runs-on: ubuntu-26.04
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
@@ -128,6 +133,10 @@ jobs:
     needs: heal-conflicting-release-prs
     if: needs.heal-conflicting-release-prs.outputs.need_rebase == 'true'
     runs-on: ubuntu-26.04
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - uses: googleapis/release-please-action@v5
         id: rebase

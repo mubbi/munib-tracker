@@ -10,7 +10,7 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
@@ -122,7 +122,7 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
     return (
       <View style={[styles.stack, !tv && styles.stackCentered]}>
         {intro}
-        <Card padding="three">
+        <Card>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("flashCards.empty")}
           </ThemedText>
@@ -152,7 +152,6 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
 
       <Animated.View key={cardKey} entering={FadeIn.duration(280)} exiting={FadeOut.duration(160)}>
         <Card
-          padding="three"
           style={[
             styles.flashCard,
             {
@@ -193,90 +192,94 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
             {current.prompt}
           </ThemedText>
 
-          {current.options.map((option, optionIndex) => {
-            const isSelected = selected === optionIndex;
-            const isCorrectOption = current.correctIndex === optionIndex;
-            const letter = LETTERS[optionIndex] ?? String(optionIndex + 1);
+          <View accessibilityRole="radiogroup" accessibilityLabel={current.prompt}>
+            {current.options.map((option, optionIndex) => {
+              const isSelected = selected === optionIndex;
+              const isCorrectOption = current.correctIndex === optionIndex;
+              const letter = LETTERS[optionIndex] ?? String(optionIndex + 1);
 
-            let background = colors.muted;
-            let borderColor = "transparent";
-            let letterBg = colors.card;
-            let letterFg = colors.mutedForeground;
-            let labelColor = colors.foreground;
-            let trailingIcon: AppIconType | null = null;
+              let background = colors.muted;
+              let borderColor = "transparent";
+              let letterBg = colors.card;
+              let letterFg = colors.mutedForeground;
+              let labelColor = colors.foreground;
+              let trailingIcon: AppIconType | null = null;
 
-            if (answered && isCorrectOption) {
-              background = tokens.status.success.soft;
-              borderColor = withAlpha(tokens.status.success.color, 0.45);
-              letterBg = tokens.status.success.color;
-              letterFg = colors.card;
-              labelColor = tokens.status.success.text;
-              trailingIcon = {
-                ios: "checkmark.circle.fill",
-                android: "check_circle",
-                web: "check_circle",
-              };
-            } else if (answered && isSelected && !isCorrectOption) {
-              background = tokens.status.danger.soft;
-              borderColor = withAlpha(tokens.status.danger.color, 0.45);
-              letterBg = tokens.status.danger.color;
-              letterFg = colors.card;
-              labelColor = tokens.status.danger.text;
-              trailingIcon = { ios: "xmark.circle.fill", android: "cancel", web: "cancel" };
-            } else if (!answered && isSelected) {
-              background = tokens.accentSoft;
-              borderColor = withAlpha(colors.accent, 0.45);
-              letterBg = colors.accent;
-              letterFg = colors.accentForeground;
-              labelColor = colors.accentText;
-            }
+              if (answered && isCorrectOption) {
+                background = tokens.status.success.soft;
+                borderColor = withAlpha(tokens.status.success.color, 0.45);
+                letterBg = tokens.status.success.color;
+                letterFg = colors.card;
+                labelColor = tokens.status.success.text;
+                trailingIcon = {
+                  ios: "checkmark.circle.fill",
+                  android: "check_circle",
+                  web: "check_circle",
+                };
+              } else if (answered && isSelected && !isCorrectOption) {
+                background = tokens.status.danger.soft;
+                borderColor = withAlpha(tokens.status.danger.color, 0.45);
+                letterBg = tokens.status.danger.color;
+                letterFg = colors.card;
+                labelColor = tokens.status.danger.text;
+                trailingIcon = { ios: "xmark.circle.fill", android: "cancel", web: "cancel" };
+              } else if (!answered && isSelected) {
+                background = tokens.accentSoft;
+                borderColor = withAlpha(colors.accent, 0.45);
+                letterBg = colors.accent;
+                letterFg = colors.accentForeground;
+                labelColor = colors.accentText;
+              }
 
-            return (
-              <PressableScale
-                key={`${current.id}-${option}`}
-                haptic="selection"
-                disabled={answered}
-                accessibilityRole="button"
-                accessibilityState={{ selected: isSelected, disabled: answered }}
-                accessibilityLabel={`${letter}. ${option}`}
-                onPress={() => selectOption(optionIndex)}
-                // TV: each new card remounts (keyed), so the first option re-takes
-                // D-pad focus instead of focus falling back to the screen chrome.
-                {...(tv && optionIndex === 0 && !answered ? { hasTVPreferredFocus: true } : {})}
-                style={[
-                  styles.option,
-                  tv && styles.optionTv,
-                  { backgroundColor: background, borderColor },
-                ]}
-              >
-                <View style={[styles.letterBadge, { backgroundColor: letterBg }]}>
-                  <ThemedText type="caption" style={{ color: letterFg }}>
-                    {letter}
-                  </ThemedText>
-                </View>
-                <View style={styles.optionLabelWrap}>
-                  <ThemedText type="small" style={[styles.optionLabel, { color: labelColor }]}>
-                    {option}
-                  </ThemedText>
-                </View>
-                {trailingIcon ? (
-                  <View style={styles.optionTrailing}>
-                    <SymbolView
-                      name={trailingIcon}
-                      size={18}
-                      tintColor={
-                        isCorrectOption ? tokens.status.success.color : tokens.status.danger.color
-                      }
-                    />
+              return (
+                <PressableScale
+                  key={`${current.id}-${option}`}
+                  haptic="selection"
+                  disabled={answered}
+                  accessibilityRole="radio"
+                  accessibilityState={{ checked: isSelected, disabled: answered }}
+                  accessibilityLabel={`${letter}. ${option}`}
+                  onPress={() => selectOption(optionIndex)}
+                  // TV: each new card remounts (keyed), so the first option re-takes
+                  // D-pad focus instead of focus falling back to the screen chrome.
+                  {...(tv && optionIndex === 0 && !answered ? { hasTVPreferredFocus: true } : {})}
+                  style={[
+                    styles.option,
+                    tv && styles.optionTv,
+                    { backgroundColor: background, borderColor },
+                  ]}
+                >
+                  <View style={[styles.letterBadge, { backgroundColor: letterBg }]}>
+                    <ThemedText type="caption" style={{ color: letterFg }}>
+                      {letter}
+                    </ThemedText>
                   </View>
-                ) : null}
-              </PressableScale>
-            );
-          })}
+                  <View style={styles.optionLabelWrap}>
+                    <ThemedText type="small" style={[styles.optionLabel, { color: labelColor }]}>
+                      {option}
+                    </ThemedText>
+                  </View>
+                  {trailingIcon ? (
+                    <View style={styles.optionTrailing}>
+                      <SymbolView
+                        name={trailingIcon}
+                        size={18}
+                        tintColor={
+                          isCorrectOption ? tokens.status.success.color : tokens.status.danger.color
+                        }
+                      />
+                    </View>
+                  ) : null}
+                </PressableScale>
+              );
+            })}
+          </View>
 
           {answered ? (
             <Animated.View
               entering={FadeInDown.duration(280)}
+              accessibilityLiveRegion="polite"
+              role="status"
               style={[
                 styles.feedbackCard,
                 {
@@ -369,7 +372,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   flashCard: {
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     borderCurve: "continuous",
     minHeight: 320,
   },
@@ -388,11 +391,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     gap: Spacing.two,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     marginBottom: Spacing.two,
     minHeight: 52,
   },
@@ -418,7 +421,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   optionTrailing: {
-    marginTop: 4,
+    marginTop: Spacing.one,
     flexShrink: 0,
   },
   feedbackCard: {
@@ -428,7 +431,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     marginTop: Spacing.one,
     marginBottom: Spacing.two,
   },

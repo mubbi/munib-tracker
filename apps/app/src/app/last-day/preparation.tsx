@@ -1,38 +1,30 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { type Href, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   LearnColumnsGrid,
   learnColumnsFor,
   useLearnHubLayout,
-  useLearnTileStyle,
 } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { JourneyIntentionRow, JourneyMetricRow } from "@/components/learn-mizan/journey-rows";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { IconWell } from "@/components/ui/icon-well";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { ensureLastDayContent, getLastDayLessonCount, isLastDayContentReady } from "@/lib/last-day";
 import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { isTV } from "@/lib/platform/is-tv";
-import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureLastDayProgressLoaded,
@@ -57,87 +49,30 @@ const ROW_ICONS: Record<LastDayPreparationRowId, AppIcon> = {
 
 const TOGGLE_ROWS: LastDayPreparationRowId[] = ["repentance", "character"];
 
-function PreparationRow({
+type PreparationRowModel = ReturnType<typeof buildLastDayPreparation>["rows"][number];
+
+/** In-place daily intention (ticks here, never navigates) — G-50. */
+function IntentionToggleRow({
   row,
   today,
-  onPress,
-  tiled,
+  onToggle,
 }: {
-  row: ReturnType<typeof buildLastDayPreparation>["rows"][number];
+  row: PreparationRowModel;
   today: string;
-  onPress: () => void;
-  /** Wide grid cell: tile chrome instead of the hairline separator. */
-  tiled: boolean;
+  onToggle: () => void;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const chevronForwardIcon = useChevronForward();
-  const isToggle = TOGGLE_ROWS.includes(row.id);
-  const tileStyle = useLearnTileStyle();
-  const tile = tiled ? [tileStyle, styles.rowTile] : null;
   const repentance = useLastDayRepentanceChecked(today);
   const character = useLastDayCharacterChecked(today);
-  const checked = row.id === "repentance" ? repentance : row.id === "character" ? character : false;
-
-  if (isToggle) {
-    return (
-      <PressableScale
-        accessibilityRole="checkbox"
-        accessibilityState={{ checked }}
-        accessibilityLabel={t(row.labelKey)}
-        onPress={onPress}
-        haptic="selection"
-        style={[styles.row, isTV() && styles.rowTv, { borderTopColor: tokens.hairline }, tile]}
-      >
-        <IconWell
-          icon={ROW_ICONS[row.id]}
-          tint={checked ? tokens.status.success.color : colors.mutedForeground}
-          background={checked ? tokens.status.success.soft : colors.muted}
-          well={40}
-          size={18}
-        />
-        <View style={styles.copy}>
-          <ThemedText type="smallBold">{t(row.labelKey)}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {tTv(t, row.hintKey, `${row.hintKey}Tv`)}
-          </ThemedText>
-        </View>
-        <SymbolView
-          name={
-            checked
-              ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-              : { ios: "circle", android: "radio_button_unchecked", web: "radio_button_unchecked" }
-          }
-          size={22}
-          tintColor={checked ? tokens.status.success.color : colors.mutedForeground}
-        />
-      </PressableScale>
-    );
-  }
-
+  const checked = row.id === "repentance" ? repentance : character;
   return (
-    <PressableScale
-      onPress={onPress}
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={`${t(row.labelKey)}. ${row.value}`}
-      style={[styles.row, isTV() && styles.rowTv, { borderTopColor: tokens.hairline }, tile]}
-    >
-      <IconWell icon={ROW_ICONS[row.id]} tint={colors.accent} well={40} size={18} />
-      <View style={styles.copy}>
-        <View style={styles.head}>
-          <ThemedText type="smallBold">{t(row.labelKey)}</ThemedText>
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
-            {row.value}
-          </ThemedText>
-        </View>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {tTv(t, row.hintKey, `${row.hintKey}Tv`)}
-        </ThemedText>
-        {row.progress != null && row.progress > 0 ? <ProgressBar value={row.progress} /> : null}
-      </View>
-      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
-    </PressableScale>
+    <JourneyIntentionRow
+      icon={ROW_ICONS[row.id]}
+      title={t(row.labelKey)}
+      hint={tTv(t, row.hintKey, `${row.hintKey}Tv`)}
+      checked={checked}
+      onToggle={onToggle}
+    />
   );
 }
 
@@ -148,10 +83,12 @@ export default function LastDayPreparationScreen() {
   useEnsureLastDayProgressLoaded();
   const completedCount = useLastDayCompletedCount();
   const { toggleRepentance, toggleCharacter } = useLastDayProgressActions();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureLastDayContent,
-    isLastDayContentReady,
-  );
+  const {
+    version: contentVersion,
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const today = getLocalDateString();
   const wide = useLearnHubLayout();
   // Wide web / tablets: habit rows lay out two per row.
@@ -171,17 +108,11 @@ export default function LastDayPreparationScreen() {
     [summary, completedCount, i18n.language, contentVersion],
   );
 
-  const handleRowPress = (id: LastDayPreparationRowId, route: Href) => {
-    if (id === "repentance") {
-      void toggleRepentance(today);
-      return;
-    }
-    if (id === "character") {
-      void toggleCharacter(today);
-      return;
-    }
-    router.push(route);
-  };
+  // Two kinds of row, two groups (G-50): trackers navigate away, intentions tick in place.
+  const trackerRows = snapshot.rows.filter((row) => !TOGGLE_ROWS.includes(row.id));
+  const intentionRows = snapshot.rows.filter((row) => TOGGLE_ROWS.includes(row.id));
+  const toggle = (id: LastDayPreparationRowId) =>
+    void (id === "repentance" ? toggleRepentance(today) : toggleCharacter(today));
 
   return (
     <ScreenLayout
@@ -192,30 +123,59 @@ export default function LastDayPreparationScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/preparation" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="info">{t("lastDay.preparationIntro")}</JannahCallout>
 
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("lastDay.preparationHabitsTitle")}
               icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
             />
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {tTv(t, "lastDay.preparationHabitsHint", "lastDay.preparationHabitsHintTv")}
+              {tTv(t, "lastDay.preparationTrackersHint", "lastDay.preparationTrackersHintTv")}
             </ThemedText>
             <LearnColumnsGrid columns={columns} stackGap={0} style={styles.list}>
-              {snapshot.rows.map((row) => (
-                <PreparationRow
+              {trackerRows.map((row) => (
+                <JourneyMetricRow
                   key={row.id}
-                  row={row}
-                  today={today}
+                  icon={ROW_ICONS[row.id]}
+                  label={t(row.labelKey)}
+                  value={row.value}
+                  hint={tTv(t, row.hintKey, `${row.hintKey}Tv`)}
+                  progress={row.progress}
                   tiled={columns > 1}
-                  onPress={() => handleRowPress(row.id, row.route)}
+                  onPress={() => router.push(row.route)}
                 />
               ))}
             </LearnColumnsGrid>
           </Card>
+
+          {intentionRows.length ? (
+            <Card>
+              <SectionHeader
+                title={t("lastDay.preparationIntentionsTitle")}
+                icon={{
+                  ios: "checkmark.circle.fill",
+                  android: "check_circle",
+                  web: "check_circle",
+                }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+                {t("lastDay.preparationIntentionsHint")}
+              </ThemedText>
+              <LearnColumnsGrid columns={columns} style={styles.list}>
+                {intentionRows.map((row) => (
+                  <IntentionToggleRow
+                    key={row.id}
+                    row={row}
+                    today={today}
+                    onToggle={() => toggle(row.id)}
+                  />
+                ))}
+              </LearnColumnsGrid>
+            </Card>
+          ) : null}
 
           <JannahDisclaimer textKey="lastDay.preparationDisclaimer" />
         </Stagger>
@@ -225,24 +185,8 @@ export default function LastDayPreparationScreen() {
 }
 
 const styles = StyleSheet.create({
-  hint: { marginTop: Spacing.one, lineHeight: 20 },
+  hint: { marginTop: Spacing.one },
   list: { marginTop: Spacing.three },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    paddingVertical: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-  },
-  rowTile: { borderTopWidth: 0 },
-  // TV: 10-foot target + inset so the focus ring clears the icon / value.
-  rowTv: {
-    minHeight: TvLayout.minFocusTarget,
-    paddingHorizontal: Spacing.two,
-    borderRadius: Radius.md,
-  },
-  copy: { flex: 1, gap: Spacing.one },
-  head: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

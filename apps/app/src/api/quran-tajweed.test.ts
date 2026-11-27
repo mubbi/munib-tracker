@@ -1,8 +1,11 @@
 import { fetchSurahTajweed, parseTajweedMarkup } from "@/api/quran-tajweed";
 import { QuranStudyCacheRepository } from "@/db";
+import { DB_KEYS } from "@/db/keys";
 import * as ossReport from "@/lib/report-oss-content-download-failure";
 import { clearStaticJsonCache } from "@/lib/static-json-fetch";
 import { fakeResponse, mockFetch } from "@/test-support/fetch";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
+import { storedKeysUnder } from "@/test-support/storage";
 
 // jest.setup.ts preloads this module graph, so report through a spy, not jest.mock.
 const report = jest
@@ -82,5 +85,25 @@ describe("fetchSurahTajweed", () => {
     mockFetch(fakeResponse({ code: 200 }));
     await expect(fetchSurahTajweed(114)).rejects.toThrow("Empty tajweed payload for surah 114");
     expect(report).toHaveBeenCalledWith(expect.objectContaining({ errorCode: "empty_payload" }));
+  });
+});
+
+describe("fetchSurahTajweed — cacheQuranEditionsLocally (B1)", () => {
+  afterEach(resetPreferences);
+
+  it("persists tajweed segments by default", async () => {
+    mockFetch(fakeResponse({ code: 200, data: { ayahs: [{ numberInSurah: 1, text: "x" }] } }));
+    await fetchSurahTajweed(108);
+    expect(await storedKeysUnder(DB_KEYS.quranStudyCache)).toHaveLength(1);
+  });
+
+  it("keeps tajweed segments for the session only when the toggle is off", async () => {
+    await setPreferences({ cacheQuranEditionsLocally: false });
+    mockFetch(fakeResponse({ code: 200, data: { ayahs: [{ numberInSurah: 1, text: "y" }] } }));
+    await expect(fetchSurahTajweed(109)).resolves.toEqual({ "1": [{ text: "y" }] });
+    expect(await storedKeysUnder(DB_KEYS.quranStudyCache)).toEqual([]);
+    const fetchMock = mockFetch(new Error("offline"));
+    await expect(fetchSurahTajweed(109)).resolves.toEqual({ "1": [{ text: "y" }] });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

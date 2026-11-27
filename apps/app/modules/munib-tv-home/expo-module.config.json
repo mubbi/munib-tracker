@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["MunibTvHomeModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.munibtvhome.MunibTvHomeModule"]
+  }
+}

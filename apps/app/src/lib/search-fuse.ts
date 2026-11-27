@@ -3,7 +3,7 @@
  * light screens and Learn guides can share normalize/Fuse defaults without a
  * circular import between search.ts and search-guides.ts.
  */
-import Fuse from "fuse.js";
+import Fuse, { type IFuseOptions } from "fuse.js";
 
 import type { SearchResult } from "@/lib/search-types";
 
@@ -80,20 +80,29 @@ export interface FuzzyIndex<T> {
   count(query: string): number;
 }
 
-export function makeFuse<T>(items: T[], fields: FuzzyField<T>[]): Fuse<FuseDoc<T>> {
-  const docs = items.map((item) => {
+/** Pair each item with its `normalize()`-d fields (the documents Fuse indexes). */
+export function toFuseDocs<T>(items: T[], fields: FuzzyField<T>[]): FuseDoc<T>[] {
+  return items.map((item) => {
     const doc = { item } as FuseDoc<T>;
     for (const field of fields) doc[field.key] = normalize(field.get(item) ?? "");
     return doc;
   });
-  return new Fuse(docs, {
+}
+
+/** The project Fuse defaults (see AGENTS.md → Fuzzy search) with weighted keys. */
+export function fuseOptions<T>(fields: FuzzyField<T>[]): IFuseOptions<FuseDoc<T>> {
+  return {
     includeScore: true,
     ignoreLocation: true,
     threshold: FUSE_THRESHOLD,
     minMatchCharLength: MIN_TOKEN_LENGTH,
     useExtendedSearch: true,
     keys: fields.map((field) => ({ name: field.key, weight: field.weight })),
-  });
+  };
+}
+
+export function makeFuse<T>(items: T[], fields: FuzzyField<T>[]): Fuse<FuseDoc<T>> {
+  return new Fuse(toFuseDocs(items, fields), fuseOptions(fields));
 }
 
 /**
@@ -127,20 +136,27 @@ export function fuseSearch<T>(
  * defaults + `normalize()`-ed fields. Screens memoize this (keyed on the list)
  * for their own search bars instead of scanning with `.includes()`; extend this
  * module rather than calling `new Fuse()` in a screen (see AGENTS.md).
+ *
+ * Lazy: creating the index is O(1); fields are normalized and the Fuse index is
+ * built on the first real query, so a screen that never searches pays nothing.
  */
 export function createFuzzyIndex<T>(items: T[], fields: FuzzyField<T>[]): FuzzyIndex<T> {
-  const fuse = makeFuse(items, fields);
+  let fuse: Fuse<FuseDoc<T>> | null = null;
+  const index = () => {
+    fuse ??= makeFuse(items, fields);
+    return fuse;
+  };
   return {
     search(query, limit) {
       const pattern = fusePattern(query);
       if (!pattern) return [];
-      const matches = fuse.search(pattern, limit ? { limit } : undefined);
+      const matches = index().search(pattern, limit ? { limit } : undefined);
       return matches.map((match) => match.item.item);
     },
     count(query) {
       const pattern = fusePattern(query);
       if (!pattern) return 0;
-      return fuse.search(pattern).length;
+      return index().search(pattern).length;
     },
   };
 }

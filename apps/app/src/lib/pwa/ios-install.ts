@@ -11,6 +11,7 @@ import { Platform } from "react-native";
 
 import {
   detectWebPwaBrowserMatrix,
+  getWebPwaInstallMethod,
   isIosThirdPartyBrowserShell,
   isIosWebKitBrowserTab,
 } from "@/lib/notifications/browser-capabilities";
@@ -24,10 +25,10 @@ export {
 /** iPhone/iPad Safari (WebKit) that can Add to Home Screen directly. */
 export function isIosSafariBrowser(): boolean {
   const matrix = detectWebPwaBrowserMatrix();
-  return matrix?.isIosWebKit === true && !matrix.needsSafariForInstall;
+  return matrix?.installMethod === "ios_safari_share";
 }
 
-/** iPhone/iPad Chrome shell — install must go through Safari. */
+/** iPhone/iPad Chrome (installs from its own Share menu on iOS 16.4+). */
 export function isIosChromeBrowser(): boolean {
   const matrix = detectWebPwaBrowserMatrix();
   return matrix?.isIosWebKit === true && matrix.browser.browserName?.toLowerCase() === "chrome";
@@ -44,4 +45,9 @@ export function shouldShowIosPwaInstallBanner(): boolean {
 
 export function getIosPwaInstallNeedsSafari(): boolean {
   return isIosThirdPartyBrowserShell();
+}
+
+/** iOS 16.4+ Chrome / Edge / Firefox tab: Share → Add to Home Screen in that browser. */
+export function getIosPwaInstallViaBrowserShare(): boolean {
+  return getWebPwaInstallMethod() === "ios_browser_share";
 }

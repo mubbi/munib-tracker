@@ -25,675 +25,547 @@ import type { DeepPartial } from "./localize";
 export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
   {
     title: "Giriş",
-    summary: "Kur'an Nedir, neden indirildi, ve fazilet okumaknya.",
+    summary: "Kur'an nedir, neden indirildi ve okumanın faziletleri.",
     body: [
-      "Kata \"Kur'an\" gelir dari akar kata Arab qara'a, ki anlamına gelir okumak veya melafalkan ile suara — bu yüzden Bizb bu membawa tujuannya içinde namanya kendisi: o dimaksudkan için dibaca, berulang kali, di lisan ve di kalp. Göre keyakinan Ahlus Sunnah, Kur'an dır kalam Allah ki sesungguhnya, değil diciptolacak, indirildi içinde bahasa Arab ki jelas ke Peygamber Muhammad ﷺ melalui malaikat Jibril selama kurang daha 23 tahun, mulai dari vahiy ilk di Gua Hira hingga tak lama önce wafatnya Peygamber ﷺ.",
-      'O dır kutsal bizp son ki indirildi ke ümmet insanlık, membenarkan kebenaran vahiy-vahiy öncenya ki diberikan ke Musa, Dawud, ve Isa (semoga shalawat tercurah atas onlar) serta menyempurnolacak risalet ki onlar bawa. Allah açıklayan tujuannya ile gamblang: o indirildi "sebagai hidayet için insanlık" — için membawa insanlık keluar dari karanlık kebingungan ve kemusyrikan menuju nur tevhid, ibadah ki ihlas hanya ke Allah, ahlak ki lurus, ve hazırlık ki serius menghadapi hayat ahiret. Her peygamber menyerukan inti öğreti ki sama; Al-Qur\\\'an dır şekil sonnya ki korunmuş.',
-      "Okumak Kur'an o kendisi dır ibadah, bukan sekadar okumak bilgi. Peygamber ﷺ mengajarkan ki her harf ki dibaca mendatangkan satu iyilik, ve her iyilik katlanır mbumal sepuluh kali — bu yüzden bahkan bir yeni başlayan ki heceleyen satu satır pun sudah biriktiren sevap.  Gün Kebangbizn, Kur'an olacak datang sebagai verici şefaat, savunan onlar ki ona sahip çıkan selama hidup di dünya. İnsan ki okumaknya ile akıcı bersama malaikat penulis ki mulo, ve insan ki kekelemeli okumaknya, ile zorlukla öğrenmek, menyapabilir sevap berlipat gsiz atas çabası.",
-      "Penting için anlamak apa ki bukan Kur'an. Kur'an dır kalam Allah kendisi olarak harfi içinde bahasa Arab, değil değişmiş sejak indirildi. Hadis — sözler, fiiller, ve onayı sessiz Peygamber ﷺ — berbeda: hadis açıklayan ve örnekleyen Kur'an fakat olan ifade Peygamber ﷺ kendisi, dijaga melalui zincir raviler ki adı geçen namanya ve değerlendirilen oleh ulama sebagai sahih, hasan, veya da'if (zayıf). Her ikisi de dır vahiy ve her ikisi de farz uyulması, fakat hanya Kur'an ki dibaca sebagai ibadah içinde namaz, ve hanya Kur'an ki olan kalam Allah ki mucize ve eşsiz.",
+      "Kur'an kelimesi, okumak ve sesli okumak anlamına gelen Arapça kara'a kökünden gelir; yani Kitap, amacını bizzat adında taşır: dilde ve kalpte tekrar tekrar okunmak için vardır. Ehl-i Sünnet inancına göre Kur'an, Allah'ın lafzen kelâmıdır ve mahlûk değildir; Hira Mağarası'ndaki ilk kelimelerden Peygamber'in ﷺ vefatından kısa bir süre öncesine kadar, yaklaşık 23 yıl boyunca Cebrail aracılığıyla Peygamber Muhammed'e ﷺ apaçık bir Arapça ile indirilmiştir.",
+      "O, insanlığa gönderilen son kitaptır; Musa, Davud ve İsa'ya (Allah'ın selamı onların üzerine olsun) verilen önceki vahiylerdeki hakikati doğrular ve onların taşıdığı mesajı tamamlar. Allah onun amacını açıkça bildirir: O, “insanlara bir hidayet rehberi olarak” indirilmiştir — insanları şaşkınlık ve putperestliğin karanlıklarından tevhidin, yalnızca Allah'a ihlasla kulluğun, dürüst ahlakın ve ahiret hayatına ciddi hazırlığın aydınlığına çıkarmak için. Her peygamber aynı öze davet etmiştir; Kur'an bu davetin son ve korunmuş hâlidir.",
+      "Kur'an okumak yalnızca bilgi edinmek değil, başlı başına bir ibadettir. Peygamber ﷺ, okunan her harf için bir hasene (iyilik) yazıldığını ve her hasenenin en az on katıyla karşılık gördüğünü öğretmiştir; dolayısıyla tek bir satırı heceleyerek okuyan bir başlangıç seviyesindeki kişi bile şimdiden sevap biriktirmektedir. Kıyamet gününde Kur'an, bu dünyada kendisiyle beraber olanlara şefaatçi olarak gelecektir. Onu akıcı okuyan, değerli kâtip meleklerle beraberdir; öğrenmeye çalışırken okumakta zorlanıp takılan ise bu gayreti için iki kat sevap kazanır.",
+      "Kur'an'ın ne olmadığını netleştirmek de faydalıdır. Kur'an, vahyedildiği günden beri değişmeden kalan, Allah'ın Arapça olarak bizzat kendi sözleridir. Hadisler — Peygamber'in ﷺ sözleri, fiilleri ve sessiz onayları (takrirleri) — bundan ayrıdır: Kur'an'ı açıklar ve uygulamasını gösterir, ancak Peygamber'in ﷺ kendi ifadesidir; ravileri isimleriyle bilinen senetlerle korunmuş ve âlimler tarafından sahih, hasen veya zayıf olarak derecelendirilmiştir. Her ikisi de vahiydir ve her ikisi de bağlayıcıdır; ancak namazda ibadet olarak yalnızca Kur'an okunur ve yalnızca Kur'an, Allah'ın mucize olan, benzeri getirilemeyen kelâmıdır.",
     ],
-    quran: [
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
+    actions: [
+      "Kur'an için her gün sabit bir vakit belirle — odaklanılmış beş dakika bile bereket ve süreklilik kazandırır.",
+      "En az bir satırı anlamıyla birlikte oku: Arapçasını oku, ardından mealini yavaşça oku.",
+      "Munib'in Kur'an okuyucusunu aç ve tam kaldığın yerden devam et.",
+    ],
+    appLinks: [
       {
-        excerpt:
-          "Bulan Ramadhan dır bulan ki di içindenya indirildi Kur'an sebagai hidayet için insanlık…",
+        label: "Kur'an oku",
       },
       {
-        excerpt:
-          "Katolacaklah: Sekiranya insanlık ve jin berkumpul için membuat ki serupa Kur'an bu, onlar değil olacak yapabilir membuat ki serupa ilenya…",
+        label: "Günlük ders",
       },
     ],
-    hadith: [
+  },
+  {
+    title: "Kur'an nasıl indirildi",
+    summary: "Hira Mağarası, Cebrail, Mekke ve Medine dönemleri, derleme ve muhafaza.",
+    body: [
+      "Vahiy, Ramazan ayında, Peygamber ﷺ kırk yaşındayken ve Mekke dışındaki bir dağda bulunan Hira Mağarası'na yalnızlık ve tefekkür için çekildiği bir sırada başladı. Orada melek Cebrail ona geldi ve “Oku!” diye emretti. Okuma yazma bilmeyen Peygamber ﷺ okuyamayacağını söyledi — ta ki melek onu sıkıca kucaklayıp Alak Suresi'nin ilk beş ayetini iletene kadar: “Yaratan Rabbinin adıyla oku.” Sarsılmış bir hâlde evine, eşi Hatice'nin yanına döndü; Hatice onu teskin etti ve akrabası Varaka b. Nevfel'e götürdü. İlim sahibi biri olan Varaka, vahiy meleğini tanıdı ve bunun Musa'ya gelen aynı elçi olduğunu doğruladı.",
+      "Ardından vahyin kısa bir süre kesildiği bir ara (fetret) yaşandı; bu sessizlik dönemi Peygamber'in ﷺ vahye özlemini artırdı. Sonra vahiy yeniden başladı ve ömrünün sonuna kadar aşama aşama devam etti. Vahiy bir defada inmedi; olaylara, sorulara ve gelişen topluluğun ihtiyaçlarına cevap olarak indirildi. Allah bu tedrici yöntemi, Peygamber'in ﷺ kalbini sağlamlaştıran ve Kitab'ı insanların hayatına kolaylıkla yerleştiren bir yol olarak anlatır.",
+      "Mekke dönemi yaklaşık on üç yıl sürdü. Bu dönemin sureleri çoğunlukla kısa, ahenkli ve güçlüdür; temelleri ısrarla vurgular — Allah'ın birliği, yeniden diriliş ve hesabın kesinliği, önce yalanlanıp sonra haklı çıkarılan önceki peygamberlerin kıssaları ve putperestlik ile zulme gömülmüş bir toplumda kapsamlı bir ahlaki ıslah çağrısı.",
+      "Miladi 622'de Medine'ye hicretten sonra Müslümanlar artık zulme uğrayan küçük bir grup değil, bir toplum inşa eden bir topluluktu. Medine'de inen vahiyler genellikle daha uzun ve daha ayrıntılıdır; yeni ümmetin ihtiyaç duyduğu hukuk ve toplumsal düzeni ortaya koyar: namaz, zekât, oruç, miras, evlilik ve boşanma, sözleşmeler, savaş ve antlaşmalarla ilgili ayrıntılar. Bunların yanında, topluluğu içeriden zayıflatan münafıklara yönelik kesin ifadeler de yer alır.",
+      "Metnin korunması Peygamber'in ﷺ sağlığında başladı. Sahabe vahyi indikçe ezberledi; vahiy kâtipleri de Peygamber'in ﷺ doğrudan gözetimi altında onu parşömen, hurma dalı, kemik ve taş üzerine yazdı. Yemame Savaşı'nda pek çok hafız şehit düşünce Ebu Bekir, Zeyd b. Sabit'e yazılı Kur'an'ı tek bir derlemede (suhuf) toplamasını emretti. Daha sonra İslam toprakları genişleyip lehçeler çeşitlenince Osman, Kureyş lehçesiyle resmî nüshalar hazırlattı ve bunları büyük şehirlere göndererek bütün ümmet için tek bir yazılı metni standart hâle getirdi.",
+      "Kur'an'ın korunmasını bizzat Allah garanti etmiştir: “Şüphesiz Zikri (Kur'an'ı) biz indirdik ve onun koruyucusu da elbette biziz.” Bu vaat, birbirini destekleyen üç güvence ile yerine gelmiştir: her nesilde kitlesel ezber, titiz yazılı aktarım ve Peygamber'e ﷺ kadar uzanan, hocadan talebeye kesintisiz kıraat zincirleri. Mümin için bu ilahi bir alamettir; tarihçi için ise belgelenmiş bir gerçektir: Bugün okunan Kur'an, on dört asır önce indirilenle aynı metindir.",
+    ],
+    quran: [{}, {}],
+    appLinks: [
       {
-        excerpt:
-          "Barang sopa okumak satu harf dari Bizb Allah, o menyapabilir satu iyilik, ve iyilik o katlanır sepuluh kali.",
+        label: "Vahiy zaman çizelgesi",
       },
       {
-        excerpt:
-          "Bacalah Kur'an, çünkü o olacak datang  Gün Kebangbizn sebagai verici şefaat için pembacanya.",
+        label: "Siyer",
+      },
+    ],
+  },
+  {
+    title: "Kur'an'ın yapısı",
+    summary: "114 sure, 30 cüz, ayetler, Mekki/Medeni, sıralama ve iniş sırası.",
+    body: [
+      "Mushaf — Kur'an'ın yazılı nüshası — 114 sureden (bölüm) oluşur; her surenin, genellikle içindeki dikkat çekici bir kelimeden alınan kendine ait bir adı vardır. Sureler, kesin olmamakla birlikte çoğunlukla en uzundan en kısaya doğru sıralanmıştır: Kısa açılış suresi Fatiha, Kitab'ın kapısı olarak ilk sırada gelir, ardından uzun Bakara Suresi gelir. Bu sıralama tevkifidir — yani Peygamber'e ﷺ Cebrail tarafından öğretilmiştir ve ayetlerin iniş sırası değildir. Dolayısıyla mushafta okuduğun sıralama kronolojik değil, bilinçli ve ilahi olarak belirlenmiştir.",
+      "Her sure Mekki (hicretten önce inen) veya Medeni (hicretten sonra inen) olarak sınıflandırılır; birkaç sure ise her iki döneme ait ayetler içerir. Genel bir kural olarak Mekki sureler daha kısa ve daha acil üsluplu pasajlarla inanca — tevhid, yeniden diriliş ve peygamber kıssalarına — odaklanır; Medeni sureler ise yerleşik bir toplumun ihtiyaç duyduğu ayrıntılı hükümleri ve toplumsal rehberliği ekler. Hangisinin hangisi olduğunu bilmek, bir sureyi doğru bağlamında okumana yardımcı olur.",
+      "Okumayı kolaylaştırmak için Kur'an ayrıca cüz (çoğulu ecza) denilen 30 eşit bölüme, her cüz de hizip denilen iki yarıma ayrılır; böylece toplam 60 hizip olur. Ramazan hatmini — Kur'an'ın tamamını bir ayda bitirmeyi — bu kadar doğal kılan da budur: Günde bir cüz okumak Kitab'ı otuz günde tamamlar; günde iki kez yarım cüz okumak ise daha da kolaydır. Her surede ayetler numaralandırılmıştır; böylece herhangi bir pasaj sure:ayet şeklinde tam olarak gösterilebilir. Standart Medine sayımı 6.236 ayettir; birkaç ayet sınırının numaralandırılmasında yalnızca çok küçük ve iyi belgelenmiş farklar vardır — metnin kendisi aynıdır.",
+      "Bu yapıyı anlamak, belirsiz niyetleri somut bir plana dönüştürür. Her gün sabit bir miktar okumayı taahhüt edebilir, ezber için Amme cüzünü (kısa surelerle dolu son, otuzuncu cüz) hedefleyebilir, sabır gibi tek bir konuyu birkaç sure boyunca takip edebilir veya Ramazan'a göre tam bir hatim planlayabilirsin. Yapı, Kur'an ile ömür boyu sürecek bir bağı mümkün kılan iskelettir.",
+    ],
+    quran: [{}],
+    appLinks: [
+      {
+        label: "Yapı görseli",
       },
       {
-        excerpt:
-          "İnsan ki mahir okumak Kur'an bersama malaikat penulis ki mulo lagi berbakti, ve insan ki okumaknya ile kekelemeli serta merasa berat, içinnya sevap berlipat gsiz.",
+        label: "Surelere göz at",
       },
+    ],
+  },
+  {
+    title: "Okumayı öğren",
+    summary: "Alfabeden akıcı okumaya yedi seviye — sıfırdan başlayanlar için.",
+    body: [
+      "Hemen her Müslüman Kur'an'ı aslı olan Arapçasıyla okumayı arzular ve bu, her yaşta tamamen ulaşılabilir bir hedeftir — daha önce hiç Arapça bilmeyen sayısız yetişkin akıcı okumayı öğrenmiştir. Bir meali anlamak değerlidir; ancak Arapça kelimelerin kendisini okumak başlı başına bir ibadettir ve bu emeğe değer. Bu yol seni, tek bir harfi tanımadığın noktadan ayetleri doğru telaffuzla okuyabileceğin noktaya adım adım götürür.",
+      "Yolculuk yedi doğal aşamadan geçer. 1. ve 2. seviyeler harf tanımayı geliştirir — önce 28 harfin yalın hâli, sonra kelimenin başında, ortasında ve sonunda şekillerinin nasıl değiştiği. 3. seviye harekeleri tanıtır: Her harfin hangi sesliyi taşıdığını gösteren küçük işaretler (üstün, esre, ötre, cezm, şedde, tenvin). 4. ve 5. seviyelerde her şey yerine oturur: Harfleri hecelere birleştirir ve “el-” belirlilik takısı için şemsi ve kameri harf kuralları da dahil olmak üzere kelimelerin tamamını okursun. 6. ve 7. seviyeler kısa ayetlere, ardından temel tecvid kuralları uygulanmış, düzgün ve akıcı okumaya geçer.",
+      "İki alışkanlık her şeyi hızlandırır. Birincisi, yetkin bir kâriyi sürekli dinle ve onu birebir taklit et — Kur'an kulaktan kulağa, ağızdan ağıza aktarılmıştır; bu yüzden kulağın en iyi öğretmenindir. Ritmi, seslilerin uzunluğunu ve her sesin şeklini taklit et. İkincisi, harflerin üzerinden geçerek onları kâğıda veya ekrana yaz; çünkü el, gözün ve dilin öğrendiğini pekiştirir.",
+      "Bir uyarı: Uygulamalar ve kayıtlar mükemmel birer destektir, ancak seni bir insanın düzelttiği gibi düzeltemezler. Peygamber ﷺ Kur'an'ı doğrudan Cebrail'den öğrendi ve sahabeye yüz yüze öğretti; doğru okuyuş her zaman bu canlı düzeltme zinciriyle korunmuştur. Seni dinleyip kendi kendine duyamadığın hataları düzeltecek yerel bir hoca veya düzenli bir çevrim içi tecvid programı bul.",
     ],
     actions: [
-      "Tetapkan vakit tetap her gün için Kur'an — bahkan lima menit ki fokus membangun keberkahan ve konsistensi.",
-      "Baca mbumal satu satır beserta maknanya: baca ayat Arabnya, lalu baca terjemahannya perlahan.",
-      "Buka pembaca Kur'an Munib ve lanjutkan tepat dari yer sen berhenti.",
+      "Arap harfleri bölümünde her gün bir harf çalış — gör, dinle, söyle, yaz.",
+      "Kelimeleri bir mushaftan takip ederken Fatiha Suresi'ni tekrar tekrar dinle.",
+      "Okuyuşunu dinleyip her hafta düzeltecek yerel ya da çevrim içi bir hoca ayarla.",
     ],
     appLinks: [
       {
-        label: "Baca Kur'an",
+        label: "Okuma seviyeleri",
       },
       {
-        label: "Ders günan",
+        label: "Arap harfleri",
       },
     ],
   },
   {
-    title: "Bagaimana Kur'an indirildi",
-    summary: "Gua Hira, Jibril, periode Mekke ve Medine, kodifikasi, ve penjagaan.",
+    title: "Tecvid",
+    summary: "Güzel ve doğru okumanın kuralları — sakin nun, med, vakf ve daha fazlası.",
     body: [
-      'Vahiy dimulai  bulan Ramadhan, olduğunda Peygamber ﷺ beruso empat puluh tahun ve sedang menyendiri di Gua Hira di semeyve gunung di luar Mekke için merenung. Di sana malaikat Jibril datang kenya ve memerintahkan, "Bacalah!" Peygamber ﷺ, ki değil bisa okumak veya menulis, menjawab ki o değil bisa — hingga malaikat o mendekapnya ve menyampaikan lima ayat ilk Surah Al-Alaq: "Bacalah ile (menyebut) nama Allahmu ki menciptolacak." Terguncang, o pulang menemui istrinya Khadijah, ki menenangkannya ve membawanya ke kerabatnya, Waraqah bin Naufal, bir ki berilmu ki mengenali malaikat vahiy ve membenarkan ki bu dır utusan ki sama ki datang ke Musa.',
-      "Kemuon terbu yüzden jeda singkat içinde vahiy (fatrah), masa sunyi ki membuat Peygamber ﷺ merindukan vahiy daha lanjut; lalu vahiy berlanjut kembali olarak beraşama sepanjang sisa hidupnya. Vahiy değil turun sekaligus, melainkan indirildi sebagai respons atas peristiwa, pertanyaan, ve kebuAllah komunitas ki terus berkembang — metode beraşama ki Allah gambarkan sebagai peneguh kalp Peygamber ﷺ ve mempermudah Bizb bu meresap ke içinde hayat insanlık.",
-      "Periode Mekke berlangsung sebizr tiga belas tahun. Surah-surahnya seringkali pendek, berirama, ve dolu kekuatan; surah-surah o menegaskan pokok-pokok dasar — keesaan Allah, kepaston kebangbizn ve pertanggungjawaban, kisah peygamber terdahulu ki didustolacak lalu dibela, serta seruan menyeluruh için perbaikan moral içinde masyarakat ki tenggelam içinde kemusyrikan ve kedeğiladilan.",
-      "Sonra hicret ke Medine  tahun 622 M, Müslümanlar değil lagi menbu yüzden kelompok küçük ki teranoya, melainkan komunitas ki sedang membangun masyarakat. Vahiy Medine umumnya daha panjang ve daha rinci, meletakkan hukum ve tatanan sosol ki dibutuhkan ümmet ki baru bu: rincon namaz, zakat, puasa, warisan, pernikahan ve perceraon, perjanjon, peperangan, ve perdamaon, disertai kata-kata tegas için kaum munafik ki merongrong komunitas dari içinde.",
-      "Penjagaan teks dimulai sejak masa hidup Peygamber ﷺ kendisi. sahabe menghafal vahiy bego o turun, ve penulis mencatatnya di atas kulit, pelepah kurma, tulang, ve batu di bawah pengawasan langsung Peygamber ﷺ. Sonra çok penghafal gugur syahid içinde Perang Yamamah, Abu Bakar memerintahkan Zaid bin Tsabit için biriktiren Kur'an ki tertulis menbu yüzden satu kumpulan (suhuf). Kemuon, seiring meluasnya kekuasaan Islam ve beragamnya olek, Utsman memerintahkan pembuatan salinan resmi içinde olek Quraisy ve mengirimkannya ke kota-kota büyük, menyatukan satu teks tertulis için seluruh ümmet.",
-      "Allah kendisi menjamin penjagaan Kur'an: \"Sesungguhnya Kamilah ki menurunkan Adz-Dzikr (Kur'an), ve sesungguhnya Kami benar-benar memeliharanya.\" Janji o terdolui melalui tiga jaminan ki saling terkait — hafalan massal di her generasi, transmisi tertulis ki cermat, ve zincir bacaan (qira'at) guru-ke-murid ki tak terputus hingga kembali ke Peygamber ﷺ. İçin müminler bu dır tsiz keagamaan; için sejarawan bu dır fakta ki terdokumentasi: Kur'an ki dibaca gün bu dır teks ki sama ki indirildi empat belas abad lalu.",
+      "Tecvid, bir şeyi mükemmel veya güzel kılmak anlamına gelen bir kökten gelir. Bir ilim olarak, her harfin hakkını vermek demektir: ağızda veya boğazdaki doğru çıkış noktası (mahreç), harfin kendine has nitelikleri (sıfatlar) ve sesli harflerle duraklamaların doğru zamanlaması. Kısacası tecvid, Kur'an'ı tam indirildiği gibi okuma sanatıdır.",
+      "Bu önemlidir; çünkü Kur'an gelişigüzel okunacak sıradan bir metin değildir. O, tecvidiyle birlikte indirilmiştir: Cebrail onu Peygamber'e ﷺ hassas bir telaffuzla okudu, Peygamber ﷺ sahabeye aynı şekilde okudu ve onlar da onu kesintisiz olarak bize aktardı. Bir harfi yanlış okumak küçük bir şey değildir — bir harfi yanlış telaffuz etmek kelimeyi tamamen değiştirebilir (örneğin kalın ص harfini ince س ile ya da boğaz harfleri ع ve ح'yi karıştırmak) ve bazı yerlerde bu, Allah'ın sözlerinin anlamını değiştirir. Tecvid ilmi tam da buna karşı korumak için vardır.",
+      "Her şeyi bir anda öğrenmen gerekmez. Temel kurallar sırayla öğrenilir: sakin nun ve tenvin hükümleri (izhar, idgam, iklab, ihfa), sakin mim hükümleri, med (uzatma) çeşitleri, kalkale (belirli harflerdeki hafif sekme), gunne (genizden gelen ses) ve vakf (nerede ve nasıl durulacağı). Her birinin açık bir tanımı, günlük örnekleri ve alıştırması vardır; bu bölüm bunları tek tek ele alır.",
+      "Kesin bir kural: Tecvidi yalnızca kitaplardan veya uygulamalardan değil, yetkin bir hocadan dinleyerek öğren. Hatalarını duyup düzeltebilecek birine oku — tecvid her zaman böyle öğretilmiştir ve gerçek doğruluğa ve nihayetinde bir icazete (senetli kıraat zinciri) giden tek güvenilir yol budur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Kamilah ki menurunkan Adz-Dzikr (Kur'an), ve sesungguhnya Kami benar-benar memeliharanya.",
-      },
-      {
-        excerpt: "Bacalah ile (menyebut) nama Allahmu ki menciptolacak…",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [
       {
-        label: "Garis vakit vahiy",
-      },
-      {
-        label: "Sirah",
+        label: "Tecvid dersleri",
       },
     ],
   },
   {
-    title: "Struktur Kur'an",
-    summary: "114 surah, 30 juz, ayat, Makki/Madani, ve urutan vs turunnya vahiy.",
+    title: "Arap harfleri",
+    summary: "Etkileşimli alfabe — 28 harfin her biri için ad, ses ve örnekler.",
     body: [
-      "Mushaf — salinan fisik Kur'an — memuat 114 surah (bab), masing-masing ile namanya kendisi, bosanya sessizbil dari kata ki menonjol di içindenya. Surah-surah o disusun seiçinan büyük dari ki terpanjang ke ki terpendek, olsa bile değil selalu ketat: Al-Fatihah, surah pembuka ki pendek, datang ilk sebagai kapı Bizb, uyulması Al-Baqarah ki panjang. Susunan bu bersifat tawqifi — urutannya ojarkan ke Peygamber ﷺ oleh Jibril ve bukan urutan turunnya ayat-ayat. Bu yüzden urutan ki sen baca içinde mushaf o disengaja ve ditetapkan olarak ilahi, bukan kronologis.",
-      "Her surah digolongkan sebagai Makki (indirildi önce Hicret) veya Madani (indirildi sesudahnya), ve beberapa surah memuat ayat dari her ikisi de. Sebagai patokan umum, surah Makki berfokus  akidah — tevhid, kebangbizn, ve kisah peygamber — içinde içinan-içinan ki daha pendek ve mendesak, sementara surah Madani menambahkan perundangan rinci ve bimbingan komunitas ki dibutuhkan masyarakat ki sudah menetap. Mengetahui mana ki mana membantu sen okumak semeyve surah içinde konteks ki tepat.",
-      "İçin memudahkan bacaan, Kur'an de diiçin menbu yüzden 30 içinan sama büyük ki disebut juz, ve her juz diiçin lagi menbu yüzden dua içinan ki disebut hizb, böylece totalnya 60 hizb. Bulah ki membuat khatam Ramadhan — menyelesaikan seluruh Kur'an içinde sebulan — terasa bego alami: satu juz segün menyelesaikan Bizb içinde tiga puluh gün, ve setengah juz dua kali segün daha ringan lagi. Di içinde her surah, ayat-ayat diberi nomor böylece içinan mana pun bisa dirujuk olarak tepat sebagai surah:ayat; hongan stsizr Medine dır 6.236 ayat, ile hanya az perbedaan ki terdokumentasi ile baik içinde cara beberapa batas ayat dihong — teksnya kendisi identik.",
-      "Anlamak struktur bu mengubah not ki samar menbu yüzden rencana ki konkret. Sen bisa berkomitmen  porsi günan ki tetap, menargetkan Juz Amma (juz son, üçüncü puluh, dolu surah pendek) için dihafal, mengikuti satu tema seperti sabır di beberapa surah, veya menjadwalkan khatam lengkap seputar Ramadhan. Struktur dır kerangka ki membuat hubungan seumur hidup ile Kur'an bisa dicapai.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "…semeyve Bizb ki ayat-ayatnya oçıkladığı olarak terperinci, Kur'an içinde bahasa Arab için kaum ki mengetahui.",
-      },
+      "Arap alfabesi sağdan sola yazılan ve okunan 28 harften oluşur. Türkçenin aksine harflerin çoğu yanındaki harflere bitişir; bu yüzden tek bir harf, yalnız başına durmasına ya da kelimenin başında, ortasında veya sonunda bulunmasına göre biraz farklı bir şekil alabilir. Aynı harfi farklı şekillerinde tanıyabilmek, ilk gerçek atılımlardan biridir.",
+      "Kur'an Arapçası, temel harflerin üzerine birkaç ek özellik daha ekler: hemze (gırtlaktan gelen kesik ses), sesi uzatan uzun sesli harfler elif, vav ve ya; ayrıca “el-” belirlilik takısındaki “l” sesinin okunup okunmayacağını ya da bir sonraki harfe sessizce kaynaşıp kaynaşmayacağını belirleyen şemsi ve kameri harf kuralı. Bunları gerçek kelimelerde görünce hepsi kolaylaşır.",
+      "Bu bölümdeki her harf kartı sana harfin yalın şeklini, adını, okunuşunu (transliterasyon), pratik bir telaffuz ipucunu ve gerçek Kur'an örneklerini verir; böylece sesi soyut olarak değil, bağlamı içinde öğrenirsin. En etkili yöntem, her harf için dört adımlı bir döngüdür: Gör, okunuşunu dinle, kendin yüksek sesle söyle, sonra yaz.",
+      "Her yeni harfi zaten tanıyor olabileceğin kelimelere bağla — Allah, Rab, er-Rahman (Rahmeti en geniş olan), Bismillah. Yabancı şekilleri tanıdık anlamlarla ilişkilendirmek, harfleri tek tek ezberlemekten çok daha hızlı akılda kalmalarını sağlar.",
     ],
     appLinks: [
       {
-        label: "Visual struktur",
+        label: "Harf gezgini",
       },
       {
-        label: "Jelajahi surah",
+        label: "Telaffuz rehberi",
       },
     ],
   },
   {
-    title: "Öğrenmek okumak",
-    summary: "Tujuh seviyean dari alfabet hingga bacaan akıcı — için yeni başlayan mutlak.",
+    title: "Telaffuz",
+    summary: "Zor harflerde ustalaş — ayn, ha, sad, dad, kaf ve kalın harfler.",
     body: [
-      "Hampir her muslim mendambolacak bisa okumak Kur'an içinde bahasa Arab aslinya, ve bu dır tujuan ki sedolunya bisa dicapai di uso berapa pun — tak terhong insan dewasa ki öncenya değil mengenal bahasa Arab berhasil öğrenmek okumak ile akıcı. Anlamak terjemahan o berharga, fakat okumak kata-kata Arab ki sesungguhnya o kendisi dır ibadah, ve layak diperjuangkan. Jalan bu membimbingmu seadım demi seadım dari değil mengenali satu harf pun hingga okumak ayat ile pelafalan ki benar.",
-      'Perjalanan bu melalui tujuh aşama alami. Seviye 1 ve 2 membangun pengenalan harf — ilk 28 harf içinde şekil terkendisinya, lalu bagaimana şekilnya değişmiş di awal, tengah, ve akhir kata. Seviye 3 memperkenalkan harakat, tsiz-tsiz küçük (fathah, kasrah, dhammah, sukun, tasydid, tanwin) ki menunjukkan vokal ki dibawa her harf. Seviye 4 ve 5 dır titik tümnya mulai tersambung: sen menggabungkan harf menbu yüzden suku kata ve heceleyen seluruh kata, termasuk aturan harf syamsiyah ve qamariyah için kata ssizng "al-". Seviye 6 ve 7 beralih ke ayat-ayat pendek lalu ke bacaan ki halus ve akıcı ile kaidah dasar tajwid diterapkan.',
-      "Dua kebosaan mempercepat segalanya. İlk, dengarkan terus-menerus qari ki mumpuni ve tirukan persis — Kur'an diwariskan dari telinga ke telinga, mulut ke mulut, bu yüzden telingamu dır gurumu ki terbaik; tirukan iramanya, panjang vokalnya, ve şekil her bunyinya. İkinci, jiplak ve tulis harf-harfnya, di kertas veya layar, çünkü tangan memperkuat apa ki sedang dipelajari mata ve lisan.",
-      "Satu perhatırlaan: aplikasi ve rekaman dır pendukung ki çok baik, fakat değil bisa mengoreksimu sebagaimana sebir bisa. Peygamber ﷺ öğrenmek Kur'an langsung dari Jibril ve mengajarkannya olarak tatap muka ke sahabe, ve zincir koreksi ki hidup olah cara bacaan ki akurat selalu korunmuş. Carilah guru seyer veya program tajwid daring ki terstruktur için mendengarkan bacaanmu ve membetulkan kesalahan ki değil bisa sen dengar kendisi.",
-    ],
-    actions: [
-      "Pelajari satu harf segün di içinan harf Arab — bak, dengar, ucapkan, tulis.",
-      "Dengarkan Surah Al-Fatihah berulang-ulang sambil mengikuti kata-katanya di mushaf.",
-      "Carilah guru — seyer veya daring — için mendengarkan bacaanmu ve membetulkannya her minggu.",
+      "Arapçada Türkçede tam karşılığı olmayan birkaç ses vardır ve anadili Arapça olmayanların en çok hata yaptığı yer burasıdır. En yaygın karışıklıklar, eğitilmemiş bir kulağa benzer gelen ama ağzın veya boğazın farklı yerlerinden çıkarılan harfler arasındadır — bunları karıştırmak bir kelimenin anlamını değiştirebilir; bu yüzden özel bir çalışmayı hak ederler.",
+      "Kalın (müfahham) harfler — ص (sad), ض (dad), ط (tı) ve ظ (zı) — daha ince harflerin “ağır” karşılıklarıdır. Bunları çıkarmak için dilin arka kısmını kaldırır ve ağzı daha dolgun, daha derin bir sesle doldurursun; anadili Arapça olanlar bunu çocuklukta kazanır, öğrenenler ise bilinçli olarak geliştirmelidir. Her kalın harfi doğrudan ince karşılığıyla karşılaştır: س ile ص, د ile ض, ت ile ط, ذ ile ظ.",
+      "Boğaz harfleri diğer büyük engeldir. Ayn (ع) boğazın ortasından gelen sesli bir daralmadır; ha (ح) ise güçlü, nefesli bir sürtünmedir. İkisi de Türkçede yoktur ve hiçbir yazılı açıklama onları duymanın yerini tam olarak tutamaz. Kaf (ق), dilin en arka kısmından çıkan derin bir “k” sesidir ve daha öndeki kef (ك) harfinden farklıdır.",
+      "Güvenilir yöntem, harf çiftlerini yan yana karşılaştırmak, ardından kendini yavaş ve net bir mürettel okuyuşla kontrol etmektir. Kısa bir kelimeyi okurken kendi sesini kaydet, kâriyle karşılaştırarak dinle ve düzelt. Daha da iyisi, yetkin bir hocaya dinlet — bazı hataları kendi kaydında yakalamak neredeyse imkânsızdır.",
     ],
     appLinks: [
       {
-        label: "Seviye bacaan",
-      },
-      {
-        label: "Huruf Arab",
+        label: "Harf karşılaştırmaları",
       },
     ],
   },
   {
-    title: "Tajwid",
-    summary: "Kaidah bacaan ki indah ve benar — nun sukun, mad, waqaf, ve lainnya.",
+    title: "Kur'an kelime hazinesi",
+    summary: "Sık geçen kelimeler — her okuyuşta daha fazlasını anla.",
     body: [
-      "Tajwid gelir dari akar kata ki anlamına gelir membuat sesuatu menbu yüzden unggul veya indah. Sebagai ilmu, tajwid anlamına gelir memberikan hak her harf — makhrajnya ki tepat di mulut veya tenggorokan, sifat bawaannya, ve vakit ki tepat için vokal ve jeda. Singkatnya, tajwid dır seni okumak Kur'an persis seperti saat o indirildi.",
-      "Bu penting çünkü Kur'an bukan sekadar teks bosa ki dibaca sembarangan. O turun ile tajwid ki sudah melekat: Jibril okumakkannya ke Peygamber ﷺ ile pelafalan ki presisi, Peygamber ﷺ okumakkannya ile cara ki sama ke sahabe, ve onlar mewariskannya tanpa terputus ke biz. Salah mengucapkan satu harf bukan perkara küçük — salah melafalkan satu harf bisa mengubah seluruh makna kata (misalnya mencampuradukkan ص ki tebal ile س ki bosa, veya harf tenggorokan ع ve ح), ve di beberapa yer o mengubah makna kalam Allah. Ilmu tajwid ada tepat için menjaga dari hal o.",
-      "Sen değil gerekir menguasai tümnya sekaligus. Kaidah-kaidah inti dipelajari olarak berurutan: hukum nun sukun ve tanwin (izhar, idgham, iqlab, ikhfa), hukum mim sukun, berbagai jenis mad (pemanjangan), qalqalah (pantulan ringan  harf tertentu), ghunnah (dengung hidung), ve waqaf (di mana ve bagaimana berhenti). Masing-masing punya defbusi ki jelas, contoh segün-gün, ve latihan, ve hub bu membahasnya satu per satu.",
-      "Satu patokan ki tegas: pelajari tajwid ile mendengar langsung dari guru ki mumpuni, bukan hanya dari buku veya aplikasi. Bacalah di hadapan sebir ki bisa mendengar kesalahanmu ve membetulkannya — begolah tajwid selalu ojarkan, ve olah satu-satunya jalan ki bisa disizlkan menuju ketepatan ki sesungguhnya dan,  akhirnya, ijazah (zincir bacaan ki bersanad).",
+      "İşte cesaret verici bir gerçek: Görece küçük bir sık kullanılan kelime grubu — birkaç yüz kadar — Kur'an metninin çok büyük bir bölümünü oluşturur; çünkü aynı anahtar kelimeler tekrar tekrar geçer. Bu temel kelime hazinesini öğrenmek, atabileceğin en verimli adımdır; çünkü okumayı bir ses akışından, anlamını okurken gerçekten yakaladığın kelimelere dönüştürür.",
+      "Bu yolla Kur'an'ı kelime kelime tercüme etmiş olmazsın — bu, tefsir ve mealin işidir — ama okuduğun anda Allah'ın isimlerini, emirleri, vaatleri ve uyarıları doğrudan tanımaya başlarsın. En sık geçen ve en çok anlam yükü taşıyan kelimelerle başla: Allah, Rab, rahmet, iman, sabır, takva (Allah bilinci), dünya ve ahiret. Bu temel gruptan yola çıkarak azar azar genişlet.",
+      "Bir oturuşta yüklenmek yerine aralıklı tekrar kullan. Haftada beş yeni kelime öğrenip hepsini her gün tekrar etmek, bir yılda seni bir oturuşta elli kelime ezberleyip unutmaktan çok daha ileriye taşır. Allah, Kur'an'ın öğüt almak için kolaylaştırıldığını vaat eder — kelime hazinesine istikrarla yaklaş, bu kolaylığı bizzat hissedeceksin.",
     ],
-    hadith: [
-      {
-        excerpt: "Sebaik-baik kalon dır ki öğrenmek Kur'an ve mengajarkannya.",
-      },
-      {
-        excerpt:
-          "İnsan ki mahir okumak Kur'an bersama malaikat penulis ki mulo lagi berbakti, ve insan ki okumaknya ile kekelemeli serta merasa berat, içinnya sevap berlipat gsiz.",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
-        label: "Ders tajwid",
+        label: "Kelime listesi",
       },
     ],
   },
   {
-    title: "Huruf Arab",
-    summary: "Alfabet interaktif — nama, bunyi, ve contoh için masing-masing dari 28 harf.",
+    title: "Tefsir",
+    summary: "Vahyi anlamak — genel bakış, bağlam ve kabul görmüş ilmî kaynaklar.",
     body: [
-      "Alfabet Arab memiliki 28 harf, dolis ve dibaca dari kanan ke kiri. Berbeda ile bahasa Inggris, seiçinan büyük harf tersambung ile harf di sebelahnya, böylece satu harf bisa memiliki şekil ki az berbeda tergantung apakah o berdiri kendisi veya berada di awal, tengah, veya akhir kata. Öğrenmek mengenali harf ki sama içinde şekil-şekilnya ki berbeda dır salah satu terobosan ilk ki açık.",
-      'Bahasa Arab Al-Qur\\\'an menambahkan beberapa for ekstra di atas harf dasar: hamzah (bunyi glotal berhenti), harf vokal panjang alif, wau, ve ya ki memanjangkan bunyi, serta aturan harf syamsiyah ve qamariyah ki menentukan apakah "l"  kata ssizng "al-" dilafalkan veya melebur sessiz ke harf sonraki. Tüm bu sederhana bego sen menemuinya içinde kata-kata ki sesungguhnya.',
-      "Her kartu harf di içinan bu memberimu şekil terkendisi harf o, namanya, transliterasi, tips pelafalan pratik, ve contoh-contoh Kur'an ki açık böylece sen öğrenmek bunyinya içinde konteks, bukan olarak abstrak. Rutbutas ki paling efektif dır lingkaran empat adım için her harf: bak, dengar bacaannya, ucapkan kendisi ile keras, lalu tulis.",
-      "Kaitkan her harf baru ile kata-kata ki mungkin sudah sen kenal — Allah, Rabb (Allah), ar-Rahman (Ki Maha Pengasih), Bismillah. Menghubungkan şekil ki asing ile makna ki akrab membuatnya melekat jauh daha cepat dari menghafal harf olarak terpisah.",
-    ],
-    appLinks: [
-      {
-        label: "Penjelajah harf",
-      },
-      {
-        label: "Rehber pelafalan",
-      },
-    ],
-  },
-  {
-    title: "Pelafalan",
-    summary: "Kuasai harf-harf sulit — ain, ha, shad, dhad, qaf, ve harf tebal.",
-    body: [
-      "Bahasa Arab memiliki beberapa bunyi ki değil memiliki nan persis içinde bahasa Indoneso, ve di sbulah penutur non-asli paling sering keliru. Kekeliruan paling umum dır antara harf-harf ki terdengar mirip için telinga ki belum terlatih fakat dilafalkan dari titik ki berbeda di mulut veya tenggorokan — ve mencampuradukkannya bisa mengubah makna semeyve kata, olah sebabnya harf-harf bu layak menyapabilir latihan khusus.",
-      'Huruf-harf tebal (mufakhkham) — shad (ص), dhad (ض), tha (ط), ve zha (ظ) — dır versi "berat" dari harf ki daha ringan. İçin melafalkannya, sen mengangkat içinan belolacakg lidah ve mengisi mulut ile bunyi ki daha dolu ve içinde, sesuatu ki diserap penutur asli sejak küçük fakat gerekir dibangun olarak sadar oleh pemöğrenmek. Bandingkan her harf tebal langsung ile pasangan ringannya: sin dibanding shad, dal dibanding dhad, ta dibanding tha, dzal dibanding zha.',
-      'Huruf-harf tenggorokan dır rintangan büyük lainnya. Ain (ع) dır penyempitan bersuara dari tengah tenggorokan, ve ha (ح) dır gesekan kuat ve berhembus — her ikisi de yoktur içinde bahasa Indoneso, ve yoktur penjelasan tertulis ki bisa sedolunya menggantikan mendengarnya langsung. Qaf (ق) dır "k" ki içinde dari içinan paling belolacakg lidah, berbeda dari kaf (ك) ki daha ke depan.',
-      "Metode ki bisa disizlkan dır membandingkan pasangan harf berdampingan, lalu menguji dirimu terhadap bacaan murattal ki perlahan ve jelas. Rekam suaramu kendisi okumak satu kata pendek, putar bersamaan ile bacaan qari, ve uygunkan. Daha baik lagi, perdengarkan ke guru ki mumpuni — beberapa kesalahan hampir mustahil ditangkap içinde rekaman kendisi.",
-    ],
-    appLinks: [
-      {
-        label: "Perbandingan harf",
-      },
-    ],
-  },
-  {
-    title: "Kosakata Kur'an",
-    summary: "Kata-kata berfrekuensi tinggi — pahami daha çok her kali okumak.",
-    body: [
-      "Bu dır fakta ki menggembirolacak: sekumpulan kata berfrekuensi tinggi ki relatif küçük — sebizr beberapa ratus — mencakup porsi ki çok büyük dari keseluruhan teks Kur'an, çünkü kata-kata kunci ki sama muncul berulang kali. Öğrenmek kosakata inti o dır adım paling berdampak ki bisa sen ambil, çünkü o mengubah bacaan dari sekadar aliran bunyi menbu yüzden kata-kata ki maknanya benar-benar sen tangkap saat okumak.",
-      "Sen değil menerjemahkan Kur'an kata demi kata ile cara bu — o dır pekerjaan tafsir ve terjemahan — fakat sen mulai mengenali nama-nama Allah, perintah, janji, ve perhatırlaan olarak langsung,  saat okumak. Mulailah ile kata-kata ki paling sering muncul ve paling berbobot: Allah, Rabb (Allah), rahmah (merhamet), iman (keyakinan), sabr (sabır), taqwa (kesadaran olacak Allah), dunya (dünya bu), ve akhirah (hayat ahiret). Dari kumpulan inti o, gerekiras az demi az.",
-      "Gunolacak pengulangan berjarak (spaced repetition), bukan sistem kebut segece. Öğrenmek lima kata baru seminggu ve mengulang tümnya her gün olacak membawamu jauh daha maju içinde setahun dibanding menghafal lima puluh kata içinde satu kali duduk lalu melupolacaknya. Allah berjanji ki Kur'an olmuş dimudahkan için sessizbil pelöğreti — dekati kosakatanya olarak konsisten ve sen olacak merasolacak kemudahan o kendisi.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ve sesungguhnya olmuş Kami mudahkan Kur'an için pelöğreti, maka adakah insan ki mau mengambil pelöğreti?",
-      },
-    ],
-    appLinks: [
-      {
-        label: "Daftar kosakata",
-      },
-    ],
-  },
-  {
-    title: "Tafsir",
-    summary: "Anlamak vahiy — gambaran umum, konteks, ve sumber-sumber ilmoh ki okui.",
-    body: [
-      "Tafsir anlamına gelir penjelasan ve penafsiran Kur'an — açıklayan apa makna semeyve ayat, neden o indirildi, ve bagaimana penerapannya. Çünkü bu dır kalam Allah, ulama menetapkan urutan otoritas ki ketat tentang bagaimana Kur'an gerekir oçıkladığı, ve tetap berada di içindenya melindungimu dari kesalahan.",
-      "Tafsir ki paling sahih dır Kur'an menafsirkan dirinya kendisi: semeyve ayat ki singkat di satu yer seringkali oçıkladığı daha luas di yer lain, bu yüzden Kur'an dır penafsir terbaik için dirinya kendisi. Selanjutnya datang penjelasan melalui Sunnah, çünkü Peygamber ﷺ diutus justru için açıklayan vahiy, ve sözler serta fiillernya menunjukkan ke biz bagaimana o dihayati. Sonra o datang pemahaman sahabe, ki menyaksikan vahiy turun ve mengetahui konteksnya olarak langsung, uyulması ulama büyük ki datang sonra onlar. Terakhir ve paling rendah dır penafsiran melalui bahasa Arab o kendisi. Ki sama sekali değil memiliki yer dır penyapabilir pribadi ki değil berdasar — okumak gagasan kendisi ke içinde teks.",
-      'Alat kunci içinde tafsir dır asbabun nuzul, sebab-sebab turunnya ayat: mengetahui peristiwa veya pertanyaan ki mendorong turunnya semeyve ayat seringkali membuka maknanya. Ancak riwayat-riwayat bu kendisi gerekir diverifikasi keabsahannya, çünkü değil her "sebab" ki diriwayatkan o yapabilir disizlkan. İçin her surah, tafsir ki baik memberimu latar sejarahnya bila sudah mapan, tema-tema ubahçeya, ayat-ayat pentingnya, ve pelöğreti pratik için dibawa pulang.',
-      "Di antara rujukan ki paling okui ve yapabilir dipercaya dır Tafsir Ibnu Katsir (komprehensif ve cermat mengutip hadis serta perkataan generasi awal), Tafsir As-Sa'di (jelas, kontemporer, ve berfokus  bimbingan pratik), serta Tafsir Ath-Thabari klasik (ensiklopedis, melestarikan penafsiran-penafsiran paling awal). Her kali sen öğrenmek semeyve makna, catat dari sumber mana o gelir. Hub bu mengajarkan metodologinya; gunolacak pembaca Kur'an Munib, ki menghubungkan tafsir bawaan ve tafsir daring, için kajon ayat demi ayat.",
+      "Tefsir, Kur'an'ın açıklanması ve yorumlanması demektir — bir ayetin ne anlama geldiğini, neden indirildiğini ve nasıl uygulandığını açıklığa kavuşturmak. Bunlar Allah'ın sözleri olduğu için âlimler, Kur'an'ın nasıl açıklanması gerektiğine dair sıkı bir yetki sıralaması belirlemiştir; bu sıralamanın içinde kalmak seni hatadan korur.",
+      "En sağlam tefsir, Kur'an'ın kendi kendini açıklamasıdır: Bir yerde kısaca geçen bir ayet çoğu zaman başka bir yerde genişçe açıklanır; bu yüzden Kur'an kendisinin en iyi tefsiridir. Ardından Sünnet ile açıklama gelir; çünkü Peygamber ﷺ tam da vahyi açıklamak için gönderilmiştir ve onun sözleri ile uygulamaları vahyin nasıl yaşandığını bize gösterir. Ondan sonra vahyin inişine tanık olan ve bağlamını doğrudan bilen sahabenin anlayışı, ardından da onlardan sonra gelen büyük âlimler gelir. En son ve en alt sırada Arap dili aracılığıyla yorum yer alır. Hiç yeri olmayan şey ise ehliyetsiz kişisel görüştür — kendi fikirlerini metne okumak.",
+      "Tefsirde temel bir araç esbab-ı nüzuldür, yani ayetlerin iniş sebepleri: Bir ayetin inmesine yol açan olayı veya soruyu bilmek çoğu zaman anlamının kapısını açar. Ancak bu rivayetlerin de sıhhatinin tespit edilmesi gerekir; çünkü rivayet edilen her “sebep” güvenilir değildir. İyi bir tefsir her sure için, sabit olduğu durumlarda tarihî arka planını, ana temalarını, kilit ayetlerini ve hayata taşınacak pratik dersleri sunar.",
+      "En çok kabul gören ve güvenilir kaynaklar arasında İbn Kesir Tefsiri (kapsamlı ve hadisleri ile ilk nesillerin sözlerini dikkatle aktaran), Sa'di Tefsiri (açık, çağdaş ve pratik rehberliğe odaklanan) ve klasik Taberi Tefsiri (ansiklopedik, en erken yorumları koruyan) yer alır. Bir anlam öğrendiğinde hangi kaynaktan geldiğini not et. Bu bölüm yöntemi öğretir; ayet ayet çalışma için yerleşik ve çevrim içi tefsirleri birbirine bağlayan Munib'in Kur'an okuyucusunu kullan.",
     ],
     sources: [
-      "Tafsir Ibnu Katsir — versi ringkas bahasa Inggris terseo luas",
-      "Tafsir As-Sa'di — ringkasan ki mudah dipahami",
-      "Asbabun Nuzul karya Al-Wahidi — sebab-sebab turunnya ayat (verifikasi keabsahan top riwayat)",
+      "İbn Kesir Tefsiri — kısaltılmış İngilizce baskısı yaygın olarak bulunur",
+      "Sa'di Tefsiri — anlaşılır özetler",
+      "Vahidi'nin Esbabü'n-Nüzul'ü — iniş sebepleri (her olay için sıhhati doğrula)",
     ],
     disclaimer:
-      "Tafsir bervarosi keiçindeannya. Olduğunda ulama berbeda penyapabilir, catat perbedaannya tanpa mengklaim kepaston di yer ki değil oçıkladığı Allah olarak gamblang.",
+      "Tefsirlerin derinliği farklıdır. Âlimler ihtilaf ettiğinde, Allah'ın açık kılmadığı yerde kesinlik iddia etmeden farkı not et.",
     appLinks: [
       {
-        label: "Buka pembaca Kur'an",
+        label: "Kur'an okuyucusunu aç",
       },
     ],
   },
   {
-    title: "Tema-tema Kur'an",
-    summary: "İman, namaz, sabır, sedekah, peygamber — ayat-ayat dikelompokkan berdasarkan topik.",
+    title: "Kur'an'ın temaları",
+    summary: "İman, namaz, sabır, sadaka, peygamberler — konulara göre gruplanmış ayetler.",
     body: [
-      "Kur'an değil disusun seperti buku pelöğreti, satu subjek per bab. Sebaliknya, tema-tema büyüknya — keesaan Allah, namaz, sabır, sedekah, peygamber, ahiret, keadilan, keluarga — onyam di seluruh isinya, muncul ve muncul kembali di çok surah, her kali dari sudut ki segar. Apa ki tampak seperti pengulangan  awalnya sebenarnya dır penguatan: semeyve tema diperkenalkan, lalu diperiçinde, lalu dihubungkan ile tema lain, hingga keseluruhan pesan berdiri sebagai satu seruan ki koheren.",
-      "Mengkaji Kur'an berdasarkan tema mengungkap kesatuan o. Olduğunda sen biriktiren apa ki Kur'an katolacak tentang, misalnya, rasa şükür veya tawakal ke Allah dari seluruh surahnya, ayat-ayat ki terpisah saling menerangi ve pelöğretinya menbu yüzden hidup ve utuh. Her entri tema di hub bu menghimpun ayat-ayat ki relevan, hadis sahih pendukung ki menambah kejelasan bila ada, pelöğreti inti, ve tindolacak konkret agar ilmu o değil sekadar teori.",
-      "Ki terpenting, hubungkan tema-tema o ile hayatmu kendisi. Berbakti ke insan tua, kejujuran içinde bisnis, keadilan içinde pernikahan, berdiri tegak için keadilan bahkan melawan kepentinganmu kendisi — bu bukan bab-bab abstrak için dikagumi, melainkan keputusan segün-gün ki diminta Kur'an için sen buat. Baca her tema sebagai pertanyaan ki dojukan langsung kemu: bagaimana bu mengubah apa ki kulakukan gün bu?",
+      "Kur'an, her bölümde tek bir konunun işlendiği bir ders kitabı gibi düzenlenmemiştir. Bunun yerine büyük temaları — Allah'ın birliği, namaz, sabır, sadaka, peygamberler, ahiret, adalet, aile — bütün metne işlenmiştir; pek çok surede, her seferinde yeni bir açıdan, tekrar tekrar karşımıza çıkar. İlk bakışta tekrar gibi görünen şey aslında pekiştirmedir: Bir tema tanıtılır, sonra derinleştirilir, sonra bir başkasıyla ilişkilendirilir ve sonunda bütün mesaj tutarlı tek bir çağrı olarak ortaya çıkar.",
+      "Kur'an'ı temalara göre incelemek bu bütünlüğü ortaya koyar. Örneğin şükür veya Allah'a tevekkül hakkında Kur'an'ın söylediklerini surelerin tamamından bir araya getirdiğinde, ayrı ayrı ayetler birbirini aydınlatır ve ders canlı ve eksiksiz hâle gelir. Bu bölümdeki her tema başlığı ilgili ayetleri, açıklık kattığı yerlerde destekleyici sahih hadisleri, temel dersleri ve bilginin teoride kalmaması için somut adımları bir araya getirir.",
+      "Her şeyden önce temaları kendi hayatınla ilişkilendir. Anne babaya iyilik, ticarette dürüstlük, evlilikte adalet, kendi çıkarına aykırı olsa bile adaletten yana durmak — bunlar hayranlıkla okunacak soyut bölümler değil, Kur'an'ın senden almanı istediği günlük kararlardır. Her temayı doğrudan sana yöneltilmiş bir soru olarak oku: Bu, bugün yaptıklarımı nasıl değiştiriyor?",
     ],
     appLinks: [
       {
-        label: "Jelajahi tema",
+        label: "Temalara göz at",
       },
     ],
   },
   {
-    title: "Kisah-kisah içinde Kur'an",
-    summary: "peygamber dari Adam hingga Muhammad ﷺ — pelöğreti, lokasi, ve ayat-ayat terkait.",
+    title: "Kur'an'daki kıssalar",
+    summary: "Âdem'den Muhammed'e ﷺ peygamberler — dersler, yerler ve ilgili ayetler.",
     body: [
-      'Al-Qur\\\'an menceritolacak kisah peygamber — Adam, Nuh, Ibrahim, Yusuf, Musa, Isa, ve çok lainnya — ve meaçıkkan ile jelas neden: "Sesungguhnya  kisah-kisah onlar o teryapabilir pelöğreti için insanlar ki mempunyai akal." Kisah-kisah bu bukan dongeng veya hiburan. Bu dır pengöğreti, dipilih ve diceritolacak oleh Allah için mengajarkan keimanan, sabır, ve cara menghadapi imtihan ki sama ki berulang di her zaman.',
-      "Perkalpkan pola ki berjalan di içindenya. peygamber menyeru kaumnya ke penyembahan Allah semata; onlar diejek, ditentang, ve sering diusir; onlar bertahan ile sabır ve tawakal dolu ke Allah; ve  akhirnya janji Allah terbukti benar. Olduğunda sen okumak kesulitan onlar, ambillah kekuatan dari cara onlar menyikapinya — tanpa pernah membayangkan derecemu setara ile onlar. Intinya dır menyerap keteguhan ve tawakal onlar, bukan membandingkan kedudukan.",
-      'Al-Qur\\\'an kendisi menonjolkan satu kisah: Surah Yusuf, ki Allah sebut sebagai "kisah ki terbaik". Secara değil bosa, kisah bu doturkan dari awal hingga akhir içinde satu surah, bu yüzden bacalah içinde satu kali duduk sebagai perjalanan ki berkesinambungan — pengkhonatan, sabır içinde perbudolacak ve penjara, ve akhirnya bağışlama serta pertemuan kembali — ve saksikan bagaimana rencana Allah terungkap di balik bertahun-tahun kemalangan ki tampak.',
+      "Kur'an peygamberlerin kıssalarını — Âdem, Nuh, İbrahim, Yusuf, Musa, İsa ve daha birçoğu — anlatır ve bunun nedenini açıkça bildirir: “Onların kıssalarında akıl sahipleri için bir ibret vardır.” Bu anlatılar halk masalı veya eğlence değildir. Bunlar, imanı, sabrı ve her çağda tekrar eden aynı imtihanlarla nasıl yüzleşileceğini öğretmek için Allah'ın seçip anlattığı öğütlerdir.",
+      "Hepsinde süregelen örüntüye dikkat et. Peygamberler kavimlerini yalnızca Allah'a ibadete çağırdılar; alay edildiler, karşı çıkıldılar ve çoğu zaman yurtlarından çıkarıldılar; sabırla ve Allah'a tam bir güvenle (tevekkül) dayandılar; ve sonunda Allah'ın vaadi gerçekleşti. Onların çektiği zorlukları okurken nasıl karşılık verdiklerinden güç al — ama kendi dereceni asla onlarınkine denk görme. Amaç, onların sebatını ve tevekkülünü içselleştirmektir, makam kıyaslamak değil.",
+      "Kur'an'ın kendisi bir anlatıyı öne çıkarır: Allah'ın “kıssaların en güzeli” dediği Yusuf Suresi. Alışılmışın dışında bu kıssa baştan sona tek bir surede anlatılır; bu yüzden onu tek oturuşta, kesintisiz bir yolculuk olarak oku — ihanet, kölelik ve zindanda sabır, ve nihayet affediş ve kavuşma — ve Allah'ın planının yıllarca süren görünürdeki talihsizliklerin ardında nasıl açığa çıktığını izle.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya  kisah-kisah onlar o teryapabilir pengöğreti için insanlar ki mempunyai akal…",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
-        label: "Kisah peygamber",
+        label: "Peygamber kıssaları",
       },
     ],
   },
   {
-    title: "Mukjizat Kur'an",
-    summary: "Keunikan bahasa, penjagaan, ramelan — ile kekalp-kalpan ilmoh.",
+    title: "Kur'an'ın mucizeleri",
+    summary: "Dilsel eşsizlik, muhafaza, haber verilen olaylar — ilmî ihtiyatla.",
     body: [
-      "Mukjizat utama Kur'an dır Kur'an o kendisi. İndirildi ke bir ki buta harf di masa paling fasih içinde sejarah puisi Arab, o mengeluarkan tantangan terbuka ke penentangnya ki paling gigih — pakar bahasa — için membuat bahkan satu surah saja ki serupa ilenya. Empat belas abad kemuon, tantangan o masih belum terjawab. Kekuatan retorikanya, strukturnya, cara tema-temanya saling terkait, ve keselarasan bimbingan serta hukumnya dikaji içinde ilmu balaghah klasik, ve tümnya tetap, göre klaim Kur'an kendisi, eşsiz.",
-      "Penjagaannya dır tsiz ikinci ki yapabilir diverifikasi. Teks bu korunmuş baik olarak tertulis, melalui naskah ki ditransmisikan ile cermat, maupun olarak lisan, melalui qira'at — zincir qari ki tak terputus ki menghafal ve mengajarkannya olarak persis, generasi demi generasi. Bu dır sejarah ki terdokumentasi, bukan spekulasi saleh, ve bu memenuhi janji Allah kendisi için menjaga Adz-Dzikr.",
-      'Sen de olacak mendengar tentang "mucize ilmoh" — ayat-ayat ki menyentuh aşamaan embrio, gerekirasan alam semesta, ve sejenisnya. Sikapi bu ile kalp-kalp. Tafsir klasik seringkali anlamak ayat-ayat semacam o ile cara ki cukup berbeda dari pembela modern, ve memaksa Kur\'an için cocok ile her hipotesis ilmoh ki değişmiş-ubah bisa menbu yüzden bumerang olduğunda teori-teori o berganti. Bedolacak ile tegas antara penafsiran ki mapan ve dugaan kontemporer.',
-      "Ramelan-ramelan sejarah de dikutip oleh ulama — kemenangan bangsa Romawi ki diramelkan, pembukaan Mekke olarak damai — ve o layak dikaji, fakat melalui tafsir ve sirah ki cermat, bukan klip video ki sensasional. Argumen terkuat için Kur'an selalu dır tevhidnya, transformasi moral suatu kaum, serta bahasa ve penjagaannya ki eşsiz.",
+      "Kur'an'ın asıl mucizesi Kur'an'ın kendisidir. Arap şiirinin en belagatli çağında okuma yazma bilmeyen bir insana indirilen Kur'an, en çetin muhaliflerine — dilin ustalarına — onun benzeri tek bir sure bile getirmeleri için açık bir meydan okumada bulundu. On dört asır sonra bu meydan okuma hâlâ karşılıksızdır. Onun hitabet gücü, yapısı, temalarının birbirine kenetlenişi ve rehberliği ile hükümlerinin tutarlılığı klasik belagat ilminde (ilmü'l-belâga) incelenir ve Kur'an'ın kendi iddiasına göre bunların benzeri getirilemez.",
+      "Korunmuşluğu ikinci ve doğrulanabilir bir alamettir. Metin hem yazılı olarak, titizlikle aktarılmış el yazmalarıyla, hem de sözlü olarak, kıraatlerle — onu nesilden nesile birebir ezberleyip öğreten kesintisiz kârî zincirleriyle — korunmuştur. Bu, dindarca bir tahmin değil, belgelenmiş bir tarihtir ve Allah'ın Zikri koruma vaadini yerine getirir.",
+      "“Bilimsel mucizeler” hakkında da şeyler duyacaksın — embriyonun evrelerine, kâinatın genişlemesine ve benzeri konulara değinen ayetler. Bunlara dikkatle yaklaş. Klasik tefsir bu tür ayetleri çoğu zaman modern savunuculardan oldukça farklı biçimlerde anlamıştır; Kur'an'ı sürekli değişen her bilimsel hipoteze uydurmaya zorlamak, teoriler değiştiğinde ters tepebilir. Yerleşik yorum ile çağdaş tahmini kesin bir şekilde birbirinden ayır.",
+      "Tarihî kehanetler de âlimler tarafından zikredilir — Rumların önceden haber verilen zaferi, Mekke'nin barış içinde fethi — ve bunlar incelemeye değerdir; ancak sansasyonel video kliplerle değil, ölçülü tefsir ve siyer yoluyla. Kur'an lehine en güçlü delil her zaman onun tevhidi, bir toplumu ahlaken dönüştürmesi ve eşsiz dili ile korunmuşluğu olmuştur.",
     ],
-    quran: [
-      {
-        excerpt: "Maka buatlah satu surah semisalnya… jika sen insanlar ki benar.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
-      "Hindari klaim mucize ilmoh ki berdahaan ki bisa mempermalukan dakwah olduğunda diteliti olarak cermat. Utamolacak tevhid, moralitas, ve bukti-bukti bahasa serta sejarah Kur'an.",
+      "İncelendiğinde daveti mahcup düşürecek abartılı bilimsel mucize iddialarından kaçın. Önce tevhidi, ahlakı ve Kur'an'ın dilsel ve tarihî delillerini öne çıkar.",
   },
   {
-    title: "Menghafal Kur'an",
-    summary: "Rencana dari Juz Amma hingga hafalan dolu — muraja'ah, audio, target günan.",
+    title: "Ezber (Hıfz)",
+    summary: "Amme cüzünden tam hıfza planlar — tekrar, ses kaydı, günlük hedefler.",
     body: [
-      "Menghafal Al-Qur\\'an (hifz) dır salah satu upaya paling mulo içinde hayat bir mümin, ve bu bukan hanya için ulama veya anak-anak — insan dewasa pun menyelesaikannya. Peygamber ﷺ mengajarkan ki  Gün Kebangbizn, insan ki membawa Al-Qur\\'an olacak dikatolacak kenya, \"Bacalah ve naiklah,\" naik derece ile her ayat. Mulailah dari yer tüm insan memulai: Surah Al-Fatihah, ki sudah sen baca di her namaz, lalu surah-surah pendek di içinan paling akhir mushaf, bergerak mundur.",
-      "Ders terpenting içinde hifz o berlawanan ile intuisi: muraja'ah (pengulangan) daha penting dari menambah hafalan baru. Peygamber ﷺ memperhatırlolacak ki Kur'an ki dihafal lepas daha cepat dari unta ki terikat lepas dari talinya — bırak tanpa diulang ve o olacak hilang. Bu yüzden aturannya sederhana ve tegas: jangan pernah menambah içinan baru sampai sen benar-benar mengulang ile kuat apa ki sudah sen pegang. Sedikit ki dihafal ile kuat mengalahkan çok ki dihafal ile zayıf.",
-      "Metode pratik: gunolacak pengulangan berjarak, tetaplah  satu qari agar melodinya kendisi memicu hatırlaanmu, baca dari hafalan her gün, bukan hanya okumak teks, ve mintalah guru mendengarkan serta mensizi kesalahanmu — kesalahan ki değil bisa sen dengar kendisi. Pelacak hifz Munib mencatat kemajuan hingga ke ayat perinsanan böylece sen selalu tahu apa ki gerekir diulang.",
-      "Pilih rencana ki uygun ile aşamamu. Pemula: hafalkan Juz Amma, içinan son, dolu ile surah pendek. Menengah: tambahkan sepuluh surah ki sering dibaca seperti Al-Mulk, Ya-Sin, ve Al-Kahfi. Lanjut: selesaikan satu juz dolu ile pengulangan ki kuat atas tüm ki öncenya. Ve perjalanan Hafiz: seluruh mushaf, dihafal bersama guru ki mumpuni dan, idealnya, sanad — zincir transmisi bersertifikat kembali ke Peygamber ﷺ.",
+      "Kur'an'ı ezberlemek (hıfz), bir müminin hayatındaki en şerefli uğraşlardan biridir ve yalnızca âlimlere veya çocuklara mahsus değildir — yetişkinler de onu tamamlar. Peygamber ﷺ, kıyamet gününde Kur'an'ı taşıyan kişiye “Oku ve yüksel” deneceğini ve onun her ayetle derece derece yükseleceğini öğretmiştir. Herkesin başladığı yerden başla: Zaten her namazda okuduğun Fatiha Suresi, ardından mushafın en sonundaki kısa sureler, geriye doğru ilerleyerek.",
+      "Hıfzdaki en önemli ders sezgiye aykırıdır: Tekrar (müraca'a) yeni ezber eklemekten daha önemlidir. Peygamber ﷺ, ezberlenen Kur'an'ın bağlı bir devenin bağından kurtulmasından daha hızlı unutulduğu konusunda uyarmıştır — tekrar edilmeden bırakılırsa gider. Bu yüzden kural basit ve kesindir: Elindekini sağlamca tekrar etmeden asla yeni bir bölüm ekleme. Sağlam ezberlenmiş az, gevşek ezberlenmiş çoktan daha iyidir.",
+      "Pratik yöntem: Aralıklı tekrar kullan; melodinin kendisi hafızanı tetiklesin diye tek bir kâriye bağlı kal; her gün sadece metinden okumakla kalma, ezberden oku; ve bir hocanın seni dinleyip kendi duyamadığın hatalarını işaretlemesini sağla. Munib'in hıfz takipçisi ilerlemeni tek tek ayetlere kadar kaydeder; böylece neyin tekrar zamanının geldiğini her zaman bilirsin.",
+      "Seviyene uygun bir plan seç. Başlangıç: Kısa surelerle dolu son cüz olan Amme cüzünü ezberle. Orta seviye: Mülk, Yasin ve Kehf gibi sıkça okunan on sure ekle. İleri seviye: Öncekilerin hepsini sağlamca tekrar ederek tam bir cüz tamamla. Ve hafızlık yolculuğu: Yetkin bir hocayla ve ideal olarak bir senetle — Peygamber'e ﷺ kadar uzanan belgeli bir aktarım zinciriyle — ezberlenen mushafın tamamı.",
     ],
-    hadith: [
+    hadith: [{}, {}],
+    appLinks: [
       {
-        excerpt:
-          "Olacak dikatolacak ke sahabe Kur'an: Bacalah ve naiklah sebagaimana engkau dahulu okumak di dünya, çünkü derecemu berada  ayat son ki engkau baca.",
+        label: "Ezber planları",
       },
       {
-        excerpt:
-          "Perumpamaan sahabe Kur'an dır seperti pemilik unta ki terikat: jika o ona sahip çıkan, o olacak tetap memilikinya, ve jika o melepaskannya, o olacak kehilangannya.",
+        label: "Hıfz takipçisi",
       },
+    ],
+  },
+  {
+    title: "Günlük dersler",
+    summary: "Bir ayet, bağlam, tefekkür ve eylem — her gün.",
+    body: [
+      "Kur'an'a ömür boyu bağlılık, her köklü alışkanlık gibi inşa edilir — her gün biraz, aksatmadan. Peygamber ﷺ, Allah'a en sevimli amellerin az da olsa devamlı yapılanlar olduğunu öğretmiştir ve günlük dersin ardındaki fikrin tamamı bu ilkedir. Her ders sana Arapçasıyla tek bir ayet, mealini, tarihî bağlamına dair bir not, üzerinde düşünmen için bir tefekkür sorusu ve gününe taşıyacağın somut bir eylem verir.",
+      "Bu ayetlere gelip geçici bir okuma olarak değil, canlı bir rehberlik olarak yaklaş. Kalbine dokunanları işaretle, onlara geri dön ve seni etkileyenleri ailenle paylaş — aktardığın bir iyiliği başkası uyguladığında onun sevabı sana da ulaşır; böylece öğretmek faydayı katlar.",
+      "Küçüklüğüne aldanma. Süreklilik her zaman yoğunluğu geçer: Her gün Kur'an'la geçirilen samimi beş dakika, ayda bir yapılan nadir ve kahramanca bir saatten seni çok daha fazla dönüştürür. Her gün orada ol ve günlerin birikmesine izin ver.",
     ],
     appLinks: [
       {
-        label: "Rencana hafalan",
-      },
-      {
-        label: "Pelacak hifz",
+        label: "Bugünün dersi",
       },
     ],
   },
   {
-    title: "Ders günan",
-    summary: "Satu ayat, konteks, renungan, ve tindolacak — her gün.",
+    title: "Tefekkür (Tedebbür)",
+    summary: "Rehberli sorular — Allah ne öğretiyor ve sen bunu nasıl yaşayacaksın?",
     body: [
-      "Kedekatan seumur hidup ile Kur'an dibangun ile cara ki sama seperti kebosaan meniçinde lainnya dibangun — az demi az, her gün, tanpa putus. Peygamber ﷺ mengajarkan ki amelan ki paling dicintai Allah dır ki dilakukan olarak konsisten, sekalipun küçük, ve prinsip olah seluruh gagasan di balik pelöğreti günan. Her pelöğreti memberimu satu ayat içinde bahasa Arab, terjemahannya, catatan tentang konteks sejarahnya, pertanyaan renungan için direnungkan, ve satu tindolacak konkret için dibawa ke içinde günmu.",
-      "Perlakukan ayat-ayat bu sebagai bimbingan ki hidup, bukan bacaan ki berlalu bego saja. Tsizi ki menyentuh kalpmu, kembalilah kenya, ve içinkan apa ki menggerakkanmu ke keluargamu — olduğunda insan lain mengamelkan iyilik ki sen sampaikan, sevapnya sampai de kemu, böylece mengajarkan melipatgandolacak manfaatnya.",
-      "Jangan tertipu oleh ukurannya ki küçük. Konsistensi selalu mengalahkan intensitas: lima menit ki tulus bersama Kur'an her gün olacak mengubahmu jauh daha çok dari satu jam ki langka ve heroik sebulan sekali. Hadirlah her gün, ve bırak gün-gün o terkumpul.",
+      "Tedebbür, Kur'an üzerinde derinlemesine düşünmek, bir ayeti seni değişmeye sevk edene kadar kalbinde evirip çevirmek demektir. Bu isteğe bağlı bir ek değil, doğrudan bir emirdir: Allah sorar, “Onlar Kur'an'ı düşünmüyorlar mı? Yoksa kalplerinin üzerinde kilitler mi var?” Okumanın amacı hiçbir zaman sadece ses değildi — amaç kalbe ulaşmak ve bir hayatı yeniden şekillendirmekti.",
+      "Tedebbür tefsirle aynı şey değildir. Tefsir, bir ayetin ne anlama geldiğinin ilmî açıklamasıdır; tedebbür ise o anlamı kavradıktan sonra senin ona verdiğin kişisel ve saygılı karşılıktır. İkisi birlikte işler: Önce tefsirden sağlam anlamı öğrenir, sonra onun üzerinde durup sana nasıl hitap ettiğini sorarsın. Yardımcı bir çerçeve üç sorudur: Allah burada bana ne öğretiyor? Bu, bugün yaptıklarımı nasıl değiştiriyor? Bu yüzden hangi alışkanlığı edinmeli veya bırakmalıyım?",
+      "Kesin bir sınır tedebbürü güvenli tutar: Bir ayetin senden ne istediği üzerinde düşün, ama metnin kendisine asla yeni anlamlar uydurma. Yorumun sınırlarını sahih tefsirin belirlemesine izin ver ve kişisel düşüncelerini kendi yerlerinde tut — Munib'inki gibi özel bir günlük, bir ayetin sende uyandırdıklarını kaydetmek ve daha sonra onlara dönmek için idealdir.",
+    ],
+    quran: [{}, {}],
+    appLinks: [
+      {
+        label: "Tedebbür soruları",
+      },
+      {
+        label: "Günlük",
+      },
+    ],
+  },
+  {
+    title: "Kur'an'ı uygula",
+    summary: "Bir ayetten bugünün görevi — tamamlamayı kaydet, ayeti yaşa.",
+    body: [
+      "Kur'an bilgisinin amele dönüşmesi gerekir. Allah, bizden öncekilerden Kitab'ı okuyup ona aykırı yaşayanları sert bir dille eleştirmiştir: “Siz Kitab'ı okuduğunuz hâlde insanlara iyiliği emredip kendinizi unutuyor musunuz?” Kur'an seninle Rabbin arasında bir ahittir ve her ayet sessizce senden bir şey ister — mesele, senin buna cevap verip vermediğindir.",
+      "Bu görevler bunun için vardır. Her biri belirli bir ayeti bugün yapılabilecek tek bir davranışa bağlar: dilini güzel sözle korumak, gizlice bir sadaka vermek, haram olandan gözünü sakınmak, uzun süredir taşıdığın bir kini bırakmak. Bir ayet, bir eylem — gerçekten yapabileceğin kadar küçük, seni değiştirecek kadar gerçek.",
+      "Bir görevi ancak gerçekten yaptığında tamamlandı olarak işaretle. Kayıt tutmanın amacı gösteriş değildir — bu, amacın kendisini boşa çıkarır — başkalarının görmediğini gören Allah'a karşı dürüst bir hesap verebilirliktir. Zamanla, ayet ayet, okuyuş böyle karaktere dönüşür.",
+    ],
+    quran: [{}],
+    appLinks: [
+      {
+        label: "Bugünün görevi",
+      },
+    ],
+  },
+  {
+    title: "Kur'an testi",
+    summary: "Sure adlarını, yapıyı, tecvidi, kelime hazinesini ve kıssaları gözden geçir.",
+    body: [
+      "Kendini sınamak, bilginin kalıcı olmasını sağlamanın en etkili yollarından biridir — bir cevabı hatırlamaya çalışmak, hafızayı sadece tekrar okumaktan çok daha fazla güçlendirir. Bu test, bölümdeki her şeyden yararlanır: sure ve cüz sayısı, ilk vahiy ve Kur'an'ın nasıl korunduğu, med ve kalkale gibi tecvid kuralları, sık geçen kelimeler ve Kur'an'ın kıssalarını anlattığı peygamberler.",
+      "Niyetini doğru tut. Puan yalnızca öğreniminin bir aynasıdır — asla Allah katındaki derecenin ölçüsü değildir; o yalnızca O'na aittir. Her soruyu bir zayıf noktayı ortaya çıkarmak için kullan, sonra bir sayının peşinden koşmak yerine ilgili derse dönüp tam olarak o konuyu çalış.",
+      "Son soru puanlanan bir soru değil, bir tefekkürdür: Sırada anlamak ve ezberlemek için bir sure veya pasaj seç; böylece tekrarın her zaman seni Kitab'ın kendisine geri yönlendirerek biter.",
     ],
     appLinks: [
       {
-        label: "Ders gün bu",
+        label: "Teste başla",
       },
     ],
   },
   {
-    title: "Perenungan (Tadabbur)",
-    summary: "Pertanyaan terpandu — apa ki Allah ajarkan, ve bagaimana sen olacak menghayatinya?",
+    title: "Kaynaklar ve referanslar",
+    summary: "Kur'an, hadis, tefsir ve âlimlerin ihtilaflarını nasıl kaynak gösteriyoruz.",
     body: [
-      "Tadabbur anlamına gelir merenungkan Al-Qur\\'an olarak meniçinde, membolak-balik semeyve ayat içinde kalp hingga o menggerakkanmu için değişmiş. Bu dır perintah langsung, bukan tambahan opsional: Allah bertanya, \"Maka değilkah onlar menghayati Al-Qur\\'an, veyakah kalp onlar terkunci?\" Tujuan okumak değil pernah sekadar bunyi — o dimaksudkan için mencapai kalp ve memşekil ulang semeyve hayat.",
-      "Tadabbur değil sama ile tafsir. Tafsir dır penjelasan ilmoh tentang makna semeyve ayat; tadabbur dır respons pribadimu ki dolu penghormatan terhadap makna o sonra sen anlamaknya. Her ikisi de bekerja bersama: sen terdaha dahulu öğrenmek makna ki sahih dari tafsir, lalu sen merenunginya ve bertanya bagaimana o berbicara kemu. Kerangka ki membantu dır tiga pertanyaan — Apa ki Allah ajarkan keku di sbu? Bagaimana bu mengubah apa ki kulakukan gün bu? Kebosaan apa ki gerekir kubangun veya kuyaşamakkan çünkü ayat bu?",
-      "Satu batasan tegas menjaga tadabbur tetap aman: renungkan apa ki diminta semeyve ayat darimu, fakat jangan pernah mengarang makna baru için teks o kendisi. Borkan tafsir ki sahih menetapkan batas-batas penafsiran, ve simpan renunganmu kendisi di yernya — jurnal pribadi, seperti milik Munib, çok ideal için menangkap apa ki digerakkan semeyve ayat içinde dirimu ve için kembali kenya nanti.",
-    ],
-    quran: [
-      {
-        excerpt: "Maka değilkah onlar menghayati Kur'an, veyakah kalp onlar terkunci?",
-      },
-      {
-        excerpt:
-          "Maka değilkah onlar menghayati Kur'an? Sekiranya (Kur'an) o bukan dari sisi Allah, tentulah onlar menyapabilir çok pertentangan di içindenya.",
-      },
-    ],
-    appLinks: [
-      {
-        label: "Pertanyaan tadabbur",
-      },
-      {
-        label: "Jurnal",
-      },
-    ],
-  },
-  {
-    title: "Mengamelkan Kur'an",
-    summary: "Tantangan gün bu dari semeyve ayat — catat penyelesaon, hayati ayatnya.",
-    body: [
-      "Ilmu tentang Al-Qur\\'an dimaksudkan için menbu yüzden amel. Allah mengkritik tajam insanlar önce biz ki okumak Bizb ancak hidup bertentangan ilenya: \"Neden sen suruh insan lain (mengerjolacak) iyilik, sedangkan sen melupolacak diri (kefarzan)mu kendisi, hal sen okumak Al-Bizb?\" Al-Qur\\'an dır perjanjon antara sen ve Allahmu, ve her ayat sessiz-sessiz meminta sesuatu darimu — pertanyaannya dır apakah sen menjawabnya.",
-      "Olah tujuan tantangan-tantangan bu. Her tantangan menghubungkan satu ayat tertentu ile satu perilaku ki bisa dilakukan gün bu: menjaga lisan ile perkataan ki baik, memberi sedekah olarak sessiz-sessiz, menundukkan psizngan dari ki diharamkan, melepaskan dendam ki selama bu sen pendam. Satu ayat, satu tindolacak — cukup küçük için benar-benar bisa dilakukan, cukup açık için mengubahmu.",
-      "Tsizi semeyve tantangan selesai hanya olduğunda sen benar-benar olmuş melakukannya. Tujuan pencatatan bukan pamer — o justru olacak mengalahkan maksudnya — melainkan pertanggungjawaban ki jujur ke Allah, ki mebak apa ki değil dibak insan lain. Seiring vakit, ayat demi ayat, begolah cara bacaan değişmiş menbu yüzden karakter.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Neden sen suruh insan lain (mengerjolacak) iyilik, sedangkan sen melupolacak diri (kefarzan)mu kendisi, hal sen okumak Al-Bizb?",
-      },
-    ],
-    appLinks: [
-      {
-        label: "Tantangan gün bu",
-      },
-    ],
-  },
-  {
-    title: "Kuis Kur'an",
-    summary: "Ulas nama surah, struktur, tajwid, kosakata, ve kisah-kisah.",
-    body: [
-      "Menguji diri kendisi dır salah satu cara paling efektif için membuat ilmu melekat — menghatırla kembali semeyve jawaban memperkuat hatırlaan jauh daha baik dari sekadar okumak ulang. Kuis bu mengambil dari segala sesuatu di hub bu: jumlah surah ve juz, vahiy ilk ve bagaimana Kur'an dijaga, kaidah tajwid seperti mad ve qalqalah, kosakata berfrekuensi tinggi, ve peygamber ki kisahnya diceritolacak Kur'an.",
-      "Jagalah not tetap lurus. Skor hanyalah cermin dari pemöğrenmekanmu — o bukan ukuran derecemu di sisi Allah, ki hanya menbu yüzden milik-Nya. Gunolacak her pertanyaan için mengungkap sisi ki zayıf, lalu kembali ke pelöğreti ki uygun ve pelajari tepat topik o, bukan heceleyenr angka.",
-      "Pertanyaan son dır renungan, bukan pertanyaan bernilai: pilih satu surah veya içinan için dipahami ve dihafal sonraki, böylece ulasanmu selalu berakhir ile mengarahkanmu kembali ke Bizb o kendisi.",
-    ],
-    appLinks: [
-      {
-        label: "Mulai kuis",
-      },
-    ],
-  },
-  {
-    title: "Rujukan ve sumber",
-    summary: "Bagaimana kami mengutip Kur'an, hadis, tafsir, ve perbedaan penyapabilir ulama.",
-    body: [
-      "Ilmu Islam ki sahih dibangun di atas bukti ki transparan, bu yüzden her pelöğreti di hub bu berusaha menunjukkan sumbernya. Klaim tentang Kur'an didukung ile rujukan içinde şekil surah:ayat; klaim dari Sunnah menyebutkan nama kumpulan hadis (Bukgün, Muslim, Tirmidzi, ve sebagainya), nomor hadis, ve derecenya (sahih, hasan, veya daha zayıf); klaim tentang makna semeyve ayat menyebutkan tafsir dari mana o gelir; ve di yer ulama benar-benar berbeda penyapabilir, perbedaan o dicatat, bukan disembunyikan.",
-      "Penting de membedolacak mana ki pasti ve mana ki bersifat penafsiran. Fakta ki mapan — namaz lima vakit, penjagaan Kur'an, peristiwa-peristiwa utama sirah — oçıkkan olarak gamblang. Perkara ki sejak lama diperselisihkan oleh ulama ki tulus, seperti rincon halus eskatologi veya pembacaan isyarat ilmoh, disajikan sebagai penafsiran, bukan sebagai kepaston ki mapan. Keyakinan gerekir sepave ile kekuatan buktinya.",
-      "İçin kajon ki daha içinde, berssizrlah  rujukan ki mapan: terjemahan Al-Qur\\'an ki yapabilir dipercaya (seperti Sahih International veya Pickthall), kumpulan hadis utama (terutama Sahih Al-Bukgün ve Sahih Muslim), tafsir ki dihormati (Ibnu Katsir ve As-Sa\\'di), ve sirah ki tepercaya (karya klasik Ibnu Hisyam, ve Ar-Rahiq Al-Makhtum, \"Nektar ki Tersegel,\" için narasi modern).",
-      "Terakhir, ketahuilah batas semeyve aplikasi. Munib mengedukasi ve mengarahkanmu ke sumber-sumber, fakat değil mengeluarkan fatwa agama. İçin fikih bacaan, için ijazah tajwid, veya için pertanyaan apa pun ki memengaruhi ibadah veya keputusan hidupmu, konsultasikan ile ulama ki mumpuni uygun mazhab ve wilayahmu.",
+      "Sağlam İslami bilgi şeffaf deliller üzerine kurulur; bu yüzden bu bölümdeki her ders dayanağını göstermeyi amaçlar. Kur'an hakkındaki bir iddia sure:ayet şeklinde bir referansla desteklenir; Sünnet'ten bir iddia, hadis kitabının adını (Buhari, Müslim, Tirmizi vb.), hadis numarasını ve derecesini (sahih, hasen veya daha zayıf) belirtir; bir ayetin anlamına dair bir iddia, dayandığı tefsiri belirtir; âlimlerin gerçekten ihtilaf ettiği yerlerde ise bu fark gizlenmez, not edilir.",
+      "Kesin olanı yoruma dayalı olandan ayırmak da önemlidir. Yerleşik gerçekler — beş vakit namaz, Kur'an'ın korunmuşluğu, siyerin başlıca olayları — açıkça ifade edilir. Ahiret hâllerinin ince ayrıntıları veya bilimsel işaretlerin yorumlanması gibi samimi âlimlerin öteden beri ihtilaf ettiği konular ise kesinleşmiş bir gerçek olarak değil, yorum olarak sunulur. Kesinlik derecesi delilin gücüyle örtüşmelidir.",
+      "Daha derin çalışma için yerleşik kaynaklara dayan: güvenilir Kur'an mealleri (Sahih International veya Pickthall gibi), temel hadis kaynakları (başta Sahih-i Buhari ve Sahih-i Müslim), saygın tefsirler (İbn Kesir ve Sa'di) ve güvenilir siyer eserleri (İbn Hişam'ın klasik eseri ve modern bir anlatım için er-Rahîku'l-Mahtûm, “Mühürlü Nektar”).",
+      "Son olarak, bir uygulamanın sınırlarını bil. Munib eğitir ve seni kaynaklara yönlendirir, ancak dinî fetva vermez. Kıraat fıkhı, bir tecvid icazeti veya ibadetini ya da hayat kararlarını etkileyen herhangi bir soru için kendi mezhebinden ve bölgenden yetkin bir âlime danış.",
     ],
     sources: [
-      "Kur'an — cetolacak Kompleks Raja Fahd / mushaf digital olan diverifikasi",
-      "Hadis — rujukan silang penilaon sunnah.com",
-      "Tafsir Ibnu Katsir (ringkasan Darussalam)",
-      "Tafsir As-Sa'di (bahasa Inggris)",
+      "Kur'an — Kral Fahd Kompleksi baskısı / doğrulanmış dijital mushaf",
+      "Hadis — sunnah.com derecelendirmeleriyle çapraz kontrol",
+      "İbn Kesir Tefsiri (Darussalam kısaltması)",
+      "Sa'di Tefsiri (İngilizce)",
     ],
     disclaimer:
-      "Munib menghimpun konten edukasi terbuka. Verifikasi perkara-perkara penting ile ulama ki mumpuni uygun mazhab ve wilayahmu.",
+      "Munib açık eğitim içeriklerini bir araya getirir. Önemli konuları kendi mezhebinden ve bölgenden yetkin âlimlerle teyit et.",
   },
 ];
 
 export const QURAN_GUIDE_STRUCTURE_LEVELS_TR: DeepPartial<QuranGuideStructureLevel>[] = [
   {
     label: "Kur'an",
-    count: "1 Bizb",
+    count: "1 Kitap",
     detail:
-      "Satu Bizb — Kalamullah, kalam Allah ki sesungguhnya, indirildi melalui malaikat Jibril ke Muhammad ﷺ, içinde bahasa Arab ki jelas, olarak beraşama selama kurang daha 23 tahun. O dır satu-satunya teks ki sama di seluruh dünya.",
+      "Tek bir Kitap — kelâmullah, yani Allah'ın lafzen kelâmı; Cebrail aracılığıyla Muhammed'e ﷺ apaçık bir Arapça ile, yaklaşık 23 yıl boyunca tedricen indirilmiştir. Dünyanın her yerinde aynı ve tek bir metindir.",
   },
   {
-    label: "Surah (bab)",
+    label: "Sureler (bölümler)",
     count: "114",
     detail:
-      "Kur'an teriçin menbu yüzden 114 surah, mulai dari hanya tiga ayat hingga 286 ayat. Masing-masing punya nama, bosanya sessizbil dari kata kunci di içindenya, ve digolongkan sebagai Makki veya Madani. Urutannya içinde mushaf ditetapkan (tawqifi) oleh vahiy ve berbeda dari urutan turunnya.",
+      "Kur'an, yalnızca üç ayetten 286 ayete kadar uzanan 114 sureye ayrılır. Her surenin genellikle içindeki anahtar bir kelimeden alınan bir adı vardır ve Mekki ya da Medeni olarak sınıflandırılır. Surelerin mushaftaki sırası vahiyle belirlenmiştir (tevkifi) ve iniş sırasından farklıdır.",
   },
   {
-    label: "Juz (içinan)",
+    label: "Cüz (bölümler)",
     count: "30",
     detail:
-      "Tiga puluh içinan ki kurang daha sama büyük, dibuat için memudahkan bacaan. Okumak satu juz her gün menyelesaikan seluruh Kur'an içinde sebulan — cara klasik için khatam saat Ramadhan.",
+      "Okumayı kolaylaştırmak için düzenlenmiş, yaklaşık eşit otuz bölüm. Günde bir cüz okumak Kur'an'ın tamamını bir ayda bitirir — Ramazan'da hatim yapmanın klasik yolu budur.",
   },
   {
-    label: "Hizb (içinan)",
+    label: "Hizip (kısımlar)",
     count: "60",
     detail:
-      "Her juz teriçin menbu yüzden dua hizb, böylece totalnya 60, ve her hizb teriçin lagi menbu yüzden seperempatan. Unit-unit küçük bu memudahkanmu menetapkan porsi günan ki ringan — setengah veya seperempat hizb — ve menjaga kebosaan ki stabil.",
+      "Her cüz iki hizbe ayrılır; böylece toplam 60 hizip olur ve her hizip de çeyreklere bölünür. Bu küçük birimler, hafif bir günlük miktar — yarım veya çeyrek hizip — belirlemeni ve istikrarlı bir alışkanlık sürdürmeni sağlar.",
   },
   {
-    label: "Ayat",
+    label: "Ayetler",
     count: "6.236",
     detail:
-      "Ayat-ayat perinsanan, diberi nomor böylece içinan mana pun bisa dirujuk olarak tepat sebagai surah:ayat. 6.236 dır hongan stsizr Medine; metode historis lain hanya berbeda içinde cara beberapa batas ayat ditsizi — kata-katanya kendisi identik.",
+      "Tek tek ayetler, herhangi bir pasaj sure:ayet şeklinde tam olarak gösterilebilsin diye numaralandırılmıştır. 6.236, standart Medine sayımıdır; diğer tarihî sayım yöntemleri yalnızca birkaç ayet sınırının nasıl işaretlendiği konusunda farklılık gösterir — kelimelerin kendisi aynıdır.",
   },
   {
-    label: "Makki / Madani",
-    count: "2 periode",
+    label: "Mekki / Medeni",
+    count: "2 dönem",
     detail:
-      "Her surah termasuk salah satu dari dua periode vahiy. Surah Makki (önce Hicret) sering daha pendek ve berfokus  akidah, tevhid, ve ahiret. Surah Madani (sesudah Hicret) sering daha panjang ve menambahkan perundangan serta bimbingan komunitas. Beberapa surah memuat ayat dari her ikisi de.",
+      "Her sure iki vahiy döneminden birine aittir. Mekki (hicretten önce) sureler genellikle daha kısadır ve inanç, tevhid ve ahiret üzerinde durur. Medeni (hicretten sonra) sureler genellikle daha uzundur ve hukuk ile toplumsal rehberlik ekler. Birkaç sure her iki döneme ait ayetler içerir.",
   },
   {
-    label: "Tema",
-    count: "Çok",
+    label: "Temalar",
+    count: "Pek çok",
     detail:
-      "Kur'an onyam di sebizr tema-tema ki berulang, bukan disusun tema demi tema. Tauhid, namaz, kisah peygamber, keluarga, sedekah, sabır, ve ahiret berjalan di seluruh Bizb, saling memperkuat di çok surah.",
+      "Kur'an konu konu düzenlenmemiş, tekrar eden temalar etrafında örülmüştür. Tevhid, namaz, peygamber kıssaları, aile, sadaka, sabır ve ahiret Kitab'ın tamamında yer alır ve pek çok surede birbirini pekiştirir.",
   },
 ];
 
 export const QURAN_GUIDE_TIMELINE_TR: DeepPartial<QuranGuideTimelineEvent>[] = [
   {
-    title: "Hayat önce vahiy",
-    body: " tahun-tahun önce kepeygamberan, Muhammad ﷺ sering menyendiri bergün-gün di Gua Hira için merenung, gelisah ile kemusyrikan ve kedeğiladilan masyarakat Mekke. Olsa bile dünya di sekelilingnya menyembah berhala, o değil pernah melakukannya, ve kaumnya bego memercayainya hingga menjulukinya Al-Amin — ki tepercaya — jauh önce klaim kepeygamberan.",
+    title: "Vahiyden önceki hayat",
+    body: "Peygamberlikten önceki yıllarda Muhammed ﷺ, Mekke toplumundaki putperestlik ve zulümden rahatsız olarak günlerce yalnızlık ve tefekkür için Hira Mağarası'na çekilirdi. Etrafındaki dünya putlara taparken o hiçbir zaman tapmadı; kavmi de ona o kadar güveniyordu ki, peygamberlik iddiasından çok önce ona el-Emin — güvenilir — diyorlardı.",
     location: "Mekke",
   },
   {
-    title: "Gua Hira",
-    body: ' bulan Ramadhan, olduğunda o beruso sebizr empat puluh tahun, malaikat Jibril datang ke gua o ile satu perintah: "Bacalah!" Peygamber ﷺ, ki değil bisa okumak veya menulis, menjawab ki o değil sanggup. Malaikat o mendekapnya erat tiga kali lalu menyampaikan kata-kata ilk Surah Al-Alaq — "Bacalah ile (menyebut) nama Allahmu ki menciptolacak." Terguncang, o bergegas pulang menemui istrinya Khadijah, ki menyelimutinya ve menenangkannya.',
-    location: "Gunung Nur, Mekke",
+    title: "Hira Mağarası",
+    body: "Ramazan ayında, yaklaşık kırk yaşındayken melek Cebrail mağarada ona tek bir emirle geldi: “Oku!” Okuma yazma bilmeyen Peygamber ﷺ okuyamayacağını söyledi. Melek onu üç kez sıkıca kucakladı ve ardından Alak Suresi'nin ilk kelimelerini iletti: “Yaratan Rabbinin adıyla oku.” Sarsılmış hâlde evine, eşi Hatice'nin yanına koştu; Hatice onu bir örtüye sardı ve teskin etti.",
+    location: "Nur Dağı, Mekke",
   },
   {
-    title: "Vahiy ilk — Surah Al-Alaq",
-    body: "Perintah okumak mensizi dimulainya kepeygamberan ve turunnya Kur'an. Khadijah membawanya ke kerabatnya ki berilmu, Waraqah bin Naufal, ki mengenali malaikat o sebagai utusan ki sama ki datang ke Musa ve meramelkan ki kaumnya kendisi olacak mengusirnya. Vahiy-vahiy Mekke paling awal sonra o berfokus  keesaan Allah, kepaston ahiret, ve seruan luas için perbaikan moral.",
+    title: "İlk vahiy — Alak Suresi",
+    body: "Okuma emri, peygamberliğin ve Kur'an'ın inişinin başlangıcı oldu. Hatice onu ilim sahibi akrabası Varaka b. Nevfel'e götürdü; Varaka meleği Musa'ya gelen aynı elçi olarak tanıdı ve Peygamber'in ﷺ kavminin onu yurdundan çıkaracağını önceden haber verdi. Bunu izleyen en erken Mekke vahiyleri Allah'ın birliğine, ahiretin kesinliğine ve kapsamlı bir ahlaki ıslah çağrısına odaklandı.",
   },
   {
-    title: "Awal periode Mekke",
-    body: "Beberapa tahun ilk dakwah dilakukan olarak sessiz-sessiz, lalu olarak terang-terangan. Seiring meluasnya dakwah, kaum Quraisy beralih ke kekerasan — menyiksa kaum mümin ki zayıf ve budak — ve akhirnya memberlakukan boikot keras selama tiga tahun terhadap keluarga Peygamber ﷺ, Bani Hasyim. İçin lolos dari penganoyaan, sekelompok muslim hicret ke Habasyah, di mana bir raja Kristen ki adil melindungi onlar. Surah-surah dari periode bu umumnya berbicara içinde ayat-ayat pendek, mendesak, ve berirama.",
+    title: "Erken Mekke dönemi",
+    body: "İlk yıllarda davet gizliydi, sonra açık hâle geldi. Davet büyüdükçe Kureyş zulme başvurdu — müminler arasındaki zayıflara ve kölelere işkence etti — ve sonunda Peygamber'in ﷺ kabilesi Haşimoğullarına üç yıl süren ağır bir boykot uyguladı. Bu zulümden kurtulmak için bir grup Müslüman Habeşistan'a hicret etti; orada adil bir Hristiyan kral onlara sığınak verdi. Bu dönemin sureleri genellikle kısa, güçlü ve ahenkli ayetlerle hitap eder.",
     location: "Mekke",
   },
   {
-    title: "Hicret ke Medine",
-    body: "Sonra bertahun-tahun teranoya, ve sonra 'Amul Huzni (Tahun Duka) di mana o kehilangan baik Khadijah maupun Abu Thalib, Peygamber ﷺ ve sahabenya hicret ke Medine. Hicret bu bego penting hingga kelak menbu yüzden awal penanggalan Islam. Di Medine, Müslümanlar bukan lagi minoritas ki diburu, melainkan komunitas ki membangun masyarakat, ve vahiy mulai berbicara tentang hukum, keluarga, ekonomi, ve hubungan ile Ahli Bizb.",
+    title: "Medine'ye hicret",
+    body: "Yıllar süren zulümden ve hem Hatice'yi hem de amcası Ebu Talib'i kaybettiği “hüzün yılı”ndan sonra Peygamber ﷺ ve ashabı Medine'ye hicret etti. Bu hicret o kadar önemliydi ki sonradan İslami takvimin başlangıcı oldu. Medine'de Müslümanlar artık takip edilen bir azınlık değil, bir toplum kuran bir topluluktu; vahiy de artık hukuk, aile, ekonomi ve Ehl-i Kitap ile ilişkiler konularına değinmeye başladı.",
     location: "Medine",
   },
   {
-    title: "Periode Medine",
-    body: "Surah-surah Medine umumnya daha panjang ve daha rinci, meletakkan hukum ki dibutuhkan komunitas olan menetap: namaz, zakat, puasa, pernikahan ve perceraon, warisan, rincon perjanjon ve perdamaon. Periode bu de menyaksikan peperangan büyük — Badar, Uhud, ve Ahzab — ve Kur'an menggambarkan imtihan kaum mümin serta makar kaum munafik ile kejelasan ki mengagumkan.",
+    title: "Medine dönemi",
+    body: "Medeni sureler genellikle daha uzun ve daha ayrıntılıdır; yerleşik bir topluluğun ihtiyaç duyduğu hükümleri ortaya koyar: namaz, zekât, oruç, evlilik ve boşanma, miras, sözleşmeler ve antlaşmalarla ilgili ayrıntılar. Bu dönemde büyük savaşlar da yaşandı — Bedir, Uhud ve Hendek (Ahzab) — ve Kur'an müminlerin imtihanlarını ve münafıkların entrikalarını çarpıcı bir açıklıkla ele aldı.",
     location: "Medine",
   },
   {
-    title: "Haji Wada",
-    body: ' tahun kesepuluh Hicret, Peygamber ﷺ menunaikan satu-satunya hajinya ve menyampaikan Khutbah Haji Wada di hadapan kumpulan büyük di Arafah, menghatırlolacak ümmet olacak ketaharetan jiwa ve harta, hak-hak perempuan, kesetaraan tüm insanlık tanpa memsizng ras, serta berpegang teguh  Kur\'an ve Sunnah. Di sanalah ayat bu indirildi: " gün bu olmuş Kusempurnolacak için sen agamamu."',
-    location: "Arafah / Mina",
+    title: "Veda Haccı",
+    body: "Hicretin onuncu yılında Peygamber ﷺ tek haccını yaptı ve Arafat'ta büyük bir kalabalık önünde Veda Hutbesi'ni irat etti; ümmete can ve malın dokunulmazlığını, kadınların haklarını, ırk ayrımı gözetmeksizin bütün insanların eşitliğini ve Kur'an ile Sünnet'e sımsıkı sarılma yükümlülüğünü hatırlattı. Şu ayet de burada indi: “Bugün sizin için dininizi kemale erdirdim.”",
+    location: "Arafat / Mina",
   },
   {
-    title: "Kodifikasi di masa Abu Bakar",
-    body: "Tak lama sonra wafatnya Peygamber ﷺ, çok sahabe olan menghafal seluruh Kur'an gugur syahid içinde Perang Yamamah. Khawatir olacak hilangnya penghafal, Umar mendesak Khalifah Abu Bakar için biriktiren Kur'an içinde satu yer. Abu Bakar menugaskan penulis tepercaya Zaid bin Tsabit, ki ile cermat biriktiren vahiy tertulis — memverifikasinya ile hatırlaan sahabe — menbu yüzden satu kumpulan suhuf.",
+    title: "Ebu Bekir döneminde derleme",
+    body: "Peygamber'in ﷺ vefatından kısa bir süre sonra, Kur'an'ın tamamını ezberlemiş pek çok sahabi Yemame Savaşı'nda şehit oldu. Hafızların kaybından endişe eden Ömer, halife Ebu Bekir'i Kur'an'ı tek bir yerde toplatmaya teşvik etti. Ebu Bekir güvenilir vahiy kâtibi Zeyd b. Sabit'i görevlendirdi; Zeyd yazılı vahyi — sahabenin ezberleriyle karşılaştırarak doğrulayıp — titizlikle tek bir sayfalar topluluğunda (suhuf) bir araya getirdi.",
   },
   {
-    title: "Mushaf stsizr — Utsman",
-    body: "Seiring meluasnya Islam ke berbagai wilayah, perbedaan bacaan di antara muslim baru mulai memicu perselisihan. İçin menyatukan ümmet  satu teks tertulis, Khalifah Utsman membuat salinan resmi dari suhuf Abu Bakar içinde olek Quraisy ve mengirimkannya ke kota-kota büyük, memerintahkan agar salinan pribadi lainnya dimusnahkan. Mushaf Utsmani bulah stsizr ki uyulması seluruh dünya muslim sejak saat o.",
+    title: "Standart mushaf — Osman",
+    body: "İslam pek çok diyara yayıldıkça yeni Müslümanlar arasındaki okuyuş farklılıkları anlaşmazlıklara yol açmaya başladı. Ümmeti tek bir yazılı metin üzerinde birleştirmek için halife Osman, Ebu Bekir'in suhufundan Kureyş lehçesiyle resmî nüshalar çoğalttırdı ve bunları büyük şehirlere gönderdi; diğer şahsi nüshaların bir kenara bırakılmasını istedi. Bu Hz. Osman mushafı (Mushaf-ı Osmanî), o günden beri bütün Müslüman dünyanın takip ettiği standarttır.",
   },
   {
-    title: "Terjaga hingga gün bu",
-    body: "Empat belas abad kemuon, Al-Qur\\'an değil değişmiş, korunmuş melalui tiga jaminan ki saling terkait — hafalan massal di her generasi, transmisi tertulis ki seto, ve zincir bacaan (qira\\'at) guru-ke-murid ki tak terputus hingga kembali ke Peygamber ﷺ. Bu memenuhi janji Allah kendisi: \"Sesungguhnya Kamilah ki menurunkan Adz-Dzikr (Al-Qur\\'an), ve sesungguhnya Kami benar-benar memeliharanya.\"",
+    title: "Bugüne kadar korunmuşluk",
+    body: "On dört asır sonra Kur'an değişmeden durmaktadır; birbirini destekleyen üç yolla korunmuştur: her nesilde kitlesel ezber (hıfz), sadık yazılı aktarım ve Peygamber'e ﷺ kadar uzanan, hocadan talebeye kesintisiz kıraat zincirleri. Bu, Allah'ın bizzat kendi vaadini yerine getirir: “Şüphesiz Zikri biz indirdik ve onun koruyucusu da elbette biziz.”",
   },
 ];
 
 export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
   {
-    prophetName: "Adam AS",
-    title: "Adam AS — Peygamber ilk ve bapak ümmet insanlık",
-    summary: "Penciptaan, sujud malaikat, imtihan pohon terlarang, diterimanya tövbe.",
+    prophetName: "Hz. Âdem",
+    title: "Hz. Âdem — ilk peygamber ve insanlığın atası",
+    summary: "Yaratılış, meleklerin secdesi, ağaç imtihanı, kabul edilen tövbe.",
     body: [
-      "Allah menciptolacak insanlık ilk, Adam AS, dari tanah ile tangan-Nya kendisi, meniupkan ruh-Nya kenya, ve memberinya anugerah ki değil diberikan ke makhluk lain: Allah mengajarkan Adam nama-nama segala sesuatu. Olduğunda Allah menunjukkan ilmu o, malaikat mengakui keterbatasan onlar ve fazilet Adam menbu yüzden jelas — ilmu o kendisi dır içinan dari apa ki membedolacak ümmet insanlık.",
-      "Kemuon Allah memerintahkan malaikat için sujud ke Adam sebagai penghormatan, ve tüm patuh — kecuali Iblis, ki gelir dari golongan jin. O menolak ile sombong, berdalih ki o diciptolacak dari api ve Adam dari tanah, böylece o menganggap dirinya daha unggul. Kesombongan olah, bukan kebodohan, ki membinasolacaknya, ve o bersumpah olacak menyesatkan keturunan Adam.",
-      'Adam ve istrinya Hawa diyerkan di cennet ve diberi tahu ki onlar boleh molacak apa saja ile bebas kecuali mendekati satu pohon tertentu. Setan terus membisikkan godaan hingga akhirnya onlar memolacaknya. Seolduğunda aurat onlar tersingkap, ve onlar menyadari kesalahan onlar. Ancak alih-alih putus asa veya mencari alasan, onlar ile rendah kalp kembali ke Allah: "Ya Allah kami, kami olmuş menganoya diri kami kendisi, ve jika Engkau değil mengampuni kami ve memberi rahmet ke kami, niscaya pastilah kami termasuk insanlar ki merugi."',
-      'Allah menerima tövbe onlar ve menurunkan onlar ke bumi — bukan sebagai hukuman sewenang-wenang, melainkan sebagai awal imtihan keinsanlıkan, disertai janji hidayet: "Barang sopa ki mengikuti hidayet-Ku, o değil olacak sesat ve değil olacak celaka." Kisah Adam ile demikon dır kisah her insanlık: diciptolacak ile kemuloan, diuji, rentan yapan salah, ve selalu bisa kembali.',
+      "Allah ilk insan olan Âdem'i kendi elleriyle balçıktan yarattı, ona ruhundan üfledi ve ona başka hiçbir varlığa verilmeyen bir lütuf bahşetti: Âdem'e her şeyin isimlerini öğretti. Allah bu bilgiyi ortaya koyduğunda melekler kendi sınırlarını itiraf ettiler ve Âdem'in şerefi açığa çıktı — insanlığı diğerlerinden ayıran şeyin bir parçası bizzat ilimdi.",
+      "Ardından Allah meleklere Âdem'e saygı secdesi etmelerini emretti ve hepsi itaat etti — cinlerden olan İblis hariç. O kibrinden dolayı reddetti; kendisinin ateşten, Âdem'in ise balçıktan yaratıldığını öne sürerek kendini üstün gördü. Onun sonunu getiren cehalet değil, işte bu kibirdi ve Âdemoğullarını saptıracağına yemin etti.",
+      "Âdem ve eşi Havva cennete yerleştirildi ve her şeyden serbestçe yararlanabilecekleri, ancak belirli bir ağaca yaklaşmamaları gerektiği bildirildi. Şeytan onlara ısrarla vesvese verdi ve sonunda o ağaçtan yediler. Hemen avret yerleri kendilerine göründü ve hatalarını hissettiler. Ama ümitsizliğe düşmek ya da bahane üretmek yerine alçakgönüllülükle Allah'a yöneldiler: “Rabbimiz! Biz kendimize zulmettik. Eğer bizi bağışlamaz ve bize merhamet etmezsen, mutlaka kaybedenlerden oluruz.”",
+      "Allah onların tövbesini kabul etti ve onları yeryüzüne indirdi — keyfî bir ceza olarak değil, hidayet vaadiyle birlikte insanlık imtihanının başlangıcı olarak: “Kim benim hidayetime uyarsa o ne sapar ne de bedbaht olur.” Böylece Âdem'in kıssası her insanın kıssasıdır: şerefle yaratılmış, imtihan edilen, hata yapabilen ve her zaman geri dönebilen.",
     ],
     lessons: [
-      "Kapı tövbe selalu terbuka — tövbe Adam, ki ojukan tanpa alasan ve tanpa penundaan, dır telave için her pengünah.",
-      "Kesombongan dır akar kebinasaan: Iblis mengetahui kebenaran ancak tetap menolak çünkü angkuh, menunjukkan ki ilmu tanpa kerendahan kalp justru menghancurkan.",
-      "Cara setan dır bisikan ki terus-menerus, bukan paksaan — mengenali bisikannya dır separuh jalan için menghindarinya.",
-      "Nilai keinsanlıkan terikat  ilmu ve kembali ke Allah, bukan  değil pernah yapan salah — responsmu terhadap kesalahanlah ki mendefbusikan sopa dirimu.",
+      "Tövbe kapısı her zaman açıktır — Âdem'in bahanesiz ve gecikmesiz yaptığı tövbe, her günahkâr için örnektir.",
+      "Kibir helakin köküdür: İblis hakkı bildiği hâlde kibrinden onu reddetti; bu, tevazu olmadan bilginin insanı mahvettiğini gösterir.",
+      "Şeytanın yöntemi zorlama değil, ısrarlı vesvesedir — telkinlerini tanımak, onlara direnmenin yarısıdır.",
+      "İnsanın değeri günahsız olmaya değil, ilme ve Allah'a geri dönmeye bağlıdır — bizi tanımlayan, hataya verdiğimiz karşılıktır.",
     ],
-    quran: [
-      {
-        excerpt: "Penciptaan Adam ve sujud malaikat.",
-      },
-      {
-        excerpt: "İmtihan, kekhilafan, ve tövbe.",
-      },
-    ],
-    location: "Cennet, lalu bumi",
+    quran: [{}, {}],
+    location: "Cennet, sonra yeryüzü",
   },
   {
-    prophetName: "Nuh AS",
-    title: "Nuh AS — Sabır içinde penololacak berabad-abad",
-    summary: "950 tahun berdakwah, bahtera, ve banjir sebagai keputusan ilahi.",
+    prophetName: "Hz. Nuh",
+    title: "Hz. Nuh — asırlar süren inkâr karşısında sabır",
+    summary: "950 yıllık davet, gemi ve ilahi hüküm olarak tufan.",
     body: [
-      "Nuh AS diutus ke kaum olan terjerumus içinde penyembahan berhala, ve o menyerukan onlar için hanya menyembah Allah selama jangka vakit ki luar bosa — Kur'an menyebutkan o yaşamak bersama onlar selama seribu tahun kurang lima puluh tahun. O menyeru onlar öğle ve gece, olarak terang-terangan ve sembunyi-sembunyi, menawarkan her bujukan: ampunan, hujan, harta, keturunan, ve kebun. Ancak generasi demi generasi tetap berpaling, mengejek, ve menutup telinga.",
-      "Olduğunda menbu yüzden jelas ki değil olacak ada lagi ki iman eden, Allah memerintahkan Nuh AS için membuat bahtera. Kaumnya mengejeknya olduğunda o membangun kapal büyük jauh dari laut mana pun, fakat o menjawab ki olacak datang gün olduğunda onlar olacak mengerti. Tsiznya datang olduğunda tungku meluap; Nuh AS membawa naik insanlar ki iman eden — hanya az — ve sepasang dari her jenis hewan ke içinde bahtera.",
-      "Banjir bangkit ve menenggelamkan insanlar ki mendustolacak. İçinde salah satu momen paling menyentuh içinde kisah bu, putra Nuh AS kendisi menolak için naik, bersikeras ki o olacak naik ke gunung için menyelamatkan diri dari air, ve o termasuk di antara ki tenggelam — kesedihan bir ayah değil bisa menghalangi kekufuran putranya. Olduğunda Nuh AS dilemek içinnya, Allah mengajarkan ki fiiller anak o olmuş memutus ikatan iman di antara onlar.",
-      'Olduğunda perintah datang, air surut ve bahtera berhenti di Gunung Judi. Kur\'an mengabadikan seluruh peristiwa o sebagai "semeyve tsiz" için sopa saja ki merenungkan bagaimana Allah menyelamatkan insanlar ki iman eden ve bagaimana sabır akhirnya memmeyvekan hasil.',
+      "Nuh, putperestliğe düşmüş bir kavme gönderildi ve onları şaşırtıcı derecede uzun bir süre yalnızca Allah'a ibadete çağırdı — Kur'an onun aralarında bin yıldan elli yıl eksik kaldığını bildirir. Onları gece gündüz, açıktan ve gizliden çağırdı; onlara her türlü gerekçeyi sundu: bağışlanma, yağmur, mal, evlat ve bahçeler. Yine de nesilden nesile yüz çevirdiler, onunla alay ettiler ve kulaklarını tıkadılar.",
+      "Artık kimsenin iman etmeyeceği anlaşılınca Allah Nuh'a gemiyi yapmasını emretti. O, herhangi bir denizden çok uzakta büyük bir gemi inşa ederken kavmi onunla alay etti; ama o, anlayacakları bir günün geleceğini söyledi. Alamet, tandırdan su fışkırdığında geldi; Nuh iman edenleri — ki sadece birkaç kişiydiler — ve her hayvan türünden birer çifti gemiye aldı.",
+      "Tufan yükseldi ve inkârcıları boğdu. Kıssanın en yürek burkan anlarından birinde Nuh'un kendi oğlu, sudan kurtulmak için bir dağa tırmanacağında ısrar ederek gemiye binmeyi reddetti ve boğulanlar arasında yer aldı — bir babanın acısı, bir oğulun inkârının önüne geçemezdi. Nuh onun için Allah'a yalvardığında Allah, oğlunun kötü amelinin aralarındaki iman bağını kopardığını öğretti.",
+      "Emir geldiğinde sular çekildi ve gemi Cudi Dağı'nın üzerine oturdu. Kur'an bütün bu olayı, Allah'ın iman edenleri nasıl kurtardığını ve sabrın nihayetinde nasıl haklı çıktığını düşünen herkes için “bir ibret” olarak korur.",
     ],
     lessons: [
-      "Misi ki panjang ve sulit ile az pengikut bukanlah kegagalan — Nuh AS berdakwah selama berabad-abad, ve keihlasannya, bukan jumlah pengikutnya, ki dicintai Allah.",
-      "Yoktur ikatan keluarga ki bisa menyelamatkan sebir tanpa iman: putra Nuh AS kendisi tenggelam, membuktikan ki hidayet değil diwariskan.",
-      "Keteguhan içinde menyeru ke Allah bahkan menghadapi ejekan terus-menerus dır ibadah terkendisi.",
-      "Pertolongan Allah datang  vakit olan ditetapkan — müminler membangun 'bahtera' ketaatan önce badai datang, percaya  janji o.",
+      "Az sayıda takipçiyle sürdürülen uzun ve zorlu bir görev başarısızlık değildir — Nuh asırlarca tebliğ etti; Allah'ın hoşnut olduğu şey takipçi sayısı değil, onun samimiyetiydi.",
+      "Hiçbir aile bağı imanı olmayan birini kurtaramaz: Nuh'un kendi oğlu boğuldu; bu, hidayetin miras kalmadığını gösterir.",
+      "Sürekli alaylara rağmen Allah'a davette sebat etmek, başlı başına bir ibadettir.",
+      "Allah'ın kurtarışı takdir edilen vakitte gelir — mümin, vaade güvenerek tufandan önce itaat “gemisini” inşa eder.",
     ],
-    quran: [
-      {
-        excerpt: "Kisah Nuh AS olarak rinci.",
-      },
-      {
-        excerpt: "Permohonan Nuh AS ke kaumnya.",
-      },
-    ],
-    location: "Mesopotamo kuno (perkiraan ilmoh)",
+    quran: [{}, {}],
+    location: "Antik Mezopotamya (ilmî tahminler)",
   },
   {
-    prophetName: "Ibrahim AS",
-    title: "Ibrahim AS — Kekasih Allah (Khalilullah)",
+    prophetName: "Hz. İbrahim",
+    title: "Hz. İbrahim — Allah'ın dostu (Halilullah)",
+    summary: "Putları kırmak, serinleyen ateş, İsmail'in kurban edilişi, Kâbe'nin inşası.",
+    body: [
+      "İbrahim daha genç bir adamken aklını kullanarak tevhide ulaştı; kavminin ve kendi babasının yontup taptığı putları reddetti. Onlarla tartıştı, sonra harekete geçti: Onlar bir bayram için dışarıdayken en büyüğü dışındaki bütün putları kırdı; bir açıklama istediklerinde de büyük putun kendisine sormalarını söyledi — böylece taptıkları şeyin acizliğini ortaya koydu. Öfkeye kapılan kavmi büyük bir ateş yakıp onu içine attı; ama Allah “Ey ateş! İbrahim'e karşı serin ve esenlik ol” diye emretti ve o, ateşten hiçbir zarar görmeden çıktı.",
+      "Allah'ın emriyle İbrahim, eşi Hacer'i ve bebek oğulları İsmail'i Mekke'nin çorak vadisinde bıraktı. Suları tükenince Hacer, yardım aramak için çaresizlik içinde Safa ile Merve tepeleri arasında koştu — Müslümanların hac sırasında sa'yde canlandırdığı arayış budur — ta ki bebeğin ayaklarının dibinden Zemzem pınarı fışkırana kadar. Yıllar sonra İbrahim rüyasında sevgili oğlunu kurban edeceğini gördü. Baba da oğul da Allah'ın iradesine teslim oldu; tam İbrahim bunu yerine getirmek üzereyken Allah, İsmail'e karşılık büyük bir koçu fidye olarak verdi; bu olay her yıl Kurban Bayramı'nda anılır.",
+      "İbrahim ve yetişkin olan İsmail birlikte Mekke'de Kâbe'nin temellerini yükselttiler ve inşa ederken şöyle dua ettiler: “Rabbimiz! Bizden kabul buyur.” İbrahim ayrıca soylarından bir peygamber gönderilmesi için dua etti — asırlar sonra Peygamber Muhammed ﷺ ile kabul edilen bir dua. Sarsılmaz bağlılığından dolayı Allah İbrahim'i eşsiz bir unvanla şereflendirdi: Halilullah, Allah'ın samimi dostu.",
+    ],
+    lessons: [
+      "Tevhid, putperestlik yaygın ve atalardan kalma bir gelenek olsa ve ona karşı durmak tehlikeli olsa bile sahte bağlılıkları kırmayı gerektirir.",
+      "Allah'a tam güven, O'nun emri en ağır olduğunda en parlak şekilde görünür — İbrahim oğlunu kurban etmeye bile teslim oldu ve Allah bu imtihanı rahmetle değiştirdi.",
+      "Allah'a tevekkül pasiflik demek değildir: Hacer koştu ve aradı, ardından Zemzem geldi — gayret ve tevekkül birlikte işler.",
+      "Samimi ibadetler nesiller boyunca yankılanır; haccın menasiki ve Kâbe'nin şerefi İbrahim'in itaatine dayanır.",
+    ],
+    quran: [{}, {}],
+    location: "Irak, Şam diyarı, Mekke",
+  },
+  {
+    prophetName: "Hz. Yusuf",
+    title: "Hz. Yusuf — güzel sabır (sabr-ı cemil)",
+    summary: "İhanet, kölelik, zindan, iktidara yükseliş — her imtihanda tevekkül.",
+    body: [
+      "Yusuf çocukken rüyasında on bir yıldız ile güneş ve ayın kendisine secde ettiğini gördü — büyük bir geleceğin işareti. Kendisi de bir peygamber olan babası Yakub, ona bunu kıskanç kardeşlerinden gizlemesini söyledi. Kıskançlıkları onlara galip geldi: Yusuf'u bir kuyunun dibine attılar ve babalarına onu bir kurdun yediğini söylediler. Oradan geçen bir kervan çocuğu buldu ve Mısır'da sattı.",
+      "Bir ileri gelenin evinde göz alıcı güzellikte ve dürüst bir adam olarak büyüdü. O ileri gelenin karısı onu baştan çıkarmaya çalıştığında Yusuf “Allah'a sığınırım” diyerek reddetti; kadın onu tehdit edince de günah yerine zindanı seçti. Masum olduğu hâlde yıllarca hapsedildi. Orada zindan arkadaşlarını tevhide davet etti ve Allah'ın izniyle rüyalarını yorumladı.",
+      "Kral, yedi zayıf ineğin yedi semiz ineği yediği bir rüyayla huzursuz olunca Yusuf bunu yedi bolluk yılının ardından yedi kıtlık yılı gelecek şeklinde yorumladı ve tahılın depolanmasını tavsiye etti. Sonunda hikmeti ve güvenilirliğiyle tanınarak Mısır'ın ambarlarının başına getirildi.",
+      "Kıtlık nihayet kardeşlerini yiyecek aramak için Mısır'a getirdi; karşılarındaki güçlü veziri tanımadılar. Onları sınadıktan sonra Yusuf kendini tanıttı ve intikam almak yerine onları tamamen affetti: “Bugün size bir kınama yok. Allah sizi bağışlasın.” Aile yeniden bir araya geldi, anne babası onurlandırıldı ve çocukluk rüyası gerçek oldu.",
+    ],
+    lessons: [
+      "Sabr-ı cemil — güzel sabır — zorluğa acılaşmadan ve insanlara şikâyet etmeden katlanmak, Yakub'un yaptığı gibi derdini yalnızca Allah'a götürmek demektir.",
+      "İffet her bedele değer: Yusuf günah yerine zindanı seçti ve Allah bu sebeple onun derecesini yükseltti.",
+      "Allah'ın planı çoğu zaman yıllar süren görünürdeki talihsizliklerin ardında gizlidir — kuyu, kölelik ve zindan, Yusuf'un şerefine giden adımlardı.",
+      "Güçlüler güçlerini affederek gösterir: Gücünün zirvesinde Yusuf kendisine zulmedenleri bağışladı.",
+    ],
+    quran: [{}],
+    location: "Kenan, Mısır",
+  },
+  {
+    prophetName: "Hz. Musa",
+    title: "Hz. Musa — Allah ile konuştu ve Firavun'un karşısına çıktı",
     summary:
-      "Menghancurkan berhala, api ki menbu yüzden dingin, pengorbanan Ismail, membangun Kâbe.",
+      "Yanan ağaç, Firavun'a karşı mucizeler, Mısır'dan çıkış, Tevrat ve yolunu kaybeden kavim.",
     body: [
-      'Sejak muda, Ibrahim AS menemukan tevhid melalui akalnya kendisi ve menolak berhala-berhala ki dipahat ve disembah oleh kaumnya serta ayahnya kendisi. O berdebat ile onlar, lalu bertindak: olduğunda onlar pergi ke semeyve perayaan, o menghancurkan tüm berhala kecuali ki terbüyük, ve olduğunda insanlar menuntut penjelasan, o berkata agar onlar bertanya ke berhala ki terbüyük o — mengungkap kedeğilberdayaan apa ki onlar sembah. Marah çünkünya, onlar menyalolacak api büyük ve melemparkannya ke içindenya, fakat Allah memerintahkan: "Wahai api! Bu yüzdenlah dingin ve keselamatan için Ibrahim," ve o keluar ile selamat.',
-      "Atas perintah Allah, Ibrahim AS meninggalkan istrinya Hajar ve bayinya Ismail di lembah tandus Mekke. Olduğunda air onlar habis, Hajar berlari cemas antara bukit Shafa ve Marwah mencari pertolongan — pencaron ki diulang Müslümanlar içinde sa'i haji — hingga mata air Zamzam memancar di dekat kaki bayi o. Bertahun-tahun kemuon, Ibrahim AS bermimpi ki o menyembelih putranya ki tercinta. Baik ayah maupun anak sama-sama tunduk  kehendak Allah; ve tepat olduğunda Ibrahim AS olacak melaksanolacaknya, Allah menebus Ismail ile seekor domba jantan ki agung, ki diperhatırlai her tahun  Idul Adha.",
-      'Bersama-sama, Ibrahim ve Ismail AS meninggikan fondasi Ka\\\'bah di Mekke, sambil berdua saat membangunnya: "Ya Allah kami, terimalah dari kami (amelan kami)." Ibrahim AS de berdua agar bir rasul dibangkitkan dari keturunannya — dua ki dikabulkan berabad-abad kemuon içinde diri Peygamber Muhammad ﷺ. Çünkü ibadahnya ki tak tergoyahkan, Allah menganugerahinya gelar unik: Khalilullah, kekasih Allah ki meniçinde.',
+      "Annesi onu Firavun'un İsrailoğullarının erkek çocuklarını katletmesinden kurtarmak için nehre bıraktıktan sonra Musa, Allah'ın takdiriyle bizzat Firavun'un sarayında büyüdü. Genç bir adamken bir ölüm olayının ardından Mısır'dan kaçtı; yıllar sonra çölden dönerken Tur Dağı'nda bir ateş gördü. Orada Allah onunla doğrudan konuştu — Musa'ya Kelimullah, yani Allah ile konuşan unvanını kazandıran bir şeref — ve “Şüphesiz ben senin Rabbinim” buyurdu. Destekçisi olarak kardeşi Harun ile birlikte zorba Firavun'a şu taleple geri gönderildi: İsrailoğullarını salıver.",
+      "Firavun ilahlık iddia etti ve reddetti. Allah Musa'ya apaçık mucizeler verdi — asasının canlı bir yılana dönüşmesi ve elinin bembeyaz parlaması. Firavun onu itibarsızlaştırmak için en usta sihirbazlarını çağırdı; ama Musa'nın asası onların göz boyamalarını yutunca sihirbazlar gerçek hakikati basit bir hileden ayırt ettiler ve Firavun onları ölümle tehdit ederken bile Musa ile Harun'un Rabbine iman ettiklerini ilan ederek secdeye kapandılar. Ardından birbiri ardına belalar geldi, fakat Firavun yalnızca daha da katılaştı.",
+      "Sonunda Allah Musa'ya kavmini geceleyin çıkarmasını emretti. Firavun onları denize kadar takip etti; Musa asasıyla denize vurdu ve sular yarılarak müminlerin kuru toprak üzerinde geçmesine izin verdi. Firavun ve ordusu peşlerinden gelince deniz üzerlerine kapandı ve boğuldular. Ardından Musa Tevrat'ı aldı; ancak İsrailoğulları inatçı çıktı — onun yokluğunda altından bir buzağıya taptılar ve vaat edilen topraklara girmeyi reddettiler — ve bunun sonucunda kırk yıl boyunca başıboş dolaştılar.",
     ],
     lessons: [
-      "Tauhid menuntut pemutusan hubungan palsu, sekalipun penyembahan berhala populer, mengakar dari tradisi, ve melawannya berbahaya.",
-      "Tawakal dolu ke Allah paling bersinar olduğunda perintah-Nya paling berat — Ibrahim AS bahkan tunduk  pengorbanan putranya, ve Allah mengubah imtihan o menbu yüzden rahmet.",
-      "Tawakal ke Allah bukan anlamına gelir pasif: Hajar berlari ve berusaha mencari, ve Zamzam pun datang — usaha ve tawakal bekerja bersama.",
-      "Amel ibadah ki ihlas bergema melintasi generasi; roal haji ve fazilet Kâbe kembali ke ketaatan Ibrahim AS.",
+      "Tamamen Allah'a dayanarak zulme karşı hakkı söyle — Musa, çağının en güçlü adamının karşısına yalnızca imanla donanmış olarak çıktı.",
+      "Samimi müminler bile tereddüt edebilir: Musa'ya karşı çıkan sihirbazlar, tek bir açıklık anında, mucizeler görmüş koca bir kavimden daha sebatlı hâle geldiler.",
+      "Mucizelere tanık olmak tek başına iman doğurmaz — hidayet, Allah'ın inatçı kalbe değil, alçakgönüllü kalbe verdiği bir lütuftur.",
+      "Allah mazlumları kurtarır ve kibirlileri, ne kadar güçlü görünürlerse görünsünler hesaba çeker.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim, Ismail, ve pengorbanan.",
-      },
-      {
-        excerpt: "Perjanjon ve warisan.",
-      },
-    ],
-    location: "Irak, Syam, Mekke",
+    quran: [{}, {}],
+    location: "Mısır, Sina",
   },
   {
-    prophetName: "Yusuf AS",
-    title: "Yusuf AS — Keindahan sabır (Sabrun Jamil)",
+    prophetName: "Hz. İsa",
+    title: "Meryem oğlu Hz. İsa — Allah'tan bir kelime ve bir ruh",
     summary:
-      "Pengkhonatan, perbudolacak, penjara, mencapai kekuasaan — tawakal içinde her imtihan.",
+      "Mucizevi doğum, mucizeler, Allah katına yükseltiliş — Kur'an'a göre ne öldürüldü ne de çarmıha gerildi.",
     body: [
-      "Sejak küçük, Yusuf AS bermimpi mebak sebelas bintang, matagün, ve bulan bersujud kenya — pertsiz masa depan ki agung. Ayahnya, Ya'qub AS, ki de bir peygamber, menyuruhnya menyembunyikan mimpi o dari saudara-saudaranya ki iri kalp. Rasa iri onlar menguasai onlar: onlar melemparkan Yusuf ke içinde sumur ki içinde ve memberi tahu ayah onlar ki o dimolacak serigala. Semeyve kafilah ki lewat menemukan anak o ve menjualnya di Mesir.",
-      'Di rumah bir pembüyük, o tumbuh menbu yüzden pro ki tampan ve jujur. Olduğunda istri pembüyük o mencoba menggodanya, Yusuf AS menolak, berkata: "Aku berlindung ke Allah," ve olduğunda o oncam, o daha memilih penjara dari günah. Olsa bile tak bersalah, o dipenjara bertahun-tahun. Di sana o menyeru sesama tahanan ke tevhid ve menafsirkan mimpi onlar ile izin Allah.',
-      "Olduğunda raja tergelisah ile mimpi tujuh sapi gemuk ki dimolacak tujuh sapi kurus, Yusuf AS menafsirkannya sebagai tujuh tahun kemakmuran, lalu tujuh tahun paceklik, ve menyarankan için menyimpan hasil panen. Akhirnya dikenali çünkü kebijaksanaan ve kejujurannya, o ongkat menbu yüzden penjaga perbendaharaan Mesir.",
-      'Paceklik akhirnya membawa saudara-saudaranya ke Mesir mencari molacakan, tanpa mengenali menteri berkuasa ki berdiri di hadapan onlar. Sonra mengujinya, Yusuf AS memperkenalkan dirinya ve — alih-alih membalas dendam — mengampuni onlar sedolunya: " gün bu tak ada cercaan terhadap sen. Semoga Allah mengampuni sen." Keluarga o bersatu kembali, insan tuanya dimuliolacak, ve mimpi masa küçüknya menbu yüzden keaçıkan.',
+      "Allah'ın kendi zamanındaki kadınların en hayırlısı olarak seçtiği iffetli ve dindar bir kadın olan Meryem, ailesinden ayrılarak doğu tarafında bir yere çekildi. Orada melek Cebrail ona bir insan suretinde göründü ve kendisine hiçbir erkek dokunmamış olmasına rağmen Allah'ın ona tertemiz bir oğul bağışlayacağını müjdeledi. Allah'ın “Ol” sözüyle hamile kaldı ve İsa yaratıldı — Kur'an onun yaratılışını babasız yaratılan Âdem'in yaratılışına benzetir ve Allah'ın dilediğini dilediği gibi yarattığını gösterir.",
+      "Bebeği kucağında taşıyarak döndüğünde kavmi onu suçladı. Onu savunmak için bebek İsa beşikte konuştu; kendisinin Allah'ın kulu olduğunu, kendisine Kitap verildiğini ve peygamber kılındığını ilan etti — annesinin namusunu bir mucizeyle temize çıkardı. İsrailoğullarına gönderilen bir peygamber olarak İsa'ya Allah'ın izniyle apaçık mucizeler verildi: Körleri ve cüzamlıları iyileştirdi, ölüleri diriltti ve çamurdan bir kuş şekli yapıp uçurdu — bunların her zaman kendi gücüyle değil, “Allah'ın izniyle” olduğunu vurguladı.",
+      "Kur'an İsa'nın ne öldürüldüğünü ne de çarmıha gerildiğini açıkça bildirir; aksine bu, düşmanlarına öyle gösterildi ve Allah onu kendi katına yükseltti. Ehl-i Sünnet inancına göre o, kıyamet gününden önce geri dönecektir. En önemlisi, Kur'an İsa'nın bir insan peygamber ve Allah'ın kulu olduğunu, ilah olmadığını ve Allah'ın oğlu olmadığını vurgular — bu, onun beşikten sonuna kadar bizzat ilan ettiği mesajdır.",
     ],
     lessons: [
-      "Sabrun jamil — sabır ki indah — anlamına gelir menanggung kesulitan tanpa kepahitan veya mengeluh ke insanlık, membawa kesedihan hanya ke Allah sebagaimana dilakukan Ya'qub AS.",
-      "Menjaga ketaharetan diri layak ile harga berapa pun: Yusuf AS memilih penjara dari günah, ve çünkü o Allah mengangkat derecenya.",
-      "Rencana Allah seringkali tersembunyi di balik bertahun-tahun kemalangan ki tampak — sumur, perbudolacak, ve penjara tümnya dır adım menuju kemuloan Yusuf AS.",
-      "İnsan ki berkuasa menunjukkan kekuatannya melalui bağışlama:  puncak kekuasaannya, Yusuf AS mengampuni onlar olan menzaliminya.",
+      "Allah dilediği gibi yaratır — İsa'nın babasız doğumu, Âdem'in topraktan yaratılışı gibi, O'nun kudretinin hiçbir dünyevi sebebe bağlı olmadığını gösterir.",
+      "İsa'nın gösterdiği her mucize açıkça “Allah'ın izniyle” idi; bu, peygamberlerin Allah'ın kudretine aracılık ettiğini, ona sahip olmadıklarını öğretir.",
+      "Peygamberler Allah'ın şerefli insan kullarıdır, asla ibadet edilmezler — Kur'an İsa'nın gerçek konumunu aşırılığa karşı korur.",
+      "Meryem'in iffeti, sabrı ve tevekkülü onu kadın erkek bütün müminler için bir iman örneği yapar.",
     ],
-    quran: [
-      {
-        excerpt: "Kisah ki terbaik — doturkan içinde satu surah.",
-      },
-    ],
-    location: "Kanaan, Mesir",
+    quran: [{}, {}],
+    location: "Filistin",
   },
   {
-    prophetName: "Musa AS",
-    title: "Musa AS — Berbicara langsung ile Allah ve menghadapi Fir'aun",
-    summary:
-      "Semak ki menyala, tsiz-tsiz melawan Fir'aun, keluarnya Bani Israil, Taurat, ve kaum ki tersesat.",
+    prophetName: "Muhammed ﷺ",
+    title: "Muhammed ﷺ — peygamberlerin sonuncusu",
+    summary: "Son elçi; 23 yılda indirilen Kur'an; âlemlere rahmet.",
     body: [
-      "Musa AS, ile pengaturan Allah, dibüyükkan justru di istana Fir'aun, sonra ibunya menghanyutkannya di nehir için menyelamatkannya dari pembantaon bayi laki-laki Israil oleh Fir'aun. Dewasa muda, o meninggalkan Mesir sonra semeyve pembunuhan, ve bertahun-tahun kemuon, içinde perjalanan kembali dari ng pasir, o mebak api di Gunung Sinai. Di sana Allah berbicara langsung kenya — semeyve fazilet ki memberi Musa gelar Kalimullah, o ki berbicara ile Allah — berfirman: \"Sesungguhnya Akulah Allahmu.\" O diutus kembali, ile bantuan saudaranya Harun AS, ke Fir'aun ki durhaka ile tuntutan: bebaskan Bani Israil.",
-      "Fir'aun mengaku sebagai Allah ve menolak. Allah memberi Musa AS tsiz-tsiz ki açık — tongkatnya menbu yüzden ular hidup ve tangannya bersinar putih. Fir'aun memanggil penyihir terbaiknya için mendustolacaknya, fakat olduğunda tongkat Musa menelan tipu daya onlar, penyihir o mengenali kebenaran sejati di balik sihir semu ve tersungkur sujud, meaçıkkan iman ke Allah Musa ve Harun — olsa bile Fir'aun mengancam onlar ile ölüm. Berbagai azap silih berganti sonra o, ancak Fir'aun tetap keras kepala.",
-      "Akhirnya Allah memerintahkan Musa AS için membawa kaumnya pergi di gece gün. Fir'aun heceleyenr onlar hingga ke laut; Musa memukulkan tongkatnya ve air terbelah, membırak müminler melewati tanah kering. Olduğunda Fir'aun ve pasukannya mengikuti, laut menutup kembali atas onlar ve onlar tenggelam. Kemuon Musa AS menerima Taurat, fakat Bani Israil terbukti durhaka — menyembah anak sapi emas saat ketodaannya ve menolak memasuki Tanah Taharet — ve akibatnya mengembara selama empat puluh tahun.",
+      "Muhammed ﷺ miladi 570 yılı civarında Mekke'de Kureyş kabilesinde dünyaya geldi. Küçük yaşta yetim kaldı — babası o doğmadan, annesi ise o altı yaşındayken vefat etti — önce dedesi, sonra amcası Ebu Talib tarafından büyütüldü. Peygamberlikten çok önce dürüstlüğüyle öylesine güven kazanmıştı ki kavmi ona “güvenilir” anlamında el-Emin derdi. Kırk yaşında, Hira Mağarası'nda tefekkür ederken Cebrail aracılığıyla Kur'an'ın ilk vahyini aldı.",
+      "Mekke'de on üç yıl boyunca insanları yalnızca Allah'a ibadete çağırdı ve şiddetli bir zulümle karşılaştı: alay, takipçilerinden zayıf olanlara işkence ve kabilesine uygulanan, hayatı felç eden sosyal ve ekonomik boykot. Tek bir “hüzün yılı”nda hem sevgili eşi Hatice'yi hem de koruyucusu Ebu Talib'i kaybetti; yakındaki Taif'te destek aradığında ise oradan kovuldu ve taşlandı — yine de onların helakı için değil, hidayeti için dua etti.",
+      "Medine'ye hicret ettikten sonra bir topluluk kurdu ve onu Bedir, Uhud ve Hendek imtihanlarından geçirdi. Sonunda ezici bir güçle Mekke'yi fethetmek üzere geri döndüğünde, kendisine işkence edip onu yurdundan çıkaranlardan intikam almadı; onları affetti ve “Gidiniz, serbestsiniz” dedi. Kur'an onun görevini tek bir ifadeyle özetler — “âlemlere rahmet” — ve görevinin kimseyi iman etmeye zorlamak değil, mesajı açıkça tebliğ etmek olduğunu bildirir.",
     ],
     lessons: [
-      "Berkatalah benar di hadapan kezaliman sambil bertawakal dolu ke Allah — Musa AS menghadapi insan paling berkuasa di zamannya hanya ile senjata keimanan.",
-      "Bahkan müminler ki tulus bisa goyah: penyihir ki menentang Musa, içinde satu momen kejelasan, menbu yüzden daha teguh dari seluruh kaum olan menyaksikan mucize.",
-      "Mebak mucize o kendisi değil menciptolacak iman — hidayet dır anugerah Allah ki datang ke kalp ki rendah kalp, bukan ki durhaka.",
-      "Allah menyelamatkan ki tertindas ve menjatuhkan hukuman  ki sombong, sekuat apa pun onlar.",
+      "Bir insanın sahip olabileceği en güzel ahlak, Peygamber'in ﷺ ahlakıdır — onun siyerini dikkatle incele ve onu günlük hayatında yaşamaya gayret et.",
+      "Merhamet ve affedicilik zayıflık değil, güçtür: Gücünün zirvesinde en azılı düşmanlarını bağışladı.",
+      "Allah'a davet eden kişi mesajı samimiyet ve sabırla tebliğ eder, ama sonucu Allah'a bırakır — hidayet vermek O'na aittir.",
+      "İmtihanlar peygamberlerin yoludur; onun yaptığı gibi Allah rızası için zorluklara katlanmak, gerçek imanın alametidir.",
     ],
-    quran: [
-      {
-        excerpt: "Musa AS di Gunung Sinai ve di hadapan Fir'aun.",
-      },
-      {
-        excerpt: "Kelahiran ve pengasuhan.",
-      },
-    ],
-    location: "Mesir, Sinai",
-  },
-  {
-    prophetName: "Isa AS",
-    title: "Isa bin Maryam AS — Kalimat ve ruh dari Allah",
-    summary:
-      "Kelahiran ajaib, tsiz-tsiz, ongkat oleh Allah — göre Kur'an bukan dibunuh ve bukan disalib.",
-    body: [
-      'Maryam AS, bir wanita taharet ve tekun beribadah ki dipilih Allah sebagai wanita terbaik  zamannya, mengasingkan diri dari keluarganya ke arah timur. Di sana malaikat Jibril mendatanginya içinde wujud bir pro ve mengumumkan ki Allah olacak menganugerahinya bir putra ki taharet, olsa bile yoktur laki-laki ki menyentuhnya. O mengandung ile kalimat Allah "Bu yüzdenlah," ve Isa pun lahir — Al-Qur\\\'an menyamolacak penciptaannya ile penciptaan Adam, ki dibuat tanpa ayah, menunjukkan ki Allah menciptolacak sekehendak-Nya.',
-      'Olduğunda o kembali membawa bayinya, kaumnya menuduhnya. İçin savunannya, bayi Isa berbicara dari buaon, meaçıkkan dirinya sebagai hamba Allah ki diberi Bizb ve ongkat menbu yüzden peygamber — semeyve mucize ki memtemizlikkan kehormatan ibunya. Sebagai peygamber için Bani Israil, Isa AS diberi tsiz-tsiz ki açık ile izin Allah: o menyembuhkan insan buta ve berpenyakit kusta, menghidupkan insan mati, ve memşekil seekor burung dari tanah lot ki lalu terbang — selalu menegaskan ki tüm o terbu yüzden "ile izin Allah," bukan ile kekuatannya kendisi.',
-      "Kur'an meaçıkkan ile tegas ki Isa AS değil dibunuh ve değil disalib; sebaliknya, hal o diserupolacak için musuh-musuhnya, ve Allah mengangkatnya ke-Nya. Keyakinan Ahlus Sunnah dır ki o olacak kembali önce Gün Kıyamet. Ki penting, Kur'an menegaskan ki Isa dır bir peygamber insanlık ve hamba Allah, bukan Allah ve bukan putra Allah — pesan ki o kendisi açıkkan sejak dari buaon hingga akhir.",
-    ],
-    lessons: [
-      "Allah menciptolacak sekehendak-Nya — kelahiran Isa AS tanpa ayah, seperti penciptaan Adam dari tanah, menunjukkan ki kekuasaan-Nya değil terikat sebab dünyevi mana pun.",
-      'Mukjizat apa pun ki donjukkan Isa AS olarak tegas terbu yüzden "ile izin Allah," mengajarkan ki peygamber dır perantara kekuasaan Allah, bukan pemiliknya.',
-      "peygamber dır hamba Allah ki mulo, değil pernah layak disembah — Kur'an melindungi kedudukan sejati Isa dari pengagungan ki berdahaan.",
-      "Ketaharetan, sabır, ve tawakal Maryam AS menbu yüzdenkannya telave iman için tüm müminler, baik perempuan maupun laki-laki.",
-    ],
-    quran: [
-      {
-        excerpt: "Kelahiran ve perkataan dari buaon.",
-      },
-      {
-        excerpt: "Değil dibunuh ve değil disalib; melainkan ongkat.",
-      },
-    ],
-    location: "Palestina",
-  },
-  {
-    prophetName: "Muhammad ﷺ",
-    title: "Muhammad ﷺ — Penutup peygamber",
-    summary: "Rasul son; Kur'an indirildi selama 23 tahun; rahmet için semesta alam.",
-    body: [
-      'Muhammad ﷺ lahir sebizr tahun 570 M içinde suku Quraisy di Mekke. Menbu yüzden yatim potu sejak küçük — ayahnya wafat önce o lahir ve ibunya olduğunda o beruso enam tahun — o dibüyükkan ilk oleh kakeknya lalu oleh pamannya, Abu Thalib. Jauh önce kepeygamberan, o bego tepercaya çünkü kejujurannya hingga kaumnya menjulukinya Al-Amin, "ki tepercaya".  uso empat puluh tahun, saat merenung di Gua Hira, o menerima vahiy ilk Al-Qur\\\'an melalui malaikat Jibril.',
-      'Selama tiga belas tahun di Mekke, o menyeru insanlık için hanya menyembah Allah ve menghadapi penganoyaan ki keras: ejekan, penyiksaan terhadap pengikutnya ki zayıf, ve boikot sosol-ekonomi ki melumpuhkan için keluarganya. İçinde satu "Tahun Duka" ki sama, o kehilangan baik istrinya ki tercinta, Khadijah, maupun pelindungnya, Abu Thalib, ve olduğunda o mencari korunma di Thaif ki berdekatan, o diusir ve dilempari batu — ancak o mendoolacak hidayet için onlar, bukan kehancuran onlar.',
-      'Sonra hicret ke Medine, o membangun semeyve komunitas ve membawanya melalui imtihan-imtihan Badar, Uhud, ve Ahzab. Olduğunda akhirnya o kembali menaklukkan Mekke ile kekuatan ki luar bosa, o değil membalas dendam ke onlar olan menyiksa ve mengusirnya; o mengampuni onlar ve berkata: "Pergilah, kalon bebas." Al-Qur\\\'an merangkum misinya içinde satu kalimat — "rahmet için semesta alam" — ve açıklayan ki tugasnya dır menyampaikan pesan ile jelas, bukan memaksa sopa pun için iman eden.',
-    ],
-    lessons: [
-      "Akhlak terbaik ki bisa dimiliki sebir dır ahlak Peygamber ﷺ — pelajari sirahnya ile saksama ve berusahalah menerapkannya içinde hayat segün-gün.",
-      "Rahmet ve bağışlama dır kekuatan, bukan kezayıfan:  puncak kekuasaannya, o mengampuni musuh-musuhnya ki paling jahat.",
-      "Pesan dakwah ke Allah disampaikan ile keihlasan ve sabır fakat hasilnya diserahkan ke Allah — memberi hidayet dır urusan-Nya semata.",
-      "İmtihan dır jalan peygamber; menanggung kesulitan demi Allah, sebagaimana ki o lakukan, dır tsiz keimanan ki sejati.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ve tidır Kami mengutus sen, melainkan için (menbu yüzden) rahmet için semesta alam.",
-      },
-      {
-        excerpt: "Bermerhamet sesama onlar, keras terhadap insanlar kafir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       {
-        label: "Garis vakit sirah",
+        label: "Siyer zaman çizelgesi",
       },
     ],
   },
@@ -702,972 +574,871 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
 export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
   {
     title: "İman",
-    summary:
-      "Keimanan ke Allah, malaikat-Nya, bizb-bizb-Nya, rasul-rasul-Nya, Gün Akhir, ve takdir.",
+    summary: "Allah'a, meleklerine, kitaplarına, peygamberlerine, ahiret gününe ve kadere iman.",
     lessons: [
-      "İman berdiri di atas enam rukun ki dihimpun Kur'an içinde satu yer: keimanan ke Allah, malaikat-Nya, bizb-bizb ki indirildi-Nya, rasul-rasul-Nya, Gün Akhir, ve takdir — baik ve buruknya.",
-      "İman bukanlah pengakuan ki tetap ve sekali bu yüzden. İçinde keyakinan Ahlus Sunnah, iman bertambah ile ketaatan ve zikir serta berkurang ile günah ve kelalaon, böylece iman dır sesuatu ki olarak aktif sen tumbuhkan.",
-      "Peygamber ﷺ mengajarkan ki iman memiliki daha dari tujuh puluh cabang, dari ki tertinggi — kesakson ki toda Allah selain Allah — hingga menyingkirkan sesuatu ki mengganggu dari jalan, menunjukkan ki iyilik küçük pun içinan dari iman.",
-      "İman ki sejati dır urusan kalp önce lisan: benar-benar mengenal Allah, mencintai-Nya medahai segalanya, takut olacak murka-Nya, ve bertawakal sedolunya ke-Nya.",
+      "İman, Kur'an'ın bir arada zikrettiği altı esasa dayanır: Allah'a, meleklerine, indirdiği kitaplara, peygamberlerine, ahiret gününe ve kadere — hayrına ve şerrine — iman.",
+      "İman sabit, bir defalık bir onay değildir. Ehl-i Sünnet'in çoğunluğunun görüşüne göre iman itaat ve zikirle artar, günah ve gafletle azalır; dolayısıyla iman, senin aktif olarak büyüttüğün bir şeydir.",
+      "Peygamber ﷺ imanın yetmişi aşkın şubesi olduğunu öğretmiştir; bunların en yükseği “Allah'tan başka ilah yoktur” şahadeti, en aşağısı ise yoldan eziyet veren bir şeyi kaldırmaktır. Bu da küçük iyiliklerin bile imandan olduğunu gösterir.",
+      "Gerçek iman, dilden önce kalbin işidir: Allah'ı gerçekten tanımak, O'nu her şeyden çok sevmek, O'nun hoşnutsuzluğundan korkmak ve tamamen O'na dayanmak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rasul olmuş iman eden ke apa ki indirildi kenya dari Allahnya, demikon pula insanlar ki iman eden…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'İman o memiliki daha dari tujuh puluh cabang; ki tertinggi dır sözler "laa ilaaha illallah", ve ki terendah dır menyingkirkan gangguan dari jalan — ve rasa malu dır salah satu cabang iman.',
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
-      "Ucapkan kembali syahadatmu gün bu ile perkalpan dolu  maknanya, bukan sekadar kalimat rutin.",
-      "Pelajari salah satu nama Allah, pahami maknanya, ve panggillah Allah ilenya içinde duamu.",
+      "Bugün şahadetini sıradan bir söz olarak değil, anlamına tam dikkat ederek yenile.",
+      "Allah'ın isimlerinden birini öğren, anlamını kavra ve duanda O'na bu isimle yalvar.",
     ],
   },
   {
     title: "Namaz",
-    summary: "Amelan ilk ki ditanya  Gün Kıyamet — tong ki menghubungkan hamba ile Allahnya.",
+    summary: "Kıyamet gününde ilk sorulacak amel — kulu Rabbine bağlayan direk.",
     lessons: [
-      "Namaz dır rukun ikinci Islam ve amelan ilk ki olacak ditanyolacak ke hamba  Gün Kıyamet — jika bu benar, bosanya seluruh catatan amel lainnya pun ikut menbu yüzden baik.",
-      "Kur'an meaçıkkan ki namaz, jika dilaksanolacak ile kehadiran kalp ki sesungguhnya, mencegah insanlık dari fiiller keji ve mungkar; o bukan sekadar roal melainkan pembaruan jiwa ki diulang lima kali segün.",
-      "Berbeda dari kefarzan lain ki indirildi di bumi, namaz difarzkan için ümmet bu selama perjalanan gece ve mikraj Peygamber ﷺ (Al-Isra wal Mi'raj), menbu yüzdenkannya anugerah khusus ve sarana kenaikan hamba menuju Allah.",
-      "Çünkü diulang lima kali segün, namaz dır irama ki mantap ki menjaga iman tetap hidup di antara satu ibadah ile ibadah lainnya.",
+      "Namaz İslam'ın ikinci şartıdır ve kulun kıyamet gününde ilk hesaba çekileceği ameldir — o sağlam olursa amel defterinin geri kalanı da genellikle onu izler.",
+      "Kur'an, kalbin gerçek huzuruyla kılınan namazın insanı hayâsızlıktan ve kötülükten alıkoyduğunu bildirir; namaz yalnızca bir ritüel değil, günde beş kez tekrarlanan bir ruh yenilenmesidir.",
+      "Yeryüzünde indirilen diğer farzların aksine namaz, Peygamber'in ﷺ miracı (İsra ve Miraç) sırasında ümmete farz kılınmıştır; bu, onu özel bir hediye ve müminin Allah'a yükselişinin aracı olarak öne çıkarır.",
+      "Günde beş kez tekrarlandığı için namaz, bir ibadetle diğeri arasında imanı canlı tutan istikrarlı bir ritimdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya namaz o mencegah dari (fiiller-fiiller) keji ve mungkar, ve zikir ke Allah daha büyük (faziletnya).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Amelan ilk ki olacak dihisab dari bir hamba  Gün Kıyamet dır namaznya; jika baik, o beruntung ve sukses, ve jika rusak, o gagal ve merugi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
-      "Kerjolacak satu namaz gün bu ile perlahan, anlamak kata-kata Al-Fatihah saat sen okumaknya.",
-      "Buka rehber Öğrenmek Namaz Munib için memperkuat satu içinan dari namazmu.",
+      "Bugün bir namazı, okurken Fatiha'nın kelimelerini anlayarak yavaşça kıl.",
+      "Namazının bir yönünü güçlendirmek için Munib'in Namaz Öğren rehberini aç.",
     ],
   },
   {
-    title: "İnsan tua",
+    title: "Anne baba",
     summary:
-      "Berbakti ke insan tua dihubungkan ile ibadah ke Allah — perhatırlaan keras terhadap durhaka sonra kemusyrikan.",
+      "Anne babaya iyilik Allah'a ibadetle birlikte zikredilir — şirkten sonra onlara nankörlük konusunda uyarılır.",
     lessons: [
-      "Allah menghubungkan berbakti ke insan tua langsung içinde ayat ki sama ile ibadah ke-Nya kendisi — tsiz betapa beratnya hak onlar içinde Islam.",
-      'Kur\'an melarang bahkan tsiz kedeğilsenangan ki paling küçük: jangan katolacak "ah" ke onlar, jangan membentak onlar, melainkan bicaralah ke onlar ile kata-kata ki lembut ve mulo.',
-      "Perintah bu memuncak di masa tua, olduğunda insan tua paling membutuhkan sabır: rawatlah onlar sebagaimana onlar dahulu merawatmu, ve rendahkanlah dirimu di hadapan onlar ile dolu merhamet.",
-      "Ibadah değil berakhir ile ölüm — terus mendoolacak insan tua, bersedekah atas nama onlar, ve menghormati sahabe serta janji onlar dır şekil kesetoan ki berkelanjutan.",
+      "Allah, anne babaya iyiliği aynı ayette doğrudan kendisine ibadetle birlikte zikreder — bu, İslam'da onların hakkının ne kadar ağır olduğunun bir işaretidir.",
+      "Kur'an en küçük bir rahatsızlık belirtisini bile yasaklar: onlara “öf” bile demeyi, sert konuşmayı yasaklar ve onlara yumuşak, saygılı sözlerle hitap etmeyi emreder.",
+      "Bu emir, anne babanın sabra en çok ihtiyaç duyduğu yaşlılık döneminde doruğa ulaşır: Bir zamanlar onlar sana nasıl baktıysa sen de onlara öyle bak ve merhametinden dolayı onlara tevazu kanadını indir.",
+      "Bağlılık ölümle bitmez — anne baba için dua etmeye devam etmek, onlar adına sadaka vermek, dostlarına ve verdikleri sözlere saygı göstermek süregelen vefa davranışlarıdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ve Allahmu olmuş memerintahkan supaya sen jangan menyembah selain O ve hendaklah sen yapan baik  ibu bapakmu…",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, teleponlah veya kirim pesan ke ayah veya ibumu ile kata-kata ki lembut.",
-      "Doolacak ikinci insan tuamu ile menyebut nama onlar.",
+      "Bugün annene ya da babana güzel sözlerle telefon et veya mesaj gönder.",
+      "Anne baban için isimlerini anarak dua et.",
     ],
   },
   {
     title: "Sabır",
-    summary:
-      "Keteguhan içinde ketaatan, menahan diri dari günah, ve menerima takdir ile lapang dada.",
+    summary: "İtaatte sebat, günahtan uzak durma ve imtihanları kabullenme.",
     lessons: [
-      "ulama açıklayan sabar içinde tiga şekil: sabar içinde menaati Allah, sabar içinde menjauhi günah, ve sabar içinde menerima takdir-Nya saat menghadapi imtihan.",
-      "Sabar bukanlah keputusasaan ki pasrah veya menggerutu kendison — Kur'an menghubungkannya ile namaz sebagai sumber pertolongan, bu yüzden sabar bersifat aktif ve mengarahkanmu ke Allah, bukan menjauh dari-Nya.",
-      'Allah menyebut diri-Nya "bersama insanlar ki sabar," ve menjanjikan sevap tanpa batas için onlar ki sabar — semeyve kemuloan ki hampir değil dikaitkan ile sifat lain mana pun.',
-      "peygamber diuji paling berat, ve Kur'an menyajikan keteguhan onlar — Ayyub AS içinde sakitnya, Ya'qub AS içinde kesedihannya, Yusuf AS içinde pengkhonatan ve penjaranya — sebagai teladan.",
+      "Âlimler sabrı üç şekilde tarif eder: Allah'a itaatte sabır, günahtan uzak durmakta sabır ve imtihanlar geldiğinde O'nun kaderini kabullenmekte sabır.",
+      "Sabır, pasif bir umutsuzluk ya da yalnız başına dişini sıkmak değildir — Kur'an onu bir yardım kaynağı olarak namazla birlikte anar; yani sabır aktiftir ve seni Allah'tan uzaklaştırmaz, O'na yöneltir.",
+      "Allah kendisinin “sabredenlerle beraber” olduğunu bildirir ve sabredenlere mükâfatlarını hesapsız vereceğini vaat eder — bu, neredeyse başka hiçbir vasfa verilmeyen bir şereftir.",
+      "Peygamberler insanların en ağır imtihan edilenleriydi ve Kur'an onların sebatını — hastalıkta Eyyub'u, kederde Yakub'u, ihanet ve zindan karşısında Yusuf'u — örnek alınacak model olarak sunar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hai insanlar ki iman eden, bu yüzdenkanlah sabar ve namaz sebagai penolongmu, sesungguhnya Allah beserta insanlar ki sabar.",
-      },
-    ],
+    quran: [{}],
     actions: [
-      'Gün bu, olduğunda rasa kesal muncul, berhentilah, tarik napas, ve ucapkan "innaa lillaahi wa innaa ilaihi raaji\'uun" önce bereaksi.',
-      "Minggu bu, ubahlah satu momen kesulitan menbu yüzden dua rakaat namaz, bukan keluhan.",
+      "Bugün öfke yükseldiğinde, tepki vermeden önce dur, nefes al ve “İnnâ lillâhi ve innâ ileyhi râciûn” de.",
+      "Bu hafta bir zorluk anını şikâyete değil, iki rekât namaza dönüştür.",
     ],
   },
   {
-    title: "Sedekah (Sedekah ve Zakat)",
-    summary: "Menyucikan harta ve memberi molacak insan ki membutuhkan — tsiz keimanan ki sejati.",
+    title: "Sadaka (Sadaka ve Zekât)",
+    summary: "Malı arındırmak ve ihtiyaç sahiplerini doyurmak — gerçek imanın alameti.",
     lessons: [
-      "Zakat — sedekah farz tahunan ki menyucikan atas harta ki mencapai nisab — dır rukun üçüncü Islam ve semeyve kefarzan, sementara sedekah dır vericon sukarela ki değil terbatas ve memiliki çok şekil.",
-      "Kur'an menjanjikan ki harta ki dibelanjolacak di jalan Allah değil so-so melainkan katlanır: seperti sebutir benih ki menumbuhkan tujuh tangkai, her tangkai berisi seratus biji, ve Allah melipatgandolacak lagi için sopa ki O kehendaki.",
-      "Sedekah bukan hanya harta. Peygamber ﷺ mengajarkan ki senyum ke saudaramu pun dır sedekah, bu yüzden tak ada bir pun ki terlalu miskin için memberi.",
-      'Memberi menyucikan baik harta maupun vericinya, melonggarkan cengkeraman ketamolacak ve menumbuhkan kepedulon — olah sebabnya kata "zakat" kendisi bermakna penyucon ve pertumbuhan.',
+      "Zekât — nisaba ulaşan maldan verilen yıllık arındırıcı sadaka — İslam'ın üçüncü şartı ve bir farzdır; sadaka ise üst sınırı olmayan ve sayısız şekli bulunan gönüllü bir bağıştır.",
+      "Kur'an, Allah yolunda harcanan malın kaybolmadığını, aksine katlandığını vaat eder: tıpkı yedi başak bitiren ve her başakta yüz tane bulunan tek bir tohum gibi; Allah dilediğine daha da katlar.",
+      "Sadaka sadece para değildir. Peygamber ﷺ, kardeşini güler yüzle karşılamanın bile sadaka olduğunu öğretmiştir; dolayısıyla hiç kimse veremeyecek kadar fakir değildir.",
+      "Vermek hem malı hem de vereni arındırır, açgözlülüğün pençesini gevşetir ve merhameti geliştirir — zekât kelimesinin kendisinin arınma ve artış anlamına gelmesinin nedeni de budur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Perumpamaan (nafkah ki dikeluarkan oleh) insanlar ki menafkahkan hartanya di jalan Allah dır serupa ile sebutir benih ki menumbuhkan tujuh bulir…",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, berilah sesuatu — harta, vakitmu, veya sepatah kata ki tulus ve baik — sekalipun küçük ve tak terbak.",
-      "Tinjau kefarzan zakatmu di Munib ve catat kapan pembayaran sonraki jatuh tempo.",
+      "Bugün bir şey ver — para, zamanın ya da gerçekten güzel bir söz — küçük ve görünmez olsa bile.",
+      "Munib'de zekât yükümlülüklerini gözden geçir ve bir sonraki ödemenin ne zaman olduğunu not et.",
     ],
   },
   {
     title: "Tövbe",
-    summary:
-      "Allah mencintai insanlar ki bertövbe — kapı tetap terbuka selama ruh belum sampai ke tenggorokan.",
+    summary: "Allah tövbe edenleri sever — can boğaza gelinceye kadar kapı açıktır.",
     lessons: [
-      "Tövbe ki sejati memiliki syarat ki jelas: penyesalan ki sungguh-sungguh atas günah, segera meninggalkannya, ve tekad kuat için değil mengulanginya — ve jika günah o menzalimi insan lain, mengembalikan haknya de.",
-      "Allah değil sekadar mengizinkan tövbe — O mencintai insanlar ki terus-menerus kembali ke-Nya, böylece kembali sonra tergelincir o kendisi dicintai-Nya, bukan noda ki memberatkanmu.",
-      "Kapı rahmet terbuka çok luas: Allah bahkan ke onlar olan menzalimi diri onlar kendisi olarak berdahaan, berfirman agar değil putus asa, çünkü O mengampuni tüm günah için ki bertövbe ile sungguh-sungguh.",
-      "Tövbe değil hanya için günah büyük veya momen dramatis — istighfar sepanjang gün menjaga kalp tetap lembut ve catatan amel tetap temizlik.",
+      "Samimi tövbenin açık şartları vardır: günahtan gerçekten pişmanlık duymak, ondan hemen vazgeçmek ve bir daha dönmemeye kesin olarak azmetmek — eğer günah başka bir insana zulüm içeriyorsa onun hakkını da iade etmek.",
+      "Allah tövbeye yalnızca izin vermekle kalmaz — kendisine tekrar tekrar dönenleri sever; dolayısıyla bir sürçmeden sonra geri dönmek senin aleyhine bir leke değil, bizzat O'nun sevdiği bir şeydir.",
+      "Rahmet kapısı şaşırtıcı derecede geniştir: Allah, kendilerine çokça zulmetmiş olanlara bile ümitsizliğe düşmemelerini söyler; çünkü samimiyetle tövbe edenin bütün günahlarını bağışlar.",
+      "Tövbe yalnızca büyük günahlara veya dramatik anlara mahsus değildir — gün boyu istiğfar (bağışlanma dilemek) kalbi yumuşak, amel defterini temiz tutar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Katolacaklah: Hai hamba-hamba-Ku ki melampaui batas terhadap diri onlar kendisi, janganlah sen berputus asa dari rahmet Allah…",
-      },
-    ],
+    quran: [{}],
     actions: [
-      'Gün bu, ucapkan "astaghfirullah" 100 kali, ile sedolu kalp, ve rasolacak beban o meringan.',
-      "Sebutkan satu kebosaan ki sen tahu değil disukai Allah ve ambillah adım açık ilk için meninggalkannya.",
+      "Bugün anlamını düşünerek 100 kez “Estağfirullah” de ve yükün hafiflediğini hisset.",
+      "Allah'ın hoşnut olmadığını bildiğin bir alışkanlığı belirle ve onu bırakmak için ilk somut adımı at.",
     ],
   },
   {
     title: "Cennet",
     summary:
-      "Balasan abadi ki dihazırladığı için insanlar takva sahibi — digambarkan ile rincon ki hidup ve menggugah.",
+      "Muttakiler için hazırlanan ebedî mükâfat — canlı ve teşvik edici ayrıntılarla anlatılır.",
     lessons: [
-      "Kur'an menggambarkan cennet ile rincon ki hidup ve menggugah — bahçe-bahçe ki di bawahnya mengalir nehir-nehir, kenyamanan abadi, ve pertemuan kembali ile insanlar saleh — tepat agar müminler merindukannya ve berusaha meraihnya.",
-      "Memasuki cennet  akhirnya dır çünkü rahmet Allah, bukan semata amel; keimanan ve usaha ki tulus dır sarana, fakat amel sebir değil bisa meraih balasan abadi tanpa rahmet-Nya.",
-      'Al-Qur\\\'an mengajak müminler için bersegera ve berlomba menuju ampunan ve cennet ki "seluas langit ve bumi" — meraihnya olarak aktif, bukan sekadar duduk berharap.',
-      "Balasan terbüyük bukanlah bahçe veya nehir, melainkan memsizng wajah Allah — kebahagoan tertinggi ki dijanjikan için sakinleri cennet.",
+      "Kur'an cenneti canlı ve teşvik edici ayrıntılarla anlatır — altından ırmaklar akan bahçeler, sonsuz huzur ve salih kimselerle kavuşma — tam da müminin onu özlemesi ve onun için gayret etmesi için.",
+      "Cennete girmek nihayetinde yalnızca amellerle değil, Allah'ın rahmetiyledir; iman ve samimi gayret vesiledir, ama O'nun lütfu olmadan hiç kimsenin ameli ebedî mükâfatı kazanamaz.",
+      "Kur'an müminleri bağışlanmaya ve “genişliği göklerle yer kadar olan” bir cennete koşmaya ve yarışmaya teşvik eder — cennet pasif olarak umulacak değil, aktif olarak peşinden gidilecek bir hedeftir.",
+      "En büyük mükâfat bahçeler veya ırmaklar değil, Allah'ın yüzünü görmektir — cennet ehline vaat edilen en yüce sevinç.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ve bersegeralah sen ke ampunan dari Allahmu ve ke cennet ki luasnya seluas langit ve bumi…",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
-        label: "Perjalanan menuju cennet",
+        label: "Cennete yolculuk",
       },
     ],
   },
   {
     title: "Cehennem",
     summary:
-      "Perhatırlaan ki açık — bukan için membuat müminler putus asa, melainkan için membangunkan kewasan.",
+      "Gerçek bir uyarı — müminleri ümitsizliğe düşürmek için değil, uyanıklık kazandırmak için.",
     lessons: [
-      "Cehennem dır perhatırlaan ki açık, bukan kosan — Kur'an açıklayannya ile gamblang agar insanlık menganggap bahaya o serius ve berbalik arah selagi masih bisa.",
-      "Ketakutan olacak api o dimaksudkan için bekerja bersama harapan olacak rahmet Allah: müminler berjalan di antara takut ve harap, agar değil putus asa mendominasi maupun rasa aman ki keliru.",
-      "Satu-satunya günah ki Kur'an açıkkan değil terampuni jika sebir mati içinde keadaan o dır syirik — menyekutukan Allah; selain o O mengampuni sopa ki O kehendaki.",
-      "Allah memperhatırlolacak için membawa insanlık kembali ke-Nya, bukan için menghancurkan insan ki bertövbe — her perhatırlaan içinde Kur'an dipasangkan ile ajolacak terbuka için kembali.",
+      "Cehennem bir mecaz değil, gerçek bir uyarıdır — Kur'an onu açıkça anlatır ki insanlar tehlikeyi ciddiye alsın ve henüz fırsat varken yön değiştirsin.",
+      "Ateş korkusu, Allah'ın rahmetine duyulan ümitle birlikte işlemek içindir: Mümin havf (korku) ile reca (ümit) arasında yürür; böylece ne ümitsizlik ne de sahte bir güven duygusu ona hâkim olur.",
+      "Kur'an'ın, kişi onun üzerine ölürse bağışlanmaz olarak belirttiği tek günah şirktir — Allah'a ortak koşmak; bundan aşağısını ise dilediği kimse için bağışlayabilir.",
+      "Allah insanları ezmek için değil, kendisine geri döndürmek için uyarır; tövbe edeni ezmez — Kur'an'da her uyarı, geri dönüş için açık bir davetle birlikte gelir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah değil olacak mengampuni günah syirik, ve O mengampuni segala günah ki selain dari (syirik) o, için sopa ki dikehendaki-Nya.",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, sonra her namaz, mohonlah korunma dari api ile sedolu kalp ke Allah.",
-      "Perbarui tevhidmu: renungkan hanya beribadah ke Allah, korunma paling pasti dari cehennem.",
+      "Bugün her namazdan sonra Allah'tan samimiyetle seni ateşten korumasını dile.",
+      "Tevhidini yenile: Cehenneme karşı en sağlam koruma olan yalnızca Allah'a ibadet etmek üzerine tefekkür et.",
     ],
   },
   {
-    title: "Keadilan",
-    summary: "Berdirilah teguh için keadilan, sekalipun melawan dirimu kendisi veya kerabatmu.",
+    title: "Adalet",
+    summary: "Kendinizin veya yakınlarınızın aleyhine bile olsa adaleti ayakta tutun.",
     lessons: [
-      "Keadilan içinde Kur'an değil bisa ditawar: berdirilah teguh içinnya sekalipun kebenaran o melawan dirimu, insan tuamu, veya kerabat terdekatmu.",
-      'Allah memerintahkan agar kebencon terhadap suatu kaum değil pernah mendorongmu yapan değil adil — "berlaku adillah, çünkü o daha dekat ke takva" — bu yüzden keadilan dır hak bahkan için musuh sekalipun.',
-      "Kezaliman diperhatırlolacak ile tegas; Peygamber ﷺ mengajarkan ki kezaliman olacak muncul sebagai karanlık berlapis-lapis için pelakunya  Gün Kıyamet.",
-      "Keadilan bukan hanya urusan hakim ve penguasa — o hidup içinde sözler ki jujur, transaksi ki jujur, menepati janji, ve memberikan hak her insan.",
+      "Kur'an'da adalet tavizsizdir: Hak senin, anne babanın veya en yakın akrabalarının aleyhine olsa bile adaletten yana sağlam dur.",
+      "Allah, bir topluluğa duyulan nefretin seni asla adaletsizliğe sürüklememesini emreder — “Adaletli olun; bu takvaya daha yakındır” — yani adalet düşmanlara bile borçludur.",
+      "Zulüm şiddetle yasaklanmıştır; Peygamber ﷺ zulmün kıyamet gününde zalimin üzerinde karanlıklar olarak görüneceğini öğretmiştir.",
+      "Adalet yalnızca hâkimler ve yöneticiler için değildir — dürüst sözde, adil alışverişte, sözünü tutmakta ve herkese hakkını vermekte yaşar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bu yüzdenlah sen insan ki benar-benar penegak keadilan, menbu yüzden saksi çünkü Allah, borpun terhadap dirimu kendisi veya ibu bapak ve kaum kerabatmu.",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, berikan hak sebir — upah ki adil, jawaban ki jujur, veya pengakuan ki menbu yüzden haknya.",
-      "Tangkap satu momen olduğunda bos mendorongmu yapan değil adil, ve pilihlah keadilan sebagai gantinya.",
+      "Bugün birine hakkını ver — adil bir ücret, dürüst bir cevap ya da ona borçlu olduğun bir takdir.",
+      "Önyargının seni haksızlığa ittiği bir anı yakala ve onun yerine adaleti seç.",
     ],
   },
   {
-    title: "Ilmu",
-    summary: 'Bacalah, renungkanlah, ve ucapkanlah "Ya Allahku, tambahkanlah ilmu keku."',
+    title: "İlim",
+    summary: "Oku, düşün ve “Rabbim, ilmimi artır” de.",
     lessons: [
-      'Kata ilk ki indirildi içinde Al-Qur\\\'an dır "Bacalah" — Islam dibuka bukan ile semeyve roal, melainkan ile perintah için öğrenmek, memuliolacak baik kecerdasan akal maupun ilmu kalp.',
-      'Allah bahkan menyuruh Peygamber-Nya ﷺ için terus meminta daha: "Ya Allahku, tambahkanlah ilmu keku" — satu-satunya hal ki diperintahkan Al-Qur\\\'an kenya için memintanya ditambahkan.',
-      "Ilmu ki bermanfaat dimaksudkan için sessizelkan ve diteruskan; Peygamber ﷺ mengajarkan ki ulama dır pewaris peygamber, ki mewarisi bukan harta melainkan ilmu.",
-      'Menuntut ilmu agama o kendisi dır ibadah, ve Al-Qur\\\'an ile jelas membedolacak antara ki berilmu ve ki değil — "apakah sama?"',
+      "Kur'an'dan indirilen ilk kelime “Oku” idi — İslam bir ritüelle değil, öğrenme emriyle başladı; hem aklın okuryazarlığını hem de kalbin ilmini onurlandırdı.",
+      "Allah, Peygamber'ine ﷺ bile daha fazlasını istemeye devam etmesini söyledi: “Rabbim, ilmimi artır” — Kur'an'ın ona artırılmasını istemesini emrettiği tek şey budur.",
+      "Faydalı ilim uygulanmak ve aktarılmak içindir; Peygamber ﷺ âlimlerin peygamberlerin varisleri olduğunu, onlardan mal değil ilim miras aldıklarını öğretmiştir.",
+      "Dinî ilim talep etmek başlı başına bir ibadettir ve Kur'an bilenlerle bilmeyenleri açıkça birbirinden ayırır — “hiç bir olurlar mı?”",
     ],
-    quran: [
-      {
-        excerpt: "Ve katolacaklah: Ya Allahku, tambahkanlah ilmu keku.",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, pelajari satu hal baru dari Kur'an — satu ayat, satu kata, veya satu hukum — ve ajarkan ke sebir.",
-      'Hafalkan dua "Rabbi zidnii \'ilman" ve ucapkan önce öğrenmek.',
+      "Bugün Kur'an'dan yeni bir şey öğren — bir ayet, bir kelime veya bir hüküm — ve onu birine öğret.",
+      "“Rabbi zidnî ilmâ” duasını ezberle ve çalışmaya başlamadan önce oku.",
     ],
   },
   {
-    title: "peygamber",
-    summary: "Kisah hidayet, imtihan, ve pertolongan ilahi — bukan hiburan, melainkan pengöğreti.",
+    title: "Peygamberler",
+    summary: "Hidayet, imtihan ve ilahi yardım kıssaları — eğlence değil, öğüt.",
     lessons: [
-      'Al-Qur\\\'an mengajarkan ki yoktur kaum ki dibırak tanpa hidayet: "Yoktur suatu ümmet pun melainkan olmuş ada nya bir verici perhatırlaan" — pesan tevhid ki sama diutus ke mana-mana.',
-      'Tüm peygamber membawa satu seruan dasar ki sama — sembahlah hanya Allah — ve kisah onlar doturkan bukan sebagai sejarah, melainkan sebagai pengöğreti için "insanlar ki berakal".',
-      "Muhammad ﷺ dır Khabahçe Peygamberyyin, penutup rasul, ve bir muslim farz iman eden ke tüm peygamber öncenya — Nuh, Ibrahim, Musa, Isa, ve ki lainnya — tanpa membeda-bedolacak onlar.",
-      "peygamber dır insanlık ve hamba Allah, bukan Allah; Kur'an memuliolacak onlar ancak menempatkan onlar ile tegas sebagai makhluk, değil pernah disembah bersama Sang Pencipta.",
+      "Kur'an hiçbir milletin hidayetsiz bırakılmadığını öğretir: “İçinden bir uyarıcı gelip geçmemiş hiçbir ümmet yoktur” — aynı tevhid mesajı her yere gönderilmiştir.",
+      "Bütün peygamberler tek bir temel çağrı getirdi — yalnızca Allah'a ibadet edin — ve onların kıssaları tarih olsun diye değil, “akıl sahipleri” için öğüt olarak anlatılır.",
+      "Muhammed ﷺ peygamberlerin sonuncusu (Hâtemü'n-Nebiyyîn), son elçidir; bir Müslüman ondan önceki bütün peygamberlere — Nuh, İbrahim, Musa, İsa ve diğerlerine — aralarında ayrım yapmadan iman etmelidir.",
+      "Peygamberler ilah değil, insan ve Allah'ın kullarıydı; Kur'an onları onurlandırır ama onları kesin olarak yaratılmışlar tarafında tutar, asla Yaratıcı ile birlikte ibadet edilmezler.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya  kisah-kisah onlar o teryapabilir pelöğreti için insanlar ki mempunyai akal…",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
-        label: "Kisah peygamber",
+        label: "Peygamber kıssaları",
       },
     ],
   },
   {
-    title: "Perempuan",
-    summary: "Hak, martabat, ve kesetaraan spiroal — Maryam AS termasuk sebaik-baik perempuan.",
+    title: "Kadınlar",
+    summary: "Haklar, onur ve manevi eşitlik — Meryem kadınların en hayırlılarındandır.",
     lessons: [
-      'Kur\'an mengajarkan kesetaraan spiroal laki-laki ve perempuan di hadapan Allah: "laki-laki ki iman eden ve perempuan ki iman eden" dijanjikan keimanan ki setara, amel ki setara, ve sevap ki setara.',
-      'Perempuan ve laki-laki digambarkan sebagai sahabe ve pelindung satu sama lain içinde iman, bukan kepemilikan — surah keempat, An-Nisa ("Perempuan"), seiçinan büyük didedikasikan için melindungi hak, martabat, warisan, ve perlakuan terhadap onlar.',
-      "Kur'an menghadirkan Maryam, ibu Isa AS, sebagai telave için tüm müminler, ve memuliolacak ibu hingga semeyve öğreti terkenal menempatkan cennet di bawah telapak kaki onlar.",
-      'İkinci jenis kelamin gelir dari satu asal ki sama — "menciptolacak sen dari diri ki satu" — menetapkan keinsanlıkan ve martabat ki sama sejak ayat ilk Surah An-Nisa.',
+      "Kur'an, Allah katında kadın ve erkeğin manevi eşitliğini öğretir: Aynı iman, aynı ameller ve aynı mükâfat “mümin erkeklere ve mümin kadınlara” eşit olarak vaat edilmiştir.",
+      "Kadınlar ve erkekler mülk olarak değil, imanda birbirlerinin yardımcıları ve koruyucuları olarak anlatılır — dördüncü sure olan Nisa (“Kadınlar”), büyük ölçüde onların haklarını, onurlarını, miraslarını ve onlara nasıl davranılacağını güvence altına almaya ayrılmıştır.",
+      "Kur'an, İsa'nın annesi Meryem'i bütün müminler için bir örnek olarak sunar ve anneleri o kadar yüceltir ki, bilinen bir öğreti cenneti onların ayaklarının altına yerleştirir.",
+      "Her iki cins de tek bir kökene dayanır — “sizi tek bir nefisten yarattı” — ve bu, Nisa Suresi'nin ilk ayetinden itibaren ortak bir insanlık ve onur temeli kurar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Takva sahibilah ke Allahmu olan menciptolacak sen dari diri ki satu, ve darinya Allah menciptolacak pasangannya…",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, berikan ke bir perempuan içinde hidupmu — ibu, istri, saudari, veya putri — suatu hak veya iyilik tertentu ki menbu yüzden haknya.",
+      "Bugün hayatındaki bir kadını — annen, eşin, kız kardeşin veya kızın — ona borçlu olduğun belirli bir hak veya iyilikle onurlandır.",
     ],
   },
   {
-    title: "Anak-anak",
-    summary: "Semeyve amanah — için dibüyükkan ile tevhid ve merhamet.",
+    title: "Çocuklar",
+    summary: "Bir emanet — tevhid ve şefkat üzere yetiştirilmeli.",
     lessons: [
-      'Anak-anak dır amanah — sesuatu ki dititipkan dari Allah — ve Kur\'an membebankan tanggung jawab pengasuhan onlar ke insan tua: "Jagalah dirimu ve keluargamu dari cehennem ateşinden" dimulai ile mengajarkan onlar tevhid ve ahlak ki baik.',
-      "Peygamber ﷺ menyebut öğrenmek ve mengajarkan Kur'an sebagai salah satu amelan terbaik, böylece membimbing bir anak okumak sekalipun az menanam iyilik ki terus bermeyve, ile sevap ki terus mengalir ke insan tua.",
-      "Kebijaksanaan pengasuhan ki çok diriwayatkan menganjurkan için memperlakukan anak uygun aşamaannya — bermain bersama onlar di tahun-tahun awal, lalu mengajari ve mendidik onlar ile lembut, kemuon menbu yüzden sahabe onlar sonra baligh.",
-      "Membüyükkan anak ki saleh dır investasi ki melampaui hayat bu: keturunan ki saleh ki mendoolacak insan tuanya terus memberi manfaat bahkan lama sonra ölüm.",
+      "Çocuklar bir emanettir — Allah'tan bir emanet — ve Kur'an anne babayı onların terbiyesinden sorumlu tutar: “Kendinizi ve ailenizi bir ateşten koruyun” emri, onlara tevhidi ve güzel ahlakı öğretmekle başlar.",
+      "Peygamber ﷺ Kur'an'ı öğrenmeyi ve öğretmeyi amellerin en hayırlıları arasında saymıştır; bu yüzden bir çocuğu ondan azıcık da olsa okumaya yönlendirmek, sevabı anne babaya dönmeye devam eden kalıcı bir hayır eker.",
+      "Yaygın olarak aktarılan bir terbiye hikmeti, çocuklara içinde bulundukları evreye göre davranmayı öğütler — ilk yıllarda onlarla oynamak, ardından onlara öğretmek ve onları yumuşaklıkla terbiye etmek, büyüdüklerinde ise onlarla dost olmak.",
+      "Salih bir çocuk yetiştirmek bu hayatın ötesine uzanan bir yatırımdır: Anne babası için dua eden salih bir evlat, ölümlerinden çok sonra da onlara fayda sağlamaya devam eder.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hai insanlar ki iman eden, peliharalah dirimu ve keluargamu dari cehennem ateşinden…",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Gün bu, ajarkan bir anak satu ayat pendek veya satu ahlak baik ile dolu sabır ve dorongan.",
-      "Doolacak anak-anakmu (veya anak-anak içinde asuhanmu) ile menyebut namanya agar menbu yüzden lurus ve dicintai Allah.",
+      "Bugün bir çocuğa kısa bir ayet veya tek bir güzel davranış öğret; sabırla ve cesaretlendirerek.",
+      "Çocukların (veya bakımındaki çocuklar) için, dürüst ve Allah'ın sevdiği kimseler olmaları için isimlerini anarak dua et.",
     ],
   },
 ];
 
 export const QURAN_GUIDE_TAJWEED_TR: DeepPartial<QuranGuideTajweedLesson>[] = [
   {
-    title: "Nun sukun ve tanwin",
-    summary: "Hukum nun mati ve tanwin — izhar, idgham, iqlab, ikhfa.",
+    title: "Sâkin Nun ve Tenvin",
+    summary: "Sükûnlu ن ve tenvinin hükümleri — izhâr, idğam, iklâb, ihfâ.",
     explanation: [
-      "Nun sukun dır nun ki mati (değil berharakat); tanwin dır akhiran vokal gsiz (an, in, un) ki di akhir kata terdengar persis seperti nun. Her ikisi de mengikuti empat hukum ki sama, ki ditentukan sedolunya oleh harf ki mengikutinya.",
-      "Izhar (pengsözler jelas): olduğunda uyulması salah satu dari enam harf tenggorokan (hamzah, ha, ain, ha, ghain, kha), ucapkan nun ile jelas ve gamblang, tanpa campuran dengung.",
-      'Idgham (peleburan): önce harf-harf içinde kata "yarmaluuna" (ي ر م ل و ن), nun melebur ke harf sonraki — ile ghunnah (dengung) için ي ن م و, ve tanpa ghunnah için ل ر.',
-      "Iqlab (pengganton): olduğunda uyulması harf ba, nun değişmiş menbu yüzden bunyi mim samar disertai ghunnah.",
-      'Ikhfa (penyamaran): önce lima belas harf sisanya, nun değil diucapkan sedolunya jelas maupun dilebur sedolunya — o "disamarkan" ile ghunnah hidung ki ringan sementara lidah bersop için harf sonraki.',
+      "Sâkin nun, üzerinde cezm (sükûn) bulunan, yani harekesiz ن harfidir; tenvin ise kelime sonunda nun gibi duyulan çift harekedir (an, in, un). İkisi de aynı dört hükme tabidir ve hangisinin uygulanacağını tamamen kendilerinden sonra gelen harf belirler.",
+      "İzhâr (açık okuma): Altı boğaz harfinden (ء ه ع ح غ خ) biri geldiğinde nun, genizden ses karıştırılmadan açık ve net okunur.",
+      "İdğam (katma): “Yermelûn” (ي ر م ل و ن) kelimesindeki harflerden önce nun, sonraki harfe katılır — ي ن م و harflerinde gunneli, ل ر harflerinde ise gunnesiz olarak.",
+      "İklâb (çevirme): ب harfi geldiğinde nun, gunne eşliğinde gizli bir mim sesine çevrilir.",
+      "İhfâ (gizleme): Geriye kalan on beş harften önce nun ne tam açık okunur ne de tamamen katılır; dil sonraki harfe hazırlanırken hafif bir gunneyle “gizlenir”.",
     ],
     practice:
-      "Bacalah Surah Al-Fatihah perlahan-lahan, ve her kali menemukan nun sukun veya tanwin, berhentilah ve sebutkan hukum mana dari empat hukum o ki berlaku ve neden.",
+      "Fâtiha sûresini yavaşça okuyun; her sâkin nun veya tenvinle karşılaştığınızda durup dört hükümden hangisinin uygulandığını ve nedenini söyleyin.",
   },
   {
-    title: "Mim sukun",
-    summary: "Ikhfa syafawi, idgham syafawi, ve izhar syafawi için mim mati.",
+    title: "Sâkin Mim",
+    summary: "Sükûnlu م için ihfâ-i şefevî, idğam-ı şefevî ve izhâr-ı şefevî.",
     explanation: [
-      'Mim sukun dır mim ki mati. Hukumnya hanya ada tiga, masing-masing disebut "syafawi" (berkaitan ile bibir) çünkü mim diucapkan ile bibir, ve mana ki berlaku hanya bergantung  harf ki mengikutinya.',
-      "Idgham syafawi (peleburan bibir): olduğunda mim sukun uyulması mim lainnya, her ikisi de melebur menbu yüzden satu mim ki ditekan disertai ghunnah.",
-      "Ikhfa syafawi (penyamaran bibir): olduğunda uyulması harf ba, mim disamarkan az — bibir mendekat fakat değil sedolunya menutup — disertai ghunnah.",
-      "Izhar syafawi (kejelasan bibir): önce harf lain mana pun, mim diucapkan ile jelas. Berkalp-kalplah khususnya önce wau ve fa, di mana pemöğrenmek daha cenderung mengaburkannya.",
+      "Sâkin mim, üzerinde cezm bulunan م harfidir. Tam olarak üç hükmü vardır; mim dudaklarla çıkarıldığı için her biri “şefevî” (dudakla ilgili) diye adlandırılır ve hangisinin uygulanacağı yalnızca sonraki harfe bağlıdır.",
+      "İdğam-ı şefevî (dudak idğamı): Sâkin mimden sonra başka bir mim gelirse ikisi birleşerek gunneyle tutulan tek, şeddeli bir mim olur.",
+      "İhfâ-i şefevî (dudak ihfâsı): ب harfi geldiğinde mim hafifçe gizlenir — dudaklar birbirine yaklaşır ama tam kapanmaz — ve buna gunne eşlik eder.",
+      "İzhâr-ı şefevî (dudak izhârı): Diğer bütün harflerden önce mim açıkça okunur. Öğrencilerin onu en çok bulanıklaştırmaya meylettiği و ve ف harflerinden önce özellikle dikkatli olun.",
     ],
     practice:
-      "Bacalah beberapa surah pendek dari Juz Amma ve tsizi her mim sukun, sebutkan hukumnya önce okumak kata o.",
+      "Amme cüzünden birkaç kısa sûre okuyun ve her sâkin mimi işaretleyin; kelimeyi okumadan önce hükmünü söyleyin.",
   },
   {
-    title: "Mad (pemanjangan)",
-    summary: "Pemanjangan vokal asli, cabang, ve farz.",
+    title: "Med (Uzatma)",
+    summary: "Harekelerin tabiî, fer'î ve gerekli uzatılması.",
     explanation: [
-      "Mad anlamına gelir memanjangkan bunyi semeyve vokal, ve bu terbu yüzden  tiga harf mad — alif (ا), wau (و), ve ya (ي) — olduğunda onlar kendisi değil berharakat ve mengikuti harakat küçük ki sejenis.",
-      "Mad ashli (mad thabi'i) dır pemanjangan dasar sebizr dua harakat, hadir di mana pun harf mad muncul tanpa sebab khusus. Her qari memanjangkannya olarak seragam.",
-      "Mad far'i (mad cabang) muncul çünkü hamzah veya sukun ki mengikutinya ve dipanjangkan daha lama — bosanya empat veya enam harakat. Panjang ki tepat bergantung  jenis mad ve riwayat ki sen ikuti.",
-      "Çünkü berhenti di akhir kata bisa menghasilkan sukun, bu de bisa memanjangkan mad — alasan lain için öğrenmek panjang-panjang bu ile mendengar dari guru ki mumpuni, bukan menebak-nebak.",
+      "Med, bir ünlü sesi uzatmak demektir ve üç med harfinde — elif (ا), vav (و) ve ye (ي) — bu harfler kendileri harekesiz olup kendilerine uygun kısa harekeden sonra geldiğinde gerçekleşir.",
+      "Med-di aslî (med-di tabiî), yaklaşık iki hareke süren temel uzatmadır; ardında özel bir sebep bulunmadan med harfinin geçtiği her yerde vardır. Her kâri onu eşit ölçüde uzatır.",
+      "Med-di fer'î, ardından gelen bir hemze veya sükûn sebebiyle oluşur ve daha uzun tutulur — genellikle dört veya altı hareke. Tam uzunluk, meddin türüne ve takip ettiğiniz rivayete bağlıdır.",
+      "Kelime sonunda durmak bir sükûn oluşturabileceği için meddi de uzatabilir — süreleri tahminle değil, ehil bir hocadan dinleyerek öğrenmek için bir sebep daha.",
     ],
     practice:
-      'Pilih semeyve surah pendek ki sudah dikenal ve hong perlahan "1-2" için her mad thabi\'i ve "1-2-3-4" için her mad far\'i, jaga kecepatanmu tetap konsisten.',
+      "Bildiğiniz kısa bir sûre seçin; her tabiî medde hafifçe “1-2”, her fer'î medde “1-2-3-4” diye sayın ve temponuzu eşit tutun.",
   },
   {
-    title: "Ghunnah",
-    summary: "Dengung hidung ile nun ve mim içinde idgham ve ikhfa.",
+    title: "Gunne",
+    summary: "İdğam ve ihfâda nun ile mime eşlik eden genizden gelen ses.",
     explanation: [
-      "Ghunnah dır dengung ki dihasilkan dari hidung, ki olan sifat bawaan harf nun (ن) ve mim (م). İçinde bacaan stsizr, dengung bu ditahan sebizr dua harakat.",
-      "Bu farz ve paling menonjol içinde beberapa hukum olan sen temui: idgham ma'al ghunnah, ikhfa, iqlab, ve kapan pun ada tasydid  nun veya mim.",
-      "Bunyinya gerekir halus ve terkendali — bu bukan nyanyon veya senandung, melainkan dengung hidung ki stabil ki diukur uygun panjang ki tepat.",
-      "Uji sederhana: pencet hidungmu az saat mengucapkan harf berdengung; jika bunyinya berhenti, anlamına gelir dengungnya memang benar-benar dari hidung sebagaimana segerekirnya.",
+      "Gunne, burundan çıkan bir geniz sesidir ve nun (ن) ile mim (م) harflerinin doğal bir sıfatıdır. Standart okuyuşta yaklaşık iki hareke tutulur.",
+      "Daha önce gördüğünüz birkaç hükümde gereklidir ve en belirgin hâlini alır: gunneli idğam, ihfâ, iklâb ve nun ya da mim şeddeli olduğunda.",
+      "Ses yumuşak ve kontrollü olmalıdır — bu, şarkı söylemek ya da bir ezgi mırıldanmak değil, doğru uzunlukta ölçülmüş sabit bir geniz sesidir.",
+      "Basit bir deneme: Gunneli bir harfi söylerken burnunuzu hafifçe sıkın; ses kesiliyorsa, gunne olması gerektiği gibi gerçekten burundan geliyor demektir.",
     ],
     practice:
-      "Baca semeyve kata ile tasydid  nun veya mim, tahan ghunnah selama dua harakat ki konsisten, lalu rekam dirimu ve bandingkan ile qari ki mumpuni.",
+      "Nun veya mimi şeddeli bir kelime okuyun, gunneyi sabit iki hareke boyunca tutun; sonra kendinizi kaydedip ehil bir kâriyle karşılaştırın.",
   },
   {
-    title: "Qalqalah",
-    summary: "Pantulan bergema  qaf, tha, ba, jim, dal saat mati veya saat berhenti nya.",
-    explanation: [
-      'Qalqalah dır "pantulan" bergema ki ringan ki diberikan  lima harf — terhimpun içinde frasa "qathbu bu yüzdenn", yao ق ط ب ج د — kapan pun harf-harf o mati.',
-      'Pantulan bu dır getaran ringan  titik keluarnya harf; sen değil menambahkan harakat dolu sonra harf o, cukup bırak o "memantul" ile temizlik.',
-      "O ringan (sughra) olduğunda harf o mati di tengah kata, ve daha kuat serta jelas (kubra) olduğunda sen berhenti  harf o di akhir kata.",
-      'Jagalah pantulan o netral — jangan condongkan ke bunyi "a", "i", veya "u"; terlepas dari harakat di sebizrnya, o tetap dengungan temizlik ki sama.',
-    ],
-    practice:
-      'Bacalah Surah Al-Ikhlas ve berhentilah ile mantap  her harf qalqalah — dal  "ahad" ve "yuulad" — rasolacak pantulan temizlik o.',
-  },
-  {
-    title: "Waqaf (berhenti)",
-    summary: "Di mana berhenti, bernapas, ve bagaimana berhenti mengubah pelafalan.",
-    explanation: [
-      "Waqaf dır seni tentang di mana ve bagaimana berhenti. Mushaf menunjukkan yer-yer berhenti ile tsiz-tsiz küçük — misalnya mim için berhenti farz, tha ve jim için berhenti ki diperbolehkan, ve laa ki anlamına gelir jangan berhenti di sbu — için membimbing pembaca.",
-      "Berhenti umumnya membisukan harakat son, mengubah harf son menbu yüzden sukun. Perubahan bu bisa memunculkan hukum lain, seperti qalqalah veya mad ki daha panjang, böylece semeyve kata bisa terdengar berbeda saat sen berhenti dibanding saat sen melanjutkan.",
-      "Di mana sen berhenti bisa memengaruhi makna, bu yüzden jangan pernah berhenti di tengah kalimat sedemikon rupa hingga merusak makna. Satu kasus khusus dır waqaf mu'anaqah (berhenti berpelukan), ditsizi tiga titik, di mana sen bisa berhenti di salah satu dari dua yer fakat değil her ikisi de.",
-      "Cara paling aman öğrenmek waqaf ki benar dır ile menggunolacak mushaf bertsiz waqaf bersama guru ki mumpuni, böylece yer berhentimu uygun ile bacaan ki diwariskan.",
-    ],
-    practice:
-      "Ambil satu halaman bertsiz waqaf ve bacalah ile suara keras mengikuti rekaman bir guru tajwid, berhenti tepat di yer ki donjukkan tsiz-tsiz o.",
-  },
-  {
-    title: "Hamzat Wasl",
+    title: "Kalkale",
     summary:
-      "The connecting hamza that is pronounced only when starting, and dropped when joining.",
+      "ق ط ب ج د harfleri sâkin olduğunda veya üzerlerinde durulduğunda yapılan yankılı sekme.",
     explanation: [
-      "Hamzat wasl (ٱ) is a connecting hamza written with a small saddah-like mark above an alif. It appears at the start of many nouns, verbs, and particles — including the definite article ال.",
-      "When you begin recitation on a word that starts with hamzat wasl, you pronounce it with a clear hamza sound so the word can open cleanly.",
-      "When the word is joined to what comes before it, the hamzat wasl is silent — you glide from the previous letter straight into the following letter and do not sound a separate hamza.",
-      "Recognizing hamzat wasl helps you avoid inserting an extra glottal stop mid-phrase, which is a common beginner habit when reading the mushaf slowly.",
+      "Kalkale, “kutbu cedin” (قُطْبُ جَدٍ) ifadesinde toplanan beş harfe — ق ط ب ج د — sâkin olduklarında verilen hafif, yankılı bir “sekme”dir.",
+      "Bu sekme, harfin mahrecinde hafif bir titreşimdir; harften sonra tam bir hareke eklememeli, yalnızca onun temiz biçimde “geri sekmesine” izin vermelisiniz.",
+      "Harf kelimenin ortasında sâkin olduğunda daha hafiftir (kalkale-i suğrâ); kelime sonunda o harf üzerinde durduğunuzda ise daha güçlü ve belirgindir (kalkale-i kübrâ).",
+      "Sekmeyi nötr tutun — onu “a”, “i” veya “u” sesine kaydırmayın; çevresindeki harekeler ne olursa olsun aynı net yankıdır.",
     ],
     practice:
-      "Recite the basmalah and Surah al-Fatiha, pausing at each ٱ to decide whether you are starting (pronounce) or joining (drop).",
+      "İhlâs sûresini okuyun ve her kalkale harfinde — “ehad” ve “yûled” kelimelerindeki د harfinde — net sekmeyi hissederek sağlamca durun.",
   },
   {
-    title: "Lam Shamsiyah",
-    summary: "Sun letters that assimilate the لام of ال, versus moon letters that keep it clear.",
+    title: "Vakf (Durma)",
+    summary: "Nerede durulur, nefes alınır ve durmak telaffuzu nasıl değiştirir.",
     explanation: [
-      "When the definite article ال is attached to a noun, the لام may be pronounced clearly or assimilated, depending on the following letter.",
-      "Sun letters (huruf shamsiyah) cause the لام to be silent and the next letter to be doubled with a shaddah — as in ٱلرَّحْمَٰن where the ر absorbs the لام.",
-      "Moon letters (huruf qamariyah) keep the لام clear — as in ٱلْقَمَر — so you hear both the لام and the following letter.",
-      "Learning the sun and moon sets by heart (or by ear from a teacher) prevents over-pronouncing silent لام and under-pronouncing clear لام.",
+      "Vakf, nerede ve nasıl duraklanacağını bilme sanatıdır. Mushaf, okuyana yol göstermek için durak yerlerini küçük işaretlerle gösterir — örneğin durmanın gerekli olduğu yer için م, durmanın caiz olduğu yerler için ط ve ج, “burada durma” anlamında da لا.",
+      "Durmak genellikle son harekeyi düşürür ve son harfi sâkin yapar. Bu değişiklik kalkale veya uzatılmış bir med gibi başka hükümleri doğurabilir; bu yüzden bir kelime, üzerinde durduğunuzda devam ettiğiniz zamankinden farklı okunabilir.",
+      "Nerede durduğunuz anlamı etkileyebilir; bu nedenle cümlenin ortasında anlamı bozacak şekilde asla kesmeyin. Özel bir durum, üç noktayla işaretlenen muânaka (kucaklaşma) vakfıdır: iki yerden birinde durabilirsiniz, ama ikisinde birden değil.",
+      "Doğru durakları öğrenmenin en güvenli yolu, vakf işaretlerini gösteren bir mushafı ehil bir kâriyle birlikte kullanmaktır; böylece duraklarınız nakledilen kıraate uygun olur.",
     ],
     practice:
-      "Open Juz Amma and mark ten nouns with ال: for each, name whether the لام is shamsiyah (silent) or qamariyah (clear) before you recite.",
+      "Vakf işaretli bir sayfa alın ve bir tecvid hocasının kaydını takip ederek sesli okuyun; tam olarak işaretlerin gösterdiği yerlerde durun.",
   },
   {
-    title: "Silent Letters",
-    summary: "Letters written in the mushaf that are not pronounced in continuous recitation.",
+    title: "Vasl Hemzesi",
+    summary:
+      "Yalnızca okumaya başlarken söylenen, önceki kelimeye bağlanırken düşen bağlantı hemzesi.",
     explanation: [
-      "Some letters appear in the Uthmani script for historical or orthographic reasons but are not sounded when you recite — they are marked silent in tajweed colorings.",
-      "Common cases include certain alifs that are written but not elongated, and letters that are assimilated into a following shaddah so they leave no separate sound.",
-      "Silent marking is a reading aid: it keeps the written mushaf faithful while guiding the tongue not to invent an extra sound.",
-      "When in doubt, follow a colored tajweed mushaf or a qualified reciter — the goal is fidelity to the transmitted reading, not guessing from spelling alone.",
+      "Vasl hemzesi (ٱ), elifin üzerinde küçük, sad başına benzeyen bir işaretle yazılan bağlantı hemzesidir. Birçok isim, fiil ve edatın başında — belirlilik takısı ال dahil — bulunur.",
+      "Vasl hemzesiyle başlayan bir kelimeden okumaya başladığınızda, kelimenin düzgün açılabilmesi için onu net bir hemze sesiyle okursunuz.",
+      "Kelime kendinden öncekine bağlandığında vasl hemzesi okunmaz — önceki harften doğrudan sonraki harfe geçersiniz ve ayrı bir hemze sesi çıkarmazsınız.",
+      "Vasl hemzesini tanımak, cümlenin ortasına fazladan bir gırtlak duraksaması eklemekten kaçınmanıza yardımcı olur; bu, mushafı yavaş okurken yeni başlayanlarda sık görülen bir alışkanlıktır.",
     ],
     practice:
-      "With tajweed colors on, read one page slowly and whisper only the colored (sounded) letters — skip every silent-marked letter deliberately.",
+      "Besmeleyi ve Fâtiha sûresini okuyun; her ٱ işaretinde durup okumaya başlıyor musunuz (okunur) yoksa bağlıyor musunuz (düşer), karar verin.",
+  },
+  {
+    title: "Şemsî Lam",
+    summary: "ال takısının lamını kendine katan şemsî harfler ve onu açık bırakan kamerî harfler.",
+    explanation: [
+      "Belirlilik takısı ال bir isme eklendiğinde, لام sonraki harfe göre ya açık okunur ya da o harfe katılır.",
+      "Şemsî harfler (hurûf-ı şemsiyye), لام harfinin okunmamasına ve sonraki harfin şeddeyle iki kat okunmasına yol açar — ٱلرَّحْمَٰن kelimesinde ر harfinin لام harfini kendine katması gibi.",
+      "Kamerî harfler (hurûf-ı kameriyye) لام harfini açık bırakır — ٱلْقَمَر kelimesinde olduğu gibi; böylece hem لام hem de sonraki harf duyulur.",
+      "Şemsî ve kamerî harf gruplarını ezberlemek (veya bir hocadan dinleyerek öğrenmek), okunmayan lamı fazladan okumayı ve açık lamı eksik okumayı önler.",
+    ],
+    practice:
+      "Amme cüzünü açın ve ال takılı on isim işaretleyin: her biri için okumadan önce lamın şemsî (okunmaz) mi yoksa kamerî (açık) mi olduğunu söyleyin.",
+  },
+  {
+    title: "Okunmayan Harfler",
+    summary: "Mushafta yazılı olduğu hâlde kesintisiz okumada telaffuz edilmeyen harfler.",
+    explanation: [
+      "Bazı harfler tarihî veya imlâ sebepleriyle Osmânî hatta yer alır, ancak okunurken seslendirilmez — tecvid renklendirmelerinde okunmaz olarak işaretlenir.",
+      "Sık görülen durumlar arasında yazılıp uzatılmayan bazı elifler ve sonraki şeddeli harfe katıldığı için ayrı bir ses bırakmayan harfler bulunur.",
+      "Okunmazlık işareti bir okuma yardımcısıdır: Yazılı mushafı aslına sadık tutarken dilin fazladan bir ses uydurmamasına rehberlik eder.",
+      "Şüphe ettiğinizde renkli tecvidli bir mushafı veya ehil bir kâriyi takip edin — amaç, yalnızca imlâya bakarak tahmin etmek değil, nakledilen okuyuşa sadık kalmaktır.",
+    ],
+    practice:
+      "Tecvid renkleri açıkken bir sayfayı yavaşça okuyun ve yalnızca renkli (okunan) harfleri fısıldayın — okunmaz olarak işaretlenen her harfi bilerek atlayın.",
   },
 ];
 
 export const QURAN_GUIDE_VOCABULARY_TR: DeepPartial<QuranGuideVocabEntry>[] = [
   {
-    meaning:
-      "Satu-satunya sesembahan ki benar — nama pribadi ki mencakup tüm nama-nama-Nya ki indah.",
-    frequency: "2.700+ kali",
-    example: "Bismillah — ile nama Allah",
-    quranRef: {
-      excerpt: "İle nama Allah Ki Maha Pengasih lagi Maha Penyayang.",
-    },
-  },
-  {
-    meaning: "Allah, pemilik, pemelihara — O ki menciptolacak, memiliki, memelihara, ve mengatur.",
-    frequency: "çok sering",
-    example: "Rabbana — Allah kami",
-    quranRef: {
-      excerpt: "Segala puji için Allah, Allah semesta alam.",
-    },
-  },
-  {
-    meaning: "Rahmet, merhamet, kelembutan — dari Allah ve di antara sesama makhluk.",
-    frequency: "akar kata umum r-h-m",
-    example: "Ar-Rahman, Ar-Rahim",
-  },
-  {
-    meaning: "Bahçe, cennet — yer balasan ki abadi.",
-    frequency: "sering",
-    example: "Cennet-cennet ki mengalir nehir-nehir di bawahnya",
-  },
-  {
-    meaning: "Api — merujuk ke cehennem, sebagai perhatırlaan ve konsekuensi.",
-    frequency: "sering",
-    example: "Takutlah  api ki disediolacak için insanlar kafir",
-  },
-  {
-    meaning: "İman, keyakinan, kepercayaan ke Allah ve penerimaan risalet-Nya.",
-    frequency: "çok sering",
-    example: "Wahai insanlar ki iman eden (yaa ayyuhal ladziina aamanuu)",
-  },
-  {
-    meaning: "Sabır, keteguhan, ketabahan demi Allah.",
-    frequency: "sering",
-    example: "Sesungguhnya Allah beserta insanlar ki sabar",
-  },
-  {
-    meaning: "Şükür — pengakuan atas nikmat ile kalp, lisan, ve anggota badan.",
-    frequency: "sering",
-    example: "Jika sen berşükür, pasti olacak Kutambah (nikmat) kemu",
-  },
-  {
-    meaning: "Rasa takut ke Allah, ketakvaan, menjaga diri dari günah çünkü takut ke Allah.",
-    frequency: "çok sering",
-    example: "Sesungguhnya insan ki paling mulo di sisi Allah dır ki paling takva sahibi",
-  },
-  {
-    meaning: "Rezeki, penghidupan — ki ditetapkan Allah için her jiwa.",
-    frequency: "sering",
-    example: "Ve Allah dır sebaik-baik verici rezeki",
-  },
-  {
-    meaning: "Cahaya — hidayet, vahiy, ve penerangan kalp.",
-    frequency: "sering",
-    example: "Allah (Pemberi) nur (ke) langit ve bumi",
-    quranRef: {
-      excerpt: "Allah (Pemberi) nur (ke) langit ve bumi…",
-    },
+    meaning: "Tek gerçek ilah — bütün güzel isimleri kapsayan özel isim.",
+    frequency: "2.700'den fazla geçer",
+    example: "Bismillah — Allah'ın adıyla",
+    quranRef: {},
   },
   {
     meaning:
-      'Hayat dünya bu — olarak harfi hayat ki "daha rendah/dekat". İçinde Al-Qur\\\'an, bu sementara ve semeyve imtihan, berlawanan ile ahiret ki ebedi, ve bukan rumah sejati için müminler.',
-    frequency: "sering",
-    example: "Hayat dünya (al-hayaatud dunya) değil lain hanyalah permainan ve senda gurau",
+      "Rab, Efendi, Terbiye edip besleyen — yaratan, sahip olan, besleyip büyüten ve yöneten.",
+    frequency: "Çok sık",
+    example: "Rabbenâ — Rabbimiz",
+    quranRef: {},
+  },
+  {
+    meaning: "Allah'tan gelen ve yaratılmışlar arasındaki rahmet, merhamet ve şefkat.",
+    frequency: "Yaygın kök: ر-ح-م",
+    example: "er-Rahmân, er-Rahîm",
+    quranRef: {},
+  },
+  {
+    meaning: "Bahçe, Cennet — mükâfatın ebedî yurdu.",
+    frequency: "Sık",
+    example: "Altından ırmaklar akan cennetler",
+  },
+  {
+    meaning: "Ateş — bir uyarı ve sonuç olarak Cehennem'i ifade eder.",
+    frequency: "Sık",
+    example: "Kâfirler için hazırlanmış ateşten sakının",
+  },
+  {
+    meaning: "İman, inanç; Allah'a güven ve O'nun mesajını kabul etmek.",
+    frequency: "Çok sık",
+    example: "Ey iman edenler (yâ eyyühellezîne âmenû)",
+  },
+  {
+    meaning: "Allah rızası için sabır, sebat ve dayanıklılık.",
+    frequency: "Sık",
+    example: "Şüphesiz Allah sabredenlerle beraberdir",
+  },
+  {
+    meaning: "Şükür — nimetleri kalple, dille ve azalarla tanıyıp karşılığını vermek.",
+    frequency: "Sık",
+    example: "Şükrederseniz elbette size (nimetimi) artıracağım",
+  },
+  {
+    meaning: "Takva — Allah bilinci, Allah korkusuyla kendini günahtan korumak.",
+    frequency: "Çok sık",
+    example: "Allah katında en değerliniz, takvâca en ileri olanınızdır",
+  },
+  {
+    meaning: "Rızık, geçim — Allah'ın her can için takdir ettiği.",
+    frequency: "Sık",
+    example: "Allah rızık verenlerin en hayırlısıdır",
+  },
+  {
+    meaning: "Nur — hidayet, vahiy ve kalbin aydınlanması.",
+    frequency: "Sık",
+    example: "Allah göklerin ve yerin nurudur",
+    quranRef: {},
   },
   {
     meaning:
-      "Ahiret — hayat abadi sonra ölüm, termasuk kebangbizn, hisab, cennet, ve cehennem. Bulah hayat sejati ve ebedi ki içinnya Kur'an mendorong müminler berusaha.",
-    frequency: "sering",
-    example: "Ve sesungguhnya ahiret (al-aakhirah) o daha baik içinmu ve daha ebedi",
+      "Bu dünya hayatı — kelime anlamıyla “daha aşağı/daha yakın” hayat. Kur'an'da geçici ve bir imtihandır; kalıcı olan ahiretle karşılaştırılır ve asla müminin gerçek yurdu değildir.",
+    frequency: "Sık",
+    example: "Dünya hayatı (el-hayâtü'd-dünyâ) ancak bir oyun ve eğlencedir",
   },
   {
     meaning:
-      "Namaz, rukun ikinci Islam, donaikan lima kali segün. Kata bu de mengandung makna hubungan ve dua ke Allah.",
-    frequency: "çok sering",
-    example: "Ve dirikanlah namaz için menghatırla-Ku (aqimish shalaata)",
+      "Ahiret — ölümden sonraki ebedî hayat; diriliş, hesap, Cennet ve Cehennem dahil. Kur'an'ın müminleri uğrunda çalışmaya teşvik ettiği gerçek ve kalıcı hayattır.",
+    frequency: "Sık",
+    example: "Ahiret (el-âhire) ise daha hayırlı ve daha kalıcıdır",
   },
   {
     meaning:
-      'Bizb veya catatan — sering merujuk  Kur\'an kendisi ("Bizb bu"), fakat de bizb-bizb ki indirildi öncenya ve catatan amel. Berasal dari akar kata k-t-b, yao menulis.',
-    frequency: "çok sering",
-    example: "Bizb (dzaalikal bizab) bu yoktur keraguan nya",
+      "Namaz — İslâm'ın ikinci şartı; günde beş vakit kılınır. Kelime, Allah'a bağlanma ve O'na dua etme anlamını da taşır.",
+    frequency: "Çok sık",
+    example: "Beni anmak için namaz kıl (ekımi's-salâte)",
+  },
+  {
+    meaning:
+      "Kitap veya ilahî yazı — çoğunlukla Kur'an'ın kendisi (“o Kitap”), ama aynı zamanda önceki indirilmiş kitaplar ve amel defteri. Yazmak anlamındaki k-t-b kökünden gelir.",
+    frequency: "Çok sık",
+    example: "Bu, kendisinde hiç şüphe olmayan Kitap'tır (zâlike'l-kitâb)",
   },
 ];
 
 export const QURAN_GUIDE_LETTERS_TR: DeepPartial<QuranGuideLetter>[] = [
   {
-    name: "Alif",
-    pronunciation: 'vokal panjang /a/ seperti  "father" (olduğunda berupa hamzah veya mad)',
+    name: "Elif",
+    pronunciation: "Uzun /a/ — “âlem” kelimesindeki â gibi (hemze veya med taşıdığında)",
   },
   {
-    name: "Ba",
-    pronunciation: 'seperti "b" içinde bahasa Indoneso',
+    name: "Be",
+    pronunciation: "Türkçedeki “b” gibi",
   },
   {
-    name: "Ta",
-    pronunciation: 'seperti "t" içinde bahasa Indoneso',
+    name: "Te",
+    pronunciation: "Türkçedeki “t” gibi",
   },
   {
-    name: "Tsa",
-    pronunciation: 'seperti "th" içinde bahasa Inggris  "think"',
+    name: "Se",
+    pronunciation:
+      "İngilizce “think” kelimesindeki “th” gibi — dil ucu dişler arasında, peltek bir s",
   },
   {
-    name: "Jim",
-    pronunciation: 'seperti "j"  "jam"',
+    name: "Cîm",
+    pronunciation: "“cam” kelimesindeki “c” gibi",
   },
   {
-    name: "Ha (berat)",
-    pronunciation: 'bunyi ha ki tajam ve berhembus dari tenggorokan — bukan "h" bosa',
+    name: "Hâ",
+    pronunciation: "Boğazdan çıkan keskin, nefesli h — Türkçedeki düz “h” değil",
   },
   {
-    name: "Kha",
-    pronunciation: 'seperti "ch"  bahasa Skotlano "loch" — gesekan di tenggorokan',
+    name: "Hı",
+    pronunciation: "İskoçça “loch” kelimesindeki ses gibi — boğazda sürtünme",
   },
   {
     name: "Dal",
-    pronunciation: 'seperti "d" içinde bahasa Indoneso',
+    pronunciation: "Türkçedeki “d” gibi",
   },
   {
-    name: "Dzal",
-    pronunciation: 'seperti "th" içinde bahasa Inggris  "this"',
+    name: "Zel",
+    pronunciation:
+      "İngilizce “this” kelimesindeki “th” gibi — dil ucu dişler arasında, peltek bir z",
   },
   {
     name: "Ra",
-    pronunciation: '"r" ki bergulir/bergetar',
+    pronunciation: "Titrek, yuvarlanan “r”",
   },
   {
-    name: "Za",
-    pronunciation: 'seperti "z" içinde bahasa Indoneso',
+    name: "Ze",
+    pronunciation: "Türkçedeki “z” gibi",
   },
   {
-    name: "Sin",
-    pronunciation: 'seperti "s" içinde bahasa Indoneso',
+    name: "Sîn",
+    pronunciation: "Türkçedeki “s” gibi",
   },
   {
-    name: "Syin",
-    pronunciation: 'seperti "sh"  "ship"',
+    name: "Şın",
+    pronunciation: "“şeker” kelimesindeki “ş” gibi",
   },
   {
-    name: "Shad",
-    pronunciation: '"s" tebal (mufakhkham) — lidah terangkat, bunyi daha dolu',
+    name: "Sad",
+    pronunciation: "Kalın (tefhimli) “s” — dil kalkık, daha dolgun bir ses",
   },
   {
-    name: "Dhad",
-    pronunciation: '"d" tebal — khas bahasa Arab',
+    name: "Dad",
+    pronunciation: "Kalın “d” — Arapçaya özgü",
   },
   {
-    name: "Tha (tebal)",
-    pronunciation: '"t" tebal — diucapkan daha içinde di mulut',
+    name: "Tı",
+    pronunciation: "Kalın “t” — ağzın daha derininden",
   },
   {
-    name: "Zha (tebal)",
-    pronunciation: 'versi tebal dari bunyi "dh"',
+    name: "Zı",
+    pronunciation: "Peltek “z” (th) sesinin kalın hâli",
   },
   {
-    name: "Ain",
+    name: "Ayn",
     pronunciation:
-      "penyempitan bersuara dari tengah tenggorokan — yoktur nan içinde bahasa Indoneso; pelajari ile menirukan bir qari",
+      "Boğazın ortasından gelen sesli bir daralma — Türkçede karşılığı yoktur; bir kâriyi taklit ederek öğrenin",
   },
   {
-    name: "Ghain",
-    pronunciation: 'seperti "r" Prancis veya "gh" ki digelutur',
+    name: "Gayn",
+    pronunciation: "Fransızca “r” gibi ya da gargara yapar gibi “ğ”",
   },
   {
-    name: "Fa",
-    pronunciation: 'seperti "f" içinde bahasa Indoneso',
-  },
-  {
-    name: "Qaf",
-    pronunciation: '"k" ki içinde dari içinan paling belolacakg lidah — bukan "k" bosa',
+    name: "Fe",
+    pronunciation: "Türkçedeki “f” gibi",
   },
   {
     name: "Kaf",
-    pronunciation: 'seperti "k" içinde bahasa Indoneso (daha ke depan mulut)',
+    pronunciation: "Dilin en arka kısmından çıkan derin “k” — Türkçedeki ince “k” değil",
+  },
+  {
+    name: "Kef",
+    pronunciation: "Türkçedeki ince “k” gibi (ağzın ön tarafında)",
   },
   {
     name: "Lam",
-    pronunciation: 'seperti "l" içinde bahasa Indoneso',
+    pronunciation: "Türkçedeki “l” gibi",
   },
   {
     name: "Mim",
-    pronunciation: 'seperti "m" içinde bahasa Indoneso',
+    pronunciation: "Türkçedeki “m” gibi",
   },
   {
     name: "Nun",
-    pronunciation: 'seperti "n" içinde bahasa Indoneso',
+    pronunciation: "Türkçedeki “n” gibi",
   },
   {
-    name: "Ha (ringan)",
-    pronunciation: '"h" lembut di akhir kata',
+    name: "He (hafif)",
+    pronunciation: "Kelime sonlarında yumuşak “h”",
   },
   {
-    name: "Wau",
-    pronunciation: 'seperti "w" veya "u" panjang',
+    name: "Vav",
+    pronunciation: "İngilizce “w” veya uzun “u” gibi",
   },
   {
-    name: "Ya",
-    pronunciation: 'seperti "y" veya "i" panjang',
+    name: "Ye",
+    pronunciation: "“y” veya uzun “i” gibi",
   },
 ];
 
 export const QURAN_GUIDE_PRONUNCIATION_TR: DeepPartial<QuranGuidePronunciationPair>[] = [
   {
-    title: "Ain vs Ha",
-    tip: "Her ikisi de keluar dari tenggorokan fakat berbeda bunyinya. Ain (ع) dır penyempitan bersuara dari tengah tenggorokan — pita suara bergetar. Ha (ح) dır gesekan kuat ve tak bersuara ki berhembus, seperti helaan napas berat tanpa getaran. Her ikisi de yoktur içinde bahasa Indoneso, bu yüzden pelajarilah ile mendengar langsung dari bir qari.",
+    title: "Ayn ile Hâ",
+    tip: "İkisi de boğazdan çıkar ama seslilik bakımından ayrılır. Ayn (ع), boğazın ortasından gelen sesli bir daralmadır — ses telleri titrer. Hâ (ح) ise güçlü, sessiz ve nefesli bir sürtünmedir; titreşimsiz, derin bir iç çekiş gibi. İkisi de Türkçede yoktur; bu yüzden onları bir kâriden dinleyerek öğrenin.",
   },
   {
-    title: "Ha vs Kha",
-    tip: 'Ha daha tajam ve ringan; Kha daha içinde ve daha çok gesekan — seperti "loch".',
+    title: "Hâ ile Hı",
+    tip: "Hâ daha keskin ve hafiftir; Hı daha derin ve daha sürtünmelidir — “loch” kelimesindeki gibi.",
   },
   {
-    title: "Sin vs Shad",
-    tip: 'Sin (س) dır "s" ki ringan ve tipis seperti  "see" içinde bahasa Inggris. Shad (ص) dır kembarannya ki tebal ve mufakhkham: angkat içinan belolacakg lidah, bulatkan mulut az, ve bunyinya menbu yüzden daha içinde. Mencampuradukkan her ikisi de bisa mengubah kata — sabr dibanding bacaan ile s ringan.',
+    title: "Sîn ile Sad",
+    tip: "Sîn (س), Türkçedeki “sen” kelimesinde olduğu gibi hafif, ince bir “s”dir. Sad (ص) ise onun kalın, tefhimli ikizidir: dilin arkasını kaldırın, ağzınızı hafifçe yuvarlayın; ses derinleşir. İkisini karıştırmak kelimeleri değiştirebilir — sabr (sabır) ile ince s ile yapılan bir okuyuş aynı değildir.",
   },
   {
-    title: "Dal vs Dhad",
-    tip: 'Dal (د) dır "d" bosa. Dhad (ض) dır "d" tebal ve mufakhkham ki khas bahasa Arab — tekan tepi lidah ke gigi geraham atas ve bırak bunyinya memenuhi mulut. Çünkü harf khas bulah bahasa Arab de disebut "lughatudh dhaad" (bahasa harf dhad).',
+    title: "Dal ile Dad",
+    tip: "Dal (د) düz bir “d”dir. Dad (ض) ise Arapçaya özgü kalın, tefhimli bir “d”dir — dilin kenarını üst azı dişlerine bastırın ve sesin ağzı doldurmasına izin verin. Arapçaya bu ayırt edici harf sebebiyle “Dad dili” (lügatü'd-dâd) bile denir.",
   },
   {
-    title: "Ta vs Tha (tebal)",
-    tip: 'Tha ki mufakhkham daha içinde; jangan menggantinya bego saja ile "t" bosa.',
+    title: "Te ile Tı",
+    tip: "Kalın ط daha derindir; onu düz bir “t” ile değiştirmeyin.",
   },
   {
-    title: "Dzal vs Zha (tebal)",
-    tip: 'Her ikisi de memiliki bunyi "dh"; Zha daha tebal ve mufakhkham.',
+    title: "Zel ile Zı",
+    tip: "İkisi de peltek “th” sesi içerir; ظ daha kalın ve tefhimlidir.",
   },
   {
-    tip: 'Kaf (ك) dır "k" dari depan mulut seperti  "key" içinde bahasa Inggris. Qaf (ق) dişekil dari jauh daha belolacakg — içinan paling belolacakg lidah menyentuh langit-langit lunak, menghasilkan "k" ki içinde dari tenggorokan ki değil memiliki nan içinde bahasa Indoneso. Jagalah her ikisi de tetap terpisah: qalb (kalp) bukan kalb (anjing).',
-    title: "Kaf vs Qaf",
+    tip: "Kef (ك), İngilizce “key” kelimesindeki gibi ağzın önünden çıkan bir “k”dir. Kaf (ق) çok daha arkadan çıkar — dilin en arka kısmı küçük dile değer ve Türkçede tam karşılığı olmayan derin, gırtlaksı bir “k” verir. İkisini ayrı tutun: kalb (kalp), kelb (köpek) değildir.",
+    title: "Kef ile Kaf",
   },
   {
-    title: "Ghain vs Kha",
-    tip: "Ghain bersuara; Kha dır gesekan tak bersuara.",
+    title: "Gayn ile Hı",
+    tip: "Gayn seslidir; Hı ise titreşimsiz (sessiz) bir sürtünmedir.",
   },
 ];
 
 export const QURAN_GUIDE_MEMORIZATION_PLANS_TR: DeepPartial<QuranGuideMemorizationPlan>[] = [
   {
-    title: "Pemula — Juz Amma",
+    title: "Başlangıç — Amme Cüzü",
     summary:
-      "Titik awal ki alami için tüm insan. Mulailah dari surah-surah ki çok pendek di içinan paling akhir mushaf — bergerak mundur dari An-Nas — ki mudah, cepat memberi sevap, ve berguna di her namaz.",
-    surahs: ["An-Nas", "Al-Falaq", "Al-Ikhlas", "Al-Masad", "An-Nasr", "Al-Kafirun", "Al-Kautsar"],
-    tip: "Hafalkan hanya satu ayat segün: dengarkan bir qari mengulanginya sebizr sepuluh kali, ulangi ile suara keras hingga akıcı, lalu sambungkan ile ki sudah sen miliki önce melanjutkan.",
+      "Herkes için doğal başlangıç noktası. Mushafın sonundaki çok kısa sûrelerle — Nâs sûresinden geriye doğru — başlayın; bunlar kolaydır, çabuk meyvesini verir ve her namazda işe yarar.",
+    surahs: ["Nâs", "Felak", "İhlâs", "Tebbet", "Nasr", "Kâfirûn", "Kevser"],
+    tip: "Günde yalnızca bir âyet ezberleyin: Bir kârinin onu tertil ile yaklaşık on kez tekrar edişini dinleyin, akıcı hâle gelene kadar sesli tekrarlayın, sonra devam etmeden önce onu zaten ezberinizde olanlara ekleyin.",
   },
   {
-    title: "Menengah — sepuluh surah inti",
+    title: "Orta Seviye — On temel sûre",
     summary:
-      "Olduğunda surah-surah pendek sudah kuat, ambillah surah-surah panjang ki disukai ki memiliki fazilet büyük ve sering dibaca  gün Jümmet serta gece gün — Al-Mulk, Ya-Sin, Ar-Rahman, Al-Waqi'ah, ve Al-Kahfi termasuk di antaranya.",
-    surahs: [
-      "Al-Fatihah",
-      "Al-Mulk",
-      "Ya-Sin",
-      "Ar-Rahman",
-      "Al-Waqi'ah",
-      "Al-Kahfi",
-      "Al-Jumu'ah",
-      "Al-Hasyr",
-    ],
-    tip: "Kaitkan hafalan baru ile vakit tetap günan — sesaat sonra Subuh ki tenang ve pikiran jernih dır ki terbaik — böylece konsistensi o kendisi ki menanggung seiçinan büyük bebannya.",
+      "Kısa sûreler sağlamlaştıktan sonra, büyük fazileti olan ve sıklıkla cuma günleri ve geceleri okunan sevilen uzun sûrelere geçin — Mülk, Yâsîn, Rahmân, Vâkıa ve Kehf bunlar arasındadır.",
+    surahs: ["Fâtiha", "Mülk", "Yâsîn", "Rahmân", "Vâkıa", "Kehf", "Cuma", "Haşr"],
+    tip: "Yeni ezberi her gün sabit bir vakte bağlayın — sabah namazından hemen sonraki sakin ve zihnin berrak olduğu vakit idealdir — böylece yükün büyük kısmını süreklilik taşır.",
   },
   {
-    title: "Lanjut — satu juz",
+    title: "İleri Seviye — Bir cüz",
     summary:
-      "Berkomitmenlah menyelesaikan satu juz dolu sambil menjaga tüm ki öncenya tetap benar-benar kuat. Çok insan memulai dari juz 29 veya 30, ki surah-surahnya sudah seiçinan onlar kenal, lalu meluas keluar juz demi juz.",
-    surahs: ["Pilih satu juz — çok ki memulai dari juz 29 veya 30 lalu melanjutkan"],
-    tip: "Jangan pernah menambah içinan baru sampai ki lama sudah diulang ile kuat. Peygamber ﷺ memperhatırlolacak ki Kur'an ki dihafal lepas daha cepat dari unta ki terikat lepas dari talinya.",
+      "Öncesindeki her şeyi sapasağlam tutarken tam bir cüzü bitirmeyi hedefleyin. Birçok kişi, sûrelerini kısmen zaten bildiği 29. veya 30. cüzle başlar, sonra her seferinde bir cüz olmak üzere genişletir.",
+    surahs: ["Bir cüz seçin — birçok kişi 29. veya 30. cüzle başlar, sonra genişletir"],
+    tip: "Eskisi sağlamca tekrar edilmeden asla yeni bir bölüm eklemeyin. Peygamber ﷺ, ezberlenen Kur'an'ın, bağlı bir devenin bağından kurtulmasından daha hızlı kaçıp gittiği konusunda uyarmıştır.",
   },
   {
-    title: "Perjalanan Hafiz",
+    title: "Hâfızlık Yolculuğu",
     summary:
-      "Menghafal seluruh Kur'an — semeyve kehormatan seumur hidup ki mengangkat derece insan ki membawanya, ve ile karuno Allah, de insan tuanya. Bu dır komitmen serius, bosanya membentang selama bertahun-tahun hafalan baru günan ve pengulangan ki teratur.",
-    surahs: ["Seluruh mushaf — bosanya 3–7 tahun ile pengulangan günan"],
-    tip: "Jangan lakukan bu kendison: gunolacak pelacak hifz Munib için mengatur jadwal pengulanganmu, ve perdengarkan bacaanmu olarak teratur ke bir hafiz veya guru ki mumpuni ki bisa menangkap ve membetulkan kesalahanmu.",
+      "Kur'an'ın tamamını ezberlemek — onu taşıyanı ve Allah'ın lütfuyla anne babasını yücelten, ömür boyu süren bir şereftir. Ciddi bir taahhüttür; genellikle her gün yeni ezber ve disiplinli tekrarla birkaç yıla yayılır.",
+    surahs: ["Mushafın tamamı — genellikle günlük tekrarla 3–7 yıl"],
+    tip: "Bunu tek başınıza denemeyin: Tekrar programınızı yönetmek için Munib'in hıfz takipçisini kullanın ve hatalarınızı yakalayıp düzeltebilecek ehil bir hâfıza veya hocaya düzenli olarak okuyun.",
   },
 ];
 
 export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Hai insanlar ki iman eden, bu yüzdenkanlah sabar ve namaz sebagai penolongmu, sesungguhnya Allah beserta insanlar ki sabar.",
     context:
-      "Dari Surah Al-Baqarah, ki indirildi di Medine. Allah menggabungkan dua sumber kekuatan için müminler ki menghadapi kesulitan — ketabahan melalui sabır ve berpaling ke namaz — ve menjanjikan kebersamaan khusus-Nya için onlar ki teguh.",
+      "Medine'de inen Bakara sûresinden. Allah, sıkıntıyla karşılaşan mümin için iki güç kaynağını bir araya getirir — sabırla direnmek ve namaza yönelmek — ve sebat edenlere özel beraberliğini vaat eder.",
     reflection:
-      "İmtihan apa ki sedang kulalui saat bu di mana aku justru condong  jalan keluar ki cepat, alih-alih  sabır ve namaz ki orahkan ayat bu keku?",
+      "Şu anda hangi imtihanla karşı karşıyayım ki bu âyetin gösterdiği sabır ve namaz yerine hızlı bir kaçış yolu arıyorum?",
     action:
-      "Gün bu, kerjolacak satu namaz tanpa tergesa-gesa, ve içinde sujudmu, mohonlah sabır ke Allah içinde imtihan tertentu ki sedang sen lalui.",
+      "Bugün bir vakit namazı acele etmeden kılın ve secdenizde, içinden geçtiğiniz belirli imtihan için Allah'tan açıkça sabır dileyin.",
   },
   {
-    translation: "Rahmet-Ku meliputi segala sesuatu.",
     context:
-      "Dari Surah Al-A'raf, diucapkan içinde konteks Musa AS ve kaumnya. Allah menggambarkan rahmet-Nya meliputi segala sesuatu — rahmet ki bego luas hingga mendahului ve melampaui azap-Nya, ki khusus için onlar ki tetap teguh içinde kezaliman.",
+      "A'râf sûresinden; Mûsâ (a.s.) ve kavmi bağlamında söylenmiştir. Allah rahmetini her şeyi kuşatan bir rahmet olarak anlatır — o kadar geniştir ki, yalnızca haksızlıkta ısrar edenlere ayrılmış olan azabından önce gelir ve ona galip gelir.",
     reflection:
-      "Kesalahan sopa ki kutolak için kumaafkan, hal aku kendisi sedolunya bergantung  rahmet Allah ki tak terbatas?",
+      "Ben kendim tamamen Allah'ın sınırsız rahmetine muhtaçken, kimin hatasını affetmeyi reddediyorum?",
     action:
-      "Pilihlah satu insan ki membuatmu kesal, maafkanlah o gün bu ile tulus, ve panjatkan dua singkat agar Allah de memberinya hidayet ve ampunan.",
+      "Kırgın olduğunuz bir kişiyi seçin, bugün onu kalbinizde içtenlikle affedin ve Allah'ın ona da hidayet vermesi ve onu bağışlaması için kısa bir dua edin.",
   },
   {
-    translation: "Jika sen berşükür, pasti olacak Kutambah (nikmat) kemu.",
     context:
-      "Dari Surah Ibrahim, içinan dari nasihat Musa AS ke Bani Israil. Allah menghubungkan pertambahan nikmat-Nya langsung ile rasa şükür — berşükür atas suatu nikmat olah ki membuatnya bertambah, sementara kufur nikmat mengundang berkurangnya.",
+      "İbrâhîm sûresinden; Mûsâ'nın İsrâiloğulları'na yaptığı hatırlatmanın bir parçası. Allah, nimetini artırmayı doğrudan şükre bağlar — bir nimete şükretmek onu çoğaltan şeyin ta kendisidir, nankörlük ise onun kaybını davet eder.",
     reflection:
-      "Nikmat Allah apa — kesehatanku, keluargaku, imanku, veya rezekiku — ki mulai kuanggap remeh ve bosa saja minggu bu?",
+      "Allah'ın hangi nimetlerine — sağlığıma, aileme, imanıma veya rızkıma — bu hafta sıradan ve bana borçlu bir şeymiş gibi davranmaya başladım?",
     action:
-      'Gece bu önce tidur, ucapkan "Alhamdulillah" ile suara keras atas tiga nikmat tertentu, sebutkan masing-masing agar şükürmu disadari, bukan otomatis.',
+      "Bu gece uyumadan önce belirli üç nimet için sesli olarak “Elhamdülillah” deyin; her birini adıyla anın ki şükrünüz otomatik değil, bilinçli olsun.",
   },
   {
-    translation: "Ve ucapkanlah ke insanlık perkataan ki baik.",
     context:
-      "Dari Surah Al-Isra. Di tengah bimbingan tentang bagaimana müminler segerekirnya bersikap, Allah memerintahkan agar biz berbicara ke insanlık — tüm insanlık — ile cara ki terbaik, çünkü kata-kata kasar dır salah satu kapı ki dimasuki setan için memecah belah.",
+      "İsrâ sûresinden. Müminlerin nasıl davranması gerektiğine dair yönlendirmeler arasında Allah, insanlara — bütün insanlara — en güzel şekilde konuşmamızı emreder; çünkü sert sözler, şeytanın ayrılık tohumu ektiği kapılardan biridir.",
     reflection:
-      'Menengok gün bu, apakah kata-kataku daha çok membangun veya melukai insan lain — ve apakah aku de mengucapkan "perkataan ki baik" ke onlar ki kuanggap sulit?',
+      "Bugüne dönüp baktığımda, sözlerim insanları daha çok yüreklendirdi mi yoksa yıprattı mı — ve zor bulduğum kişilere bile “güzel söz” söyledim mi?",
     action:
-      "Gün bu, berikan pimtihan veya sözler terima kasih ki tulus ke satu insan tanpa kritik ki tersembunyi, ve tahanlah satu kata kasar ki hampir sen ucapkan.",
+      "Bugün bir kişiyi, içinde gizli bir eleştiri olmadan içtenlikle teşvik edin veya ona teşekkür edin; söylemeye niyetlendiğiniz sert bir sözü de tutun.",
   },
   {
-    translation:
-      "Ve barangsopa ki bertawakal ke Allah, niscaya Allah olacak mencukupkan (kegerekiran)nya.",
     context:
-      "Dari Surah Ath-Thalaq, di tengah hukum tentang perceraon ve rezeki — tepat di mana insan paling cemas olarak finansol. Di sana Allah berjanji olacak memberi rezeki ke sopa ki takva sahibi dari arah ki değil disangka-sangka, ve sopa ki bertawakal ke-Nya olacak menyapabiliri-Nya mencukupi.",
+      "Talâk sûresinden; boşanma ve geçim hükümleri arasında — insanların maddi açıdan en çok kaygılandığı yerde. Allah orada, kendisinden sakınana hiç ummadığı yerden rızık vereceğini, kendisine tevekkül edenin de O'nu yeterli bulacağını vaat eder.",
     reflection:
-      "Di mana aku membuat rencana ki kalp-kalp fakat değil melibatkan Allah di içindenya — veya berssizr  bantuan insanlık tanpa pernah berpaling ke-Nya içinde dua?",
+      "Nerede dikkatli planlar yapıp Allah'ı onların dışında bırakıyorum — ya da hiç O'na dua ile yönelmeden insanların yardımına mı dayanıyorum?",
     action:
-      "Ambil satu keputusan ki sedang mengganggumu, kerjolacak dua rakaat namaz istikharah veya berdualah ile tulus, lalu serahkan hasilnya ke Allah.",
+      "Sizi kaygılandıran bir kararı ele alın, onun için iki rekât istihare namazı kılın veya içten bir dua edin, sonra sonucu Allah'a bırakın.",
   },
   {
-    translation: "Ya Allahku, tambahkanlah ilmu keku.",
     context:
-      "Dari Surah Thaha. Di seluruh Kur'an, bu dır satu-satunya hal ki Allah perintahkan ke Peygamber ﷺ için memintanya ditambahkan — ilmu — menunjukkan betapa berharganya ilmu ki bermanfaat ve ki sopa pun, seberapa pun luas ilmunya, değil pernah selesai menuntutnya.",
+      "Tâhâ sûresinden. Bu, Kur'an'da Allah'ın Peygamber'e ﷺ daha fazlasını istemesini emrettiği tek şeydir — ilim. Bu da faydalı ilmin ne kadar değerli olduğunu ve ne kadar âlim olursa olsun hiç kimsenin onu aramayı bitirmediğini gösterir.",
     reflection:
-      "Berapa çok vakit luangku gün bu habis için menggulir tanpa henti, ve bisakah seiçinan darinya dipakai için öğrenmek satu ayat veya satu hadis?",
+      "Bugün boş vaktimin ne kadarı bitmek bilmeyen ekran kaydırmaya gitti ve bunun küçük bir kısmı bile bir âyet veya bir hadis öğrenmeye ayrılabilir miydi?",
     action:
-      'Hafalkan dua singkat "Rabbi zidnii \'ilman" bu, ve bu yüzdenkan kebosaan mengucapkannya sonra Subuh önce memulai günmu.',
+      "Bu kısa duayı, “Rabbi zidnî ilmâ”yı ezberleyin ve güne başlamadan önce sabah namazından sonra onu söylemeyi alışkanlık hâline getirin.",
   },
   {
-    translation:
-      "Perumpamaan insan ki savunannjolacak hartanya di jalan Allah dır seperti sebutir benih ki menumbuhkan tujuh bulir…",
     context:
-      "Dari Surah Al-Baqarah. Allah melukiskan gambaran hidup tentang bagaimana sedekah bertumbuh: satu benih menghasilkan tujuh bulir, her bulir berisi seratus biji — balasan tujuh ratus kali lipat, ve Allah melipatgandolacak lagi için sopa ki O kehendaki. Harta ki diberikan çünkü-Nya değil pernah benar-benar hilang.",
+      "Bakara sûresinden. Allah, sadakanın nasıl büyüdüğüne dair canlı bir tablo çizer: Tek bir tohum yedi başak verir, her başakta yüz tane vardır — yedi yüz katlık bir karşılık; Allah dilediğine daha da kat kat verir. O'nun rızası için verilen mal asla gerçekten kaybolmaz.",
     reflection:
-      "Olduğunda aku memberi, apakah o sessiz-sessiz çünkü Allah, veya aku menyapabiliri diriku ingin dibak insan lain ve dipuji çünkünya?",
+      "Verdiğimde bunu sessizce Allah rızası için mi yapıyorum, yoksa başkalarının fark edip beni övmesini mi istiyorum?",
     action:
-      "Gün bu, berikan sedekah küçük, ve jika memungkinkan, berikan olarak sessiz-sessiz — agar o murni antara sen ve Allah.",
+      "Bugün küçük bir sadaka verin ve mümkünse onu gizlice verin — böylece tamamen sizinle Allah arasında kalsın.",
   },
 ];
 
 export const QURAN_GUIDE_APPLY_CHALLENGES_TR: DeepPartial<QuranGuideApplyChallenge>[] = [
   {
-    verseExcerpt: "Ve ucapkanlah ke insanlık perkataan ki baik.",
+    verseExcerpt: "İnsanlara güzel söz söyleyin.",
     challenge:
-      "Lewati satu gün dolu tanpa mengucapkan satu pun kata kasar, sindiran, veya ejekan — sekalipun içinde csizan, sekalipun sen dipancing.",
+      "Bütün günü tek bir sert, alaycı veya küçümseyici söz söylemeden geçirin — şaka bile olsa, kışkırtılsanız bile.",
     habit:
-      "Olduğunda amarah muncul, berhentilah sejenak önce menjawab ve pilihlah sessiz veya sözler ki baik.",
+      "İçinizde sinir yükseldiğinde, cevap vermeden önce durun ve ya susmayı ya da güzel bir sözü seçin.",
   },
   {
-    verseExcerpt: "Katolacaklah ke laki-laki ki iman eden agar onlar menahan psizngannya…",
+    verseExcerpt: "Mümin erkeklere söyle, gözlerini haramdan sakınsınlar…",
     challenge:
-      "Gün bu, sengaja alihkan psiznganmu dari apa ki Allah haramkan — di layarmu, di bersizmu, ve di yer umum.",
+      "Bugün Allah'ın haram kıldığı şeylerden bilinçli olarak gözünüzü sakının — ekranınızda, akışınızda ve toplum içinde.",
     habit:
-      "Her kali sen menangkap dirimu melakukannya, alihkan momen o ke lima menit okumak Kur'an sebagai gantinya.",
+      "Kendinizi her yakaladığınızda, o anı bunun yerine beş dakikalık Kur'an okumaya çevirin.",
   },
   {
-    verseExcerpt: 'Janganlah engkau katolacak ke her ikisi de "ah"…',
+    verseExcerpt: "Onlara “öf” bile deme…",
     challenge:
-      "Gün bu, bicaralah ke bir insan tua veya insan ki daha tua ile kelembutan ve sabır ki açık, tanpa az pun kekesalan — ve lakukan sesuatu için melayani onlar.",
+      "Bugün anne babanızdan biriyle veya bir büyüğünüzle, hiçbir rahatsızlık belirtisi göstermeden, gözle görülür bir yumuşaklık ve sabırla konuşun — ve onlara hizmet edecek bir şey yapın.",
     habit:
-      "Jika onlar masih hidup, janjikan telepon veya kunjungan rutin; jika değil, doolacak onlar.",
+      "Hayattalarsa düzenli bir arama veya ziyaret sözü verin; değillerse onlar için dua edin.",
   },
   {
-    verseExcerpt: "Bergabunglah bersama insanlar ki jujur.",
-    challenge:
-      "Lewati satu gün dolu ile berkata jujur tanpa kebohongan küçük, tanpa berdahaan, ve tanpa ghibah — bahkan içinde bercsiz.",
-    habit: "Jika tergelincir, segera bertövbe ve perbaiki apa olan dirusak oleh kata-katamu.",
+    verseExcerpt: "Doğrularla beraber olun.",
+    challenge: "Bütün gün beyaz yalan, abartı ve dedikodu olmadan doğruyu söyleyin — şakada bile.",
+    habit: "Ayağınız kayarsa hemen tövbe edin ve sözlerinizin etkilediği şeyi düzeltin.",
   },
   {
-    verseExcerpt: "Allah beserta insanlar ki sabar.",
+    verseExcerpt: "Allah sabredenlerle beraberdir.",
     challenge:
-      "Lain kali sesuatu membuatmu jengkel, tahan her kata kasar selama enam puluh detik dolu önce menjawab.",
+      "Bir dahaki sefere bir şey canınızı sıktığında, cevap vermeden önce her sert sözü tam altmış saniye boyunca tutun.",
+    habit: "Mümkün olduğunca sinirlenme anlarını zikre veya iki rekât namaza dönüştürün.",
+  },
+  {
+    verseExcerpt: "Şükrederseniz size (nimetimi) artırırım.",
+    challenge:
+      "Bugün üç farklı kişiye, sizin için yaptıkları belirli bir şey için adlarını anarak teşekkür edin.",
+    habit: "Her geceyi bir nimeti not ederek bitirin — Munib günlüğünüzde tek bir satır.",
+  },
+  {
+    verseExcerpt: "Kim affeder ve arayı düzeltirse, onun mükâfatı Allah'a aittir.",
+    challenge:
+      "Taşıdığınız bir kini bırakın — en azından kendi kalbinizde onu içtenlikle salıverin.",
     habit:
-      "Kapan pun memungkinkan, ubahlah momen-momen kejengkelan menbu yüzden zikir veya dua rakaat namaz.",
-  },
-  {
-    verseExcerpt: "Jika sen berşükür, olacak Kutambah kemu.",
-    challenge:
-      "Gün bu, ucapkan terima kasih ile menyebut nama ke tiga insan berbeda atas suatu fiiller tertentu ki onlar lakukan içinmu.",
-    habit: "Akhiri her gece ile mencatat satu nikmat — satu satır di buku günan Munib-mu.",
-  },
-  {
-    verseExcerpt: "Ve barangsopa memaafkan ve yapan baik, maka sevapnya atas (tanggungan) Allah.",
-    challenge:
-      "Lepaskan satu dendam ki selama bu sen pendam — sedeğilnya içinde kalpmu kendisi, lepaskanlah ile tulus.",
-    habit: "Alih-alih terus mengenang luka o, sessiz-sessiz doolacak insan olan menzalimimu.",
+      "Kırgınlığı zihninizde tekrar tekrar yaşamak yerine, size haksızlık eden kişi için sessizce dua edin.",
   },
 ];
 
 export const QURAN_GUIDE_TADABBUR_PROMPTS_TR: DeepPartial<QuranGuideTadabburPrompt>[] = [
   {
-    question: "Apa ki Allah ajarkan keku içinde ayat bu?",
-    hint: "Baca ayat o perlahan-lahan ve renungkan içinan-içinannya: apakah Allah memberi perintah, perhatırlaan, janji, veya menceritolacak semeyve kisah? Nama-nama apa ki O gunolacak, ve apa ki donjukkan nama o tentang bagaimana O memperlakukan biz di sbu?",
+    question: "Allah bu âyette bana ne öğretiyor?",
+    hint: "Âyeti yavaşça okuyun ve yapı taşlarını fark edin: Allah bir emir mi veriyor, bir uyarı mı yapıyor, bir vaatte mi bulunuyor, yoksa bir kıssa mı anlatıyor? Hangi isimlerini kullanıyor ve bu isim, burada bize nasıl muamele ettiğine dair neyi gösteriyor?",
   },
   {
-    question: "Bagaimana aku bisa mengamelkan bu gün bu içinde tindolacak ki konkret?",
-    hint: "Not ki samar memudar; not ki spesifik terwujud. Ubahlah ayat o menbu yüzden satu adım ki bisa dilakukan — semeyve percakapan ki gerekir dilakukan, kebosaan ki gerekir dimulai, pilihan ki gerekir sessizbil önce gün berakhir.",
+    question: "Bunu bugün somut bir eylemle nasıl uygulayabilirim?",
+    hint: "Belirsiz kararlar unutulur; belirli olanlar kalıcı olur. Âyeti yapılabilir tek bir adıma dönüştürün — yapılacak bir konuşma, başlanacak bir alışkanlık, gün bitmeden verilecek bir karar.",
   },
   {
-    question: "Kebosaan apa ki gerekir kuperbaiki veya kuyaşamakkan çünkü ayat bu?",
-    hint: "Bawa ayat o ke içinde rutbutas günanmu — tidurmu, sözlermu, pengeluaranmu, namazmu, hubunganmu. Ki mana dari tüm o ki olarak sessiz-sessiz disentuh ayat bu?",
+    question: "Bu âyet sebebiyle hangi alışkanlığımı düzeltmeli ya da bırakmalıyım?",
+    hint: "Âyeti günlük rutininize indirin — uykunuza, konuşmanıza, harcamalarınıza, namazınıza, ilişkilerinize. Bu âyet sessizce hangisinin üzerine parmak basıyor?",
   },
   {
     question:
-      "Apakah ayat bu membawaku  harapan olacak rahmet Allah veya  rasa takut olacak keadilan-Nya — ve neden her ikisi de sama-sama penting?",
-    hint: "Müminler berjalan di antara khauf (takut olacak azap Allah) ve raja' (harapan olacak rahmet-Nya), seperti dua sayap. Renungkan ki mana dari her ikisi de ki diperkuat ayat bu içinde dirimu saat bu, ve ki mana ki daha dibutuhkan kalpmu.",
+      "Bu âyet beni Allah'ın rahmetine ümide mi, yoksa adaletinden korkmaya mı yöneltiyor — ve neden ikisi de önemlidir?",
+    hint: "Mümin, iki kanat gibi, havf (Allah'ın azabından korku) ile recâ (rahmetine ümit) arasında yürür. Bu âyetin şu anda içinizde hangisini güçlendirdiğini ve kalbinizin ona daha çok ihtiyaç duyup duymadığını kendinize sorun.",
   },
   {
-    question: "Bagaimana Peygamber ﷺ menghayati ayat bu?",
-    hint: 'Peygamber ﷺ disebut sebagai "Al-Qur\\\'an ki berjalan". Baklah sirah ve tafsir ki otentik — Ibnu Katsir sering menyebutkan bagaimana o ﷺ mewujudkan semeyve ayat — ve bu yüzdenkan teladannya sebagai contoh açık.',
+    question: "Peygamber ﷺ bu âyeti nasıl yaşadı?",
+    hint: "Peygamber ﷺ “yürüyen Kur'an” olarak tarif edilmiştir. Sahih siyer ve tefsir kaynaklarına bakın — İbn Kesîr onun bir âyeti nasıl hayata geçirdiğini sıkça aktarır — ve onun örneğini uygulamalı bir model olarak alın.",
   },
   {
-    question: "Dua apa ki digugah oleh ayat bu?",
-    hint: "Borkan ayat o menbu yüzden semeyve dua. İçinde sujudmu, ile kata-katamu kendisi, mintalah ke Allah segala ki digugah ayat bu içinde kalpmu — korunma dari semeyve perhatırlaan, içinan dari semeyve janji, veya taufik için menaati semeyve perintah.",
+    question: "Bu âyet hangi duaya ilham veriyor?",
+    hint: "Âyetin bir duaya dönüşmesine izin verin. Secdede kendi sözlerinizle, âyetin içinizde uyandırdığı her şeyi Allah'tan isteyin — bir uyarıdan korunmayı, bir vaatten pay almayı ya da bir emre uymak için yardımı.",
   },
 ];
 
 export const QURAN_GUIDE_READING_LEVELS_TR: DeepPartial<QuranGuideReadingLevel>[] = [
   {
-    title: "Alfabet Arab",
+    title: "Arap alfabesi",
     summary:
-      "Pelajari mengenali tüm 28 harf içinde şekil terkendisinya ve mengenal masing-masing ile namanya. Bu dır pengenalan murni — mebak semeyve harf ve langsung menyebutkan nama bunyinya — ve bulah fondasi yer tüm hal lainnya dibangun.",
-    topics: ["Nama-nama harf", "Bentuk dasar", "Arah kanan ke kiri"],
+      "28 harfin hepsini yalın (tek başına) hâlleriyle tanımayı ve her birini adıyla bilmeyi öğrenin. Bu tamamen bir aşinalık çalışmasıdır — bir harfi görüp sesini hemen söylemek — ve diğer her şeyin üzerine kurulduğu temeldir.",
+    topics: ["Harf adları", "Temel şekiller", "Sağdan sola yön"],
   },
   {
-    title: "Bentuk harf",
+    title: "Harf şekilleri",
     summary:
-      "Temukan ki seiçinan büyük harf değişmiş şekil uygun posisinya — di awal, tengah, veya akhir kata — çünkü bahasa Arab tersambung seperti tulisan sambung. Pelajari beberapa harf ki değil pernah tersambung ile harf sonranya.",
-    topics: ["Tulisan sambung", "Huruf ki değil tersambung", "Bentuk alif, wau, ya"],
+      "Arapça el yazısı gibi bitişik yazıldığı için harflerin çoğunun kelimedeki konumuna — başta, ortada veya sonda — göre şekil değiştirdiğini keşfedin. Kendisinden sonraki harfe hiç bağlanmayan birkaç harfi öğrenin.",
+    topics: ["Bitişik yazı", "Bağlanmayan harfler", "Elif, vav ve ye biçimleri"],
   },
   {
-    title: "Harakat",
+    title: "Harekeler (ünlüler)",
     summary:
-      "Kuasai tsiz-tsiz küçük ki memberi vokal  her harf: fathah (a), kasrah (i), dhammah (u), sukun tanpa vokal, tasydid ki menggandolacak, ve akhiran tanwin. Tsiz-tsiz bulah ki mengubah harf mati menbu yüzden kata ki bisa dibaca.",
-    topics: ["Harakat pendek", "Sukun", "Penggsizan tasydid", "Tanwin"],
+      "Her harfe ünlüsünü veren küçük işaretlere hâkim olun: üstün (a), esre (i), ötre (u), ünlüsüz cezm (sükûn), harfi iki kat okutan şedde ve tenvin sonları. Sessiz harfleri okunabilir kelimelere dönüştüren bu işaretlerdir.",
+    topics: ["Kısa harekeler", "Cezm (sükûn)", "Şedde ile ikizleştirme", "Tenvin"],
   },
   {
-    title: "Menggabungkan harf",
+    title: "Harfleri birleştirme",
     summary:
-      'Satukan tümnya: rangkai harf ve harakatnya menbu yüzden suku kata ve kata-kata pendek, okumak dari kanan ke kiri. Kuasai aturan harf syamsiyah ve qamariyah ki menentukan bagaimana "al" di awal kata dibaca.',
-    topics: ["Pola harf-harakat", "Awalan ki umum", "Huruf syamsiyah ve qamariyah"],
+      "Hepsini bir araya getirin: Harfleri ve harekelerini sağdan sola okuyarak hecelere ve kısa kelimelere birleştirin. Kelime başındaki “el-” takısının nasıl okunacağını belirleyen şemsî ve kamerî harf kuralıyla tanışın.",
+    topics: ["Harf-hareke (hece) kalıpları", "Yaygın önekler", "Şemsî ve kamerî harfler"],
   },
   {
-    title: "Okumak kata",
+    title: "Kelime okuma",
     summary:
-      "Mulailah okumak kata-kata Kur'an ki sesungguhnya olarak perlahan ve tepat — dimulai dari kata-kata Bismillah ve Al-Fatihah ki sen baca di her namaz — böylece bacaan langsung terhubung ile ibadah sejak awal.",
-    topics: ["Kata-kata berfrekuensi tinggi", "Bismillah", "Kata-kata Al-Fatihah"],
+      "Gerçek Kur'an kelimelerini yavaş ve doğru bir şekilde sökmeye başlayın — her namazda okuduğunuz Besmele ve Fâtiha kelimeleriyle başlayarak — böylece okuma en başından ibadetle bağlantılı olsun.",
+    topics: ["Sık geçen kelimeler", "Besmele", "Fâtiha kelimeleri"],
   },
   {
-    title: "Okumak ayat",
+    title: "Âyet okuma",
     summary:
-      "Beralihlah ke ayat-ayat pendek ki lengkap dari Juz Amma, menambahkan kesadaran olacak tajwid dasar ve yer berhenti için bernapas (waqaf), selalu mengikuti bacaan bir qari agar telingamu membimbing lisanmu.",
-    topics: ["Surah-surah Juz Amma", "Tsiz-tsiz waqaf", "Mengikuti bir qari"],
+      "Amme cüzünden kısa ve tam âyetlere geçin; temel tecvid bilgisini ve nefes almak için nerede durulacağını (vakf) ekleyin; kulağınız dilinize yol göstersin diye her zaman bir kâriyle birlikte okuyun.",
+    topics: ["Amme cüzü sûreleri", "Vakf işaretleri", "Bir kâriyi takip etme"],
   },
   {
-    title: "Bacaan akıcı",
+    title: "Akıcı okuma",
     summary:
-      "Capai bacaan ki halus ve percaya diri di mana kaidah tajwid diterapkan olarak alami. Pertahankan porsi günan ve teruslah diperiksa oleh guru veya qari ki mumpuni, çünkü keakıcıan terasah melalui koreksi ki terus-menerus, bukan dicapai sekali lalu diyaşamakkan.",
-    topics: ["Porsi günan", "Penerapan kaidah tajwid", "Bimbingan guru"],
+      "Tecvid kurallarının doğal olarak uygulandığı, pürüzsüz ve kendinden emin bir okuyuşa ulaşın. Günlük bir vird sürdürün ve bir hoca veya ehil bir kâri sizi kontrol etmeye devam etsin; çünkü akıcılık bir kez elde edilip bırakılmaz, sürekli düzeltmeyle cilalanır.",
+    topics: ["Günlük vird", "Tecvid kurallarının uygulanması", "Hoca geri bildirimi"],
   },
 ];
 
 export const QURAN_GUIDE_QUIZ_TR: DeepPartial<QuranGuideQuizQuestion>[] = [
   {
-    prompt: "Ada berapa surah (bab) içinde Kur'an?",
+    prompt: "Kur'an'da kaç sûre vardır?",
     options: ["99", "114", "124", "144"],
     explanation:
-      "Kur'an memiliki 114 surah, mulai dari tiga ayat hingga 286 ayat. Urutannya içinde mushaf ditetapkan (tawqifi) oleh vahiy.",
+      "Kur'an'da, üç âyetten 286 âyete kadar uzanan 114 sûre vardır. Mushaftaki sıraları vahiyle belirlenmiştir (tevkîfî).",
   },
   {
-    prompt:
-      "Menbu yüzden berapa içinan sama büyük (juz) Kur'an diiçin için memudahkan bacaan günan?",
+    prompt: "Kur'an, günlük okuma için kaç eşit bölüme (cüz) ayrılmıştır?",
     options: ["7", "12", "30", "60"],
     explanation:
-      "Tiga puluh juz. Okumak satu juz her gün menyelesaikan seluruh Kur'an içinde sebulan — cara klasik için khatam saat Ramadhan.",
+      "Otuz cüz. Her gün bir cüz okumak Kur'an'ın tamamını bir ayda bitirir — Ramazan'da hatim yapmanın klasik yolu.",
   },
   {
-    prompt: "Surah manakah ki terpanjang içinde Kur'an, ile 286 ayat?",
-    options: ["Al-Fatihah", "Al-Baqarah", "Ya-Sin", "An-Nas"],
+    prompt: "286 âyetiyle Kur'an'ın en uzun sûresi hangisidir?",
+    options: ["Fâtiha", "Bakara", "Yâsîn", "Nâs"],
     explanation:
-      "Surah Al-Baqarah dır ki terpanjang, ile 286 ayat. Bu dır surah Madani ki kaya olacak hukum ve bimbingan.",
+      "Bakara sûresi 286 âyetiyle en uzun sûredir. Hüküm ve rehberlik bakımından zengin, Medine'de inmiş bir sûredir.",
   },
   {
-    prompt: "Benar veya salah: surah Makki dır surah ki indirildi önce hicret ke Medine.",
-    options: ["Benar", "Salah"],
+    prompt: "Doğru mu, yanlış mı: Mekkî sûre, Medine'ye hicretten önce inen sûredir.",
+    options: ["Doğru", "Yanlış"],
     explanation:
-      "Surah Makki indirildi önce Hicret ve sering berfokus  akidah ve tevhid; surah Madani indirildi sonranya ve sering menambahkan hukum serta bimbingan komunitas.",
+      "Mekkî sûreler hicretten önce inmiştir ve çoğunlukla iman ve tevhid üzerinde durur; Medenî sûreler sonra inmiştir ve çoğunlukla hükümler ile toplum hayatına dair rehberlik ekler.",
   },
   {
-    prompt: "Surah manakah ki memuat ayat-ayat ilk ki indirildi ke Peygamber ﷺ di Gua Hira?",
-    options: ["Al-Fatihah", "Al-Alaq (Iqra)", "Al-Baqarah", "Al-Ikhlas"],
+    prompt: "Hira mağarasında Peygamber'e ﷺ inen ilk âyetler hangi sûrededir?",
+    options: ["Fâtiha", "Alak (İkra')", "Bakara", "İhlâs"],
     explanation:
-      'Vahiy ilk dır ayat-ayat awal Surah Al-Alaq (96): "Iqra — Bacalah, ile (menyebut) nama Allahmu ki menciptolacak."',
+      "İlk vahiy, Alak sûresinin (96) ilk âyetleridir: “İkra' — Yaratan Rabbinin adıyla oku.”",
   },
   {
-    prompt: "Kur'an indirildi selama kira-kira berapa tahun?",
-    options: ["3 tahun", "10 tahun", "23 tahun", "40 tahun"],
+    prompt: "Kur'an yaklaşık kaç yılda indirilmiştir?",
+    options: ["3 yıl", "10 yıl", "23 yıl", "40 yıl"],
     explanation:
-      "Kur'an indirildi olarak beraşama selama kurang daha 23 tahun — 13 tahun di Mekke ve 10 tahun di Medine — sebagai respons atas peristiwa ve kebuAllah.",
+      "Kur'an, olaylara ve ihtiyaçlara cevap vererek yaklaşık 23 yılda — 13 yıl Mekke'de, 10 yıl Medine'de — tedricen indirilmiştir.",
   },
   {
-    prompt: "Benar veya salah: penurunan Kur'an dimulai  bulan Ramadhan,  gece Lailatul Qadar.",
-    options: ["Benar", "Salah"],
+    prompt: "Doğru mu, yanlış mı: Kur'an'ın inişi Ramazan ayında, Kadir Gecesi'nde başlamıştır.",
+    options: ["Doğru", "Yanlış"],
     explanation:
-      "Allah berfirman ki Kur'an indirildi  bulan Ramadhan (2:185)  gece kemuloan (97:1). Mencari gece o memiliki fazilet büyük.",
+      "Allah, Kur'an'ın Ramazan ayında (2:185), Kadir Gecesi'nde (97:1) indirildiğini bildirir. O geceyi aramak büyük bir fazilettir.",
   },
   {
-    prompt: "Surah manakah ki dibaca di her rakaat namaz günan?",
-    options: ["Al-Ikhlas", "Al-Fatihah", "Al-Kautsar", "An-Nasr"],
+    prompt: "Günlük namazların her rekâtında hangi sûre okunur?",
+    options: ["İhlâs", "Fâtiha", "Kevser", "Nasr"],
     explanation:
-      'Surah Al-Fatihah — tujuh ayat — dibaca di her rakaat namaz. "Değil sah namaz sebir ki değil okumak Ummul Bizb (Al-Fatihah)."',
+      "Yedi âyetten oluşan Fâtiha sûresi namazın her rekâtında okunur. “Fâtiha'yı okumayanın namazı yoktur.”",
   },
   {
-    prompt: 'Surah manakah satu-satunya ki değil dimulai ile "Bismillahir Rahmanir Rahim"?',
-    options: ["Al-Fatihah", "At-Taubah", "Al-Ikhlas", "An-Nas"],
-    explanation: "Surah At-Taubah (9) dır satu-satunya surah ki değil dimulai ile basmalah.",
+    prompt: "“Bismillâhirrahmânirrahîm” ile başlamayan tek sûre hangisidir?",
+    options: ["Fâtiha", "Tevbe", "İhlâs", "Nâs"],
+    explanation: "Tevbe sûresi (9), besmeleyle başlamayan tek sûredir.",
   },
   {
-    prompt: "Kaidah mad içinde tajwid mengendalikan apa?",
+    prompt: "Tecvidde med kuralı neyi düzenler?",
     options: [
-      "Melebur dua harf menbu yüzden satu",
-      "Memanjangkan bunyi semeyve harakat",
-      "Pantulan bergema  harf tertentu",
-      "Di mana berhenti ve bernapas",
+      "İki harfi birbirine katmayı",
+      "Bir ünlü sesi uzatmayı",
+      "Belirli harflerdeki yankılı sekmeyi",
+      "Nerede durulup nefes alınacağını",
     ],
     explanation:
-      "Mad anlamına gelir memanjangkan bunyi vokal  harf-harf mad — alif (ا), wau (و), ve ya (ي) — hingga sejumlah harakat tertentu.",
+      "Med, med harflerinde — elif (ا), vav (و) ve ye (ي) — bir ünlü sesi belirli sayıda hareke uzatmak demektir.",
+  },
+  {
+    prompt: "Kalkale, sâkin olduklarında hangi harf grubuna verilen hafif, yankılı “sekme”dir?",
+    explanation:
+      "Beş kalkale harfi “kutbu cedin” (قُطْبُ جَدٍ) ifadesinde toplanmıştır — ق ط ب ج د — ve sâkin olduklarında net bir sekmeyle okunur.",
+  },
+  {
+    prompt: "Kur'an'da sık geçen “Rab” (رَبّ) kelimesinin anlamı nedir?",
+    options: ["Rahmet", "Rab, Efendi, Terbiye eden", "Kitap", "Bahçe"],
+    explanation:
+      "“Rab”; Rab, Efendi ve Terbiye edip besleyen demektir — yaratan, sahip olan, besleyip büyüten ve yöneten O'dur. “Rabbenâ” ise “Rabbimiz” anlamına gelir.",
+  },
+  {
+    prompt: "“Cennet” (جَنَّة) kelimesi neyi ifade eder?",
+    options: ["Ateş", "Cennet bahçesi", "Namaz", "Oruç"],
+    explanation:
+      "“Cennet” bahçe demektir — mükâfatın ebedî yurdu, “altından ırmaklar akan cennetler”.",
+  },
+  {
+    prompt: "Hangi peygamber, oğlu İsmâil ile birlikte Mekke'de Kâbe'nin temellerini yükseltti?",
+    options: ["Nûh", "Mûsâ", "İbrâhîm", "Yûsuf"],
+    explanation:
+      "İbrâhîm (Halîlullah, Allah'ın dostu) ve İsmâil, “Rabbimiz! Bizden kabul buyur” diye dua ederek Kâbe'yi inşa ettiler (2:127).",
   },
   {
     prompt:
-      "Qalqalah dır pantulan bergema ringan ki diberikan  kumpulan harf apa saja olduğunda harf o mati?",
+      "Hangi peygamber Allah ile doğrudan konuştu, Firavun'a karşı durdu ve İsrâiloğulları'nı yarılan denizden geçirdi?",
+    options: ["Îsâ", "Mûsâ", "Âdem", "Yûnus"],
     explanation:
-      'Lima harf qalqalah terhimpun içinde frasa "qathbu bu yüzdenn" — ق ط ب ج د — ki diberi pantulan temizlik olduğunda mati.',
-  },
-  {
-    prompt: 'Kata Al-Qur\\\'an ki sering muncul, "Rabb", anlamına gelir:',
-    options: ["Rahmet", "Allah, pemilik, pemelihara", "Bizb", "Bahçe"],
-    explanation:
-      'Rabb anlamına gelir Allah, pemilik, ve pemelihara — O ki menciptolacak, memiliki, memelihara, ve mengatur. "Rabbana" anlamına gelir "Allah kami".',
-  },
-  {
-    prompt: 'Kata "jannah" merujuk :',
-    options: ["Api", "Bahçe cennet", "Namaz", "Puasa"],
-    explanation:
-      'Jannah anlamına gelir bahçe — yer balasan ki abadi, "cennet-cennet ki mengalir nehir-nehir di bawahnya".',
-  },
-  {
-    prompt: "Peygamber manakah ki bersama putranya Ismail membangun fondasi Kâbe di Mekke?",
-    options: ["Nuh", "Musa", "Ibrahim", "Yusuf"],
-    explanation:
-      'Ibrahim (Khalilullah, kekasih Allah) ve Ismail membangun Kâbe, sambil berdua "Ya Allah kami, terimalah dari kami" (2:127).',
+      "Mûsâ (Kelîmullah) Allah ile konuştu, Firavun'a gönderildi ve Allah'ın emriyle deniz yarılarak kavmi güvenle karşıya geçti.",
   },
   {
     prompt:
-      "Peygamber manakah ki berbicara langsung ile Allah, menghadapi Fir'aun, ve membawa Bani Israil melintasi laut ki terbelah?",
-    options: ["Isa", "Musa", "Adam", "Yunus"],
+      "İnşallah bir sonraki adımda anlamak ve ezberlemek için hangi sûreyi ya da kısa bölümü seçeceksiniz?",
     explanation:
-      "Musa (Kalimullah) berbicara ile Allah, diutus ke Fir'aun, ve laut terbelah atas perintah Allah agar kaumnya menyeberang ile selamat.",
-  },
-  {
-    prompt:
-      "Surah veya içinan pendek manakah ki olacak sen notkan için dipahami ve dihafal selanjutnya, insya Allah?",
-    explanation:
-      "Adım-adım küçük ki konsisten membangun hubungan seumur hidup ile Bizb Allah. Pilih içinanmu, pelajari maknanya, ve ulangi sesering mungkin.",
+      "Küçük ama düzenli adımlar, Allah'ın Kitabı ile ömür boyu sürecek bir bağ kurar. Bölümünüzü seçin, anlamını öğrenin ve sık sık tekrar edin.",
   },
 ];

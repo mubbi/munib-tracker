@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react-native";
+import { fireEvent, screen, within } from "@testing-library/react-native";
 
 import {
   CustomTasbeehFormModal,
@@ -11,7 +11,6 @@ import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 // Imported transitively (reading typography → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 
 // The first render warms the theme + i18n graph, which is slow on a busy machine.
 
@@ -142,8 +141,25 @@ describe("CustomTasbeehFormModal", () => {
     expect(props.onSubmit).not.toHaveBeenCalled();
   });
 
+  it("asks before discarding unsaved edits, inline inside the open form sheet (iOS)", async () => {
+    const { props } = await renderForm();
+    await type("Title", "Draft");
+    await fireEvent.press(screen.getByRole("button", { name: "Cancel" }));
+    expect(props.onClose).not.toHaveBeenCalled();
+    // Inside the one form sheet — no second modal, which iOS would refuse to present.
+    expect(screen.getAllByTestId("sheet")).toHaveLength(1);
+    const formSheet = screen.getByTestId("sheet");
+    expect(within(formSheet).getByText("Discard changes?")).toBeTruthy();
+    await fireEvent.press(within(formSheet).getByRole("button", { name: "Keep editing" }));
+    expect(props.onClose).not.toHaveBeenCalled();
+    expect(screen.getByLabelText("Title").props.value).toBe("Draft");
+    await fireEvent.press(screen.getByTestId("sheet-close"));
+    await fireEvent.press(screen.getByRole("button", { name: "Discard" }));
+    expect(props.onClose).toHaveBeenCalledTimes(1);
+  });
+
   it.each([
-    { tv: false, minHeight: 40 },
+    { tv: false, minHeight: 44 },
     { tv: true, minHeight: TvLayout.chipMinHeight },
   ])("sizes preset segments for focus (tv=$tv)", async ({ tv, minHeight }) => {
     const restore = setPlatform({ isTV: tv });

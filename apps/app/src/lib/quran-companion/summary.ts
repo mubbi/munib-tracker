@@ -1,5 +1,5 @@
 import { createId } from "@/db/id";
-
+import { creditableSessionAyahs } from "./reading-credit";
 import {
   type AyahPracticeState,
   ayahOutcome,
@@ -68,6 +68,8 @@ export function buildPracticeSummary(input: {
     ...totals,
     weakAyahs: withMismatch.length ? withMismatch : withUncertain,
     ...(input.confirmsMismatches ? {} : { mismatchesUnconfirmed: true }),
+    // D68: ayahs heard well enough to count toward the reading log / khatm.
+    heardAyahs: creditableSessionAyahs(input.state, input.visited, !listened),
   };
 }
 

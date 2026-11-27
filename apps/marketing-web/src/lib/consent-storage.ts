@@ -13,28 +13,15 @@ export type StoredConsent = {
 export const CONSENT_VERSION = "1.0";
 export const CONSENT_STORAGE_KEY = "munib_tracker_cookie_consent";
 
+/** A consent category. Its title/description live in the `consent.items.<id>` catalog. */
 export interface ConsentItemDef {
   id: ConsentItemId;
-  title: string;
-  description: string;
   required: boolean;
 }
 
 export const CONSENT_ITEMS: ConsentItemDef[] = [
-  {
-    id: "essential",
-    title: "Essential",
-    description:
-      "Required for the site to work — security, session management, and core features. These cannot be turned off.",
-    required: true,
-  },
-  {
-    id: "analytics",
-    title: "Analytics",
-    description:
-      "Helps us understand which pages people find useful and how the site performs, so we can keep improving it. Never used for advertising.",
-    required: false,
-  },
+  { id: "essential", required: true },
+  { id: "analytics", required: false },
 ];
 
 const CONSENT_ITEM_IDS = new Set<ConsentItemId>(["essential", "analytics"]);

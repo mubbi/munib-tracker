@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ExcusedGuideContent } from "@/components/excused/excused-guide-content";
 import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
@@ -19,18 +20,21 @@ export default function SickGuideScreen() {
       eyebrow={t("sick.eyebrow")}
       title={t("sick.title")}
       subtitle={t("sick.subtitle")}
+      readingProgress
       onBack={() => goBackOrReplace(router, "/")}
       maxContentWidth={wide.twoPane ? wide.maxContentWidth : undefined}
     >
       <Seo path="/sick" />
-      <Stagger>
-        <LearnQuizNavRow
-          quizPath={"/sick/quiz" as Href}
-          titleKey="common.learnQuiz.title"
-          subtitleKey="common.learnQuiz.hint"
-        />
-        <ExcusedGuideContent reason="sick" />
-      </Stagger>
+      <LearnReadingChrome surface="jannah">
+        <Stagger>
+          <LearnQuizNavRow
+            quizPath={"/sick/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
+          />
+          <ExcusedGuideContent reason="sick" />
+        </Stagger>
+      </LearnReadingChrome>
     </ScreenLayout>
   );
 }

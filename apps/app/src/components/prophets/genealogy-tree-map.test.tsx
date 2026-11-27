@@ -1,6 +1,7 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
-import { GenealogyTreeMap } from "@/components/prophets/genealogy-tree-map";
+import { GenealogyTreeMap, shouldMapCaptureWheel } from "@/components/prophets/genealogy-tree-map";
+import i18n from "@/i18n";
 import { getProphetsGenealogyNodes } from "@/lib/prophets-genealogy";
 import { mockGestures, resetGestureMocks } from "@/test-support/mocks/gesture-handler";
 import { usePlatform } from "@/test-support/platform";
@@ -106,9 +107,27 @@ describe("GenealogyTreeMap", () => {
   describe("on web", () => {
     usePlatform({ OS: "web" });
 
+    it("uses the web pan hint", async () => {
+      await renderMap();
+      expect(screen.getByLabelText(MAP_LABEL).props.accessibilityHint).toBe(
+        i18n.t("prophets.tree.panHintWeb"),
+      );
+    });
+
     it("uses the grab cursor", async () => {
       await renderMap({ height: 360 });
       expect(JSON.stringify(screen.getByLabelText(MAP_LABEL).props.style)).toContain("grab");
     });
+  });
+});
+
+describe("shouldMapCaptureWheel (G-32)", () => {
+  it.each([
+    [{ ctrlKey: false, metaKey: false }, false, false],
+    [{ ctrlKey: true, metaKey: false }, false, true],
+    [{ ctrlKey: false, metaKey: true }, false, true],
+    [{ ctrlKey: false, metaKey: false }, true, true],
+  ])("wheel %o with engaged=%s captures: %s", (event, engaged, expected) => {
+    expect(shouldMapCaptureWheel(event, engaged)).toBe(expected);
   });
 });

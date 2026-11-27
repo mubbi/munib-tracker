@@ -11,6 +11,7 @@ import { mcqsFromHadith } from "./from-hadith";
 import { mcqsFromNames } from "./from-names";
 import { mcqsFromQuranMeta } from "./from-quran-meta";
 import { getLearnSectionDef, LEARN_QUIZ_SECTIONS, type LearnQuizSectionId } from "./learn-sections";
+import { filterMcqsForMadhhab, type SchoolResolver, storeSchoolResolver } from "./madhhab-filter";
 import { dedupeMcqs, sampleMcqs } from "./mcq-helpers";
 import { SECTION_QUIZ_SIZE, type StudyMcq } from "./types";
 
@@ -75,15 +76,21 @@ function collectI18nGuides(t: Translate): StudyMcq[] {
  * Full flash-card pool from every loaded corpus.
  * Call {@link ensureFlashCardContent} first for a larger bank; safe to call early.
  */
-export function getFlashCardPool(t: Translate = translate): StudyMcq[] {
-  return dedupeMcqs([
-    ...collectReadyLearnSections(),
-    ...collectI18nGuides(t),
-    ...mcqsFromQuranMeta(getSurahMeta()),
-    ...warmNames,
-    ...warmDuas,
-    ...warmHadith,
-  ]);
+export function getFlashCardPool(
+  t: Translate = translate,
+  schoolFor: SchoolResolver = storeSchoolResolver,
+): StudyMcq[] {
+  return filterMcqsForMadhhab(
+    dedupeMcqs([
+      ...collectReadyLearnSections(),
+      ...collectI18nGuides(t),
+      ...mcqsFromQuranMeta(getSurahMeta()),
+      ...warmNames,
+      ...warmDuas,
+      ...warmHadith,
+    ]),
+    schoolFor,
+  );
 }
 
 /**
@@ -93,6 +100,7 @@ export function getFlashCardPool(t: Translate = translate): StudyMcq[] {
 export function getQuestionsForSection(
   sectionId: LearnQuizSectionId,
   t: Translate = translate,
+  schoolFor: SchoolResolver = storeSchoolResolver,
 ): StudyMcq[] {
   const def = getLearnSectionDef(sectionId);
   if (!def) return [];
@@ -108,7 +116,7 @@ export function getQuestionsForSection(
     collected = [...collected, ...mcqsFromIslamicEvents(ISLAMIC_EVENTS, t)];
   }
 
-  return sampleMcqs(dedupeMcqs(collected), SECTION_QUIZ_SIZE);
+  return sampleMcqs(filterMcqsForMadhhab(dedupeMcqs(collected), schoolFor), SECTION_QUIZ_SIZE);
 }
 
 /** Map StudyMcq → QuizPlayer question shape. */

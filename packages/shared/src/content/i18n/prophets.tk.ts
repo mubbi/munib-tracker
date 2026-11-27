@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Gurhanda olaryň kyssalary diňe uzak taryh däl; ynanç, sabyr, maşgala durmuşy, ýolbaşçylyk we toba üçin amaly sapaklardyr.",
       "Prophetshli pygamberlere ynanmak imanyň bir bölegidir. Musulmanlar hemmesini hormatlaýarlar, ulaltmakdan gaça durýarlar we Muhammet of getiren iň soňky habaryna eýerýärler.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Resullar hoş habar getiriji we duýduryş beriji hökmünde adamlar pygamberlerden soň Allaha garşy jedel edip bilmezler.",
-      },
-      {
-        excerpt:
-          "Elbetde, her bir halka habarçy iberdik: Allaha ybadat ediň we ýalan taňrylardan gaça duruň.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Pygamberler ylahy däl we hiç haçan ybadat edilmeýär. Allanyň gullary bolmak bilen, boýun bolmakda, häsiýetde we ygtybarlylykda ýaradylyşyň iň gowusydyr.",
       "Olaryň wezipesi esasdyr: diňe Allaha ybadat ediň. Aýratyn kanuny jikme-jiklikler Allanyň hikmeti bilen jemgiýetlerde tapawutlanyp biler.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Resullary olara: "Biz diňe seniň ýaly adamlardyrys, ýöne Alla gullarynyň arasynda islänini isleýär.',
-      },
-      {
-        excerpt:
-          "Seniň öňüňden hiç bir habar ibermedik, Oňa aýan edenimizden başga: Menden başga hudaý ýok, şonuň üçin Maňa ybadat et.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Gurhan iki termini hem hormat bilen ulanýar we musulmanlar hiç bir zady ret etmezden ähli pygamberlere we habarçylara ynanýarlar.",
       "Takyk tehniki kesgitlemeler ylmy sözlemler bilen üýtgäp biler, ýöne amaly sapak yzygiderli: wahyý bilen kiçigöwünlilik bilen kabul ediň we Allanyň görkezmesine eýeriň.",
     ],
-    quran: [
-      {
-        excerpt: "Ol saýlandy, habarçy we pygamberdi.",
-      },
-      {
-        excerpt: "Biz hiç bir pygamberini tapawutlandyrmaýarys.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Terminologiýa jikme-jiklikleri giň, alym bitarap görnüşde berilýär; Öňdebaryjy ylahy klassifikasiýalar üçin ökde mugallymlar bilen maslahatlaşyň.",
     appLinks: [{}],
@@ -74,14 +49,7 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Şeýle hem, olaryň durmuşy ret edilýän sabrlary, näbellilik döwründe Allaha bil baglamagy we paýhas we batyrlyk bilen jemgyýeti özgertmäge taýýardygyny görkezýär.",
       "Olary öwrenmek çydamlylygy döredýär: imanlylar çalt toba etmegi, ahlakly hereket etmegi we hakykat meşhur bolmasa-da prinsipial bolmagy öwrenýärler.",
     ],
-    quran: [
-      {
-        excerpt: "Olaryň hekaýalarynda düşünýän adamlar üçin sapak bar.",
-      },
-      {
-        excerpt: "Allahyň ýol görkezenleri, şonuň üçin olaryň görkezmesine eýeriň.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Her hepde bir pygamberlik sapagyny saýlaň we bilgeşleýin ulanyň.",
       "Namazdan soň has köp sabyr ýa-da toba gerek ýerinde pikirleniň.",
@@ -97,16 +65,7 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Gudratlar pygamberleriň garaşsyz güýji däldir; wahyýy goldamak we subut etmek üçin Allanyň islegi bilen ýüze çykýar.",
       "Gurhan, käbirleriniň alamatlara garamazdan henizem ret edilendigini görkezýär, görkezmäni subut etmek diňe bir tomaşa däl-de, ak ýüreklilige we boýun bolmaga baglydyr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Habarçylarymyzy anyk subutnamalar bilen iberdik we olar bilen Kitap we deňagramlylygy iberdik.",
-      },
-      {
-        excerpt:
-          "Aýdyň: Alamatlar diňe Allanyň ýanyndadyr ... Olara okalan Kitaby size aýan edenimiz ýeterlik dälmi?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -117,16 +76,7 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Sazlamalar dürli-dürli bolsa-da, olaryň çagyryşy birdir: tawid, dogruçyllyk, jogapkärçilik we toba arkaly rehimdarlyk.",
       "Bu modul, Gurhanda esaslanýar we ygtybarly subutnamalar bilen tassyklanmasa ikinji derejeli taryhy maglumatlary gysga saklaýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz eýýäm siziň öňüňizde habarçy iberdik. Olaryň arasynda siziň bilen baglanyşdyranlarymyz we olaryň arasynda siziň bilen baglanyşykly bolmadyklarymyz bar.",
-      },
-      {
-        excerpt:
-          "Allaha we aýan edilenlere ... we Musa, Isa we pygamberlere Rebbinden berlen zatlara ynanýarys.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -137,17 +87,8 @@ export const PROPHETS_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       "Gurhanyň ýörelgelerine ýa-da pygamberlik mertebesine garşy gelýän duýgur ýa-da gowşak habarlardan gaça duruň. Her bir meşhur hekaýanyň dogry subutnamasy ýok.",
       "Diňe taryhy faktlary ýygnamak bilen çäklenmän, öz ybadatyňyzy we häsiýetiňizi üýtgetmek üçin pygamberlik terjimehallaryny ulanyň.",
     ],
-    quran: [
-      {
-        excerpt: "Sözleri diňleýänler we iň gowularyna eýerýänler - Allanyň ýol görkezenleri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim bilim gözleýän ýoldan gitse, Allatagala oňa Jennete barýan ýoly aňsatlaşdyrýar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Her hepde bir pygamber hekaýasyny göni Gurhandan okaň.",
       "Diňe wagt faktlary däl, amaly sapaklarda bellikleri saklaň.",
@@ -195,26 +136,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Onuň toba etmegi, Gurhanyň ilkinji tawba nusgasydyr",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Perwerdigäriňiz perişdelere: «earther ýüzünde yzygiderli ygtyýarlyk ederin» diýende, agzap geçiň ... Soňra Adam Rebbiniň sözlerini aldy we toba etdi.",
-      },
-      {
-        excerpt:
-          "Diýdiler: Rebbimiz, özümize zulum etdik, eger bizi bagyşlamasaň we bize rehim etmeseň, hökman ýitirenleriň arasynda bolarys.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kyýamat güni adamlar Adam atanyň ýanyna gelip: “Sen adamzadyň atasysyň; Rebbiň bilen bize şepagat et.",
-      },
-      {
-        excerpt:
-          "Adam we Musa jedel etdiler. Musa aýtdy: Allanyň eli bilen ýaradan sen. Adam aýtdy: Allatagala meni ýaratmazdan ozal maňa beren bir işi üçin meni günäkärleýärsiňmi? Şonuň üçin Adam jedelde Musadan üstün çykdy.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -238,16 +161,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Allah tarapyndan belent belentlige çykarylandygy hökmünde suratlandyrylýar",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Idris kitabynda agzap geçiň. Hakykatdanam, ol hakykat adamy we pygamberdi. Ony beýik belentlige çykardyk.",
-      },
-      {
-        excerpt:
-          "Ismail, Idris we Dhul-Kifl - hemmesi hassady. Olary merhemetimize kabul etdik. Dogrudanam, olar dogry adamlardy.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -284,22 +198,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Hekaýa, köp sürelerde, şol sanda adyny göterýänlerde-de duş gelýär",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Nuh-a, eýýäm iman edenlerden başga hiç biriňiziň ynanmajakdygy aýan edildi, şonuň üçin eden işleri bilen gynanmaň.",
-      },
-      {
-        excerpt:
-          "Ol: Lorda Reb, hakykatdanam halkymy gije-gündiz çagyrdym, ýöne çakylygym olary diňe uçuşda artdyrdy.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Adamlar Nuhuň ýanyna gelip: “Nuh, sen ýer ýüzüne iberenleriň ilkinjisiň, Allah saňa minnetdar hyzmatkär diýip at berdi; biziň üçin şepagat ediň.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -333,16 +233,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["'Mahabat' kyssasy, jemagatlara duýduryş hökmünde Gurhanda gaýtalanýar"],
     },
-    quran: [
-      {
-        excerpt:
-          "Mahabat üçin bolsa dogany Hudany iberdik. Ol: «Eý, halkym, Allaha ybadat ediň! Ondan başga hudaýyňyz ýok. Ondan gorkmaýarsyňyzmy?",
-      },
-      {
-        excerpt:
-          "Jülgelerine ýakynlaşýan bulut ýaly görenlerinde: Bu bize ýagyş getirýän bulut! Has dogrusy, sabyrsyzlyk eden zadyňyz: içindäki ýel agyr jeza.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -376,16 +267,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Tamud daglara ajaýyp jaýlary oýmak bilen tanalýardy"],
     },
-    quran: [
-      {
-        excerpt:
-          "Bu siziň üçin alamat hökmünde Allanyň düýeidir, şonuň üçin ony Allanyň topragynda iýmäge goýuň we oňa zyýan ýetirmäň, ýogsa agyr jeza sizi alar.",
-      },
-      {
-        excerpt:
-          "Tamud, iň betbagtlary iberilende, eden etmişleri sebäpli inkär etdi ... Şeýdip, Perwerdigärleri günäleri üçin olary ýok etdi we deňleşdirdi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -426,22 +308,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Ysmaýyl we Yshak arkaly pygamberleriň atasy",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ybraýym Rebbi buýruklar bilen synagdan geçirilende, olary ýerine ýetirdi. Ol: Hakykatdanam, men sizi halk üçin lider ederin.",
-      },
-      {
-        excerpt:
-          "Diýdik: Eý, ot, Ybraýyma salkynlyk we howpsuzlyk bol. Oňa zyýan bermek islediler, ýöne biz olary iň uly ýitgiler etdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Arealaňaç, ýalaňaç we sünnetsiz ýygnanarsyňyz. Kyýamat güni ilkinji bolup geýnen Ybraýym bolar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -475,16 +343,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ybraýymyň garyndaşy, özi bilen göçüp, Sodoma iberildi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dünýäleriň arasynda erkeklere ýakynlaşyp, Rebbiňiziň size ýaradan zatlaryny ýoldaş hökmünde goýýarsyňyzmy? Has dogrusy, sen hyýanatçy halk.",
-      },
-      {
-        excerpt:
-          "Şeýdip, buýrugymyz gelende, şäherleriň iň beýik bölegini iň pes derejä çykardyk we olara gaty toýun daşlaryny ýagdyrdyk.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -521,16 +380,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Arap taýpalarynyň atasy we soňky pygamberlik ugry",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ysmaýyl kitabynda agzap geçiň. Hakykatdanam, beren wadasyna wepaly bolup, habarçy we pygamberdi. Ol maşgalasyna doga we zekat etmegi buýurýardy we Rebbiniň göwnünden turýardy.",
-      },
-      {
-        excerpt:
-          "Ybraýym öýüň we Ysmaýylyň düýbüni tutanda, dileg etdiler: Rebbimiz, muny bizden kabul et. Hakykatdanam, Sen eşidýän, bilýän.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -561,16 +411,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Ybraýym we ubakup bilen bilelikde saýlanan maşgala hökmünde atlandyrylýar",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Aýaly durdy, ol güldi. Soňra oňa Yshak we Yshakdan soň ubakup hakda gowy habar berdik.",
-      },
-      {
-        excerpt:
-          "Güýçli we görüşli gullarymyz Ybraýym, Yshak we ubakuby ýada salyň. Hakykatdanam, olary aýratyn hil üçin saýladyk: Öýi ýatlamak.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -604,16 +445,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ysraýyl diýilýär", "Yusufusufyň we Bani Ysraýyl taýpalarynyň kakasy"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ol: Has dogrusy, ruhlaryňyz sizi bir zada çekdi. Şonuň üçin sabyr etmek iň ýerliklidir. Belki, Allah hemmesini meniň ýanyma getirer.",
-      },
-      {
-        excerpt:
-          "Olar: Hudaýyňyzy we ata-babalaryňyzyň Hudaýy Ybraýymyň, Ysmaýylyň we Yshagyň ýeke-täk Taňrysyna ybadat ederis we Oňa tabyn bolýarys diýdiler.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -648,18 +480,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Iň oňat hekaýalar diýlip atlandyrylýan Yusufusup süresi, onuň durmuşyna esaslanýar"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ol: Şu gün günäkär bolmaz. Alla sizi bagyşlasyn; we rehimdarlardan iň rehimlidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Asylly, asyllylaryň ogly, asyllylaryň ogly, asyllylaryň ogly: ubakubyň ogly ubakubyň, Yshagyň ogly, Ybraýymyň ogly.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -689,16 +511,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Diňe agramlary we ölçegleri nygtamak bilen tanalýar"],
     },
-    quran: [
-      {
-        excerpt:
-          "Eý, halkym, Allaha ybadat ediň. Ondan başga hudaýyňyz ýok. Doly ölçeg we agram beriň we adamlary öz haklaryndan mahrum etmäň we ýer ýüzünde korrupsiýa döretmäň.",
-      },
-      {
-        excerpt:
-          "Meniň üstünliklerim diňe Allanyň üsti bilen däl. Oňa bil bagladym, Oňa gaýdyp gelýärin.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -730,16 +543,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Yslam däp-dessurlarynda sabr nusgasy hökmünde getirildi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Aýýub, Rebbine ýüzlenende: Hakykatdanam kynçylyklar maňa degdi, sen rehimdarlaryň iň rehimdarsysyň.",
-      },
-      {
-        excerpt:
-          "Hakykatdanam, biz oňa sabyrly, ajaýyp hyzmatkär tapdyk. Hakykatdanam, ol birnäçe gezek Allaha ýüzlenýärdi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -763,15 +567,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Esasy musulman sanawlarynda pygamberleriň arasynda sanalýar",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ismail, Idris we Dhul-Kifl - hemmesi hassady. Olary merhemetimize kabul etdik. Dogrudanam, olar dogry adamlardy.",
-      },
-      {
-        excerpt: "Ismail, Al-Yasa 'we Dhul-Kifl-i ýadyňyzdan çykarmaň, hemmesi görnükli.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -812,22 +608,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Kalimulla diýilýär - Allanyň göni gürleşen adamy",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Men seni saýladym, aýan edilenleri diňle. Hakykatdanam, men Allah. Menden başga hudaý ýok, şonuň üçin Maňa ybadat ediň we ýatlamam üçin doga ediň.",
-      },
-      {
-        excerpt:
-          "Musanyň ejesine ylham berdik: Ony emdir, ýöne ondan gorksaň, ony derýa taşla, gorkma we gynanma. Hakykatdanam, biz ony size gaýtaryp bereris.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ölüm perişdesi Musa iberildi. Musanyň ýanyna baranda, Musa ony urdy we Allatagala gözüni dikdi we ölen wagty barada karar berdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -860,16 +642,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Musanyň uly dogany", "Sözleýişi üçin Gurhanda wasp edildi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Maňa maşgalamdan ministr belläň - agam Harun. Onuň üsti bilen güýç-kuwwatymy artdyr we meniň işimi paýlaşsyn.",
-      },
-      {
-        excerpt:
-          "Ol: Ejemiň ogly, hakykatdanam adamlar meni ýeňdiler we meni öldürjek boldular, duşmanlar meniň üstüme begenmesinler.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -907,22 +680,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Zabury kabul ediji (Zebur)", "Jalut (Golýat) ýaş wagtynda ýeňildi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Eý Dawud, hakykatdanam seni ýer ýüzünde mirasdüşer etdik, şonuň üçin halkyň arasynda höküm çykar we islege boýun bolma, sebäbi seni Allanyň ýolundan azaşdyrar.",
-      },
-      {
-        excerpt:
-          "Dawud we guşlar bilen şöhratlandyrmak üçin daglara boýun bolduk ... We duşmanyňyzdan goramak üçin oňa gerb ýasamagy öwretdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allaha iň söýgüli doga Dawudyň dogasydyr we Allaha iň söýgüli agyz beklemek Dawudyň agyz beklemegidir: bir gün oraza tutar, ertesi agyz beklär.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -960,16 +719,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Gurhanda iň doly beýan edilen pygamberleriň arasynda"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ol ýylgyryp, çykyşyna güldi we şeýle diýdi: “Lorda Reb, maňa we ene-atama beren merhemetiň üçin minnetdar bolmaga we seniň makullaýan dogruçyllygyňy etmäge mümkinçilik ber.",
-      },
-      {
-        excerpt:
-          "Süleýmana bolsa şemal öwrendik - onuň ertirki kursy bir aýlyk, günortanlyk kursy bolsa bir aýlyk ýol.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -997,15 +747,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Dogruçyllaryň arasynda", "Ba'l butyna çokunmak bilen ýüzbe-ýüz boldy"],
     },
-    quran: [
-      {
-        excerpt:
-          "Halkyna: Alladan gorkmaýarsyňyzmy? Bala jaň edip, iň gowy döredijileri goýýarsyňyzmy?",
-      },
-      {
-        excerpt: "Zakarýa, yaahýa, Isa we Ylýas - hemmesi dogruçyl adamlardy.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1029,14 +771,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Görnükli we saýlananlaryň arasynda göni Gurhanda atlandyrylýar"],
     },
-    quran: [
-      {
-        excerpt: "Ismail, Al-Yasa ', usunus we Lut - we dünýäden has gowy görýän zatlarymyz.",
-      },
-      {
-        excerpt: "Ismail, Al-Yasa 'we Dhul-Kifl-i ýadyňyzdan çykarmaň, hemmesi görnükli.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1074,22 +809,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Gurhanda Dhun-Nun (balyk adamy) diýilýär"],
     },
-    quran: [
-      {
-        excerpt:
-          "Garaňkylygyň içinde gygyrdy: Senden başga hudaý ýok; şöhrat saňa bolsun! Hakykatdanam, men günäkärlerden boldum.",
-      },
-      {
-        excerpt:
-          "Onda usunusyň ilatyndan başga imanynyň peýdasyna ynanýan şäher ýokmydy? Olar iman edenlerinde, biz olardan masgaraçylyk jezasyny aýyrdyk.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dhun-Nunyň balygyň garnyndan Allaha ýüz tutanda ýalbarmagy: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Hiç bir musulman Allatagalanyň oňa jogap bermeginden başga hiç zat dilemez.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1124,16 +845,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Merýemiň hossary", "Yahýanyň kakasy, dünýä inen dogasyna jogap berdi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ol ýerde Zakarýa Rebbine ýüzlenip: «Lorda Reb, maňa Özüňden gowy nesil ber! Dogrudanam, ýalbarýan sen.",
-      },
-      {
-        excerpt:
-          "Ol aýtdy: Lorda Reb, hakykatdanam süňklerim gowşady, kelläm ak reňk bilen doldy we Rebbim, Saňa ýalbarmagymda hiç haçan begenmedim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1169,16 +881,7 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Dogulanda, ölümde we direlende rahatlyk bilen hormatlanýar",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Eý, yaahýa, Mukaddes .azgyny tutanýerlilik bilen al. Çagalygymyzda oňa paýhas, bize mähir we arassalyk berdik, ol Allany bilýärdi.",
-      },
-      {
-        excerpt:
-          "Allatagala size yaahýa hakda gowy habar berýär, Alladan gelen sözleri tassyklaýar - hormatlanýan, saklanýan we dogruçyllaryň arasyndan pygamber.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1220,22 +923,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
         "Sünni ynanjynda soňky günüň öňüsyrasynda gaýdyp geler",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "[Isa aýtdy]: Hakykatdanam, Alla meniň Rebbim we Perwerdigäriňizdir, şonuň üçin Oňa ybadat ediň. Bu göni ýol.",
-      },
-      {
-        excerpt:
-          "Ony öldürmediler, haça çüýlemediler. ýöne olara şeýle görünmek üçin edildi ... Has dogrusy, Allah ony Özüne direltdi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Men Merýemiň ogly Isa ähli adamlara iň ýakyn. Pygamberler dürli eneleriň doganlary, ýöne olaryň dinleri bir, aramyzda pygamber ýokdy.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1274,21 +963,8 @@ export const PROPHETS_BIO_TOPICS_TK: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Pygamberleriň möhri", "Imanlylar üçin iň gowy mysal (uswah hasanah)"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammet siziň erkekleriňiziň atasy däl, ýöne Allahyň Resuly we pygamberleriň möhüridir.",
-      },
-      {
-        excerpt: "Biz sizi dünýälere rehim etmekden başga ibermedik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Meniň öňümdäki pygamberleriň mysaly we mysaly, bir kerpiçden başga ýerden owadan we doly jaý guran adamyň mysalydyr. Men şol kerpiç, pygamberleriň möhri.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

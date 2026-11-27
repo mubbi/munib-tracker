@@ -53,6 +53,7 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "jumuah-obligation",
+    differenceIds: ["jumuah.minCongregation", "jumuah.sunnah"],
     section: "obligation",
     title: "Jumu'ah — the weekly obligation",
     summary:
@@ -77,7 +78,7 @@ export const FRIDAY_GUIDE_TOPICS: LearnGuideTopic[] = [
       {
         collection: "Sunan Abi Dawud",
         citation: "1067",
-        grade: "hasan",
+        grade: "sahih",
         excerpt:
           "The Friday prayer in congregation is a binding duty upon every Muslim, except four: a slave, a woman, a child, or one who is ill.",
       },

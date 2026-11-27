@@ -22,36 +22,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Muumini anapaswa kushikilia kweli mbili pamoja. Kwanza, Pepo ni ya kweli, karibu, na yenye thamani ya kila juhudi - Qur'ani inatuambia 'tukimbilie' (Qur'ani 3:133). Pili, hakuna anayeipata Pepo kwa matendo peke yake; kuingia ni hatimaye kwa rehema ya Mwenyezi Mungu, huku imani ya kweli na matendo mema yakiwa ndiyo njia aliyochagua kuikubali. Mizani hii huweka matumaini hai bila kuzaliana kiburi: tunajitahidi kadiri tuwezavyo, kisha tunajitupa juu ya rehema zake.",
       "Kwa kweli, acha ukweli wa Jannah utengeneze maamuzi yako ya kila siku. Wakati ibada inahisi nzito au jaribu linahisi kuwa na nguvu, kumbuka ni nini kinachongojea na kile kilicho hatarini. Mwombe Mwenyezi Mungu Pepo mara kwa mara, ifanyie kazi mara kwa mara kwa njia ndogo zenye kudumu, na acha kuitamani kulainisha moyo wako katika maisha haya ya kupita.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kimbilieni maghfira kutoka kwa Mola wenu Mlezi na Pepo ambayo upana wake ni mbingu na ardhi, iliyo andaliwa kwa ajili ya watu wema.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu amewaahidi Waumini wanaume na Waumini wanawake Bustani zipitazo mito kati yake, watakaa humo milele, na makazi mazuri katika Bustani za kudumu milele. Lakini radhi za Mwenyezi Mungu ni kubwa zaidi.",
-      },
-      {
-        excerpt:
-          "Nafsi yoyote haijui waliyo fichiwa ni faraja kuwa ni malipo ya yale waliyokuwa wakiyatenda.",
-      },
-      {
-        excerpt: "Humo watapata wanachokitaka, na sisi tuko zaidi.",
-      },
-      {
-        excerpt: "Wale walio amini na wakatenda mema watapata Pepo za makimbilio kuwa makaribisho.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu alisema: Nimewaandalia waja Wangu wema yale ambayo jicho halijaona, sikio lililosikia, na moyo haujafikiri.",
-      },
-      {
-        excerpt:
-          "Amesema Mwenyezi Mungu Mtukufu: Nimewaandalia waja Wangu wema ambayo jicho halijaona, sikio halijasikia, na moyo wa mwanadamu haujapata kutambua.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Vyeo Peponi",
@@ -63,29 +35,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima katika hili ni nzuri. Ikiwa tungejua mahali tulipoweka, wengine wangeridhika na wengine wangekata tamaa. Badala yake, tunafundishwa kuweka macho yetu kwa Mwenyezi Mungu, kuendelea kujitahidi, na kuendelea kutumaini. Muumini hushindana katika wema - 'kwa hili wacha washindani washindane' - huku akiacha alama ya mwisho kwa Mwenye Haki Zaidi.",
       "Kwa hivyo badala ya kulenga kiwango cha kuhesabiwa, lenga juu kabisa na umruhusu Mwenyezi Mungu akuweke pale anapopenda. Mtume (Swalla Allaahu ´alayhi wa sallam) aliwafundisha maswahaba kutokubali ombi la kawaida bali waombe hasa Al-Firdaws, kilele cha Pepo.",
     ],
-    quran: [
-      {
-        excerpt: "Kwa wote kutakuwa na digrii kulingana na walivyofanya.",
-      },
-      {
-        excerpt:
-          "Tazama jinsi tulivyo wafadhilisha baadhi yao kuliko wengine - na Akhera ni kubwa zaidi kwa daraja na kupambanua zaidi.",
-      },
-      {
-        excerpt:
-          "Na mwenye kumtii Mwenyezi Mungu na Mtume, basi watakuwa pamoja na wale alio waneemesha Mwenyezi Mungu: Manabii, na wakweli, na Mashahidi, na watu wema. Wao ni masahaba wazuri kama nini!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pepo ina viwango mia moja ambavyo Mwenyezi Mungu amewaandalia wale wanaopigana katika njia yake. Umbali kati ya kila ngazi mbili ni kama umbali kati ya mbingu na ardhi. Basi unapomuomba Mwenyezi Mungu, muombeni Al-Firdaws, kwani hiyo ndiyo sehemu bora na ya juu kabisa ya Pepo.",
-      },
-      {
-        excerpt:
-          "Mnapomuomba Mwenyezi Mungu, muombeni Al-Firdaws, kwani hiyo ni sehemu ya juu kabisa ya Pepo na katikati ya Pepo, na kutoka humo mito ya Peponi inapita, na juu yake ni Arshi ya Mwingi wa Rehema.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -98,16 +49,7 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Bado zawadi ya mwisho na yenye uamuzi daima ni rehema ya Mwenyezi Mungu. Katika pumzi ile ile tunayoikusudia ya juu, tunakumbuka maneno ya Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam): \"Haingii Peponi kwa vitendo vyake peke yake - hata Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) mwenyewe - isipokuwa kwamba Mwenyezi Mungu humfunika kwa rehema zake. Huu ndio usawa kamili ambao muumini hupiga: kuongezeka kwa matumaini na tamaa upande mmoja, unyenyekevu wa dhati kwa upande mwingine.",
       "Basi ifanyeni Al-Firdaws kuwa ni sehemu ya dua zenu, katika kusujudu, katika theluthi ya mwisho ya usiku, na kabla ya kulala, nanyi mkifanya kila mwezavyo kwa utulivu kila siku, na mkiegemea kabisa rehema ya Mola wenu kwa ajili ya wengine.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mnapomuomba Mwenyezi Mungu, muombeni Al-Firdaws, kwani hiyo ni sehemu ya juu kabisa ya Pepo na katikati ya Pepo, na kutoka humo mito ya Peponi inapita, na juu yake ni Arshi ya Mwingi wa Rehema.",
-      },
-      {
-        excerpt:
-          "Hataingia Peponi hata mmoja wenu kwa vitendo vyake peke yake. Wakasema: Hata wewe ewe Mtume wa Mwenyezi Mungu? Akasema: Hata mimi, isipokuwa Mwenyezi Mungu amenifunika rehema itokayo kwake.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Muombe Mwenyezi Mungu Al-Firdaws katika dua yako, haswa katika sujud na kabla ya kulala.",
       "Timizeni yaliyo wajibu juu yenu, basi zidisheni ibada ya kujitolea.",
@@ -125,21 +67,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Dhambi zinazoitwa 'ndogo' pia ni muhimu, na hazipaswi kamwe kuchukuliwa kirahisi. Kusengenya, kusema uwongo, majivuno, kuvunja uhusiano wa kifamilia, na kutojali polepole huharibu moyo na tabia. Mtume ﷺ ameonya kwamba madhambi madogo yanayorundikana yanaweza kumuangamiza mtu kama vile vijiti vidogo vilivyokusanywa pamoja vinaweza kupika chakula kizima. Kila mmoja wao anahitaji marejeo yake kwa Mwenyezi Mungu.",
       "Uondoaji ni matumaini katika vitendo: kamwe usiruhusu ukubwa wa dhambi kukushawishi kwamba toba haina maana. Rejea kwa Mwenyezi Mungu pale unapoteleza, na fuata uovu kwa wema ili uufute, na uweke wazi mlango wa istighfar kila siku. Huruma yake daima ni kubwa kuliko kosa lako.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu hasamehi ushirika naye, lakini husamehe yaliyo duni kuliko hayo kwa amtakaye.",
-      },
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Agano baina yetu na wao ni Sala; mwenye kuiacha amekufuru.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Orodha za madhambi makubwa katika fiqh hutofautiana kwa mwanachuoni, na hukumu za watu binafsi ni za watu waliohitimu. Huu ni ukumbusho wa jumla wa kutubu - sio uamuzi wa kibinafsi. Wasiliana na mwanachuoni mwaminifu kwa hali yako.",
@@ -153,16 +82,7 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Zaidi ya watu waliotajwa majina, maandiko yanaelezea makundi yaliyopewa bishara: wakweli na wenye subira, wale wanaokufa kama mashahidi wa kweli katika njia ya Mwenyezi Mungu kwa mujibu wa sheria ya Kiislamu, na wale ambao maneno yao ya mwisho katika maisha haya ni ushahidi wa imani, la ilaha illallah. Kila maelezo yanaelekeza kwenye uhalisi wa ndani - unyofu, dhabihu, au moyo unaoshikamana na Mwenyezi Mungu katika pumzi ya mwisho - sio tu lebo ya nje.",
       "Somo kwetu si kujisikia salama kwa ushirika, wala kujidai vyeo hivi sisi wenyewe, bali kuhamasishwa. Hebu mfano wao utuvute juu zaidi: tupende kile walichokipenda, jitahidi kadri walivyopigania, na ugeuze kusifiwa huko kuwa du'a na kitendo, tukimuomba Mwenyezi Mungu juu ya yote kwa ajili ya husn al-khatimah - mwisho mwema.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakr yuko Peponi, Umar yuko Peponi, Uthman yuko Peponi, Ali yuko Peponi, Talha yuko Peponi, Zubeir yuko Peponi, Abd al-Rahman bin Awf yuko Peponi, Sa'd yuko Peponi, Said bin Zayd yuko Peponi, na Abu Ubaydah ibn al-Jarray yuko Peponi.",
-      },
-      {
-        excerpt:
-          "Yeyote ambaye maneno yake ya mwisho ni 'Hakuna mungu ila Mwenyezi Mungu' ataingia Peponi.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Habari njema katika Hadith inarejea kwa wale waliotajwa au kwenye kategoria zilizoelezwa. Hazibadilishi hitaji la imani ya mtu mwenyewe, matendo, na mwisho mwema. Mwenyezi Mungu ndiye Mjuzi zaidi.",
   },
@@ -176,20 +96,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ya kuifanya tawhiyd kuwa msingi ni kuwa inaufungua moyo. Mwenye kumuabudu Mwenyezi Mungu peke yake amekombolewa na khofu ya viumbe, na kufukuzia ridhaa ya kila mtu, na kutoka katika uchovu wa kuwatumikia mabwana wengi. Maisha yake hupata mwelekeo mmoja ulio wazi: kumpendeza Yule aliyemuumba.",
       "Kwa hakika, jifunze imani sahihi kutoka kwa wanachuoni waaminifu, itakase ibada yako ya shirki na unafiki, na chunguza nia yako kabla ya kutenda. Hatua hii ya kwanza si ya hiari au ya juu - ni mahali ambapo kila njia ya Peponi inapoanzia.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Imefunuliwa kwako na kwa walio kuwa kabla yako: Ikiwa utamshirikisha Mwenyezi Mungu, basi amali zako zitaharibika, na hakika utakuwa miongoni mwa walio khasiri.",
-      },
-      {
-        excerpt: "Hawakuamrishwa isipokuwa kumwabudu Mwenyezi Mungu kwa kumsafishia Dini.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Vitendo ni kwa nia, na kila mtu atakuwa na kile alichokusudia.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Jifunze misingi ya tawhiyd kutoka kwa wanachuoni waaminifu.",
       "Fanya upya nia yako kabla ya matendo ya ibada.",
@@ -206,24 +114,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ya ndani zaidi ya swalah ni mabadiliko. Sala ikifanywa ipasavyo, humzuia mtu na mambo machafu na maovu; ni kurudia tena kurudia moyo kurudi kwa Mwenyezi Mungu katika siku yenye shughuli nyingi. Kwa hiyo kukosa Swalah bila ya udhuru ni jambo zito linalohitaji toba ya kweli na kuzifanya (qada). Nafl na rawatib - swala za sunna za kawaida kabla na baada ya faradhi - zinaongeza nuru zaidi na kupandisha daraja.",
       "Kivitendo: linda sala tano za kila siku kwa nyakati zake kama kipaumbele chako kabisa, fanya chochote ambacho umekosa, na ongeza sala za sunna unazoweza kudumisha. Ikiwa maombi yako yanaboreka, kila kitu kingine katika ibada yako huelekea kuboreka nacho.",
     ],
-    quran: [
-      {
-        excerpt: "Hakika wamefaulu Waumini ambao ni wanyenyekevu katika Sala zao.",
-      },
-      {
-        excerpt: "Isipokuwa wale wanaoswali - ambao wanadumu katika Sala zao.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jambo la kwanza ambalo mja atahisabiwa siku ya Qiyaamah ni swala yake. Ikiwa ni sauti, amefaulu; ikiwa ni kasoro, ameshindwa na ameshindwa.",
-      },
-      {
-        excerpt:
-          "Na lau kungekuwa na mto mlangoni mwa mmoja wenu anaoga mara tano kwa siku, je, uchafu ungebaki juu yake? Wakasema: Hapana. Akasema: Huo ni mfano wa Sala tano - kwa hizo Mwenyezi Mungu hufuta madhambi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Zilinde Sala tano za kila siku kwa nyakati zake.",
       "Tengeneza swalah zilizokosa (qaza) kwa ikhlasi.",
@@ -241,22 +133,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ni ya kina: dhambi sio lazima iwe mwisho wa hadithi ya mtu. 'Mwenyezi Mungu atabadilisha maovu yao kwa wema' (Qur'ani 25:70) - toba ya kweli inaweza kubadilisha rekodi ya kushindwa kuwa moja ya mafanikio, na inaweza kugeuza anguko kuwa mwanzo mpya unaomkurubisha mtu kwa Mwenyezi Mungu kuliko hapo awali. Kukata tamaa baada ya dhambi yenyewe ni mtego wa Shetani; matumaini katika rehema ya Mwenyezi Mungu ni jibu la Muumini.",
       "Kivitendo: usiahirishe toba kwa siku moja - rudisha wakati unapoteleza. Fuata kila jambo baya kwa tendo jema ili kulifuta, na weka istighfar katika ulimi wako mchana kutwa, kama vile Mtume ﷺ alivyoomba msamaha mara nyingi kila siku licha ya kusamehewa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini tubuni kwa Mwenyezi Mungu kwa toba ya kweli, huenda Mola wenu Mlezi akakufutieni maovu yenu na akakuingizeni katika Pepo zipitazo mito kati yake.",
-      },
-      {
-        excerpt:
-          "Isipokuwa wale waliotubu, na wakaamini, na wakatenda mema, basi Mwenyezi Mungu atawabadilishia maovu yao mema, na Mwenyezi Mungu ni Mwenye kusamehe, Mwenye kurehemu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu ameridhika na toba ya mja wake kuliko mmoja wenu ambaye amempoteza ngamia wake katika ardhi kame, akampata tena kwa ghafla.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Tubu mara moja unapofanya dhambi - usiahirishe.",
       "Fuata dhambi kwa amali njema ili kuifuta.",
@@ -274,21 +152,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Kusudi la kina, hata hivyo, si kukariri kwa ajili yake bali ni mabadiliko. Mwenyezi Mungu anatuamuru 'kusoma Qur'ani kwa kisomo kilichopimwa' (Qur'ani 73:4) kwa usahihi ili maana ziingie ndani na kuunda upya jinsi tunavyofikiri, kuhisi, na tabia. Qur'ani ilitumwa kuishi, sio kusomwa tu; maswahaba wangejifunza Aya kumi na wasiendelee mbele mpaka wazielewe na kuzifanyia kazi.",
       "Kwa vitendo: soma sehemu kila siku, hata aya chache tu, lakini zisome kwa kutafakari. Kariri surah mpya au udumishe yale ambayo tayari unajua, na - muhimu zaidi - tenda kile unachojifunza kabla ya kukimbilia kujifunza zaidi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wale wanao soma Kitabu cha Mwenyezi Mungu, na wakasimamisha Sala, na wakatoa katika yale tuliyo ruzuku, wanataraji biashara isiyo haribika, ili awalipe ujira wao kwa ukamilifu, na awazidishie katika fadhila yake.",
-      },
-      {
-        excerpt: "Na soma Qur'ani kwa kisomo cha kipimo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ataambiwa swahaba wa Qur-aan: Soma na uinuke, na soma kama ulivyokuwa ukisoma duniani, kwani cheo chako kitakuwa kwenye Aya ya mwisho utakayoisoma.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Soma kila siku - hata aya chache zenye tafakari.",
       "Kariri surah mpya au udumishe kile unachojua.",
@@ -306,22 +171,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ya dhikr ni kwamba inaweka uhusiano na Mwenyezi Mungu hai kati ya ibada rasmi. Ulimi wenye unyevunyevu wa ukumbusho na, muhimu zaidi, moyo unaomkumbuka Mwenyezi Mungu katika chaguzi zake za kila siku - kutua kabla ya hasira, kabla ya kununua, kabla ya uamuzi - ndio lengo la kweli. Dhikr haikusudiwi kukaa kwenye midomo; inakusudiwa kuongoza maisha.",
       "Kiutendaji: fanya adhkar ya asubuhi na jioni kuwa tabia ya kila siku, weka sehemu rahisi ya tasbeeh, istighfar, au salawat wakati wa kupumzika, na mkumbuke Mwenyezi Mungu haswa kabla ya kulala na wakati wa kuamka. Uthabiti katika kidogo ni bora kuliko kupasuka kwa mengi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika walio amini na zikatua nyoyo zao kwa kumkumbuka Mwenyezi Mungu, hakika nyoyo hutulia kwa kumkumbuka Mwenyezi Mungu.",
-      },
-      {
-        excerpt:
-          "Enyi mlio amini, mkumbukeni Mwenyezi Mungu kwa ukumbusho mwingi, na mtukuzeni asubuhi na jioni.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maneno mawili ni mepesi katika ulimi, mazito kwenye Mizani, na yanapendwa na Mwingi wa Rehema: SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Kamilisha adhkar ya asubuhi na jioni kila siku.",
       "Tumia kaunta ya tasbeeh kwa istighfar au salawat.",
@@ -339,22 +190,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ya sadaka ni kwamba inafanya kazi kwa mtoaji kama vile mpokeaji. Hulegeza mshiko wa uchoyo moyoni, hujenga huruma, huimarisha vifungo vya jumuiya, na huwakumbusha matajiri kwamba wao ni wadhamini, si wamiliki wa kweli. Na Uislamu unapanua ufafanuzi wa sadaka kwa hivyo hakuna yeyote anayetengwa: Mtume (Swalla Allaahu ´alayhi wa sallam) amefundisha kwamba kutabasamu kwa ndugu yako, neno la kusaidia, na hata kuondoa kitu kibaya barabarani ni aina zote za sadaqah.",
       "Kiutendaji: ikiwa unawajibika kwa zakah, hesabu na ulipe kwa usahihi; toa sadaqah ya kawaida, hata iwe ndogo, ili kutoa iwe mazoea badala ya tukio; na utafute jariyah ya sadaqah ya kudumu - kumfadhili mwanafunzi, kufadhili kisima, au kusaidia msikiti - ambayo inaendelea kukuthawabisha muda mrefu baada ya kuondoka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mfano wa wanao toa mali zao katika Njia ya Mwenyezi Mungu ni kama punje inayoota mashuke saba, katika kila suke punje mia moja. Na Mwenyezi Mungu humzidishia amtakaye.",
-      },
-      {
-        excerpt:
-          "Toeni katika yale tuliyo kupeni kabla hayajamfika mmoja wenu mauti, na akasema: Mola wangu Mlezi, laiti ungenichelewesha kwa muda kidogo ili nitoe sadaka na niwe miongoni mwa watu wema.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Anapokufa mtu amali zake hukatika isipokuwa tatu: Sadaka inayoendelea, elimu yenye manufaa, au mtoto mwema anayemuombea dua.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Piga hesabu na ulipe zakah ikiwa unawajibika.",
       "Toa sadaka mara kwa mara, hata kama ni ndogo.",
@@ -372,25 +209,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ni kwamba Uislamu sio tu uhusiano wa kibinafsi kati ya mtu na Mwenyezi Mungu; ina maana ya kufurika katika jinsi mtu anavyowatendea kila mtu karibu naye. Mwabudu ambaye maombi yake hayalainishi shughuli zake amekosa uhakika, ambapo tabia njema yenyewe ni dawah, inayowavuta watu kuelekea kwenye imani kupitia mfano hai. Hii ndiyo sababu maandiko yanaoanisha ibada ya Mwenyezi Mungu na ubora kuelekea uumbaji Wake tena na tena.",
       "Kivitendo: fanyia kazi sifa moja baada ya nyingine - shikilia ulimi wako unapokasirishwa, wasamehe wanaokukosea, rekebisha uhusiano ambao umeuacha uvunjike, na utimize ahadi zako hata kama zitakugharimu. Tafakari fupi ya kila siku baada ya Swala juu ya jinsi ulivyowatendea watu siku hiyo ni njia rahisi ya kukua kwa kasi.",
     ],
-    quran: [
-      {
-        excerpt: "Na hakika wewe una tabia kubwa na tukufu.",
-      },
-      {
-        excerpt:
-          "Ambao hutoa kwa urahisi na dhiki, na wakajizuia ghadhabu zao, na wanasamehe watu, na Mwenyezi Mungu anawapenda wafanyao wema.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hakuna kizito katika Mizani ya Muumini Siku ya Kiyama kuliko tabia njema. Hakika Mwenyezi Mungu hampendi mtu mchafu na mkali.",
-      },
-      {
-        excerpt:
-          "Waumini waliokamilika zaidi katika Imani ni wale wenye tabia njema, na walio bora zaidi miongoni mwenu ni wale walio bora kwa wake zao.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Jizoeze kuwa na subira unapokasirishwa.",
       "Samehe wengine na urekebishe mahusiano yaliyovunjika.",
@@ -406,72 +226,52 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       {
         title: "Ukweli",
         summary: "Ukweli wa kauli na tendo.",
-        quran: {
-          excerpt: "Kuweni pamoja na wakweli.",
-        },
+        quran: {},
       },
       {
         title: "Subira",
         summary: "Kustahimili majaribu.",
-        quran: {
-          excerpt: "Allah yu pamoja na wenye subira.",
-        },
+        quran: {},
       },
       {
         title: "Kuzuia hasira",
         summary: "Kujidhibiti unapokasirika.",
-        hadith: {
-          excerpt: "Mwenye nguvu ni anayejizuia wakati wa hasira.",
-        },
+        hadith: {},
       },
       {
         title: "Msamaha",
         summary: "Kusamehe makosa.",
-        quran: {
-          excerpt: "Wasamehe na wapuuze.",
-        },
+        quran: {},
       },
       {
         title: "Unyenyekevu",
         summary: "Usijione bora.",
-        hadith: {
-          excerpt: "Anayenyenyekea kwa Allah, Allah humuinua.",
-        },
+        hadith: {},
       },
       {
         title: "Uaminifu",
         summary: "Kulinda amana.",
-        quran: {
-          excerpt: "Wanalinda amana na ahadi zao.",
-        },
+        quran: {},
       },
       {
         title: "Wazazi",
         summary: "Heshima na wema.",
-        quran: {
-          excerpt: "Usiwaambie hata «uff».",
-        },
+        quran: {},
       },
       {
         title: "Maneno mema",
         summary: "Sema mema au nyamaza.",
-        hadith: {
-          excerpt: "Aseme mema au anyamaze.",
-        },
+        hadith: {},
       },
       {
         title: "Tabasamu",
         summary: "Uso wa bashasha.",
-        hadith: {
-          excerpt: "Tabasamu kwa ndugu ni sadaka.",
-        },
+        hadith: {},
       },
       {
         title: "Uadilifu",
         summary: "Kutenda haki.",
-        quran: {
-          excerpt: "Fanyeni uadilifu; uko karibu na uchamungu.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -511,25 +311,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ni kwamba kitendo bila maarifa ni upofu na maarifa bila matendo hayana matunda. Ujuzi sahihi humlinda mtu dhidi ya uzushi na upotovu, huongeza unyoofu, na humpa uwezo wa kuwanufaisha wengine badala ya kujinufaisha yeye mwenyewe. Wanachuoni wa Uislamu daima walitahadharisha dhidi ya hatari mbili: kutenda kwa ujinga, na kujua bila kutenda.",
       "Kivitendo: jitolee kujifunza kitu chenye manufaa mara kwa mara - aya, hadith, hukumu unayohitaji kwa ajili ya ibada yako ya kila siku. Anza na mambo muhimu ya imani, sala, utakaso, na makatazo makubwa, kisha uimarishe polepole. Shiriki kile unachojifunza kwa unyenyekevu, na utumie kwako kila wakati kwanza.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sema: Je! Wanalingana wale wanaojua na wasio jua? Ni wenye ufahamu tu ndio huzingatia.",
-      },
-      {
-        excerpt: "Na sema: Mola wangu Mlezi, nizidishie ilimu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kushika njia kutafuta elimu, Mwenyezi Mungu atamsahilishia njia ya kwenda Peponi.",
-      },
-      {
-        excerpt:
-          "Anapokufa mtu amali zake hukatika isipokuwa tatu: Sadaka inayoendelea, elimu yenye manufaa, au mtoto mwema anayemuombea dua.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Jifunze kitu chenye manufaa kila juma.",
       "Shiriki maarifa bila kiburi.",
@@ -547,18 +330,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ni kwamba nafl huweka imani hai na kukua. Wajibu hudumisha msingi, lakini matendo ya hiari ni pale ambapo moyo hutanda, ambapo ibada ya faragha hakuna mtu anayeona hujenga unyoofu, na ambapo mtu hujizoeza kwa ajili ya majaribu magumu zaidi ya maisha. Pia ni rehema kwamba vitendo hivi ni vya hiari - Mwenyezi Mungu hufungua milango mingi ili kila mtu aweze kupitia ile inayomfaa.",
       "Kwa kweli, ufunguo ni uendelevu, sio nguvu. Mtume (Swalla Allaahu ´alayhi wa sallam) amefundisha kwamba matendo yanayopendwa zaidi na Mwenyezi Mungu ni yenye kufuatana, hata kama ni madogo. Chagua vitendo vichache vya hiari unavyoweza kushika kwa dhati - rakaa mbili za tahajjud, mfungo mmoja kwa wiki, sehemu isiyobadilika ya Qur'ani - badala ya mlipuko wa tamaa unaoteketeza ndani ya siku chache.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mbavu zao zinaacha vitanda huku wakimwomba Mola wao Mlezi kwa khofu na matumaini, na wanatoa katika yale tuliyo waruzuku. Nafsi yoyote haijui ni faraja gani wanayo fichiwa kuwa ni malipo ya yale waliyokuwa wakiyatenda.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mja wangu hanikaribii na kitu chochote kinachopendwa zaidi Kwangu kuliko kile nilichomjibisha. Na mja Wangu huendelea kujikurubisha Kwangu kwa vitendo vya khiyari mpaka nimpende.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Omba tahajjud hata kama rakaa mbili tu.",
       "Kufunga siku za hiari wakati unaweza.",
@@ -576,22 +349,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima hapa inarekebisha mateso kabisa. Majaribio si adhabu moja kwa moja; kwa Muumini anayeitikia vizuri, zinaweza kuwa ni utakaso unaofuta dhambi na kunyanyua daraja. Mtume (Swalla Allaahu ´alayhi wa sallam) amefundisha kwamba hakuna uchovu, maradhi, wasiwasi, au hata mchomo wa mwiba unaompata Mwislamu bila ya Mwenyezi Mungu kufuta baadhi ya dhambi zake. Hii inageuza nyakati ngumu zaidi za maisha kuwa fursa badala ya hasara tupu.",
       "Kiukweli: inapotokea msiba, jibu kwa maneno aliyofundisha Mwenyezi Mungu - 'Inna lillahi wa inna ilayhi raji'un' (Hakika sisi ni wa Mwenyezi Mungu, na kwake Yeye tunarejea) - na uzuie ulimi wako na malalamiko yanayokataa amri yake. Katika nyakati nzuri, zihesabu baraka zako kwa sauti na umshukuru Mwenyezi Mungu kwa angalau chache kati ya hizo kila siku; kuwataja hufanya moyo kuwa laini na wa shukrani.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wape bishara wanaosubiri, wale ambao ukifika msiba husema: Hakika sisi ni wa Mwenyezi Mungu, na kwake Yeye tutarejea. Juu yao ziko baraka zitokazo kwa Mola wao Mlezi na rehema, na hao ndio walioongoka.",
-      },
-      {
-        excerpt:
-          "Mkishukuru bila shaka nitakuzidishieni; lakini mkikataa basi adhabu yangu ni kali.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ni ajabu jambo la Muumini, kwani mambo yake yote ni mazuri. Ukifika wepesi anashukuru, na hilo ni kheri kwake. na ikifika msiba huvumilia, na hilo ni kheri kwake. Haya si kwa yeyote ila Muumini.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Sema 'inna lillahi wa inna ilayhi raji'un' unapojaribiwa.",
       "Asante Mwenyezi Mungu kwa baraka tatu kila siku.",
@@ -608,21 +367,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ya kufunga thawabu kubwa kama hii kwa kuwaongoza wengine ni kwamba inamfanya kila muumini kuwa chanzo cha wema unaoendelea. Pia inalinda imani ya mpigaji mwenyewe: kuwaalika wengine kwenye sala, uaminifu, na ibada ni kukumbushwa kushikilia kwao wenyewe. Na inafungamanisha umma pamoja katika kujaliana badala ya kupuuza.",
       "Kwa kweli, anza karibu na nyumbani. Boresha na ufundishe familia yako mwenyewe - mwenzi, mtoto, kaka - kwani ndio jukumu lako la kwanza na la kudumu. Shiriki maarifa yenye manufaa kwa wema, msaidie mtu kujifunza kusali au kusoma Qur'ani, na kumbuka kwamba maisha ya tabia njema na ibada thabiti mara nyingi ndiyo da'wah yenye ushawishi kuliko zote.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waite kwenye Njia ya Mola wako Mlezi kwa hikima na mawaidha mema, na ujadiliane nao kwa njia iliyo bora.",
-      },
-      {
-        excerpt:
-          "Na ni nani mbora wa kusema kuliko aitaye kwa Mwenyezi Mungu, na akatenda mema, na akasema: Hakika mimi ni katika Waislamu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Anaye muongoza mtu kwenye wema atapata ujira kama afanyaye.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Shiriki maarifa yenye faida kwa wema.",
       "Msaidie mtu kujifunza kusali au kusoma Kurani.",
@@ -639,26 +385,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hekima ya matendo haya ni kwamba yanarefusha hesabu ya mtu zaidi ya muda wake wa kuishi. Miaka ya utumishi ya mwamini ni mifupi, lakini kisima alichochimba au mtoto aliyemlea vizuri anaweza kuendelea kumletea thawabu kwa karne nyingi. Kwa hivyo Uislamu unahimiza maono ya muda mrefu: kufikiria sio tu juu ya sala ya leo, lakini juu ya kile kizuri ambacho bado kitatiririka kutoka kwako baada ya kuondoka.",
       "Kivitendo: kama unaweza, panga kwa umakini kwa ajili ya Hija au Umra badala ya kuiahirisha bila kikomo. Mimina juhudi za kweli katika imani na tabia ya familia yako, kwa kuwa wao ni urithi wako wa kudumu zaidi. Na tambua angalau mradi mmoja wa usaidizi wa kudumu wa kusaidia - maarifa, maji, makazi, au yatima - ili matendo yako mema yaendelee baada ya kifo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na Hija kwenye Nyumba ni wajibu kwa Mwenyezi Mungu na watu wanaoweza kupata njia ya kuiendea.",
-      },
-      {
-        excerpt:
-          "Na watangazie watu Hija; watakujieni kwa miguu na juu ya kila ngamia aliyekonda kutoka katika kila njia ya mbali, ili washuhudie manufaa yao wenyewe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kuhiji kwa ajili ya Mwenyezi Mungu, na asifanye uchafu au uadui, atarejea akiwa hana dhambi, kama siku aliyozaliwa na mama yake.",
-      },
-      {
-        excerpt:
-          "Anapokufa mtu amali zake hukatika isipokuwa tatu: Sadaka inayoendelea, elimu yenye manufaa, au mtoto mwema anayemuombea dua.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Panga Hija au Umrah ukiweza.",
       "Wekeza katika imani na tabia ya familia yako.",
@@ -676,26 +404,8 @@ export const JANNAH_TOPICS_SW: DeepPartial<JannahTopic>[] = [
       "Hii ndiyo sababu mwamini mwenye uwiano anaishi kati ya matumaini na hofu, kama ndege anayeruka na mbawa mbili. Anaogopa uadilifu wa Mwenyezi Mungu kiasi cha kutoridhika au kughafilika na dhambi, na anataraji rehema ya Mwenyezi Mungu kiasi cha kutokukata tamaa, hata awe amepotoka kiasi gani. Kuinamia kabisa kuelekea woga huzaa kutokuwa na tumaini; kuelekea kabisa tumaini huzaa kiburi. Majina ya Mwenyezi Mungu - Ar-Rahman (Mwingi wa Rehema), Ar-Rahim (Mwingi wa Rehema), Al-Ghafoor (Mwingi wa kusamehe) - yanatia bawa la matumaini.",
       "Basi hii iwe ndiyo roho mnayofunga kila siku: Muombeni Mwenyezi Mungu kwa ajili ya Al-Firdaws, fanyeni wema wenu, tubuni kwa ajili ya mapungufu yenu, na kisha mkabidhi cheo chenu kwa Mwingi wa Haki na Mwingi wa Rehema - mkiamini kwamba Yule aliyeweka sehemu tisini na tisa za rehema kwa Siku hiyo hatamkataa mja aliyemjia kwa juhudi na kutaraji.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na rehema yangu imekizunguka kila kitu. Basi nitawawekea walio fanya wema na watoe zaka na walio ziamini Aya zetu.",
-      },
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hataingia Peponi hata mmoja wenu kwa vitendo vyake peke yake. Wakasema: Hata wewe ewe Mtume wa Mwenyezi Mungu? Akasema: Hata mimi, isipokuwa Mwenyezi Mungu amenifunika kwa rehema yake.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu ana sehemu mia moja za rehema. Ameiteremsha sehemu moja miongoni mwa majini, watu, wanyama na wadudu, kwa hayo wanahurumiana wao kwa wao. na akajiwekea sehemu tisini na tisa ambazo kwazo atawarehemu waja wake Siku ya Kiyama.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Sawazisha kumcha Mwenyezi Mungu na kutaraji rehema yake.",
       "Usikate tamaa baada ya dhambi - tubu na endelea kujitahidi.",
@@ -709,106 +419,48 @@ export const JANNAH_GATES_SW: DeepPartial<JannahGate>[] = [
   {
     name: "Lango la Maombi",
     deedSummary: "Kwa wale waliochunga na kusimamisha Swalah tano za kila siku.",
-    hadith: [
-      {
-        excerpt:
-          "Atakayetoa jozi ya kitu chochote katika Njia ya Mwenyezi Mungu ataitwa kutoka kwenye milango ya Pepo. Aliyekuwa miongoni mwa watu wa kuswali ataitwa kutoka kwenye Mlango wa Swala.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Lango la Hisani",
     deedSummary: "Kwa wale waliotoa sadaka kwa ikhlasi kwa ajili ya Mwenyezi Mungu.",
-    hadith: [
-      {
-        excerpt:
-          "Aliyekuwa miongoni mwa watu wa kutoa sadaka ataitwa kutoka kwenye mlango wa sadaka.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Lango la Ar-Rayyan",
     deedSummary: "Imetengwa kwa ajili ya wale waliofunga - mlango tu wao kuingia.",
-    hadith: [
-      {
-        excerpt:
-          "Peponi kuna mlango unaoitwa Ar-Rayyan, ambao ni wale waliofunga tu watakaoingia Siku ya Kiyama. Wakati wa mwisho wao ameingia, itafungwa.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Mlango wa Jihad",
     deedSummary: "Kwa wale walio pigania Njia ya Mwenyezi Mungu kwa ikhlasi.",
-    hadith: [
-      {
-        excerpt:
-          "Yeyote aliyekuwa miongoni mwa watu wa jihadi ataitwa kutoka kwenye Mlango wa Jihad.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Malipo ya Hija",
     deedSummary: "Kwa wale waliohiji kwa uthabiti tu, na kurudi bila ya dhambi.",
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kuhiji kwa ajili ya Mwenyezi Mungu, na asifanye uchafu au uadui, atarejea akiwa hana dhambi, kama siku aliyozaliwa na mama yake.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Inaitwa kutoka kwa kila lango",
     deedSummary: "Wengine, kama Abu Bakr, wataitwa kuingia kutoka kwenye milango yote.",
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakr akauliza: Je, kuna yeyote ataitwa kutoka katika milango yote hii? Akasema: Ndio, na natumai utakuwa mmoja wao.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_SW: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Kimbilieni kwenye maghfira kutoka kwa Mola wenu Mlezi na Pepo yenye upana wa mbingu na ardhi iliyo andaliwa kwa ajili ya watu wema.",
-  },
-  {
-    excerpt:
-      "Bustani zipitazo mito kati yake, na maskani mazuri katika Bustani za kudumu, lakini radhi za Mwenyezi Mungu ni kubwa zaidi.",
-  },
-  {
-    excerpt: "Bustani za makimbilio kuwa makaribisho kwa walio amini na wakatenda mema.",
-  },
-  {
-    excerpt:
-      "Nafsi yoyote haijui ni faraja gani iliyofichika kwao kuwa ni malipo ya yale waliyokuwa wakiyatenda.",
-  },
-  {
-    excerpt: "Humo watapata wanachokitaka, na sisi tuko zaidi.",
-  },
-  {
-    excerpt: "Kwa wote kutakuwa na digrii kulingana na walivyofanya.",
-  },
-  {
-    excerpt: "Wao ni daraja kwa Mwenyezi Mungu, na Mwenyezi Mungu anayaona wanayo yatenda.",
-  },
-  {
-    excerpt: "Mola wetu Mlezi, tupe mema duniani na Akhera mema, na utulinde na adhabu ya Moto.",
-  },
-  {
-    excerpt:
-      "Msikate tamaa na rehema ya Mwenyezi Mungu, hakika Mwenyezi Mungu husamehe dhambi zote.",
-  },
-  {
-    excerpt: "Waja wangu - haitakuwa khofu juu yenu leo, wala nyinyi hamtahuzunika.",
-  },
-  {
-    excerpt: "Na waliotangulia, waliotangulia - hao ndio wanaokaribishwa.",
-  },
-  {
-    excerpt: "Basi Mwenyezi Mungu atawalinda na shari ya Siku hiyo na kuwapa nuru na furaha.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_SW: DeepPartial<JannahDuaEntry>[] = [

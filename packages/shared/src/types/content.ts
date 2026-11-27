@@ -69,12 +69,19 @@ export interface DuaItem {
 
 export interface DurudItem {
   id: string;
+  /**
+   * `salawat` = a wording to recite (taught by the Prophet ﷺ); `virtue` = a
+   * report on the merit of sending salah upon him. Absent = salawat.
+   */
+  kind?: "salawat" | "virtue";
   title: string;
   arabic: string;
   transliteration?: string;
   translation: string;
   virtues?: string;
   reference?: string;
+  /** Published grade of the primary narration, e.g. "Sahih" or "Hasan (Al-Albani)". */
+  grade?: string;
   audioUri?: string;
   /** Dataset-sourced translations keyed by app locale (never AI-generated). */
   translations?: Partial<Record<string, string>>;

@@ -9,6 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { Durations } from "@/constants/motion";
+import { CelebrationPalette } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 
 const PARTICLE_COUNT = 28;
@@ -29,14 +30,14 @@ function seededValue(seed: number, multiplier: number, max: number) {
   return (seed * multiplier) % max;
 }
 
-function createParticles(key: number, colors: string[]): ParticleConfig[] {
+function createParticles(key: number, colors: readonly string[]): ParticleConfig[] {
   return Array.from({ length: PARTICLE_COUNT }, (_, i) => {
     const seed = key * 1000 + i;
     return {
       angle: (360 / PARTICLE_COUNT) * i + seededValue(seed, 17, 36) - 18,
       distance: 72 + seededValue(seed, 31, 56),
       size: 5 + seededValue(seed, 13, 7),
-      color: colors[i % colors.length] ?? colors[0] ?? "#D4AF37",
+      color: colors[i % colors.length] ?? colors[0] ?? CelebrationPalette[0],
       delay: seededValue(seed, 7, 100),
       shape: i % 3 === 0 ? "dot" : "rect",
     };
@@ -84,7 +85,8 @@ function ConfettiParticle({ config }: { config: ParticleConfig }) {
 
 type PartyPopperProps = {
   burstKey: number;
-  colors: string[];
+  /** Particle hues — pass `useThemeTokens().tokens.celebration` for the default festive set. */
+  colors: readonly string[];
 };
 
 export function PartyPopper({ burstKey, colors }: PartyPopperProps) {

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
 
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { isTV } from "@/lib/platform/is-tv";
+import { captureAppException } from "@/lib/sentry";
+import { setTtsVoice, useTtsVoice } from "@/lib/settings/tts-voice";
 import {
   isTtsAvailable,
   type ReadingTtsTarget,
@@ -15,8 +16,8 @@ import {
 } from "@/lib/tts";
 import { buildReadingTtsQueue } from "@/lib/tts-audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { useToast } from "@/providers/toast-provider";
 import { usePreferences } from "@/stores/preferences-store";
-import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
 
 type ReadingTtsButtonProps = {
   id: string;
@@ -43,17 +44,16 @@ export function ReadingTtsButton({
   translation,
 }: ReadingTtsButtonProps) {
   const { t } = useTranslation();
+  const toast = useToast();
   const { colors, tokens } = useThemeTokens();
   const { locale } = usePreferences();
   const audio = useAudioPlayerContext();
-  const quranPrefs = useQuranPrefs();
-  const { updatePrefs } = useQuranActions();
   const [voiceSheetOpen, setVoiceSheetOpen] = useState(false);
   const [openingSheet, setOpeningSheet] = useState(false);
   const [target, setTarget] = useState<ReadingTtsTarget | null>(null);
   const fallbackLang = localeToBcp47(locale);
   const sheetLang = target?.lang ?? fallbackLang;
-  const preferredVoiceId = quranPrefs.ttsVoiceByLang?.[sheetLang];
+  const preferredVoiceId = useTtsVoice(sheetLang);
 
   const trackPrefix = `${id}:tts:`;
   const isThisQueue = Boolean(audio.current?.id.startsWith(trackPrefix));
@@ -88,42 +88,47 @@ export function ReadingTtsButton({
     })();
   };
 
+  const startSpeaking = async (voiceId: string | undefined) => {
+    const available = await isTtsAvailable();
+    if (!available) {
+      toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+      return;
+    }
+
+    const resolved =
+      target ??
+      (await resolveReadingTtsTarget({
+        arabic,
+        transliteration,
+        translation,
+        fallbackLang,
+      }));
+    if (!resolved) return;
+
+    setTtsVoice(resolved.lang, voiceId).catch((error: unknown) => {
+      captureAppException(error, { tags: { area: "audio", phase: "tts-voice-save" } });
+    });
+
+    const voice = await resolveTtsVoice(resolved.lang, voiceId);
+    const queue = buildReadingTtsQueue({
+      id,
+      title: title.trim() || t("reading.listenLabel"),
+      subtitle,
+      text: resolved.text,
+      lang: resolved.lang,
+      voice,
+    });
+    if (queue.length === 0) return;
+
+    audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
+  };
+
   const startWithVoice = (voiceId: string | undefined) => {
-    void (async () => {
-      const available = await isTtsAvailable();
-      if (!available) {
-        Alert.alert(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
-        return;
-      }
-
-      const resolved =
-        target ??
-        (await resolveReadingTtsTarget({
-          arabic,
-          transliteration,
-          translation,
-          fallbackLang,
-        }));
-      if (!resolved) return;
-
-      const nextVoices = { ...(quranPrefs.ttsVoiceByLang ?? {}) };
-      if (voiceId) nextVoices[resolved.lang] = voiceId;
-      else delete nextVoices[resolved.lang];
-      void updatePrefs({ ttsVoiceByLang: nextVoices });
-
-      const voice = await resolveTtsVoice(resolved.lang, voiceId);
-      const queue = buildReadingTtsQueue({
-        id,
-        title: title.trim() || t("reading.listenLabel"),
-        subtitle,
-        text: resolved.text,
-        lang: resolved.lang,
-        voice,
-      });
-      if (queue.length === 0) return;
-
-      audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
-    })();
+    startSpeaking(voiceId).catch((error: unknown) => {
+      // An escaped rejection reaches the root boundary ("Something went wrong").
+      captureAppException(error, { tags: { area: "audio", phase: "reading-tts-start" } });
+      toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+    });
   };
 
   return (

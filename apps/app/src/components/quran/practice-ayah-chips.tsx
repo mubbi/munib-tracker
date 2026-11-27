@@ -4,7 +4,7 @@ import { ScrollView, type ScrollViewInstance, StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export type AyahChipState = "current" | "done" | "retry" | "todo";
@@ -74,13 +74,13 @@ export function PracticeAyahChips({
               ? {
                   backgroundColor: tokens.status.success.soft,
                   borderColor: tokens.status.success.border,
-                  color: tokens.status.success.color,
+                  color: tokens.status.success.onSoft,
                 }
               : state === "retry"
                 ? {
                     backgroundColor: tokens.status.warning.soft,
                     borderColor: tokens.status.warning.border,
-                    color: tokens.status.warning.color,
+                    color: tokens.status.warning.onSoft,
                   }
                 : {
                     backgroundColor: colors.muted,
@@ -104,7 +104,7 @@ export function PracticeAyahChips({
               { backgroundColor: style.backgroundColor, borderColor: style.borderColor },
             ]}
           >
-            <ThemedText type="caption" style={{ color: style.color, fontWeight: "600" }}>
+            <ThemedText weight="semibold" type="caption" style={{ color: style.color }}>
               {ayah}
             </ThemedText>
           </PressableScale>
@@ -115,12 +115,12 @@ export function PracticeAyahChips({
 }
 
 const styles = StyleSheet.create({
-  row: { gap: CHIP_GAP, paddingVertical: 2 },
+  row: { gap: CHIP_GAP, paddingVertical: Spacing.half },
   chip: {
     width: CHIP_WIDTH,
     height: 36,
     borderRadius: Radius.sm,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },

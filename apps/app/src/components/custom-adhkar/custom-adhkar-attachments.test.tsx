@@ -1,5 +1,5 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
-import { Alert, type AlertButton, Linking } from "react-native";
+import { Linking } from "react-native";
 
 import {
   CustomAdhkarAttachments,
@@ -16,6 +16,10 @@ jest.mock("@/lib/attachments/attachment-file-manager", () => ({
   ...jest.requireActual("@/lib/attachments/attachment-file-manager"),
   pickAttachmentFromSource: (source: string) => mockPick(source),
   validatePickedAttachment: (attachment: unknown) => mockValidate(attachment),
+}));
+// The permission dialog defers the retry until the dialog has dismissed.
+jest.mock("@/lib/platform/run-after-sheet-dismiss", () => ({
+  runAfterSheetDismiss: (action: () => void) => action(),
 }));
 jest.mock(
   "@/providers/toast-provider",
@@ -65,23 +69,14 @@ async function pickFrom(sourceLabel: string) {
   await settle();
 }
 
-function lastAlertButtons(spy: jest.SpyInstance): AlertButton[] {
-  return spy.mock.calls.at(-1)?.[2] as AlertButton[];
-}
-
 describe("CustomAdhkarAttachments", () => {
-  let alertSpy: jest.SpyInstance;
-
   beforeEach(() => {
     resetToastMock();
     mockPick.mockReset();
     mockValidate.mockReset();
     mockPick.mockResolvedValue({ kind: "canceled" });
     mockValidate.mockImplementation(async (attachment: unknown) => attachment);
-    alertSpy = jest.spyOn(Alert, "alert").mockImplementation(() => {});
   });
-
-  afterEach(() => alertSpy.mockRestore());
 
   it("renders remote and local thumbs", async () => {
     await renderAttachments([remote, local]);
@@ -135,8 +130,10 @@ describe("CustomAdhkarAttachments", () => {
     mockPick.mockResolvedValue({ kind: "permission_denied", canAskAgain: true });
     await renderAttachments();
     await pickFrom("Take a photo");
-    expect(alertSpy).toHaveBeenCalledWith("Allow access", expect.any(String), expect.any(Array));
-    await act(async () => lastAlertButtons(alertSpy)[1].onPress?.());
+    // A ConfirmDialog (not `Alert.alert`, a no-op on web) asks first.
+    expect(screen.getByRole("header", { name: "Allow access" })).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Allow access" }));
+    await settle();
     expect(mockPick).toHaveBeenCalledTimes(2);
   });
 
@@ -145,7 +142,7 @@ describe("CustomAdhkarAttachments", () => {
     mockPick.mockResolvedValue({ kind: "permission_denied", canAskAgain: false });
     await renderAttachments();
     await pickFrom("Take a photo");
-    await act(async () => lastAlertButtons(alertSpy)[1].onPress?.());
+    await fireEvent.press(screen.getByRole("button", { name: "Open Settings" }));
     expect(openSettings).toHaveBeenCalled();
     openSettings.mockRestore();
   });

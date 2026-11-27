@@ -1,34 +1,27 @@
-import type { ReviewPromptRuntime } from "@/features/reviews/lib/reviewGating";
+import type { ReviewErrorSeverity } from "@/features/reviews/lib/reviewGating";
+import {
+  recordMeaningfulInteraction,
+  recordReviewError,
+} from "@/features/reviews/lib/reviewGating";
+import { updateReviewGating } from "@/features/reviews/lib/reviewGatingStore";
 import type { ReviewInteractionKind } from "@/features/reviews/lib/reviewInteractionKinds";
 
-type ReviewEngagementHandlers = {
-  trackInteraction: (kind: ReviewInteractionKind) => void;
-  recordError: () => void;
-  getRuntime: () => ReviewPromptRuntime;
-};
+/**
+ * Fire-and-forget engagement signals for the review gate. They write straight
+ * to the gating store, so they work from anywhere — including an error
+ * boundary that sits above the review providers.
+ */
 
-let handlers: ReviewEngagementHandlers | null = null;
-
-export function registerReviewEngagement(next: ReviewEngagementHandlers | null): void {
-  handlers = next;
-}
-
+/** A meaningful interaction (counted once per kind per session). */
 export function trackReviewInteraction(kind: ReviewInteractionKind): void {
-  handlers?.trackInteraction(kind);
+  void updateReviewGating((state) => recordMeaningfulInteraction(state, kind)).catch(() => {
+    // Storage failure only loses one count.
+  });
 }
 
-export function recordReviewErrorMarker(): void {
-  handlers?.recordError();
-}
-
-export function getReviewPromptRuntime(): ReviewPromptRuntime {
-  return (
-    handlers?.getRuntime() ?? {
-      isSyncing: false,
-      prayersLogged: 0,
-      currentStreak: 0,
-      achievementsUnlocked: 0,
-      hasCompletedOnboarding: false,
-    }
-  );
+/** `crash` blocks automatic review asks for a week; `session` for this session only. */
+export function recordReviewErrorMarker(severity: ReviewErrorSeverity = "crash"): void {
+  void updateReviewGating((state) => recordReviewError(state, severity)).catch(() => {
+    // Best-effort.
+  });
 }

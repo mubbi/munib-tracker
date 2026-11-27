@@ -1,10 +1,16 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
-import { ReadingCard, type ReadingItem } from "@/components/content/reading-card";
-import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
+import {
+  isDuaReadingSource,
+  ReadingCard,
+  type ReadingItem,
+} from "@/components/content/reading-card";
+import { ContentReportContext } from "@/components/content-report/content-report-context";
 import { mockAudioPlayer, resetAudioPlayerMock } from "@/test-support/mocks/audio-player-provider";
+import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { setReadingDisplayState } from "@/test-support/settings";
 
 const mockRecordContinue = jest.fn();
 
@@ -12,6 +18,7 @@ jest.mock(
   "@/providers/audio-player-provider",
   () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
 );
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock("@/stores/continue-store", () => ({
   recordContinueActivity: (activity: unknown) => mockRecordContinue(activity),
 }));
@@ -73,14 +80,10 @@ async function renderCard(overrides: Partial<Props> = {}) {
 }
 
 describe("ReadingCard", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     resetAudioPlayerMock();
     mockRecordContinue.mockClear();
-    readingTextVisibilityStore.setState({
-      showTransliteration: true,
-      showTranslation: true,
-      isReady: true,
-    });
+    await setReadingDisplayState({ showTransliteration: true, showTranslation: true });
   });
 
   it("shows Arabic, transliteration, meaning and reference", async () => {
@@ -92,7 +95,7 @@ describe("ReadingCard", () => {
   });
 
   it("hides transliteration and meaning when toggled off", async () => {
-    readingTextVisibilityStore.setState({ showTransliteration: false, showTranslation: false });
+    await setReadingDisplayState({ showTransliteration: false, showTranslation: false });
     await renderCard({ item: { ...baseItem, reference: undefined } });
     expect(screen.queryByText(baseItem.translation)).toBeNull();
     expect(screen.queryByText(baseItem.transliteration ?? "")).toBeNull();
@@ -143,13 +146,58 @@ describe("ReadingCard", () => {
   });
 
   it.each([
-    [false, "Save dua"],
-    [true, "Remove from saved"],
-  ])("toggles the favorite (isFavorite=%s)", async (isFavorite, label) => {
+    [false, "Save"],
+    [true, "Saved"],
+  ])("toggles Save with the bookmark (isFavorite=%s, D-UX9)", async (isFavorite, label) => {
     const onToggleFavorite = jest.fn();
     await renderCard({ isFavorite, onToggleFavorite });
-    await fireEvent.press(screen.getByLabelText(label));
+    const button = screen.getByLabelText(label);
+    expect(button.props.accessibilityState).toEqual(
+      expect.objectContaining({ selected: isFavorite }),
+    );
+    await fireEvent.press(button);
     expect(onToggleFavorite).toHaveBeenCalled();
+  });
+
+  it("orders actions Play, Save, Share (P5-37)", async () => {
+    await renderCard({
+      item: { ...baseItem, audioUri: "https://x/a.mp3" },
+      onToggleFavorite: jest.fn(),
+      enableContextMenu: false,
+    });
+    const labels = screen
+      .getAllByRole("button")
+      .map((node) => node.props.accessibilityLabel)
+      .filter(Boolean);
+    expect(labels.slice(0, 3)).toEqual(["Play", "Save", "Share"]);
+  });
+
+  it("shows Pause while its own track plays (shared PlayButton state)", async () => {
+    mockAudioPlayer.current = { id: "sleep-bismika" };
+    mockAudioPlayer.isPlaying = true;
+    await renderCard({ item: { ...baseItem, audioUri: "https://x/a.mp3" } });
+    await fireEvent.press(screen.getByLabelText("Pause"));
+    expect(mockAudioPlayer.toggle).toHaveBeenCalledTimes(1);
+    expect(mockAudioPlayer.play).not.toHaveBeenCalled();
+  });
+
+  it("shows Report as its own action (not behind More) when a report provider is present", async () => {
+    const openReport = jest.fn();
+    const contentRef = { kind: "dua", id: "sleep-bismika" } as never;
+    const shareCard = fakeShareCard();
+    await renderWithTheme(
+      <ContentReportContext.Provider value={{ openReport }}>
+        <ReadingCard item={baseItem} shareCard={shareCard} contentRef={contentRef} />
+      </ContentReportContext.Provider>,
+    );
+    // Long-press menu and the action row both offer it.
+    await fireEvent.press(screen.getAllByLabelText("menu:report")[0]);
+    expect(openReport).toHaveBeenCalledWith(contentRef);
+    // A lone extra action is drawn directly — no one-item "More" sheet.
+    expect(screen.queryByLabelText("More actions")).toBeNull();
+    await fireEvent.press(screen.getByLabelText("Report an issue"));
+    expect(openReport).toHaveBeenCalledTimes(2);
+    expect(screen.getByText("Report")).toBeTruthy();
   });
 
   it("shares the reading", async () => {
@@ -180,6 +228,47 @@ describe("ReadingCard", () => {
   it("renders without the context menu", async () => {
     await renderCard({ enableContextMenu: false });
     expect(screen.queryByLabelText("menu:share")).toBeNull();
+  });
+
+  describe("recite along (D68)", () => {
+    const quranicDua: ReadingItem = {
+      ...baseItem,
+      id: "quranic-hasanah",
+      reference: "Quran 2:201",
+    };
+    beforeEach(resetExpoRouterMock);
+
+    it("checks the cited ayah on dua screens", async () => {
+      await renderWithTheme(
+        <ReadingCard item={quranicDua} sourceHref="/dua/detail/quranic-hasanah" />,
+      );
+      await fireEvent.press(screen.getByText("Check my recitation"));
+      expect(mockRouter.push).toHaveBeenCalledWith({
+        pathname: "/quran/practice/session",
+        params: { surah: "2", from: "201", to: "201", mode: "check", source: "recite-along" },
+      });
+    });
+
+    it("is off for adhkar and hadith-only references", async () => {
+      await renderWithTheme(
+        <ReadingCard item={quranicDua} sourceHref="/zikr/detail/before_prayer-taawwudh" />,
+      );
+      expect(screen.queryByText("Check my recitation")).toBeNull();
+    });
+
+    it("needs a Qur'an reference", async () => {
+      await renderWithTheme(<ReadingCard item={baseItem} sourceHref="/jannah/duas" />);
+      expect(screen.queryByText("Check my recitation")).toBeNull();
+    });
+
+    it("recognises dua sources", () => {
+      expect(isDuaReadingSource("/dua/detail/x")).toBe(true);
+      expect(isDuaReadingSource("/jannah/duas")).toBe(true);
+      expect(isDuaReadingSource("/jahannam/duas")).toBe(true);
+      expect(isDuaReadingSource("/zikr/detail/x")).toBe(false);
+      expect(isDuaReadingSource("/duroods")).toBe(false);
+      expect(isDuaReadingSource(undefined)).toBe(false);
+    });
   });
 
   describe("on TV", () => {

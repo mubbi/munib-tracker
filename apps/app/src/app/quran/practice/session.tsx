@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AccessibilityInfo,
+  Platform,
   type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
@@ -16,36 +17,45 @@ import { PracticePageView } from "@/components/quran/practice-page-view";
 import { PracticePassagePicker } from "@/components/quran/practice-passage-picker";
 import { PracticeToolbar } from "@/components/quran/practice-toolbar";
 import { PracticeWordRow } from "@/components/quran/practice-word-row";
-import { TajweedText } from "@/components/quran/tajweed-text";
+import { PronunciationCheckSession } from "@/components/quran/pronunciation-check-session";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
-import { Spacing } from "@/constants/theme";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset, useObstructedBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { usePracticeSession } from "@/hooks/use-practice-session";
 import { useSurahTajweed } from "@/hooks/use-quran";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
+import { buildPracticeActivity } from "@/lib/continue-activity";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
 import { isSessionMode, parsePassage } from "@/lib/quran-companion/passage";
 import { tryAgainIndexes, visibleWordStates } from "@/lib/quran-companion/reduce-session";
+import { practiceSessionKeyAction } from "@/lib/quran-companion/session-keys";
+import { studyWordTajweedRuns } from "@/lib/quran-companion/tajweed-word-runs";
 import type { Passage, SessionMode } from "@/lib/quran-companion/types";
 import { getPageForAyah, getSurahByNumber } from "@/lib/quran-meta";
+import { PRONUNCIATION_MODE } from "@/lib/quran-pronunciation/entry";
 import {
-  arabicReadingLayout,
   resolveArabicFontFamily,
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
+import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useCompanionPrefs,
-  useCompanionPrefsActions,
   useCompanionPrefsReady,
   useEnsureCompanionPrefsLoaded,
 } from "@/stores/quran-companion-prefs-store";
@@ -56,7 +66,6 @@ import {
   useEnsurePracticeLoaded,
   useRevisionSitting,
 } from "@/stores/quran-practice-store";
-import { useQuranPrefs } from "@/stores/quran-store";
 
 /**
  * Live practice session (§9.2). The ayah is the screen: one ayah at a time, the
@@ -65,12 +74,15 @@ import { useQuranPrefs } from "@/stores/quran-store";
  */
 export default function PracticeSessionRoute() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{
     surah?: string;
     from?: string;
     to?: string;
     mode?: string;
     source?: string;
+    /** D74: the Sunnah habit a recite-along take came from (`source=habit`). */
+    habit?: string;
   }>();
   useEnsureCompanionPrefsLoaded();
   useEnsureMemorizationLoaded();
@@ -90,7 +102,49 @@ export default function PracticeSessionRoute() {
     else if (!passage) router.replace("/quran/practice" as Href);
   }, [passage, router]);
 
-  if (!passage || !prefsReady || !isPracticeAvailable()) return null;
+  // Home "Continue" resumes practice (D68): recorded when a session starts here;
+  // `onEnd` records it again when the session finishes.
+  const continueMode = params.mode === PRONUNCIATION_MODE ? PRONUNCIATION_MODE : mode;
+  useEffect(() => {
+    if (!passage || !prefsReady || !isPracticeAvailable()) return;
+    recordContinueActivity(buildPracticeActivity(passage, continueMode));
+  }, [continueMode, passage, prefsReady]);
+
+  // Never a blank route (P8-01): TV gets the one-action "not on this device"
+  // state while it redirects; a cold open shows the chrome over a skeleton.
+  if (!isPracticeAvailable()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("quranCompanion.hub.title")}
+        title={t("quranCompanion.hub.title")}
+        onBack={() => goBackOrReplace(router, "/quran")}
+      >
+        <UnavailableOnDevice fallbackHref="/quran" />
+      </ScreenLayout>
+    );
+  }
+  if (!passage || !prefsReady) {
+    return (
+      <ScreenLayout
+        eyebrow={t("quran.eyebrow")}
+        title={t("quranCompanion.hub.title")}
+        onBack={() => goBackOrReplace(router, "/quran/practice")}
+      >
+        <SkeletonPlaceholder preset="card" />
+      </ScreenLayout>
+    );
+  }
+  // NF-3.24 "Check pronunciation" — its own flow, not a memorisation session.
+  if (params.mode === PRONUNCIATION_MODE) {
+    return (
+      <PronunciationCheckSession
+        key={`${passage.surah}:${passage.ayahStart}-${passage.ayahEnd}:pronunciation`}
+        passage={passage}
+        source={params.source ?? "hub"}
+        habitId={params.habit}
+      />
+    );
+  }
   // Keyed by passage + mode so changing the passage always starts a fresh session.
   return (
     <PracticeSessionScreen
@@ -98,6 +152,7 @@ export default function PracticeSessionRoute() {
       passage={passage}
       mode={mode}
       source={params.source ?? "hub"}
+      habitId={params.habit}
     />
   );
 }
@@ -106,10 +161,13 @@ function PracticeSessionScreen({
   passage,
   mode,
   source,
+  habitId,
 }: {
   passage: Passage;
   mode: SessionMode;
   source: string;
+  /** D74: carried to the summary so it can offer "Mark habit done". */
+  habitId?: string;
 }) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -120,24 +178,12 @@ function PracticeSessionScreen({
   const contentBottom = useContentBottomInset();
   const { fontPrefs, translationLocale, locale } = usePreferences();
   const prefs = useCompanionPrefs();
-  const { seedReadingToggles } = useCompanionPrefsActions();
-  const quranPrefs = useQuranPrefs();
+  // Translation / transliteration are the app-wide pair (D13), shared with the reader.
+  const { showTranslation, showTransliteration } = useReadingDisplay();
   const surahMeta = getSurahByNumber(passage.surah);
   const surahName = surahMeta?.nameTransliteration ?? String(passage.surah);
   const sizes = resolveReadingFontSizes("quran", fontPrefs);
   const arabicFamily = resolveArabicFontFamily(fontPrefs.arabic.family);
-
-  // First visit: practice toggles start as a copy of the reader's, then stay independent.
-  useEffect(() => {
-    if (!prefs.readingTogglesSeeded) {
-      void seedReadingToggles(quranPrefs.showTranslation, quranPrefs.showTransliteration);
-    }
-  }, [
-    prefs.readingTogglesSeeded,
-    quranPrefs.showTranslation,
-    quranPrefs.showTransliteration,
-    seedReadingToggles,
-  ]);
 
   const s = usePracticeSession({
     passage,
@@ -148,6 +194,16 @@ function PracticeSessionScreen({
 
   const tajweedQuery = useSurahTajweed(passage.surah, prefs.showTajweedColors);
   const ayahState = s.session.ayahs[s.ayah];
+  // Tajweed colours go on the interactive word row itself (one copy of the ayah).
+  const rowWords = ayahState?.words ?? s.row?.words;
+  const tajweedSegments = tajweedQuery.data?.[String(s.ayah)];
+  const tajweedRuns = useMemo(
+    () =>
+      prefs.showTajweedColors && tajweedSegments && rowWords
+        ? studyWordTajweedRuns(tajweedSegments, rowWords)
+        : null,
+    [prefs.showTajweedColors, rowWords, tajweedSegments],
+  );
   const takeActive = s.mic === "listening" || s.mic === "starting" || s.mic === "settling";
   const settled = s.settledAyahs.has(s.ayah);
   const states = ayahState ? visibleWordStates(ayahState, prefs.feedbackTiming, !settled) : [];
@@ -194,9 +250,10 @@ function PracticeSessionScreen({
     try {
       const summary = await s.finish();
       quranPracticeStore.getState().setLastSummary(summary);
+      recordContinueActivity(buildPracticeActivity(passage, mode));
       router.replace({
         pathname: "/quran/practice/summary",
-        params: { source },
+        params: { source, ...(habitId ? { habit: habitId } : {}) },
       } as unknown as Href);
     } finally {
       setEnding(false);
@@ -267,6 +324,34 @@ function PracticeSessionScreen({
   };
   const showCoach = !prefs.coachDismissed && !listenOnly && s.mic === "idle";
 
+  // Desktop web: Space = mic (Hear when listen-only), ← / → = previous / next ayah.
+  const uiRtl = useIsRTL();
+  useWebScreenKeyHandler(
+    (event) => {
+      const action = practiceSessionKeyAction(event.key, {
+        rtl: uiRtl,
+        interactiveTarget: isWebInteractiveTarget(event.target),
+        canNavigate: s.ayahs.length > 1 && !takeActive,
+        shiftKey: event.shiftKey,
+      });
+      if (action === "primary") {
+        if (listenOnly) void s.hear();
+        else if (!preparing && s.engineError == null) void s.toggleMic();
+        return true;
+      }
+      if (action === "next") {
+        if (s.index < s.ayahs.length - 1) s.next();
+        return true;
+      }
+      if (action === "previous") {
+        if (s.index > 0) s.previous();
+        return true;
+      }
+      return undefined;
+    },
+    Platform.OS === "web" && !pickerOpen && !confirmOpen,
+  );
+
   return (
     <View style={styles.root}>
       <ScreenLayout
@@ -326,13 +411,13 @@ function PracticeSessionScreen({
           padding="four"
           style={
             s.mic === "listening" && !listenOnly
-              ? { borderColor: tokens.status.danger.border, borderWidth: 1.5 }
+              ? { borderColor: tokens.status.danger.border, borderWidth: BorderWidth.thick }
               : undefined
           }
         >
           <View style={styles.cardHead}>
             <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                 {s.ayah}
               </ThemedText>
             </View>
@@ -381,16 +466,6 @@ function PracticeSessionScreen({
               }}
             />
           ) : null}
-          {!pageView && prefs.showTajweedColors && !s.hidden.size ? (
-            <View style={styles.tajweed}>
-              <TajweedText
-                segments={tajweedQuery.data?.[String(s.ayah)] ?? null}
-                fallback={s.row?.arabic ?? ""}
-                fontSize={sizes.arabic}
-                style={arabicReadingLayout(sizes.arabic)}
-              />
-            </View>
-          ) : null}
           {pageView ? null : s.row ? (
             <PracticeWordRow
               words={ayahState?.words ?? s.row.words}
@@ -401,12 +476,17 @@ function PracticeSessionScreen({
               fontSize={sizes.arabic}
               fontFamily={arabicFamily}
               markStyle={prefs.showTajweedColors ? "dot" : "underline"}
+              tajweedRuns={tajweedRuns}
               onWordPress={(i) => void s.hearWord(i)}
               onActiveWordMeasured={keepActiveWordVisible}
             />
           ) : (
             <View
-              style={[styles.placeholder, { minHeight: sizes.arabic * 2 }]}
+              style={[
+                styles.placeholder,
+                // Arabic lines start at the physical right whatever the UI direction (G-21).
+                { minHeight: sizes.arabic * 2, alignItems: uiRtl ? "flex-start" : "flex-end" },
+              ]}
               accessible
               accessibilityLabel={t("quranCompanion.session.loading")}
             >
@@ -425,7 +505,7 @@ function PracticeSessionScreen({
               ))}
             </View>
           )}
-          {prefs.showTransliteration && s.row?.transliteration && !s.hidden.size ? (
+          {showTransliteration && s.row?.transliteration && !s.hidden.size ? (
             <ThemedText
               type="small"
               themeColor="mutedForeground"
@@ -434,7 +514,7 @@ function PracticeSessionScreen({
               {s.row.transliteration}
             </ThemedText>
           ) : null}
-          {prefs.showTranslation &&
+          {showTranslation &&
           s.row?.translation &&
           !(s.displayMode === "hide-ayahs" && s.hidden.size) ? (
             <ThemedText style={[styles.text, translationReadingStyle(locale, sizes.translation)]}>
@@ -469,26 +549,28 @@ function PracticeSessionScreen({
           />
         ) : null}
 
+        {/* Failures are callouts, never grey captions that read like hints (G-05). */}
         {errorCaption ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
+          <Callout tone="danger" style={styles.callout}>
             {errorCaption}
-          </ThemedText>
+          </Callout>
         ) : null}
 
         {micDenied ? (
-          <View style={styles.centerBlock}>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
-              {t("quranCompanion.session.micOff")}
-            </ThemedText>
-            {canOpenAppSettings() ? (
-              <Button
-                label={t("quranCompanion.session.openSettings")}
-                variant="ghost"
-                size="sm"
-                onPress={() => void openAppSettings()}
-              />
-            ) : null}
-          </View>
+          <Callout
+            tone="warning"
+            style={styles.callout}
+            action={
+              canOpenAppSettings()
+                ? {
+                    label: t("quranCompanion.session.openSettings"),
+                    onPress: () => void openAppSettings(),
+                  }
+                : undefined
+            }
+          >
+            {t("quranCompanion.session.micOff")}
+          </Callout>
         ) : null}
 
         {listenOnly && !errorCaption ? (
@@ -625,7 +707,7 @@ const styles = StyleSheet.create({
     minWidth: 32,
     height: 32,
     paddingHorizontal: Spacing.one,
-    borderRadius: 16,
+    borderRadius: Radius.pill,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -634,12 +716,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     padding: Spacing.three,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: Radius.sm,
+    borderWidth: BorderWidth.thin,
   },
   liveDot: { width: 10, height: 10, borderRadius: 5 },
   flexText: { flex: 1 },
-  tajweed: { marginBottom: Spacing.two },
   text: { marginTop: Spacing.three },
   inlineButtons: {
     flexDirection: "row",
@@ -648,10 +729,10 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
   },
   center: { textAlign: "center", marginTop: Spacing.two },
-  centerBlock: { alignItems: "center", gap: Spacing.one },
+  callout: { marginTop: Spacing.two },
   dockWrap: { position: "absolute", start: Spacing.three, end: Spacing.three },
-  placeholder: { alignItems: "flex-end", justifyContent: "center", gap: Spacing.two },
-  placeholderLine: { borderRadius: 8, opacity: 0.6 },
+  placeholder: { justifyContent: "center", gap: Spacing.two },
+  placeholderLine: { borderRadius: Radius.xs, opacity: 0.6 },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

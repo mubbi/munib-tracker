@@ -3,6 +3,7 @@ import { byteSizeOfKeyTree, removeKeyTree } from "@/db/store";
 import { clearAudioCache, getAudioCacheInfo } from "@/lib/audio-cache";
 import { clearQcfFontCache, getQcfFontCacheInfo } from "@/lib/qcf-font-cache";
 import { recitationModelBytesOnDisk } from "@/lib/quran-companion/model/model-store";
+import { deleteStoredMorphology, storedMorphologyBytes } from "@/lib/quran-morphology/raw-store";
 
 /**
  * Offline download / cache manager (NF-1.14). Lists the rebuildable caches
@@ -39,6 +40,12 @@ export const CACHE_GROUPS: CacheGroup[] = [
     labelKey: "offlineData.mushafFonts",
     keys: [],
   },
+  {
+    // NF-3.22: the Quranic Arabic Corpus file (outside AsyncStorage) + its on-device index.
+    id: "quranRoots",
+    labelKey: "offlineData.quranRoots",
+    keys: [DB_KEYS.quranRootIndex],
+  },
   { id: "hadith", labelKey: "offlineData.hadith", keys: [DB_KEYS.hadithBookCache] },
   { id: "audio", labelKey: "offlineData.audio", keys: [DB_KEYS.audioDurationCache] },
   {
@@ -61,6 +68,11 @@ export async function getCacheSummary(): Promise<CacheGroupSize[]> {
       const downloaded = await getDownloadedAudio();
       bytes += downloaded.bytes;
       count = downloaded.count;
+    }
+    if (group.id === "quranRoots") {
+      const fileBytes = await storedMorphologyBytes();
+      bytes += fileBytes;
+      count = fileBytes > 0 ? 1 : 0;
     }
     if (group.id === "mushafFonts") {
       const mushafFonts = await getQcfFontCacheInfo();
@@ -85,6 +97,14 @@ export async function clearDownloadedAudio(): Promise<void> {
 /** Removes the given cache keys (safe — they refetch on demand). */
 export async function clearCacheKeys(keys: string[]): Promise<void> {
   await Promise.all(keys.map((key) => removeKeyTree(key)));
+  // The root index is derived from a file kept outside AsyncStorage: clear both
+  // together so the next root search offers the download again (NF-3.22).
+  if (keys.includes(DB_KEYS.quranRootIndex)) {
+    await deleteStoredMorphology();
+    // Lazy: keeps the root engine out of the settings bundle graph.
+    const { resetQuranRootsStore } = await import("@/stores/quran-roots-store");
+    resetQuranRootsStore();
+  }
 }
 
 /** Deletes cached mushaf page fonts (native files or web cache). */

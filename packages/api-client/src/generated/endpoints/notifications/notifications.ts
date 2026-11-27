@@ -29,6 +29,8 @@ import type {
   InAppNotificationDto,
   InAppNotificationListResponseDto,
   PushTokenResponseDto,
+  RemovePushTokenDto,
+  RemovePushTokenResponseDto,
   UnreadCountResponseDto,
   UpsertPushTokenDto,
   VapidPublicKeyResponseDto
@@ -212,6 +214,71 @@ export const useNotificationsControllerUpsertPushToken = <TError = unknown,
         TContext
       > => {
       return useMutation(getNotificationsControllerUpsertPushTokenMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Unregister this device's push token(s) (call before sign-out)
+ */
+export const notificationsControllerRemovePushToken = (
+    removePushTokenDto: RemovePushTokenDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<RemovePushTokenResponseDto>(
+      {url: `/api/v1/notifications/push-token`, method: 'DELETE',
+      headers: {'Content-Type': 'application/json', },
+      data: removePushTokenDto, signal
+    },
+      options);
+    }
+
+
+
+
+export const getNotificationsControllerRemovePushTokenMutationKey = () => ['notificationsControllerRemovePushToken'] as const;
+
+export const getNotificationsControllerRemovePushTokenMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerRemovePushToken>>, TError,NotificationsControllerRemovePushTokenMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerRemovePushToken>>, TError,NotificationsControllerRemovePushTokenMutationVariables, TContext> => {
+
+const mutationKey = getNotificationsControllerRemovePushTokenMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof notificationsControllerRemovePushToken>>, NotificationsControllerRemovePushTokenMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  notificationsControllerRemovePushToken(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NotificationsControllerRemovePushTokenMutationResult = NonNullable<Awaited<ReturnType<typeof notificationsControllerRemovePushToken>>>
+    export type NotificationsControllerRemovePushTokenMutationBody = RemovePushTokenDto
+    export type NotificationsControllerRemovePushTokenMutationError = unknown
+    export type NotificationsControllerRemovePushTokenMutationVariables = {data: RemovePushTokenDto}
+
+    /** @summary Unregister this device's push token(s) (call before sign-out) */
+export const useNotificationsControllerRemovePushToken = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationsControllerRemovePushToken>>, TError,NotificationsControllerRemovePushTokenMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof notificationsControllerRemovePushToken>>,
+        TError,
+        NotificationsControllerRemovePushTokenMutationVariables,
+        TContext
+      > => {
+      return useMutation(getNotificationsControllerRemovePushTokenMutationOptions(options), queryClient);
     }
     /**
  * @summary List in-app notifications for the current user (newest first)

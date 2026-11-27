@@ -5,7 +5,6 @@ import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 // Imported transitively (reading typography → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 
 // The first render warms the theme + i18n graph, which is slow on a busy machine.
 

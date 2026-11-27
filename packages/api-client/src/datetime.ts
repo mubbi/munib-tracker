@@ -1,4 +1,6 @@
-import { format, isValid, parseISO } from "date-fns";
+import { format } from "date-fns/format";
+import { isValid } from "date-fns/isValid";
+import { parseISO } from "date-fns/parseISO";
 
 /**
  * Serializes a Date as a UTC ISO-8601 string. Timestamps must be timezone-safe

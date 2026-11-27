@@ -39,6 +39,8 @@
     "release:app:android-tv:upload": "pnpm --filter app android:upload:release:tv",
     "release:app:wear": "pnpm --filter app android:bundle:release:wear",
     "release:app:wear:upload": "pnpm --filter app android:upload:release:wear",
+    "release:app:android:all": "node apps/app/scripts/android-release-all.js",
+    "release:app:ios:all": "node apps/app/scripts/ios-release-all.js",
     "release:app:ios": "pnpm --filter app ios:archive:release",
     "release:app:ios:upload": "pnpm --filter app ios:upload:release",
     "release:app:ios:upload:validate": "pnpm --filter app ios:upload:release:validate",
@@ -99,6 +101,7 @@
     "screenshots:validate": "node apps/app/scripts/screenshots/validate.mjs",
     "screenshots:android": "node apps/app/scripts/screenshots/capture-android.mjs",
     "screenshots:ios": "node apps/app/scripts/screenshots/capture-ios.mjs",
+    "screenshots:ipad": "node apps/app/scripts/screenshots/capture-ios.mjs --ipad",
     "screenshots:duo": "node apps/app/scripts/screenshots/capture-duo.mjs",
     "screenshots:watch": "node apps/app/scripts/screenshots/capture-watch.mjs",
     "screenshots:tvos": "node apps/app/scripts/screenshots/capture-tvos.mjs",
@@ -109,20 +112,21 @@
     "sync:screenshot-brand-assets": "node tools/screenshot-studio/scripts/sync-brand-assets.mjs",
     "sync:screenshot-captures": "node tools/screenshot-studio/scripts/sync-app-screenshots.mjs",
     "export:screenshot-studio": "node tools/screenshot-studio/scripts/export-all.mjs",
-    "distribute:screenshot-exports": "node tools/screenshot-studio/scripts/distribute-exports.mjs"
+    "distribute:screenshot-exports": "node tools/screenshot-studio/scripts/distribute-exports.mjs",
+    "indexnow:marketing": "pnpm --filter marketing-web indexnow"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.8",
+    "@biomejs/biome": "^2.6.9",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "commitizen": "^4.3.2",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7",
-    "turbo": "^2.11.11",
-    "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "@typescript/native": "npm:typescript@^7.0.2"
+    "turbo": "^2.11.13",
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
   },
-  "packageManager": "pnpm@12.21.0",
+  "packageManager": "pnpm@12.23.0",
   "engines": {
     "node": ">=24.15.0"
   }

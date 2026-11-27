@@ -4,6 +4,6 @@ export interface WhiteDaysChecklistItem {
   id: string;
   /** Hijri day-of-month this row represents (13, 14 or 15). */
   hijriDay: number;
-  /** Short classical citation label shown as secondary text, e.g. "Nasa'i 2422". */
+  /** Short classical citation label shown as secondary text, e.g. "Nasa'i 2420". */
   reference?: string;
 }

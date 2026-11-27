@@ -17,7 +17,13 @@ export const PENDING_APP_LOCALE_KEY = "@munib-tracker/pending-app-locale";
 /** Set when a JS reload was already attempted for RTL layout but direction still mismatches. */
 export const RTL_LAYOUT_RETRY_KEY = "@munib-tracker/rtl-layout-retry";
 
-type Catalog = typeof en;
+/**
+ * English is the complete catalog. Other locales may lag behind it (new keys land in
+ * English first); i18next falls back to `en` for any missing key, so their type is a
+ * deep-partial shape rather than `typeof en`.
+ */
+type DeepPartial<T> = { [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K] };
+type Catalog = DeepPartial<typeof en>;
 
 /**
  * Dynamic import map so Metro/web can code-split locale JSON. English stays in

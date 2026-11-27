@@ -1,12 +1,14 @@
+import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
+import { ActivityIndicator, Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { PIN_LENGTH } from "@/features/pin-lock/lib/pin-crypto";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useIsRTL } from "@/lib/rtl";
 
 const KEYPAD_ROWS: { id: string; keys: string[] }[] = [
   { id: "row-123", keys: ["1", "2", "3"] },
@@ -16,6 +18,12 @@ const KEYPAD_ROWS: { id: string; keys: string[] }[] = [
 ];
 
 const PIN_DOT_KEYS = ["dot-1", "dot-2", "dot-3", "dot-4", "dot-5", "dot-6"] as const;
+
+/**
+ * Keys announce as keyboard keys on iOS / Android; react-native-web has no
+ * `keyboardkey` role, so web keeps a real `<button>`.
+ */
+const KEY_ROLE = Platform.OS === "web" ? ("button" as const) : ("keyboardkey" as const);
 
 const KEYPAD_COLS = 3;
 const HORIZONTAL_PADDING = Spacing.five * 2;
@@ -54,6 +62,7 @@ export function PinKeypad({
   const { colors } = useThemeTokens();
   const { t } = useTranslation();
   const { keySize, rowWidth, gap } = useKeypadMetrics();
+  const rtl = useIsRTL();
 
   const keyStyle = {
     width: keySize,
@@ -63,6 +72,7 @@ export function PinKeypad({
 
   if (loading) {
     return (
+      // Short blocking check (PIN verify / save): the themed spinner replaces the keys.
       <View style={[styles.loadingSlot, { minHeight: keySize * 4 + gap * 3 }]}>
         <ActivityIndicator size="large" color={colors.accent} />
       </View>
@@ -87,10 +97,22 @@ export function PinKeypad({
                   onPress={onBackspace}
                   disabled={disabled}
                   haptic="selection"
+                  accessibilityRole={KEY_ROLE}
                   accessibilityLabel={t("pinLock.backspace")}
                   style={[styles.key, keyStyle, { backgroundColor: colors.muted }]}
                 >
-                  <ThemedText type="title">⌫</ThemedText>
+                  {/* Backspace points to the start edge: iOS has a mirrored symbol,
+                      Material's glyph is flipped in RTL. */}
+                  <SymbolView
+                    name={{
+                      ios: rtl ? "delete.right" : "delete.left",
+                      android: "backspace",
+                      web: "backspace",
+                    }}
+                    size={26}
+                    tintColor={colors.foreground}
+                    style={rtl && Platform.OS !== "ios" ? styles.mirrored : undefined}
+                  />
                 </PressableScale>
               );
             }
@@ -105,6 +127,7 @@ export function PinKeypad({
                 onPress={() => onDigit(key)}
                 disabled={disabled}
                 haptic="selection"
+                accessibilityRole={KEY_ROLE}
                 accessibilityLabel={key}
                 style={[styles.key, keyStyle, { backgroundColor: colors.muted }]}
               >
@@ -129,8 +152,14 @@ export function PinDotsRow({
 }) {
   const { colors, tokens } = useThemeTokens();
 
+  // Decorative: the entered-digit count is announced by the shell, not per dot.
   return (
-    <View style={styles.dotsRow}>
+    <View
+      style={styles.dotsRow}
+      accessible={false}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+    >
       {PIN_DOT_KEYS.map((dotKey, index) => {
         const filled = index < filledCount;
         return (
@@ -166,6 +195,9 @@ const styles = StyleSheet.create({
   keySpacer: {
     opacity: 0,
   },
+  mirrored: {
+    transform: [{ scaleX: -1 }],
+  },
   loadingSlot: {
     alignItems: "center",
     justifyContent: "center",
@@ -180,6 +212,6 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     borderRadius: Radius.pill,
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
 });

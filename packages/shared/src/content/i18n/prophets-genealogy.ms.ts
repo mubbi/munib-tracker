@@ -7,121 +7,120 @@ export const PROPHETS_GENEALOGY_NODES_MS: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Adam",
     relationNote:
-      "Allah menciptakan Adam dengan tangan-Nya sendiri dan mengajarkannya nama-nama. Dia adalah bapa manusia - tiada ibu bapa manusia.",
+      "Allah menciptakan Adam dengan tangan-Nya sendiri dan mengajarkan kepadanya nama-nama. Baginda ialah bapa sekalian manusia — tanpa ibu bapa daripada kalangan manusia.",
   },
   {
     name: "Nuh",
     relationNote:
-      "Al-Quran menetapkan Nuh sebagai utusan selepas keturunan Adam tersebar di bumi, tetapi tidak menamakan bapa pertengahan antara Adam dan Nuh. Dia muncul di sebelah Adam di cabang ini sebagai pengganti nenek moyang dalam sejarah kenabian — bukan sebagai anak lelaki terdekat Adam.",
+      "Al-Quran menetapkan Nuh sebagai rasul yang diutus selepas keturunan Adam tersebar di bumi, tetapi tidak menamakan bapa-bapa perantara antara Adam dan Nuh. Satu riwayat daripada Ibn Abbas menyebut bahawa terdapat kira-kira sepuluh generasi antara Adam dan Nuh. Baginda ditunjukkan pada cabang ini sebagai pewaris keturunan — bukan sebagai anak langsung Adam atau Syis.",
   },
   {
     name: "Ibrahim",
     relationNote:
-      "Ibrahim adalah antara keturunan Nuh dalam sejarah kenabian Al-Quran. Al-Quran tidak menyenaraikan setiap generasi di antara mereka; dia mengetuai cawangan rumahnya sendiri daripada muncul sebagai anak kandung Nuh.",
+      "Ibrahim termasuk dalam keturunan Nuh menurut sejarah kenabian dalam Al-Quran. Al-Quran tidak menyenaraikan setiap generasi di antara mereka; senarai nama Adam→Ibrahim dalam Wikipedia kebanyakannya berasal daripada Israiliyyat dan tidak dilukis sebagai hubungan yang kukuh di sini. Ibrahim mengetuai cabang keluarganya sendiri.",
   },
   {
     name: "Ismail",
     relationNote:
-      "Ismail adalah anak kepada Ibrahim. Bersama-sama mereka mengangkat asas-asas Ka'bah. Al-Quran menceritakan berita gembira Ibrahim tentang seorang anak yang penyabar dan kisah pengorbanan.",
+      "Ismail ialah putera Ibrahim. Bersama-sama, mereka meninggikan asas Kaabah. Al-Quran menceritakan khabar gembira kepada Ibrahim tentang seorang anak yang penyabar serta kisah korban. Salasilah tradisional Arab menjejaki keturunan Adnaniyah (dan dengan itu Muhammad ﷺ) melalui Ismail — dengan sebahagian generasi sebelum Adnan yang telah hilang.",
   },
   {
-    name: "Ishaq",
+    name: "Ishak",
     relationNote:
-      "Ishaq adalah anak Ibrahim, dianugerahkan selepas Ismail, dan diberkati bersama bapanya.",
+      "Ishak ialah putera Ibrahim, dikurniakan selepas Ismail, dan diberkati bersama bapanya.",
   },
   {
     name: "Lut",
     relationNote:
-      "Al-Quran mengaitkan Luth rapat dengan penghijrahan dan misi Ibrahim tetapi tidak menamakan Luth sebagai anak Ibrahim. Tafsir klasik sering memanggilnya anak saudara Ibrahim. Dia muncul di cawangan Ibrahim sebagai sekutu kontemporari - tiada kelebihan ibu bapa dituntut.",
+      "Al-Quran mengaitkan Lut secara rapat dengan hijrah dan dakwah Ibrahim, tetapi tidak menamakan Lut sebagai anak Ibrahim. Tafsir klasik sering menyebutnya sebagai anak saudara Ibrahim. Baginda ditunjukkan pada cabang Ibrahim sebagai sahabat sezaman — tiada hubungan ibu bapa yang didakwa.",
   },
   {
-    name: "Yaqub (Israel)",
+    name: "Yaakub (Israel)",
     relationNote:
-      "Yaqub adalah anak kepada Ishaq. Allah menganugerahkan kenabian dan Kitab kepada keturunan Ibrahim, Ishaq, dan Yaqub.",
+      "Yaakub ialah putera Ishak. Allah mengurniakan kenabian dan Kitab dalam kalangan keturunan Ibrahim, Ishak dan Yaakub.",
   },
   {
     name: "Yusuf",
     relationNote:
-      "Yusuf adalah anak Yaqub. Surat Yusuf menceritakan kisahnya dengan ayah dan saudara-saudaranya dengan panjang lebar.",
+      "Yusuf ialah putera Yaakub. Surah Yusuf menceritakan kisah baginda bersama bapa dan saudara-saudaranya dengan panjang lebar.",
   },
   {
     name: "Musa",
     relationNote:
-      "Musa adalah dari Bani Israil. Al-Quran menamakan saudaranya Harun dan ibunya, tetapi tidak memerlukan penyenaraian nabi-ibu bapa pada pokok ini. Dia berdiri sebagai ketua cabang Musa-Harun.",
+      "Musa berasal daripada Bani Israel. Al-Quran menyebut saudaranya Harun dan ibunya, tetapi tidak memerlukan penyenaraian bapa yang juga nabi pada salasilah ini. Baginda berdiri sebagai ketua cabang Musa–Harun. (Rantaian Amram menurut Bible tidak dilukis — ia berada di luar hubungan ibu bapa yang kukuh menurut Al-Quran.)",
   },
   {
     name: "Harun",
     relationNote:
-      "Harun ialah saudara Musa. Musa memohon kepada Allah agar melantik Harun sebagai penolong dari keluarganya. Mereka berkongsi cawangan sebagai adik beradik — bukan sebagai bapa dan anak.",
+      "Harun ialah saudara Musa. Musa memohon kepada Allah agar melantik Harun sebagai pembantu daripada kalangan keluarganya. Mereka berkongsi satu cabang sebagai adik-beradik — bukan sebagai bapa dan anak.",
   },
   {
-    name: "Dawud",
+    name: "Daud",
     relationNote:
-      "Daud diberi kerajaan dan Zabur. Al-Quran menegaskan kenabiannya dan Sulaiman mewarisi daripadanya.",
+      "Daud dikurniakan kerajaan dan kitab Zabur. Al-Quran menegaskan kenabian baginda dan bahawa Sulaiman mewarisi daripada baginda.",
   },
   {
-    name: "Sulayman",
-    relationNote: "Sulaiman adalah putera Daud dan mewarisi kerajaan dan kenabiannya.",
+    name: "Sulaiman",
+    relationNote: "Sulaiman ialah putera Daud dan mewarisi kerajaan serta kenabian baginda.",
   },
   {
-    name: "Zakariyya",
+    name: "Zakaria",
     relationNote:
-      "Zakariyya adalah seorang nabi yang mendoakan pewaris. Allah menganugerahkan Yahya kepadanya.",
+      "Zakaria ialah seorang nabi yang berdoa memohon zuriat pewaris. Allah mengurniakan Yahya kepada baginda.",
   },
   {
     name: "Yahya",
-    relationNote:
-      "Yahya adalah anak kepada Zakariyya, dikabulkan sebagai jawaban atas doa ayahnya.",
+    relationNote: "Yahya ialah putera Zakaria, dikurniakan sebagai jawapan kepada doa bapanya.",
   },
   {
     name: "Maryam",
     relationNote:
-      "Maryam binti Imran dimuliakan dalam Al-Quran. Dia adalah ibu kepada Isa dan tidak mempunyai suami dalam kelahiran Isa - tanda daripada Allah.",
+      "Maryam binti Imran dimuliakan dalam Al-Quran. Beliau ialah ibu kepada Isa dan tidak bersuami ketika melahirkan Isa — satu tanda kebesaran daripada Allah.",
   },
   {
     name: "Isa",
     relationNote:
-      "Isa adalah putera Maryam, diciptakan dengan firman Allah 'Jadilah' tanpa bapa manusia. Pautan ibu bapa adalah kepada ibunya Maryam.",
+      "Isa ialah putera Maryam, diciptakan dengan kalimah Allah 'Jadilah' tanpa bapa daripada kalangan manusia. Hubungan induknya adalah kepada ibunya, Maryam.",
   },
   {
     name: "Muhammad ﷺ",
     relationNote:
-      "Nabi Muhammad ﷺ adalah dari keturunan Ismail bin Ibrahim. Generasi bernama terperinci antara Ismail dan Quraisy dipelihara dalam sirah klasik; Al-Quran mengesahkan warisan Ibrahim tanpa menyenaraikan setiap nenek moyang. Tiada kelebihan bapa-anak yang dilukis di sini — hanya kenabian yang dimeterai dan keturunan Ismailiah.",
+      "Nabi Muhammad ﷺ ialah putera Abdullah bin Abdul Muttalib daripada Bani Hasyim. Sirah klasik merekodkan salasilah sebelah bapa baginda melalui Hasyim hingga Adnan; selepas Adnan menuju Ismail, nama-nama generasinya telah hilang atau dipertikaikan. Baginda berasal daripada keturunan Ismail putera Ibrahim (hadis sahih riwayat Wathilah).",
   },
   // —— v2 appends ——
   {
-    name: "Syith (Seth)",
+    name: "Syis (Seth)",
     relationNote:
-      "Tradisi Islam klasik menamakan Syith sebagai anak Adam dan rantaian generasi awal. Nama perantara antara Syith dan Nuh sebahagian besar Israiliyyat dan tidak dilukis sebagai sisi bapa yang kukuh.",
+      "Tradisi Islam klasik (dan ringkasan salasilah lazim beberapa orang nabi) menamakan Syis sebagai putera Adam dan satu mata rantai dalam generasi terawal. Nama-nama perantara antara Syis dan Nuh kebanyakannya berasal daripada Israiliyyat dan tidak dilukis sebagai hubungan yang kukuh.",
   },
   {
     name: "Idris",
     relationNote:
-      "Al-Qur'an menamakan Idris sebagai nabi yang benar yang diangkat ke martabat tinggi. Senarai klasik sering meletakkannya antara Adam dan Nuh, tetapi Al-Qur'an tidak menamakan bapanya — tiada sisi bapa dilukis.",
+      "Al-Quran menyebut Idris sebagai seorang nabi yang sangat benar dan diangkat ke kedudukan yang tinggi. Senarai klasik sering meletakkan baginda antara Adam dan Nuh (kadangkala dikenal pasti sebagai Henokh), tetapi Al-Quran tidak menamakan bapanya — tiada hubungan ibu bapa yang dilukis.",
   },
   {
     name: "Imran",
     relationNote:
-      "Allah memilih keluarga Imran di atas sekalian alam. Maryam ialah anak perempuan Imran. (Imran ini bapa Maryam — tidak digunakan di sini sebagai bapa Musa/Harun.)",
+      "Allah memilih keluarga Imran mengatasi sekalian alam. Maryam ialah puteri Imran. (Imran ini ialah bapa Maryam — tidak digunakan di sini sebagai bapa bagi Musa/Harun.)",
   },
   {
     name: "Adnan",
     relationNote:
-      "Tradisi Islam menyatakan Muhammad ﷺ keturunan Adnan, dan Adnan keturunan Ismail — tetapi salasilah bernama dari Adnan ke Ismail hilang. Adnan ialah ketua klasik Arab Adnani; tiada sisi bapa ke Ismail dilukis.",
+      "Tradisi Islam berpegang bahawa Muhammad ﷺ berketurunan daripada Adnan, dan Adnan berketurunan daripada Ismail — tetapi tradisi salasilah Arab bersepakat bahawa rantaian nama dari Adnan kembali kepada Ismail telah hilang. Adnan diterima secara klasik sebagai ketua bangsa Arab Adnaniyah; tiada hubungan ibu bapa kepada Ismail yang dilukis.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Hasyim bin Abdul Manaf",
     relationNote:
-      "Hashim ialah eponim Bani Hashim dan nenek moyang klasik Nabi ﷺ. Senarai suku Adnan→Hashim ada dalam sirah tetapi dilangkau di sini sebagai generasi perantara — bukan nabi. Hashim mengetuai tulang belakang Hashimi dekat pada peta ini.",
+      "Hasyim ialah tokoh yang namanya menjadi nama Bani Hasyim dan merupakan moyang klasik Nabi ﷺ. Senarai penuh ketua-ketua dari Adnan hingga Hasyim (Fihr, Mudar, …) direkodkan dalam sirah tetapi dilangkau di sini kerana ia generasi kabilah perantara — bukan nabi. Hasyim mengetuai salasilah Hasyimiyah yang terdekat dalam peta ini.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdul Muttalib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) ialah datuk sebelah bapa Nabi ﷺ dan anak Hashim dalam sirah klasik.",
+      "Abdul Muttalib (Syaibah) ialah datuk sebelah bapa Nabi ﷺ dan putera Hasyim menurut sirah klasik.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdullah bin Abdul Muttalib",
     relationNote:
-      "Abdullah ialah bapa Nabi Muhammad ﷺ dan anak Abd al-Muttalib dalam sirah klasik.",
+      "Abdullah ialah bapa Nabi Muhammad ﷺ dan putera Abdul Muttalib menurut sirah klasik.",
   },
 ];

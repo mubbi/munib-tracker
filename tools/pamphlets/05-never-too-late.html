@@ -2,71 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Munib — Concept 05 · Never Too Late (Emotional / Inspirational)</title>
+<title>Munib — Concept 05 · Never Too Late (Emotional / Spiritual)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Amiri:wght@400;700&family=Lora:ital,wght@0,500;0,600;1,500;1,600&display=block" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@700&family=Lora:ital,wght@0,500;0,600;1,500;1,600&display=block" rel="stylesheet" />
 <link rel="stylesheet" href="base.css" />
 <style>
   .page {
     background: radial-gradient(120% 90% at 50% 30%, #0a2f27 0%, #05201a 55%, #041712 100%);
     color: var(--dark-fg);
-    padding: 16mm 18mm 13mm;
+    padding: var(--safe) 18mm;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand img {
-    width: 38px;
-    height: 38px;
-    border-radius: 9px;
-  }
-  .brand .name {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    color: #f5f0e6;
+  .lockup .name {
+    color: var(--cream);
     letter-spacing: 0.04em;
+  }
+  .lockup .ar-brand {
+    font-size: 17px;
+    color: var(--gold);
+    margin-left: 4px;
   }
 
   .ayah-block {
-    margin-top: 44px;
+    margin-top: 30px;
   }
+  /* Qur'an text: copied verbatim from apps/app/assets/data/quran/arabic/002.json (2:222, words 22–25). */
   .ayah {
-    font-size: 37px;
+    font-family: "Amiri", serif;
+    font-size: 40px;
     color: var(--gold);
-    line-height: 1.7;
+    line-height: 1.8;
   }
   .ayah-en {
-    margin-top: 10px;
+    margin-top: 6px;
     font-family: "Lora", serif;
     font-style: italic;
-    font-size: 12.5px;
-    color: #b9cdbf;
+    font-size: 16px;
+    color: #c4d6ca;
   }
   .ayah-ref {
     margin-top: 6px;
-    font-size: 9px;
-    letter-spacing: 0.3em;
+    font-size: var(--fs-min);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #7d9a8b;
+    color: var(--dark-muted);
     font-weight: 600;
   }
 
   .headline {
-    margin-top: 40px;
+    margin-top: 30px;
     font-family: "Lora", serif;
     font-weight: 500;
-    font-size: 62px;
-    line-height: 1.14;
-    color: #f5f0e6;
+    font-size: 60px;
+    line-height: 1.12;
+    color: var(--cream);
     letter-spacing: -0.01em;
   }
   .headline em {
@@ -75,42 +69,45 @@
   }
 
   .support {
-    margin-top: 24px;
-    max-width: 430px;
-    font-size: 13px;
-    line-height: 1.75;
-    color: #a9c2b3;
+    margin-top: 20px;
+    max-width: 500px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    color: #b5cbbd;
   }
   .support b {
-    color: #e8dcc8;
+    color: var(--dark-fg);
     font-weight: 600;
   }
 
   /* glowing arch echoing the logo mark */
   .arch-wrap {
     position: relative;
-    margin-top: 34px;
+    margin-top: 22px;
     flex: 1;
     display: flex;
     align-items: flex-start;
     justify-content: center;
   }
+  .arch-wrap svg {
+    position: relative;
+    width: 128px;
+  }
   .arch-glow {
     position: absolute;
-    top: -46px;
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
-    width: 430px;
-    height: 380px;
+    width: 400px;
+    height: 330px;
     background: radial-gradient(circle, rgba(230, 192, 101, 0.22) 0%, rgba(230, 192, 101, 0) 62%);
   }
 
   .feature-line {
-    margin-top: 8px;
-    font-size: 10.5px;
-    letter-spacing: 0.24em;
+    font-size: var(--fs-min);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #8fae9d;
+    color: var(--dark-muted);
     font-weight: 600;
   }
   .feature-line span {
@@ -119,71 +116,63 @@
   }
 
   .cta {
+    margin-top: 16px;
     width: 100%;
     border-top: 1px solid rgba(230, 192, 101, 0.28);
-    padding-top: 20px;
+    padding-top: 18px;
+    text-align: left;
+  }
+  .cta .row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-align: left;
     gap: 16px;
   }
   .cta .words h2 {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 800;
-    font-size: 25px;
-    color: #f5f0e6;
-    letter-spacing: -0.01em;
+    font-size: 26px;
+    color: var(--cream);
   }
-  .cta .words h2 .g { color: var(--gold); }
-  .cta .words p {
-    margin-top: 7px;
-    font-size: 10px;
-    line-height: 1.65;
-    color: #8fae9d;
-    max-width: 280px;
-  }
-  .cta .words .url {
-    margin-top: 8px;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 11.5px;
+  .cta .words h2 .g {
     color: var(--gold);
   }
-  .cta .qrs {
-    display: flex;
-    gap: 14px;
+  .cta .words p {
+    margin-top: 6px;
+    color: var(--dark-muted);
+    max-width: 300px;
   }
-  .cta .qr-tile img {
-    width: 78px;
-    height: 78px;
+  .cta .words .url {
+    margin-top: 7px;
+    color: var(--gold);
   }
-  .cta .qr-tile .qr-label {
-    font-size: 8.5px;
-    color: #f5f0e6;
+  .cta .devices {
+    margin-top: 14px;
+    color: var(--dark-muted);
+  }
+  .cta .devices .lbl {
+    color: var(--cream);
   }
 </style>
 </head>
 <body>
 <div class="page">
-  <div class="brand">
+  <div class="lockup">
     <img src="assets/logo.png" alt="Munib logo" />
-    <span class="name">MUNIB TRACKER · <span class="ar" style="font-size:15px;color:#e6c065;">مُنيب</span></span>
+    <span class="name">MUNIB TRACKER <span class="ar-brand" lang="ar">· مُنيب</span></span>
   </div>
 
   <div class="ayah-block">
-    <div class="ayah ar">إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ</div>
-    <div class="ayah-en">“Indeed, Allah loves those who constantly turn back to Him.”</div>
-    <div class="ayah-ref">Qur’an · Al-Baqarah 2:222</div>
+    <div class="ayah ar" lang="ar">إِنَّ ٱللَّهَ يُحِبُّ ٱلتَّوَّـٰبِينَ</div>
+    <div class="ayah-en">“…Truly Allah loveth those who turn unto Him…”</div>
+    <div class="ayah-ref">Al-Baqarah 2:222 · tr. Pickthall</div>
   </div>
 
   <h1 class="headline">It is never too late<br /><em>to return.</em></h1>
 
-  <p class="support">However long it has been, and however much you have missed — the door is open. <b>Munib</b> helps you take the first step back: one prayer logged, one zikr counted, one missed salah made up. <b>One day at a time.</b></p>
+  <p class="support">However long it has been, and however much you have missed — the door is open. <b>Munib</b> helps you take the first step back: one Salah logged, one Zikr counted, one missed Salah made up. <b>One day at a time.</b></p>
 
   <div class="arch-wrap">
     <div class="arch-glow"></div>
-    <svg viewBox="0 0 140 150" width="172" fill="none" style="position:relative;">
+    <svg viewBox="0 0 140 150" fill="none" aria-hidden="true">
       <path d="M22 150 V66 C22 32, 46 14, 70 6 C94 14, 118 32, 118 66 V150" stroke="#e6c065" stroke-width="2.5" />
       <path d="M34 150 V68 C34 40, 52 26, 70 20 C88 26, 106 40, 106 68 V150" stroke="#e6c065" stroke-opacity="0.35" stroke-width="1.4" />
       <path d="M70 150 C 60 122, 84 104, 70 78 C 60 60, 74 50, 70 40" stroke="#f5f0e6" stroke-opacity="0.8" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" />
@@ -191,23 +180,34 @@
     </svg>
   </div>
 
-  <div class="feature-line">Salah<span>·</span>Qaza<span>·</span>Zikr<span>·</span>Qur’an<span>·</span>Reminders</div>
+  <div class="feature-line">Salah<span>·</span>Qaza<span>·</span>Zikr<span>·</span>Qur’an<span>·</span>Duas</div>
 
-  <div class="cta" style="margin-top:22px;">
-    <div class="words">
-      <h2>Start <span class="g">tonight</span>.</h2>
-      <p>Free · private · works offline · no account required. On iPhone, Android, and the web.</p>
-      <div class="url">munibtracker.app</div>
+  <div class="cta">
+    <div class="row">
+      <div class="words">
+        <h2>Start <span class="g">tonight</span>.</h2>
+        <p>Free, no ads, no account needed. As a guest, everything stays on your device.</p>
+        <div class="url">munibtracker.app</div>
+      </div>
+      <div class="get">
+        <div class="get-item">
+          <div class="qr"><img src="qr/appstore-ink.svg" alt="QR code: Munib Tracker on the App Store" /></div>
+          <span class="badge">
+            <img class="mark" src="assets/badge-apple.svg" width="22" height="22" alt="" />
+            <span class="b-text"><span class="b-small">Download on the</span><span class="b-big">App Store</span></span>
+          </span>
+        </div>
+        <div class="get-item">
+          <div class="qr"><img src="qr/play-ink.svg" alt="QR code: Munib Tracker on Google Play" /></div>
+          <span class="badge">
+            <img class="mark" src="assets/badge-google-play.svg" width="20" height="20" alt="" />
+            <span class="b-text"><span class="b-small">GET IT ON</span><span class="b-big">Google Play</span></span>
+          </span>
+        </div>
+      </div>
     </div>
-    <div class="qrs">
-      <div class="qr-tile">
-        <div class="qr-box"><img src="qr/appstore-ink.svg" width="78" height="78" alt="App Store QR" /></div>
-        <div class="qr-label">App Store</div>
-      </div>
-      <div class="qr-tile">
-        <div class="qr-box"><img src="qr/play-ink.svg" width="78" height="78" alt="Google Play QR" /></div>
-        <div class="qr-label">Google Play</div>
-      </div>
+    <div class="devices">
+      <span class="lbl">Works on</span><span>iPhone &amp; iPad</span><span>Android</span><span>Web app</span><span>Apple Watch</span><span>Wear OS</span><span>Apple TV</span><span>Android TV</span>
     </div>
   </div>
 </div>

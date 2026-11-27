@@ -2,249 +2,222 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // so overlay for new-muslim. Index-aligned with NEW_MUSLIM_TOPICS in ../new-muslim.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const NEW_MUSLIM_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Welcome to Islam",
-    summary: "A short, practical map for the first days and weeks of your journey.",
-    body: [
-      "Congratulations — and welcome. Becoming Muslim is not a finish line but the start of a lifelong relationship with Allah, one that grows gradually through knowledge, worship, and community, not all at once. Nobody expects you to know everything on day one; every Muslim, including the Prophet's ﷺ own companions, learned their religion step by step.",
-      "One of the most comforting teachings for someone new to Islam is that your past is genuinely behind you: 'Do you not know that Islam demolishes what preceded it?' the Prophet ﷺ told a companion who worried about his past sins. You are starting with a clean record before Allah.",
-      "This guide covers the essentials — what the shahada means, the five pillars, the basics of faith, and a first look at prayer — then points you to the full Salah, Aqeedah, Learn Dua, and Qur'an guides in this app for real depth. Take it one section at a time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do you not know that Islam demolishes what preceded it, that the Hijra demolishes what preceded it, and the Pilgrimage demolishes what preceded it? (to 'Amr ibn al-'As)",
-      },
-    ],
-    actions: [
-      "Go at your own pace — read one section of this guide per sitting rather than all at once.",
-      "Write down the questions that come up as you read; bring them to a teacher or knowledgeable friend later.",
-    ],
-  },
-  {
-    title: "What the Shahada Means",
-    summary: "Two short sentences that carry the entire meaning of Islam.",
-    body: [
-      "The shahada — the testimony of faith — is: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('I bear witness that there is no god but Allah, and I bear witness that Muhammad is the Messenger of Allah'). It has two parts, and both matter.",
-      "The first part, la ilaha illallah, means no one and nothing else — not money, status, ancestors, idols, or any created being — deserves worship, obedience as an act of devotion, or ultimate reliance except Allah alone. It is a statement about who has the right to be worshipped, not merely who exists.",
-      "The second part affirms that Muhammad ﷺ is Allah's final messenger, sent with guidance for all people. Affirming this means trusting what he ﷺ taught about Allah, worship, and how to live — which is exactly why the Qur'an and his authentic teachings (the Sunnah) are the two sources this whole guide draws from.",
-      "This testimony is not a magic formula but a description of a settled conviction of the heart. Saying it sincerely, understanding what it means, is what makes a person Muslim — 'one who submits.'",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge... There is no deity except Him, the Exalted in Might, the Wise.",
-      },
-    ],
-  },
-  {
-    title: "Becoming Muslim",
-    summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
-    body: [
-      "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
-      "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
-      "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
-    ],
-    actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
-    ],
-  },
-  {
-    title: "The Five Pillars of Islam",
-    summary: "Islam rests on five foundational acts of worship, named together by the Prophet ﷺ.",
-    body: [
-      "The Prophet ﷺ summarised the structure of Islamic practice in one hadith: Islam is built on five pillars — testifying that there is no god but Allah and that Muhammad is His Messenger (shahada); establishing the five daily prayers (salah); giving the obligatory annual charity (zakah); fasting the month of Ramadan; and performing the pilgrimage to Makkah (Hajj) at least once, for those who are able.",
-      "Think of them as a house: the shahada is the foundation everything rests on, and the other four are the pillars that hold the structure up — regular worship (salah), regular giving (zakah), an annual month of self-discipline (fasting), and a once-in-a-lifetime pilgrimage (Hajj) for those with the health and means to travel.",
-      "You do not need to master all five immediately. The shahada you have already learned about; salah is covered next in this guide; zakah and fasting are learned gradually as they come around each year; Hajj is planned for later in life when circumstances allow.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing prayer, giving zakah, Hajj, and fasting Ramadan. (Ibn 'Umar; also Sahih Muslim 16)",
-      },
-    ],
-  },
-  {
-    title: "Zakah, Fasting, and Hajj at a Glance",
-    summary: "Three pillars that come with time — you don't need to act on them today.",
-    body: [
-      "Zakah is a yearly obligatory charge — a small, fixed percentage — on savings and qualifying wealth above a minimum threshold (nisab), given to specific categories of people in need. It usually becomes relevant once you have held savings for about a year, so there is no rush; the app's Zakat guide covers the full detail whenever you need it.",
-      "Fasting Ramadan means abstaining from food, drink, and marital relations from before dawn until sunset for one lunar month each year, alongside extra prayer and Qur'an reading. It is a demanding but deeply rewarding pillar that most new Muslims ease into with guidance from their community rather than alone.",
-      "Hajj is the pilgrimage to Makkah, obligatory once in a lifetime only for those who are physically and financially able to make the journey. If it is not within your means right now, there is no burden on you — Allah only asks what a person is able to give.",
-    ],
-  },
-  {
-    title: "How the Pillars Shape Daily Life",
+    title: "Ku soo dhowow Islaamka",
     summary:
-      "The five pillars turn belief into a rhythm you actually live, day by day and year by year.",
+      "Khariidad gaaban oo waxtar leh oo loogu talagalay maalmaha iyo toddobaadyada ugu horreeya ee safarkaaga.",
     body: [
-      "One of the things new Muslims often find most beautiful is how the pillars build a rhythm into ordinary life: five short pauses for prayer every day, a yearly season of fasting and reflection, an annual act of giving, and — eventually — a once-in-a-lifetime pilgrimage. None of it is abstract theology; all of it is lived.",
-      "This rhythm is meant to be sustainable, not overwhelming. The Prophet ﷺ taught that the deeds most loved by Allah are the ones kept up consistently, even if small — not sudden bursts of intensity that burn out. Build small, steady habits first; depth will come with time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do good deeds properly, sincerely, and moderately... the most beloved deed to Allah is the most regular and constant, even if it were little. (also Sahih Muslim 783)",
-      },
+      "Hambalyo — oo ku soo dhowow. Inaad Muslim noqoto ma aha dhammaadka safarka, balse waa bilowga xiriir cimri-dheer oo aad la yeelanayso Alle, kaas oo si tartiib ah ugu kordha aqoon, cibaado iyo bulsho, ee ma aha mar qura. Cidna kama filayso inaad wax walba ogaato maalinta koowaad; Muslim kasta, oo ay ku jiraan Saxaabadii Nabiga ﷺ laftooda, diintooda waxay u barteen tallaabo tallaabo.",
+      "Mid ka mid ah waxbarista ugu qalbi-qaboojinta badan ee qofka Islaamka ku cusub waa in waxii kaa tegay ay runtii gadaashaa ka dambeeyaan: 'Do you not know that Islam demolishes what preceded it?' (macnaha Ingiriisiga) ayuu Nabigu ﷺ ku yiri saxaabi ka walaacsanaa dembiyadiisii hore. Waxaad Alle hortiisa ku bilaabaysaa diiwaan nadiif ah.",
+      "Hagahan wuxuu daboolayaa waxyaabaha aasaasiga ah — macnaha shahaadada, shanta tiir, aasaaska iimaanka, iyo jaleecada koowaad ee salaadda — kadibna wuxuu kuu tilmaamayaa hagayaasha dhammaystiran ee Salaadda, Caqiidada, Baro Ducada iyo Qur'aanka ee app-kan si aad si qoto dheer wax u barato. Qayb qayb u qaado.",
     ],
     actions: [
-      "Pick one small, sustainable habit to start with this week rather than trying to do everything at once.",
+      "Si tartiib ah u soco — fadhi kasta akhri hal qayb oo hagahan ka mid ah, intii aad mar qura dhammaan akhrin lahayd.",
+      "Qor su'aalaha kuu soo baxa markaad akhrinayso; dabadeed u keen macallin ama saaxiib aqoon leh.",
     ],
   },
   {
-    title: "The Six Articles of Faith",
-    summary: "What a Muslim believes, in six points taught directly by the Prophet ﷺ.",
+    title: "Macnaha Shahaadada",
+    summary: "Laba weedhood oo gaagaaban oo xambaarsan macnaha Islaamka oo dhan.",
     body: [
-      "Where the five pillars are what a Muslim does, the six articles of iman (faith) are what a Muslim believes. They come from the Hadith of Jibril, where the angel Jibril, in the form of a man, asked the Prophet ﷺ to explain iman before the assembled companions.",
-      "The Prophet ﷺ answered: belief in Allah; in His angels; in His revealed books; in His messengers; in the Last Day; and in the divine decree (qadr) — its good and its bitter. These six form one connected picture of reality: who created you, who guides the unseen world, how guidance reached humanity, who delivered it, where life is heading, and how to hold both ease and hardship with trust in Allah.",
-      "You don't need to master the philosophy behind each article today — the Aqeedah guide in this app walks through all six in depth, with the evidence behind each one, whenever you're ready to go deeper.",
+      "Shahaadada — markhaatiga iimaanka — waa: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('Waxaan ka markhaati furayaa inaan ilaah xaq lagu caabudo jirin Alle mooyee, waxaanan ka markhaati furayaa in Muxammad yahay Rasuulka Alle'). Waxay leedahay laba qaybood, labaduba waa muhiim.",
+      "Qaybta koowaad, la ilaha illallah, waxay ka dhigan tahay in aanay cid kale iyo wax kale — lacag, jago, awoowayaal, sanamyo ama wax kasta oo la abuuray — mudnayn cibaado, addeecid cibaado ahaan loo sameeyo, ama isku hallayn dhammaystiran, Alle keligii mooyee. Waa bayaan ku saabsan cidda xaqa u leh in la caabudo, ee ma aha oo keliya cidda jirta.",
+      "Qaybta labaad waxay xaqiijinaysaa in Muxammad ﷺ yahay rasuulka ugu dambeeya ee Alle, oo loo soo diray hanuun dadka oo dhan. Xaqiijinta tani waxay ka dhigan tahay inaad aaminto wixii uu ﷺ ka baray Alle, cibaadada iyo sida loo noolaado — taasina waa sababta Qur'aanka iyo waxbaristiisa saxda ah (Sunnada) ay u yihiin labada il ee hagahan oo dhan ka dhaansado.",
+      "Markhaatigani ma aha erey sixir ah, balse waa sharraxaadda qanaacad qalbiga ku degtay. In si daacad ah loogu dhawaaqo iyadoo la fahamsan yahay macnaheeda ayaa qofka ka dhigta Muslim — 'qofka isu dhiiba (Alle u hoggaansama).'",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Iman is to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe in the divine decree, its good and its bitter. (Hadith of Jibril, narrated by 'Umar)",
-      },
-    ],
+    appLinks: [{ label: "Baro Caqiidada — rumaynta Alle" }],
   },
   {
-    title: "Who Is Allah?",
-    summary: "One God, without partner, equal, or need — described by His own beautiful names.",
-    body: [
-      "Allah is the proper name of God in Islam — not a different god, but the same one true Creator that earlier scriptures pointed to, now known by His own chosen name and described through His revealed attributes rather than human speculation.",
-      "The clearest short description in the Qur'an is Surah al-Ikhlas: He is One; He has no partner and no equal; He neither begets nor is begotten. Allah has no body you can picture and no image should ever be made to represent Him — knowing Him comes through His names (such as the Most Merciful, the All-Knowing, the All-Hearing) and His actions in creation, not through pictures or physical comparisons.",
-      "Getting to know Allah through His names is often the most emotionally grounding part of early faith: the more you learn what He is like, the more prayer and daily reliance on Him start to feel personal rather than mechanical.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Say: He is Allah, the One... He neither begets nor is born, and there is none comparable to Him.",
-      },
-    ],
-  },
-  {
-    title: "The Qur'an and the Final Message",
-    summary: "The Qur'an is Allah's own words, preserved unchanged since it was revealed.",
-    body: [
-      "Muslims believe the Qur'an is the literal speech of Allah, revealed to the Prophet Muhammad ﷺ over about 23 years, and preserved word-for-word since then — memorised by generations of Muslims and never altered.",
-      "It is not a biography of the Prophet ﷺ or a history book, though it contains both guidance and stories of earlier prophets; it is primarily a book of guidance meant to be read, recited, reflected on, and lived, a little at a time.",
-      "You do not need to read Arabic to begin. Start with a translation in a language you understand, in any order that interests you, and let familiarity with the Arabic recitation grow gradually alongside your prayer.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
-      },
-    ],
-  },
-  {
-    title: "How to Pray — the Big Picture",
-    summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
-    body: [
-      "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
-      "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
-      "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
-    ],
-  },
-  {
-    title: "Wudu: Getting Ready to Pray",
-    summary: "A short ritual washing that prepares body and heart for standing before Allah.",
-    body: [
-      "Wudu is required before every prayer (unless you are still in a valid wudu from before) and follows a fixed order: washing the hands, rinsing the mouth and nose, washing the face, the arms to the elbows, wiping the head and ears, and washing the feet to the ankles.",
-      "It doesn't take long once learned — most people manage it in under two minutes — and it carries a spiritual meaning too: each limb washed is paired, in the hadith literature, with the idea of minor faults being washed away along with it.",
-      "The full Purification (Taharah) guide in this app walks through wudu step by step, along with what to do if you're unsure whether your wudu is still valid.",
-    ],
-  },
-  {
-    title: "Learning the Words of Prayer",
+    title: "Noqoshada Muslim",
     summary:
-      "Start with transliteration and meaning; Arabic fluency comes with repetition over time.",
+      "In shahaadada si daacad ah loogu dhawaaqo — iyadoo la fahamsan yahay oo niyad la leeyahay — ayaa ah waxa la tixgeliyo.",
     body: [
-      "Salah is prayed in Arabic, which can feel like the hardest part at first — but you are not expected to be fluent to begin. Most new Muslims start by learning a handful of short, essential phrases (the opening takbir, a short surah, the words said while bowing and prostrating, and the closing salam) with a transliteration and translation alongside the Arabic.",
-      "Memorise these in small chunks rather than all at once, and repeat them daily — memory for prayer phrases builds quickly through the repetition of praying itself, even before you consciously try to memorise anything.",
-      "The dedicated phrases guide in this app gives you every essential phrase with Arabic, transliteration, and translation together, organised by where each one is said in the prayer — use it as your daily practice tool.",
-    ],
-  },
-  {
-    title: "Your First Steps Checklist",
-    summary: "A simple, realistic order to learn things in over your first weeks.",
-    body: [
-      "There is no single required order for learning after the shahada, but new Muslims often find a rough sequence helpful so that nothing feels overwhelming all at once. Use this as a loose guide, not a race.",
+      "Si aad Muslim u noqoto looma baahna wadaad, xaflad, lacag ama waraaqo. Waxa loo baahan yahay waa daacadnimo: inaad fahanto macnaha shahaadada oo aad ku dhawaaqdo adigoo niyaysanaya inaad caqiido ahaan u qaadato, adiga iyo Alle dhexdiinna.",
+      "Dad badan ayaa doorta inay ku dhawaaqaan iyagoo dad kale hor jooga — imaam deegaanka ah, bulshada masjidka, ama asxaab — maxaa yeelay waxay daqiiqaddaas u yeelaysaa markhaatiyaal, waxayna kaa xiriirisaa shabakad taageero tan iyo maalinta koowaad; tani waa dhaqan si weyn loogu talo bixiyo, ee ma aha shardi adag oo markhaatiga laftiisa ku xiran.",
+      "Qaar ka mid ah Muslimiinta cusub waxay sidoo kale waqtigaas qaataan qubays (ghusl — maydhid buuxda oo cibaado ah) iyagoo u arka bilow cusub oo astaan iyo waxtar leh ka hor intaanay baran salaadda; dhaqannada iyo aragtiyaha ku saabsan goorta iyo sida loo sameeyo way ku kala duwan yihiin bulshooyinka, ee weydii macallin deegaankaaga waxa caadada u ah agagaarkaaga intii aad qiyaasi lahayd.",
+      "Haddii aad weli baaritaan ku jirto oo aanad hubin, taasi waa marxalad caadi ah oo la ixtiraamo — akhri, su'aalo weydii, oo waqti qaado. Markhaatiga waxaa loogu talagalay in lagu dhawaaqo iyadoo la qanacsan yahay, ee ma aha cadaadis.",
     ],
     actions: [
-      "Learn wudu (ritual washing) and practise it until it feels natural.",
-      "Learn the essential words of one full prayer using the phrases guide.",
-      "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
-      "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
-      "Begin reading the Qur'an in translation, a little each day.",
-      "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
+      "Haddii aad diyaar tahay, ka fiirso inaad shahaadada ku dhawaaqdo adigoo hor jooga imaam deegaanka ah, bulshada masjidka, ama asxaab Muslim ah oo aad aaminto.",
+      "Weydii masjid ama macallin deegaankaaga ah tallaabooyinka xiga ee caadada u ah bulshadaada (sida qubayska).",
     ],
   },
   {
-    title: "Finding Community",
-    summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
+    title: "Shanta Tiir ee Islaamka",
+    summary:
+      "Islaamku wuxuu ku dhisan yahay shan cibaadooyin oo aasaasi ah, oo Nabigu ﷺ isla mar xusay.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
-      "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "Nabigu ﷺ wuxuu hal xadiis ku soo koobay qaab-dhismeedka ku-dhaqanka Islaamka: Islaamku wuxuu ku dhisan yahay shan tiir — ka markhaati bixinta inaan ilaah xaq ah jirin Alle mooyee iyo in Muxammad yahay Rasuulkiisa (shahaado); oogidda shanta salaadood ee maalinlaha ah (salaad); bixinta sadaqada sannadlaha ah ee waajibka ah (sako); soonka bisha Ramadaan; iyo gudashada xajka Makkah ugu yaraan hal mar, qofkii awooda.",
+      "U qaado sidii guri: shahaadadu waa aasaaska wax walba ku dhisan yihiin, afarta kalena waa tiirarka dhismaha haya — cibaado joogto ah (salaadda), bixin joogto ah (sakada), bil sannadle ah oo is-edbin ah (soonka), iyo xaj cimrigii hal mar ah (Xajka) qofkii leh caafimaadka iyo awoodda safarka.",
+      "Uma baahnid inaad shantaba isla markiiba hanato. Shahaadada horay ayaad wax uga baratay; salaadda ayaa hagahan ku xigta; sakada iyo soonka si tartiib ah ayaa loo bartaa marka ay sannad walba soo gaaraan; Xajkana waxaa loo qorsheeyaa nolosha dambe marka xaaladuhu suurtageliyaan.",
+    ],
+  },
+  {
+    title: "Sakada, Soonka iyo Xajka — Jaleeco",
+    summary: "Saddex tiir oo waqti la yimaada — maanta uma baahnid inaad ku dhaqaaqdo.",
+    body: [
+      "Sakadu waa waajib sannadle ah — boqolley yar oo go'an — oo laga bixiyo kaydka iyo hantida u qalanta ee ka badan xadka ugu yar (nisaab), waxaana la siiyaa qaybo gaar ah oo dadka baahan ka mid ah. Badanaa waxay ku khusaysaa marka aad kayd haysatay qiyaastii sannad, ee degdeg ma jiro; hagaha Sakada ee app-ka ayaa faahfaahinta oo dhan daboolaya markaad u baahato.",
+      "Soonka Ramadaan waxaa loola jeedaa in laga fogaado cuntada, cabbitaanka iyo galmada lammaanaha laga bilaabo waabberiga ka hor ilaa qorrax-dhaca, muddo hal bil oo dayax ah sannad kasta, iyadoo lagu daro salaad dheeraad ah iyo akhrinta Qur'aanka. Waa tiir culus balse ajar weyn leh, oo Muslimiinta cusub intooda badani si tartiib ah ugu galaan iyagoo bulshadooda ka helaya hanuun, ee ma aha keligood.",
+      "Xajku waa u-ambabixidda Makkah, oo cimriga hal mar waajib ku ah oo keliya qofka jir ahaan iyo dhaqaale ahaanba awood u leh safarka. Haddii aanay hadda awoodaada ku jirin, culays kuma saarna — Alle qofka wuxuu weydiiyaa oo keliya waxa uu awoodo inuu bixiyo.",
+    ],
+    appLinks: [{ label: "Hagaha Sakada" }],
+  },
+  {
+    title: "Sida Tiirarku u Qaabeeyaan Nolosha Maalinlaha ah",
+    summary:
+      "Shanta tiir iimaanka waxay u beddelaan nidaam aad dhab ahaan ku noolaato, maalin maalin iyo sannad sannad.",
+    body: [
+      "Mid ka mid ah waxyaabaha Muslimiinta cusub inta badan ugu qurux badan waa sida tiirarku nolosha caadiga ah ugu dhex dhisaan nidaam joogto ah: shan hakad oo gaagaaban oo salaad ah maalin kasta, xilli sannadle ah oo soon iyo milicsi ah, ficil sannadle ah oo bixin ah, iyo — ugu dambayn — xaj cimrigii hal mar ah. Midkoodna ma aha fiqi-diimeed aan la taaban karin; dhammaantood waa wax lagu noolaado.",
+      "Nidaamkan waxaa loogu talagalay inuu sii socdo, ee ma aha inuu ku culaado. Nabigu ﷺ wuxuu baray in camalada Alle ugu jecel yihiin kuwa si joogto ah loo sii wado, xitaa haddii ay yar yihiin — ee ma aha dadaal kedis ah oo xoog leh oo dabadeed dama. Marka hore dhis caadooyin yaryar oo joogto ah; qoto-dheeridu waqti ayay la imaanaysaa.",
     ],
     actions: [
-      "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",
-      "If in-person community isn't accessible yet, seek out a moderated online Muslim community for support.",
+      "Toddobaadkan dooro hal caado yar oo aad sii wadi karto si aad ugu bilowdo, intii aad isku dayi lahayd inaad wax walba mar qura samayso.",
     ],
   },
   {
-    title: "Continuing to Learn",
-    summary: "This guide is a starting point — three deeper guides are ready when you are.",
+    title: "Lixda Tiir ee Iimaanka",
+    summary: "Waxa Muslimku rumeeyo, lix qodob oo Nabigu ﷺ si toos ah u baray.",
     body: [
-      "Once the essentials in this guide feel comfortable, three companion guides in this app are built to take you deeper: Aqeedah for the full detail behind each article of faith, Learn Dua for supplications for everyday moments, and the Qur'an reader for daily recitation and reflection.",
-      "You don't have to finish any of them quickly. Islam is learned over a lifetime, and returning to the same topic months or years later, with more experience, is completely normal — even expected.",
+      "Haddii shanta tiir ee Islaamku yihiin waxa Muslimku sameeyo, lixda tiir ee iimaanku (iman) waa waxa Muslimku rumeeyo. Waxay ka yimaadeen Xadiiskii Jibriil, kaas oo malaggii Jibriil, isagoo qaab nin ku jira, uu Nabiga ﷺ ka codsaday inuu iimaanka sharxo iyadoo Saxaabadu isugu yimaadeen.",
+      "Nabigu ﷺ wuxuu ku jawaabay: rumaynta Alle; malaa'igtiisa; kutubtiisa la soo dejiyay; rusushiisa; Maalinta Dambe; iyo qaddarka (qadar) — kheyrkiisa iyo qadhaadhkiisaba. Lixdan waxay sameeyaan hal sawir oo isku xiran oo xaqiiqada ah: cidda ku abuurtay, cidda maamusha adduunka qarsoon, sida hanuunku u gaadhay aadanaha, cidda keentay, halka noloshu u socoto, iyo sida loo qaabbilo fududaanta iyo dhibaatadaba iyadoo Alle la isku hallaynayo.",
+      "Uma baahnid inaad maanta hanato falsafadda ka dambeysa qodob kasta — hagaha Caqiidada ee app-kan ayaa lixdaba si qoto dheer kuugu marinaya, oo leh caddaymaha mid walba, markaad diyaar u tahay inaad sii qoto dheerayso.",
+    ],
+    appLinks: [{ label: "Baro Caqiidada — lixda tiir" }],
+  },
+  {
+    title: "Waa Kuma Alle?",
+    summary:
+      "Hal Ilaah, aan shariig, la-mid ama baahi lahayn — oo lagu sifeeyay magacyadiisa quruxda badan ee uu isagu u doortay naftiisa.",
+    body: [
+      "Allah waa magaca gaarka ah ee Ilaaha Islaamka — ma aha ilaah kale, balse waa isla Abuuraha keliya ee xaqa ah ee kutubtii hore tilmaameen, oo hadda lagu yaqaan magaciisa uu doortay, laguna sifeeyo sifaadkiisa la soo dejiyay, ee ma aha mala-awaal bini'aadam.",
+      "Sharraxaadda gaaban ee ugu cad Qur'aanka waa Suuratul Ikhlaas: Isagu waa Kaliya; ma laha shariig iyo la-mid; ma dhalin lamana dhalin. Alle ma laha jidh aad sawiran karto, waana inaan weligiis la samayn sawir lagu matalo — aqoonsigiisa waxaa lagu helaa magacyadiisa (sida Naxariista Badan, Wax Walba Og, Wax Walba Maqla) iyo falalkiisa uunka, ee ma aha sawirro ama isbarbardhig jireed.",
+      "In Alle lagu barto magacyadiisa inta badan waa qaybta iimaanka hore ee ugu badan ee qalbiga dejisa: inta aad wax badan ka barato sida uu yahay, ayay salaadda iyo isku hallayntiisa maalinlaha ahi u bilaabaan inay dareemaan wax shakhsi ah, ee ma aha wax farsamo oo kale ah.",
+    ],
+    appLinks: [{ label: "Magacyada Alle" }],
+  },
+  {
+    title: "Qur'aanka iyo Fariinta Ugu Dambaysa",
+    summary:
+      "Qur'aanku waa hadalka Alle laftiisa, oo la ilaaliyay isagoo aan isbeddelin tan iyo markii la soo dejiyay.",
+    body: [
+      "Muslimiintu waxay rumeysan yihiin in Qur'aanku yahay hadalka Alle ee dhabta ah, oo lagu soo dejiyay Nabi Muxammad ﷺ muddo qiyaastii 23 sano ah, laguna ilaaliyay erey-erey tan iyo xilligaas — oo jiil kasta oo Muslimiin ah xifdiyay, weligiisna aan la beddelin.",
+      "Ma aha taariikh-nololeedka Nabiga ﷺ ama buug taariikheed, inkastoo uu ka kooban yahay hanuun iyo sheekooyinka nebiyadii hore; ugu horrayn waa buug hanuun oo loogu talagalay in la akhriyo, la tilaawado, laga fikiro, oo lagu dhaqmo, wax yar wax yar.",
+      "Uma baahnid inaad Carabi akhrido si aad u bilowdo. Ku bilow tarjumad luqad aad fahanto, kala horreyn kasta oo aad xiisaynayso, oo u oggolow in aqoontaada tilaawada Carabiga ah ay si tartiib ah ula korto salaaddaada.",
+    ],
+    appLinks: [{ label: "Akhri Qur'aanka" }],
+  },
+  {
+    title: "Sida Loo Tukado — Sawirka Guud",
+    summary:
+      "Shan salaadood oo gaagaaban maalintii, mid walbana waa isku xigxig go'an oo istaag, rukuuc iyo sujuud ah.",
+    body: [
+      "Salaadda waxaa la tukadaa shan jeer maalintii waqtiyo go'an — Subax (Fajr, waabberiga), Duhur (Dhuhr, duhurka), Casar (Asr, galabta), Maqrib (Maghrib, qorrax-dhaca) iyo Cishe (Isha, habeenka) — waxayna qaadataa dhowr daqiiqo oo keliya mar kasta markaad barato qaabka. Waqtiyada salaadda iyo diiwaanka app-kan ayaa si sax ah kuu tusaya goorta waqti kasta ka furmo meesha aad joogto.",
+      "Salaad kasta waxay ka kooban tahay qaybo la yiraahdo rakcado (Subax waa laba, Duhur/Casar/Cishe waa afar, Maqribna waa saddex), rakcad kastana waxay raacdaa isla qaabka aasaasiga ah: istaag iyadoo wax la akhrinayo, rukuuc (ruku'), iyo laba sujuud (sujud), iyadoo ereyo go'an oo ammaan ah iyo Qur'aan lagu yiraahdo meel kasta.",
+      "Ka hor salaadda, waxaad qaadataa weyso — maydhid cibaado oo gaaban oo lagu maydho gacmaha, afka, wajiga, gacmaha ilaa xusulka, madaxa iyo cagaha — waxaadna tukanaysaa adigoo u jeeda Kacbada ee Makkah (qiblada), taas oo app-kani sidoo kale kuu tilmaami karo.",
+      "Dulmarkan si ula kac ah ayuu guud u yahay. Ereyada saxda ah ee meel kasta lagu yiraahdo, tilmaamo tallaabo-tallaabo ah, iyo koorso dhammaystiran oo bilow ah dhammaantood waxay ku jiraan hagaha gaarka ah ee Salaadda — halkaas ka bilow marka xigta, oo hagaha weedhaha la isticmaal si aad u barato ereyada oo leh qoraal-dhawaaqeed iyo tarjumad.",
+    ],
+    appLinks: [
+      { label: "Baro Salaadda — hage dhammaystiran" },
+      { label: "Weedhaha salaadda (oo leh qoraal-dhawaaqeed)" },
     ],
   },
   {
-    title: "FAQ: Common Early Mistakes",
-    summary: "Everyone starts imperfectly — here's how to think about early stumbles.",
+    title: "Weysada: U Diyaargarowga Salaadda",
+    summary: "Maydhid cibaado oo gaaban oo jidhka iyo qalbiga u diyaarisa istaagga Alle hortiisa.",
     body: [
-      "Q: I keep messing up parts of the prayer or forgetting the words — is that a problem? A: No. Everyone forgets words and mixes up steps while learning; keep practising with the phrases guide and it becomes natural within weeks. Sincerity while learning matters far more than early perfection.",
-      "Q: I feel guilty that I'm not doing everything (fasting, extra prayers, memorising Qur'an) right away. A: Trying to do everything at once is a common new-Muslim mistake that often leads to burnout. Build the five daily prayers as your first steady habit, then add gradually — Allah does not burden anyone beyond their ability.",
-      "Q: What if I miss a prayer or make a mistake in one? A: Missing a prayer occasionally while you're learning the routine, or making a small mistake in it, is not the end of the world — make it up when you remember, keep going, and don't let a setback stop you from praying the next one.",
+      "Weysadu waa waajib ka hor salaad kasta (haddii aadan weli haysan weyso ansax ah oo hore) waxayna raacdaa kala horreyn go'an: maydhista gacmaha, luqluqashada afka iyo sanka, maydhista wajiga, gacmaha ilaa xusulada, marsashada madaxa iyo dhegaha, iyo maydhista cagaha ilaa canqowyada.",
+      "Waqti badan ma qaadato markii la barto — dadka intooda badani waxay ku dhammeeyaan wax ka yar laba daqiiqo — waxayna sidoo kale leedahay macne ruuxi ah: xubin kasta oo la maydho, suugaanta xadiisku waxay la lammaanaysaa fikradda ah in gefafka yaryari ay la socdaan oo la maydhaan.",
+      "Hagaha dhammaystiran ee Daahirnimada (Dahaarada) ee app-kan ayaa weysada tallaabo-tallaabo kuugu marinaya, iyo waxa la sameeyo haddii aad shaki ka qabto in weysadaadu weli ansax tahay.",
+    ],
+    appLinks: [{ label: "Hagaha Daahirnimada (Dahaarada)" }],
+  },
+  {
+    title: "Barashada Ereyada Salaadda",
+    summary:
+      "Ku bilow qoraal-dhawaaqeed iyo macne; aqoonta Carabigu waxay ku timaaddaa ku-celcelin waqti ka dib.",
+    body: [
+      "Salaadda waxaa lagu tukadaa Carabi, taas oo bilowga u muuqan karta qaybta ugu adag — balse lagaama filayo inaad si fiican ugu hadasho si aad u bilowdo. Muslimiinta cusub intooda badani waxay ku bilaabaan barashada dhowr weedhood oo gaagaaban oo lagama maarmaan ah (takbiirta furitaanka, suurad gaaban, ereyada lagu yiraahdo rukuuca iyo sujuudda, iyo salaanta xiritaanka) iyagoo Carabiga la socda qoraal-dhawaaqeed iyo tarjumad.",
+      "Kuwan u xifdi qaybo yaryar intii aad mar qura dhammaan xifdin lahayd, oo maalin walba ku celceli — xusuusta weedhaha salaaddu si degdeg ah ayay ugu dhisantaa ku-celcelinta tukashada laftigeeda, xitaa ka hor intaadan si miyir leh isugu dayin inaad wax xifdiso.",
+      "Hagaha gaarka ah ee weedhaha ee app-kan wuxuu ku siinayaa weedh kasta oo lagama maarmaan ah oo Carabi, qoraal-dhawaaqeed iyo tarjumad wada leh, oo loo habeeyay meesha mid walba salaadda lagu yiraahdo — u isticmaal qalab tababar maalinle ah.",
+    ],
+    appLinks: [{ label: "Hagaha weedhaha salaadda" }],
+  },
+  {
+    title: "Liiska Tallaabooyinkaaga Ugu Horreeya",
+    summary: "Kala horreyn fudud oo macquul ah oo wax lagu barto toddobaadyadaada ugu horreeya.",
+    body: [
+      "Ma jirto kala horreyn keliya oo waajib ah oo wax lagu barto shahaadada kadib, balse Muslimiinta cusub inta badan waxay faa'iido ku arkaan isku xigxig guud si aanu wax walba mar qura ugu culaan. U isticmaal tan hage dabacsan, ee ma aha tartan.",
     ],
     actions: [
-      "When you make a mistake, treat it as a normal part of learning, not a reason to give up.",
+      "Baro weysada (maydhista cibaadada) oo ku celceli ilaa ay kuu noqoto wax dabiici ah.",
+      "Baro ereyada lagama maarmaanka ah ee hal salaad oo dhammaystiran adigoo isticmaalaya hagaha weedhaha.",
+      "Bilow inaad tukato shanta salaadood ee maalinlaha ah, xitaa haddii bilowga aanay dhammaystirnayn — joogtayntu bilowga aad bay uga muhiimsan tahay kaamilnimada.",
+      "Baro dhowr ducooyin maalinle ah oo gaagaaban oo loogu talagalay toosidda, cunidda iyo ka bixidda guriga.",
+      "Hel masjid deegaankaaga ah ama bulsho internetka ku jirta oo taageero iyo su'aalo kuu ah.",
+      "Bilow inaad Qur'aanka ku akhrido tarjumad, wax yar maalin kasta.",
+      "U sheeg qof aad aaminto — qoys ama saaxiib dhow — markaad diyaar u tahay, xawaarahaaga.",
     ],
   },
   {
-    title: "FAQ: Do I Need to Learn Arabic?",
-    summary: "Arabic grows with you over years — it isn't a prerequisite to start practising.",
+    title: "Helitaanka Bulsho",
+    summary:
+      "In wax la barto iyadoo Muslimiin kale lala jiro waxay safarka ka dhigtaa mid fudud oo farxad badan.",
     body: [
-      "Q: Do I need to speak Arabic before I can pray or read the Qur'an? A: No. You can begin praying with a handful of short, transliterated phrases today, and read the Qur'an in your own language while your Arabic recitation grows over time through repetition.",
-      "Q: Is it disrespectful to mispronounce the Arabic while learning? A: No — every reciter, in every generation, started as a beginner. Effort while learning is valued; perfection is a long-term goal, not a starting requirement.",
-      "Q: Should I take a class to learn Arabic reading (for prayer, not necessarily conversation)? A: Many new Muslims find a short Qur'an-reading (tajweed basics) class very worthwhile once the essentials of prayer feel comfortable — it's a good next step, not a first one.",
+      "Islaamka waxaa loogu talagalay in lagu noolaado bulsho dhexdeed, ee ma aha oo keliya si gaar ah. Salaadda jamaacada, masjidka deegaanka iyo asxaabta Muslimka ah waxay kaaga jawaabi karaan su'aalaha maalinlaha ah ('sideen salaadda ugu idhaahdaa tan haddii aan ilaawo?'), waxay ku siin karaan dhiirigelin, waxayna si fudud kaaga dhigi karaan inaadan keligaa dareemin waayo-aragnimo cusub.",
+      "Haddii aadan hubin meel aad ka bilowdo, masaajidda intooda badani si diirran ayay u soo dhoweeyaan Muslimiinta cusub, inta badanna waxaa jira qof si gaar ah ugu faraxsan inuu dadka cusub aasaaska ka caawiyo — weydiintu waa caadi oo waa la filayaa, ma aha wax laga xishoodo.",
+      "Haddii masjid aad tagi karto aanu hadda kuu suurtagelin, bulshooyinka internetka iyo hagayaasha app-kan ayaa farqiga buuxin kara ilaa aad mid hesho, ama si joogto ah haddii taasi tahay xaaladdaadu — si kastaba ha ahaatee, weli si buuxda ayaad uga mid tahay bulshada Muslimka ee ballaaran (ummadda).",
     ],
     actions: [
-      "Keep using transliteration and translation alongside Arabic until recitation feels natural — there's no deadline.",
+      "Raadi masaajid ama xarumo Islaami ah oo kuu dhow, oo ka fiirso inaad booqato waqti salaad ama munaasabad.",
+      "Haddii bulsho aad si toos ah ula kulanto aanay weli suurtagal ahayn, raadso bulsho Muslim ah oo internetka ku jirta oo si wanaagsan loo maamulo si ay kuu taageerto.",
     ],
   },
   {
-    title: "FAQ: Family and Relationships",
-    summary: "Kindness to family remains a duty, even where beliefs now differ.",
+    title: "Sii Wadista Waxbarashada",
+    summary:
+      "Hagahani waa bar bilow — saddex hage oo qoto dheer ayaa diyaar ah markaad diyaar tahay.",
     body: [
-      "Q: My family isn't Muslim and I'm worried about how they'll react — what does Islam ask of me here? A: Kindness to parents and family is commanded in the Qur'an even where belief differs: 'do not obey them [in matters that would compromise your faith], but accompany them in this world with kindness.' Your new faith should visibly make you gentler and more dutiful toward family, not less.",
-      "Q: How do I tell my family, or handle disagreement, without it becoming a crisis? A: There's no single right way — pace, timing, and how much to share depend on your specific family and safety. This is a genuinely personal decision; talking it through with a trusted local imam, counsellor, or experienced convert-support group before difficult conversations is wiser than navigating it entirely alone.",
-      "Q: Am I obligated to cut ties with non-Muslim family or friends? A: No — maintaining good relationships and honouring family ties remains a duty in Islam. Boundaries around specific practices (for example, certain celebrations or activities) are a separate, personal matter best discussed with a knowledgeable local teacher who knows your situation.",
+      "Marka waxyaabaha aasaasiga ah ee hagahan ay kuu fududaadaan, saddex hage oo la socda oo app-kan ku jira ayaa loo dhisay inay kugu sii qoto dheereeyaan: Caqiidada si aad u hesho faahfaahinta buuxda ee tiir kasta oo iimaanka ah, Baro Ducada si aad u hesho ducooyinka xilliyada maalinlaha ah, iyo akhriyaha Qur'aanka ee tilaawada iyo ka fikirka maalinlaha ah.",
+      "Uma baahnid inaad midkoodna si degdeg ah u dhammayso. Islaamka cimriga oo dhan ayaa la bartaa, ku-noqoshada isla mawduuc bilo ama sannado kadib, adigoo waayo-aragnimo badan leh, waa wax caadi ah — xitaa waa la filayaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "But if they endeavour to make you associate with Me that of which you have no knowledge, do not obey them, but accompany them in this world with kindness...",
-      },
+    appLinks: [{ label: "Baro Caqiidada" }, { label: "Baro Ducada" }, { label: "Akhri Qur'aanka" }],
+  },
+  {
+    title: "Su'aalo iyo Jawaabo: Khaladaadka Bilowga",
+    summary:
+      "Qof walba si aan dhammaystirnayn ayuu u bilaabaa — waa kan sida looga fikiro turunturooyinka bilowga.",
+    body: [
+      "S: Waxaan ku khaldamaa qaybo ka mid ah salaadda ama waan ilaawaa ereyada — taasi ma dhibaato baa? J: Maya. Qof walba wuu ilaawaa ereyada oo tallaabooyinka ayuu isku qasaa inta uu baranayo; ku sii celceli hagaha weedhaha, toddobaadyo gudahoodna waxay kuu noqonaysaa wax dabiici ah. Daacadnimada inta wax la baranayo aad bay uga muhiimsan tahay kaamilnimada bilowga.",
+      "S: Waxaan dareemayaa dambi inaanan isla markiiba wax walba samaynayn (soonka, salaado dheeraad ah, xifdinta Qur'aanka). J: Isku dayga in wax walba mar qura la sameeyo waa khalad caadi ah oo Muslimiinta cusub ku dhaca, kaas oo inta badan keena daal iyo niyad-jab. Marka hore shanta salaadood ee maalinlaha ah ka dhig caadadaada joogtada ah ee koowaad, kadibna si tartiib ah wax ugu dar — Alle qofna kuma culaysiyo wax ka badan awoodiisa.",
+      "S: Maxaa dhacaya haddii aan salaad seego ama aan mid ku khaldamo? J: In mararka qaarkood salaad la seego inta aad baranayso nidaamka, ama khalad yar laga galo, ma aha dhammaadka adduunka — soo gud (qaza) markaad xusuusato, sii wad, hana u oggolaan in dib-u-dhac uu kaa joojiyo inaad tukato salaadda xigta.",
+    ],
+    actions: [
+      "Markaad khalad gasho, u qaado qayb caadi ah oo waxbarashada ka mid ah, ee ha u arag sabab aad ku quusato.",
+    ],
+  },
+  {
+    title: "Su'aalo iyo Jawaabo: Ma Waajib Baa Inaan Carabi Barto?",
+    summary: "Carabigu sannado ayuu kula koraa — ma aha shardi ka horreeya bilowga ku-dhaqanka.",
+    body: [
+      "S: Ma waxaan u baahanahay inaan Carabi ku hadlo ka hor intaanan tukan ama Qur'aanka akhrin? J: Maya. Maanta waxaad ku bilaabi kartaa salaadda dhowr weedhood oo gaagaaban oo qoraal-dhawaaqeed leh, oo Qur'aanka ku akhrin kartaa luqaddaada, inta tilaawadaada Carabigu waqti kadib ku koraysa ku-celcelin.",
+      "S: Ma ixtiraam darro baa in Carabiga si khaldan loogu dhawaaqo inta wax la baranayo? J: Maya — akhriste kasta, jiil kasta, wuxuu ahaa bilowga mid cusub. Dadaalka inta wax la baranayo waa la qiimeeyaa; kaamilnimadu waa hadaf mustaqbal fog, ee ma aha shardi bilow ah.",
+      "S: Ma inaan galaa fasal lagu barto akhrinta Carabiga (salaadda awgeed, ee ma aha qasab wada-hadal)? J: Muslimiin cusub oo badan ayaa aad u qiimeeya fasal gaaban oo akhrinta Qur'aanka ah (aasaaska tajwiidka) marka aasaaska salaaddu u fududaado — waa tallaabo xigta oo wanaagsan, ee ma aha tan ugu horreysa.",
+    ],
+    actions: [
+      "Sii isticmaal qoraal-dhawaaqeedka iyo tarjumadda oo Carabiga la socda ilaa tilaawadu kuu noqoto wax dabiici ah — waqti xaddidan ma jiro.",
+    ],
+  },
+  {
+    title: "Su'aalo iyo Jawaabo: Qoyska iyo Xiriirrada",
+    summary:
+      "U wanaagsanaanta qoysku waa waajib weli jira, xitaa meesha caqiidooyinku hadda ku kala duwan yihiin.",
+    body: [
+      "S: Qoyskaygu Muslim ma aha, waxaana ka walaacsanahay sida ay u falcelin doonaan — maxay Islaamku halkan iga rabaa? J: U wanaagsanaanta waalidka iyo qoyska waxaa lagu amray Qur'aanka xitaa meesha iimaanku ku kala duwan yahay: 'ha ka yeelin [arrimaha iimaankaaga dhaawacaya], oo kula soco adduun- kan si naxariis leh.' Diintaada cusubi waa inay si muuqata kaaga dhigtaa qof u jilicsan oo u waajib-gudasho badan qoyskiisa, ee ma aha mid ka yar.",
+      "S: Sideen ugu sheegaa qoyskayga, ama u maareeyaa is-afgaranwaa, iyadoo aanay noqonin xiisad? J: Ma jirto hal waddo oo keliya oo sax ah — xawaaraha, waqtiga iyo inta aad la wadaagayso waxay ku xiran yihiin qoyskaaga gaarka ah iyo badbaadadaada. Tani runtii waa go'aan shakhsi ah; inaad kala hadasho imaam deegaanka ah oo aad aaminto, la-taliye, ama koox taageero oo leh dad soo islaamay oo waayo-aragnimo leh ka hor wada-hadallada adag ayaa ka caqli badan inaad keligaa maareyso.",
+      "S: Ma waajib baa inaan xiriirka u jaro qoyska ama asxaabta aan Muslimka ahayn? J: Maya — ilaalinta xiriir wanaagsan iyo xushmaynta xiriirka qaraabadu weli waa waajib Islaamka. Xuduudaha ku saabsan dhaqanno gaar ah (tusaale ahaan, dabaaldegyo ama hawlo qaarkood) waa arrin kale oo shakhsi ah, oo sida ugu wanaagsan looga wada hadlo macallin deegaanka ah oo aqoon leh oo garanaya xaaladdaada.",
     ],
     disclaimer:
-      "This FAQ offers general, non-fatwa guidance for common early questions. For your specific family, safety, or personal circumstances, please speak with a local imam, qualified counsellor, or trusted community elder.",
+      "Su'aalahan iyo jawaabahan waxay bixiyaan hanuun guud oo aan fatwo ahayn oo loogu talagalay su'aalaha caadiga ah ee bilowga. Xaaladahaaga gaarka ah ee qoyska, badbaadada ama shakhsiga, fadlan la hadal imaam deegaanka ah, la-taliye u qalma, ama oday bulsho oo aad aaminto.",
   },
 ];

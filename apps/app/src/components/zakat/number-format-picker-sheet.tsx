@@ -33,7 +33,12 @@ export function NumberFormatPickerSheet({
   const { colors, tokens } = useThemeTokens();
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      accessibilityLabel={t("zakat.numberFormat.pickerTitle")}
+    >
       <ThemedText type="subtitle">{t("zakat.numberFormat.pickerTitle")}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {t("zakat.numberFormat.pickerHint")}
@@ -107,11 +112,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.three,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
   rowTv: { minHeight: TvLayout.minFocusTarget },
-  meta: { flex: 1, gap: 2 },
-  exampleRow: { flexDirection: "row", alignItems: "center", gap: 2 },
+  meta: { flex: 1, gap: Spacing.half },
+  exampleRow: { flexDirection: "row", alignItems: "center", gap: Spacing.half },
 });

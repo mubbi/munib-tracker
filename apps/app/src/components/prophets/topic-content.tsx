@@ -11,14 +11,14 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
-import { useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useProphetsProgressActions,
@@ -35,10 +35,13 @@ const IMPORTANCE_TONE: Record<
   recommended: "warning",
 };
 
-function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["profile"]> }) {
+export function ProphetsProfileCard({
+  profile,
+}: {
+  profile: NonNullable<ProphetsTopic["profile"]>;
+}) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
+  const { tokens } = useThemeTokens();
 
   const rows: { label: string; value: string }[] = [
     ...(profile.nation ? [{ label: t("prophets.profile.nation"), value: profile.nation }] : []),
@@ -50,7 +53,7 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
   ];
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("prophets.profileTitle")}
         icon={{ ios: "person.fill", android: "person", web: "person" }}
@@ -68,9 +71,7 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
                   <ThemedText type="caption" themeColor="mutedForeground">
                     {row.label}
                   </ThemedText>
-                  <ThemedText type="small" style={{ fontSize: sizes.translation }}>
-                    {row.value}
-                  </ThemedText>
+                  <LearnProseText>{row.value}</LearnProseText>
                 </View>
               ))}
             </LearnGrid>
@@ -85,9 +86,9 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
             <View style={styles.subsection}>
               <ThemedText type="smallBold">{t("prophets.profile.challenges")}</ThemedText>
               {profile.challenges.map((item) => (
-                <ThemedText key={item} type="small" themeColor="mutedForeground">
+                <LearnProseText key={item} themeColor="mutedForeground">
                   • {item}
-                </ThemedText>
+                </LearnProseText>
               ))}
             </View>
           </TvReadableBlock>
@@ -98,9 +99,9 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
             <View style={styles.subsection}>
               <ThemedText type="smallBold">{t("prophets.profile.miracles")}</ThemedText>
               {profile.miracles.map((item) => (
-                <ThemedText key={item} type="small" themeColor="mutedForeground">
+                <LearnProseText key={item} themeColor="mutedForeground">
                   • {item}
-                </ThemedText>
+                </LearnProseText>
               ))}
             </View>
           </TvReadableBlock>
@@ -111,9 +112,9 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
             <View style={styles.subsection}>
               <ThemedText type="smallBold">{t("prophets.profile.events")}</ThemedText>
               {profile.majorEvents.map((item) => (
-                <ThemedText key={item} type="small" themeColor="mutedForeground">
+                <LearnProseText key={item} themeColor="mutedForeground">
                   • {item}
-                </ThemedText>
+                </LearnProseText>
               ))}
             </View>
           </TvReadableBlock>
@@ -123,13 +124,11 @@ function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["
       {profile.lessons?.length ? (
         <TvReadableBlock>
           <View style={[styles.lessonBox, { backgroundColor: tokens.accentSoft }]}>
-            <ThemedText type="caption" style={{ color: colors.accent }}>
+            <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
               {t("prophets.profile.lessons")}
             </ThemedText>
             {profile.lessons.map((item) => (
-              <ThemedText key={item} type="small">
-                • {item}
-              </ThemedText>
+              <LearnProseText key={item}>• {item}</LearnProseText>
             ))}
           </View>
         </TvReadableBlock>
@@ -179,7 +178,7 @@ export function ProphetsTopicContent({ topic }: { topic: ProphetsTopic }) {
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("prophets.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -225,7 +224,7 @@ const styles = StyleSheet.create({
   detailRow: {
     gap: Spacing.half,
     paddingTop: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   subsection: { marginTop: Spacing.three, gap: Spacing.one },
   lessonBox: {
@@ -236,5 +235,5 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

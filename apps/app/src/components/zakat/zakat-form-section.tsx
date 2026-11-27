@@ -47,7 +47,7 @@ export function ZakatFormSection({
   };
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={title}
         icon={icon}

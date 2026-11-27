@@ -2,7 +2,7 @@ import { SymbolView } from "expo-symbols";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type AchievementContentProps = {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   card: {
     alignItems: "center",
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     padding: Spacing.four,
     gap: Spacing.two,
   },

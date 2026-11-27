@@ -166,7 +166,10 @@ export function useSocialAuth() {
       if (!parsed) return "skipped";
       const pending = await loadGoogleOAuthPendingSession();
       if (!pending) return "skipped";
-      if (parsed.state && parsed.state !== pending.state) {
+      // Google always echoes `state`: a return without it is not ours (e.g. a
+      // crafted `…/oauth2redirect?code=` link) — ignore it, keep the pending login.
+      if (!parsed.state) return "skipped";
+      if (parsed.state !== pending.state) {
         await clearGoogleOAuthPendingSession();
         return "failed";
       }
@@ -202,7 +205,9 @@ export function useSocialAuth() {
       if (shouldSkipAppleAuthorizationCodeExchange(parsed.code)) return "skipped";
       const pending = await loadAppleOAuthPendingSession();
       if (!pending) return "skipped";
-      if (parsed.state && parsed.state !== pending.state) {
+      // Apple echoes `state` too; never exchange a code that can't be tied to our request.
+      if (!parsed.state) return "skipped";
+      if (parsed.state !== pending.state) {
         await clearAppleOAuthPendingSession();
         return "failed";
       }

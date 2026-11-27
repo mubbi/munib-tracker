@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Idan azumi ya gagara har abada, a tambayi malami game da fidyah kowace rana.",
       "Idan ka karya azumi da gangan, kar ka dogara ga kimanta app - tambayi malami wane hukunci ya shafi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kuma a kan ma'abuta ikon yin azumi, fansa ga ciyar da miskini... Kuma wanda ya kasance majiyyaci ko kuwa a kan tafiya, to, adadin wasu kwanuka na dabam.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Menene fidyah ga azumin da aka rasa?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Yi amfani da masallacin gida ko ƙimar fidiya na majalisa kowace rana idan akwai.",
       "Raba kwanaki × ci abinci ɗaya (ko rukunin fidiya da aka buga) don kimanta tsarawa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kuma a kan ma'abuta ikon yin azumi, fansa ga ciyar da miskini. Kuma wanda ya yi kyauta, to, shĩ ne mafi alhẽri a gare shi. Kuma ku yi azumi shi ne mafi alheri a gare ku, da kun kasance kuna sani.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Wa ya saba biya fidyah?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Rabe-raben ciki, shayarwa, da rashin lafiya mai tsanani hukunci ne na malamai. Wannan batu na ilimi ne kawai.",
-    quran: [
-      {
-        excerpt:
-          "...To wanda ya ga wata, to, ya azumce shi. Kuma wanda ya kasance majiyyaci ko kuwa a kan tafiya, to, daidai da adadin wasu kwanuka na dabam. Allah yana nufin sauki gare ku kuma baya nufin ku da wahala...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Wani mutum ya ce: Mahaifiyata ta rasu ne da azumi. Shin zan yi azumi a madadinta? Annabi ﷺ ya ce: Na’am – Bashin Allah ya fi cancanta a biya.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah domin karya azumi da gangan",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Tambayi ƙwararren malami wane kaffarar da kake bi.",
       "Idan ciyar da matalauta sittin shine zaɓin da za ku iya cika, yi amfani da farashin abinci na gida × 60 azaman adadi tsarawa.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Wani mutum ya ce: Na lalace ya Manzon Allah – Na sadu da matata a watan Ramadan. An tambaye shi game da ‘yanta bawa, da azumin wata biyu a jere, da ciyar da miskinai sittin...",
-      },
-      {
-        excerpt:
-          "Muna zaune da Annabi SAW sai wani mutum ya zo ya ce: Na lalace... ya sadu da matarsa yana azumi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Yadda ake amfani da wannan mataimaki",

@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import type { TFunction } from "i18next";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet } from "react-native";
@@ -12,12 +13,13 @@ import { PIN_LENGTH } from "@/features/pin-lock/lib/pin-crypto";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 
-function formatLockoutRemaining(ms: number): string {
+/** Lockout countdown in the UI language ("1 min 31 sec"). */
+function formatLockoutRemaining(ms: number, t: TFunction): string {
   const totalSec = Math.ceil(ms / 1000);
   const min = Math.floor(totalSec / 60);
   const sec = totalSec % 60;
-  if (min > 0) return `${min} min ${sec} sec`;
-  return `${sec} sec`;
+  if (min > 0) return t("pinLock.lockoutMinSec", { min, sec });
+  return t("pinLock.lockoutSec", { sec });
 }
 
 interface PinLockScreenProps {
@@ -100,7 +102,7 @@ export function PinLockScreen({
 
   const statusMessage =
     isLockedOut && lockoutRemainingMs > 0
-      ? t("pinLock.tryAgainIn", { time: formatLockoutRemaining(lockoutRemainingMs) })
+      ? t("pinLock.tryAgainIn", { time: formatLockoutRemaining(lockoutRemainingMs, t) })
       : (errorMessage ?? null);
 
   const biometricFooter =

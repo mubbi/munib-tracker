@@ -8,15 +8,10 @@ export const WHITE_DAYS_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
     summary: "13., 14. i 15. dan svakog hidžretskog mjeseca — svijetle noći obasjane mjesečinom.",
     body: [
       "Ayyām al-Bīḍ, „Bijeli dani“, jesu 13., 14. i 15. dan svakog islamskog (hidžretskog) mjeseca. Nazivaju se „bijelim“ jer su njihove noći svijetle: mjesec je pun ili skoro pun i osvjetljava veći dio noći, pa noći izgledaju bijele od mjesečine.",
-      "Postiti tri dana svakog mjeseca potvrđeni je sunnet Poslanika ﷺ, a Bijeli dani su preporučena tri dana. Džerir ibn Abdullah prenosi da je Poslanik ﷺ rekao: „Postiti tri dana svakog mjeseca kao je postiti cijeli život, a Bijeli dani (Ayyām al-Bīḍ) su trinaesti, četrnaesti i petnaesti“ (Sunan an-Nasa'i 2422).",
+      "Postiti tri dana svakog mjeseca potvrđeni je sunnet Poslanika ﷺ, a Bijeli dani su preporučena tri dana. Džerir ibn Abdullah prenosi da je Poslanik ﷺ rekao: „Postiti tri dana svakog mjeseca kao je postiti cijeli život, a Bijeli dani (Ayyām al-Bīḍ) su trinaesti, četrnaesti i petnaesti“ (Sunan an-Nasa'i 2420).",
       "Budući da hidžretski mjesec prati mjesec, ova tri dana se svakog mjeseca pomjeraju kroz gregorijanski kalendar i mogu početi dan ranije ili kasnije, ovisno o viđenju mlađaka u vašoj regiji. Aplikacija ih izračunava prema vlastitom hidžretskom kalendaru, pa uvijek znate na koje datume padaju.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Postiti tri dana svakog mjeseca kao je postiti cijeli život, a Bijeli dani (Ayyām al-Bīḍ) su trinaesti, četrnaesti i petnaesti.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Otvorite prikaz mjesečevih faza da vidite kada su Bijeli dani ovog mjeseca.",
       "Zabilježite tri datuma kako biste oko njih isplanirali sehur i iftar.",
@@ -32,21 +27,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Abdullah ibn Amr prenosi da mu je Poslanik ﷺ rekao: „Dovoljno ti je da postiš tri dana u mjesecu, jer se nagrada za dobro djelo umnožava deset puta, pa će to biti kao post cijele godine“ (Sahih al-Bukhari 1975). U drugoj predaji: „Post tri dana u mjesecu jednak je postu cijele godine“ (Sahih al-Bukhari 1979).",
       "Zato su tri skromna dana, u kojima se ustrajava, toliko draga: lagani su za tijelo, a Allahovom dobrotom vrednuju se kao post cijeloga života. Bijeli dani su jednostavno tri dana koja je sunnet odabrao.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ko učini dobro djelo, imat će deseterostruku nagradu, a ko učini loše djelo, bit će kažnjen samo koliko ono zaslužuje; nikome se neće učiniti nepravda.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dovoljno ti je da postiš tri dana u mjesecu, jer se nagrada za dobro djelo umnožava deset puta, pa će to biti kao post cijele godine.",
-      },
-      {
-        excerpt: "Post tri dana u mjesecu jednak je postu cijele godine.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Obnovite nijjet noć prije — radi Allaha, tražeći Njegovu nagradu.",
       "Težite ustrajnosti: tri skromna dana svakog mjeseca bolja su od naleta koje ne možete održati.",
@@ -60,21 +42,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Allahov Poslanik ﷺ izričito je naređivao njihov post. Ibn Milhan el-Kajsi prenosi od svoga oca: „Allahov Poslanik ﷺ naređivao nam je da postimo Bijele dane: trinaesti, četrnaesti i petnaesti u mjesecu“, i rekao je: „To je kao neprekidan post“ (Sunan Abi Dawud 2449). Ebu Zerr prenosi da mu je Poslanik ﷺ rekao: „Kada želiš postiti tri dana u mjesecu, posti trinaesti, četrnaesti i petnaesti“ (Jami' at-Tirmidhi 761).",
       "Ako ne možete postiti sva tri dana — zbog putovanja, bolesti ili zato što ste započeli dan bez namjere posta — postite koliko možete; i jedan ili dva dana donose umnoženu nagradu. Dobrovoljni post može se započeti nijjetom tokom jutra, pod uslovom da niste jeli. Žena ne posti za vrijeme menstruacije; sunnet nastavlja u mjesecima u kojima može, bez napošćavanja dobrovoljnih postova propuštenih iz tog razloga.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahov Poslanik ﷺ naređivao nam je da postimo Bijele dane: trinaesti, četrnaesti i petnaesti u mjesecu. Rekao je: To je kao neprekidan post.",
-      },
-      {
-        excerpt: "Kada želiš postiti tri dana u mjesecu, posti trinaesti, četrnaesti i petnaesti.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, propisuje vam se post, kao što je bio propisan onima prije vas, da biste bili bogobojazni.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Donesite nijjet da postite Bijele dane radi Allaha, tražeći Njegovu nagradu.",
       "Postite koliko možete — jedan ili dva dana i dalje nose deseterostruku nagradu ako sva tri nisu moguća.",
@@ -91,12 +60,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Neki radije poste svoja tri mjesečna dana ponedjeljkom i četvrtkom umjesto od 13. do 15. dana, a i to ispunjava sunnet posta tri dana mjesečno. Drugi spajaju oboje kada mogu. Cilj je stalna, iskrena navika dobrovoljnog posta, a ne kruta formula.",
       "Izaberite obrazac koji možete održati. Ako Bijeli dani odgovaraju vašem mjesecu, pratite ih ovdje; ako su ponedjeljak i četvrtak lakši, držite se njih. Allahu je najdraže djelo koje se čini ustrajno, makar bilo malo.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahov Poslanik ﷺ upitan je o postu ponedjeljkom. Rekao je: Toga dana sam rođen i toga dana mi je objavljena objava.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Izaberite obrazac koji možete održati: Bijele dane, ponedjeljak i četvrtak ili oboje.",
       "Budite ustrajni — malo djelo koje se redovno čini drago je Allahu.",

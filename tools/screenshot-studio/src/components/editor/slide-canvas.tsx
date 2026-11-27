@@ -2,8 +2,12 @@
 import { RotateCw } from "lucide-react";
 import * as React from "react";
 import { Rnd } from "react-rnd";
+import { alpha, mix, shade } from "@/lib/color";
 import {
+  ANDROID_RATIO,
   CANVAS,
+  creativeSafeArea,
+  creativeVariant,
   FOLD_L_RATIO,
   FOLD_P_RATIO,
   foldLW,
@@ -13,8 +17,11 @@ import {
   MK_RATIO,
   phoneW,
   phoneWSmall,
-  rendersBrandBanner,
+  rendersCreativeAsset,
+  type SafeArea,
   supportsLandscape,
+  TAB_L_RATIO,
+  TAB_P_RATIO,
   TV_RATIO,
   tabletLW,
   tabletPW,
@@ -24,8 +31,17 @@ import {
   watchW,
   wearW,
 } from "@/lib/constants";
-import { toTextElementId } from "@/lib/elements";
-import { img } from "@/lib/image-cache";
+import type { DeviceFinish, SlideDesign } from "@/lib/design";
+import { defaultElementZ, toTextElementId } from "@/lib/elements";
+import { img, imgAspect } from "@/lib/image-cache";
+import {
+  type GeoRect,
+  headlineBand,
+  isWideCanvas,
+  lensRect,
+  noDeviceFeaturesRect,
+  templateLayoutRects,
+} from "@/lib/layout-geometry";
 import { pickText, resolveScreenshot, textDir } from "@/lib/locale";
 import type {
   BuiltInElementId,
@@ -48,15 +64,18 @@ import {
   FoldableP,
   IPad,
   Phone,
+  SCREEN_ASPECT,
   TvFrame,
   WearWatch,
 } from "./device-frames";
+import { Backdrop, FeatureChips, LensView, type Tone, toneFor } from "./slide-decor";
 
 type FrameComp = React.ComponentType<{
   src: string;
   alt?: string;
   style?: React.CSSProperties;
   hideEmpty?: boolean;
+  finish?: DeviceFinish;
 }>;
 
 export function getCanvas(device: Device, orientation: Orientation) {
@@ -72,21 +91,20 @@ export function getCanvas(device: Device, orientation: Orientation) {
 function getFrameAspect(device: Device, orientation: Orientation) {
   switch (device) {
     case "iphone":
-    // Product page header / search results showcase the iPhone frame.
-    case "ios-header":
+    // App Store creative assets showcase the iPhone frame.
+    case "ios-universal":
     case "ios-header-wide":
-    case "ios-search":
     case "ios-search-3x2":
       return MK_RATIO;
     case "iphone-duo":
       return orientation === "landscape" ? FOLD_L_RATIO : FOLD_P_RATIO;
     case "android":
-      return 9 / 19.5;
+      return ANDROID_RATIO;
     case "ipad":
       return IPAD_RATIO;
     case "android-7":
     case "android-10":
-      return orientation === "landscape" ? 8 / 5 : 5 / 8;
+      return orientation === "landscape" ? TAB_L_RATIO : TAB_P_RATIO;
     case "apple-watch":
       return WATCH_RATIO;
     case "wear-os":
@@ -96,6 +114,31 @@ function getFrameAspect(device: Device, orientation: Orientation) {
       return TV_RATIO;
     default:
       return 1;
+  }
+}
+
+/** Screenshot (screen opening) aspect w/h per device — see SCREEN_ASPECT in device-frames.tsx. */
+function screenAspectFor(device: Device, orientation: Orientation) {
+  const landscape = orientation === "landscape";
+  switch (device) {
+    case "android":
+      return SCREEN_ASPECT.android;
+    case "ipad":
+      return SCREEN_ASPECT.ipad;
+    case "android-7":
+    case "android-10":
+      return landscape ? SCREEN_ASPECT.tabletL : SCREEN_ASPECT.tabletP;
+    case "iphone-duo":
+      return landscape ? SCREEN_ASPECT.duoL : SCREEN_ASPECT.duoP;
+    case "apple-watch":
+      return SCREEN_ASPECT.watch;
+    case "wear-os":
+      return SCREEN_ASPECT.wear;
+    case "apple-tv":
+    case "android-tv":
+      return SCREEN_ASPECT.tv;
+    default:
+      return SCREEN_ASPECT.iphone;
   }
 }
 
@@ -216,9 +259,11 @@ function EditableText({
   placeholder,
   onFocus,
   dir,
+  className,
 }: {
   value: string;
   dir?: "rtl" | "ltr";
+  className?: string;
   editable?: boolean;
   onChange?: (v: string) => void;
   style?: React.CSSProperties;
@@ -239,6 +284,7 @@ function EditableText({
 
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
     if (!onChange) return;
+    // biome-ignore lint/performance/useDomNodeTextContent: contentEditable line breaks (<br>/<div>) only survive via innerText; textContent would collapse multiline copy.
     const text = (e.currentTarget.innerText || "").replace(/\u00a0/g, " ");
     onChange(multiline ? text : text.replace(/\n/g, ""));
   };
@@ -247,6 +293,7 @@ function EditableText({
     <div
       ref={ref}
       dir={dir}
+      className={className}
       contentEditable={editable}
       suppressContentEditableWarning
       data-placeholder={placeholder}
@@ -288,6 +335,15 @@ function EditableText({
 
 // ---------- Caption (label + headline) ----------
 
+/** Layouts with a dedicated headline band get open-assets-sized type (~8% of the short side). */
+const BAND_LAYOUTS = new Set<Slide["layout"]>(["bleed-bottom", "tilted", "feature-list"]);
+
+/** Headline leading per script: Latin tight; Arabic (Plex) and Urdu (Nastaliq) need room. */
+function headlineLeading(locale: string, dir: "rtl" | "ltr") {
+  if (dir !== "rtl") return 1.08;
+  return locale.startsWith("ur") ? 1.72 : 1.32;
+}
+
 function Caption({
   cW,
   cH,
@@ -311,128 +367,75 @@ function Caption({
   inverted?: boolean;
   onFocus?: () => void;
 }) {
-  const fg = inverted ? theme.fgAlt : theme.fg;
-  const accent = theme.accent;
+  const tone = toneFor(theme, !!inverted, slide.design);
   // Scale typography off the *shorter* dimension so landscape layouts don't
   // produce headlines so tall they overlap the device frame.
   const unit = Math.min(cW, cH);
+  const label = pickText(slide.label, locale);
+  const pill = slide.design?.labelStyle === "pill" && !!label;
+  const headDir = textDir(slide.headline, locale);
+  // Nastaliq sets tall and wide: scale Urdu display type down (marketing caps its Urdu hero too).
+  const scriptScale = headDir === "rtl" && locale.startsWith("ur") ? 0.86 : 1;
+  const headSize = unit * (BAND_LAYOUTS.has(slide.layout) ? 0.078 : 0.066) * scriptScale;
   return (
-    <div style={{ textAlign: align, position: "relative", width: "100%" }}>
+    <div
+      data-hl={tone.highlight}
+      style={{ textAlign: align, position: "relative", width: "100%", ...tone.vars }}
+    >
+      <div style={{ marginBottom: unit * (pill ? 0.026 : 0.016) }}>
+        <EditableText
+          className={pill ? "st-label-pill" : undefined}
+          value={label}
+          dir={textDir(slide.label, locale)}
+          editable={editable}
+          onChange={edit?.onLabelChange}
+          onFocus={onFocus}
+          placeholder="LABEL"
+          style={{
+            display: pill ? "inline-block" : "block",
+            fontSize: unit * (pill ? 0.025 : 0.024),
+            fontWeight: 700,
+            // Tracking breaks the joins of cursive Arabic script.
+            letterSpacing: textDir(slide.label, locale) === "rtl" ? 0 : unit * 0.0035,
+            color: pill && !tone.light ? tone.fg : tone.accent,
+            textTransform: "uppercase",
+            minHeight: unit * 0.028,
+            ...(pill
+              ? {
+                  background: alpha(tone.accent, tone.light ? 0.12 : 0.18),
+                  border: `${Math.max(1, unit * 0.0016)}px solid ${alpha(tone.accent, tone.light ? 0.3 : 0.4)}`,
+                }
+              : {}),
+          }}
+        />
+      </div>
       <EditableText
-        value={pickText(slide.label, locale)}
-        dir={textDir(slide.label, locale)}
-        editable={editable}
-        onChange={edit?.onLabelChange}
-        onFocus={onFocus}
-        placeholder="LABEL"
-        style={{
-          fontSize: unit * 0.024,
-          fontWeight: 700,
-          letterSpacing: unit * 0.0035,
-          color: accent,
-          textTransform: "uppercase",
-          marginBottom: unit * 0.016,
-          minHeight: unit * 0.028,
-        }}
-      />
-      <EditableText
+        className="st-headline"
         value={pickText(slide.headline, locale)}
-        dir={textDir(slide.headline, locale)}
+        dir={headDir}
         editable={editable}
         multiline
         onChange={edit?.onHeadlineChange}
         onFocus={onFocus}
         placeholder="Headline goes here"
         style={{
-          fontSize: unit * 0.066,
+          fontSize: headSize,
           fontWeight: 800,
-          lineHeight: 1.12,
-          letterSpacing: -unit * 0.0006,
-          color: fg,
-          textShadow: inverted ? "0 2px 24px rgba(0,0,0,0.18)" : "0 2px 28px rgba(0,0,0,0.22)",
+          lineHeight: headlineLeading(locale, headDir),
+          letterSpacing: headDir === "rtl" ? 0 : "-0.018em",
+          color: tone.fg,
+          textShadow: tone.textShadow,
         }}
       />
     </div>
   );
 }
 
-// ---------- Background ----------
-
-function backgroundFor(theme: Theme, inverted?: boolean) {
-  if (inverted) {
-    return `radial-gradient(120% 80% at 15% 0%, ${shade(theme.accent, 18)}33 0%, transparent 55%),
-      radial-gradient(90% 70% at 90% 100%, ${theme.accent}28 0%, transparent 50%),
-      linear-gradient(165deg, ${shade(theme.bgAlt, 6)} 0%, ${theme.bgAlt} 42%, ${shade(theme.bgAlt, -10)} 100%)`;
-  }
-  return `radial-gradient(110% 75% at 12% -5%, ${theme.accent}40 0%, transparent 52%),
-    radial-gradient(95% 70% at 95% 105%, ${shade(theme.accent, -20)}30 0%, transparent 48%),
-    linear-gradient(165deg, ${shade(theme.bg, 8)} 0%, ${theme.bg} 45%, ${shade(theme.bg, -8)} 100%)`;
-}
-
-function shade(hex: string, percent: number) {
-  const c = hex.replace("#", "");
-  const num = parseInt(
-    c.length === 3
-      ? c
-          .split("")
-          .map((x) => x + x)
-          .join("")
-      : c,
-    16,
-  );
-  let r = (num >> 16) & 0xff;
-  let g = (num >> 8) & 0xff;
-  let b = num & 0xff;
-  const amt = Math.round((255 * percent) / 100);
-  r = Math.max(0, Math.min(255, r + amt));
-  g = Math.max(0, Math.min(255, g + amt));
-  b = Math.max(0, Math.min(255, b + amt));
-  return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
-}
-
-// ---------- Decorative blob ----------
-
-function Blob({
-  cW,
-  color,
-  x,
-  y,
-  size,
-  opacity = 0.4,
-}: {
-  cW: number;
-  color: string;
-  x: number;
-  y: number;
-  size: number;
-  opacity?: number;
-}) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: `${x}%`,
-        top: `${y}%`,
-        width: `${size}%`,
-        aspectRatio: "1 / 1",
-        background: color,
-        borderRadius: "50%",
-        filter: `blur(${cW * 0.06}px)`,
-        opacity,
-        pointerEvents: "none",
-      }}
-    />
-  );
-}
-
 // ---------- Default element rects per layout ----------
 
 type Rect = { x: number; y: number; width: number; height: number };
-type LayoutRects = {
-  caption?: Rect & { align?: "center" | "left" };
-  device?: Rect;
-  deviceSecondary?: Rect;
-};
+/** Default rect per element; `rotation` is the layout's default tilt. */
+type LayoutRects = Partial<Record<BuiltInElementId, GeoRect>>;
 
 /** Fit a device rect into the remaining band below/above the caption. */
 function fitDevice(
@@ -456,14 +459,17 @@ function getDefaultRects(
   cH: number,
   frameAspect: number,
   fwFrac: number,
-  fwSmallFrac: number,
+  _fwSmallFrac: number,
+  design?: SlideDesign,
 ): LayoutRects {
   const deviceW = fwFrac * cW;
-  const smallW = fwSmallFrac * cW;
   const capW = cW * 0.84;
   // Keep caption band compact so headlines never collide with the device frame.
-  const topTextBand = cH * 0.24;
-  const bottomTextBand = cH * 0.28;
+  // Wide canvases (TV, landscape tablets / Duo) need a taller copy band: type
+  // scales off the short side, so the same two lines take more of the height.
+  const wide = isWideCanvas(cW, cH);
+  const topTextBand = cH * (wide ? 0.33 : 0.24);
+  const bottomTextBand = cH * (wide ? 0.34 : 0.28);
   const gap = cH * 0.02;
 
   switch (layout) {
@@ -525,30 +531,38 @@ function getDefaultRects(
       };
     }
     case "two-devices": {
-      const textBand = cH * 0.28;
-      const availH = cH - textBand - gap - cH * 0.02;
-      const front = fitDevice(deviceW, frameAspect, availH, 0.84);
-      const back = fitDevice(smallW, frameAspect, availH * 0.9, 0.9);
+      // Two overlapping devices under a fixed headline band: the front one
+      // docked on the right, the back one smaller, lower and tilted out (open-
+      // assets "before/after" pair). Mirror swaps the sides.
+      const band = cH * headlineBand(cW, cH);
+      const top = band + cH * 0.015;
+      const portrait = cH >= cW;
+      const front = fitDevice(cW * (portrait ? 0.7 : 0.36), frameAspect, (cH - top) / 0.96);
+      const back = { width: front.width * 0.88, height: front.height * 0.88 };
+      const mirror = !!design?.mirror;
+      // Portrait: spread the pair edge to edge so the back device bleeds ~14%
+      // off the side and more of its screen shows.
+      const bleed = back.width * 0.14;
+      const pairW = portrait ? cW * 0.97 + bleed : front.width + back.width * 0.62;
+      const left = portrait ? (mirror ? cW * 0.03 : -bleed) : (cW - pairW) / 2;
+      const backX = mirror ? left + pairW - back.width : left;
+      const frontX = mirror ? left : left + pairW - front.width;
       return {
         caption: {
-          x: cW * 0.08,
-          y: cH * 0.04,
-          width: capW,
-          height: textBand * 0.82,
+          x: cW * 0.07,
+          y: cH * 0.045,
+          width: cW * 0.86,
+          height: band - cH * 0.045,
           align: "center",
         },
         deviceSecondary: {
-          x: cW * 0.03,
-          y: textBand + gap * 1.5 + Math.max(0, availH - back.height) * 0.6,
+          x: backX,
+          y: top + front.height * 0.08,
           width: back.width,
           height: back.height,
+          rotation: mirror ? 5 : -5,
         },
-        device: {
-          x: cW - front.width - cW * 0.03,
-          y: textBand + gap * 1.5 + Math.max(0, availH - front.height) * 0.3,
-          width: front.width,
-          height: front.height,
-        },
+        device: { x: frontX, y: top, width: front.width, height: front.height },
       };
     }
     case "no-device":
@@ -603,15 +617,11 @@ function getDefaultRects(
     case "full-bleed":
       return { device: { x: 0, y: 0, width: cW, height: cH } };
     default:
-      return {};
+      return templateLayoutRects(layout, cW, cH, frameAspect, design) ?? {};
   }
 }
 
-function rectFor(
-  id: BuiltInElementId,
-  slide: Slide,
-  defaults: LayoutRects,
-): (Rect & { align?: "center" | "left" }) | undefined {
+function rectFor(id: BuiltInElementId, slide: Slide, defaults: LayoutRects): GeoRect | undefined {
   const saved = slide.transforms?.[id];
   const def = defaults[id];
   if (!def && !saved) return undefined;
@@ -621,8 +631,13 @@ function rectFor(
     y: saved.y,
     width: saved.width,
     height: saved.height,
-    align: (def as { align?: "center" | "left" } | undefined)?.align,
+    rotation: saved.rotation ?? def?.rotation,
+    align: def?.align,
   };
+}
+
+function hasText(field: Record<string, string | undefined> | undefined) {
+  return !!field && Object.values(field).some((v) => !!v?.trim());
 }
 
 function getSlideGeometry(slide: Slide, device: Device, orientation: Orientation) {
@@ -634,7 +649,17 @@ function getSlideGeometry(slide: Slide, device: Device, orientation: Orientation
   const frameAspect = fullBleed ? cW / cH : getFrameAspect(device, orientation);
   const fwFrac = widthFn(cW, cH);
   const fwSmallFrac = smallWidthFn(cW, cH);
-  const defaults = getDefaultRects(slide.layout, cW, cH, frameAspect, fwFrac, fwSmallFrac);
+  const design = slide.design;
+  const defaults = getDefaultRects(slide.layout, cW, cH, frameAspect, fwFrac, fwSmallFrac, design);
+  // Magnifier lens hangs off the main device's outer edge.
+  if (design?.lens && !fullBleed && slide.layout !== "no-device") {
+    const dev = rectFor("device", slide, defaults);
+    if (dev) defaults.lens = lensRect(cW, cH, dev, !!design.mirror);
+  }
+  // Feature chips: their own band in feature-list; under the headline when there is no device.
+  if (!defaults.features && slide.layout === "no-device" && hasText(design?.features)) {
+    defaults.features = noDeviceFeaturesRect(cW, cH);
+  }
   return { cW, cH, Frame, frameAspect, defaults };
 }
 
@@ -658,15 +683,9 @@ export function getElementTransform(
     y: rect.y,
     width: rect.width,
     height: rect.height,
-    rotation: saved?.rotation ?? 0,
-    zIndex: saved?.zIndex ?? defaultElementZ(id as BuiltInElementId),
+    rotation: rect.rotation ?? 0,
+    zIndex: saved?.zIndex ?? defaultElementZ(id),
   };
-}
-
-function defaultElementZ(id: BuiltInElementId): number {
-  if (id === "deviceSecondary") return 2;
-  if (id === "device") return 3;
-  return 4;
 }
 
 // ---------- Main single-screen canvas ----------
@@ -687,18 +706,20 @@ export function SlideCanvas({
 }: Props) {
   const { cW, cH } = getCanvas(device, orientation);
 
-  if (rendersBrandBanner(device, slide.layout)) {
+  if (rendersCreativeAsset(device)) {
     return (
-      <FeatureGraphicCanvas
+      <CreativeAssetCanvas
         slide={slide}
+        device={device}
         cW={cW}
         cH={cH}
         theme={theme}
         locale={locale}
-        appName={appName}
         appIcon={appIcon}
+        appName={appName}
         editable={editable}
         edit={edit}
+        hideEmpty={hideEmpty}
       />
     );
   }
@@ -711,6 +732,8 @@ export function SlideCanvas({
 
   return (
     <div
+      className="st-canvas"
+      lang={locale}
       onMouseDown={handleBackgroundMouseDown}
       style={{
         width: "100%",
@@ -719,7 +742,7 @@ export function SlideCanvas({
         overflow: "hidden",
       }}
     >
-      <SlideBackground slide={slide} cW={cW} cH={cH} theme={theme} />
+      <SlideBackground slide={slide} device={device} orientation={orientation} theme={theme} />
       <SlideElements
         slide={slide}
         device={device}
@@ -764,6 +787,8 @@ export function DeckCanvas({
 
   return (
     <div
+      className="st-canvas"
+      lang={locale}
       style={{
         width: totalW,
         height: cH,
@@ -774,10 +799,10 @@ export function DeckCanvas({
       {slides.map((slide, index) => {
         const screenX = index * cW;
         const active = activeSlideId === slide.id;
-        if (rendersBrandBanner(device, slide.layout)) {
+        if (rendersCreativeAsset(device)) {
           return (
             <div
-              key={`${slide.id}-feature`}
+              key={`${slide.id}-creative`}
               onMouseDown={(e) => {
                 if (!editable || e.defaultPrevented) return;
                 edit?.onSelectScreen?.(slide.id);
@@ -792,16 +817,20 @@ export function DeckCanvas({
                 overflow: "hidden",
               }}
             >
-              <FeatureGraphicCanvas
+              <CreativeAssetCanvas
                 slide={slide}
+                device={device}
                 cW={cW}
                 cH={cH}
                 theme={theme}
                 locale={locale}
-                appName={appName}
                 appIcon={appIcon}
+                appName={appName}
                 editable={editable}
+                hideEmpty={hideEmpty}
+                showSafeArea={showGuides}
                 edit={{
+                  onLabelChange: (v) => edit?.onLabelChange?.(slide.id, v),
                   onHeadlineChange: (v) => edit?.onHeadlineChange?.(slide.id, v),
                 }}
               />
@@ -826,14 +855,19 @@ export function DeckCanvas({
               overflow: "hidden",
             }}
           >
-            <SlideBackground slide={slide} cW={cW} cH={cH} theme={theme} />
+            <SlideBackground
+              slide={slide}
+              device={device}
+              orientation={orientation}
+              theme={theme}
+            />
             {showGuides && <ScreenGuide cW={cW} cH={cH} index={index} active={active} />}
           </div>
         );
       })}
 
       {slides.map((slide, index) => {
-        if (rendersBrandBanner(device, slide.layout)) return null;
+        if (rendersCreativeAsset(device)) return null;
         const selectedElementId =
           selectedElement?.slideId === slide.id ? selectedElement.elementId : null;
         const perSlideEdit: EditHandlers | undefined = editable
@@ -891,47 +925,27 @@ export function DeckCanvas({
 
 function SlideBackground({
   slide,
-  cW,
+  device,
+  orientation,
   theme,
 }: {
   slide: Slide;
-  cW: number;
-  cH: number;
+  device: Device;
+  orientation: Orientation;
   theme: Theme;
 }) {
-  const inverted = !!slide.inverted;
+  const { cW, cH, defaults } = getSlideGeometry(slide, device, orientation);
+  const focus = slide.layout === "full-bleed" ? undefined : rectFor("device", slide, defaults);
   return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflow: "hidden",
-        background: backgroundFor(theme, inverted),
-        color: inverted ? theme.fgAlt : theme.fg,
-      }}
-    >
-      <Blob
-        cW={cW}
-        color={theme.accent}
-        x={-18}
-        y={-14}
-        size={62}
-        opacity={inverted ? 0.22 : 0.28}
-      />
-      <Blob cW={cW} color="#E4CE9E" x={62} y={-8} size={38} opacity={inverted ? 0.08 : 0.1} />
-      <Blob cW={cW} color={theme.accent} x={68} y={72} size={52} opacity={inverted ? 0.16 : 0.22} />
-      {/* Soft vignette for depth */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(120% 90% at 50% 40%, transparent 35%, rgba(0,0,0,0.28) 100%)",
-          pointerEvents: "none",
-        }}
-      />
-    </div>
+    <Backdrop
+      design={slide.design}
+      theme={theme}
+      inverted={!!slide.inverted}
+      cW={cW}
+      cH={cH}
+      seed={slide.id}
+      focus={focus}
+    />
   );
 }
 
@@ -983,97 +997,611 @@ function ScreenGuide({
   );
 }
 
-function FeatureGraphicCanvas({
+// ---------- App Store creative asset (product page header / search results) ----------
+//
+// Apple crops these canvases per device, orientation and placement; only the
+// art safe area (CREATIVE_SAFE_AREA) is guaranteed visible. So the composition
+// is centred on the safe area: the icon + one short phrase live inside it, and
+// everything outside it is atmosphere that may be cropped without losing the
+// message: night sky, girih pattern, mihrab arch, masjid skyline and two
+// tilted phones peeking in from the sides.
+
+const CREATIVE_GOLD = "#E4CE9E";
+
+/** Deterministic PRNG so the star field is identical in previews and exports. */
+function seededRandom(seed: number) {
+  let s = seed >>> 0 || 1;
+  return () => {
+    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
+}
+
+/** Pointed (mihrab) arch from the canvas floor up to an apex at (cx, top). */
+function archPath(cx: number, top: number, width: number, floor: number) {
+  const l = cx - width / 2;
+  const r = cx + width / 2;
+  const spring = top + width * 0.42;
+  const shoulder = spring - width * 0.3;
+  const nearApex = top + width * 0.1;
+  return [
+    `M ${l} ${floor}`,
+    `L ${l} ${spring}`,
+    `C ${l} ${shoulder} ${cx - width * 0.22} ${nearApex} ${cx} ${top}`,
+    `C ${cx + width * 0.22} ${nearApex} ${r} ${shoulder} ${r} ${spring}`,
+    `L ${r} ${floor}`,
+  ].join(" ");
+}
+
+/** Onion dome sitting on `base`, `r` wide each side, `h` tall, with a finial. */
+function domePath(cx: number, base: number, r: number, h: number) {
+  const tip = base - h;
+  return [
+    `M ${cx - r} ${base}`,
+    `C ${cx - r * 1.08} ${base - h * 0.55} ${cx - r * 0.2} ${base - h * 0.72} ${cx} ${tip}`,
+    `C ${cx + r * 0.2} ${base - h * 0.72} ${cx + r * 1.08} ${base - h * 0.55} ${cx + r} ${base}`,
+    "Z",
+    // finial
+    `M ${cx - r * 0.035} ${tip + h * 0.02} L ${cx - r * 0.035} ${tip - h * 0.22}`,
+    `L ${cx + r * 0.035} ${tip - h * 0.22} L ${cx + r * 0.035} ${tip + h * 0.02} Z`,
+  ].join(" ");
+}
+
+/** Minaret: shaft, balcony and a pointed cap. */
+function minaretPath(cx: number, floor: number, w: number, h: number) {
+  const top = floor - h;
+  const bal = top + h * 0.22;
+  return [
+    `M ${cx - w / 2} ${floor} L ${cx - w / 2} ${top} L ${cx + w / 2} ${top} L ${cx + w / 2} ${floor} Z`,
+    `M ${cx - w * 0.8} ${bal} L ${cx + w * 0.8} ${bal} L ${cx + w * 0.8} ${bal + w * 0.35} L ${cx - w * 0.8} ${bal + w * 0.35} Z`,
+    `M ${cx - w * 0.62} ${top} L ${cx} ${top - w * 2.1} L ${cx + w * 0.62} ${top} Z`,
+  ].join(" ");
+}
+
+/** Symmetric masjid skyline across the full canvas width, `u` = skyline unit height. */
+function skylinePath(cW: number, cH: number, u: number) {
+  const cx = cW / 2;
+  const parts: string[] = [
+    `M 0 ${cH} L 0 ${cH - u * 0.2} L ${cW} ${cH - u * 0.2} L ${cW} ${cH} Z`,
+    // central prayer hall + main dome + flanking domes
+    `M ${cx - u * 0.95} ${cH} L ${cx - u * 0.95} ${cH - u * 0.48} L ${cx + u * 0.95} ${cH - u * 0.48} L ${cx + u * 0.95} ${cH} Z`,
+    domePath(cx, cH - u * 0.46, u * 0.52, u * 0.62),
+  ];
+  for (const side of [-1, 1]) {
+    parts.push(domePath(cx + side * u * 0.7, cH - u * 0.46, u * 0.2, u * 0.26));
+    parts.push(minaretPath(cx + side * u * 1.2, cH, u * 0.1, u * 1.02));
+    // Rows of smaller houses and domes out to the canvas edges.
+    for (let k = 0, x = u * 1.65; x < cW / 2 + u; k++, x += u * 0.95) {
+      const bx = cx + side * x;
+      const bodyH = u * (0.28 + 0.1 * ((k * 7) % 3));
+      parts.push(
+        `M ${bx - u * 0.42} ${cH} L ${bx - u * 0.42} ${cH - bodyH} L ${bx + u * 0.42} ${cH - bodyH} L ${bx + u * 0.42} ${cH} Z`,
+      );
+      if (k % 3 === 1) parts.push(minaretPath(bx + side * u * 0.3, cH, u * 0.08, u * 0.78));
+      else parts.push(domePath(bx, cH - bodyH + u * 0.01, u * 0.24, u * 0.3));
+    }
+  }
+  return parts.join(" ");
+}
+
+/** 8-point star (khatam) polygon centred in a `t`-sized pattern tile. */
+function khatamPoints(t: number) {
+  const pts: string[] = [];
+  for (let i = 0; i < 16; i++) {
+    const a = (i * Math.PI) / 8 - Math.PI / 2;
+    const rad = i % 2 === 0 ? t * 0.42 : t * 0.3;
+    pts.push(`${(t / 2 + rad * Math.cos(a)).toFixed(2)},${(t / 2 + rad * Math.sin(a)).toFixed(2)}`);
+  }
+  return pts.join(" ");
+}
+
+function CreativeAssetCanvas({
   slide,
+  device,
   cW,
   cH,
   theme,
   locale,
-  appName,
   appIcon,
+  appName,
   editable,
   edit,
+  hideEmpty,
+  showSafeArea = false,
 }: {
   slide: Slide;
+  device: Device;
   cW: number;
   cH: number;
   theme: Theme;
   locale: string;
-  appName?: string;
   appIcon?: string;
+  appName?: string;
   editable?: boolean;
   edit?: EditHandlers;
+  hideEmpty?: boolean;
+  showSafeArea?: boolean;
 }) {
-  // Sized for the 1024×500 feature graphic (~2.05:1); wider canvases (e.g. the
-  // ~2.33:1 product page header) scale off height so the lockup never overflows.
-  const u = Math.min(cW, cH * 2.048);
+  const S: SafeArea = creativeSafeArea(device) ?? {
+    x: cW * 0.3,
+    y: cH * 0.3,
+    w: cW * 0.4,
+    h: cH * 0.4,
+  };
+  // Unique per instance: the preview, thumbnails and the off-screen export
+  // container can all render the same deck at once.
+  const uid = `ca${React.useId().replace(/[^A-Za-z0-9_-]/g, "")}`;
+  const scx = S.x + S.w / 2;
+  const scy = S.y + S.h / 2;
+  // App Store: icon + phrase, phones in the auxiliary area. Play feature graphic:
+  // name + phrase, no device imagery and no icon-like branding (Google's rules),
+  // brighter greens so it doesn't sink into Play's dark UI. TV banner: the full
+  // logo only (icon + name), nothing else.
+  const variant = creativeVariant(device);
+  const appStore = variant === "app-store";
+  const tvBanner = variant === "tv-banner";
+  const glow = mix(theme.bg, theme.accent, appStore ? 0.16 : 0.34);
+  const base = mix(theme.bg, theme.accent, appStore ? 0.04 : 0.16);
+  const edge = appStore ? shade(theme.bg, -7) : mix(theme.bg, theme.accent, 0.03);
+
+  // --- Auxiliary art geometry ---
+  const crescentR = cH * 0.034;
+  const archW = Math.min(S.w * 1.1, cW * 0.8);
+  const archTop = Math.max(S.y - S.h * 0.42, crescentR * 3.4);
+  const archInset = archW * 0.035;
+  const skyU = cH * (cW / cH > 2 ? 0.15 : 0.12);
+  const tile = cH * 0.12;
+
+  // Phones sit in the auxiliary area left/right of the safe area (which Apple
+  // centres horizontally), tilted, and may bleed off the canvas edges.
+  const tilt = 7;
+  const rad = (tilt * Math.PI) / 180;
+  const phoneH = Math.min(cH * 0.86, (S.x * 1.05) / MK_RATIO);
+  const phoneW = phoneH * MK_RATIO;
+  const halfBox = (phoneW * Math.cos(rad) + phoneH * Math.sin(rad)) / 2;
+  const phoneGap = S.w * 0.035;
+  const phoneCy = cH * 0.55;
+  const phones = appStore
+    ? [
+        { key: "l", cx: S.x - phoneGap - halfBox, rotate: -tilt, src: slide.screenshot },
+        {
+          key: "r",
+          cx: S.x + S.w + phoneGap + halfBox,
+          rotate: tilt,
+          src: slide.screenshotSecondary || slide.screenshot,
+        },
+      ]
+    : [];
+
+  const stars = React.useMemo(() => {
+    const rand = seededRandom(Math.round(cW * 31 + cH));
+    const out: { x: number; y: number; r: number; o: number }[] = [];
+    const padX = S.w * 0.04;
+    const padY = S.h * 0.06;
+    while (out.length < 170) {
+      const x = rand() * cW;
+      const y = rand() * cH * 0.72;
+      const r = cH * (0.0009 + rand() * 0.0022);
+      const o = 0.18 + rand() * 0.6;
+      // Keep the sky behind the message calm.
+      if (x > S.x - padX && x < S.x + S.w + padX && y > S.y - padY && y < S.y + S.h + padY) {
+        continue;
+      }
+      out.push({ x, y, r, o });
+    }
+    return out;
+  }, [cW, cH, S.x, S.y, S.w, S.h]);
+
+  // --- Safe-area message: icon + optional label + one short phrase ---
+  const headline = pickText(slide.headline, locale);
+  // Feature graphic: the app name stands in for the icon as a small gold label.
+  const label =
+    pickText(slide.label, locale) ||
+    (variant === "feature-graphic" ? (appName || "").toUpperCase() : "");
+  const dir = textDir(slide.headline, locale);
+  const rtl = dir === "rtl";
+  const lines = (headline || " ").replace(/\*\*/g, "").split("\n");
+  const longest = Math.max(1, ...lines.map((l) => [...l].length));
+  const padX = S.w * 0.05;
+  const padY = S.h * 0.07;
+  const innerW = S.w - padX * 2;
+  const innerH = S.h - padY * 2;
+  const iconSrc = appIcon ? img(appIcon) : "";
+  const iconSize = appStore ? innerH * 0.26 : 0;
+  const gapY = innerH * 0.055;
+  const labelSize = label ? innerH * (appStore ? 0.06 : 0.085) : 0;
+  const lineHeight = rtl ? 1.32 : 1.1;
+  const textH =
+    innerH - (iconSize ? iconSize + gapY : 0) - (label ? labelSize * 1.4 + gapY * 0.5 : 0);
+
+  // TV banner lockup: icon + (two-line) app name, sized to fill the safe area.
+  const nameLines = (appName || "App").trim().split(/\s+/);
+  const nameLongest = Math.max(1, ...nameLines.map((l) => [...l].length));
+  const tvIcon = innerH * 0.78;
+  const tvGap = innerH * 0.12;
+  const tvNameSize = Math.min(
+    innerH / (nameLines.length * 1.04),
+    (innerW - tvIcon - tvGap) / (nameLongest * 0.6),
+  );
+  // Size from the text itself (no DOM measuring, so previews and exports match):
+  // the longest line must fit the safe width, all lines the remaining height.
+  const fontSize = Math.min(
+    innerH * 0.26,
+    textH / (lines.length * lineHeight),
+    innerW / (longest * (rtl ? 0.5 : 0.58)),
+  );
+
   return (
     <div
+      className="ca-root"
       style={{
         width: "100%",
         height: "100%",
         position: "relative",
         overflow: "hidden",
-        background: `linear-gradient(135deg, ${theme.bgAlt} 0%, ${shade(theme.bgAlt, -10)} 50%, ${theme.accent} 200%)`,
-        display: "flex",
-        alignItems: "center",
-        padding: `0 ${u * 0.06}px`,
-        color: theme.fgAlt,
+        color: theme.fg,
+        background: `radial-gradient(ellipse ${S.w * 1.25}px ${S.h * 1.7}px at ${scx}px ${scy}px, ${glow} 0%, transparent 72%),
+          radial-gradient(140% 120% at 50% 30%, ${mix(base, theme.accent, 0.04)} 0%, ${base} 48%, ${edge} 100%)`,
       }}
     >
-      <Blob cW={u} color={theme.accent} x={70} y={20} size={50} opacity={0.45} />
-      <div style={{ display: "flex", alignItems: "center", gap: u * 0.03, zIndex: 2 }}>
-        {appIcon && img(appIcon) ? (
-          <img
-            src={img(appIcon)}
-            alt=""
+      <svg
+        aria-hidden
+        width={cW}
+        height={cH}
+        viewBox={`0 0 ${cW} ${cH}`}
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+      >
+        <defs>
+          <pattern
+            id={`${uid}-girih`}
+            width={tile}
+            height={tile}
+            patternUnits="userSpaceOnUse"
+            x={scx - tile / 2}
+            y={scy - tile / 2}
+          >
+            <polygon
+              points={khatamPoints(tile)}
+              fill="none"
+              stroke={theme.fg}
+              strokeWidth={tile * 0.012}
+            />
+            {[
+              [0, 0],
+              [tile, 0],
+              [0, tile],
+              [tile, tile],
+            ].map(([x, y]) => (
+              <rect
+                key={`${x}-${y}`}
+                x={x - tile * 0.07}
+                y={y - tile * 0.07}
+                width={tile * 0.14}
+                height={tile * 0.14}
+                transform={`rotate(45 ${x} ${y})`}
+                fill="none"
+                stroke={theme.fg}
+                strokeWidth={tile * 0.012}
+              />
+            ))}
+          </pattern>
+          <radialGradient
+            id={`${uid}-fade`}
+            gradientUnits="userSpaceOnUse"
+            cx={scx}
+            cy={scy}
+            r={Math.max(cW, cH) * 0.62}
+          >
+            <stop offset="0" stopColor="#000" />
+            <stop offset="0.28" stopColor="#000" />
+            <stop offset="0.62" stopColor="#fff" />
+            <stop offset="1" stopColor="#fff" stopOpacity="0.55" />
+          </radialGradient>
+          <mask id={`${uid}-pattern-mask`}>
+            <rect width={cW} height={cH} fill={`url(#${uid}-fade)`} />
+          </mask>
+          <radialGradient
+            id={`${uid}-glow`}
+            gradientUnits="userSpaceOnUse"
+            cx={scx}
+            cy={scy}
+            r={Math.max(S.w, S.h) * 0.75}
+          >
+            <stop offset="0" stopColor={theme.accent} stopOpacity="0.3" />
+            <stop offset="0.55" stopColor={theme.accent} stopOpacity="0.08" />
+            <stop offset="1" stopColor={theme.accent} stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id={`${uid}-arch-fill`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor={CREATIVE_GOLD} stopOpacity="0.1" />
+            <stop offset="0.5" stopColor={theme.accent} stopOpacity="0.05" />
+            <stop offset="1" stopColor={theme.bg} stopOpacity="0" />
+          </linearGradient>
+          <mask id={`${uid}-crescent`}>
+            <circle cx={scx} cy={archTop - crescentR * 1.55} r={crescentR} fill="#fff" />
+            <circle
+              cx={scx}
+              cy={archTop - crescentR * 1.55 - crescentR * 0.4}
+              r={crescentR * 0.84}
+              fill="#000"
+            />
+          </mask>
+        </defs>
+
+        {/* Girih pattern, faded out behind the message */}
+        <rect
+          width={cW}
+          height={cH}
+          fill={`url(#${uid}-girih)`}
+          mask={`url(#${uid}-pattern-mask)`}
+          opacity={0.075}
+        />
+
+        {/* Night sky */}
+        {stars.map((s, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: deterministic, static star list
+          <circle key={i} cx={s.x} cy={s.y} r={s.r} fill={theme.fg} opacity={s.o} />
+        ))}
+
+        {/* Mihrab arch framing the safe area, with a crescent finial */}
+        <rect width={cW} height={cH} fill={`url(#${uid}-glow)`} />
+        {!tvBanner && (
+          <>
+            <path d={archPath(scx, archTop, archW, cH)} fill={`url(#${uid}-arch-fill)`} />
+            <path
+              d={archPath(scx, archTop, archW, cH)}
+              fill="none"
+              stroke={CREATIVE_GOLD}
+              strokeOpacity={0.42}
+              strokeWidth={cH * 0.0035}
+            />
+            <path
+              d={archPath(scx, archTop + archInset * 1.5, archW - archInset * 2, cH)}
+              fill="none"
+              stroke={CREATIVE_GOLD}
+              strokeOpacity={0.18}
+              strokeWidth={cH * 0.0022}
+            />
+            <circle
+              cx={scx}
+              cy={archTop - crescentR * 1.55}
+              r={crescentR * 2.4}
+              fill={CREATIVE_GOLD}
+              opacity={0.07}
+            />
+            <rect
+              width={cW}
+              height={cH}
+              fill={CREATIVE_GOLD}
+              mask={`url(#${uid}-crescent)`}
+              opacity={0.9}
+            />
+            <rect
+              x={scx - cH * 0.0016}
+              y={archTop - crescentR * 0.62}
+              width={cH * 0.0032}
+              height={crescentR * 0.62}
+              fill={CREATIVE_GOLD}
+              opacity={0.6}
+            />
+          </>
+        )}
+      </svg>
+
+      {/* Product, peeking in from the auxiliary area */}
+      {phones.map((p) => (
+        <div
+          key={p.key}
+          style={{
+            position: "absolute",
+            left: p.cx - phoneW / 2,
+            top: phoneCy - phoneH / 2,
+            width: phoneW,
+            height: phoneH,
+            transform: `rotate(${p.rotate}deg)`,
+            filter: `drop-shadow(0 ${cH * 0.02}px ${cH * 0.035}px rgba(0,0,0,0.5))`,
+          }}
+        >
+          <Phone
+            src={resolveScreenshot(p.src, locale)}
+            style={{ width: "100%", height: "100%" }}
+            hideEmpty={hideEmpty}
+          />
+        </div>
+      ))}
+
+      {/* Masjid skyline + floor fade (also grounds the phones) */}
+      <svg
+        aria-hidden
+        width={cW}
+        height={cH}
+        viewBox={`0 0 ${cW} ${cH}`}
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+      >
+        <defs>
+          <linearGradient id={`${uid}-floor`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor={shade(theme.bg, -9)} stopOpacity="0" />
+            <stop offset="1" stopColor={shade(theme.bg, -9)} stopOpacity="0.85" />
+          </linearGradient>
+        </defs>
+        <rect y={cH - skyU * 2.2} width={cW} height={skyU * 2.2} fill={`url(#${uid}-floor)`} />
+        <path d={skylinePath(cW, cH, skyU)} fill={shade(theme.bg, -8)} opacity={0.92} />
+      </svg>
+
+      {/* TV banner: the full logo (icon + name) and nothing else, inside the safe area */}
+      {tvBanner && (
+        <div
+          dir="ltr"
+          style={{
+            position: "absolute",
+            left: S.x,
+            top: S.y,
+            width: S.w,
+            height: S.h,
+            boxSizing: "border-box",
+            padding: `${padY}px ${padX}px`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: tvGap,
+            zIndex: 2,
+          }}
+        >
+          {iconSrc ? (
+            <img
+              src={iconSrc}
+              alt=""
+              draggable={false}
+              style={{
+                width: tvIcon,
+                height: tvIcon,
+                borderRadius: tvIcon * 0.2237,
+                flexShrink: 0,
+                boxShadow: `0 ${tvIcon * 0.05}px ${tvIcon * 0.18}px rgba(0,0,0,0.4)`,
+              }}
+            />
+          ) : null}
+          <div
             style={{
-              width: u * 0.13,
-              height: u * 0.13,
-              borderRadius: u * 0.022,
-              boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+              fontSize: tvNameSize,
+              fontWeight: 800,
+              lineHeight: 1.02,
+              letterSpacing: -tvNameSize * 0.015,
+              color: theme.fg,
+              whiteSpace: "nowrap",
+              textShadow: `0 ${tvNameSize * 0.04}px ${tvNameSize * 0.35}px rgba(0,0,0,0.35)`,
             }}
+          >
+            {nameLines.map((line, i) => (
+              <div key={line} style={i > 0 ? { color: CREATIVE_GOLD } : undefined}>
+                {line}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* The message — always inside the safe area */}
+      <div
+        style={{
+          position: "absolute",
+          left: S.x,
+          top: S.y,
+          width: S.w,
+          height: S.h,
+          boxSizing: "border-box",
+          padding: `${padY}px ${padX}px`,
+          display: tvBanner ? "none" : "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: gapY,
+          textAlign: "center",
+          zIndex: 2,
+        }}
+      >
+        {!appStore ? null : iconSrc ? (
+          <img
+            src={iconSrc}
+            alt=""
             draggable={false}
+            style={{
+              width: iconSize,
+              height: iconSize,
+              borderRadius: iconSize * 0.2237,
+              flexShrink: 0,
+              boxShadow: `0 ${iconSize * 0.06}px ${iconSize * 0.2}px rgba(0,0,0,0.45), 0 0 0 ${Math.max(1, iconSize * 0.012)}px rgba(228,206,158,0.35)`,
+            }}
           />
         ) : (
           <div
             aria-hidden
             style={{
-              width: u * 0.13,
-              height: u * 0.13,
-              borderRadius: u * 0.022,
+              width: iconSize,
+              height: iconSize,
+              borderRadius: iconSize * 0.2237,
+              flexShrink: 0,
               background: `linear-gradient(135deg, ${theme.accent}55, ${theme.accent})`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: theme.fgAlt,
               fontWeight: 800,
-              fontSize: u * 0.07,
-              boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+              fontSize: iconSize * 0.5,
             }}
           >
             {(appName || "A").slice(0, 1).toUpperCase()}
           </div>
         )}
-        <div>
-          <div style={{ fontSize: u * 0.06, fontWeight: 800, lineHeight: 1.05 }}>
-            {appName || "App"}
-          </div>
+        <div style={{ width: "100%" }}>
+          {label ? (
+            <EditableText
+              value={label}
+              dir={textDir(slide.label, locale)}
+              editable={editable}
+              onChange={edit?.onLabelChange}
+              style={{
+                fontSize: labelSize,
+                fontWeight: 700,
+                letterSpacing: labelSize * 0.14,
+                textTransform: "uppercase",
+                color: CREATIVE_GOLD,
+                marginBottom: gapY * 0.5,
+              }}
+            />
+          ) : null}
           <EditableText
-            value={pickText(slide.headline, locale)}
-            dir={textDir(slide.headline, locale)}
+            value={headline}
+            dir={dir}
             editable={editable}
             multiline
             onChange={edit?.onHeadlineChange}
+            placeholder="One short phrase"
             style={{
-              fontSize: u * 0.028,
-              color: "rgba(255,255,255,0.85)",
-              marginTop: u * 0.012,
-              lineHeight: 1.25,
+              fontSize,
+              fontWeight: 800,
+              lineHeight,
+              letterSpacing: rtl ? 0 : -fontSize * 0.012,
+              color: theme.fg,
+              textShadow: `0 ${fontSize * 0.04}px ${fontSize * 0.4}px rgba(0,0,0,0.45)`,
             }}
           />
         </div>
       </div>
+
+      {showSafeArea && (
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: S.x,
+            top: S.y,
+            width: S.w,
+            height: S.h,
+            pointerEvents: "none",
+            zIndex: 3,
+            outline: `${Math.max(3, cW * 0.0012)}px dashed rgba(255, 214, 102, 0.95)`,
+            boxShadow: "0 0 0 99999px rgba(0, 0, 0, 0.28)",
+          }}
+        >
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "100%",
+              marginBottom: cH * 0.008,
+              padding: `${cH * 0.004}px ${cW * 0.006}px`,
+              borderRadius: cW * 0.003,
+              background: "rgba(255, 214, 102, 0.95)",
+              color: "#1a1a1a",
+              fontSize: Math.max(18, cH * 0.018),
+              fontWeight: 700,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {appStore ? "Apple art safe area" : tvBanner ? "Logo safe area" : "Focal zone"} · {S.w}×
+            {S.h} at ({S.x}, {S.y})
+          </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -1109,13 +1637,24 @@ function SlideElements({
   boundsH: number;
   allowCrossScreen: boolean;
 }) {
-  const screenshot = resolveScreenshot(slide.screenshot, locale);
-  const screenshotSecondary = resolveScreenshot(slide.screenshotSecondary, locale);
+  const landscape = orientation === "landscape";
+  const screenshot = resolveScreenshot(
+    (landscape && slide.screenshotLandscape) || slide.screenshot,
+    locale,
+  );
+  const screenshotSecondary = resolveScreenshot(
+    (landscape && slide.screenshotSecondaryLandscape) || slide.screenshotSecondary,
+    locale,
+  );
   const { cW, cH, Frame, frameAspect, defaults } = getSlideGeometry(slide, device, orientation);
   const inverted = !!slide.inverted;
   const captionRect = rectFor("caption", slide, defaults);
   const deviceRect = rectFor("device", slide, defaults);
   const secondaryRect = rectFor("deviceSecondary", slide, defaults);
+  const lensBox = rectFor("lens", slide, defaults);
+  const featuresBox = rectFor("features", slide, defaults);
+  const tone: Tone = toneFor(theme, inverted, slide.design);
+  const finish = slide.design?.finish;
 
   function toGlobal(rect: Rect): Rect {
     return { ...rect, x: rect.x + screenX };
@@ -1128,8 +1667,8 @@ function SlideElements({
   function renderCaption() {
     if (!captionRect) return null;
     const saved = slide.transforms?.caption;
-    const rotation = saved?.rotation ?? 0;
-    const zIndex = saved?.zIndex ?? 4;
+    const rotation = captionRect.rotation ?? 0;
+    const zIndex = saved?.zIndex ?? defaultElementZ("caption");
     const inner = (
       <Caption
         cW={cW}
@@ -1174,15 +1713,10 @@ function SlideElements({
     );
   }
 
-  function renderDevice(
-    id: "device" | "deviceSecondary",
-    rect: Rect,
-    src: string,
-    extraStyle?: React.CSSProperties,
-  ) {
+  function renderDevice(id: "device" | "deviceSecondary", rect: GeoRect, src: string) {
     const saved = slide.transforms?.[id];
-    const rotation = saved?.rotation ?? 0;
-    const zIndex = saved?.zIndex ?? (id === "deviceSecondary" ? 2 : 3);
+    const rotation = rect.rotation ?? 0;
+    const zIndex = saved?.zIndex ?? defaultElementZ(id);
     return (
       <Movable
         rect={toGlobal(rect)}
@@ -1210,18 +1744,59 @@ function SlideElements({
         <Frame
           src={src}
           hideEmpty={hideEmpty}
-          style={{ width: "100%", height: "100%", ...extraStyle }}
+          finish={finish}
+          style={{ width: "100%", height: "100%" }}
         />
       </Movable>
     );
   }
+
+  /** Lens / feature chips: plain movable boxes with the layout's default rect. */
+  function renderBox(
+    id: "lens" | "features",
+    rect: GeoRect,
+    children: React.ReactNode,
+    lockAspectRatio?: number,
+  ) {
+    const saved = slide.transforms?.[id];
+    const rotation = rect.rotation ?? 0;
+    const zIndex = saved?.zIndex ?? defaultElementZ(id);
+    return (
+      <Movable
+        rect={toGlobal(rect)}
+        boundsW={boundsW}
+        boundsH={boundsH}
+        editable={editable}
+        previewScale={previewScale}
+        rotation={rotation}
+        onChange={(t) =>
+          edit?.onElementChange?.(
+            id,
+            toLocal({ ...t, rotation: t.rotation ?? rotation, zIndex: t.zIndex ?? zIndex }),
+          )
+        }
+        lockAspectRatio={lockAspectRatio}
+        zIndex={zIndex}
+        allowOverflow
+        selected={selectedElementId === id}
+        onSelect={() => edit?.onSelectElement?.(id)}
+      >
+        {children}
+      </Movable>
+    );
+  }
+
+  const featureLines = pickText(slide.design?.features, locale)
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
 
   function renderTextElement(textElement: TextElement, index: number) {
     const elementId = toTextElementId(textElement.id);
     const rect = textElement.transform;
     const rotation = rect.rotation ?? 0;
     const zIndex = rect.zIndex ?? 5 + index;
-    const textColor = textElement.color || (inverted ? theme.fgAlt : theme.fg);
+    const textColor = textElement.color || tone.fg;
     return (
       <Movable
         key={textElement.id}
@@ -1276,9 +1851,7 @@ function SlideElements({
               fontWeight: textElement.fontWeight ?? 700,
               lineHeight: 1.05,
               textAlign: textElement.align ?? "center",
-              textShadow: inverted
-                ? "0 2px 18px rgba(0,0,0,0.22)"
-                : "0 2px 18px rgba(255,255,255,0.2)",
+              textShadow: tone.textShadow,
             }}
           />
         </div>
@@ -1289,11 +1862,39 @@ function SlideElements({
   return (
     <>
       {secondaryRect &&
-        renderDevice("deviceSecondary", secondaryRect, screenshotSecondary || screenshot, {
-          opacity: 0.85,
-        })}
+        renderDevice("deviceSecondary", secondaryRect, screenshotSecondary || screenshot)}
       {deviceRect && renderDevice("device", deviceRect, screenshot)}
       {renderCaption()}
+      {featuresBox &&
+        featureLines.length > 0 &&
+        renderBox(
+          "features",
+          featuresBox,
+          <FeatureChips
+            items={featureLines}
+            tone={tone}
+            unit={Math.min(cW, cH)}
+            dir={textDir(slide.design?.features, locale)}
+          />,
+        )}
+      {lensBox &&
+        slide.design?.lens &&
+        renderBox(
+          "lens",
+          lensBox,
+          <LensView
+            src={img(screenshot)}
+            lens={
+              // Per-locale captures of an RTL locale show the app mirrored, so mirror the focus.
+              textDir(slide.headline, locale) === "rtl" && slide.screenshot.includes("{locale}")
+                ? { ...slide.design.lens, x: 1 - slide.design.lens.x }
+                : slide.design.lens
+            }
+            tint={tone.light ? "#152921" : "#000000"}
+            imageAspect={imgAspect(screenshot) ?? screenAspectFor(device, orientation)}
+          />,
+          1,
+        )}
       {(slide.textElements || []).map(renderTextElement)}
     </>
   );

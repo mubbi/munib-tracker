@@ -1,8 +1,5 @@
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { Reveal } from "@/components/ui/motion";
-import { SITE_PATHS } from "@/lib/site";
+import { Breadcrumbs } from "@/components/content/primitives";
 import { cn } from "@/lib/utils";
 
 /** Soft radial wash under the sticky chrome — fades out, no hard band. */
@@ -16,6 +13,10 @@ export function PageAtmosphere() {
 }
 
 type PageMastheadProps = {
+  /** Current path, for the breadcrumb trail (Home › this page). */
+  path: string;
+  /** Breadcrumb label; defaults to the eyebrow or title. */
+  crumb?: string;
   eyebrow?: string;
   title: ReactNode;
   intro?: ReactNode;
@@ -28,17 +29,23 @@ type PageMastheadProps = {
  * Shared page masthead for marketing/content pages — back link, eyebrow,
  * title, intro, optional actions, and a soft hairline before body content.
  */
-export function PageMasthead({ eyebrow, title, intro, actions, className }: PageMastheadProps) {
+export function PageMasthead({
+  path,
+  crumb,
+  eyebrow,
+  title,
+  intro,
+  actions,
+  className,
+}: PageMastheadProps) {
+  // Callers pass translated text, so the shell has no copy of its own. With no
+  // string label to use (a ReactNode title and no crumb/eyebrow) the trail is
+  // just Home rather than an invented, untranslated name.
+  const label = crumb ?? eyebrow ?? (typeof title === "string" ? title : undefined);
   return (
     <header className={cn("relative pb-12 md:pb-16", className)}>
-      <Link
-        href={SITE_PATHS.home}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-white/55 transition-colors hover:text-brand"
-      >
-        <ArrowLeft className="size-4" />
-        Back to home
-      </Link>
-      <Reveal>
+      <Breadcrumbs items={label ? [{ name: label, href: path }] : []} />
+      <div>
         {eyebrow ? (
           <p className="mt-10 text-sm font-semibold uppercase tracking-[0.18em] text-brand md:mt-12">
             {eyebrow}
@@ -60,7 +67,7 @@ export function PageMasthead({ eyebrow, title, intro, actions, className }: Page
         {actions ? (
           <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10">{actions}</div>
         ) : null}
-      </Reveal>
+      </div>
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
@@ -70,6 +77,8 @@ export function PageMasthead({ eyebrow, title, intro, actions, className }: Page
 }
 
 type ContentPageProps = {
+  path: string;
+  crumb?: string;
   eyebrow?: string;
   title: string;
   intro?: string;
@@ -80,6 +89,8 @@ type ContentPageProps = {
 
 /** Shared shell for long-form marketing/legal pages. */
 export function ContentPage({
+  path,
+  crumb,
   eyebrow,
   title,
   intro,
@@ -96,7 +107,14 @@ export function ContentPage({
           wide ? "max-w-4xl" : "max-w-3xl",
         )}
       >
-        <PageMasthead eyebrow={eyebrow} title={title} intro={intro} actions={actions} />
+        <PageMasthead
+          path={path}
+          crumb={crumb}
+          eyebrow={eyebrow}
+          title={title}
+          intro={intro}
+          actions={actions}
+        />
         <div className="mt-10 flex flex-col gap-12 md:mt-12">{children}</div>
       </article>
     </div>

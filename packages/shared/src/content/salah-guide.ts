@@ -11,7 +11,7 @@ export { SALAH_GUIDE_QUIZ, SALAH_GUIDE_QUIZ_VERSION } from "./salah-guide-quiz";
  * difference is noted respectfully rather than presented as one ruling.
  * Bump the version whenever content changes so caches refresh.
  */
-export const SALAH_GUIDE_CONTENT_VERSION = 8;
+export const SALAH_GUIDE_CONTENT_VERSION = 9;
 
 /** Ordered journey phases shown on the hub. */
 export const SALAH_GUIDE_JOURNEY_ORDER = [
@@ -136,6 +136,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "importance",
+    differenceIds: ["salah.abandoning"],
     journey: "why",
     title: "Its rank in Islam",
     summary: "A pillar of the religion — and the gravest deed to neglect.",
@@ -505,6 +506,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "prayer-times",
+    differenceIds: ["asr.start", "asr.preferred", "fajr.preferred", "isha.start", "isha.preferred"],
     journey: "prepare",
     title: "Prayer times",
     summary: "Five daily windows — each salah has a beginning, an end, and a preferred moment.",
@@ -670,6 +672,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "how-to-pray",
+    differenceIds: ["salah.raisingHands", "salah.fatihaBehindImam", "salah.fajrQunut"],
     journey: "learn",
     title: "Step-by-step salah",
     summary: "The full sequence of a rakah — every recited phrase, with its ruling.",
@@ -867,6 +870,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "jahri-sirri",
+    differenceIds: ["salah.fatihaBehindImam"],
     journey: "learn",
     title: "Loud & silent recitation",
     summary:
@@ -985,6 +989,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "positions",
+    differenceIds: ["salah.lastSitting"],
     journey: "learn",
     title: "Every position",
     summary: "How to hold your body correctly in each posture of the prayer.",
@@ -1179,6 +1184,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "pillars-nullifiers",
+    differenceIds: ["salah.firstTashahhud"],
     journey: "perfect",
     title: "Pillars & nullifiers",
     summary: "What the prayer cannot exist without — and what cancels it.",
@@ -1212,6 +1218,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "sujud-al-sahw",
+    differenceIds: ["salah.firstTashahhud"],
     journey: "perfect",
     title: "Sujud al-Sahw — correcting mistakes",
     summary: "The prostration of forgetfulness that mends slips in the prayer.",
@@ -1249,6 +1256,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   // ── Consistency ─────────────────────────────────────────────────────────────
   {
     id: "prayer-types",
+    differenceIds: ["witr.status", "witr.form", "rawatib.preset"],
     journey: "consistency",
     title: "Types of salah",
     summary:
@@ -1415,6 +1423,7 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
   },
   {
     id: "jumuah",
+    differenceIds: ["jumuah.minCongregation", "jumuah.sunnah"],
     journey: "consistency",
     title: "Jumu'ah — the Friday prayer",
     summary: "The weekly obligation that gathers the community and replaces Dhuhr on Friday.",
@@ -1566,7 +1575,8 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     ],
     appLinks: [
       { label: "Post-salah adhkar", route: "/zikr" },
-      { label: "Tasbeeh counter", route: "/tasbeeh/free" },
+      // The guided 33 / 33 / 34 after-salah sequence (not the free counter).
+      { label: "Tasbeeh counter", route: "/tasbeeh/sequence" },
     ],
   },
 ];
@@ -1578,6 +1588,8 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 2,
     sunnahBefore: 2,
     sunnahAfter: 0,
+    optionalBefore: 0,
+    optionalAfter: 0,
     note: "2 before — sunnah mu'akkadah (rawatib). No regular sunnah after.",
   },
   {
@@ -1585,13 +1597,17 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 4,
     sunnahBefore: 4,
     sunnahAfter: 2,
-    note: "4 before & 2 after — sunnah mu'akkadah (rawatib). Extra nafl optional.",
+    optionalBefore: 0,
+    optionalAfter: 2,
+    note: "4 before & 2 after — sunnah mu'akkadah (rawatib). 2 more after are recommended (ghayr mu'akkadah).",
   },
   {
     prayerId: "asr",
     fard: 4,
     sunnahBefore: 0,
     sunnahAfter: 0,
+    optionalBefore: 4,
+    optionalAfter: 0,
     note: "4 before Asr recommended (ghayr mu'akkadah) — not counted in the 12 rawatib.",
   },
   {
@@ -1599,6 +1615,8 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 3,
     sunnahBefore: 0,
     sunnahAfter: 2,
+    optionalBefore: 2,
+    optionalAfter: 0,
     note: "2 after — sunnah mu'akkadah. 2 before optional nafl.",
   },
   {
@@ -1606,13 +1624,17 @@ export const PRAYER_RAKATS: PrayerRakatSummary[] = [
     fard: 4,
     sunnahBefore: 0,
     sunnahAfter: 2,
-    note: "2 after — sunnah mu'akkadah. Witr separate; optional nafl before/after.",
+    optionalBefore: 2,
+    optionalAfter: 0,
+    note: "2 after — sunnah mu'akkadah. 2 (or 4) before, between adhan and iqamah, optional. Witr separate.",
   },
   {
     prayerId: "witr",
     fard: 0,
     sunnahBefore: 0,
     sunnahAfter: 0,
+    optionalBefore: 0,
+    optionalAfter: 0,
     note: "Prayed after Isha — sunnah mu'akkadah (wajib in the Hanafi school).",
   },
 ];

@@ -2,6 +2,28 @@ import WidgetKit
 import SwiftUI
 import AppIntents
 
+// MARK: - Shared helpers
+
+/// The unmarked Salah whose time is running in a (time-resolved) snapshot — the
+/// only one a one-tap Mark may complete. Never the next Salah: its Adhan has not
+/// begun (the app rejects that as `not_started`).
+func widgetMarkableRow(_ snapshot: WidgetSnapshotPayload?) -> WidgetSnapshotPayload.ScheduleRow? {
+  guard snapshot?.locationDenied != true,
+        let currentId = snapshot?.nextPrayer?.currentPrayerId, !currentId.isEmpty else { return nil }
+  let row = snapshot?.schedule?.rows?.first { $0.id == currentId }
+  return row?.status == "completed" ? nil : row
+}
+
+/// A schedule row has begun when it sits before the (resolved) next row.
+func widgetRowHasBegun(
+  _ row: WidgetSnapshotPayload.ScheduleRow,
+  in rows: [WidgetSnapshotPayload.ScheduleRow]
+) -> Bool {
+  guard let activeIndex = rows.firstIndex(where: { $0.status == "active" }) else { return true }
+  guard let index = rows.firstIndex(where: { $0.id == row.id }) else { return false }
+  return index < activeIndex
+}
+
 // MARK: - Next Prayer
 
 struct NextPrayerWidgetHomeView: View {
@@ -24,9 +46,9 @@ struct NextPrayerWidgetHomeView: View {
       deepLink: section?.deepLink ?? "munib-tracker://",
       accessibilityLabelText: section?.accessibilityLabel,
       compactChrome: compact,
-      markLabel: section?.markLabel ?? "Mark Salah",
-      showMark: !compact && snapshot?.locationDenied != true,
-      markPrayerId: section?.prayerId
+      markLabel: widgetMarkableRow(snapshot).map { "\(section?.markLabel ?? "Mark Salah") · \($0.name)" },
+      showMark: !compact && widgetMarkableRow(snapshot) != nil,
+      markPrayerId: widgetMarkableRow(snapshot)?.id
     ) {
       VStack(alignment: .leading, spacing: compact ? 2 : 4) {
         Text(section?.prayerName ?? "—")
@@ -37,6 +59,7 @@ struct NextPrayerWidgetHomeView: View {
         Text(section?.prayerTime ?? "—")
           .font(compact ? .title2.weight(.bold) : .title.weight(.bold))
           .foregroundStyle(theme.primary)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
           .invalidatableContent()
         WidgetLiveCountdown(
@@ -151,12 +174,15 @@ struct PrayerScheduleWidgetHomeView: View {
               .accessibilityElement(children: .combine)
               .accessibilityLabel("\(row.name), \(row.time), \(row.statusLabel ?? row.status ?? "")")
 
-              if !compact, row.status != "completed", #available(iOS 17.0, *) {
+              if !compact, row.status != "completed",
+                 widgetRowHasBegun(row, in: section?.rows ?? []), #available(iOS 17.0, *) {
                 Button(intent: MarkNamedSalahIntent(prayerId: row.id)) {
                   Image(systemName: "checkmark.circle")
-                    .font(.callout)
-                    .foregroundStyle(theme.textSecondary)
-                    .frame(width: 22, height: 22)
+                    .font(.body)
+                    .foregroundStyle(theme.primary)
+                    .widgetAccentable()
+                    .frame(width: 30, height: 30)
+                    .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("\(section?.markLabel ?? snapshot?.strings?.markSalah ?? "Mark") \(row.name)")
@@ -218,13 +244,15 @@ struct PrayerProgressWidgetHomeView: View {
       deepLink: section?.deepLink ?? "munib-tracker://tracker",
       accessibilityLabelText: section?.accessibilityLabel,
       compactChrome: compact,
-      markLabel: section?.markLabel ?? "Mark Salah",
-      showMark: !compact
+      markLabel: widgetMarkableRow(snapshot).map { "\(section?.markLabel ?? "Mark Salah") · \($0.name)" },
+      showMark: !compact && widgetMarkableRow(snapshot) != nil,
+      markPrayerId: widgetMarkableRow(snapshot)?.id
     ) {
       VStack(alignment: .leading, spacing: compact ? 6 : 8) {
         Text(section?.progressLabel ?? "0/5")
           .font(compact ? .title.weight(.bold) : .largeTitle.weight(.bold))
           .foregroundStyle(theme.success)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
         WidgetProgressBar(
           percent: section?.progressPercent ?? 0,
@@ -290,8 +318,9 @@ struct SalahStreakWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 4) {
         Text(section?.streakLabel ?? "0")
-          .font(.system(size: compact ? 36 : 42, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.primary)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
         Text(section?.summary ?? "")
           .font(.caption)
@@ -356,8 +385,9 @@ struct QazaDebtWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 6) {
         Text("\(section?.remaining ?? 0)")
-          .font(.system(size: compact ? 32 : 36, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.warning)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
         Text(section?.remainingLabel ?? "")
           .font(.caption)
@@ -437,6 +467,7 @@ struct RamadanWidgetHomeView: View {
             Text(section?.suhoorTime ?? "—")
               .font(.headline.weight(.bold))
               .foregroundStyle(theme.primary)
+              .widgetAccentable()
               .widgetFittingText(maxLines: 1)
           }
           .frame(maxWidth: .infinity, alignment: .leading)
@@ -448,6 +479,7 @@ struct RamadanWidgetHomeView: View {
             Text(section?.iftarTime ?? "—")
               .font(.headline.weight(.bold))
               .foregroundStyle(theme.primary)
+              .widgetAccentable()
               .widgetFittingText(maxLines: 1)
           }
           .frame(maxWidth: .infinity, alignment: .leading)
@@ -516,6 +548,7 @@ struct KhatmProgressWidgetHomeView: View {
         Text(section?.hasPlan == true ? (section?.progressLabel ?? "0%") : "—")
           .font(.title.weight(.bold))
           .foregroundStyle(theme.primary)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
         if section?.hasPlan == true {
           WidgetProgressBar(
@@ -721,8 +754,9 @@ struct QiblaBearingWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 4) {
         Text(section?.bearingLabel ?? "—")
-          .font(.system(size: compact ? 30 : 34, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.primary)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
         Text(section?.lockScreenDetail ?? "Direction to the Kaaba")
           .font(.caption)
@@ -793,8 +827,9 @@ struct TasbeehGlanceWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 6) {
         Text(section?.hasActivity == true ? (section?.countLabel ?? "0") : "—")
-          .font(.system(size: compact ? 30 : 34, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.primary)
+          .widgetAccentable()
           .widgetFittingText(maxLines: 1)
         if section?.hasActivity == true, (section?.target ?? 0) > 0 {
           WidgetProgressBar(
@@ -870,8 +905,9 @@ struct JumuahWidgetHomeView: View {
             ? "\(section?.completed ?? 0)/\(section?.total ?? 0)"
             : "\(section?.daysUntil ?? 0)"
         )
-        .font(.system(size: compact ? 30 : 34, weight: .bold, design: .rounded))
+        .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
         .foregroundStyle(theme.primary)
+        .widgetAccentable()
         .widgetFittingText(maxLines: 1)
         if section?.isFriday == true, (section?.total ?? 0) > 0 {
           WidgetProgressBar(
@@ -914,6 +950,196 @@ struct JumuahWidget: Widget {
     .configurationDisplayName(LocalizedStringResource("widget.gallery.friday.label", defaultValue: "Jumu'ah"))
     .description(LocalizedStringResource("widget.gallery.friday.description", defaultValue: "Friday checklist progress or a countdown to Jumu'ah."))
     .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular, .accessoryInline])
+  }
+}
+
+// MARK: - Adhkar (due now)
+
+struct AdhkarWidgetHomeView: View {
+  @Environment(\.widgetFamily) private var family
+  @Environment(\.colorScheme) private var colorScheme
+  let entry: WidgetProviderEntry
+  private var adhkar: WidgetAdhkarPayload? { entry.extras?.adhkar }
+  private var theme: ResolvedWidgetTheme { WidgetPalette.theme(from: entry.snapshot, colorScheme: colorScheme) }
+  private var compact: Bool { WidgetLayout.isSmall(family) }
+  private var nowMs: Double { entry.date.timeIntervalSince1970 * 1000 }
+
+  /// Open + unfinished set at the entry date, else the next to open.
+  private var current: (due: Bool, set: WidgetAdhkarSetPayload)? {
+    let sets = adhkar?.sets ?? []
+    func unfinished(_ s: WidgetAdhkarSetPayload) -> Bool { (s.completed ?? 0) < (s.total ?? 0) }
+    let open = sets
+      .filter { ($0.startMs ?? 0) <= nowMs && nowMs < ($0.endMs ?? 0) && unfinished($0) }
+      .sorted {
+        let a = ($0.completed ?? 0) > 0, b = ($1.completed ?? 0) > 0
+        return a != b ? a : ($0.startMs ?? 0) < ($1.startMs ?? 0)
+      }
+    if let first = open.first { return (due: true, set: first) }
+    return sets
+      .filter { ($0.startMs ?? 0) > nowMs && unfinished($0) }
+      .min { ($0.startMs ?? 0) < ($1.startMs ?? 0) }
+      .map { (due: false, set: $0) }
+  }
+
+  var body: some View {
+    let pick = current
+    let percent = pick.map { p -> Double in
+      guard p.due, let total = p.set.total, total > 0 else { return 0 }
+      return Double(p.set.completed ?? 0) / Double(total) * 100
+    } ?? 0
+    WidgetCard(
+      theme: theme,
+      accent: theme.primary,
+      title: adhkar?.title ?? "Adhkar",
+      summary: compact ? "" : (pick?.due == true ? (adhkar?.dueLabel ?? "") : ""),
+      footer: nil,
+      updatedAgo: nil,
+      deepLink: (pick?.due == true ? pick?.set.deepLink : nil) ?? adhkar?.deepLink ?? "munib-tracker://zikr",
+      accessibilityLabelText: adhkar?.accessibilityLabel,
+      compactChrome: compact
+    ) {
+      VStack(alignment: .leading, spacing: 6) {
+        Text(pick?.set.title ?? adhkar?.allDoneLabel ?? "")
+          .font(compact ? .headline.weight(.bold) : .title3.weight(.bold))
+          .foregroundStyle(theme.textPrimary)
+          .widgetFittingText(maxLines: 2)
+        if pick?.due == true {
+          WidgetProgressBar(percent: percent, fill: theme.primary, track: theme.border)
+        }
+        Text(pick.map { $0.due ? ($0.set.progressLabel ?? "") : ($0.set.nextLabel ?? "") } ?? "")
+          .font(.caption)
+          .foregroundStyle(theme.textSecondary)
+          .widgetFittingText(maxLines: 2)
+      }
+    }
+    .widgetLocale(entry.snapshot?.locale, isRtl: entry.snapshot?.isRtl)
+  }
+}
+
+struct AdhkarWidgetView: View {
+  let entry: WidgetProviderEntry
+  private var adhkar: WidgetAdhkarPayload? { entry.extras?.adhkar }
+
+  var body: some View {
+    WidgetEntryRouter(
+      lockLine: adhkar?.lockScreenLine ?? adhkar?.title ?? "Adhkar",
+      lockDetail: adhkar?.lockScreenDetail ?? "",
+      deepLink: adhkar?.deepLink ?? "munib-tracker://zikr",
+      circularLabel: adhkar?.lockScreenDetail
+    ) {
+      AdhkarWidgetHomeView(entry: entry)
+    }
+  }
+}
+
+struct AdhkarWidget: Widget {
+  let kind = "AdhkarWidget"
+  var body: some WidgetConfiguration {
+    StaticConfiguration(kind: kind, provider: BasicWidgetProvider()) { entry in
+      AdhkarWidgetView(entry: entry)
+    }
+    .configurationDisplayName(LocalizedStringResource("widget.gallery.adhkar.label", defaultValue: "Adhkar"))
+    .description(LocalizedStringResource("widget.gallery.adhkar.description", defaultValue: "The adhkar due now, with your progress."))
+    .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular, .accessoryInline])
+  }
+}
+
+// MARK: - Islamic events
+
+struct IslamicEventsWidgetHomeView: View {
+  @Environment(\.widgetFamily) private var family
+  @Environment(\.colorScheme) private var colorScheme
+  let entry: WidgetProviderEntry
+  private var events: WidgetEventsPayload? { entry.extras?.events }
+  private var theme: ResolvedWidgetTheme { WidgetPalette.theme(from: entry.snapshot, colorScheme: colorScheme) }
+  private var compact: Bool { WidgetLayout.isSmall(family) }
+  private var today: String { ExternalCommandQueue.localDateString(entry.date) }
+  /// "in 3 days" is only true on the day it was written; otherwise show the date.
+  private var fresh: Bool { entry.extras?.date == today }
+  private var items: [WidgetEventItemPayload] {
+    (events?.items ?? []).filter { ($0.date ?? "").isEmpty || ($0.date ?? "") >= today }
+  }
+
+  private func when(_ item: WidgetEventItemPayload) -> String {
+    (fresh ? item.relativeLabel : item.dateLabel) ?? item.dateLabel ?? ""
+  }
+
+  var body: some View {
+    let first = items.first
+    WidgetCard(
+      theme: theme,
+      accent: theme.primary,
+      title: events?.title ?? "Islamic events",
+      summary: "",
+      footer: nil,
+      updatedAgo: nil,
+      deepLink: events?.deepLink ?? "munib-tracker://events",
+      accessibilityLabelText: events?.accessibilityLabel,
+      compactChrome: compact
+    ) {
+      VStack(alignment: .leading, spacing: 4) {
+        Text(first?.name ?? events?.summary ?? "—")
+          .font(compact ? .headline.weight(.bold) : .title3.weight(.bold))
+          .foregroundStyle(theme.textPrimary)
+          .widgetFittingText(maxLines: 2)
+        if let first {
+          Text(when(first))
+            .font(compact ? .title3.weight(.bold) : .title2.weight(.bold))
+            .foregroundStyle(theme.primary)
+            .widgetAccentable()
+            .widgetFittingText(maxLines: 1)
+          if fresh, !compact, let date = first.dateLabel {
+            Text(date)
+              .font(.caption2)
+              .foregroundStyle(theme.textSecondary)
+              .widgetFittingText(maxLines: 1)
+          }
+        }
+        if !compact {
+          ForEach(Array(items.dropFirst().prefix(WidgetLayout.isLarge(family) ? 2 : 1).enumerated()), id: \.offset) { _, item in
+            HStack {
+              Text(item.name ?? "")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(theme.textPrimary)
+                .widgetFittingText(maxLines: 1)
+              Spacer(minLength: 4)
+              Text(when(item))
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(theme.textSecondary)
+                .widgetFittingText(maxLines: 1)
+            }
+          }
+        }
+      }
+    }
+    .widgetLocale(entry.snapshot?.locale, isRtl: entry.snapshot?.isRtl)
+  }
+}
+
+struct IslamicEventsWidgetView: View {
+  let entry: WidgetProviderEntry
+  private var events: WidgetEventsPayload? { entry.extras?.events }
+
+  var body: some View {
+    WidgetEntryRouter(
+      lockLine: events?.lockScreenLine ?? events?.title ?? "Islamic events",
+      lockDetail: events?.lockScreenDetail ?? "",
+      deepLink: events?.deepLink ?? "munib-tracker://events"
+    ) {
+      IslamicEventsWidgetHomeView(entry: entry)
+    }
+  }
+}
+
+struct IslamicEventsWidget: Widget {
+  let kind = "IslamicEventsWidget"
+  var body: some WidgetConfiguration {
+    StaticConfiguration(kind: kind, provider: BasicWidgetProvider()) { entry in
+      IslamicEventsWidgetView(entry: entry)
+    }
+    .configurationDisplayName(LocalizedStringResource("widget.gallery.events.label", defaultValue: "Islamic events"))
+    .description(LocalizedStringResource("widget.gallery.events.description", defaultValue: "Countdown to the next Islamic dates."))
+    .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular, .accessoryInline])
   }
 }
 

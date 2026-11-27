@@ -40,7 +40,7 @@ appLink.hadithCollection("riyad", { q: "Muslim 591" });
 appLink.duaDetail("morning-1");
 appLink.zikrCategory("after_prayer");
 appLink.markCurrent(); // special action bridge
-appLink.openReview("manual"); // review funnel bridge
+appLink.openReview(); // store write-review page (D76)
 ```
 
 Prefer `appLink.*` / `resolveAppLink` over hand-rolled strings so scheme and HTTPS stay aligned.
@@ -98,10 +98,10 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Special action bridges
 
-| Path                       | Behavior                                                                  |
-| -------------------------- | ------------------------------------------------------------------------- |
-| `/mark-current`            | Enqueues mark-current obligatory, then opens tracker (`mark-current.tsx`) |
-| `/open-review?triggerId=…` | Opens review funnel (`ReviewDeepLinkBridge`) — not an Expo route file     |
+| Path            | Behavior                                                                           |
+| --------------- | ---------------------------------------------------------------------------------- |
+| `/mark-current` | Enqueues mark-current obligatory, then opens tracker (`mark-current.tsx`)          |
+| `/open-review`  | Opens the store write-review page (`ReviewDeepLinkBridge`, D76) — not a route file |
 
 In-app content modules also use Expo Router paths (`/quran`, `/hadith`, …). `apps/app/src/lib/reference-link.ts` parses Qur'an `reference` strings into router targets.
 
@@ -225,6 +225,20 @@ curl -sI https://my.munibtracker.app/.well-known/apple-app-site-association
 [Google Asset Links tool](https://developers.google.com/digital-asset-links/tools/generator)
 
 Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
+
+---
+
+## Circle invites & child-device links (NF-3.16–3.18, D36)
+
+| Path                           | Opens                                                                                                                                                                                                                                    |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/circle/join/<CODE>`          | Invite landing: preview + join. `CODE` is the 10-char base32 invite code (`ABCDE-FGH23` display grouping; dashes/spaces/case are ignored). Built with `appLink.circleJoin(code)` / `circleJoinPath()` (`@munib-tracker/shared/circles`). |
+| `/kids/link?token=mtl_…`       | Child device: redeems the parent's one-time QR token (5-minute TTL) for a scoped child session. Built with `appLink.kidsLink(token)`.                                                                                                    |
+| `/circles`, `/family`, `/kids` | Circles hub, parent view, kids mode.                                                                                                                                                                                                     |
+
+- **HTTPS is the shared form** (`https://my.munibtracker.app/circle/join/<CODE>`). Devices with the app open it through App Links / Universal Links (Android `intentFilters` `pathPrefix` `/circle/join` + `/kids/link` in `app.json`; AASA paths `/circle/join/*`, `/kids/link`, `/kids/link/*` from `scripts/generate-well-known.mjs`). Without the app it opens the **Expo web join screen** — guests can join a group khatm on the web; family and partner circles ask to sign in. There is no marketing-site landing page.
+- `munib-tracker://circle/join/<CODE>` also works (the app's custom scheme is `munib-tracker://`, not `munib://`).
+- Both routes are `index: false` in the SEO registry.
 
 ---
 

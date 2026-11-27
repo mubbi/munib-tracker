@@ -58,9 +58,12 @@ describe("WebKeyboardShortcuts", () => {
   describe("on web", () => {
     usePlatform({ OS: "web" });
 
-    it("publishes the accent as the focus ring colour", async () => {
+    it("leaves the focus ring variables to the theme provider", async () => {
       await renderWithTheme(<WebKeyboardShortcuts />);
-      expect(setProperty).toHaveBeenCalledWith("--munib-focus", expect.any(String));
+      const names = setProperty.mock.calls.map(([name]) => name);
+      expect(names.every((name) => name.startsWith("--munib-"))).toBe(true);
+      // Published once per theme change by MunibThemeProvider, not here too.
+      expect(names.filter((name) => name === "--munib-focus")).toHaveLength(1);
     });
 
     it.each<KeyEventInit>([{ key: "k", metaKey: true }, { key: "K", ctrlKey: true }, { key: "/" }])(

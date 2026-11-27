@@ -1,5 +1,7 @@
 import { act, renderHook } from "@testing-library/react-native";
 
+import { claimMicrophone, microphoneOwner, releaseMicrophone } from "@/lib/speech/mic-owner";
+import { captureAppStateListener } from "@/test-support/app-state";
 import { isolateWithSharedReact } from "@/test-support/isolate";
 import { setPlatform } from "@/test-support/platform";
 
@@ -43,6 +45,7 @@ jest.mock("@/lib/stt", () => ({
 }));
 
 const { abortStt, stopStt } = mockStt;
+const appState = captureAppStateListener();
 const startSttMock = mockStt.startStt as jest.Mock;
 const permissionsMock = mockStt.requestSttPermissions as jest.Mock;
 const availableMock = mockStt.isSttAvailable;
@@ -348,6 +351,52 @@ describe("useSpeechToText — multiple screens", () => {
     expect(abortStt).toHaveBeenCalledTimes(1);
     await second.unmount();
     expect(abortStt).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe("useSpeechToText — microphone ownership", () => {
+  it("owns the mic while dictating and gives it back on end", async () => {
+    const hook = await setup();
+    await startListening(hook);
+    expect(microphoneOwner()).toBe("dictation");
+    await emit("end");
+    expect(microphoneOwner()).toBeNull();
+    await hook.unmount();
+  });
+
+  it("stops when another listener claims the mic", async () => {
+    const hook = await setup();
+    await startListening(hook);
+    const other = () => {};
+    await act(async () => {
+      await claimMicrophone("pronunciation", other);
+    });
+    expect(abortStt).toHaveBeenCalledTimes(1);
+    expect(hook.result.current.listening).toBe(false);
+    expect(hook.result.current.activeField).toBeNull();
+    expect(microphoneOwner()).toBe("pronunciation");
+    releaseMicrophone(other);
+    await hook.unmount();
+  });
+
+  it("drops the dictation when the app leaves the foreground", async () => {
+    const hook = await setup();
+    await startListening(hook);
+    expect(appState.isArmed()).toBe(true);
+    await act(async () => appState.emit("background"));
+    expect(abortStt).toHaveBeenCalledTimes(1);
+    expect(hook.result.current.listening).toBe(false);
+    expect(microphoneOwner()).toBeNull();
+    expect(appState.isArmed()).toBe(false);
+    await hook.unmount();
+  });
+
+  it("gives the mic back when the permission is denied", async () => {
+    permissionsMock.mockResolvedValueOnce({ granted: false });
+    const hook = await setup();
+    await startListening(hook);
+    expect(microphoneOwner()).toBeNull();
+    await hook.unmount();
   });
 });
 

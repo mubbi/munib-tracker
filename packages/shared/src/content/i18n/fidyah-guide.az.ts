@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Əgər oruc tutmaq həmişəlik qeyri-mümkündürsə, hər buraxılan gün üçün bir alimdən fidyə haqqında soruşun.",
       "Əgər qəsdən orucu pozmusunuzsa, tətbiqin hesablamalarına etibar etməyin - hansı hökmün tətbiq olunduğunu alimdən soruşun.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Və [oruc tutmağa, lakin çətinliklə] gücü çatanlara – bir yoxsulu doyurmaq fidyəsi... Kim xəstə və ya səfərdə olarsa, ona bərabər sayda başqa günlər.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Tutulan oruclar üçün fidyə nədir?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Yerli məscidinizin və ya şuranın gündəlik fidya tarifindən istifadə edin.",
       "Planlaşdırma təxmini üçün günləri × bir yemək (yaxud nəşr edilmiş fidya vahidi) çarpın.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Və [oruc tutmağa, lakin çətinliklə] gücü çatanlara isə bir fəqiri yedirtmək fidyəsi. Kim könüllü olaraq yaxşılıq etsə, bu, onun üçün daha xeyirlidir. Əgər bilsəniz oruc tutmaq sizin üçün daha xeyirlidir.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Kim adətən fidyə ödəyir?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Hamiləliyin, ana südü ilə qidalanmanın və xroniki xəstəliklərin təsnifatı elmi mühakimədir. Bu mövzu yalnız maarifləndiricidir.",
-    quran: [
-      {
-        excerpt:
-          "...Hər kim o ayı [yeni ayı] görsə, oruc tutsun. Kim xəstədirsə və ya səfərdə olsa, başqa günlərin sayı qədərdir. Allah sizin üçün asanlıq istər, çətinlik istəməz...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bir kişi dedi: Anam oruc tutduğu üçün öldü. Mən onun əvəzinə oruc tutmalıyam? Peyğəmbər (salləllahu aleyhi və səlləm) buyurdu: Bəli, Allahın borcunun ödənilməsinə daha çox haqqı vardır.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Qəsdən orucu pozmağa görə kəffarə",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Əgər varsa, hansı kəffarə borcunuz olduğunu ixtisaslı alimdən soruşun.",
       "Altmış kasıbı qidalandırmaq yerinə yetirə biləcəyiniz seçimdirsə, planlaşdırma rəqəmi kimi yerli yemək dəyəri × 60 istifadə edin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir kişi dedi: Mən xarab oldum, ey Allahın Rəsulu, Ramazan ayında həyat yoldaşımla yaxınlıq etdim. Ondan bir kölə azad etmək, iki ay dalbadal oruc tutmaq və altmış kasıbı yedizdirmək barədə soruşdular...",
-      },
-      {
-        excerpt:
-          "Biz Peyğəmbərin (sallallahu aleyhi və səlləm) yanında oturduğumuz zaman bir kişi gəlib dedi: Mən xarab oldum... O, oruc tutan zövcəsi ilə yaxınlıq etdi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Bu köməkçidən necə istifadə etmək olar",

@@ -39,7 +39,7 @@ export function ZakatChecklistContent() {
     <>
       <JannahCallout tone="warning">{t("zakat.checklistIntro")}</JannahCallout>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("zakat.checklistTitle")}
           icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
@@ -49,7 +49,7 @@ export function ZakatChecklistContent() {
             <TvReadableBlock key={item.id}>
               <View style={[styles.item, { backgroundColor: withAlpha(colors.foreground, 0.04) }]}>
                 <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                     {index + 1}
                   </ThemedText>
                 </View>

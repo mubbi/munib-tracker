@@ -56,6 +56,8 @@ export function FormInput({
         <input
           id={id}
           type={type}
+          // Email addresses are Latin: keep "user@" from reordering while typing on RTL pages.
+          dir={type === "email" ? "ltr" : undefined}
           name={name}
           value={value}
           onChange={(event) => onChange(event.target.value)}
@@ -68,7 +70,7 @@ export function FormInput({
         />
       )}
       {error ? (
-        <p id={errorId} role="alert" className="text-sm text-red-600 dark:text-red-400">
+        <p id={errorId} role="alert" className="text-sm text-rose-300">
           {error}
         </p>
       ) : null}

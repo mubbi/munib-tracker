@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Növbəti namaz</string>
+  <string name="wear_today">Bugünkü cədvəl</string>
+  <string name="wear_tasbeeh">Təsbih</string>
+  <string name="wear_progress">Bugünkü irəliləyiş</string>
+  <string name="wear_open_phone">Sinxronlaşdırmaq üçün telefonunuzda Munib Tracker-i açın</string>
+  <string name="wear_connect_phone">Namaz vaxtlarını görmək üçün telefonunuzu qoşun</string>
+  <string name="wear_install_phone">Namaz vaxtlarını görmək üçün telefonunuza Munib Tracker quraşdırın</string>
+  <string name="wear_tasbeeh_standalone">Təsbih telefonsuz da saatınızda işləyir</string>
+  <string name="wear_tasbeeh_of_target">/ %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Limitsiz</string>
+  <string name="wear_tasbeeh_options">Seçimlər</string>
+  <string name="wear_tasbeeh_undo">Sonuncunu geri al</string>
+  <string name="wear_tasbeeh_target">Hədəf</string>
+  <string name="wear_tasbeeh_mode">Rejim</string>
+  <string name="wear_tasbeeh_free">Sərbəst sayım</string>
+  <string name="wear_tasbeeh_after_salah">Namazdan sonra</string>
+  <string name="wear_tasbeeh_reset">Sıfırla</string>
+  <string name="wear_tasbeeh_reset_confirm">Say 0-a sıfırlansın?</string>
+  <string name="wear_tasbeeh_start_again">Yenidən başla</string>
+  <string name="wear_tasbeeh_all_done">Təsbih tamamlandı</string>
+  <string name="wear_tasbeeh_step">Addım %1$d / %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Hədəfə çatıldı</string>
+  <string name="wear_tasbeeh_tap_to_count">Saymaq üçün toxunun</string>
+  <string name="wear_tasbeeh_a11y">Təsbih sayğacı, %1$d / %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Təsbih sayğacı, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Bir say</string>
+  <string name="wear_open">Aç</string>
+  <string name="wear_open_app">Munib Tracker-i aç</string>
+  <string name="wear_mark_confirm">Bu namaz qılınmış kimi qeyd edilsin?</string>
+  <string name="wear_confirm">Təsdiqlə</string>
+  <string name="wear_marked">Qeyd edildi ✓</string>
+  <string name="wear_mark_sent">Telefonunuza göndərildi</string>
+  <string name="wear_mark_will_sync">Telefonunuz yaxında olduqda sinxronlaşacaq</string>
+</resources>

@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { BrandQrCode } from "@/components/share/brand-qr-code";
 import { ThemedText } from "@/components/themed-text";
-import { Brand, Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Brand, Radius, Spacing } from "@/constants/theme";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { BRAND_QR_SHARE_PADDING } from "@/lib/share/brandQrConfig";
@@ -96,6 +96,7 @@ export function ShareProofFooter({ contentLabel, exportedAtLabel, qrSize, onQrRe
               onReady={onQrReady}
             />
             <ThemedText
+              weight="semibold"
               type="caption"
               themeColor="mutedForeground"
               style={styles.qrLabel}
@@ -145,12 +146,12 @@ const styles = StyleSheet.create({
   footer: {
     marginTop: Spacing.two,
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     padding: Spacing.three,
     gap: Spacing.three,
   },
   metaBlock: {
-    gap: 2,
+    gap: Spacing.half,
   },
   getAppLabel: {
     textAlign: "center",
@@ -166,7 +167,6 @@ const styles = StyleSheet.create({
   },
   qrLabel: {
     textAlign: "center",
-    fontWeight: "600",
   },
   visitLink: {
     textAlign: "center",
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     gap: Spacing.two,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.md,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,

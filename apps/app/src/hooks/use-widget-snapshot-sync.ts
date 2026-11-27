@@ -3,7 +3,11 @@ import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { refreshRegisteredAndroidWidgets } from "@/lib/appSurfaces/widgets/androidTaskHandler";
+import { afterSalahTasbeehSteps } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
+import { widgetRefreshBoundaries } from "@/lib/appSurfaces/widgets/resolveSnapshotAt";
 import {
   buildWidgetSnapshot,
   writeWidgetSnapshot,
@@ -12,6 +16,7 @@ import { ensureDailyHadithPool } from "@/lib/daily-hadith";
 import {
   nativePublishAndroidWidgetPreviews,
   nativePushWearSnapshot,
+  nativeScheduleWidgetRefresh,
 } from "@/lib/external-commands/native-bridge";
 import { syncLiveActivity } from "@/lib/live-activity";
 import {
@@ -22,6 +27,8 @@ import { toAppLocale } from "@/lib/locale-bcp47";
 import { syncOngoingNotification } from "@/lib/ongoing-notification";
 import { isTV } from "@/lib/platform/is-tv";
 import { runWhenIdle } from "@/lib/run-when-idle";
+import { syncTvHomeSurfaces } from "@/lib/tv-home/sync";
+import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { useTheme } from "@/providers/theme-provider";
 import {
   useEnsureCustomTasbeehLoaded,
@@ -51,6 +58,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
     liveActivityEnabled,
     translationLocale,
     salahTrackingSession,
+    hijriAdjustment,
   } = usePreferences();
   const summary = useDailySummary();
   const { status: prayerStatus } = useTodayPrayers();
@@ -60,6 +68,10 @@ export function useWidgetSnapshotSync(enabled = true): void {
   const tasbeehToday = useTasbeehUpdatedToday();
   useEnsureFridayChecklistLoaded();
   const fridayChecklistDone = useFridayChecklistForDate(getLocalDateString());
+  // Adhkar widget: counts for the adhkar day (Fajr -> Fajr). Only `date` feeds the
+  // sync deps, so the clock's minute tick never re-writes the snapshot by itself.
+  const adhkarDate = useAdhkarClock().date;
+  const { counts: adhkarCounts } = useAdhkarDayCounts(adhkarDate);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const boundaryRefreshRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const syncRef = useRef<(() => Promise<void>) | null>(null);
@@ -67,9 +79,12 @@ export function useWidgetSnapshotSync(enabled = true): void {
   const locale = toAppLocale(i18n.language ?? "en");
   const meaningLocale = toAppLocale(translationLocale ?? locale);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment (D14) changes hijri.ts output in the snapshot.
   const sync = useCallback(async () => {
-    if (!enabled || Platform.OS === "web" || isTV()) return;
+    if (!enabled || Platform.OS === "web") return;
     await ensureDailyHadithPool();
+    // The watch tasbeeh shows the after-Salah phrases from the adhkar dataset.
+    await ensureZikrCorpus().catch(() => []);
     const locationDenied = locationStatus === "denied";
     const snapshot = buildWidgetSnapshot({
       location: locationDenied ? null : location,
@@ -96,12 +111,23 @@ export function useWidgetSnapshotSync(enabled = true): void {
         ? { title: tasbeehToday.title, count: tasbeehToday.count, target: tasbeehToday.target }
         : null,
       fridayChecklistDone,
+      afterSalahSteps: afterSalahTasbeehSteps(getZikrById),
+      adhkarCounts,
       t,
     });
+    // TV has no widgets / watch / Live Activity — the same snapshot feeds the Android
+    // TV launcher row and the Apple TV Top Shelf instead (their native sides track
+    // the next-Salah windows while the app is closed).
+    if (isTV()) {
+      await syncTvHomeSurfaces(snapshot, t);
+      return;
+    }
     await writeWidgetSnapshot(snapshot);
     const snapshotJson = JSON.stringify(snapshot);
     await nativePushWearSnapshot(snapshotJson);
     await refreshRegisteredAndroidWidgets();
+    // Exact-ish redraws at each Adhan / adhkar window / midnight while the app is closed.
+    await nativeScheduleWidgetRefresh(widgetRefreshBoundaries(snapshot, new Date()));
     await nativePublishAndroidWidgetPreviews(snapshotJson);
     await syncLiveActivity({ snapshot, enabled: liveActivityEnabled === true });
     await syncOngoingNotification({
@@ -132,6 +158,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
       }
     }
   }, [
+    adhkarCounts,
     colorMode,
     colors.accent,
     defaultCalendar,
@@ -156,6 +183,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
     tasbeehToday,
     timeFormat,
     enabled,
+    hijriAdjustment,
   ]);
 
   useEffect(() => {

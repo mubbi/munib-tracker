@@ -2,27 +2,34 @@ import type { AppLocale } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import {
   JannahCallout,
   JannahDisclaimer,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
-import { TvNumberStepper } from "@/components/tv-number-stepper";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
+import { NumberField } from "@/components/ui/number-field";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { SelectField } from "@/components/ui/select-field";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatCalendarDate } from "@/lib/calendar-format";
-import { gregorianToHijri, hijriMonthLabel, hijriMonthLength, hijriToGregorian } from "@/lib/hijri";
-import { toAppLocale } from "@/lib/locale-bcp47";
+import {
+  gregorianToHijri,
+  hijriMonthLabel,
+  hijriMonthLength,
+  hijriMonthName,
+  hijriToGregorian,
+} from "@/lib/hijri";
+import { localeToBcp47, toAppLocale } from "@/lib/locale-bcp47";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -34,7 +41,14 @@ type ConverterDirection = "toHijri" | "toGregorian";
 type ConversionResult = {
   primary: string;
   sourceLabel: string;
+  /** The converted date as numbers, used to seed the other direction. */
+  target: { year: number; month: number; day: number };
 };
+
+const MONTH_IDS = Array.from({ length: 12 }, (_, i) => String(i + 1));
+
+/** Largest year the converter accepts. */
+const MAX_YEAR = 9999;
 
 export default function DateConverterScreen() {
   const router = useRouter();
@@ -49,54 +63,100 @@ export default function DateConverterScreen() {
   const [direction, setDirection] = useState<ConverterDirection>("toHijri");
   const { width } = useWindowDimensions();
   /** Tablet / desktop web: inputs on the start side, the converted date beside them. */
-  const twoPane = !isTV() && width >= 900;
+  const twoPane = !isTV() && width >= Breakpoints.listDetail;
 
-  const [gYear, setGYear] = useState(String(now.getFullYear()));
+  const [gYear, setGYear] = useState<number | undefined>(now.getFullYear());
   const [gMonth, setGMonth] = useState(String(now.getMonth() + 1));
-  const [gDay, setGDay] = useState(String(now.getDate()));
+  const [gDay, setGDay] = useState<number | undefined>(now.getDate());
 
-  const [hYear, setHYear] = useState(String(todayHijri.year));
+  const [hYear, setHYear] = useState<number | undefined>(todayHijri.year);
   const [hMonth, setHMonth] = useState(String(todayHijri.month));
-  const [hDay, setHDay] = useState(String(todayHijri.day));
+  const [hDay, setHDay] = useState<number | undefined>(todayHijri.day);
 
   function resetToToday() {
     const nowLocal = new Date();
     const hijriNow = gregorianToHijri(nowLocal, location.timeZone);
-    setGYear(String(nowLocal.getFullYear()));
+    setGYear(nowLocal.getFullYear());
     setGMonth(String(nowLocal.getMonth() + 1));
-    setGDay(String(nowLocal.getDate()));
-    setHYear(String(hijriNow.year));
+    setGDay(nowLocal.getDate());
+    setHYear(hijriNow.year);
     setHMonth(String(hijriNow.month));
-    setHDay(String(hijriNow.day));
+    setHDay(hijriNow.day);
   }
 
+  const gregorianMonthOptions = useMemo(() => {
+    const formatter = new Intl.DateTimeFormat(localeToBcp47(i18n.language ?? "en"), {
+      month: "long",
+    });
+    return MONTH_IDS.map((id) => ({
+      value: id,
+      label: formatter.format(new Date(2000, Number(id) - 1, 1)),
+    }));
+  }, [i18n.language]);
+  const hijriMonthOptions = useMemo(
+    () => MONTH_IDS.map((id) => ({ value: id, label: hijriMonthName(Number(id), locale) })),
+    [locale],
+  );
+
+  const toHijri = direction === "toHijri";
+  const year = toHijri ? gYear : hYear;
+  const monthNumber = Number(toHijri ? gMonth : hMonth);
+  const day = toHijri ? gDay : hDay;
+  const maxDay = toHijri
+    ? year != null
+      ? new Date(year, monthNumber, 0).getDate()
+      : 31
+    : year != null
+      ? hijriMonthLength(year, monthNumber)
+      : 30;
+  // Per-field errors: only a field the user has filled in can be wrong.
+  const dayError =
+    day != null && (day < 1 || day > maxDay)
+      ? t("dateConverter.errorDay", { max: maxDay })
+      : undefined;
+  // NumberField keeps an out-of-range year as typed (B-03) — reject it here too.
+  const yearError =
+    year != null && (year < 1 || year > MAX_YEAR) ? t("dateConverter.errorYear") : undefined;
+
   const result = useMemo((): ConversionResult | undefined => {
+    if (year == null || day == null || yearError || dayError) return undefined;
     if (direction === "toHijri") {
-      const y = Number.parseInt(gYear, 10);
-      const m = Number.parseInt(gMonth, 10);
-      const d = Number.parseInt(gDay, 10);
-      if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return undefined;
-      if (m < 1 || m > 12 || d < 1 || d > 31) return undefined;
-      const source = new Date(y, m - 1, d);
-      if (source.getMonth() !== m - 1) return undefined;
+      const source = new Date(year, monthNumber - 1, day);
       const hijri = gregorianToHijri(source, location.timeZone);
       return {
         primary: `${hijri.day} ${hijriMonthLabel(hijri.year, hijri.month, locale)}`,
         sourceLabel: formatCalendarDate(source, "gregorian", locale),
+        target: { year: hijri.year, month: hijri.month, day: hijri.day },
       };
     }
-
-    const y = Number.parseInt(hYear, 10);
-    const m = Number.parseInt(hMonth, 10);
-    const d = Number.parseInt(hDay, 10);
-    if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) return undefined;
-    if (m < 1 || m > 12 || d < 1 || d > hijriMonthLength(y, m)) return undefined;
-    const gregorian = hijriToGregorian(y, m, d);
+    const gregorian = hijriToGregorian(year, monthNumber, day);
     return {
       primary: formatCalendarDate(gregorian, "gregorian", locale),
-      sourceLabel: `${d} ${hijriMonthLabel(y, m, locale)}`,
+      sourceLabel: `${day} ${hijriMonthLabel(year, monthNumber, locale)}`,
+      target: {
+        year: gregorian.getFullYear(),
+        month: gregorian.getMonth() + 1,
+        day: gregorian.getDate(),
+      },
     };
-  }, [direction, gYear, gMonth, gDay, hYear, hMonth, hDay, locale, location.timeZone]);
+  }, [direction, year, monthNumber, day, dayError, yearError, locale, location.timeZone]);
+
+  /** Flipping direction keeps the date: the other side is seeded from the last valid result. */
+  const changeDirection = (next: ConverterDirection) => {
+    if (next === direction) return;
+    if (result) {
+      if (next === "toGregorian") {
+        setHYear(result.target.year);
+        setHMonth(String(result.target.month));
+        setHDay(result.target.day);
+      } else {
+        setGYear(result.target.year);
+        setGMonth(String(result.target.month));
+        setGDay(result.target.day);
+      }
+    }
+    setDirection(next);
+  };
 
   const quickLinks = useMemo(
     () => [
@@ -107,6 +167,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickCalendarHint"),
         tint: colors.accent,
         onPress: () => router.push("/calendar" as Href),
+        href: "/calendar",
       },
       {
         id: "events",
@@ -115,6 +176,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickEventsHint"),
         tint: tokens.status.info.color,
         onPress: () => router.push("/events" as Href),
+        href: "/events",
       },
       {
         id: "ramadan",
@@ -123,6 +185,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickRamadanHint"),
         tint: tokens.status.success.color,
         onPress: () => router.push("/ramadan" as Href),
+        href: "/ramadan",
       },
       {
         id: "history",
@@ -131,6 +194,7 @@ export default function DateConverterScreen() {
         subtitle: t("dateConverter.quickHistoryHint"),
         tint: tokens.status.warning.color,
         onPress: () => router.push("/history" as Href),
+        href: "/history",
       },
     ],
     [router, t, colors.accent, tokens],
@@ -146,7 +210,7 @@ export default function DateConverterScreen() {
       : ({ ios: "calendar", android: "calendar_month", web: "calendar_month" } as AppIcon);
 
   const directionCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("dateConverter.directionTitle")}
         icon={{ ios: "arrow.left.arrow.right", android: "swap_horiz", web: "swap_horiz" }}
@@ -157,13 +221,13 @@ export default function DateConverterScreen() {
           { id: "toGregorian", label: t("dateConverter.toGregorian") },
         ]}
         value={direction}
-        onChange={setDirection}
+        onChange={changeDirection}
       />
     </Card>
   );
 
   const inputCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={
           direction === "toHijri"
@@ -173,28 +237,34 @@ export default function DateConverterScreen() {
         icon={inputIcon}
       />
       <View style={[styles.fieldRow, isTV() && styles.fieldRowTv]}>
-        <DateField
+        <NumberField
           label={t("dateConverter.day")}
-          value={direction === "toHijri" ? gDay : hDay}
-          onChange={direction === "toHijri" ? setGDay : setHDay}
+          style={styles.field}
+          value={day}
+          onChangeValue={toHijri ? setGDay : setHDay}
+          maxFractionDigits={0}
+          max={31}
           min={1}
-          max={direction === "toHijri" ? 31 : 30}
+          error={dayError}
         />
-        <DateField
-          label={t("dateConverter.month")}
-          value={direction === "toHijri" ? gMonth : hMonth}
-          onChange={direction === "toHijri" ? setGMonth : setHMonth}
-          min={1}
-          max={12}
-        />
-        <DateField
+        <View style={styles.fieldWide}>
+          <SelectField
+            label={t("dateConverter.month")}
+            options={toHijri ? gregorianMonthOptions : hijriMonthOptions}
+            value={toHijri ? gMonth : hMonth}
+            onChange={toHijri ? setGMonth : setHMonth}
+          />
+        </View>
+        <NumberField
           label={t("dateConverter.year")}
-          value={direction === "toHijri" ? gYear : hYear}
-          onChange={direction === "toHijri" ? setGYear : setHYear}
-          flexGrow={1.4}
+          style={styles.fieldWide}
+          value={year}
+          onChangeValue={toHijri ? setGYear : setHYear}
+          maxFractionDigits={0}
+          max={MAX_YEAR}
           min={1}
-          max={9999}
-          steps={[1, 10]}
+          step={1}
+          error={yearError}
         />
       </View>
       <View style={styles.actions}>
@@ -210,12 +280,11 @@ export default function DateConverterScreen() {
 
   const resultCard = (
     <Card
-      padding="three"
       style={[
         {
           backgroundColor: tokens.accentSoft,
           borderColor: withAlpha(colors.accent, 0.35),
-          borderWidth: StyleSheet.hairlineWidth,
+          borderWidth: BorderWidth.hairline,
         },
         twoPane && styles.resultFill,
       ]}
@@ -258,7 +327,7 @@ export default function DateConverterScreen() {
       subtitle={t("dateConverter.subtitle")}
       onBack={() => goBackOrReplace(router, "/calendar")}
     >
-      <Seo path="/calendar/converter" />
+      <ToolSeo path="/calendar/converter" name={t("dateConverter.title")} />
       <Stagger>
         <JannahCallout tone="info">{t("dateConverter.intro")}</JannahCallout>
 
@@ -275,7 +344,7 @@ export default function DateConverterScreen() {
         {twoPane ? null : inputCard}
         {twoPane ? null : resultCard}
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dateConverter.quickLinksTitle")}
             icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
@@ -286,65 +355,6 @@ export default function DateConverterScreen() {
         <JannahDisclaimer textKey="dateConverter.disclaimer" />
       </Stagger>
     </ScreenLayout>
-  );
-}
-
-function DateField({
-  label,
-  value,
-  onChange,
-  flexGrow = 1,
-  min = 1,
-  max = 9999,
-  steps = [1],
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  flexGrow?: number;
-  /** TV stepper bounds / increments (phone keeps the free-form input). */
-  min?: number;
-  max?: number;
-  steps?: readonly number[];
-}) {
-  const { colors, tokens } = useThemeTokens();
-  if (isTV()) {
-    // TV: step day / month / year with the D-pad — no on-screen keyboard.
-    const parsed = Number.parseInt(value, 10);
-    return (
-      <View
-        style={[styles.fieldTv, { backgroundColor: colors.muted, borderColor: tokens.hairline }]}
-      >
-        <ThemedText type="smallBold" style={styles.fieldTvLabel}>
-          {label}
-        </ThemedText>
-        <TvNumberStepper
-          value={Number.isFinite(parsed) ? parsed : min}
-          onChange={(next) => onChange(String(next))}
-          label={label}
-          min={min}
-          max={max}
-          steps={steps}
-          buttonBackground={colors.card}
-        />
-      </View>
-    );
-  }
-  return (
-    <View style={[styles.field, { flexGrow }]}>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {label}
-      </ThemedText>
-      <TextInput
-        value={value}
-        onChangeText={(text) => onChange(text.replace(/[^0-9]/g, ""))}
-        keyboardType="numeric"
-        placeholder="0"
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={label}
-        style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
-      />
-    </View>
   );
 }
 
@@ -367,33 +377,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: Spacing.two,
     marginTop: Spacing.three,
+    alignItems: "flex-start",
   },
-  field: { flex: 1, gap: Spacing.one },
+  field: { flex: 1, minWidth: 0 },
+  fieldWide: { flex: 1.5, minWidth: 0 },
   fieldRowTv: {
     flexDirection: "column",
-  },
-  fieldTv: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  fieldTvLabel: {
-    flex: 1,
-  },
-  input: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 17,
-    fontWeight: "600",
-    textAlign: "center",
-    minHeight: 48,
   },
   actions: {
     marginTop: Spacing.three,

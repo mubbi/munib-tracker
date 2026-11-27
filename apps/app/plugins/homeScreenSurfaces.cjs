@@ -3,15 +3,27 @@
  * Keep widget `name` values in sync with APP_WIDGET_REGISTRY in
  * src/lib/appSurfaces/widgets/registry.ts.
  */
+// Brand fill for the quick-action icons that use the app accent (generated tokens).
+const NATIVE_ACCENT = require("./generated/native-tokens.json").defaultAccent.light;
 const QUICK_ACTION_ICON_DIR = "./assets/images/quick-actions";
 const WIDGET_PREVIEW_DIR = "./assets/images/widget-previews";
+/*
+ * Sizing follows Android's widget quality guidelines: targetCellWidth/Height
+ * (API 31+) plus min/max resize bounds so every widget can shrink to a 2x1 strip
+ * (renders the compact lock-screen layout) and grow without stretching.
+ * Cell math: width = 73n - 16 dp, height = 118m - 16 dp (portrait).
+ * `updatePeriodMillis` is only the 30-minute fallback: exact redraws at each
+ * Adhan / adhkar window / midnight come from `scheduleWidgetRefresh` alarms.
+ */
 const WIDGET_CELL = {
   minWidth: "250dp",
   minHeight: "110dp",
   targetCellWidth: 4,
   targetCellHeight: 2,
   minResizeWidth: "110dp",
-  minResizeHeight: "110dp",
+  minResizeHeight: "50dp",
+  maxResizeWidth: "530dp",
+  maxResizeHeight: "450dp",
   resizeMode: "horizontal|vertical",
   updatePeriodMillis: 1_800_000,
 };
@@ -21,20 +33,25 @@ const WIDGET_CELL_LARGE = {
   minHeight: "250dp",
   targetCellWidth: 4,
   targetCellHeight: 4,
-  minResizeWidth: "250dp",
+  minResizeWidth: "180dp",
   minResizeHeight: "110dp",
+  maxResizeWidth: "530dp",
+  maxResizeHeight: "570dp",
   resizeMode: "horizontal|vertical",
   updatePeriodMillis: 1_800_000,
 };
 
+/** 2x2 glance widgets: resizable down to 2x1 and up to a 4x2 card (quality tier WL-2). */
 const WIDGET_CELL_SMALL = {
   minWidth: "110dp",
   minHeight: "110dp",
   targetCellWidth: 2,
   targetCellHeight: 2,
   minResizeWidth: "110dp",
-  minResizeHeight: "110dp",
-  resizeMode: "none",
+  minResizeHeight: "50dp",
+  maxResizeWidth: "276dp",
+  maxResizeHeight: "220dp",
+  resizeMode: "horizontal|vertical",
   updatePeriodMillis: 1_800_000,
 };
 
@@ -102,6 +119,16 @@ const WIDGET_META = {
     description: "Friday checklist progress or a countdown to Jumu'ah",
     previewImage: `${WIDGET_PREVIEW_DIR}/jumuahwidget_preview.png`,
   },
+  AdhkarWidget: {
+    label: "Adhkar",
+    description: "The adhkar due now (morning, after Salah, evening) with progress",
+    previewImage: `${WIDGET_PREVIEW_DIR}/adhkarwidget_preview.png`,
+  },
+  IslamicEventsWidget: {
+    label: "Islamic events",
+    description: "Countdown to the next Islamic dates: Ramadan, Eid, Arafah, Ashura",
+    previewImage: `${WIDGET_PREVIEW_DIR}/islamiceventswidget_preview.png`,
+  },
 };
 
 function widgetEntry(name, cellOverrides = {}) {
@@ -129,16 +156,18 @@ const ANDROID_HOME_SCREEN_WIDGETS = [
   widgetEntry("QiblaBearingWidget", WIDGET_CELL_SMALL),
   widgetEntry("TasbeehGlanceWidget", WIDGET_CELL_SMALL),
   widgetEntry("JumuahWidget"),
+  widgetEntry("AdhkarWidget"),
+  widgetEntry("IslamicEventsWidget"),
 ];
 
 const QUICK_ACTION_ANDROID_ICONS = {
   quick_mark: {
     foregroundImage: `${QUICK_ACTION_ICON_DIR}/quick_mark.png`,
-    backgroundColor: "#059669",
+    backgroundColor: NATIVE_ACCENT,
   },
   quick_checklist: {
     foregroundImage: `${QUICK_ACTION_ICON_DIR}/quick_checklist.png`,
-    backgroundColor: "#059669",
+    backgroundColor: NATIVE_ACCENT,
   },
   quick_qibla: {
     foregroundImage: `${QUICK_ACTION_ICON_DIR}/quick_qibla.png`,

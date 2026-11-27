@@ -13,8 +13,8 @@ export type LockScreenTrackInfo = {
   title: string;
   subtitle?: string;
   playlistPrimary?: string;
-  /** When set, lock screen shows one grouped track (e.g. full surah) instead of per-ayah. */
-  lockScreenGroupId?: string;
+  /** "Artist" line (e.g. Qur'an reciter); `subtitle` then moves to the album line. */
+  lockScreenArtist?: string;
 };
 
 export type LockScreenQueueContext = {
@@ -29,11 +29,6 @@ export type LockScreenQueueContext = {
 let cachedArtworkUrl: string | undefined;
 let androidNotificationPermissionRequested = false;
 
-/** True when track id looks like a Qur'an ayah reference (`surah:ayah`). */
-function isQuranAyahTrackId(id?: string): boolean {
-  return id != null && /^\d+:\d+$/.test(id);
-}
-
 /** Resolve the bundled app icon to a URI the native lock-screen APIs can load. */
 export function getLockScreenArtworkUrl(): string | undefined {
   if (cachedArtworkUrl) return cachedArtworkUrl;
@@ -42,33 +37,31 @@ export function getLockScreenArtworkUrl(): string | undefined {
   return cachedArtworkUrl;
 }
 
-/** Build Now Playing / media-notification metadata for a track. */
+/**
+ * Build Now Playing / media-notification metadata for a track.
+ *
+ * - **title** — what is playing (surah, dua, name).
+ * - **artist** — who: the reciter when known (`lockScreenArtist`), else the
+ *   track's subtitle / playlist line, else the app name.
+ * - **album** — where in the queue: "Ayah 3 · 3 of 7" for a reciter track,
+ *   "3 of 7" for other queues, the app name for a single track. The OS already
+ *   labels the panel "Now Playing", so we never repeat it here.
+ */
 export function buildLockScreenMetadata(
   track: LockScreenTrackInfo,
   queue?: LockScreenQueueContext,
 ): AudioMetadata {
-  const grouped =
-    track.lockScreenGroupId != null &&
-    queue != null &&
-    queue.queueLength > 1 &&
-    queue.queueDuration != null &&
-    queue.queueDuration > 0;
+  const appName = i18n.t("common.appName");
+  const subtitle = track.subtitle?.trim();
+  const reciter = track.lockScreenArtist?.trim();
+  const position =
+    queue != null && queue.queueLength > 1
+      ? i18n.t("player.trackOf", { current: queue.queueIndex + 1, total: queue.queueLength })
+      : undefined;
 
-  let artist = track.subtitle?.trim() || track.playlistPrimary?.trim() || i18n.t("common.appName");
-  let albumTitle = i18n.t("player.nowPlaying");
-
-  if (grouped) {
-    // Present the full surah (or other grouped queue) as a single lock-screen item.
-    albumTitle = i18n.t("player.nowPlaying");
-    if (track.subtitle && !/^ayah\s/i.test(track.subtitle)) {
-      artist = track.subtitle;
-    }
-  } else if (queue != null && queue.queueLength > 1) {
-    albumTitle = i18n.t("player.trackOf", {
-      current: queue.queueIndex + 1,
-      total: queue.queueLength,
-    });
-  }
+  const artist = reciter || subtitle || track.playlistPrimary?.trim() || appName;
+  const albumParts = reciter && subtitle ? [subtitle, position] : [position];
+  const albumTitle = albumParts.filter(Boolean).join(" · ") || appName;
 
   const metadata: AudioMetadata = {
     title: track.title,
@@ -104,19 +97,14 @@ export function activateLockScreenControls(
   player: AudioPlayer,
   track: LockScreenTrackInfo,
   queue: LockScreenQueueContext,
-  trackId?: string,
 ): void {
   if (Platform.OS === "web" || isTV()) return;
   const hasQueue = queue.queueLength > 1;
-  const groupedQuran = hasQueue && isQuranAyahTrackId(trackId);
-  const trackInfo: LockScreenTrackInfo = groupedQuran
-    ? { ...track, lockScreenGroupId: trackId?.split(":")[0] }
-    : track;
 
   try {
     player.setActiveForLockScreen(
       true,
-      buildLockScreenMetadata(trackInfo, queue),
+      buildLockScreenMetadata(track, queue),
       buildLockScreenOptions(hasQueue),
     );
   } catch {
@@ -129,17 +117,11 @@ export function updateLockScreenControls(
   player: AudioPlayer,
   track: LockScreenTrackInfo,
   queue: LockScreenQueueContext,
-  trackId?: string,
 ): void {
   if (Platform.OS === "web" || isTV()) return;
-  const hasQueue = queue.queueLength > 1;
-  const groupedQuran = hasQueue && isQuranAyahTrackId(trackId);
-  const trackInfo: LockScreenTrackInfo = groupedQuran
-    ? { ...track, lockScreenGroupId: trackId?.split(":")[0] }
-    : track;
 
   try {
-    player.updateLockScreenMetadata(buildLockScreenMetadata(trackInfo, queue));
+    player.updateLockScreenMetadata(buildLockScreenMetadata(track, queue));
   } catch {
     // Non-fatal
   }

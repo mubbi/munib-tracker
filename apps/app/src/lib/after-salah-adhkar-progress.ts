@@ -1,7 +1,7 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type { AfterSalahPrayer, ZikrItem } from "@munib-tracker/shared/types";
 import { zikrByCategory } from "@/lib/zikr";
-import { getZikrCountFromMap, isZikrItemDone } from "@/lib/zikr-count-key";
+import { getZikrCountFromMap, isZikrOptional, zikrTarget } from "@/lib/zikr-count-key";
 
 export { getZikrCountFromMap, isZikrItemDone, zikrCountKey } from "@/lib/zikr-count-key";
 
@@ -22,26 +22,32 @@ export function afterSalahApplicablePrayers(item: ZikrItem): AfterSalahPrayer[] 
   return [...OBLIGATORY_PRAYERS];
 }
 
+/** Whether an after-salah zikr's target (for that salah) is met. */
+function doneAfter(item: ZikrItem, prayerId: AfterSalahPrayer, counts: Record<string, number>) {
+  return getZikrCountFromMap(counts, item.id, prayerId) >= zikrTarget(item, prayerId);
+}
+
+/** Required (non-optional) after-salah progress for one salah. */
 export function afterSalahProgressForPrayer(
   prayerId: AfterSalahPrayer,
   counts: Record<string, number>,
 ): { completed: number; total: number } {
-  const items = afterSalahItemsForPrayer(prayerId);
-  const completed = items.filter((item) =>
-    isZikrItemDone(getZikrCountFromMap(counts, item.id, prayerId), item.targetCount),
-  ).length;
+  const items = afterSalahItemsForPrayer(prayerId).filter(
+    (item) => !isZikrOptional(item, prayerId),
+  );
+  const completed = items.filter((item) => doneAfter(item, prayerId, counts)).length;
   return { completed, total: items.length };
 }
 
-/** Per-item completion across every salah it applies to (for the "All" filter). */
+/** Per-item completion across every salah it is required after (for overviews). */
 export function afterSalahItemProgress(
   item: ZikrItem,
   counts: Record<string, number>,
 ): { completed: number; total: number } {
-  const prayers = afterSalahApplicablePrayers(item);
-  const completed = prayers.filter((prayerId) =>
-    isZikrItemDone(getZikrCountFromMap(counts, item.id, prayerId), item.targetCount),
-  ).length;
+  const prayers = afterSalahApplicablePrayers(item).filter(
+    (prayerId) => !isZikrOptional(item, prayerId),
+  );
+  const completed = prayers.filter((prayerId) => doneAfter(item, prayerId, counts)).length;
   return { completed, total: prayers.length };
 }
 

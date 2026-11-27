@@ -36,6 +36,31 @@ export class UpsertPushTokenDto {
   clientPlatform?: string;
 }
 
+/**
+ * Unregisters this device's push token(s) from the caller's account (sign-out).
+ * Matches on `deviceId` and/or the token itself; at least one is required.
+ */
+export class RemovePushTokenDto {
+  @ApiPropertyOptional({ description: "Expo push token or web push subscription endpoint" })
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(8192)
+  token?: string;
+
+  @ApiPropertyOptional({ description: "Stable device id used when the token was registered" })
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(128)
+  deviceId?: string;
+}
+
+export class RemovePushTokenResponseDto {
+  @ApiProperty({ description: "Push token rows removed from the caller's account" })
+  removed!: number;
+}
+
 export class PushTokenResponseDto {
   @ApiProperty()
   id!: number;

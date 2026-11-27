@@ -39,3 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# IndexNow: date of the last ping (per deploying machine)
+.indexnow-last.json

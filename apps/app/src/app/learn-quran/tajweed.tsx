@@ -1,5 +1,5 @@
-import { type Href, useRouter } from "expo-router";
-import { useMemo } from "react";
+import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -12,8 +12,10 @@ import {
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { CoachingPanel } from "@/components/tajweed-coaching/coaching-panel";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
@@ -25,10 +27,24 @@ import {
 } from "@/lib/quran-guide";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
+type TajweedTab = "lessons" | "coaching";
+
 export default function LearnQuranTajweedScreen() {
   const router = useRouter();
   const { maxContentWidth } = useLearnWideLayout();
   const { t, i18n } = useTranslation();
+  // NF-3.15: "Lessons" | "Coaching" (deep link: ?tab=coaching from the practice summary).
+  const params = useLocalSearchParams<{ tab?: string }>();
+  const paramTab: TajweedTab = params.tab === "coaching" ? "coaching" : "lessons";
+  const [tab, setTab] = useState<TajweedTab>(paramTab);
+  // A later deep link (e.g. "See your plan" while this screen is still mounted
+  // under the stack) must switch the tab too, not only the first mount.
+  useEffect(() => setTab(paramTab), [paramTab]);
+  const changeTab = (next: TajweedTab) => {
+    setTab(next);
+    // Keep the URL in step so web refresh / back and shared links land on the same tab.
+    router.setParams({ tab: next });
+  };
   const { ready: contentReady } = useEnsureContent(
     ensureQuranGuideContent,
     isQuranGuideContentReady,
@@ -54,29 +70,43 @@ export default function LearnQuranTajweedScreen() {
       <LearnContentGate ready={contentReady}>
         <LearnSplitLayout aside={<QuranGuideTopicAside currentId="tajweed" />}>
           <Stagger>
-            <JannahCallout tone="info">{t("learnQuran.tajweedIntro")}</JannahCallout>
+            <SegmentedControl<TajweedTab>
+              options={[
+                { id: "lessons", label: t("tajweedCoaching.tab.lessons") },
+                { id: "coaching", label: t("tajweedCoaching.tab.coaching") },
+              ]}
+              value={tab}
+              onChange={changeTab}
+            />
+            {tab === "coaching" ? (
+              <CoachingPanel />
+            ) : (
+              <>
+                <JannahCallout tone="info">{t("learnQuran.tajweedIntro")}</JannahCallout>
 
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnQuran.tajweedListTitle")}
-                icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-              />
-              <LearnTopicGrid
-                style={styles.rows}
-                maxColumns={2}
-                items={lessons.map((lesson) => ({
-                  id: lesson.id,
-                  icon: { ios: "music.note", android: "music_note", web: "music_note" },
-                  title: lesson.title,
-                  subtitle: lesson.summary,
-                  onPress: () =>
-                    router.push({
-                      pathname: "/learn-quran/tajweed/[id]",
-                      params: { id: lesson.id },
-                    }),
-                }))}
-              />
-            </Card>
+                <Card>
+                  <SectionHeader
+                    title={t("learnQuran.tajweedListTitle")}
+                    icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+                  />
+                  <LearnTopicGrid
+                    style={styles.rows}
+                    maxColumns={2}
+                    items={lessons.map((lesson) => ({
+                      id: lesson.id,
+                      icon: { ios: "music.note", android: "music_note", web: "music_note" },
+                      title: lesson.title,
+                      subtitle: lesson.summary,
+                      onPress: () =>
+                        router.push({
+                          pathname: "/learn-quran/tajweed/[id]",
+                          params: { id: lesson.id },
+                        }),
+                    }))}
+                  />
+                </Card>
+              </>
+            )}
 
             <JannahDisclaimer textKey="learnQuran.disclaimer" />
           </Stagger>

@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 type ProgressRingProps = {
   /** 0–1 completion. */
   progress: number;
+  /** Accessible name (translated by the caller). */
+  label: string;
   size?: number;
   stroke?: number;
   className?: string;
@@ -14,6 +16,7 @@ type ProgressRingProps = {
 /** Circular progress indicator with an emerald→gold gradient stroke. */
 export function ProgressRing({
   progress,
+  label,
   size = 120,
   stroke = 10,
   className,
@@ -36,9 +39,9 @@ export function ProgressRing({
         viewBox={`0 0 ${size} ${size}`}
         className="-rotate-90"
         role="img"
-        aria-label="progress"
+        aria-label={label}
       >
-        <title>Progress</title>
+        <title>{label}</title>
         <circle
           cx={size / 2}
           cy={size / 2}

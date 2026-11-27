@@ -13,7 +13,7 @@ import Animated, {
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import type { MicState } from "@/hooks/use-practice-session";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -135,7 +135,7 @@ export function PracticeDock({
         <ThemedText
           type="caption"
           themeColor="mutedForeground"
-          style={[styles.label, options.selected ? { color: colors.accent } : null]}
+          style={[styles.label, options.selected ? { color: colors.accentText } : null]}
           numberOfLines={1}
         >
           {label}
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.xl,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   /** Both sides take the same width so the mic is always centred. */
   group: {
@@ -296,13 +296,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   /** One control: a fixed-height icon slot over a single label line. */
-  column: { alignItems: "center", gap: 4, minWidth: 64 },
+  column: { alignItems: "center", gap: Spacing.one, minWidth: 64 },
   slot: { height: MIC_SIZE, minWidth: MIC_SIZE, alignItems: "center", justifyContent: "center" },
   sideWell: {
     width: SIDE_SIZE,
     height: SIDE_SIZE,
     borderRadius: SIDE_SIZE / 2,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     alignItems: "center",
     justifyContent: "center",
   },

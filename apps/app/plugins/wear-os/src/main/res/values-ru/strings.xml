@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Следующий намаз</string>
+  <string name="wear_today">Расписание на сегодня</string>
+  <string name="wear_tasbeeh">Тасбих</string>
+  <string name="wear_progress">Прогресс за сегодня</string>
+  <string name="wear_open_phone">Откройте Munib Tracker на телефоне для синхронизации</string>
+  <string name="wear_connect_phone">Подключите телефон, чтобы видеть время намаза</string>
+  <string name="wear_install_phone">Установите Munib Tracker на телефон, чтобы видеть время намаза</string>
+  <string name="wear_tasbeeh_standalone">Тасбих работает на часах без телефона</string>
+  <string name="wear_tasbeeh_of_target">из %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Без ограничений</string>
+  <string name="wear_tasbeeh_options">Параметры</string>
+  <string name="wear_tasbeeh_undo">Отменить последнее</string>
+  <string name="wear_tasbeeh_target">Цель</string>
+  <string name="wear_tasbeeh_mode">Режим</string>
+  <string name="wear_tasbeeh_free">Свободный счёт</string>
+  <string name="wear_tasbeeh_after_salah">После намаза</string>
+  <string name="wear_tasbeeh_reset">Сбросить</string>
+  <string name="wear_tasbeeh_reset_confirm">Сбросить счёт до 0?</string>
+  <string name="wear_tasbeeh_start_again">Начать заново</string>
+  <string name="wear_tasbeeh_all_done">Тасбих завершён</string>
+  <string name="wear_tasbeeh_step">Шаг %1$d из %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Цель достигнута</string>
+  <string name="wear_tasbeeh_tap_to_count">Нажмите, чтобы считать</string>
+  <string name="wear_tasbeeh_a11y">Счётчик тасбиха, %1$d из %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Счётчик тасбиха, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Посчитать один</string>
+  <string name="wear_open">Открыть</string>
+  <string name="wear_open_app">Открыть Munib Tracker</string>
+  <string name="wear_mark_confirm">Отметить этот намаз как совершённый?</string>
+  <string name="wear_confirm">Подтвердить</string>
+  <string name="wear_marked">Отмечено ✓</string>
+  <string name="wear_mark_sent">Отправлено на телефон</string>
+  <string name="wear_mark_will_sync">Синхронизируется, когда телефон будет рядом</string>
+</resources>

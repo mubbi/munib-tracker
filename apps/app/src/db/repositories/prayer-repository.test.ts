@@ -76,6 +76,61 @@ describe("setFlags", () => {
   });
 });
 
+describe("partial updates keep every wave-3 field (regression)", () => {
+  const seeded = log({
+    prayerId: "dhuhr",
+    status: "completed",
+    notes: "n",
+    isJama: true,
+    combinedWith: "asr",
+    combineMode: "taqdim",
+    rakahs: 4,
+    late: true,
+  });
+  const kept = {
+    combinedWith: "asr",
+    combineMode: "taqdim",
+    rakahs: 4,
+    late: true,
+    isJama: true,
+  };
+
+  beforeEach(async () => {
+    await PrayerRepository.upsertLog(seeded);
+  });
+
+  it("setStatus keeps rakahs / late / combine fields", async () => {
+    expect(await PrayerRepository.setStatus("dhuhr", DAY, "missed")).toMatchObject({
+      ...kept,
+      status: "missed",
+      notes: "n",
+    });
+  });
+
+  it("setNotes keeps rakahs / late / combine fields", async () => {
+    expect(await PrayerRepository.setNotes("dhuhr", DAY, "x")).toMatchObject({
+      ...kept,
+      status: "completed",
+      notes: "x",
+    });
+  });
+
+  it("setFlags keeps rakahs / late and unrelated flags", async () => {
+    expect(
+      await PrayerRepository.setFlags("dhuhr", DAY, { isExcused: true, excusedReason: "travel" }),
+    ).toMatchObject({ ...kept, isExcused: true, notes: "n" });
+  });
+
+  it("setRawatib keeps the note and any other flags", async () => {
+    await PrayerRepository.upsertLog(log({ prayerId: "dhuhr_before", notes: "s", rakahs: 4 }));
+    expect(await PrayerRepository.setRawatib("dhuhr_before", DAY, false)).toMatchObject({
+      status: "pending",
+      notes: "s",
+      rakahs: 4,
+    });
+  });
+});
+
 describe("applyRemoteLog", () => {
   it("inserts a log the device does not have", async () => {
     await PrayerRepository.applyRemoteLog(log());

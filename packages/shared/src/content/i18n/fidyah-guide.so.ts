@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Haddii soonku uu yahay mid aan suurtagal ahayn, weydii caalim ku saabsan fidyah maalin kasta.",
       "Haddii aad si badheedh ah u jebisay soon, ha isku hallayn qiyaas app - weydii aqoonyahan xukunka khuseeya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "... iyo kuwa kara [inay soomaan oo dhib ku ah] madax furasho ah quudin miskiin ah... Ruuxii buka ama safar ku jira waa tiro maalmo kale oo la mid ah.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Waa maxay fidyah ee soonka seegay?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Isticmaal masjidka ama qiimaha fidyada xaafaddaada maalintii marka la heli karo.",
       "Isku dhufashada maalmo × hal cunto (ama cutubka fidiya ee la daabacay) ee qiyaasta qorshaynta.",
     ],
-    quran: [
-      {
-        excerpt:
-          "... kuwa karana [oo afurka ku dhiba] waxay u ahaanaysaa furasho quudin miskiin ah. Ruuxii wax wanaag ah la yimaada isagaa u khayrroon. Oo inaad soontaan yaa idiin khayr roon haddaad tihiin kuwo wax og.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Yaa inta badan bixiya fidyah?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Kala soocida uurka, naas nuujinta, iyo xanuunada daba dheeraada waa xukun cilmiyaysan. Mawduucan waa waxbarasho kaliya.",
-    quran: [
-      {
-        excerpt:
-          "...Haddaba Ruuxii arka [bisha cusub] ha ​​soomo; iyo kii buka ama safar ku jira - ka dibna tiro la mid ah maalmo kale. Eebe wuxuu idiin dooni fudayd, dhibna kuguma talo galo...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nin baa yidhi: Hooyaday waxay ku dhimatay soon. Miyaan u soomi karaa iyada? Nabigu ﷺ wuxuu yidhi: Haa - deynta Alle ayaa ka xaq badan in la bixiyo.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah oo si badheedh ah u afuray",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Weydii aqoonyahan u qalma kafaaraggudka - haddii ay jiraan - lagugu leeyahay.",
       "Haddii quudinta lixdan miskiin ay tahay ikhtiyaarka aad buuxin karto, isticmaal kharashka cuntada maxaliga ah × 60 shaxda qorshaynta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nin ayaa yidhi: Waan Halaagay, Rasuulkii Alloow- Waxaan u galmooday Xaaskayga Ramadaan. Waxa la waydiiyay in uu addoon xoreeyo, soomo laba bilood oo xidhiidh ah, iyo quudinta lixdan miskiin...",
-      },
-      {
-        excerpt:
-          "Anagoo Nabiga s.c.w la fadhinnay ayaa waxaa yimid nin oo yiri: Waan Halaagsanahay... Wuxuu u Galmooday Xaaskiisa isagoo Sooman...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Sida loo isticmaalo kaaliyahan",

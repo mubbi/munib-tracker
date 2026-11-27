@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">نوێژی داهاتوو</string>
+  <string name="wear_today">خشتەی ئەمڕۆ</string>
+  <string name="wear_tasbeeh">تەسبیح</string>
+  <string name="wear_progress">پێشکەوتنی ئەمڕۆ</string>
+  <string name="wear_open_phone">بۆ هاوکاتکردن Munib Tracker لەسەر مۆبایلەکەت بکەرەوە</string>
+  <string name="wear_connect_phone">مۆبایلەکەت بەستەوە بۆ بینینی کاتی نوێژ</string>
+  <string name="wear_install_phone">Munib Tracker لەسەر مۆبایلەکەت دابمەزرێنە بۆ بینینی کاتی نوێژ</string>
+  <string name="wear_tasbeeh_standalone">تەسبیح بێ مۆبایلیش لەسەر کاتژمێرەکەت کار دەکات</string>
+  <string name="wear_tasbeeh_of_target">لە %1$d</string>
+  <string name="wear_tasbeeh_unlimited">بێسنوور</string>
+  <string name="wear_tasbeeh_options">هەڵبژاردنەکان</string>
+  <string name="wear_tasbeeh_undo">دوایین پاشەکشە بکە</string>
+  <string name="wear_tasbeeh_target">ئامانج</string>
+  <string name="wear_tasbeeh_mode">شێواز</string>
+  <string name="wear_tasbeeh_free">ژماردنی ئازاد</string>
+  <string name="wear_tasbeeh_after_salah">دوای نوێژ</string>
+  <string name="wear_tasbeeh_reset">ڕێستکردنەوە</string>
+  <string name="wear_tasbeeh_reset_confirm">ژمارەکە بگەڕێنرێتەوە بۆ ٠؟</string>
+  <string name="wear_tasbeeh_start_again">دووبارە دەستپێکردنەوە</string>
+  <string name="wear_tasbeeh_all_done">تەسبیح تەواو بوو</string>
+  <string name="wear_tasbeeh_step">هەنگاوی %1$d لە %2$d</string>
+  <string name="wear_tasbeeh_target_reached">گەیشتە ئامانج</string>
+  <string name="wear_tasbeeh_tap_to_count">بۆ ژماردن دەست لێ بدە</string>
+  <string name="wear_tasbeeh_a11y">ژمێرەری تەسبیح، %1$d لە %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">ژمێرەری تەسبیح، %1$d</string>
+  <string name="wear_tasbeeh_count_one">یەک بژمێرە</string>
+  <string name="wear_open">کردنەوە</string>
+  <string name="wear_open_app">Munib Tracker بکەرەوە</string>
+  <string name="wear_mark_confirm">ئەم نوێژە وەک کراو نیشان بکرێت؟</string>
+  <string name="wear_confirm">دڵنیاکردنەوە</string>
+  <string name="wear_marked">نیشانکرا ✓</string>
+  <string name="wear_mark_sent">نێردرا بۆ مۆبایلەکەت</string>
+  <string name="wear_mark_will_sync">کاتێک مۆبایلەکەت نزیک بێت هاوکات دەکرێت</string>
+</resources>

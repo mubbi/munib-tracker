@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
+import { RAWATIB_IDS } from "../constants/index";
 import {
   isAfterSalahPrayer,
   isObligatoryPrayer,
   isPrayerId,
   isPrayerStatus,
   isQazaPrayer,
+  isRawatibPrayer,
   isSunnahPrayer,
   isWitrPrayer,
   isZikrCategoryId,
@@ -35,6 +37,19 @@ describe.concurrent("validators", () => {
     expect(isPrayerId("witr")).toBe(true);
     expect(isPrayerId("tahajjud")).toBe(true);
     expect(isPrayerId("nope")).toBe(false);
+  });
+
+  it("accepts every rawatib id as a prayer id but never as fard, qaza or after-salah (NF-3.1)", () => {
+    for (const id of RAWATIB_IDS) {
+      expect(isPrayerId(id)).toBe(true);
+      expect(isRawatibPrayer(id)).toBe(true);
+      expect(isObligatoryPrayer(id)).toBe(false);
+      expect(isQazaPrayer(id)).toBe(false);
+      expect(isAfterSalahPrayer(id)).toBe(false);
+      expect(isSunnahPrayer(id)).toBe(false);
+    }
+    expect(isRawatibPrayer("fajr")).toBe(false);
+    expect(isRawatibPrayer("witr")).toBe(false);
   });
 
   it("recognises prayer statuses", () => {

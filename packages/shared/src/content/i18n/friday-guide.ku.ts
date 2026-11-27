@@ -1,183 +1,104 @@
 import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-// Kurdish (Kurmanji) translation overlay for the Learn Friday (Jumu'ah) guide. Mirrors the
-// order of FRIDAY_GUIDE_TOPICS in ../friday-guide.ts (index-aligned); untranslated entries
+// Kurdish (Sorani) translation overlay for the Learn Friday guide. Mirrors the order
+// of FRIDAY_GUIDE_TOPICS in ../friday-guide.ts (index-aligned); untranslated entries
 // fall back to English. Only human-readable text is translated — ids, routes,
 // surah/ayah numbers, collections, citations and grades stay in the English source.
 export const FRIDAY_GUIDE_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Rûmetên roja Îniyê",
+    title: "فەزڵەکانی ڕۆژی هەینی",
     summary:
-      "Roja çêtirîn a rojê lê hiltê — afirandina Adem, û lêbihûrandin di navbera du Îniyan de.",
+      "باشترین ڕۆژێک کە خۆری لێ هەڵدێت — ڕۆژی دروستکردنی ئادەم، و لێخۆشبوون لە نێوان دوو هەینیدا.",
     body: [
-      "Îniye (Yewmu'l-Cumua) roja civînê ya heftane ya vê Ummetê ye. Ebû Hureyre rivayet kir ku Pêxemberê Xwedê ﷺ got: 'Roja çêtirîn a rojê lê hiltê Îniye ye; di wê rojê de Adem hate afirandin, di wê rojê de ew ket Bihuştê, di wê rojê de ew jê hate derxistin, û Roja Dawî tenê di Îniyê de dê pêk were' (Sahîh Muslîm 854).",
-      "Îbadeta wê jî sozeke berdewam a lêbihûrandinê digre. Ebû Hureyre rivayet kir ku Pêxember ﷺ got: 'Kî di Îniyê de xwe bişo, paşê were nimêja Îniyê, û bibihîze û bêdeng bimîne dema îmam xutbe dide, gunehên wî di navbera wê Îniyê û ya pêş de tê lêbihûrandin, digel sê rojên din jî' (Sahîh Muslîm 857).",
-      "Ev rûmet vexwendinek in ji bo amadebûna zû, bibihîstina bi baldarî, û mêzekirina Îniyê wek nûavakirineke giyanî ya heftane — ne tenê wek rojeke betlaneyê.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Roja çêtirîn a rojê lê hiltê Îniye ye; di wê rojê de Adem hate afirandin, di wê rojê de ew ket Bihuştê, di wê rojê de ew jê hate derxistin, û Roja Dawî tenê di Îniyê de dê pêk were.",
-      },
-      {
-        excerpt:
-          "Kî di Îniyê de xwe bişo, paşê were nimêja Îniyê, û bibihîze û bêdeng bimîne dema îmam xutbe dide, gunehên wî di navbera wê Îniyê û ya pêş de tê lêbihûrandin, digel sê rojên din jî.",
-      },
+      "هەینی (یەوم ئەلجومعە) ڕۆژی کۆبوونەوەی هەفتانەی ئەم ئوممەتەیە. ئەبو هورەیرە گێڕاویەتییەوە کە پێغەمبەری خوا ﷺ فەرموویەتی: «The best day on which the sun has risen is Friday; on it Adam was created, on it he was made to enter Paradise, on it he was expelled from it, and the Last Hour will take place on no day other than Friday» (واتای ئینگلیزی) (صەحیحی موسلیم 854).",
+      "عیبادەتی ئەم ڕۆژە بەڵێنێکی بەردەوامی لێخۆشبوونیشی لەگەڵدایە. ئەبو هورەیرە گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Whoever takes a bath on Friday, then comes to the Friday prayer, and listens and remains silent while the imam is delivering the sermon, his sins between that Friday and the next Friday will be forgiven, plus three more days» (واتای ئینگلیزی) (صەحیحی موسلیم 857).",
+      "ئەم فەزڵانە بانگەوازن بۆ زوو خۆئامادەکردن، گوێگرتنی بە سەرنج، و مامەڵەکردن لەگەڵ هەینی وەک نوێبوونەوەیەکی ڕۆحیی هەفتانە — نەک تەنها ڕۆژێکی پشوو لە کار.",
     ],
     actions: [
-      "Di sibeha Îniyê de niyet bikin: xwerûştin, cilên herî baş, û zû hatin.",
-      "Xutbeyê wek îbadetê bibînin — bêdengî û baldarî parçeyek ji xelatê ne.",
+      "بەیانیی هەینی نیەت بهێنە: غوسڵ، باشترین جل، و زوو گەیشتن.",
+      "وتار وەک عیبادەت ببینە — بێدەنگی و سەرنجدان بەشێکن لە پاداشتەکە.",
     ],
   },
   {
-    title: "Îniye — erka heftane",
+    title: "جومعە — ئەرکی هەفتانە",
     summary:
-      "Nimêja Îniyê ya bi civatê ku di Qur'anê de hatiye ferzkirin, ku li şûna Nimêja Nîvroyê ji bo kesên ku beşdar dibin dimeşe.",
+      "نوێژی هەینیی بە کۆمەڵ کە قورئان فەرمانی پێکردووە، و بۆ ئامادەبووان جێگەی نوێژی نیوەڕۆ دەگرێتەوە.",
     body: [
-      "Xwedê nimêja Îniyê bi navê wê ferz dike: 'Gelî ên ku baweriyê tînin, dema ku ji bo nimêjê di roja Îniyê de bang tê kirin, biz bezin ber bi bîranîna Xwedê ve û bazirganiyê berdin. Ev ji we re çêtir e, eger hûn bizanibûna' (Qur'an, 62:9). Ayetên li dû wê destûra belavbûnê û lêgerîna kerema Xwedê piştî nimêjê vedigerînin (Qur'an, 62:10–11).",
-      "Îniye ji xutbeyeke duqat û paşê du rikatan pêk tê ku bi dengekî bilind li pey îmam tê xwendin, û li şûna Nimêja Nîvroyê ji bo kesên ku beşdar dibin dimeşe. Tariq ibn Şihab rivayet kir ku Pêxember ﷺ got nimêja Îniyê ya bi civatê erkeke girêdayî ye li ser her Misilmanî, ji bilî çar kesan: koleyek, jinek, zarokek, an nexweşek (Sunen Ebî Dawûd 1067).",
-      "Bêhûrmetî hişyariyeke giran e: Ebû el-Ca'd rivayet kir kî sê nimêjên Îniyê ji ber bêîlmî berde, Xwedê li ser dilê wî mihrê datîne (Sunen en-Nesaî 1369). Di dema xutbeyê de, axaftina vala xelatê windа dike — Ebû Hureyre rivayet kir eger hûn ji hevalê xwe re bêjin 'Bêdeng be' dema îmam diaxive, we bi xeletî axaftiye (Sahîh el-Buxarî 934).",
-      "Piştî Îniyê pêşniyar dikin çar rikatan bixwînin: Ebû Hureyre rivayet kir ku Pêxember ﷺ got, 'Dema yek ji we nimêja Îniyê xwend, dû re çar (rikat) bixwîne' (Sahîh Muslîm 881).",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Gelî ên ku baweriyê tînin, dema ku ji bo nimêjê di roja Îniyê de bang tê kirin, biz bezin ber bi bîranîna Xwedê ve û bazirganiyê berdin. Ev ji we re çêtir e, eger hûn bizanibûna. Û dema nimêj bi dawî bû, li ser rûyê zeviyê belav bibin û ji kerema Xwedê bigerin...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nimêja Îniyê ya bi civatê erkeke girêdayî ye li ser her Misilmanî, ji bilî çar kesan: koleyek, jinek, zarokek, an nexweşek.",
-      },
-      { excerpt: "Kî sê nimêjên Îniyê ji ber bêîlmî berde, Xwedê dê li ser dilê wî mihrê deyne." },
-      {
-        excerpt:
-          "Eger hûn ji hevalê xwe re bêjin 'Bêdeng be' di Îniyê de dema îmam xutbe dide, we bi xeletî (laghawta) axaftiye.",
-      },
-      { excerpt: "Dema yek ji we nimêja Îniyê xwend, dû re çar (rikat) bixwîne." },
+      "خوا بە ناوەوە فەرمان بە نوێژی هەینی دەکات: «ئه‌ی ئه‌وانه‌ی باوڕتان هێناوه کاتێ که بانگ درا بۆ نوێژ له ڕۆژی هه‌ینیدا، ئێوه به په‌له بچن به‌ده‌م یادی خواوه و واز له کڕین و فرۆشتن بهێنن، چونکه ئه‌و کاره‌تان چاکتره بۆتان ئه‌گه‌ر بزانن و تێبگه‌ن» (قورئان 62:9). ئایەتەکانی دوای ئەوە دیسان مۆڵەت دەدەنەوە کە دوای نوێژ بڵاوببنەوە و بەدوای فەزڵی خوادا بگەڕێن (قورئان 62:10–11).",
+      "جومعە پێکدێت لە وتارێکی دوو بەشی و دواتر دوو ڕکات کە بە دەنگی بەرز لە پشت پێشنوێژەوە دەکرێن، و بۆ ئەوانەی ئامادە دەبن جێگەی نوێژی نیوەڕۆ دەگرێتەوە. تاریقی کوڕی شیهاب گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی نوێژی هەینی بە کۆمەڵ ئەرکێکی پابەندکەرە لەسەر هەموو موسڵمانێک جگە لە چوار کەس: کۆیلە، ئافرەت، منداڵ، یان نەخۆش (سونەنی ئەبو داود 1067).",
+      "پشتگوێخستنی ئاگادارکردنەوەیەکی قورسی لەسەرە: ئەبو جەعد گێڕاویەتییەوە کە هەرکەسێک لە بێئاگاییەوە سێ نوێژی هەینی بەجێبهێڵێت، خوا مۆر لە دڵی دەدات (سونەنی نەسائی 1369). لە کاتی وتاردا قسەی بێهودە پاداشت بەفیڕۆ دەدات — ئەبو هورەیرە گێڕاویەتییەوە کە ئەگەر لە کاتێکدا پێشنوێژ قسە دەکات بە هاوڕێکەت بڵێیت «Be quiet» (واتای ئینگلیزی)، ئەوا قسەی بێجێت کردووە (صەحیحی بوخاری 934).",
+      "دوای جومعە پەسەندە چوار ڕکات نوێژ بکرێت: ئەبو هورەیرە گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «When one of you has prayed the Friday prayer, let him pray four (rakahs) afterwards» (واتای ئینگلیزی) (صەحیحی موسلیم 881).",
     ],
     actions: [
-      "Rêwîtiya xwe wisa plansaz bikin ku hûn beriya destpêkirina xutbeyê bigihîjin mizgeftê.",
-      "Têlefonan bêdeng bihêlin û ji axaftinê di dema xutbeyê de dûr bimîninin.",
-      "Piştî Îniyê çar rikatan bixwînin dema hûn karibin.",
+      "هاتوچۆکەت وا ڕێکبخە کە پێش دەستپێکردنی وتار بگەیتە مزگەوت.",
+      "مۆبایلەکەت بێدەنگ بکە و لە کاتی وتاردا قسە مەکە.",
+      "ئەگەر توانیت دوای جومعە چوار ڕکات نوێژ بکە.",
     ],
-    appLinks: [{ label: "Salahê fêr bibin — dersa Îniyê" }, { label: "Şopîner veke" }],
+    appLinks: [{ label: "فێربوونی نوێژ — وانەی جومعە" }, { label: "کردنەوەی شوێنپێهەڵگر" }],
     disclaimer:
-      "Hejmara herî kêm a beşdaran ji bo Îniyeke rewa, û gelo jin û rêwiyan tê teşwîqkirin ku beşdar bibin, pirsên fiqhî yên hûrgilî ne ku li gorî mezheban û edeta herêmî cuda ne. Jin, rêwî, û nexweşên ku beşdar nabin li şûna wê Nimêja Nîvroyê dikin. Ev naverokeke perwerdehiyê ye, ne fetwa.",
+      "کەمترین ژمارەی ئامادەبووان بۆ دروستبوونی جومعە، و ئایا ئافرەتان و گەشتیاران هاندەدرێن ئامادە بن یان نا، پرسیاری فیقهیی وردن کە بەپێی مەزهەب و نەریتی ناوخۆ جیاوازن. ئافرەتان، گەشتیاران و نەخۆشان کە ئامادە نابن لە جیاتی ئەوە نوێژی نیوەڕۆ دەکەن. ئەمە ناوەڕۆکێکی فێرکارییە، نەک فەتوا.",
   },
   {
-    title: "Amadebûn ji bo Îniyê",
-    summary: "Xwerûştin, cilên paqij, bîhnxweş, û zû hatin ji bo xelata herî mezin.",
+    title: "خۆئامادەکردن بۆ جومعە",
+    summary: "غوسڵ، جلی پاک، بۆنی خۆش، و زوو گەیشتن بۆ گەورەترین پاداشت.",
     body: [
-      "Amadebûn parçeyek ji sunetê Îniyê ye. Ebû Seîd el-Xudrî rivayet kir ku Pêxemberê Xwedê ﷺ got: 'Xwerûştin di Îniyê de ferz e li ser her kesê ku gihîştiye çaxa cihînbûnê' (Sahîh Muslîm 846). Peyveke wek vê di Sahîh el-Buxarî (877) de jî xwerûştina Îniyê bi kesên ku gihîştine çaxa cihînbûnê ve girê dide.",
-      "Ji xwerûştinê wêde, Pêxember ﷺ teşwîq kir ku meriv baştirîn xuya bike. Selman el-Farisî rivayet kir ku Pêxember ﷺ got: 'Kî di Îniyê de xwe bişo, xwe qasî ku dikare paqij bike, dû re rûn (porê) an bîhnxweşa xwe bi kar bîne, dû re derkeve, û bêyî ku di navbera du kesan de bişemitê li cihê xwe rûne, guhdariya îmam bike heta biqede, dû re nimêja ku jê re hatiye ferzkirin bixwîne — gunehên wî di navbera wê Îniyê û ya pêş de tê lêbihûrandin' (Sahîh el-Buxarî 883).",
-      "Zû hatin xelatê pirjimar dike. Ebû Hureyre rivayet kir kî di saeta yekem de biçe wek kesê ku hêştirek goriyê dide, dû re çêyek, dû re berxek, dû re mirîşkek, dû re hêkek — û dema îmam derket, milyaket kaxezên xwe digirin û guhdariya bîranînê dikin (Sahîh el-Buxarî 881).",
-    ],
-    hadith: [
-      { excerpt: "Xwerûştin di Îniyê de ferz e li ser her kesê ku gihîştiye çaxa cihînbûnê." },
-      {
-        excerpt:
-          "Xwerûştin di Îniyê de ferz e li ser her mêrekî Misilman ê ku gihîştiye çaxa cihînbûnê.",
-      },
-      {
-        excerpt:
-          "Kî di Îniyê de xwe bişo, xwe qasî ku dikare paqij bike, dû re rûn an bîhnxweşa xwe bi kar bîne, dû re derkeve, û bêyî ku di navbera du kesan de bişemitê li cihê xwe rûne, guhdariya îmam bike heta biqede, dû re nimêja ku jê re hatiye ferzkirin bixwîne — gunehên wî di navbera wê Îniyê û ya pêş de tê lêbihûrandin.",
-      },
-      {
-        excerpt:
-          "Kî di Îniyê de xwe bişo, dû re zû (biçe mizgeftê), wek kesê ku hêştirek goriyê daye... dû re çêyek... dû re berxek... dû re mirîşkek... dû re hêkek. Dema îmam derket, milyaket ji bo guhdariya bîranînê tên.",
-      },
+      "خۆئامادەکردن بەشێکە لە سوننەتی هەینی. ئەبو سەعیدی خودری گێڕاویەتییەوە کە پێغەمبەری خوا ﷺ فەرموویەتی: «Ghusl on Friday is obligatory upon every one who has reached puberty» (واتای ئینگلیزی) (صەحیحی موسلیم 846). دەربڕینێکی هاوشێوە لە صەحیحی بوخاریدا (877) بە هەمان شێوە خۆشتنی ڕۆژی هەینی بەو کەسانەوە دەبەستێتەوە کە گەیشتوونەتە تەمەنی بڵوغ.",
+      "جگە لە غوسڵ، پێغەمبەر ﷺ هانی دەدا کە مرۆڤ باشترین ڕووخساری هەبێت. سەلمانی فارسی گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Whoever takes a bath on Friday, purifies himself as much as he can, then uses his (hair) oil or perfume, then goes out, and without squeezing between two persons sits in his place listening to the imam till he finishes, then prays what is prescribed for him — then his sins between that Friday and the next are forgiven» (واتای ئینگلیزی) (صەحیحی بوخاری 883).",
+      "زوو هاتن پاداشت چەند هێندە دەکات. ئەبو هورەیرە گێڕاویەتییەوە کە هەرکەسێک لە یەکەم کاتژمێردا بڕوات وەک ئەوە وایە وشترێکی قوربانی کردبێت، پاشان مانگایەک، پاشان بەرانێک، پاشان مریشکێک، پاشان هێلکەیەک — و کاتێک پێشنوێژ دێتە دەرەوە، فریشتەکان پەڕاوەکانیان دەپێچنەوە و گوێ لە یادخستنەوەکە دەگرن (صەحیحی بوخاری 881).",
     ],
     actions: [
-      "Di sibeha Îniyê de (an beriya çûyîna mizgeftê) xwe bişon.",
-      "Cilên xwe yên herî baş û paqij li xwe bikin û eger hûn karibin bîhnxweşeke sivik bidin xwe.",
-      "Zû derkevin — kesên ku herî zû tên xelata herî mezin distînin.",
+      "بەیانیی هەینی (یان پێش ڕۆیشتن بۆ مزگەوت) غوسڵ بکە.",
+      "باشترین جلی پاک و ڕێکوپێکت لەبەر بکە و ئەگەر توانیت بۆنێکی سووک لە خۆت بدە.",
+      "زوو بڕۆ — ئەوانەی پێش هەمووان دەگەن گەورەترین پاداشت وەردەگرن.",
     ],
-    appLinks: [{ label: "Paqijiyê fêr bibin — Xwerûştin" }],
+    appLinks: [{ label: "فێربوونی پاکوخاوێنی — غوسڵ" }],
     disclaimer:
-      "Gelo xwerûştina Îniyê ferzeke tund e an sunneteke bi hêz hatiye teşwîqkirin, xala cudahiyekê ya klasîk e di navbera mezheban de. Hemû li ser rûmeta wê ya mezin lihev dikin; pratîka pêbawer a civaka xwe bişopînin.",
+      "ئایا غوسڵی هەینی فەرزێکی توندە یان سوننەتێکی زۆر جەختکراوە، خاڵێکی کلاسیکیی جیاوازییە لە نێوان مەزهەبەکاندا. هەمووان لەسەر فەزڵی گەورەی کۆکن؛ شوێن کاری متمانەپێکراوی کۆمەڵگاکەت بکەوە.",
   },
   {
-    title: "Sûreya el-Kehf di Îniyê de",
-    summary: "Ronahiyek di navbera du Îniyan de, û parastin di deh ayetên yekem de.",
+    title: "سوورەتی کەهف لە ڕۆژی هەینیدا",
+    summary: "نوورێک لە نێوان دوو هەینیدا، و پاراستن لە دە ئایەتی یەکەمدا.",
     body: [
-      "Xwendina Sûreya el-Kehf (Qur'an 18) di Îniyê de pratîkeke heftane ya delal e. Ebû Seîd el-Xudrî rivayet kir ku Pêxember ﷺ got: 'Kî Sûreya el-Kehf bixwîne di Îniyê de, ronahiyek ji bo wî di navbera du Îniyan de dê biçirûse.' Ev peyv bi rêya el-Hakim û el-Beyhaqî hatiye ragihandin û Şêx el-Elbanî wek sahîh nirxandiye; gelek civak wê wek sunneteke Îniyê ya sabît dişopînin.",
-      "Ji hev cuda, deh ayetên yekem ên Sûreya el-Kehf mertaleke li dijî fîtneya Decal in. Ebû Derda rivayet kir ku Pêxember ﷺ got: 'Kî deh ayetên destpêkê ên Sûreya el-Kehf ji bîr bikir bike, ew ê ji Decal were parastin' (Sahîh Muslîm 809).",
-      "Di navbera êvara Pêncşemiyê û Rojava ya Îniyê de dem bibînin ji bo xwendina sûreyê — her çend hûn nikaribin tevahiya beşê biqedînin jî, ji ayetên destpêkê dest pê bikin û çend cara ku dikarin vegerin.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Hemû pesindayî ji bo Xwedê ye ê ku Pirtûk li ser xulamê xwe daxist û tê de ti xirabûn negirt... An hûn bawer dikin ku hevalên şikeftê û nivîsê di nîşanên me de tiştekî ecêb bûn?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kî Sûreya el-Kehf bixwîne di Îniyê de, ronahiyek ji bo wî di navbera du Îniyan de dê biçirûse. (Şêx el-Elbanî wek sahîh nirxandiye)",
-      },
-      {
-        excerpt:
-          "Kî deh ayetên destpêkê ên Sûreya el-Kehf ji bîr bikir bike, ew ê ji Decal were parastin.",
-      },
+      "خوێندنی سوورەتی کەهف (قورئان 18) لە ڕۆژی هەینیدا کردەوەیەکی هەفتانەی خۆشەویستە. ئەبو سەعیدی خودری گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Whoever reads Surah al-Kahf on Friday, a light will shine for him between the two Fridays» (واتای ئینگلیزی). ئەم دەربڕینە لە ڕێگەی حاکیم و بەیهەقییەوە گێڕدراوەتەوە و شێخ ئەلبانی بە صەحیحی داناوە؛ زۆرێک لە کۆمەڵگاکان وەک سوننەتێکی جێگیری هەینی پەیڕەوی دەکەن.",
+      "جیا لەوە، دە ئایەتی یەکەمی سوورەتی کەهف قەڵغانن لە فیتنەی دەججال. ئەبو دەردا گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Whoever memorises ten ayahs from the beginning of Surah al-Kahf will be protected from the Dajjal» (واتای ئینگلیزی) (صەحیحی موسلیم 809).",
+      "لە نێوان شەوی هەینی (ئێوارەی پێنجشەممە) و ئێوارەی هەینیدا کاتێک بۆ خوێندنی سوورەتەکە دابنێ — تەنانەت ئەگەر نەتوانیت هەموو سوورەتەکە تەواو بکەیت، بە ئایەتەکانی سەرەتا دەست پێبکە و هەرکات توانیت بگەڕێوە سەری.",
     ],
     actions: [
-      "Di Îniyê de Sûreya el-Kehf veke û bi hebûna dil çend ku dikarî bixwîne.",
-      "Deh ayetên yekem ji bîr bikin an dubare bikin ji bo parastina ji Decal.",
+      "لە ڕۆژی هەینیدا سوورەتی کەهف بکەرەوە و بە ئامادەیی دڵەوە هەرچەندت توانی بیخوێنە.",
+      "دە ئایەتی یەکەم لەبەر بکە یان پێیاندا بچۆرەوە بۆ پاراستن لە دەججال.",
     ],
-    appLinks: [{ label: "Sûreya el-Kehf bixwîne" }],
+    appLinks: [{ label: "سوورەتی کەهف بخوێنە" }],
     disclaimer:
-      "Rivayeta 'ronahî di navbera Îniyan de' ne di Şeş Pirtûkan de ye; li ser bingeha pejirandineke paştir bi berfirehî hatiye pejirandin. Parastina deh ayetên yekem (Muslîm 809) bêyî nakokî sahîh e.",
+      "ڕیوایەتی «نوور لە نێوان دوو هەینیدا» لە کتێبە شەشەکەدا نییە؛ لەسەر بنەمای سەلماندنی دواتر بە بەربڵاوی قبووڵ کراوە. پاراستنی دە ئایەتی یەکەم (موسلیم 809) بێ هیچ ناکۆکییەک صەحیحە.",
   },
   {
-    title: "Salawat li ser Pêxember ﷺ di Îniyê de",
-    summary: "Di roja herî baş a hefteyê de, salawatan li ser Pêxember ﷺ zêde bikin.",
+    title: "صەڵەوات لەسەر پێغەمبەر ﷺ لە ڕۆژی هەینیدا",
+    summary: "لە باشترین ڕۆژی هەفتەدا صەڵەوات لەسەر پێغەمبەر ﷺ زیاد بکە.",
     body: [
-      "Îniye ji bo salawatên zêde hatiye veqetandin. Ews ibn Ews rivayet kir ku Pêxember ﷺ got: 'Ji rojên we yên herî baş Îniye ye; loma di wê rojê de salawatên xwe li ser min zêde bikin, çimkî salawatên we dê li min werin pêşkêşkirin.' Wan got: 'Ya Pêxemberê Xwedê, çawa salawatên me li te werin pêşkêşkirin dema tu bibûyî ax?' Got: 'Xwedê ji erdê qedexe kiriye ku laşên pêxemberan bixwe' (Sunen Ebî Dawûd 1047).",
-      "Her formula salawata pêbawer tê hesibandin — durûdên ku di nimêjê de tên hîndarkirin, an awayên dirêjtir ên ji Sunetê. Xala girîng aboriya û dilsoziya di Îniyê de ye, ne hejmareke sabît.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ji rojên we yên herî baş Îniye ye; loma di wê rojê de salawatên xwe li ser min zêde bikin, çimkî salawatên we dê li min werin pêşkêşkirin.",
-      },
+      "هەینی بۆ صەڵەواتی زۆر تایبەت کراوە. ئەوسی کوڕی ئەوس گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Among the best of your days is Friday; so increase your salawat upon me on it, for your salawat will be presented to me.» هاوەڵان وتیان: «O Messenger of Allah, how will our salawat be presented to you when you have decomposed?» فەرمووی: «Allah has forbidden the earth to consume the bodies of the prophets» (واتای ئینگلیزی) (سونەنی ئەبو داود 1047).",
+      "هەر دەربڕینێکی ڕاستی صەڵەوات هەژمار دەکرێت — ئەو صەڵەواتانەی لە نوێژدا فێرکراون، یان شێوە درێژترەکان لە سوننەتەوە. مەبەست زۆری و دڵسۆزییە لە ڕۆژی هەینیدا، نەک یەک ژمارەی جێگیر.",
     ],
     actions: [
-      "Ji bo Îniyê armancekê şexsî ya salawatê bidin xwe — her çend hejmareke piçûk û domdar be jî.",
-      "Eger hûn formulaeke amade dixwazin, koleksiyona durûdan di sepanê de bikar bînin.",
+      "بۆ هەینی ئامانجێکی تایبەتی صەڵەوات بۆ خۆت دابنێ — تەنانەت ژمارەیەکی کەم بەڵام بەردەوام.",
+      "ئەگەر دەربڕینێکی ئامادەت دەوێت، کۆمەڵەی صەڵەواتەکانی ناو ئەپەکە بەکاربهێنە.",
     ],
-    appLinks: [{ label: "Durûd" }],
+    appLinks: [{ label: "صەڵەوات" }],
   },
   {
-    title: "Saeta pejirandinê",
-    summary: "Saetek di Îniyê de ku dua nayê redkirin — wê bi taybetî piştî 'Esrê bigerin.",
+    title: "کاتژمێری وەڵامدانەوە",
+    summary: "کاتێک لە ڕۆژی هەینیدا کە دوعا ڕەت ناکرێتەوە — بە تایبەتی دوای عەسر بەدوایدا بگەڕێ.",
     body: [
-      "Ebû Hureyre rivayet kir ku Pêxemberê Xwedê ﷺ Îniye anî bîra xwe û got: 'Di Îniyê de saetek heye ku ti xulamê Misilman lê ranebe û tiştekî ji Xwedê nexwaze bêyî ku Ew wê jê re nede' — û bi destê xwe nîşan da ku ew kurt e (Sahîh el-Buxarî 935; her wiha Sahîh Muslîm 852).",
-      "Zana ji hev cuda bûne ka ev saet bi rastî kengî ye. Nêrîneke bi hêz wê di beşa dawî ya Îniyê de piştî 'Esrê datîne: Cabir ibn Abdullah rivayet kir ku Pêxember ﷺ got: 'Îniye diwanzdeh saet in, û tê de saetek heye ku ti xulamê Misilman tiştekî ji Xwedê nexwaze bêyî ku Ew wê jê re nede — loma wê di saeta dawî ya piştî 'Esrê bigerin' (Sunen Ebî Dawûd 1048).",
-      "Kîjan nêrînê hûn bişopînin, Îniyê — bi taybetî pêvajoya dawî ya nîvro — bi duayeke dilsoz, îstîgfar, û salawatan tijî bikin, bi baweriya soza bersivdana Xwedê.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Di Îniyê de saetek heye ku ti xulamê Misilman lê ranebe û tiştekî ji Xwedê nexwaze bêyî ku Ew wê jê re nede — û bi destê xwe nîşan da ku ew kurt e.",
-      },
-      {
-        excerpt:
-          "Di Îniyê de saetek heye ku ti Misilman di nimêjê de nayê dîtin tiştekî ji Xwedê xwaze bêyî ku Ew wê jê re nede.",
-      },
-      {
-        excerpt:
-          "Îniye diwanzdeh saet in, û tê de saetek heye ku ti xulamê Misilman tiştekî ji Xwedê nexwaze bêyî ku Ew wê jê re nede — loma wê di saeta dawî ya piştî 'Esrê bigerin.",
-      },
+      "ئەبو هورەیرە گێڕاویەتییەوە کە پێغەمبەری خوا ﷺ باسی ڕۆژی هەینی کرد و فەرمووی: «There is an hour on Friday in which no Muslim servant stands and asks Allah for something but He will give it to him» (واتای ئینگلیزی) — و بە دەستی ئاماژەی کرد کە کورتە (صەحیحی بوخاری 935؛ هەروەها صەحیحی موسلیم 852).",
+      "زانایان جیاوازن لەوەی ئەو کاتژمێرە بە وردی کەی دێت. بۆچوونێکی بەهێز دەیخاتە بەشی کۆتایی ڕۆژی هەینی دوای عەسر: جابری کوڕی عەبدوڵڵا گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Friday is twelve hours, and there is an hour in it in which no Muslim servant asks Allah for anything but He will give it to him — so seek it in the last hour after Asr» (واتای ئینگلیزی) (سونەنی ئەبو داود 1048).",
+      "هەر بۆچوونێک پەیڕەو بکەیت، ڕۆژی هەینی — بە تایبەتی دوانیوەڕۆی درەنگ — پڕ بکە لە دوعای دڵسۆزانە، ئیستیغفار و صەڵەوات، بە متمانەوە بە بەڵێنی خوا بۆ وەڵامدانەوە.",
     ],
     actions: [
-      "Piştî 'Esrê di Îniyê de, bi lîsteyeke kurt a duayan rûnên û bi hebûna dil bixwazin.",
-      "Dua bi salawatan re bihewîne — herduyan di vê rojê de bi taybetî tê xurtkirin.",
+      "دوای عەسری ڕۆژی هەینی، لەگەڵ لیستێکی کورتی دوعاکان دابنیشە و بە ئامادەیی دڵەوە داوا بکە.",
+      "دوعا و صەڵەوات پێکەوە کۆبکەرەوە — هەردووکیان لەم ڕۆژەدا جەختیان لەسەر کراوەتەوە.",
     ],
-    appLinks: [{ label: "Koleksiyona dua" }],
+    appLinks: [{ label: "کۆمەڵەی دوعاکان" }],
     disclaimer:
-      "Dema rast a saeta pejirandî mijara cudahiya zanayan e (di dema xutbeyê de, piştî 'Esrê, û nêrînên din). Hebûna saetê bi xwe di Buxarî û Muslîm de sabît e.",
+      "کاتی وردی ئەو کاتژمێرە وەڵامدراوەیە جێگەی جیاوازیی زانایانە (لە کاتی وتاردا، دوای عەسر، و بۆچوونی تر). بوونی ئەو کاتژمێرە خۆی لە بوخاری و موسلیمدا سەلمێنراوە.",
   },
 ];

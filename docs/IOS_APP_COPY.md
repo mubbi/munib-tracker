@@ -32,9 +32,9 @@
 
 Paste into App Review Information → Notes when submitting the build that adds Qur'an practice:
 
-> The microphone is used only when the user taps it: in Qur'an → Practice (or Practise on any ayah in the reader) to follow their recitation, and to dictate custom adhkar. To reach it: Qur'an tab → Practise → Start. Voice following needs an optional ~71 MB on-device listener (Settings → Qur'an practice → Download); reading and listening work without it, so the session opens in listen-only mode until it is downloaded. Audio is processed on the device; it is not recorded, stored, or uploaded. The optional pronunciation drill (Learn Qur'an → Tajweed → Qalqalah → Practise this sound) uses Quran Lab's on-device SDK with analytics turned off.
+> The microphone is used only when the user taps it: in Qur'an → Practice (or Practise on any ayah in the reader) to follow their recitation, and to dictate custom adhkar. To reach it: Qur'an tab → Practise → Start. Voice following needs an optional ~71 MB on-device listener (Settings → Qur'an practice → Download); reading and listening work without it, so the session opens in listen-only mode until it is downloaded. Audio is processed on the device; it is not recorded, stored, or uploaded. The optional pronunciation drill (Learn Qur'an → Tajweed → Qalqalah → Practise this sound) uses Quran Lab's on-device SDK 4 (D66): the model runs on the device; the SDK always sends Quran Lab anonymous daily usage counts and crash/error reports (no audio, text or identifiers), and its own sheet may ask the learner, at most three times, whether to share recordings — nothing is uploaded unless they say yes.
 
-App Privacy answers: Audio data — **not collected**. No change to tracking.
+App Privacy answers (D66, Quran Lab SDK 4): **Diagnostics → Crash data + Other diagnostic data — collected** (by Quran Lab's SDK; not linked to the user; not used for tracking; purpose App Functionality / Analytics). **Audio data — collected only when the learner opts in to Quran Lab sharing** (optional; not linked to identity; App Functionality / product improvement). No change to tracking. The SDK's own privacy manifest also declares the boot-clock (`systemBootTime`) required-reason API.
 
 ## 1. English (en-US)
 

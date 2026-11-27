@@ -15,16 +15,7 @@ export const FRIDAY_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Ibadahnya juga membawa satu jaminan keampunan yang berterusan. Abu Hurairah meriwayatkan bahawa Nabi ﷺ bersabda: 'Sesiapa yang mandi pada hari Jumaat, kemudian datang menghadiri solat Jumaat, mendengar dan berdiam diri semasa imam berkhutbah, dosanya antara Jumaat itu dan Jumaat berikutnya akan diampunkan, ditambah tiga hari lagi' (Sahih Muslim 857).",
       "Kelebihan-kelebihan ini adalah seruan untuk bersedia awal, mendengar dengan teliti, dan memperlakukan hari Jumaat sebagai penyegaran rohani mingguan — bukan sekadar hari cuti bekerja.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sebaik-baik hari yang matahari terbit padanya adalah hari Jumaat; padanya Adam diciptakan, padanya dia dimasukkan ke Syurga, padanya dia dikeluarkan darinya, dan Hari Kiamat tidak akan berlaku melainkan pada hari Jumaat.",
-      },
-      {
-        excerpt:
-          "Sesiapa yang mandi pada hari Jumaat, kemudian datang menghadiri solat Jumaat, mendengar dan berdiam diri semasa imam berkhutbah, dosanya antara Jumaat itu dan Jumaat berikutnya akan diampunkan, ditambah tiga hari lagi.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Tetapkan niat pada pagi Jumaat: mandi wajib, pakaian terbaik, dan tiba awal.",
       "Perlakukan khutbah sebagai ibadah — berdiam diri dan memberi perhatian adalah sebahagian daripada ganjaran.",
@@ -40,30 +31,8 @@ export const FRIDAY_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Mengabaikannya adalah amaran yang berat: Abu al-Ja'd meriwayatkan bahawa sesiapa yang meninggalkan tiga solat Jumaat kerana leka, Allah akan mengecap hatinya (Sunan an-Nasa'i 1369). Semasa khutbah, bercakap tanpa keperluan menghilangkan ganjaran — Abu Hurairah meriwayatkan bahawa jika kamu berkata kepada temanmu 'Diamlah' semasa imam berkhutbah, kamu sendiri telah bercakap sia-sia (Sahih al-Bukhari 934).",
       "Selepas Jumaat, disarankan untuk menunaikan empat rakaat: Abu Hurairah meriwayatkan bahawa Nabi ﷺ bersabda, 'Apabila salah seorang daripada kamu menunaikan solat Jumaat, hendaklah dia menunaikan empat (rakaat) selepasnya' (Sahih Muslim 881).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman! Apabila diseru untuk menunaikan solat pada hari Jumaat, maka bersegeralah kamu mengingati Allah dan tinggalkanlah urusan jual beli. Yang demikian itu lebih baik bagimu jika kamu mengetahui. Maka apabila solat telah selesai, bertebaranlah kamu di bumi dan carilah kurnia Allah...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Solat Jumaat berjemaah adalah wajib ke atas setiap Muslim kecuali empat orang: hamba, wanita, kanak-kanak, atau orang sakit.",
-      },
-      {
-        excerpt:
-          "Sesiapa yang meninggalkan tiga solat Jumaat kerana leka, Allah akan mengecap hatinya.",
-      },
-      {
-        excerpt:
-          "Jika kamu berkata kepada temanmu 'Diamlah' pada hari Jumaat semasa imam berkhutbah, kamu sendiri telah bercakap sia-sia (laghwu).",
-      },
-      {
-        excerpt:
-          "Apabila salah seorang daripada kamu menunaikan solat Jumaat, hendaklah dia menunaikan empat (rakaat) selepasnya.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Rancang perjalanan anda supaya tiba di masjid sebelum khutbah bermula.",
       "Diamkan telefon anda dan elakkan bercakap semasa khutbah.",
@@ -81,24 +50,7 @@ export const FRIDAY_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Selain mandi, Nabi ﷺ menganjurkan untuk berpenampilan sebaik mungkin. Salman al-Farisi meriwayatkan bahawa Nabi ﷺ bersabda: 'Sesiapa yang mandi pada hari Jumaat, membersihkan diri sebaik mungkin, kemudian memakai minyak rambut atau wangian, lalu keluar, dan tidak menyelinap di antara dua orang untuk duduk di tempat duduknya, mendengar imam sehingga selesai, kemudian menunaikan solat yang diwajibkan kepadanya — dosanya antara Jumaat itu dan Jumaat berikutnya akan diampunkan' (Sahih al-Bukhari 883).",
       "Ketibaan awal melipatgandakan ganjaran. Abu Hurairah meriwayatkan bahawa sesiapa yang pergi pada jam pertama seperti orang yang mengurbankan seekor unta, kemudian seekor lembu, kemudian seekor kibas, kemudian seekor ayam, kemudian sebiji telur — dan apabila imam keluar, para malaikat melipat rekod mereka dan mendengar peringatan (Sahih al-Bukhari 881).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mandi pada hari Jumaat adalah wajib ke atas setiap orang yang telah mencapai baligh.",
-      },
-      {
-        excerpt:
-          "Mandi pada hari Jumaat adalah wajib ke atas setiap lelaki Muslim yang telah mencapai baligh.",
-      },
-      {
-        excerpt:
-          "Sesiapa yang mandi pada hari Jumaat, membersihkan diri sebaik mungkin, kemudian memakai minyak rambut atau wangian, lalu keluar, dan tidak menyelinap di antara dua orang untuk duduk di tempat duduknya, mendengar imam sehingga selesai, kemudian menunaikan solat yang diwajibkan kepadanya — dosanya antara Jumaat itu dan Jumaat berikutnya akan diampunkan.",
-      },
-      {
-        excerpt:
-          "Sesiapa yang mandi pada hari Jumaat, kemudian pergi awal, seperti orang yang mengurbankan seekor unta... kemudian seekor lembu... kemudian seekor kibas... kemudian seekor ayam... kemudian sebiji telur. Apabila imam keluar, para malaikat datang untuk mendengar peringatan.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Mandi wajib pada pagi Jumaat (atau sebelum ke masjid).",
       "Kenakan pakaian terbaik dan paling bersih, dan gunakan wangian ringan jika boleh.",
@@ -116,22 +68,8 @@ export const FRIDAY_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Berasingan daripada itu, sepuluh ayat pertama Surah al-Kahf adalah perlindungan daripada fitnah Dajjal. Abu Darda meriwayatkan bahawa Nabi ﷺ bersabda: 'Sesiapa yang menghafal sepuluh ayat pertama Surah al-Kahf akan dilindungi daripada Dajjal' (Sahih Muslim 809).",
       "Cari masa antara petang Khamis dan matahari terbenam hari Jumaat untuk membaca surah tersebut — walaupun anda tidak dapat menghabiskan keseluruhan bahagian, mulakan dari ayat-ayat awal dan kembali semula seberapa kerap yang boleh.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Segala puji bagi Allah yang telah menurunkan al-Kitab (Al-Quran) kepada hamba-Nya, dan Dia tidak menjadikan padanya sebarang kekusutan... Atau adakah kamu menyangka bahawa ahli gua dan al-Raqim itu antara tanda-tanda Kami yang menakjubkan?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sesiapa yang membaca Surah al-Kahf pada hari Jumaat, cahaya akan bersinar untuknya antara dua Jumaat. (Dinilai sahih oleh Syeikh al-Albani)",
-      },
-      {
-        excerpt:
-          "Sesiapa yang menghafal sepuluh ayat pertama Surah al-Kahf akan dilindungi daripada Dajjal.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Buka Surah al-Kahf pada hari Jumaat dan bacalah dengan penuh perhatian seberapa banyak yang boleh.",
       "Hafal atau ulang sepuluh ayat pertama sebagai perlindungan daripada Dajjal.",
@@ -147,12 +85,7 @@ export const FRIDAY_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Jumaat dikhususkan untuk selawat yang lebih banyak. Aus bin Aus meriwayatkan bahawa Nabi ﷺ bersabda: 'Antara hari-hari terbaik kamu adalah hari Jumaat; oleh itu perbanyakkanlah selawat kepadaku pada hari itu, kerana selawat kamu akan disampaikan kepadaku.' Mereka bertanya: 'Wahai Rasulullah, bagaimana selawat kami disampaikan kepadamu apabila jasadmu telah menjadi tanah?' Baginda bersabda: 'Allah telah mengharamkan bumi daripada memakan jasad para nabi' (Sunan Abu Daud 1047).",
       "Sebarang lafaz selawat yang sahih adalah dibenarkan — sama ada selawat yang diajar dalam solat atau bentuk yang lebih panjang daripada Sunnah. Yang penting adalah kekerapan dan ketulusan pada hari Jumaat, bukan bilangan yang tetap.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Antara hari-hari terbaik kamu adalah hari Jumaat; oleh itu perbanyakkanlah selawat kepadaku pada hari itu, kerana selawat kamu akan disampaikan kepadaku.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tetapkan sasaran peribadi selawat untuk hari Jumaat — walaupun bilangan yang kecil tetapi konsisten.",
       "Jika anda memerlukan lafaz sedia ada, gunakan koleksi selawat dalam aplikasi.",
@@ -168,20 +101,7 @@ export const FRIDAY_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Para ulama berbeza pendapat mengenai bila tepatnya waktu ini. Satu pandangan yang kuat meletakkannya pada bahagian akhir petang Jumaat selepas Asar: Jabir bin Abdullah meriwayatkan bahawa Nabi ﷺ bersabda: 'Hari Jumaat mempunyai dua belas jam, dan terdapat satu waktu di dalamnya, jika seorang hamba Muslim memohon sesuatu daripada Allah, Dia akan memberikannya kepadanya — maka carilah ia pada jam terakhir selepas Asar' (Sunan Abu Daud 1048).",
       "Apa pun pandangan yang anda ikuti, penuhilah hari Jumaat — terutamanya tempoh akhir petang — dengan doa yang tulus, istighfar, dan selawat, dengan keyakinan terhadap jaminan Allah untuk menjawab.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pada hari Jumaat terdapat satu waktu, jika seorang hamba Muslim berdiri padanya dan memohon sesuatu daripada Allah, Dia akan memberikannya kepadanya — dan baginda menunjukkan dengan tangannya bahawa ia singkat.",
-      },
-      {
-        excerpt:
-          "Pada hari Jumaat terdapat satu waktu, jika seorang Muslim mendirikan solat padanya dan memohon sesuatu daripada Allah, Dia akan memberikannya kepadanya.",
-      },
-      {
-        excerpt:
-          "Hari Jumaat mempunyai dua belas jam, dan terdapat satu waktu di dalamnya, jika seorang hamba Muslim memohon sesuatu daripada Allah, Dia akan memberikannya kepadanya — maka carilah ia pada jam terakhir selepas Asar.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Selepas Asar pada hari Jumaat, luangkan masa dengan senarai doa yang ringkas dan mohonlah dengan penuh ketulusan.",
       "Gabungkan doa dengan selawat — kedua-duanya digalakkan secara khusus pada hari ini.",

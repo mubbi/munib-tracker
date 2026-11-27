@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Namjerite molitvu i prisustvo za Allaha radi, a ne društveno izlaganje.",
       "Pomozite u praktičnim potrebama porodice kada to možete učiniti s poštovanjem.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Onaj ko prisustvuje dženazi dok ne klanja dženazu imaće jedan kirat, a onaj ko prisustvuje do sahrane imat će dva kirata - svaki kao velika planina.",
-      },
-      {
-        excerpt:
-          "Ko prati dženazu muslimana iz vjere i traženja nagrade, i ostane dok se ne klanja namaz i ne završi sahrana, vratit će se sa dva kirata...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Pranje i pokrivanje",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Neka pokrov bude jednostavan i čist — bela tkanina je proročki model.",
       "Izbjegavajte fotografiranje ili izlaganje tijela bez potrebe.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Operite je tri puta, ili pet, ili više ako vidite da je potrebno, vodom i sidrom, a u posljednje pranje stavite kamfor ili malo kamfora.",
-      },
-      {
-        excerpt:
-          "Allahov Poslanik, sallallahu alejhi ve sellem, bio je obavijen u tri bijela jemenska pamučna odjeća; među njima nije bilo ni košulje ni turbana.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Prilikom zatvaranja očiju pokojnika",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Nežno zatvorite oči i napravite autentičnu dua.",
       "Podsjetite porodicu da govori dobro.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada su Abu Selamahove oči postale fiksirane, Poslanik, sallallahu alejhi ve sellem, ih je zatvorio i rekao da kada je duša zauzeta, vid je prati, a zatim je naučio ukućane da govore samo ono što je dobro.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Kako moliti dženazu",
@@ -83,15 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Reci četiri tekbira sa imamom.",
       "Učinite iskrenu dovu za umrlog nakon odgovarajućeg tekbira.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, klanjao je dženazu za Negusa i rekao četiri tekbira.",
-      },
-      {
-        excerpt: "Ibn Abbas je klanjao dženazu i učio Fatihu, rekavši da je to od sunneta.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Duas u dženazi (odrasli)",
@@ -152,16 +121,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Prilikom stavljanja pokojnika u mezar, u Hisnul Muslimu se čuva autentična dova. Poslije sahrane, Poslanik, sallallahu alejhi ve sellem, bi stajao na mezaru i govorio: 'Traži oprost za svog brata i zamoli ga da bude nepokolebljiv, jer je sada ispitan' (Sunan Ebi Davud 3221 - ocijenjen sahihom od strane mnogih kasnijih učenjaka, uključujući al-Albanija).",
       "U autentičnim izvještajima upozorava se na izgradnju ukrašenih struktura iznad grobova, malterisanje za dekoraciju ili pisanje koje potiče preuveličavanje. Neka oznaka bude jednostavna tamo gdje zakon i lokalni običaji dozvoljavaju identifikaciju.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Budite brzi sa sahranom: ako je bila pravedna, ubrzavate je na dobro; u suprotnom, skidate zlo sa svojih vrata.",
-      },
-      {
-        excerpt:
-          "Zatražite oproštaj za svog brata i zamolite ga da bude nepokolebljiv, jer ga sada ispituju.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Nakon sahrane pokojnika",
@@ -186,18 +146,13 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Pozdravite stanovnike grobova autentičnim tekstom.",
       "Razmišljajte o smrti i obnovite pravedna djela.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Neka je mir na vas, o stanovnici nastambi među vjernicima i muslimanima. Mi ćemo vam se – ako Allah da – pridružiti. Molimo Allaha za dobro za nas i za vas.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Podsjetnici i uobičajene greške",
     summary: "Izbjegavajte zapomaganje, odlaganje za emisiju i rituale bez osnova.",
     body: [
-      "Poslanik, sallallahu alejhi ve sellem, je zabranio naricanje nad mrtvima dok je dozvolio tugu u suzama. Abdullah ibn Omer je izvijestio da je Sa'd ibn Ubadah plakao na dženazi i da je Poslanik, sallallahu alejhi ve sellem, objasnio da Allah ne kažnjava zbog suze oka ili žalosti srca, već zbog toga — i on je pokazao na svoj jezik (Sahih al-Buhari 1304).",
+      "Poslanik, sallallahu alejhi ve sellem, je zabranio naricanje nad mrtvima dok je dozvolio tugu u suzama. Abdullah ibn Omer je izvijestio da je, kada se Sa'd ibn Ubadah razbolio, Poslanik, sallallahu alejhi ve sellem, posjetio ga, zaplakao i objasnio da Allah ne kažnjava zbog suze oka ili žalosti srca, već zbog toga — i on je pokazao na svoj jezik (Sahih al-Buhari 1304).",
       "Ne odgađajte sahranu zbog prestižnih skupova, niti trošite raskošno na pokrov i gozbu, zanemarujući siromahe. Nemojte recitirati ili prakticirati inovacije koje se pripisuju sahranama bez autentične osnove. Saučešće, tiha dova i praktična pomoć porodici su sunnet put.",
       "Dolazak žena na molitvu i sahranu tretira se s nijansama u svim školama i epohama; slijedite pouzdano lokalno vodstvo koje poštuje i samilost i proročke granice.",
     ],
@@ -208,12 +163,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Požurite dostojanstvenu sahranu.",
       "Pomozite porodici u hrani i poslovima, a da ih ne opterećujete ekstravagancijom.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ne kažnjava zbog suze oka ili žalosti srca, ali za to kažnjava ili pokazuje milost — i pokazao je na svoj jezik.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -230,11 +180,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Naučite redoslijed četiri tekbira prije nego što vam zatreba.",
       "Zapamtite Fatihu, salavat i barem jednu dženaza-dovu.",
     ],
-    hadith: [
-      {
-        excerpt: "Ibn Abbas je klanjao dženazu i učio Fatihu, rekavši da je to od sunneta.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Dove za muškarce, žene i djecu",
@@ -269,14 +215,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Ne perite šehida bojnog polja protivno uputama učenjaka.",
       "Pitajte dženaza-odbor o slučajevima pobačaja ili mrtvorođenja.",
     ],
-    hadith: [
-      {
-        excerpt: "Poslanik ﷺ naredio je da se šehidi Uhuda sahrane sa svojom krvlju, i nisu prani.",
-      },
-      {
-        excerpt: "Dženaza-namaz klanja se nad pobačajem, a za roditelje se moli oprost i milost.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Dženaza u odsustvu",
@@ -292,15 +231,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Klanjajte lokalno kad god je tijelo prisutno.",
       "Pitajte prije organizovanja dženaze u odsustvu kao javnog događaja.",
     ],
-    hadith: [
-      {
-        excerpt: "Poslanik ﷺ klanjao je dženazu za Negusa i rekao četiri tekbira.",
-      },
-      {
-        excerpt:
-          "Allahov Poslanik ﷺ poredao je ashabe i klanjao za Negusa, rekavši četiri tekbira.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Na samrti — posljednje riječi",
@@ -314,15 +245,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Nježno podsjetite umirućeg na šehadet.",
       "Držite sobu mirnom i ispunjenom dobrim govorom.",
     ],
-    hadith: [
-      {
-        excerpt: "Potaknite svoje umiruće da kažu: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Onaj čije su posljednje riječi 'Niko nema pravo da se obožava osim Allaha' ući će u Džennet.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Dove nade života" }, { label: "Zatvaranje očiju" }],
   },
   {
@@ -338,12 +261,7 @@ export const JANAZAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Pomozite hranom i poslovima umjesto da očekujete gozbu.",
       "Nastavite tihu dovu i sadaku za umrlog.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nema muslimana koga zadesi nevolja pa kaže naredene riječi povratka Allahu i zamoli zamjenu boljim, a da mu Allah ne zamijeni boljim.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Ciljevi sadake" }],
   },
 ];

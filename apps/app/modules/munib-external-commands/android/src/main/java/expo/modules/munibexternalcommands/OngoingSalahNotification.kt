@@ -37,15 +37,23 @@ internal object OngoingSalahNotification {
   private const val REQUEST_CODE_ACTION = 4823
   private const val REQUEST_CODE_STOP = 4825
   private const val REQUEST_CODE_DELETE = 4826
+  private const val REQUEST_CODE_MARK = 4827
   private const val REQUEST_CODE_BOUNDARY_BASE = 4900
   private const val MAX_BOUNDARY_ALARMS = 8
   private const val FALLBACK_CHANNEL_NAME = "Next Salah countdown"
   private const val FALLBACK_DEEP_LINK = "munib-tracker://tracker"
   private const val FALLBACK_PREPARE_LINK = "munib-tracker://zikr/before_prayer"
-  private const val ACTION_STOP = "expo.modules.munibexternalcommands.STOP_ONGOING"
-  private const val ACTION_DELETE = "expo.modules.munibexternalcommands.DELETE_ONGOING"
+  private const val FALLBACK_ACCENT = "#10B981"
+  private const val POINT_COLOR = "#E6C065"
+  /** `Settings.ACTION_MANAGE_APP_PROMOTED_NOTIFICATIONS` (API 36), as a literal so older compile SDKs build. */
+  private const val ACTION_MANAGE_APP_PROMOTED_NOTIFICATIONS =
+    "android.settings.MANAGE_APP_PROMOTED_NOTIFICATIONS"
+  // Must match plugins/withExternalCommands.cjs (receiver intent filters).
+  const val ACTION_STOP = "expo.modules.munibexternalcommands.STOP_ONGOING"
+  const val ACTION_DELETE = "expo.modules.munibexternalcommands.DELETE_ONGOING"
+  const val ACTION_MARK = "expo.modules.munibexternalcommands.MARK_ONGOING"
   private const val ACTION_BOUNDARY = "expo.modules.munibexternalcommands.BOUNDARY"
-  private const val EXTRA_BOUNDARY_INDEX = "boundary_index"
+  const val EXTRA_BOUNDARY_INDEX = "boundary_index"
 
   private data class ScheduleEntry(
     val executeAtMs: Long,
@@ -86,6 +94,11 @@ internal object OngoingSalahNotification {
     val followingTime: String,
     val followingTargetTimeMs: Long,
     val channelName: String,
+    /** App accent (theme.primary) for ProgressStyle segments + notification color. */
+    val accentColor: String,
+    /** Fallback after-Mark action when no after-Salah boundary is scheduled. */
+    val markedActionLabel: String,
+    val markedActionDeepLink: String,
     val arrived: Boolean = false,
   )
 
@@ -133,16 +146,60 @@ internal object OngoingSalahNotification {
     }
   }
 
+  /**
+   * Opens the per-app "Live updates" toggle (Android 16), the screen the docs
+   * point users to when `canPostPromotedNotifications()` is false. Falls back to
+   * the app's general notification settings on older or OEM builds.
+   */
   fun openPromotedSettings(context: Context) {
-    try {
-      val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-        putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
-      context.startActivity(intent)
-    } catch (_: Exception) {
-      /* Settings activity unavailable */
+    val actions = if (Build.VERSION.SDK_INT >= 36) {
+      listOf(ACTION_MANAGE_APP_PROMOTED_NOTIFICATIONS, Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+    } else {
+      listOf(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
     }
+    for (action in actions) {
+      try {
+        val intent = Intent(action).apply {
+          putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+        return
+      } catch (_: Exception) {
+        /* Try the next settings screen */
+      }
+    }
+  }
+
+  /**
+   * In-place **Mark Salah** from the notification action (no app launch): queues
+   * the same `mark-current-obligatory` command as the widget / Assistant (drained
+   * by JS), then flips straight to the precomputed after-Salah boundary so the tap
+   * has instant feedback. That boundary's alarm later re-applies the same content.
+   */
+  fun markFromNotification(context: Context) {
+    val raw = prefs(context).getString(KEY_STATE_JSON, null) ?: return
+    val previous = parse(raw) ?: return
+    if (previous.phase != "markSalah") return
+    ExternalCommandQueue.append(
+      context,
+      JSONObject().put("type", "mark-current-obligatory").put("source", "ongoing"),
+    )
+    val now = System.currentTimeMillis()
+    val afterIndex = previous.schedule.indexOfFirst { it.phase == "afterSalah" && it.executeAtMs > now }
+    if (afterIndex in 0 until MAX_BOUNDARY_ALARMS) {
+      refreshAtBoundary(context, afterIndex)
+      return
+    }
+    val next = previous.copy(
+      phase = "afterSalah",
+      title = previous.markedActionLabel.ifBlank { previous.title },
+      actionLabel = previous.markedActionLabel.ifBlank { previous.prepareLabel },
+      actionDeepLink = previous.markedActionDeepLink.ifBlank { previous.prepareDeepLink },
+      arrived = true,
+    )
+    persist(context, serialize(next))
+    post(context, next)
   }
 
   fun refreshAtBoundary(context: Context, boundaryIndex: Int) {
@@ -253,6 +310,9 @@ internal object OngoingSalahNotification {
         followingTime = root.optString("followingTime"),
         followingTargetTimeMs = root.optLong("followingTargetTimeMs", 0L),
         channelName = root.optString("channelName", FALLBACK_CHANNEL_NAME),
+        accentColor = root.optString("accentColor", FALLBACK_ACCENT),
+        markedActionLabel = root.optString("markedActionLabel"),
+        markedActionDeepLink = root.optString("markedActionDeepLink"),
       )
     } catch (_: Exception) {
       null
@@ -300,6 +360,9 @@ internal object OngoingSalahNotification {
     root.put("followingTime", state.followingTime)
     root.put("followingTargetTimeMs", state.followingTargetTimeMs)
     root.put("channelName", state.channelName)
+    root.put("accentColor", state.accentColor)
+    root.put("markedActionLabel", state.markedActionLabel)
+    root.put("markedActionDeepLink", state.markedActionDeepLink)
     return root.toString()
   }
 
@@ -334,6 +397,19 @@ internal object OngoingSalahNotification {
     return PendingIntent.getActivity(context, REQUEST_CODE_ACTION, intent, flags)
   }
 
+  private fun markIntent(context: Context): PendingIntent {
+    val intent = Intent(context, OngoingSalahActionReceiver::class.java).setAction(ACTION_MARK)
+    val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    return PendingIntent.getBroadcast(context, REQUEST_CODE_MARK, intent, flags)
+  }
+
+  private fun accentColorInt(state: OngoingState): Int =
+    try {
+      Color.parseColor(state.accentColor.ifBlank { FALLBACK_ACCENT })
+    } catch (_: IllegalArgumentException) {
+      Color.parseColor(FALLBACK_ACCENT)
+    }
+
   private fun stopIntent(context: Context): PendingIntent {
     val intent = Intent(context, OngoingSalahActionReceiver::class.java).setAction(ACTION_STOP)
     val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -361,6 +437,12 @@ internal object OngoingSalahNotification {
       .setDeleteIntent(deleteIntent(context))
       .setAutoCancel(false)
       .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+      // Salah names and times aren't sensitive: show the countdown on a secure
+      // lock screen instead of hiding it (location is never in the text).
+      .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+      // App accent for the icon and actions. Allowed for Live Updates; only
+      // `setColorized(true)` disqualifies promotion.
+      .setColor(accentColorInt(state))
 
     if (!state.arrived && state.phase == "upcoming" && state.targetTimeMs > System.currentTimeMillis()) {
       builder.setSubText(state.remainingLabel)
@@ -391,7 +473,10 @@ internal object OngoingSalahNotification {
 
     val primaryLabel = state.actionLabel.ifBlank { state.prepareLabel }
     if (primaryLabel.isNotBlank()) {
-      builder.addAction(0, primaryLabel, actionIntent(context, state))
+      // Mark window: mark in place via broadcast; other phases deep-link.
+      val primaryIntent =
+        if (state.phase == "markSalah") markIntent(context) else actionIntent(context, state)
+      builder.addAction(0, primaryLabel, primaryIntent)
     }
     if (state.requestPromoted && state.stopLabel.isNotBlank()) {
       builder.addAction(0, state.stopLabel, stopIntent(context))
@@ -411,14 +496,15 @@ internal object OngoingSalahNotification {
   ) {
     try {
       val style = NotificationCompat.ProgressStyle()
+      val accent = accentColorInt(state)
       val segments = state.progressSegments.map { length ->
         NotificationCompat.ProgressStyle.Segment(length.coerceAtLeast(1))
-          .setColor(Color.parseColor("#10B981"))
+          .setColor(accent)
       }
       style.setProgressSegments(segments)
       val points = state.progressPoints.map { position ->
         NotificationCompat.ProgressStyle.Point(position.coerceAtLeast(0))
-          .setColor(Color.parseColor("#E6C065"))
+          .setColor(Color.parseColor(POINT_COLOR))
       }
       style.setProgressPoints(points)
       style.setProgress(state.progressPercent.coerceIn(0, 100))
@@ -454,10 +540,12 @@ internal object OngoingSalahNotification {
   private fun scheduleBoundaryAlarms(context: Context, state: OngoingState) {
     cancelAllBoundaryAlarms(context)
     val now = System.currentTimeMillis()
+    // The alarm slot is the schedule index (refreshAtBoundary reads it back), so only
+    // indices below MAX_BOUNDARY_ALARMS can be armed — cancelAllBoundaryAlarms clears
+    // exactly those slots and a higher index would leak an uncancellable alarm.
     val entries = state.schedule
       .mapIndexed { index, entry -> index to entry }
-      .filter { (_, entry) -> entry.executeAtMs > now }
-      .take(MAX_BOUNDARY_ALARMS)
+      .filter { (index, entry) -> index < MAX_BOUNDARY_ALARMS && entry.executeAtMs > now }
     if (entries.isEmpty() && state.targetTimeMs > now) {
       // Legacy single boundary at next prayer.
       scheduleOneAlarm(context, 0, state.targetTimeMs + 1_000L)
@@ -495,18 +583,19 @@ internal object OngoingSalahNotification {
 /** Fires at each scheduled phase boundary. */
 class OngoingSalahBoundaryReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
-    val index = intent.getIntExtra("boundary_index", 0)
+    val index = intent.getIntExtra(OngoingSalahNotification.EXTRA_BOUNDARY_INDEX, 0)
     OngoingSalahNotification.refreshAtBoundary(context, index)
   }
 }
 
-/** Stop / delete (unpin) actions for Live Updates. */
+/** Stop / delete (unpin) / in-place Mark Salah actions for Live Updates. */
 class OngoingSalahActionReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     when (intent.action) {
-      "expo.modules.munibexternalcommands.STOP_ONGOING",
-      "expo.modules.munibexternalcommands.DELETE_ONGOING",
+      OngoingSalahNotification.ACTION_STOP,
+      OngoingSalahNotification.ACTION_DELETE,
       -> OngoingSalahNotification.markDismissed(context)
+      OngoingSalahNotification.ACTION_MARK -> OngoingSalahNotification.markFromNotification(context)
     }
   }
 }

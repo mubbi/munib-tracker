@@ -1,7 +1,8 @@
+import type { AyahNote } from "@munib-tracker/shared/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
-import { readJSON, writeJSON } from "@/db/store";
+import { readJSON, updateJSON, writeJSON } from "@/db/store";
 import { DEFAULT_LOCATION } from "@/lib/location";
 import { DEFAULT_COMPANION_PREFS } from "@/lib/quran-companion/prefs";
 import { fastingStore } from "@/stores/fasting-store";
@@ -10,7 +11,14 @@ import { locationStore } from "@/stores/location-store";
 import { trackerStore } from "@/stores/tracker-store";
 import { buildStoredLocation } from "@/test-support/fixtures/location";
 
-import { applyRemoteBlob, buildBlobRecords, isBlobEntity, reloadBlobStores } from "./blob-sync";
+import { readBlobHold } from "./blob-hold";
+import {
+  applyRemoteBlob,
+  buildBlobRecords,
+  getSkippedBlobEntities,
+  isBlobEntity,
+  reloadBlobStores,
+} from "./blob-sync";
 
 const FASTING = "fasting";
 /** Pure last-write-wins blob (not in the union-merge set). */
@@ -37,7 +45,9 @@ describe("isBlobEntity", () => {
     expect(isBlobEntity("qaza_schedule")).toBe(true);
     expect(isBlobEntity("learn_dua_progress")).toBe(true);
     expect(isBlobEntity("location")).toBe(true);
-    expect(isBlobEntity("reading_text_visibility")).toBe(true);
+    // Retired sync entities (local keys only): D13 readingDisplay, NF-3.2 fasting log.
+    expect(isBlobEntity("reading_text_visibility")).toBe(false);
+    expect(isBlobEntity("white_days_checklist")).toBe(false);
     expect(isBlobEntity("hadith_prefs")).toBe(true);
     expect(isBlobEntity("zakat_calculator")).toBe(true);
     expect(isBlobEntity("fidyah_calculator")).toBe(true);
@@ -126,6 +136,52 @@ describe("buildBlobRecords", () => {
     expect((record?.data as { value: { method: string } } | undefined)?.value.method).toBe(
       "Egyptian",
     );
+  });
+});
+
+describe("location coarsening (D46)", () => {
+  const EXACT = buildStoredLocation({ latitude: 24.894812, longitude: 91.871534 });
+
+  it("pushes coordinates rounded to ~1 km and keeps the exact fix on the device", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    const record = (await buildBlobRecords(T1)).find((r) => r.entity === "location");
+    expect(record?.data).toEqual({ value: { ...EXACT, latitude: 24.89, longitude: 91.87 } });
+    expect(await readJSON(DB_KEYS.location, null)).toEqual(EXACT);
+  });
+
+  it("doesn't re-push for GPS jitter inside the same ~1 km cell", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    await buildBlobRecords(T1);
+    await writeJSON(DB_KEYS.location, { ...EXACT, latitude: 24.8932 });
+    const record = (await buildBlobRecords(T2)).find((r) => r.entity === "location");
+    expect(record?.updatedAt).toBe(T1);
+  });
+
+  it("a pulled rounded copy of the same place keeps the exact coordinates", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    await buildBlobRecords(T1);
+    const pulled = { ...EXACT, latitude: 24.89, longitude: 91.87, method: "Egyptian" };
+
+    await applyRemoteBlob("location", { value: pulled }, T2);
+
+    expect(await readJSON(DB_KEYS.location, null)).toEqual({
+      ...pulled,
+      latitude: 24.894812,
+      longitude: 91.871534,
+    });
+    // Our own echo is then a no-op (the push form is what's fingerprinted).
+    const record = (await buildBlobRecords(T3)).find((r) => r.entity === "location");
+    expect(record?.updatedAt).toBe(T2);
+  });
+
+  it("a pulled different place replaces the location", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    await buildBlobRecords(T1);
+    const elsewhere = buildStoredLocation({ latitude: 51.51, longitude: -0.13 });
+
+    await applyRemoteBlob("location", { value: elsewhere }, T2);
+
+    expect(await readJSON(DB_KEYS.location, null)).toEqual(elsewhere);
   });
 });
 
@@ -329,15 +385,14 @@ describe("buildBlobRecords pristine guards", () => {
   const entityRecord = (records: Awaited<ReturnType<typeof buildBlobRecords>>, entity: string) =>
     records.find((r) => r.entity === entity);
 
-  it("skips default reading-text visibility and emits it once something is hidden", async () => {
-    await writeJSON(DB_KEYS.readingTextVisibility, {
-      showTransliteration: true,
-      showTranslation: true,
-    });
-    expect(entityRecord(await buildBlobRecords(T1), "reading_text_visibility")).toBeUndefined();
-
+  it("never writes the retired reading-text visibility / White Days checklist blobs", async () => {
     await writeJSON(DB_KEYS.readingTextVisibility, { showTranslation: false });
-    expect(entityRecord(await buildBlobRecords(T2), "reading_text_visibility")).toBeDefined();
+    await writeJSON(DB_KEYS.whiteDaysChecklist, {
+      "day13::1448-2": { id: "day13", monthKey: "1448-2", completedAt: T1 },
+    });
+    const records = await buildBlobRecords(T1);
+    expect(entityRecord(records, "reading_text_visibility")).toBeUndefined();
+    expect(entityRecord(records, "white_days_checklist")).toBeUndefined();
   });
 
   it("emits a default-sourced location that carries per-salah adjustments", async () => {
@@ -410,5 +465,115 @@ describe("reloadBlobStores", () => {
     await writeJSON(DB_KEYS.location, buildStoredLocation({ city: "Synced" }));
     await reloadBlobStores(["location"]);
     expect(locationStore.getState().location).toBe(DEFAULT_LOCATION);
+  });
+});
+
+describe("quran_notes over the 1 MB sync cap (H2)", () => {
+  const NOTES = "quran_notes";
+  const LATER = "2026-07-04T00:00:00.000Z";
+
+  /** ~130 notes of 4.5 KB each (~600 KB): two of these don't fit under the cap. */
+  function bigNotes(prefix: string, at: string): Record<string, AyahNote> {
+    const map: Record<string, AyahNote> = {};
+    for (let i = 0; i < 130; i++) {
+      const id = `${prefix}${i}`;
+      map[id] = {
+        id,
+        surah: 2,
+        ayah: 255,
+        body: "x".repeat(4500),
+        tags: [],
+        createdAt: at,
+        updatedAt: at,
+      };
+    }
+    return map;
+  }
+
+  const notesRecord = (records: Awaited<ReturnType<typeof buildBlobRecords>>) =>
+    records.find((r) => r.entity === NOTES);
+
+  it("keeps every local note, parks the remote and pauses pushes; resumes once there's room", async () => {
+    const local = bigNotes("mine", T1);
+    const remote = bigNotes("theirs", T2);
+    await writeJSON(DB_KEYS.quranNotes, local);
+    await buildBlobRecords(T1);
+
+    // Never throws, never drops a local note.
+    await applyRemoteBlob(NOTES, { value: remote }, T2);
+    const kept = await readJSON<Record<string, AyahNote>>(DB_KEYS.quranNotes, {});
+    for (const id of Object.keys(local)) expect(kept[id]?.body).toBe(local[id]?.body);
+    const hold = await readBlobHold(NOTES);
+    expect(hold).toMatchObject({ reason: "overflow", updatedAt: T2 });
+    expect(hold?.pending).toBeGreaterThan(0);
+    // Pushing now would overwrite the server copy the parked notes came from.
+    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
+    const paused = await buildBlobRecords(T3);
+    expect(notesRecord(paused)).toBeUndefined();
+    expect(fastingRecord(paused)).toBeDefined();
+
+    // The user deletes most local notes: the next push merges the parked notes and resumes.
+    const trimmed = Object.fromEntries(Object.entries(kept).filter(([id]) => id === "mine0"));
+    await writeJSON(DB_KEYS.quranNotes, trimmed);
+    const resumed = notesRecord(await buildBlobRecords(LATER));
+    expect(resumed).toBeDefined();
+    const pushed = (resumed?.data as { value: Record<string, AyahNote> } | undefined)?.value ?? {};
+    expect(Object.keys(pushed)).toEqual(expect.arrayContaining(["mine0", ...Object.keys(remote)]));
+    expect(await readBlobHold(NOTES)).toBeNull();
+  });
+
+  it("a newer remote that merges cleanly releases an older parked one", async () => {
+    await writeJSON(DB_KEYS.quranNotes, bigNotes("mine", T1));
+    await applyRemoteBlob(NOTES, { value: bigNotes("theirs", T2) }, T2);
+    expect(await readBlobHold(NOTES)).not.toBeNull();
+    await applyRemoteBlob(NOTES, { value: {} }, T3);
+    expect(await readBlobHold(NOTES)).toBeNull();
+  });
+
+  it("skips an invalid value instead of failing the whole push", async () => {
+    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
+    // A legacy blob over the cap (e.g. written before the store capped saves).
+    await writeJSON(DB_KEYS.quranNotes, { ...bigNotes("a", T1), ...bigNotes("b", T1) });
+    const records = await buildBlobRecords(T1);
+    expect(notesRecord(records)).toBeUndefined();
+    expect(fastingRecord(records)).toBeDefined();
+    expect(getSkippedBlobEntities()).toContain(NOTES);
+
+    await writeJSON(DB_KEYS.quranNotes, bigNotes("a", T1));
+    expect(notesRecord(await buildBlobRecords(T2))).toBeDefined();
+    expect(getSkippedBlobEntities()).not.toContain(NOTES);
+  });
+});
+
+describe("applyRemoteBlob serializes with local writers (H1)", () => {
+  // The edit-during-async-merge regression lives in lib/vault/vault-sync.test.ts (H1).
+  it("an overlapping store edit and pull both survive, and the result is pushed", async () => {
+    const at = "2026-07-01T00:00:00.000Z";
+    const note = (id: string, body: string): AyahNote => ({
+      id,
+      surah: 1,
+      ayah: 1,
+      body,
+      tags: [],
+      createdAt: at,
+      updatedAt: at,
+    });
+    await writeJSON(DB_KEYS.quranNotes, { a: note("a", "local") });
+    await buildBlobRecords(T1);
+
+    // Start the pull, then a local save on the same key before the pull settles.
+    const pull = applyRemoteBlob("quran_notes", { value: { b: note("b", "remote") } }, T2);
+    const edit = updateJSON<Record<string, AyahNote>>(DB_KEYS.quranNotes, {}, (current) => ({
+      ...current,
+      c: note("c", "typed during sync"),
+    }));
+    await Promise.all([pull, edit]);
+
+    const stored = await readJSON<Record<string, AyahNote>>(DB_KEYS.quranNotes, {});
+    expect(Object.keys(stored).sort()).toEqual(["a", "b", "c"]);
+    const pushed = (await buildBlobRecords(T3)).find((r) => r.entity === "quran_notes");
+    expect(
+      Object.keys((pushed?.data as { value: object } | undefined)?.value ?? {}).sort(),
+    ).toEqual(["a", "b", "c"]);
   });
 });

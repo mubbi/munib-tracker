@@ -29,6 +29,9 @@ const TV_EXCLUDED_PACKAGES = [
   "expo-image-picker",
   "expo-document-picker",
   "expo-sharing",
+  // D30 PDF export (wasiyyah / debts are hidden on TV). JS loads it only after
+  // `requireOptionalNativeModule("ExpoPrint")` succeeds — see lib/printable.
+  "expo-print",
   "expo-store-review",
   "expo-speech",
   "expo-apple-authentication",
@@ -41,6 +44,25 @@ const TV_EXCLUDED_PACKAGES = [
   // Wear OS listener service + App Actions / widget receivers (Android phone only).
   "munib-wear",
   "munib-external-commands",
+  // NF-3.13 Salah focus lock: UsageStats/overlay service + FamilyControls (phone only).
+  "munib-focus-lock",
+  // NF-3.12 timetable OCR (ML Kit / Vision): no camera or photo import on TV.
+  "munib-text-recognition",
+  // NF-3.25 nearby join (BLE advertise / scan): web and TV keep QR / code only (D41).
+  "munib-nearby",
+  // NF-2.23b seasonal launcher icons: tvOS icons are layered stacks and Android TV
+  // launches from a banner, so TV keeps its one brand icon.
+  "munib-app-icon",
+];
+
+/**
+ * The reverse: native modules that exist only for Apple TV / Android TV and must not
+ * link into phone builds (their JS bridge uses `requireOptionalNativeModule`).
+ */
+const TV_ONLY_PACKAGES = [
+  // Android TV launcher channel + RecognizerIntent voice prompt; tvOS Top Shelf bridge.
+  // Its WRITE_EPG_DATA / BOOT_COMPLETED permissions and tvprovider dependency are TV-only.
+  "munib-tv-home",
 ];
 
 function isTvEnv() {
@@ -48,4 +70,9 @@ function isTvEnv() {
   return v === "1" || v === "true" || v === "True";
 }
 
-module.exports = { TV_EXCLUDED_PACKAGES, isTvEnv };
+/** Packages to keep out of the current build's autolinking (TV or phone). */
+function autolinkingExcludes(tv = isTvEnv()) {
+  return tv ? TV_EXCLUDED_PACKAGES : TV_ONLY_PACKAGES;
+}
+
+module.exports = { TV_EXCLUDED_PACKAGES, TV_ONLY_PACKAGES, autolinkingExcludes, isTvEnv };

@@ -9,6 +9,16 @@ import type { TestUserConfig } from "vitest/config";
 export const CI_TEST_RESULTS_FILE = "coverage/test-results.json";
 
 /**
+ * Setup file that blocks every real outbound network call (loopback allowed)
+ * and fails the test that attempted one. Every Vitest config lists it:
+ *
+ *   test: { ...ciReporting, setupFiles: [NO_NETWORK_SETUP], include: [...] }
+ *
+ * A package specifier, resolved from each workspace root by Vitest.
+ */
+export const NO_NETWORK_SETUP = "@munib-tracker/vitest-config/no-network";
+
+/**
  * Reporters for GitHub Actions, spread into a config's `test` block:
  *
  *   test: { ...ciReporting, include: [...] }

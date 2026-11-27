@@ -15,22 +15,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Aqiydah sio mada ya semina ya kufikirika; ni mzizi ambamo ibada na tabia zote hukua. Imani za mtu kuhusu Mwenyezi Mungu ni nani, kwa nini aliumbwa, na anakoelekea hutawala kimya kimya jinsi anavyoomba, jinsi anavyowatendea wengine, na jinsi wanavyokutana na shida na kifo.",
       "Imani sahihi huweka moyo sawa kati ya hali kuu za ibada - upendo na khofu, matumaini na khofu, kuegemea na juhudi, shukrani na toba - ili Muumini asikate tamaa na rehema ya Mwenyezi Mungu wala asijisikie salama kutokana na uwajibikaji Wake.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Uadilifu ni kumuamini Mwenyezi Mungu, na Siku ya Mwisho, na Malaika, na Kitabu, na Manabii.",
-      },
-      {
-        excerpt:
-          "Enyi mlio amini, muaminini Mwenyezi Mungu, Mtume wake, na Kitabu alicho kiteremsha juu ya Mtume wake, na Kitabu alicho kiteremsha kabla yake.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imani ni kumuamini Mwenyezi Mungu, na Malaika wake, na vitabu vyake, na Mitume wake, Siku ya Mwisho, na kuamini hukumu ya Mwenyezi Mungu, wema wake na uchungu wake. (Hadithi ya Jibril, Imepokewa na Umar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -42,12 +28,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Ndani ya Ahlul-Sunnah kuna shule za theolojia zinazotambulika—hasa zaidi mikabala ya Athari, Ash’ari, na Maturidi—ambazo zinakubaliana kabisa juu ya mambo muhimu ya imani huku zikitofautiana katika baadhi ya mbinu za kitaalamu za kueleza mambo fulani, hasa sifa za kiungu. Msingi wao wa pamoja ni mmoja na madhubuti: Upweke kamili wa Mwenyezi Mungu, ukweli wa wahyi Wake, na uwajibikaji wa kweli huko Akhera.",
       "Kwa hivyo aqeedah inafunzwa vyema kama imani hai: kila nukta ya imani inaunganishwa na njia ya kuabudu, njia ya tabia, na chanzo cha faraja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na walio imara katika ilimu wanasema: Tumeiamini. Yote yametoka kwa Mola wetu Mlezi.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Jifunze aqeedah kutoka kwa wasomi wanaotegemewa na maandishi ya msingi, sio kutoka kwa mijadala ya mitandao ya kijamii.",
       "Kwa kila imani unayojifunza, uliza: je, hii inabadilishaje jinsi ninavyoabudu na kuishi?",
@@ -61,18 +42,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Imani iliyo sahihi pia ndiyo inayombeba muumini katika safu kamili ya maisha: inamfundisha subira kuamini amri ya Mwenyezi Mungu wakati wa dhiki, shukrani ya unyenyekevu katika baraka, na yakini tulivu mbele ya mashaka na kifo. Mtu ambaye hakika anaamini Qadr na Akhera haporomoki anapojaribiwa.",
       "Hatimaye, aqeedah yenye sauti hufunza adab - mwenendo mzuri - katika kutokubaliana: kushikilia kwa uthabiti misingi iliyo wazi huku ikionyesha heshima na kujizuia katika mambo ya upili ambapo wanazuoni wanyofu wametofautiana kwa muda mrefu. Ujuzi wa imani unapaswa kuongeza unyenyekevu na rehema, kamwe kiburi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mwenyezi Mungu huwaweka imara walio amini kwa kauli thabiti katika maisha ya dunia na Akhera.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kuweni na shauku ya manufaa yenu, na ombeni msaada kwa Mwenyezi Mungu, wala msilegee… (Abu Hurayrah).",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Nakala Sita za Iman",
@@ -82,12 +53,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Sita hizo ni: kumuamini Mwenyezi Mungu; katika malaika zake; katika vitabu vyake vilivyoteremshwa; katika Mitume Wake; katika Siku ya Mwisho; na katika hukumu ya Mwenyezi Mungu (qadr), wema wake na uchungu wake. Kumkataa yeyote kati yao ni kutoka nje ya Imani ya kweli, kwani wao ni kitambaa kimoja.",
       "Pia zimeunganishwa kwa kina. Kuamini Vitabu na Mitume kunapelekea elimu ya Siku ya Mwisho na hisabu; Kuamini Siku ya Mwisho kunakipa uzito kila kitendo; na kuamini Qadr kunafunza kumtegemea Mwenyezi Mungu na kunyenyekea mbele ya hekima yake. Kujifunza kwao kwa utaratibu hujenga mtazamo wazi na uwiano wa ulimwengu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "....kwamba muamini Mwenyezi Mungu, na Malaika wake, na Vitabu vyake, na Mitume wake, na Siku ya Mwisho, na kuamini hukumu, na kheri yake, na uchungu wake. (Hadithi ya Jibril)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -100,15 +66,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Ahlul-Sunnah wanathibitisha majina mazuri na sifa tukufu alizozithibitisha Mwenyezi Mungu kwa ajili yake, na kwamba Mtume Wake (Swalla Allaahu ‘alayhi wa aalihi wa sallam) amemthibitishia kwa njia inayolingana na utukufu wake, bila ya kumfananisha na viumbe vyake (tamthil) na bila ya kukanusha au kufuta sifa zake (ta’til). Aya inayoongoza ni: “Hakuna chochote mfano wake, naye ni Mwenye kusikia, Mwenye kuona.” (42:11) – ambayo yote mawili yanapinga kufanana na yanathibitisha kusikia kwake na kuona kwake.",
       "Kumjua Mwenyezi Mungu kwa majina Yake - Mwingi wa Rehema, Mjuzi wa yote, Aliye hai, Mfalme, Mwenye kusamehe - ni chakula cha moyo: kadiri unavyomjua Yeye, ndivyo unavyompenda, na khofu, na uelekee kwake.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sema: Yeye ni Mwenyezi Mungu Mmoja. Hazai wala hazai, na hakuna anayefanana naye.",
-      },
-      {
-        excerpt: "Na Mwenyezi Mungu ana majina mazuri kabisa, basi muombeni kwayo.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -120,16 +78,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Kuamini kwao ni kuamini kwamba ulimwengu usioonekana ni halisi na unafanya kazi karibu nasi. Malaika wanaleta wahyi, wanawalinda wanadamu, wanaandika kila neno na vitendo, wanazitoa roho wakati wa kufa, na wanasimamia mambo ya ardhi na mbingu kwa idhini ya Mwenyezi Mungu.",
       "Kadhaa wametajwa katika maandiko yenye majukumu maalum: Jibril, malaika wa wahyi; Mikail, aliyekabidhiwa mvua na riziki; Israfil, atakayepuliza Baragumu; Malak al-Mawt, malaika wa mauti; na waandishi watukufu (Kiraman Katibin) wanaoandika matendo ya kila mtu. Munkar na Nakir wanamhoji marehemu kaburini.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Juu yake wamo Malaika wakali na wakali, wasiomuasi Mwenyezi Mungu katika yale Anayoamrisha na wanafanya wanayoamrishwa.",
-      },
-      {
-        excerpt:
-          "Sema: Aliye kuwa adui wa Jibril, basi huyo ndiye aliyeiteremsha juu ya moyo wako kwa idhini ya Mwenyezi Mungu.",
-      },
-    ],
+    quran: [{}, {}],
     actions: ["Ishi kwa ufahamu kwamba malaika wanaorekodi hawakosi neno au tendo."],
   },
   {
@@ -141,15 +90,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Qur'ani ina daraja la kipekee. Ni wahyi wa mwisho, uliotumwa 'kuthibitisha yale yaliyotangulia na kuwa kigezo juu yake' (5:48) - maana yake inahukumu na kusahihisha, kwani maandiko ya awali hayakubaki katika hali yake ya asili bali yalibadilishwa (tahrif) na kupotea kwa vizazi.",
       "Kipekee miongoni mwa Vitabu vyote, Qur’ani imehifadhiwa na Mwenyezi Mungu kutokana na ufisadi: “Hakika Sisi tumeteremsha Ukumbusho, na hakika Sisi ni Walinzi wake” (15:9). Kwa hiyo kuamini vitabu kunamaanisha kuheshimu wahyi, kusoma Qur-aan kwa kutafakari, na kusalimu amri katika maisha yake.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na tumekuteremshia Kitabu kwa haki, kinachosadikisha yaliyo kuwa kabla yake katika Kitabu, na ni upambanuzi juu yake.",
-      },
-      {
-        excerpt: "Hakika Sisi ndio tulio teremsha Ukumbusho, na hakika Sisi ndio tutakaoulinda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -160,15 +101,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Mitume ni viumbe bora katika ukweli na uaminifu, wamelindwa na Mwenyezi Mungu dhidi ya kusema uwongo juu ya ujumbe na kutokana na dhambi kubwa - lakini wanabakia kuwa wanadamu, sio waungu, na hawapaswi kuabudiwa. Watano wametajwa kama mitume 'wakamili' (ulu al-'azm): Nuh, Ibrahim, Musa, Isa, na Muhammad ﷺ.",
       "Muhammad (Swalla Allaahu ‘alayhi wa aalihi wa sallam) ni Muhuri wa Mitume (Khatam an-nabiyyin): hakuna Nabii anayekuja baada yake, na ujumbe wake ni wa ulimwengu wote—unatumwa kwa wanadamu wote mpaka Siku ya Hukumu. Kumwamini kunatia ndani kumpenda, kutii amri zake, kuamini ripoti zake, na kuabudu tu katika njia aliyofundisha.",
     ],
-    quran: [
-      {
-        excerpt: "...Hatutafautishi baina ya yeyote katika Mitume wake...",
-      },
-      {
-        excerpt:
-          "Muhammad si baba wa yeyote katika wanaume wenu, ila ni Mtume wa Mwenyezi Mungu na muhuri wa Manabii.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -180,11 +113,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Imani hii inatoa uzito wa maadili kwa kila wakati. Kwa sababu Mwenyezi Mungu anayaona yaliyofichika na anaandika jambo dogo, hakuna jema linaloharibika na hakuna ubaya unaopuuzwa: 'Mwenye kutenda chembe ya wema atauona, na anayefanya chembe ya uovu atauona.'",
       "Ahlul-Sunnah wanayathibitisha haya yote kwa yakini, wakiyaamini sawa na yalivyoripotiwa, huku wakikiri kwamba wanachuoni wanatofautiana katika kufasiri baadhi ya maelezo mazuri zaidi ya matukio na dalili maalum. Suala la imani si kubahatisha bali ni maandalizi.",
     ],
-    quran: [
-      {
-        excerpt: "…Basi anayefanya chembe ya wema atauona, na anayefanya chembe ya ubaya atauona.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -197,21 +126,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Ahlul-Sunnah wanaongoza baina ya makosa mawili: kukanusha amri (kana kwamba matukio yanaepuka elimu ya Mwenyezi Mungu na mapenzi yake), na fatalism (kutumia amri kufuta jukumu la mwanadamu na udhuru wa dhambi). Muumini huchukua njia kwa ubora, kisha anamkabidhi Mwenyezi Mungu mwisho.",
       "Kiuhalisia, qadr ni chanzo kikubwa cha amani: baada ya kufanya sehemu yako, unapumzika katika ujuzi kwamba chochote kitakachokufikia hakiwezi kamwe kukukosa, na chochote kilichokukosa kisingeweza kukufikia.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Ikikusibuni, msiseme ‘laiti ningefanya hayo’, bali sema ‘Mwenyezi Mungu Amehukumu, na Alichokitaka Amekifanya’ — kwani ‘laiti’ hufungua mlango kwa Shetani. (Abu Hurayrah)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Hakika Sisi tumekiumba kila kitu kwa kipimo.",
-      },
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu habadili yaliyomo kwa watu mpaka wabadili yaliyomo nafsini mwao.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Dhana potofu: Ikiwa kila kitu kimeamuliwa, juhudi haina maana. Marekebisho: Uislamu unaamuru juhudi, mipango, sala, na toba - kuchukua njia yenyewe ni sehemu ya amri.",
       "Dhana potofu: Qadr ina maana kwamba Allah ndiye wa kulaumiwa kwa dhambi yangu. Sahihisho: Mtumishi anachagua na anawajibika; amri hiyo kamwe si kisingizio cha uasi.",
@@ -232,14 +148,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Mfumo huu wa sehemu tatu ni chombo cha kufundishia, si chanzo cha mgawanyiko; madhumuni yake ni kumsaidia muumini kulinda uaminifu na kutambua mahali ambapo umoja unaweza kuhatarishwa. Yote hayo yamenaswa katika du'a ya ufunguzi wa sala ya kila Muislamu: 'Wewe peke yako tunakuabudu, na Wewe tu tunakuomba msaada.'",
       "Ufahamu muhimu: kukiri kwamba Mwenyezi Mungu ndiye Muumba (rububiyyah) haitoshi peke yake. Wengi waliokanusha Mitume bado walikiri kuwa Mwenyezi Mungu ameumba mbingu na ardhi - walichokataa ni kumuabudu Yeye peke yake (Uluhiyyah). Tawhiid halisi inathibitishwa katika ibada, sio tu katika imani juu ya asili.",
     ],
-    quran: [
-      {
-        excerpt: "Wewe tu tunakuabudu, na Wewe tu tunakuomba msaada.",
-      },
-      {
-        excerpt: "Mwenyezi Mungu - hapana mungu ila Yeye. Yeye ndiye Mwenye majina mazuri kabisa.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Dhana potofu: Tawhiyd ni kusema sentensi moja tu. Kusahihisha: Ni imani ya moyo, kauli ya ulimi, na ukweli unaoishi katika ibada.",
       "Dhana potofu: Kuamini kuwa Mwenyezi Mungu ndiye Muumba ni tawhiyd nzima. Usahihishaji: Hata makafiri wengi wamethibitisha kuwa mtihani ni kumuabudu Mwenyezi Mungu peke yake.",
@@ -255,21 +164,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Shirki ndogo (al-shirk al-asghar) haitoi katika Uislamu bali ni hatari sana na inaweza kubatilisha malipo ya matendo. Umbo lake la wazi kabisa ni riya - kufanya ibada ili kuonekana na kusifiwa na watu - ambayo Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) aliitaja kuwa ni kitu alichokiogopa zaidi kwa umma wake. Kuapa kwa asiyekuwa Mwenyezi Mungu kwa namna inayotukuza kunaangukia hapa pia.",
       "Ahlul-Sunnah wako makini na lugha na hukumu: kuonya dhidi ya shirki kwa ujumla ni muhimu na ni wazi, lakini kumtangaza mtu makhsusi kuwa ni mushrik au kafiri (takfir) ni jambo zito linalohitaji elimu, dalili halali, na kuondoa visingizio - ni mali ya wanachuoni waliobobea, si ya watu wa kawaida au hoja ya mtandaoni.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu hasamehi ushirika naye, lakini husamehe yaliyo duni kuliko hayo kwa amtakaye.",
-      },
-      {
-        excerpt: "Ewe mwanangu, usimshirikishe Mwenyezi Mungu. Hakika ushirika ni dhulma kubwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kitu ninachokuhofia zaidi ni shirki ndogo. Alipoulizwa ni nini, ﷺ akasema: kujionyesha (riya). (Mahmud ibn Labid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Dhana potofu: Kila kuteleza kwa ulimi ni shirki kubwa. Usahihishaji: Wanazuoni hutofautisha kubwa na ndogo na huhukumu kila kesi kwa uangalifu kwa ushahidi.",
       "Dhana potofu: Kuonya dhidi ya shirki kunahitaji ukali kwa watu. Marekebisho: Njia ya kinabii inaunganisha uwazi wa ukweli na rehema na mafundisho yenye subira.",
@@ -283,17 +179,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Kwa sababu malipo yanategemea nia, kitendo kidogo, cha utulivu kinachofanywa kwa ikhlasi kwa ajili ya Mwenyezi Mungu kinaweza kushinda kitendo kikubwa cha hadhara kinachofanywa kwa ajili ya sifa. Tendo lile lile la nje - kutoa sadaka, kuomba, kufundisha - inaweza kuwa ibada au utupu kutegemea moyo nyuma yake.",
       "Unyoofu haupatikani mara moja bali unafanywa upya daima, kwa sababu ubinafsi unaelekea kutafuta uangalizi. Kwa hiyo Waumini mara kwa mara huitakasa nia yao na kumuomba Mwenyezi Mungu Awakinge na shirki iliyofichika ya riya na kujidanganya.",
     ],
-    quran: [
-      {
-        excerpt: "Na hawakuamrishwa ila wamuabudu Mwenyezi Mungu kwa kumtakasia Dini.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Vitendo ni kwa nia, na kila mtu atakuwa na kile alichokusudia. (Umar bin al-Khattab)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -305,15 +192,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Ahlul-Sunnah wanafundisha kwamba hawa lazima wakae katika usawa, kama ndege anayeruka na mbawa mbili na kichwa. Upendo na matumaini bila woga vinaweza kuelekezea katika uzembe na kuchukua rehema ya Mwenyezi Mungu kuwa jambo la kawaida; hofu bila matumaini inaweza kuanguka katika kukata tamaa. Qur'ani inaungana nao: 'Muombeni kwa khofu na matumaini.'",
       "Usawa huu sio hisia tu; inaonekana katika matendo - katika kulinda sala, kuharakisha kutubu, kuwahudumia wengine, kuzuia hasira, na kubaki na subira katika shida kutokana na upendo kwa Yule aliyeiamuru.",
     ],
-    quran: [
-      {
-        excerpt: "…Lakini walio amini wana mapenzi makubwa zaidi kwa Mwenyezi Mungu.",
-      },
-      {
-        excerpt:
-          "…Na muombeni kwa khofu na kwa matumaini. Hakika rehema ya Mwenyezi Mungu iko karibu na wafanyao wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -325,21 +204,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Mwaliko wa Mwenyezi Mungu ni ukarimu wa kustaajabisha: Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote. Mlango wa toba (tawbah) hubaki wazi hadi jua lichomoze kutoka magharibi au kifo cha mtu binafsi kinakaribia.",
       "Toba ya kweli ina masharti yaliyo wazi: kuacha dhambi mara moja, kuhisi majuto ya kweli kwa ajili yake, na kuazimia kwa uthabiti kutorudi tena - na, ambapo dhambi ilihusisha haki za mtu mwingine, kurejesha haki hizo au kutafuta msamaha wao. Haya yanapofikiwa, jibu la Mwenyezi Mungu si kukubaliwa tu bali ni furaha: Yeye 'hufurahishwa zaidi na toba ya mja Wake' kuliko mtu anayerudisha mlima wake uliopotea na riziki katika jangwa lisilo na kitu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
-      },
-      {
-        excerpt: "Enyi mlioamini tubuni kwa Mwenyezi Mungu toba ya kweli.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu anafurahishwa na toba ya mja wake kuliko mtu aliyepoteza mlima wake, akibeba chakula chake na kinywaji chake katika nchi kame, kisha akakipata tena. (Ibn Mas'ud)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -351,18 +217,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Kuingia Peponi hatimaye ni kwa rehema ya Mwenyezi Mungu - hakuna amali ya mtu peke yake inayoweza kupata neema ya milele - lakini imani ya kweli na matendo mema ndiyo njia ambayo Mwenyezi Mungu ameiweka na kuikubali. Viwili hivyo havipingani: rehema ndio sababu, na imani na vitendo ndio njia aliyoifungua.",
       "Imani ya Peponi hutengeneza upya jinsi mtu anavyoishi sasa: inakuza subira kupitia shida, ukarimu na mali, na uvumilivu katika ibada, kwa sababu muumini anafanya biashara ya ulimwengu unaopita kwa nyumba ya milele. Qur'ani inatuita 'kukimbia' kuielekea.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na kimbilieni maghfira kutoka kwa Mola wenu Mlezi na Pepo yenye upana wa mbingu na ardhi iliyo andaliwa kwa ajili ya watu wema.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu alisema: Nimewaandalia waja Wangu wema kile ambacho jicho halijapata kuona, sikio lililosikia, na moyo wa mwanadamu haujafikiri. (Abu Hurayrah; pia Sahih Muislamu 2824)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -374,16 +230,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Maonyo hayo yana kusudi la rehema: yapo ili kuwalinda watu kutokana na matokeo yale yale wanayoeleza - kuangalia kiburi, uonevu, na wanaoendelea, wakijua kukataa ukweli, na kuwafanya wasiojali kutubu wakati mlango uko wazi.",
       "Ahlul-Sunnah wanashikilia maonyo na rehema pamoja. Vitisho hivyo ni vikubwa na vya kweli, lakini rehema ya Mwenyezi Mungu inabaki kuwa kubwa kwa anayerejea Kwake - na miongoni mwa watu wa tawhiyd, wakosefu wanaoingia Motoni hawatabaki humo milele lakini hatimaye watatolewa kwa rehema ya Mwenyezi Mungu na uombezi Anaoruhusu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini jilindeni nafsi zenu na ahali zenu na Moto ambao kuni zake ni watu na mawe.",
-      },
-      {
-        excerpt:
-          "…Msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -395,16 +242,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Baina ya kifo na ufufuo ipo barzakh - maisha ya kati ya kaburi, pamoja na maswali yake na urahisi au ugumu wake. Kisha litapulizwa Baragumu, na viumbe vyote vinanyanyuliwa na kukusanywa mbele ya Mwenyezi Mungu kwa ajili ya hisabu.",
       "Imani hii ndiyo inayoyapa maisha ya mwanadamu uzito wake wa kimaadili: bila kufufuliwa, dhalimu anayekufa kwa raha na aliyedhulumiwa akifa amedhulumiwa angepata mwisho huo huo. Kwa hayo, kila ubaya hujibiwa na kila jema hulipwa, yenye maana ya subira na uadilifu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Anasema: Ni nani atakayeihuisha mifupa na hali imeharibika? Sema: Atawahuisha aliye waumba mara ya kwanza.",
-      },
-      {
-        excerpt:
-          "Na hakika Saa itakuja bila shaka nayo, na Mwenyezi Mungu atawafufua walio makaburini.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Siku ya Hukumu",
@@ -414,12 +252,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Siku hiyo, hakuna nasaba, mali, tabaka, utaifa, wala cheo cha kidunia kitakachomnufaisha yeyote; Imani ya kweli tu na matendo mema, yanayokubaliwa na Mwenyezi Mungu, yatafaa. Kumbukumbu zinasambazwa, matendo yanapimwa, na hata makosa yanayofanywa baina ya watu yanatatuliwa kwa kuhamisha matendo mema na mabaya.",
       "Hakika hii inakusudiwa kubadilisha tabia sasa: inamwita Muumini kwenye uaminifu, uaminifu, kulinda haki za wengine, na kurekebisha makosa na kurejesha kile kinachodaiwa kabla ya Siku ambayo madeni yanalipwa kwa vitendo badala ya fedha.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na tunaweka mizani ya uadilifu kwa Siku ya Kiyama, basi hakuna nafsi itakayodhulumiwa hata kidogo.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -430,16 +263,7 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       'Sirat ni daraja lililonyoshwa juu ya Jahannam ambalo kila kitu lazima kipite. Qur\'ani inasema: "Hakuna yeyote katika nyinyi ila atapita juu yake, basi tutawaokoa walio mcha Mwenyezi Mungu." Watu huvuka kwa amali zao - wengine wepesi kama wepesi au upepo, wengine wanashindana, na wengine wakiteleza - kwa rehema ya Mwenyezi Mungu na uadilifu.',
       "Uhalisia huu hauambiwi kuogopesha bila kazi bali kustawisha uzito: kuhusu uzito wa matendo madogo, juu ya uaminifu wa ibada, na juu ya kuheshimu haki za wengine, kwani yote yatapimwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ama yule ambaye mizani yake itakuwa nzito, atakuwa katika maisha mazuri. lakini mtu ambaye mizani yake ni nyepesi, kimbilio lake litakuwa kuzimu.",
-      },
-      {
-        excerpt:
-          "Na hakuna yeyote katika nyinyi ila atapita juu yake… Kisha tutawaokoa wale wanaomcha Mwenyezi Mungu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -450,21 +274,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Lakini hakuna mtu anayeomba kwa mamlaka yake mwenyewe. Kila uombezi wa halali hutokea tu baada ya idhini yake, na kwa wale ambao Mwenyezi Mungu ameridhika nao: Ni nani awezaye kumuombea isipokuwa kwa idhini yake? Hii inahifadhi ufalme wa Mwenyezi Mungu juu ya matokeo.",
       "Wanachuoni wanaelezea aina kadhaa za uombezi uliothibitishwa - kwa ajili ya hesabu ianze, kwa watu kuingia Peponi, kwa waumini wenye dhambi kusamehewa au kuondolewa Motoni - huku wakikubaliana kwamba hukumu ya mwisho daima inabakia kuwa ya Mwenyezi Mungu peke yake.",
     ],
-    quran: [
-      {
-        excerpt: "Ni nani awezaye kumuombea isipokuwa kwa idhini yake?",
-      },
-      {
-        excerpt:
-          "Siku hiyo hautafaa uombezi ila yule ambaye Arrahmani Mwingi wa Rehema amemruhusu na akaridhia neno lake.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Watu watanijia, nami nitasujudu mbele ya Mola wangu; kisha itasemwa: Inua kichwa chako, omba nawe utapewa, ombea na uombezi wako utakubaliwa. (Abu Said - uombezi mkubwa)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Dhana potofu: Uombezi huondoa hitaji la toba. Kusahihisha: Inatokea tu kwa idhini ya Mwenyezi Mungu na kamwe si ruhusa ya kuendelea kufanya dhambi.",
       "Maoni yasiyo sahihi: Mtu anaweza kuwaita manabii au watu wema sasa waombee. Masahihisho: Ibada na dua ni za Mwenyezi Mungu peke yake; uombezi wa Akhera ni kwa amri yake, inayotafutwa kwa kumridhisha.",
@@ -481,21 +292,8 @@ export const AQEDAH_TOPICS_SW: DeepPartial<AqeedahTopic>[] = [
       "Ishara kumi kuu zimetajwa pamoja katika Hadith ya Mtume (Swalla Allaahu ´alayhi wa sallam): miongoni mwao kudhihiri kwa Dajjal, kushuka kwa Isa (mwana wa Maryam), kutokea kwa Yaajuj na Majuj, maporomoko matatu makubwa ya ardhi, moshi, kuchomoza jua kutoka magharibi, na moto unaowapeleka watu kwenye mkusanyiko wao wa mwisho.",
       "Wanachuoni wakati fulani wanahitilafiana juu ya mfuatano kamili wa baadhi ya dalili, lakini wanaafikiana katika mambo mawili: Kuja kwa Saa ni ya hakika, na muda wake mahususi haujulikani yeyote ila Mwenyezi Mungu - hata kwa Mtume ﷺ pale Jibril alipomuuliza. Kwa hiyo mwitikio wa kinabii kwa ishara ni wa vitendo, si wa kubahatisha: ongeza imani, toba, haki, na matendo yenye manufaa badala ya utabiri usio na mwisho.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wanakuuliza kuhusu Saa (ya Kiyama): lini kufika kwake? Sema: Ilimu yake iko kwa Mola wangu Mlezi.",
-      },
-      {
-        excerpt: "Je! wanangoja isipokuwa iwafikie Saa kwa ghafla? Ishara zake tayari zimekuja.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Haitakuja Saa mpaka muone dalili kumi: Moshi, Dajjal, Mnyama, na jua linalochomoza magharibi, na kushuka kwa Isa, Ya'juj na Ma'juj, na maporomoko matatu ya ardhi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Dhana potofu: Kila tukio kuu la ulimwengu bila shaka ni ishara ya mwisho. Marekebisho: Madai kama haya yanahitaji ushahidi wa kweli na tahadhari ya kitaalamu, si hisia.",
       "Dhana potofu: Kujua ishara hutuwezesha tarehe ya Saa. Masahihisho: Wakati halisi anajulikana kwa Mwenyezi Mungu peke yake. ishara zinatuita kujiandaa, sio kutabiri.",

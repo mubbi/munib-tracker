@@ -1,6 +1,8 @@
 import * as Speech from "expo-speech";
 import { Platform } from "react-native";
 
+import { captureAppException } from "@/lib/sentry";
+
 export type TtsVoice = {
   identifier: string;
   name: string;
@@ -260,11 +262,26 @@ export function chunkTextForTts(text: string, maxChars = TTS_CHUNK_MAX_CHARS): s
   return chunks;
 }
 
+/**
+ * Runs a speech callback. They fire from native speech events (expo-speech's
+ * emitter), outside React: an exception there is a global JS error that the
+ * root `Sentry.GlobalErrorBoundary` turns into the app-wide "Something went
+ * wrong" screen. Report it instead.
+ */
+function runSpeechCallback(callback: (() => void) | undefined): void {
+  if (!callback) return;
+  try {
+    callback();
+  } catch (error) {
+    captureAppException(error, { tags: { area: "audio", phase: "tts-callback" } });
+  }
+}
+
 /** Speak text via platform TTS. Resolves when speech finishes (or immediately if empty). */
 export function speak(text: string, options: SpeakOptions): Promise<void> {
   const trimmed = text.trim();
   if (!trimmed) {
-    options.onDone?.();
+    runSpeechCallback(options.onDone);
     return Promise.resolve();
   }
 
@@ -281,20 +298,20 @@ export function speak(text: string, options: SpeakOptions): Promise<void> {
           voice: options.voice,
           rate: options.rate ?? (Platform.OS === "ios" ? 0.5 : 1),
           onDone: () => {
-            options.onDone?.();
+            runSpeechCallback(options.onDone);
             resolve();
           },
           onStopped: () => {
-            options.onDone?.();
+            runSpeechCallback(options.onDone);
             resolve();
           },
           onError: () => {
-            options.onError?.();
+            runSpeechCallback(options.onError);
             resolve();
           },
         });
       } catch {
-        options.onError?.();
+        runSpeechCallback(options.onError);
         resolve();
       }
     })();

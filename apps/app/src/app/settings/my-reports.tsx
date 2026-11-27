@@ -2,40 +2,42 @@ import type { ContentReportSummary } from "@munib-tracker/shared/types/content-r
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
+import { StyleSheet, View } from "react-native";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Pill } from "@/components/ui/pill";
+import { Pill, type PillTone } from "@/components/ui/pill";
 import { Sheet } from "@/components/ui/sheet";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { listContentReports } from "@/lib/content-report-api";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 
+/** Pill tone per status — label uses the AA `onSoft` text token, never the raw hue. */
+function statusTone(report: ContentReportSummary): PillTone {
+  if (report.status === "completed") return "success";
+  if (report.status === "spam" || report.status === "cancelled") return "warning";
+  return "info";
+}
+
 export default function MyReportsScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { session, isGuest } = useAuth();
-  const { tokens } = useThemeTokens();
   const { formatDate } = useFormatCalendarDate();
   const [items, setItems] = useState<ContentReportSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const tv = isTV();
   /**
-   * TV: read-only cards aren't focusable, so the D-pad could never scroll past the
-   * first screen. Each card becomes a focus target that opens the full report.
+   * G-93: every card opens the full report (description is clamped in the list).
+   * On TV this also makes each card a D-pad focus target, so the list scrolls.
    */
   const [openReport, setOpenReport] = useState<ContentReportSummary | null>(null);
 
@@ -61,14 +63,13 @@ export default function MyReportsScreen() {
   }, [load]);
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.eyebrow")}
+    <SettingsDetailScreen
+      parent="privacy"
+      path="/settings/my-reports"
       title={t("contentReport.myReportsTitle")}
       subtitle={t("contentReport.myReportsSubtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
+      seoTitle={t("contentReport.myReportsTitle")}
     >
-      <Seo path="/settings/my-reports" title={t("contentReport.myReportsTitle")} />
       {isGuest ? (
         <EmptyState
           icon={{ ios: "person.crop.circle", android: "account_circle", web: "account_circle" }}
@@ -78,7 +79,7 @@ export default function MyReportsScreen() {
           onAction={() => router.push("/profile")}
         />
       ) : loading ? (
-        <ActivityIndicator style={styles.loader} />
+        <SkeletonPlaceholder preset="card" count={3} style={styles.loader} />
       ) : error ? (
         <EmptyState
           icon={{ ios: "wifi.slash", android: "cloud_off", web: "cloud_off" }}
@@ -97,30 +98,17 @@ export default function MyReportsScreen() {
           {items.map((report) => (
             <Card
               key={report.id}
-              padding="three"
               style={styles.card}
-              onPress={tv ? () => setOpenReport(report) : undefined}
-              accessibilityLabel={
-                tv ? (report.content.snapshot?.title ?? report.content.contentId) : undefined
-              }
+              onPress={() => setOpenReport(report)}
+              accessibilityLabel={t("contentReport.cardA11y", {
+                title: report.content.snapshot?.title ?? report.content.contentId,
+                status: t(`contentReport.status.${report.status}`),
+              })}
             >
               <View style={styles.cardHeader}>
                 <Pill
                   label={t(`contentReport.status.${report.status}`)}
-                  color={
-                    report.status === "completed"
-                      ? tokens.status.success.color
-                      : report.status === "spam" || report.status === "cancelled"
-                        ? tokens.status.warning.color
-                        : tokens.status.info.color
-                  }
-                  background={
-                    report.status === "completed"
-                      ? tokens.status.success.soft
-                      : report.status === "spam" || report.status === "cancelled"
-                        ? tokens.status.warning.soft
-                        : tokens.status.info.soft
-                  }
+                  tone={statusTone(report)}
                 />
                 <ThemedText type="caption" themeColor="mutedForeground">
                   {formatDate(new Date(report.createdAt), {
@@ -149,29 +137,47 @@ export default function MyReportsScreen() {
         </Stagger>
       )}
 
-      {tv ? (
-        <Sheet visible={openReport != null} onClose={() => setOpenReport(null)}>
-          {openReport ? (
-            <View style={styles.sheetBody}>
-              <ThemedText type="subtitle">
-                {openReport.content.snapshot?.title ?? openReport.content.contentId}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t(`contentReport.issueTypes.${openReport.issueType}`)} ·{" "}
-                {t(`contentReport.status.${openReport.status}`)}
-              </ThemedText>
-              <ThemedText type="small">{openReport.description}</ThemedText>
-              <Button
-                label={t("common.done")}
-                variant="secondary"
-                preferredFocus
-                onPress={() => setOpenReport(null)}
+      <Sheet
+        visible={openReport != null}
+        onClose={() => setOpenReport(null)}
+        title={
+          openReport ? (openReport.content.snapshot?.title ?? openReport.content.contentId) : ""
+        }
+        solid
+      >
+        {openReport ? (
+          <View style={styles.sheetBody}>
+            <View style={styles.cardHeader}>
+              <Pill
+                label={t(`contentReport.status.${openReport.status}`)}
+                tone={statusTone(openReport)}
               />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t(`contentReport.issueTypes.${openReport.issueType}`)}
+              </ThemedText>
             </View>
-          ) : null}
-        </Sheet>
-      ) : null}
-    </ScreenLayout>
+            <ThemedText type="small">{openReport.description}</ThemedText>
+            {openReport.resolvedAt ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("contentReport.resolvedOn", {
+                  date: formatDate(new Date(openReport.resolvedAt), {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  }),
+                })}
+              </ThemedText>
+            ) : null}
+            <Button
+              label={t("common.done")}
+              variant="secondary"
+              preferredFocus={tv}
+              onPress={() => setOpenReport(null)}
+            />
+          </View>
+        ) : null}
+      </Sheet>
+    </SettingsDetailScreen>
   );
 }
 

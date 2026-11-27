@@ -1,4 +1,8 @@
-import type { AchievementStats, DevotionProgress } from "@munib-tracker/shared/achievements";
+import type {
+  AchievementStats,
+  DevotionProgress,
+  RecitationStats,
+} from "@munib-tracker/shared/achievements";
 import {
   computeDevotionProgress,
   summarizeQazaDebt,
@@ -9,6 +13,8 @@ import type {
   AfterSalahPrayer,
   DailySummary,
   ExcusedReason,
+  ObligatoryPrayer,
+  PrayerCombineMode,
   PrayerId,
   PrayerStatus,
   QazaCounter,
@@ -16,6 +22,7 @@ import type {
   QazaPrayer,
   QazaRozaCounter,
   QazaSchedule,
+  RawatibId,
 } from "@munib-tracker/shared/types";
 import {
   buildDailySummary,
@@ -25,6 +32,7 @@ import {
   excusedReasonForDate,
   getLocalDateString,
   inferExcusedReasonFromYesterday,
+  longestStreak,
 } from "@munib-tracker/shared/utils";
 
 import {
@@ -35,8 +43,11 @@ import {
   ZikrRepository,
 } from "@/db";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
+import { combinedFromLog, combinePartner, type PrayerCombined } from "@/lib/prayer-combining";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { markPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
+import { markTrackingChanged } from "@/lib/sync/tracking-changes";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 
 import { createStore, useStore } from "./create-store";
@@ -47,6 +58,7 @@ const OBLIGATORY_SET = new Set<string>(OBLIGATORY_PRAYERS);
 function emptyStats(): AchievementStats {
   return {
     streak: 0,
+    bestStreak: 0,
     prayersCompleted: 0,
     zikrCompleted: 0,
     perfectDays: 0,
@@ -69,9 +81,24 @@ function emptySummary(date: string): DailySummary {
   };
 }
 
+/** Rawatib log details (NF-3.1). */
+export type RawatibLogOptions = {
+  /** Rak'at prayed (variable-count rows only, e.g. 2 | 4 before Dhuhr). */
+  rakahs?: number;
+  /** Logged after its usual time (the Fajr sunnah after sunrise). */
+  late?: boolean;
+};
+
 export type SetPrayerStatusOptions = {
   /** When marking missed, whether to increment the obligatory qaza counter. */
   addToQaza?: boolean;
+};
+
+export type ZikrCountWrite = {
+  zikrId: string;
+  count: number;
+  target: number;
+  prayerId?: AfterSalahPrayer;
 };
 
 export type ZikrProgressOptions = {
@@ -82,10 +109,18 @@ export type ZikrProgressOptions = {
 export interface TrackerState {
   date: string;
   isReady: boolean;
+  /** Set when `load()` failed (storage unavailable); cleared on the next attempt. */
+  loadError: unknown | null;
   prayerStatus: Record<string, PrayerStatus>;
   prayerNotes: Record<string, string | undefined>;
   /** Per-prayer congregation flag for the active day (NF-1.5). */
   prayerJama: Record<string, boolean>;
+  /** Per-prayer "prayed at the masjid" flag for the active day (NF-3.11). */
+  prayerAtMasjid: Record<string, boolean>;
+  /** Per-prayer jam' (combined) flag for the active day (NF-3.0a); absent = not combined. */
+  prayerCombined: Record<string, PrayerCombined>;
+  /** Rak'at logged on the active day's rawatib rows (NF-3.1); absent = the preset default. */
+  prayerRakahs: Record<string, number>;
   /** The active day's excused reason (hayd / sick / travel), or null (NF-1.2/1.4). */
   excusedReason: ExcusedReason | null;
   zikrCounts: Record<string, number>;
@@ -116,6 +151,33 @@ export interface TrackerState {
   setPrayerNotesOnDate: (date: string, prayerId: PrayerId, notes: string) => Promise<void>;
   setPrayerJama: (prayerId: PrayerId, isJama: boolean) => Promise<void>;
   setPrayerJamaOnDate: (date: string, prayerId: PrayerId, isJama: boolean) => Promise<void>;
+  /** NF-3.11: logs / clears "prayed at the masjid" (with the masjid OSM ref) without touching the status. */
+  setPrayerAtMasjidOnDate: (
+    date: string,
+    prayerId: PrayerId,
+    masjidId: string | null,
+  ) => Promise<void>;
+  /** Log / clear a sunnah rawatib row today (NF-3.1) — never touches qaza or the streak. */
+  setRawatib: (
+    prayerId: RawatibId,
+    completed: boolean,
+    options?: RawatibLogOptions,
+  ) => Promise<void>;
+  setRawatibOnDate: (
+    date: string,
+    prayerId: RawatibId,
+    completed: boolean,
+    options?: RawatibLogOptions,
+  ) => Promise<void>;
+  /**
+   * Sets (or clears with `null`) the jam' flag on `prayerId` AND its pair
+   * partner (Dhuhr↔Asr, Maghrib↔Isha). No-op for prayers that can't be combined.
+   */
+  setPrayerCombinedOnDate: (
+    date: string,
+    prayerId: PrayerId,
+    mode: PrayerCombineMode | null,
+  ) => Promise<void>;
   setDayExcused: (reason: ExcusedReason | null) => Promise<void>;
   setDayExcusedOnDate: (date: string, reason: ExcusedReason | null) => Promise<void>;
   setZikrCount: (
@@ -131,6 +193,10 @@ export interface TrackerState {
     target: number,
     options?: ZikrProgressOptions,
   ) => Promise<void>;
+  /** Log many zikr counts for today at once (e.g. "Mark all as done"). */
+  setZikrCounts: (entries: ReadonlyArray<ZikrCountWrite>) => Promise<void>;
+  /** Batch write for any date (e.g. last night's Isha adhkar logged after midnight). */
+  setZikrCountsOnDate: (date: string, entries: ReadonlyArray<ZikrCountWrite>) => Promise<void>;
   incrementZikr: (
     zikrId: string,
     target: number,
@@ -138,6 +204,11 @@ export interface TrackerState {
     options?: ZikrProgressOptions,
   ) => Promise<void>;
   adjustQaza: (prayerId: QazaPrayer, remaining: number, completed: number) => Promise<void>;
+  /**
+   * Reverses one day's logged make-up for a Salah (history removal): reads the counter and
+   * credits back at most what it still holds as completed, inside the mutation queue.
+   */
+  removeQazaProgress: (prayerId: QazaPrayer, date: string, count: number) => Promise<void>;
   /** Atomically set remaining/completed for many prayers (calculator apply). */
   setQazaCounters: (
     updates: Partial<Record<QazaPrayer, { remaining: number; completed: number }>>,
@@ -176,14 +247,27 @@ function patchQazaCounters(
   });
 }
 
+/**
+ * Starting or ending an excused period pauses / re-arms nudges right away
+ * (D31 / rule 5) — not at the next foreground, and also when no UI is mounted
+ * (a repository-only write before preferences load).
+ */
+function rescheduleRemindersForExcusedChange(): void {
+  requestReminderReschedule();
+}
+
 /** Persist the ongoing excused period and keep the preferences store / sync in sync. */
 async function syncActiveExcusedReason(reason: ExcusedReason | null): Promise<void> {
   if (preferencesStore.getState().isReady) {
+    const previous = preferencesStore.getState().prefs.activeExcusedReason ?? null;
     await preferencesStore.getState().update({ activeExcusedReason: reason });
+    if (previous !== reason) rescheduleRemindersForExcusedChange();
     return;
   }
+  const previous = (await PreferencesRepository.get()).activeExcusedReason ?? null;
   await PreferencesRepository.update({ activeExcusedReason: reason });
   markPreferencesDirty();
+  if (previous !== reason) rescheduleRemindersForExcusedChange();
 }
 
 /**
@@ -229,26 +313,53 @@ async function ensureContinuingExcusedPeriod(
   }
 }
 
+/** Last recitation stats read, kept when a later read fails (no Noor / badge flapping). */
+let lastRecitation: RecitationStats | null = null;
+
+/**
+ * D71: Qur'an practice totals for the Recitation track. Loaded with `import()`
+ * so the practice reading-credit rules stay out of the home / tracker bundles.
+ * `null` on TV (no practice) — the track is then left out, not shown empty.
+ */
+async function loadRecitation(): Promise<RecitationStats | null> {
+  try {
+    const { loadRecitationStats } = await import("@/lib/achievements-recitation");
+    lastRecitation = await loadRecitationStats();
+  } catch (error) {
+    if (__DEV__) console.warn("Failed to load recitation stats", error);
+  }
+  return lastRecitation;
+}
+
 async function recompute(date: string): Promise<Partial<TrackerState>> {
-  const [allLogs, todayZikr, allZikr, counters, roza, schedule, dailyProgress] = await Promise.all([
-    PrayerRepository.getAll(),
-    ZikrRepository.getByDate(date),
-    ZikrRepository.getAll(),
-    QazaRepository.getCounters(),
-    QazaRepository.getRoza(),
-    QazaRepository.getSchedule(),
-    QazaRepository.getDailyProgress(date),
-  ]);
+  const [allLogs, todayZikr, allZikr, counters, roza, schedule, dailyProgress, recitation] =
+    await Promise.all([
+      PrayerRepository.getAll(),
+      ZikrRepository.getByDate(date),
+      ZikrRepository.getAll(),
+      QazaRepository.getCounters(),
+      QazaRepository.getRoza(),
+      QazaRepository.getSchedule(),
+      QazaRepository.getDailyProgress(date),
+      loadRecitation(),
+    ]);
 
   const prayerStatus: Record<string, PrayerStatus> = {};
   const prayerNotes: Record<string, string | undefined> = {};
   const prayerJama: Record<string, boolean> = {};
+  const prayerAtMasjid: Record<string, boolean> = {};
+  const prayerRakahs: Record<string, number> = {};
+  const prayerCombined: Record<string, PrayerCombined> = {};
   let excusedReason: ExcusedReason | null = null;
   for (const log of allLogs) {
     if (log.date !== date) continue;
     prayerStatus[log.prayerId] = log.status;
     if (log.notes) prayerNotes[log.prayerId] = log.notes;
     if (log.isJama) prayerJama[log.prayerId] = true;
+    if (log.atMasjid) prayerAtMasjid[log.prayerId] = true;
+    if (typeof log.rakahs === "number") prayerRakahs[log.prayerId] = log.rakahs;
+    const combined = combinedFromLog(log);
+    if (combined) prayerCombined[log.prayerId] = combined;
     if (log.isExcused) excusedReason = log.excusedReason ?? "sick";
   }
 
@@ -279,17 +390,22 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   const rozaDebt = summarizeRozaDebt(roza);
   const achievementStats: AchievementStats = {
     streak: streakDays,
+    bestStreak: Math.max(longestStreak(allLogs, true), streakDays),
     prayersCompleted,
     qazaDebt,
     rozaDebt,
     zikrCompleted: allZikr.filter((z) => z.completed).length,
     perfectDays,
+    recitation,
   };
 
   return {
     prayerStatus,
     prayerNotes,
     prayerJama,
+    prayerAtMasjid,
+    prayerRakahs,
+    prayerCombined,
     excusedReason,
     zikrCounts,
     qazaCounters: counters,
@@ -327,9 +443,13 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
   return {
     date: today,
     isReady: false,
+    loadError: null,
     prayerStatus: {},
     prayerNotes: {},
     prayerJama: {},
+    prayerAtMasjid: {},
+    prayerRakahs: {},
+    prayerCombined: {},
     excusedReason: null,
     zikrCounts: {},
     qazaCounters: [],
@@ -342,14 +462,20 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     devotionProgress: computeDevotionProgress(emptyStats()),
 
     async load() {
-      return enqueue(async () => {
-        await initDatabase();
-        const date = getLocalDateString();
-        await ensureContinuingExcusedPeriod(date);
-        const next = await recompute(date);
-        set({ ...next, date, isReady: true });
-        await persistAchievementSync(next.achievementStats ?? emptyStats());
-      });
+      set({ loadError: null });
+      try {
+        await enqueue(async () => {
+          await initDatabase();
+          const date = getLocalDateString();
+          await ensureContinuingExcusedPeriod(date);
+          const next = await recompute(date);
+          set({ ...next, date, isReady: true, loadError: null });
+          await persistAchievementSync(next.achievementStats ?? emptyStats());
+        });
+      } catch (error) {
+        // isReady stays false; screens show a RetryCard that calls load() again.
+        set({ loadError: error ?? new Error("tracker load failed") });
+      }
     },
 
     async refresh() {
@@ -399,12 +525,59 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       return get().setPrayerJamaOnDate(get().date, prayerId, isJama);
     },
 
+    setRawatib(prayerId, completed, options) {
+      return get().setRawatibOnDate(get().date, prayerId, completed, options);
+    },
+
+    setRawatibOnDate(date, prayerId, completed, options) {
+      return enqueue(async () => {
+        if (date === get().date) {
+          const { prayerStatus, prayerRakahs } = get();
+          set({
+            prayerStatus: { ...prayerStatus, [prayerId]: completed ? "completed" : "pending" },
+            ...(options?.rakahs != null && {
+              prayerRakahs: { ...prayerRakahs, [prayerId]: options.rakahs },
+            }),
+          });
+        }
+        await PrayerRepository.setRawatib(prayerId, date, completed, options);
+        await refreshUnlocked();
+      });
+    },
+
     setPrayerJamaOnDate(date, prayerId, isJama) {
       return enqueue(async () => {
         if (date === get().date) {
           set({ prayerJama: { ...get().prayerJama, [prayerId]: isJama } });
         }
         await PrayerRepository.setFlags(prayerId, date, { isJama });
+        await refreshUnlocked();
+      });
+    },
+
+    setPrayerAtMasjidOnDate(date, prayerId, masjidId) {
+      return enqueue(async () => {
+        if (date === get().date) {
+          set({ prayerAtMasjid: { ...get().prayerAtMasjid, [prayerId]: masjidId != null } });
+        }
+        await PrayerRepository.setFlags(prayerId, date, {
+          masjid: masjidId != null ? { masjidId } : null,
+        });
+        await refreshUnlocked();
+      });
+    },
+
+    setPrayerCombinedOnDate(date, prayerId, mode) {
+      return enqueue(async () => {
+        const partner = combinePartner(prayerId);
+        if (partner == null) return;
+        const self = prayerId as ObligatoryPrayer;
+        await PrayerRepository.setFlags(self, date, {
+          combined: mode ? { with: partner, mode } : null,
+        });
+        await PrayerRepository.setFlags(partner, date, {
+          combined: mode ? { with: self, mode } : null,
+        });
         await refreshUnlocked();
       });
     },
@@ -447,6 +620,27 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           set({ zikrCounts: { ...get().zikrCounts, [key]: Math.max(0, count) } });
         }
         await ZikrRepository.setCount(zikrId, date, count, target, options?.prayerId);
+        markTrackingChanged();
+        await refreshUnlocked();
+      });
+    },
+
+    setZikrCounts(entries) {
+      return get().setZikrCountsOnDate(get().date, entries);
+    },
+
+    setZikrCountsOnDate(date, entries) {
+      return enqueue(async () => {
+        if (entries.length === 0) return;
+        if (date === get().date) {
+          const next = { ...get().zikrCounts };
+          for (const entry of entries) {
+            next[zikrCountKey(entry.zikrId, entry.prayerId)] = Math.max(0, entry.count);
+          }
+          set({ zikrCounts: next });
+        }
+        await ZikrRepository.setCounts(date, entries);
+        markTrackingChanged();
         await refreshUnlocked();
       });
     },
@@ -458,6 +652,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
         const next = Math.max(0, (zikrCounts[key] ?? 0) + by);
         set({ zikrCounts: { ...zikrCounts, [key]: next } });
         await ZikrRepository.increment(zikrId, date, target, by, options?.prayerId);
+        markTrackingChanged();
         await refreshUnlocked();
       });
     },
@@ -471,6 +666,21 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
           }),
         });
         await QazaRepository.setCounter(prayerId, remaining, completed);
+        await refreshUnlocked();
+      });
+    },
+
+    removeQazaProgress(prayerId, date, count) {
+      return enqueue(async () => {
+        if (count <= 0) return;
+        const counter = await QazaRepository.getCounter(prayerId);
+        const credit = Math.min(count, counter.completed);
+        await QazaRepository.setCounter(
+          prayerId,
+          counter.remaining + credit,
+          counter.completed - credit,
+        );
+        await QazaRepository.decrementDailyProgress(prayerId, date, count);
         await refreshUnlocked();
       });
     },
@@ -567,8 +777,18 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
 });
 
 /** Selector hooks. */
+/** The tracker's current calendar day (YYYY-MM-DD). */
+export function useTrackerDate(): string {
+  return useStore(trackerStore, (s) => s.date);
+}
+
 export function useTrackerReady(): boolean {
   return useStore(trackerStore, (s) => s.isReady);
+}
+
+/** The error from the last failed `load()` (null while loading / ready). */
+export function useTrackerLoadError(): unknown | null {
+  return useStore(trackerStore, (s) => s.loadError);
 }
 
 export function useDailySummary(): DailySummary {
@@ -644,6 +864,21 @@ export function usePrayerJamaMap(): Record<string, boolean> {
   return useStore(trackerStore, (s) => s.prayerJama);
 }
 
+/** Today's "prayed at the masjid" flags keyed by prayer id (NF-3.11). */
+export function usePrayerAtMasjidMap(): Record<string, boolean> {
+  return useStore(trackerStore, (s) => s.prayerAtMasjid);
+}
+
+/** Today's jam' (combined) flags keyed by prayer id (NF-3.0a). */
+export function usePrayerCombinedMap(): Record<string, PrayerCombined> {
+  return useStore(trackerStore, (s) => s.prayerCombined);
+}
+
+/** Today's logged rawatib rak'at keyed by prayer id (NF-3.1). */
+export function usePrayerRakahsMap(): Record<string, number> {
+  return useStore(trackerStore, (s) => s.prayerRakahs);
+}
+
 export function useDayExcused(): ExcusedReason | null {
   return useStore(trackerStore, (s) => s.excusedReason);
 }
@@ -660,14 +895,28 @@ const trackerActions = {
     trackerStore.getState().setPrayerNotes(...args),
   setPrayerJama: (...args: Parameters<TrackerState["setPrayerJama"]>) =>
     trackerStore.getState().setPrayerJama(...args),
+  setRawatib: (...args: Parameters<TrackerState["setRawatib"]>) =>
+    trackerStore.getState().setRawatib(...args),
+  setRawatibOnDate: (...args: Parameters<TrackerState["setRawatibOnDate"]>) =>
+    trackerStore.getState().setRawatibOnDate(...args),
+  setPrayerCombinedOnDate: (...args: Parameters<TrackerState["setPrayerCombinedOnDate"]>) =>
+    trackerStore.getState().setPrayerCombinedOnDate(...args),
+  setPrayerAtMasjidOnDate: (...args: Parameters<TrackerState["setPrayerAtMasjidOnDate"]>) =>
+    trackerStore.getState().setPrayerAtMasjidOnDate(...args),
   setDayExcused: (...args: Parameters<TrackerState["setDayExcused"]>) =>
     trackerStore.getState().setDayExcused(...args),
   setZikrCount: (...args: Parameters<TrackerState["setZikrCount"]>) =>
     trackerStore.getState().setZikrCount(...args),
+  setZikrCounts: (...args: Parameters<TrackerState["setZikrCounts"]>) =>
+    trackerStore.getState().setZikrCounts(...args),
+  setZikrCountsOnDate: (...args: Parameters<TrackerState["setZikrCountsOnDate"]>) =>
+    trackerStore.getState().setZikrCountsOnDate(...args),
   incrementZikr: (...args: Parameters<TrackerState["incrementZikr"]>) =>
     trackerStore.getState().incrementZikr(...args),
   adjustQaza: (...args: Parameters<TrackerState["adjustQaza"]>) =>
     trackerStore.getState().adjustQaza(...args),
+  removeQazaProgress: (...args: Parameters<TrackerState["removeQazaProgress"]>) =>
+    trackerStore.getState().removeQazaProgress(...args),
   setQazaCounters: (...args: Parameters<TrackerState["setQazaCounters"]>) =>
     trackerStore.getState().setQazaCounters(...args),
   performQaza: (...args: Parameters<TrackerState["performQaza"]>) =>

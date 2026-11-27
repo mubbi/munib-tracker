@@ -1,6 +1,19 @@
-import { forwardRef, type ReactNode, useCallback, useMemo } from "react";
 import {
+  createContext,
+  type ForwardedRef,
+  forwardRef,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  type AccessibilityState,
   type GestureResponderEvent,
+  type MouseEvent,
   Platform,
   Pressable,
   type PressableAndroidRippleConfig,
@@ -12,18 +25,42 @@ import {
   type ViewStyle,
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
-
+import { forgetTvFocus, noteTvFocus, type TvFocusHandle } from "@/components/ui/tv-focus-memory";
+import { inAppLinkPress } from "@/components/web/web-link-press";
 import { Springs } from "@/constants/motion";
-import { Radius, withAlpha } from "@/constants/theme";
+import { Opacity, Radius, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
 
-/** Gentle enlarge when a TV remote focuses a primary control. */
-const TV_FOCUS_SCALE = 1.04;
+/**
+ * TV focus enlarge. Android TV buttons grow ~1.1× on focus; a fixed factor
+ * either under-sells small tiles or pushes wide rows past their gutters, so the
+ * default adapts to the control's width: at most {@link TV_FOCUS_MAX_SCALE},
+ * and never more than {@link TV_FOCUS_MAX_GROW} of total extra width (half per
+ * side — inside the 20dp grid gutter). Callers can still pin `tvFocusScale`.
+ */
+const TV_FOCUS_MAX_SCALE = 1.08;
+const TV_FOCUS_MAX_GROW = tvDp(20);
+/** Before the first layout pass (width unknown). */
+const TV_FOCUS_FALLBACK_SCALE = 1.04;
+
+/**
+ * True below a `PressableScale` that renders as a `<button>` on web. A nested
+ * pressable must not also default to `role="button"`: react-native-web would
+ * emit `<button>` inside `<button>` (invalid HTML, swallowed clicks).
+ */
+const InsideWebButtonContext = createContext(false);
+
+/** Adaptive TV focus scale for a control `width` layout units wide. */
+export function tvAdaptiveFocusScale(width: number): number {
+  "worklet";
+  if (!(width > 0)) return TV_FOCUS_FALLBACK_SCALE;
+  return 1 + Math.min(TV_FOCUS_MAX_SCALE - 1, TV_FOCUS_MAX_GROW / width);
+}
 
 /**
  * Flex/content layout for the inner animated wrapper (icon + text stacks, gaps).
@@ -203,10 +240,19 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
   /** Target scale while pressed. Lower = more pronounced. */
   scaleTo?: number;
   /**
-   * TV: scale while D-pad focused (default 1.04). Pass `1` for reading blocks /
-   * wide prose so text does not shift under the focus ring.
+   * TV: scale while D-pad focused. Defaults to a width-adaptive value (~1.08 on
+   * tiles and buttons, smaller on full-width rows). Pass `1` for reading blocks
+   * / wide prose so text does not shift under the focus ring.
    */
   tvFocusScale?: number;
+  /** Alias of {@link tvFocusScale} (design-system name); `tvFocusScale` wins if both are set. */
+  focusScale?: number;
+  /**
+   * Dim to `Opacity.disabled` while `disabled` (default `true`). An explicit
+   * `opacity` in `style` always wins, so callers that manage their own dimming
+   * are never double-dimmed.
+   */
+  dimWhenDisabled?: boolean;
   /** Fade slightly on press in addition to scaling. */
   dimOnPress?: boolean;
   /** Haptic fired on press-in. Pass `false` (default) for silent surfaces. */
@@ -227,8 +273,56 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
    * Defaults to `Radius.md` so unstyled rows/chips still match rounded surfaces.
    */
   rippleRadius?: number;
+  /**
+   * Web only: the in-app route this control opens (e.g. `/quran/1`). Renders a
+   * real `<a href>` with `role="link"` so search engines can crawl the link and
+   * Ctrl/Cmd/middle-click opens a new tab; a plain click still runs `onPress`
+   * (client-side navigation, default prevented). Ignored on native / TV, and
+   * dropped inside another web button/link (nested interactive HTML is invalid).
+   */
+  href?: string;
   style?: StyleProp<ViewStyle>;
 };
+
+/** Writes `node` to a forwarded ref (callback or object). */
+function assignRef<T>(ref: ForwardedRef<T>, node: T | null): void {
+  if (typeof ref === "function") ref(node);
+  else if (ref) ref.current = node;
+}
+
+/**
+ * TV: reports this control's focus to `tv-focus-memory` so a `Sheet` opened
+ * from it can hand focus back on close. Returns the host ref callback.
+ */
+function useTvFocusMemory(tv: boolean, forwarded: ForwardedRef<ViewInstance>) {
+  const host = useRef<ViewInstance | null>(null);
+  const mounted = useRef(true);
+  const handle = useMemo<TvFocusHandle>(
+    () => ({
+      focus: () => (host.current as { focus?: () => void } | null)?.focus?.(),
+      isMounted: () => mounted.current && host.current != null,
+    }),
+    [],
+  );
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      forgetTvFocus(handle);
+    };
+  }, [handle]);
+  const setRef = useCallback(
+    (node: ViewInstance | null) => {
+      host.current = node;
+      assignRef(forwarded, node);
+    },
+    [forwarded],
+  );
+  const onFocused = useCallback(() => {
+    if (tv) noteTvFocus(handle);
+  }, [tv, handle]);
+  return { setRef, onFocused };
+}
 
 /**
  * The app's universal touchable. Springs to `scaleTo` on press-in and settles
@@ -242,12 +336,25 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
  * `overflow: "hidden"` on the Pressable only clips *children*, not the ripple
  * drawn as background/foreground — so we wrap bounded ripples in a rounded
  * clip View (borderRadius + overflow hidden) that clips the whole Pressable.
+ *
+ * Interaction-state contract (docs/design-system.md § Interaction states):
+ * - **Role**: defaults to `accessibilityRole="button"` when `onPress` /
+ *   `onLongPress` is set and the caller passed no `role` / `accessibilityRole`
+ *   (except directly inside another web `<button>`).
+ * - **Disabled**: dims to `Opacity.disabled` and merges
+ *   `accessibilityState.disabled`; no hover, ripple, haptic or press.
+ * - **Focus**: never blurs on press — web focus stays on the control after an
+ *   in-place action. Route changes release focus in `WebNavigationFocusManager`.
+ *   TV draws a `tokens.focusRing` border grown outward + an adaptive scale.
+ * - **Hover**: web and native pointer devices (iPad trackpad, Android mouse).
  */
 export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(function PressableScale(
   {
     children,
     scaleTo = 0.96,
-    tvFocusScale = TV_FOCUS_SCALE,
+    tvFocusScale: tvFocusScaleProp,
+    focusScale,
+    dimWhenDisabled = true,
     dimOnPress = false,
     haptic = false,
     ripple = true,
@@ -261,16 +368,63 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
     onPress,
     onFocus,
     onBlur,
+    onLayout,
+    onHoverIn,
+    onHoverOut,
     disabled,
+    accessibilityState,
+    accessibilityRole,
+    role,
+    href,
     ...rest
   },
   ref,
 ) {
-  const { tokens, colors } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const pressed = useSharedValue(0);
   const focused = useSharedValue(0);
+  const layoutWidth = useSharedValue(0);
   const reducedMotion = useHydrationSafeReducedMotion();
   const tv = isTV();
+  const web = Platform.OS === "web";
+  const insideWebButton = useContext(InsideWebButtonContext);
+  // Native pointer hover (iPad trackpad, Android mouse). Web reads `hovered`
+  // from react-native-web's Pressable state instead.
+  const [nativeHovered, setNativeHovered] = useState(false);
+  const tvFocusScale = tvFocusScaleProp ?? focusScale;
+  const tvFocusMemory = useTvFocusMemory(tv, ref);
+
+  const interactive = Boolean(onPress || rest.onLongPress);
+  // Web anchor: `href` turns the host into `<a href>` (react-native-web emits an
+  // anchor for any View with `href`) — never inside another button/link.
+  const webHref = web && !tv && href && !insideWebButton && !disabled ? href : undefined;
+  const explicitRole = accessibilityRole != null || role != null;
+  const resolvedRole = webHref
+    ? ("link" as const)
+    : (accessibilityRole ??
+      (!explicitRole && interactive && !(web && insideWebButton)
+        ? ("button" as const)
+        : undefined));
+  const resolvedWebRole = webHref ? ("link" as const) : role;
+  const rendersWebButton =
+    web && (Boolean(webHref) || resolvedRole === "button" || role === "button");
+  // Plain click → caller's onPress (in-app navigation) with the browser's full
+  // page load prevented; modified clicks fall through to the browser.
+  const handlePress = useMemo(() => {
+    if (!webHref || !onPress) return onPress;
+    return (event: GestureResponderEvent) => {
+      inAppLinkPress(() => onPress(event))(event);
+    };
+  }, [webHref, onPress]);
+
+  // Disabled always wins. An explicit `disabled={false}` still reports
+  // `disabled: false` (as RN's Pressable did) unless the caller set the state
+  // itself — e.g. a TV bound that stays focusable but reports disabled.
+  const mergedAccessibilityState: AccessibilityState | undefined = disabled
+    ? { ...accessibilityState, disabled: true }
+    : disabled === false && accessibilityState?.disabled == null
+      ? { ...accessibilityState, disabled: false }
+      : accessibilityState;
 
   const flatStyle = StyleSheet.flatten(style) as ViewStyle | undefined;
   const { hostStyle, innerStyle } = splitRippleHostStyles(flatStyle);
@@ -308,20 +462,15 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
     };
   }, [tv, android_ripple, ripple, rippleColor, rippleBorderless, tokens.ripple]);
 
-  const handlePress = useCallback(
-    (event: GestureResponderEvent) => {
-      // Release focus before the outgoing screen is aria-hidden on web.
-      if (Platform.OS === "web") blurActiveElement();
-      onPress?.(event);
-    },
-    [onPress],
-  );
+  // No blur here (E-01 / F-41): blurring on every press threw keyboard focus
+  // to <body> after in-place actions (toggles, steppers, sheets). Focus is
+  // released only when the focused route changes — see WebNavigationFocusManager.
 
   const animatedStyle = useAnimatedStyle(() => {
     const nextScale = pressed.value
       ? scaleTo
       : tv && !reducedMotion && focused.value
-        ? tvFocusScale
+        ? (tvFocusScale ?? tvAdaptiveFocusScale(layoutWidth.value))
         : 1;
     return {
       transform: [{ scale: withSpring(nextScale, Springs.press) }],
@@ -339,6 +488,16 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
   const handlePressOut = (event: GestureResponderEvent) => {
     pressed.value = 0;
     onPressOut?.(event);
+  };
+
+  const handleHoverIn = (event: MouseEvent) => {
+    if (!web && !tv) setNativeHovered(true);
+    onHoverIn?.(event);
+  };
+
+  const handleHoverOut = (event: MouseEvent) => {
+    if (!web && !tv) setNativeHovered(false);
+    onHoverOut?.(event);
   };
 
   const useClipWrapper = boundedRipple && clipRadius != null;
@@ -381,22 +540,46 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
   const hasPaintedBackground =
     hostStyle.backgroundColor != null && hostStyle.backgroundColor !== "transparent";
 
+  const disabledDim: ViewStyle | null =
+    disabled && dimWhenDisabled && flatStyle?.opacity == null
+      ? { opacity: Opacity.disabled }
+      : null;
+
   const pressable = (
     <Pressable
-      ref={ref}
-      disabled={disabled}
+      ref={tvFocusMemory.setRef}
+      // `undefined` when enabled: RN's Pressable writes `disabled` over
+      // `accessibilityState.disabled`, which would erase a caller's soft-disabled
+      // state (TV bounds stay focusable but report disabled).
+      disabled={disabled ? true : undefined}
+      accessibilityRole={resolvedRole}
+      role={resolvedWebRole}
+      accessibilityState={mergedAccessibilityState}
       android_ripple={androidRipple}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={handlePress}
+      onHoverIn={handleHoverIn}
+      onHoverOut={handleHoverOut}
       onFocus={(event) => {
-        if (tv) focused.value = 1;
+        if (tv) {
+          focused.value = 1;
+          tvFocusMemory.onFocused();
+        }
         onFocus?.(event);
       }}
       onBlur={(event) => {
         if (tv) focused.value = 0;
         onBlur?.(event);
       }}
+      onLayout={
+        tv
+          ? (event) => {
+              layoutWidth.value = event.nativeEvent.layout.width;
+              onLayout?.(event);
+            }
+          : onLayout
+      }
       style={(state) => {
         const isFocused = Boolean((state as { focused?: boolean }).focused);
         // Grow the ring outward (negative margin) so labels/footers keep their
@@ -406,31 +589,48 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
           tv && isFocused
             ? {
                 borderWidth: TvLayout.focusRingWidth,
-                borderColor: colors.accent,
+                // Contrast-checked ring (≥ 3:1 on every surface), not the raw
+                // accent — amber / lime failed on the light page (E-04).
+                borderColor: tokens.focusRing,
                 borderRadius:
                   typeof flatStyle?.borderRadius === "number" ? flatStyle.borderRadius : Radius.md,
                 margin: ringDelta > 0 ? -ringDelta : undefined,
                 zIndex: 1,
+                // Soft glow lifts the focused surface off its neighbours; the
+                // ring alone reads weakly from the couch, especially on light
+                // theme and busy cards (Fire TV 2.11 / tvOS focus).
+                boxShadow: `0px ${tvDp(4)}px ${tvDp(18)}px ${withAlpha(
+                  tokens.focusRing,
+                  tokens.isDark ? 0.5 : 0.35,
+                )}`,
               }
             : null;
-        // Desktop web: pointer cursor + a subtle hover tint so cards/rows read
-        // as interactive under a mouse (touch platforms never report hovered).
-        const hovered = Boolean((state as { hovered?: boolean }).hovered);
+        // Pointer devices: a subtle hover tint so cards/rows read as interactive
+        // under a mouse or trackpad (touch never reports hover). Web reads RNW's
+        // `hovered` state; iPad / Android pointers come through onHoverIn/Out.
+        const hovered = web
+          ? Boolean((state as { hovered?: boolean }).hovered)
+          : !tv && nativeHovered;
         const webPointer: ViewStyle | null =
-          Platform.OS === "web" && !disabled && (onPress || rest.onLongPress)
-            ? ({ cursor: "pointer" } as ViewStyle)
-            : null;
-        const webHover: ViewStyle | null =
-          Platform.OS === "web" && hovered && !disabled && onPress
+          web && !disabled && interactive ? ({ cursor: "pointer" } as ViewStyle) : null;
+        const hover: ViewStyle | null =
+          hovered && !disabled && onPress
             ? hasPaintedBackground
               ? ({ filter: tokens.isDark ? "brightness(1.1)" : "brightness(0.97)" } as ViewStyle)
-              : { backgroundColor: withAlpha(colors.foreground, tokens.isDark ? 0.06 : 0.04) }
+              : { backgroundColor: tokens.hover }
             : null;
-        return StyleSheet.flatten([pressableStyle, webPointer, webHover, focusRing]);
+        return StyleSheet.flatten([pressableStyle, webPointer, hover, disabledDim, focusRing]);
       }}
       {...rest}
+      // RN Web renders a Pressable with `href` as `<a href>` (not in RN's types).
+      {...(webHref ? ({ href: webHref } as object) : null)}
     >
-      <Animated.View style={[styles.inner, innerStyle, animatedStyle]}>{children}</Animated.View>
+      <Animated.View style={[styles.inner, innerStyle, animatedStyle]}>
+        {/* Always mounted (stable tree): only the value flips with the role. */}
+        <InsideWebButtonContext.Provider value={insideWebButton || rendersWebButton}>
+          {children}
+        </InsideWebButtonContext.Provider>
+      </Animated.View>
     </Pressable>
   );
 

@@ -9,539 +9,298 @@ import type { DeepPartial } from "./localize";
 export const AQEDAH_TOPICS_MS: DeepPartial<AqeedahTopic>[] = [
   {
     title: "Pengenalan",
-    summary: "Aqidah merupakan landasan keimanan yang membentuk ibadat, akhlak, dan matlamat.",
+    summary: "Akidah ialah asas keimanan yang membentuk ibadah, akhlak dan tujuan hidup.",
     body: [
-      "Kata aqidah (عقيدة) berasal dari kata dasar yang berarti mengikat atau mengikat dengan kuat — iaitu seperangkat keyakinan yang dianut seorang Muslim dengan keyakinan sedemikian rupa sehingga hati terikat padanya, tidak terganggu oleh keraguan. Dalam Hadis Jibril yang terkenal, Nabi ﷺ merangkumnya menjadi enam keyakinan: kepada Allah, malaikat-malaikat-Nya, kitab-kitab-Nya, rasul-rasul-Nya, Hari Akhirat, dan ketetapan Tuhan (qadr), baik dan pahitnya.",
-      "Bagi Ahl al-Sunnah wa'l-Jama'ah – kumpulan utama Muslim Sunni – akidah pertama-tama diambil dari Al-Quran, kemudian Sunnah sahih, yang dipahami menurut cara Sahabat Nabi dan generasi awal (salaf). Ketika akal digunakan, ia berfungsi sebagai wahyu dan bukannya menghapuskan wahyu.",
-      "Aqidah bukanlah sebuah topik seminar yang abstrak; itu adalah akar dari mana semua ibadat dan perwatakan tumbuh. Keyakinan seseorang tentang siapa Allah itu, mengapa mereka diciptakan, dan ke mana mereka pergi secara diam-diam menentukan bagaimana mereka solat, bagaimana mereka memperlakukan orang lain, dan bagaimana mereka menghadapi kesulitan dan kematian.",
-      "Keimanan yang benar menjaga keseimbangan hati antara ibadat yang agung – cinta dan kekaguman, harapan dan ketakutan, ketergantungan dan usaha, rasa syukur dan taubat – sehingga seorang mukmin tidak berputus asa dari rahmat Allah dan tidak merasa aman dari tanggungjawab-Nya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Kesalehan adalah beriman kepada Allah, hari akhir, para malaikat, kitab, dan para nabi…",
-      },
-      {
-        excerpt:
-          "Hai orang-orang yang beriman, berimanlah kepada Allah, Rasul-Nya, Kitab yang diturunkan-Nya kepada Rasul-Nya, dan Kitab Suci yang diturunkan-Nya sebelumnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iman adalah beriman kepada Allah, malaikat-malaikat-Nya, kitab-kitab-Nya, rasul-rasul-Nya, hari akhir, dan beriman kepada ketetapan Tuhan, baik dan pahitnya. (Hadis Jibril, riwayat 'Umar)",
-      },
+      "Perkataan akidah (عقيدة) berasal daripada kata akar yang bermaksud mengikat atau menyimpul dengan kukuh — iaitu himpunan kepercayaan yang dipegang oleh seorang Muslim dengan penuh yakin sehingga hatinya terikat padanya, tidak digugat oleh keraguan. Dalam Hadis Jibril yang masyhur, Nabi ﷺ merumuskannya sebagai enam kepercayaan: beriman kepada Allah, malaikat-malaikat-Nya, kitab-kitab-Nya, rasul-rasul-Nya, Hari Akhirat, dan takdir ilahi (qadar), yang baik dan yang pahit.",
+      "Bagi Ahli Sunnah Wal Jamaah — majoriti umat Islam Sunni — akidah diambil terlebih dahulu daripada Al-Quran, kemudian daripada Sunnah yang sahih, difahami mengikut cara para Sahabat Nabi dan generasi awal (salaf). Apabila akal digunakan, ia berkhidmat kepada wahyu, bukan mengatasinya.",
+      "Akidah bukan sekadar topik seminar yang abstrak; ia ialah akar tempat tumbuhnya segala ibadah dan akhlak. Kepercayaan seseorang tentang siapa Allah, mengapa dia diciptakan dan ke mana dia akan pergi secara diam-diam mengawal cara dia bersolat, cara dia melayan orang lain, serta cara dia menghadapi kesusahan dan kematian.",
+      "Akidah yang betul menjaga hati supaya seimbang antara keadaan-keadaan ibadah yang agung — cinta dan rasa gerun, harap dan takut, tawakal dan usaha, syukur dan taubat — sehingga seorang mukmin tidak berputus asa daripada rahmat Allah dan tidak pula berasa aman daripada perhitungan-Nya.",
     ],
     appLinks: [{ label: "Nama-nama Allah" }, { label: "Jalan ke Syurga" }],
   },
   {
-    title: "Apakah Itu Aqidah?",
-    summary: "Aqidah bukanlah kelas falsafah; itu adalah keyakinan hidup yang berakar pada wahyu.",
+    title: "Apakah Itu Akidah?",
+    summary:
+      "Akidah bukan kelas falsafah; ia ialah kepercayaan yang dihayati dan berakar pada wahyu.",
     body: [
-      "Aqidah adalah apa yang ditegaskan hati dengan pasti dan kemudian ditunjukkan dalam ibadat dan tingkah laku — bukan sekadar teori yang dihafal untuk diperdebatkan. Al-Quran menggambarkan orang-orang beriman yang teguh pendiriannya sebagai orang-orang yang mengucapkan wahyu, 'Kami mengimaninya; semua itu berasal dari Tuhan kami' (3:7): mereka tunduk pada apa yang jelas dan mempercayakan rincian yang gaib kepada Allah.",
-      "Para ulama awal menulis kitab-kitab syahadat yang ringkas (seperti al-'Aqidah al-Tahawiyya) dengan matlamat menjaga kejelasan ini - untuk melindungi orang-orang beriman dari dua bahaya: sikap berlebihan yang menambah nilai agama, dan pengingkaran yang menghilangkan apa yang ditegaskan Allah.",
-      "Dalam Ahl al-Sunnah terdapat mazhab-mazhab yang diakui — terutamanya pendekatan Athari, Asy'ari, dan Maturidi — yang sepenuhnya sepakat mengenai hakikat keimanan, namun berbeda dalam beberapa metode teknis dalam mengungkapkan hal-hal tertentu, terutamanya sifat-sifat ketuhanan. Landasan bersama mereka adalah satu dan kokoh: keesaan Allah yang mutlak, kebenaran wahyu-Nya, dan pertanggungjawaban nyata di akhirat.",
-      "Jadi aqidah paling baik dipelajari sebagai keyakinan yang hidup: setiap pokok keyakinan berhubungan dengan cara beribadat, cara bertingkah laku, dan sumber kenyamanan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan orang-orang yang berilmu berkata, 'Kami beriman padanya. Semua itu dari Tuhan kita.'",
-      },
+      "Akidah ialah apa yang diakui oleh hati dengan yakin, lalu terzahir dalam ibadah dan tingkah laku — bukan sekadar teori yang dihafal untuk berdebat. Al-Quran menggambarkan orang-orang beriman yang teguh ilmunya sebagai mereka yang berkata tentang wahyu: 'Kami beriman kepadanya, semuanya itu datangnya dari sisi Tuhan kami' (3:7): mereka tunduk kepada apa yang jelas dan menyerahkan perincian perkara ghaib kepada Allah.",
+      "Para ulama terdahulu menulis matan akidah yang ringkas (seperti al-'Aqidah al-Tahawiyyah) justeru untuk memelihara kejelasan ini — melindungi orang beriman biasa daripada dua bahaya: sikap melampau yang menambah-nambah dalam agama, dan penafian yang menghapuskan apa yang telah Allah tetapkan.",
+      "Dalam lingkungan Ahli Sunnah terdapat aliran-aliran teologi yang diiktiraf — terutamanya pendekatan Athari, Asya'irah dan Maturidiyah — yang sepakat sepenuhnya tentang asas-asas iman, walaupun berbeza dalam beberapa kaedah teknikal untuk menghuraikan perkara tertentu, khususnya sifat-sifat ketuhanan. Asas bersama mereka satu dan kukuh: keesaan Allah yang mutlak, kebenaran wahyu-Nya, dan pertanggungjawaban yang sebenar di akhirat.",
+      "Oleh itu, akidah paling baik dipelajari sebagai kepercayaan yang hidup: setiap perkara akidah berkait dengan suatu cara beribadah, suatu cara berakhlak, dan suatu sumber ketenangan.",
     ],
     actions: [
-      "Belajarlah aqidah dari para ulama dan kitab-kitab primer yang terpercaya, bukan dari perdebatan di media sosial.",
-      "Untuk setiap keyakinan yang anda pelajari, tanyakan: bagaimana hal ini mengubah cara saya beribadat dan hidup?",
+      "Pelajari akidah daripada ulama yang muktabar dan teks-teks asas, bukan daripada perdebatan di media sosial.",
+      "Bagi setiap kepercayaan yang anda pelajari, tanyalah: bagaimana ia mengubah cara saya beribadah dan menjalani hidup?",
     ],
   },
   {
-    title: "Mengapa Aqidah Penting",
-    summary:
-      "Keyakinan yang sehat memberikan mantapitas spiritual dan melindungi dari hal-hal ekstrem.",
+    title: "Mengapa Akidah Penting",
+    summary: "Akidah yang sahih memberi kestabilan rohani dan melindungi daripada sikap melampau.",
     body: [
-      "Bila keimanan sudah kuat dan mantap, maka perbuatan menjadi ikhlas dan mantap; Ketika iman goyah, ibadat cenderung tidak mantap, murni emosional, atau mudah terguncang oleh keinginan dan keraguan. Allah berjanji bahwa Dia 'meneguhkan orang-orang yang beriman dengan perkataan yang teguh' — di kehidupan ini dan di saat-saat mengerikan di kubur dan di akhirat.",
-      "Akidah yang benar jugalah yang membawa seorang mukmin menjalani seluruh kehidupan: mengajarkan ketaqwaan yang sabar terhadap ketetapan Allah di masa sulit, kerendahan hati bersyukur atas nikmat, dan ketenangan dalam kepastian dalam menghadapi ketidakpastian dan kematian. Orang yang benar-benar beriman kepada qadr dan akhirat tidak akan terpuruk ketika diuji.",
-      "Yang terakhir, aqidah yang sehat mengajarkan adab – tingkah laku yang baik – dalam perselisihan: berpegang teguh pada dasar-dasar yang jelas sambil menunjukkan rasa hormat dan menahan diri dalam hal-hal sekunder yang telah lama menjadi perbedaan pendapat para ulama yang tulus. Pengetahuan tentang akidah hendaknya meningkatkan kerendahan hati dan belas kasihan, bukan kesombongan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Allah meneguhkan orang-orang yang beriman dengan perkataan yang teguh dalam kehidupan dunia dan akhirat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bersemangatlah atas apa yang bermanfaat bagimu, mintalah pertolongan kepada Allah, dan janganlah kamu putus asa… (Abu Hurairah)",
-      },
+      "Apabila kepercayaan itu sahih dan mantap, amalan menjadi ikhlas dan istiqamah; apabila kepercayaan goyah, ibadah cenderung menjadi tidak stabil, sekadar mengikut emosi, atau mudah digoncang oleh hawa nafsu dan keraguan. Allah menjanjikan bahawa Dia 'menetapkan (pendirian) orang-orang yang beriman dengan kalimah yang tetap teguh' — dalam kehidupan ini dan pada detik-detik yang menggerunkan di alam kubur dan di akhirat.",
+      "Akidah yang betul jugalah yang membawa seorang mukmin melalui seluruh liku kehidupan: ia mengajar sikap sabar dan percaya kepada takdir Allah ketika susah, syukur yang rendah diri ketika menerima nikmat, dan keyakinan yang tenang ketika berdepan dengan ketidakpastian dan kematian. Seseorang yang benar-benar beriman kepada qadar dan akhirat tidak akan rebah apabila diuji.",
+      "Akhir sekali, akidah yang sahih mengajar adab — tingkah laku yang baik — dalam perselisihan: berpegang teguh pada asas-asas yang jelas sambil menunjukkan hormat dan menahan diri dalam perkara-perkara cabang yang telah lama diperselisihkan oleh ulama yang ikhlas. Ilmu akidah sepatutnya menambah rendah diri dan belas kasihan, bukan keangkuhan.",
     ],
   },
   {
     title: "Enam Rukun Iman",
-    summary: "Nabi ﷺ merangkum iman dalam enam keyakinan dasar.",
+    summary: "Nabi ﷺ merumuskan iman dalam enam kepercayaan asas.",
     body: [
-      "Keenam pasal tersebut berasal dari Hadis Jibril, salah satu hadits terpenting dalam Islam. Malaikat Jibril datang dalam wujud laki-laki dan bertanya kepada Nabi ﷺ di hadapan para Sahabat tentang Islam, iman, dan ihsan. Ketika dia bertanya tentang iman, Nabi ﷺ menjawab dengan enam keyakinan ini – dan Jibril membenarkannya, lalu berangkat, datang untuk mengajarkan agama mereka kepada orang-orang.",
-      "Keenamnya adalah: beriman kepada Allah; pada malaikat-Nya; dalam kitab-kitab wahyu-Nya; pada utusan-Nya; di Hari Akhirat; dan dalam ketetapan ilahi (qadr), itu baik dan pahit. Menolak salah satu dari keduanya berarti keluar dari iman yang sejati, kerana keduanya merupakan satu kesatuan.",
-      "Mereka juga saling berhubungan secara mendalam. Keimanan kepada kitab-kitab dan para rasul menuntun kepada ilmu tentang Hari Akhirat dan hisabnya; keimanan terhadap Hari Akhirat memberi bobot pada setiap amal; dan keimanan terhadap qadr mengajarkan keimanan kepada Allah dan kerendahan hati di hadapan hikmah-Nya. Mempelajarinya untuk membangun pandangan dunia yang jelas dan seimbang.",
+      "Enam rukun ini datang daripada Hadis Jibril, salah satu hadis terpenting dalam Islam. Malaikat Jibril datang dalam rupa seorang lelaki dan bertanya kepada Nabi ﷺ di hadapan para Sahabat tentang Islam, iman dan ihsan. Apabila dia bertanya tentang iman, Nabi ﷺ menjawab dengan enam kepercayaan ini — lalu Jibril membenarkan baginda, kemudian beredar; dia datang untuk mengajar manusia tentang agama mereka.",
+      "Enam rukun itu ialah: beriman kepada Allah; kepada malaikat-malaikat-Nya; kepada kitab-kitab yang diturunkan-Nya; kepada rasul-rasul-Nya; kepada Hari Akhirat; dan kepada takdir ilahi (qadar), yang baik dan yang pahit. Menolak salah satu daripadanya bererti terkeluar daripada iman yang sebenar, kerana semuanya merupakan satu jalinan.",
+      "Keenam-enamnya juga saling berkait rapat. Beriman kepada kitab dan rasul membawa kepada pengetahuan tentang Hari Akhirat dan hisab; beriman kepada Hari Akhirat memberi nilai kepada setiap amalan; dan beriman kepada qadar mengajar tawakal kepada Allah serta rendah diri di hadapan hikmah-Nya. Mempelajarinya mengikut susunan membina pandangan hidup yang jelas dan seimbang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Bahwa kamu beriman kepada Allah, malaikat-malaikat-Nya, kitab-kitab-Nya, rasul-rasul-Nya, hari akhir, dan beriman kepada ketetapan-ketetapan yang baik dan ada pahitnya. (Hadis Jibril)",
-      },
-    ],
-    appLinks: [{ label: "Glosari Aqidah" }],
+    appLinks: [{ label: "Glosari akidah" }],
   },
   {
-    title: "Keimanan kepada Allah",
+    title: "Beriman kepada Allah",
     summary:
-      "Keimanan kepada Allah mencakup ketuhanan-Nya, satu-satunya hak-Nya untuk beribadat, serta nama-nama dan sifat-sifat-Nya.",
+      "Beriman kepada Allah merangkumi ketuhanan-Nya, hak-Nya semata-mata untuk disembah, serta nama-nama dan sifat-sifat-Nya.",
     body: [
-      "Keimanan kepada Allah adalah keyakinan terbesar dan akar dari keyakinan lainnya. Hal ini dimulai dengan kepastian bahwa hanya Dialah Pencipta, Pemilik, dan Pemelihara segala sesuatu — satu-satunya Tuhan yang benar, yang tidak ada sekutunya, tidak ada tandingannya, dan tidak memerlukan ciptaan-Nya.",
-      "Oleh kerana itu, hanya Dia yang berhak disembah dalam segala bentuk: doa, permohonan, harapan, ketakutan, ketergantungan, cinta dalam arti tertinggi, pengorbanan, dan sumpah adalah semua hak Allah yang tidak boleh ditujukan kepada siapa pun selain Dia. Inilah makna kesaksian 'tidak ada Tuhan selain Allah'.",
-      "Ahl al-Sunnah meneguhkan nama-nama indah dan sifat-sifat luhur yang ditegaskan Allah untuk diri-Nya sendiri, dan yang ditegaskan Rasul-Nya ﷺ untuk-Nya, dengan cara yang sesuai dengan keagungan-Nya — tanpa menyamakan-Nya dengan ciptaan-Nya (tamthil) dan tanpa mengingkari atau mengosongkan sifat-sifat makna (ta'til)-Nya. Ayat panduannya adalah: 'Tidak ada sesuatu pun yang serupa dengan Dia, dan Dialah Yang Maha Mendengar lagi Maha Melihat' (42:11) — yang menyangkal kemiripan dan menegaskan pendengaran dan penglihatan-Nya.",
-      "Mengenal Allah dengan nama-nama-Nya – Yang Maha Penyayang, Yang Maha Mengetahui, Yang Maha Hidup, Raja yang Maha Pengampun – adalah makanan hati: semakin anda mengenal-Nya, semakin anda mencintai, takut, dan berpaling kepada-Nya.",
+      "Beriman kepada Allah ialah kepercayaan yang paling agung dan akar kepada kepercayaan yang lain. Ia bermula dengan keyakinan bahawa hanya Dia Pencipta, Pemilik dan Pemelihara segala sesuatu — satu-satunya Tuhan yang sebenar, tiada sekutu, tiada tandingan, dan tidak berhajat kepada mana-mana makhluk-Nya.",
+      "Oleh itu, hanya Dia yang berhak disembah dalam segala bentuk ibadah: solat, doa, harapan, takut, tawakal, cinta dalam ertinya yang tertinggi, korban dan nazar — semuanya hak Allah yang tidak boleh ditujukan kepada sesiapa selain-Nya. Inilah makna syahadah 'tiada tuhan melainkan Allah.'",
+      "Ahli Sunnah menetapkan nama-nama yang indah dan sifat-sifat yang mulia yang Allah tetapkan bagi diri-Nya, dan yang Rasul-Nya ﷺ tetapkan bagi-Nya, dengan cara yang layak dengan keagungan-Nya — tanpa menyerupakan-Nya dengan makhluk (tamthil) dan tanpa menafikan atau mengosongkan sifat-sifat-Nya daripada makna (ta'til). Ayat yang menjadi panduan ialah: 'Tiada sesuatupun yang sebanding dengan (ZatNya, sifat-sifatNya, dan pentadbiranNya) dan Dia lah Yang Maha Mendengar, lagi Maha Melihat' (42:11) — yang menafikan keserupaan di samping menetapkan sifat mendengar dan melihat bagi-Nya.",
+      "Mengenal Allah melalui nama-nama-Nya — Yang Maha Pengasih, Yang Maha Mengetahui, Yang Maha Hidup, Raja, Yang Maha Pengampun — ialah makanan bagi hati: semakin anda mengenal-Nya, semakin anda mencintai-Nya, takut kepada-Nya dan kembali kepada-Nya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Katakanlah: Dialah Allah, Yang Maha Esa… Dia tidak melahirkan dan tidak dilahirkan, dan tidak ada seorang pun yang sebanding dengan-Nya.",
-      },
-      {
-        excerpt:
-          "Dan kepunyaan Allah nama-nama yang paling indah, maka serulah kepada-Nya dengan nama-nama itu.",
-      },
-    ],
-    appLinks: [{ label: "Jelajahi Nama-nama Allah" }],
+    appLinks: [{ label: "Terokai Nama-nama Allah" }],
   },
   {
-    title: "Keimanan kepada Malaikat",
-    summary:
-      "Malaikat adalah hamba Allah yang mulia, hamba gaib yang tidak pernah mendurhakai-Nya.",
+    title: "Beriman kepada Malaikat",
+    summary: "Malaikat ialah hamba Allah yang mulia dan ghaib, yang tidak pernah menderhakai-Nya.",
     body: [
-      "Malaikat (mala'ikah) adalah makhluk luas yang terbuat dari cahaya. Mereka tidak punya kebebasan untuk membangkang: mereka beribadat kepada Allah terus-menerus dan melaksanakan setiap perintah-Nya dengan sempurna, 'tidak membangkang kepada Allah atas apa yang diperintahkan-Nya kepada mereka, dan mengerjakan apa yang diperintahkan kepada mereka.'",
-      "Memercayainya berarti memercayai bahwa dunia gaib itu nyata dan aktif di sekitar kita. Malaikat membawa wahyu, menjaga manusia, mencatat setiap perkataan dan perbuatan, mengambil ruh saat mati, dan mengatur urusan bumi dan langit dengan izin Allah — sehingga seorang mukmin tidak pernah benar-benar sendirian atau tidak diperhatikan.",
-      "Beberapa disebutkan dalam teks dengan peran khusus: Jibril, malaikat wahyu; Mika'il, dipercayakan hujan dan bekal; Israfil yang akan meniup Terompet; Malak al-Mawt, malaikat maut; dan para ahli kitab mulia (Kiraman Katibin) yang mencatat perbuatan setiap orang. Munkar dan Nakir mempertanyakan almarhum di kubur.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Di atasnya ada para malaikat, yang keras dan kejam, yang tidak mendurhakai Allah terhadap apa yang diperintahkan-Nya dan melakukan apa yang diperintahkan.",
-      },
-      {
-        excerpt:
-          "Katakanlah: barangsiapa yang memusuhi Jibril, maka dialah yang menjatuhkannya ke dalam hatimu dengan izin Allah.",
-      },
+      "Malaikat (mala'ikah) ialah makhluk yang sangat ramai, diciptakan daripada cahaya. Mereka tidak mempunyai kehendak bebas untuk menderhaka: mereka beribadah kepada Allah tanpa henti dan melaksanakan setiap perintah-Nya dengan sempurna, 'mereka tidak menderhaka kepada Allah dalam segala yang diperintahkanNya kepada mereka, dan mereka pula tetap melakukan segala yang diperintahkan.'",
+      "Beriman kepada mereka bererti mempercayai bahawa alam ghaib itu benar-benar wujud dan aktif di sekeliling kita. Malaikat membawa wahyu, menjaga manusia, mencatat setiap perkataan dan perbuatan, mencabut nyawa ketika mati, dan mentadbir urusan bumi dan langit dengan izin Allah — maka seorang mukmin tidak pernah benar-benar bersendirian atau terlepas daripada pengawasan.",
+      "Beberapa malaikat disebut namanya dalam nas dengan tugas tertentu: Jibril, malaikat pembawa wahyu; Mikail, yang diamanahkan dengan hujan dan rezeki; Israfil, yang akan meniup sangkakala; Malaikat Maut, yang mencabut nyawa; dan para pencatat yang mulia (Kiraman Katibin) yang merekodkan amalan setiap orang. Munkar dan Nakir pula menyoal si mati di dalam kubur.",
     ],
     actions: [
-      "Hiduplah dengan kesadaran bahwa malaikat pencatat tidak pernah melewatkan sepatah kata pun dan perbuatan.",
+      "Hiduplah dengan kesedaran bahawa malaikat pencatat tidak pernah terlepas walau sepatah kata atau satu perbuatan.",
     ],
   },
   {
-    title: "Keimanan kepada Kitab Suci",
+    title: "Beriman kepada Kitab-kitab Allah",
     summary:
-      "Allah mengirimkan kitab suci sebagai petunjuk; Al-Quran menegaskan hal tersebut dan menjadi kriteria terakhir.",
+      "Allah menurunkan kitab-kitab sebagai petunjuk; Al-Quran membenarkannya dan menjadi neraca pemutus yang terakhir.",
     body: [
-      "Umat ​​​​Muslim percaya bahwa Allah menurunkan kitab suci kepada rasul-rasul-Nya sebagai petunjuk dan rahmat. Al-Quran menyebutkan beberapa nama: Suhuf Ibrahim dan Musa, Taurat yang diberikan kepada Musa, Zabur kepada Dawud, Injil kepada 'Isa, dan terakhir Al-Quran kepada Muhammad ﷺ - diyakini secara keseluruhan, dalam bentuk wahyu aslinya.",
-      "Al-Quran mempunyai kedudukan yang unik. Ini adalah wahyu terakhir, yang diturunkan 'meneguhkan apa yang datang sebelumnya dan sebagai kriteria atasnya' (5:48) — yang berarti ia menghakimi dan mengoreksi, kerana kitab-kitab sebelumnya tidak tetap dalam keadaan aslinya tetapi diubah (tahrif) dan hilang dari generasi ke generasi.",
-      "Uniknya di antara semua kitab suci, Al-Quran dilindungi secara ilahi dari kerusakan: 'Sesungguhnya Kami telah menurunkan Pengingat, dan sesungguhnya Kamilah Penjaganya' (15:9). Oleh kerana itu, mengimani kitab-kitab berarti menjunjung wahyu, membaca Al-Quran dengan renungan, dan tunduk pada petunjuknya dalam hidup.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan Kami turunkan kepadamu Kitab yang sebenarnya, membenarkan apa yang mendahuluinya dari Kitab Suci dan sebagai pembeda atasnya.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Kamilah yang menurunkan Peringatan itu, dan sesungguhnya Kamilah yang menjadi penjaganya.",
-      },
+      "Umat Islam beriman bahawa Allah menurunkan kitab-kitab kepada rasul-rasul-Nya sebagai petunjuk dan rahmat. Al-Quran menyebut beberapa daripadanya: Suhuf Ibrahim dan Musa, Taurat yang diberikan kepada Musa, Zabur kepada Daud, Injil kepada Isa, dan akhirnya Al-Quran kepada Muhammad ﷺ — diimani secara keseluruhan, dalam bentuk asal sebagaimana diwahyukan.",
+      "Al-Quran mempunyai kedudukan yang istimewa. Ia wahyu yang terakhir, diturunkan 'untuk mengesahkan benarnya Kitab-kitab Suci yang telah diturunkan sebelumnya dan untuk memelihara serta mengawasinya' (5:48) — bermakna ia menjadi hakim dan pembetul, kerana kitab-kitab terdahulu tidak kekal dalam keadaan asalnya, malah telah diubah (tahrif) dan hilang ditelan zaman.",
+      "Berbeza daripada semua kitab yang lain, Al-Quran dipelihara oleh Allah daripada sebarang penyelewengan: 'Sesungguhnya Kamilah yang menurunkan Al-Quran, dan Kamilah yang memelihara dan menjaganya' (15:9). Maka beriman kepada kitab-kitab bererti memuliakan wahyu, membaca Al-Quran dengan tadabbur, dan tunduk kepada petunjuknya dalam kehidupan.",
     ],
     appLinks: [{ label: "Baca Al-Quran" }],
   },
   {
-    title: "Keimanan kepada Para Nabi",
-    summary: "Semua nabi menyampaikan inti kebenaran yang sama; Muhammad ﷺ adalah utusan terakhir.",
+    title: "Beriman kepada Para Nabi",
+    summary: "Semua nabi menyampaikan kebenaran teras yang sama; Muhammad ﷺ ialah rasul terakhir.",
     body: [
-      "Seorang muslim beriman kepada semua nabi dan rasul yang diutus Allah, dan tidak menolak satupun dari mereka. Dari Adam hingga Nuh, Ibrahim, Musa, dan 'Isa hingga Muhammad ﷺ, mereka semua menyerukan pesan penting yang sama: beribadat kepada Allah saja, dan hidup lurus. Dua puluh lima disebutkan dalam Al-Quran; jumlah total mereka hanya diketahui oleh Allah.",
-      "Para nabi adalah makhluk yang paling baik dalam kebenaran dan kepercayaan, dilindungi oleh Allah dari kebohongan tentang pesan dan dari dosa besar – namun mereka tetap manusia, bukan Tuhan, dan tidak boleh disembah. Lima orang yang dipilih sebagai rasul yang 'tegas' (ulu al-'azm): Nuh, Ibrahim, Musa, 'Isa, dan Muhammad ﷺ.",
-      "Muhammad ﷺ adalah Nabi Penutup (khatam an-nabiyyin): tidak ada nabi setelah dia, dan pesannya bersifat universal — dikirimkan kepada seluruh umat manusia hingga Hari Pembalasan. Beriman kepada-Nya termasuk mencintainya, menaati perintah-perintahnya, mempercayai laporan-laporannya, dan beribadat hanya pada apa yang diajarkannya.",
-    ],
-    quran: [
-      {
-        excerpt: "…Kami tidak membeda-bedakan rasul-rasul-Nya…",
-      },
-      {
-        excerpt:
-          "Muhammad bukanlah ayah dari salah satu orangmu, melainkan Rasulullah dan penutup para nabi.",
-      },
+      "Seorang Muslim beriman kepada semua nabi dan rasul yang diutus oleh Allah, tanpa menolak seorang pun daripada mereka. Daripada Adam, Nuh, Ibrahim, Musa dan Isa hinggalah Muhammad ﷺ, mereka semua menyeru kepada risalah teras yang sama: sembahlah Allah semata-mata, dan hiduplah dengan lurus. Dua puluh lima orang disebut namanya dalam Al-Quran; jumlah keseluruhan mereka hanya diketahui oleh Allah.",
+      "Para nabi ialah makhluk terbaik dari segi kejujuran dan amanah, dipelihara oleh Allah daripada berdusta tentang risalah dan daripada dosa besar — namun mereka tetap manusia, bukan tuhan, dan tidak boleh sekali-kali disembah. Lima orang daripada mereka diistimewakan sebagai rasul yang 'teguh azamnya' (Ulul Azmi): Nuh, Ibrahim, Musa, Isa dan Muhammad ﷺ.",
+      "Muhammad ﷺ ialah Penutup Para Nabi (khatam an-nabiyyin): tiada nabi selepas baginda, dan risalah baginda bersifat sejagat — diutus kepada seluruh umat manusia hingga Hari Kiamat. Beriman kepada baginda termasuk mencintai baginda, mentaati perintah baginda, mempercayai khabar yang baginda sampaikan, dan beribadah hanya mengikut cara yang baginda ajarkan.",
     ],
     appLinks: [{ label: "Kisah Para Nabi" }],
   },
   {
-    title: "Keimanan kepada Hari Akhirat",
+    title: "Beriman kepada Hari Akhirat",
     summary:
-      "Hidup mengarah pada pertemuan terakhir dengan Allah, keadilan sempurna, dan hasil kekal.",
+      "Kehidupan menuju pertemuan terakhir dengan Allah, keadilan yang sempurna dan kesudahan yang kekal.",
     body: [
-      "Keimanan kepada Hari Akhirat adalah keimanan terhadap segala sesuatu yang terjadi setelah kematian: bertanya dan hidup di alam kubur (barzakh), meniup terompet, kebangkitan seluruh manusia, berkumpulnya orang banyak, hisab, menimbang amal di timbangan, melintasi jembatan, dan dua tempat kekal iaitu surga dan neraka.",
-      "Keyakinan ini memberikan bobot moral pada setiap momen. Kerana Allah melihat yang tersembunyi dan mencatat amal terkecil, tidak ada kebaikan yang sia-sia dan tidak ada keburukan yang terlewatkan: 'Barangsiapa mengerjakan kebaikan seberat atom pun, ia akan melihatnya, dan siapa pun yang mengerjakan keburukan seberat atom pun akan melihatnya.'",
-      "Ahl al-Sunnah menegaskan semua realitas ini dengan pasti, mempercayainya persis seperti yang diriwayatkan, sambil mengakui bahwa para ulama berbeda dalam menafsirkan beberapa rincian peristiwa dan tanda-tanda tertentu. Inti dari keyakinan bukanlah spekulasi melainkan persiapan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "…Maka siapa yang mengerjakan kebaikan seberat atom pun akan melihatnya, dan siapa pun yang mengerjakan keburukan seberat atom pun akan melihatnya.",
-      },
+      "Beriman kepada Hari Akhirat ialah beriman kepada segala yang berlaku selepas kematian: soalan dan kehidupan di alam kubur (barzakh), tiupan sangkakala, kebangkitan semua manusia, perhimpunan besar, hisab, penimbangan amalan di atas Mizan, penyeberangan Titian Sirat, dan dua tempat tinggal yang kekal — Syurga dan Neraka.",
+      "Kepercayaan ini memberi nilai moral kepada setiap detik. Oleh kerana Allah melihat yang tersembunyi dan mencatat amalan yang paling kecil, tiada kebaikan yang akan sia-sia dan tiada kejahatan yang akan terlepas: 'Maka sesiapa berbuat kebajikan seberat zarah, nescaya akan dilihatnya… Dan sesiapa berbuat kejahatan seberat zarah, nescaya akan dilihatnya.'",
+      "Ahli Sunnah menetapkan semua hakikat ini dengan yakin, mempercayainya tepat sebagaimana yang diriwayatkan, sambil mengakui bahawa ulama berbeza pendapat dalam mentafsir sebahagian perincian halus tentang peristiwa dan tanda tertentu. Tujuan kepercayaan ini bukanlah untuk berspekulasi, tetapi untuk bersedia.",
     ],
     appLinks: [{ label: "Hari Kiamat" }, { label: "Perjalanan ke Syurga" }],
   },
   {
-    title: "Keimanan terhadap Qadar (Takdir Ilahi)",
+    title: "Beriman kepada Qadar (Takdir Ilahi)",
     summary:
-      "Ilmu dan ketetapan Allah itu lengkap, namun manusia benar-benar memilih dan bertanggung jawab.",
+      "Ilmu dan ketetapan Allah adalah sempurna — namun manusia benar-benar memilih dan dipertanggungjawabkan.",
     body: [
-      "Keimanan terhadap qadr sering kali diringkas dalam empat tingkatan: bahwa Allah SWT mengetahui segala sesuatu secara kekal; bahwa Dia menulis semuanya dalam Tablet yang Diawetkan lima puluh ribu tahun sebelum penciptaan; bahwa tidak ada sesuatu pun yang terjadi kecuali atas kehendak-Nya; dan bahwa Dialah Pencipta segala sesuatu yang ada, termasuk perbuatan hamba-hamba-Nya.",
-      "Pada saat yang sama, manusia mempunyai kemauan yang nyata dan pilihan yang tulus sesuai dengan izin Allah – itulah sebabnya mengapa perintah dan larangan, pahala dan hukuman, adalah adil dan bermakna. Seseorang memilih untuk solat atau berbohong, dan berhak untuk bertanggung jawab; Pengetahuan Allah sebelumnya tentang pilihan tidak memaksanya.",
-      "Ahl al-Sunnah menghindari dua kesalahan: pengingkaran terhadap ketetapan (seolah-olah peristiwa luput dari pengetahuan dan kehendak Allah), dan fatalisme (menggunakan ketetapan untuk membatalkan tanggung jawab manusia dan memaafkan dosa). Orang mukmin mengambil sarana dengan sebaik-baiknya, lalu mempercayakan hasilnya kepada Allah.",
-      "Praktisnya, qadr adalah sumber kedamaian yang besar: setelah melakukan bagian anda, anda beristirahat dalam pengetahuan bahwa apa pun yang mencapai anda tidak akan pernah luput dari anda, dan apa pun yang luput dari perhatian anda tidak akan pernah sampai kepada anda.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "…Jika sesuatu menimpamu, jangan berkata 'seandainya saja aku melakukan hal itu', tetapi katakanlah 'Allah telah menetapkan, dan apa yang Dia kehendaki Dia lakukan' — kerana 'seandainya saja' membuka pintu bagi Setan. (Abu Hurairah)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Sesungguhnya Kami menciptakan segala sesuatu menurut ukuran (qadar).",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak akan mengubah keadaan suatu kaum hingga mereka mengubah keadaan yang ada pada diri mereka sendiri.",
-      },
+      "Beriman kepada qadar sering diringkaskan dalam empat peringkat: bahawa Allah mengetahui segala sesuatu sejak azali; bahawa Dia telah menulis semuanya di Luh Mahfuz lima puluh ribu tahun sebelum penciptaan; bahawa tiada sesuatu pun berlaku kecuali dengan kehendak-Nya; dan bahawa Dialah Pencipta segala yang wujud, termasuk perbuatan hamba-hamba-Nya.",
+      "Pada masa yang sama, manusia mempunyai kehendak yang sebenar dan pilihan yang tulen dalam lingkungan yang Allah izinkan — itulah sebabnya suruhan dan larangan, pahala dan hukuman, adalah adil dan bermakna. Seseorang memilih untuk bersolat atau berdusta, lalu dia dipertanggungjawabkan dengan adil; ilmu Allah yang terdahulu tentang pilihan itu tidak memaksanya.",
+      "Ahli Sunnah mengambil jalan tengah antara dua kesilapan: menafikan takdir (seolah-olah ada peristiwa yang terlepas daripada ilmu dan kehendak Allah), dan fatalisme (menggunakan takdir untuk menafikan tanggungjawab manusia dan memberi alasan kepada dosa). Seorang mukmin berusaha dengan sebaik-baiknya, kemudian menyerahkan hasilnya kepada Allah.",
+      "Dari segi amalan, qadar ialah sumber ketenangan yang besar: selepas anda menunaikan bahagian anda, anda berasa tenang dengan keyakinan bahawa apa yang ditakdirkan menimpa anda tidak akan sekali-kali tersasar daripada anda, dan apa yang tersasar daripada anda tidak akan sekali-kali menimpa anda.",
     ],
     misconceptions: [
-      "Kesalahpahaman: Jika semuanya sudah ditentukan, usaha tidak ada gunanya. Koreksi: Islam memerintahkan usaha, perencanaan, doa, dan taubat – mengambil sarana itu sendiri merupakan bagian dari ketetapan tersebut.",
-      "Kesalahpahaman: Qadr berarti Allah yang harus disalahkan atas dosa saya. Koreksi: Hamba memilih dan bertanggung jawab; keputusan tersebut tidak pernah menjadi alasan untuk tidak taat.",
-      "Kesalahpahaman: Kesulitan membuktikan Allah tidak senang dengan saya. Koreksi: Cobaan bisa berupa penyucian, peningkatan pangkat, peringatan, atau seruan untuk kembali — sering kali merupakan tanda kepedulian, bukan kemarahan.",
+      "Salah faham: Jika segala-galanya sudah ditakdirkan, usaha tidak berguna. Pembetulan: Islam memerintahkan usaha, perancangan, doa dan taubat — mengambil asbab itu sendiri sebahagian daripada takdir.",
+      "Salah faham: Qadar bermakna Allah yang patut dipersalahkan atas dosa saya. Pembetulan: Hamba itulah yang memilih dan dipertanggungjawabkan; takdir tidak sekali-kali menjadi alasan untuk menderhaka.",
+      "Salah faham: Kesusahan membuktikan Allah murka kepada saya. Pembetulan: Ujian mungkin satu penyucian, peningkatan darjat, peringatan atau seruan untuk kembali — selalunya tanda kasih sayang, bukan kemurkaan.",
     ],
     actions: [
-      "Ambillah sarana dengan sebaik-baiknya, lalu bertawakallah pada ketetapan Allah.",
-      "Ganti loop penyesalan 'seandainya…' dengan 'Qaddar Allah' dan langkah konstruktif berikutnya.",
+      "Ambillah asbab dengan sebaik-baiknya, kemudian bertawakallah kepada takdir Allah.",
+      "Gantikan kitaran penyesalan 'kalaulah…' dengan 'Qaddar Allah' dan langkah seterusnya yang membina.",
     ],
   },
   {
-    title: "Tauhid Diterangkan",
+    title: "Penjelasan Tauhid",
     summary:
-      "Tauhid menyatukan ketuhanan Allah, satu-satunya hak-Nya untuk beribadat, serta nama-nama dan sifat-sifat-Nya.",
+      "Tauhid menghimpunkan ketuhanan Allah, hak-Nya semata-mata untuk disembah, serta nama-nama dan sifat-sifat-Nya.",
     body: [
-      "Tauhid (توحيد) — keesaan Allah yang mutlak — adalah inti Islam dan pesan setiap nabi. Artinya hanya Allah saja yang ada dalam segala sesuatu yang merupakan milik-Nya yang unik, dan menegaskan kesempurnaan-Nya persis seperti yang Dia gambarkan tentang diri-Nya.",
-      "Para ulama umumnya mengajarkan tauhid melalui tiga aspek yang saling berkaitan agar mudah dipahami dan dilindungi. Tauhid al-Rububiyyah: bahwa hanya Allah yang menciptakan, memiliki, dan mengendalikan segala sesuatu. Tauhid al-Uluhiyyah: bahwa hanya Allah yang layak disembah – ini adalah aspek yang paling ditekankan oleh para rasul dan paling ditentang oleh orang-orang kafir. Tauhid al-Asma' wa'l-Sifat: menegaskan nama-nama dan sifat-sifat Allah sebagaimana yang diwahyukan, tanpa distorsi, pengingkaran, atau kemiripan.",
-      "Kerangka tiga bagian ini adalah alat pengajaran, bukan sumber perpecahan; matlamatnya adalah untuk membantu orang beriman menjaga ketulusan dan mengenali di mana kesatuan dapat dikompromikan. Keseluruhannya terekam dalam do'a pembuka doa setiap muslim: 'Hanya Engkau yang kami sembah, dan hanya Engkau saja kami mohon pertolongan.'",
-      "Sebuah pemahaman penting: mengakui bahwa Allah adalah Pencipta (rububiyyah) saja tidak cukup. Banyak orang yang mengingkari para nabi masih mengakui bahwa Allah menciptakan langit dan bumi – yang mereka tolak hanyalah menyembah Dia saja (uluhiyyah). Tauhid yang hakiki dibuktikan dalam ibadat, bukan sekedar keyakinan tentang asal usulnya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Hanya Engkau saja yang kami sembah, dan hanya Engkau saja kami mohon pertolongan.",
-      },
-      {
-        excerpt: "Allah – tidak ada Tuhan selain Dia. Milik-Nya nama-nama yang paling indah.",
-      },
+      "Tauhid (توحيد) — keesaan Allah yang mutlak — ialah jantung Islam dan risalah setiap nabi. Ia bermaksud mengesakan Allah semata-mata dalam segala yang khusus bagi-Nya, dan menetapkan kesempurnaan-Nya tepat sebagaimana Dia menyifatkan diri-Nya.",
+      "Ulama lazimnya mengajar tauhid melalui tiga aspek yang saling berkait supaya mudah difahami dan dipelihara. Tauhid Rububiyyah: hanya Allah yang mencipta, memiliki dan mentadbir segala sesuatu. Tauhid Uluhiyyah: hanya Allah yang berhak menerima segala ibadah — inilah aspek yang paling ditekankan oleh para rasul dan paling ditentang oleh orang-orang kafir. Tauhid al-Asma' wa al-Sifat: menetapkan nama-nama dan sifat-sifat Allah sebagaimana yang diwahyukan, tanpa penyelewengan, penafian atau penyerupaan.",
+      "Kerangka tiga bahagian ini ialah alat pengajaran, bukan punca perpecahan; tujuannya membantu seorang mukmin menjaga keikhlasan dan mengenal pasti di mana keesaan itu boleh tercemar. Keseluruhannya terangkum dalam doa pembuka dalam solat setiap Muslim: 'Engkaulah sahaja (Ya Allah) Yang Kami sembah, dan kepada Engkaulah sahaja kami memohon pertolongan.'",
+      "Satu kefahaman yang penting: mengakui bahawa Allah ialah Pencipta (rububiyyah) sahaja tidak memadai. Ramai yang mendustakan para nabi tetap mengakui bahawa Allah yang menciptakan langit dan bumi — apa yang mereka tolak ialah menyembah-Nya semata-mata (uluhiyyah). Tauhid yang sebenar dibuktikan dalam ibadah, bukan sekadar dalam kepercayaan tentang asal-usul.",
     ],
     misconceptions: [
-      "Kesalahpahaman: Tauhid hanya mengucapkan satu kalimat. Koreksi: Keyakinan hati, pernyataan lidah, dan kenyataan yang dijalani dalam ibadat.",
-      "Kesalahpahaman: Percaya bahwa Allah adalah Pencipta adalah keseluruhan dari tauhid. Koreksi: Bahkan banyak orang kafir yang menegaskan bahwa — ujiannya adalah beribadat kepada Allah saja.",
+      "Salah faham: Tauhid hanyalah melafazkan satu ayat. Pembetulan: Ia ialah kepercayaan hati, ucapan lidah dan hakikat yang dihayati dalam ibadah.",
+      "Salah faham: Percaya bahawa Allah ialah Pencipta sudah merangkumi seluruh tauhid. Pembetulan: Ramai orang kafir pun mengakui perkara itu — ujiannya ialah menyembah Allah semata-mata.",
     ],
-    appLinks: [{ label: "Nama-nama Allah" }, { label: "Laluan Syurga: Tauhid" }],
+    appLinks: [{ label: "Nama-nama Allah" }, { label: "Jalan ke Syurga: Tauhid" }],
   },
   {
-    title: "Syirik Diterangkan",
-    summary: "Syirik adalah mengarahkan segala hak eksklusif Allah kepada selain-Nya.",
+    title: "Penjelasan Syirik",
+    summary: "Syirik ialah menujukan mana-mana hak eksklusif Allah kepada selain-Nya.",
     body: [
-      "Syirik (شرك) — menyekutukan Allah — adalah kebalikan dari tauhid dan dosa yang disebutkan dalam Al-Quran sebagai dosa yang tidak dapat diampuni jika seseorang meninggal di atasnya tanpa taubat: 'Allah tidak mengampuni orang yang menyekutukan-Nya, tetapi mengampuni apa pun yang kurang dari itu untuk siapa yang Dia kehendaki.'",
-      "Syirik besar (al-syirik al-akbar) adalah mengarahkan suatu ibadat kepada selain Allah – solat kepada orang mati atau tidak hadir untuk apa yang hanya bisa diberikan oleh Allah, berkorban atau bersumpah kepada makhluk, atau mencintai dan menaati sesuatu sebagaimana seharusnya mencintai dan menaati Allah. Dibutuhkan seseorang keluar dari Islam jika mereka meninggal tanpa bertobat.",
-      "Syirik kecil (al-syirik al-asghar) tidak mengeluarkan Islam tetapi sangat berbahaya dan dapat membatalkan pahala amal. Bentuknya yang paling jelas adalah riya – melakukan ibadat agar dilihat dan dipuji orang – yang oleh Nabi ﷺ disebut sebagai hal yang paling ditakuti umatnya. Bersumpah demi selain Allah dengan cara yang mengagungkan, hukumnya juga berlaku di sini.",
-      "Ahl al-Sunnah berhati-hati dengan bahasa dan penilaian: peringatan terhadap syirik secara umum adalah penting dan jelas, namun menyatakan seseorang tertentu sebagai musyrik atau kafir (takfir) adalah masalah berat yang membutuhkan pengetahuan, bukti sahih, dan penghapusan alasan – ini adalah milik ulama yang berkualifikasi, bukan milik orang biasa atau argumen online.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak mengampuni pergaulan dengan-Nya, namun Dia mengampuni apa yang kurang dari apa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Wahai anakku, jangan menyekutukan Allah. Sesungguhnya pergaulan adalah suatu kezaliman yang besar (zulm).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hal yang paling aku takuti bagimu adalah kesyirikan kecil. Ditanya apa itu, beliau ﷺ menjawab: pamer (riya). (Mahmud bin Labid)",
-      },
+      "Syirik (شرك) — mempersekutukan Allah — ialah lawan kepada tauhid dan satu-satunya dosa yang ditegaskan oleh Al-Quran sebagai tidak diampunkan jika seseorang mati di atasnya tanpa bertaubat: 'Sesungguhnya Allah tidak akan mengampunkan dosa syirik mempersekutukanNya (dengan sesuatu apajua), dan akan mengampunkan dosa yang lain dari itu bagi sesiapa yang dikehendakiNya.'",
+      "Syirik besar (al-syirk al-akbar) ialah menujukan sesuatu ibadah kepada selain Allah — menyeru orang yang telah mati atau yang tidak hadir untuk perkara yang hanya mampu diberikan oleh Allah, menyembelih korban atau bernazar kepada makhluk, atau mencintai dan mentaati sesuatu sebagaimana sepatutnya mencintai dan mentaati Allah. Ia mengeluarkan seseorang daripada Islam jika dia mati di atasnya tanpa bertaubat.",
+      "Syirik kecil (al-syirk al-asghar) tidak mengeluarkan seseorang daripada Islam, tetapi sangat berbahaya dan boleh menghapuskan pahala amalan. Bentuknya yang paling jelas ialah riak — melakukan ibadah supaya dilihat dan dipuji orang — yang disebut oleh Nabi ﷺ sebagai perkara yang paling baginda bimbangi menimpa umatnya. Bersumpah dengan selain Allah dengan cara yang mengagungkannya juga termasuk dalam kategori ini.",
+      "Ahli Sunnah berhati-hati dalam bahasa dan penghakiman: memberi amaran tentang syirik secara umum adalah penting dan jelas, tetapi menghukum individu tertentu sebagai musyrik atau kafir (takfir) ialah perkara berat yang memerlukan ilmu, dalil yang sahih dan penghapusan segala keuzuran — ia urusan ulama yang berkelayakan, bukan orang awam atau perdebatan dalam talian.",
     ],
     misconceptions: [
-      "Kesalahpahaman: Setiap kesalahan lidah adalah kesyirikan besar. Koreksi: Para sarjana membedakan perkara besar dan kecil dan menilai setiap kasus dengan hati-hati dengan bukti.",
-      "Kesalahpahaman: Peringatan terhadap syirik memerlukan kekerasan terhadap manusia. Koreksi: Cara kenabian memadukan kejelasan kebenaran dengan belas kasihan dan pengajaran yang sabar.",
+      "Salah faham: Setiap ketelanjuran lidah ialah syirik besar. Pembetulan: Ulama membezakan antara syirik besar dan syirik kecil, dan menilai setiap kes dengan teliti berdasarkan dalil.",
+      "Salah faham: Memberi amaran tentang syirik menuntut sikap keras terhadap manusia. Pembetulan: Cara kenabian menggabungkan kejelasan kebenaran dengan belas kasihan dan pengajaran yang penuh sabar.",
     ],
   },
   {
-    title: "Ikhlas",
-    summary: "Amalan diterima hanya jika dilakukan murni kerana Allah.",
+    title: "Keikhlasan (Ikhlas)",
+    summary: "Amalan hanya diterima apabila dilakukan semata-mata kerana Allah.",
     body: [
-      "Ikhlas (إخلاص) adalah mencari keridhaan Allah melalui suatu tindakan — bukan status, pujian, kekayaan, atau pengaruh terhadap orang lain. Ini adalah kondisi batin yang menjadi dasar diterimanya setiap perbuatan: Nabi ﷺ mengajarkan bahwa 'perbuatan hanya berdasarkan niat, dan setiap orang hanya akan mendapatkan apa yang dia niatkan.'",
-      "Kerana pahala bergantung pada niat, maka amal kecil dan diam-diam yang dilakukan dengan ikhlas kerana Allah akan lebih besar daripada amal besar yang dilakukan demi kemasyhuran. Perbuatan lahiriah yang sama - bersedekah, solat, mengajar - bisa berupa ibadat atau kekosongan tergantung hati yang melatarbelakanginya.",
-      "Ikhlas tidak diraih sekali saja melainkan diperbaharui terus menerus, kerana diri cenderung mencari perhatian. Oleh kerana itu, orang-orang beriman berulang kali menyucikan niat mereka dan memohon kepada Allah untuk melindungi mereka dari kesyirikan riya yang tersembunyi dan dari penipuan diri sendiri.",
+      "Ikhlas (إخلاص) ialah mencari keredaan Allah semata-mata melalui sesuatu amalan — bukan kedudukan, pujian, harta atau pengaruh ke atas manusia. Ia ialah keadaan batin yang menjadi syarat diterimanya setiap amalan: Nabi ﷺ mengajarkan bahawa 'actions are but by intentions, and every person will have only what he intended' (maksud dalam bahasa Inggeris).",
+      "Oleh kerana pahala bergantung pada niat, amalan kecil yang dilakukan secara senyap dengan ikhlas kerana Allah boleh mengatasi amalan besar yang dilakukan secara terbuka demi nama. Perbuatan zahir yang sama — bersedekah, bersolat, mengajar — boleh menjadi ibadah atau kosong bergantung pada hati di sebaliknya.",
+      "Keikhlasan bukan dicapai sekali sahaja, tetapi perlu diperbaharui sentiasa, kerana nafsu cenderung mencari perhatian. Oleh itu, orang-orang beriman berulang kali membersihkan niat mereka dan memohon kepada Allah agar dilindungi daripada syirik tersembunyi iaitu riak, dan daripada menipu diri sendiri.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan mereka tidak diperintahkan kecuali beribadat kepada Allah, ikhlas kepada-Nya dalam agama.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Perbuatan hanya berdasarkan niat, dan setiap orang hanya akan mendapatkan apa yang dia niatkan. ('Umar bin al-Khattab)",
-      },
-    ],
-    appLinks: [{ label: "Pelajari doa dan niat" }],
+    appLinks: [{ label: "Belajar doa dan niat" }],
   },
   {
-    title: "Kasih Sayang dan Takut kepada Allah",
-    summary: "Hati yang sehat memuja Allah dengan sayap cinta, harapan, dan rasa takut.",
+    title: "Cinta dan Takut kepada Allah",
+    summary:
+      "Hati yang sejahtera menyembah Allah dengan sayap cinta, harapan dan rasa takut yang penuh hormat.",
     body: [
-      "Ibadat hati bertumpu pada tiga keadaan besar: cinta (mahabbah), harapan (raja'), dan rasa takut (khawf). Kecintaan kepada Allah adalah landasan dan kekuatan pendorong segala ibadat – orang-orang mukmin ‘lebih kuat cintanya kepada Allah’ dari apa pun – sedangkan rasa takut akan kemurtadan-Nya menahan jiwa dari dosa dan kelalaian.",
-      "Ahl al-Sunnah mengajarkan bahwa keduanya harus tetap seimbang, seperti seekor burung yang terbang dengan dua sayap dan satu kepala. Cinta dan harapan tanpa rasa takut bisa hanyut dalam kecerobohan dan menganggap remeh rahmat Allah; ketakutan tanpa harapan bisa berubah menjadi keputusasaan. Al-Quran menyertainya: 'Serulah Dia dalam rasa takut dan harapan.'",
-      "Keseimbangan ini bukan sekedar perasaan; Hal itu tampak dalam tindakan, iaitu menjaga solat, bersegera bertaubat, melayani sesama, menahan amarah, dan bersabar dalam kesulitan kerana cinta kepada Dzat yang memerintahkannya.",
+      "Ibadah hati bertunjangkan tiga keadaan agung: cinta (mahabbah), harapan (raja') dan takut yang penuh hormat (khauf). Cinta kepada Allah ialah asas dan daya penggerak segala ibadah — orang-orang beriman 'lebih cinta (taat) kepada Allah' melebihi segala-galanya — manakala rasa takut menimbulkan kemurkaan-Nya menahan jiwa daripada dosa dan kelalaian.",
+      "Ahli Sunnah mengajar bahawa semua ini mesti kekal seimbang, seperti seekor burung yang terbang dengan dua sayap dan sebuah kepala. Cinta dan harapan tanpa takut boleh hanyut menjadi cuai dan memandang ringan rahmat Allah; takut tanpa harapan pula boleh runtuh menjadi putus asa. Al-Quran menghimpunkan kedua-duanya: 'berdoalah kepadaNya dengan perasaan bimbang (kalau-kalau tidak diterima) dan juga dengan perasaan terlalu mengharapkan (supaya makbul).'",
+      "Keseimbangan ini bukan sekadar perasaan; ia terzahir dalam perbuatan — menjaga solat, bersegera bertaubat, berkhidmat kepada orang lain, menahan marah, dan bersabar ketika susah kerana cinta kepada Dia yang menetapkannya.",
     ],
-    quran: [
-      {
-        excerpt: "…Tetapi orang-orang yang beriman lebih kuat cintanya kepada Allah.",
-      },
-      {
-        excerpt:
-          "…Dan berseru kepada-Nya dalam ketakutan dan pengharapan. Sesungguhnya rahmat Allah itu dekat kepada orang-orang yang berbuat baik.",
-      },
-    ],
-    appLinks: [{ label: "Nama-nama Allah" }, { label: "Doa-do" }],
+    appLinks: [{ label: "Nama-nama Allah" }, { label: "Doa-doa" }],
   },
   {
     title: "Harapan dan Taubat",
     summary:
-      "Tidak ada dosa yang terlalu besar untuk bertobat dengan tulus dan berharap pada rahmat Allah yang melimpah.",
+      "Tiada dosa yang terlalu besar untuk taubat yang ikhlas dan harapan kepada rahmat Allah yang luas.",
     body: [
-      "Keyakinan Ahl al-Sunnah adalah bahwa seseorang tidak boleh berputus asa dari rahmat Allah, betapapun besarnya dosanya, dan jangan pernah merasa aman dari pertanggung jawaban-Nya, betapapun banyaknya amal shalehnya. Baik pengharapan maupun koreksi diri berjalan terus-menerus dalam kehidupan orang percaya.",
-      "Ajakan Allah sangatlah murah hati: 'Katakanlah: Wahai hamba-Ku yang melakukan kemaksiatan terhadap dirinya sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni segala dosa.' Pintu taubat (tawbah) tetap terbuka sampai matahari terbit dari barat atau mendekati ajalnya.",
-      "Pertobatan yang tulus memiliki syarat-syarat yang jelas: segera meninggalkan dosa, merasakan penyesalan yang tulus atas dosa tersebut, dan bertekad untuk tidak mengulanginya lagi — dan, jika dosa tersebut melibatkan hak-hak orang lain, memulihkan hak-hak tersebut atau meminta pengampunannya. Ketika hal ini terpenuhi, respons Allah bukan sekadar penerimaan melainkan kegembiraan: Dia 'lebih senang dengan taubat hamba-Nya' daripada seseorang yang mendapatkan kembali hewan dan perbekalannya yang hilang di padang pasir yang tandus.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-Ku yang melakukan kemaksiatan terhadap dirinya sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni segala dosa.",
-      },
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, kembalilah kepada Allah dengan taubat yang ikhlas.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah lebih ridha dengan taubat hamba-Nya dari pada seseorang yang kehilangan tunggangannya sambil membawa makanan dan minumannya, di tanah yang tandus lalu menemukannya kembali. (Ibnu Mas'ud)",
-      },
+      "Salah satu kepercayaan utama Ahli Sunnah ialah seseorang tidak boleh berputus asa daripada rahmat Allah, betapa besar pun dosanya, dan tidak boleh berasa aman daripada perhitungan-Nya, betapa banyak pun amal kebaikannya. Harapan dan usaha memperbaiki diri berjalan seiring sepanjang hayat seorang mukmin.",
+      "Seruan Allah amat pemurah: 'Katakanlah (wahai Muhammad): Wahai hamba-hambaKu yang telah melampaui batas terhadap diri mereka sendiri (dengan perbuatan-perbuatan maksiat), janganlah kamu berputus asa dari rahmat Allah, kerana sesungguhnya Allah mengampunkan segala dosa.' Pintu taubat sentiasa terbuka sehingga matahari terbit dari barat atau sehingga ajal seseorang menghampiri.",
+      "Taubat yang ikhlas mempunyai syarat-syarat yang jelas: meninggalkan dosa itu serta-merta, benar-benar menyesalinya, dan berazam bersungguh-sungguh untuk tidak mengulanginya — dan jika dosa itu melibatkan hak orang lain, mengembalikan hak tersebut atau memohon kemaafan daripadanya. Apabila syarat-syarat ini dipenuhi, sambutan Allah bukan sekadar menerima, malah gembira: Dia 'more delighted with the repentance of His servant' (maksud dalam bahasa Inggeris) berbanding seorang lelaki yang menemui semula tunggangan dan bekalannya yang hilang di padang pasir yang tandus.",
     ],
     appLinks: [{ label: "Doa harian" }],
   },
   {
     title: "Syurga (Jannah)",
     summary:
-      "Jannah adalah pahala abadi yang disediakan Allah bagi orang-orang beriman dengan rahmat-Nya.",
+      "Syurga ialah ganjaran kekal yang Allah sediakan untuk orang-orang beriman dengan rahmat-Nya.",
     body: [
-      "Firdaus itu nyata, abadi, dan melampaui apa pun yang dapat dibayangkan oleh pikiran manusia. Nabi ﷺ menyampaikan firman Allah: 'Aku telah mempersiapkan bagi hamba-hamba-Ku yang saleh apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah dikandung oleh hati.' Pahala tertingginya adalah keridhaan Allah dan melihat Wajah-Nya.",
-      "Masuk ke surga pada hakikatnya adalah berkat rahmat Allah – tidak ada satu perbuatan pun yang dapat memperoleh kebahagiaan abadi – namun keimanan yang tulus dan amal shaleh adalah jalan yang telah ditetapkan dan diterima oleh Allah. Keduanya tidak bertentangan: rahmat adalah penyebabnya, dan iman serta amal adalah jalan yang dibukakan-Nya untuk itu.",
-      "Keimanan kepada surga membentuk kembali cara hidup seseorang saat ini: hal ini mengobarkan kesabaran melalui kesulitan, kemurahan hati dengan kekayaan, dan ketekunan dalam beribadat, kerana orang beriman menukar dunia yang fana dengan rumah yang kekal. Al-Quran menyerukan kita untuk 'berlomba' menuju hal itu.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan bersegeralah mendapatkan ampunan dari Tuhanmu dan surga seluas langit dan bumi yang disediakan bagi orang-orang yang bertakwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah SWT berfirman: Aku telah menyediakan bagi hamba-hamba-Ku yang shaleh, apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah terpikirkan oleh hati manusia. (Abu Hurairah; juga Sahih Muslim 2824)",
-      },
+      "Syurga itu benar, kekal abadi, dan melangkaui apa sahaja yang mampu dibayangkan oleh akal manusia. Nabi ﷺ menyampaikan firman Allah: 'I have prepared for My righteous servants what no eye has seen, no ear has heard, and no heart has conceived' (maksud dalam bahasa Inggeris). Ganjaran tertingginya ialah keredaan Allah dan melihat Wajah-Nya.",
+      "Masuk ke Syurga pada hakikatnya adalah dengan rahmat Allah — amalan seseorang semata-mata tidak mampu membeli kebahagiaan abadi — namun iman yang ikhlas dan amal soleh ialah jalan yang telah Allah tetapkan dan terima. Kedua-duanya tidak bercanggah: rahmat ialah sebabnya, manakala iman dan amalan ialah jalan yang Dia bukakan menuju rahmat itu.",
+      "Beriman kepada Syurga membentuk semula cara seseorang hidup pada hari ini: ia menyemarakkan kesabaran ketika susah, kemurahan hati dengan harta, dan ketekunan dalam ibadah, kerana seorang mukmin sedang menukar dunia yang fana dengan kediaman yang kekal. Al-Quran menyeru kita supaya 'berlumba-lumba' ke arahnya.",
     ],
     appLinks: [{ label: "Perjalanan ke Syurga" }],
   },
   {
     title: "Neraka (Jahannam)",
     summary:
-      "Jahannam adalah peringatan yang benar, dimaksudkan untuk mengembalikan hati kepada Allah sebelum terlambat.",
+      "Jahannam ialah amaran yang benar, bertujuan mengembalikan hati kepada Allah sebelum terlambat.",
     body: [
-      "Kepercayaan Neraka (Jahannam) adalah bagian dari kepercayaan terhadap hal gaib dan keadilan Allah yang sempurna. Ini adalah tempat hukuman yang nyata, dijelaskan dengan gamblang dalam Al-Quran dan Sunnah agar orang-orang menganggap serius bahaya tersebut.",
-      "Peringatan-peringatan tersebut memiliki matlamat yang penuh belas kasihan: peringatan-peringatan tersebut ada untuk melindungi orang-orang dari akibat yang mereka gambarkan – untuk mencegah kesombongan, penindasan, dan penolakan terhadap kebenaran yang gigih dan sadar, dan untuk menggerakkan mereka yang lalai agar bertobat ketika pintunya terbuka.",
-      "Ahl al-Sunnah menyatukan peringatan dan rahmat. Ancaman-ancamannya sangat besar dan nyata, namun rahmat Allah tetap besar bagi siapa pun yang kembali kepada-Nya – dan di antara orang-orang tauhid, orang-orang berdosa yang masuk Neraka tidak akan tinggal di sana selamanya tetapi pada akhirnya akan dikeluarkan dengan rahmat Allah dan syafaat yang Dia izinkan.",
+      "Beriman kepada Neraka (Jahannam) ialah sebahagian daripada beriman kepada perkara ghaib dan kepada keadilan Allah yang sempurna. Ia tempat azab yang benar-benar wujud, digambarkan dengan jelas dalam Al-Quran dan Sunnah supaya manusia memandang serius bahayanya.",
+      "Amaran-amaran itu mempunyai tujuan yang penuh rahmat: ia wujud untuk melindungi manusia daripada kesudahan yang digambarkannya — untuk membendung keangkuhan, kezaliman, dan penolakan kebenaran secara berterusan dan dengan sedar, serta untuk menggerakkan orang yang lalai supaya bertaubat selagi pintunya masih terbuka.",
+      "Ahli Sunnah memegang amaran dan rahmat secara bersama. Ancaman itu berat dan benar, namun rahmat Allah tetap luas bagi sesiapa yang kembali kepada-Nya — dan dalam kalangan ahli tauhid, para pendosa yang memasuki Neraka tidak akan kekal di dalamnya selama-lamanya, malah akhirnya akan dikeluarkan dengan rahmat Allah dan syafaat yang Dia izinkan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, peliharalah dirimu dan keluargamu dari api neraka yang bahan bakarnya adalah manusia dan batu.",
-      },
-      {
-        excerpt:
-          "…Jangan berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni segala dosa.",
-      },
-    ],
-    appLinks: [{ label: "Memahami Jahannam" }, { label: "Pelajaran taubat" }],
+    appLinks: [{ label: "Memahami Jahannam" }, { label: "Pelajaran tentang taubat" }],
   },
   {
-    title: "Kebangkitan",
+    title: "Kebangkitan Semula",
     summary:
-      "Setelah mati, semua manusia akan dibangkitkan tubuhnya untuk berdiri di hadapan Allah.",
+      "Selepas mati, semua manusia akan dibangkitkan dengan jasad untuk berdiri di hadapan Allah.",
     body: [
-      "Kebangkitan (al-ba'th) bersifat jasmani dan nyata, bukan simbol atau metafora. Allah menjawab mereka yang meragukan bahwa tulang yang membusuk dapat hidup kembali dengan logika yang paling sederhana: Dzat yang pertama kali menciptakannya dari ketiadaan pasti dapat memulihkannya — dan menurut pemahaman kita, menciptakan kembali lebih mudah daripada menciptakannya kembali.",
-      "Di antara kematian dan kebangkitan terdapat barzakh, iaitu kehidupan di alam kubur yang berada di tengah-tengah, dengan pertanyaan-pertanyaannya, kemudahan dan kesulitannya. Kemudian terompet ditiup, dan seluruh makhluk diangkat dan dikumpulkan di hadapan Allah untuk hisab.",
-      "Keyakinan inilah yang menjadikan kehidupan manusia memiliki keseriusan moral: tanpa kebangkitan, penindas yang meninggal dengan nyaman dan tertindas yang meninggal dalam keadaan dianiaya akan menemui akhir yang sama. Dengannya, setiap kesalahan dibalas dan setiap kebaikan diberi pahala, memberi makna pada kesabaran dan keadilan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dia bertanya, 'Siapa yang akan menghidupkan tulang-tulang yang sudah membusuk?' Katakanlah, 'Dialah yang akan menghidupkan mereka, yang pertama kali melahirkan mereka...'",
-      },
-      {
-        excerpt:
-          "Dan sungguh, Hari Kiamat akan tiba – tidak diragukan lagi – dan Allah akan membangkitkan orang-orang yang ada di dalam kubur.",
-      },
+      "Kebangkitan (al-ba'th) berlaku secara jasmani dan benar, bukan simbol atau kiasan. Allah menjawab mereka yang meragui bahawa tulang yang telah reput boleh hidup semula dengan logik yang paling mudah: Dia yang menciptakannya daripada tiada pada kali pertama pasti mampu mengembalikannya — dan mencipta semula, menurut kefahaman kita, lebih mudah daripada mencipta pada mulanya.",
+      "Di antara kematian dan kebangkitan terdapat alam barzakh — kehidupan perantaraan di alam kubur, dengan soalannya serta kesenangan atau kesusahannya. Kemudian sangkakala ditiup, lalu seluruh makhluk dibangkitkan dan dihimpunkan di hadapan Allah untuk dihisab.",
+      "Kepercayaan inilah yang memberikan kehidupan manusia kesungguhan moralnya: tanpa kebangkitan, si zalim yang mati dalam keselesaan dan si teraniaya yang mati dalam keadaan dizalimi akan menemui kesudahan yang sama. Dengannya, setiap kezaliman dibalas dan setiap kebaikan diganjari, memberi makna kepada kesabaran dan keadilan.",
     ],
   },
   {
     title: "Hari Pembalasan",
-    summary: "Setiap jiwa berdiri di hadapan Allah; Keadilan-Nya sempurna dan lengkap.",
+    summary: "Setiap jiwa akan berdiri di hadapan Allah; keadilan-Nya sempurna dan lengkap.",
     body: [
-      "Pada Hari Pembalasan, setiap orang dimintai pertanggungjawaban – atas perbuatan dan niatnya, atas hak-hak Allah dan hak-hak orang lain – dengan keadilan yang sangat tepat sehingga 'tidak ada satu jiwa pun yang akan dirugikan sedikit pun,' bahkan seberat atom pun.",
-      "Pada hari itu, tidak ada garis keturunan, kekayaan, golongan, kebangsaan, atau tingkatan duniawi yang memberi manfaat kepada siapa pun; hanya iman yang tulus dan amal shaleh, yang diterima oleh Allah, yang akan bermanfaat. Catatan dibagikan, amal ditimbang, bahkan kekeliruan antar manusia diselesaikan dengan cara mentransfer amal baik dan amal buruk.",
-      "Kepastian ini dimaksudkan untuk mengubah perwatakan sekarang: ia menyeru orang beriman kepada kejujuran, dapat dipercaya, menjaga hak-hak orang lain, dan memperbaiki kesalahan serta mengembalikan apa yang terhutang sebelum hari ketika hutang dibayar dengan perbuatan dan bukan dengan uang.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan Kami tempatkan timbangan keadilan pada hari kiamat, agar tidak ada jiwa yang dizalimi sedikit pun.",
-      },
+      "Pada Hari Pembalasan, setiap orang akan dihisab — atas amalan dan niat, atas hak Allah dan hak sesama manusia — dengan keadilan yang begitu teliti sehingga 'tidak ada diri sesiapa akan teraniaya sedikitpun,' walau seberat zarah.",
+      "Pada hari itu, keturunan, harta, darjat, bangsa atau pangkat dunia tidak memberi manfaat kepada sesiapa; hanya iman yang ikhlas dan amal soleh yang diterima oleh Allah sahaja yang berguna. Buku catatan amalan diedarkan, amalan ditimbang, dan kezaliman sesama manusia pun diselesaikan dengan pemindahan pahala dan dosa.",
+      "Keyakinan ini bertujuan mengubah akhlak sekarang juga: ia menyeru seorang mukmin kepada kejujuran, amanah, menjaga hak orang lain, membetulkan kesilapan dan memulangkan apa yang terhutang sebelum tibanya Hari ketika hutang dibayar dengan amalan, bukan dengan wang.",
     ],
     appLinks: [{ label: "Hari Kiamat — panduan lengkap" }],
   },
   {
-    title: "Timbangan dan Sirat",
-    summary: "Amalan ditimbang di Mizan, dan manusia melintasi Sirat dengan iman dan amalnya.",
+    title: "Mizan dan Titian Sirat",
+    summary:
+      "Amalan ditimbang di atas Mizan, dan manusia menyeberangi Sirat menurut iman dan amalan mereka.",
     body: [
-      "Ahl al-Sunnah menegaskan Mizan (Timbangan) dan Sirat (Jembatan di Atas Neraka) sebagai peristiwa nyata di akhirat, diyakini persis seperti yang diriwayatkan. Pada Timbangan, perbuatan dan pelakunya ditimbang dengan keadilan yang sempurna: 'adapun orang yang timbangannya berat, maka dia akan mendapat kehidupan yang menyenangkan; dan barangsiapa yang timbangannya ringan, maka perlindungannya adalah jurang yang dalam.'",
-      "Sirat adalah jembatan yang membentang di atas Neraka yang harus dilewati semua orang. Al-Quran menyatakan, 'Tidak ada seorang pun di antara kamu yang akan melewatinya,' lalu, 'Kami akan menyelamatkan orang-orang yang bertakwa kepada Allah.' Manusia menyeberang sesuai dengan perbuatannya – ada yang secepat cahaya atau angin, ada yang bersusah payah, dan ada yang tergelincir – atas rahmat dan keadilan Allah.",
-      "Kenyataan-kenyataan tersebut bukan disuruh untuk menakuti iseng tetapi untuk menumbuhkan keseriusan: tentang beratnya amal kecil, tentang keikhlasan beribadat, dan tentang menjunjung hak orang lain, kerana semua itu akan ditimbang.",
+      "Ahli Sunnah menetapkan Mizan (neraca timbangan) dan Sirat (titian di atas Neraka) sebagai peristiwa benar di akhirat, diimani tepat sebagaimana yang diriwayatkan. Di atas Mizan, amalan dan pelakunya ditimbang dengan keadilan yang sempurna: 'adapun orang yang berat timbangan amal baiknya… Maka ia berada dalam kehidupan yang senang lenang… Sebaliknya orang yang ringan timbangan amal baiknya… Maka tempat kembalinya ialah Haawiyah.'",
+      "Sirat ialah titian yang terbentang di atas Neraka yang mesti dilalui oleh semua. Al-Quran menyatakan: 'Dan tiada seorangpun di antara kamu melainkan akan sampai kepadanya,' kemudian: 'Kemudian Kami akan selamatkan orang-orang yang bertaqwa.' Manusia menyeberanginya menurut amalan masing-masing — ada yang sepantas cahaya atau angin, ada yang bersusah payah, dan ada yang tergelincir — dengan rahmat dan keadilan Allah.",
+      "Hakikat-hakikat ini tidak diceritakan sekadar untuk menakut-nakutkan, tetapi untuk menanam kesungguhan: tentang beratnya amalan kecil, tentang keikhlasan dalam ibadah, dan tentang menunaikan hak orang lain, kerana semuanya akan ditimbang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Adapun orang yang berat timbangannya, maka dia berada dalam kehidupan yang menyenangkan; tetapi barangsiapa yang ringan timbangannya, maka perlindungannya adalah jurang yang dalam.",
-      },
-      {
-        excerpt:
-          "Dan tidak ada seorang pun di antara kamu yang akan melewatinya… Kemudian Kami akan menyelamatkan orang-orang yang bertakwa.",
-      },
-    ],
-    appLinks: [{ label: "Timbangan (Mizan)" }, { label: "Jambatan (Sirat)" }],
+    appLinks: [{ label: "Neraca (Mizan)" }, { label: "Titian (Sirat)" }],
   },
   {
     title: "Syafaat (Syafa'ah)",
-    summary:
-      "Syafaat itu nyata – tetapi hanya dengan izin Allah, bagi orang-orang yang diridhai-Nya.",
+    summary: "Syafaat itu benar — tetapi hanya dengan izin Allah, bagi mereka yang Dia redai.",
     body: [
-      "Syafaat (shafa'ah) di hari kiamat ditegaskan secara tegas dalam Al-Quran dan Sunnah. Yang terbesar dari semuanya adalah 'Maksud Terpuji' (al-maqam al-mahmud) yang dianugerahkan kepada Nabi Muhammad ﷺ, ketika beliau akan memberikan syafaat bagi seluruh makhluk untuk memulai hisab - dan beliau akan memiliki syafaat lainnya bagi orang-orang yang melakukan dosa besar di antara umatnya.",
-      "Tapi tidak ada seorang pun yang menjadi perantara atas otoritasnya sendiri. Setiap syafaat yang sah hanya terjadi 'setelah izin-Nya' dan hanya bagi orang-orang yang diridhai Allah: 'Siapakah yang dapat memberikan syafaat kepada-Nya kecuali dengan izin-Nya?' Hal ini menjaga kedaulatan mutlak Allah atas hasilnya.",
-      "Para ulama menjelaskan beberapa jenis syafaat yang ditegaskan – untuk memulai hisab, agar manusia masuk surga, agar orang-orang beriman yang berdosa diampuni atau dikeluarkan dari Neraka – sambil sepakat bahwa penghakiman akhir selalu berada di tangan Allah saja.",
-    ],
-    quran: [
-      {
-        excerpt: "Siapakah yang dapat memberi syafaat kepada-Nya kecuali dengan izin-Nya?",
-      },
-      {
-        excerpt:
-          "Pada hari itu syafaat tidak ada manfaatnya kecuali kepada orang yang telah diberi izin oleh Yang Maha Penyayang dan yang diridhoi ucapannya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Orang-orang akan datang kepadaku, dan aku akan bersujud di hadapan Tuhanku; maka akan dikatakan: Angkatlah kepalamu, mintalah maka kamu akan diberi, syafaatlah dan syafaatmu akan diterima. (Abu Sa'id — syafaat agung)",
-      },
+      "Syafaat (syafa'ah) pada Hari Kiamat ditetapkan dengan kukuh dalam Al-Quran dan Sunnah. Yang paling agung ialah 'Kedudukan Terpuji' (al-maqam al-mahmud) yang dikurniakan kepada Nabi Muhammad ﷺ, ketika baginda memberi syafaat bagi seluruh makhluk yang dihimpunkan supaya hisab dimulakan — dan baginda juga mempunyai syafaat-syafaat lain bagi pelaku dosa besar dalam kalangan umatnya.",
+      "Namun tiada sesiapa yang memberi syafaat atas kuasanya sendiri. Setiap syafaat yang sah hanya berlaku 'sesudah Allah mengizinkan' dan hanya bagi mereka yang Allah redai: 'Tiada sesiapa yang dapat memberi syafaat (pertolongan) di sisiNya melainkan dengan izinNya.' Ini memelihara kekuasaan mutlak Allah ke atas kesudahannya.",
+      "Para ulama menghuraikan beberapa jenis syafaat yang ditetapkan — supaya hisab dimulakan, supaya manusia dimasukkan ke Syurga, supaya orang beriman yang berdosa diampunkan atau dikeluarkan dari Neraka — sambil bersepakat bahawa keputusan muktamad sentiasa milik Allah semata-mata.",
     ],
     misconceptions: [
-      "Kesalahpahaman: Syafaat menghilangkan kebutuhan akan pertobatan. Koreksi: Itu terjadi hanya dengan izin Allah dan tidak pernah menjadi izin untuk terus berbuat dosa.",
-      "Kesalahpahaman: Seseorang mungkin memanggil para nabi atau orang-orang saleh saat ini untuk menjadi perantara. Koreksi: Ibadat dan doa hanya untuk Allah saja; syafaat di akhirat adalah dengan ketetapan-Nya, diusahakan dengan cara ridha-Nya.",
-      "Kesalahpahaman: Syafaat bertentangan dengan keadilan Allah. Koreksi: Ini adalah salah satu ekspresi rahmat-Nya yang bekerja dalam keadilan-Nya yang sempurna, dan hanya dengan izin-Nya.",
+      "Salah faham: Syafaat menghapuskan keperluan untuk bertaubat. Pembetulan: Ia hanya berlaku dengan izin Allah dan tidak sekali-kali menjadi lesen untuk terus berbuat dosa.",
+      "Salah faham: Seseorang boleh menyeru para nabi atau orang soleh sekarang supaya memberi syafaat. Pembetulan: Ibadah dan doa hanya untuk Allah; syafaat di akhirat berlaku dengan ketetapan-Nya, dan dicari dengan melakukan apa yang Dia redai.",
+      "Salah faham: Syafaat bercanggah dengan keadilan Allah. Pembetulan: Ia salah satu manifestasi rahmat-Nya yang berlaku dalam lingkungan keadilan-Nya yang sempurna, dan hanya dengan izin-Nya.",
     ],
     appLinks: [{ label: "Hari Kiamat" }, { label: "Perjalanan ke Syurga" }],
   },
   {
-    title: "Tanda-tanda Hari Akhirat",
+    title: "Tanda-tanda Hari Kiamat",
     summary:
-      "Tanda-tanda kecil dan besar adalah benar; orang bijak fokus pada persiapan daripada spekulasi.",
+      "Tanda-tanda kecil dan besar adalah benar; orang yang bijak menumpukan persediaan, bukan spekulasi.",
     body: [
-      "Teks-teks shahih menggambarkan tanda-tanda yang mendahului Hari Kiamat, yang dikelompokkan menjadi tanda-tanda kecil (banyak yang telah muncul, seperti turunnya Nabi ﷺ sendiri, meluasnya kebodohan, dan meluasnya kelalaian) dan tanda-tanda besar yang akan terjadi menjelang akhir zaman.",
-      "Sepuluh tanda-tanda besar disebutkan bersama dalam sebuah hadis Nabi ﷺ: di antaranya kemunculan Dajjal, turunnya Isa (putra Maryam), munculnya Ya'juj dan Ma'juj, tiga tanah longsor besar, asap, terbitnya matahari dari barat, dan api yang menggiring manusia ke tempat berkumpulnya yang terakhir.",
-      "Para ulama terkadang berbeda pendapat mengenai urutan pasti dari beberapa tanda, namun mereka sepakat dalam dua hal: datangnya Hari Kiamat itu pasti, dan waktu pastinya tidak diketahui siapa pun selain Allah – bahkan Nabi ﷺ ketika Jibril menanyakannya. Oleh kerana itu, respons kenabian terhadap tanda-tanda tersebut bersifat praktis, bukan spekulatif: meningkatkan keimanan, pertobatan, keadilan, dan perbuatan bermanfaat daripada prediksi tanpa akhir.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Mereka bertanya kepadamu tentang Hari Kiamat: kapan tibanya? Katakanlah: ilmunya hanya ada pada Tuhanku.",
-      },
-      {
-        excerpt:
-          "Apakah mereka menantikan hari kiamat yang tiba-tiba menimpa mereka? Tanda-tandanya telah tiba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak akan tiba Hari Kiamat sampai kamu melihat sepuluh tanda-tanda: asap, Dajjal, Binatang, matahari terbit dari barat, turunnya Isa, Ya'juj dan Ma'juj, dan tiga kali tanah longsor… (Hudhayfah bin Usayd)",
-      },
+      "Nas-nas yang sahih menggambarkan tanda-tanda yang mendahului Kiamat, dibahagikan kepada tanda-tanda kecil (banyak daripadanya telah pun muncul, seperti pengutusan Nabi ﷺ sendiri, tersebarnya kejahilan, dan kelalaian yang berleluasa) dan tanda-tanda besar yang akan berlaku menjelang akhir zaman.",
+      "Sepuluh tanda besar disebut bersama dalam sebuah hadis Nabi ﷺ: antaranya kemunculan Dajjal, turunnya Isa (putera Maryam), keluarnya Ya'juj dan Ma'juj, tiga peristiwa tanah terbenam yang besar, asap, terbitnya matahari dari barat, dan api yang menghalau manusia ke tempat perhimpunan terakhir mereka.",
+      "Ulama kadangkala berbeza pendapat tentang susunan sebenar beberapa tanda, tetapi mereka sepakat dalam dua perkara: kedatangan Kiamat itu pasti, dan waktu tepatnya tidak diketahui oleh sesiapa melainkan Allah — tidak juga oleh Nabi ﷺ ketika Jibril bertanya kepada baginda. Maka sambutan kenabian terhadap tanda-tanda itu bersifat praktikal, bukan spekulatif: tingkatkan iman, taubat, keadilan dan amalan yang bermanfaat, bukannya ramalan yang tiada penghujung.",
     ],
     misconceptions: [
-      "Kesalahpahaman: Setiap peristiwa besar di dunia jelas merupakan tanda akhir. Koreksi: Klaim seperti ini memerlukan bukti autentik dan kehati-hatian ilmiah, bukan sensasionalisme.",
-      "Kesalahpahaman: Dengan mengetahui tanda-tandanya, kita dapat menentukan tanggal Hari Kiamat. Koreksi: Waktu yang tepat hanya diketahui oleh Allah saja; tanda-tandanya memanggil kita untuk bersiap, bukan memprediksi.",
+      "Salah faham: Setiap peristiwa besar dunia pasti satu tanda akhir zaman. Pembetulan: Dakwaan seperti itu memerlukan dalil yang sahih dan sikap berhati-hati ulama, bukan sensasi.",
+      "Salah faham: Mengetahui tanda-tanda membolehkan kita menentukan tarikh Kiamat. Pembetulan: Waktu tepatnya hanya diketahui oleh Allah; tanda-tanda itu menyeru kita untuk bersedia, bukan untuk meramal.",
     ],
-    appLinks: [{ label: "Tanda-tanda Hari Akhirat" }],
+    appLinks: [{ label: "Tanda-tanda Hari Kiamat" }],
   },
   {
-    title: "Soalan Lazim Aqidah",
-    summary: "Pertanyaan umum tentang akidah dijawab dengan seimbang, bukti, dan adab yang baik.",
+    title: "Soalan Lazim Akidah",
+    summary: "Soalan-soalan akidah yang lazim dijawab dengan seimbang, berdalil dan beradab.",
     body: [
-      "T: Apakah semua Sunni identik dalam setiap keyakinannya? J: Ahl al-Sunnah berbagi satu landasan dan sepakat sepenuhnya pada hal-hal yang hakiki; aliran teologi yang diakui (Athari, Asy'ari, Maturidi) hanya berbeda dalam beberapa rumusan teknis, dan hal ini harus didekati dengan pembelajaran yang penuh hormat, bukan permusuhan.",
-      "T: Apakah saya memerlukan filsafat tingkat lanjut untuk memiliki aqidah yang benar? J: Tidak. Setiap Muslim diwajibkan untuk mempelajari hal-hal penting sesuai dengan kebutuhannya – enam pasal dan tauhid murni – sedangkan studi yang lebih mendalam akan bermanfaat jika dilakukan oleh guru yang berkualifikasi.",
-      "Q: Haruskah mengetahui aqidah membuat saya bersikap kasar terhadap orang lain? J: Tidak. Akidah yang sehat harus meningkatkan kerendahan hati, rasa syukur, belas kasihan, dan ucapan yang hati-hati. Menggunakan keyakinan untuk meremehkan umat Islam atau terburu-buru melakukan takfir itu sendiri merupakan kesalahan serius.",
-      "Q: Apa perbedaan antara iman, islam, dan ihsan? J: Dalam hadits Jibril, Islam adalah ibadat lahiriah, iman adalah keyakinan batin (enam pasal), dan ihsan adalah kesempurnaan keduanya - beribadat kepada Allah seolah-olah anda melihat-Nya.",
+      "S: Adakah semua golongan Sunni sama dalam setiap perkara akidah? J: Ahli Sunnah berkongsi satu asas dan sepakat sepenuhnya tentang perkara-perkara asas; aliran-aliran teologi yang diiktiraf (Athari, Asya'irah, Maturidiyah) hanya berbeza dalam beberapa rumusan teknikal, dan perkara ini patut didekati dengan semangat belajar yang penuh hormat, bukan permusuhan.",
+      "S: Adakah saya memerlukan falsafah tahap tinggi untuk memiliki akidah yang betul? J: Tidak. Setiap Muslim wajib mempelajari perkara asas mengikut keperluannya — enam rukun iman dan tauhid yang murni — manakala pengajian yang lebih mendalam bermanfaat apabila dilakukan di bawah bimbingan guru yang berkelayakan.",
+      "S: Patutkah ilmu akidah menjadikan saya bersikap keras terhadap orang lain? J: Tidak. Akidah yang sahih sepatutnya menambah rendah diri, syukur, belas kasihan dan berhati-hati dalam berkata-kata. Menggunakan akidah untuk memperlekeh sesama Muslim atau tergesa-gesa mengkafirkan (takfir) itu sendiri merupakan kesilapan yang serius.",
+      "S: Apakah perbezaan antara iman, Islam dan ihsan? J: Dalam Hadis Jibril, Islam ialah amalan ibadah yang zahir, iman ialah kepercayaan batin (enam rukun), dan ihsan ialah kesempurnaan kedua-duanya — beribadah kepada Allah seolah-olah anda melihat-Nya.",
     ],
     actions: [
-      "Prioritaskan hal-hal mendasar yang jelas dan disepakati sebelum rincian teknis diperdebatkan.",
-      "Konsultasikan dengan sarjana lokal yang berkualifikasi ketika masalah keyakinan yang kompleks benar-benar mempengaruhi praktik anda.",
+      "Utamakan asas-asas yang jelas dan disepakati sebelum perincian teknikal yang dipertikaikan.",
+      "Rujuk ulama tempatan yang berkelayakan apabila sesuatu isu akidah yang rumit benar-benar menjejaskan amalan anda.",
     ],
   },
   {
     title: "Rujukan dan Kajian Lanjut",
     summary:
-      "Mulailah dengan Al-Quran dan Sunnah yang shahih, kemudian dasar-dasar keyakinan Sunni yang terpercaya.",
+      "Mulakan dengan Al-Quran dan Sunnah yang sahih, kemudian buku asas akidah Sunni yang dipercayai.",
     body: [
-      "Referensi utama untuk syahadat selalu adalah Al-Quran dan Sunnah yang shahih, yang dipahami sebagaimana para sahabat dan para ulama awal Ahl al-Sunnah memahaminya — bukan melalui kecenderungan-kecenderungan yang belakangan dibaca kembali ke dalam teks.",
-      "Kajian yang bermanfaat mencakup kitab-kitab dasar keyakinan klasik yang ringkas (seperti al-'Aqidah al-Tahawiyya dan karya-karya para ulama awal) yang diajarkan dengan penjelasan yang sesuai dengan tingkatan anda oleh guru-guru yang andal.",
-      "Ketika para ulama berbeda pendapat dalam hal-hal yang tidak penting, pelajari bukti-buktinya dengan rendah hati dan hindari mengubah perselisihan teknis menjadi permusuhan sektarian – kesatuan umat beriman dalam hal-hal mendasar itu sendiri merupakan perintah agama.",
+      "Rujukan utama dalam akidah sentiasa Al-Quran dan Sunnah yang sahih, difahami sebagaimana para Sahabat dan ulama awal Ahli Sunnah memahaminya — bukan melalui aliran-aliran terkemudian yang dibaca semula ke dalam teks.",
+      "Pengajian yang bermanfaat termasuk matan-matan akidah klasik yang ringkas (seperti al-'Aqidah al-Tahawiyyah dan karya-karya ulama awal) yang diajarkan dengan huraian yang sesuai dengan tahap anda oleh guru yang boleh dipercayai.",
+      "Apabila ulama berbeza pendapat dalam perkara cabang, pelajarilah dalil-dalilnya dengan rendah diri dan elakkan daripada menjadikan perselisihan teknikal sebagai permusuhan mazhab — perpaduan orang-orang beriman di atas perkara asas itu sendiri merupakan perintah agama.",
     ],
     disclaimer:
-      "Modul ini bersifat mendidik dan non-polemik. Untuk keputusan pribadi atau masalah keyakinan yang sensitif, konsultasikan dengan sarjana berkualifikasi yang anda percayai.",
+      "Modul ini bersifat pendidikan dan tidak polemik. Untuk hukum peribadi atau isu akidah yang sensitif, rujuklah ulama berkelayakan yang anda percayai.",
     actions: [
-      "Pelajarilah satu topik kepercayaan setiap minggunya dengan seorang guru atau guru yang terpercaya.",
-      "Hafalkan enam pasal kepercayaan dan mampu menjelaskan masing-masing dengan kata-kata anda sendiri.",
+      "Pelajari satu topik akidah setiap minggu bersama seorang guru atau buku asas yang dipercayai.",
+      "Hafal enam rukun iman dan mampu menerangkan setiap satunya dengan kata-kata anda sendiri.",
     ],
     appLinks: [{ label: "Al-Quran" }, { label: "Hadis" }, { label: "Belajar Doa" }],
   },
@@ -549,41 +308,42 @@ export const AQEDAH_TOPICS_MS: DeepPartial<AqeedahTopic>[] = [
 
 export const AQEDAH_GLOSSARY_MS: DeepPartial<AqeedahGlossaryTerm>[] = [
   {
-    term: "Aqidah",
+    term: "Akidah",
     definition:
-      "Syahadat — apa yang diyakini seorang Muslim tentang Allah, malaikat-malaikat-Nya, kitab-kitab, rasul-rasul, Hari Akhirat, dan ketetapan ilahi.",
+      "Pegangan kepercayaan — apa yang diyakini oleh seorang Muslim tentang Allah, malaikat-malaikat-Nya, kitab-kitab, rasul-rasul, Hari Akhirat dan takdir ilahi.",
   },
   {
     term: "Tauhid",
-    definition: "Keesaan Allah dalam ketuhanan, ibadat, dan nama/sifat - landasan Islam.",
+    definition: "Keesaan Allah dalam ketuhanan, ibadah dan nama/sifat — asas agama Islam.",
   },
   {
     term: "Syirik",
     definition:
-      "Menyekutukan Allah dalam ibadat atau sifat-sifat yang hanya Dia miliki – kebalikan dari tauhid.",
+      "Mempersekutukan Allah dalam ibadah atau dalam sifat-sifat yang hanya dimiliki oleh-Nya — lawan kepada tauhid.",
   },
   {
     term: "Iman",
     definition:
-      "Iman — keyakinan dalam hati, penegasan dengan lidah, dan perbuatan dengan anggota tubuh.",
+      "Kepercayaan — keyakinan dalam hati, pengakuan dengan lidah, dan amalan dengan anggota badan.",
   },
   {
-    term: "Qadr",
+    term: "Qadar",
     definition:
-      "Pengetahuan abadi Allah dan ketetapan segala sesuatu — baik dan jahat ada atas izin dan kebijaksanaan-Nya.",
+      "Ilmu Allah yang azali dan ketetapan-Nya atas segala sesuatu — kebaikan dan keburukan wujud dengan izin dan hikmah-Nya.",
   },
   {
     term: "Nabi",
     definition:
-      "Nabi — orang yang menerima wahyu dan diperintahkan untuk menyampaikannya; dapat mengikuti undang-undang sebelumnya.",
+      "Nabi — seseorang yang menerima wahyu dan diperintahkan menyampaikannya; mungkin mengikut syariat yang terdahulu.",
   },
   {
     term: "Rasul",
-    definition: "Utusan — seorang nabi yang diutus dengan kitab atau hukum baru kepada umatnya.",
+    definition:
+      "Utusan — seorang nabi yang diutus dengan kitab atau syariat baharu kepada kaumnya.",
   },
   {
     term: "Sirat",
     definition:
-      "Jembatan Neraka di Hari Pembalasan — orang-orang beriman menyeberang sesuai dengan perbuatannya.",
+      "Titian di atas Neraka pada Hari Pembalasan — orang-orang beriman menyeberanginya menurut amalan mereka.",
   },
 ];

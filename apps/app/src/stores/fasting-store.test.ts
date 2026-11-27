@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { act, renderHook, waitFor } from "@testing-library/react-native";
 
 import { DB_KEYS } from "@/db/keys";
+import * as dbStore from "@/db/store";
 import { readJSON, writeJSON } from "@/db/store";
 
 import {
@@ -15,7 +16,7 @@ import {
 
 beforeEach(async () => {
   await AsyncStorage.clear();
-  fastingStore.setState({ days: {}, isReady: false });
+  fastingStore.setState({ days: {}, isReady: false, loadError: null });
 });
 
 describe("fastingStore", () => {
@@ -29,6 +30,19 @@ describe("fastingStore", () => {
     await fastingStore.getState().setStatus("2026-03-01", "missed");
     await fastingStore.getState().setStatus("2026-03-01", null);
     expect(await readJSON(DB_KEYS.fasting, null)).toEqual({});
+  });
+});
+
+describe("fastingStore load failure", () => {
+  it("exposes loadError, stays not ready, and clears on a successful retry", async () => {
+    const spy = jest.spyOn(dbStore, "readJSON").mockRejectedValueOnce(new Error("boom"));
+    await fastingStore.getState().load();
+    expect(fastingStore.getState().isReady).toBe(false);
+    expect(fastingStore.getState().loadError).toBeTruthy();
+    spy.mockRestore();
+    await fastingStore.getState().load();
+    expect(fastingStore.getState().isReady).toBe(true);
+    expect(fastingStore.getState().loadError).toBeNull();
   });
 });
 

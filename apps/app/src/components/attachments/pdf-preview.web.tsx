@@ -4,7 +4,7 @@ import { ActivityIndicator, type StyleProp, StyleSheet, View, type ViewStyle } f
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { buildPdfJsViewerHtml, readAttachmentAsBase64 } from "@/lib/attachments/pdf-preview-source";
 
 type PdfPreviewProps = {
@@ -87,8 +87,11 @@ export function PdfPreview({ uri, fileName, headers, style, onOpenExternally }: 
       {createElement("iframe", {
         src,
         title: t("customAdhkar.attachments.pdfPreviewTitle"),
-        // allow-scripts + allow-same-origin needed for PDF.js; sandbox keeps it contained.
-        sandbox: "allow-scripts allow-same-origin",
+        // Scripts only — never allow-same-origin: the blob: document would share the
+        // app origin (sessionStorage session, credentialed API calls), and a sandbox with
+        // both flags can remove itself. PDF.js renders from in-memory bytes, so an opaque
+        // origin is all it needs.
+        sandbox: "allow-scripts",
         style: {
           width: "100%",
           height: "100%",
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     overflow: "hidden",
-    borderRadius: 12,
+    borderRadius: Radius.sm,
   },
   center: {
     flex: 1,

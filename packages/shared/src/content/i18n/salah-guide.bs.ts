@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Jedinstveno među stubovima, namaz nije objavljen preko meleka koji se spustio na zemlju, već je naređen direktno Poslaniku, sallallahu alejhi ve sellem, kada je podignut kroz nebesa na Noćnom putovanju (al-Isra' wa al-Mi'raj). Najprije je određeno pedeset namaza, a zatim - kroz Poslanikove, sallallahu alejhi ve sellem, ponovljene povratke tražeći olakšanje za svoj ummet - smanjeno na pet učinjenih namaza uz zadržavanje nagrade od pedeset.",
       "Zbog toga je namaz u samom središtu islamskog života: ponavlja se pet puta dnevno, prekida rad, odmor i dokolicu kako bi se srce ponovno usidrilo na Allaha, i to je prvo djelo za koje će se rob pozvati na odgovornost na Kijametskom danu. Ako se pronađe zvuk, slijedi ostatak zapisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Koji vjeruju u nevidljivo, namaz obavljaju i troše od onoga što smo im Mi obezbijedili.",
-      },
-      {
-        excerpt:
-          "Recite ono što vam je objavljeno u Knjizi i uspostavite molitvu. Zaista, namaz se suzdržava od nemorala i nedjela, a spominjanje Allaha je veće.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Na noćnom putovanju Allah je naredio pedeset namaza; Poslanik, sallallahu alejhi ve sellem, se stalno vraćao da traži olakšanje sve dok nisu napunili pet godina - 'Ovo je pet, a ovi pedeset, jer se riječ sa Mnom ne mijenja.' (takođe Sahih Musliman 162)",
-      },
-      {
-        excerpt:
-          "Prva stvar za koju će sluga biti priveden na odgovornost na Sudnjem danu je njegova molitva; ako je zdravo, ostala su njegova djela zdrava. (takođe Ebu Davud 864, an-Nasa'i 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,28 +32,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Njegov drugi plod je unutrašnji mir. Kur'an obećava da će srca naći odmor u sjećanju na Allaha, a Poslanik, sallallahu alejhi ve sellem, u trenucima brige, bi rekao: 'Utješi nas time, o Bilale', pozivajući na namaz. On je opisao zadovoljstvo svojih očiju kao da je stavljen na namaz.",
       "Njegovi društveni i vječni plodovi upotpunjuju sliku: skupni namaz bogatih i siromašnih u jedan red i izgrađuje bratstvo, dok je čuvanje namaza jedan od najsigurnijih puteva ka Allahovom oprostu i Džennetu. Poslanik, sallallahu alejhi ve sellem, je obećao Džennet onome ko sačuva dvije 'hladne' namaze sabah i asr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, ja sam Allah. Nema drugog božanstva osim Mene, zato Me obožavajte i uspostavite molitvu za Moj spomen.",
-      },
-      {
-        excerpt: "Zaista su uspješni vjernici - oni koji su ponizni u svojoj molitvi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "'Da je na vratima jednog od vas rijeka u kojoj se kupao pet puta dnevno, da li bi na njemu ostala prljavština?' Rekli su: 'Nijedan.' Rekao je, 'To je sličnost sa pet namaza - Allah briše grijehe njima.' (takođe Sahih Musliman 667)",
-      },
-      {
-        excerpt: "Ko bude klanjao dvije hladne molitve - Fajr i Asr - ući će u Džennet.",
-      },
-      {
-        excerpt:
-          "Od tvoga svijeta su mi stvorene voljene žene i parfemi, a hladnoća mojih očiju stavljena je u molitvu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Izmolite samo jednu molitvu u potpunosti na vrijeme danas - dosljednost, a ne savršenstvo, je prvi cilj.",
       "Pročitajte značenje Al-Fatihe jednom prije sljedećeg namaza da biste osjetili da vam je odgovoreno.",
@@ -88,29 +50,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "U pogledu odluke za onoga ko napusti namaz, postoji dobro poznata razlika među sunitskim učenjacima i poštovanjem. Neki smatraju da namjerno potpuno odustajanje od toga - dok potvrđuju da je to obavezno - predstavlja veliko nevjerstvo koje izbacuje osobu iz islama; većina (Hanefi, Maliki, Šafija) smatra da takva osoba ostaje grešni musliman krivac za jedan od najtežih velikih grijeha, pod uslovom da ne poriče svoju obavezu. Svi se slažu da je napuštanje namaza katastrofa i da je onaj ko negira njegovu obavezu napustio Islam konsenzusom.",
       "Praktična pouka je ista u svakom pogledu: čuvanje pet dnevnih namaza nije izborno niti o čemu se može pregovarati za vjernika. Dobrovoljni namazi (sunnet i nafl) tada djeluju kao sigurnosna mreža, nadoknađujući manjkavosti obaveznih namaza na Sudnjem danu.",
     ],
-    quran: [
-      {
-        excerpt: "Pažljivo održavaj namaz i srednji namaz, i stani pred Allaha, predano poslušan.",
-      },
-      {
-        excerpt:
-          "Ali za njima su došli nasljednici koji su zanemarili molitvu i slijedili želje; pa će se susresti sa zlom.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam je izgrađen na pet: svjedočenje da nema boga osim Allaha i da je Muhammed Njegov poslanik, uspostavljanje namaza, davanje zekata, hadž i ramazanski post. (takođe Sahih al-Bukhari 8)",
-      },
-      {
-        excerpt:
-          "Savez između nas i njih je molitva; ko ga napusti počinio je nevjerovanje. (Buraydah; također en-Nasa'i, Ibn Madže 1079)",
-      },
-      {
-        excerpt:
-          "Između čovjeka i nevjerovanja i idolopoklonstva stoji napuštanje molitve. (Jabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Učenjaci se razlikuju u tačnoj presudi za onoga ko napusti molitvu iz lijenosti (veliki grijeh za većinu; nevjerovanje za druge) od onoga koji negira njenu obavezu (nevjerovanje konsenzusom). Ova aplikacija ne donosi presudu nijednom pojedincu - konsultujte se sa kvalifikovanim naučnikom za lične slučajeve.",
   },
@@ -123,17 +64,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Žene u menstruaciji (hayd) ili postporođajnom krvarenju (nifas) ne mole se za to vrijeme; propuštene obavezne namaze se ne nadoknađuju naknadno - milost i odluka slažu se učenjaci. (Propušteni postovi, za razliku od namaza, se nadoknađuju.) Žena nastavlja molitvu kada krvarenje prestane i kada se pročisti guslom.",
       "Istinska nesposobnost donosi ustupak, nikada otkazivanje: teška bolest, nesvjestica i neodoljiv strah mogu na neko vrijeme opravdati osobu, a bolesni se mole u skladu sa svojim mogućnostima - sjedeći, ležeći ili čak pokretima. Putovanje ne uklanja molitvu već je olakšava skraćivanjem (qasr) i kombinovanjem (jam'), što je opisano u Putopisnom vodiču.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Zapovjedite svojoj djeci da se mole kada imaju sedam godina, i disciplinirajte ih za to u deset, i odvojite njihova mjesta za spavanje. ('Amr ibn Šuajb od njegovog oca od njegovog djeda)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "I zapovjedi molitvu svojoj porodici, i budi postojan u njoj.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -194,16 +126,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Odvojeno od ovih ritualnih stanja, opipljiva prljavština (najasah) - kao što je urin, izmet, krv koja teče i slično - mora biti fizički uklonjena s tijela, odjeće i mjesta na kojem se molite. Moguće je imati važeći vudu, ali ipak morate očistiti mrlju sa svoje odjeće prije molitve.",
       "Voda je primarni prečistač. Kada je voda zaista nedostupna, ili bi vam naškodila zbog bolesti ili jake prehlade, Islam dopušta tayammum — suho pročišćavanje pomoću čiste zemlje — kao potpunu zamjenu. Pročišćavanje nikada nije zamišljeno kao teškoća; to je sredstvo približavanja.",
     ],
-    hadith: [
-      {
-        excerpt: "Pročišćenje je pola vjere... (Abu Malik al-Ash'ari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Zaista, Allah voli one koji se neprestano kaju i voli one koji se čiste.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Naučite vudu korak po korak prije sljedeće molitve kako bi svaki ud bio pravilno opran.",
       "Ostavite čistu odjeću za molitvu ako radite u zaprljanom okruženju.",
@@ -259,18 +183,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Zajedno sa dovom: 'Ashhadu an la ilaha illallah...' — osam kapija raja se otvaraju za onoga ko to izgovori nakon vudua.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada sluga opere lice u vudu, svaki grijeh koji je pogledao svojim očima odlazi sa vodom... dok ne izađe očišćen od grijeha.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, kada ustanete na molitvu, operite svoja lica i svoje podlaktice do lakata, obrišite svoje glave i operite noge svoje do članaka.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Jednom polako obavite vudu dok čitate svaki korak naglas, provjeravajući laktove i pete.",
       "Naučite napamet kratku dovu nakon vudua — vidjeti Riječi namaza.",
@@ -309,18 +223,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -337,11 +241,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Za žene je cijelo tijelo avra u namazu osim lica i ruku, prema većini učenjaka; žena pokriva kosu, vrat i stopala, obično širokom odjećom i maramom. Učenjaci se razlikuju oko stopala, neki smatraju da su uključena u ono što se može pokazati - molitva s njima pokrivena je sigurnija i praksa većine.",
       "Dva pravila o oblačenju važe i izvan molitve: svila i zlato su zabranjeni muškarcima da nose (dozvoljeno ženama), a odjeća ne bi trebala biti toliko uska, prozirna ili privlačeći pažnju da pobjeđuje skromnost na koju molitva poziva. Kao pravilo, molite se u onome što biste obukli da upoznate nekoga koga poštujete - a ne u spavaćici ili odeći za plažu.",
     ],
-    quran: [
-      {
-        excerpt: "O djeco Adamova, uzmite svoj ukras na svakom mjestu molitve.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Odvojite jednu čistu, skromnu odjeću ili posvećenu molitvenu odjeću kako biste uvijek bili spremni.",
       "Kada niste sigurni da li nešto pokriva dovoljno, pokrijte više, a ne manje.",
@@ -380,21 +280,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Od sumraka do zore; najbolje prije ponoći. Slijedi Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Tri su puta u kojima nam je Poslanik, sallallahu alejhi ve sellem, zabranio klanjanje: kada sunce izlazi dok ne izađe, kada stoji u podne i kada zalazi dok ne zađe. (Uqbah ibn 'Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Zaista, molitva je vjernicima određena odredbom određenog vremena.",
-      },
-      {
-        excerpt:
-          "I uspostavi molitvu na dva kraja dana i na početku noći. Zaista, dobra djela tjeraju zla djela.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Početak Asr ima dva prijavljena mišljenja (sjena jednaka ili dvostruko dužini objekta). Oba su važeća; slijedite svoj lokalni proračun i zajednicu.",
@@ -407,18 +294,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Od vas se traži da se suočite s kiblom onoliko precizno koliko možete razumno odrediti - sa kompasom, džamijskim mihrabom, pouzdanom aplikacijom ili suncem i zvijezdama kada putujete. Malo, neizbježno odstupanje se oprašta; ono što je važno je iskreni napor u pravom smjeru.",
       "Ako zaista ne možete da odredite pravac – izgubljeni na moru, u oblaku, u nepoznatoj zemlji noću – nastojte da to rešite i onda se molite za svoju najbolju procenu; namaz je validan čak i ako se kasnije pokaže da je malo pogrešio. U vozilu ili avionu u pokretu gdje je nemoguće okrenuti se prema kibli za obavezni namaz, suočite se sa svime što možete, jer Allah ne opterećuje dušu preko njenih mogućnosti.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zato okrenite svoje lice prema al-Masjid al-Haramu. I gde god da se nalazite, okrenite svoja lica prema tome.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kada ustanete da klanjate, dobro obavite vudu, zatim se suočite sa kiblom i izgovorite tekbir. (iz hadisa čovjeka koji je loše klanjao)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -459,12 +336,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Nema boga osim Allaha - poziv se završava na istoj riječi prema kojoj je otvoren.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko kaže kad čuje poziv: 'O Allahu, Gospodaru ovog savršenog poziva i utvrđene molitve, daj Muhammedu vasilu i vrlinu...' — moj će zagovor biti njegov na Sudnjem danu. (Jabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -487,26 +359,19 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Otvaranje tekbira (Takbirat al-Ihram)",
         body: "Podignite ruke do ramena ili ušnih resica i izgovorite tekbir, a zatim stavite desnu ruku preko lijeve na prsa. Ovim počinje namaz, a običan govor i kretanje sada su zabranjeni do selama.",
-        translation: "Allah je Najveći.",
         tip: "Podizanje ruku (raf' al-yadayn) sa tekbirom je potvrđeni sunnet, a ne stub.",
       },
       {
         title: "3. Otvaranje dove (Du'a al-Istiftah)",
         body: "Učite tiho kratku uvodnu dovu da smirite srce pred Allahovim riječima. Izvještava se o nekoliko autentičnih formulacija; ovo je jedan od najčešćih.",
-        translation:
-          "Slava Tebi, Allahu, i hvala. Blagoslovljeno Tvoje ime i uzvišeno Tvoje Veličanstvo. Nema boga osim Tebe.",
       },
       {
         title: "4. Ta'awwudh & Basmalah",
         body: "Potražite utočište kod Allaha od šejtana, a zatim počnite sa Basmalom, prije Al-Fatihe. Oboje se izgovara tiho, čak i u glasnim molitvama.",
-        translation:
-          "Utječem se Allahu od šejtane, prokletog. U ime Allaha, Potpuno Milostivog, Posebno Milostivog.",
       },
       {
         title: "5. Učiti Al-Fatihu",
         body: "Učite Otvaranje Knjige na svakom rekatu — 'Nema namaza za onoga ko ne uči Otvaranje Knjige.' Imam i usamljeni klanjač ga čitaju naglas u glasnim molitvama; inače se recituje tiho.",
-        translation:
-          "U ime Allaha, Potpuno Milostivog, Posebno Milostivog. Sva hvala pripada Allahu, Gospodaru svjetova - Potpuno Milostivom, Naročito Milostivom, Vladaru Dana nadoknade. Tebe obožavamo i od Tebe tražimo pomoć. Uputi nas na pravi put - put onih kojima si dao naklonost, a ne onih koji su zaradili ljutnju ili onih koji su zalutali.",
         tip: "Izgovorite 'Amin' nakon toga (naglas u glasnim molitvama). hanefijski razred koji uči neki Kur'an kao stub i Al-Fatihu posebno kao vadžib; većina drži Al-Fatihu sama po sebi stub na svakom rekatu.",
       },
       {
@@ -517,31 +382,26 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Klanjanje (ruku)",
         body: "Recite 'Allahu Akbar' i naklonite se ravnih, ravnih leđa, rukama držeći koljena, i slavite svog Gospodara tri ili više puta, bez žurbe.",
-        translation: "Slava je mome Gospodaru, Veličanstvenom.",
         tip: "Sam luk, koji se drži u miru, je stub; tesbih koji se u njemu uči je sunnet (vadžib u nekim školama).",
       },
       {
         title: "8. Ustajanje sa ruku (i'tidal)",
         body: "Ustanite potpuno uspravno - imam i usamljeni klanjač izgovaraju tasmi', i svi koji govore tahmid - i stanite potpuno mirno prije nego što se spustite.",
-        translation: "Allah čuje onoga ko Ga hvali. Gospode naš, Tebi pripada svaka hvala.",
         tip: "Uspravno i opušteno stajanje je stub — nemojte tonuti u sujud dok se ne nastanite ovdje.",
       },
       {
         title: "9. Sedžda (sudžud)",
         body: "Recite 'Allahu Akbar' i klanjajte se na sedam kostiju - čelo zajedno sa nosom, oba dlana, oba koljena i prsti obje noge - veličajući Svevišnjeg tri ili više puta. Ovo je položaj najbliži Allahu, pa izlijte dovu nakon tesbiha.",
-        translation: "Slava je mom Gospodu, Svevišnjem.",
         tip: "Držite podlaktice podignute od tla i dalje od bokova, a trbuh od bedara.",
       },
       {
         title: "10. Sjedenje između dvije sedžde (dželsah)",
         body: "Ustanite od prvog sujuda govoreći 'Allahu Akbar', sjedite mirno i uspravno i zamolite svog Gospodara za oprost prije nego što ponovo klanjate.",
-        translation: "Gospodaru, oprosti mi.",
         tip: "Sedite dok vam ne bude opušteno — ovo kratko sedenje, sa mirom, predstavlja stub za sebe.",
       },
       {
         title: "11. Druga sedžda",
         body: "Reci 'Allahu Akbar' i klanjaj drugi put isto kao i prvi, sa istim tesbihom i istom tišinom. Ovim je završen jedan puni rekat.",
-        translation: "Slava je mom Gospodu, Svevišnjem.",
       },
       {
         title: "12. Stanite za sljedeći rekat",
@@ -551,8 +411,6 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Prvi tešehhud (u 3 i 4 rekata namaza)",
         body: "Nakon drugog rekata Magriba, Zhura, Asra ili Isha, sjednite i recite At-Tahiyyat, a zatim stanite za preostali rekat(e). Namaz od dva rekata nema prvi tešehhud.",
-        translation:
-          "Svi pozdravi, dove i čiste riječi su za Allaha. Neka je mir na tebe, o Poslaniče, i Allahova milost i Njegovi blagoslovi. Neka je mir na nas i na Allahove pravedne robove. Svjedočim da nema boga osim Allaha, i svjedočim da je Muhamed Njegov rob i Poslanik.",
         tip: "Podignite desni kažiprst u sjedenju. Ako zaboravite prvi tešehhud i počnete da stojite, nastavite i učinite sujud as-sahw prije selama — nemojte se vraćati.",
       },
       {
@@ -562,36 +420,19 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Blagoslovite Poslanika, sallallahu alejhi ve sellem, (Salawat)",
         body: "Nakon posljednjeg At-Tahiyyjata, pošalji salavat na Poslanika, sallallahu alejhi ve sellem, riječima koje je on sam podučio svojim ashabima.",
-        translation:
-          "Allahu, pošalji blagoslov na Muhammeda i porodicu Muhammedovu, kao što si blagoslovio Ibrahima i porodicu Ibrahimovu; zaista si hvale dostojan, slavan. O Allahu, daj milost Muhammedu i porodici Muhammedovoj, kao što si dao naklonost Ibrahimu i porodici Ibrahimov; zaista si hvale dostojan, slavan.",
         tip: "Šafijske i hanbelijske škole smatraju da je salavat na završnoj sjednici obavezan.",
       },
       {
         title: "16. Molite se prije selama",
         body: "Prije nego što završite, tražite utočište kod Allaha od četiri iskušenja - zatim učinite dovu koju želite, za ovaj i sljedeći život, na arapskom ili svom jeziku.",
-        translation:
-          "O Allahu, utječem Ti se od kaburske, od džehennemske kazne, od iskušenja života i smrti, i od zla iskušenja Lažnog Mesije (Dedžala).",
       },
       {
         title: "17. Završni selam (Taslim)",
         body: "Završite molitvu okretanjem lica udesno, zatim ulijevo, svaki put dajući pozdrav mira. Sa selamom namaz je završen.",
-        translation: "Mir i Allahova milost neka je na vama.",
         tip: "Prvi taslim (desno) je stub; drugi (lijevo) je sunnet u nekim školama.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Molite se kao što ste me vidjeli kako se molim. (Malik ibn al-Huwayrith)",
-      },
-      {
-        excerpt:
-          "'Vrati se i klanjaj, jer nisi klanjao' — ponovljeno tri puta — a zatim je učio: reci tekbir, uči šta možeš od Kur'ana, zatim se klanjaj dok ne budeš opušten, ustaj dok ne stojiš, klanjaj dok ne budeš opušten... (Čovjek koji je loše klanjao; također Sahih Musliman 397)",
-      },
-      {
-        excerpt:
-          "Ne postoji dova za onoga ko ne čita Otvaranje Knjige. (Ubadah ibn as-Samit; također Sahih Musliman 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, { label: "Glasno i tiho učenje" }, {}, {}, {}],
   },
   {
@@ -648,24 +489,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Tekst se ne mijenja, samo jačina glasa: Fatiha na svakom rekatu, sura na prva dva, zatim samo Fatiha. Glasno učenje na sabahu, akšamu i jaciji je pohvalno.",
       },
     ],
-    quran: [
-      { excerpt: "Vi u Allahovom Poslaniku imate divan uzor." },
-      { excerpt: "A kad se uči Kur'an, vi ga slušajte i šutite da biste bili pomilovani." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik ﷺ učio je Fatihu i suru na prva dva rekata podne i ikindije, a samo Fatihu na posljednja dva. (Ebu Katada; Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Nema namaza onome ko ne prouči Otvaranje Knjige. (Ubada ibn es-Samit; Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Davao bi da se primijeti duže učenje na prva dva rekata podne i ikindije, a kraće na posljednja dva. (Ebu Katada)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Na sljedećem namazu u džematu primijetite koje rekate imam uči naglas.",
       "Pitajte učitelja svog mezheba učite li Fatihu iza imama pri glasnom učenju.",
@@ -716,12 +541,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Okrenite lice potpuno udesno, zatim ulijevo, sa riječima mira - završavajući molitvu dok pozdravljate anđele na svakom ramenu.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Najbliže sluga svome Gospodaru dolazi kada je na sedždi, zato se mnogo molite. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Manje razlike u postavljanju ruku, načinu sjedenja i podizanju ruku su sve ukorijenjene u autentičnim izvještajima; svaka škola prati valjanu naraciju. Nijedna ne poništava tuđu molitvu.",
   },
@@ -785,20 +605,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Desnom nogom ulazite u džamiju, a lijevom izlazite, svaki sa svojom dovom.",
       "Učite utvrđeni adhkar nakon svake molitve — vidjeti Poslije namaza.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Da nisam opterećivao svoj ummet, naredio bih im da koriste sivak prije svakog namaza. (Ebu Hurayrah; također Sahih Muslim 252)",
-      },
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, nikada nije zanemario dva rekata prije Fadžra. (Aishah; također Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Ko redovno klanja dvanaest rekata danju i noću, Allah će mu sagraditi kuću u džennetu - dva prije sabaha, četiri prije zura, dva nakon zura, dva nakon magriba i dva poslije iša. (Umm Habibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       {
         label: "Vrste namaza — rawatib vodič",
@@ -820,20 +627,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Khushu je izgrađen, nije željen. Naučite značenje onoga što recitujete kako bi vas riječi pokrenule. Uklonite smetnje prije tekbira. Usporite i dajte svakom položaju mir. Razmislite o veličini Onoga kome se obraćate i stvarnosti da bi ova molitva mogla biti vaša posljednja. Svaki namaz klanjajte kao oproštajni namaz, kao što je Poslanik, sallallahu alejhi ve sellem, savjetovao.",
       "Ne dajte se obeshrabriti lutajućim mislima - čak su se i ashabi borili s njima. Borba da vratite fokus, iznova i iznova, sama je dio obožavanja. Khushu raste kroz cijeli život; doslednost je ono što ga neguje.",
     ],
-    quran: [
-      {
-        excerpt: "Zaista su uspješni vjernici - oni koji su ponizni u svojoj molitvi.",
-      },
-      {
-        excerpt: "Pa teško onima koji mole - onima koji ne obaziru se na njihovu molitvu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsan je obožavati Allaha kao da Ga vidite, jer iako Ga ne vidite, On vas sigurno vidi. (Džibrilov, Omerov hadis)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Pročitajte značenje jedne fraze iz Riječi namaza prije svake molitve ove sedmice.",
       "Pauzirajte tri sekunde bez žurbe u svakom položaju prije nego nastavite dalje.",
@@ -880,16 +675,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Kada imate istinsku sumnju, vodeći princip je: odbacite sumnju, gradite na onome u šta ste sigurni (manji broj), završite namaz, a zatim napravite dvije sedžde. Ovo pretvara zbunjenost u ustaljenu, valjanu molitvu, a ne u tjeskobno nagađanje.",
       "Praktično: učinite dvije sedžde baš kao vaš uobičajeni sudžud, sa tekbirom prije i poslije, zatim selamom. Učenjaci se razlikuju oko toga da li dolaze prije ili poslije selama u zavisnosti od vrste greške - obje su autentično prijavljene, tako da je jedno prihvatljivo i nijedno ne poništava namaz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ako neko od vas nije siguran u svoju molitvu i ne zna koliko je klanjao – tri ili četiri – neka odbaci sumnju, nadogradi ono u što je siguran, pa klanja dvaput prije selama. (Ebu Sa'id al-Khudri)",
-      },
-      {
-        excerpt:
-          "Kada neko od vas posumnja u svoju molitvu, neka traži ono što je ispravno i potpuno na njoj, a zatim dajte selam i klanjajte dvaput. (Ibn Mes'ud; također Sahih Musliman 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Zapamtite pravilo za sumnju: gradite na manjem broju, završite, a zatim klanjajte dvaput.",
       "Ako shvatite da ste usred namaza napustili prvi tešehhud, nastavite i na kraju napravite sujud al-sahw.",
@@ -970,42 +756,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Dženaza – zajednička obaveza (fard kifaja) koja se klanja stojeći, bez ruku ili sujuda.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, nikada nije zanemario dva rekata prije Fadžra. (Aishah; također Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Ko redovno klanja dvanaest rekata danju i noću, Allah će mu sagraditi kuću u džennetu - dva prije sabaha, četiri prije zura, dva nakon zura, dva nakon magriba i dva poslije iša. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Ko klanja četiri rekata prije zura i četiri poslije njega, Allah mu brani od Vatre. (Umm Habibah; mnogi učenjaci ocijenili autentičnim)",
-      },
-      {
-        excerpt: "Neka se Allah smiluje onome ko klanja četiri rekata prije asra.",
-      },
-      {
-        excerpt:
-          "Molite se pred Magribom, molite se pred Magribom — tada je rekao: za koga god želi. (Ibn 'Umar)",
-      },
-      {
-        excerpt:
-          "Između svaka dva poziva (ezan i ikamet) je namaz. (Anas ibn Malik; također Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Vitr je dužnost (haqq), pa ko želi neka klanja pet, ko želi neka klanja tri, a ko želi neka klanja jedan. (Ibn 'Umar)",
-      },
-      {
-        excerpt: "Najbolji namaz nakon obaveznih namaza je noćni namaz. (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Moj sluga mi se dobrovoljnim djelima približava sve dok ga ne zavolim. (Hadis Kudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "Počnite s dvanaest rawatiba — izgradite naviku prije dodavanja opcionog nafl-a.",
       "Koristite tabelu rekata na ovom čvorištu da pratite naglašeni sunnet oko svakog farza.",
@@ -1034,25 +785,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Njegovo zanemarivanje je velika opasnost: Poslanik, sallallahu alejhi ve sellem, je upozorio da ko napusti tri džume iz nepažnje, Allah mu zapečati srce. Ipak, njegove nagrade su jednako velike - petak je najbolji dan kada sunce izlazi, i ima sat u kojem se odgovara dova.",
       "Pripremite se za to kao što je to učinio Poslanik, sallallahu alejhi ve sellem: obavite gusl, nosite svoju najbolju čistu odjeću, nanesite miris, idite ranije i pažljivo slušajte hutbu u tišini (prazno pričanje tokom nje gubi nagradu). Učenje sure El-Kahf u petak donosi svjetlo između dva petka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, kada se u petak uputi ezan, požurite se sjećanju Allaha i ostavite trgovinu. To bi bilo bolje za tebe, samo da znaš.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namaz u džematu je obavezujuća obaveza svakog muslimana, osim četvorice: roba, žene, djeteta ili bolesnog. (Tarik ibn Šihab)",
-      },
-      {
-        excerpt:
-          "Ko napusti tri namaza petkom iz nepažnje, Allah će mu staviti pečat na srce. (Ebu al-Ja'd; također Ebu Davud 1052, at-Tirmizi 500)",
-      },
-      {
-        excerpt: "Gusl u petak je obavezan za svakoga ko je ušao u pubertet. (Ebu Sa'id al-Khudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Napravite gusl, obucite čistu odjeću i mirise i dođite ranije - najraniji polaznici zarađuju najveću nagradu.",
       "Pročitajte suru al-Kahf negdje u petak za svjetlo između dva petka.",
@@ -1071,17 +805,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Ako dođete nakon što je imam počeo (zakasnili se zove masbuk), odmah se pridružite u bilo kojem položaju da ga nađete - taj dio se i dalje računa kao molitva s njim. Kada da posljednji selam, ustanite i sami dovršite rekate koje ste propustili, a zatim završite.",
       "Džemat nije samo u džamiji: dvoje ljudi koji zajedno klanjaju čine džemat, pa otac sa djetetom ili dva prijatelja koji putuju mogu dobiti njegovu nagradu. Žene mogu klanjati u džematu i posjećivati ​​džamiju gdje postoje odgovarajući objekti, iako je njihova molitva kod kuće također bogato nagrađena.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Namaz u džematu je dvadeset i sedam stepeni zaslužniji od samog namaza. (Ibn Omer; također Sahih Musliman 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "I obavljajte namaz i dajte zekat i klanjajte se sa onima koji klanjaju.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Danas klanjajte barem jedan namaz u džamiji ili okupite svoje ukućane u red kod kuće.",
       "Naučite šta da radite kao zakasnili: pridružite se odmah, a zatim završite propuštene rekate nakon imamskog selama.",
@@ -1095,12 +820,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Izmišljena molitva se klanja u istom obliku kao i original: propušteni Zur od četiri rekata se klanja kao četiri rekata čak i ako ga nadoknadite noću ili dok putujete. Onaj ko je propustio molitvu zbog pravog izgovora (poput dubokog sna) ne snosi grijeh za kašnjenje; onaj ko ih je namjerno napustio mora ih nadoknaditi uz iskreno, hitno pokajanje.",
       "Učenjaci podstiču nadoknađivanje propuštenih namaza odmah i po redu gdje je to moguće, ne dopuštajući da se gomilaju - jer teret postaje sve teži s vremenom i zakašnjenjem. Ako je veliki broj propušten godinama, pristupite tome s realističnim dnevnim planom umjesto očaja; Allahova vrata povratka su uvijek otvorena.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko zaboravi molitvu ili je prespava, iskupljenje je da je klanja kada je se sjeti. (Anas; također Sahih Musliman 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Iskreno procijenite koliko molitvi dugujete i postavite realan dnevni cilj šminkanja.",
       "Uparite svaki obavezni namaz sa jednim namazom dok se zaostatak ne riješi.",
@@ -1116,16 +836,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Uspostavljena post-namazna rutina je jednostavna i teška: izgovorite 'Astaghfirullah' tri puta; zatim riječi tevhida i hvale; zatim 'SubhanAllah', 'Alhamdulillah' i 'Allahu Akbar' po trideset i tri puta, zapečativši stoti sa 'La ilahe illallah...' — svakome ko to učini opraštaju mu se grijesi iako su poput morske pjene.",
       "Učenje Ajet al-Kursi nakon svake obavezne molitve uklanja samo smrt između osobe i Dženneta, kao što je Poslanik, sallallahu alejhi ve sellem, obećao. Slijedite ga sa tri Qula (Al-Ikhlas, Al-Falaq, An-Nas), i dodajte jutarnji adhkar nakon Fajra i večernji nakon Asra ili Maghriba gdje se primjenjuju.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko veliča, hvali i veliča Allaha po trideset i tri puta nakon svake molitve... i upotpuni stotinu riječima tevhida, grijesi su mu oprošteni iako su kao morska pjena. (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Ko prouči ajet al-Kursi nakon svake propisane molitve, ništa ne stoji između njega i ulaska u Džennet osim smrti. (Ebu Umama; sahih je ocijenio al-Albanijem)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Zapamtite tasbih poslije namaza (33 / 33 / 33 + tahlil) ove sedmice.",
       "Proučite Ajet al-Kursi i tri qula prije nego što ustanete.",
@@ -1139,90 +850,72 @@ export const SALAH_GUIDE_PHRASES_BS: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Nakon završenog vudua",
     when: "Odmah nakon uzimanja abdesta, prije namaza.",
-    translation:
-      "Svjedočim da nema boga osim samo Allaha, bez partnera, i svjedočim da je Muhamed Njegov rob i Poslanik.",
     meaning:
       "Obnavljanje svjedočanstva vjere dok je vaše tijelo svježe pročišćeno. Poslanik, sallallahu alejhi ve sellem, je obećao da će onome ko ovo izgovori nakon vudua otvoriti osam kapija Dženneta da uđe kroz koju želi.",
   },
   {
     title: "Takbirat al-Ihram",
     when: "Na samom početku namaza i pri kretanju između položaja.",
-    translation: "Allah je Najveći.",
     meaning:
       "Namaz počinje ovdje - 'al-ihram' znači da vam čini zabranjenim stvari ovoga svijeta (govor, jelo, okretanje). Proglašavate Allaha većim od svega što bi vam moglo odvratiti pažnju, i potpuno zakoračite u Njegovo prisustvo. Svaki tekbir koji slijedi obnavlja tu predaju.",
   },
   {
     title: "Du'a al-Istiftah (početna molitva)",
     when: "Tiho nakon uvodnog tekbira, prije Al-Fatihe.",
-    translation:
-      "Slava Tebi, Allahu, i hvala. Blagoslovljeno Tvoje ime i uzvišeno Tvoje Veličanstvo. Nema boga osim Tebe.",
     meaning:
       "Vi otvarate razgovor veličanjem i slavljenjem Allaha i potvrđivanjem Njegove jednote, smirivanjem srca prije nego što izgovorite Njegove riječi. Postoji nekoliko autentičnih molbi za otvaranje — ovo je jedna od najčešće korištenih.",
   },
   {
     title: "Sura Al-Fatiha",
     when: "Stojeći na svakom rekatu — stub bez kojeg je rekat nevažeći.",
-    translation:
-      "U ime Allaha, Potpuno Milostivog, Posebno Milostivog. Sva hvala pripada Allahu, Gospodaru svjetova - Potpuno Milostivom, Naročito Milostivom, Vladaru Dana nadoknade. Tebe obožavamo i od Tebe tražimo pomoć. Uputi nas na pravi put - put onih kojima si dao naklonost, a ne onih koji su zaradili ljutnju ili onih koji su zalutali.",
     meaning:
       "'Majka Knjige': pola hvale Allaha, a pola molba za uputu, sa 'Tebe obožavamo' kao šarkom između njih. Allah je rekao da je podijelio ovu suru između Sebe i Svoga sluge - dok recituješ svaki red, On odgovara. Poslanik, sallallahu alejhi ve sellem, je rekao da nema dove za onoga ko je ne uči.",
   },
   {
     title: "Dhikr u ruku",
     when: "Dok se klanja, s ravnim, naslonjen.",
-    translation: "Slava je mome Gospodaru, Veličanstvenom.",
     meaning:
       "Klanjanje je stav poštovanja, tako da veličate Allahovu veličanstvenost — rečeno tri ili više puta, bez žurbe. Poslanik, sallallahu alejhi ve sellem, je učio da rukujem uzdižemo Gospodara, pa se nadajmo da će tvoja dova biti uslišena.",
   },
   {
     title: "Dizanje sa ruku",
     when: "Stojeći potpuno uspravno nakon naklona.",
-    translation: "Allah čuje onoga ko Ga hvali. Gospode naš, Tebi pripada svaka hvala.",
     meaning:
       "Vi tvrdite da Allah zaista čuje onoga koji Ga hvali, a onda Mu uzvratite svu hvalu. Poslanik, sallallahu alejhi ve sellem, je rekao da kada imam ovo kaže, a ljudi odgovore, onome ko se poklapa sa riječima meleka, opraštaju se njegovi prošli grijesi.",
   },
   {
     title: "Dhikr in sujud",
     when: "Na sedždi - položaj najbliži Allahu.",
-    translation: "Slava je mom Gospodu, Svevišnjem.",
     meaning:
       "Na najnižoj fizičkoj tački veličate Svevišnjeg - paradoks u srcu obožavanja. Poslanik, sallallahu alejhi ve sellem, je rekao da je sluga najbliži svome Gospodaru dok klanja, pa izlijte dovu ovdje nakon zikra.",
   },
   {
     title: "Između dvije sedžde",
     when: "Sjedeći mirno između prvog i drugog sujuda svakog rekata.",
-    translation: "Gospodaru, oprosti mi. Gospodaru, oprosti mi.",
     meaning:
       "Kratka, ali direktna molba za oprost na svakom rekatu — podsjetnik da nam je čak i usred namaza potreban Allahov oprost. Sjedite dok ne budete opušteni prije druge sedžde.",
   },
   {
     title: "At-Tahiyyat (Tashahhud)",
     when: "U srednjem sjedenju i završnom sjedenju namaza.",
-    translation:
-      "Svi pozdravi, dove i čiste riječi su za Allaha. Neka je mir na tebe, o Poslaniče, i Allahova milost i Njegovi blagoslovi. Neka je mir na nas i na Allahove pravedne robove. Svjedočim da nema boga osim Allaha, i svjedočim da je Muhamed Njegov rob i Poslanik.",
     meaning:
       "Srce namaza koje sjedi: vi klanjate svaku vrstu ibadeta samo Allahu, pošaljite mir na Poslanika, sallallahu alejhi ve sellem, i pravednike, i ponovo objavite dva svjedočanstva. Ibn Mas'ud je to naučio od Poslanika, sallallahu alejhi ve sellem, riječ po riječ, kao što se uči sura.",
   },
   {
     title: "Salawat Ibrahimiyyah",
     when: "U završnom tešahudu, nakon At-Tahiyyata.",
-    translation:
-      "Allahu, pošalji blagoslov na Muhammeda i porodicu Muhammedovu, kao što si blagoslovio Ibrahima i porodicu Ibrahimovu; zaista si hvale dostojan, slavan. O Allahu, daj milost Muhammedu i porodici Muhammedovoj, kao što si dao naklonost Ibrahimu i porodici Ibrahimov; zaista si hvale dostojan, slavan.",
     meaning:
       "Kada su ashabi upitali kako da se na njega blagoslove, Poslanik, sallallahu alejhi ve sellem, ih je podučio ovim tačnim riječima - najvjerodostojnijim salavatom u Sunnetu. Poštuj Poslanika, sallallahu alejhi ve sellem, kao što je Allah naredio, dovršavajući svoju molitvu ljubavlju prema onome ko te je naučio da klanjaš.",
   },
   {
     title: "Traženje utočišta prije selama",
     when: "Nakon završnog tešahuda i salavata, neposredno prije završetka namaza.",
-    translation:
-      "O Allahu, utječem Ti se od kaburske, od džehennemske kazne, od iskušenja života i smrti, i od zla iskušenja Lažnog Mesije (Dedžala).",
     meaning:
       "Poslanik, sallallahu alejhi ve sellem, je uputio da nakon završnog tešehuda osoba traži utočište od ove četiri opasnosti prije klanjanja selama - posljednja molba u namazu pokriva ovaj život, kabur, vatru i najveće iskušenje koje dolazi.",
   },
   {
     title: "Taslim (završni selam)",
     when: "Završetak namaza — okretanje lica udesno, pa ulijevo.",
-    translation: "Mir i Allahova milost neka je na vama.",
     meaning:
       "Namaz napuštate kao što biste napustili društvo poštovanih — uz pozdrav mira anđelima koji snimaju na svakom ramenu i onima koji se mole pored vas. Selam je stub; time je molitva potpuna.",
   },
@@ -1230,10 +923,10 @@ export const SALAH_GUIDE_PHRASES_BS: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_BS: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Koliko sunnet rawatib rekata je dogovoreno svakodnevno?",
+    prompt: "Koliko dnevnih rekata sunneta rawatib navodi hadis Ummu Habibe?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Dvanaest rawatiba: 2 prije Fajra, 4 prije Dhuhra, 2 poslije Dhuhra, 2 poslije Magriba i 2 poslije Iše (Sahih Muslim 728).",
+      "Hadis Umm Habibe obećava kuću u Džennetu onome ko klanja dvanaest rekata sunneta danju i noću (Sahih Muslim 728); Džami' et-Tirmizi 415 ih nabraja: 2 prije Fajra, 4 prije Dhuhra, 2 poslije Dhuhra, 2 poslije Magriba i 2 poslije Iše.",
   },
   {
     prompt: "Prije Fajra, naglašeni (mu'akkadah) sunnet je:",
@@ -1242,10 +935,10 @@ export const SALAH_GUIDE_QUIZ_BS: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Dva rekata prije Fajra su sunnet mu'akkadah — Poslanik, sallallahu alejhi ve sellem, ih nikada nije napuštao (Sahih al-Buhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Dogovoreni rawatib oko Dhuhra su:",
+    prompt: "U hadisu Umm Habibe (Džami' et-Tirmizi 415) rawatib oko Dhuhra su:",
     options: ["2 prije, 2 poslije", "4 prije, 2 poslije", "4 prije, 4 poslije", "Samo 2 prije"],
     explanation:
-      "Četiri prije Dhuhra i dva poslije su dio dvanaest rawatiba. Dodatni rekati su preporučeni nafl, a ne fiksni rawatib.",
+      "Hadis Umm Habibe navodi četiri prije Dhuhra i dva poslije. Predaja Ibn Omera (Sahih al-Buhari 1180) spominje dva prije, pa se mezhebi razlikuju koji skup smatraju potvrđenim rawatibom; rekati preko toga su nafila.",
   },
   {
     prompt: "Tačno ili netačno: Četiri rekata prije Asra su dio fiksnih dvanaest dnevnih rawatiba.",

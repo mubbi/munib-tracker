@@ -10,7 +10,7 @@ import {
   isStandalonePwa,
 } from "@/lib/notifications/browser-capabilities";
 import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
-import { upsertPushToken } from "@/lib/notifications-api";
+import { removePushToken, upsertPushToken } from "@/lib/notifications-api";
 
 async function loadExpoNotifications() {
   return import("expo-notifications");
@@ -78,6 +78,23 @@ export async function registerExpoPushTokenWithApi(accessToken: string | undefin
     }
   } catch {
     // Push registration is best-effort (simulator / missing projectId).
+  }
+}
+
+/**
+ * Sign-out: unregisters this device's push token(s) from the account that is
+ * signing out (matched by the install's device id), then forgets the local
+ * dedupe key so the next session registers afresh. Best-effort; call it while
+ * the session is still valid.
+ */
+export async function unregisterPushTokenWithApi(accessToken: string | undefined): Promise<void> {
+  lastRegisteredKey = null;
+  if (!accessToken) return;
+  try {
+    const deviceId = await SessionStore.getDeviceId();
+    await removePushToken(accessToken, { deviceId });
+  } catch {
+    // Offline / old server: the next registration from this device moves the token.
   }
 }
 

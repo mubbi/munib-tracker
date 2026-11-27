@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "About {appName} — What \"Munib\" Means and Why It Exists",
+    "description": "Munib means the one who turns back to Allah in repentance. Why {appName} carries that name, who builds it, and how its content stays authentic."
+  },
+  "eyebrow": "About",
+  "title": "About {appName}",
+  "intro": "{appName} is a free, offline-first companion to help you track your journey back to Allah.",
+  "evidence": {
+    "reference": "Qur'an {surah}:{ayah}",
+    "note": "Translation: Pickthall"
+  },
+  "meaning": {
+    "heading": "What does Munib mean?",
+    "definition": "<strong>Munib (<ar>مُنيب</ar>)</strong> is an Arabic word for the one who turns back: a person who returns to Allah in repentance, and keeps returning. Not once, dramatically. Over and over, quietly, for a lifetime.",
+    "quran": "The word appears in the Qur'an. Allah describes Ibrahim (peace be upon him) as <em>ḥalīmun awwāhun munīb</em> in Surah Hud, and Surah Qaf speaks of the one who comes <em>bi-qalbin munīb</em>, with a returning heart.",
+    "root": "<em>Munib</em> comes from <em>inābah</em>, turning to Allah in repentance. Arabic dictionaries describe it as a turning back that repeats, not a single one-time U-turn. The word itself allows for the fact that you'll need to come back more than once."
+  },
+  "name": {
+    "heading": "Why the app carries that name",
+    "cycle": "Every Muslim knows the return isn't a one-time event. You slip. You miss Fajr. Your tasbeeh sits untouched for a week. Then you turn again. And again. {appName} was built for that cycle, so that returning isn't only a feeling you have at 2 a.m.: it becomes something you can track, remember, and rebuild, one honest day at a time.",
+    "thesis": "That's why it isn't another content dump with a crescent icon. It's a tracker and a reminder for the walk back: honest Salah logging, missed prayers you can actually clear, daily zikr and gentle nudges. Its tagline says the same thing: <em>Track Your Journey Back to Allah.</em> The name isn't decoration. It's the whole thesis.",
+    "rules": "Three design rules shaped every screen: encouragement stays gentle, the calendar stays honest, and your data lives on your device first."
+  },
+  "mission": {
+    "heading": "Our mission",
+    "body": "We believe worship tracking should feel calm and trustworthy — not gamified or guilt-driven. {appName} exists to help you track your journey back to Allah, with an honest record of your Salah, adhkar and Qaza, gentle reminders, and rich Islamic content, all without requiring an account for personal use."
+  },
+  "audience": {
+    "heading": "Who it's for",
+    "body": "Whether you are rebuilding a consistent Salah habit, working through missed prayers and fasts, learning the Qur'an, or teaching your children to pray, {appName} is designed to be a quiet, judgement-free companion. Your personal record stays on your device unless you choose to sync it or share a small signal with your family or a partner."
+  },
+  "design": {
+    "heading": "Design philosophy",
+    "body": "The app uses warm cream and deep-forest palettes inspired by traditional Islamic aesthetics — with a prayer-times hero that stays deep green regardless of theme. Motion is calm and confident. Cards use continuous rounded corners. Every screen pulls colors from a shared theme system with twelve accent presets and full dark-mode support.",
+    "lightCaption": "The home screen in the light theme.",
+    "darkCaption": "The same screen in the dark theme."
+  },
+  "built": {
+    "heading": "What we built",
+    "body": "Explore the full feature set on our <features>Features</features> page: Salah tracking with Rawatib, Qaza planning, a Salah focus lock, a Masjid finder, {duaCount} duas and 60 adhkar with a custom adhkar builder, offline Qur'an (surah, juz, 604-page mushaf, word-by-word, tajweed, notes and root-word search) with on-device recitation practice, a hadith library, Qibla, Hijri events, statistics and gentle Noor encouragement, family and kids mode, group khatm, an inheritance calculator and will builder, widgets and watch companions, optional sync, local backup, and app lock. Beyond tracking, {appName} is a place to learn: 350+ cited topics on aqeedah, the prophets, the seerah, the sahaba, the Hereafter and dua; a guided path to read and understand the Qur'an; and practical worship guides for Salah, taharah, zakat, Friday, Janazah, and Hajj & Umrah, every lesson referenced to the Qur'an and authentic hadith. The interface ships in 24 languages."
+  },
+  "openSource": {
+    "heading": "Open source",
+    "body": "{appName} is source-available: the code is on <github>GitHub</github> under a non-commercial license: free to use, modify, and redistribute for personal and educational purposes, with credit and a link to this site. It may not be sold. A tool for returning to Allah should be inspectable: you should be able to read the architecture, fix a bug, improve a translation, and trace exactly where every verse and hadith came from. That boundary is intentional: free for the ummah and for learning, not free for someone else to repackage and sell. Learn more on our <openSource>Open source</openSource> page, and meet the people behind the work on <contributors>Contributors</contributors>."
+  },
+  "author": {
+    "heading": "Author & collaborators",
+    "body": "{appName} is built and maintained by <authorLink>{author}</authorLink>, with content reviewed for authenticity before it ships. We are grateful to every contributor, tester, and reviewer who has helped shape the app."
+  },
+  "noFunding": {
+    "heading": "No sponsorship, no donations",
+    "body": "{appName} does not currently accept sponsorship, funding, or donations, and there is no official payment or donation channel. If anyone claims to be collecting money on its behalf, they're not."
+  },
+  "dua": {
+    "heading": "A dua",
+    "body": "We ask Allah to accept the effort of everyone who contributed to this app, to forgive our shortcomings, and to have mercy on our marhumeen. May He make this a source of ongoing benefit for all who use it. Ameen."
+  },
+  "authenticity": {
+    "heading": "Content authenticity",
+    "body": "Arabic text, translations, transliterations, and references are drawn from established sources listed on our <credits>Credits</credits> page and checked before publication. If you notice an error, please report it so we can correct it promptly — accuracy in religious content is a trust we take seriously."
+  }
+}

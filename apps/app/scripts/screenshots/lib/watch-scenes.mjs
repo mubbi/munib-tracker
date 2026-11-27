@@ -5,6 +5,11 @@
  * Scenes differ by the seeded App Group snapshot — no Maestro navigation.
  */
 
+import { createRequire } from "node:module";
+
+// Generated palette (pnpm --filter app generate:native-tokens) — same colours as the app.
+const tokens = createRequire(import.meta.url)("../../../plugins/generated/native-tokens.json");
+
 /** App Store Ultra 3 size — Apple scales down to smaller watches. */
 export const WATCH_STORE_SIZE = { w: 422, h: 514, label: "watch-ultra-3" };
 
@@ -23,29 +28,18 @@ function nowIso() {
 }
 
 function baseTheme(isDark = true) {
-  return isDark
-    ? {
-        isDark: true,
-        primary: "#34d399",
-        background: "#060a09",
-        cardBackground: "#0d1a16",
-        textPrimary: "#f0fdf4",
-        textSecondary: "#86a89a",
-        border: "#1e3a32",
-        success: "#34d399",
-        warning: "#fbbf24",
-      }
-    : {
-        isDark: false,
-        primary: "#059669",
-        background: "#F5F0E6",
-        cardBackground: "#FFFDF9",
-        textPrimary: "#152921",
-        textSecondary: "#4A6157",
-        border: "#D2C7B1",
-        success: "#059669",
-        warning: "#D97706",
-      };
+  const scheme = isDark ? tokens.dark : tokens.light;
+  return {
+    isDark,
+    primary: scheme.accent,
+    background: scheme.background,
+    cardBackground: scheme.card,
+    textPrimary: scheme.text,
+    textSecondary: scheme.textSecondary,
+    border: scheme.border,
+    success: tokens.status.success,
+    warning: tokens.status.warning,
+  };
 }
 
 function sectionBase(overrides) {

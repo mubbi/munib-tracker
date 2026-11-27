@@ -13,7 +13,7 @@ export type SubmitReviewFeedbackParams = {
   locale: string;
 };
 
-/** POST low-star feedback to the API. */
+/** POST user-sent app feedback (Settings → Send feedback, 1–5 rating). */
 export async function submitReviewFeedback(params: SubmitReviewFeedbackParams): Promise<void> {
   const platform = resolveAppPlatform();
   if (platform !== "ios" && platform !== "android" && platform !== "web") {
@@ -29,7 +29,7 @@ export async function submitReviewFeedback(params: SubmitReviewFeedbackParams): 
     {
       rating: params.rating,
       message: params.message || undefined,
-      source: "in_app_review",
+      source: "settings_feedback",
       triggerId: params.triggerId,
       appVersion: resolveAppVersion(),
       platform,

@@ -6,7 +6,7 @@ import type { LearnGuideTopic } from "../types/learn-guide";
  * from the Qur'an and authentic, checkable hadith (sunnah.com numbering).
  *
  * Citations verified against sunnah.com:
- *   - Sunan an-Nasa'i 2422 (Jarir) — three days a month = a lifetime; the White
+ *   - Sunan an-Nasa'i 2420 (Jarir) — three days a month = a lifetime; the White
  *     Days are the 13th, 14th, 15th.
  *   - Sunan Abi Dawud 2449 (Ibn Milhan) — command to fast the white nights.
  *   - Jami' at-Tirmidhi 761 (Abu Dharr) — fast the 13th, 14th, 15th.
@@ -38,13 +38,13 @@ export const WHITE_DAYS_GUIDE_TOPICS: LearnGuideTopic[] = [
     summary: "The 13th, 14th and 15th of every Hijri month — the bright, moonlit nights.",
     body: [
       "Ayyām al-Bīḍ, 'the White Days', are the 13th, 14th and 15th of every Islamic (Hijri) month. They are called 'white' because their nights are bright: the moon is full or near-full and stays lit for most of the night, so the nights themselves appear white with moonlight.",
-      "Fasting three days of each month is an emphasised sunnah of the Prophet ﷺ, and the White Days are the recommended three. Jarir ibn Abdullah reported that the Prophet ﷺ said: 'Fasting three days of each month is fasting for a lifetime, and the White Days (Ayyām al-Bīḍ) are the thirteenth, fourteenth and fifteenth' (Sunan an-Nasa'i 2422).",
+      "Fasting three days of each month is an emphasised sunnah of the Prophet ﷺ, and the White Days are the recommended three. Jarir ibn Abdullah reported that the Prophet ﷺ said: 'Fasting three days of each month is fasting for a lifetime, and the White Days (Ayyām al-Bīḍ) are the thirteenth, fourteenth and fifteenth' (Sunan an-Nasa'i 2420).",
       "Because the Hijri month follows the moon, these three days move through the Gregorian calendar each month and can start a day earlier or later depending on when the new moon was sighted in your region. This app works them out from its own Hijri calendar, so you always know which dates they fall on.",
     ],
     hadith: [
       {
         collection: "Sunan an-Nasa'i",
-        citation: "2422",
+        citation: "2420",
         grade: "sahih",
         excerpt:
           "Fasting three days of each month is fasting for a lifetime, and the White Days (Ayyām al-Bīḍ) are the thirteenth, fourteenth and fifteenth.",

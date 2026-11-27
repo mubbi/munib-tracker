@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Абу Хурайра Пайғамбар ﷺ былай дегенін хабарлады: «Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
       "Ол сондай-ақ: «Қабылданған haj (haj mabrur) сыйлығы жәннаттан басқа ештеңе емес» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Қабылдану шын ниет пен haj-ты ар-ождан және күнәдан сақтаумен байланысты — тек сыртқы рәсімдерді орындаумен емес.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады.",
-      },
-      {
-        excerpt:
-          "Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады.",
-      },
-      { excerpt: "Қабылданған haj сыйлығы жәннаттан басқа ештеңе емес." },
-      { excerpt: "Қабылданған haj сыйлығы жәннаттан басқа ештеңе емес." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Haj-ты тек Аллаһ үшін ниет етіңіз — бүкіл сапар бойы тіліңіз бен мінезіңізді сақтаңыз.",
       "Қолданбадағы haj тізімін тек еске салу үшін пайдаланыңыз; жүрегіңізді қабылдануға бағытыңыз.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Абу Хурайра Пайғамбар ﷺ былай дегенін хабарлады: «Umra орындау алдыңғысынан кейінгі күнәларға кешірім, қабылданған haj сыйлығы жәннаттан басқа ештеңе емес» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
       "Umra жылдың кез келген уақытында орындалады. Haj dan qysqa, бірақ бәрібір үлкен ғибадат: ihram, tawaf, sa'y және bas qyru nemese qysqartu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umra орындау алдыңғысынан кейінгі күнәларға кешірім, қабылданған haj сыйлығы жәннаттан басқа ештеңе емес.",
-      },
-      {
-        excerpt:
-          "Umra орындау алдыңғысынан кейінгі күнәларға кешірім, қабылданған haj сыйлығы жәннаттан басқа ештеңе емес.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Рәсімдерді ретімен орындауға дайын болғанда umra тізімін ашыңыз."],
     appLinks: [{ label: "Umra рәсімдері тізімі" }],
   },
@@ -58,14 +38,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Абдуррахман ибн Я'mar Пайғамбар ﷺ былай дегенін хабарлады: «Haj — Arofa» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arofa шекарасында уақытында тұруды қалдырған сол жыл haj-ты қалдырған болады.",
       "Haj da bolmaǵandar үшін Arofa күнinde oraza tutu қатаң ұсынылады: Абу Катада хабарлағандай, Arofa oraza sy өткен және келесі жыл күнәларын кешіреді (Sahih Muslim 1162). Hojylar dua үшін күннің өзіне беріліп, oraza tutпayды.",
     ],
-    hadith: [
-      { excerpt: "Haj — Arofa." },
-      { excerpt: "Haj — Arofa." },
-      {
-        excerpt:
-          "Arofa күнinde oraza tutu — Аллаhtan өткен және келесі жыл күнәларын кешіру деп үміттенемін.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Haj — бесінші rukn",
@@ -75,17 +48,8 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Адамдарға haj жарияланды: «Адамдарға haj жарияла; olar piyoda jəne har turli atlyq pen senge keledi; har uzaq jol boyy keledi» (Qur'an 22:27).",
       "Ибн Umar Пайғамбар ﷺ былай дегенін хабарлады: Ислам bes asasqa qurylǵan: shohodat, namaz, zakat, Ramazan orazaсы jəne qodir bolǵandar ushin Uyǵa haj (Sahih al-Bukhari 8; Sahih Muslim 16). Ғұламалар шарттар орындалғанда өмірде bir ret farz ekenine kelisti; qaitalau ixtiyariy fazilet.",
     ],
-    quran: [
-      { excerpt: "Адамдарға Үйden haj farz — jol taba alatyn ǵariz adam ushin..." },
-      { excerpt: "Адамдарға haj жарияла; olar piyoda jəne har turli atlyq pen senge keledi..." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ислам bes asasqa qurylǵan: Allahtan basqa ilah joq jəne Muhammad Allah Resuli, namaz oqu, zakat beru, Ramazan orazaсы jəne jol taba alatynlar ushin Uyǵa haj.",
-      },
-      { excerpt: "Ислам bes asasqa qurylǵan... jəne jol taba alatynlar ushin Uyǵa haj." },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Istitoat (qabilet)",
@@ -94,7 +58,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Qur'an 3:97 dagy shart istitoat. Klassik ulama bunu quyidaǵysha jamlaydy: saparǵa shydamdy jismen saulyq, sapar jəne joq uaqytta qaramagyndagylar ehtiyajtaryn qoptau ushin jetkilikti halal mol, jəne qauipsiz ashqy jol.",
       "Bul jyl bul imkoniyattardan ayrǵan keşiktiru ushin künәkor emes, qodir bolǵansha kutui mumkin. Istitoat jaǵday boyysha bahalanady — kesellik, tolanysy shart qarz nemese qauipsiz bolmaǵan sapar daraw farzdı alip tastausy mumkin. Jaǵdayyńyz aniq emes bolsa, malikeli alimnen surańyz.",
     ],
-    quran: [{ excerpt: "...jol taba alatyn ǵariz adam ushin." }],
+    quran: [{}],
     actions: [
       "Bron qyludan buryn farz qarzdar toleń jəne qaramagyndagylar taminotyn tartipke salysyz.",
       "Paketterdi tek resmi arnalardy tekseriń (dayyndyq taqyryptaryna qarań).",
@@ -108,13 +72,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Ибн Abbas rivayat qylǵanynda, Payg'ambar ﷺ dedi: aiel mahramsyz sapar qylmasyn, erkek de mahram bolmaǵansha unyń uine kirmesin (Sahih al-Bukhari 1862; Sahih Muslim 1341). Kop ulama bunu haj jəne umra saparyna qoldanady.",
       "Keibіr keiingi ulama — qauipsizdik, zarurat jəne zamanaǵy transportty eske alǵan holda — mahram bolmaǵanda aielge farz haj ushin senimdi top qurylymynda sapar qyluǵa ruxsat beredi. Bul fiqh maselasynda bahsli.",
     ],
-    hadith: [
-      { excerpt: "Aiel mahramsyz sapar qylmasyn, erkek de mahram bolmaǵansha unyń uine kirmesin." },
-      {
-        excerpt:
-          "Allah jəne Akhirat kunege iman keltirgen aielge bir kun jəne tun mahramsyz sapar qylu halal emes.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Kopchilik aiel haj saparynda mahram kerek dep esepteydi. Keibіr keiingi ulama farz haj ushin qauipsiz aieler topy men saparǵa ruxsat beredi. Senimdi alim jəne haj idarasy qoidalaryna amal qylyńyz.",
   },
@@ -127,12 +85,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': haj aylarinda tolyq umra oryndau, ihramnan shyǵu, keyin 8 zul-hijjada haj ushin qaita ihram. Bugin kop hojylar bunu qylady; bul da hady talap qylady.",
       "Allah rәsimderdi birlestirgender turaly aytdy: «...Kim umradan hajǵa paydalanǵan bolsa, oson tabylatyn qurban hayvanlary...» taba almaǵandar hajda ush kun, qaytǵanda zheti kun oraza tutady (Qur'an 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Haj jəne umrany Allah ushin tolyq oryndań... Kim umradan hajǵa paydalanǵan bolsa, oson tabylatyn qurban hayvanlary. Taba almaǵan — hajda ush kun, qaytqanyńyzda zheti kun oraza...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Miqatqa kelmeden buryn top basysy men turinizdi kesin qylsyńyz.",
       "Tamattu' qylsańyz, haj ushin qaita ihramǵa kirmeden buryn umrany tolyq oryndańyz.",
@@ -146,16 +99,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas rivayat qylǵanynda, Payg'ambar ﷺ adamlar ushin miqattardy belgiledi: Madina ushin Zul-Hulayfa, Sham ushin Al-Juhfa, Najd ushin Qarn al-Manazil, Yemen ushin Yalamlam; jəne Iraq ushin Zat 'Irq. Ol dedi: bular sol jerler ahalysy jəne olardan haj nemese umra niety men otetinder ushin; shekaralar ishinde turǵyndar qayerden jol alsa sol jerden ihram kiredi, hatto Makka ahalysy Makkadan (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Zamanaǵy aeroport jəne porttarda sáykes ihram nýktelesi nemese jariyalangan tartipter bar — tashuyshy jəne Haj jəne Umra vazirligi kórsetimderine amal qylyńyz, shekarany ihramsyz otpeńiz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasulullah ﷺ Madina ahalysy ushin Zul-Hulayfa, Sham ahalysy ushin Al-Juhfa, Najd ahalysy ushin Qarn al-Manazil, Yemen ahalysy ushin Yalamlam belgiledi... Bul miqattar sol jerler jəne haj nemese umra niety men olardan otetinder ushin...",
-      },
-      {
-        excerpt:
-          "Rasulullah ﷺ miqattardy belgiledi... Shekaralar ishinde turǵyndar qayerden jol alsa sol jerden ihram kiredi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ihramǵa kiru",
@@ -165,14 +109,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Erkek ihramǵa kirudin buryn tanasyna atir surtui mumkin, jaǵdayǵa kirgennen keyin ihram matolaryna emes (Sahih al-Bukhari 1539). Keyin niет qylyń jəne talbiyany baslańyz.",
       "Payg'ambar ﷺ oǵytylǵan talbiya: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — umra tawafy baslangansha nemese hajda mashhur amal boyysha Jamrat al-Aqaba tas taslangansha (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      { excerpt: "Aisha dedi: Men Rasulullah ﷺ ni ihramǵa kirudin buryn atir surtardym..." },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Payg'ambar ﷺ talbiyany baland dauys pen aytdy: Labbayk Allahumma labbayk..." },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Erkekter ushin keminde eki toplam ihram alyńyz; atirsiz taza quraldardy dayyndyńyz.",
       "Sapardan buryn talbiyany mashq qylyńyz, jolda oson aitu ushin.",
@@ -208,12 +145,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Erkekter alǵashy ush aylanada raml (zhyldam qadam) jəne bul kelis umra tawafynda idtiba' (oń jelke ashqy) qylady, mashhur sunnat boyysha.",
       "Yaman burchagy men Qara Tosh arasynda aitilu usynylady: «Rabbimiz, bizge dunyada zhaqsylyq jəne akhiratda zhaqsylyq ber, do'zax azabyndan asra» (Qur'an 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbimiz, bizge dunyada zhaqsylyq jəne akhiratda zhaqsylyq ber, do'zax azabyndan asra.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Eki rakat jəne Zamzam",
@@ -222,7 +154,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Tawafdan keyin, oryn bolsa Maqam Ibrahim artynda eki rakat oqyńyz, koptik bolsa meshittin basqa jerinde — Allah sozine amal: «...Ey iman keltirgender, Ibrahim turǵan jerden namaz oqu jeri qylyń...» (Qur'an 2:125).",
       "Keyin Zamzam suyn ishińiz. Jabir Payg'ambar ﷺ haj tasvirinde tawafdan keyin Zamzam ishu bar; Payg'ambar ﷺ dedi Zamzam niет qylǵan narsa ushin ishiladi (keiingi ulama zhinaǵan sahih rivayatlar; niет jəne dua usynylady).",
     ],
-    quran: [{ excerpt: "...Ey iman keltirgender, Ibrahim turǵan jerden namaz oqu jeri qylyń..." }],
+    quran: [{}],
   },
   {
     title: "Safa men Marwa arasynda sa'y",
@@ -231,12 +163,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Allah aytdy: «Albatta, Safa jəne Marwa Allah belgilerinin birі... Kim Uyǵa haj nemese umra qylsa — olar arasynda zhyruynda künә joq...» (Qur'an 2:158).",
       "Safa men Marwa arasynda zheti ret zhyryńyz, Safadan baslap. Safada Ka'baga qarap, Payg'ambar ﷺ qylǵanynda qollardy takbir jəne dua ushin kotaryńyz. Erkekter zhasyl belgiler arasynda zhygirady.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, Safa jəne Marwa Allah belgilerinin birі. Kim Uyǵa haj nemese umra qylsa — olar arasynda zhyruynda künә joq...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq nemese taqsir — umrany ayaqtau",
@@ -246,13 +173,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Erkek basy halq qylady — Payg'ambar ﷺ ush ret dua qyldy — nemese teń qysqartady (taqsir). Aiel shashyn zhynap barmak ushy qysqartady. Sonda umra tamam bolady jəne ihram shekteuleri ashylady.",
       "Abdullah ibn Umar rivayat qylǵanynda, Rasulullah ﷺ dedi: «Allahym, qyrylǵandardyǵa rahm qyl». Dedі: «Qysqartylǵandardy da, ey Rasulullah?» Dedі: «Allahym, qyrylǵandardyǵa rahm qyl». Taǵy dedі: «Qysqartylǵandardy da?» Ushinshi ret dedi: «Jəne qysqartylǵandardy» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      { excerpt: "Allahym, qyrylǵandardyǵa rahm qyl... ushinshi ret: jəne qysqartylǵandardy." },
-      {
-        excerpt:
-          "Allahym, qyrylǵandardy kefforat qyl... ushinshi ret dedi: jəne qysqartylǵandardy.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 zul-hijja — Tarviya kuni",
@@ -261,12 +182,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu' hojylary: haj niety qylyń jəne Makkadagy turar jeringizden qaita ihram kiriń, talbiyany zhanańyz. Ifrad jəne Qiran hojylary allaqashan ihramda.",
       "Mina'ǵa baryń jəne Zuhur, Asr, Maghrib, Isha jəne keyingi Fajrni ǵaribi uaqtynda eki rakatqa qysqartyp oqyńyz, Jabir rivayat qylǵan Veda haj amaline amal (Sahih Muslim 1218). Kun jəne tundі ibadatta, Arofany kutip otkiziniz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir Payg'ambar ﷺ Veda haj nyń uzaq rivayaty — Mina'da tunau jəne rәsimder ketіstіgі.",
-      },
-    ],
+    hadith: [{}],
     actions: ["8-kun ertalap haj tizimin ashysyz."],
     appLinks: [{ label: "Haj tizimi" }],
   },
@@ -278,13 +194,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Zuhur men Asrni Zuhur uaqtynda birlestirip qysqartyp oqyńyz (jam' taqdim), qalǵan kundі ixtiyariy namaz ornyna duaga bagyshtanyńyz — Payg'ambar ﷺ amaly (Sahih Muslim 1218).",
       "Kun batqan soń, tinsh Muzdalifaga baryńyz. Maghrib men Ishany birlestirińiz (Isha qysqartylǵan), tundі dem alyńyz jəne tas taslaу ushin tas zhynanyńyz. Ayu jəne aieler mashhur sunnat ruxsaty men tungi zharym keiin Mina'ǵa ketui mumkin.",
     ],
-    hadith: [
-      { excerpt: "Haj — Arofa." },
-      {
-        excerpt:
-          "Payg'ambar ﷺ Arofada Zuhur men Asrni birlestirdi, keyin kun batqan soń Muzdalifaga jol aldy...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 zul-hijja — Nahru kuni",
@@ -295,9 +205,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Halq nemese taqsir; aiel barmak ushy qysqartady. Tas taslaу men halq/taqsirdan keyin birinshi tahallul — ihram shekteulerinin kopi ashylady, jynystyq qatynastan basqa.",
       "Makkaǵa Tawaf al-Ifada — haj rukni — jəne tamattu' hojylary ushin sa'y. Ifrad/Qiran kelis tawafy men sa'y qylǵandar mazhab hukmine amal qylady. Bul tolyq ihramnan shyǵu tamamlanady.",
     ],
-    quran: [
-      { excerpt: "...Kim umradan hajǵa paydalanǵan bolsa, oson tabylatyn qurban hayvanlary..." },
-    ],
+    quran: [{}],
     madhhabNote:
       "Nahru kuni amaldar ketіstіgіnde sunnatda ilgilik bar; mazhabtar aniq tartip jəne ǵariz haj turi ushin sa'y uaqtynda farq qylady. Top jolbasshy korsetimine amal qylyńyz.",
   },
@@ -309,19 +217,8 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Ǵariz kuni Zuhurdan keyin ush ustunǵa tartip pen zheti tas — kishі, orta, ulken — ǵariz tas taslauda takbir. Ashyqushylar 12-kun tas taslagan soń ketui mumkin (Qur'an 2:203).",
       "Makkadan ketmeden buryn Tawaf al-Wada qylyńyz, Uy men sońǵy baiǵansy qosh kon bolsyn. Ibn Abbas rivayat qylǵanynda, adamlarǵa sońǵy marosim Uyda bolu buyrylǵan, hayzli aiel ushin zhenildetilgen (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allahty sanalǵan künderde eske alysyz. Kim eki kunde ashyq bolsa — künә joq; kim keşiktirse — künә joq — Allahtan qorqqandar ushin...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Adamlarǵa Ka'ba qosh kon tawafy sońǵy marosim retinde buyrylǵan, hayzli aiel keşiktirilgen.",
-      },
-      { excerpt: "Adamlarǵa sońǵy marosim Uyda bolu buyrylǵan, hayzli aiel ushin zhenildetilgen." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Rukn jəne wajib",
@@ -340,12 +237,7 @@ export const HAJJ_GUIDE_TOPICS_KK: DeepPartial<LearnGuideTopic>[] = [
       "Künәsiz qaitu hadisi (Bukhari 1521; Muslim 1350) hajdy ar-ojdan (rafast), fisoq jəne bahas pen buzatatynyn korsetedi. Sabr, zhumyshtylyq jəne basqa hojylarga komek ibadat bolіgі.",
       "Telefon jəne behuda soz Arofa men meshitti bosmasyn. Tawafda jol bering; Qara Toshqa itermeyiniz. Qabyldanǵan haj jannat serіgі — butun saparda zhaksy minez-mulq ushin intilіńiz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Кім Аллаһ үшін haj жасап, жыныстық қатынас пен күнәдан сақталса, анасы оны туған күніндегідей қайтарады.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Kundіk niет qylyńyz: bir meyirimshilik jəne koptikten zhogary bir shyn dua."],
   },
   {

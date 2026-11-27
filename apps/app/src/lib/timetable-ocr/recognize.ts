@@ -1,0 +1,90 @@
+import type { OcrResult } from "@munib-tracker/shared/timetable-parser";
+import { requireOptionalNativeModule } from "expo";
+import { Platform } from "react-native";
+
+import { isTV } from "@/lib/platform/is-tv";
+
+import type { FractionRect } from "./regions";
+
+/**
+ * NF-3.12 on-device text recognition (D3 — permanently on-device). Native
+ * builds use the local Expo module `modules/munib-text-recognition`:
+ * - iOS: Apple Vision `VNRecognizeTextRequest` (`.accurate`, no language
+ *   correction, en-US + ar-SA when supported);
+ * - Android: ML Kit Text Recognition v2, bundled Latin model.
+ * Web uses `recognize.web.ts` (Tesseract.js WASM, lazy-loaded). TV, Expo Go and
+ * builds without the module return `unavailable`: the screen offers manual
+ * entry only. The image never leaves the device.
+ */
+
+export type OcrAvailability = "native" | "wasm" | "unavailable";
+
+interface TextRecognitionModule {
+  isSupported(): boolean;
+  recognize(uri: string): Promise<OcrResult>;
+}
+
+function loadModule(): TextRecognitionModule | null {
+  if (isTV()) return null;
+  if (Platform.OS !== "ios" && Platform.OS !== "android") return null;
+  return requireOptionalNativeModule<TextRecognitionModule>("MunibTextRecognition");
+}
+
+// Resolved once at import, like the other local modules (see lib/focus-lock/native.ts).
+const nativeModule = loadModule();
+
+export function ocrAvailability(): OcrAvailability {
+  try {
+    return nativeModule?.isSupported() ? "native" : "unavailable";
+  } catch {
+    return "unavailable";
+  }
+}
+
+/** One-time download the web engine needs (0 on native: the model ships in the app). */
+export function ocrDownloadBytes(_options: { arabic?: boolean } = {}): number {
+  return 0;
+}
+
+/** Whether the one-time download has already been accepted (always true on native). */
+export function ocrDownloadAccepted(): boolean {
+  return true;
+}
+
+/** Native OCR keeps no downloaded data or consent flag (see `recognize.web.ts`). */
+export async function clearOcrBrowserData(): Promise<void> {}
+
+/**
+ * Web-only second read for LED boards (`recognize.web.ts`). Vision and ML Kit
+ * read bright-on-dark scene text directly, so native has nothing to add.
+ */
+export async function recognizeEnhanced(
+  _uri: string,
+  _options: { arabic?: boolean } = {},
+): Promise<OcrResult | null> {
+  return null;
+}
+
+/**
+ * Re-reading one marked area is web-only (a cropped Tesseract pass). On native
+ * the area is resolved from the full-photo tokens (`timeFromTokens`).
+ */
+export async function readRegion(_uri: string, _rect: FractionRect): Promise<string | null> {
+  return null;
+}
+
+/** Native keeps no marked-area reader alive (see `recognize.web.ts`). */
+export async function releaseRegionReader(): Promise<void> {}
+
+export async function recognizeImage(
+  uri: string,
+  _options: { arabic?: boolean } = {},
+): Promise<OcrResult> {
+  if (!nativeModule) throw new Error("Text recognition is not available on this device");
+  const result = await nativeModule.recognize(uri);
+  return {
+    tokens: Array.isArray(result?.tokens) ? result.tokens : [],
+    width: Number(result?.width) || 0,
+    height: Number(result?.height) || 0,
+  };
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Salaadda xigta</string>
+  <string name="wear_today">Jadwalka maanta</string>
+  <string name="wear_tasbeeh">Tasbeex</string>
+  <string name="wear_progress">Horumarka maanta</string>
+  <string name="wear_open_phone">Ka fur Munib Tracker taleefankaaga si aad isugu xidhto</string>
+  <string name="wear_connect_phone">Ku xir taleefankaaga si aad u aragto waqtiyada Salaadda</string>
+  <string name="wear_install_phone">Ku rakib Munib Tracker taleefankaaga si aad u aragto waqtiyada Salaadda</string>
+  <string name="wear_tasbeeh_standalone">Tasbeexdu waxay ku shaqeysaa saacaddaada taleefan la\'aan</string>
+  <string name="wear_tasbeeh_of_target">ee %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Aan xad lahayn</string>
+  <string name="wear_tasbeeh_options">Xulashooyin</string>
+  <string name="wear_tasbeeh_undo">Ka noqo kii ugu dambeeyay</string>
+  <string name="wear_tasbeeh_target">Bartilmaameed</string>
+  <string name="wear_tasbeeh_mode">Habka</string>
+  <string name="wear_tasbeeh_free">Tiris xor ah</string>
+  <string name="wear_tasbeeh_after_salah">Salaadda ka dib</string>
+  <string name="wear_tasbeeh_reset">Dib u deji</string>
+  <string name="wear_tasbeeh_reset_confirm">Tirinta ma ku celinaa 0?</string>
+  <string name="wear_tasbeeh_start_again">Dib u bilow</string>
+  <string name="wear_tasbeeh_all_done">Tasbeexdii waa dhammaatay</string>
+  <string name="wear_tasbeeh_step">Tallaabada %1$d ee %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Bartilmaameedka waa la gaadhay</string>
+  <string name="wear_tasbeeh_tap_to_count">Taabo si aad u tiriso</string>
+  <string name="wear_tasbeeh_a11y">Tirinta tasbeexda, %1$d ee %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Tirinta tasbeexda, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Tiri mid</string>
+  <string name="wear_open">Fur</string>
+  <string name="wear_open_app">Fur Munib Tracker</string>
+  <string name="wear_mark_confirm">Ma u calaamadeysaa Salaaddan mid la tukaday?</string>
+  <string name="wear_confirm">Xaqiiji</string>
+  <string name="wear_marked">La calaamadeeyay ✓</string>
+  <string name="wear_mark_sent">Waxaa loo diray taleefankaaga</string>
+  <string name="wear_mark_will_sync">Waa la isku-xidhi doonaa marka taleefankaagu dhow yahay</string>
+</resources>

@@ -2,198 +2,149 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ps overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_PS: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
-    summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+    title: "اسلامي مالیه څه ده؟",
+    summary: "پیسو ته یوه اخلاقي کتنه، نه د محصولاتو جلا ډول — دا لارښود یوازې د زده کړې لپاره دی.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "اسلامي مالیه د پانګونې د محصولاتو کوم برانډ نه دی؛ دا پر دې د اسلامي اخلاقو تطبیق دی چې پیسې څنګه ګټل کېږي، پور ورکول کېږي، لګول کېږي او ورکول کېږي. په زړه کې یې یو څو اصول دي: شتمني د الله له لوري امانت دی نه پخپله هدف، معاملې باید له استثمار او زیاتې ناڅرګندتیا پاکې وي، او ګټه باید له ریښتیني اقتصادي فعالیت او ګډ خطر سره تړلې وي، نه پر پور د یو تضمین شوي اضافه حق سره.",
+      "دا لارښود دا اصول په عمومي او ښوونیز کچه معرفي کوي: د سود (ربا) حرمت، په سوداګرۍ کې عادلانه چلند، د زکات فرضیت او رضاکارانه صدقه، او د تکافل (همکارۍ پر بنسټ بیمې) بنسټیز مفهوم. دا په قصدي ډول نه فنډونه څېړي، نه سټاکونه یا د بورس فنډونه (ای ټي اف) لېست کوي، او نه کوم ځانګړی محصول یا شرکت وړاندیز کوي.",
+      "عصري مالي محصولات (د کور پورونه، کریډټ کارتونه، د بیمې پالیسۍ، د تقاعد حسابونه او نور) په ډېرو بېلابېلو طریقو جوړ شوي، او د هغوی په اړه حکمونه کېدای شي د قرارداد په دقیقو شرطونو او ستاسو په قضایي سیمې پورې اړه ولري. دا لارښود تاسو ته بنسټیز اصول درکوي؛ د خپل ځانګړي حالت د حکم لپاره، له یو وړ او تصدیق شوي اسلامي مالیې عالم یا ادارې سره خبرې وکړئ.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "یوازې ښوونیز مطالب — نه مالي مشوره ده او نه فتوا. دا هېڅ ځانګړی فنډ، سټاک، شرکت یا مالي محصول نه وړاندیز کوي، نه یې څېړي او نه یې درجه بندي کوي.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
+    title: "شتمني د امانت په توګه",
+    summary: "هر څه چې تاسو یې لرئ په اصل کې د الله دي — تاسو یې ساتونکي یاست، نه وروستي مالک.",
     body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
-    ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
+      "د قرآن یوه تکرارېدونکې موضوع دا ده چې شتمني لومړی د الله ده؛ انسان یوازې د یو وخت لپاره د هغې امانتدار دی، او مسؤل دی چې څنګه یې ګټلې او څنګه یې کاروي. دا پیسې له یو خالص شخصي ملکیت څخه داسې شي ته بدلوي چې پوښتنه به یې ترې کېږي — له کومه ځایه راغلې او چېرته تللې.",
+      "دوه حکمونه دا ټاکي چې دا امانت له نورو خلکو سره په معاملو کې څنګه ښکاره کېږي: د قراردادونو او تړونونو بشپړ پوره کول، او هېڅکله د بل چا شتمني په ظلم، دوکې یا استثمار نه اخیستل، بلکې یوازې د دواړو خواوو په رضا عادلانه سوداګرۍ له لارې.",
+      "کله چې یوځای وکتل شي، همدا اصول دي چې اسلامي مالي اخلاق بیا بیا همغو څو پوښتنو ته راګرځي: ایا دا ګټه د ریښتینې هڅې، خطر او ارزښت جوړولو له لارې ترلاسه شوې؟ ایا له بلې خوا سره په بشپړ صداقت چلند شوی؟ او ایا هغه ژمنه چې ما کړې پوره کېږي؟",
     ],
   },
   {
-    title: "The Prohibition of Riba",
-    summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+    title: "د سود (ربا) حرمت",
+    summary: "سود (ربا) په قرآن کې له تر ټولو سختو غندل شویو معاملو څخه دی.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
+      "ربا — چې معمولاً په سود ژباړل کېږي، په پراخه مانا پر پور هر مخکې ټاکل شوی او تضمین شوی زیاتوالی — د سورت بقره په پنځو پرله پسې آیتونو (۲:۲۷۵–۲۷۹) کې په ډېره سخته ژبه حرام شوی، چې د قرآن په یوه موضوع کې له تر ټولو سختو خبرداریو څخه دی.",
+      "دا برخه په قصدي ډول یو توپیر څرګندوي: «الله اخيستل خرڅول (بیع) حلال كړي دي او سود يې حرام كړى دى» (۲:۲۷۵). سوداګري — اخیستل، خرڅول او پانګونه چې دواړه خواوې پکې ریښتینی خطر او هڅه شریکوي — ستایل شوې؛ ربا، یو ټاکلی حق چې د پایلې په پام کې نیولو پرته پور وي، غندل شوې. سورت بیا مؤمنانو ته حکم کوي چې پاتې سود بشپړ پرېږدي، او د هغو لپاره چې پرې ټینګار کوي له سختو پایلو خبرداری ورکوي، په داسې حال کې چې ژمنه کوي هر څوک چې توبه وباسي یوازې خپله اصلي پانګه ساتلی شي — نه زیاته، نه کمه.",
+      "دا یوه بنسټیزه لارښوونه ده چې باید ورباندې خبر اوسئ، نه د دې لپاره یو لېست چې هر عصري مالي محصول پخپله وڅېړئ. دا معلومول چې ایا یو ځانګړی قرارداد (د کور پور، پور، یا د سپما حساب) په عمل کې ربا لري که نه، اړتیا لري چې د هغه اصلي شرطونه له داسې چا سره وکتل شي چې په اسلامي مالیه کې وړتیا ولري.",
     ],
   },
   {
-    title: "Why Trade Differs from Interest",
-    summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+    title: "ولې سوداګري له سود سره توپیر لري",
+    summary: "مشروعه ګټه له خطر او هڅې سره تړلې ده؛ ربا د پایلې پرته یو تضمین شوی حق دی.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
-    ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
+      "د دې توپیر د یادولو یوه ساده لاره: په سوداګرۍ یا ریښتینې پانګونې کې، هغه څوک چې پانګه یا توکي برابروي په پایله کې شریک وي — ښايي ګټه وکړي، خو تاوان هم کولی شي، ځکه چې د یوې پروژې له ریښتیني فعالیت سره مخ وي. په ربا لرونکي پور کې، پور ورکوونکي ته یو ټاکلی عاید تضمین شوی، که د پور اخیستونکي پروژه بریالۍ شي، په ستونزو کې وي یا ناکامه شي.",
+      "کلاسیکه علمي پوهه دا د عدالت مسئله ګڼي: یو اړ کس چې پیسې پور اخلي ښايي په دې مجبور شي چې له اخیستي څخه ډېر زیات بېرته ورکړي، په داسې حال کې چې ټول خطر پر هغه وي او هېڅ پر پور ورکوونکي نه — دقیقاً همغه نابرابري چې قرآن یې په دې جمله کې غندي: «الله سود محوه كوي او خېراتونه (صدقې) زیاتوي» (۲:۲۷۶)، چې د استثمار له لارې جوړې شوې شتمنۍ او د سخاوت له لارې زیاتې شوې شتمنۍ ترمنځ مستقیم توپیر دی.",
+      "دا یو عمومي ښوونیز پرتله ده، نه د کومې ځانګړې وسیلې په اړه حکم (ځینې عصري جوړښتونه سوداګري او پور په پېچلو طریقو سره ګډوي). دا چې یو ځانګړی محصول د دې طیف په کوم ځای کې دی، دقیقاً هغه ډول پوښتنه ده چې باید یو وړ اسلامي مالیې عالم یا تصدیق شوي مشاور ته یوړل شي، نه دا چې یوازې له عمومي اصولو پرېکړه وشي.",
     ],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
+    title: "سنت له سود سره څومره جدي چلند کوي",
+    summary: "پیغمبر ﷺ خبرداری ورکړ چې په سودي معامله کې هر ښکېل کس د هغې په ګناه کې شریک دی.",
     body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
+      "د قرآن له خپلو خبرداریو هاخوا، پیغمبر ﷺ روښانه کړه چې د سود مسؤلیت یوازې پر هغه چا پورې محدود نه دی چې مستقیماً یې اخلي. په یوه صحیح حدیث کې روایت شوي چې هغه ﷺ پر سود خوړونکي، سود ورکوونکي، د قرارداد پر لیکونکي او د هغه پر دوو شاهدانو لعنت ویلی — او ویلي یې دي چې دوی ټول پدې کې برابر دي.",
+      "له دې څخه چې کوم درس عموماً اخیستل کېږي، هغه ګډه ډډه ده نه یوازې د یو کس ملامتول: ربا داسې شی ګڼل کېږي چې ټوله معامله، او هر هغه څوک چې په پوهه سره پکې شریک وي، باید ترې لرې اوسي — نه یوازې د پور ورکوونکي او پور اخیستونکي ترمنځ یوه شخصي موضوع.",
+      "لکه د قرآني آیتونو په څېر، دا حدیث د اصل جدیت ثابتوي؛ دا پخپله تاسو ته نه وایي چې یو ځانګړی عصري مالي محصول څنګه طبقه بندي کړئ. دا پرېکړه د هغو وړ علماوو کار دی چې اصلي قرارداد څېړي.",
     ],
   },
   {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
+    title: "په سوداګرۍ کې صداقت",
+    summary: "رښتیني او امانتدار سوداګر ته په آخرت کې له تر ټولو لوړو درجو څخه یوه ورکول کېږي.",
     body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
+      "د ربا د خبرداریو په سخت توپیر کې، صادقه سوداګري بیا بیا ستایل شوې. پیغمبر محمد ﷺ پخپله له نبوت مخکې سوداګر و او په مکه کې د «الامین» — «امانتدار» — په لقب پېژندل کېده، د سوداګریزو معاملو د صداقت له امله، ډېر مخکې له دې چې د پیغمبر په توګه وپېژندل شي.",
+      "هغه ﷺ وروسته وښوول چې 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' (انګلیسي مانا) د قیامت په ورځ — یو ډېر لوړ مقام چې د بازار د عادلانه معاملې په څېر یو عادي شي پورې تړل شوی.",
+      "په عمل کې، عادلانه سوداګري دا مانا لري: د توکو او خدمتونو سم بیانول، د پېژندل شویو عیبونو څرګندول نه پټول، د موافقه شویو بیو او شرطونو درناوی، او له دوکې، دروغجنو اعلاناتو، یا د اخیستونکي یا پلورونکي له ناخبرۍ څخه له ناوړه ګټې اخیستو ډډه. دا همغه ذاتي احساسات دي چې په هر دود کې ښه او دوامداره سوداګري جوړوي — اسلام یې یوازې له ابدي اجر سره هم تړي.",
     ],
   },
   {
-    title: "Navigating Modern Financial Products",
-    summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
+    title: "له عصري مالي محصولاتو سره چلند",
+    summary: "د کور پورونه، کارتونه او بیمه په رښتیا پېچلي دي — دا لارښود په اصولو بس کوي.",
     body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "عصري مالي ژوند داسې محصولات لري چې د مسلمانانو لومړنیو نسلونو هېڅکله په اوسني بڼه نه دي لیدلي: د کور پورونه، کریډټ کارتونه، د تقاعد حسابونه، بیمه، او د پانګونې فنډونه چې په ډېرو بېلابېلو طریقو جوړ شوي. پر دې محصولاتو د پېړیو زړو اصولو تطبیقول ریښتینی او دقیق علمي کار دی — نه داسې شی چې یوازې د یو څو عمومي آیتونو له مخې پرې فکر وشي.",
+      "له همدې امله، معاصرې اسلامي مالي ادارې او تصدیق شوي علماء په ځانګړي ډول د دې اصولو سره د عصري قراردادونو د سمون په څېړلو کې تخصص لري، او اکثراً د ځانګړو محصولاتو یا جوړښتونو په اړه مفصل حکمونه وړاندې کوي. دا تخصصي څېړنه د دې اپلیکیشن له ساحې بهر ده.",
+      "که تاسو د یوې ریښتینې مالي پرېکړې په اړه فکر کوئ — د کور اخیستل، پور، پانګونه، د بیمې پالیسي — مسؤلانه راتلونکی ګام دا دی چې له یو وړ، تصدیق شوي اسلامي مالیې مشاور یا عالم سره مشوره وکړئ چې د قرارداد اصلي شرطونه وګوري، نه دا چې د دې لارښود په څېر پر عمومي ښوونیزو مطالبو تکیه وکړئ.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "دا اپلیکیشن هېڅ ځانګړی مالي محصول، فنډ یا شرکت نه ارزوي، نه څېړي او نه وړاندیز کوي، او دا لارښود ستاسو د اصلي مالي چارو په اړه د وړ مسلکي یا علمي مشورې ځای نه نیسي.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
-    summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+    title: "زکات: د شتمنۍ له لارې عبادت",
+    summary: "زکات یو فرض عبادت دی چې د خبرو یا حرکت پرځای په پیسو ترسره کېږي.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "زکات — پر هغه وړ شتمنۍ چې له یو ټاکلي حد (نصاب) څخه زیاته وي یو ټاکلی، فرض او کلنی حق — د اسلام له پنځو ارکانو څخه دی، چې ورکړه د لمانځه او روژې په کچه ږدي، نه دا چې یوه اختیاري سخاوت یې وګڼي.",
+      "قرآن تل زکات له لمانځه سره د ریښتیني ایمان د نښې په توګه یوځای یادوي، او ژمنه کوي چې هغه کسان چې لمونځ او زکات دواړه قایموي «د دوى لپاره د خپل رب په نیز د دوى اجر دى، او نه به په دوى باندې څه وېره وي او نه به دوى غمژن كېږي». له مالي اړخه، دا د شتمنۍ د پاکولو یوه وسیله ده — د راټولې شوې شتمنۍ یوه کوچنۍ او منظمه برخه اړو خلکو ته وېشي، پرځای د دې چې د تل لپاره د یو څو کسانو په لاس کې بېکاره پاتې شي.",
+      "ځکه چې حساب ستاسو په ځانګړو سپمو، شتمنیو او د سیمې د نصاب په ارزښتونو پورې اړه لري، دا اپلیکیشن د زکات ځانګړی لارښود او حسابوونکی لري — هغه مستقیماً وکاروئ، نه دا چې دلته له عمومي اصولو اټکل وکړئ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    appLinks: [{ label: "د زکات لارښود او حسابوونکی" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "صدقه: رضاکارانه ورکړه",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "د فرض زکات هاخوا، هره رضاکارانه ورکړه صدقه بلل کېږي — او په رښتیا تاسو ته هېڅ زیان نه رسوي.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "صدقه رضاکارانه خیرات دی، چې په هر مقدار، هر وخت او د الله د رضا لپاره ورکول کېږي — د زکات له ټاکلي فرض هاخوا. دا له لویو مالي ډالیو نیولې تر یوې خوږې خبرې یا د یو چا له لارې د ضرر لرې کولو پورې ټول رانغاړي، چې د حدیثونو په ادبیاتو کې ټول د صدقې ډولونه ګڼل شوي.",
+      "د هر هغه چا لپاره چې د ورکړې په اړه زړه نازړه وي، له تر ټولو ډاډ ورکوونکو لارښوونو څخه یوه د پیغمبر ﷺ دا وینا ده چې صدقه شتمني نه کموي — یو ټکی چې قرآن یې په بل ځای کې هم تاییدوي، کله چې د الله په لار کې لګښت داسې بیانوي چې الله یې بدل ورکوي او اجر ورکوي، نه یوازې داسې شی چې پای ته رسېږي.",
+      "په عمل کې، دا سخاوت ته نوې بڼه ورکوي: ورکړه ستاسو له مالي خوندیتوب سره سیالي نه کوي، بلکې داسې وړاندې کېږي چې هغه ساتي او زیاتوي، په داسې طریقو چې تل د حساب په پاڼه کې نه ښکاري.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    appLinks: [{ label: "د زکات او خیرات لارښود" }, { label: "د صدقې موخې" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
-    summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+    title: "تکافل: د همکارۍ پر بنسټ د خطر شریکول",
+    summary: "د دودیزې بیمې د اسلامي بدیلونو تر شا مفهوم ته یوه عمومي کتنه.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "تکافل (له یوې عربي ریښې چې مانا یې متقابل تضمین دی) د بیمې په څېر د ساتنې لپاره د اسلامي طریقو تر شا عمومي مفهوم دی: د ګډونوالو یوه ډله یو ګډ صندوق ته ونډه ورکوي، او دا صندوق د هغو غړو د مرستې لپاره کارول کېږي چې پوښل شوی تاوان ورته پېښ شي، او هر اضافه پاتې شوې پیسې معمولاً د ګډونوالو ترمنځ وېشل کېږي یا راتلونکي ته وړل کېږي، نه دا چې د یو جلا بیمه کوونکي د تضمین شوې ګټې په توګه وساتل شي.",
+      "بنسټیزه مفکوره د همکارۍ پر بنسټ د خطر شریکول دي نه د یو تضمین شوي حق په بدل کې د خطر لېږدول: ګډونوال داسې ګڼل کېږي چې یو بل سره متقابله مرسته کوي، او د صندوق چلوونکی معمولاً د فیس په بدل کې د مدیر یا وکیل په توګه عمل کوي، نه پخپله د خطر د زغمونکي اړخ په توګه.",
+      "دا یوازې یو عمومي او مفهومي بیان دی. د تکافل اصلي محصولات د شرکتونو او هېوادونو ترمنځ په جوړښت کې ډېر توپیر لري، او دا ارزونه چې ایا یو ځانګړی پلان په رښتیا همداسې جوړ شوی، اړتیا لري چې د هغه اصلي شرطونه له یو وړ اسلامي مالیې عالم یا ادارې سره وکتل شي — دا اپلیکیشن هېڅ ځانګړی د تکافل (یا بیمې) شرکت یا پلان نه وړاندیز کوي او نه یې ارزوي.",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "یوازې عمومي زده کړه. دا نه د دودیزې بیمې پر ځای د تکافل وړاندیز دی، او نه د کوم ځانګړي شرکت یا پلان — د خپلو شرایطو لپاره له یو وړ مشاور سره مشوره وکړئ.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
+    title: "تکافل او دودیزه بیمه، په عمومي کچه پرتله",
+    summary: "دواړه یو هدف لري — د خطر مدیریت — خو په دې کې توپیر لري چې خطر څنګه تنظیمېږي.",
     body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
+      "دودیزه بیمه معمولاً د یو قرارداد په توګه جوړېږي چې پکې د پالیسۍ لرونکی یو حق (پریمیم) ورکوي او بیمه کوونکی، د یو جلا سوداګریز اړخ په توګه، د دې فیس په بدل کې خطر په غاړه اخلي، او اکثراً د پریمیمونو صندوق په داسې طریقو پانګونه کوي چې ښايي سود لرونکې وسیلې پکې شاملې وي. ځینو کلاسیکو علماوو د دې جوړښت په اړه اندېښنې څرګندې کړې چې له ربا، غرر (د تادیې په اړه زیاته ناڅرګندتیا)، او د ګډ خطر پرځای د یو ټاکلي فیس په بدل کې د خطر له لېږد سره تړاو لري.",
+      "تکافل، په عمومي ډول، د همدې ځانګړو اندېښنو د حل لپاره د یو متقابل او همکارۍ پر بنسټ جوړښت په توګه رامنځته شو — که څه هم علماء او ادارې پدې کې اختلاف لري چې کوم جوړښتونه دا هدف په بشپړه توګه ترلاسه کوي، او د تکافل شرکتونه پخپله په ډیزاین کې ډېر توپیر لري.",
+      "ځکه چې اندېښنې او بدیل جوړښتونه دواړه ریښتیني تخنیکي جزئیات لري (او ځکه چې شخصي شرایط لکه ځای، د پوښښ اړتیاوې او شته شرکتونه ډېر توپیر لري)، دا پرتله یوازې د عمومي شالید په توګه وړاندې کېږي — نه د هغې ځانګړې پالیسۍ په اړه حکم چې تاسو یې په اړه فکر کوئ.",
     ],
     disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
+      "یوازې ښوونیزه پرتله، نه په عمومي ډول د بیمې یا تکافل یا د کوم ځانګړي محصول په اړه فتوا. علماء د عصري بیمې د جوړښتونو په اړه بېلابېل نظرونه لري؛ د خپل حالت لپاره له یو وړ مشاور سره مشوره وکړئ.",
   },
   {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
+    title: "پوښتنې: ایا دا مالي مشوره ده؟",
+    summary: "نه — دا لارښود یوازې اصول ښيي، او د وړ مشورې ځای نشي نیولی.",
     body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
+      "پوښتنه: ایا کولی شم دا لارښود د دې پرېکړې لپاره وکاروم چې ایا یو ځانګړی پور، پانګونه یا د بیمې محصول ما ته جایز دی؟ ځواب: نه. دا لارښود د پیسو په اړه عمومي اسلامي اصول تشریح کوي — نه قراردادونه څېړي، نه محصولات وړاندیز کوي او نه حکمونه صادروي. ځانګړې مالي پرېکړې باید له یو وړ مالي متخصص سره، او د جواز د پوښتنو لپاره، له یو وړ اسلامي مالیې عالم سره وشي.",
+      "پوښتنه: ایا دا اپلیکیشن حلال سټاکونه، فنډونه یا د بورس فنډونه (ای ټي اف) درجه بندي یا لېست کوي؟ ځواب: نه، او د دې لارښود د برخې په توګه به یې هېڅکله ونه کړي — د فنډونو څېړل او د پانګونې وړاندیزونه د دې له ساحې بهر دي او جواز لرونکې مالي تخصص ته اړتیا لري چې دا مطالب یې نه وړاندې کوي.",
+      "پوښتنه: ایا دا لارښود فتوا ده؟ ځواب: نه. فتوا یو ځانګړی دیني حکم دی چې یو وړ عالم یې د یوې ځانګړې پوښتنې او حالت په ځواب کې صادروي. دا لارښود یوازې عمومي اصول ښيي؛ د خپل حالت د اصلي حکم لپاره، مستقیماً یو وړ او باوري عالم ولټوئ.",
     ],
     disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
+      "دا ټول لارښود ښوونیز مطالب دي، نه مالي مشوره او نه فتوا. د خپلو پیسو د پرېکړو لپاره تل له وړ مالي او دیني متخصصینو سره مشوره وکړئ.",
   },
   {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
-    summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+    title: "پوښتنې: د شریعت سره سم انتخابونه څنګه ومومم؟",
+    summary: "تصدیق شوې تخصص ولټوئ، نه یو لېست — دا اپلیکیشن په قصدي ډول داسې لېست نه ورکوي.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "پوښتنه: د حلالو بانکونو، فنډونو یا د پانګونې پلاتفورمونو لېست چېرته موندلی شم؟ ځواب: په دې اپلیکیشن کې نه، په قصدي ډول — د محصولاتو لېستونه په دوامداره توګه بدلېږي، له هېواد سره ډېر توپیر لري، او دوامدار څارنې ته اړتیا لري چې یوازې تخصصي ادارې یې په سمه توګه ساتلی شي. پرځای یې هغه ادارې ولټوئ چې یو ریښتینی، په نوم پېژندل شوی شرعي څارنې بورډ او خپره شوې د سمون طریقه لري.",
+      "پوښتنه: څنګه پوه شم چې یو عالم یا تصدیق مشروع دی؟ ځواب: هغه علماء یا بورډونه ولټوئ چې ستاسو په سیمه کې یا په نړیواله کچه د اسلامي مالیې د معیارونو د ټاکلو د پېژندل شویو ادارو له خوا منل شوي وي، نه غیررسمي آنلاین ادعاوې. یوه معتبره اداره به روښانه وي چې څوک یې محصولات څېړي او څنګه.",
+      "پوښتنه: که چېرې چې زه اوسېږم هېڅ اسلامي مالي انتخاب ونه موندلی شم، څه وکړم؟ ځواب: دا یو ریښتینی او عام حالت دی. له یو پوه سیمه ییز امام یا عالم سره پرې خبرې وکړئ — هغوی کولی شي ستاسو د ځانګړو شرایطو لپاره د شته انتخابونو په ارزونه کې مرسته وکړي، ځکه چې دلته لارښوونه ډېره پدې پورې اړه لري چې ستاسو لپاره په رښتیا کوم بدیلونه شته.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "هغه ادارې ولټوئ چې یو په نوم پېژندل شوی او روښانه شرعي څارنې بورډ لري، پرځای د دې چې پر اعلاني ادعاوو تکیه وکړئ.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "پوښتنې: د کور پورونه، کارتونه او پورونه",
+    summary: "دا دقیقاً هغه پوښتنې دي چې یو وړ عالم ته اړتیا لري، نه عمومي لارښود ته.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "پوښتنه: ایا د کور پور تل ربا ده؟ ځواب: جوړښتونه توپیر لري — ځینې دودیز د کور پورونه سودي پورونه دي، په داسې حال کې چې ځینې شرکتونه بدیل جوړښتونه وړاندې کوي (لکه کمېدونکې شراکت یا د اجارې نه تر ملکیت پورې ماډلونه) چې موخه یې له سود څخه ډډه ده. دا چې ایا یو ځانګړی محصول په عمل کې دا ترلاسه کوي، د هغه د اصلي قرارداد په اړه یوه علمي پوښتنه ده، نه داسې شی چې په هېڅ لوري کې فرض شي.",
+      "پوښتنه: ایا کولی شم کریډټ کارت وکاروم که تل بشپړ بیلانس ورکړم او هېڅکله سود ونه ورکړم؟ ځواب: علماء پدې اړه بېلابېل نظرونه لري، په یوه برخه کې ځکه چې اصلي تړون ښايي لا هم په تخنیکي ډول د سود یوه ماده ولري، حتی که تاسو یې هېڅکله په عمل کې فعاله نه کړئ. دا د وړ علماوو د رښتیني اختلاف یوه ساحه ده — له هغه عالم څخه وپوښتئ چې پرې باور لرئ، پرځای د دې چې یو واحد نړیوال ځواب فرض کړئ.",
+      "پوښتنه: د زده کړې د پورونو یا نورو پورونو په اړه څه چې په ځینو حالاتو کې ښايي نه شي مخنیوی یې؟ ځواب: اړتیا او سختي ریښتیني ملاحظات دي چې علماء یې په دقت سره ارزوي، او نظرونه د حالت او قضایي سیمې له مخې توپیر لري. که له دې پرېکړې سره مخ یاست، خپل ځانګړی حالت یو وړ عالم ته یوسئ، نه دا چې یوازې له عمومي لوستلو یې حل کړئ.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "دا په رښتیا اختلافي او په قرارداد پورې تړلې پوښتنې دي. دا پوښتنې او ځوابونه یوازې دا ښيي چې هره یوه څه ډول پوښتنه ده — ستاسو د حالت لپاره هېڅ یوې ته ځواب نه ورکوي.",
   },
 ];

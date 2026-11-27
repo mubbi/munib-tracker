@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       'Mumini yana yin addu\'a a cikin sauki da wahala, a bayyane da boye, ya tabbata cewa Allah yana jin kowane kira kuma ba ya juyar da mai gaskiya hannu wofi. Yana kusa da Ya ce: "Lalle ne ni ina karɓar kiran mai kiran idan ya kiraNa."',
       "Amsa yana da xaya daga cikin nau’i uku, wanda Annabi SAW ya koyar da cewa: Allah yana bayar da abin da aka tambaye shi; ko kuma Ya riƙe ta, kuma Ya ajiye lada daidai ko mafi girma ga Lahira. Ko Ya jũyar da wata cũta kwatankwacinsa. Don haka babu wata addu'a ta gaskiya da ba a amsa ta da gaske - wani lokacin jinƙai mafi girma yana cikin amsar da ba mu gani ba.",
     ],
-    quran: [
-      {
-        excerpt: "Kuma Ubangijinku Ya ce: \"Ku kira Ni; Zan amsa muku.'",
-      },
-      {
-        excerpt:
-          "Kuma idan bayiNa suka tambaye ka daga gare Ni, lalle Ni Makusanci ne. Ina amsa kiran mai kira idan ya kira Ni.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Addu'a ita ce ibada. - sai ya karanta: ‚Kuma Ubangijinku Ya ce: Ku kira Ni; Zan amsa muku.' (Nu'man bn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       "Ku kirayi Allah da halaye guda uku: Tawali'u, da yakinin cewa zai iya amsawa, da kyakkyawan zato gareshi (husn al-zann). Ka fuskanci alƙibla ta inda za ka iya, ka ɗaga hannuwanka, ka zaɓi lokuta masu albarka, ka nemi al'amuran duniya da na Lahira. Ana ba da shawarar sake maimaita buƙatun masu mahimmanci, kuma don ƙare kamar yadda kuka fara - tare da yabo da salawat.",
       "Fiye da duka, kada ku yi gaggawa. Manzon Allah SAW ya yi gargadin cewa ana amsa addu’a matukar mutum bai yanke kauna ba ya ce: ‘Na yi kira na kira amma ba a amsa ba, sannan ya watsar da ita. Dagewa wajen tambaya ita kanta ibada ce, kuma Allah yana son bawan da yake ta kwankwasa kofarsa.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ana ci gaba da amsa addu'ar bawa matukar bai yi gaggawa ba - yana cewa, 'Na yi addu'a amma ba a amsa ba.' (Abu Huraira)",
-      },
-      {
-        excerpt:
-          "Idan dayanku ya yi sallah, sai ya fara da yabo ga Ubangijinsa da tasbihi, sannan ya yi salati ga Annabi SAW, sannan ya roki abin da yake so. (Fadalah ibn Ubaid)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ku bude kowace addu'a da Alhamdulillah da salati ga Annabi SAW.",
       "Ku roki Allah da sunayen da suka fi dacewa da bukatunku (misali Ya Razzaq don arziki, Ya Ghafur don neman gafara).",
@@ -65,15 +43,7 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       "Abincin halal maɓalli ne mai ƙarfi. Annabi SAW ya siffanta matafiyi da ya daga hannayensa sama yana kuka ‘Ya Ubangiji, Ya Ubangiji,’ amma “abincinsa haramun ne, abin shansa haram ne, tufafinsa haram ne, haramun ne ke ciyar da shi – to ta yaya za a amsa masa? Kiyaye abin da mutum zai samu, da tuba daga zunubi, da rashin roqon wani abu na zunubi ko yanke zumunta, duk yana kawar da shingen da ke tsakanin addu’a da karvar ta.",
       "Duk da haka, yarda daga qarshe rahamar Allah ce, ba ciniki da muke sarrafawa ba. Don haka mumini ya haxa mafificin qoqarinsa – ikhlasi, rayuwar halal, tuba – tare da tawakkali, kuma ba ya yanke kauna idan an jinkirta amsa. Rauni da zunubai da suka gabata ba dalili ba ne na daina tambaya; Su ne mafi yawan dalilin komawa zuwa ga Mai rahama.",
     ],
-    hadith: [
-      {
-        excerpt: ". (Abu Huraira)",
-      },
-      {
-        excerpt:
-          "Ana amsa addu'ar bawa matukar bai nemi wani abu na zunubi ko yanke zumunta ba. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Bincika kuɗin shiga da kashe kuɗi don halal - yana shafar karatun ku kai tsaye.",
       "Gabatar da dogon addu'o'i tare da istigfari da tuba na gaskiya.",
@@ -88,16 +58,7 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       "Daga cikin mafi qarfi akwai: Sulusin qarshen dare, lokacin da Allah Ya sauko (a kan hanyar da ta dace da xaukakarsa) zuwa ga mafi qasqancin sama, kuma Ya yi kira: “Wane ne zai tambaye Ni in ba shi? sujadar sallah, matsayi mafi kusanci ga Allah; lokacin tsakanin adhan da iqamah; yayin da mutum yake azumi, musamman a lokacin buda baki; a lokacin ruwan sama; da kuma sa'ar karshe ta Juma'a kafin faduwar rana, wacce a cikinta akwai sa'ar da ba a yi addu'a ba.",
       "Wurare da jahohi masu albarka sun haɗa da tsayuwar Arafah a lokacin aikin Hajji, da zama a cikin harami, da addu'ar matafiyi, iyaye ga ɗansu, da wanda aka zalunta. Yi amfani da waɗannan azaman kafaffen anka don madaidaicin rayuwar addu'a.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ubangijinmu yana sauka a kowane dare zuwa mafi ƙasƙancin sama a cikin sulusin ƙarshe na dare yana cewa: Wane ne ke kirana, domin in amsa masa? Wane ne yake roƙona, in ba shi? (Abu Huraira)",
-      },
-      {
-        excerpt:
-          "Mafi kusancin bawa ga Ubangijinsa shi ne alhali yana mai sujada, sai ku yawaita addu'a a cikinsa. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -111,14 +72,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyid al-Istighfar (shugaban neman gafara)",
         when: "Sau ɗaya kowace safiya da maraice",
-        translation:
-          "Ya Allah Kai ne Ubangijina; babu abin bautawa face Kai. Kai ne ka halicce ni kuma ni bawanka ne, kuma na rike alkawarinka da alkawari gwargwadon iko. Ina neman tsarinka daga sharrin da na aikata. Na yarda da ni'imarKa a kaina, kuma na yi furuci da zunubina.",
       },
       {
         title: "Hasbiyallahu la ilaha illa Huwa",
         when: "Sau bakwai kowace safiya da yamma",
-        translation:
-          "Allah Yã isa gare ni. bãbu abin bautãwa fãce Shi. A gare Shi nake dõgara, kuma Shĩ ne Ubangijin Al'arshi Mai girma.",
       },
     ],
     appLinks: [{}, {}],
@@ -134,19 +91,14 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua a farke",
         when: "Nan take da farkawa",
-        translation:
-          "Dukkan godiya ta tabbata ga Allah wanda ya rayar da mu bayan ya kashe mu, kuma a gare shi ne tashin alkiyama take.",
       },
       {
         title: "Addu'a kafin barci",
         when: "Lokacin kwanciya barci",
-        translation: "Da sunanka, Ya Allah, na mutu kuma ina rayuwa.",
       },
       {
         title: "Ayat al-Kursi kafin barci",
         when: "Kafin barci",
-        translation:
-          "Allah bãbu abin bautãwa fãce Shi, Rãyayye, Majiɓincin dukan kõme. Bacci ko barci ba ya riske shi. Shi ne da mulkin abin da ke cikin sammai da ƙasa. Wane ne ke yin ceto a wurinSa, face da izninSa? Yanã sanin abin da yake a gaba gare su da bãyansu, kuma bã su kẽwayẽwa daga kõme daga ilminSa, fãce abin da Yake so. Al'arshinSa ya shimfiɗa bisa sammai da ƙasa, kuma tsarewarsu bã ya gajiyar da Shi. Shĩ ne Maɗaukaki, Mai girma.",
       },
     ],
     appLinks: [{}, {}],
@@ -162,13 +114,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Addu'a lokacin barin gida",
         when: "Lokacin fita daga gidan",
-        translation:
-          "Da sunan Allah; Ina dogara ga Allah; babu wani ƙarfi da ƙarfi face a wurin Allah.",
       },
       {
         title: "Addu'ar shiga masallaci",
         when: "Lokacin shiga, shiga tare da ƙafar dama",
-        translation: "Ya Allah ka bude min kofofin rahamarka.",
       },
     ],
     appLinks: [{}, {}],
@@ -184,13 +133,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Kafin cin abinci",
         when: "A farkon cin abinci",
-        translation: "Da sunan Allah.",
       },
       {
         title: "Bayan cin abinci",
         when: "Akan gama cin abinci",
-        translation:
-          "Dukkan godiya ta tabbata ga Allah da ya ciyar da ni wannan kuma ya azurta ni da ita ba tare da wani karfi ko iko daga bangarena ba.",
       },
     ],
     appLinks: [{}],
@@ -206,14 +152,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Bayan alwala",
         when: "Nan take bayan kammala alwala",
-        translation:
-          "Ina shaidawa babu abin bautawa da gaskiya sai Allah Shi kadai, ba shi da abokin tarayya, kuma ina shaidawa Muhammadu bawanSa ne kuma ManzonSa ne.",
       },
       {
         title: "Kafin ayi sallama a sallah",
         when: "A karshen tashahud, kafin idar da sallah",
-        translation:
-          "Ya Allah ina neman tsarinka daga azabar wuta, da azabar kabari, da fitinar rayuwa da mutuwa, da sharrin fitintinu na Masihu Qarya (Dajjal).",
       },
     ],
     appLinks: [{}, {}],
@@ -229,16 +171,9 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Addu'a bayan sallah",
         when: "Lokacin da adhan ya kare",
-        translation:
-          "Ya Allah Ubangijin wannan cikakkiyar kira da addu'a tabbatacciya, ka baiwa Muhammad al-Wasilah da Fadilah, ka daukaka shi zuwa ga tasha abin yabo da ka yi masa alkawari.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Addu'ar da aka yi tsakanin adhan da iqama ba a kore shi. (Anas bn Malik; kuma at-Tirmizi 212).",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -252,13 +187,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Addu'a don damuwa da damuwa",
         when: "A cikin damuwa, damuwa, ko bakin ciki mai yawa",
-        translation:
-          "Ya Allah ina neman tsarinka daga damuwa da bakin ciki, da tawaya da kasala, da zullumi da tsoro, da nauyin bashi, da nisantar da wasu.",
       },
       {
         title: "Allah ya isa mana",
         when: "Lokacin da tsoro ko rinjaye",
-        translation: "Allah ma'ishinka ne, kuma shi ne mafificin al'amura.",
       },
     ],
     appLinks: [{}, {}],
@@ -274,8 +206,6 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Addu'ar waraka",
         when: "Lokacin rashin lafiya, ko addu'a akan wanda ba shi da lafiya",
-        translation:
-          "Ya Allah Ubangijin mutane, Ka kawar da wahala, kuma Ka ba da waraka - Kai ne Mai warkarwa; Babu magani sai maganinka - waraka wanda baya barin rashin lafiya.",
       },
     ],
     appLinks: [{}, {}],
@@ -291,12 +221,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Yawan tuba",
         when: "akai-akai, cikin yini",
-        translation: "Ina neman gafarar Allah kuma ina tuba zuwa gare shi.",
       },
       {
         title: "Addu'a domin tabbatacciyar zuciya",
         when: "Lokacin tsoron bata ko karkarwa",
-        translation: "Ya mai juyar da zukata, ka tabbatar da zuciyata akan addininka.",
       },
     ],
     appLinks: [{}, {}],
@@ -312,13 +240,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Addu'a yayin da ake shirin tafiya",
         when: "A kan hawan jigilar ku da tashi",
-        translation:
-          "Tsarki ya tabbata ga wanda ya hore mana wannan, alhali ba mu da kanmu; Kuma lalle ne mũ, haƙĩƙa, zuwa ga Ubangijinmu, mãsu kõmãwa ne.",
       },
       {
         title: "Addu'a idan ruwan sama ya sauka",
         when: "A farkon ruwan sama",
-        translation: "Ya Allah Ka sa a yi ruwan sama mai amfani.",
       },
     ],
     appLinks: [{}, {}],
@@ -330,18 +255,11 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       "Arziki (rizq) daga Allah ne Shi kadai; mumini ya daure rakuminsa - yana aiki da riba - sannan ya roki mai azurta shi da halal, baraka a cikin abin da yake samu, da 'yanci daga bashi, da 'yancin kai daga bukatuwa. Manzon Allah ﷺ ya koyar da kyakkyawar addu'a wacce take neman daidai wannan.",
       "Ga gida kuwa, Kur’ani da kansa yana karantar da addu’ar salihai: a ba su ma’aurata da ‘ya’ya ‘ya’ya masu ‘ta’aziya ga idanuwa,’ da kuma jagorancin gida da ke daure tare da imani, da addu’a, da rahama.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya Ubangijinmu Ka ba mu sanyin gwiwa a kan idanunmu daga matan aurenmu da zuriyarmu, kuma Ka sanya mu shugabanni ga salihai.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Addu'a domin halal",
         when: "Safiya, bayan sallah, kuma cikin wahala ta kudi",
-        translation:
-          "Ya Allah Ka wadatar da ni da abin da ka halatta a kan abin da ka haramta, kuma ka wadatar da ni da falalarka don haka ba ni bukatar kowa sai kai.",
       },
     ],
     appLinks: [{}],
@@ -357,14 +275,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Mai kyau a cikin duniyoyin biyu",
         when: "Addu'o'in gama-gari, na dukkan manufa - Annabi ﷺ mafi yawaita",
-        translation:
-          "Ubangijinmu ka bamu mai kyau a duniya da mai kyau a lahira, kuma ka kare mu daga azabar wuta.",
       },
       {
         title: "Dagewa cikin imani",
         when: "Lokacin tsoron karkacewa ko bayan an shiryuwa",
-        translation:
-          "Ya Ubangijinmu kada ka karkatar da zukatanmu a bayan Ka shiryar da mu, kuma Ka ba mu wata rahama daga gare Ka. Lalle Kai ne Mai yawan kyauta.",
       },
     ],
     appLinks: [{}, {}],
@@ -380,7 +294,6 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Comprehensive dua na hudu",
         when: "Addu'a ta yau da kullun",
-        translation: "Ya Allah ina rokonka shiriya, da takawa, da tsafta, da wadatar zuci.",
       },
     ],
     appLinks: [{}],
@@ -396,13 +309,10 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Masoya da kalmomi masu shafe zunubi",
         when: "A duk tsawon yini; Sau 100 yana goge zunubai",
-        translation: "Tsarki ya tabbata ga Allah, kuma dukkan godiya ta tabbata a gare shi.",
       },
       {
         title: "Kalmomi biyu masu nauyi akan Sikeli",
         when: "Kowane lokaci",
-        translation:
-          "Tsarki ya tabbata ga Allah, kuma godiya ta tabbata a gare Shi. tsarki ya tabbata ga Allah madaukakin sarki.",
       },
     ],
     appLinks: [{}],
@@ -414,18 +324,11 @@ export const LEARN_DUA_TOPICS_HA: DeepPartial<LearnDuaTopic>[] = [
       "Yin salati ga Annabi Sallallahu Alaihi Wasallama Allah ne ya yi umurni da shi a cikin Alqur’ani – ‘Lallai Allah da Mala’ikunSa suna yin salati ga Annabi; Ya ku muminai ku yi salati a gare shi da sallama – kuma babu wata addu’a da ke da irin wannan tabbataccen komawa: Manzon Allah Sallallahu Alaihi Wasallama ya ce duk wanda ya yi salati guda xaya, Allah zai yi salati ga wannan mutum goma.",
       "Yawaita salati yana kawo rahama, yana daukaka darajoji, yana kankare zunubai, kuma yana kusantar da mutum zuwa ga Annabi SAW ranar kiyama. Cikakkun sigar ibrahim da ke ƙasa - wanda ya karantar da Sahabbansa lokacin da suka tambaye shi yadda za a yi salati a gare shi - ana karanta shi a cikin tashahud ɗin kowace sallah kuma yana da kyau a kiyaye harshe tsawon yini.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lallai Allah da Mala'ikunSa suna yin salati ga Annabi. Ya ku waxanda suka yi imani ku yi salati a gare shi da sallama.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Cikakken Salawat Ibrahimiyyah",
         when: "A cikin tashahud na sallah da kuma tsawon yini",
-        translation:
-          "Ya Allah ka yi salati ga Muhammadu da alayen Muhammadu, kamar yadda Ka yi salati ga Ibrahim da alayen Ibrahim; Lalle Kai, Gõdadde ne, Mai girma. Ya Allah ka yi salati ga Muhammadu da alayen Muhammad, kamar yadda ka yi wa Ibrahima da iyalan Ibrahim albarka; Lalle Kai, Gõdadde ne, Mai girma.",
       },
     ],
     appLinks: [{}],

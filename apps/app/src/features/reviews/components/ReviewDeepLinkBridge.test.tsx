@@ -1,7 +1,9 @@
-import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import { act, render } from "@testing-library/react-native";
-import { ReviewDeepLinkBridge } from "@/features/reviews/components/ReviewDeepLinkBridge";
-import { registerReviewPromptOpener } from "@/features/reviews/lib/reviewPromptBridge";
+import {
+  isReviewDeepLink,
+  ReviewDeepLinkBridge,
+} from "@/features/reviews/components/ReviewDeepLinkBridge";
+import { registerWriteReviewOpener } from "@/features/reviews/lib/reviewPromptBridge";
 
 type UrlListener = (event: { url: string }) => void;
 
@@ -40,18 +42,22 @@ describe("ReviewDeepLinkBridge", () => {
     opener.mockReset();
     mockLinking.remove.mockReset();
     mockLinking.listener = null;
-    registerReviewPromptOpener(opener);
+    registerWriteReviewOpener(opener);
   });
 
   afterEach(() => {
-    registerReviewPromptOpener(null);
+    registerWriteReviewOpener(null);
   });
 
-  it("opens the funnel from the launch URL with its trigger id", async () => {
-    await renderBridge(
-      `munib-tracker://open-review?triggerId=${APP_FEEDBACK_TRIGGER_IDS.weekly_report}`,
-    );
-    expect(opener).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
+  it("opens the store's write-review page from the launch URL", async () => {
+    await renderBridge("munib-tracker://open-review");
+    expect(opener).toHaveBeenCalledTimes(1);
+  });
+
+  it("ignores the retired triggerId param and still opens the store page", async () => {
+    await renderBridge();
+    mockLinking.listener?.({ url: "munib-tracker://open-review?triggerId=perfect_day" });
+    expect(opener).toHaveBeenCalledTimes(1);
   });
 
   it("does nothing without a launch URL", async () => {
@@ -65,14 +71,9 @@ describe("ReviewDeepLinkBridge", () => {
       await renderBridge();
       mockLinking.listener?.({ url });
       expect(opener).not.toHaveBeenCalled();
+      expect(isReviewDeepLink(url)).toBe(false);
     },
   );
-
-  it("falls back to the manual trigger for an unknown trigger id", async () => {
-    await renderBridge();
-    mockLinking.listener?.({ url: "munib-tracker://open-review?triggerId=bogus" });
-    expect(opener).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.manual);
-  });
 
   it("unsubscribes from links on unmount", async () => {
     const { unmount } = await renderBridge();

@@ -1,5 +1,6 @@
 import type { DuaItem, DurudItem, NameOfAllah, ZikrItem } from "@munib-tracker/shared/types";
 
+import i18n from "@/i18n";
 import type { AudioTrack } from "@/providers/audio-player-provider";
 
 /**
@@ -44,8 +45,8 @@ const ALL_NAMES_COMPLETE_URI =
 export function namesCompleteTrack(): AudioTrack {
   return {
     id: NAMES_COMPLETE_TRACK_ID,
-    title: "Asma-ul-Husna",
-    subtitle: "All 99 names",
+    title: i18n.t("names.eyebrow"),
+    subtitle: i18n.t("player.track.namesComplete"),
     uri: ALL_NAMES_COMPLETE_URI,
   };
 }

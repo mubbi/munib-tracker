@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
-import { buildResponse } from "../test-support/http";
-import { AppVersionController } from "./app-version.controller";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { resetMemoryRateLimits } from "../common/durable-rate-limit";
+import { buildRequest, buildResponse } from "../test-support/http";
+import { AppVersionController, VERSION_REFRESH_RATE_LIMIT } from "./app-version.controller";
 import type { AppVersionService } from "./app-version.service";
 import type { VersionMetaQueryDto, VersionMetaResponseDto } from "./dto/version.dto";
 
@@ -13,18 +14,23 @@ const META: VersionMetaResponseDto = {
   storeUrl: null,
 };
 
-function setup() {
+function setup(ip = "192.0.2.10") {
   const service = {
     clearAppVersionCache: vi.fn().mockResolvedValue(undefined),
     getAppVersionMeta: vi.fn().mockResolvedValue(META),
   };
   const res = buildResponse();
   const controller = new AppVersionController(service as unknown as AppVersionService);
-  const getMeta = (query: VersionMetaQueryDto) => controller.getVersionMeta(query, res);
+  const req = buildRequest({ ip });
+  const getMeta = (query: VersionMetaQueryDto) => controller.getVersionMeta(query, res, req);
   return { service, res, getMeta };
 }
 
 describe("AppVersionController", () => {
+  afterEach(() => {
+    resetMemoryRateLimits();
+  });
+
   it("returns the service meta", async () => {
     const { getMeta } = setup();
     await expect(getMeta({ version: "1.0.0" })).resolves.toBe(META);
@@ -53,6 +59,18 @@ describe("AppVersionController", () => {
     const { service, getMeta } = setup();
     await getMeta({ version: "1.0.0", platform, refresh });
     expect(service.clearAppVersionCache).toHaveBeenCalledWith(cleared);
+  });
+
+  it("caps unauthenticated cache invalidations per IP and still answers", async () => {
+    const { service, getMeta } = setup("192.0.2.77");
+    for (let i = 0; i < VERSION_REFRESH_RATE_LIMIT.limit + 3; i++) {
+      await expect(getMeta({ version: "1.0.0", refresh: "1" })).resolves.toBe(META);
+    }
+    expect(service.clearAppVersionCache).toHaveBeenCalledTimes(VERSION_REFRESH_RATE_LIMIT.limit);
+    // Another client keeps its own budget.
+    const other = setup("192.0.2.78");
+    await other.getMeta({ version: "1.0.0", refresh: "1" });
+    expect(other.service.clearAppVersionCache).toHaveBeenCalledTimes(1);
   });
 
   it("ignores other refresh values", async () => {

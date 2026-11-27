@@ -1,0 +1,14 @@
+{
+  "appStore": {
+    "ariaLabel": "نزّله من {store}: {appName} لأجهزة iPhone وiPad",
+    "eyebrow": "نزّله من"
+  },
+  "googlePlay": {
+    "ariaLabel": "احصل عليه من {store}: {appName} لأجهزة Android",
+    "eyebrow": "احصل عليه من"
+  },
+  "webApp": {
+    "ariaLabel": "جرّب تطبيق الويب: {appName} في متصفحك",
+    "label": "جرّب تطبيق الويب"
+  }
+}

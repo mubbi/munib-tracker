@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Fait unique parmi les piliers, la salah n'a pas été révélée par un ange descendant sur terre mais a été ordonnée directement au Prophète ﷺ lorsqu'il a été élevé à travers les cieux lors du voyage nocturne (al-Isra' wa al-Mi'raj). Cinquante prières furent d'abord ordonnées, puis – grâce aux retours répétés du Prophète ﷺ cherchant du confort pour sa oumma – réduites à cinq accomplies en actes tout en gardant la récompense de cinquante.",
       "C’est pourquoi la salah est au centre même de la vie islamique : répétée cinq fois par jour, elle interrompt le travail, le repos et les loisirs pour réancrer le cœur sur Allah, et c’est le premier acte dont un serviteur sera appelé à rendre compte le Jour de la Résurrection. S'il est trouvé sonore, le reste du disque a tendance à suivre.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Qui croient à l'invisible, établissent la prière et dépensent ce que Nous leur avons prévu.",
-      },
-      {
-        excerpt:
-          "Récitez ce qui vous a été révélé du Livre et établissez la prière. En effet, la prière éloigne de l'immoralité et du mal, et le rappel d'Allah est plus grand.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Durant le voyage nocturne, Allah a ordonné cinquante prières ; le Prophète ﷺ revenait sans cesse pour demander du secours jusqu'à ce qu'ils aient cinq ans : « Ceux-ci sont cinq et ceux-ci sont cinquante, car la parole avec Moi ne change pas. (aussi Sahih Muslim 162)",
-      },
-      {
-        excerpt:
-          "La première chose dont un serviteur sera tenu responsable au Jour de la Résurrection est sa prière ; si c'est sain, le reste de ses actions est sain. (également Abu Dawud 864, an-Nasa'i 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -51,28 +33,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Son deuxième fruit est la paix intérieure. Le Qur'an promet que les cœurs trouvent le repos dans le souvenir d'Allah, et le Prophète ﷺ, dans les moments d'inquiétude, disait : « Console-nous, ô Bilal », en appelant à la prière. Il a décrit le plaisir de ses yeux comme ayant été placé en salah.",
       "Ses fruits sociaux et éternels complètent le tableau : la prière en communauté rassemble les riches et les pauvres en une seule rangée et construit la fraternité, tandis que garder la prière est l'un des chemins les plus sûrs vers le pardon d'Allah et vers le Paradis. Le Prophète ﷺ a promis le Paradis à quiconque préserve les deux prières « cool » de Fajr et Asr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, je suis Allah. Il n’y a de divinité que Moi, alors adorez-Moi et établissez une prière pour Mon souvenir.",
-      },
-      {
-        excerpt: "Les croyants, ceux qui sont humbles dans leur prière, réussissent en effet.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "« S'il y avait une rivière à la porte de l'un de vous dans laquelle il se baignait cinq fois par jour, resterait-il de la saleté sur lui ? Ils ont répondu : « Aucun ». Il ﷺ dit : « C'est la ressemblance des cinq prières : Allah efface les péchés avec elles. (aussi Sahih Muslim 667)",
-      },
-      {
-        excerpt: "Celui qui prie les deux prières fraîches – Fajr et Asr – entrera au Paradis.",
-      },
-      {
-        excerpt:
-          "Les femmes et les parfums m'ont été rendus bien-aimés de votre monde, et la fraîcheur de mes yeux a été placée dans la prière.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Faites une seule prière à temps aujourd’hui – la cohérence, et non la perfection, est le premier objectif.",
       "Lisez la signification d'Al-Fatihah une fois avant votre prochaine salah pour sentir qu'on vous répond.",
@@ -89,30 +51,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Concernant le jugement concernant celui qui abandonne la prière, il existe une différence bien connue et respectueuse parmi les savants sunnites. Certains estiment que l’abandonner délibérément – ​​tout en affirmant qu’il est obligatoire – équivaut à une incrédulité majeure qui expulse une personne de l’Islam ; la majorité (Hanafi, Maliki, Shafi'i) considère qu'une telle personne reste un musulman pécheur, coupable de l'un des péchés majeurs les plus graves, à condition qu'elle ne nie pas son obligation. Tous s’accordent sur le fait qu’abandonner la prière est une catastrophe et que quiconque nie son obligation a quitté l’islam par consensus.",
       "La leçon pratique est la même à tous points de vue : le respect des cinq prières quotidiennes n’est ni facultatif ni négociable pour un croyant. Les prières volontaires (sunnah et nafl) agissent alors comme un filet de sécurité, comblant le déficit des prières obligatoires le jour du jugement dernier.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Maintenez avec soin les prières et la prière du milieu, et tenez-vous debout devant Allah, fidèlement obéissant.",
-      },
-      {
-        excerpt:
-          "Mais vinrent après eux des successeurs qui négligeèrent la prière et poursuivirent leurs désirs ; alors ils vont rencontrer le mal.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "L'Islam repose sur cinq principes : témoigner qu'il n'y a d'autre dieu qu'Allah et que Mahomet est Son Messager, établir la prière, donner la zakat, le Hajj et jeûner le Ramadan. (aussi Sahih al-Bukhari 8)",
-      },
-      {
-        excerpt:
-          "L'alliance entre nous et eux, c'est la prière ; celui qui l'abandonne a commis l'incrédulité. (Buraydah ; aussi an-Nasa'i, Ibn Majah 1079)",
-      },
-      {
-        excerpt:
-          "Entre l’homme, l’incrédulité et l’idolâtrie se trouve l’abandon de la prière. (Jabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Les érudits diffèrent sur la décision exacte à prendre entre celui qui abandonne la prière par paresse (péché majeur pour la majorité ; incrédulité pour les autres) et celui qui nie son obligation (incrédulité par consensus). Cette application ne rend un verdict sur aucun individu - consultez un universitaire qualifié pour les cas personnels.",
   },
@@ -126,17 +66,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Les femmes en période de menstruation (hayd) ou de saignements postnatals (nifas) ne prient pas pendant cette période ; les prières obligatoires manquées ne sont pas rattrapées par la suite – une miséricorde et une décision convenues par les savants. (Les jeûnes manqués, contrairement aux prières, sont rattrapés.) Une femme reprend la prière une fois le saignement terminé et qu'elle s'est purifiée avec le ghusl.",
       "Une véritable incapacité entraîne des concessions, jamais une annulation : une maladie grave, une perte de conscience et une peur accablante peuvent excuser une personne pendant un certain temps, et les malades prient selon leurs capacités – assis, couchés ou même par gestes. Le voyage ne supprime pas la prière mais la facilite grâce au raccourcissement (qasr) et à la combinaison (jam'), abordés dans le guide de voyage.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ordonnez à vos enfants de prier à sept ans, disciplinez-les à dix ans et séparez leurs couchages. ('Amr ibn Shu'ayb de son père d'après son grand-père)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Et recommandez la prière à votre famille, et soyez ferme en elle.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -198,17 +129,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Indépendamment de ces états rituels, les saletés tangibles (najasah) – telles que l’urine, les excréments, le sang qui coule, etc. – doivent être physiquement retirées du corps, des vêtements et de l’endroit où vous priez. Il est possible d'avoir un wudu valide mais de devoir quand même nettoyer une tache de vos vêtements avant de prier.",
       "L'eau est le principal purificateur. Lorsque l’eau n’est vraiment pas disponible ou pourrait vous nuire en raison d’une maladie ou d’un froid intense, l’Islam autorise le tayammum – une purification à sec utilisant de la terre propre – comme substitut complet. La purification n’est jamais censée être une épreuve ; c'est un moyen de se rapprocher.",
     ],
-    hadith: [
-      {
-        excerpt: "La purification est la moitié de la foi… (Abu Malik al-Ash'ari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "En effet, Allah aime ceux qui se repentent constamment et aime ceux qui se purifient.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Apprenez le wudu étape par étape avant votre prochaine prière afin que chaque membre soit lavé correctement.",
       "Gardez un vêtement propre réservé à la prière si vous travaillez dans un environnement sale.",
@@ -264,18 +186,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "Complétez avec le du'a : 'Ashhadu an la ilaha illallah…' — les huit portes du Paradis sont ouvertes à quiconque le dit après le wudu.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsqu'un serviteur se lave le visage lors du wudu, chaque péché qu'il a regardé avec ses yeux part avec l'eau… jusqu'à ce qu'il en ressorte purifié du péché.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, lorsque vous vous levez pour prier, lavez-vous le visage et les avant-bras jusqu'aux coudes, essuyez-vous la tête et lavez-vous les pieds jusqu'aux chevilles.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Effectuez le wudu lentement une fois en lisant chaque étape à haute voix, en vérifiant les coudes et les talons.",
       "Mémorisez le court du'a après le wudu - voir Paroles de Salah.",
@@ -314,18 +226,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -342,11 +244,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Pour les femmes, tout le corps est en prière dans la prière, à l'exception du visage et des mains, selon la majorité des savants ; une femme se couvre les cheveux, le cou et les pieds, généralement avec un vêtement ample et un foulard. Les érudits diffèrent sur les pieds, certains les considérant comme inclus dans ce qui peut être montré – prier avec les pieds couverts est la pratique la plus sûre et la plus majoritaire.",
       "Deux règles vestimentaires s'appliquent également en dehors de la prière : la soie et l'or sont interdits aux hommes (autorisés pour les femmes), et les vêtements ne doivent pas être trop serrés, transparents ou attirer l'attention au point de contrecarrer la modestie exigée par la prière. En règle générale, priez avec ce que vous porteriez pour rencontrer quelqu'un que vous respectez – pas en vêtements de nuit ou de plage.",
     ],
-    quran: [
-      {
-        excerpt: "Ô enfants d'Adam, apportez votre parure à chaque lieu de prière.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mettez de côté une tenue propre et modeste ou un vêtement de prière dédié pour être toujours prêt.",
       "Lorsque vous ne savez pas si quelque chose couvre suffisamment, couvrez plus plutôt que moins.",
@@ -386,21 +284,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "Depuis la disparition du crépuscule jusqu'à l'aube ; meilleur avant minuit. Suivi par Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Il y a trois moments où le Prophète ﷺ nous a interdit de prier : quand le soleil se lève jusqu'à son lever, quand il se lève à midi et quand il se couche jusqu'à son coucher. (Uqbah ibn 'Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "En effet, la prière a été décrétée aux croyants selon des horaires précis.",
-      },
-      {
-        excerpt:
-          "Et établissez la prière aux deux extrémités du jour et à l'approche de la nuit. En effet, les bonnes actions chassent les mauvaises actions.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Le début d'Asr a deux opinions rapportées (ombre égale ou double à la longueur d'un objet). Les deux sont valables ; suivez votre calcul local et votre communauté.",
@@ -413,18 +298,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Vous devez faire face à la qiblah avec autant de précision que vous pouvez raisonnablement le déterminer – avec une boussole, le mihrab d’une mosquée, une application fiable ou le soleil et les étoiles lorsque vous voyagez. Un petit écart inévitable est pardonné ; ce qui compte, c'est un effort sincère dans la bonne direction.",
       "Si vous ne parvenez vraiment pas à déterminer la direction – perdu en mer, dans les nuages, dans un pays inconnu la nuit – vous vous efforcez de la trouver, puis priez pour obtenir le meilleur jugement possible ; la prière est valable même si par la suite elle s'avère légèrement erronée. Dans un véhicule ou un avion en mouvement où il est impossible de faire face à la qiblah pour une prière obligatoire, vous faites face à tout ce que vous pouvez, car Allah ne charge pas une âme au-delà de ses capacités.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Alors tournez votre visage vers al-Masjid al-Haram. Et où que vous soyez, tournez votre visage vers lui.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsque vous vous levez pour prier, faites bien votre wudu, puis faites face à la qiblah et dites le takbir. (extrait du hadith de l'homme qui a mal prié)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -465,12 +340,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "Il n’y a de dieu qu’Allah – l’appel se termine sur le même mot vers lequel il s’est ouvert.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui dit en entendant l'appel : « Ô Allah, Seigneur de cet appel parfait et de cette prière établie, accorde à Muhammad la wasilah et la vertu… » — mon intercession sera la sienne le Jour de la Résurrection. (Jabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -493,26 +363,19 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Ouverture du takbir (Takbirat al-Ihram)",
         body: "Levez vos mains jusqu'aux épaules ou aux lobes des oreilles et dites le takbir, puis placez la main droite sur la gauche sur la poitrine. Avec cela, la prière commence, et la parole et les mouvements ordinaires sont désormais interdits jusqu'au salam.",
-        translation: "Allah est le plus grand.",
         tip: "Lever les mains (raf' al-yadayn) avec le takbir est une sunna confirmée, pas un pilier.",
       },
       {
         title: "3. Supplication d'ouverture (Du'a al-Istiftah)",
         body: "Récitez doucement une courte supplication d'ouverture pour calmer le cœur devant les paroles d'Allah. Plusieurs formulations authentiques sont rapportées ; c'est l'un des plus courants.",
-        translation:
-          "La gloire est à Toi, ô Allah, et la louange. Béni soit ton nom et exaltée soit ta majesté. Il n’y a pas d’autre dieu que Toi.",
       },
       {
         title: "4. Ta'awwudh et Basmalah",
         body: "Cherchez refuge auprès d’Allah contre Satan, puis commencez par la Basmalah, avant Al-Fatihah. Les deux sont prononcés à voix basse, même dans les prières à haute voix.",
-        translation:
-          "Je cherche refuge auprès d'Allah contre Satan, le maudit. Au nom d'Allah, le Tout Miséricordieux, le Particulièrement Miséricordieux.",
       },
       {
         title: "5. Récitez Al-Fatihah",
         body: "Récitez l'ouverture du livre dans chaque rak'a - 'Il n'y a pas de prière pour celui qui ne récite pas l'ouverture du livre.' L'imam et le fidèle solitaire le récitent à haute voix dans les prières à haute voix ; sinon, il est récité doucement.",
-        translation:
-          "Au nom d'Allah, le Tout Miséricordieux, le Particulièrement Miséricordieux. Toute louange est due à Allah, Seigneur des mondes, le Tout Miséricordieux, le Particulièrement Miséricordieux, Souverain du Jour de la Récompense. C'est Toi que nous adorons et c'est Toi que nous demandons de l'aide. Guide-nous vers le droit chemin, le chemin de ceux à qui Tu as accordé ta faveur, et non celui de ceux qui ont suscité la colère ou de ceux qui se sont égarés.",
         tip: "Dites « Ameen » après cela (à haute voix dans les prières à haute voix). Classe Hanafis récitant du Qur'an comme pilier et Al-Fatihah spécifiquement comme wajib ; la majorité considère qu'Al-Fatihah elle-même est le pilier de chaque rak'ah.",
       },
       {
@@ -523,32 +386,26 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. S'incliner (ruku)",
         body: "Dites « Allahu Akbar » et inclinez-vous avec le dos plat et égal, les mains agrippant les genoux, et glorifiez votre Seigneur trois fois ou plus, sans hâte.",
-        translation: "Gloire à mon Seigneur le Magnifique.",
         tip: "L'arc lui-même, tenu avec immobilité, est le pilier ; le tasbih qui y est récité est une sunna (wajib dans certaines écoles).",
       },
       {
         title: "8. S'élevant de ruku (i'tidal)",
         body: "Levez-vous complètement – ​​l’imam et le fidèle solitaire prononçant le tasmi’, et tout le monde prononçant le tahmid – et restez complètement immobile avant de descendre.",
-        translation:
-          "Allah entend celui qui Le loue. Notre Seigneur, c'est à Toi qu'appartient toute louange.",
         tip: "Se tenir droit et à l'aise est un pilier - ne sombrez pas dans le sujud avant de vous être installé ici.",
       },
       {
         title: "9. Prosternation (sujud)",
         body: "Dites « Allahu Akbar » et prosternez-vous sur sept os – le front avec le nez, les deux paumes, les deux genoux et les orteils des deux pieds – glorifiant le Très-Haut trois fois ou plus. C'est la posture la plus proche d'Allah, alors versez des supplications après le tasbih.",
-        translation: "Gloire à mon Seigneur le Très-Haut.",
         tip: "Gardez les avant-bras surélevés du sol et éloignés des côtés, et le ventre éloigné des cuisses.",
       },
       {
         title: "10. Assis entre les deux prosternations (jalsah)",
         body: "Levez-vous du premier sujud en disant « Allahu Akbar », asseyez-vous calmement et droit, et demandez pardon à votre Seigneur avant de vous prosterner à nouveau.",
-        translation: "Mon Seigneur, pardonne-moi.",
         tip: "Asseyez-vous jusqu'à ce que vous soyez à l'aise – cette brève séance, dans le calme, est un pilier à part entière.",
       },
       {
         title: "11. Deuxième prosternation",
         body: "Dites « Allahu Akbar » et prosternez-vous une seconde fois exactement comme la première fois, avec le même tasbih et le même calme. Ceci complète une rak'ah complète.",
-        translation: "Gloire à mon Seigneur le Très-Haut.",
       },
       {
         title: "12. Présentez-vous pour la prochaine rak'ah",
@@ -558,8 +415,6 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Premier tashahhud (dans les prières de 3 et 4 rak'ah)",
         body: "Après la deuxième rak'ah du Maghrib, Dhuhr, Asr ou Isha, asseyez-vous et récitez At-Tahiyyat, puis restez debout pour la ou les rak'ah restantes. Une prière de deux rak'ah n'a pas de premier tashahhud.",
-        translation:
-          "Toutes les salutations, prières et paroles pures sont pour Allah. La paix soit sur toi, ô Prophète, et la miséricorde d'Allah et ses bénédictions. La paix soit sur nous et sur les justes serviteurs d'Allah. J'atteste qu'il n'y a de divinité qu'Allah et j'atteste que Mahomet est Son serviteur et Son Messager.",
         tip: "Levez l'index droit en position assise. Si vous oubliez le premier tashahhud et avez commencé à vous lever, continuez et effectuez le sujud as-sahw avant le salam – ne vous rasseyez pas.",
       },
       {
@@ -569,36 +424,19 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Envoyez des bénédictions sur le Prophète ﷺ (Salawat)",
         body: "Après le dernier At-Tahiyyat, envoyez des salawat au Prophète ﷺ avec les paroles qu'il a lui-même enseignées à ses Compagnons.",
-        translation:
-          "Ô Allah, envoie des bénédictions sur Muhammad et sur la famille de Muhammad, comme Tu as béni Ibrahim et la famille d'Ibrahim ; en effet, tu es digne de louange et glorieux. Ô Allah, accorde faveur à Muhammad et à la famille de Muhammad, comme Tu as favorisé Ibrahim et la famille d'Ibrahim ; en effet, tu es digne de louange et glorieux.",
         tip: "Les écoles Shafi'i et Hanbali considèrent le salawat lors de la séance finale comme obligatoire.",
       },
       {
         title: "16. Suppliez avant le salam",
         body: "Avant de terminer, cherchez refuge auprès d'Allah contre quatre épreuves - puis faites toute du'a que vous souhaitez, pour cette vie et la suivante, en arabe ou dans votre propre langue.",
-        translation:
-          "Ô Allah, je cherche refuge auprès de Toi contre le châtiment de la tombe, contre le châtiment de l'Enfer, contre l'épreuve de la vie et de la mort et contre le mal du procès du Faux Messie (le Dajjal).",
       },
       {
         title: "17. Salam de clôture (Taslim)",
         body: "Terminez la prière en tournant le visage vers la droite, puis vers la gauche, en prononçant à chaque fois le salut de paix. Avec le salam, la prière est terminée.",
-        translation: "La paix et la miséricorde d'Allah soient sur vous.",
         tip: "Le premier taslim (à droite) est le pilier ; la seconde (à gauche) est une sunna dans certaines écoles.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Priez comme vous m'avez vu prier. (Malik ibn al-Huwayrith)",
-      },
-      {
-        excerpt:
-          "'Retourne et prie, car tu n'as pas prié' — répété trois fois — puis il ﷺ a enseigné : dites le takbir, récitez ce que vous pouvez du Qur'an, puis inclinez-vous jusqu'à ce que vous soyez à l'aise, levez-vous jusqu'à ce que vous soyez droit, prosternez-vous jusqu'à ce que vous soyez à l'aise… (l'homme qui a mal prié ; aussi Sahih Muslim 397)",
-      },
-      {
-        excerpt:
-          "Il n'y a pas de prière pour celui qui ne récite pas l'Ouverture du Livre. (Ubadah ibn as-Samit ; ​​également Sahih Muslim 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, {}, {}, {}, { label: "Récitation à voix haute et silencieuse" }],
   },
   {
@@ -655,27 +493,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "Ce que vous récitez ne change pas, seule l'élévation de la voix diffère. Chaque rak'ah : Al-Fatihah. Les deux premières : ajoutez une sourate. La ou les dernières : Al-Fatihah seulement. Au Fajr, au Maghrib et à l'Isha, réciter à voix haute est une sunna ; le Dhuhr et l'Asr se récitent silencieusement.",
       },
     ],
-    quran: [
-      { excerpt: "Vous avez dans le Messager d'Allah un excellent modèle." },
-      {
-        excerpt:
-          "Quand le Qur'an est récité, écoutez-le attentivement et gardez le silence afin qu'il vous soit fait miséricorde.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ récitait Al-Fatihah et une autre sourate dans les deux premières rak'ahs du Dhuhr et de l'Asr, et uniquement Al-Fatihah dans les deux dernières. (Abu Qatadah; also Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Il n'y a pas de prière pour celui qui ne récite pas l'Ouverture du Livre. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Dans les deux premières rak'ahs du Dhuhr et de l'Asr, il récitait ce qui faisait penser qu'il lisait les longues sourates, et dans les deux dernières ce qui faisait penser qu'il lisait les plus courtes. (Abu Qatadah)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Lors de votre prochaine prière en groupe, remarquez dans quelles rak'ahs l'imam récite à voix haute.",
       "Demandez à un professeur de votre école si vous récitez Al-Fatihah derrière l'imam dans les prières audibles.",
@@ -726,12 +545,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "Tournez le visage complètement vers la droite, puis vers la gauche, avec les paroles de paix – terminez la prière en saluant les anges sur chaque épaule.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le serviteur se rapproche le plus de son Seigneur lorsqu'il se prosterne, alors faites beaucoup de supplications. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Des différences mineures dans le placement des mains, la manière de s'asseoir et de lever les mains sont toutes ancrées dans des rapports authentiques ; les écoles suivent chacune une narration valable. Personne n’invalide la prière d’autrui.",
   },
@@ -795,20 +609,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Entrez dans la mosquée avec le pied droit et sortez avec le gauche, chacun avec son du'a.",
       "Récitez l’adhkar établi après chaque prière – voir Après Salah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Si je n'avais pas imposé un fardeau à ma communauté, je leur aurais ordonné d'utiliser le siwak avant chaque prière. (Abou Hourayra ; également Sahih Muslim 252)",
-      },
-      {
-        excerpt:
-          "Le Prophète ﷺ ne délaissait jamais les deux rak'ahs avant Fajr. ('Aishah ; également Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Quiconque accomplit régulièrement douze rak'ahs de jour et de nuit, Allah lui bâtira une maison au Paradis : deux avant Fajr, quatre avant Dhuhr, deux après Dhuhr, deux après Maghrib et deux après Isha. (Umm Habibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       { label: "Types de salah — guide des rawatib" },
       { label: "Sunnah et adhkar après la salah" },
@@ -824,21 +625,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Khushu est construit, pas souhaité. Apprenez le sens de ce que vous récitez pour que les mots vous touchent. Supprimez les distractions avant le takbir. Ralentissez et donnez à chaque posture son calme. Réfléchissez à la grandeur de Celui à qui vous vous adressez et à la réalité que cette prière pourrait être votre dernière. Faites chaque prière comme une prière d'adieu, comme l'a conseillé le Prophète ﷺ.",
       "Ne vous laissez pas décourager par des pensées vagabondes : même les Compagnons ont eu du mal avec elles. La lutte pour retrouver votre concentration, encore et encore, fait elle-même partie du culte. Khushu grandit tout au long de la vie ; la cohérence est ce qui le nourrit.",
     ],
-    quran: [
-      {
-        excerpt: "Les croyants, ceux qui sont humbles dans leur prière, réussissent en effet.",
-      },
-      {
-        excerpt:
-          "Alors malheur à ceux qui prient, à ceux qui ne prêtent pas attention à leur prière.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsan consiste à adorer Allah comme si vous Le voyiez, car même si vous ne Le voyez pas, Il vous voit sûrement. (Hadith de Jibril, 'Umar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Lisez la signification d'une phrase des Paroles de Salah avant chaque prière de cette semaine.",
       "Faites une pause de trois secondes sans hâte dans chaque posture avant de continuer.",
@@ -885,16 +673,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Lorsque vous avez un véritable doute, le principe directeur est le suivant : rejetez le doute, construisez sur ce dont vous êtes certain (le plus petit nombre), terminez la prière, puis faites les deux prosternations. Cela transforme la confusion en une prière établie et valable plutôt qu'en une supposition anxieuse.",
       "En pratique : faites deux prosternations exactement comme votre sujud habituel, avec le takbir avant et après, puis le salam. Les savants diffèrent quant à savoir s'ils surviennent avant ou après le salam en fonction du type d'erreur : les deux sont authentiquement rapportés, donc l'un ou l'autre est acceptable et aucun n'invalide la prière.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Si l'un de vous n'est pas sûr de sa prière et ne sait pas combien de fois il a prié - trois ou quatre - qu'il se débarrasse de tout doute, s'appuie sur ce dont il est sûr, puis se prosterne deux fois avant le salam. (Abou Saïd al-Khudri)",
-      },
-      {
-        excerpt:
-          "Lorsque l'un de vous doute dans sa prière, qu'il cherche ce qui est correct et complet, puis fait le salam et se prosterne deux fois. (Ibn Mas'ud ; également Sahih Muslim 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Mémorisez la règle du doute : bâtissez sur le plus petit nombre, terminez, puis prosternez-vous deux fois.",
       "Si vous réalisez au milieu de la prière que vous avez quitté le premier tashahhud, continuez et faites sujud al-sahw à la fin.",
@@ -975,42 +754,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
         body: "La prière funéraire — une obligation communautaire (fard kifayah) offerte debout, sans ruku ni sujud.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ ne délaissait jamais les deux rak'ahs avant Fajr. ('Aishah ; également Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Quiconque accomplit régulièrement douze rak'ahs, Allah lui bâtira une maison au Paradis. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Quiconque prie quatre avant Dhuhr et quatre après, Allah l'interdira au Feu. (Umm Habibah ; classé authentique par de nombreux savants)",
-      },
-      {
-        excerpt: "Qu'Allah fasse miséricorde à celui qui prie quatre rak'ahs avant Asr.",
-      },
-      {
-        excerpt: "Priez avant Maghrib — puis il dit : pour celui qui le souhaite. (Ibn 'Umar)",
-      },
-      {
-        excerpt:
-          "Entre chaque deux appels (adhan et iqamah), il y a une prière. (Anas ibn Malik ; également Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Le witr est un droit : que celui qui veut en prie cinq, trois ou une. (Ibn 'Umar)",
-      },
-      {
-        excerpt:
-          "La meilleure prière après les prières obligatoires est la prière nocturne. (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Mon serviteur ne cesse de se rapprocher de Moi par les nafl jusqu'à ce que Je l'aime. (Hadith Qudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "Commencez par les douze rawatib avant d'ajouter les nafl facultatifs.",
       "Utilisez le tableau des rak'ahs pour suivre les sunnah fortement recommandées.",
@@ -1034,26 +778,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Sa négligence constitue un grave danger : le Prophète ﷺ a averti que quiconque abandonne trois Jumu'ahs par inconscience, Allah scelle son cœur. Pourtant, ses récompenses sont tout aussi grandes : le vendredi est le meilleur jour où le soleil se lève, et il y a une heure pendant laquelle on répond à la du'a.",
       "Préparez-vous comme le Prophète ﷺ l'a fait : faites un bain ghusl, portez vos plus beaux vêtements propres, appliquez du parfum, partez tôt et écoutez attentivement la khutbah en silence (les bavardages inutiles pendant cela gaspillent la récompense). La récitation de la sourate al-Kahf le vendredi apporte une lumière entre les deux vendredis.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, lorsque l'on appelle à la prière le vendredi, hâtez-vous d'invoquer Allah et abandonnez le commerce. Ce serait mieux pour toi, si tu savais.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La prière du vendredi en congrégation est un devoir contraignant pour tout musulman, à l'exception de quatre : un esclave, une femme, un enfant ou une personne malade. (Tariq ibn Shihab)",
-      },
-      {
-        excerpt:
-          "Celui qui abandonne trois prières du vendredi par insouciance, Allah mettra un sceau sur son cœur. (Abu al-Ja'd ; également Abu Dawud 1052, at-Tirmidhi 500)",
-      },
-      {
-        excerpt:
-          "Le Ghusl du vendredi est obligatoire pour toute personne ayant atteint la puberté. (Abou Saïd al-Khudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Faites un bain rituel, portez des vêtements propres et parfumés et arrivez tôt : les premiers participants recevront la plus grande récompense.",
       "Lisez la sourate al-Kahf vendredi pour une lumière entre les deux vendredis.",
@@ -1072,18 +798,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Si vous arrivez après que l'imam ait commencé (un retardataire est appelé masbuq), rejoignez-vous immédiatement dans la posture dans laquelle vous le trouvez - cette partie compte toujours comme une prière avec lui. Lorsqu'il donne le salam final, levez-vous et complétez vous-même les rak'ahs que vous avez manquées, puis terminez.",
       "La congrégation ne se limite pas à la mosquée : deux personnes priant ensemble forment une jama'ah, ainsi un père avec son enfant, ou deux amis en voyage, peuvent obtenir sa récompense. Les femmes peuvent prier en groupe et fréquenter la mosquée là où des installations appropriées existent, bien que leur prière à la maison soit également largement récompensée.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "La prière en congrégation est vingt-sept degrés plus méritoire que la prière offerte seule. (Ibn 'Umar ; également Sahih Muslim 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Et établissez la prière, donnez la zakat et inclinez-vous avec ceux qui s'inclinent.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Faites au moins une prière à la mosquée aujourd'hui ou rassemblez votre famille en rang à la maison.",
       "Apprenez quoi faire en cas de retard : rejoignez-nous immédiatement, puis complétez vos rak'ahs manquées après le salam de l'imam.",
@@ -1097,12 +813,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Une prière composée est offerte sous la même forme que l'originale : un Dhuhr de quatre rak'ah manqué est prié comme quatre rak'ahs même si vous le rattrapez la nuit ou en voyage. Celui qui a manqué les prières en raison d’une véritable excuse (comme un sommeil profond) ne porte aucun péché pour ce retard ; celui qui les a abandonnés délibérément doit les rattraper par un repentir sincère et urgent.",
       "Les ulémas encouragent à rattraper les prières manquées immédiatement et dans l'ordre lorsque cela est possible, sans les laisser s'accumuler, car le fardeau s'alourdit avec le temps et les retards. Si un grand nombre d’entre eux ont été oubliés au fil des années, abordez-le avec un plan quotidien réaliste plutôt que de désespérer ; La porte du retour d'Allah est toujours ouverte.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui oublie une prière ou s'en dort, son expiation est de la prier quand il s'en souvient. (Anas ; également Sahih Muslim 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Estimez honnêtement le nombre de prières que vous devez et fixez-vous un objectif de maquillage quotidien réaliste.",
       "Associez chaque prière obligatoire à une prière de rattrapage jusqu'à ce que l'arriéré soit éliminé.",
@@ -1118,16 +829,7 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "La routine établie après la prière est simple et importante : dites « Astaghfirullah » trois fois ; puis les paroles de tawhid et de louange ; puis 'SubhanAllah', 'Alhamdulillah' et 'Allahu Akbar' trente-trois fois chacun, en scellant le centième avec 'La ilaha illallah…' - quiconque fait cela voit ses péchés pardonnés bien qu'ils soient comme l'écume de la mer.",
       "La récitation de l'Ayat al-Kursi après chaque prière obligatoire supprime uniquement la mort entre une personne et le Paradis, comme l'a promis le Prophète ﷺ. Suivez-le avec les trois Quls (Al-Ikhlas, Al-Falaq, An-Nas), et ajoutez l'adhkar du matin après Fajr et l'adhkar du soir après Asr ou Maghrib là où ils s'appliquent.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui glorifie, loue et magnifie Allah trente-trois fois chacun après chaque prière… et complète les cent avec les paroles du tawhid, ses péchés sont pardonnés bien qu'ils soient comme l'écume de la mer. (Abou Hourayra)",
-      },
-      {
-        excerpt:
-          "Celui qui récite Ayat al-Kursi après chaque prière prescrite, rien ne l'empêche d'entrer au Paradis, sauf la mort. (Abu Umamah; noté sahih par al-Albani)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Mémorisez le tasbih post-salah (33/33/33 + tahlil) cette semaine.",
       "Récitez Ayat al-Kursi et les trois Quls avant de vous lever.",
@@ -1141,91 +843,72 @@ export const SALAH_GUIDE_PHRASES_FR: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Après avoir terminé le wudu",
     when: "Immédiatement après avoir fini les ablutions, avant la salah.",
-    translation:
-      "J'atteste qu'il n'y a de divinité qu'Allah seul, sans associé, et j'atteste que Mahomet est Son esclave et Son Messager.",
     meaning:
       "Renouveler le témoignage de foi pendant que votre corps est fraîchement purifié. Le Prophète ﷺ a promis que quiconque dit cela après le wudu, les huit portes du Paradis lui seront ouvertes pour qu'il puisse y entrer par celui qu'il souhaite.",
   },
   {
     title: "Takbirat al-Ihram",
     when: "Au tout début de la salah et lors des déplacements entre les positions.",
-    translation: "Allah est le plus grand.",
     meaning:
       "La prière commence ici — « al-ihram » signifie qu'elle vous interdit les choses du monde (parler, manger, se détourner). Vous déclarez Allah plus grand que tout ce qui pourrait vous distraire et vous entrez pleinement en Sa présence. Chaque takbir qui suit renouvelle cet abandon.",
   },
   {
     title: "Du'a al-Istiftah (invocation d'ouverture)",
     when: "En silence après le takbir d'ouverture, avant Al-Fatihah.",
-    translation:
-      "La gloire est à Toi, ô Allah, et la louange. Béni soit ton nom et exaltée soit ta majesté. Il n’y a pas d’autre dieu que Toi.",
     meaning:
       "Vous ouvrez la conversation en glorifiant et en louant Allah et en affirmant Son unicité, en calmant le cœur avant de réciter Ses paroles. Il existe plusieurs supplications d’ouverture authentiques – celle-ci est l’une des plus largement utilisées.",
   },
   {
     title: "Sourate Al-Fatihah",
     when: "Debout dans chaque rak'ah — un pilier sans lequel la rak'ah n'est pas valide.",
-    translation:
-      "Au nom d'Allah, le Tout Miséricordieux, le Particulièrement Miséricordieux. Toute louange est due à Allah, Seigneur des mondes, le Tout Miséricordieux, le Particulièrement Miséricordieux, Souverain du Jour de la Récompense. C'est Toi que nous adorons et c'est Toi que nous demandons de l'aide. Guide-nous vers le droit chemin, le chemin de ceux à qui Tu as accordé ta faveur, et non celui de ceux qui ont suscité la colère ou de ceux qui se sont égarés.",
     meaning:
       "La « Mère du Livre » : moitié louange d'Allah et moitié appel à la direction, avec « C'est Toi que nous adorons » comme charnière entre les deux. Allah a dit qu'Il a divisé cette sourate entre Lui et Son serviteur – lorsque vous récitez chaque ligne, Il répond. Le Prophète ﷺ a dit qu'il n'y a pas de prière pour celui qui ne la récite pas.",
   },
   {
     title: "Dhikr en ruku",
     when: "Tout en s'inclinant, d'un plat, reculé.",
-    translation: "Gloire à mon Seigneur le Magnifique.",
     meaning:
       "S'incliner est une posture de révérence, vous glorifiez donc la magnificence d'Allah - dit trois fois ou plus, sans hâte. Le Prophète ﷺ a enseigné que dans le ruku, nous exaltons le Seigneur, alors espérons que votre supplication sera exaucée.",
   },
   {
     title: "Se lever du ruku",
     when: "Debout complètement debout après s’être incliné.",
-    translation:
-      "Allah entend celui qui Le loue. Notre Seigneur, c'est à Toi qu'appartient toute louange.",
     meaning:
       "Vous affirmez qu'Allah entend vraiment celui qui Le loue, puis rendez-Lui toute louange. Le Prophète ﷺ a dit que lorsque l'imam dit cela et que les gens répondent, quiconque les paroles coïncident avec celles des anges voit ses péchés passés pardonnés.",
   },
   {
     title: "Dhikr dans le soujud",
     when: "En prosternation – la position la plus proche d’Allah.",
-    translation: "Gloire à mon Seigneur le Très-Haut.",
     meaning:
       "Au point physique le plus bas, vous glorifiez le Très-Haut – le paradoxe au cœur de l’adoration. Le Prophète ﷺ a dit qu'un serviteur est le plus proche de son Seigneur lorsqu'il se prosterne, alors versez des supplications ici après le dhikr.",
   },
   {
     title: "Entre les deux prosternations",
     when: "Assis calmement entre le premier et le deuxième sujud de chaque rak'ah.",
-    translation: "Mon Seigneur, pardonne-moi. Mon Seigneur, pardonne-moi.",
     meaning:
       "Un appel bref mais direct au pardon dans chaque rak'a – un rappel que même au milieu de la prière, nous avons besoin du pardon d'Allah. Asseyez-vous jusqu'à ce que vous soyez à l'aise avant la deuxième prosternation.",
   },
   {
     title: "At-Tahiyyat (Tashahhud)",
     when: "Au milieu de la séance et à la dernière séance de salah.",
-    translation:
-      "Toutes les salutations, prières et paroles pures sont pour Allah. La paix soit sur toi, ô Prophète, et la miséricorde d'Allah et ses bénédictions. La paix soit sur nous et sur les justes serviteurs d'Allah. J'atteste qu'il n'y a de divinité qu'Allah et j'atteste que Mahomet est Son serviteur et Son Messager.",
     meaning:
       "Le cœur assis de salah : vous offrez toute sorte d'adoration à Allah seul, envoyez la paix sur le Prophète ﷺ et les justes, et redéclarez les deux témoignages. Ibn Mas'ud l'a appris du Prophète ﷺ mot pour mot, comme on apprend une sourate.",
   },
   {
     title: "Salawat Ibrahimiyyah",
     when: "Dans le tashahhud final, après At-Tahiyyat.",
-    translation:
-      "Ô Allah, envoie des bénédictions sur Muhammad et sur la famille de Muhammad, comme Tu as béni Ibrahim et la famille d'Ibrahim ; en effet, tu es digne de louange et glorieux. Ô Allah, accorde faveur à Muhammad et à la famille de Muhammad, comme Tu as favorisé Ibrahim et la famille d'Ibrahim ; en effet, tu es digne de louange et glorieux.",
     meaning:
       "Lorsque les Compagnons demandèrent comment lui envoyer des bénédictions, le Prophète ﷺ leur enseigna ces mots exacts – le salawat le plus authentifié de la Sunna. Vous honorez le Messager ﷺ comme Allah l'a ordonné, complétant votre prière avec amour pour celui qui vous a appris à prier.",
   },
   {
     title: "Cherchant refuge avant le salam",
     when: "Après le tashahhud et le salawat finaux, juste avant de terminer la prière.",
-    translation:
-      "Ô Allah, je cherche refuge auprès de Toi contre le châtiment de la tombe, contre le châtiment de l'Enfer, contre l'épreuve de la vie et de la mort et contre le mal du procès du Faux Messie (le Dajjal).",
     meaning:
       "Le Prophète ﷺ a ordonné qu'après le tashahhud final, une personne cherche refuge contre ces quatre dangers avant de faire le salam – le dernier plaidoyer de la prière couvre cette vie, la tombe, le Feu et la plus grande épreuve à venir.",
   },
   {
     title: "Taslim (le salam de clôture)",
     when: "Fin de salah – tourner le visage vers la droite, puis vers la gauche.",
-    translation: "La paix et la miséricorde d'Allah soient sur vous.",
     meaning:
       "Vous quittez la prière comme vous quitteriez la compagnie des honorés – avec un salut de paix aux anges enregistrés sur chaque épaule et à ceux qui prient à côté de vous. Le salam est un pilier ; avec lui, la prière est complète.",
   },
@@ -1233,10 +916,11 @@ export const SALAH_GUIDE_PHRASES_FR: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_FR: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Combien de rak'ahs de sunna rawatib sont convenues chaque jour ?",
+    prompt:
+      "Combien de rak'ahs de sunna rawatib quotidiennes le hadith d'Umm Habiba mentionne-t-il ?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "Les douze rawatib sont : 2 avant Fajr, 4 avant Dhuhr, 2 après Dhuhr, 2 après Maghrib et 2 après Isha (Sahih Muslim 728).",
+      "Le hadith d'Umm Habiba promet une maison au Paradis à qui prie douze rak'ahs surérogatoires par jour et par nuit (Sahih Muslim 728) ; Jami' at-Tirmidhi 415 les détaille : 2 avant Fajr, 4 avant Dhuhr, 2 après Dhuhr, 2 après Maghrib et 2 après Isha.",
   },
   {
     prompt: "Avant Fajr, la sunnah soulignée (mu'akkadah) est :",
@@ -1245,10 +929,11 @@ export const SALAH_GUIDE_QUIZ_FR: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Deux rak'ahs avant Fajr sont sunnah mu'akkadah — le Prophète ﷺ ne les négligeait jamais (Sahih al-Bukhari 1169 ; Sahih Muslim 724).",
   },
   {
-    prompt: "Les rawatib convenues autour de Dhuhr sont :",
+    prompt:
+      "Dans le hadith d'Umm Habiba (Jami' at-Tirmidhi 415), les rawatib autour de Dhuhr sont :",
     options: ["2 avant, 2 après", "4 avant, 2 après", "4 avant, 4 après", "2 avant seulement"],
     explanation:
-      "Quatre avant Dhuhr et deux après font partie des douze rawatib. Les rak'ahs supplémentaires au-delà sont du nafl recommandé, pas des rawatib fixes.",
+      "Le hadith d'Umm Habiba mentionne quatre avant Dhuhr et deux après. Le récit d'Ibn 'Umar (Sahih al-Bukhari 1180) en mentionne deux avant ; les écoles divergent donc sur l'ensemble qu'elles comptent comme rawatib appuyées. Les rak'ahs au-delà relèvent du nafl.",
   },
   {
     prompt:

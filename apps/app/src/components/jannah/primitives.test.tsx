@@ -1,7 +1,9 @@
-import { fireEvent, screen } from "@testing-library/react-native";
-import { Text } from "react-native";
+import { fireEvent, screen, within } from "@testing-library/react-native";
+import { Pressable, Text } from "react-native";
 
 import {
+  HadithEvidence,
+  HadithQuote,
   JannahActionRow,
   JannahActionSteps,
   JannahBody,
@@ -13,13 +15,20 @@ import {
   JannahQuickLinkGrid,
   JannahQuranEvidence,
   JannahTakeaway,
+  LearnActionRow,
+  QuranEvidence,
 } from "@/components/jannah/primitives";
+import { ReciteAlongInlineScope } from "@/components/quran/recite-along-inline";
+import i18n from "@/i18n";
 import { buildJannahHadithRef, buildJannahQuranRef } from "@/test-support/fixtures/jannah";
 import { mockAudioPlayer, resetAudioPlayerMock } from "@/test-support/mocks/audio-player-provider";
+import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { setMockAyahRange } from "@/test-support/mocks/use-quran-ayah-range";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
 
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock(
   "@/providers/audio-player-provider",
   () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
@@ -114,11 +123,29 @@ describe("JannahActionRow", () => {
     return onPress;
   }
 
-  it("renders actions inline in a single pressable", async () => {
+  it("renders actions beside the row pressable, never inside it (RN Web <button>s)", async () => {
     const onPress = await renderActionRow();
     await fireEvent.press(screen.getByLabelText("Row"));
-    expect(onPress).toHaveBeenCalled();
+    expect(onPress).toHaveBeenCalledTimes(1);
+    const row = screen.getByLabelText("Row");
+    expect(screen.getByText("body")).toBeTruthy();
+    expect(within(row).queryByText("action")).toBeNull();
     expect(screen.getByText("action")).toBeTruthy();
+    // The chevron still opens the row, but is not a second labelled control.
+    expect(screen.queryByText("chevron")).toBeNull(); // hidden from assistive tech
+    await fireEvent.press(screen.getByText("chevron", { includeHiddenElements: true }));
+    expect(onPress).toHaveBeenCalledTimes(2);
+    expect(screen.getAllByRole("link")).toHaveLength(1);
+  });
+
+  it("keeps a single pressable when there are no actions", async () => {
+    const onPress = jest.fn();
+    await renderWithTheme(
+      <JannahActionRow onPress={onPress} accessibilityLabel="Row" trailing={<Text>chevron</Text>}>
+        <Text>body</Text>
+      </JannahActionRow>,
+    );
+    expect(within(screen.getByLabelText("Row")).getByText("chevron")).toBeTruthy();
   });
 
   describe("on TV", () => {
@@ -178,6 +205,44 @@ describe("JannahQuranEvidence", () => {
     await fireEvent.press(screen.getByLabelText(/3:133-134/));
     expect(mockAudioPlayer.play).toHaveBeenCalled();
   });
+
+  describe("recite along (D68)", () => {
+    const recitePrefix = i18n.t("reciteAlong.withPassage", { passage: "" });
+    const iconLabel = () => i18n.t("reciteAlong.iconLabel");
+    beforeEach(resetExpoRouterMock);
+
+    it("opens the quoted ayahs in a Follow session beside Play", async () => {
+      await renderWithTheme(
+        <JannahQuranEvidence refs={[buildJannahQuranRef({ ayahFrom: 133, ayahTo: 134 })]} />,
+      );
+      const label = screen
+        .getAllByRole("button")
+        .map((node) => node.props.accessibilityLabel as string | undefined)
+        .find((value) => value?.startsWith(recitePrefix));
+      expect(label).toMatch(/133–134$/);
+      await fireEvent.press(screen.getByLabelText(label ?? ""));
+      expect(mockRouter.push).toHaveBeenCalledWith({
+        pathname: "/quran/practice/session",
+        params: { surah: "3", from: "133", to: "134", mode: "follow", source: "recite-along" },
+      });
+    });
+
+    it("skips long quotes", async () => {
+      await renderWithTheme(
+        <JannahQuranEvidence refs={[buildJannahQuranRef({ surah: 2, ayahFrom: 1, ayahTo: 40 })]} />,
+      );
+      expect(screen.queryByText(iconLabel())).toBeNull();
+    });
+
+    it("stays out of screens that already show a recite-along card", async () => {
+      await renderWithTheme(
+        <ReciteAlongInlineScope enabled={false}>
+          <JannahQuranEvidence refs={[buildJannahQuranRef()]} />
+        </ReciteAlongInlineScope>,
+      );
+      expect(screen.queryByText(iconLabel())).toBeNull();
+    });
+  });
 });
 
 describe("JannahHadithEvidence", () => {
@@ -221,5 +286,76 @@ describe("JannahDuaBlock", () => {
     await renderWithTheme(<JannahDuaBlock arabic="اللَّهُمَّ" translation="O Allah" />);
     expect(screen.getByText("O Allah")).toBeTruthy();
     expect(screen.queryByText("Abu Dawud 792")).toBeNull();
+  });
+
+  it("offers a Share action on lesson duas (G-51)", async () => {
+    await renderWithTheme(<JannahDuaBlock arabic="اللَّهُمَّ" translation="O Allah" />);
+    expect(screen.getByLabelText(i18n.t("common.share"))).toBeTruthy();
+  });
+});
+
+describe("Learn kit evidence (P5-39)", () => {
+  it("draws the Qur'an quote bar with logical colour + width only (C-04, RTL-safe)", async () => {
+    await renderWithTheme(<QuranEvidence refs={[buildJannahQuranRef()]} />);
+    const quote = flattenStyle(screen.getByTestId("learn-quran-quote").props.style);
+    expect(quote.borderStartWidth).toBeGreaterThan(0);
+    expect(typeof quote.borderStartColor).toBe("string");
+    for (const physical of [
+      "borderLeftColor",
+      "borderRightColor",
+      "borderLeftWidth",
+      "borderRightWidth",
+    ]) {
+      expect(quote[physical]).toBeUndefined();
+    }
+  });
+
+  it("renders one shared hadith quote per ref with catalog quote marks (G-30, G-47)", async () => {
+    await renderWithTheme(
+      <HadithEvidence refs={[buildJannahHadithRef(), buildJannahHadithRef({ citation: "1" })]} />,
+    );
+    expect(screen.getAllByTestId("learn-hadith-quote")).toHaveLength(2);
+    const [quoted] = screen.getAllByText(/what no eye has seen/);
+    const text = String(quoted?.props.children);
+    expect(text.startsWith("“")).toBe(true);
+    expect(text).not.toMatch(/^"/);
+  });
+
+  it("drops the card header in the plain variant (no card-in-card, G-49)", async () => {
+    await renderWithTheme(<HadithEvidence plain refs={[buildJannahHadithRef()]} />);
+    expect(screen.queryByText(i18n.t("jannah.hadithTitle"))).toBeNull();
+    expect(screen.getAllByTestId("learn-hadith-quote")).toHaveLength(1);
+
+    await renderWithTheme(<QuranEvidence plain refs={[buildJannahQuranRef()]} />);
+    expect(screen.queryByText(i18n.t("jannah.quranTitle"))).toBeNull();
+  });
+
+  it("offers both quote surfaces from the one component", async () => {
+    await renderWithTheme(<HadithQuote hadith={buildJannahHadithRef()} surface="accent" />);
+    const accent = flattenStyle(screen.getByTestId("learn-hadith-quote").props.style);
+    await renderWithTheme(<HadithQuote hadith={buildJannahHadithRef()} />);
+    const muted = flattenStyle(screen.getByTestId("learn-hadith-quote").props.style);
+    expect(accent.backgroundColor).not.toEqual(muted.backgroundColor);
+  });
+
+  describe("on web", () => {
+    usePlatform({ OS: "web" });
+
+    it("never nests the save action inside the row pressable (G-28)", async () => {
+      await renderWithTheme(
+        <LearnActionRow
+          onPress={jest.fn()}
+          accessibilityLabel="Verse row"
+          actions={
+            <Pressable accessibilityRole="button" accessibilityLabel="Save" onPress={jest.fn()} />
+          }
+        >
+          <Text>body</Text>
+        </LearnActionRow>,
+      );
+      const row = screen.getByLabelText("Verse row");
+      expect(within(row).queryAllByRole("button")).toHaveLength(0);
+      expect(screen.getByRole("button", { name: "Save" })).toBeTruthy();
+    });
   });
 });

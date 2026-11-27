@@ -3,17 +3,26 @@ import type { SymbolViewProps } from "expo-symbols";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
+import {
+  SAVED_FILTERS,
+  type SavedFilter,
+  savedFilterOf,
+  useSavedItems,
+} from "@/components/content/use-saved-items";
+import { MyNotesSection } from "@/components/quran/my-notes-section";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { IconWell } from "@/components/ui/icon-well";
 import { NavRow } from "@/components/ui/nav-row";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -30,6 +39,7 @@ import {
 } from "@/stores/durood-favorites-store";
 import { useEnsureNameFavoritesLoaded, useFavoriteNameIds } from "@/stores/name-favorites-store";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
+import { useQuranNotesIndex } from "@/stores/quran-notes-store";
 import { useQuranBookmarks } from "@/stores/quran-store";
 
 type BookmarkSection = "reading" | "saved";
@@ -130,9 +140,12 @@ const SECTION_META: Record<
   saved: {
     titleKey: "bookmarks.saved",
     exploreTitleKey: "bookmarks.exploreSaved",
-    icon: { ios: "star.fill", android: "star", web: "star" },
+    icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
   },
 };
+
+/** Recent rows mounted before "Show all" (B-32) — heavy users keep a light hub. */
+const RECENT_CAP = 20;
 
 export default function BookmarksHubScreen() {
   const router = useRouter();
@@ -146,7 +159,10 @@ export default function BookmarksHubScreen() {
   const zikrFavorites = useFavoriteZikrIds();
   const duroodFavorites = useFavoriteDuroodIds();
   const nameFavorites = useFavoriteNameIds();
+  const { live: liveNotes } = useQuranNotesIndex();
 
+  const { items: savedItems } = useSavedItems();
+  const [filter, setFilter] = useState<SavedFilter>("all");
   const [hadithCount, setHadithCount] = useState(0);
   const [hadithLoaded, setHadithLoaded] = useState(false);
 
@@ -181,27 +197,58 @@ export default function BookmarksHubScreen() {
     ],
   );
 
+  // Notes count toward the hub total so a notes-only user is not shown the empty state.
   const total =
-    counts.quran + counts.hadith + counts.duas + counts.zikr + counts.duroods + counts.names;
+    counts.quran +
+    counts.hadith +
+    counts.duas +
+    counts.zikr +
+    counts.duroods +
+    counts.names +
+    liveNotes.length;
   const loaded = hadithLoaded;
   const isEmpty = loaded && total === 0;
 
   const tv = isTV();
   const { width } = useWindowDimensions();
   // TV + wide web / tablets: Reading | Saved side by side.
-  const sideBySide = tv || width >= 768;
+  const sideBySide = tv || width >= Breakpoints.tablet;
   const subtitle = !loaded
     ? t("bookmarks.subtitle")
     : total > 0
       ? t("bookmarks.subtitleCount", { count: total })
       : t("bookmarks.emptySubtitle");
 
+  const filterCounts = useMemo(() => {
+    const out: Record<SavedFilter, number> = {
+      all: savedItems.length,
+      quran: 0,
+      hadith: 0,
+      duas: 0,
+      names: 0,
+      notes: 0,
+    };
+    for (const item of savedItems) out[savedFilterOf(item.kind)] += 1;
+    return out;
+  }, [savedItems]);
+  const shownItems = useMemo(
+    () =>
+      filter === "all"
+        ? savedItems
+        : savedItems.filter((item) => savedFilterOf(item.kind) === filter),
+    [filter, savedItems],
+  );
+  // B-32: mount the most recent rows only; "Show all" expands in place (per filter).
+  const [expandedFilter, setExpandedFilter] = useState<SavedFilter | null>(null);
+  const capped = expandedFilter !== filter && shownItems.length > RECENT_CAP;
+  const visibleItems = capped ? shownItems.slice(0, RECENT_CAP) : shownItems;
+
   const renderSection = (section: BookmarkSection) => {
     const items = BOOKMARK_SOURCES.filter((source) => source.section === section);
     const meta = SECTION_META[section];
 
     return (
-      <Card key={section} padding="three" style={sideBySide ? styles.sectionCardSide : undefined}>
+      <Card key={section} style={sideBySide ? styles.sectionCardSide : undefined}>
         <SectionHeader title={t(isEmpty ? meta.exploreTitleKey : meta.titleKey)} icon={meta.icon} />
         <View style={styles.list}>
           {items.map((source, index) =>
@@ -220,7 +267,7 @@ export default function BookmarksHubScreen() {
                 icon={source.icon}
                 label={t(source.labelKey)}
                 count={counts[source.id as keyof typeof counts] || undefined}
-                preferredFocus={tv && section === "reading" && index === 0}
+                // One preferred TV target: the Recent list leads when it is shown.
                 onPress={() => router.push(source.listRoute)}
               />
             ),
@@ -240,7 +287,7 @@ export default function BookmarksHubScreen() {
       <Seo path="/bookmarks" />
       <Stagger>
         {isEmpty ? (
-          <Card variant="muted" padding="three">
+          <Card variant="muted">
             <View style={styles.hero}>
               <IconWell
                 icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
@@ -257,6 +304,63 @@ export default function BookmarksHubScreen() {
           </Card>
         ) : null}
 
+        {isEmpty ? null : (
+          <Card>
+            <SectionHeader
+              title={t("bookmarks.recent")}
+              icon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.chips}
+              accessibilityRole="radiogroup"
+            >
+              {SAVED_FILTERS.map((id) => (
+                <Chip
+                  key={id}
+                  variant="solid"
+                  label={t(`bookmarks.filter.${id}`)}
+                  count={filterCounts[id]}
+                  selected={filter === id}
+                  onPress={() => setFilter(id)}
+                />
+              ))}
+            </ScrollView>
+            <View style={styles.list}>
+              {shownItems.length === 0 ? (
+                <ThemedText type="small" themeColor="mutedForeground" role="status">
+                  {t("bookmarks.filterEmpty")}
+                </ThemedText>
+              ) : (
+                visibleItems.map((item, index) => (
+                  <NavRow
+                    key={item.key}
+                    icon={item.icon}
+                    label={item.title}
+                    subtitle={item.subtitle}
+                    preferredFocus={tv && index === 0}
+                    onPress={() => router.push(item.href)}
+                  />
+                ))
+              )}
+              {capped ? (
+                <Button
+                  label={t("bookmarks.showAll", { total: shownItems.length })}
+                  variant="ghost"
+                  onPress={() => setExpandedFilter(filter)}
+                />
+              ) : null}
+            </View>
+          </Card>
+        )}
+
+        {isEmpty ? null : (
+          <ThemedText type="smallBold" accessibilityRole="header">
+            {t("bookmarks.byType")}
+          </ThemedText>
+        )}
+
         {/* TV + wide screens: Reading | Saved side by side to use the width. */}
         {sideBySide ? (
           <View style={styles.sectionsSide}>
@@ -267,6 +371,8 @@ export default function BookmarksHubScreen() {
           renderSection("reading")
         )}
         {sideBySide ? null : renderSection("saved")}
+        {/* NF-3.21: latest notes + "View all notes" (hidden when there are none). */}
+        <MyNotesSection />
       </Stagger>
     </ScreenLayout>
   );
@@ -320,6 +426,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.three,
   },
+  chips: { gap: Spacing.two, paddingVertical: Spacing.two },
   heroText: {
     flex: 1,
     gap: Spacing.one,
@@ -332,7 +439,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    padding: Spacing.two + 2,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
@@ -353,7 +460,7 @@ const styles = StyleSheet.create({
   },
   exploreBody: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
 });
 

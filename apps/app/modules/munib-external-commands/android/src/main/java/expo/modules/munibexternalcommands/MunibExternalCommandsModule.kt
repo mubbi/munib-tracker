@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
-import android.os.Build
+import androidx.core.content.ContextCompat
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import org.json.JSONArray
@@ -21,6 +21,9 @@ internal object ExternalCommandQueue {
   const val EXTRA_DATE = "date"
   private const val MAX_QUEUE = 32
 
+  // append (receiver, main thread) and drain (module queue) read-modify-write the
+  // same pref; synchronize so a mark landing mid-drain isn't lost.
+  @Synchronized
   fun append(context: Context, payload: JSONObject) {
     val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     val raw = prefs.getString(QUEUE_KEY, "[]") ?: "[]"
@@ -48,6 +51,23 @@ internal object ExternalCommandQueue {
     context.sendBroadcast(intent)
   }
 
+  /** Read without draining (widgets show queued marks as done before the app applies them). */
+  @Synchronized
+  fun peek(prefs: SharedPreferences): List<String> {
+    val raw = prefs.getString(QUEUE_KEY, "[]") ?: "[]"
+    return try {
+      val array = JSONArray(raw)
+      buildList {
+        for (i in 0 until array.length()) {
+          add(array.getString(i))
+        }
+      }
+    } catch (_: Exception) {
+      emptyList()
+    }
+  }
+
+  @Synchronized
   fun drain(prefs: SharedPreferences): List<String> {
     val raw = prefs.getString(QUEUE_KEY, "[]") ?: "[]"
     prefs.edit().putString(QUEUE_KEY, "[]").apply()
@@ -79,14 +99,13 @@ class MunibExternalCommandsModule : Module() {
         }
       }
       commandsQueuedReceiver = receiver
-      val filter = IntentFilter(ExternalCommandQueue.ACTION_COMMANDS_QUEUED)
       val reactContext = appContext.reactContext ?: return@OnCreate
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        reactContext.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED)
-      } else {
-        @Suppress("UnspecifiedRegisterReceiverFlag")
-        reactContext.registerReceiver(receiver, filter)
-      }
+      ContextCompat.registerReceiver(
+        reactContext,
+        receiver,
+        IntentFilter(ExternalCommandQueue.ACTION_COMMANDS_QUEUED),
+        ContextCompat.RECEIVER_NOT_EXPORTED,
+      )
     }
 
     OnDestroy {
@@ -116,6 +135,20 @@ class MunibExternalCommandsModule : Module() {
         Context.MODE_PRIVATE,
       ) ?: return@AsyncFunction emptyList<String>()
       ExternalCommandQueue.drain(prefs)
+    }
+
+    AsyncFunction("peekCommands") {
+      val prefs = appContext.reactContext?.getSharedPreferences(
+        ExternalCommandQueue.PREFS_NAME,
+        Context.MODE_PRIVATE,
+      ) ?: return@AsyncFunction emptyList<String>()
+      ExternalCommandQueue.peek(prefs)
+    }
+
+    AsyncFunction("scheduleWidgetRefresh") { timesMs: List<Double> ->
+      val context = appContext.reactContext ?: return@AsyncFunction null
+      WidgetRefreshScheduler.schedule(context, timesMs.map { it.toLong() })
+      null
     }
 
     // Widgets cannot fire arbitrary broadcasts from react-native-android-widget's
@@ -191,7 +224,10 @@ class MunibExternalCommandsModule : Module() {
   }
 }
 
-/** Receives Google Assistant / app-action / Wear broadcasts for background mark. */
+/**
+ * Receives the in-app mark broadcasts (Wear listener, widget click task) for a
+ * background mark. Not exported: only this app sends them (App Actions open deep links).
+ */
 class ExternalCommandReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     val action = intent.action ?: return
@@ -217,9 +253,9 @@ class ExternalCommandReceiver : BroadcastReceiver() {
           .put("source", intent.getStringExtra("source") ?: "assistant")
     }
 
+    // The queue write also broadcasts COMMANDS_QUEUED, so a running JS instance drains
+    // now; otherwise the next launch / foreground drains it. No service start here:
+    // startService() from a background receiver throws on Android 8+.
     ExternalCommandQueue.append(context, payload)
-
-    val headless = Intent(context, ExternalCommandHeadlessService::class.java)
-    context.startService(headless)
   }
 }

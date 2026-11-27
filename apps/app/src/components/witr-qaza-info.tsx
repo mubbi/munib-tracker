@@ -2,90 +2,152 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { MadhhabNote } from "@/components/fiqh/madhhab-note";
+import { HadithExcerptCard } from "@/components/hadith/hadith-excerpt-card";
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
-import { CollapsibleSection } from "@/components/ui/collapsible-section";
-import { Radius, Spacing } from "@/constants/theme";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { BorderWidth, Control, IconSize, Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
+import { useWitrQaza } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isTV } from "@/lib/platform/is-tv";
+import { setWitrQazaPreference } from "@/lib/rawatib";
 
-const MADHHAB_ROWS = ["hanafi", "shafii", "maliki", "hanbali"] as const;
+/** Abu Dawud 1431 — "whoever oversleeps or forgets Witr, let him pray it when he remembers" (graders differ). */
+export const WITR_MAKEUP_HADITH_ID = "abudawud:1431";
 
-/** Expandable fiqh note — Witr qaza rulings differ by madhhab. */
+/**
+ * Witr info sheet (§4.1.4 retrofit). The ruling, the form and the make-up rule
+ * follow the user's school (`MadhhabNote`: own view + other views, or all four
+ * side by side with no school chosen). The qaza toggle defaults to the school
+ * (on only for Hanafi) and the user can opt in or out.
+ */
 export function WitrQazaInfo() {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
-  const info = tokens.status.info;
+  const { colors, tokens } = useThemeTokens();
   const [open, setOpen] = useState(false);
-  const title = t("qaza.witrNote.title");
+  const witrQaza = useWitrQaza();
+  const tv = isTV();
 
+  // A quiet one-line hint that expands in place (Qaza hub): neutral surface,
+  // small type — the full madhhab-aware answer is one tap away.
   return (
-    <Card
-      padding="three"
-      onPress={() => setOpen((value) => !value)}
-      accessibilityLabel={title}
-      accessibilityState={{ expanded: open }}
-      style={{
-        backgroundColor: info.soft,
-        borderColor: info.border,
-        borderWidth: StyleSheet.hairlineWidth,
-      }}
-    >
-      <CollapsibleSection
-        pressableArea="none"
-        open={open}
-        title={title}
-        icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
+    <Card variant="muted" padding="two">
+      <PressableScale
+        haptic="selection"
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        accessibilityLabel={t("qaza.witrNote.title")}
+        onPress={() => setOpen((value) => !value)}
+        style={[styles.header, tv && styles.headerTv]}
       >
+        <AppIcon
+          icon={{ ios: "info.circle", android: "info", web: "info" }}
+          size={IconSize.md}
+          tintColor={tokens.accentOnSoft}
+        />
+        <ThemedText type="smallBold" style={styles.headerTitle}>
+          {t("qaza.witrNote.title")}
+        </ThemedText>
+        <AppIcon
+          icon={
+            open
+              ? { ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }
+              : { ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }
+          }
+          size={IconSize.md}
+          tintColor={colors.mutedForeground}
+        />
+      </PressableScale>
+      {open ? (
         <View style={styles.body}>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("qaza.witrNote.intro")}
           </ThemedText>
 
-          <ThemedText type="smallBold">{t("qaza.witrNote.hanafiTitle")}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qaza.witrNote.hanafiBody")}
-          </ThemedText>
+          <MadhhabNote id="witr.status" />
+          <MadhhabNote id="witr.form" />
+          <MadhhabNote id="witr.qaza" />
 
-          <ThemedText type="smallBold">{t("qaza.witrNote.othersTitle")}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qaza.witrNote.othersBody")}
-          </ThemedText>
-
-          <ThemedText type="smallBold">{t("qaza.witrNote.evidenceTitle")}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qaza.witrNote.evidenceBody")}
-          </ThemedText>
-
-          <View style={[styles.table, { borderColor: info.border, backgroundColor: info.soft }]}>
-            <ThemedText type="caption" style={{ color: info.text }}>
-              {t("qaza.witrNote.tableHeader")}
-            </ThemedText>
-            {MADHHAB_ROWS.map((row) => (
-              <ThemedText key={row} type="caption" themeColor="mutedForeground">
-                {t(`qaza.witrNote.rows.${row}`)}
+          <View
+            style={[
+              styles.toggleRow,
+              { backgroundColor: colors.card, borderColor: colors.cardBorder },
+            ]}
+          >
+            <View style={styles.toggleCopy}>
+              <ThemedText type="smallBold">{t("rawatib.witr.qazaToggle")}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {witrQaza.schoolDefault
+                  ? t("rawatib.witr.qazaDefaultOn")
+                  : t("rawatib.witr.qazaDefaultOff")}
               </ThemedText>
-            ))}
+            </View>
+            {tv ? (
+              <ThemedText type="smallBold">
+                {witrQaza.enabled ? t("rawatib.witr.on") : t("rawatib.witr.off")}
+              </ThemedText>
+            ) : (
+              <ThemedSwitch
+                value={witrQaza.enabled}
+                accessibilityLabel={t("rawatib.witr.qazaToggle")}
+                onValueChange={(next) =>
+                  void setWitrQazaPreference(next === witrQaza.schoolDefault ? null : next)
+                }
+              />
+            )}
           </View>
 
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("qaza.witrNote.footer")}
-          </ThemedText>
+          <ThemedText type="smallBold">{t("qaza.witrNote.evidenceTitle")}</ThemedText>
+          <HadithExcerptCard hadithId={WITR_MAKEUP_HADITH_ID} />
+
+          <View style={[styles.footer, { borderColor: tokens.hairline }]}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("fiqh.disclaimer")}
+            </ThemedText>
+          </View>
         </View>
-      </CollapsibleSection>
+      ) : null}
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  body: {
-    gap: Spacing.two + 2,
-    marginTop: Spacing.two,
-  },
-  table: {
-    gap: Spacing.one + 2,
-    padding: Spacing.two + 2,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minHeight: Control.md,
+    paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+  },
+  headerTv: { minHeight: TvLayout.minFocusTarget },
+  headerTitle: { flex: 1, minWidth: 0 },
+  body: {
+    gap: Spacing.twoHalf,
+    marginTop: Spacing.two,
+    paddingHorizontal: Spacing.two,
+    paddingBottom: Spacing.two,
+  },
+  toggleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: BorderWidth.hairline,
+  },
+  toggleCopy: {
+    flex: 1,
+    gap: Spacing.half,
+  },
+  footer: {
+    paddingTop: Spacing.two,
+    borderTopWidth: BorderWidth.hairline,
   },
 });

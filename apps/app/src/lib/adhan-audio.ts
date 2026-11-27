@@ -154,7 +154,8 @@ export const ADHAN_STYLES: AdhanStyle[] = [
   },
   {
     id: "makkah-muezzin",
-    name: "Ali Ibn Ahmad Mala",
+    // Chief muezzin of al-Masjid al-Haram (علي أحمد ملا); the CDN file name spells it "Ali_Ibn_Ahmad_Mala".
+    name: "Ali Ahmed Mulla",
     location: "Al-Masjid al-Haram",
     uri: adhanRemoteUrl(
       "Ali_Ibn_Ahmad_Mala_1_-_Al_Haram_Al_Maki_(علي_بن_أحمد_ملا_-_الحرم_المكي).mp3",

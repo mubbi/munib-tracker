@@ -7,23 +7,33 @@
       "version": 7,
       "files": [
         {
+          "path": "assets/data/hadith/durood-sources.json",
+          "sha256": "2abe46b901171462a003e17d2bb768d6af1517cca582842847edbebaff7ab46f",
+          "bytes": 157462
+        },
+        {
+          "path": "assets/data/hadith/zikr-sources.json",
+          "sha256": "772c7c5f2bfb93727313b9f1b043e398d0e1d79b6cd5416b15e266feca6bce17",
+          "bytes": 725436
+        },
+        {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "2cca7ccf20396030263495e25cf608d44c0f64da2bc96ddf7e4fc1e02ebccc4a",
-          "bytes": 313148
+          "sha256": "cf397c95353eb9507ac475c81902c9f0c96d4660d8aa67633f9eae3f2cd2f68f",
+          "bytes": 325161
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
-          "sha256": "cca1a307c249a05dd05edfeb84fb346e4045e3155b4c0839f94ee7d2fe4938ad",
-          "bytes": 7353
+          "sha256": "b56521d55840d4610551c2217b60fe1852689a54a8b79b8abaf1e237936814e8",
+          "bytes": 13473
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
-          "sha256": "0faf3e3a67b4645667d49a3b9f700f5edc7eeedd3a07e4c64fbbbae3f825698e",
-          "bytes": 128129
+          "sha256": "fe3874a7abfa43396b5c73ead78d023a09b150bf225f4355df1e020422af147e",
+          "bytes": 142299
         }
       ],
       "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT, https://dua-api.hisnul.workers.dev). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
+      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT, https://dua-api.hisnul.workers.dev). Indonesian subset from fitrahive/dua-dhikr. Source hadith for adhkar from fawazahmed0/hadith-api (verbatim, multi-language). Duroods: salawat wordings, citations and grades from fawazahmed0/hadith-api @df57907 (Unlicense) and Hisnul Muslim. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
       "sourceUrl": "https://github.com/ThelightHub/dua-api"
     },
     {
@@ -72,6 +82,21 @@
       "attribution": "Arabic sharh for an-Nawawi's Forty from osamayy/40-hadith-nawawi-db (Unlicense).",
       "sourceUrl": "https://github.com/osamayy/40-hadith-nawawi-db",
       "note": "NF-2.8 — Arabic only; do not AI-paraphrase into other languages."
+    },
+    {
+      "id": "miqat",
+      "kind": "content",
+      "version": 1,
+      "files": [
+        {
+          "path": "assets/data/miqat.json",
+          "sha256": "067b35691094f25549e339e8b94c3b262ee0b7a00ca7307301a0586d340b9514",
+          "bytes": 844
+        }
+      ],
+      "license": "CC0 1.0 (Wikidata)",
+      "attribution": "Miqat coordinates from Wikidata items Q6783320, Q12185431, Q4802980, Q3595659 and Q12212593 (property P625, pinned revisions).",
+      "sourceUrl": "https://www.wikidata.org/wiki/Q12212593"
     },
     {
       "id": "names-99",
@@ -2962,6 +2987,23 @@
       "license": "CC BY-SA 4.0 (Arabic & transliteration) / Public domain (translations)",
       "attribution": "Arabic & transliteration: Tanzil.net via risan/quran-json. Translations: Pickthall, Yusuf Ali, Fateh Muhammad Jalandhry via fawazahmed0/quran-api. Page metadata: Quran.com API v4 (Madani mushaf).",
       "sourceUrl": "https://tanzil.net/"
+    },
+    {
+      "id": "quran-morphology",
+      "kind": "remote",
+      "version": 1,
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/AhmedSaadi0/quran-words/a6d4217a9e1422978c367eadc833ff4883db77fb/data/quranic-corpus-morphology-0.4.txt",
+          "mirror": "https://media.githubusercontent.com/media/ezAldinWaez/quran-etl/6539e2de6cdbdb5ff5a97abb1666a7585540c2c3/reports/resources/quranic-corpus/quranic-corpus-morphology-0.4.txt",
+          "sha256": "910b721a8f04f4334ac5d4c62b19e858f5d720c525bb975f2e750ea2c6bb532d",
+          "bytes": 6181227
+        }
+      ],
+      "license": "GNU GPL (verbatim copies only; credit the Quranic Arabic Corpus with a link to corpus.quran.com)",
+      "attribution": "Quranic Arabic Corpus (morphology v0.4), © Kais Dukes, GNU GPL — corpus.quran.com. Builds on Tanzil Uthmani 1.0.2 (CC BY-ND 3.0).",
+      "sourceUrl": "https://corpus.quran.com",
+      "note": "Remote, fetched on demand; sha256 is of the LF-normalised file. Root index built on the device."
     },
     {
       "id": "quran-mushaf-layout",

@@ -1,5 +1,4 @@
 import { defaultAccentColorId, resolveAccentColorId } from "@munib-tracker/theme/accents";
-import { accentOnSurface, bestForeground, ensureContrastAgainst } from "@munib-tracker/theme/color";
 import { resolveTheme } from "@munib-tracker/theme/resolve";
 import type { AccentColorId, ColorMode, ThemeColors } from "@munib-tracker/theme/types";
 import { STORAGE_KEYS } from "@munib-tracker/theme/types";
@@ -17,13 +16,28 @@ import {
   useRef,
   useState,
 } from "react";
-import { Appearance, AppState, useColorScheme } from "react-native";
+import { Appearance, AppState, Platform, useColorScheme } from "react-native";
 
-import { peekStoredColorMode } from "@/lib/boot/cold-start";
+import {
+  DEFAULT_COLOR_MODE,
+  isExistingInstall,
+  LEGACY_COLOR_MODE,
+  peekExistingInstallSignals,
+  peekStoredColorMode,
+  resolveInitialColorMode,
+} from "@/lib/boot/cold-start";
+import {
+  getResolvedAccent,
+  resolveCustomAccentTheme,
+  setResolvedAccent,
+} from "@/lib/boot/resolved-accent";
 import { normalizeHex } from "@/lib/color";
+import { syncDocumentThemeColor } from "@/lib/pwa/theme-color";
 import { setResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
+import { CUSTOM_ACCENT_KEY } from "@/lib/theme-storage-keys";
 import { computeThemeTokens, type ThemeTokens } from "@/lib/theme-tokens";
 import { preferencesStore } from "@/stores/preferences-store";
+import { themeCssVariables } from "@/styles/theme-css-variables";
 
 interface ThemeContextValue {
   colors: ThemeColors;
@@ -42,33 +56,9 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const defaultColorMode: ColorMode = "dark";
-const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
+/** D-UX2: fresh installs follow the OS; see `resolveInitialColorMode` for existing users. */
+const defaultColorMode: ColorMode = DEFAULT_COLOR_MODE;
 const STARTUP_HYDRATION_TIMEOUT_MS = 5000;
-
-/** Cache custom-accent overrides so light/dark toggles reuse stable object references. */
-const customAccentThemeCache = new Map<string, ThemeColors>();
-
-function resolveCustomAccentTheme(
-  base: ThemeColors,
-  scheme: "light" | "dark",
-  customAccent: string,
-): ThemeColors {
-  const key = `${scheme}:${customAccent}`;
-  let cached = customAccentThemeCache.get(key);
-  if (!cached) {
-    const textSurface = scheme === "dark" ? base.card : base.background;
-    const accent = ensureContrastAgainst(customAccent, base.background, 3);
-    cached = {
-      ...base,
-      accent,
-      accentForeground: bestForeground(accent),
-      accentText: accentOnSurface(accent, textSurface),
-    };
-    customAccentThemeCache.set(key, cached);
-  }
-  return cached;
-}
 
 function isColorMode(value: string | null | undefined): value is ColorMode {
   return value === "light" || value === "dark" || value === "system";
@@ -130,15 +120,23 @@ function persistThemeToPreferences(
 export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const systemScheme = useColorScheme();
   const [colorMode, setColorModeState] = useState<ColorMode>(defaultColorMode);
-  const [accentColorId, setAccentColorIdState] = useState<AccentColorId>(defaultAccentColorId);
-  const [customAccent, setCustomAccentState] = useState<string | null>(null);
+  // Seeded from the sync accent mirror (web: persisted accent) until hydration.
+  const [accentColorId, setAccentColorIdState] = useState<AccentColorId>(
+    () => getResolvedAccent().accentColorId,
+  );
+  const [customAccent, setCustomAccentState] = useState<string | null>(
+    () => getResolvedAccent().customAccent,
+  );
   const [isReady, setIsReady] = useState(false);
   const appearanceFrameRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
 
   // Apply persisted web color mode before first paint so splash / Suspense loaders
   // match light theme on full refresh (avoids waiting on AsyncStorage Promise).
+  // A pre-D-UX2 web install with no stored mode keeps its legacy dark default.
   useLayoutEffect(() => {
-    const peeked = peekStoredColorMode();
+    const peeked =
+      peekStoredColorMode() ??
+      (isExistingInstall(peekExistingInstallSignals()) ? LEGACY_COLOR_MODE : null);
     if (peeked) {
       setColorModeState(peeked);
       syncNativeColorScheme(peeked);
@@ -173,7 +171,25 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
             ? normalizeHex(prefs.customAccent)
             : null;
 
-        const mode = modeFromPrefs ?? (isColorMode(storedMode) ? storedMode : defaultColorMode);
+        // D-UX2: no stored mode anywhere → existing users (onboarded / an accent
+        // on record) keep the pre-D-UX2 dark default, written back below so it
+        // becomes their explicit choice; fresh installs follow the system.
+        const mode =
+          modeFromPrefs ??
+          resolveInitialColorMode(storedMode, {
+            hasCompletedOnboarding: prefs.hasCompletedOnboarding,
+            storedAccent: storedAccent ?? prefs.accentColorId ?? null,
+            storedCustomAccent: storedCustom ?? (prefs.customAccent || null),
+          });
+        // A fresh install has nothing to migrate: skip stamping the synced blob
+        // so its defaults never last-write-win over an account's cloud theme.
+        const hasStoredTheme =
+          modeFromPrefs != null ||
+          storedMode != null ||
+          storedAccent != null ||
+          storedCustom != null ||
+          prefs.accentColorId != null ||
+          Boolean(prefs.customAccent);
         const accent =
           accentFromPrefs ?? resolveAccentColorId(storedAccent) ?? defaultAccentColorId;
         const custom =
@@ -188,9 +204,10 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
         // One-time migrate legacy AsyncStorage-only theme into the synced prefs blob.
         if (
-          prefs.colorMode !== mode ||
-          prefs.accentColorId !== accent ||
-          (prefs.customAccent || "") !== (custom ?? "")
+          (hasStoredTheme || mode !== defaultColorMode) &&
+          (prefs.colorMode !== mode ||
+            prefs.accentColorId !== accent ||
+            (prefs.customAccent || "") !== (custom ?? ""))
         ) {
           await preferencesStore.getState().update({
             colorMode: mode,
@@ -265,6 +282,11 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     setResolvedThemeScheme(scheme);
   }, [scheme]);
 
+  // Same for the accent, so the Suspense fallback wears the user's accent.
+  useLayoutEffect(() => {
+    setResolvedAccent(accentColorId, customAccent);
+  }, [accentColorId, customAccent]);
+
   const colors = useMemo(() => {
     const base = resolveTheme(
       colorMode,
@@ -278,6 +300,18 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   }, [accentColorId, colorMode, systemScheme, customAccent, scheme]);
 
   const tokens = useMemo(() => computeThemeTokens(colors, scheme), [colors, scheme]);
+
+  // Web: theme the document-level CSS (the single `:focus-visible` ring in
+  // `+html.tsx`) so it follows light/dark + accent changes.
+  useLayoutEffect(() => {
+    if (Platform.OS !== "web" || typeof document === "undefined") return;
+    const style = document.documentElement.style;
+    for (const [name, value] of Object.entries(themeCssVariables(colors, tokens))) {
+      style.setProperty(name, value);
+    }
+    // Browser toolbar / installed-app title bar follow the in-app theme.
+    syncDocumentThemeColor(colors.background);
+  }, [colors, tokens]);
 
   // Root window / activity background. Skip while inactive/background so we do
   // not sync-block the main thread via ExpoSystemUI during AVPlayer background
@@ -356,6 +390,24 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   // Paint immediately with defaults — hydrate prefs/locale in the background so
   // cold start is not gated on AsyncStorage + catalog load (splash still hides
   // once the first paint path completes, with a timeout fallback).
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+}
+
+/**
+ * Renders `children` with the dark palette (same accent / custom accent),
+ * whatever the app's colour mode — for surfaces that must stay dark, like the
+ * tasbeeh Focus / Night screen. A dark app passes its own theme through.
+ */
+export function DarkThemeScope({ children }: { children: ReactNode }) {
+  const parent = useTheme();
+  const value = useMemo<ThemeContextValue>(() => {
+    if (parent.scheme === "dark") return parent;
+    const base = resolveTheme("dark", "dark", parent.accentColorId);
+    const colors = parent.customAccent
+      ? resolveCustomAccentTheme(base, "dark", parent.customAccent)
+      : base;
+    return { ...parent, colors, tokens: computeThemeTokens(colors, "dark"), scheme: "dark" };
+  }, [parent]);
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 

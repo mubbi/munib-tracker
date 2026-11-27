@@ -2,136 +2,110 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ps overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_PS: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "لیلة القدر څه ده؟",
+    summary: "د قدر شپه — له زرو میاشتو غوره.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "لیلة القدر، د قدر شپه (یا د عظمت شپه)، هغه شپه ده چې په هغې کې پر رسول الله ﷺ د قرآن نازلېدل پیل شول. الله تعالی دې شپې ته یوه بشپړه سوره ځانګړې کړې چې داسې پیلېږي: «بېشكه مونږ دا (قرآن) د قدر په شپه كې نازل كړى دى» (قرآن 97:1). د هغې ارزښت څو آیتونه وروسته په تر ټولو روښانه الفاظو بیان شوی: «د قدر شپه له زرو میاشتو نه غوره ده» (قرآن 97:3) — په دې یوازینۍ شپه کې عبادت له هغه عبادت څخه دروند دی چې له درې اتیا کلونو څخه په ډېره موده کې خپور وي.",
+      "سوره دا شپه نوره هم بیانوي: پرښتې او روح (جبرئیل) په دې کې د خپل رب په اجازه د هر امر سره نازلېږي، او دا «سلامتیا ده، دغه (شپه) تر سبا ختلو پورې ده» (قرآن 97:4–5). دا د بې کچې رحمت، ارامۍ او الهي تقدیر شپه ده — هغه شپه چې رسول الله ﷺ خپل صحابه وهڅول چې په فعاله توګه يې ولټوي، نه دا چې بې پامه تېره شي.",
+      "له همدې امله د رمضان وروستۍ لس شپې دومره روحاني وزن لري: د دوی په منځ کې یوه شپه ده چې د انسان د ژوند له هرې بلې شپې ډېره ارزښتناکه ده. په ښکاره نه څرګندولو کې حکمت دا دی چې مؤمنان د وروستیو لسو شپو په هره شپه کې هڅه وکړي، نه دا چې له یوې پرته په ټولو نورو کې سست شي.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "په لمانځه کې د ودرېدو اجر",
+    summary: "په دې شپه کې رښتینی عبادت تېرې ګناهونه پاکوي.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "رسول الله ﷺ له دې شپې سره یوه ډېره ستره ژمنه تړلې ده: «Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven» (انګلیسي مانا) (بخاري 1901). دوه شرطونه ورسره تړل شوي — ایمان (رښتینی باور چې دا عبادت هغه څه دي چې الله يې خوښوي او مشروع کړی يې دی) او احتساب (یوازې د الله د اجر غوښتل، نه د ښکارېدو یا ستاینې لپاره).",
+      "دا بخښنه د هر هغه چا لپاره اتوماتیکه نه ده چې یوازې حاضر وي؛ دا د هغه چا لپاره ده چې په رښتیني او هیله من زړه عبادت کوي. له همدې امله وروستۍ لس شپې معمولاً د اضافي شپني لمانځه (قیام)، قرآن او ذکر څخه ډکې وي — نه له دې امله چې اجر سودا ده، بلکې له دې امله چې رښتینې او دوامداره هڅه په خپله هغه څه دي چې حدیث يې ایمان او احتساب بولي.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "د عبادت د هرې شپې مخکې خپل نیت تازه کړئ — د الله لپاره، د هغه د اجر په هیله.",
+      "په وروستیو لسو شپو کې قیام اللیل وکړئ، که څه هم یوازې څو رکعته وي.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "کله يې ولټوو",
+    summary: "د رمضان د وروستیو لسو طاق شپې — نه یوه ټاکلې نېټه.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "رسول الله ﷺ لارښوونه وکړه: «Search for the Night of Qadr in the odd nights of the last ten days of Ramadan» (انګلیسي مانا) (بخاري 2017)، چې له عائشې روایت شوی. په یوه عادي دېرش ورځني رمضان کې طاق شپې معمولاً یوویشتمه، درویشتمه، پنځه ویشتمه، اوه ویشتمه او نهه ویشتمه شمېرل کېږي. نور صحیح روایتونه دا ټولو وروستیو لسو شپو ته پراخوي، او رسول الله ﷺ په خپله وفرمایل چې د دې شپې دقیقه نېټه هغه ته ښودل شوې وه او بیا ترې هېره کړل شوه — ترڅو امت په دې ټولو شپو کې هڅه وکړي، نه یوازې په یوه کې.",
+      "اوه ویشتمه شپه هغه شپه ده چې ډېر علماء او ټولنې يې تر ټولو ډېر احتمالي ګڼي (د نورو روایتونو پر بنسټ چې نښې او د صحابه وو د راپورونو تکرار پرتله کوي)، خو دا له حدیث څخه یو علمي استنباط دی، نه یوه جلا ټاکلې نېټه چې په متنونو کې په یقین سره بیان شوې وي. دا کېدای شي په بېلابېلو کلونو او بېلابېلو سیمو کې په بېلابېلو شپو راشي، ځکه چې د رمضان د پیل نېټه په خپله د سپوږمۍ په لیدو سره توپیر کوي.",
+      "ځینې خلک هر کال یوه چاپ شوې نېټه داسې خپروي لکه چې په یقین سره ټاکل شوې وي، او د «نښو» عامیانه لیستونه (یوه ځانګړې ارامه شپه، خوبونه، ځانګړې رڼا) په انټرنېټ کې په پراخه کچه خپرېږي. د دې هېڅ یوه قوي حدیثي بنسټ نه لري، نو دا لارښود يې نه تکراروي. باوري او پر متن ولاړه لاره ساده ده: په ټولو طاقو شپو کې — او غوره دا چې په ټولو وروستیو لسو کې — عبادت زیات کړئ، ترڅو هره شپه چې وي، تاسو پکې په عبادت بوخت یاست.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "دا لارښود د شپې د پېژندلو لپاره نه یوه ټاکلې کلیزي نېټه تاییدوي او نه کومې عامیانه «نښې» — یوازې هغه څه چې احادیث يې وايي: هغه د رمضان د وروستیو لسو شپو په طاقو شپو کې ولټوئ.",
   },
   {
-    title: "که چیرې مو ونیسي نو څه ووایاست",
-    summary: "عایشهؓ له نبي ﷺ څخه پوښتنه وکړه چې دقیق څه ووایي.",
+    title: "که مو ومونده نو څه ووایئ",
+    summary: "عائشې له رسول الله ﷺ څخه پوښتنه وکړه چې په دقیق ډول څه ووایي.",
     body: [
-      "عایشه (رض الله عنها) له نبي ﷺ څخه وپوښتل: «یا رسول الله، که زه پوه شم چې کومه شپه د لیلة القدر ده، په هغه کې څه ووایم؟» هغه ﷺ هغې ته لاندې ښودل شوې لنډه د بخښنې دعا وښودله (ترمذي ۳۵۱۳، چې ترمذي یې حسن صحیح درجه ورکړې).",
-      "دا دعا لنډه ده، حفظ کول یې اسانه دي، او په قصد د نړیوالو غوښتنو پرځای د بخښنې په اړه ده — یادونه چې د دې شپې ترټولو لویه ګټه د الله بخښنه ده. یې په وروستیو لسو شپو کې ډېر تکرار کړئ، په لمونځ کې، په سجده کې، او د دې ترمنځ، پرځای د دې چې یې یوې اټکل شوې شپې ته وساتئ.",
-    ],
-    hadith: [
-      {
-        excerpt: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.",
-      },
+      "عائشې (الله دې ترې راضي وي) له رسول الله ﷺ څخه وپوښتل: «O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?» (انګلیسي مانا) هغه ﷺ هغې ته د بخښنې هغه لنډه دعا وښودله چې لاندې ښودل شوې (ترمذي 3513، چې ترمذي هغه حسن صحیح بللې).",
+      "دا دعا لنډه ده، یادول يې اسانه دي، او په قصدي ډول د دنیوي غوښتنو پرځای د بخښنې په اړه ده — یوه یادونه چې د دې شپې تر ټولو لویه ګټه د الله عفوه ده. دا په وروستیو لسو شپو کې ډېر ځله تکرار کړئ، په لمانځه کې، په سجده کې، او د هغو ترمنځ، پرځای د دې چې یوازې یوې اټکل شوې شپې ته يې وساتئ.",
     ],
     actions: [
-      "پورته ښودل شوې د بخښنې دعا حفظ کړئ.",
-      "یې په وروستیو لسو شپو کې، په ځانګړي توګه په طاق شپو کې، ډېر تکرار کړئ.",
+      "د بخښنې پورته ښودل شوې دعا یاده کړئ.",
+      "دا په وروستیو لسو شپو کې، په ځانګړي ډول په طاقو شپو کې، ډېر ځله تکرار کړئ.",
+    ],
+    appLinks: [{ label: "دا دعا پرانیزئ" }],
+  },
+  {
+    title: "شپه څنګه تېره کړو",
+    summary: "شپنی لمونځ، قرآن، ذکر او دعا، او صدقه.",
+    body: [
+      "د لیلة القدر لپاره له رښتیني عبادت پرته کوم یو ټاکلی لازمي «رسم» نشته، نو سنت یوازې هغه عملونه زیاتوي چې لا دمخه مشروع شوي دي: په نفلي شپني لمانځه کې ودرېدل (قیام اللیل / تراویح)، د قرآن تلاوت او پکې تدبر، د ذکر او استغفار تکرار، او دعا کول — په ځانګړي ډول هغه دعا چې رسول الله ﷺ عائشې ته ښودلې وه. ډېرو صحابه وو او وروستیو علماوو هم په دې شپو کې صدقه زیاته کړې، د رسول الله ﷺ د خپل سخاوت سره سم چې په رمضان کې به خپل اوج ته رسېده.",
+      "که یوازې لږ څه کولی شئ، نو لږ څه په دوامداره ډول وکړئ، نه دا چې هېڅ ونه کړئ: حتی یو لنډ قیام، د قرآن څو پاڼې، او د بخښنې دعا چې په اخلاص سره تکرار شي، هغه «ایمان او احتساب» پوره کوي چې حدیث يې بیانوي. هغه کسان چې کولی شي له کار څخه رخصت واخلي یا خپله ګوښه توب زیات کړي، کولی شي د رسول الله ﷺ د خپل عمل په پیروۍ په وروستیو لسو شپو کې اعتکاف (په مسجد کې ګوښه کېدل) هم وکړي.",
+    ],
+    actions: [
+      "په وروستیو لسو شپو کې اضافي شپنی لمونځ (قیام/تراویح) وکړئ.",
+      "هره شپه د قرآن یوه برخه تلاوت کړئ او پکې تدبر وکړئ.",
+      "استغفار، ذکر او د بخښنې دعا زیاته کړئ.",
+      "په دې شپو کې یو څه صدقه ورکړئ، که څه هم لږه وي.",
+    ],
+    appLinks: [
+      { label: "د قرآن لوستونکی" },
+      { label: "د سهار او ماښام اذکار" },
+      { label: "د لمانځه تعقیبوونکی" },
+      { label: "زکات او صدقه" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "په وروستیو لسو شپو کې اعتکاف",
+    summary: "په مسجد کې ګوښه کېدل — د رمضان په پای کې د رسول الله ﷺ سنت.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "اعتکاف د عبادت لپاره په مسجد کې پاتې کېدل دي، په داسې ډول چې د یوې ټاکلې مودې لپاره عادي دنیوي بوختیاوې پرې شي. رسول الله ﷺ به په منظم ډول د رمضان په وروستیو لسو شپو کې اعتکاف کاوه، او لیلة القدر به يې په متمرکز عبادت سره لټوله، نه دا چې د عادي کارونو لپاره له مسجد څخه ووځي (صحیح البخاري 2026).",
+      "کلاسیکه زده کړه د وروستیو لسو شپو بشپړ اعتکاف — کله چې انسان توان ولري — سنت مؤکده ګڼي. د دې جزئیات چې څه يې ماتوي، ایا ښځې کولی شي په مسجد کې په یوه ټاکلي ځای کې يې وکړي، او کار یا کورنۍ دندې ورسره څنګه اړخ لګوي، د مذهبونو له مخې توپیر لري — دا لارښود یوازې عمل او موخه يې ثابتوي: په هغو شپو کې دوامداره قرآن، لمونځ او دعا چې د لیلة القدر د شاملولو تر ټولو ډېر احتمال لري.",
+      "که په مسجد کې بشپړ ګوښه کېدل ممکن نه وي، واټن لنډ کړئ: له تراویحو وروسته ډېر پاتې شئ، په کور کې د شپې ارام وختونه د قیام او قرآن لپاره ځانګړي کړئ، او هغه ساعتونه له غیر ضروري بوختیاوو وساتئ. اجر له رښتیني عبادت سره تړلی دی، نه یوازې د اعتکاف له رسمي نوم سره.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "که ستاسو مسجد د اعتکاف اسانتیا برابروي، د نوم لیکنې او هغو قواعدو په اړه چې دوی يې تعقیبوي، وختي پوښتنه وکړئ.",
+      "که د شپې پاتې کېدای نه شئ، بیا هم په وروستیو لسو شپو کې د قرآن او قیام لپاره خپل حضور اوږد کړئ.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "اعتکاف تفصیلي فقهي شرطونه لري (نیت، له مسجد څخه وتل، جنسي اړیکه، د ښځو ترتیبات). مخکې له دې چې ژمنه وکړئ، له یوه وړ ځایي عالم یا خپل مسجد سره يې تایید کړئ.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "په وروستیو لسو شپو کې له کورنۍ سره عبادت",
+    summary: "ماشومان او د کور غړي پکې شامل کړئ پرته له دې چې د یوې ټاکلې نېټې پسې وګرځئ.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "وروستۍ لس شپې د ټولې کورنۍ لپاره یو فرصت دی، نه یوازې د هغو لپاره چې یوازې ویښ پاتې کېدای شي. ماشومانو ته د لیلة القدر مانا په ساده الفاظو وښایئ — چې الله یوه شپه له زرو میاشتو غوره کړې — او هغوی لنډو او د ترسره کېدو وړ عملونو ته راوبولئ: د قرآن څو پاڼې، تر هغه وخته چې کولی شي له تراویحو سره یوځای کېدل، د بخښنې دعا تکرارول، او لږ څه صدقه ورکول.",
+      "لهجه نرمه وساتئ. موخه په طاقو شپو کې رښتینې هڅه ده، نه دا چې ټول د یوې اټکل شوې کلیزي نېټې لپاره ستړي کړئ. په نوبت سره وټاکئ چې څوک د کورنۍ لنډ ذکر رهبري کوي، له ماښام مخکې ګډ نیت وکړئ، او خوب ته دومره پام وکړئ چې عبادت دوامداره پاتې شي، نه دا چې یوه شپه ډېر جوش وي او ورپسې ستړیا راشي.",
+      "هغه کسان چې د پاملرنې یا کار محدودیتونه لري، بیا هم په شپه کې برخه لري: د سحري په چمتو کولو، د نورو لپاره په مسجد کې د لمانځه د وخت په خلاصولو، یا په داسې حال کې دعا کولو چې نور په لمانځه ولاړ وي — هره رښتینې ونډه د شپې په ګډ لټون کې شمېرل کېږي.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "د کورنۍ په توګه موافقه وکړئ چې کومې طاق شپې به د اضافي قرآن او لمانځه لپاره لومړیتوب ولري.",
+      "د بخښنې دعا یوځای یاده کړئ او له ماښام وروسته او له خوب مخکې يې تکرار کړئ.",
+      "پرېږدئ چې ماشومان په وروستیو لسو شپو کې لږه صدقه ورکړي.",
     ],
+    appLinks: [{ label: "د حصن المسلم دعاګانې" }, { label: "د قرآن لوستونکی" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "ساده او مخلص يې وساتئ",
+    summary: "ټاکلې نېټې او عامیانه نښې پرېږدئ؛ په شپو کې پر عبادت تمرکز وکړئ.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "دوه عام عملونه د ډډې وړ دي ځکه چې له هغه څه هاخوا ځي چې متنونه يې ثابتوي. لومړی، یوه چاپ شوې نېټه په یقین سره د قدر شپه ګڼل — احادیث هغه په قصدي ډول د څو طاقو شپو په منځ کې پرېږدي، نه په یوه کلیزي ورځ، او دا د سپوږمۍ د لیدو او سیمې له مخې توپیر کوي. دویم، د عامیانه «نښو» (یو ځانګړی خوب، یوه غیر عادي ارامه شپه، د څارویو عجیب چلند) پسې ګرځېدل د دې ثبوت په توګه چې شپه راغلې — دا د قوي احادیثو ملاتړ نه لري او کولی شي له هغه اصلي عبادت څخه پام واړوي چې شپه يې غوښتنه کوي.",
+      "عملي پایله ساده ده: په وروستیو لسو شپو کې خپل عبادت په دوامداره ډول زیات کړئ، د بخښنې دعا ډېر ځله ووایئ، او پرېږدئ چې د الله رحمت — نه یوه اټکل شوې نېټه — ستاسو د پام مرکز وي. که تاسو په پوهه سره شپه ونه موندله، په شپو کې رښتینې هڅه په خپله ډېر اجر لري.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "دا عمومي تعلیمي محتوا ده چې د قرآن او صحیح احادیثو څخه د اصلي سني لارښوونې لنډیز وړاندې کوي. دا فتوا نه ده. د اعتکاف، قضا شویو لمونځونو یا ستاسو د ځانګړو شرایطو د احکامو لپاره له یوه وړ ځایي عالم سره مشوره وکړئ.",
   },
 ];

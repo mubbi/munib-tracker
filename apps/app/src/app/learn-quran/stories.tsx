@@ -50,7 +50,7 @@ export default function LearnQuranStoriesScreen() {
           <Stagger>
             <JannahCallout tone="info">{t("learnQuran.storiesIntro")}</JannahCallout>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("learnQuran.storiesListTitle")}
                 icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}

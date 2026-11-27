@@ -1,83 +1,64 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
+import { useLocale, useTranslations } from "next-intl";
+import { JsonLdScript } from "@/components/content/primitives";
+import type { FaqItem } from "@/content/types";
 import {
-  APP_DESCRIPTION,
-  APP_NAME,
-  APP_TAGLINE,
-  OFFICIAL_ANDROID_PLAY_STORE_URL,
-  OFFICIAL_IOS_APP_STORE_URL,
-} from "@munib-tracker/shared/constants";
-import type { FaqItem } from "@/lib/faq";
-import { PROJECT_LICENSE_URL } from "@/lib/open-source";
-import { GITHUB_REPO_URL, PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
+  faqPageSchema,
+  graph,
+  organizationSchema,
+  softwareApplicationSchema,
+  websiteSchema,
+} from "@/lib/structured-data";
 
+/**
+ * Sitewide Organization + WebSite graph (rendered once in the root layout).
+ * Reads the locale from next-intl, so callers pass nothing.
+ */
 export function JsonLd() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: APP_NAME,
-    description: APP_DESCRIPTION,
-    slogan: APP_TAGLINE,
-    applicationCategory: "LifestyleApplication",
-    operatingSystem: "iOS, Android, Web",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    url: SITE_URL,
-    downloadUrl: PRODUCT_APP_URL,
-    installUrl: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, PRODUCT_APP_URL],
-    sameAs: [
-      OFFICIAL_IOS_APP_STORE_URL,
-      OFFICIAL_ANDROID_PLAY_STORE_URL,
-      PRODUCT_APP_URL,
-      GITHUB_REPO_URL,
-    ],
-    codeRepository: GITHUB_REPO_URL,
-    license: PROJECT_LICENSE_URL,
-    featureList: [
-      "Salah tracking with streaks and calendar",
-      "Qaza calculator, planner, and roza tracking",
-      "Zikr, tasbeeh, and daily adhkar",
-      "Offline Qur'an, hadith, duas, and 99 Names",
-      "Learning library: aqeedah, prophets, seerah, and the Hereafter",
-      "Learn the Qur'an: Arabic letters, tajweed, and memorization",
-      "Worship guides: salah, wudu, zakat calculator, Friday hub, and hajj checklist",
-      "Prayer times, Hijri calendar, and qibla compass",
-      "Source-available on GitHub (non-commercial license)",
-    ],
-    inLanguage: ["en", "ar", "ur"],
-    isAccessibleForFree: true,
-  };
-
+  const t = useTranslations("structuredData");
+  const locale = useLocale();
   return (
-    <script
-      type="application/ld+json"
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD requires inline script
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    <JsonLdScript
+      data={graph(
+        organizationSchema(),
+        websiteSchema({ locale, description: t("siteDescription", { appName: APP_NAME }) }),
+      )}
     />
   );
 }
 
-/** FAQPage structured data for the /faq page, built from the shared FAQ list. */
-export function FaqJsonLd({ items }: { items: readonly FaqItem[] }) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
+/** Feature list for the SoftwareApplication node on the home page (keys of `structuredData.homeFeatures`). */
+const HOME_FEATURE_IDS = [
+  "salah",
+  "qaza",
+  "zikr",
+  "quran",
+  "practice",
+  "learn",
+  "times",
+  "devices",
+] as const;
 
+/** SoftwareApplication structured data for the home page. */
+export function SoftwareJsonLd() {
+  const t = useTranslations("structuredData");
+  const tMeta = useTranslations("metadata");
+  const locale = useLocale();
   return (
-    <script
-      type="application/ld+json"
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD requires inline script
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    <JsonLdScript
+      data={graph(
+        softwareApplicationSchema({
+          locale,
+          description: t("siteDescription", { appName: APP_NAME }),
+          slogan: tMeta("tagline"),
+          featureList: HOME_FEATURE_IDS.map((id) => t(`homeFeatures.${id}`)),
+        }),
+      )}
     />
   );
+}
+
+/** FAQPage structured data for the /faq page (content templates use `faqNodes`). */
+export function FaqJsonLd({ items }: { items: readonly FaqItem[] }) {
+  return <JsonLdScript data={graph(faqPageSchema(items))} />;
 }

@@ -98,10 +98,13 @@ function armDayRollover(): void {
   if (rolloverArmed) return;
   rolloverArmed = true;
   const scheduleMidnight = () => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       quranMemorizationStore.getState().refreshDay();
       scheduleMidnight();
     }, msUntilNextLocalMidnight());
+    // App-lifetime timer: never keep a Node host (Jest) alive for it. RN / web
+    // timers have no `unref`, so this is a no-op in the app.
+    (timer as unknown as { unref?: () => void }).unref?.();
   };
   scheduleMidnight();
   AppState.addEventListener("change", (next) => {

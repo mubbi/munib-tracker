@@ -33,19 +33,23 @@ const fullLivestock = buildZakatResult({
 
 describe("ZakatCalculator", () => {
   describe("with live market data", () => {
-    it.each([
-      "US Dollar",
-      "22,000.03",
-      "$80",
-      "MetalsAPI · FX 2026-11-01",
-      "Nisab and metal prices are prefilled from live rates.",
-      "Adds $733 to wealth",
-      "Gold nisab (~87.5 g): $7000",
-      "Using lower threshold: $600",
-      "Ushr 10% when watered naturally without costly irrigation.",
-    ])("shows %s", async (text) => {
+    // One render for the whole summary: the calculator is a large tree (~0.6 s
+    // per mount), and these are all read-only facts of the same screen.
+    it("shows the currency, totals, live source and nisab summary", async () => {
       await renderCalc();
-      expect(screen.getByText(text)).toBeTruthy();
+      for (const text of [
+        "US Dollar",
+        "22,000.03",
+        "$80",
+        "MetalsAPI · FX 2026-11-01",
+        "Nisab and metal prices are prefilled from live rates.",
+        "Adds $733 to wealth",
+        "Gold nisab (~87.5 g): $7000",
+        "Using nisab (Lower of gold and silver): $600",
+        "Ushr 10% when watered naturally without costly irrigation.",
+      ]) {
+        expect(screen.getByText(text)).toBeTruthy();
+      }
     });
 
     it("tags both weight calculators as live", async () => {
@@ -162,6 +166,20 @@ describe("ZakatCalculator", () => {
     expect(onNumberFormatPickerOpenChange).toHaveBeenCalledWith(true);
   });
 
+  it("re-displays typed values in the new format after a number-format switch", async () => {
+    const state = buildZakatCalculatorState({
+      values: { cash: "1,234.5" },
+    } as Partial<ZakatCalculatorState>);
+    const { rerender } = await renderWithTheme(<ZakatCalculator {...state} />);
+    expect(screen.getByDisplayValue("1,234.5")).toBeTruthy();
+    // The hook rewrites the stored draft string; the number itself is unchanged.
+    await rerender(
+      <ZakatCalculator {...state} numberFormat="dot_comma" values={{ cash: "1.234,5" }} />,
+    );
+    expect(screen.getByDisplayValue("1.234,5")).toBeTruthy();
+    expect(screen.queryByDisplayValue("1,234.5")).toBeNull();
+  });
+
   describe("with manual prices and dues", () => {
     const overrides = {
       pricesManual: true,
@@ -181,22 +199,61 @@ describe("ZakatCalculator", () => {
       expect(state.applyLivePrices).toHaveBeenCalled();
     });
 
-    it.each([
-      "1 sheep/goat",
-      "1 tabi' (1-year cattle)",
-      "1 jadhah (4-year camel)",
-      "Cash estimate: $250",
-      "Ushr due: $45",
-      "22.000,03",
-    ])("shows %s", async (text) => {
+    it("shows the livestock dues, cash estimate, ushr and the chosen number format", async () => {
       await renderCalc(overrides);
-      expect(screen.getByText(text)).toBeTruthy();
+      for (const text of [
+        "1 sheep/goat",
+        "1 tabi' (1-year cattle)",
+        "1 jadhah (4-year camel)",
+        "Cash estimate: $250",
+        "Ushr due: $45",
+        "22.000,03",
+      ]) {
+        expect(screen.getByText(text)).toBeTruthy();
+      }
     });
 
     it("drops the live badges and the lower-threshold hint", async () => {
       await renderCalc(overrides);
       expect(screen.queryAllByText("Live")).toHaveLength(0);
-      expect(screen.queryByText(/Using lower threshold/)).toBeNull();
+      expect(screen.queryByText(/Using nisab \(/)).toBeNull();
+    });
+  });
+
+  describe("madhhab (NF-3.0a)", () => {
+    it("saves the nisab basis override from the chips and clears it with the school default", async () => {
+      const state = await renderCalc();
+      await fireEvent.press(screen.getByText("Gold"));
+      expect(state.setNisabBasisOverride).toHaveBeenCalledWith("gold");
+      await fireEvent.press(screen.getByText("School default: Lower of gold and silver"));
+      expect(state.setNisabBasisOverride).toHaveBeenCalledWith(null);
+    });
+
+    it.each([
+      [{}, "Counted: in your school, women's personal jewelry is zakatable."],
+      [
+        { zakatSchool: "shafii", personalJewelleryCounted: false, combineMethod: "separate" },
+        "Not counted: in your school, permissible jewelry in normal use is not zakatable.",
+      ],
+      [
+        { zakatSchool: null },
+        "The Hanafi school counts personal jewelry; the other three schools do not. The amount above counts it, and each row below also shows the amount without it.",
+      ],
+    ] as const)("explains the jewelry ruling %#", async (overrides, text) => {
+      await renderCalc(overrides as Partial<Props>);
+      expect(screen.getByText(text)).toBeTruthy();
+    });
+
+    it("flags a contested basis and the separate-metals rule", async () => {
+      await renderCalc({
+        zakatSchool: "shafii",
+        schoolNisabBasis: "gold",
+        nisabBasis: "gold",
+        nisabBasisContested: true,
+        combineMethod: "separate",
+      } as Partial<Props>);
+      expect(screen.getByText(/Scholars differ on the nisab for modern currency/)).toBeTruthy();
+      expect(screen.getByText(/does not add gold and silver together/)).toBeTruthy();
     });
   });
 

@@ -36,9 +36,11 @@ import {
   ZAKAT_GUIDE_SECTIONS,
   type ZakatGuideSectionKey,
 } from "@munib-tracker/shared/content/zakat-guide";
+import { FIQH_DIFFERENCES, type FiqhDifference, MADHHAB_IDS } from "@munib-tracker/shared/fiqh";
 import type Fuse from "fuse.js";
 
 import i18n from "@/i18n";
+import { differenceSlug } from "@/lib/fiqh/difference-slug";
 import { type FuseDoc, type FuzzyField, fusePattern, makeFuse } from "@/lib/search-fuse";
 import type { SearchHref, SearchResult } from "@/lib/search-types";
 
@@ -105,8 +107,28 @@ let hajjFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let travelFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let zakatFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let sadaqahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let seasonalHabitsFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let dhulHijjahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let umrahModeFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let tasbeehStylesFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let quranNotesFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let quranRootsFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let rawatibFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let focusLockFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let masjidsFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let muhasabahFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+const privateRecordsFuse: Partial<
+  Record<"debts" | "wasiyyah" | "mirath", Fuse<FuseDoc<GuideTopic>>>
+> = {};
+let familyTiesFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let familyKidsFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+const circlesFuse: Partial<Record<"partner" | "khatmGroups", Fuse<FuseDoc<GuideTopic>>>> = {};
+let coachFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let voluntaryFastingFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let haydFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
 let sickFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let fiqhFuse: Fuse<FuseDoc<GuideTopic>> | null = null;
+let fiqhFuseLocale: string | null = null;
 
 /** English UI strings for travel/zakat/excused corpora (matching other Learn English bodies). */
 function tEn(key: string): string {
@@ -401,6 +423,294 @@ function getZakatFuse(): Fuse<FuseDoc<GuideTopic>> {
   return zakatFuse;
 }
 
+/** NF-3.6: nightly muhasabah — one entry pointing at the private review. */
+function getMuhasabahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!muhasabahFuse) {
+    muhasabahFuse = makeFuse(
+      [
+        {
+          id: "muhasabah",
+          title: tEn("muhasabah.title"),
+          summary: tEn("muhasabah.subtitle"),
+          body: [tEn("muhasabah.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return muhasabahFuse;
+}
+
+/** NF-3.8 / NF-3.9: debts & trusts record and the wasiyyah builder (private, vault). */
+function getPrivateRecordsFuse(id: "debts" | "wasiyyah" | "mirath"): Fuse<FuseDoc<GuideTopic>> {
+  const cached = privateRecordsFuse[id];
+  if (cached) return cached;
+  const topic: GuideTopic = {
+    id,
+    title: tEn(`${id}.title`),
+    summary: tEn(`${id}.subtitle`),
+    body: [tEn(`${id}.searchKeywords`)],
+  };
+  const fuse = makeFuse([topic], BASE_FIELDS);
+  privateRecordsFuse[id] = fuse;
+  return fuse;
+}
+
+/** NF-3.2: voluntary fasting — one entry pointing at the `/fasting` hub. */
+function getVoluntaryFastingFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!voluntaryFastingFuse) {
+    voluntaryFastingFuse = makeFuse(
+      [
+        {
+          id: "voluntaryFasting",
+          title: tEn("voluntaryFasting.title"),
+          summary: tEn("voluntaryFasting.subtitle"),
+          body: [tEn("voluntaryFasting.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return voluntaryFastingFuse;
+}
+
+/** NF-3.7: silat al-rahim — one entry pointing at the family-ties list. */
+function getFamilyTiesFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!familyTiesFuse) {
+    familyTiesFuse = makeFuse(
+      [
+        {
+          id: "familyTies",
+          title: tEn("familyTies.title"),
+          summary: tEn("familyTies.subtitle"),
+          body: [tEn("familyTies.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return familyTiesFuse;
+}
+
+/** NF-3.16: family & kids mode — one entry pointing at the parent view. */
+function getFamilyKidsFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!familyKidsFuse) {
+    familyKidsFuse = makeFuse(
+      [
+        {
+          id: "family",
+          title: tEn("family.title"),
+          summary: tEn("family.subtitle"),
+          body: [tEn("family.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return familyKidsFuse;
+}
+
+/** NF-3.17 / NF-3.18: one entry each for the partner circle and group khatm screens. */
+function getCirclesFuse(id: "partner" | "khatmGroups"): Fuse<FuseDoc<GuideTopic>> {
+  const ns = id === "partner" ? "partnerCircle" : "khatmGroups";
+  let fuse = circlesFuse[id];
+  if (!fuse) {
+    fuse = makeFuse<GuideTopic>(
+      [
+        {
+          id,
+          title: tEn(`${ns}.title`),
+          summary: tEn(`${ns}.subtitle`),
+          body: [tEn(`${ns}.searchKeywords`)],
+        },
+      ],
+      BASE_FIELDS,
+    );
+    circlesFuse[id] = fuse;
+  }
+  return fuse;
+}
+
+/** NF-3.14: weekly gentle coach — one entry pointing at the weekly reflection. */
+function getCoachFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!coachFuse) {
+    coachFuse = makeFuse(
+      [
+        {
+          id: "coach",
+          title: tEn("coach.title"),
+          summary: tEn("coach.subtitle"),
+          body: [tEn("coach.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return coachFuse;
+}
+
+/** NF-3.19: "counter style" — finds the tasbeeh counter (its Style button opens the designs). */
+/** NF-3.21: "notes" / "highlight" / "tadabbur" — finds the My Qur'an notes screen. */
+function getQuranNotesFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!quranNotesFuse) {
+    quranNotesFuse = makeFuse(
+      [
+        {
+          id: "notes",
+          title: tEn("quranNotes.title"),
+          summary: tEn("quranNotes.subtitle"),
+          body: [tEn("quranNotes.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return quranNotesFuse;
+}
+
+/** NF-3.22: "root" / "word root" / "lemma" — finds Arabic root-word search. */
+function getQuranRootsFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!quranRootsFuse) {
+    quranRootsFuse = makeFuse(
+      [
+        {
+          id: "roots",
+          title: tEn("quranRoots.title"),
+          summary: tEn("quranRoots.subtitle"),
+          body: [tEn("quranRoots.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return quranRootsFuse;
+}
+
+function getTasbeehStylesFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!tasbeehStylesFuse) {
+    tasbeehStylesFuse = makeFuse(
+      [
+        {
+          id: "styles",
+          title: tEn("tasbeehDesigns.sheetTitle"),
+          summary: tEn("tasbeehDesigns.settingsSubtitle"),
+          body: [tEn("tasbeehDesigns.searchKeywords"), tEn("tasbeehDesigns.designs.misbaha.desc")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return tasbeehStylesFuse;
+}
+
+/** NF-3.1: "sunnah before fajr", "12 rakahs" — finds the rawatib hub. */
+function getRawatibFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!rawatibFuse) {
+    rawatibFuse = makeFuse(
+      [
+        {
+          id: "hub",
+          title: tEn("rawatib.hub.title"),
+          summary: tEn("rawatib.hub.subtitle"),
+          body: [tEn("rawatib.hub.searchKeywords"), tEn("rawatib.card.askBody")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return rawatibFuse;
+}
+
+/** NF-3.13: "block apps at salah time", "focus mode" — finds the Salah focus hub. */
+function getFocusLockFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!focusLockFuse) {
+    focusLockFuse = makeFuse(
+      [
+        {
+          id: "hub",
+          title: tEn("focusLock.title"),
+          summary: tEn("focusLock.subtitle"),
+          body: [tEn("focusLock.searchKeywords"), tEn("focusLock.setup.explain.body1")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return focusLockFuse;
+}
+
+/** NF-3.11 / NF-3.12: "masjid near me", "iqamah times", "scan timetable" — finds the masjid finder. */
+function getMasjidsFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!masjidsFuse) {
+    masjidsFuse = makeFuse(
+      [
+        {
+          id: "finder",
+          title: tEn("masjids.title"),
+          summary: tEn("masjids.subtitle"),
+          body: [tEn("masjidLog.searchKeywords"), tEn("masjids.yourTimesNote")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return masjidsFuse;
+}
+
+/** NF-3.5 daily Sunnah habits hub. */
+function getSunnahHabitsFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!seasonalHabitsFuse) {
+    seasonalHabitsFuse = makeFuse(
+      [
+        {
+          id: "hub",
+          title: tEn("sunnahHabits.title"),
+          summary: tEn("sunnahHabits.subtitle"),
+          body: [tEn("sunnahHabits.principle"), tEn("sunnahHabits.searchKeywords")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return seasonalHabitsFuse;
+}
+
+/** NF-3.3 Dhul-Hijjah mode: dashboard + udhiyah planner. */
+/** NF-3.4 Umrah mode: the live guided companion. */
+function getUmrahModeFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!umrahModeFuse) {
+    umrahModeFuse = makeFuse(
+      [
+        {
+          id: "umrah-mode",
+          title: tEn("umrahMode.title"),
+          summary: tEn("umrahMode.subtitle"),
+          body: [tEn("umrahMode.searchKeywords"), tEn("umrahMode.intro.body")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return umrahModeFuse;
+}
+
+function getDhulHijjahFuse(): Fuse<FuseDoc<GuideTopic>> {
+  if (!dhulHijjahFuse) {
+    dhulHijjahFuse = makeFuse(
+      [
+        {
+          id: "hub",
+          title: tEn("dhulHijjah.title"),
+          summary: tEn("dhulHijjah.virtue"),
+          body: [tEn("dhulHijjah.searchKeywords"), tEn("dhulHijjah.tashriq.title")],
+        },
+      ],
+      BASE_FIELDS,
+    );
+  }
+  return dhulHijjahFuse;
+}
+
 function getSadaqahFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!sadaqahFuse) {
     sadaqahFuse = makeFuse(
@@ -461,6 +771,48 @@ function getSickFuse(): Fuse<FuseDoc<GuideTopic>> {
     );
   }
   return sickFuse;
+}
+
+/**
+ * NF-3.0a: the fiqh difference catalog as search docs — title + every school's
+ * position, in English and the app locale, plus the school names — so "witr
+ * wajib" or "qasr distance" finds the comparison card. One combined field:
+ * extended search ANDs tokens within a single key.
+ */
+export function fiqhDifferenceSearchTopic(
+  diff: FiqhDifference,
+  translate: (key: string) => string,
+): GuideTopic {
+  const tEnFixed = (key: string) => tEn(key);
+  const texts = (tr: (key: string) => string) => [
+    tr(diff.titleKey),
+    ...MADHHAB_IDS.map(
+      (school) => `${tr(`fiqh.school.${school}`)} ${tr(diff.positions[school].summaryKey)}`,
+    ),
+  ];
+  const localized = texts(translate);
+  return {
+    id: differenceSlug(diff.id),
+    title: localized[0] ?? diff.id,
+    summary: translate("fiqhRetrofit.search.summary"),
+    body: [...localized.slice(1), ...texts(tEnFixed), diff.id.replace(".", " ")],
+  };
+}
+
+function getFiqhFuse(): Fuse<FuseDoc<GuideTopic>> {
+  const locale = i18n.language ?? "en";
+  if (!fiqhFuse || fiqhFuseLocale !== locale) {
+    const translate = (key: string) => i18n.t(key);
+    fiqhFuse = makeFuse(
+      FIQH_DIFFERENCES.map((diff) => fiqhDifferenceSearchTopic(diff, translate)),
+      [
+        { key: "title", weight: 5, get: (t) => t.title },
+        { key: "all", weight: 3, get: (t) => [t.title, ...t.body].join(" ") },
+      ],
+    );
+    fiqhFuseLocale = locale;
+  }
+  return fiqhFuse;
 }
 
 /** Fuzzy-ranked Journey to Jannah topics for screen-local filters. */
@@ -538,12 +890,32 @@ export function searchGuideGroups(
     ...mapScored(getProphetsTreeFuse(), query, "/prophets/tree", "Prophets tree", null),
     ...mapScored(getZakatFuse(), query, "/zakat/[topic]", "Zakat", "topic"),
     ...mapScored(getSadaqahFuse(), query, "/sadaqah", "Sadaqah", null),
+    ...mapScored(getSunnahHabitsFuse(), query, "/habits", "Sunnah habits", null),
+    ...mapScored(getDhulHijjahFuse(), query, "/dhul-hijjah", "Dhul-Hijjah", null),
+    ...mapScored(getUmrahModeFuse(), query, "/umrah", "Umrah mode", null),
+    ...mapScored(getTasbeehStylesFuse(), query, "/tasbeeh/free", "Tasbeeh", null),
+    ...mapScored(getQuranNotesFuse(), query, "/quran/notes", "Qur'an", null),
+    ...mapScored(getQuranRootsFuse(), query, "/quran/search?mode=root", "Qur'an", null),
+    ...mapScored(getRawatibFuse(), query, "/rawatib", "Rawatib", null),
+    ...mapScored(getFocusLockFuse(), query, "/focus-lock", "Salah focus", null),
+    ...mapScored(getMasjidsFuse(), query, "/masjids", "Masjids", null),
+    ...mapScored(getMuhasabahFuse(), query, "/muhasabah", "Muhasabah", null),
+    ...mapScored(getPrivateRecordsFuse("debts"), query, "/debts", "Debts", null),
+    ...mapScored(getPrivateRecordsFuse("wasiyyah"), query, "/wasiyyah", "Wasiyyah", null),
+    ...mapScored(getPrivateRecordsFuse("mirath"), query, "/mirath", "Mirath", null),
+    ...mapScored(getFamilyTiesFuse(), query, "/family-ties", "Family ties", null),
+    ...mapScored(getFamilyKidsFuse(), query, "/family", "Family", null),
+    ...mapScored(getCirclesFuse("partner"), query, "/partner", "Partner", null),
+    ...mapScored(getCirclesFuse("khatmGroups"), query, "/khatm-groups", "Group khatm", null),
+    ...mapScored(getCoachFuse(), query, "/coach", "Weekly reflection", null),
+    ...mapScored(getVoluntaryFastingFuse(), query, "/fasting", "Fasting", null),
     ...mapScored(getSeerahFuse(), query, "/seerah", "Seerah", null),
     ...mapScored(getHistoryFuse(), query, "/history", "History", null),
     ...mapScored(getHajjFuse(), query, "/hajj/[topic]", "Hajj", "topic"),
     ...mapScored(getTravelFuse(), query, "/travel", "Travel", null),
     ...mapScored(getHaydFuse(), query, "/hayd", "Hayd", null),
     ...mapScored(getSickFuse(), query, "/sick", "Illness", null),
+    ...mapScored(getFiqhFuse(), query, "/fiqh/[id]", i18n.t("fiqhRetrofit.search.badge"), "id"),
     ...mapScored(
       getSahabaFuse(),
       query,

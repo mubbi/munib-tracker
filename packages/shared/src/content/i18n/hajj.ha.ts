@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayrah ya ruwaito cewa Manzon Allah ﷺ ya ce: «Duk wanda ya yi Hajji don Allah, bai yi jima'i ba kuma bai yi zunubi ba, zai dawo kamar yadda yake a ranar da mahaifiyarsa ta haife shi» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
       "Ya kuma ce: «Hajji karɓaɓɓe (Hajji mabrur) bai da lada sai Aljanna» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Karɓuwa tana da alaƙa da ikhlasi da kiyaye Hajji daga alfasha da laifi — ba kawai kammala matakan waje kaɗai ba.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya yi Hajji don Allah, bai yi jima'i ba kuma bai yi zunubi ba, zai dawo kamar yadda yake a ranar da mahaifiyarsa ta haife shi.",
-      },
-      {
-        excerpt:
-          "Duk wanda ya yi Hajji don Allah, bai yi jima'i ba kuma bai yi zunubi ba, zai dawo kamar yadda yake a ranar da mahaifiyarsa ta haife shi.",
-      },
-      { excerpt: "Hajji karɓaɓɓe bai da lada sai Aljanna." },
-      { excerpt: "Hajji karɓaɓɓe bai da lada sai Aljanna." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Yi niyyar Hajji don Allah kaɗai — ka kiyaye harshenka da halinka a duk tsawon tafiya.",
       "Yi amfani da jerin ayyukan Hajji na app ɗin ne kawai a matsayin taimakon ƙwaƙwalwa; ka bar zuciyarka a kan karɓuwa.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayrah ya ruwaito cewa Annabi ﷺ ya ce: «Yin Umrah kaffara ne ga zunuban da aka aikata tsakaninta da wanda ya gabata, kuma Hajji karɓaɓɓe bai da lada sai Aljanna» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
       "Za a iya yin Umrah a kowane lokaci na shekara. Ta fi Hajji gajarta amma har yanzu babbar ibada ce: ihram, tawaf, sa'i, da yankewa ko aske gashi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Yin Umrah kaffara ne ga zunuban da aka aikata tsakaninta da wanda ya gabata, kuma Hajji karɓaɓɓe bai da lada sai Aljanna.",
-      },
-      {
-        excerpt:
-          "Yin Umrah kaffara ne ga zunuban da aka aikata tsakaninta da wanda ya gabata, kuma Hajji karɓaɓɓe bai da lada sai Aljanna.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Buɗe jerin ayyukan Umrah idan kana shirin bi matakan ibadar bisa tsari."],
     appLinks: [{ label: "Jerin ayyukan Umrah" }],
   },
@@ -58,14 +38,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Abd al-Rahman ibn Ya'mar ya ruwaito cewa Annabi ﷺ ya ce: «Hajji shine Arafah» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Duk wanda ya rasa tsayawa a cikin iyakokin Arafah a lokacinta, ya rasa Hajjin wannan shekarar.",
       "Ga waɗanda ba su cikin Hajji ba, azumin ranar Arafah aiki ne da aka ƙarfafa sosai: Abu Qatadah ya ruwaito cewa azumin Arafah yana kankare zunuban shekarar da ta gabata da wadda za ta zo (Sahih Muslim 1162). Alhazai da kansu ba sa yin azumi domin su keɓance ranar don addu'a.",
     ],
-    hadith: [
-      { excerpt: "Hajji shine Arafah." },
-      { excerpt: "Hajji shine Arafah." },
-      {
-        excerpt:
-          "Azumin ranar Arafah, ina fatan Allah, zai kankare zunuban shekarar da ta gabata da wadda za ta zo.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Hajji — rukuni na biyar",
@@ -75,26 +48,8 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "An yi kiran ga dukan mutane: «Kuma ka yi kiran Hajji ga mutane; za su zo maka a kan ƙafa da a kan kowace rakumi maras kiba; za su zo daga kowace hanya mai nisa» (Alkur'ani 22:27).",
       "Ibn Umar ya ruwaito cewa Annabi ﷺ ya ce Musulunci an gina shi bisa abubuwa biyar: shaida, sallah, zakka, azumin Ramadan, da Hajji zuwa Gidan ga wanda ya samu iyawa (Sahih al-Bukhari 8; Sahih Muslim 16). Malamai sun yarda cewa wajibi ne sau ɗaya a rayuwa idan sharuɗɗa sun cika; sake maimaita shi falala ce ta son rai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma Allah na da hakki a kan mutane, na yin Hajji zuwa Gidan — ga wanda ya samu hanya zuwa gareshi...",
-      },
-      {
-        excerpt:
-          "Kuma ka yi kiran Hajji ga mutane; za su zo maka a kan ƙafa da a kan kowace rakumi maras kiba...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Musulunci an gina shi bisa abubuwa biyar: shaidawa babu abin bautawa da gaskiya sai Allah kuma Muhammadu Manzon Allah ne, tsayar da sallah, bayar da zakka, azumin Ramadan, da Hajji zuwa Gidan ga wanda ya samu iyawa.",
-      },
-      {
-        excerpt:
-          "Musulunci an gina shi bisa abubuwa biyar... da Hajji zuwa Gidan ga wanda ya samu hanyar zuwa gareshi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Iyawa (istita'ah)",
@@ -104,7 +59,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Sharaɗin da ke cikin Alkur'ani 3:97 shine iyawa (istita'ah). Malaman gargajiya sun taƙaita shi da: lafiyar jiki don tafiya, isasshiyar dukiya halal don biyan tafiya da bukatun waɗanda ke ƙarƙashinsa yayin da ba ya nan, da kuma hanya mai aminci da buɗewa.",
       "Duk wanda bai da waɗannan hanyoyin a wannan shekara, ba shi da laifi idan ya jinkirta har sai ya samu iyawa. Ana tantance iyawa bisa yanayin kowa — rashin lafiya, bashin da dole ne a biya, ko tafiya mai haɗari na iya ɗage wajibcin nan take. Ka tambayi malami masani idan yanayinka bai bayyana ba.",
     ],
-    quran: [{ excerpt: "...ga wanda ya samu hanya zuwa gareshi." }],
+    quran: [{}],
     actions: [
       "Ka biya basussukan wajibi kuma ka shirya abinci da kula na waɗanda ke ƙarƙashinka kafin yin rijista.",
       "Ka tabbatar da fakitocin tafiya ta hanyoyin hukuma kawai (duba batutuwan shirye-shirye).",
@@ -118,16 +73,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas ya ruwaito cewa Annabi ﷺ ya ce mace kada ta yi tafiya sai da mahram, kuma namiji kada ya shiga wurinta sai da mahram yana nan (Sahih al-Bukhari 1862; Sahih Muslim 1341). Malamai da yawa suna aiwatar da wannan a kan tafiyar Hajji da Umrah.",
       "Wasu malamai na baya — bisa la'akari da aminci, buƙata, da yanayin tafiye-tafiye na zamani — suna ba da izinin mace ta yi tafiyar Hajji wajibi cikin ƙungiya amintacce idan babu mahram. Wannan har yanzu tambaya ce mai sabani a fikihu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mace kada ta yi tafiya sai da mahram, kuma namiji kada ya shiga wurinta sai da mahram yana tare da ita.",
-      },
-      {
-        excerpt:
-          "Bai halasta wa mace mai imani da Allah da Ranar Ƙarshe ta yi tafiyar yini da dare sai da mahram.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Galibin malamai suna cewa mace na buƙatar mahram don tafiyar aikin hajji. Wasu malamai na baya sun ba da izinin tafiya cikin ƙungiyar mata amintacce don Hajji wajibi. Ka bi malamin da kake amincewa da shi da ƙa'idodin hukumar Hajji ta ƙasarka.",
     disclaimer: "Wannan bayyani ne na gaba ɗaya, ba fatawa ta musamman ga yanayinka ba.",
@@ -141,12 +87,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': yin Umrah cikakke a cikin watannin Hajji, fita daga ihram, sannan sake shiga ihram don Hajji a ranar 8 ga Zulhijja. Wannan shine abin da mafi yawan alhazai ke yi a yau; shi ma yana buƙatar hady.",
       "Allah Ya ce game da waɗanda suka haɗa ayyuka: «...Kuma duk wanda ya more da Umrah zuwa Hajji, sai ya yi abin da ya sauƙaƙa daga dabbobin yanka...» kuma waɗanda ba su da ikon yi haka za su yi azumin kwana uku a lokacin Hajji da bakwai idan sun dawo (Alkur'ani 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma ku cika Hajji da Umrah don Allah... Duk wanda ya more da Umrah zuwa Hajji, sai ya yi abin da ya sauƙaƙa daga dabbobin yanka. Kuma duk wanda bai samu (dabba) ba — sai azumin kwana uku a lokacin Hajji da bakwai idan ya dawo...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ka zaɓi nau'in Hajjinka tare da shugaban ƙungiyarka kafin miqat.",
       "Idan kana yin Tamattu', ka kammala Umrah gaba ɗaya kafin sake shiga ihram don Hajji.",
@@ -160,16 +101,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas ya ruwaito cewa Annabi ﷺ ya ƙayyade miqat don mutane: Dhul-Hulayfah domin Madina, Al-Juhfah domin Sham, Qarn al-Manazil domin Najd, da Yalamlam domin Yemen; da kuma domin mutanen Iraki, Dhat 'Irq. Ya ce waɗannan wurare ne domin su da domin duk wanda ya iso can yana niyyar Hajji ko Umrah; kuma duk wanda yake zaune a cikin waɗannan wurare, sai ya shiga ihram daga inda ya tashi, har da mutanen Makkah daga Makkah (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Filayen jirgin sama da tashar jiragen ruwa na zamani suna da wuraren ihram nasu ko hanyoyin da aka sanar — ka bi jagorar kamfanin jigilarka da Ma'aikatar Hajji da Umrah domin kada ka wuce iyaka ba tare da ihram ba.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Manzon Allah ﷺ ya ƙayyade Dhul-Hulayfah domin mutanen Madina, Al-Juhfah domin mutanen Sham, Qarn al-Manazil domin mutanen Najd, da Yalamlam domin mutanen Yemen... Waɗannan miqat domin mutanen waɗannan wurare ne, da domin duk wanda ya zo can yana niyyar Hajji ko Umrah...",
-      },
-      {
-        excerpt:
-          "Manzon Allah ﷺ ya bayyana miqat... Duk wanda yake zaune a cikin waɗannan iyakoki, sai ya shiga ihram daga inda ya tashi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Shiga ihram",
@@ -179,16 +111,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Maza na iya shafa turare a jiki kafin ihram, ba a kan tufafin ihram bayan shiga halin nan ba (Sahih al-Bukhari 1539). Sannan ka yi niyya kuma ka fara talbiyya.",
       "Talbiyya da Annabi ﷺ ya koyar shine: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — ana ci gaba har sai fara tawaf don Umrah, ko har sai jifan Jamrat al-Aqaba don Hajji bisa aikin da aka fi sani (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt: "Aisha ta ce: Na kan turaren Manzon Allah ﷺ don ihram kafin ya shiga ihram...",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Annabi ﷺ ya ɗaga murya da talbiyya: Labbayk Allahumma labbayk..." },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Ka shirya aƙalla kayan ihram biyu don maza; ka shirya kayan wanka marasa turare.",
       "Ka yi aikin talbiyya kafin tafiya domin ta zamo mai sauƙi a hanya.",
@@ -225,12 +148,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Maza suna yin raml (gudu-gudu) a zagaye uku na farko da idtiba' (buɗe hagun kafada dama) yayin wannan tawafin zuwan Umrah, bisa Sunnah da aka fi sani.",
       "Tsakanin Kusurwar Yemen da Dutsen Baki, an ƙarfafa ka ce: «Ya Ubangijinmu, Ka ba mu alheri a duniya da alheri a Lahira, kuma Ka tsare mu daga azabar Wuta» (Alkur'ani 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya Ubangijinmu, Ka ba mu a cikin duniya abin da yake alheri, da cikin Lahira abin da yake alheri, kuma Ka tsare mu daga azabar Wuta.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Raka'a biyu da Zamzam",
@@ -239,12 +157,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Bayan tawaf, ka yi sallar raka'a biyu a bayan Maqam Ibrahim idan akwai wuri, ko a wani wuri a masallacin idan taro ya yi yawa — bisa maganar Allah: «...Kuma ku riƙi, (ya ku masu imani), daga wurin tsayawar Ibrahim, wurin sallah...» (Alkur'ani 2:125).",
       "Sannan ka sha ruwan Zamzam. Bayanin Jabir na Hajjin Annabi ﷺ ya haɗa da shan Zamzam bayan tawaf; Annabi ﷺ ya ce Zamzam yana biyan duk abin da an sha shi don shi (rahotanni tabbatattu da malaman baya suka tara; ka ɗauki niyya da addu'a a matsayin abin da aka ƙarfafa).",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kuma ku riƙi, (ya ku masu imani), daga wurin tsayawar Ibrahim, wurin sallah...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Sa'i tsakanin Safa da Marwah",
@@ -253,12 +166,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Allah Ya ce: «Lalle Safa da Marwah suna daga cikin alamomin Allah. Don haka duk wanda ya yi Hajji zuwa Gidan ko ya yi Umrah — babu laifi a kansa ya yi tafiya tsakaninsu...» (Alkur'ani 2:158).",
       "Ka yi tafiya sau bakwai tsakanin Safa da Marwah, farawa daga Safa. A Safa, ka fuskanci Ka'aba, ka daga hannuwanka da takbir da addu'a kamar yadda Annabi ﷺ ya yi. Maza suna yin gudu-gudu tsakanin alamomin kore.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle Safa da Marwah suna daga cikin alamomin Allah. Don haka duk wanda ya yi Hajji zuwa Gidan ko ya yi Umrah — babu laifi a kansa ya yi tafiya tsakaninsu...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq ko taqsir — kammala Umrah",
@@ -267,16 +175,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Maza su aske kai (halq) — abin da Annabi ﷺ ya yi addu'a sau uku a kai — ko su datse daidai (taqsir). Mata su tara gashinsu su datse tsawon yatsa. Da wannan, Umrah ta kammala kuma hane-hanen ihram sun ƴanta.",
       "Abdullah ibn Umar ya ruwaito cewa Manzon Allah ﷺ ya ce: «Ya Allah, Ka jikan waɗanda suka aske kansu.» Suka ce: «Kuma waɗanda suka datse, ya Manzon Allah?» Ya ce: «Ya Allah, Ka jikan waɗanda suka aske kansu.» Suka ce: «Kuma waɗanda suka datse, ya Manzon Allah?» Ya ce a karo na uku: «Da waɗanda suka datse» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ya Allah, Ka jikan waɗanda suka aske kansu... Da (karo na uku) waɗanda suka datse.",
-      },
-      {
-        excerpt:
-          "Ya Allah, Ka gafarta wa waɗanda suka aske kansu... sannan ya ce a karo na uku: da waɗanda suka datse gashinsu.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Zulhijja — Ranar Tarwiyah",
@@ -285,12 +184,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ga alhazan Tamattu': ku yi niyyar Hajji ku sake shiga ihram daga mazauninku a Makkah, ku sabunta talbiyya. Alhazan Ifrad da Qiran sun riga suna cikin ihram.",
       "Ku tafi Mina ku yi sallar Azahar, La'asar, Magariba, Isha'i, da Asuba mai zuwa, kowanne a taƙaice zuwa raka'a biyu a lokacinsa, bin aikin Annabi ﷺ a Hajjin Bankwana kamar yadda Jabir ya ruwaito (Sahih Muslim 1218). Ku ci gaba da ibada a rana da dare, ana jiran Arafah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dogon labarin Jabir game da Hajjin Bankwana na Annabi ﷺ — wanda ya haɗa da zama a Mina da tsarin ayyuka.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Buɗe jerin ayyukan Hajji da safiyar ranar 8."],
     appLinks: [{ label: "Jerin ayyukan Hajji" }],
   },
@@ -302,13 +196,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ka yi sallar Azahar da La'asar tare a taƙaice a lokacin Azahar (jam' taqdim), sannan ka keɓe sauran rana ga addu'a maimakon sallar son rai — bin aikin Annabi ﷺ (Sahih Muslim 1218).",
       "Bayan faɗuwar rana, ka tafi cikin nutsuwa zuwa Muzdalifah. Ka haɗa Magariba da Isha'i (Isha'i a taƙaice), ka huta da dare, ka tara tsakuwa domin jifa. Marasa ƙarfi da mata na iya tafiya Mina bayan tsakar dare bisa izinin da aka fi sani a Sunnah.",
     ],
-    hadith: [
-      { excerpt: "Hajji shine Arafah." },
-      {
-        excerpt:
-          "Annabi ﷺ ya haɗa Azahar da La'asar a Arafah, sannan ya tashi bayan faɗuwar rana zuwa Muzdalifah...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Zulhijja — Ranar Nahr",
@@ -319,12 +207,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ku yi aske (halq) ko datsawa (taqsir); mata su datse tsawon yatsa. Bayan jifa da askewa/datsawa, saki na farko (tahallul awwal) ya faru — mafi yawan hane-hanen ihram sun ƴanta sai jima'i.",
       "Ku tafi Makkah domin Tawaf al-Ifadah — rukuni na Hajji — da sa'i domin alhazan Tamattu' (Ifrad/Qiran waɗanda suka riga sun yi sa'i tare da tawafin zuwansu, su bi hukuncin madhabinsu). Wannan yana kammala cikakken saki daga ihram.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kuma duk wanda ya more da Umrah zuwa Hajji, sai ya yi abin da ya sauƙaƙa daga dabbobin yanka...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Tsarin ayyukan Ranar Nahr yana da sauƙi a Sunnah; madhabobi sun bambanta kan ainihin tsari da kan lokacin da ake buƙatar sa'i domin kowane nau'in Hajji. Ku bi jagoran ƙungiyarku.",
   },
@@ -336,22 +219,8 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Kowace la'asar bayan Azahar, ku jefi tsakuwa bakwai a kowane ginshiƙi uku bisa tsari — ƙarami, sannan matsakaici, sannan babba — kuna takbir a kowace jifa. Duk wanda ya gaggauta zai iya tafiya bayan jifar ranar 12 (Alkur'ani 2:203).",
       "Kafin barin Makkah, ku yi Tawaf al-Wada' domin aikin ƙarshe da Gidan ya zama na bankwana. Ibn Abbas ya ruwaito cewa an umarci mutane cewa aikinsu na ƙarshe ya kasance a Gidan, sai an sauwaƙa wa mace mai jinin haila (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma ku ambaci Allah cikin kwanaki ƴan ƴan lissafi. Sannan duk wanda ya gaggauta a cikin kwanaki biyu — babu laifi a kansa; kuma duk wanda ya jinkirta — babu laifi a kansa — ga wanda ya ji tsoron Allah...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "An umarci mutane su yi tawafin bankwana na Ka'aba a matsayin aiki na ƙarshe, sai matan da suke jinin haila da aka yafe musu.",
-      },
-      {
-        excerpt:
-          "An umarci mutane cewa aikinsu na ƙarshe ya kasance a Gidan, amma an sauwaƙa wa mace mai jinin haila.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Rukunnai da wajibobi",
@@ -371,12 +240,7 @@ export const HAJJ_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Hadisin dawowa ba tare da zunubi ba (Bukhari 1521; Muslim 1350) ya bayyana cewa Hajji yana ɓata ta alfasha (rafath), zunubi (fusuq), da husuma. Haƙuri, tausasawa, da taimakon sauran alhazai wani sashe ne na ibada.",
       "Ka hana wayoyi da hira mara amfani daga mamaye Arafah da masallaci. Ka bar wa wasu wuri a tawaf; kada ka tura zuwa Dutsen Baki. Hajji karɓaɓɓe abokiyar Aljanna ce — ka yi ƙoƙarin samun hali mafi kyau a duk tsawon tafiya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya yi Hajji don Allah, bai yi jima'i ba kuma bai yi zunubi ba, zai dawo kamar yadda yake a ranar da mahaifiyarsa ta haife shi.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ka kafa niyya ta kullum: aiki ɗaya na kirki da addu'a ɗaya mai gaskiya sama da taro.",
     ],

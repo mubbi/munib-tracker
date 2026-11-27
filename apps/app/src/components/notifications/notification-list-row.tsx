@@ -6,7 +6,7 @@ import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   IN_APP_NOTIFICATION_BODY_LINES,
@@ -98,6 +98,7 @@ const CATEGORY_LABEL_KEY: Record<NotificationCategory, string> = {
   milestone: "notifCenter.categoryMilestone",
   system: "notifCenter.categorySystem",
   announcement: "notifCenter.categoryAnnouncement",
+  circle: "notifCenter.categoryCircle",
 };
 
 export function NotificationListRow({ item, formattedWhen, onPress }: NotificationListRowProps) {
@@ -136,7 +137,13 @@ export function NotificationListRow({ item, formattedWhen, onPress }: Notificati
           tint={palette.iconTint}
           background={isUnread ? colors.background : palette.iconBg}
         />
-        {isUnread ? <View style={[styles.unreadDot, { backgroundColor: colors.accent }]} /> : null}
+        {isUnread ? (
+          <View
+            accessible={false}
+            importantForAccessibility="no"
+            style={[styles.unreadDot, { backgroundColor: colors.accent }]}
+          />
+        ) : null}
       </View>
 
       <View style={styles.body}>
@@ -192,7 +199,10 @@ export function NotificationListRow({ item, formattedWhen, onPress }: Notificati
       <PressableScale
         haptic="light"
         accessibilityRole="button"
-        accessibilityLabel={item.title}
+        // Unread is shown by fill + dot; say it too (P9-03, no colour-only meaning).
+        accessibilityLabel={
+          isUnread ? t("notifCenter.unreadRowA11y", { title: item.title }) : item.title
+        }
         onPress={onPress}
         style={rowStyle}
       >
@@ -212,7 +222,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     minHeight: 76,
   },
   lead: {
@@ -229,7 +239,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    gap: 3,
+    gap: Spacing.one,
   },
   metaRow: {
     flexDirection: "row",

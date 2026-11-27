@@ -5,15 +5,15 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
-import { ConfirmDialog } from "@/components/confirm-dialog";
+import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
-import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
@@ -23,13 +23,16 @@ import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
+import { TextField } from "@/components/ui/text-field";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
+import { useProgressiveList } from "@/hooks/use-progressive-list";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { tTv } from "@/lib/i18n/t-tv";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -38,7 +41,13 @@ import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
-import { useEnsureKhushuLoaded, useKhushuActions, useKhushuEntries } from "@/stores/khushu-store";
+import { useStore } from "@/stores/create-store";
+import {
+  khushuStore,
+  useEnsureKhushuLoaded,
+  useKhushuActions,
+  useKhushuEntries,
+} from "@/stores/khushu-store";
 import { useTodayPrayers } from "@/stores/tracker-store";
 
 const RATINGS = [1, 2, 3, 4, 5] as const;
@@ -62,17 +71,15 @@ type FormDraft = {
   note: string;
 };
 
-type PendingAction =
-  | { kind: "delete"; entry: KhushuEntry }
-  | { kind: "discard" }
-  | { kind: "overwrite" };
+type PendingAction = { kind: "discard" } | { kind: "overwrite" };
 
 function defaultDraft(): FormDraft {
   return {
     mode: "new",
     date: getLocalDateString(),
     prayerId: "fajr",
-    rating: 3,
+    // No preselected rating: presence is the user's own call.
+    rating: 0,
     note: "",
   };
 }
@@ -92,12 +99,27 @@ function StarRating({
   size?: number;
   compact?: boolean;
 }) {
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const gap = compact ? Spacing.half : Spacing.one;
+  const interactive = onChange != null;
+  const levelName = (star: number) => t(`journal.level${star}`);
 
   return (
-    <View style={[styles.stars, { gap }]}>
+    <View
+      style={[styles.stars, { gap }]}
+      // Editable: a radio group of five levels. Read-only: one described value.
+      accessibilityRole={interactive ? "radiogroup" : undefined}
+      accessibilityLabel={
+        interactive
+          ? t("journal.fieldRating")
+          : value > 0
+            ? t("journal.ratingA11y", { rating: value, max: KHUSHU_MAX, level: levelName(value) })
+            : undefined
+      }
+      accessible={interactive || value <= 0 ? undefined : true}
+    >
       {RATINGS.map((star) => {
         const filled = star <= value;
         const icon: SymbolViewProps["name"] = filled
@@ -109,14 +131,14 @@ function StarRating({
           return (
             <PressableScale
               key={star}
-              accessibilityRole="button"
-              accessibilityLabel={String(star)}
+              accessibilityRole="radio"
+              accessibilityLabel={`${star}, ${levelName(star)}`}
+              accessibilityState={{ selected: star === value }}
               onPress={() => onChange(star)}
               scaleTo={0.85}
               haptic="selection"
-              hitSlop={8}
-              // TV: chip-sized square so the focus ring frames the star.
-              style={tv ? styles.starTv : undefined}
+              // 44pt square (chip-sized on TV) so the focus ring frames the star.
+              style={tv ? styles.starTv : styles.starTarget}
             >
               <SymbolView name={icon} size={size} tintColor={color} />
             </PressableScale>
@@ -126,6 +148,37 @@ function StarRating({
         return <SymbolView key={star} name={icon} size={size} tintColor={color} />;
       })}
     </View>
+  );
+}
+
+/** "Reflect on today": today's completed Salah that have no reflection yet. */
+function ReflectToday({
+  prayers,
+  onPick,
+  title,
+}: {
+  prayers: readonly PrayerId[];
+  onPick: (id: PrayerId) => void;
+  title: string;
+}) {
+  const { t } = useTranslation();
+  if (prayers.length === 0) return null;
+  return (
+    <Card style={styles.reflectCard}>
+      <ThemedText type="smallBold">{title}</ThemedText>
+      <View style={styles.prayerChips}>
+        {prayers.map((id) => (
+          <Chip
+            key={id}
+            icon={PRAYER_ICONS[id]}
+            label={t(`prayers.${id}`)}
+            accessibilityLabel={t("journal.reflectOn", { prayer: t(`prayers.${id}`) })}
+            selected={false}
+            onPress={() => onPick(id)}
+          />
+        ))}
+      </View>
+    </Card>
   );
 }
 
@@ -145,7 +198,9 @@ export default function JournalScreen() {
   const { colors, tokens } = useThemeTokens();
   const { formatIso } = useFormatCalendarDate();
   const toast = useToast();
+  const undoToast = useUndoToast();
   useEnsureKhushuLoaded();
+  const ready = useStore(khushuStore, (s) => s.isReady);
   const entries = useKhushuEntries();
   const { save, remove } = useKhushuActions();
   const { status: todayStatus } = useTodayPrayers();
@@ -189,6 +244,7 @@ export default function JournalScreen() {
   }, [formOpen, stt.abort]);
 
   const groups = useMemo(() => sortedGroups(entries), [entries]);
+  const shownGroups = useProgressiveList(groups, { initial: 8, batch: 8 });
   const avg = averageRating(entries);
   const today = getLocalDateString();
 
@@ -229,10 +285,20 @@ export default function JournalScreen() {
     [formatIso, t, today],
   );
 
-  const openNewForm = () => {
-    const firstPrayer = completedToday[0];
+  // Today's completed salah that have no reflection yet — the "Reflect on today" list.
+  const unreflectedToday = useMemo(
+    () =>
+      completedToday.filter(
+        (id) => !entries.some((entry) => entry.date === today && entry.prayerId === id),
+      ),
+    [completedToday, entries, today],
+  );
+
+  const openNewForm = (prayerId?: PrayerId) => {
+    const firstPrayer = prayerId ?? unreflectedToday[0] ?? completedToday[0];
     if (!firstPrayer) {
-      toast.info(t("journal.noCompletedTitle"), t("journal.noCompletedDesc"));
+      // Nothing completed yet: the only useful step is the tracker.
+      router.push("/tracker");
       return;
     }
     const next = { ...defaultDraft(), prayerId: firstPrayer };
@@ -286,6 +352,22 @@ export default function JournalScreen() {
     });
     trackReviewInteraction("save_khushu");
     closeForm();
+    toast.success(t("journal.saved"));
+  };
+
+  /** Delete is cheap to reverse: remove now, offer Undo (no confirm dialog). */
+  const deleteWithUndo = (entry: KhushuEntry) => {
+    void undoToast.run({
+      do: () => remove(entry.date, entry.prayerId),
+      undo: () =>
+        save({
+          date: entry.date,
+          prayerId: entry.prayerId,
+          rating: entry.rating,
+          note: entry.note,
+        }),
+      messageKey: "journal.deleted",
+    });
   };
 
   const attemptSave = () => {
@@ -302,19 +384,6 @@ export default function JournalScreen() {
 
   const confirmCopy = useMemo(() => {
     if (!pending) return null;
-
-    if (pending.kind === "delete") {
-      const prayer = t(`prayers.${pending.entry.prayerId}`);
-      return {
-        title: t("journal.confirmDeleteTitle"),
-        message: t("journal.confirmDeleteMsg", {
-          prayer,
-          date: formatDate(pending.entry.date, "long"),
-        }),
-        confirmLabel: t("common.delete"),
-        destructive: true,
-      };
-    }
 
     if (pending.kind === "discard") {
       return {
@@ -333,14 +402,12 @@ export default function JournalScreen() {
       confirmLabel: t("common.save"),
       destructive: false,
     };
-  }, [draft.prayerId, formatDate, pending, t]);
+  }, [draft.prayerId, pending, t]);
 
   const handleConfirm = () => {
     if (!pending) return;
 
-    if (pending.kind === "delete") {
-      void remove(pending.entry.date, pending.entry.prayerId);
-    } else if (pending.kind === "discard") {
+    if (pending.kind === "discard") {
       closeForm();
       return;
     } else if (pending.kind === "overwrite") {
@@ -351,11 +418,8 @@ export default function JournalScreen() {
     setPending(null);
   };
 
+  /** Cancel the confirm — back to the form (the sheet stays open). */
   const handleConfirmClose = () => {
-    if (pending?.kind === "discard" && formOpen) {
-      setPending(null);
-      return;
-    }
     setPending(null);
   };
 
@@ -366,19 +430,35 @@ export default function JournalScreen() {
       subtitle={t("journal.subtitle")}
       onBack={() => goBackOrReplace(router, "/tracker")}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} preferredFocus />
       <Seo path="/journal" />
 
-      {entries.length === 0 ? (
-        <EmptyState
-          icon={{ ios: "heart.text.square", android: "favorite", web: "favorite" }}
-          title={t("journal.emptyTitle")}
-          description={t("journal.emptyDesc")}
-          actionLabel={t("journal.add")}
-          onAction={openNewForm}
-        />
+      {!ready ? (
+        <ContentState status="loading" skeleton="card" skeletonCount={2} />
+      ) : entries.length === 0 ? (
+        <View style={styles.listSection}>
+          <ReflectToday
+            prayers={unreflectedToday}
+            onPick={(id) => openNewForm(id)}
+            title={t("journal.reflectToday")}
+          />
+          <EmptyState
+            icon={{ ios: "heart.text.square", android: "favorite", web: "favorite" }}
+            title={t("journal.emptyTitle")}
+            description={t("journal.emptyDesc")}
+            actionLabel={completedToday.length > 0 ? t("journal.add") : t("journal.openTracker")}
+            onAction={() => openNewForm()}
+          />
+        </View>
       ) : (
         <Stagger>
-          <Card variant="muted" padding="three">
+          <ReflectToday
+            prayers={unreflectedToday}
+            onPick={(id) => openNewForm(id)}
+            title={t("journal.reflectToday")}
+          />
+          <Card variant="muted">
             <View style={styles.summary}>
               <View style={styles.summaryMain}>
                 <View style={styles.avgLabelRow}>
@@ -434,7 +514,7 @@ export default function JournalScreen() {
               actionLabel={t("journal.addShort")}
               actionIcon={{ ios: "plus", android: "add", web: "add" }}
               actionAccessibilityLabel={t("journal.add")}
-              onActionPress={openNewForm}
+              onActionPress={() => openNewForm()}
             />
 
             {/* Wide web / tablets: day cards in a 2–3 column grid. TV stays one column. */}
@@ -444,8 +524,8 @@ export default function JournalScreen() {
               gap={Spacing.three}
               style={styles.groupList}
             >
-              {groups.map((group) => (
-                <Card key={group.date} padding="three" style={styles.groupCard}>
+              {shownGroups.map((group) => (
+                <Card key={group.date} style={styles.groupCard}>
                   <ThemedText type="smallBold" style={styles.groupDate}>
                     {formatDate(group.date, "long")}
                   </ThemedText>
@@ -501,8 +581,8 @@ export default function JournalScreen() {
                           tintColor={colors.mutedForeground}
                           accessibilityLabel={t("journal.delete")}
                           haptic="warning"
-                          hitTarget={40}
-                          onPress={() => setPending({ kind: "delete", entry })}
+                          hitTarget={44}
+                          onPress={() => deleteWithUndo(entry)}
                         />
                       </View>
                     ))}
@@ -514,158 +594,157 @@ export default function JournalScreen() {
         </Stagger>
       )}
 
-      <Sheet visible={formOpen} onClose={requestCloseForm} variant="bottom">
-        <ThemedText type="subtitle" style={styles.sheetTitle}>
-          {draft.mode === "edit" ? t("journal.editTitle") : t("journal.newTitle")}
-        </ThemedText>
-        {draft.mode === "edit" ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.sheetDate}>
-            {formatDate(draft.date, "long")}
-          </ThemedText>
-        ) : null}
-
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
-          {t("journal.fieldPrayer")}
-        </ThemedText>
-        <View style={styles.prayerChips}>
-          {pickerPrayers.map((id) => {
-            const active = draft.prayerId === id;
-            // TV: selected = soft accent fill + hairline; solid accent is the focus ring.
-            const contentColor = active
-              ? tv
-                ? colors.accentText
-                : colors.accentForeground
-              : colors.foreground;
-            return (
-              <PressableScale
-                key={id}
-                accessibilityRole="button"
-                accessibilityState={{ selected: active }}
-                onPress={() => setDraft((current) => ({ ...current, prayerId: id }))}
-                scaleTo={0.94}
-                haptic="selection"
-                style={[
-                  styles.chip,
-                  tv ? styles.chipTv : null,
-                  tv
-                    ? {
-                        backgroundColor: active ? tokens.accentSoft : colors.muted,
-                        borderColor: active ? tokens.accentBorder : tokens.hairline,
-                      }
-                    : {
-                        backgroundColor: active ? colors.accent : colors.muted,
-                        borderColor: active ? colors.accent : tokens.hairline,
-                      },
-                ]}
-              >
-                <AppIcon icon={PRAYER_ICONS[id]} size={15} tintColor={contentColor} />
-                <ThemedText type="caption" style={{ color: contentColor }}>
-                  {t(`prayers.${id}`)}
-                </ThemedText>
-              </PressableScale>
-            );
-          })}
-        </View>
-
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
-          {t("journal.fieldRating")}
-        </ThemedText>
-        <View style={[styles.ratingPanel, { backgroundColor: colors.muted }]}>
-          <StarRating
-            value={draft.rating}
-            onChange={(rating) => setDraft((current) => ({ ...current, rating }))}
-            size={28}
-          />
-          <ThemedText type="smallBold" style={styles.ratingLabel}>
-            {t(`journal.level${draft.rating}`)}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {tTv(t, "journal.ratingHint", "journal.ratingHintTv")}
-          </ThemedText>
-        </View>
-
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
-          {t("journal.fieldNote")}
-        </ThemedText>
-        <View
-          style={[
-            styles.noteField,
-            {
-              backgroundColor: colors.input,
-              borderWidth: stt.listening ? 1.5 : 1,
-              borderColor: stt.listening ? colors.accent : colors.inputBorder,
-            },
-          ]}
-        >
-          <TextInput
-            value={draft.note}
-            onChangeText={(note) => {
-              if (stt.listening) stt.abort();
-              setDraft((current) => ({ ...current, note }));
-            }}
-            placeholder={t("journal.notePlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("journal.fieldNote")}
-            multiline
-            style={[
-              styles.noteInput,
-              tv ? styles.noteInputTv : null,
-              {
-                color: colors.foreground,
-                paddingEnd: stt.available && !tv ? Spacing.three + 44 : Spacing.three,
-              },
-            ]}
-          />
-          {/* No microphone dictation on TV remotes (phone-only capability). */}
-          {stt.available && !tv ? (
-            <View style={styles.noteMic}>
-              <VoiceInputButton
-                size="sm"
-                listening={stt.listening}
-                level={stt.level}
-                accessibilityLabel={
-                  stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
-                }
-                accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
-                onPress={toggleNoteDictate}
+      {/*
+        The discard / overwrite confirm renders INSIDE the sheet, replacing the
+        form. A sibling <ConfirmDialog> is a second RN Modal, and iOS can't
+        present it while this sheet's Modal is up — the confirm never appeared
+        and the sheet could not be closed after changing the Salah pill.
+        While it shows, dismissing the sheet (swipe / scrim / Back) just goes
+        back to the form.
+      */}
+      <Sheet
+        accessibilityLabel={
+          confirmCopy
+            ? confirmCopy.title
+            : draft.mode === "edit"
+              ? t("journal.editTitle")
+              : t("journal.newTitle")
+        }
+        visible={formOpen}
+        onClose={pending ? handleConfirmClose : requestCloseForm}
+        variant="bottom"
+      >
+        {confirmCopy ? (
+          <View style={styles.confirm} testID="journal-inline-confirm">
+            <ThemedText type="subtitle" role="alert" accessibilityLiveRegion="polite">
+              {confirmCopy.title}
+            </ThemedText>
+            {confirmCopy.message ? (
+              <ThemedText type="small" themeColor="mutedForeground">
+                {confirmCopy.message}
+              </ThemedText>
+            ) : null}
+            <View style={styles.formActions}>
+              <Button
+                label={t("common.cancel")}
+                variant="ghost"
+                fullWidth
+                preferredFocus
+                onPress={handleConfirmClose}
+                style={styles.formActionButton}
+              />
+              <Button
+                label={confirmCopy.confirmLabel}
+                variant={confirmCopy.destructive ? "destructive" : "primary"}
+                fullWidth
+                onPress={handleConfirm}
+                style={styles.formActionButton}
               />
             </View>
-          ) : null}
-        </View>
+          </View>
+        ) : (
+          <>
+            <ThemedText type="subtitle" style={styles.sheetTitle}>
+              {draft.mode === "edit" ? t("journal.editTitle") : t("journal.newTitle")}
+            </ThemedText>
+            {draft.mode === "edit" ? (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sheetDate}>
+                {formatDate(draft.date, "long")}
+              </ThemedText>
+            ) : null}
 
-        <View style={styles.formActions}>
-          <Button
-            label={t("common.cancel")}
-            variant="ghost"
-            fullWidth
-            onPress={requestCloseForm}
-            style={styles.formActionButton}
-          />
-          <Button
-            label={t("common.save")}
-            fullWidth
-            disabled={draft.rating < KHUSHU_MIN || draft.rating > KHUSHU_MAX}
-            onPress={attemptSave}
-            style={styles.formActionButton}
-          />
-        </View>
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
+              {t("journal.fieldPrayer")}
+            </ThemedText>
+            <View style={styles.prayerChips} accessibilityRole="radiogroup">
+              {pickerPrayers.map((id) => (
+                <Chip
+                  key={id}
+                  role="radio"
+                  variant="solid"
+                  icon={PRAYER_ICONS[id]}
+                  label={t(`prayers.${id}`)}
+                  selected={draft.prayerId === id}
+                  onPress={() => setDraft((current) => ({ ...current, prayerId: id }))}
+                />
+              ))}
+            </View>
+
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
+              {t("journal.fieldRating")}
+            </ThemedText>
+            <View style={[styles.ratingPanel, { backgroundColor: colors.muted }]}>
+              <StarRating
+                value={draft.rating}
+                onChange={(rating) => setDraft((current) => ({ ...current, rating }))}
+                size={28}
+              />
+              <ThemedText type="smallBold" style={styles.ratingLabel}>
+                {draft.rating >= KHUSHU_MIN
+                  ? t(`journal.level${draft.rating}`)
+                  : t("journal.ratingNone")}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {tTv(t, "journal.ratingHint", "journal.ratingHintTv")}
+              </ThemedText>
+            </View>
+
+            <TextField
+              label={t("journal.fieldNote")}
+              value={draft.note}
+              onChangeText={(note) => {
+                if (stt.listening) stt.abort();
+                setDraft((current) => ({ ...current, note }));
+              }}
+              placeholder={t("journal.notePlaceholder")}
+              helperText={stt.listening ? t("journal.stt.listening") : undefined}
+              multiline
+              minLines={3}
+              style={styles.noteField}
+              // No microphone dictation on TV remotes (phone-only capability).
+              trailing={
+                stt.available && !tv ? (
+                  <VoiceInputButton
+                    size="sm"
+                    listening={stt.listening}
+                    level={stt.level}
+                    accessibilityLabel={
+                      stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
+                    }
+                    accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
+                    onPress={toggleNoteDictate}
+                  />
+                ) : undefined
+              }
+            />
+
+            <View style={styles.formActions}>
+              <Button
+                label={t("common.cancel")}
+                variant="ghost"
+                fullWidth
+                onPress={requestCloseForm}
+                style={styles.formActionButton}
+              />
+              <Button
+                label={t("common.save")}
+                fullWidth
+                disabled={draft.rating < KHUSHU_MIN || draft.rating > KHUSHU_MAX}
+                accessibilityHint={draft.rating < KHUSHU_MIN ? t("journal.ratingNone") : undefined}
+                onPress={attemptSave}
+                style={styles.formActionButton}
+              />
+            </View>
+          </>
+        )}
       </Sheet>
-
-      <ConfirmDialog
-        visible={pending != null}
-        title={confirmCopy?.title ?? ""}
-        message={confirmCopy?.message}
-        confirmLabel={confirmCopy?.confirmLabel}
-        destructive={confirmCopy?.destructive}
-        onConfirm={handleConfirm}
-        onClose={handleConfirmClose}
-      />
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
   stars: { flexDirection: "row", alignItems: "center" },
+  reflectCard: { gap: Spacing.two },
   summary: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -683,12 +762,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexShrink: 0,
-    gap: Spacing.half + 2,
+    gap: Spacing.one,
   },
   khushuLearnMoreTv: {
     minHeight: TvLayout.chipMinHeight,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
+  },
+  starTarget: {
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: "center",
+    justifyContent: "center",
   },
   starTv: {
     minWidth: TvLayout.chipMinHeight,
@@ -696,13 +781,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: Radius.md,
-  },
-  chipTv: {
-    minHeight: TvLayout.chipMinHeight,
-    paddingHorizontal: Spacing.four,
-  },
-  noteInputTv: {
-    fontSize: tvDp(TvLayout.bodyFontSize),
   },
   summaryValueRow: { flexDirection: "row", alignItems: "baseline", gap: Spacing.one },
   summaryNumber: { lineHeight: 34 },
@@ -740,16 +818,6 @@ const styles = StyleSheet.create({
   sheetDate: { marginBottom: Spacing.two },
   fieldLabel: { marginTop: Spacing.three, marginBottom: Spacing.one },
   prayerChips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-  },
   ratingPanel: {
     alignItems: "center",
     gap: Spacing.one,
@@ -759,30 +827,14 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   ratingLabel: { marginTop: Spacing.one },
-  noteField: {
-    position: "relative",
-    minHeight: 88,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    overflow: "visible",
-  },
-  noteInput: {
-    minHeight: 88,
-    padding: Spacing.three,
-    textAlignVertical: "top",
-    fontSize: 15,
-  },
-  noteMic: {
-    position: "absolute",
-    top: Spacing.one,
-    end: Spacing.one,
-  },
+  noteField: { marginTop: Spacing.three },
   formActions: {
     flexDirection: "row",
     gap: Spacing.two,
     marginTop: Spacing.three,
   },
   formActionButton: { flex: 1 },
+  confirm: { gap: Spacing.two },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

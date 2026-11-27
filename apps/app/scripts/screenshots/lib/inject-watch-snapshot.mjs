@@ -2,7 +2,9 @@
  * Apple Watch simulator helpers: resolve/pair devices, seed App Group snapshot,
  * launch watch app, capture + resize to App Store Ultra 3 (422×514).
  */
+import crypto from "node:crypto";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { APP_ID } from "./config.mjs";
 import { run, runCapture, sleep } from "./shell.mjs";
@@ -20,7 +22,8 @@ export const WATCH = {
   phoneDeviceNameEnv: "IOS_SIMULATOR_DEVICE",
   defaultPhoneDeviceName: "iPhone 17 Pro",
   bootMs: 8_000,
-  settleMs: 2_500,
+  /** Minimum wait after launch; capture-watch then waits for a still screen. */
+  settleMs: Number(process.env.WATCH_SETTLE_MS || 2_500),
 };
 
 function listAvailableDevices() {
@@ -214,7 +217,34 @@ export function clearWatchSavedState(udid, bundleId = WATCH_BUNDLE_ID) {
 
 export function forceStopWatchApp({ udid, bundleId }) {
   runCapture("xcrun", ["simctl", "terminate", udid, bundleId]);
-  sleep(400);
+  // Relaunching while the old process is still exiting left the next launch spinning.
+  sleep(2_000);
+}
+
+/**
+ * Wait until the watch screen stops changing (or `timeoutMs`): the launch spinner
+ * animates frame to frame, most loaded pages are static. A fixed 2.5s wait captured
+ * the spinner on 6–15s cold starts. Returns false on timeout (e.g. a live countdown).
+ */
+export function waitForWatchScreenToSettle({ udid, timeoutMs = 60_000, intervalMs = 1_500 }) {
+  const probe = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "watch-settle-")), "probe.png");
+  const frameHash = () => {
+    const shot = runCapture("xcrun", ["simctl", "io", udid, "screenshot", "--type=png", probe]);
+    if (!shot.ok || !fs.existsSync(probe)) return null;
+    return crypto.createHash("sha1").update(fs.readFileSync(probe)).digest("hex");
+  };
+  const deadline = Date.now() + timeoutMs;
+  let previous = frameHash();
+  let stableFrames = 0;
+  while (Date.now() < deadline) {
+    sleep(intervalMs);
+    const current = frameHash();
+    stableFrames = current && current === previous ? stableFrames + 1 : 0;
+    previous = current;
+    // Two identical frames in a row (3s) — the spinner never holds still that long.
+    if (stableFrames >= 2) return true;
+  }
+  return false;
 }
 
 /**

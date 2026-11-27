@@ -1,10 +1,15 @@
-import { gregorianToHijri } from "@/lib/hijri";
+import { getLocalDateString } from "@munib-tracker/shared/utils";
+
+import { gregorianToHijri, hijriToGregorian } from "@/lib/hijri";
 import {
+  isLunarWhiteDayDateString,
+  isLunarWhiteDayHijri,
   isWhiteDay,
   isWhiteDayDateString,
   isWhiteDayHijri,
   WHITE_DAYS_CHECKLIST_FOCUS,
   WHITE_DAYS_HIJRI,
+  whiteDayFastsForHijriMonth,
   whiteDaysChecklistHref,
   whiteDaysForHijriMonth,
   whiteDaysHijriMonthKey,
@@ -23,6 +28,44 @@ describe("isWhiteDayHijri", () => {
 
   it.each([1, 12, 16, 30])("is false on Hijri day %i", (day) => {
     expect(isWhiteDayHijri({ year: 1448, month: 2, day })).toBe(false);
+  });
+});
+
+describe("White Days never invite a blocked fast (Tashriq / Ramadan)", () => {
+  const dateOf = (y: number, m: number, d: number) => getLocalDateString(hijriToGregorian(y, m, d));
+
+  it("13 Dhul-Hijjah (a day of Tashriq) is not a White Day; the 14th and 15th are", () => {
+    expect(isWhiteDayHijri({ year: 1448, month: 12, day: 13 })).toBe(false);
+    expect(isWhiteDayHijri({ year: 1448, month: 12, day: 14 })).toBe(true);
+    expect(isWhiteDayHijri({ year: 1448, month: 12, day: 15 })).toBe(true);
+    expect(isWhiteDayDateString(dateOf(1448, 12, 13))).toBe(false);
+    expect(isWhiteDay(hijriToGregorian(1448, 12, 13))).toBe(false);
+    expect(isLunarWhiteDayHijri({ day: 13 })).toBe(true);
+    expect(isLunarWhiteDayDateString(dateOf(1448, 12, 13))).toBe(true);
+  });
+
+  it.each([
+    [10, 1],
+    [12, 10],
+    [12, 11],
+    [12, 12],
+  ])("Eid / Tashriq %i/%i are never White Days", (month, day) => {
+    expect(isWhiteDayDateString(dateOf(1448, month, day))).toBe(false);
+  });
+
+  it("Ramadan's 13th–15th belong to the Ramadan log, not the White Days", () => {
+    for (const day of [13, 14, 15]) {
+      expect(isWhiteDayHijri({ year: 1448, month: 9, day })).toBe(false);
+    }
+  });
+
+  it("the month's checklist rows drop blocked days", () => {
+    expect(whiteDayFastsForHijriMonth(1448, 2).map((f) => f.hijriDay)).toEqual([13, 14, 15]);
+    expect(whiteDayFastsForHijriMonth(1448, 12).map((f) => f.hijriDay)).toEqual([14, 15]);
+    expect(whiteDayFastsForHijriMonth(1448, 9)).toEqual([]);
+    const [first] = whiteDayFastsForHijriMonth(1448, 2);
+    expect(first?.date).toBe(WHITE_DATES[0]);
+    expect(first?.item.id).toBe("day13");
   });
 });
 

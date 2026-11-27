@@ -1,3 +1,4 @@
+import { haversineKm } from "@munib-tracker/shared/utils";
 import { Coordinates, Qibla } from "adhan";
 import * as Location from "expo-location";
 import { type Href, useRouter } from "expo-router";
@@ -8,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import Animated, {
   Easing,
-  interpolateColor,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -16,21 +16,28 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
-import { QiblaNeedle } from "@/components/qibla/qibla-needle";
+import { QiblaFace } from "@/components/qibla/faces/qibla-face";
+import type { QiblaMotion } from "@/components/qibla/faces/types";
+import { QiblaStyleSheet } from "@/components/qibla/qibla-style-sheet";
 import { QiblaTurnIcon } from "@/components/qibla/qibla-turn-icon";
 import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { ToolSeo } from "@/components/seo/tool-seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
+import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { getLocationPermissionGranted } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { resolveQiblaCompassStyle } from "@/lib/qibla-compass-styles";
 import {
   getQiblaTurnGuidance,
   type QiblaTurnKind,
@@ -40,6 +47,7 @@ import {
 import { getRouteFaq } from "@/lib/seo/faq-content";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
+import { useSetting } from "@/lib/settings/use-setting";
 import {
   locationStore,
   useLocation,
@@ -51,28 +59,14 @@ const KAABA = { lat: 21.4225, lng: 39.8262 };
 
 const ALIGN_THRESHOLD = 5;
 const SMOOTHING = 0.15;
-
-function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(lat2 - lat1);
-  const dLng = toRad(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
-  return Math.round(6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-}
+/** Earth's magnetic field strength range (µT) — outside it the magnetometer is disturbed. */
+const EARTH_FIELD_MIN_UT = 20;
+const EARTH_FIELD_MAX_UT = 75;
 
 function smoothHeading(prev: number, next: number, alpha: number): number {
   const delta = ((next - prev + 540) % 360) - 180;
   return (prev + alpha * delta + 360) % 360;
 }
-
-const CARDINALS = [
-  { key: "cardinalN", angle: 0 },
-  { key: "cardinalE", angle: 90 },
-  { key: "cardinalS", angle: 180 },
-  { key: "cardinalW", angle: 270 },
-] as const;
 
 const TURN_I18N: Record<QiblaTurnKind, string> = {
   aligned: "qibla.aligned",
@@ -91,156 +85,14 @@ function turnChevron(kind: QiblaTurnKind): "left" | "right" | "checkmark" | null
   return null;
 }
 
-type CompassFaceProps = {
-  dialSize: number;
-  bearing: number;
-  /** When set, cardinal labels counter-rotate to stay upright while the dial spins. */
-  heading?: number;
-  tokens: ReturnType<typeof useThemeTokens>["tokens"];
-  colors: ReturnType<typeof useThemeTokens>["colors"];
-  t: ReturnType<typeof useTranslation>["t"];
-};
-
 function magnetometerHeading(x: number, y: number): number {
   const primary = Platform.OS === "android" ? Math.atan2(-x, y) : Math.atan2(y, x);
   return (primary * (180 / Math.PI) + 360) % 360;
 }
 
-function angleDelta(a: number, b: number): number {
-  return Math.abs(((a - b + 180) % 360) - 180);
-}
-
-/** Shared tick marks, cardinals, and Kaaba marker — rotators are dial-sized so pivots stay centered. */
-function CompassFace({ dialSize, bearing, heading = 0, tokens, colors, t }: CompassFaceProps) {
-  const labelCounter = heading;
-  const rimInset = Math.max(Spacing.one, Math.round(dialSize * 0.035));
-  const majorTickHeight = Math.round(dialSize * 0.042);
-  const minorTickHeight = Math.round(dialSize * 0.024);
-  const labelTop = rimInset + majorTickHeight + Spacing.two;
-  const labelLineHeight = 16;
-  const kaabaSize = Math.round(dialSize * 0.12);
-  const kaabaFontSize = Math.round(kaabaSize * 0.55);
-  const kaabaTop = labelTop + labelLineHeight / 2 - kaabaSize / 2;
-  const labelBackdrop = withAlpha(colors.card, tokens.isDark ? 0.92 : 0.96);
-  const hideWestLabel = angleDelta(bearing, 270) < 22;
-
-  return (
-    <>
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => {
-        const major = angle % 90 === 0;
-        if (major) return null;
-
-        const ordinal = angle % 45 === 0;
-
-        return (
-          <View
-            key={`tick-${angle}`}
-            style={[
-              styles.rotator,
-              {
-                width: dialSize,
-                height: dialSize,
-                transform: [{ rotate: `${angle}deg` }],
-              },
-            ]}
-          >
-            <View
-              style={{
-                marginTop: rimInset,
-                width: ordinal ? 2.5 : 2,
-                height: ordinal ? majorTickHeight : minorTickHeight,
-                borderRadius: 2,
-                backgroundColor: ordinal ? tokens.accentBorder : tokens.hairline,
-              }}
-            />
-          </View>
-        );
-      })}
-
-      {CARDINALS.map(({ key, angle }) => {
-        if (key === "cardinalW" && hideWestLabel) return null;
-
-        return (
-          <View
-            key={key}
-            style={[
-              styles.rotator,
-              {
-                width: dialSize,
-                height: dialSize,
-                transform: [{ rotate: `${angle}deg` }],
-              },
-            ]}
-          >
-            <View
-              style={[
-                styles.cardinalLabelWrap,
-                {
-                  marginTop: labelTop,
-                  backgroundColor: labelBackdrop,
-                  transform: [{ rotate: `${-angle + labelCounter}deg` }],
-                },
-              ]}
-            >
-              <ThemedText
-                type="caption"
-                style={[
-                  styles.cardinalLabel,
-                  {
-                    color: key === "cardinalN" ? colors.accent : colors.mutedForeground,
-                  },
-                ]}
-              >
-                {t(`qibla.${key}`)}
-              </ThemedText>
-            </View>
-          </View>
-        );
-      })}
-
-      <View
-        style={[
-          styles.rotator,
-          styles.qiblaBadgeRotator,
-          {
-            width: dialSize,
-            height: dialSize,
-            transform: [{ rotate: `${bearing}deg` }],
-          },
-        ]}
-      >
-        <View
-          style={[
-            styles.qiblaBadge,
-            {
-              marginTop: kaabaTop,
-              width: kaabaSize,
-              height: kaabaSize,
-              backgroundColor: labelBackdrop,
-              borderColor: tokens.accentBorder,
-              transform: [{ rotate: `${labelCounter - bearing}deg` }],
-            },
-          ]}
-        >
-          <ThemedText
-            type="caption"
-            style={{
-              color: colors.accent,
-              fontSize: kaabaFontSize,
-              lineHeight: kaabaFontSize + 2,
-            }}
-          >
-            🕋
-          </ThemedText>
-        </View>
-      </View>
-    </>
-  );
-}
-
 export default function QiblaScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const reducedMotion = useReducedMotion();
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
@@ -254,7 +106,13 @@ export default function QiblaScreen() {
     [location.latitude, location.longitude],
   );
   const distance = useMemo(
-    () => haversineKm(location.latitude, location.longitude, KAABA.lat, KAABA.lng),
+    () =>
+      Math.round(
+        haversineKm(
+          { latitude: location.latitude, longitude: location.longitude },
+          { latitude: KAABA.lat, longitude: KAABA.lng },
+        ),
+      ),
     [location.latitude, location.longitude],
   );
   const locationError = useMemo(() => {
@@ -270,12 +128,14 @@ export default function QiblaScreen() {
   const [heading, setHeading] = useState(0);
   const [hasCompass, setHasCompass] = useState(false);
   const [hasTrueNorth, setHasTrueNorth] = useState(false);
+  /** 0 uncalibrated … 3 high, from the heading API; null when the sensor reports none. */
+  const [headingAccuracy, setHeadingAccuracy] = useState<number | null>(null);
   const [, setAligned] = useState(false);
 
   // TV (landscape, ~540dp tall): size the dial from the height so the dial,
   // stats and the city/hint card all fit without scrolling past focusables.
   /** Desktop / wide web: dial beside an info aside (stats, location, hints). */
-  const twoPane = !tv && windowWidth >= 1024;
+  const twoPane = !tv && windowWidth >= Breakpoints.wide;
   const dialSize = tv
     ? Math.round(Math.min(windowHeight * 0.42, windowWidth * 0.3))
     : twoPane
@@ -283,7 +143,12 @@ export default function QiblaScreen() {
         ? 400
         : 340
       : Math.min(windowWidth - Spacing.four * 2, 320);
-  const needleSize = Math.round(dialSize * 0.26);
+  /** Stage = dial + the classic ring's 12dp gutter on each side. */
+  const stageSize = dialSize + 24;
+  const compassStyle = resolveQiblaCompassStyle(
+    useSetting<string>("appearance.qiblaCompass").value,
+  );
+  const [styleOpen, setStyleOpen] = useState(false);
 
   const smoothedRef = useRef(0);
   const rotation = useSharedValue(0);
@@ -325,6 +190,16 @@ export default function QiblaScreen() {
       Magnetometer.setUpdateInterval(100);
       magSub = Magnetometer.addListener((data) => {
         if (cancelled) return;
+        // The raw magnetometer reports no accuracy; a field far outside Earth's
+        // (~25–65 µT) means magnets or metal nearby, so say the reading is unreliable.
+        const fieldStrength = Math.hypot(data.x, data.y, data.z);
+        const disturbed =
+          Number.isFinite(fieldStrength) &&
+          (fieldStrength < EARTH_FIELD_MIN_UT || fieldStrength > EARTH_FIELD_MAX_UT);
+        setHeadingAccuracy((prev) => {
+          const next = disturbed ? 0 : null;
+          return prev === next ? prev : next;
+        });
         applyHeading(magnetometerHeading(data.x, data.y));
       });
     };
@@ -345,6 +220,9 @@ export default function QiblaScreen() {
             if (value == null || Number.isNaN(value)) return;
             setHasCompass(true);
             setHasTrueNorth(hasTrue);
+            setHeadingAccuracy(
+              typeof data.accuracy === "number" && data.accuracy >= 0 ? data.accuracy : null,
+            );
             applyHeading((value + 360) % 360);
           });
           if (cancelled) {
@@ -372,6 +250,20 @@ export default function QiblaScreen() {
       magSub?.remove();
     };
   }, [applyHeading]);
+
+  // Distance is translated and uses the app language's digits and separators (no hard-coded "km").
+  const distanceText = useMemo(
+    () =>
+      t("qibla.distanceKm", {
+        km: new Intl.NumberFormat(localeToBcp47(i18n.language || "en")).format(distance),
+      }),
+    [t, i18n.language, distance],
+  );
+  const approximate = location.source === "default";
+  const accuracyLevel =
+    headingAccuracy == null
+      ? null
+      : (["unreliable", "low", "medium", "high"] as const)[Math.min(3, headingAccuracy)];
 
   const arrowAngle = useMemo(() => qiblaArrowAngle(bearing, heading), [bearing, heading]);
 
@@ -457,36 +349,13 @@ export default function QiblaScreen() {
     });
   }, [isAligned, reducedMotion, pulse]);
 
-  const needleStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotation.value}deg` }, { scale: pulse.value }],
-  }));
-
-  const dialStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${dialRotation.value}deg` }],
-  }));
+  const motion = useMemo<QiblaMotion>(
+    () => ({ dial: dialRotation, needle: rotation, glow: alignGlow, pulse }),
+    [dialRotation, rotation, alignGlow, pulse],
+  );
 
   const chevronStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: chevronNudge.value }],
-  }));
-
-  const hairlineColor = tokens.hairline;
-  const accentColor = colors.accent;
-  const isWeb = Platform.OS === "web";
-  const glowShadowPeak = withAlpha(accentColor, 0.35);
-  const glowShadowBase = withAlpha(accentColor, 0);
-
-  const ringStyle = useAnimatedStyle(() => ({
-    borderColor: interpolateColor(alignGlow.value, [0, 1], [hairlineColor, accentColor]),
-    ...(isWeb
-      ? {
-          boxShadow: `0px 0px 18px ${interpolateColor(alignGlow.value, [0, 1], [glowShadowBase, glowShadowPeak])}`,
-        }
-      : {
-          shadowColor: accentColor,
-          shadowOffset: { width: 0, height: 0 },
-          shadowRadius: 18,
-          shadowOpacity: alignGlow.value * 0.35,
-        }),
   }));
 
   const guidanceA11y = showTurnGuidance
@@ -499,10 +368,10 @@ export default function QiblaScreen() {
     const base = t("qibla.compassLabel");
     const value = t("qibla.compassValue", {
       bearing: Math.round(bearing),
-      distance: t("qibla.distanceKm", { km: distance.toLocaleString() }),
+      distance: distanceText,
     });
     return guidanceA11y ? `${base}. ${value}. ${guidanceA11y}` : `${base}. ${value}`;
-  }, [t, bearing, distance, guidanceA11y]);
+  }, [t, bearing, distanceText, guidanceA11y]);
 
   const compassGradient = gradientBackground(
     `radial-gradient(circle at 50% 42%, ${withAlpha(colors.accent, tokens.isDark ? 0.18 : 0.12)} 0%, ${withAlpha(colors.card, 0)} 68%)`,
@@ -510,6 +379,7 @@ export default function QiblaScreen() {
 
   const guidanceCard = showTurnGuidance ? (
     <Card
+      padding="four"
       style={[
         styles.guidanceCard,
         {
@@ -563,97 +433,82 @@ export default function QiblaScreen() {
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("qibla.distanceLabel")}
         </ThemedText>
-        <ThemedText type="header">{distance.toLocaleString()} km</ThemedText>
+        {/* A full phrase ("2,807 km to the Kaaba") — one size down and centred so it
+            reads in one or two lines instead of three huge ones beside the bearing. */}
+        <ThemedText type="subtitle" style={styles.statText}>
+          {distanceText}
+        </ThemedText>
       </View>
     </View>
   );
 
   const compassCard = (
-    <Card style={[styles.compassCard, tv && styles.compassCardTv, compassGradient]}>
-      <View style={styles.compassStage}>
-        <Animated.View
-          accessible
-          accessibilityRole="image"
-          accessibilityLabel={compassA11yLabel}
-          accessibilityLiveRegion="polite"
-          style={[
-            styles.dialOuter,
-            ringStyle,
-            {
-              width: dialSize + 24,
-              height: dialSize + 24,
-              borderRadius: (dialSize + 24) / 2,
-            },
-          ]}
-        >
-          <View
-            style={[
-              styles.dial,
-              {
-                width: dialSize,
-                height: dialSize,
-                borderRadius: dialSize / 2,
-                borderColor: tokens.hairline,
-                backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.55 : 0.72),
-              },
-            ]}
-          >
-            {hasCompass ? (
-              <Animated.View style={[styles.dialInner, dialStyle]}>
-                <CompassFace
-                  dialSize={dialSize}
-                  bearing={bearing}
-                  heading={heading}
-                  tokens={tokens}
-                  colors={colors}
-                  t={t}
-                />
-              </Animated.View>
-            ) : (
-              <>
-                <CompassFace
-                  dialSize={dialSize}
-                  bearing={bearing}
-                  tokens={tokens}
-                  colors={colors}
-                  t={t}
-                />
-
-                <Animated.View style={[styles.needle, needleStyle]}>
-                  <QiblaNeedle size={needleSize} color={colors.accent} />
-                </Animated.View>
-              </>
-            )}
-          </View>
-
-          {hasCompass ? (
-            <View style={[styles.topPointer, { borderBottomColor: colors.accent }]} />
-          ) : null}
-        </Animated.View>
+    <Card
+      padding="four"
+      style={[
+        styles.compassCard,
+        tv && styles.compassCardTv,
+        compassGradient,
+        approximate && styles.compassApproximate,
+      ]}
+    >
+      {approximate ? (
+        <Pill tone="warning" label={t("qibla.approximateBadge")} style={styles.approximatePill} />
+      ) : null}
+      <View
+        accessible
+        accessibilityRole="image"
+        accessibilityLabel={compassA11yLabel}
+        accessibilityLiveRegion="polite"
+        style={styles.compassStage}
+      >
+        <QiblaFace
+          style={compassStyle}
+          size={stageSize}
+          bearing={bearing}
+          hasCompass={hasCompass}
+          aligned={isAligned}
+          offsetDeg={hasCompass ? guidance.offsetDeg : 0}
+          motion={motion}
+          reduceMotion={reducedMotion}
+        />
       </View>
+      {accuracyLevel && hasCompass ? (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          accessibilityLiveRegion="polite"
+          style={styles.accuracyLine}
+        >
+          {t("qibla.accuracyLine", { level: t(`qibla.accuracy.${accuracyLevel}`) })}
+        </ThemedText>
+      ) : null}
       {twoPane ? null : statsRow}
     </Card>
   );
 
   const defaultLocationCard =
     location.source === "default" ? (
-      <Card variant="muted" padding="three">
-        <ThemedText type="small" themeColor="mutedForeground">
-          {t("qibla.defaultLocationHint")}
-        </ThemedText>
-        <Button
-          label={t("qibla.setLocation")}
-          variant="secondary"
-          preferredFocus={tv}
-          onPress={() => router.push("/location" as Href)}
-        />
-      </Card>
+      <Callout
+        tone="warning"
+        // TV: the hint card below owns the (preferred-focus) Set location button.
+        {...(tv
+          ? {}
+          : {
+              action: {
+                label: t("qibla.setLocation"),
+                onPress: () => router.push("/location" as Href),
+              },
+            })}
+      >
+        {t("qibla.defaultLocationHint")}
+      </Callout>
     ) : null;
 
   const hintCard = tv ? (
     // TV: no compass / GPS — static bearing for the chosen city, plus a
     // focusable way to change it (the screen otherwise has no D-pad target).
-    <Card variant="muted" padding="three" style={styles.tvHintCard}>
+    <Card variant="muted" style={styles.tvHintCard}>
       {location.label ? (
         <ThemedText type="smallBold" numberOfLines={1}>
           {location.label}
@@ -662,24 +517,24 @@ export default function QiblaScreen() {
       <ThemedText type="small" themeColor="mutedForeground">
         {t("qibla.tvHint")}
       </ThemedText>
-      {location.source !== "default" ? (
-        <Button
-          label={t("hero.changeLocation")}
-          variant="secondary"
-          icon={{ ios: "location.fill", android: "location_on", web: "location_on" }}
-          preferredFocus
-          onPress={() => router.push("/location" as Href)}
-        />
-      ) : null}
+      {/* Always one focusable target with initial focus (B-40): "Set location"
+          while on the fallback city, "Change location" otherwise. */}
+      <Button
+        label={location.source === "default" ? t("qibla.setLocation") : t("hero.changeLocation")}
+        variant="secondary"
+        icon={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+        preferredFocus
+        onPress={() => router.push("/location" as Href)}
+      />
     </Card>
   ) : !hasCompass ? (
-    <Card variant="muted" padding="three">
+    <Card variant="muted">
       <ThemedText type="small" themeColor="mutedForeground">
         {Platform.OS === "web" ? t("qibla.webHint") : t("qibla.noCompassHint")}
       </ThemedText>
     </Card>
   ) : (
-    <Card variant="muted" padding="three">
+    <Card variant="muted">
       <ThemedText type="small" themeColor="mutedForeground">
         {showTurnGuidance
           ? t("qibla.rotatePhone")
@@ -693,17 +548,17 @@ export default function QiblaScreen() {
   // GPS retry is phone-only — TV uses the manual city picker above.
   const errorCard =
     locationError && !tv ? (
-      <Card variant="muted" padding="three">
-        <ThemedText type="small" themeColor="mutedForeground">
-          {t(locationError)}
-        </ThemedText>
-        <Button
-          label={t("qibla.tryAgain")}
-          onPress={() => {
+      <Callout
+        tone="warning"
+        action={{
+          label: t("qibla.tryAgain"),
+          onPress: () => {
             void locationStore.getState().requestDeviceLocation();
-          }}
-        />
-      </Card>
+          },
+        }}
+      >
+        {t(locationError)}
+      </Callout>
     ) : null;
 
   return (
@@ -713,13 +568,23 @@ export default function QiblaScreen() {
       title={t("settings.qibla")}
       subtitle={t("qibla.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      trailing={
+        // A labelled "Style" pill with a compass glyph reads as "change how the
+        // compass looks" (a lone palette in system blue did not), and matches the
+        // header's accent-tinted back button.
+        <Button
+          variant="secondary"
+          size="sm"
+          icon={{ ios: "safari.fill", android: "explore", web: "explore" }}
+          label={t("qiblaStyles.styleButton")}
+          accessibilityHint={t("qiblaStyles.openButton")}
+          onPress={() => setStyleOpen(true)}
+        />
+      }
     >
-      <Seo
+      <ToolSeo
         path="/qibla"
-        breadcrumbs={[
-          { name: t("tabs.home"), path: "/" },
-          { name: t("actions.qibla"), path: "/qibla" },
-        ]}
+        name={t("actions.qibla")}
         jsonLd={[
           webPageSchema({
             path: "/qibla",
@@ -736,12 +601,16 @@ export default function QiblaScreen() {
       <Stagger>
         {twoPane ? (
           <View style={styles.split}>
-            <View style={styles.primary}>{compassCard}</View>
+            <View style={styles.primary}>
+              {defaultLocationCard}
+              {errorCard}
+              {compassCard}
+            </View>
             <View style={styles.aside}>
               {guidanceCard}
-              <Card padding="three">{statsRow}</Card>
+              <Card>{statsRow}</Card>
               {location.source !== "default" ? (
-                <Card variant="muted" padding="three" style={styles.locationCard}>
+                <Card variant="muted" style={styles.locationCard}>
                   {location.label ? (
                     <View style={styles.locationRow}>
                       <SymbolView
@@ -762,18 +631,18 @@ export default function QiblaScreen() {
                   />
                 </Card>
               ) : null}
-              {defaultLocationCard}
               {hintCard}
-              {errorCard}
             </View>
           </View>
         ) : null}
+        {/* Warnings come before the compass: a fallback city must not look like a fix. */}
+        {twoPane ? null : defaultLocationCard}
+        {twoPane ? null : errorCard}
         {twoPane ? null : guidanceCard}
         {twoPane ? null : compassCard}
-        {twoPane ? null : defaultLocationCard}
         {twoPane ? null : hintCard}
-        {twoPane ? null : errorCard}
       </Stagger>
+      <QiblaStyleSheet visible={styleOpen} onClose={() => setStyleOpen(false)} />
     </ScreenLayout>
   );
 }
@@ -787,7 +656,12 @@ const styles = StyleSheet.create({
   primary: {
     flex: 1,
     minWidth: 0,
+    gap: Spacing.three,
   },
+  // A fallback city is approximate: the compass is dimmed (and badged) until a real fix.
+  compassApproximate: { opacity: 0.6 },
+  approximatePill: { alignSelf: "flex-start" },
+  accuracyLine: { textAlign: "center", marginTop: Spacing.two },
   aside: {
     width: 360,
     maxWidth: "40%",
@@ -806,7 +680,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   guidanceCard: {
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderCurve: "continuous",
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.four,
@@ -835,64 +709,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  dialOuter: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderCurve: "continuous",
-  },
-  dial: {
-    borderWidth: 1.5,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  dialInner: {
-    ...StyleSheet.absoluteFill,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  rotator: {
-    position: "absolute",
-    alignItems: "center",
-    pointerEvents: "none",
-  },
-  cardinalLabelWrap: {
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.one,
-    paddingVertical: Spacing.half,
-  },
-  cardinalLabel: {
-    fontWeight: "700",
-    letterSpacing: 0.5,
-  },
-  qiblaBadgeRotator: {
-    zIndex: 2,
-  },
-  needle: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  qiblaBadge: {
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  topPointer: {
-    position: "absolute",
-    top: 2,
-    width: 0,
-    height: 0,
-    borderLeftWidth: 8,
-    borderRightWidth: 8,
-    borderBottomWidth: 12,
-    borderLeftColor: "transparent",
-    borderRightColor: "transparent",
-  },
+
   statsRow: {
     flexDirection: "row",
     gap: Spacing.three,
@@ -903,7 +720,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "auto",
     flex: 1,
-    maxWidth: 360,
+    maxWidth: tvDp(360),
     paddingHorizontal: 0,
   },
   tvHintCard: {
@@ -917,7 +734,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     gap: Spacing.half,
     alignItems: "center",
+    justifyContent: "center",
   },
+  statText: { textAlign: "center" },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

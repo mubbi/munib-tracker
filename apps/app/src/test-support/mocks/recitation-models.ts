@@ -63,5 +63,8 @@ export const recitationModelsMock = {
     },
   },
   webModelUrl: (engine: string, file: { fileName: string }) => `/models/${engine}/${file.fileName}`,
+  webSourceUrl: (engine: string, file: { fileName: string; webUrl?: string }) =>
+    file.webUrl ?? `/models/${engine}/${file.fileName}`,
   ORT_WEB_VERSION: "test",
+  ORT_WEB_BASE: "/ort/test/",
 };

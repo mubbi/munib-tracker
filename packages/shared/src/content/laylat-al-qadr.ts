@@ -108,7 +108,7 @@ export const LAYLAT_AL_QADR_TOPICS: LearnGuideTopic[] = [
       {
         collection: "Sunan al-Tirmidhi",
         citation: "3513",
-        grade: "hasan",
+        grade: "sahih",
         excerpt:
           "I said: O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it? He said: Say — Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni (O Allah, You are Forgiving, and You love forgiveness, so forgive me).",
       },

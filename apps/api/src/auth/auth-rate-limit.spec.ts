@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   isAuthDeleteAccountRateLimited,
+  isAuthGuestCreateRateLimited,
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
@@ -29,6 +30,7 @@ describe("auth-rate-limit", () => {
 
   it.each([
     ["guest", isAuthGuestRateLimited, 30],
+    ["guest-create", isAuthGuestCreateRateLimited, 60],
     ["refresh", isAuthRefreshRateLimited, 60],
     ["oauth", isAuthOAuthRateLimited, 30],
     ["delete-account", isAuthDeleteAccountRateLimited, 3],

@@ -3,7 +3,7 @@ import { StyleSheet, View, type ViewStyle } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
-import { Shadows } from "@/constants/theme";
+import { BorderWidth, Shadows } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
@@ -11,6 +11,11 @@ import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
 type ProgressRingProps = {
   /** Progress from 0 to 1. */
   progress: number;
+  /**
+   * What is progressing ("Today's Salah"). Spoken with the percentage, so it
+   * must not repeat the number (F-53).
+   */
+  accessibilityLabel: string;
   size?: number;
   stroke?: number;
   color?: string;
@@ -25,6 +30,8 @@ type ProgressRingProps = {
 };
 
 const COUNT_UP_MS = 900;
+/** Grace after the count-up before the value is forced to the target (see below). */
+const SETTLE_GRACE_MS = 200;
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
 /**
@@ -35,6 +42,7 @@ const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
  */
 export function ProgressRing({
   progress,
+  accessibilityLabel,
   size = 132,
   stroke = 12,
   color,
@@ -82,19 +90,32 @@ export function ProgressRing({
     };
 
     rafRef.current = requestAnimationFrame(tick);
+    // Safety net: frame callbacks can be dropped while the activity resumes (a Salah
+    // marked from the focus-lock overlay landed here with the ring stuck at 0% next
+    // to "1 of 5 logged"). Whatever happens to the frames, settle on the real value.
+    const settle = setTimeout(() => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      displayRef.current = target;
+      setDisplay(target);
+    }, COUNT_UP_MS + SETTLE_GRACE_MS);
     return () => {
+      clearTimeout(settle);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, [target, reducedMotion]);
 
   const knob = stroke + 4;
+  // Compact rings (e.g. 64pt) need a smaller centre value or "100%" overflows the track.
+  const centreFontSize = valueFontSize ?? Math.min(30, Math.round(size * 0.28));
   const pct = Math.round(display * 100);
 
   return (
     <View
+      // One stop: name + percentage value (the drawn digits are not read twice).
+      accessible
       accessibilityRole="progressbar"
       accessibilityValue={{ now: Math.round(target * 100), min: 0, max: 100 }}
-      accessibilityLabel={caption ? `${Math.round(target * 100)}% ${caption}` : undefined}
+      accessibilityLabel={accessibilityLabel}
       style={[styles.root, chartCoordinateStyle, { width: size, height: size }, style]}
     >
       <ArcProgressRing
@@ -128,9 +149,7 @@ export function ProgressRing({
           style={[
             styles.value,
             { color: colors.foreground },
-            valueFontSize != null
-              ? { fontSize: valueFontSize, lineHeight: valueFontSize + 4 }
-              : null,
+            { fontSize: centreFontSize, lineHeight: centreFontSize + 4 },
           ]}
         >
           {pct}%
@@ -151,7 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   knob: {
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
   center: {
     alignItems: "center",

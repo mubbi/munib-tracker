@@ -21,7 +21,11 @@ export type HapticFeedback =
   | "selection"
   | "success"
   | "warning"
-  | "error";
+  | "error"
+  /** A very soft detent tick (Android `segment-tick`; `selection` elsewhere) — tasbeeh "Rich". */
+  | "tick"
+  /** A firmer detent (Android `clock-tick`; `medium` impact elsewhere) — tasbeeh spacer beads. */
+  | "detent";
 
 // Haptics are a phone-only nicety. Guard so web / TV (and any unsupported
 // platform) simply no-ops instead of throwing.
@@ -37,6 +41,19 @@ export function syncHapticsEnabled(enabled: boolean): void {
 
 export function isHapticsEnabled(): boolean {
   return supported && hapticsEnabled;
+}
+
+/**
+ * Android haptic primitives (expo-haptics `performAndroidHapticsAsync`). Returns
+ * false when unavailable so the caller falls back to a cross-platform style.
+ */
+function androidPrimitive(type: "segment-tick" | "clock-tick"): boolean {
+  if (Platform.OS !== "android") return false;
+  const perform = (Haptics as { performAndroidHapticsAsync?: (t: string) => Promise<void> })
+    .performAndroidHapticsAsync;
+  if (typeof perform !== "function") return false;
+  void perform(type);
+  return true;
 }
 
 /**
@@ -67,6 +84,14 @@ export function triggerHaptic(type: HapticFeedback = "light"): void {
         break;
       case "error":
         void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        break;
+      case "tick":
+        if (!androidPrimitive("segment-tick")) void Haptics.selectionAsync();
+        break;
+      case "detent":
+        if (!androidPrimitive("clock-tick")) {
+          void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        }
         break;
     }
   } catch {

@@ -1,11 +1,6 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { useReducedMotion } from "framer-motion";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { Magnetic, SpotlightCard, Tilt } from "./interactive";
-
-vi.mock("framer-motion", async (importOriginal) =>
-  (await import("@/test-support/motion")).mockFramerMotion(importOriginal),
-);
+import { fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { Magnetic, SpotlightCard } from "./interactive";
 
 const RECT = { left: 100, top: 50, width: 200, height: 100 };
 
@@ -18,6 +13,21 @@ function mockRect(el: HTMLElement): HTMLElement {
 function wrapperOf(text: string): HTMLElement {
   return screen.getByText(text).parentElement as HTMLElement;
 }
+
+/** Make `prefers-reduced-motion: reduce` match (or not) for the next render. */
+function setReducedMotion(reduce: boolean) {
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn((query: string) => ({
+      matches: reduce && query.includes("prefers-reduced-motion"),
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    })),
+  );
+}
+
+afterEach(() => vi.unstubAllGlobals());
 
 describe("SpotlightCard", () => {
   it("tracks the cursor position relative to the card in CSS variables", () => {
@@ -37,10 +47,8 @@ describe("SpotlightCard", () => {
 });
 
 describe("Magnetic", () => {
-  beforeEach(() => vi.clearAllMocks());
-
   function setupMagnetic(reduceMotion = false) {
-    vi.mocked(useReducedMotion).mockReturnValue(reduceMotion);
+    setReducedMotion(reduceMotion);
     render(
       <Magnetic className="extra">
         <span>content</span>
@@ -49,64 +57,27 @@ describe("Magnetic", () => {
     return mockRect(wrapperOf("content"));
   }
 
-  it("leans toward the cursor", async () => {
+  it("leans toward the cursor", () => {
     const el = setupMagnetic();
     // Centre is (200, 100); 30% of the (+100, +50) offset.
     fireEvent.mouseMove(el, { clientX: 300, clientY: 150 });
-    await waitFor(() => expect(el.style.transform).toContain("translateX(30px)"));
+    expect(el.style.transform).toContain("translateX(30px)");
     expect(el.style.transform).toContain("translateY(15px)");
   });
 
-  it("springs back when the cursor leaves", async () => {
+  it("springs back when the cursor leaves", () => {
     const el = setupMagnetic();
     fireEvent.mouseMove(el, { clientX: 300, clientY: 150 });
-    await waitFor(() => expect(el.style.transform).toContain("translateX(30px)"));
     fireEvent.mouseLeave(el);
-    await waitFor(() => expect(el.style.transform).not.toContain("translateX(30px)"));
+    expect(el.style.transform).toBe("");
+    // The return is animated by CSS, not script.
+    expect(el.className).toContain("transition-transform");
   });
 
-  it("stays still when the user prefers reduced motion", async () => {
+  it("stays still when the user prefers reduced motion", () => {
     const el = setupMagnetic(true);
     fireEvent.mouseMove(el, { clientX: 300, clientY: 150 });
-    await new Promise((resolve) => setTimeout(resolve, 50));
-    expect(el.style.transform).not.toContain("translateX(30px)");
+    expect(el.style.transform).toBe("");
     expect(el).toHaveClass("inline-flex", "extra");
-  });
-});
-
-describe("Tilt", () => {
-  beforeEach(() => vi.clearAllMocks());
-
-  function setupTilt(reduceMotion = false) {
-    vi.mocked(useReducedMotion).mockReturnValue(reduceMotion);
-    render(
-      <Tilt max={10}>
-        <span>content</span>
-      </Tilt>,
-    );
-    return mockRect(wrapperOf("content"));
-  }
-
-  it("rotates toward the cursor up to the max angle", async () => {
-    const el = setupTilt();
-    // Bottom-right corner → px = py = 1 → rotateX = -max, rotateY = +max.
-    fireEvent.mouseMove(el, { clientX: 300, clientY: 150 });
-    await waitFor(() => expect(el.style.transform).toContain("rotateX(-10deg)"));
-    expect(el.style.transform).toContain("rotateY(10deg)");
-  });
-
-  it("returns to flat when the cursor leaves", async () => {
-    const el = setupTilt();
-    fireEvent.mouseMove(el, { clientX: 300, clientY: 150 });
-    await waitFor(() => expect(el.style.transform).toContain("rotateX(-10deg)"));
-    fireEvent.mouseLeave(el);
-    await waitFor(() => expect(el.style.transform).not.toContain("rotateX(-10deg)"));
-  });
-
-  it("ignores the cursor when the user prefers reduced motion", async () => {
-    const el = setupTilt(true);
-    fireEvent.mouseMove(el, { clientX: 300, clientY: 150 });
-    await new Promise((resolve) => setTimeout(resolve, 50));
-    expect(el.style.transform).not.toContain("rotateX(-10deg)");
   });
 });

@@ -1,18 +1,16 @@
+import {
+  APP_FEEDBACK_MAX_RATING,
+  APP_FEEDBACK_MIN_RATING,
+  APP_FEEDBACK_TRIGGER_IDS,
+} from "@munib-tracker/shared/reviews/triggers.js";
 import { IsIn, IsInt, IsOptional, IsString, Max, MaxLength, Min } from "class-validator";
 
-const TRIGGER_VALUES = [
-  "perfect_day",
-  "achievement_unlock",
-  "weekly_report",
-  "streak_milestone",
-  "qaza_cleared",
-  "manual",
-] as const;
+const TRIGGER_VALUES = Object.values(APP_FEEDBACK_TRIGGER_IDS);
 
 export class SubmitAppFeedbackDto {
   @IsInt()
-  @Min(1)
-  @Max(3)
+  @Min(APP_FEEDBACK_MIN_RATING)
+  @Max(APP_FEEDBACK_MAX_RATING)
   rating!: number;
 
   @IsOptional()
@@ -25,7 +23,7 @@ export class SubmitAppFeedbackDto {
   source!: string;
 
   @IsOptional()
-  @IsIn(TRIGGER_VALUES as unknown as string[])
+  @IsIn(TRIGGER_VALUES)
   triggerId?: string;
 
   @IsString()

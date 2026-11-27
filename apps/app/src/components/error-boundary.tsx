@@ -1,9 +1,10 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { Spacing } from "@/constants/theme";
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useTheme } from "@/hooks/use-theme";
 import { captureAppException } from "@/lib/sentry";
@@ -14,19 +15,13 @@ export function ErrorFallback({ onReset }: { onReset: () => void }) {
   const { t } = useTranslation();
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.foreground }]}>{t("errors.title")}</Text>
-      <Text style={[styles.body, { color: colors.mutedForeground }]}>{t("errors.body")}</Text>
-      <PressableScale
-        onPress={onReset}
-        accessibilityRole="button"
-        accessibilityLabel={t("common.tryAgain")}
-        haptic="light"
-        style={[styles.button, { backgroundColor: colors.accent }]}
-      >
-        <Text style={[styles.buttonLabel, { color: colors.accentForeground }]}>
-          {t("common.tryAgain")}
-        </Text>
-      </PressableScale>
+      <ThemedText type="title" heading={2} style={styles.centered}>
+        {t("errors.title")}
+      </ThemedText>
+      <ThemedText themeColor="mutedForeground" style={[styles.centered, styles.body]}>
+        {t("errors.body")}
+      </ThemedText>
+      <Button label={t("common.tryAgain")} onPress={onReset} preferredFocus style={styles.button} />
     </View>
   );
 }
@@ -87,25 +82,13 @@ const styles = StyleSheet.create({
     padding: Spacing.four,
     gap: Spacing.three,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
+  centered: {
     textAlign: "center",
   },
   body: {
-    fontSize: 15,
-    lineHeight: 22,
-    textAlign: "center",
-    maxWidth: 320,
+    maxWidth: 360,
   },
   button: {
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
-    borderRadius: Radius.md,
     marginTop: Spacing.two,
-  },
-  buttonLabel: {
-    fontSize: 16,
-    fontWeight: "600",
   },
 });

@@ -1,0 +1,26 @@
+{
+  "footer": "الصلاة · الذكر · القضاء · القرآن · التعلّم",
+  "home": {
+    "title": "الصلاة والقضاء والذكر والقرآن في تطبيق واحد هادئ"
+  },
+  "feature": {
+    "eyebrow": "ميزة",
+    "alt": "ميزة في {appName}"
+  },
+  "compare": {
+    "eyebrow": "مقارنة",
+    "eyebrowRoundup": "جولة على التطبيقات",
+    "fallbackTitle": "قارن بين التطبيقات الإسلامية",
+    "alt": "مقارنة تطبيق {appName}"
+  },
+  "audience": {
+    "eyebrow": "لمن هذا التطبيق",
+    "alt": "{appName}"
+  },
+  "guide": {
+    "eyebrow": "دليل · {category}",
+    "fallbackCategory": "المصادر",
+    "fallbackTitle": "أدلة {appName}",
+    "alt": "دليل من {appName}"
+  }
+}

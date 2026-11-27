@@ -9,6 +9,7 @@ import {
   getDeviceLocation,
   getLocationPermissionGranted,
   locationCalcExtras,
+  normalizeCountryCode,
   resolvePlaceFromCoordinates,
   reverseGeocodeCacheKey,
   searchLocations,
@@ -35,6 +36,13 @@ const KARACHI = {
   country_code: "PK",
   admin1: "Sindh",
 };
+
+beforeEach(() => {
+  // The OS geocoder finds nothing, so `lib/location` falls through to the
+  // (mocked) BigDataCloud fetch — the path these suites exercise. The global
+  // jest.setup mock returns an empty hit instead, to keep other suites offline.
+  jest.mocked(Location.reverseGeocodeAsync).mockResolvedValue([]);
+});
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -87,10 +95,12 @@ describe("getDeviceLocation", () => {
       longitude: 67.0011,
       city: "Karachi",
       country: "Pakistan",
+      countryCode: "PK",
     });
 
     expect(result.status).toBe("granted");
     if (result.status === "granted") {
+      expect(result.location.countryCode).toBe("PK");
       expect(result.location.city).toBe("Karachi");
       expect(result.location.country).toBe("Pakistan");
       expect(result.location.label).toBe("Karachi, Pakistan");
@@ -102,7 +112,7 @@ describe("getDeviceLocation", () => {
     const key = reverseGeocodeCacheKey(24.8608, 67.0011);
     await AsyncStorage.setItem(
       DB_KEYS.reverseGeocodeCache,
-      JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan" } }),
+      JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan", countryCode: "PK" } }),
     );
     const fetchMock = mockFetch();
 
@@ -140,7 +150,7 @@ describe("resolvePlaceFromCoordinates", () => {
     const key = reverseGeocodeCacheKey(24.8608, 67.0011);
     await AsyncStorage.setItem(
       DB_KEYS.reverseGeocodeCache,
-      JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan" } }),
+      JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan", countryCode: "PK" } }),
     );
     const fetchMock = mockFetch();
 
@@ -149,9 +159,37 @@ describe("resolvePlaceFromCoordinates", () => {
     expect(place).toEqual({
       city: "Karachi",
       country: "Pakistan",
+      countryCode: "PK",
       label: "Karachi, Pakistan",
     });
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("re-geocodes a cached place saved before country codes, once", async () => {
+    const key = reverseGeocodeCacheKey(24.8608, 67.0011);
+    await AsyncStorage.setItem(
+      DB_KEYS.reverseGeocodeCache,
+      JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan" } }),
+    );
+    const fetchMock = mockFetch(
+      fakeResponse({ city: "Karachi", countryName: "Pakistan", countryCode: "pk" }),
+    );
+
+    expect((await resolvePlaceFromCoordinates(24.8608, 67.0011)).countryCode).toBe("PK");
+    expect((await resolvePlaceFromCoordinates(24.8608, 67.0011)).countryCode).toBe("PK");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the old cached name when the refresh fails (never blocks)", async () => {
+    const key = reverseGeocodeCacheKey(24.8608, 67.0011);
+    await AsyncStorage.setItem(
+      DB_KEYS.reverseGeocodeCache,
+      JSON.stringify({ [key]: { city: "Karachi", country: "Pakistan" } }),
+    );
+    mockFetch(new Error("offline"));
+    const place = await resolvePlaceFromCoordinates(24.8608, 67.0011);
+    expect(place.label).toBe("Karachi, Pakistan");
+    expect(place.countryCode).toBeUndefined();
   });
 
   it("falls back to coordinates when reverse geocoding fails", async () => {
@@ -160,6 +198,30 @@ describe("resolvePlaceFromCoordinates", () => {
     const place = await resolvePlaceFromCoordinates(12.34, 56.78);
 
     expect(place.label).toBe("12.34, 56.78");
+  });
+});
+
+describe("reverse geocode timeout", () => {
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.mocked(globalThis.fetch).mockRestore?.();
+  });
+
+  it("gives up on an unanswered geocoder request and falls back to coordinates", async () => {
+    jest.useFakeTimers();
+    const fetchMock = jest.fn(
+      (_url: string, init?: RequestInit) =>
+        new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener("abort", () => reject(new Error("aborted")));
+        }),
+    );
+    jest.spyOn(globalThis, "fetch").mockImplementation(fetchMock as unknown as typeof fetch);
+
+    const pending = resolvePlaceFromCoordinates(-33.91, 18.42);
+    await jest.advanceTimersByTimeAsync(8_000);
+
+    await expect(pending).resolves.toMatchObject({ label: "-33.91, 18.42" });
+    expect(fetchMock.mock.calls[0]?.[1]?.signal).toBeDefined();
   });
 });
 
@@ -179,6 +241,7 @@ describe("searchLocations", () => {
       name: "Karachi",
       admin: "Sindh",
       country: "Pakistan",
+      countryCode: "PK",
       latitude: 24.8608,
       longitude: 67.0011,
       label: "Karachi, Pakistan",
@@ -360,16 +423,35 @@ describe("location extras", () => {
       );
     });
 
-    it("reports an error when GPS times out with no last known fix", async () => {
+    it("reports a quiet timeout when GPS times out with no last known fix", async () => {
       jest.useFakeTimers();
       const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
       mockGetCurrentPosition.mockReturnValue(new Promise(() => {}));
       const pending = getDeviceLocation();
       await jest.advanceTimersByTimeAsync(10_000);
-      await expect(pending).resolves.toEqual({ status: "error" });
+      await expect(pending).resolves.toEqual({ status: "error", reason: "timeout" });
+      // An expected "no fix" is not a bug — no dev warning.
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
+
+    it("treats a browser position-unavailable error as a quiet timeout", async () => {
+      const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+      mockGetCurrentPosition.mockRejectedValueOnce(
+        Object.assign(new Error("unavailable"), { code: 2 }),
+      );
+      await expect(getDeviceLocation()).resolves.toEqual({ status: "error", reason: "timeout" });
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
+
+    it("still warns on unexpected failures", async () => {
+      const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+      mockGetCurrentPosition.mockRejectedValueOnce(new Error("boom"));
+      await expect(getDeviceLocation()).resolves.toEqual({ status: "error" });
       expect(warn).toHaveBeenCalledWith(
         "[location] device location failed:",
-        expect.objectContaining({ message: "Location request timed out" }),
+        expect.objectContaining({ message: "boom" }),
       );
       warn.mockRestore();
     });
@@ -390,5 +472,14 @@ describe("location extras", () => {
     expect(results[2]).toEqual(
       expect.objectContaining({ label: "Gamma", timeZone: "Asia/Karachi", country: undefined }),
     );
+  });
+});
+
+describe("normalizeCountryCode", () => {
+  it("keeps two-letter ISO codes, uppercased", () => {
+    expect(normalizeCountryCode("pk")).toBe("PK");
+    expect(normalizeCountryCode(" GB ")).toBe("GB");
+    expect(normalizeCountryCode("PAK")).toBeUndefined();
+    expect(normalizeCountryCode(null)).toBeUndefined();
   });
 });

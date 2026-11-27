@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "İslamda təmizlənmənin iki ölçüsü var. Zahiri təmizlik hiss olunur - yumaq, çirkləri çıxarmaq, təmiz saxlamaq. Batin, təvazökarlıq, təfəkkür və qəlbin hazır olmasıdır ki, yuyulmanın oyatmaq üçün nəzərdə tutulmuşdur. Peyğəmbər (salləllahu aleyhi və səlləm) cismani təmizliyi nəfsin günahdan paklanması ilə birləşdirərək “imanın yarısı” deyəndə ikisini bir-birinə bağladı.",
       "Bu modul bütün mövzunu ardıcıllıqla gəzir: təmizlədiyin su, dəstəmaz (kiçik dəstəmaz), qüsl (tam hamam), təyəmmüm (sudan istifadə edilmədikdə quru təmizlənmə), nəcasə (fiziki çirkinliyi aradan qaldırmaq) və xüsusi hallar və güzəştlər. Bunu bir dəfə öyrənin və dua şübhə ilə deyil, inamla girə biləcəyiniz bir şeyə çevrilir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, namaza qalxdığınız zaman üzünüzü və dirsəklərə qədər qollarınızı yuyun, başınıza məsh çəkin, topuqlara qədər ayaqlarınızı yuyun.",
-      },
-      {
-        excerpt: "Həqiqətən, Allah tövbə edənləri və pak olanları sevər.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namazın açarı paklıqdır; başlanğıcı təkbir, sonu isə təslimdir. (Əli; həmçinin Cami ət-Tirmizi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Təmizliyi tələsik iş deyil, Allahla görüşə hazırlıq kimi qəbul edin.",
       "Bütün axın təbii hiss olunana qədər hər gün bir təharət mövzusunu öyrənin.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Peyğəmbər (s) paklığı möminin müəyyən xüsusiyyətinə yüksəltmiş və onu “imanın yarısı” adlandırmışdır. Daimi təmizlənmə insanı tərbiyə edir, onu ibadətə demək olar ki, daimi hazır vəziyyətdə saxlayır və - hədis öyrədir - kiçik günahları sözün əsl mənasında su ilə yuyur.",
       "Namazı qoruduğu üçün təharət də mömini ehtiyatsızlıq üzündən batil namaz qılmaq günahından qoruyar. Buna görə də onun hökmlərini yaxşı öyrənmək İslamın ən böyük əməllərindən birini qorumaqdır.",
     ],
-    hadith: [
-      {
-        excerpt: "Təmizlənmə imanın yarısıdır. (Əbu Malik əl-Əşari)",
-      },
-      {
-        excerpt:
-          "Allah paklanmadan namazı və oğurlanandan verilən sədəqəni qəbul etməz. (İbn Ömər)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Hər namazdan əvvəl, başlamazdan əvvəl təmizliyinizi təsdiqləyin.",
       "Sadə bir zehni yoxlama siyahısı saxlayın: bədən, geyim, yer və dəstəmaz.",
@@ -66,12 +45,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Böyük ayin nəcisləri (hədəs-əkbər, cənab də adlanır) yaxınlıq, cinsi ifrazat və menstruasiya və ya doğuşdan sonrakı qanaxmanın bitməsi nəticəsində yaranır. Qüsllə, yəni bütün bədəni əhatə edən ibadət hamamı ilə qaldırılır - su tapılmadıqda və ya zərərli olduqda yenidən təyəmmümlə əvəz edilir.",
       "Sidik, nəcis və ya axan qan kimi fiziki murdarlıq (nəcasə) ayrı bir məsələdir: ritual vəziyyətindən asılı olmayaraq bədəndən, paltardan və namaz yerindən fiziki olaraq təmizlənməlidir. Dörd sünni məzhəbi bu üç kateqoriyada həmfikirdirlər, yalnız nəyin paklığı ləğv etdiyi və ya hansı miqdarların üzrlü olduğuna dair bəzi təfərrüatlarda fərqlənirlər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Əgər cənabətdəsinizsə, özünüzü təmizləyin. Əgər xəstəsinizsə və ya səfərdəsinizsə... su tapmasanız, təmiz torpaqla təyəmmüm edin.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Əvvəlcə vəziyyətinizi müəyyən edin (kiçik, əsas və ya çirkin), sonra düzgün metodu tətbiq edin.",
       "Təfərrüatlar barədə əmin olmadığınız zaman, tanınmış məktəbdən bir ixtisaslı müəllimi ardıcıl olaraq izləyin.",
@@ -86,17 +60,8 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Fəqihlər suyu təfərrüatlı şəkildə (təmiz və təmizləyici, pak, lakin təmizləyici olmayan və natəmiz) kateqoriyalara ayırırlar, lakin gündəlik həyat üçün əməli qayda sadədir: bir nəcasə onu açıq-aşkar dəyişdirməsə, su dəstəmaz və qüslə uyğun olaraq qalır. Mövcud təmiz alternativlə əsl şübhəniz olduqda, alternativdən istifadə edin.",
       "İslam israf etmədən hərtərəfli olmağı öyrədir. Peyğəmbər (s) tamamilə yuyunsa da, olduqca az su istifadə etdi - dəstəmaz üçün bir palçıq (iki ovuc ovuc), tam qüsl üçün isə bir sa (təxminən dörd). Suyun çox olduğu halda belə israf etməkdən çəkindirilir, çünki mötədillik özü də ibadət ədəbindəndir.",
     ],
-    quran: [
-      {
-        excerpt: "Biz göydən təmiz su endirdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər (salləllahu aleyhi və səlləm) bir palçıq su ilə dəstəmaz, beş muda qədər sa' ilə qüsl alırdı. (Ənəs; həmçinin Səhih Müslim 325 - mötədillik sünnəsi)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Hərtərəfli yuyulmaq üçün kifayət qədər su istifadə edin, lakin kranı aşağı çevirin və artıqlığın qarşısını alın.",
       "Su mənbəyi çirkliliklə dəyişmiş görünürsə və ya iyi gəlirsə, ən yaxın təmiz mənbəni axtarın.",
@@ -112,12 +77,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Hər namazdan əvvəl - əvvəlki namazdan sonra səhih vəziyyətdə qalmadığınız halda - və əksər alimlərin fikrincə, Kəbə ətrafında təvaf etməzdən əvvəl və Qur'anın fiziki mətninə (müshaf) toxunmazdan əvvəl lazımdır.",
       "Dəstəmaz özlüyündə bir ibadətdir, sadəcə bir başlanğıc deyil. Peyğəmbər (salləllahu aleyhi və səlləm) xəbərdar etdi ki, “Sizlərdən heç biriniz dəstəmazını pozana qədər Allah onun namazını qəbul etməz” – ona görə də onu qorumaq namazın özünü qorumaqdır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah sizlərdən birinizin dəstəmazını pozana qədər onun namazını qəbul etməz. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -126,14 +86,9 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
     body: [
       "Dəstəmazın sayılması üçün müəyyən şərtlər (şurut) olmalıdır. İnsan ibadət (niyyah) üçün təmizlənmək niyyətində olan sağlam düşüncəli müsəlman olmalıdır. Bəzi məktəblər niyyəti hərəkətin sütunu, digərləri isə şərt kimi təsnif edir, lakin hamı bunun mükafat və əksəriyyət üçün etibarlılıq üçün tələb olunduğu ilə razılaşır.",
       "İstifadə olunan su saf və təmizləyici olmalıdır. Əsas odur ki, o, həqiqətən dəriyə çatmalıdır - buna görə də bir əza üzərində suya davamlı maneə yaradan hər şey (qalın boya, dırnaq lakı, mum, yapışqan) əvvəlcə çıxarılmalı və ya onun altındakı yuyulma etibarlı deyil. Suya mane olmayan adi kir və ya xına ləkəsi problem deyil.",
-      "Şafii və Hənbəli məzhəbləri də yuyunmaların Qur'an qaydasına uyğun və uzun fasiləsiz (muvalat) edilərək üzvlərin qurumasını tələb edir. Hənəfi və Malikinin ciddi ardıcıllıq və davamlılıq mövqeyi bəzi hallarda daha yumşaqdır. Ardıcıllıq üçün bir məktəbin metoduna əməl edin.",
+      "Şafii və Hənbəli məzhəbləri həmçinin üzvlərin Quranda göstərilən ardıcıllıqla yuyulmasını (tərtib), Maliki və Hənbəli məzhəbləri isə üzvlərin, yuyulmuş üzvlər quruyacaq qədər uzun fasilə verilmədən bir-birinin ardınca yuyulmasını (müvalat) şərt qoyur. Hənəfi məzhəbi hər ikisini sünnə sayır. Vahid yanaşma üçün bir məzhəbin üsuluna əməl edin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Üzünüzü və qollarınızı dirsəklərə qədər yuyun, başınıza məsh çəkin və topuqlara qədər ayaqlarınızı yuyun.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Dəstəmazdan əvvəl dırnaq lakını, suyu tutan üzükləri və dərini bağlayan hər şeyi çıxarın.",
       "Dəstəmazı bir axarda sakitcə alın ki, heç bir üzv əskik olmasın və ya qurumasın.",
@@ -144,15 +99,10 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
     summary: "Dəstəmaz batil olmayan Qur'an rüknləri (fəraid).",
     body: [
       "Dəstəmazın vacib əməlləri Allahın ayədə qeyd etdiyi hissələrdir: Bütün üzü yumaq; hər iki qolun dirsəklərə qədər yuyulması; başını silmək; və iki ayağı da topuğa qədər yumaq. Bunlardan hər hansı birini qaçırsanız, dəstəmazı natamamdır.",
-      "Bunlara məktəblər sünnədən və fiqhi mülahizələrdən əlavə öhdəliklər əlavə edirlər. Əksər məzhəblərdə niyyət vacibdir (Hənəfilər bunu kiçik murdarlığı aradan qaldırmaq üçün güclü vurğulanan sünnə kimi təsnif edirlər). Nizam (tartib) və davamlılıq (müvalət) Şafii və Hənbəlilərə vacibdir. Malikilər əzalara sürtməyi (dalk) vacib hesab edirlər.",
+      "Bunlara məzhəblər Sünnədən və fiqhi mühakimədən əlavə vaciblər artırır. Niyyət əksər məzhəblərdə vacibdir (Hənəfilər onu kiçik hədəsi qaldırmaq üçün müəkkəd sünnə hesab edirlər). Ardıcıllıq (tərtib) Şafii və Hənbəlilərə görə, fasiləsizlik (müvalat) isə Maliki və Hənbəlilərə görə vacibdir. Malikilər üzvləri ovuşdurmağı (dəlk) da vacib sayırlar.",
       "Bunlardan başqa hər şey - ağız və burnu yaxalamaq, əvvəl əlləri yumaq, üç dəfə yumaq - vacib deyil, müstəhəbbdir (sünnə). Fərqi bilmək o deməkdir ki, siz dəstəmazın sadəcə qeyri-kamil olduğunu və əslində etibarsız olduğunu deyə bilərsiniz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Üzünüzü və qollarınızı dirsəklərə qədər yuyun, başınıza məsh çəkin və topuqlara qədər ayaqlarınızı yuyun.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Fəraidlərin dəqiq siyahısı (məsələn, niyyət, əmr və sürtmək vacib olub-olmaması) dörd məzhəb arasında fərqlidir. Bir etibarlı məktəbi ardıcıl olaraq öyrənin və tətbiq edin.",
   },
@@ -164,12 +114,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Sabit sünnə əməllərə aşağıdakılar daxildir: başlanğıcda “Bismillah” demək; başlamazdan əvvəl əlləri üç dəfə yuyun; ağız (mədmədə) və burnu (istinşaq) yaxalamaq; yaş barmaqları qalın saqqaldan və barmaq və ayaq barmaqlarının arasında gəzdirmək (təhlil); hər bir cüt üzvü sağdan başlayaraq; və hər yuyulma üç dəfəyə qədər təkrarlanır.",
       "İki sünnəni xüsusi qeyd etmək lazımdır: misvakdan (Misvakdan) əvvəlcədən istifadə etmək - Peyğəmbərin  az qala vacib etdiyi misvak - bitirdikdən sonra iman şəhadətini oxumaq ki, bunu deyənə Cənnətin səkkiz qapısını açır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim yaxşı dəstəmaz alar, sonra “Şəhadət verirəm ki, Allahdan başqa ilah yoxdur... və Muhəmməd Onun qulu və Rəsuludur” desə, Cənnətin səkkiz qapısı onun üzünə açılır. (Ömər ibn əl-Xəttab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Təbii rutininizə çevrilənə qədər tam sünnət ardıcıllığını tətbiq edin.",
       "Hər dəfə dəstəmazdan sonrakı şəhadəti oxuyun.",
@@ -224,12 +169,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
         tip: "Qısa, lakin çox mükafatlandırılan bir sünnə.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Osman, Peyğəmbərin (sallallahu aleyhi və səlləm) gördüyü kimi hər bir üzvünü üç dəfə yudu, sonra dedi: “Kim belə dəstəmaz alar və iki rükət namaz qılarsa, keçmiş günahları bağışlanar. (Humran, Osmandan)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -240,12 +180,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Bilmək lazımdır ki, bəzi kitabçalarda keçən hər bir üzv üçün təfərrüatlı dua (əl, üz, qol və s. yuyarkən xüsusi dua) Peyğəmbərdən (s) mötəbər mötəbərliklə təsdiqlənməmişdir. Alimlər dəstəmazda Allahı zikr etməyin heç bir eybi olmadığı halda, bunları ona sünnə aid etməməyi tövsiyə edirlər.",
       "İşin mahiyyəti hüzurdur: hər bir üzvün günahlarının azaldığını bilə-bilə yuyun və işi öz məqsədinə bağlayan şəhadətlə – yalnız Allaha imanla bitir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim yaxşı dəstəmaz alıb sonra iman şəhadətini oxuyarsa, Cənnətin səkkiz qapısı ona açılar ki, istədiyi qapıdan girsin. (Ömər)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Dəstəmazdan sonrakı şəhadəti əzbərləməmisinizsə, əzbərləyin.",
       "Təsdiq edilməmiş düsturları sünnə kimi söyləməkdən çəkinin.",
@@ -260,12 +195,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Digər məsələlərdə məktəblər arasında ehtiram fərqi var: övrətə birbaşa toxunmaq və əks cinsdən olan naməhrəmlə dəridən-qabıqdan təmas bəzi məktəblərdə eyni mətnlərin fərqli oxunuşlarına əsaslanaraq batildir, digərlərində isə yox.",
       "Həyati bir idarəetmə prinsipi sizi daimi narahatlıqdan (vəsvasdan) qoruyur: əminlik şübhə ilə aradan qaldırılmır. Əgər dəstəmaz almısınızsa və onu pozub-qalmadığınıza əmin deyilsinizsə, batilin baş verdiyinə əmin olana qədər dəstəmazlı sayılırsınız. Həzrət Peyğəmbər (s) bu hissdən narahat olan bir adama buyurmuşdur ki, “bir səs eşitməyincə və ya bir qoxu tapana qədər namazını tərk etmə”.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir səs eşitməyincə və ya qoxu tapmayınca (namazını) tərk etməməlidir. (Abbad ibn Təmim, əmisindən)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Qarşı cinsə toxunmağın, yaxud övrət yerinə toxunmağın dəstəmazı pozması məktəblər arasında fərqlidir. İxtisaslı yerli müəllimə və bir məktəbin metoduna əməl edin.",
   },
@@ -277,12 +207,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Həzrət Peyğəmbər (s) bir dəfə su onlara çatmadığı üçün dabanları quru qalan insanları gördü və kəskin şəkildə: “Vay halına cəhənnəm odunun dabanlarına!” dedi. Dabanlar, topuqlar və üzün küncləri ən çox diqqətdən kənarda qalan ləkələrdir.",
       "Əks xəta həddindən artıqdır: üç dəfədən çox yumaq və ya sudan israfçılıqla istifadə etmək, təvazökarlıq sünnəsinə ziddir. Digərləri dəstəmazı təkrar-təkrar təkrar edərək vəsvasa (obsesif şübhəyə) düşürlər - bu da səhvdir, çünki yəqinlik şübhə ilə pozulmur.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Vay halına Cəhənnəmdən! – dabanlarının dəstəmazda quru qaldığını görəndə dedi. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Yavaşlayın və hər yuyulmuş əzanın, xüsusən dabanların və dirsəklərin tam örtülməsini şüurlu şəkildə təsdiqləyin.",
       "orta dərəcədə su istifadə edin; obsesif şübhənin sizi lazımsız təkrarlara sövq etməsinə imkan verməyin.",
@@ -297,12 +222,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       'Bundan sonrakı həyatda da fərqləndirici bir şərəfdir. Qiyamət günü Peyğəmbər (salləllahu aleyhi və səlləm) öz ardıcıllarını üzlərində, əllərində və ayaqlarında olan dəstəmazın izlərindən gələn nurdan tanıyacaqdır - bu ümmətə xas olan, "əl-gurrul-mühəccəlun" adlanan nurdur.',
       "Bu fəzilətlərə görə dəstəmazlı vəziyyətdə qalmaq müstəhəbb bir adətdir: onu hər namaz üçün təzələmək və dəstəmazlı yatmaq möminin qoruyucu işlərindəndir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ümmətim Qiyamət günü dəstəmaz izlərindən nurlu üzlər, əllər və ayaqlarla çağırılacaqdır. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Bacardığınız yerdə hər namaz pəncərəsi üçün dəstəmazı yeniləyin.",
       "Dəstəmazlı yatmağı gecənin sünnəti et.",
@@ -317,11 +237,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Onun mahiyyəti ondan ibarətdir ki, suyun xarici bədənin hər bir hissəsinə çatır - saçın kökləri, dəri qıvrımları, qulaqların arxasında, göbək və ayaq barmaqları arasında quru ləkələr qala bilməz. Ağız və burnu yaxalamaq bir çox alimlər tərəfindən qüslə daxildir.",
       "Cənabəni qaldırmaq niyyəti ilə alınan tək qüsl kiçik nəcasəti də aradan qaldırır, ona görə də qüsl almış şəxs ayrıca dəstəmazsız namaz qıla bilər (baxmayaraq ki, qüsl daxilində dəstəmaz almaq sünnətdir).",
     ],
-    quran: [
-      {
-        excerpt: "Əgər cənabətdəsinizsə, özünüzü təmizləyin.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -332,16 +248,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Vacib deyil, başqa qüsllər müstəhəbdir: Cümə günündən əvvəl cümə günü qüslü o qədər güclüdür ki, Peyğəmbər (sallallahu aleyhi və səlləm) bunu “həddi-büluğa çatmış hər kəsə borcdur” adlandırmışdır; iki bayram üçün qüsl; və həcc və ya ümrədən əvvəl ehram qüslü.",
       "Yeni bir müsəlmana İslama daxil olduqdan sonra qüsl alması göstərişi verilir ki, bu da bəzi alimlər tərəfindən vacib, bəziləri tərəfindən isə şiddətlə tövsiyə edilir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kişi arvadının dörd üzvü arasında oturub onunla yaxınlıq etdikdə qüsl vacib olur. (Əbu Hureyrə; həmçinin Səhih Müslim 348)",
-      },
-      {
-        excerpt:
-          "Cümə günü qüsl almaq həddi-büluğa çatmış hər kəsə vacibdir. (Əbu Səid əl-Xudri; həmçinin Səhih Müslim 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer: "Cümə və qüslünün vacib və ya müstəhəbb olması məktəbə və şəraitə görə dəyişir.",
     appLinks: [{}],
   },
@@ -383,12 +290,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
         tip: "Suyun baş dərisinə çatması şərti ilə qadınların hörüklü saçlarını açmasına ehtiyac yoxdur.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər (salləllahu aleyhi və səlləm) cənabədən qüsl alanda, əllərini yuyanda, namaz kimi dəstəmaz alar, barmaqlarını saçlarında gəzdirir, sonra üç dəfə başının üstünə və bədəninin qalan hissəsinə su tökürdü. (Aişə)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Ümumi qüsl xətaları",
@@ -398,12 +300,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "İkinci ümumi səhv quru ləkələri tərk etməkdir. Vacib odur ki, suyun bütün bədənə toxunması, başın köklərinə, qulaqlara, göbəkə, kürəyin kiçik hissəsinə və ya ayaq barmaqlarının arasına etinasız yanaşmaq qüslü yarımçıq qoyur. Əmin olmaq üçün suyu bu yerlərə sürtün.",
       "Saç üçün: Saçları hörük olan qadının hörükləri açması lazım deyil, nə qədər ki, su başın köklərinə çatsın - Peyğəmbər Ümmü Sələməyə dedi ki, başına üç ovuc tökmək kifayətdir. Kişinin saçları, adətən boş olduğundan, suyun köklərə çatması üçün işlənməlidir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Başınızın üstünə üç ovuc su tökmək kifayətdir, sonra özünüzə su tökün və təmizləndiniz - hörüklərinizi açmaq lazım deyil. (Ümmü Sələmə)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Birinci tökmədən əvvəl niyyəti deyin ki, yumaq qüsl sayılır.",
       "Asanlıqla buraxılan yerlərə su sürtün; qeyri-müəyyən olduqda, şübhə ilə bitirmək əvəzinə bir hissəni yenidən yuyun.",
@@ -417,18 +314,8 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Təyəmmüm xüsusilə bu ümmətə bir hədiyyədir: Peyğəmbər (s) buyurmuşdur: “Yer mənim üçün namaz yeri və paklanma vasitəsi edildi” və onu əvvəlki peyğəmbərlərə deyil, ona verilən xüsusi imtiyazlar sırasına saldı. O, dinin mərkəzi prinsipini təcəssüm etdirir - öhdəlik qalır, lakin çətinlik aradan qaldırılır.",
       "Bu müvəqqəti tədbirdir: su mövcud və istifadəyə yararlı olduqdan sonra su ilə adi təmizləmə davam etdirilir. Bəzi məktəblərə görə insan hər namaz üçün təyəmmümü təzələməlidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...və su tapmasanız, təmiz torpaqla təyəmmüm edin, onunla üzlərinizə və əllərinizə məsh edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yer mənim üçün ibadət yeri və paklanma vasitəsi edildi. (Cabir – Peyğəmbərə (sallallahu aleyhi və səlləm) verilən beş şeydən)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Təyəmmüm icazəli olduqda",
@@ -439,12 +326,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Üçüncüsü, mövcud olan az su daha vacib ehtiyaclar üçün, məsələn, içmək, öz və ya başqasının və ya bir heyvanın həyatını qorumaq üçün lazım olduqda. Hər bir halda şəriət həyat və sağlamlığın qorunmasını üstünlük verilən təmizlənmə üsulundan üstün tutur.",
       "Fəqihlər daha incə hədlər üzərində ixtilaf edirlər - insanın nə qədər su axtarmalı, nə qədər zərər qorxusu kifayətdir - lakin onlar əsas mərhəmətdə yekdildirlər: ibadət heç vaxt tərk edilmir, yalnız asanlaşdırılır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Təyəmmüm fəsillərində rəvayət edilmişdir: istifadəyə yararlı su olmadığı halda təmiz torpaqla təmizlənməyə güzəşt.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Təyəmmüm etməzdən əvvəl suyu ağlabatan şəkildə axtarın.",
       "Əgər həkim yara və ya xəstəliyi quru saxlamağı tövsiyə edərsə, ona əməl edin və təyəmmüm edin.",
@@ -480,12 +362,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
         tip: "Davamlı olaraq bir məktəbin metoduna əməl edin (biləklər və ön kollar).",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər (salləllahu aleyhi və səlləm) ovucları ilə yerə vurdu, sonra üzünə və əllərinə məsh çəkdi və Əmmərə bunun kifayət etdiyini öyrətdi. (Əmmar ibn Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Təyəmmümü pozan nədir?",
@@ -510,12 +387,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Çıxarılma çirkin göründüyü yerdə su ilə, maddə və onun izi yox olana qədər yuyulur. İslamda nəcasənin mənbələrinə də ciddi yanaşır: Peyğəmbər (s) xəbərdarlıq etmişdir ki, qəbrin əzabının çoxu sidiklə ehtiyatsızlıqdan – sidiklə sıçramaqdan və düzgün təmizlənməməkdən gəlir.",
       "Məktəblər bəzi maddələrin təsnifatı (məsələn, az miqdarda müəyyən mayelərin üzrlü olub-olmaması) və hansı iz miqdarının tolere ediləcəyi ilə bağlı fərqlidirlər. Gündəlik həyat üçün işlək prinsip: hərtərəfli təmizləyin və çirkinlik sübutu olmayan yerdə təmizliyə şübhə yaratmayın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Həzrət Peyğəmbər (s) iki qəbrin yanından keçərək, onların əhlinin cəzalandırıldıqlarını söylədi: biri böhtan atdığına görə, digəri isə sidiyindən qorunmadığına görə. (İbn Abbas; həmçinin Səhih Müslim 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Paltarları murdarlıqdan təmizləmək",
@@ -525,12 +397,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Səmimi və hərtərəfli səydən sonra çıxmayacaq zəif bir rəng ləkəsi və ya yüngül bir qoxu qalsa, alimlərin əksəriyyəti çıxarmaq həqiqətən çətin olanı bəhanə edir - öhdəlik ləkəsiz bir boyaya zəmanət vermək deyil, maddəni çıxarmaqdır.",
       "Bəzi halların öz tanınmış detalları var, məsələn, ana südü ilə qidalanan körpənin sidiyi (məlumatda verilən güzəştdə tam yuyulmuş deyil, səpilir) - buna görə də həqiqətən qarşılaşdığınız vəziyyətlər üçün məktəbinizin praktiki qaydalarını öyrənin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Paltarın heyz qanı haqqında: onu qaşımaq, sonra su ilə sürtmək, sonra yumaq və onunla namaz qılmaq. (Əsma bint Əbi Bəkr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namaz üçün ən azı bir təmiz paltar ayırın.",
       "Evdən uzaqda paltarlarınıza çirk toxunarsa, mümkün olanı yuyun və mümkün olduqda dəyişdirin.",
@@ -544,11 +411,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "İslam çirkinliyi aradan qaldırmaqla yanaşı, bədəni təmiz və ibadətə hazır saxlayan təbii gigiyena (fitrə) əsasını təşviq edir: dırnaqların kəsilməsi, qoltuqaltı və qasıq tüklərinin çıxarılması və s.",
       "Bu əməllər sadəcə mədəni incəliklər deyil, möminin duada Allah qarşısında özünü göstərdiyi ləyaqət və təmizliyin bir hissəsidir.",
     ],
-    hadith: [
-      {
-        excerpt: "Peyğəmbər  sağaldıqdan sonra su ilə təmizlənirdi. (Ənəs)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tualetdən istifadə etdikdən sonra həmişə dəstəmazdan əvvəl istincanı tamamlayın.",
       "Səyahət zamanı salfetlər və bacardığınız yerdə su aparın.",
@@ -562,12 +425,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "İdarəetmə qaydası əminlikdir. Yer bütövlükdə ibadət yeri olub, ona görə də sizdə murdarlığa dair real dəlil yoxdursa, səth təmiz sayılır. Əgər murdarlıq olduğunu bilirsinizsə, onu çıxarın və ya təmiz yerə keçin; sadəcə orada ola biləcəyini təsəvvür edirsinizsə, pıçıltıya məhəl qoymayın və davam edin.",
       "Bu tarazlıq qoruyucuları iki ifratdan ibadət edirlər: açıq-aşkar çirkli torpaqda ehtiyatsızlıqla dua etmək və hər səthə dair əsassız şübhə ilə iflic olmaq.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir bədəvi məsciddə idrar edərkən Peyğəmbər (s) üzərinə bir vedrə su tökməyi əmr etdi. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namazdan əvvəl döşəyinizə və döşəməyə nəzər salın.",
       "Əsl çirkin dəlil olmadan, əsassız şübhələri rədd edin və dua edin.",
@@ -581,12 +439,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Oruc tutmaq fərqlidir: Ramazanda heyz səbəbiylə tutulmayan oruclar sonradan qəza edilir, namaz isə sadəcə olaraq qaldırılır. Qanaxma bitdikdə və paklıq əlaməti göründükdə qadın qüsl alıb namaza və oruc tutmağa davam edər.",
       "Heyd və nifasın dəqiq minimum və maksimum müddətləri, paklığın sərhəd nişanələrinin necə oxunması məktəblərin təfərrüatları ilə fərqləndiyi məsələlərdir. Qadınlar ixtisaslı müəllimlə bir etibarlı məktəbin əməli hökmlərini öyrənməkdən bəhrələnirlər.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aişə (radiyallahu anhə) nə üçün heyzli qadının namaz qılmır, orucun qəzasını tutması ilə bağlı suala belə cavab verdi: “Bizə oruc tutmaq əmr olundu, namazın qəzası isə əmr olunmadı. (Muazha, Aişədən; həmçinin Səhih Müslim 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -615,15 +468,7 @@ export const TAHARAH_TOPICS_AZ: DeepPartial<TaharahTopic>[] = [
       "Tətbiqi hökmlər üçün dörd sünni məktəbinin klassik fiqh kitabçaları ətraflı mövqelər verir - və onların fərqləri nöqsan deyil, ənənənin qanuni hissəsidir. Strukturlaşdırılmış icmal üçün bu moduldan istifadə edin, sonra ixtisaslı müəllim və əsas mətnlərlə işinizi dərinləşdirin.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt: "Məcmuəni açan dəstəmaz, qüsl, təyəmmüm və heyd haqqında geniş fəsillər.",
-      },
-      {
-        excerpt:
-          "Təmizləmə kitabı — təharət hökmləri, ədəb və prinsipləri haqqında səhih xəbərlər.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Səpələnmiş qərarlardan çaşqınlığın qarşısını almaq üçün etibarlı bir kurrikuluma əməl edin.",
       "Praktik etimad sabit olana qədər bu mövzuları vaxtaşırı nəzərdən keçirin.",

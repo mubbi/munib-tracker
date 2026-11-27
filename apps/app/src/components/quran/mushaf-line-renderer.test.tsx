@@ -3,7 +3,11 @@ import { Text } from "react-native";
 
 import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
 import { useQcfPageFont } from "@/hooks/use-qcf-page-font";
-import { buildMushafPageLayout, buildMushafTextLine } from "@/test-support/fixtures/quran";
+import {
+  buildAyah,
+  buildMushafPageLayout,
+  buildMushafTextLine,
+} from "@/test-support/fixtures/quran";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -56,6 +60,21 @@ describe("MushafLineRenderer", () => {
     expect(screen.getByLabelText("1:1")).toBeTruthy();
     expect(screen.getByLabelText("1:2")).toBeTruthy();
     expect(screen.getByLabelText("Page 1")).toBeTruthy();
+  });
+
+  it("speaks each ayah's Unicode Arabic once, on the line where it starts (G-01)", async () => {
+    await renderLines({
+      ayahs: [
+        buildAyah({ surah: 1, ayah: 1, arabic: "ar-1" }),
+        buildAyah({ surah: 1, ayah: 2, arabic: "ar-2" }),
+        buildAyah({ surah: 1, ayah: 3, arabic: "ar-3" }),
+      ],
+    });
+    expect(screen.getByLabelText("1:1, ar-1")).toBeTruthy();
+    const line2 = screen.getByLabelText("1:2, ar-2, ar-3");
+    expect(line2.props.accessibilityHint).toBe("Opens actions");
+    // The basmala glyph line reads as Unicode Arabic, not private-use glyph codes.
+    expect(screen.getByLabelText(/^بِسْمِ/).props.accessibilityLanguage).toBe("ar");
   });
 
   it("opens the line's first ayah on tap", async () => {

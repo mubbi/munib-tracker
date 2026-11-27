@@ -42,6 +42,7 @@ import {
   resolveWatchSimulatorUdid,
   WATCH,
   WATCH_BUNDLE_ID,
+  waitForWatchScreenToSettle,
   writeWatchSnapshot,
 } from "./lib/inject-watch-snapshot.mjs";
 import { log, run, sleep, warn } from "./lib/shell.mjs";
@@ -140,6 +141,13 @@ async function main() {
     log("Watch companion already installed.");
   }
 
+  // Warm-up: the first launch after an install is slow (dyld + SwiftUI caches) and would
+  // otherwise be the first scene's screenshot.
+  log("Warm-up launch…");
+  launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
+  waitForWatchScreenToSettle({ udid: watchUdid, timeoutMs: 25_000 });
+  forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
+
   fs.mkdirSync(WORK_DIR, { recursive: true });
   fs.mkdirSync(NATIVE_WATCH_ROOT, { recursive: true });
   fs.mkdirSync(STORE_WATCH_ROOT, { recursive: true });
@@ -161,6 +169,11 @@ async function main() {
       log("Launching watch app…");
       forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
       launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
+      // Scenes with a live countdown never hold two identical frames, so a timeout is
+      // not fatal — the cap (~25s) is well past a cold start. Review the PNGs.
+      if (!waitForWatchScreenToSettle({ udid: watchUdid, timeoutMs: 25_000 })) {
+        warn(`${scene.id}: screen still changing after 25s (live countdown?) — capturing anyway`);
+      }
 
       const nativeOut = path.join(NATIVE_WATCH_ROOT, `${scene.id}.png`);
       log(`Capturing → ${nativeOut}`);

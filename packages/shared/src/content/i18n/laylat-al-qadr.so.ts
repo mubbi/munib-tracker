@@ -2,137 +2,111 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // so overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Waa maxay Laylatul Qadr?",
+    summary: "Habeenka Qaddarka — ka khayr badan kun bilood.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Laylatul Qadr, Habeenka Qaddarka (ama Habeenka Sharafta), waa habeenkii la bilaabay in Qur'aanka loo soo dejiyo Nabiga ﷺ. Alle wuxuu u huray suurad dhan, oo ku bilaabanaysa: 'Hubaal Waxaanu soo dejinnay (Qur’aanka) habeenka Qaddarka' (Qur'aanka 97:1). Qiimihiisa waxaa lagu sheegay erayada ugu cad dhowr aayadood kadib: 'Habeenka Qaddarku wuxuu ka fiican yahay kun bilood' (Qur'aanka 97:3) — cibaadada habeenkan keliya waxay ka culus tahay cibaado lagu kala firdhiyay in ka badan saddex iyo siddeetan sano.",
+      "Suuraddu waxay sii sharraxaysaa habeenka: malaa'igta iyo Ruuxa (Jibriil) ayaa ku soo dega idanka Rabbigood amar kasta, waana 'Nabad weeye ilaa waagu ka baryo' (Qur'aanka 97:4–5). Waa habeen naxariis weyn, xasillooni, iyo qaddar rabbaani ah — habeen uu Nabigu ﷺ ku dhiirrigeliyay saxaabadiisa inay si firfircoon u raadiyaan halkii ay iska dhaafi lahaayeen iyagoon dareemin.",
+      "Taasi waa sababta tobanka habeen ee u dambeeya Ramadaan ay u leeyihiin culays ruuxi ah oo intaas le'eg: meel dhexdooda ah waxaa ku jira habeen ka qiimo badan habeen kasta oo kale oo nolosha qofka soo mara. Xikmadda ku jirta in aan si cad loo shaacin waa in mu'miniintu ku dadaalaan mid kasta oo ka mid ah tobanka habeen ee u dambeeya, halkii ay ku nastaan dhammaan marka laga reebo mid.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Ajarka qiyaamka habeenkan",
+    summary: "Cibaadada daacadda ah ee habeenkan waxay tirtirtaa dembiyadii hore.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Nabigu ﷺ wuxuu habeenkan ku xiray ballan aan caadi ahayn: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (macnaha Ingiriisiga) (Bukhaari 1901). Laba shuruudood ayaa ku xiran — iimaan (rumayn dhab ah oo ah in cibaadadani tahay wax Alle jecel yahay oo uu sharciyeeyay) iyo ixtisaab (in ajarka Alle keliya la raadiyo, ee aan loo samayn in la arko ama la ammaano).",
+      "Dambi-dhaafkani si toos ah uma helo qof kasta oo keliya goob joog ah; waa kan ku cibaadaysta qalbi daacad ah oo rajo leh. Taasi waa sababta tobanka habeen ee u dambeeya inta badan loogu buuxiyo salaad habeen oo dheeraad ah (qiyaam), Qur'aan, iyo zikr — ma aha in ajarku yahay iib iyo gadasho, balse waa in dadaalka daacadda ah ee joogtada ahi uu laftiisu yahay waxa xadiisku ku sifeeyay iimaan iyo ixtisaab.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Cusboonaysii niyaddaada habeen kasta oo cibaado ka hor — Alle dartiis, adigoo rajaynaya ajarkiisa.",
+      "Tuko qiyaamul-layl tobanka habeen ee u dambeeya, xitaa haddii ay yihiin dhowr rakcadood oo keliya.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Goorta la raadiyo",
+    summary: "Habeennada kisiga ah ee tobanka u dambeeya Ramadaan — ma aha hal taariikh oo go'an.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Nabigu ﷺ wuxuu faray: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (macnaha Ingiriisiga) (Bukhaari 2017), oo laga weriyay Caa'isha. Ramadaan caadi ah oo 30 maalmood ah, habeennada kisiga ah (tirada aan sinnayn) waxaa inta badan lagu tiriyaa 21aad, 23aad, 25aad, 27aad, iyo 29aad. Riwaayado kale oo saxiix ah ayaa tan u ballaariya tobanka habeen ee u dambeeya oo dhan, Nabiga ﷺ laftiisuna wuxuu sheegay in taariikhda saxda ah ee habeenka la tusay kadibna laga illowsiiyay — si ummaddu ugu dadaasho habeennadan oo dhan halkii ay hal habeen ku dadaali lahayd.",
+      "Habeenka 27aad waa habeenka culimo iyo bulshooyin badan ay u janjeedhaan inuu yahay kan ugu suurtagalka badan (iyagoo ku saleynaya riwaayado kale oo miisaamaya calaamadaha iyo inta jeer ee saxaabadu sheegeen), laakiin tani waa istinbaad culimo oo laga soo saaray xadiiska, ee ma aha taariikh si gooni ah loo go'aamiyay oo qoraallada si hubaal ah ugu sheegan. Waxay ku dhici kartaa habeen kale sannado kala duwan iyo gobollo kala duwan, maadaama bilowga Ramadaan laftiisu ku kala duwan yahay muuqashada bisha.",
+      "Qaar ayaa sannad kasta daabaca hal taariikh sidii iyadoo hubaal lagu go'aamiyay, liisas dhaqameed oo 'calaamado' ah (habeen si gaar ah u deggan, riyooyin, iftiin gaar ah) ayaana si ballaaran uga faafa internetka. Midkoodna ma laha sal adag oo xadiis ah, sidaas darteed hagahan kuma celinayo. Habka la isku hallayn karo ee qoraallada ku salaysan waa uun inaad cibaadada ku kordhiso habeennada kisiga ah oo dhan — haddii ay suurtagal tahayna tobanka u dambeeya oo dhan — si habeen kasta oo uu noqdaba aad cibaado ugu jirto.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Hagahan ma taageerayo hal taariikh oo go'an ama 'calaamado' dhaqameed oo lagu garto habeenka — waxa keliya ee xadiisku sheegay: ka raadi habeennada kisiga ah ee tobanka habeen ee u dambeeya Ramadaan.",
   },
   {
-    title: "Waxa aad tidhaahdo haddii aad qabato",
-    summary: "Caisha waxay weydiisay Nabiga ﷺ waxa saxda ah ee la yidhaahdo.",
+    title: "Waxa aad tiraahdo haddii aad heshid",
+    summary: "Caa'isha waxay Nabiga ﷺ weydiisay waxa saxda ah ee la yiraahdo.",
     body: [
-      "Caisha (Allah ha ka raalli noqdee) waxay weydiisay Nabiga ﷺ: 'Rasuulkii Alleeyow, haddii aan ogaado habeenkee yahay Laylat al-Qadr, maxaan ku odhanayaa?' Wuxuu ﷺ baray ducada cafiska ee gaaban ee hoos lagu muujiyey (Tirmidhi 3513, oo al-Tirmidhi u qiimeeyey hasan sahih).",
-      "Ducadan waa gaaban, way fududahay in la xafido, waxayna si ula kac ah uga hadlaysaa cafis halkii ay ka hadli lahayd codsiyada adduunka — xusuusin in faa'iidada ugu weyn ee habeenkan ay tahay cafiska Alle. Ku celi inta badan tobanka habeen ee u dambeeya, salaadda dhexdeeda, sujuudda, iyo inta u dhaxaysa, halkii aad u kaydin lahayd habeen hal ah oo la qiyaasay.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Waxaan idhi: Rasuulkii Alleeyow, haddii aan ogaado habeenkee yahay Laylat al-Qadr, maxaan ku odhanayaa? Wuxuu yidhi: Dhaha — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Allahow, Waxaad tahay Cafiye oo aad jeceshahay cafiska, ii cafi).",
-      },
+      "Caa'isha (Alle ha ka raalli noqdo) waxay Nabiga ﷺ weydiisay: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' (macnaha Ingiriisiga) Wuxuu baray ducada cafiska ee gaaban ee hoos ku qoran (Tirmidhi 3513, oo al-Tirmidhi ku qiimeeyay xasan saxiix).",
+      "Ducadani way gaaban tahay, way fududahay in la xafido, waxayna si ula kac ah ugu saabsan tahay cafis halkii ay ka ahaan lahayd codsiyo adduun — xusuusin ah in faa'iidada ugu weyn ee habeenkan ay tahay cafiska Alle. Ku celceli si badan tobanka habeen ee u dambeeya, salaadda dhexdeeda, sujuudda, iyo inta u dhexaysa, halkii aad u kaydin lahayd hal habeen oo la qiyaasay.",
     ],
     actions: [
-      "Xafid ducada cafiska ee kor lagu muujiyey.",
-      "Ku celi inta badan tobanka habeen ee u dambeeya, gaar ahaan habeenada kala duwan.",
+      "Xafid ducada cafiska ee kor ku qoran.",
+      "Ku celceli si badan tobanka habeen ee u dambeeya, gaar ahaan habeennada kisiga ah.",
+    ],
+    appLinks: [{ label: "Fur ducadan" }],
+  },
+  {
+    title: "Sida habeenka loo qaato",
+    summary: "Salaadda habeenkii, Qur'aan, zikr iyo duco, iyo sadaqo.",
+    body: [
+      "Laylatul Qadr ma laha 'cibaado gaar ah' oo waajib ah marka laga reebo cibaado daacad ah, sidaas darteed Sunnadu waxay uun xoojisaa camallada horey loo sharciyeeyay: salaadda habeenkii ee sunnada ah (qiyaamul-layl / taraawiix), akhriska iyo ka fiirsashada Qur'aanka, ku celcelinta zikriga iyo istighfaarka, iyo ducada — gaar ahaan ducadii Nabigu ﷺ baray Caa'isha. Saxaabo badan iyo culimadii dambe waxay sidoo kale habeennadan ku kordhin jireen sadaqada, iyagoo la jaanqaadaya deeqsinimadii Nabiga ﷺ oo heerkeedii ugu sarreeyay gaari jirtay Ramadaanta.",
+      "Haddii aad awoodo wax yar oo keliya, samee wax yar si joogto ah halkii aadan waxba samayn lahayn: xitaa qiyaam gaaban, dhowr bog oo Qur'aan ah, iyo ducada cafiska oo si daacad ah loogu celceliyo waxay buuxiyaan 'iimaanka iyo ixtisaabka' uu xadiisku sheegay. Kuwa awooda inay shaqada fasax ka qaataan ama kordhiyaan cidlo-galkooda waxay sidoo kale samayn karaan ictikaaf (ku hakashada masjidka) tobanka habeen ee u dambeeya, iyagoo raacaya dhaqankii Nabiga ﷺ laftiisa.",
+    ],
+    actions: [
+      "Tuko salaad habeen oo dheeraad ah (qiyaam/taraawiix) tobanka habeen ee u dambeeya.",
+      "Habeen kasta akhri oo ka fiirso qayb ka mid ah Qur'aanka.",
+      "Kordhi istighfaarka, zikriga, iyo ducada cafiska.",
+      "Bixi xoogaa sadaqo ah, xitaa haddii ay yar tahay, habeennadan.",
+    ],
+    appLinks: [
+      { label: "Akhriyaha Qur'aanka" },
+      { label: "Adkaarta subaxa & fiidka" },
+      { label: "La socodka salaadda" },
+      { label: "Sakada & sadaqada" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Ictikaafka tobanka habeen ee u dambeeya",
+    summary: "Ku hakashada masjidka — dhaqankii Nabiga ﷺ ee dhammaadka Ramadaan.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Ictikaaf waa in masjidka lagu sii jiro cibaado darteed, iyadoo muddo go'an laga go'o mashquulka caadiga ah ee adduunka. Nabigu ﷺ si joogto ah ayuu ictikaaf u gali jiray tobanka habeen ee u dambeeya Ramadaan, isagoo Laylatul Qadr ku raadinayay cibaado diiradda saaran halkii uu masjidka uga bixi lahaa hawlo caadi ah (Saxiix al-Bukhaari 2026).",
+      "Waxbaridda qadiimiga ahi waxay ictikaaf buuxa oo tobanka habeen ee u dambeeya u aragtaa sunno la xaqiijiyay marka qofku awoodo. Faahfaahinta waxa jebiya, haddii haweenku ku samayn karaan meel masjid oo loo qoondeeyay, iyo sida shaqada ama waajibaadka qoyska ay ula xiriiraan waxay ku kala duwan yihiin madhab ahaan — hagahan wuxuu keliya caddaynayaa dhaqanka iyo ujeeddadiisa: Qur'aan, salaad, iyo duco joogto ah habeennada ugu suurtagalka badan inay ku jirto Laylatul Qadr.",
+      "Haddii ku hakasho masjid oo buuxda aysan suurtagal ahayn, yaree farqiga: sii jooji muddo dheer taraawiixda kadib, guriga ugu qoondee waqtiyada habeenka ee ugu deggan qiyaam iyo Qur'aan, saacadahaasna ka ilaali mashquul aan loo baahnayn. Ajarku wuxuu ku xiran yahay cibaado daacad ah, ee kuma koobna oo keliya magaca rasmiga ah ee ictikaaf.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Haddii masjidkaagu bixiyo ictikaaf, goor hore wax ka weydii diiwaangelinta iyo xeerarka ay raacaan.",
+      "Haddii aadan habeenka joogi karin, weli dheeree joogitaankaaga Qur'aan iyo qiyaam darteed tobanka habeen ee u dambeeya.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "Ictikaafku wuxuu leeyahay shuruudo fiqi oo faahfaahsan (niyadda, ka bixidda masjidka, galmada, habaynta haweenka). Ka hor intaadan go'aan qaadan, ka xaqiiji aalim deegaanka ah oo u qalma ama masjidkaaga.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Cibaado qoyska la wadaago tobanka habeen ee u dambeeya",
+    summary: "Ku dar carruurta iyo dadka guriga iyadoon la raacdayn hal taariikh oo go'an.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Tobanka habeen ee u dambeeya waa fursad loogu talagalay reerka oo dhan, ee ma aha oo keliya kuwa kaligood soo jeedi kara. Carruurta ku bar macnaha Laylatul Qadr erayo fudud — in Alle uu ka dhigay hal habeen mid ka khayr badan kun bilood — oo ku casuun camallo gaagaaban oo la samayn karo: dhowr bog oo Qur'aan ah, ku biirista taraawiixda inta ay awoodaan, ku celcelinta ducada cafiska, iyo bixinta sadaqo yar.",
+      "Ka dhig qaabka mid jilicsan. Hadafku waa dadaal daacad ah oo habeennada kisiga ah lagu sameeyo, ee ma aha in qof kasta la daaliyo hal taariikh oo la qiyaasay darteed. Isu beddela cidda hoggaamisa zikri qoys oo gaaban, dejiya niyad la wadaago Maqrib ka hor, oo hurdada u ilaaliya si ku filan si cibaadadu u ahaato mid la sii wadi karo, ee aanay noqon hal habeen oo xoog leh oo daal ku dhammaada.",
+      "Kuwa leh xaddidaad xagga daryeelka ama shaqada weli way ka qayb qaataan habeenka iyagoo diyaarinaya saxuurta, u bannaynaya kuwa kale salaadda masjidka, ama duceynaya inta kuwa kale salaadda ku taagan yihiin — wax kasta oo daacad ah oo la geysto waxay ku xisaabsan yihiin raadinta habeenka oo la wada sameeyo.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Qoys ahaan ku heshiiya habeennada kisiga ah ee aad mudnaanta siinaysaan Qur'aan iyo salaad dheeraad ah.",
+      "Wada xafida ducada cafiska oo ku celceliya Maqribka kadib iyo hurdada ka hor.",
+      "U oggolow carruurta inay bixiyaan sadaqo yar tobanka habeen ee u dambeeya.",
     ],
+    appLinks: [{ label: "Ducooyinka Xisnul Muslim" }, { label: "Akhriyaha Qur'aanka" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Ka dhig mid fudud oo daacad ah",
+    summary:
+      "Iska dhaaf taariikhaha go'an iyo calaamadaha dhaqameed; diiradda saar cibaadada habeennada.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Laba dhaqan oo caam ah ayaa mudan in laga fogaado maxaa yeelay waxay dhaafaan waxa qoraalladu caddeeyeen. Midda koowaad, in hal taariikh oo la daabacay loo arko inay hubaal tahay Habeenka Qaddarka — xadiisyadu si ula kac ah ayay ugu dhex reebeen dhowr habeen oo kisi ah, ee ma aha hal maalin oo jadwal ah, tanina waxay ku kala duwan tahay muuqashada bisha iyo deegaanka. Midda labaad, in la raacdeeyo 'calaamado' dhaqameed (riyo gaar ah, habeen si aan caadi ahayn u deggan, xayawaan si yaab leh u dhaqmaya) iyadoo loo arko caddayn in habeenku yimid — kuwani ma taageeraan xadiis adag, waxayna ka mashquulin karaan cibaadada dhabta ah ee habeenku u baahan yahay.",
+      "Casharka la taaban karo waa fudud yahay: si joogto ah ugu kordhi cibaadadaada tobanka habeen ee u dambeeya, si badan u dheh ducada cafiska, una oggolow in naxariista Alle — ee ma aha taariikh la qiyaasay — ay noqoto diiradda. Haddii aadan habeenka si ogaal ah u helin, dadaalka daacadda ah ee habeennada lagu sameeyo laftiisa ayaa si weyn loogu abaalmariyaa.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Kani waa waxbarasho guud oo soo koobaysa waxbaridda Sunniga ee caamka ah ee ka timid Qur'aanka iyo xadiisyada saxiixa ah. Ma aha fatwo. Xukunnada ictikaafka, salaadaha qaza ah, ama xaaladdaada gaarka ah, la tasho aalim deegaanka ah oo u qalma.",
   },
 ];

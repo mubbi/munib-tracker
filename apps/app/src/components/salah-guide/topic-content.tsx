@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View, type ViewInstance } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
@@ -22,23 +23,13 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useSalahGuideProgressActions,
   useSalahGuideTopicCompleted,
 } from "@/stores/salah-guide-progress-store";
-
-const IMPORTANCE_TONE: Record<
-  NonNullable<SalahGuideTopic["importance"]>,
-  "success" | "warning" | "info" | "danger"
-> = {
-  foundational: "danger",
-  obligatory: "success",
-  "highly-recommended": "info",
-  recommended: "warning",
-};
 
 const RULING_TONE: Record<
   NonNullable<SalahGuideTopic["steps"]>[number]["ruling"] & string,
@@ -69,7 +60,7 @@ export type SalahGuideStepsAudioProps = {
   registerStep?: (index: number) => (node: ViewInstance | null) => void;
 };
 
-function SalahGuideSteps({
+export function SalahGuideSteps({
   steps,
   audio,
 }: {
@@ -82,7 +73,7 @@ function SalahGuideSteps({
   const hasAudio = audio?.onPressStep != null;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("salahGuide.stepsTitle")}
         icon={{ ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" }}
@@ -176,7 +167,7 @@ function SalahGuideSteps({
                   </View>
                 ) : null}
                 {step.tip ? (
-                  <View style={[styles.tip, { backgroundColor: tokens.status.warning.soft }]}>
+                  <View style={[styles.tip, { backgroundColor: tokens.accentSoft }]}>
                     <ThemedText
                       type="caption"
                       style={{
@@ -243,7 +234,7 @@ export function SalahGuideTopicContent({
 }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const completed = useSalahGuideTopicCompleted(topic.id);
   const { toggleTopic } = useSalahGuideProgressActions();
 
@@ -253,8 +244,8 @@ export function SalahGuideTopicContent({
         <Pill
           label={t(`salahGuide.importance.${topic.importance}`)}
           compact
-          color={tokens.status[IMPORTANCE_TONE[topic.importance]].color}
-          background={tokens.status[IMPORTANCE_TONE[topic.importance]].soft}
+          color={colors.mutedForeground}
+          background={colors.muted}
         />
       ) : null}
 
@@ -265,9 +256,10 @@ export function SalahGuideTopicContent({
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}
       {topic.steps?.length ? <SalahGuideSteps steps={topic.steps} audio={stepsAudio} /> : null}
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
+      <GuideMadhhabNotes ids={topic.differenceIds} />
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("salahGuide.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -310,14 +302,14 @@ export function SalahGuideTopicContent({
 const styles = StyleSheet.create({
   stack: { gap: Spacing.four },
   phraseControls: { gap: Spacing.two, marginTop: Spacing.three },
-  phraseHint: { lineHeight: 18 },
+  phraseHint: {},
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepRowPressable: {
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   stepBadge: {
     width: tvDp(32),
@@ -342,7 +334,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   phrasePlayCue: {
-    marginTop: 2,
+    marginTop: Spacing.half,
     // Decorative — the step row PressableScale already handles play/pause.
     pointerEvents: "none",
   },
@@ -354,5 +346,5 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

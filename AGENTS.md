@@ -7,8 +7,8 @@ This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, zikr, qaza).
 | App           | Path                 | Role                                                                         | Dev command              |
 | ------------- | -------------------- | ---------------------------------------------------------------------------- | ------------------------ |
 | **Product**   | `apps/app`           | Expo SDK 58 — iOS, Android, Web, **Apple TV / Android TV** (single codebase) | `pnpm dev:app`           |
-| **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000)                                          | `pnpm dev:marketing-web` |
-| **Admin**     | `apps/admin`         | Next.js ops console (port 3002) — users, reports, broadcasts, platform       | `pnpm dev:admin`         |
+| **Marketing** | `apps/marketing-web` | Next.js 16.4 landing site (port 3000)                                        | `pnpm dev:marketing-web` |
+| **Admin**     | `apps/admin`         | Next.js 16.4 ops console (port 3002) — users, reports, broadcasts, platform  | `pnpm dev:admin`         |
 | **API**       | `apps/api`           | NestJS 12 — cloud sync, auth, backend services (port 3001)                   | `pnpm dev:api`           |
 
 Deploy web surfaces to Vercel (four projects): see [`docs/PRODUCTION.md`](docs/PRODUCTION.md). Admin ops: [`docs/ADMIN.md`](docs/ADMIN.md).
@@ -42,7 +42,9 @@ Import via workspace package names:
 - **Toolchain:** Node ≥ 24.15 (`.nvmrc`), pnpm 12 (`packageManager`), Turborepo 2. Each `CLAUDE.md` is a one-line `@AGENTS.md` pointer — edit the `AGENTS.md`, not the `CLAUDE.md`.
 - **TypeScript:** `typescript` is aliased to `@typescript/typescript6` (Expo, Jest, Orval and other tools need the TS JS API); `@typescript/native` (TS 7) provides the fast `tsc` for `check-types`. Don't replace the alias with plain `typescript`.
 - **Lint/format:** Biome at repo root (`pnpm lint`, `pnpm format-and-lint:fix`)
-- **Tests:** Vitest 5 (marketing-web, admin, api, packages; configs are `vitest.config.mts`) + Jest 30 (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
+- **Tests:** Vitest 5 (marketing-web, admin, api: `vitest.config.mts`; packages: `vitest.config.ts`, presets from `@munib-tracker/vitest-config`) + Jest 30 (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
+- **No network in tests:** every suite runs behind a guard that fails any non-loopback request (`packages/vitest-config/src/no-network.ts` via `NO_NETWORK_SETUP`; `apps/app/src/test-support/no-network.ts` via `jest.setup.ts`). Use mocks and fixtures only (`mockFetch` / `vi.stubGlobal("fetch", …)`); `TEST_ALLOW_NETWORK=1` is for opt-in local evals, never CI.
+- **Commits:** Conventional Commits, enforced by commitlint (`commitlint.config.cjs`). Scopes (warning-level `scope-enum`): `app`, `api`, `admin`, `marketing`, `shared`, `db`, `theme`, `ci`, `deps`, `docs`, `i18n`, `release`, `tv`, `screenshots` — omit the scope when a change spans many areas. Body lines ≤ 100 chars. Never add AI attribution trailers (`Co-Authored-By: Claude…`, "Generated with…").
 - **Product theme:** All screens use `useTheme()` from `apps/app/src/providers/theme-provider.tsx` — no hardcoded colors.
 - **Marketing styling:** Tailwind CSS v4.3 with `@source` scanning monorepo packages in `globals.css`.
 - **Fuzzy search:** Fuse.js v7 in `apps/app` — canonical module `apps/app/src/lib/search.ts`. See [apps/app/AGENTS.md](apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`.
@@ -53,6 +55,7 @@ Import via workspace package names:
 - [apps/marketing-web/AGENTS.md](apps/marketing-web/AGENTS.md) — Next.js marketing site
 - [apps/admin/AGENTS.md](apps/admin/AGENTS.md) — Ops / admin console
 - [apps/api/AGENTS.md](apps/api/AGENTS.md) — NestJS API server
+- [tools/screenshot-studio/AGENTS.md](tools/screenshot-studio/AGENTS.md) — screenshot editor (Next.js agent rules only)
 
 ## Common commands
 
@@ -97,8 +100,10 @@ pnpm release:app:android-tv:apk   # Leanback APK (Amazon / sideload)
 pnpm release:app:android-tv:upload
 pnpm release:app:wear             # Wear OS AAB (phone prebuild; :wear module)
 pnpm release:app:wear:upload      # upload to the Play wear:internal track
+pnpm release:app:android:all      # phone+Wear+TV AABs → root <device>-<code>-<ver>.aab (bumps versionCode; /android-release-all)
 pnpm release:app:ios              # local signed IPA (xcodebuild, macOS)
 pnpm release:app:ios:upload       # upload IPA to App Store Connect
+pnpm release:app:ios:all          # macOS: bump build numbers, iPhone(+Watch) then Apple TV prebuild → release → upload (/ios-release-all)
 pnpm release:app:tvos             # tvOS IPA (macOS; after TV prebuild)
 pnpm release:app:tvos:upload      # altool --type appletvos
 pnpm build:app:android:tv         # EAS production_tv
@@ -109,7 +114,7 @@ pnpm submit:app:ios:tv
 
 ## Content & data
 
-Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced from open datasets, never hand-written**, and generated into `apps/app/assets/data/` (+ a `manifest.json` credits registry) by the pipeline in `apps/app/scripts/build-data/`. Bundled JSON is offline-first; extra Qur'an editions and full hadith collections are fetched cache-first from CDNs (`apps/app/src/api/{quran,hadith}-remote.ts`). Never edit generated content files (`packages/shared/src/content/*` for adhkar/duas, `apps/app/assets/data/*`, `apps/app/src/lib/quran-loader.ts`) by hand — change the builder and re-run `build:data`. Web first-load / chunk rules: [`docs/PROFILING.md`](docs/PROFILING.md) (use `quran-meta` / dynamic `import()` so multi‑MB JSON stays out of `__common`).
+Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced from open datasets, never hand-written**, and generated into `apps/app/assets/data/` (+ a `manifest.json` credits registry) by the pipeline in `apps/app/scripts/build-data/`. Bundled JSON is offline-first; extra Qur'an editions and full hadith collections are fetched cache-first from CDNs (`apps/app/src/api/{quran,hadith}-remote.ts`) — jsDelivr first, GitHub raw as the mirror (`apps/app/src/lib/static-json-fetch.ts`; Qur'an page fonts via `qcf-font-cache.ts`). Never edit generated content files (`packages/shared/src/content/{zikr,duas,duroods,names}.ts`, `apps/app/assets/data/*`, `apps/app/src/lib/quran-loader.ts`) by hand — change the builder and re-run `build:data`. Web first-load / chunk rules: [`docs/PROFILING.md`](docs/PROFILING.md) (use `quran-meta` / dynamic `import()` so multi‑MB JSON stays out of `__common`).
 
 ## Docs
 
@@ -119,8 +124,12 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 
 | Doc                                                                                                         | Role                                                                |
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [`BACKLOG.md`](docs/BACKLOG.md)                                                                             | Open work (product, perf, devices, content)                         |
-| [`FEATURES.md`](docs/FEATURES.md)                                                                           | Shipped NF-* feature catalog                                        |
+| [`BACKLOG.md`](docs/BACKLOG.md)                                                                             | Open work: owner actions, device QA, translations, eng follow-ups   |
+| [`FEATURES.md`](docs/FEATURES.md)                                                                           | Shipped NF-* feature catalog (incl. NF-3.x status + fallbacks)      |
+| [`DECISIONS.md`](docs/DECISIONS.md)                                                                         | Locked decisions D1–D65, new-feature rules, notification budget     |
+| [`proofs/`](docs/proofs/)                                                                                   | Proof-backed review logs (D11) per religious feature                |
+| [`DATA_INVENTORY.md`](docs/DATA_INVENTORY.md)                                                               | Where user data lives: sync, backup, reset, server tables           |
+| [`CIRCLES.md`](docs/CIRCLES.md)                                                                             | Circles backend (family, partner, group khatm, nearby join)         |
 | [`OPEN_SOURCE.md`](docs/OPEN_SOURCE.md)                                                                     | Public release checklist (PolyForm NC)                              |
 | [`RELEASES.md`](docs/RELEASES.md)                                                                           | Per-app semver via Release Please (tags, changelogs, build numbers) |
 | [`I18N_GUIDE.md`](docs/I18N_GUIDE.md)                                                                       | 24-locale i18n ops, scripture rules                                 |
@@ -131,7 +140,9 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`ADMIN_BROADCASTS.md`](docs/ADMIN_BROADCASTS.md)                                                           | In-app / push broadcasts from admin → product                       |
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources                                      |
 | [`PROFILING.md`](docs/PROFILING.md)                                                                         | Web/native perf profile + remaining `__common` work                 |
-| [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md)                                                             | Widgets, Live Activities, Siri, Watch, Wear                         |
+| [`design-system.md`](docs/design-system.md) · [`ui-ux-progress.md`](docs/ui-ux-progress.md)                 | UI source of truth (tokens, primitives, patterns) + redesign status |
+| [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md)                                                             | Widgets, Live Activities, Siri, Watch, Wear, focus lock, nearby BLE |
+| [`FOCUS_LOCK_FILINGS.md`](docs/FOCUS_LOCK_FILINGS.md)                                                       | Apple / Play filings for Salah focus lock                           |
 | [`LIVE_ACTIVITY_PUSH.md`](docs/LIVE_ACTIVITY_PUSH.md)                                                       | ActivityKit remote push (QStash, cron, future Fly worker)           |
 | [`WEB_PUSH.md`](docs/WEB_PUSH.md)                                                                           | Web Push + Android Expo surface phases                              |
 | [`DEVICES.md`](docs/DEVICES.md)                                                                             | Platform support matrix                                             |
@@ -139,10 +150,18 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`STORE_ASSETS.md`](docs/STORE_ASSETS.md)                                                                   | App Store / Play screenshots (Maestro)                              |
 | [`IOS_APP_COPY.md`](docs/IOS_APP_COPY.md) · [`ANDROID_APP_COPY.md`](docs/ANDROID_APP_COPY.md)               | Store listing copy                                                  |
 
-## AI skills (installed via `pnpm dlx skills add`)
+## AI skills (`.agents/skills/`)
 
-- `vercel/turborepo` — monorepo patterns
-- `expo/skills` — Expo / React Native
-- `vercel/next.js` — Next.js 16 best practices
-- `.agents/skills/nestjs` — official NestJS markdown guides (mirrored from [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestjs.com/tree/master/content))
-- `.agents/skills/fuse-js` — Fuse.js fuzzy search (from [krisk/Fuse/docs](https://github.com/krisk/Fuse/tree/main/docs)); use for all search bars and `apps/app/src/lib/search.ts`
+Vendored via `pnpm dlx skills add` (pinned in `skills-lock.json`; don't hand-edit their content):
+
+- `vercel/turborepo` — monorepo patterns (`turborepo`)
+- `expo/skills` — Expo / React Native (`building-native-ui`, `upgrading-expo`, `expo-deployment`, …)
+- `vercel/next.js` — Next.js 16 (`next-dev-loop`, `next-cache-components-*`)
+
+Local (project-owned):
+
+- `nestjs` — official NestJS markdown guides mirrored from [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestjs.com/tree/master/content); refresh with `pnpm sync:nestjs-docs`
+- `fuse-js` — Fuse.js fuzzy search (from [krisk/Fuse/docs](https://github.com/krisk/Fuse/tree/main/docs)); use for all search bars and `apps/app/src/lib/search.ts`
+- `screenshot-studio` — store screenshot pipeline (Maestro capture → studio → store PNGs)
+- `android-release-all` (`.claude/skills/`, Claude Code `/android-release-all`) — one-shot phone + Wear + TV Play AABs via `pnpm release:app:android:all`
+- `ios-release-all` (`.claude/skills/`, Claude Code `/ios-release-all`) — one-shot iPhone (+ embedded Watch) + Apple TV build → App Store Connect upload via `pnpm release:app:ios:all` (macOS)

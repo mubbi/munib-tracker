@@ -9,9 +9,9 @@ import { resolveHadithBookmarkTarget } from "@/lib/jannah-bookmarks";
 
 export function QuranAyahBookmarkButton({ surah, ayah }: { surah: number; ayah: number }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const { bookmarked, toggle } = useQuranAyahBookmark(surah, ayah);
-  const tint = bookmarked ? tokens.status.warning.color : colors.mutedForeground;
+  const tint = bookmarked ? colors.accentText : colors.mutedForeground;
 
   return (
     <LabeledIconButton
@@ -39,7 +39,7 @@ export function HadithCitationBookmarkButton({
   citation: string;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const target = useMemo(
     () => resolveHadithBookmarkTarget(collection, citation),
     [collection, citation],
@@ -56,7 +56,7 @@ export function HadithCitationBookmarkButton({
           : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
       }
       size={18}
-      tintColor={bookmarked ? tokens.status.warning.color : colors.mutedForeground}
+      tintColor={bookmarked ? colors.accentText : colors.mutedForeground}
       accessibilityLabel={bookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")}
       accessibilityState={{ selected: bookmarked }}
       haptic="selection"
@@ -75,17 +75,17 @@ export function DuaFavoriteButton({
   onToggle: () => void;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
 
   return (
     <IconButton
       name={
         isFavorite
-          ? { ios: "star.fill", android: "star", web: "star" }
-          : { ios: "star", android: "star_border", web: "star_border" }
+          ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+          : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
       }
       size={18}
-      tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+      tintColor={isFavorite ? colors.accentText : colors.mutedForeground}
       accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
       accessibilityState={{ selected: isFavorite }}
       haptic="selection"

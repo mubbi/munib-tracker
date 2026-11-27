@@ -1,6 +1,6 @@
 import type { DuaCategoryId, DuaItem } from "../types/index";
 
-export const DUA_CONTENT_VERSION = 6;
+export const DUA_CONTENT_VERSION = 7;
 
 export const DUA_CATEGORY_LABELS: Record<DuaCategoryId, string> = {
   morning_evening: "Morning & Evening",
@@ -150,7 +150,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
     translations: {
-      bn: "হে আল্লাহ, আপনি আমাকে আপনার যিকর করতে, শুকর করতে এবং আপনার ইবাদত সুন্দরভাবে করতে তাওফীক ও ক্ষমতা প্রদান করুন।",
+      bn: "হে আল্লাহ! আপনার যিক্‌র করতে, আপনার শুকরিয়া জ্ঞাপন করতে এবং সুন্দরভাবে আপনার ইবাদত করতে আমাকে সাহায্য করুন",
     },
     virtues: "The Prophet ﷺ advised Mu'adh never to leave this after every prayer.",
     reference: "Abu Dawud & An-Nasa'i",
@@ -184,7 +184,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بِسْمِ اللَّهِ",
     transliteration: "Bismillah",
     translation: "In the name of Allah.",
-    translations: { bn: "আল্লাহ্‌র নামে (খুলে রাখলাম)", id: "Dengan nama Allah (aku mulai makan)." },
+    translations: { bn: "আল্লাহ্‌র নামে।", id: "Dengan nama Allah (aku mulai makan)." },
     reference: "Abu Dawud",
   },
   {
@@ -517,8 +517,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-4",
     categoryId: "sleep",
     title: "Upon waking up #4",
-    arabic: "يقرأ سورة آل عمران ٣: ١٩٠-٢٠٠",
-    translation: "Recite Surah Al-'Imran [3:190-200].",
+    arabic:
+      "إِنَّ فِي خَلۡقِ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ وَٱخۡتِلَٰفِ ٱلَّيۡلِ وَٱلنَّهَارِ لَأٓيَٰتٖ لِّأُوْلِي ٱلۡأَلۡبَٰبِ ٱلَّذِينَ يَذۡكُرُونَ ٱللَّهَ قِيَٰمٗا وَقُعُودٗا وَعَلَىٰ جُنُوبِهِمۡ وَيَتَفَكَّرُونَ فِي خَلۡقِ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ رَبَّنَا مَا خَلَقۡتَ هَٰذَا بَٰطِلٗا سُبۡحَٰنَكَ فَقِنَا عَذَابَ ٱلنَّارِ رَبَّنَآ إِنَّكَ مَن تُدۡخِلِ ٱلنَّارَ فَقَدۡ أَخۡزَيۡتَهُۥۖ وَمَا لِلظَّـٰلِمِينَ مِنۡ أَنصَارٖ رَّبَّنَآ إِنَّنَا سَمِعۡنَا مُنَادِيٗا يُنَادِي لِلۡإِيمَٰنِ أَنۡ ءَامِنُواْ بِرَبِّكُمۡ فَـَٔامَنَّاۚ رَبَّنَا فَٱغۡفِرۡ لَنَا ذُنُوبَنَا وَكَفِّرۡ عَنَّا سَيِّـَٔاتِنَا وَتَوَفَّنَا مَعَ ٱلۡأَبۡرَارِ رَبَّنَا وَءَاتِنَا مَا وَعَدتَّنَا عَلَىٰ رُسُلِكَ وَلَا تُخۡزِنَا يَوۡمَ ٱلۡقِيَٰمَةِۖ إِنَّكَ لَا تُخۡلِفُ ٱلۡمِيعَادَ فَٱسۡتَجَابَ لَهُمۡ رَبُّهُمۡ أَنِّي لَآ أُضِيعُ عَمَلَ عَٰمِلٖ مِّنكُم مِّن ذَكَرٍ أَوۡ أُنثَىٰۖ بَعۡضُكُم مِّنۢ بَعۡضٖۖ فَٱلَّذِينَ هَاجَرُواْ وَأُخۡرِجُواْ مِن دِيَٰرِهِمۡ وَأُوذُواْ فِي سَبِيلِي وَقَٰتَلُواْ وَقُتِلُواْ لَأُكَفِّرَنَّ عَنۡهُمۡ سَيِّـَٔاتِهِمۡ وَلَأُدۡخِلَنَّهُمۡ جَنَّـٰتٖ تَجۡرِي مِن تَحۡتِهَا ٱلۡأَنۡهَٰرُ ثَوَابٗا مِّنۡ عِندِ ٱللَّهِۚ وَٱللَّهُ عِندَهُۥ حُسۡنُ ٱلثَّوَابِ لَا يَغُرَّنَّكَ تَقَلُّبُ ٱلَّذِينَ كَفَرُواْ فِي ٱلۡبِلَٰدِ مَتَٰعٞ قَلِيلٞ ثُمَّ مَأۡوَىٰهُمۡ جَهَنَّمُۖ وَبِئۡسَ ٱلۡمِهَادُ لَٰكِنِ ٱلَّذِينَ ٱتَّقَوۡاْ رَبَّهُمۡ لَهُمۡ جَنَّـٰتٞ تَجۡرِي مِن تَحۡتِهَا ٱلۡأَنۡهَٰرُ خَٰلِدِينَ فِيهَا نُزُلٗا مِّنۡ عِندِ ٱللَّهِۗ وَمَا عِندَ ٱللَّهِ خَيۡرٞ لِّلۡأَبۡرَارِ وَإِنَّ مِنۡ أَهۡلِ ٱلۡكِتَٰبِ لَمَن يُؤۡمِنُ بِٱللَّهِ وَمَآ أُنزِلَ إِلَيۡكُمۡ وَمَآ أُنزِلَ إِلَيۡهِمۡ خَٰشِعِينَ لِلَّهِ لَا يَشۡتَرُونَ بِـَٔايَٰتِ ٱللَّهِ ثَمَنٗا قَلِيلًاۚ أُوْلَـٰٓئِكَ لَهُمۡ أَجۡرُهُمۡ عِندَ رَبِّهِمۡۗ إِنَّ ٱللَّهَ سَرِيعُ ٱلۡحِسَابِ يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱصۡبِرُواْ وَصَابِرُواْ وَرَابِطُواْ وَٱتَّقُواْ ٱللَّهَ لَعَلَّكُمۡ تُفۡلِحُونَ",
+    transliteration:
+      "Inna fee khalqi alssamawati waalardi waikhtilafi allayli waalnnahari laayatin liolee alalbabi Allatheena yathkuroona Allaha qiyaman waquAAoodan waAAala junoobihim wayatafakkaroona fee khalqi alssamawati waalardi rabbana ma khalaqta hatha batilan subhanaka faqina AAathaba alnnari Rabbana innaka man tudkhili alnnara faqad akhzaytahu wama lilththalimeena min ansarin Rabbana innana samiAAna munadiyan yunadee lileemani an aminoo birabbikum faamanna rabbana faighfir lana thunoobana wakaffir AAanna sayyiatina watawaffana maAAa alabrari Rabbana waatina ma waAAadtana AAala rusulika wala tukhzina yawma alqiyamati innaka la tukhlifu almeeAAada Faistajaba lahum rabbuhum annee la odeeAAu AAamala AAamilin minkum min thakarin aw ontha baAAdukum min baAAdin faallatheena hajaroo waokhrijoo min diyarihim waoothoo fee sabeelee waqataloo waqutiloo laokaffiranna AAanhum sayyiatihim walaodkhilannahum jannatin tajree min tahtiha alanharu thawaban min AAindi Allahi waAllahu AAindahu husnu alththawabi La yaghurrannaka taqallubu allatheena kafaroo fee albiladi MataAAun qaleelun thumma mawahum jahannamu wabisa almihadu Lakini allatheena ittaqaw rabbahum lahum jannatun tajree min tahtiha alanharu khalideena feeha nuzulan min AAindi Allahi wama AAinda Allahi khayrun lilabrari Wainna min ahli alkitabi laman yuminu biAllahi wama onzila ilaykum wama onzila ilayhim khashiAAeena lillahi la yashtaroona biayati Allahi thamanan qaleelan olaika lahum ajruhum AAinda rabbihim inna Allaha sareeAAu alhisabi Ya ayyuha allatheena amanoo isbiroo wasabiroo warabitoo waittaqoo Allaha laAAallakum tuflihoona",
+    translation:
+      'Lo! In the creation of the heavens and the earth and (in) the difference of night and day are tokens (of His Sovereignty) for men of understanding Such as remember Allah, standing, sitting, and reclining, and consider the creation of the heavens and the earth, (and say): Our Lord! Thou createdst not this in vain. Glory be to Thee! Preserve us from the doom of Fire Our Lord! Whom Thou causest to enter the Fire: him indeed Thou hast confounded. For evil-doers there will be no helpers Our Lord! Lo! we have heard a crier calling unto Faith: "Believe ye in your Lord!" So we believed. Our Lord! Therefor forgive us our sins, and remit from us our evil deeds, and make us die the death of the righteous Our Lord! And give us that which Thou hast promised to us by Thy messengers. Confound us not upon the Day of Resurrection. Lo! Thou breakest not the tryst And their Lord hath heard them (and He saith): Lo! I suffer not the work of any worker, male or female, to be lost. Ye proceed one from another. So those who fled and were driven forth from their homes and suffered damage for My cause, and fought and were slain, verily I shall remit their evil deeds from them and verily I shall bring them into Gardens underneath which rivers flow - A reward from Allah. And with Allah is the fairest of rewards Let not the vicissitude (of the success) of those who disbelieve, in the land, deceive thee (O Muhammad) It is but a brief comfort. And afterward their habitation will be hell, an ill abode But those who keep their duty to their Lord, for them are Gardens underneath which rivers flow, wherein they will be safe for ever. A gift of welcome from their Lord. That which Allah hath in store is better for the righteous And lo! of the People of the Scripture there are some who believe in Allah and that which is revealed unto you and that which was revealed unto them, humbling themselves before Allah. They purchase not a trifling gain at the price of the revelations of Allah. Verily their reward is with their Lord. Lo! Allah is swift to take account O ye who believe! Endure, outdo all others in endurance, be ready, and observe your duty to Allah, in order that ye may succeed',
+    translations: {
+      ur: "بے شک آسمانوں اور زمین کی پیدائش اور رات اور دن کے بدل بدل کے آنے جانے میں عقل والوں کے لیے نشانیاں ہیں جو کھڑے اور بیٹھے اور لیٹے (ہر حال میں) خدا کو یاد کرتے اور آسمان اور زمین کی پیدائش میں غور کرتے (اور کہتے ہیں) کہ اے پروردگار! تو نے اس (مخلوق) کو بے فائدہ نہیں پیدا کیا تو پاک ہے تو (قیامت کے دن) ہمیں دوزخ کے عذاب سے بچائیو اے پروردگار جس کو تو نے دوزخ میں ڈالا اسے رسوا کیا اور ظالموں کا کوئی مددگار نہیں اے پروردگارہم نے ایک ندا کرنے والے کو سنا کہ ایمان کے لیے پکار رہا تھا (یعنی) اپنے پروردگار پر ایمان لاؤ تو ہم ایمان لے آئے اے پروردگار ہمارے گناہ معاف فرما اور ہماری برائیوں کو ہم سے محو کر اور ہم کو دنیا سے نیک بندوں کے ساتھ اٹھا اے پروردگار تو نے جن جن چیزوں کے ہم سے اپنے پیغمبروں کے ذریعے سے وعدے کیے ہیں وہ ہمیں عطا فرما اور قیامت کے دن ہمیں رسوا نہ کیجو کچھ شک نہیں کہ تو خلاف وعدہ نہیں کرتا تو ان کے پرردگار نے ان کی دعا قبول کر لی (اور فرمایا) کہ میں کسی عمل کرنے والے کے عمل کو مرد ہو یا عورت ضائع نہیں کرتا تم ایک دوسرے کی جنس ہو تو جو لوگ میرے لیے وطن چھوڑ گئے اور اپنے گھروں سے نکالے گئے اور ستائے گئے اور لڑے اور قتل کیے گئے میں ان کے گناہ دور کردوں گا اور ان کو بہشتوں میں داخل کروں گا جن کے نیچے نہریں بہ رہی ہیں (یہ) خدا کے ہاں سے بدلہ ہے اور خدا کے ہاں اچھا بدلہ ہے (اے پیغمبر) کافروں کا شہروں میں چلنا پھرنا تمہیں دھوکا نہ دے (یہ دنیا کا) تھوڑا سا فائدہ ہے پھر (آخرت میں) تو ان کا ٹھکانا دوزخ ہے اور وہ بری جگہ ہے لیکن جو لوگ اپنے پروردگار سے ڈرتے رہے ان کے لیے باغ ہے جن کے نیچے نہریں بہہ رہی ہیں (اور) ان میں ہمیشہ رہیں گے (یہ) خدا کے ہاں سے (ان کی) مہمانی ہے اور جو کچھ خدا کے ہاں ہے وہ نیکو کاروں کے لیے بہت اچھا ہے اور بعض اہلِ کتاب ایسے بھی ہیں جو خدا پر اور اس (کتاب) پر جو تم پر نازل ہوئی اور اس پر جو ان پر نازل ہوئی ایمان رکھتے ہیں اور خدا کے آگے عاجزی کرتے ہیں اور خدا کی آیتوں کے بدلے تھوڑی سی قیمت نہیں لیتے یہی لوگ ہیں جن کا صلہ ان کے پروردگار کے ہاں تیار ہے اور خدا جلد حساب لینے والا ہے اے اہل ایمان (کفار کے مقابلے میں) ثابت قدم رہو اور استقامت رکھو اور مورچوں پر جمے رہو اور خدا سے ڈرو تاکہ مراد حاصل کرو",
+    },
+    virtues: "Recite Surah Al-'Imran [3:190-200].",
     reference: "Al-Bukhârî [4572], see Fatĥ al-Bârî (8/237) and Muslim [763](1/530).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/4hm.mp3",
@@ -580,6 +588,19 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/8hm.mp3",
   },
   {
+    id: "hisn-9",
+    categoryId: "home",
+    title: "Before Undressing",
+    arabic: "بِسْمِ اللهِ",
+    transliteration: "Bismillah",
+    translation: "In the name of Allah.",
+    translations: { bn: "আল্লাহ্‌র নামে।", id: "Dengan nama Allah (aku mulai makan)." },
+    reference:
+      "At-Tirmidhî [606](2/505) and Sahîh Al-Jâmi' [3210](3/203). Also see Irwâ'-ul-Ghalîl [50].",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/9hm.mp3",
+  },
+  {
     id: "hisn-10",
     categoryId: "purification",
     title: "Before entering the toilet",
@@ -604,6 +625,19 @@ export const DUA_ITEMS: DuaItem[] = [
       "At-Tirmidhî [7], Abû Dâwud [30], Ibn Mâjah [300] and An-Nisâ'i ['Amal al-Yawm wa al-Laylah][79].",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/11hm.mp3",
+  },
+  {
+    id: "hisn-12",
+    categoryId: "purification",
+    title: "When starting ablution (wudu')",
+    arabic: "بِسْمِ اللهِ",
+    transliteration: "Bismillah",
+    translation: "In the name of Allah.",
+    translations: { bn: "আল্লাহ্‌র নামে।", id: "Dengan nama Allah (aku mulai makan)." },
+    reference:
+      "Abû Dâwud [101], Ibn Mâjah [399] and Aĥmad (2/418). Also see Irwâ'-ul-Ghalîl (1/122).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/12hm.mp3",
   },
   {
     id: "hisn-13",
@@ -870,7 +904,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ اللَّهُمَّ اغْفِرْلِي",
     translation: "How perfect You are O Allah, our Lord and I praise You. O Allah, forgive me.",
     translations: {
-      bn: "হে আল্লাহ! আমাদের রব্ব! আপনার পবিত্রতা ও মহিমা ঘোষণা করছি আপনার প্রশংসাসহ। হে আল্লাহ! আপনি আমাকে মাফ করে দিন।",
+      bn: "হে আল্লাহ! আমাদের রব্ব! আপনার প্রশংসাসহ আপনার পবিত্রতা ও মহিমা ঘোষণা করছি। হে আল্লাহ! আপনি আমাকে মাফ করে দিন।",
     },
     reference: "Al-Bukhârî [794](1/99) and Muslim [484](1/350).",
     audioUri:
@@ -913,7 +947,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "How perfect He is, The Possessor of total power, sovereignty, magnificence and grandeur.",
     translations: {
-      bn: "পবিত্রতা ও মহিমা ঘোষণা করছি সেই সত্তার, যিনি প্রবল প্রতাপ, বিশাল সাম্রাজ্য, বিরাট গৌরব-গরিমা এবং অতুলনীয় মহত্ত্বের অধিকারী",
+      bn: "পবিত্রতা ও মহিমা ঘোষণা করছি সেই সত্তার, যিনি প্রবল প্রতাপ, বিশাল সাম্রাজ্য, বিরাট গৌরব-গরিমা এবং অতুলনীয় মহত্ত্বের অধিকারী।",
     },
     reference: "Abû Dâwud [873](1/230), An-Nisâ'i (2/191) and Aĥmad (6/24).",
     audioUri:
@@ -1316,8 +1350,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-70",
     categoryId: "prayer",
     title: "Remembrance after the Taslîm #5",
-    arabic: "(١) (قُلْ هُوَ اللَّهُ أَحَدٌ.) (٢) (قٌلْ أَعُوْذُ بِرَبَّ الْفَلَقِ.) (٣) (قُلْ أَعُوْذُ بِرَبَّ النَّاسِ.)",
+    arabic:
+      "قُلۡ هُوَ ٱللَّهُ أَحَدٌ ٱللَّهُ ٱلصَّمَدُ لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ\nقُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ ٱلنَّفَّـٰثَٰتِ فِي ٱلۡعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ\nقُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ مَلِكِ ٱلنَّاسِ إِلَٰهِ ٱلنَّاسِ مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ",
+    transliteration:
+      "Qul huwa Allahu ahadun Allahu alssamadu Lam yalid walam yooladu Walam yakun lahu kufuwan ahadun\nQul aAAoothu birabbi alfalaqi Min sharri ma khalaqa Wamin sharri ghasiqin itha waqaba Wamin sharri alnnaffathati fee alAAuqadi Wamin sharri hasidin itha hasada\nQul aAAoothu birabbi alnnasi Maliki alnnasi Ilahi alnnasi Min sharri alwaswasi alkhannasi Allathee yuwaswisu fee sudoori alnnasi Mina aljinnati wa alnnasm",
     translation:
+      "Say: He is Allah, the One Allah, the eternally Besought of all He begetteth not nor was begotten And there is none comparable unto Him\nSay: I seek refuge in the Lord of the Daybreak From the evil of that which He created From the evil of the darkness when it is intense And from the evil of malignant witchcraft And from the evil of the envier when he envieth\nSay: I seek refuge in the Lord of mankind The King of mankind The god of mankind From the evil of the sneaking whisperer Who whispereth in the hearts of mankind Of the jinn and of mankind",
+    translations: {
+      ur: "کہو کہ وہ (ذات پاک جس کا نام) الله (ہے) ایک ہے معبود برحق جو بےنیاز ہے نہ کسی کا باپ ہے اور نہ کسی کا بیٹا اور کوئی اس کا ہمسر نہیں\nکہو کہ میں صبح کے پروردگار کی پناہ مانگتا ہوں ہر چیز کی بدی سے جو اس نے پیدا کی اور شب تاریکی کی برائی سے جب اس کااندھیرا چھا جائے اور گنڈوں پر (پڑھ پڑھ کر) پھونکنے والیوں کی برائی سے اور حسد کرنے والے کی برائی سے جب حسد کرنے لگے\nکہو کہ میں لوگوں کے پروردگار کی پناہ مانگتا ہوں (یعنی) لوگوں کے حقیقی بادشاہ کی لوگوں کے معبود برحق کی (شیطان) وسوسہ انداز کی برائی سے جو (خدا کا نام سن کر) پیچھے ہٹ جاتا ہے جو لوگوں کے دلوں میں وسوسے ڈالتا ہے وہ جنّات میں سے (ہو) یا انسانوں میں سے",
+    },
+    virtues:
       "The following three surahs should be recited once after Zuhr, ‘Asar and ‘Isha’ prayers and thrice after Fajr and Maghrib:\n(1) Al-Ikhlas\n(2) Al-Falaq\n(3) An-Naas",
     reference: "Abû Dâwud [1523](2/86) and An-Nisâ'i (3/68). Also see Ŝaĥîĥ At-Tirmidhî (2/8).",
     audioUri:
@@ -1327,8 +1369,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-71",
     categoryId: "prayer",
     title: "Remembrance after the Taslîm #6",
-    arabic: "(اللَّهُ لا إِلَهَ إِلا هُوَ الْحَيُّ الْقَيُّومُ لا تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ.)",
+    arabic:
+      "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+    transliteration:
+      "Allahu la ilaha illa huwa alhayyu alqayyoomu la takhuthuhu sinatun wala nawmun lahu ma fee alssamawati wama fee alardi man tha allathee yashfaAAu AAindahu illa biithnihi yaAAlamu ma bayna aydeehim wama khalfahum wala yuheetoona bishayin min AAilmihi illa bima shaa wasiAAa kursiyyuhu alssamawati waalarda wala yaooduhu hifthuhuma wahuwa alAAaliyyu alAAatheemu",
     translation:
+      "Allah! There is no deity save Him, the Alive, the Eternal. Neither slumber nor sleep overtaketh Him. Unto Him belongeth whatsoever is in the heavens and whatsoever is in the earth. Who is he that intercedeth with Him save by His leave? He knoweth that which is in front of them and that which is behind them, while they encompass nothing of His knowledge save what He will. His throne includeth the heavens and the earth, and He is never weary of preserving them. He is the Sublime, the Tremendous",
+    translations: {
+      ur: "خدا (وہ معبود برحق ہے کہ) اس کے سوا کوئی عبادت کے لائق نہیں زندہ ہمیشہ رہنے والا اسے نہ اونگھ آتی ہے نہ نیند جو کچھ آسمانوں میں اور جو کچھ زمین میں ہیں سب اسی کا ہے کون ہے جو اس کی اجازت کے بغیر اس سے (کسی کی) سفارش کر سکے جو کچھ لوگوں کے روبرو ہو رہا ہے اور جو کچھ ان کے پیچھے ہوچکا ہے اسے سب معلوم ہے اور وہ اس کی معلومات میں سے کسی چیز پر دسترس حاصل نہیں کر سکتے ہاں جس قدر وہ چاہتا ہے (اسی قدر معلوم کرا دیتا ہے) اس کی بادشاہی (اور علم) آسمان اور زمین سب پر حاوی ہے اور اسے ان کی حفاظت کچھ بھی دشوار نہیں وہ بڑا عالی رتبہ اور جلیل القدر ہے",
+    },
+    virtues:
       "It is also from the Sunnah to recite Ayat al-Kursi after each prayer:\n[Al Baqarah: 255]",
     reference:
       "An-Nisâ'i ('Amal al-Yawm wa al-Laylah)(100) and Ibn Sinnî [121]. Al-Albânî authenticated it in Ŝaĥîĥ Al-Jâmi' [6464](5/339) and Silsilah Al-Ahâdîth Aŝ-Ŝaĥîĥah [972](2/697).",
@@ -1365,10 +1415,10 @@ export const DUA_ITEMS: DuaItem[] = [
     title:
       "Supplication for seeking guidance in forming a decision or choosing the proper course, etc..(Al-'Istikhârah)",
     arabic:
-      "اللَّهُمَّ إِنِّي أَسْتَخِيْرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ، اللَّهُمَّ إنْ كُنْتَ تَعْلَمُ أَنْ هَذَاالأَمْرَ - ويُسَمِّي حَاجَتَه - خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي – أو قالَ: عَاجِلِهِ وَ آجِلِهِ - فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي، ثُمَّ بَارِكْ لِي فِيهِ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الأمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشي وَعَاقِبَةِ أَمْرِي – أوْ قالَ: عَاجِلِهِ وَ آجِلِهِ - فَاصْرِفْهُ عَني، وَاصْرِفْنِي عَنْهُ، وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ، ثُمَّ أَرْضِنِي بِهِ. وَ مَا نَدِمَ مَنْ اسْتَخَارَ الخَالِقَ، وَ شَاوَرَ المَخْلُوقِينَ المُؤمِنِينَ، وَ تَثَبَّتَ فِي أمْرِهِ، فَقَدْ قَالَ سُبْحَانَهُ: ﴿وَ شَاوِرْ هُمْ فِي الأَمْرِ فَإذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللهِ﴾",
+      "اللَّهُمَّ إِنِّي أَسْتَخِيْرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ، اللَّهُمَّ إنْ كُنْتَ تَعْلَمُ أَنْ هَذَا الأَمْرَ - ويُسَمِّي حَاجَتَه - خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي – أو قالَ: عَاجِلِهِ وَ آجِلِهِ - فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي، ثُمَّ بَارِكْ لِي فِيهِ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الأمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشي وَعَاقِبَةِ أَمْرِي – أوْ قالَ: عَاجِلِهِ وَ آجِلِهِ - فَاصْرِفْهُ عَني، وَاصْرِفْنِي عَنْهُ، وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ، ثُمَّ أَرْضِنِي بِهِ",
     translation:
-      "On the authority of Jaabir Ibn ‘Abdullah (RA), he said: ‘The Prophet (salla Allaahu ʻalayhi wa salaam) would instruct us to pray for guidance in all of our concerns, just as he would teach us a chapter from the Qur’an. He (salla Allaahu ʻalayhi wa salaam) would say ‘If any of you intends to undertake a matter then let him pray two supererogatory units (Two Rakah nâfilah) of prayer and after which he should supplicate:\n\n‘O Allah, I seek Your counsel by Your knowledge and by Your power I seek strength and I ask You from Your immense favor, for verily You are able while I am not and verily You know while I do not and You are the Knower of the unseen. O Allah if You know this affair- and here he mentions his need- to be good for me in relation to my religion, my life, and end, then decree and facilitate it for me, and bless me with it, and if You know this affair to be ill for me towards my religion, my life and end, then remove it from me and remove me from it, and decree from me what is good and wherever it be and make me satisfied with such.' \n\nOne who seeks guidance from his Creator and consults his fellow believers and then remains firm in his resolve does not regret for Allah has said: {…and consult them in the affair. Then when you have taken a decision, put your trust in Allaah…}",
-    reference: "(1) Al-Bukhârî [1162](7/162).\n(2) Qur'an Al-'Imran [3:159].",
+      "On the authority of Jaabir Ibn ‘Abdullah (RA), he said: ‘The Prophet (salla Allaahu ʻalayhi wa salaam) would instruct us to pray for guidance in all of our concerns, just as he would teach us a chapter from the Qur’an. He (salla Allaahu ʻalayhi wa salaam) would say ‘If any of you intends to undertake a matter then let him pray two supererogatory units (Two Rakah nâfilah) of prayer and after which he should supplicate:\n\n‘O Allah, I seek Your counsel by Your knowledge and by Your power I seek strength and I ask You from Your immense favor, for verily You are able while I am not and verily You know while I do not and You are the Knower of the unseen. O Allah if You know this affair- and here he mentions his need- to be good for me in relation to my religion, my life, and end, then decree and facilitate it for me, and bless me with it, and if You know this affair to be ill for me towards my religion, my life and end, then remove it from me and remove me from it, and decree from me what is good and wherever it be and make me satisfied with such.'",
+    reference: "Al-Bukhârî [1166], [6382].",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/74hm.mp3",
   },
@@ -1376,13 +1426,39 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-75",
     categoryId: "morning_evening",
     title: "Remembrance said in the morning and evening #1",
-    arabic: "﴿اللهُ لَا إله إلَّا هُوَ الحَيُّ القَيُّومُ لَا.﴾",
+    arabic:
+      "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+    transliteration:
+      "Allahu la ilaha illa huwa alhayyu alqayyoomu la takhuthuhu sinatun wala nawmun lahu ma fee alssamawati wama fee alardi man tha allathee yashfaAAu AAindahu illa biithnihi yaAAlamu ma bayna aydeehim wama khalfahum wala yuheetoona bishayin min AAilmihi illa bima shaa wasiAAa kursiyyuhu alssamawati waalarda wala yaooduhu hifthuhuma wahuwa alAAaliyyu alAAatheemu",
     translation:
+      "Allah! There is no deity save Him, the Alive, the Eternal. Neither slumber nor sleep overtaketh Him. Unto Him belongeth whatsoever is in the heavens and whatsoever is in the earth. Who is he that intercedeth with Him save by His leave? He knoweth that which is in front of them and that which is behind them, while they encompass nothing of His knowledge save what He will. His throne includeth the heavens and the earth, and He is never weary of preserving them. He is the Sublime, the Tremendous",
+    translations: {
+      ur: "خدا (وہ معبود برحق ہے کہ) اس کے سوا کوئی عبادت کے لائق نہیں زندہ ہمیشہ رہنے والا اسے نہ اونگھ آتی ہے نہ نیند جو کچھ آسمانوں میں اور جو کچھ زمین میں ہیں سب اسی کا ہے کون ہے جو اس کی اجازت کے بغیر اس سے (کسی کی) سفارش کر سکے جو کچھ لوگوں کے روبرو ہو رہا ہے اور جو کچھ ان کے پیچھے ہوچکا ہے اسے سب معلوم ہے اور وہ اس کی معلومات میں سے کسی چیز پر دسترس حاصل نہیں کر سکتے ہاں جس قدر وہ چاہتا ہے (اسی قدر معلوم کرا دیتا ہے) اس کی بادشاہی (اور علم) آسمان اور زمین سب پر حاوی ہے اور اسے ان کی حفاظت کچھ بھی دشوار نہیں وہ بڑا عالی رتبہ اور جلیل القدر ہے",
+    },
+    virtues:
       "Whoever says this (Âyat al-Kursî) when he rises in the morning will be protected from jinns until he retires in the evening, and whoever says it when retiring in the evening will be protected from them until he rises in the morning.",
     reference:
       "Al-Hâkim (1/562) and Al-Albânî authenticated it in Ŝaĥîĥ At-Targhîb wa At-Tarhîb [655](1/273) and he attributed it to An-Nisâ'i ['Amal al-Yawm wa al-Laylah][960] and Ťabarânî [Al-Kabîr][541] and said that the latter's chain is good.",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/75hm.mp3",
+  },
+  {
+    id: "hisn-76",
+    categoryId: "morning_evening",
+    title: "Remembrance said in the morning and evening #2",
+    arabic:
+      "قُلۡ هُوَ ٱللَّهُ أَحَدٌ ٱللَّهُ ٱلصَّمَدُ لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ\nقُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ ٱلنَّفَّـٰثَٰتِ فِي ٱلۡعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ\nقُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ مَلِكِ ٱلنَّاسِ إِلَٰهِ ٱلنَّاسِ مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ",
+    transliteration:
+      "Qul huwa Allahu ahadun Allahu alssamadu Lam yalid walam yooladu Walam yakun lahu kufuwan ahadun\nQul aAAoothu birabbi alfalaqi Min sharri ma khalaqa Wamin sharri ghasiqin itha waqaba Wamin sharri alnnaffathati fee alAAuqadi Wamin sharri hasidin itha hasada\nQul aAAoothu birabbi alnnasi Maliki alnnasi Ilahi alnnasi Min sharri alwaswasi alkhannasi Allathee yuwaswisu fee sudoori alnnasi Mina aljinnati wa alnnasm",
+    translation:
+      "Say: He is Allah, the One Allah, the eternally Besought of all He begetteth not nor was begotten And there is none comparable unto Him\nSay: I seek refuge in the Lord of the Daybreak From the evil of that which He created From the evil of the darkness when it is intense And from the evil of malignant witchcraft And from the evil of the envier when he envieth\nSay: I seek refuge in the Lord of mankind The King of mankind The god of mankind From the evil of the sneaking whisperer Who whispereth in the hearts of mankind Of the jinn and of mankind",
+    translations: {
+      ur: "کہو کہ وہ (ذات پاک جس کا نام) الله (ہے) ایک ہے معبود برحق جو بےنیاز ہے نہ کسی کا باپ ہے اور نہ کسی کا بیٹا اور کوئی اس کا ہمسر نہیں\nکہو کہ میں صبح کے پروردگار کی پناہ مانگتا ہوں ہر چیز کی بدی سے جو اس نے پیدا کی اور شب تاریکی کی برائی سے جب اس کااندھیرا چھا جائے اور گنڈوں پر (پڑھ پڑھ کر) پھونکنے والیوں کی برائی سے اور حسد کرنے والے کی برائی سے جب حسد کرنے لگے\nکہو کہ میں لوگوں کے پروردگار کی پناہ مانگتا ہوں (یعنی) لوگوں کے حقیقی بادشاہ کی لوگوں کے معبود برحق کی (شیطان) وسوسہ انداز کی برائی سے جو (خدا کا نام سن کر) پیچھے ہٹ جاتا ہے جو لوگوں کے دلوں میں وسوسے ڈالتا ہے وہ جنّات میں سے (ہو) یا انسانوں میں سے",
+    },
+    virtues:
+      "Recite:\n1. Sûrah Ikhlâs (Qur'ân : 112)\n2. Sûrah Al-Falaq (Qur'ân : 113)\n3. Sûrah An-Nâs (Qur'ân : 114)\n[3 times]",
+    reference:
+      "Abû Dâwud [5082](4/322), At-Tirmidhî [5/567](3575). Also see Ŝaĥîĥ At-Tirmidhî (3/182).",
   },
   {
     id: "hisn-77",
@@ -1703,11 +1779,36 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/98hm.mp3",
   },
   {
+    id: "hisn-99",
+    categoryId: "sleep",
+    title: "Remembrance before sleeping #1",
+    arabic:
+      "قُلۡ هُوَ ٱللَّهُ أَحَدٌ ٱللَّهُ ٱلصَّمَدُ لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ\nقُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ ٱلنَّفَّـٰثَٰتِ فِي ٱلۡعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ\nقُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ مَلِكِ ٱلنَّاسِ إِلَٰهِ ٱلنَّاسِ مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ",
+    transliteration:
+      "Qul huwa Allahu ahadun Allahu alssamadu Lam yalid walam yooladu Walam yakun lahu kufuwan ahadun\nQul aAAoothu birabbi alfalaqi Min sharri ma khalaqa Wamin sharri ghasiqin itha waqaba Wamin sharri alnnaffathati fee alAAuqadi Wamin sharri hasidin itha hasada\nQul aAAoothu birabbi alnnasi Maliki alnnasi Ilahi alnnasi Min sharri alwaswasi alkhannasi Allathee yuwaswisu fee sudoori alnnasi Mina aljinnati wa alnnasm",
+    translation:
+      "Say: He is Allah, the One Allah, the eternally Besought of all He begetteth not nor was begotten And there is none comparable unto Him\nSay: I seek refuge in the Lord of the Daybreak From the evil of that which He created From the evil of the darkness when it is intense And from the evil of malignant witchcraft And from the evil of the envier when he envieth\nSay: I seek refuge in the Lord of mankind The King of mankind The god of mankind From the evil of the sneaking whisperer Who whispereth in the hearts of mankind Of the jinn and of mankind",
+    translations: {
+      ur: "کہو کہ وہ (ذات پاک جس کا نام) الله (ہے) ایک ہے معبود برحق جو بےنیاز ہے نہ کسی کا باپ ہے اور نہ کسی کا بیٹا اور کوئی اس کا ہمسر نہیں\nکہو کہ میں صبح کے پروردگار کی پناہ مانگتا ہوں ہر چیز کی بدی سے جو اس نے پیدا کی اور شب تاریکی کی برائی سے جب اس کااندھیرا چھا جائے اور گنڈوں پر (پڑھ پڑھ کر) پھونکنے والیوں کی برائی سے اور حسد کرنے والے کی برائی سے جب حسد کرنے لگے\nکہو کہ میں لوگوں کے پروردگار کی پناہ مانگتا ہوں (یعنی) لوگوں کے حقیقی بادشاہ کی لوگوں کے معبود برحق کی (شیطان) وسوسہ انداز کی برائی سے جو (خدا کا نام سن کر) پیچھے ہٹ جاتا ہے جو لوگوں کے دلوں میں وسوسے ڈالتا ہے وہ جنّات میں سے (ہو) یا انسانوں میں سے",
+    },
+    virtues:
+      "When retiring to his bed every night, the Prophet (salla Allaahu ʻalayhi wa salaam) would hold his palms together, (dry) spit in them, recite the last three chapters of the Qur'ân and then wipe over his entire body as much as possible with his hands, beginning with his head and face and then all parts of the body; he would do this three times.",
+    reference: "Al-Bukhârî [5017](9/62) and Muslim [2192](4/1723).",
+  },
+  {
     id: "hisn-100",
     categoryId: "sleep",
     title: "Remembrance before sleeping #2",
-    arabic: "﴿اللهُ لَا إلَهَ إلَّا هُوَ الحَيُّ القَيُّومُ. ﴾",
+    arabic:
+      "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
+    transliteration:
+      "Allahu la ilaha illa huwa alhayyu alqayyoomu la takhuthuhu sinatun wala nawmun lahu ma fee alssamawati wama fee alardi man tha allathee yashfaAAu AAindahu illa biithnihi yaAAlamu ma bayna aydeehim wama khalfahum wala yuheetoona bishayin min AAilmihi illa bima shaa wasiAAa kursiyyuhu alssamawati waalarda wala yaooduhu hifthuhuma wahuwa alAAaliyyu alAAatheemu",
     translation:
+      "Allah! There is no deity save Him, the Alive, the Eternal. Neither slumber nor sleep overtaketh Him. Unto Him belongeth whatsoever is in the heavens and whatsoever is in the earth. Who is he that intercedeth with Him save by His leave? He knoweth that which is in front of them and that which is behind them, while they encompass nothing of His knowledge save what He will. His throne includeth the heavens and the earth, and He is never weary of preserving them. He is the Sublime, the Tremendous",
+    translations: {
+      ur: "خدا (وہ معبود برحق ہے کہ) اس کے سوا کوئی عبادت کے لائق نہیں زندہ ہمیشہ رہنے والا اسے نہ اونگھ آتی ہے نہ نیند جو کچھ آسمانوں میں اور جو کچھ زمین میں ہیں سب اسی کا ہے کون ہے جو اس کی اجازت کے بغیر اس سے (کسی کی) سفارش کر سکے جو کچھ لوگوں کے روبرو ہو رہا ہے اور جو کچھ ان کے پیچھے ہوچکا ہے اسے سب معلوم ہے اور وہ اس کی معلومات میں سے کسی چیز پر دسترس حاصل نہیں کر سکتے ہاں جس قدر وہ چاہتا ہے (اسی قدر معلوم کرا دیتا ہے) اس کی بادشاہی (اور علم) آسمان اور زمین سب پر حاوی ہے اور اسے ان کی حفاظت کچھ بھی دشوار نہیں وہ بڑا عالی رتبہ اور جلیل القدر ہے",
+    },
+    virtues:
       "The Prophet (salla Allaahu ʻalayhi wa salaam) also said: 'When you are about to sleep, recit Ayat Al-Kursî, for there will remain over you a protection from Allah and no devil will draw near you until morning.'",
     reference: "Al-Bukhârî [2311](4/487).",
     audioUri:
@@ -1717,8 +1818,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-101",
     categoryId: "sleep",
     title: "Remembrance before sleeping #3",
-    arabic: "﴿ءامَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ.﴾",
+    arabic:
+      "ءَامَنَ ٱلرَّسُولُ بِمَآ أُنزِلَ إِلَيۡهِ مِن رَّبِّهِۦ وَٱلۡمُؤۡمِنُونَۚ كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَـٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ لَا نُفَرِّقُ بَيۡنَ أَحَدٖ مِّن رُّسُلِهِۦۚ وَقَالُواْ سَمِعۡنَا وَأَطَعۡنَاۖ غُفۡرَانَكَ رَبَّنَا وَإِلَيۡكَ ٱلۡمَصِيرُ لَا يُكَلِّفُ ٱللَّهُ نَفۡسًا إِلَّا وُسۡعَهَاۚ لَهَا مَا كَسَبَتۡ وَعَلَيۡهَا مَا ٱكۡتَسَبَتۡۗ رَبَّنَا لَا تُؤَاخِذۡنَآ إِن نَّسِينَآ أَوۡ أَخۡطَأۡنَاۚ رَبَّنَا وَلَا تَحۡمِلۡ عَلَيۡنَآ إِصۡرٗا كَمَا حَمَلۡتَهُۥ عَلَى ٱلَّذِينَ مِن قَبۡلِنَاۚ رَبَّنَا وَلَا تُحَمِّلۡنَا مَا لَا طَاقَةَ لَنَا بِهِۦۖ وَٱعۡفُ عَنَّا وَٱغۡفِرۡ لَنَا وَٱرۡحَمۡنَآۚ أَنتَ مَوۡلَىٰنَا فَٱنصُرۡنَا عَلَى ٱلۡقَوۡمِ ٱلۡكَٰفِرِينَ",
+    transliteration:
+      "Amana alrrasoolu bima onzila ilayhi min rabbihi waalmuminoona kullun amana biAllahi wamalaikatihi wakutubihi warusulihi la nufarriqu bayna ahadin min rusulihi waqaloo samiAAna waataAAna ghufranaka rabbana wailayka almaseeru La yukallifu Allahu nafsan illa wusAAaha laha ma kasabat waAAalayha ma iktasabat rabbana la tuakhithna in naseena aw akhtana rabbana wala tahmil AAalayna isran kama hamaltahu AAala allatheena min qablina rabbana wala tuhammilna ma la taqata lana bihi waoAAfu AAanna waighfir lana wairhamna anta mawlana faonsurna AAala alqawmi alkafireena",
     translation:
+      "The messenger believeth in that which hath been revealed unto him from his Lord and (so do) believers. Each one believeth in Allah and His angels and His scriptures and His messengers - We make no distinction between any of His messengers - and they say: We hear, and we obey. (Grant us) Thy forgiveness, our Lord. Unto Thee is the journeying Allah tasketh not a soul beyond its scope. For it (is only) that which it hath earned, and against it (only) that which it hath deserved. Our Lord! Condemn us not if we forget, or miss the mark! Our Lord! Lay not on us such a burden as thou didst lay on those before us! Our Lord! Impose not on us that which we have not the strength to bear! Pardon us, absolve us and have mercy on us, Thou, our Protector, and give us victory over the disbelieving folk",
+    translations: {
+      ur: "رسول (خدا) اس کتاب پر جو ان کے پروردگار کی طرف سے ان پر نازل ہوئی ایمان رکھتے ہیں اور مومن بھی۔ سب خدا پر اور اس کے فرشتوں پر اور اس کی کتابوں پر اور اس کے پیغمبروں پر ایمان رکھتے ہیں (اورکہتے ہیں کہ) ہم اس کے پیغمبروں سے کسی میں کچھ فرق نہیں کرتے اور وہ (خدا سے) عرض کرتے ہیں کہ ہم نے (تیرا حکم) سنا اور قبول کیا۔ اے پروردگار ہم تیری بخشش مانگتے ہیں اور تیری ہی طرف لوٹ کر جانا ہے خدا کسی شخص کو اس کی طاقت سے زیادہ تکلیف نہیں دیتا۔ اچھے کام کرے گا تو اس کو ان کا فائدہ ملے گا برے کرے گا تو اسے ان کا نقصان پہنچے گا۔ اے پروردگار اگر ہم سے بھول یا چوک ہوگئی ہو تو ہم سے مؤاخذہ نہ کیجیو۔ اے پروردگار ہم پر ایسا بوجھ نہ ڈالیو جیسا تو نے ہم سے پہلے لوگوں پر ڈالا تھا۔ اے پروردگار جتنا بوجھ اٹھانے کی ہم میں طاقت نہیں اتنا ہمارے سر پر نہ رکھیو۔ اور (اے پروردگار) ہمارے گناہوں سے درگزر کر اور ہمیں بخش دے۔ اور ہم پر رحم فرما۔ تو ہی ہمارا مالک ہے اور ہم کو کافروں پر غالب فرما",
+    },
+    virtues:
       "The Prophet (salla Allaahu ʻalayhi wa salaam) also said: 'Whoever recites the last two verses of Surah Al-Baqarah at night; those two verses shall be sufficient for him.'",
     reference: "Al-Bukhârî [4008](9/94) and Muslim [808](1/554).",
     audioUri:
@@ -1834,8 +1943,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-110",
     categoryId: "sleep",
     title: "Remembrance before sleeping #12",
-    arabic: "يَقْرَاُ ﴿الٓمٓ. تَنْزِيْلُ الْكِتَابِ.﴾ وَ ﴿تَبَارَكَ الَّذِي بِيَدِهِ المُلْكَ.﴾",
-    translation: "Recite Sûrah As-Sajdah and Sûrah Al-Mulk.",
+    arabic:
+      "الٓمٓ تَنزِيلُ ٱلۡكِتَٰبِ لَا رَيۡبَ فِيهِ مِن رَّبِّ ٱلۡعَٰلَمِينَ أَمۡ يَقُولُونَ ٱفۡتَرَىٰهُۚ بَلۡ هُوَ ٱلۡحَقُّ مِن رَّبِّكَ لِتُنذِرَ قَوۡمٗا مَّآ أَتَىٰهُم مِّن نَّذِيرٖ مِّن قَبۡلِكَ لَعَلَّهُمۡ يَهۡتَدُونَ ٱللَّهُ ٱلَّذِي خَلَقَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَ وَمَا بَيۡنَهُمَا فِي سِتَّةِ أَيَّامٖ ثُمَّ ٱسۡتَوَىٰ عَلَى ٱلۡعَرۡشِۖ مَا لَكُم مِّن دُونِهِۦ مِن وَلِيّٖ وَلَا شَفِيعٍۚ أَفَلَا تَتَذَكَّرُونَ يُدَبِّرُ ٱلۡأَمۡرَ مِنَ ٱلسَّمَآءِ إِلَى ٱلۡأَرۡضِ ثُمَّ يَعۡرُجُ إِلَيۡهِ فِي يَوۡمٖ كَانَ مِقۡدَارُهُۥٓ أَلۡفَ سَنَةٖ مِّمَّا تَعُدُّونَ ذَٰلِكَ عَٰلِمُ ٱلۡغَيۡبِ وَٱلشَّهَٰدَةِ ٱلۡعَزِيزُ ٱلرَّحِيمُ ٱلَّذِيٓ أَحۡسَنَ كُلَّ شَيۡءٍ خَلَقَهُۥۖ وَبَدَأَ خَلۡقَ ٱلۡإِنسَٰنِ مِن طِينٖ ثُمَّ جَعَلَ نَسۡلَهُۥ مِن سُلَٰلَةٖ مِّن مَّآءٖ مَّهِينٖ ثُمَّ سَوَّىٰهُ وَنَفَخَ فِيهِ مِن رُّوحِهِۦۖ وَجَعَلَ لَكُمُ ٱلسَّمۡعَ وَٱلۡأَبۡصَٰرَ وَٱلۡأَفۡـِٔدَةَۚ قَلِيلٗا مَّا تَشۡكُرُونَ وَقَالُوٓاْ أَءِذَا ضَلَلۡنَا فِي ٱلۡأَرۡضِ أَءِنَّا لَفِي خَلۡقٖ جَدِيدِۭۚ بَلۡ هُم بِلِقَآءِ رَبِّهِمۡ كَٰفِرُونَ ۞قُلۡ يَتَوَفَّىٰكُم مَّلَكُ ٱلۡمَوۡتِ ٱلَّذِي وُكِّلَ بِكُمۡ ثُمَّ إِلَىٰ رَبِّكُمۡ تُرۡجَعُونَ وَلَوۡ تَرَىٰٓ إِذِ ٱلۡمُجۡرِمُونَ نَاكِسُواْ رُءُوسِهِمۡ عِندَ رَبِّهِمۡ رَبَّنَآ أَبۡصَرۡنَا وَسَمِعۡنَا فَٱرۡجِعۡنَا نَعۡمَلۡ صَٰلِحًا إِنَّا مُوقِنُونَ وَلَوۡ شِئۡنَا لَأٓتَيۡنَا كُلَّ نَفۡسٍ هُدَىٰهَا وَلَٰكِنۡ حَقَّ ٱلۡقَوۡلُ مِنِّي لَأَمۡلَأَنَّ جَهَنَّمَ مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ أَجۡمَعِينَ فَذُوقُواْ بِمَا نَسِيتُمۡ لِقَآءَ يَوۡمِكُمۡ هَٰذَآ إِنَّا نَسِينَٰكُمۡۖ وَذُوقُواْ عَذَابَ ٱلۡخُلۡدِ بِمَا كُنتُمۡ تَعۡمَلُونَ إِنَّمَا يُؤۡمِنُ بِـَٔايَٰتِنَا ٱلَّذِينَ إِذَا ذُكِّرُواْ بِهَا خَرُّواْۤ سُجَّدٗاۤ وَسَبَّحُواْ بِحَمۡدِ رَبِّهِمۡ وَهُمۡ لَا يَسۡتَكۡبِرُونَ۩ تَتَجَافَىٰ جُنُوبُهُمۡ عَنِ ٱلۡمَضَاجِعِ يَدۡعُونَ رَبَّهُمۡ خَوۡفٗا وَطَمَعٗا وَمِمَّا رَزَقۡنَٰهُمۡ يُنفِقُونَ فَلَا تَعۡلَمُ نَفۡسٞ مَّآ أُخۡفِيَ لَهُم مِّن قُرَّةِ أَعۡيُنٖ جَزَآءَۢ بِمَا كَانُواْ يَعۡمَلُونَ أَفَمَن كَانَ مُؤۡمِنٗا كَمَن كَانَ فَاسِقٗاۚ لَّا يَسۡتَوُۥنَ أَمَّا ٱلَّذِينَ ءَامَنُواْ وَعَمِلُواْ ٱلصَّـٰلِحَٰتِ فَلَهُمۡ جَنَّـٰتُ ٱلۡمَأۡوَىٰ نُزُلَۢا بِمَا كَانُواْ يَعۡمَلُونَ وَأَمَّا ٱلَّذِينَ فَسَقُواْ فَمَأۡوَىٰهُمُ ٱلنَّارُۖ كُلَّمَآ أَرَادُوٓاْ أَن يَخۡرُجُواْ مِنۡهَآ أُعِيدُواْ فِيهَا وَقِيلَ لَهُمۡ ذُوقُواْ عَذَابَ ٱلنَّارِ ٱلَّذِي كُنتُم بِهِۦ تُكَذِّبُونَ وَلَنُذِيقَنَّهُم مِّنَ ٱلۡعَذَابِ ٱلۡأَدۡنَىٰ دُونَ ٱلۡعَذَابِ ٱلۡأَكۡبَرِ لَعَلَّهُمۡ يَرۡجِعُونَ وَمَنۡ أَظۡلَمُ مِمَّن ذُكِّرَ بِـَٔايَٰتِ رَبِّهِۦ ثُمَّ أَعۡرَضَ عَنۡهَآۚ إِنَّا مِنَ ٱلۡمُجۡرِمِينَ مُنتَقِمُونَ وَلَقَدۡ ءَاتَيۡنَا مُوسَى ٱلۡكِتَٰبَ فَلَا تَكُن فِي مِرۡيَةٖ مِّن لِّقَآئِهِۦۖ وَجَعَلۡنَٰهُ هُدٗى لِّبَنِيٓ إِسۡرَـٰٓءِيلَ وَجَعَلۡنَا مِنۡهُمۡ أَئِمَّةٗ يَهۡدُونَ بِأَمۡرِنَا لَمَّا صَبَرُواْۖ وَكَانُواْ بِـَٔايَٰتِنَا يُوقِنُونَ إِنَّ رَبَّكَ هُوَ يَفۡصِلُ بَيۡنَهُمۡ يَوۡمَ ٱلۡقِيَٰمَةِ فِيمَا كَانُواْ فِيهِ يَخۡتَلِفُونَ أَوَلَمۡ يَهۡدِ لَهُمۡ كَمۡ أَهۡلَكۡنَا مِن قَبۡلِهِم مِّنَ ٱلۡقُرُونِ يَمۡشُونَ فِي مَسَٰكِنِهِمۡۚ إِنَّ فِي ذَٰلِكَ لَأٓيَٰتٍۚ أَفَلَا يَسۡمَعُونَ أَوَلَمۡ يَرَوۡاْ أَنَّا نَسُوقُ ٱلۡمَآءَ إِلَى ٱلۡأَرۡضِ ٱلۡجُرُزِ فَنُخۡرِجُ بِهِۦ زَرۡعٗا تَأۡكُلُ مِنۡهُ أَنۡعَٰمُهُمۡ وَأَنفُسُهُمۡۚ أَفَلَا يُبۡصِرُونَ وَيَقُولُونَ مَتَىٰ هَٰذَا ٱلۡفَتۡحُ إِن كُنتُمۡ صَٰدِقِينَ قُلۡ يَوۡمَ ٱلۡفَتۡحِ لَا يَنفَعُ ٱلَّذِينَ كَفَرُوٓاْ إِيمَٰنُهُمۡ وَلَا هُمۡ يُنظَرُونَ فَأَعۡرِضۡ عَنۡهُمۡ وَٱنتَظِرۡ إِنَّهُم مُّنتَظِرُونَ\nتَبَٰرَكَ ٱلَّذِي بِيَدِهِ ٱلۡمُلۡكُ وَهُوَ عَلَىٰ كُلِّ شَيۡءٖ قَدِيرٌ ٱلَّذِي خَلَقَ ٱلۡمَوۡتَ وَٱلۡحَيَوٰةَ لِيَبۡلُوَكُمۡ أَيُّكُمۡ أَحۡسَنُ عَمَلٗاۚ وَهُوَ ٱلۡعَزِيزُ ٱلۡغَفُورُ ٱلَّذِي خَلَقَ سَبۡعَ سَمَٰوَٰتٖ طِبَاقٗاۖ مَّا تَرَىٰ فِي خَلۡقِ ٱلرَّحۡمَٰنِ مِن تَفَٰوُتٖۖ فَٱرۡجِعِ ٱلۡبَصَرَ هَلۡ تَرَىٰ مِن فُطُورٖ ثُمَّ ٱرۡجِعِ ٱلۡبَصَرَ كَرَّتَيۡنِ يَنقَلِبۡ إِلَيۡكَ ٱلۡبَصَرُ خَاسِئٗا وَهُوَ حَسِيرٞ وَلَقَدۡ زَيَّنَّا ٱلسَّمَآءَ ٱلدُّنۡيَا بِمَصَٰبِيحَ وَجَعَلۡنَٰهَا رُجُومٗا لِّلشَّيَٰطِينِۖ وَأَعۡتَدۡنَا لَهُمۡ عَذَابَ ٱلسَّعِيرِ وَلِلَّذِينَ كَفَرُواْ بِرَبِّهِمۡ عَذَابُ جَهَنَّمَۖ وَبِئۡسَ ٱلۡمَصِيرُ إِذَآ أُلۡقُواْ فِيهَا سَمِعُواْ لَهَا شَهِيقٗا وَهِيَ تَفُورُ تَكَادُ تَمَيَّزُ مِنَ ٱلۡغَيۡظِۖ كُلَّمَآ أُلۡقِيَ فِيهَا فَوۡجٞ سَأَلَهُمۡ خَزَنَتُهَآ أَلَمۡ يَأۡتِكُمۡ نَذِيرٞ قَالُواْ بَلَىٰ قَدۡ جَآءَنَا نَذِيرٞ فَكَذَّبۡنَا وَقُلۡنَا مَا نَزَّلَ ٱللَّهُ مِن شَيۡءٍ إِنۡ أَنتُمۡ إِلَّا فِي ضَلَٰلٖ كَبِيرٖ وَقَالُواْ لَوۡ كُنَّا نَسۡمَعُ أَوۡ نَعۡقِلُ مَا كُنَّا فِيٓ أَصۡحَٰبِ ٱلسَّعِيرِ فَٱعۡتَرَفُواْ بِذَنۢبِهِمۡ فَسُحۡقٗا لِّأَصۡحَٰبِ ٱلسَّعِيرِ إِنَّ ٱلَّذِينَ يَخۡشَوۡنَ رَبَّهُم بِٱلۡغَيۡبِ لَهُم مَّغۡفِرَةٞ وَأَجۡرٞ كَبِيرٞ وَأَسِرُّواْ قَوۡلَكُمۡ أَوِ ٱجۡهَرُواْ بِهِۦٓۖ إِنَّهُۥ عَلِيمُۢ بِذَاتِ ٱلصُّدُورِ أَلَا يَعۡلَمُ مَنۡ خَلَقَ وَهُوَ ٱللَّطِيفُ ٱلۡخَبِيرُ هُوَ ٱلَّذِي جَعَلَ لَكُمُ ٱلۡأَرۡضَ ذَلُولٗا فَٱمۡشُواْ فِي مَنَاكِبِهَا وَكُلُواْ مِن رِّزۡقِهِۦۖ وَإِلَيۡهِ ٱلنُّشُورُ ءَأَمِنتُم مَّن فِي ٱلسَّمَآءِ أَن يَخۡسِفَ بِكُمُ ٱلۡأَرۡضَ فَإِذَا هِيَ تَمُورُ أَمۡ أَمِنتُم مَّن فِي ٱلسَّمَآءِ أَن يُرۡسِلَ عَلَيۡكُمۡ حَاصِبٗاۖ فَسَتَعۡلَمُونَ كَيۡفَ نَذِيرِ وَلَقَدۡ كَذَّبَ ٱلَّذِينَ مِن قَبۡلِهِمۡ فَكَيۡفَ كَانَ نَكِيرِ أَوَلَمۡ يَرَوۡاْ إِلَى ٱلطَّيۡرِ فَوۡقَهُمۡ صَـٰٓفَّـٰتٖ وَيَقۡبِضۡنَۚ مَا يُمۡسِكُهُنَّ إِلَّا ٱلرَّحۡمَٰنُۚ إِنَّهُۥ بِكُلِّ شَيۡءِۭ بَصِيرٌ أَمَّنۡ هَٰذَا ٱلَّذِي هُوَ جُندٞ لَّكُمۡ يَنصُرُكُم مِّن دُونِ ٱلرَّحۡمَٰنِۚ إِنِ ٱلۡكَٰفِرُونَ إِلَّا فِي غُرُورٍ أَمَّنۡ هَٰذَا ٱلَّذِي يَرۡزُقُكُمۡ إِنۡ أَمۡسَكَ رِزۡقَهُۥۚ بَل لَّجُّواْ فِي عُتُوّٖ وَنُفُورٍ أَفَمَن يَمۡشِي مُكِبًّا عَلَىٰ وَجۡهِهِۦٓ أَهۡدَىٰٓ أَمَّن يَمۡشِي سَوِيًّا عَلَىٰ صِرَٰطٖ مُّسۡتَقِيمٖ قُلۡ هُوَ ٱلَّذِيٓ أَنشَأَكُمۡ وَجَعَلَ لَكُمُ ٱلسَّمۡعَ وَٱلۡأَبۡصَٰرَ وَٱلۡأَفۡـِٔدَةَۚ قَلِيلٗا مَّا تَشۡكُرُونَ قُلۡ هُوَ ٱلَّذِي ذَرَأَكُمۡ فِي ٱلۡأَرۡضِ وَإِلَيۡهِ تُحۡشَرُونَ وَيَقُولُونَ مَتَىٰ هَٰذَا ٱلۡوَعۡدُ إِن كُنتُمۡ صَٰدِقِينَ قُلۡ إِنَّمَا ٱلۡعِلۡمُ عِندَ ٱللَّهِ وَإِنَّمَآ أَنَا۠ نَذِيرٞ مُّبِينٞ فَلَمَّا رَأَوۡهُ زُلۡفَةٗ سِيٓـَٔتۡ وُجُوهُ ٱلَّذِينَ كَفَرُواْ وَقِيلَ هَٰذَا ٱلَّذِي كُنتُم بِهِۦ تَدَّعُونَ قُلۡ أَرَءَيۡتُمۡ إِنۡ أَهۡلَكَنِيَ ٱللَّهُ وَمَن مَّعِيَ أَوۡ رَحِمَنَا فَمَن يُجِيرُ ٱلۡكَٰفِرِينَ مِنۡ عَذَابٍ أَلِيمٖ قُلۡ هُوَ ٱلرَّحۡمَٰنُ ءَامَنَّا بِهِۦ وَعَلَيۡهِ تَوَكَّلۡنَاۖ فَسَتَعۡلَمُونَ مَنۡ هُوَ فِي ضَلَٰلٖ مُّبِينٖ قُلۡ أَرَءَيۡتُمۡ إِنۡ أَصۡبَحَ مَآؤُكُمۡ غَوۡرٗا فَمَن يَأۡتِيكُم بِمَآءٖ مَّعِينِۭ",
+    transliteration:
+      "Aliflammeem Tanzeelu alkitabi la rayba feehi min rabbi alAAalameena Am yaqooloona iftarahu bal huwa alhaqqu min rabbika litunthira qawman ma atahum min natheerin min qablika laAAallahum yahtadoona Allahu allathee khalaqa alssamawati waalarda wama baynahuma fee sittati ayyamin thumma istawa AAala alAAarshi ma lakum min doonihi min waliyyin wala shafeeAAin afala tatathakkaroona Yudabbiru alamra mina alssamai ila alardi thumma yaAAruju ilayhi fee yawmin kana miqdaruhu alfa sanatin mimma taAAuddoona Thalika AAalimu alghaybi waalshshahadati alAAazeezu alrraheemu Allathee ahsana kulla shayin khalaqahu wabadaa khalqa alinsani min teenin Thumma jaAAala naslahu min sulalatin min main maheenin Thumma sawwahu wanafakha feehi min roohihi wajaAAala lakumu alssamAAa waalabsara waalafidata qaleelan ma tashkuroona Waqaloo aitha dalalna fee alardi ainna lafee khalqin jadeedin bal hum biliqai rabbihim kafiroona Qul yatawaffakum malaku almawti allathee wukkila bikum thumma ila rabbikum turjaAAoona Walaw tara ithi almujrimoona nakisoo ruoosihim AAinda rabbihim rabbana absarna wasamiAAna faarjiAAna naAAmal salihan inna mooqinoona Walaw shina laatayna kulla nafsin hudaha walakin haqqa alqawlu minnee laamlaanna jahannama mina aljinnati waalnnasi ajmaAAeena Fathooqoo bima naseetum liqaa yawmikum hatha inna naseenakum wathooqoo AAathaba alkhuldi bima kuntum taAAmaloona Innama yuminu biayatina allatheena itha thukkiroo biha kharroo sujjadan wasabbahoo bihamdi rabbihim wahum la yastakbiroona Tatajafa junoobuhum AAani almadajiAAi yadAAoona rabbahum khawfan watamaAAan wamimma razaqnahum yunfiqoona Fala taAAlamu nafsun ma okhfiya lahum min qurrati aAAyunin jazaan bima kanoo yaAAmaloona Afaman kana muminan kaman kana fasiqan la yastawoona Amma allatheena amanoo waAAamiloo alssalihati falahum jannatu almawa nuzulan bima kanoo yaAAmaloona Waamma allatheena fasaqoo famawahumu alnnaru kullama aradoo an yakhrujoo minha oAAeedoo feeha waqeela lahum thooqoo AAathaba alnnari allathee kuntum bihi tukaththiboona Walanutheeqannahum mina alAAathabi aladna doona alAAathabi alakbari laAAallahum yarjiAAoona Waman athlamu mimman thukkira biayati rabbihi thumma aAArada AAanha inna mina almujrimeena muntaqimoona Walaqad atayna moosa alkitaba fala takun fee miryatin min liqaihi wajaAAalnahu hudan libanee israeela WajaAAalna minhum aimmatan yahdoona biamrina lamma sabaroo wakanoo biayatina yooqinoona Inna rabbaka huwa yafsilu baynahum yawma alqiyamati feema kanoo feehi yakhtalifoona Awalam yahdi lahum kam ahlakna min qablihim mina alqurooni yamshoona fee masakinihim inna fee thalika laayatin afala yasmaAAoona Awalam yaraw anna nasooqu almaa ila alardi aljuruzi fanukhriju bihi zarAAan takulu minhu anAAamuhum waanfusuhum afala yubsiroona Wayaqooloona mata hatha alfathu in kuntum sadiqeena Qul yawma alfathi la yanfaAAu allatheena kafaroo eemanuhum wala hum yuntharoona FaaAArid AAanhum waintathir innahum muntathiroona\nTabaraka allathee biyadihi almulku wahuwa AAala kulli shayin qadeerun Allathee khalaqa almawta waalhayata liyabluwakum ayyukum ahsanu AAamalan wahuwa alAAazeezu alghafooru Allathee khalaqa sabAAa samawatin tibaqan ma tara fee khalqi alrrahmani min tafawutin fairjiAAi albasara hal tara min futoorin Thumma irjiAAi albasara karratayni yanqalib ilayka albasaru khasian wahuwa haseerun Walaqad zayyanna alssamaa alddunya bimasabeeha wajaAAalnaha rujooman lilshshayateeni waaAAtadna lahum AAathaba alssaAAeeri Walillatheena kafaroo birabbihim AAathabu jahannama wabisa almaseeru Itha olqoo feeha samiAAoo laha shaheeqan wahiya tafooru Takadu tamayyazu mina alghaythi kullama olqiya feeha fawjun saalahum khazanatuha alam yatikum natheerun Qaloo bala qad jaana natheerun fakaththabna waqulna ma nazzala Allahu min shayin in antum illa fee dalalin kabeerin Waqaloo law kunna nasmaAAu aw naAAqilu ma kunna fee ashabi alssaAAeeri FaiAAtarafoo bithanbihim fasuhqan liashabi alssaAAeeri Inna allatheena yakhshawna rabbahum bialghaybi lahum maghfiratun waajrun kabeerun Waasirroo qawlakum awi ijharoo bihi innahu AAaleemun bithati alssudoori Ala yaAAlamu man khalaqa wahuwa allateefu alkhabeeru Huwa allathee jaAAala lakumu alarda thaloolan faimshoo fee manakibiha wakuloo min rizqihi wailayhi alnnushooru Aamintum man fee alssamai an yakhsifa bikumu alarda faitha hiya tamooru Am amintum man fee alssamai an yursila AAalaykum hasiban fasataAAlamoona kayfa natheeri Walaqad kaththaba allatheena min qablihim fakayfa kana nakeeri Awalam yaraw ila alttayri fawqahum saffatin wayaqbidna ma yumsikuhunna illa alrrahmanu innahu bikulli shayin baseerun Amman hatha allathee huwa jundun lakum yansurukum min dooni alrrahmani ini alkafiroona illa fee ghuroorin Amman hatha allathee yarzuqukum in amsaka rizqahu bal lajjoo fee AAutuwwin wanufoorin Afaman yamshee mukibban AAala wajhihi ahda amman yamshee sawiyyan AAala siratin mustaqeemin Qul huwa allathee anshaakum wajaAAala lakumu alssamAAa waalabsara waalafidata qaleelan ma tashkuroona Qul huwa allathee tharaakum fee alardi wailayhi tuhsharoona Wayaqooloona mata hatha alwaAAdu in kuntum sadiqeena Qul innama alAAilmu AAinda Allahi wainnama ana natheerun mubeenun Falamma raawhu zulfatan seeat wujoohu allatheena kafaroo waqeela hatha allathee kuntum bihi taddaAAoona Qul araaytum in ahlakaniya Allahu waman maAAiya aw rahimana faman yujeeru alkafireena min AAathabin aleemin Qul huwa alrrahmanu amanna bihi waAAalayhi tawakkalna fasataAAlamoona man huwa fee dalalin mubeenin Qul araaytum in asbaha maokum ghawran faman yateekum bimain maAAeenin",
+    translation:
+      "Alif. Lam. Mim The revelation of the Scripture whereof there is no doubt is from the Lord of the Worlds Or say they: He hath invented it? Nay, but it is the Truth from thy Lord, that thou mayst warn a folk to whom no warner came before thee, that haply they may walk aright Allah it is Who created the heavens and the earth, and that which is between them, in six Days. Then He mounted the Throne. Ye have not, beside Him, a protecting friend or mediator. Will ye not then remember He directeth the ordinance from the heaven unto the earth; then it ascendeth unto Him in a Day, whereof the measure is a thousand years of that ye reckon Such is the Knower of the Invisible and the Visible, the Mighty, the Merciful Who made all things good which He created, and He began the creation of man from clay Then He made his seed from a draught of despised fluid Then He fashioned him and breathed into him of His Spirit; and appointed for you hearing and sight and hearts. Small thanks give ye And they say: When we are lost in the earth, how can we then be re-created? Nay but they are disbelievers in the meeting with their Lord Say: The angel of death, who hath charge concerning you, will gather you, and afterward unto your Lord ye will be returned Couldst thou but see when the guilty hang their heads before their Lord, (and say): Our Lord! We have now seen and heard, so send us back; we will do right, now we are sure And if We had so willed, We could have given every soul its guidance, but the word from Me concerning evildoers took effect: that I will fill hell with the jinn and mankind together So taste (the evil of your deeds). Forasmuch as ye forgot the meeting of this your day, lo! We forget you. Taste the doom of immortality because of what ye used to do Only those believe in Our revelations who, when they are reminded of them, fall down prostrate and hymn the praise of their Lord, and they are not scornful Who forsake their beds to cry unto their Lord in fear and hope, and spend of that We have bestowed on them No soul knoweth what is kept hid for them of joy, as a reward for what they used to do Is he who is a believer like unto him who is an evil-liver? They are not alike But as for those who believe and do good works, for them are the Gardens of Retreat - a welcome (in reward) for what they used to do And as for those who do evil, their retreat is the Fire. Whenever they desire to issue forth from thence, they are brought back thither. Unto them it is said: Taste the torment of the Fire which ye used to deny And verily We make them taste the lower punishment before the greater, that haply they may return And who doth greater wrong than he who is reminded of the revelations of his Lord, then turneth from them. Lo! We shall requite the guilty We verily gave Moses the Scripture; so be not ye in doubt of his receiving it; and We appointed it a guidance for the Children of Israel And when they became steadfast and believed firmly in Our revelations, We appointed from among them leaders who guided by Our command Lo! thy Lord will judge between them on the Day of Resurrection concerning that wherein they used to differ Is it not a guidance for them (to observe) how many generations We destroyed before them, amid whose dwelling places they do walk? Lo! therein verily are portents! Will they not then heed Have they not seen how We lead the water to the barren land and therewith bring forth crops whereof their cattle eat, and they themselves? Will they not then see And they say: When cometh this victory (of yours) if ye are truthful Say (unto them): On the day of the victory the faith of those who disbelieve (and who then will believe) will not avail them, neither will they be reprieved So withdraw from them (O Muhammad), and await (the event). Lo! they (also) are awaiting (it)\nBlessed is He in Whose hand is the Sovereignty, and, He is Able to do all things Who hath created life and death that He may try you which of you is best in conduct; and He is the Mighty, the Forgiving Who hath created seven heavens in harmony. Thou (Muhammad) canst see no fault in the Beneficent One's creation; then look again: Canst thou see any rifts Then look again and yet again, thy sight will return unto thee weakened and made dim And verily We have beautified the world's heaven with lamps, and We have made them missiles for the devils, and for them We have prepared the doom of flame And for those who disbelieve in their Lord there is the doom of hell, a hapless journey's end When they are flung therein they hear its roaring as it boileth up As it would burst with rage. Whenever a (fresh) host is flung therein the wardens thereof ask them: Came there unto you no warner They say: Yea, verily, a warner came unto us; but we denied and said: Allah hath naught revealed; ye are in naught but a great error And they say: Had we been wont to listen or have sense, we had not been among the dwellers in the flames So they acknowledge their sins; but far removed (from mercy) are the dwellers in the flames Lo! those who fear their Lord in secret, theirs will be forgiveness and a great reward And keep your opinion secret or proclaim it, lo! He is Knower of all that is in the breasts (of men) Should He not know what He created? And He is the Subtile, the Aware He it is Who hath made the earth subservient unto you, so Walk in the paths thereof and eat of His providence. And unto Him will be the resurrection (of the dead) Have ye taken security from Him Who is in the heaven that He will not cause the earth to swallow you when lo! it is convulsed Or have ye taken security from Him Who is in the heaven that He will not let loose on you a hurricane? But ye shall know the manner of My warning And verily those before them denied, then (see) the manner of My wrath (with them) Have they not seen the birds above them spreading out their wings and closing them? Naught upholdeth them save the Beneficent. Lo! He is Seer of all things Or who is he that will be an army unto you to help you instead of the Beneficent? The disbelievers are in naught but illusion Or who is he that will provide for you if He should withhold His providence? Nay, but they are set in pride and frowardness Is he who goeth groping on his face more rightly guided, or he who walketh upright on a straight road Say (unto them, O Muhammad): He it is who gave you being, and hath assigned unto you ears and eyes and hearts. Small thanks give ye Say: He it is Who multiplieth you in the earth, and unto Whom ye will be gathered And they say: When (will) this promise (be fulfilled), if ye are truthful Say: The knowledge is with Allah only, and I am but a plain warner But when they see it nigh, the faces of those who disbelieve will be awry, and it will be said (unto them): This is that for which ye used to call Say (O Muhammad): Have ye thought: Whether Allah causeth me (Muhammad) and those with me to perish or hath mercy on us, still, who will protect the disbelievers from a painful doom Say: He is the Beneficent. In Him we believe and in Him we put our trust. And ye will soon know who it is that is in error manifest Say: Have ye thought: If (all) your water were to disappear into the earth, who then could bring you gushing water",
+    translations: {
+      ur: "الٓمٓ اس میں کچھ شک نہیں کہ اس کتاب کا نازل کیا جانا تمام جہان کے پروردگار کی طرف سے ہے کیا یہ لوگ یہ کہتے ہیں کہ پیغمبر نے اس کو از خود بنا لیا ہے (نہیں) بلکہ وہ تمہارے پروردگار کی طرف سے برحق ہے تاکہ تم ان لوگوں کو ہدایت کرو جن کے پاس تم سے پہلے کوئی ہدایت کرنے والا نہیں آیا تاکہ یہ رستے پر چلیں خدا ہی تو ہے جس نے آسمانوں اور زمین کو اور جو چیزیں ان دونوں میں ہیں سب کو چھ دن میں پیدا کیا پھر عرش پر جا ٹھہرا۔ اس کے سوا نہ تمہارا کوئی دوست ہے اور نہ سفارش کرنے والا۔ کیا تم نصیحت نہیں پکڑتے؟ وہی آسمان سے زمین تک (کے) ہر کام کا انتظام کرتا ہے۔ پھر وہ ایک روز جس کی مقدار تمہارے شمار کے مطابق ہزار برس ہوگی۔ اس کی طرف صعود (اور رجوع) کرے گا یہی تو پوشیدہ اور ظاہر کا جاننے والا (اور) غالب اور رحم والا (خدا) ہے جس نے ہر چیز کو بہت اچھی طرح بنایا (یعنی) اس کو پیدا کیا۔ اور انسان کی پیدائش کو مٹی سے شروع کیا پھر اس کی نسل خلاصے سے (یعنی) حقیر پانی سے پیدا کی پھر اُس کو درست کیا پھر اس میں اپنی (طرف سے) روح پھونکی اور تمہارے کان اور آنکھیں اور دل بنائے مگر تم بہت کم شکر کرتے ہو اور کہنے لگے کہ جب ہم زمین میں ملیامیٹ ہوجائیں گے تو کیا ازسرنو پیدا ہوں گے۔ حقیقت یہ ہے کہ یہ لوگ اپنے پروردگار کے سامنے جانے ہی کے قائل نہیں کہہ دو کہ موت کا فرشتہ جو تم پر مقرر کیا گیا ہے تمہاری روحیں قبض کر لیتا ہے پھر تم اپنے پروردگار کی طرف لوٹائے جاؤ گے اور تم (تعجب کرو) جب دیکھو کہ گنہگار اپنے پروردگار کے سامنے سرجھکائے ہوں گے (اور کہیں گے کہ) اے ہمارے پروردگار ہم نے دیکھ لیا اور سن لیا تو ہم کو (دنیا میں) واپس بھیج دے کہ نیک عمل کریں بیشک ہم یقین کرنے والے ہیں اور اگر ہم چاہتے تو ہر شخص کو ہدایت دے دیتے۔ لیکن میری طرف سے یہ بات قرار پاچکی ہے کہ میں دوزخ کو جنوں اور انسانوں سب سے بھردوں گا سو (اب آگ کے) مزے چکھو اس لئے کہ تم نے اُس دن کے آنے کو بھلا رکھا تھا (آج) ہم بھی تمہیں بھلا دیں گے اور جو کام تم کرتے تھے اُن کی سزا میں ہمیشہ کے عذاب کے مزے چکھتے رہو ہماری آیتوں پر تو وہی لوگ ایمان لاتے ہیں کہ جب اُن کو اُن سے نصیحت کی جاتی ہے تو سجدے میں گرپڑتے اور اپنے پروردگار کی تعریف کے ساتھ تسبیح کرتے ہیں اور غرور نہیں کرتے اُن کے پہلو بچھونوں سے الگ رہتے ہیں (اور) وہ اپنے پروردگار کو خوف اور اُمید سے پکارتے اور جو (مال) ہم نے اُن کو دیا ہے اس میں سے خرچ کرتے ہیں کوئی متنفس نہیں جانتا کہ اُن کے لئے کیسی آنکھوں کی ٹھنڈک چھپا کر رکھی گئی ہے۔ یہ ان اعمال کا صلہ ہے جو وہ کرتے تھے بھلا جو مومن ہو وہ اس شخص کی طرح ہوسکتا ہے جو نافرمان ہو؟ دونوں برابر نہیں ہو سکتے جو لوگ ایمان لائے اور نیک عمل کرتے رہے اُن کے (رہنے کے) لئے باغ ہیں یہ مہمانی اُن کاموں کی جزا ہے جو وہ کرتے تھے اور جنہوں نے نافرمانی کی اُن کے رہنے کے لئے دوزخ ہے جب چاہیں گے کہ اس میں سے نکل جائیں تو اس میں لوٹا دیئے جائیں گے۔ اور اُن سے کہا جائے گا کہ جس دوزخ کے عذاب کو تم جھوٹ سمجھتے تھے اس کے مزے چکھو اور ہم اُن کو (قیامت کے) بڑے عذاب کے سوا عذاب دنیا کا بھی مزہ چکھائیں گے۔ شاید (ہماری طرف) لوٹ آئیں اور اس شخص سے بڑھ کر ظالم کون جس کو اس کے پروردگار کی آیتوں سے نصیحت کی جائے تو وہ اُن سے منہ پھیر لے۔ ہم گنہگاروں سے ضرور بدلہ لینے والے ہیں اور ہم نے موسٰی کو کتاب دی تو تم اُن کے ملنے سے شک میں نہ ہونا اور ہم نے اس (کتاب) کو (یا موسٰی کو) بنی اسرائیل کے لئے (ذریعہ) ہدایت بنایا اور ان میں سے ہم نے پیشوا بنائے تھے جو ہمارے حکم سے ہدایت کیا کرتے تھے۔ جب وہ صبر کرتے تھے اور وہ ہماری آیتوں پر یقین رکھتے تھے بلاشبہ تمہارا پروردگار ان میں جن باتوں میں وہ اختلاف کرتے تھے۔ قیامت کے روز فیصلہ کر دے گا کیا اُن کو اس (امر) سے ہدایت نہ ہوئی کہ ہم نے اُن سے پہلے بہت سی اُمتوں کو جن کے مقامات سکونت میں یہ چلتے پھرتے ہیں ہلاک کر دیا۔ بیشک اس میں نشانیاں ہیں۔ تو یہ سنتے کیوں نہیں کیا اُنہوں نے نہیں دیکھا کہ ہم بنجر زمین کی طرف پانی رواں کرتے ہیں پھر اس سے کھیتی پیدا کرتے ہیں جس میں سے ان کے چوپائے بھی کھاتے ہیں اور وہ خود بھی (کھاتے ہیں) تو یہ دیکھتے کیوں نہیں۔ اور کہتے ہیں اگر تم سچے ہو تو یہ فیصلہ کب ہوگا؟ کہہ دو کہ فیصلے کے دن کافروں کو ان کا ایمان لانا کچھ بھی فائدہ نہ دے گا اور نہ اُن کو مہلت دی جائے گی تو اُن سے منہ پھیر لو اور انتظار کرو یہ بھی انتظار کر رہے ہیں\nوہ (خدا) جس کے ہاتھ میں بادشاہی ہے بڑی برکت والا ہے۔ اور وہ ہر چیز پر قادر ہے اسی نے موت اور زندگی کو پیدا کیا تاکہ تمہاری آزمائش کرے کہ تم میں کون اچھے عمل کرتا ہے۔ اور وہ زبردست (اور) بخشنے والا ہے اس نے سات آسمان اوپر تلے بنائے۔ (اے دیکھنے والے) کیا تو (خدا) رحمٰن کی آفرینش میں کچھ نقص دیکھتا ہے؟ ذرا آنکھ اٹھا کر دیکھ بھلا تجھ کو (آسمان میں) کوئی شگاف نظر آتا ہے؟ پھر دو بارہ (سہ بارہ) نظر کر، تو نظر (ہر بار) تیرے پاس ناکام اور تھک کر لوٹ آئے گی اور ہم نے قریب کے آسمان کو (تاروں کے) چراغوں سے زینت دی۔ اور ان کو شیطان کے مارنے کا آلہ بنایا اور ان کے لئے دہکتی آگ کا عذاب تیار کر رکھا ہے اور جن لوگوں نے اپنے پروردگار سے انکار کیا ان کے لئے جہنم کا عذاب ہے۔ اور وہ برا ٹھکانہ ہے جب وہ اس میں ڈالے جائیں گے تو اس کا چیخنا چلانا سنیں گے اور وہ جوش مار رہی ہوگی گویا مارے جوش کے پھٹ پڑے گی۔ جب اس میں ان کی کوئی جماعت ڈالی جائے گی تو دوزخ کے داروغہ ان سے پوچھیں گے کہ تمہارے پاس کوئی ہدایت کرنے والا نہیں آیا تھا؟ وہ کہیں گے کیوں نہیں ضرور ہدایت کرنے والا آیا تھا لیکن ہم نے اس کو جھٹلا دیا اور کہا کہ خدا نے تو کوئی چیز نازل ہی نہیں کی۔ تم تو بڑی غلطی میں (پڑے ہوئے) ہو اور کہیں گے اگر ہم سنتے یا سمجھتے ہوتے تو دوزخیوں میں نہ ہوتے پس وہ اپنے گناہ کا اقرار کرلیں گے۔ سو دوزخیوں کے لئے (رحمت خدا سے) دور ہی ہے (اور) جو لوگ بن دیکھے اپنے پروردگار سے ڈرتے ہیں ان کے لئے بخشش اور اجر عظیم ہے اور تم (لوگ) بات پوشیدہ کہو یا ظاہر۔ وہ دل کے بھیدوں تک سے واقف ہے بھلا جس نے پیدا کیا وہ بےخبر ہے؟ وہ تو پوشیدہ باتوں کا جاننے والا اور (ہر چیز سے) آگاہ ہے وہی تو ہے جس نے تمہارے لئے زمین کو نرم کیا تو اس کی راہوں میں چلو پھرو اور خدا کا (دیا ہو) رزق کھاؤ اور تم کو اسی کے پاس (قبروں سے) نکل کر جانا ہے کیا تم اس سے جو آسمان میں ہے بےخوف ہو کہ تم کو زمین میں دھنسا دے اور وہ اس وقت حرکت کرنے لگے کیا تم اس سے جو آسمان میں ہے نڈر ہو کہ تم پر کنکر بھری ہوا چھوڑ دے۔ سو تم عنقریب جان لو گے کہ میرا ڈرانا کیسا ہے اور جو لوگ ان سے پہلے تھے انہوں نے بھی جھٹلایا تھا سو (دیکھ لو کہ) میرا کیسا عذاب ہوا کیا انہوں نے اپنے سروں پر اڑتے ہوئے جانوروں کو نہیں دیکھا جو پروں کو پھیلائے رہتے ہیں اور ان کو سکیڑ بھی لیتے ہیں۔ خدا کے سوا انہیں کوئی تھام نہیں سکتا۔ بےشک وہ ہر چیز کو دیکھ رہا ہے بھلا ایسا کون ہے جو تمہاری فوج ہو کر خدا کے سوا تمہاری مدد کرسکے۔ کافر تو دھوکے میں ہیں بھلا اگر وہ اپنا رزق بند کرلے تو کون ہے جو تم کو رزق دے؟ لیکن یہ سرکشی اور نفرت میں پھنسے ہوئے ہیں بھلا جو شخص چلتا ہوا منہ کے بل گر پڑتا ہے وہ سیدھے رستے پر ہے یا وہ جو سیدھے رستے پر برابر چل رہا ہو؟ کہو وہ خدا ہی تو ہے جس نے تم کو پیدا کیا۔ اور تمہارے کان اور آنکھیں اور دل بنائے (مگر) تم کم احسان مانتے ہو کہہ دو کہ وہی ہے جس نے تم کو زمین میں پھیلایا اور اسی کے روبرو تم جمع کئے جاؤ گے اور کافر کہتے ہیں کہ اگر تم سچے ہو تو یہ وعید کب (پورا) ہوگا؟ کہہ دو اس کا علم خدا ہی کو ہے۔ اور میں تو کھول کھول کر ڈر سنانے دینے والا ہوں سو جب وہ دیکھ لیں گے کہ وہ (وعدہ) قریب آگیا تو کافروں کے منہ برے ہوجائیں گے اور (ان سے) کہا جائے گا کہ یہ وہی ہے جس کے تم خواستگار تھے کہو کہ بھلا دیکھو تو اگر خدا مجھ کو اور میرے ساتھیوں کو ہلاک کردے یا ہم پر مہربانی کرے۔ تو کون ہے کافروں کو دکھ دینے والے عذاب سے پناہ دے؟ کہہ دو کہ وہ جو (خدائے) رحمٰن (ہے) ہم اسی پر ایمان لائے اور اسی پر بھروسا رکھتے ہیں۔ تم کو جلد معلوم ہوجائے گا کہ صریح گمراہی میں کون پڑ رہا تھا کہو کہ بھلا دیکھو تو اگر تمہارا پانی (جو تم پیتے ہو اور برتے ہو) خشک ہوجائے تو (خدا کے) سوا کون ہے جو تمہارے لئے شیریں پانی کا چشمہ بہا لائے",
+    },
+    virtues: "Recite Sûrah As-Sajdah and Sûrah Al-Mulk.",
     reference:
       "At-Tirmidhî [3404] and An-Nisâ'i ['Amal al-Yawm wa al-Laylah][707]. Also see Ŝaĥîĥ Al-Jâmi' [4873](4/255).",
   },
@@ -1989,6 +2106,20 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/123hm.mp3",
   },
   {
+    id: "hisn-124",
+    categoryId: "distress",
+    title: "Supplication for one in distress #3",
+    arabic: "لَا إِلَهَ إِلَّا أنْتَ سُبْحَانَكَ، إِنِّي كُنْتُ مِنَ الظَّالِمِيْنَ",
+    transliteration: "La ilaha illa anta subhanaka inni kuntu minaz-zalimin",
+    translation:
+      "None has the right to be worshipped except You. How perfect You are, verily I was among the wrong-doers.",
+    translations: { bn: "আপনি ছাড়া কোনো হক্ব ইলাহ নেই, আপনি পবিত্র-মহান, নিশ্চয় আমি যালেমদের অন্তর্ভুক্ত।" },
+    reference:
+      "At-Tirmidhî [3505](5/529) and Al-Hâkim (1/505) and he authenticated it and Adh-Dhahabî agreed with him. Also see Ŝaĥîĥ At-Tirmidhî (3/168).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/124hm.mp3",
+  },
+  {
     id: "hisn-125",
     categoryId: "distress",
     title: "Supplication for one in distress #4",
@@ -2027,6 +2158,18 @@ export const DUA_ITEMS: DuaItem[] = [
       "Abû Dâwud [2632](3/42) and At-Tirmidhî [3584](5/572). Also see Ŝaĥîĥ At-Tirmidhî (3/183).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/127hm.mp3",
+  },
+  {
+    id: "hisn-128",
+    categoryId: "distress",
+    title: "Upon encountering an enemy or those of authority #3",
+    arabic: "حَسْبُنَا اللهُ، وَنِعْمَ الوَكِيْلُ",
+    transliteration: "Hasbunallahu wa ni'mal-wakil",
+    translation: "Allah is sufficient for us, and how fine a trustee (He is).",
+    translations: { bn: "আল্লাহই আমাদের জন্য যথেষ্ট, আর তিনি কতই না উত্তম কর্মবিধায়ক" },
+    reference: "Al-Bukhârî [4563](5/172).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/128hm.mp3",
   },
   {
     id: "hisn-129",
@@ -2903,6 +3046,24 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/195hm.mp3",
   },
   {
+    id: "hisn-196",
+    categoryId: "forgiveness",
+    title:
+      "Supplication for the expiation of sins said at the conclusion of a sitting or gathering, etc...",
+    arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+    transliteration:
+      "Subhanaka-llahumma wa bihamdik, ashhadu an la ilaha illa anta, astaghfiruka wa atubu ilayk",
+    translation:
+      "How perfect You are O Allah, and I praise You. I bear witness that None has the right to be worshipped except You. I seek Your forgiveness and turn to You in repentance.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি। আমি সাক্ষ্য দেই যে, আপনি ছাড়া কোন হক্ব ইলাহ নেই, আমি আপনার কাছে ক্ষমা প্রার্থনা করছি এবং আপনার নিকট তওবা করছি",
+    },
+    reference:
+      "Abû Dâwud [4859], At-Tirmidhî [3433], An-Nisâ'i ['Amal al-Yawm wa al-Laylah][397]. Also see Ŝaĥîĥ At-Tirmidhî (3/153).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/196hm.mp3",
+  },
+  {
     id: "hisn-197",
     categoryId: "social",
     title: "Replying to a supplication of forgiveness #1",
@@ -2928,8 +3089,16 @@ export const DUA_ITEMS: DuaItem[] = [
     id: "hisn-199",
     categoryId: "protection",
     title: "Protection from the Dajjâl",
-    arabic: "مَنْ حَفِظَ عَشَرَ آيَاتٍ مِنْ أوُّلِ سُورَةِ الكَهْفِ، عُصِمَ مِنَ الدَّجَّالِ",
+    arabic:
+      "ٱلۡحَمۡدُ لِلَّهِ ٱلَّذِيٓ أَنزَلَ عَلَىٰ عَبۡدِهِ ٱلۡكِتَٰبَ وَلَمۡ يَجۡعَل لَّهُۥ عِوَجَاۜ قَيِّمٗا لِّيُنذِرَ بَأۡسٗا شَدِيدٗا مِّن لَّدُنۡهُ وَيُبَشِّرَ ٱلۡمُؤۡمِنِينَ ٱلَّذِينَ يَعۡمَلُونَ ٱلصَّـٰلِحَٰتِ أَنَّ لَهُمۡ أَجۡرًا حَسَنٗا مَّـٰكِثِينَ فِيهِ أَبَدٗا وَيُنذِرَ ٱلَّذِينَ قَالُواْ ٱتَّخَذَ ٱللَّهُ وَلَدٗا مَّا لَهُم بِهِۦ مِنۡ عِلۡمٖ وَلَا لِأٓبَآئِهِمۡۚ كَبُرَتۡ كَلِمَةٗ تَخۡرُجُ مِنۡ أَفۡوَٰهِهِمۡۚ إِن يَقُولُونَ إِلَّا كَذِبٗا فَلَعَلَّكَ بَٰخِعٞ نَّفۡسَكَ عَلَىٰٓ ءَاثَٰرِهِمۡ إِن لَّمۡ يُؤۡمِنُواْ بِهَٰذَا ٱلۡحَدِيثِ أَسَفًا إِنَّا جَعَلۡنَا مَا عَلَى ٱلۡأَرۡضِ زِينَةٗ لَّهَا لِنَبۡلُوَهُمۡ أَيُّهُمۡ أَحۡسَنُ عَمَلٗا وَإِنَّا لَجَٰعِلُونَ مَا عَلَيۡهَا صَعِيدٗا جُرُزًا أَمۡ حَسِبۡتَ أَنَّ أَصۡحَٰبَ ٱلۡكَهۡفِ وَٱلرَّقِيمِ كَانُواْ مِنۡ ءَايَٰتِنَا عَجَبًا إِذۡ أَوَى ٱلۡفِتۡيَةُ إِلَى ٱلۡكَهۡفِ فَقَالُواْ رَبَّنَآ ءَاتِنَا مِن لَّدُنكَ رَحۡمَةٗ وَهَيِّئۡ لَنَا مِنۡ أَمۡرِنَا رَشَدٗا",
+    transliteration:
+      "Alhamdu lillahi allathee anzala AAala AAabdihi alkitaba walam yajAAal lahu AAiwajan Qayyiman liyunthira basan shadeedan min ladunhu wayubashshira almumineena allatheena yaAAmaloona alssalihati anna lahum ajran hasanan Makitheena feehi abadan Wayunthira allatheena qaloo ittakhatha Allahu waladan Ma lahum bihi min AAilmin wala liabaihim kaburat kalimatan takhruju min afwahihim in yaqooloona illa kathiban FalaAAallaka bakhiAAun nafsaka AAala atharihim in lam yuminoo bihatha alhadeethi asafan Inna jaAAalna ma AAala alardi zeenatan laha linabluwahum ayyuhum ahsanu AAamalan Wainna lajaAAiloona ma AAalayha saAAeedan juruzan Am hasibta anna ashaba alkahfi waalrraqeemi kanoo min ayatina AAajaban Ith awa alfityatu ila alkahfi faqaloo rabbana atina min ladunka rahmatan wahayyi lana min amrina rashadan",
     translation:
+      "Praise be to Allah Who hath revealed the Scripture unto His slave, and hath not placed therein any crookedness (But hath made it) straight, to give warning of stern punishment from Him, and to bring unto the believers who do good works the news that theirs will be a fair reward Wherein they will abide for ever And to warn those who say: Allah hath chosen a son (A thing) whereof they have no knowledge, nor (had) their fathers, Dreadful is the word that cometh out of their mouths. They speak naught but a lie Yet it may be, if they believe not in this statement, that thou (Muhammad) wilt torment thy soul with grief over their footsteps Lo! We have placed all that is on the earth as an ornament thereof that We may try them: which of them is best in conduct And lo! We shall make all that is thereon a barren mound Or deemest thou that the People of the Cave and the Inscription are a wonder among Our portents When the young men fled for refuge to the Cave and said: Our Lord! Give us mercy from Thy presence, and shape for us right conduct in our plight",
+    translations: {
+      ur: "سب تعریف خدا ہی کو ہے جس نے اپنے بندے (محمدﷺ) پر (یہ) کتاب نازل کی اور اس میں کسی طرح کی کجی (اور پیچیدگی) نہ رکھی سیدھی (اور سلیس اتاری) تاکہ لوگوں کو عذاب سخت سے جو اس کی طرف سے (آنے والا) ہے ڈرائے اور مومنوں کو جو نیک عمل کرتے ہیں خوشخبری سنائے کہ اُن کے لئے (ان کے کاموں کا) نیک بدلہ (یعنی) بہشت ہے جس میں وہ ابدا لاآباد رہیں گے اور ان لوگوں کو بھی ڈرائے جو کہتے ہیں کہ خدا نے (کسی کو) بیٹا بنا لیا ہے ان کو اس بات کا کچھ بھی علم نہیں اور نہ ان کے باپ دادا ہی کو تھا۔ (یہ) بڑی سخت بات ہے جو ان کے منہ سے نکلتی ہے (اور کچھ شک نہیں) کہ یہ جو کہتے ہیں محض جھوٹ ہے (اے پیغمبر) اگر یہ اس کلام پر ایمان نہ لائیں تو شاید تم کے ان پیچھے رنج کر کر کے اپنے تئیں ہلاک کردو گے جو چیز زمین پر ہے ہم نے اس کو زمین کے لئے آرائش بنایا ہے تاکہ لوگوں کی آزمائش کریں کہ ان میں کون اچھے عمل کرنے والا ہے اور جو چیز زمین پر ہے ہم اس کو (نابود کرکے) بنجر میدان کردیں گے کیا تم خیال کرتے ہو کہ غار اور لوح والے ہمارے نشانیوں میں سے عجیب تھے جب وہ جوان غار میں جا رہے تو کہنے لگے کہ اے ہمارے پروردگار ہم پر اپنے ہاں سے رحمت نازل فرما۔ اور ہمارے کام درستی (کے سامان) مہیا کر",
+    },
+    virtues:
       "Whoever memorises the first ten verses of Sûrah Al-Kahf will be protected from the Dajjâl.",
     reference: "Muslim [809](1/555).",
   },
@@ -3071,6 +3240,18 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/209hm.mp3",
   },
   {
+    id: "hisn-210",
+    categoryId: "travel",
+    title: "Supplication for when the mounted animal (or means of transport) stumbles",
+    arabic: "بِسْمِ اللهِ",
+    transliteration: "Bismillah",
+    translation: "In the name of Allah.",
+    translations: { bn: "আল্লাহ্‌র নামে।", id: "Dengan nama Allah (aku mulai makan)." },
+    reference: "Abû Dâwud [4982](4/296). Al-Albânî authenticated it in Ŝaĥîĥ Abû Dâwud (3/941).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/210hm.mp3",
+  },
+  {
     id: "hisn-211",
     categoryId: "travel",
     title: "Supplication of the traveller for the resident",
@@ -3139,6 +3320,21 @@ export const DUA_ITEMS: DuaItem[] = [
     reference: "Muslim [2718](4/2086).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/215hm.mp3",
+  },
+  {
+    id: "hisn-216",
+    categoryId: "travel",
+    title: "Stopping or lodging somewhere",
+    arabic: "أَعُوذُ بِكَلِمَاتِ اللّهِِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+    transliteration: "A'udhu bikalimatillahit-tammati min sharri ma khalaq",
+    translation: "I take refuge in Allah’s perfect words from the evil that He has created.",
+    translations: {
+      bn: "আল্লাহ্‌র পরিপূর্ণ কালেমাসমূহের ওসিলায় আমি তাঁর নিকট তাঁর সৃষ্টির ক্ষতি থেকে আশ্রয় চাই।",
+      id: "Aku berlindung dengan kalimat-kalimat Allah yang sempurna, dari kejahatan sesuatu yang diciptakan-Nya.",
+    },
+    reference: "Muslim [2708](4/2080).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/216hm.mp3",
   },
   {
     id: "hisn-217",
@@ -3274,6 +3470,20 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/228hm.mp3",
   },
   {
+    id: "hisn-229",
+    categoryId: "protection",
+    title: "Supplication upon hearing the barking of dogs at night",
+    arabic: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيْمِ",
+    transliteration: "A'udhu billahi minash-shaytanir-rajim",
+    translation:
+      "If you hear the barking of dogs or the braying of asses at night, seek refuge in Allah for they see what you do not.",
+    translations: { bn: "বিতাড়িত শয়তান থেকে আমি আল্লাহ্‌র আশ্রয় নিচ্ছি।" },
+    reference:
+      "Abû Dâwud [5103](4/327) and Aĥmad (3/306). Al-Albânî authenticated it in Ŝaĥîĥ Abû Dâwud (3/961).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/229hm.mp3",
+  },
+  {
     id: "hisn-230",
     categoryId: "social",
     title: "Supplication said for one you have insulted",
@@ -3339,6 +3549,24 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/234hm.mp3",
   },
   {
+    id: "hisn-235",
+    categoryId: "hajj",
+    title: "Between the Yemeni corner and the black stone",
+    arabic: "﴿رَبَّنَا آتِنَا في الدُّنْيَا حَسَنَةً وفي الآخِرَةِ حَسَنَةً وقِنَا عَذَابَ النَّارِ﴾",
+    transliteration:
+      "Rabbana atina fid-dunya hasanah, wa fil-akhirati hasanah, wa qina 'adhaban-nar",
+    translation:
+      "O our Lord, grant us the best in this life and the best in the next life, and protect us from the punishment of the Fire.",
+    translations: {
+      bn: "হে আমাদের রব্ব! আমাদেরকে দুনিয়াতে কল্যাণ দিন এবং আখেরাতেও কল্যাণ দিন এবং আমাদেরকে আগুনের শাস্তি থেকে রক্ষা করুন।",
+      id: "Ya Allah, berikanlah kepada kami kebaikan di dunia, berikan pula kebaikan di akhirat dan lindungilah kami dari siksa neraka.",
+    },
+    reference:
+      "(1) Abû Dâwud [1892](2/179), Aĥmad (3/411) and Al-Baghawî in Sharĥ As-Sunnah (7/128). Al-Albânî declared it Ĥasan in Ŝaĥîĥ Abû Dâwud (1/354).\n(2) Sûrah Al-Baqarah: 201.",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/235hm.mp3",
+  },
+  {
     id: "hisn-236",
     categoryId: "hajj",
     title: "When at Mount Ŝaffâ and Mount Marwah",
@@ -3349,6 +3577,24 @@ export const DUA_ITEMS: DuaItem[] = [
     reference: "Muslim [1218](2/888).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/236hm.mp3",
+  },
+  {
+    id: "hisn-237",
+    categoryId: "hajj",
+    title: "On the Day of 'Arafah",
+    arabic: "لَا إلَهَ إلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ المُلْكُ، ولَهُ الحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ",
+    transliteration:
+      "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir",
+    translation:
+      "None has the right to be worshipped except Allah, alone, without partner. To Him belongs all praise and sovereignty and He is over all things omnipotent.",
+    translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান।",
+      id: "Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.",
+    },
+    reference:
+      "At-Tirmidhî [3585]. Al-Albânî authenticated it in Ŝaĥîĥ At-Tirmidhî (3/184) and Al-Aĥâdîth Aŝ-Ŝaĥîĥah (4/6).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/237hm.mp3",
   },
   {
     id: "hisn-238",
@@ -3386,6 +3632,19 @@ export const DUA_ITEMS: DuaItem[] = [
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/240hm.mp3",
   },
   {
+    id: "hisn-241",
+    categoryId: "social",
+    title: "What to say at times of amazement and delight #2",
+    arabic: "اللهُ أَكْبَرُ",
+    transliteration: "Allahu Akbar",
+    translation: "Allah is the greatest.",
+    translations: { bn: "আল্লাহ অতি-মহান", id: "Allah Maha Besar" },
+    reference:
+      "Al-Bukhârî [4741](8/441). Also see Ŝaĥîĥ At-Tirmidhî (2/103),(2/235) and Aĥmad (5/218).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/241hm.mp3",
+  },
+  {
     id: "hisn-242",
     categoryId: "social",
     title: "What to do upon receiving pleasant news",
@@ -3417,6 +3676,17 @@ export const DUA_ITEMS: DuaItem[] = [
       "Aĥmad (4/447), Ibn Mâjah [3509] and Mâlik [1697-1698]. Al-Albânî authenticated it in Ŝaĥîĥ Al-Jâmi' [556](1/212). Also see research of Zâd al-Ma'âd by Al-Arnâ'ûť.",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/244hm.mp3",
+  },
+  {
+    id: "hisn-245",
+    categoryId: "protection",
+    title: "What to say when startled",
+    arabic: "لَا إلَهَ إلَّا اللهُ",
+    translation: "None has the right to be worshipped except Allah.",
+    translations: { bn: "আল্লাহ ছাড়া কোনো মা’বুদ নেই" },
+    reference: "Al-Bukhârî [3346](6/381) and Muslim [2880](4/2208).",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/245hm.mp3",
   },
   {
     id: "hisn-246",

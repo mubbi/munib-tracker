@@ -1,5 +1,5 @@
 diff --git a/dist/recitation/session.js b/dist/recitation/session.js
-index 3d7030cac860a410c42f7a14ba5042fa160bb0f6..ca39b42d07614114ae4a4c46148c817296187f36 100644
+index 3d7030c..b3895df 100644
 --- a/dist/recitation/session.js
 +++ b/dist/recitation/session.js
 @@ -24,7 +24,7 @@ import { BLANK_ID, TOKENS } from "./tokens.js";
@@ -11,7 +11,27 @@ index 3d7030cac860a410c42f7a14ba5042fa160bb0f6..ca39b42d07614114ae4a4c46148c8172
  import { CorrectionController } from "./correction.js";
  import { FramePosteriors } from "./posteriors.js";
  import { A0W_SLIP_HEAD, EncoderFrames, slipThreshold } from "./slipHead.js";
-@@ -80,7 +80,7 @@ const STRUCTURAL_BLOCK_SECONDS = 120;
+@@ -77,10 +77,27 @@ function surroundingVerses(db, surah, ayah) {
+ export const DEFAULT_STRUCTURAL = { ayahOrder: true, similarVerse: true, timing: "stop" };
+ /** Audio after which the structural rules start a new block (bounds their cost). */
+ const STRUCTURAL_BLOCK_SECONDS = 120;
++/**
++ * munib-tracker patch (yazinsai/tilawa#35): with `timing: "stop"` a long take
++ * was evaluated once at `stop()` — every token against every ayah of the
++ * expected passage (whole al-Kahf: 35-45 s with JIT, minutes on Hermes). Takes
++ * longer than STRUCTURAL_BLOCK_SECONDS now close blocks during the take (the
++ * first after STRUCTURAL_BLOCK_SECONDS, later ones every
++ * STRUCTURAL_NEXT_BLOCK_SECONDS), at a pause on an ayah's last word (or at any
++ * pause past 1.5x that length / STRUCTURAL_BLOCK_MAX_SECONDS), and every
++ * long-take evaluation only aligns the ayahs heard in its block. Each block
++ * re-reads the previous block's last pause-delimited segment, and its window
++ * starts at the previous block's last ayah, so skips across a cut stay visible
++ * (never ahead of the reader). Takes up to STRUCTURAL_BLOCK_SECONDS follow the unchanged path.
++ * `timing: "pause"` is unchanged.
++ */
++const STRUCTURAL_BLOCK_MAX_SECONDS = 180;
++/** Patch (#35): later blocks are shorter — the cost of one is ~quadratic in its length. */
++const STRUCTURAL_NEXT_BLOCK_SECONDS = 60;
  const STRUCTURAL_ERROR_KINDS = new Set(["possible_omission", "possible_substitution", "possible_vowel",
      "possible_skipped_ayah", "unclear_ayah"]);
  async function loadStructuralIndex() {
@@ -20,8 +40,134 @@ index 3d7030cac860a410c42f7a14ba5042fa160bb0f6..ca39b42d07614114ae4a4c46148c8172
      return mod.default;
  }
  export class ZipformerSession {
+@@ -218,6 +235,10 @@ export class ZipformerSession {
+             blockTok: 0,
+             blockT0: 0,
+             blockEmitted: new Set(),
++            /** Patch (#35): a stop-timing block is being closed mid-take ("ayah" end or "cap"). */
++            blockClose: false,
++            /** Patch (#35): furthest expected ayah heard by the closed blocks (0 = none yet). */
++            blockLastAyah: 0,
+             aoSeen: new Set(),
+             /** Ayah-order flags found by the previous evaluation (pause timing). */
+             aoLast: new Set(),
+@@ -601,6 +622,29 @@ export class ZipformerSession {
+                 this.structuralEvaluate();
+             }
+         }
++        else if (!this.structuralLive && st.tokens.length > st.evalAt
++            && st.samples / SAMPLE_RATE - st.blockT0
++                > (st.blockTok ? STRUCTURAL_NEXT_BLOCK_SECONDS : STRUCTURAL_BLOCK_SECONDS)) {
++            // Patch (#35): close a stop-timing block at a pause, preferably on an ayah's last word.
++            const last = st.tokens[st.tokens.length - 1];
++            const gap = AYAH_ORDER_PARAMS.gap;
++            const pending = this.decoder.pendingFrame;
++            const base = st.absFrames - this.decoder.framesDecoded;
++            if (st.absFrames - last.frame >= gap && (pending === null || base + pending - last.frame >= gap)) {
++                const c = this.lastCursor;
++                const atAyahEnd = !!c && c.word >= this.wordCount(c.surah, c.ayah) - 1;
++                const cap = st.blockTok ? 1.5 * STRUCTURAL_NEXT_BLOCK_SECONDS : STRUCTURAL_BLOCK_MAX_SECONDS;
++                if (atAyahEnd || st.samples / SAMPLE_RATE - st.blockT0 > cap) {
++                    st.blockClose = atAyahEnd ? "ayah" : "cap";
++                    try {
++                        this.structuralEvaluate();
++                    }
++                    finally {
++                        st.blockClose = false;
++                    }
++                }
++            }
++        }
+         return this.raiseStructural();
+     }
+     structuralVerses() {
+@@ -633,12 +677,33 @@ export class ZipformerSession {
+         st.evalAt = st.tokens.length;
+         const tokens = st.blockTok ? st.tokens.slice(st.blockTok) : st.tokens;
+         const verses = this.structuralVerses();
+-        const expected = this.expected;
++        // Patch (#35): a closed block is judged like the end of a take.
++        const settled = st.final || st.blockClose;
++        let expected = this.expected;
++        let heardNothing = false;
++        if (expected && !this.structuralLive
++            && (st.blockClose || st.samples / SAMPLE_RATE > STRUCTURAL_BLOCK_SECONDS)) {
++            // Patch (#35): long take — align only the ayahs heard in this block.
++            const end = expected.ayahEnd ?? expected.ayah;
++            const heard = verses
++                .filter(([s, a]) => s === expected.surah && a >= expected.ayah && a <= end)
++                .map(([, a]) => a);
++            if (heard.length) {
++                expected = {
++                    surah: expected.surah,
++                    // The previous block's last ayah: its tail segment is re-read by this block.
++                    ayah: Math.max(expected.ayah, Math.min(...heard, st.blockLastAyah || Infinity)),
++                    ayahEnd: Math.max(...heard),
++                };
++            }
++            else
++                heardNothing = true;
++        }
+         const sameAyah = (a, b) => a.surah === b.surah && a.ayah === b.ayah;
+         const blocked = (f) => this.ayahIssuesRaised.has(ayahKey(f))
+             || st.issues.some((i) => STRUCTURAL_ERROR_KINDS.has(i.kind) && sameAyah(i, f))
+             || st.pending.some((p) => sameAyah(p, f));
+-        if (this.aoRule) {
++        if (this.aoRule && !heardNothing) {
+             const win = rules.ayahOrderWindow(expected, verses[0] ?? null);
+             const found = ayahOrderFlags(rules.ayahOrderCandidate(tokens, win), this.aoRule);
+             const last = st.aoLast;
+@@ -646,7 +711,7 @@ export class ZipformerSession {
+             for (const f of found) {
+                 const key = ayahKey(f);
+                 // Pause timing: the jump must hold over two pauses and the tracker must have reached a later ayah.
+-                if (st.aoSeen.has(key) || (!st.final && (!last.has(key)
++                if (st.aoSeen.has(key) || (!settled && (!last.has(key)
+                     || !verses.some(([s, a]) => s === f.surah && a > f.ayah))))
+                     continue;
+                 st.aoSeen.add(key);
+@@ -656,7 +721,7 @@ export class ZipformerSession {
+                 st.pending.push(f);
+             }
+         }
+-        if (this.svOn) {
++        if (this.svOn && !heardNothing) {
+             const passage = [];
+             if (expected) {
+                 for (let a = expected.ayah; a <= (expected.ayahEnd ?? expected.ayah); a++)
+@@ -668,7 +733,7 @@ export class ZipformerSession {
+             const cands = rules.similarVerseCandidates(tokens, passage, !!expected, durationS, (c) => similarVerseEligible(c));
+             const skips = [...st.skips, ...st.issues.filter((i) => i.kind === "possible_skipped_ayah")];
+             // Pause timing: a slot is judged once the recitation has reached a later ayah.
+-            const reached = (t) => st.final || (expected
++            const reached = (t) => settled || (expected
+                 ? verses.some(([s, a]) => s === passage[t][0] && a > passage[t][1])
+                 : t < passage.length - 1);
+             for (const c of similarVersePick(cands, SIMILAR_VERSE_RULE)) {
+@@ -684,8 +749,20 @@ export class ZipformerSession {
+             }
+         }
+         const now = st.samples / SAMPLE_RATE;
+-        if (!st.final && now - st.blockT0 > STRUCTURAL_BLOCK_SECONDS) {
++        if (!st.final && (st.blockClose || now - st.blockT0 > STRUCTURAL_BLOCK_SECONDS)) {
+             st.blockTok = st.tokens.length;
++            if (st.blockClose) {
++                for (const [s, a] of verses)
++                    if (s === this.expected?.surah && a > st.blockLastAyah)
++                        st.blockLastAyah = a;
++                // Patch (#35): the next block re-reads the last pause-delimited segment, so the
++                // ayah before it is heard there too (skips and slips across the cut stay visible).
++                const gap = AYAH_ORDER_PARAMS.gap;
++                let k = st.tokens.length - 1;
++                while (k > 0 && st.tokens[k].frame - st.tokens[k - 1].frame < gap)
++                    k--;
++                st.blockTok = Math.max(1, k);
++            }
+             st.blockT0 = now;
+             for (const [s, a] of verses)
+                 st.blockEmitted.add(`${s}:${a}`);
 diff --git a/dist/recitation/slipHead.js b/dist/recitation/slipHead.js
-index 6a62d0367506ddbba591c81b2c3977f8e95d05fa..86156e4eac913f02b6209aa11d7ddcf585782d3d 100644
+index 6a62d03..86156e4 100644
 --- a/dist/recitation/slipHead.js
 +++ b/dist/recitation/slipHead.js
 @@ -6,7 +6,7 @@

@@ -2,6 +2,10 @@ import { usePathname } from "expo-router";
 import {
   Children,
   createContext,
+  Fragment,
+  isValidElement,
+  type Key,
+  type ReactElement,
   type ReactNode,
   useCallback,
   useContext,
@@ -28,6 +32,31 @@ import { Spacing } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { registerStaggerLayoutListener } from "@/lib/stagger-entrances";
+
+type FlatChild = { key: string; node: ReactNode };
+
+/**
+ * Flattens `children` into the list of items Stagger spaces and animates.
+ * Unlike `Children.toArray`, React fragments (incl. conditional `cond && <>…</>`
+ * branches and nested fragments) are expanded so each card inside them gets its
+ * own slot in the gap-spaced stack. Keys are built from the fragment path plus
+ * each child's own `toArray` key (which accounts for `null`/`false` holes), so a
+ * card keeps its key when a sibling before it appears or disappears.
+ */
+export function flattenStaggerChildren(children: ReactNode, prefix = ""): FlatChild[] {
+  const out: FlatChild[] = [];
+  for (const child of Children.toArray(children)) {
+    const childKey: Key | null = isValidElement(child) ? child.key : null;
+    const key = `${prefix}${childKey ?? out.length}`;
+    if (isValidElement(child) && child.type === Fragment) {
+      const fragment = child as ReactElement<{ children?: ReactNode }>;
+      out.push(...flattenStaggerChildren(fragment.props.children, `${key}/`));
+      continue;
+    }
+    out.push({ key, node: child });
+  }
+  return out;
+}
 
 /** Routes/screens whose stagger entrance has already played this session. */
 const completedEntrances = new Set<string>();
@@ -90,7 +119,7 @@ type StaggerProps = {
  * - Leaving the foreground (e.g. system permission dialog) finishes the entrance
  *   so remounts and late children stay visible.
  * - Changing the child count after the first paint finishes the entrance, because
- *   index keys remount later siblings and would otherwise replay from opacity 0.
+ *   a reordered/inserted sibling must never replay from opacity 0 mid-interaction.
  */
 export function Stagger({
   children,
@@ -118,7 +147,7 @@ export function Stagger({
     (resolvedKey ? completedEntrances.has(resolvedKey) : false);
   const entranceComplete = useRef(skipFromKey);
   const [forceVisible, setForceVisible] = useState(skipFromKey);
-  const items = Children.toArray(children);
+  const items = flattenStaggerChildren(children);
   const itemCount = items.length;
   const prevItemCount = useRef(itemCount);
   const hasPaintedRef = useRef(false);
@@ -132,7 +161,7 @@ export function Stagger({
 
   const hasCompletedEntrance = useCallback(() => entranceComplete.current, []);
 
-  // Synced during render so remounted StaggerItems (index keys) read
+  // Synced during render so newly mounted StaggerItems read
   // hasCompletedEntrance() as true on the same pass — not one frame later.
   const childCountChanged = hasPaintedRef.current && prevItemCount.current !== itemCount;
   if (childCountChanged) {
@@ -145,7 +174,7 @@ export function Stagger({
   useEffect(() => {
     hasPaintedRef.current = true;
     // After the first paint, inserting/removing a sibling remounts later
-    // StaggerItems (keys are indices). Finish the entrance so remounts stay
+    // StaggerItems. Finish the entrance so remounts stay
     // visible instead of restarting from opacity 0 mid-interaction.
     if (childCountChanged) {
       markEntranceComplete();
@@ -219,16 +248,9 @@ export function Stagger({
   return (
     <StaggerContext.Provider value={contextValue}>
       <View style={styles.stack}>
-        {items.map((child, index) => (
-          <StaggerItem
-            // biome-ignore lint/suspicious/noArrayIndexKey: stack order is stable
-            key={index}
-            index={index}
-            delay={delay}
-            step={step}
-            distance={distance}
-          >
-            {child}
+        {items.map((item, index) => (
+          <StaggerItem key={item.key} index={index} delay={delay} step={step} distance={distance}>
+            {item.node}
           </StaggerItem>
         ))}
       </View>

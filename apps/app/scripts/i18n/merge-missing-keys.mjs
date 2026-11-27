@@ -4,19 +4,24 @@ import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { isScriptureMeaningCatalogKey } from "../../../../packages/shared/src/i18n/scripture-meaning.ts";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const I18N_DIR = join(__dirname, "../../src/i18n");
 
-function deepMergeMissing(target, source) {
+// D45: scripture meaning keys stay en-only (other locales fall back to the labelled English).
+function deepMergeMissing(target, source, prefix = "") {
   if (typeof source !== "object" || source === null || Array.isArray(source)) {
     return target ?? source;
   }
   const out = { ...(target && typeof target === "object" ? target : {}) };
   for (const [key, value] of Object.entries(source)) {
+    const path = prefix ? `${prefix}.${key}` : key;
+    if (isScriptureMeaningCatalogKey(path)) continue;
     if (!(key in out)) {
       out[key] = structuredClone(value);
     } else if (typeof value === "object" && value !== null && !Array.isArray(value)) {
-      out[key] = deepMergeMissing(out[key], value);
+      out[key] = deepMergeMissing(out[key], value, path);
     }
   }
   return out;

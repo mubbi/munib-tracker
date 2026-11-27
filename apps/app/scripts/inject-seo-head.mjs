@@ -15,6 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { unregisteredRoutePolicy } from "./lib/seo-route-policy.mjs";
 
 const projectRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(projectRoot, "dist");
@@ -101,11 +102,26 @@ function catItems(labels, base) {
   return Object.entries(labels ?? {}).map(([id, name]) => ({ name, path: `${base}/${id}` }));
 }
 
+/** Zakat hub: every guide topic (catalog order = ZAKAT_GUIDE_SECTIONS) + checklist / evidence. */
+function zakatItems(L) {
+  const guide = L.zakat?.guide ?? en.zakat?.guide ?? {};
+  return [
+    ...Object.entries(guide).map(([id, topic]) => ({
+      name: topic?.title ?? humanizeSlug(id),
+      path: `/zakat/${id}`,
+    })),
+    ...["/zakat/checklist", "/zakat/evidence"]
+      .filter((p) => SEO_ROUTES[p])
+      .map((p) => ({ name: SEO_ROUTES[p].title, path: p })),
+  ];
+}
+
 function itemsByRoute(L) {
   return {
     "/quran": surahItems(L),
     "/dua": catItems(L.duaCat, "/dua"),
     "/zikr": catItems(L.zikrCat, "/zikr"),
+    "/zakat": zakatItems(L),
   };
 }
 
@@ -144,7 +160,8 @@ function absoluteLocalized(routePath, locale) {
   return `${ORIGIN}${localized === "/" ? "" : localized}`;
 }
 
-const LOCALE_BOOT_SCRIPT = `(function(){try{var p=location.pathname.replace(/\\/+$/,'')||'/';var m=p.match(/^\\/([a-z]{2})(\\/.*)?$/);if(!m||m[1]==='en')return;var loc=m[1];var appPath=m[2]||'/';sessionStorage.setItem('munib-locale-boot',loc);history.replaceState({munibLocale:loc},'',appPath+location.search+location.hash);}catch(e){}})();`;
+/** Keep in sync with `LOCALE_PATH_BOOT_SCRIPT` in src/lib/locale-path.ts (fallback only). */
+const LOCALE_BOOT_SCRIPT = `(function(){try{var p=location.pathname.replace(/\\/+$/,'')||'/';var m=p.match(/^\\/([a-z]{2})(\\/.*)?$/);if(!m||m[1]==='en')return;var loc=m[1];var appPath=m[2]||'/';sessionStorage.setItem('munib-locale-boot',loc);window.__MUNIB_ENTRY_LOCALE__={locale:loc,path:appPath};history.replaceState({munibLocale:loc},'',appPath+location.search+location.hash);}catch(e){}})();`;
 
 function humanizeSlug(slug, stripPrefixes = []) {
   let s = decodeURIComponent(slug);
@@ -245,8 +262,7 @@ function resolveMeta(route, locale = SEO_LOCALE) {
       "sunnah",
       "quranic",
       "daily",
-      "morning",
-      "evening",
+      // morning / evening are kept: they tell the two versions of a zikr apart.
       "before_prayer",
       "after_prayer",
       "after_azan",
@@ -286,20 +302,37 @@ function resolveMeta(route, locale = SEO_LOCALE) {
     };
   }
 
+  // Topic pages of a content section (`/{section}/{slug}`): indexable when their
+  // nearest registered hub is (scripts/lib/seo-route-policy.mjs). The real topic
+  // title comes from the client <Seo>; this is the crawlable static baseline.
   const contentMatch = key.match(/^\/([a-z-]+)\/(.+)$/);
-  const lastSeg = contentMatch?.[2].split("/").pop() ?? "";
-  const isUtilitySeg = /^(progress|quiz|journal)$/.test(lastSeg);
-  if (contentMatch && CONTENT_SECTION_NS[contentMatch[1]] && !isUtilitySeg) {
+  const policy = unregisteredRoutePolicy(key, SEO_ROUTES);
+  if (contentMatch && policy.index) {
     const section = contentMatch[1];
-    const sectionTitle = L[CONTENT_SECTION_NS[section]]?.title ?? humanizeSlug(section);
-    const title = humanizeSlug(lastSeg || contentMatch[2]);
+    const lastSeg = contentMatch[2].split("/").pop() ?? contentMatch[2];
+    const hubEntry = policy.hub ? mergeRegistryRoute(policy.hub.path, locale) : undefined;
+    const sectionTitle =
+      L[CONTENT_SECTION_NS[section]]?.title ??
+      hubEntry?.title ??
+      policy.hubTitle ??
+      humanizeSlug(section);
+    // Short section name ("Duroods & Salawat" from "Duroods & Salawat — Blessings…")
+    // keeps the title unique across sections (/aqeedah/introduction vs
+    // /battles/introduction) and the description under ~170 chars.
+    const sectionShort = sectionTitle.split(" — ")[0];
+    const topic = humanizeSlug(lastSeg);
+    const title = `${topic} — ${sectionShort}`;
     return {
       title,
-      description: `${title} — part of ${sectionTitle} on ${APP_NAME}, with evidence from the Qur'an and authentic Sunnah.`,
-      keywords: [title, sectionTitle],
+      description: `${topic}, from ${sectionShort} on ${APP_NAME}: a clear, sourced guide drawn from the Qur'an and authentic Sunnah, free to read online or offline.`,
+      keywords: [topic, sectionShort],
       index: true,
       type: "article",
-      breadcrumbs: [home, { name: sectionTitle, path: `/${section}` }, { name: title, path: key }],
+      breadcrumbs: [
+        home,
+        ...(policy.hub ? [{ name: sectionShort, path: policy.hub.path }] : []),
+        { name: topic, path: key },
+      ],
       locale,
     };
   }
@@ -316,7 +349,7 @@ function resolveMeta(route, locale = SEO_LOCALE) {
 
 function buildJsonLd(route, meta) {
   const key = normalizePath(route);
-  const url = absolute(route);
+  const url = absoluteLocalized(route, meta.locale ?? SEO_LOCALE);
   const L = i18n(meta.locale ?? SEO_LOCALE);
   const items = itemsByRoute(L)[key];
   const hreflang = localeMetaByCode.get(meta.locale ?? SEO_LOCALE)?.hreflang ?? "en";
@@ -406,6 +439,10 @@ function buildHeadTags(route, meta) {
     `<meta data-rh="true" name="twitter:title" content="${rawTitle}"/>`,
     `<meta data-rh="true" name="twitter:description" content="${d}"/>`,
     `<meta data-rh="true" name="twitter:image" content="${OG_IMAGE}"/>`,
+    // Same set as <Seo> on the client, so Helmet adopts these instead of adding twins.
+    `<meta data-rh="true" property="og:image:width" content="512"/>`,
+    `<meta data-rh="true" property="og:image:height" content="512"/>`,
+    `<meta data-rh="true" name="twitter:image:alt" content="${escapeHtml(OG_IMAGE_ALT)}"/>`,
   ];
 
   for (const entry of LOCALE_META) {
@@ -419,10 +456,13 @@ function buildHeadTags(route, meta) {
     `<link data-rh="true" rel="alternate" hreflang="x-default" href="${absoluteLocalized(route, "en")}"/>`,
   );
 
+  // JSON-LD is NOT Helmet-managed (no `data-rh`): on hydration Helmet deletes every
+  // `data-rh` script the client did not re-emit, which stripped Article / FAQ /
+  // ItemList data from the DOM Google indexes. `data-seo-static` lets <Seo> drop
+  // these blocks itself once the client emits the same @type or navigates away.
   for (const block of buildJsonLd(route, meta)) {
-    tags.push(
-      `<script data-rh="true" type="application/ld+json">${JSON.stringify(block)}</script>`,
-    );
+    const json = JSON.stringify(block).replace(/</g, "\\u003c");
+    tags.push(`<script data-seo-static="true" type="application/ld+json">${json}</script>`);
   }
   return { fullTitle: escapeHtml(fullTitle), tags };
 }
@@ -495,6 +535,10 @@ function existingTagPattern(tag) {
 
 let tagsAdded = 0;
 let tagsReplaced = 0;
+let tagsAdopted = 0;
+
+const STATIC_JSON_LD_RE =
+  /<script\b(?=[^>]*\bdata-seo-static="true")[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi;
 
 /**
  * Safety net after Expo Router's `generateMetadata` (SDK 58+):
@@ -512,6 +556,17 @@ function injectHeadIntoHtml(html, fullTitle, tags, htmlLang, { mode = "fill" } =
     ? html.replace(titlePattern, titleTag)
     : html.replace(/<head([^>]*)>/i, `<head$1>${titleTag}`);
   html = html.replace(/<html([^>]*)lang="[^"]*"/i, `<html$1 lang="${htmlLang}"`);
+  if (mode === "replace") {
+    // Locale copies are cloned from the English page — drop its JSON-LD so the
+    // localized blocks below are the only ones (no English + localized twins).
+    // Repeat until stable: one pass over `<scr<script …>…</script>ipt …>` would
+    // leave a freshly assembled block behind.
+    let previous;
+    do {
+      previous = html;
+      html = html.replace(STATIC_JSON_LD_RE, "");
+    } while (html !== previous);
+  }
   const missing = [];
   for (const tag of tags) {
     if (html.includes(tag)) continue;
@@ -520,6 +575,17 @@ function injectHeadIntoHtml(html, fullTitle, tags, htmlLang, { mode = "fill" } =
       if (mode === "replace") {
         html = html.replace(pattern, tag);
         tagsReplaced += 1;
+      } else {
+        // generateMetadata's own tag wins, but it is emitted without `data-rh`, so
+        // client Helmet would not recognise it and would append a second canonical
+        // / description / robots beside it (Google ignores conflicting canonicals).
+        // Mark it as Helmet-managed so hydration reconciles it in place.
+        html = html.replace(pattern, (existing) =>
+          /\bdata-rh=/.test(existing)
+            ? existing
+            : existing.replace(/^<(meta|link)\b/i, '<$1 data-rh="true"'),
+        );
+        tagsAdopted += 1;
       }
       continue;
     }
@@ -584,7 +650,7 @@ function main() {
   }
 
   console.log(
-    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}, locale copies=${localeCopies}; tags added=${tagsAdded}, localized=${tagsReplaced}).`,
+    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}, locale copies=${localeCopies}; tags added=${tagsAdded}, localized=${tagsReplaced}, adopted=${tagsAdopted}).`,
   );
 }
 

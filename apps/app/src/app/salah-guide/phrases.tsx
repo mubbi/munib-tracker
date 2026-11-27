@@ -1,27 +1,21 @@
-import { useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo } from "react";
+import { Fragment, useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { JannahCallout, LearnTopicArticle } from "@/components/learn-guide";
+import { FatihahCheckCard } from "@/components/quran/recite-along-fatihah-card";
+import { useReadingTypography } from "@/components/reading-typography-context";
 import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { prefetchAudioUri } from "@/lib/audio-cache";
-import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureSalahGuideContent,
   getSalahGuidePhrases,
@@ -31,6 +25,9 @@ import { salahGuidePhraseAudio } from "@/lib/salah-how-to-pray-audio";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
+
+/** The Salah-guide phrase that is al-Fatihah (`salah-guide-phrases.ts`). */
+const FATIHAH_PHRASE_ID = "fatiha";
 
 function PhraseCard({
   id,
@@ -82,7 +79,7 @@ function PhraseCard({
   }, [audio, isActive, isPlaying, tracks]);
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.phraseHeader}>
         <View style={styles.phraseTitle}>
           <SectionHeader
@@ -96,7 +93,7 @@ function PhraseCard({
             label={isPlaying ? t("common.pause") : t("common.play")}
             onPress={onPlay}
             tintColor={colors.accent}
-            labelColor={colors.accent}
+            labelColor={colors.accentText}
             background={isActive ? tokens.accentSoft : undefined}
             accessibilityLabel={isPlaying ? t("common.pause") : t("common.play")}
           />
@@ -149,42 +146,52 @@ function PhraseCard({
 }
 
 export default function SalahGuidePhrasesScreen() {
-  const router = useRouter();
-  const { maxContentWidth } = useLearnWideLayout();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureSalahGuideContent,
-    isSalahGuideContentReady,
-  );
+  const {
+    version: contentVersion,
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureSalahGuideContent, isSalahGuideContentReady);
   // Recompute per locale so translated phrases render on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
   const phrases = useMemo(() => getSalahGuidePhrases(), [i18n.language, contentVersion]);
+  const phrasesTitle = t("salahGuide.phrasesTitle");
+  const phrasesSubtitle = t("salahGuide.phrasesSubtitle");
+  const topic = useMemo(
+    () => ({ id: "phrases", title: phrasesTitle, summary: phrasesSubtitle }),
+    [phrasesTitle, phrasesSubtitle],
+  );
 
   return (
-    <ScreenLayout
-      eyebrow={t("salahGuide.eyebrow")}
-      title={t("salahGuide.phrasesTitle")}
-      subtitle={t("salahGuide.phrasesSubtitle")}
-      onBack={() => goBackOrReplace(router, "/salah-guide")}
-      maxContentWidth={maxContentWidth}
+    <LearnTopicArticle
+      ns="salahGuide"
+      basePath="/salah-guide"
+      topic={topic}
+      ready={contentReady}
+      error={contentError}
+      onRetry={retryContent}
+      surface="salah_guide"
+      aside={() => <SalahGuideTopicAside currentId="how-to-pray" />}
     >
-      <Seo path="/salah-guide/phrases" />
-      <LearnContentGate ready={contentReady}>
-        <LearnSplitLayout aside={<SalahGuideTopicAside currentId="how-to-pray" />}>
-          <Stagger>
-            <LearnReadingChrome surface="salah_guide">
-              <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
+      {() => (
+        <>
+          <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
 
-              {phrases.map((phrase) => (
-                <PhraseCard key={phrase.id} {...phrase} />
-              ))}
-            </LearnReadingChrome>
-
-            <JannahDisclaimer textKey="salahGuide.disclaimer" />
-          </Stagger>
-        </LearnSplitLayout>
-      </LearnContentGate>
-    </ScreenLayout>
+          {phrases.map((phrase) =>
+            phrase.id === FATIHAH_PHRASE_ID ? (
+              <Fragment key={phrase.id}>
+                <PhraseCard {...phrase} />
+                {/* D68: check this recitation with the on-device listener (hidden on TV). */}
+                <FatihahCheckCard compact />
+              </Fragment>
+            ) : (
+              <PhraseCard key={phrase.id} {...phrase} />
+            ),
+          )}
+        </>
+      )}
+    </LearnTopicArticle>
   );
 }
 
@@ -205,7 +212,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
   meaningLabel: { textTransform: "uppercase", letterSpacing: 0.5 },
-  reference: { marginTop: Spacing.two, lineHeight: 18 },
+  reference: { marginTop: Spacing.two },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

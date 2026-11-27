@@ -2,198 +2,159 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // tk overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
+    title: "Yslam maliýesi näme?",
     summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+      "Aýratyn önüm görnüşi däl-de, pula ahlak nukdaýnazaryndan garaýyş — bu gollanma diňe bilim berýär.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "Yslam maliýesi maýa goýum önümleriniň markasy däl; ol pulyň nähili gazanylýandygyna, karz berilýändigine, harçlanýandygyna we paýlanýandygyna yslam ahlagyny ulanmakdyr. Onuň esasynda birnäçe ýörelge durýar: baýlyk özbaşdak maksat däl-de, Allanyň beren amanatydyr; geleşikler ezmekden we aşa näbellilikden azat bolmalydyr; peýda bolsa karz üçin kepillendirilen töleg däl-de, hakyky ykdysady iş we paýlaşylýan töwekgelçilik bilen baglanyşykly bolmalydyr.",
+      "Bu gollanma şol ýörelgeleri umumy, bilim derejesinde tanyşdyrýar: ribanyň (göterimiň/sudhorlugyň) gadagançlygy, söwdada adalatly hereket etmek, zekatyň we meýletin sadakanyň borçlary we tekafulyň (kooperatiw ätiýaçlandyrmanyň) esasy düşünjesi. Ol bilkastlaýyn gaznalary barlamaýar, paýnamalary ýa-da ETF-leri sanamaýar we hiç bir aýratyn önümi ýa-da üpjün edijini maslahat bermeýär.",
+      "Häzirki zaman maliýe önümleri (ipoteka, kredit kartlary, ätiýaçlandyryş polisleri, pensiýa hasaplary we başgalar) dürli usullarda düzülýär we olar baradaky hökümler şertnamanyň takyk şertlerine we ýurisdiksiýaňyza bagly bolup biler. Bu gollanma size esasy ýörelgeleri berýär; aýratyn ýagdaýyňyz baradaky höküm üçin ökde, sertifikatly yslam maliýesi alymy ýa-da edarasy bilen gepleşiň.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "Diňe bilim maksatly mazmun — maliýe maslahaty däl we pätwa däl. Ol hiç bir aýratyn gaznany, paýnamany, üpjün edijini ýa-da maliýe önümini maslahat bermeýär, barlamaýar ýa-da bahalandyrmaýar.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
-    body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
-    ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
-    ],
-  },
-  {
-    title: "The Prohibition of Riba",
+    title: "Baýlyk amanat hökmünde",
     summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+      "Eýeçiligiňizdäki ähli zat aslynda Allanyňkydyr — siz onuň soňky eýesi däl-de, howandarysyňyz.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
+      "Kuranda gaýtalanýan temalaryň biri — baýlygyň ilki bilen Allaha degişlidigi; adam bolsa onuň diňe wagtlaýyn amanatçysy bolup, onuň nähili gazanylandygy we nähili ulanylýandygy üçin jogapkärdir. Bu pula diňe şahsy emläk hökmünde däl-de, — nireden gelendigi we nirä gidendigi — hakda sorag beriljek zat hökmünde garamagy öwredýär.",
+      "Beýleki adamlar bilen gatnaşyklarda bu amanatyň nähili ýerine ýetirilýändigini iki buýruk berkidýär: şertnamalary we ylalaşyklary doly berjaý etmek we başgalaryň baýlygyny adalatsyzlyk, aldaw ýa-da ezmek arkaly däl-de, diňe özara razylyk bilen adalatly söwda arkaly almak.",
+      "Bu ýörelgeler bilelikde alnanda, yslam maliýe ahlagynyň näme üçin hemişe şol birnäçe soraga gaýdyp gelýändigini düşündirýär: bu peýda hakyky zähmet, töwekgelçilik we gymmat döretmek arkaly gazanyldymy? Beýleki tarap bilen doly dogruçyllyk bilen hereket edildimi? We meniň alan borçlarym berjaý edilýärmi?",
     ],
   },
   {
-    title: "Why Trade Differs from Interest",
+    title: "Ribanyň gadagan edilmegi",
+    summary: "Riba (göterim/sudhorluk) Kuranda iň berk ýazgarylýan geleşikleriň biridir.",
+    body: [
+      "Riba — köplenç göterim ýa-da sudhorluk diýlip terjime edilýär, giňişleýin aýdylanda karz üçin öňünden kesgitlenen, kepillendirilen islendik goşmaça töleg — Bakara süresiniň yzly-yzyna gelýän bäş aýatynda (2:275–279) adatdan daşary berk dil bilen gadagan edilýär; bu Kuranda ýeke-täk tema boýunça iň agyr duýduryşlaryň biridir.",
+      "Bu bölüm bilkastlaýyn deňeşdirme getirýär: “Allah has permitted trade and forbidden riba” (iňlisçe manysy) (2:275). Söwda — iki tarapyň hem hakyky töwekgelçiligi we zähmeti paýlaşýan satyn almak, satmak we maýa goýmak — öwülýär; riba, ýagny netijä garamazdan tölenmeli kesgitli töleg bolsa ýazgarylýar. Süre soňra imanlylara galan ribadan düýbünden el çekmegi buýurýar, munda dyrjaşýanlary agyr netijeler barada duýduryp, toba edenleriň bolsa diňe asyl maýasyny — ne artyk, ne kem — saklap biljekdigini wada berýär.",
+      "Bu häzirki zaman maliýe önümleriniň her birini özüňiz barlamak üçin sanaw däl-de, bilmeli esasy taglymatdyr. Aýratyn bir şertnamanyň (ipotekanyň, karzyň, tygşytlyk hasabynyň) amalda riba bilen baglanyşyklydygyny anyklamak onuň hakyky şertlerini yslam maliýesinde ökde adam bilen gözden geçirmegi talap edýär.",
+    ],
+  },
+  {
+    title: "Söwda göterimden näme bilen tapawutlanýar",
     summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+      "Kanuny peýda töwekgelçilik we zähmet bilen baglanyşykly; riba bolsa netijä garamazdan kepillendirilen tölegdir.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
-    ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
+      "Bu tapawudy ýatda saklamagyň ýönekeý usuly: söwdada ýa-da hakyky maýa goýumda maýa ýa-da haryt berýän adam netijä şärik bolýar — ol peýda görüp biler, ýöne zyýan hem çekip biler, sebäbi ol işiň hakyky netijesine bagly. Riba esasly karzda bolsa karz berijä karz alanyň işi üstünlikli bolsa-da, kynçylyk çekse-de ýa-da şowsuz bolsa-da kesgitli girdeji kepillendirilýär.",
+      "Nusgawy ylym muny adalat meselesi hökmünde görkezýär: gyssagly mätäç bolup karz alan adam alanyndan has köp gaýtaryp bermek duzagyna düşüp biler, töwekgelçiligiň hemmesi onuň üstüne düşýär, karz berijä bolsa hiç zat düşmeýär — Kuranyň “Allah destroys interest and gives increase for charities” (iňlisçe manysy) (2:276) diýen sözlerinde ýazgarýan deňsizligi hut şudur; bu ezmek arkaly gurlan baýlyk bilen sahylyk arkaly artýan baýlygyň arasyndaky göni deňeşdirmedir.",
+      "Bu umumy bilim maksatly deňeşdirme bolup, hiç bir aýratyn gural barada höküm däl (käbir häzirki zaman gurluşlary söwdany we karzy çylşyrymly usullarda garyşdyrýar). Aýratyn önümiň bu gerimiň haýsy ýerinde durýandygy — diňe umumy ýörelgelerden çen tutmagyň ýerine, ökde yslam maliýesi alymyna ýa-da sertifikatly maslahatçysyna eltilmeli soragyň hut özüdir.",
     ],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
-    body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
-    ],
-  },
-  {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
-    body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
-    ],
-  },
-  {
-    title: "Navigating Modern Financial Products",
+    title: "Sünnet riba nähili berk garaýar",
     summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
+      "Pygamber ﷺ riba geleşigine gatnaşýanlaryň hemmesiniň onuň günäsine şärikdigini duýdurdy.",
     body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "Kuranyň öz duýduryşlaryndan başga-da, Pygamber ﷺ riba üçin jogapkärçiligiň diňe ony göni alýan adam bilen çäklenmeýändigini aýdyňlaşdyrdy. Sahyh hadysda onuň ﷺ ribany iýäni, ony töläni, şertnamasyny ýazany we oňa şaýatlyk eden iki adamy näletländigi we olaryň hemmesiniň bu meselede deňdigini aýdandygy rowaýat edilýär.",
+      "Mundan, adatça, diňe şahsy günäkärlemek däl-de, bilelikde gaça durmak sapagy alynýar: riba diňe karz beriji bilen karz alanyň arasyndaky şahsy mesele däl-de, tutuş geleşigiň we oňa bilip gatnaşýanlaryň hemmesiniň gaça durmaly zady hökmünde garalýar.",
+      "Kuran aýatlary ýaly, bu hadys hem ýörelgäniň agyrlygyny kesgitleýär; ol aýratyn häzirki zaman maliýe önümini nähili toparlara bölmelidigini özbaşdak aýtmaýar. Bu baha bermek hakyky şertnamany gözden geçirýän ökde alymlara degişlidir.",
+    ],
+  },
+  {
+    title: "Söwdada dogruçyllyk",
+    summary: "Dogruçyl, ynamdar söwdagäre Ahyretde iň ýokary derejeleriň biri berilýär.",
+    body: [
+      "Riba baradaky duýduryşlardan düýpgöter tapawutlylykda, dogruçyl söwda gaýta-gaýta öwülýär. Pygamber Muhammediň ﷺ özi pygamberlikden öň söwdagär bolup işledi we pygamber hökmünde tanalmazyndan has öň Mekgede söwda gatnaşyklaryndaky dogruçyllygy üçin el-Emin — 'Ynamdar' — lakamy bilen tanalýardy.",
+      "Ol ﷺ soňra Kyýamat güni “the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs” (iňlisçe manysy) diýip öwretdi — bazarda adalatly hereket etmek ýaly adaty zada berilýän adatdan daşary beýik derejedir.",
+      "Amalda adalatly söwda şuny aňladýar: harytlary we hyzmatlary dogry beýan etmek, belli kemçilikleri gizlemän aýtmak, ylalaşylan bahalary we şertleri berjaý etmek, aldawdan, ýalan mahabatdan ýa-da alyjynyň ýa-da satyjynyň bilmezliginden peýdalanmakdan gaça durmak. Bular islendik däpde gowy, dowamly işiň esasyny düzýän şol bir häsiýetlerdir — Yslam olary diňe ebedi sylag bilen hem baglanyşdyrýar.",
+    ],
+  },
+  {
+    title: "Häzirki zaman maliýe önümlerine çemeleşmek",
+    summary:
+      "Ipoteka, kartlar we ätiýaçlandyryş hakykatdan-da çylşyrymly — bu gollanma ýörelgeler bilen çäklenýär.",
+    body: [
+      "Häzirki zaman maliýe durmuşy musulmanlaryň ilkinji nesilleriniň häzirki görnüşinde hiç haçan duş gelmedik önümlerini öz içine alýar: dürli usullarda düzülen ipoteka, kredit kartlary, pensiýa hasaplary, ätiýaçlandyryş we maýa goýum gaznalary. Asyrlaryň dowamynda kemala gelen ýörelgeleri bu önümlere ulanmak — birnäçe umumy aýatdan ugur alyp ýeke netije çykarmak däl-de, hakyky, seresaply alym işidir.",
+      "Şu sebäpli häzirki zaman yslam maliýe edaralary we sertifikatly alymlar ýörite häzirki zaman şertnamalarynyň bu ýörelgelere laýyklygyny gözden geçirmekde ýöriteleşýärler we köplenç aýratyn önümler ýa-da gurluşlar boýunça jikme-jik hökümler çykarýarlar. Şeýle ýöriteleşdirilen gözden geçiriş bu programmanyň çäginden daşardadyr.",
+      "Eger hakyky maliýe kararyny — jaý satyn almak, karz, maýa goýum, ätiýaçlandyryş polisi — ölçerýän bolsaňyz, jogapkärli indiki ädim şu gollanma ýaly umumy bilim mazmunyna daýanmak däl-de, şertnamanyň hakyky şertlerini görüp biljek ökde, sertifikatly yslam maliýesi maslahatçysy ýa-da alymy bilen maslahatlaşmakdyr.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "Bu programma hiç bir aýratyn maliýe önümine, gaznasyna ýa-da üpjün edijisine baha bermeýär, olary barlamaýar ýa-da maslahat bermeýär we bu gollanma hakyky maliýeňiz baradaky ökde hünärmen ýa-da alym maslahatynyň ornuny tutmaýar.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
-    summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+    title: "Zekat: baýlyk arkaly ybadat",
+    summary: "Zekat söz ýa-da hereket bilen däl-de, pul bilen ýerine ýetirilýän hökmany ybadatdyr.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "Zekat — iň az çäkden (nisapdan) ýokary bolan degişli baýlykdan alynýan kesgitli, hökmany ýyllyk paý — Yslamyň bäş sütüniniň biri bolup, sadaka bermegi meýletin sahylyk hökmünde däl-de, namaz we oraza bilen bir hatarda goýýar.",
+      "Kuran yzygiderli zekaty namaz bilen hakyky imanyň alamaty hökmünde jübütleýär we namazy hem zekaty berjaý edenlere “will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve” (iňlisçe manysy) diýip wada berýär. Maliýe taýdan ol baýlygy arassalaýjy gural hökmünde işleýär — ýygnalan baýlygyň kiçi, yzygiderli paýyny onuň birnäçe adamyň elinde möhletsiz ýatmagynyň ýerine mätäçlere paýlaýar.",
+      "Hasaplama siziň aýratyn tygşytlyklaryňyza, emläkleriňize we ýerli nisap bahalaryna bagly bolany üçin, bu programmada ýörite Zekat gollanmasy we hasaplaýjysy bar — bu ýerdäki umumy ýörelgelerden çen tutmagyň ýerine göni şony ulanyň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    quran: [{}],
+    appLinks: [{ label: "Zekat gollanmasy we hasaplaýjysy" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "Sadaka: meýletin bermek",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "Hökmany zekatdan başga islendik meýletin bermäge sadaka diýilýär — we ol hakykatda size hiç zada düşmeýär.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "Sadaka — zekatyň kesgitli borjundan başga, Allanyň razylygy üçin islendik mukdarda, islendik wagtda berilýän meýletin haýyr-sahawatdyr. Ol uly maliýe sowgatlaryndan başlap, hoş söz ýa-da biriniň ýolundan zyýanly zady aýyrmak ýaly kiçi zatlara çenli bolup biler — hadys edebiýatynda bularyň hemmesi sadakanyň görnüşleri hasaplanýar.",
+      "Bermekden çekinýän islendik adam üçin iň köşeşdiriji taglymatlaryň biri Pygamberiň ﷺ sadakanyň baýlygy azaltmaýandygy baradaky sözüdir — Kuran muny başga ýerlerde Allanyň ýolunda harçlamagy diňe gutarýan zat hökmünde däl-de, Allanyň ýerini dolduryp, sylaglaýan zady hökmünde beýan edip goldaýar.",
+      "Amalda bu sahylyga başgaça garamagy öwredýär: bermek maliýe howpsuzlygyňyz bilen bäsleşmeýär, tersine, hemişe balansda görünmese-de, ony goraýan we artdyrýan zat hökmünde görkezilýär.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
+    appLinks: [{ label: "Zekat we sadaka gollanmasy" }, { label: "Sadaka maksatlary" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
-    summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+    title: "Tekaful: kooperatiw töwekgelçiligi paýlaşmak",
+    summary: "Adaty ätiýaçlandyryşa yslam alternatiwalarynyň aňyrsyndaky düşünjä umumy nazar.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "Tekaful (arapça 'özara kepillik' manysyny berýän kökden) ätiýaçlandyryşa meňzeş goraga yslam çemeleşmeleriniň aňyrsyndaky umumy düşünjedir: gatnaşyjylar topary umumy gazna goşant goşýar we bu gazna ätiýaçlandyrylan zyýany çeken agzalara kömek etmek üçin ulanylýar; galan artykmaç bolsa, adatça, aýratyn ätiýaçlandyryjynyň kepillendirilen peýdasy hökmünde saklanman, gatnaşyjylaryň arasynda paýlanýar ýa-da indiki döwre geçirilýär.",
+      "Esasy pikir kepillendirilen töleg üçin töwekgelçiligi başga tarapa geçirmek däl-de, kooperatiw töwekgelçiligi paýlaşmakdyr: gatnaşyjylar biri-birine özara kömek edýänler hökmünde görülýär, gaznanyň operatory bolsa, adatça, töwekgelçiligi öz üstüne alýan tarap däl-de, töleg üçin dolandyryjy ýa-da wekil hökmünde hereket edýär.",
+      "Bu diňe umumy, düşünje derejesindäki beýandyr. Hakyky tekaful önümleri üpjün edijilere we ýurtlara görä gurluşy boýunça ep-esli tapawutlanýar we aýratyn bir meýilnamanyň hakykatdan-da şeýle düzülendigine baha bermek onuň hakyky şertlerini ökde yslam maliýesi alymy ýa-da edarasy bilen gözden geçirmegi talap edýär — bu programma hiç bir aýratyn tekaful (ýa-da ätiýaçlandyryş) üpjün edijisini ýa-da meýilnamasyny maslahat bermeýär we baha bermeýär.",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "Diňe umumy bilim. Bu tekafuly adaty ätiýaçlandyryşdan ileri tutmak ýa-da haýsydyr bir aýratyn üpjün edijini ýa-da meýilnamany maslahat bermek däl — ýagdaýyňyz üçin ökde maslahatçy bilen maslahatlaşyň.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
-    body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
-    ],
-    disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
-  },
-  {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
-    body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
-    ],
-    disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
-  },
-  {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
+    title: "Tekaful we adaty ätiýaçlandyryş: umumy deňeşdirme",
     summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+      "Ikisiniň maksady bir — töwekgelçiligi dolandyrmak — ýöne bu töwekgelçiligiň nähili düzülýändigi bilen tapawutlanýar.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "Adaty ätiýaçlandyryş, adatça, polis eýesiniň töleg (premiýa) tölemegi we aýratyn täjirçilik tarapy bolan ätiýaçlandyryjynyň bu töleg üçin töwekgelçiligi öz üstüne almagy görnüşinde düzülýär; premiýa gaznasy köplenç göterimli gurallary hem öz içine alyp biljek usullarda maýa goýulýar. Käbir nusgawy alymlar bu gurluşyň riba, garar (töleg baradaky aşa näbellilik) we töwekgelçiligi paýlaşmagyň ýerine kesgitli töleg üçin geçirmek bilen baglanyşyklydygy barada alada bildirdiler.",
+      "Tekaful, umumy aýdylanda, şol aýratyn aladalary özara, kooperatiw gurluş arkaly çözmek synanyşygy hökmünde işlenip düzüldi — emma alymlar we edaralar haýsy gurluşlaryň bu maksada doly ýetýändigi barada dürli pikirde we tekaful üpjün edijileriniň özleri hem gurluşy boýunça ep-esli tapawutlanýar.",
+      "Aladalar hem, alternatiw gurluşlar hem hakyky tehniki jikme-jiklikleri öz içine alýandygy üçin (we ýerleşiş, gorag zerurlyklary we elýeterli üpjün edijiler ýaly şahsy ýagdaýlar örän tapawutlanýandygy üçin), bu deňeşdirme göz öňünde tutýan aýratyn polisiňiz barada höküm hökmünde däl-de, diňe umumy maglumat hökmünde hödürlenýär.",
+    ],
+    disclaimer:
+      "Diňe bilim maksatly deňeşdirme; umuman ätiýaçlandyryş ýa-da tekaful, ýa-da haýsydyr bir aýratyn önüm barada pätwa däl. Alymlar häzirki zaman ätiýaçlandyryş gurluşlary barada dürli garaýyşlary saklaýarlar; ýagdaýyňyz üçin ökde maslahatçy bilen maslahatlaşyň.",
+  },
+  {
+    title: "Köp soralýan soraglar: bu maliýe maslahatymy?",
+    summary:
+      "Ýok — bu gollanma diňe ýörelgeleri öwredýär we ökde maslahatyň ornuny tutup bilmeýär.",
+    body: [
+      "S: Aýratyn karzyň, maýa goýumyň ýa-da ätiýaçlandyryş önüminiň meniň üçin rugsat berilýändigini kesgitlemek üçin bu gollanmany ulanyp bilerinmi? J: Ýok. Bu gollanma pul baradaky umumy yslam ýörelgelerini düşündirýär — ol şertnamalary gözden geçirmeýär, önümleri maslahat bermeýär we höküm çykarmaýar. Aýratyn maliýe kararlary ökde maliýe hünärmeni bilen, rugsat meselesinde bolsa ökde yslam maliýesi alymy bilen kabul edilmelidir.",
+      "S: Bu programma halal paýnamalara, gaznalara ýa-da ETF-lere baha berýärmi ýa-da olary sanaýarmy? J: Ýok we bu gollanmanyň çäginde hiç haçan etmez — gaznalary barlamak we maýa goýum maslahatlary onuň çäginden daşarda bolup, bu mazmunyň bermeýän ygtyýarnamaly maliýe hünärmenligini talap edýär.",
+      "S: Bu gollanma pätwamy? J: Ýok. Pätwa — ökde alymyň aýratyn soraga we ýagdaýa jogap hökmünde çykarýan aýratyn dini hökmüdir. Bu gollanma diňe umumy ýörelgeleri öwredýär; ýagdaýyňyz barada hakyky höküm almak üçin göni ökde, ynamdar alyma ýüz tutuň.",
+    ],
+    disclaimer:
+      "Bu gollanmanyň tutuşlygy bilim maksatly mazmun bolup, maliýe maslahaty däl we pätwa däl. Öz pulyňyz baradaky kararlar üçin hemişe ökde maliýe we dini hünärmenler bilen maslahatlaşyň.",
+  },
+  {
+    title: "Köp soralýan soraglar: şerigata laýyk wariantlary nädip tapmaly?",
+    summary:
+      "Sanaw däl-de, sertifikatly hünärmenligi gözläň — bu programma bilkastlaýyn sanaw bermeýär.",
+    body: [
+      "S: Halal banklaryň, gaznalaryň ýa-da maýa goýum platformalarynyň sanawyny nireden tapyp bilerin? J: Bu programmada däl, bu bilkastlaýyn şeýle — önüm sanawlary yzygiderli üýtgeýär, ýurtlara görä düýpgöter tapawutlanýar we diňe ýöriteleşdirilen edaralaryň dogry alyp baryp biljek hemişelik laýyklyk gözegçiligini talap edýär. Munuň ýerine, hakyky, ady belli şerigat gözegçilik geňeşi we çap edilen laýyklyk usulyýeti bolan edaralary gözläň.",
+      "S: Alymyň ýa-da sertifikatyň kanunydygyny nädip bilip bilerin? J: Resmi däl onlaýn tassyklamalara däl-de, sebitiňizde ýa-da halkara derejesinde yslam maliýesi standartlaryny kesgitleýän abraýly guramalar tarapyndan ykrar edilen alymlary ýa-da geňeşleri gözläň. Abraýly edara önümlerini kimiň we nähili gözden geçirýändigi barada açyk bolar.",
+      "S: Ýaşaýan ýerimde hiç hili yslam maliýesi wariantyny tapyp bilmesem näme etmeli? J: Bu hakyky we giňden ýaýran ýagdaý. Muny bilimli ýerli ymam ýa-da alym bilen ara alyp maslahatlaşyň — olar aýratyn ýagdaýyňyz üçin elýeterli wariantlary ölçermäge kömek edip bilerler, sebäbi bu ýerdäki görkezme siziň üçin hakykatdan-da haýsy alternatiwalaryň barlygyna köp derejede bagly bolup biler.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "Mahabat sözlerine daýanmagyň ýerine, ady belli, açyk şerigat gözegçilik geňeşi bolan edaralary gözläň.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "Köp soralýan soraglar: ipoteka, kartlar we karzlar",
+    summary: "Bular hut umumy gollanmanyň däl-de, ökde alymyň jogap bermeli soraglarydyr.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "S: Ipoteka hemişe ribamy? J: Gurluşlar tapawutlanýar — käbir adaty ipotekalar göterime esaslanýan karzlardyr, käbir üpjün edijiler bolsa göterimden gaça durmak üçin niýetlenen alternatiw gurluşlary (meselem, kemelýän hyzmatdaşlyk ýa-da kärendesi bilen eýeçilige geçmek nusgalary) hödürleýärler. Aýratyn önümiň amalda muňa ýetýändigi — haýsy tarapa bolsa-da çaklap bolmajak, onuň hakyky şertnamasy baradaky alym soragydyr.",
+      "S: Hemişe doly galyndyny töläp, hiç haçan göterim tölemeýän bolsam, kredit kartyny ulanyp bilerinmi? J: Alymlar bu barada dürli garaýyşlary saklaýarlar, bölekleýin sebäbi — siz amalda hiç haçan işe girizmeseňiz-de, esasy ylalaşykda tehniki taýdan göterim şerti bolup biler. Bu ökde garaýyşlaryň hakykatdan-da tapawutlanýan ugrudyr — ýeke-täk umumy jogap bar diýip çaklamagyň ýerine, ynanýan alymyňyzdan soraň.",
+      "S: Käbir ýagdaýlarda gaça durup bolmaýan talyp karzlary ýa-da beýleki karzlar barada näme? J: Zerurlyk we kynçylyk alymlaryň seresaplylyk bilen ölçeýän hakyky faktorlarydyr we garaýyşlar ýagdaýa hem ýurisdiksiýa görä tapawutlanýar. Eger şeýle karar bilen ýüzbe-ýüz bolsaňyz, ony diňe umumy okamakdan çözjek bolmagyň ýerine, aýratyn ýagdaýyňyzy ökde alyma ýetiriň.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "Bular hakykatdan-da dürli pikirler bolan, şertnama aýratyn soraglardyr. Bu soraglar we jogaplar diňe olaryň her biriniň nähili sorag bolup durýandygyny görkezýär — siziň ýagdaýyňyz üçin olaryň hiç birine jogap bermeýär.",
   },
 ];

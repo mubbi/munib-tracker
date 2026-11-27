@@ -1,28 +1,39 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
-import type { AppLocale, CalendarMode, QazaDailyProgress } from "@munib-tracker/shared/types";
+import type {
+  AppLocale,
+  CalendarMode,
+  QazaDailyProgress,
+  QazaPrayer,
+} from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
+import { ConfirmDialog } from "@/components/confirm-dialog";
+import {
+  MonthGrid,
+  type MonthGridCell,
+  MonthGridHeader,
+  MonthGridLegend,
+} from "@/components/hijri/month-grid";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
+import { ContentState } from "@/components/ui/content-state";
+import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { QazaRepository } from "@/db";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
+import { useFormatCount } from "@/hooks/use-format-count";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   buildHijriMonthGrid,
@@ -31,6 +42,7 @@ import {
   localizedWeekdayInitials,
 } from "@/lib/calendar";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
+import { triggerHaptic } from "@/lib/haptics";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 import { tTv } from "@/lib/i18n/t-tv";
 import { toAppLocale } from "@/lib/locale-bcp47";
@@ -40,6 +52,7 @@ import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLocation } from "@/stores/location-store";
+import { useTrackerActions } from "@/stores/tracker-store";
 
 type HistoryEntry = { date: string; total: number; progress: QazaDailyProgress };
 
@@ -60,7 +73,8 @@ function parseHijriMonth(date: string, timeZone?: string): { year: number; month
 export default function QazaHistoryScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { refresh, removeQazaProgress } = useTrackerActions();
+  const formatCount = useFormatCount();
   const chevronBackward = useChevronBackward();
   const chevronForward = useChevronForward();
   const defaultCalendar = useDefaultCalendar();
@@ -71,6 +85,10 @@ export default function QazaHistoryScreen() {
   const [mode, setMode] = useState<CalendarMode>(defaultCalendar);
   const [byDate, setByDate] = useState<Map<string, HistoryEntry>>(new Map());
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [removal, setRemoval] = useState<{ entry: HistoryEntry; prayerId: QazaPrayer } | null>(
+    null,
+  );
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
   const [hYear, setHYear] = useState(todayHijri.year);
@@ -80,13 +98,14 @@ export default function QazaHistoryScreen() {
   const [selected, setSelected] = useState<HistoryEntry | null>(null);
   const { width } = useWindowDimensions();
   /** Desktop / wide web: the selected day's breakdown sits beside the calendar. */
-  const twoPane = !tv && width >= 1024;
+  const twoPane = !tv && width >= Breakpoints.wide;
   const initialMonthSet = useRef(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      void QazaRepository.getAllDailyProgress().then((all) => {
+  const load = useCallback(() => {
+    let active = true;
+    setFailed(false);
+    QazaRepository.getAllDailyProgress()
+      .then((all) => {
         if (!active) return;
         const next = new Map<string, HistoryEntry>();
         let latestDate: string | null = null;
@@ -109,12 +128,18 @@ export default function QazaHistoryScreen() {
           initialMonthSet.current = true;
         }
         setLoaded(true);
+      })
+      .catch(() => {
+        if (!active) return;
+        setFailed(true);
+        setLoaded(true);
       });
-      return () => {
-        active = false;
-      };
-    }, [location.timeZone]),
-  );
+    return () => {
+      active = false;
+    };
+  }, [location.timeZone]);
+
+  useFocusEffect(load);
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
   const formatDate = useCallback(
@@ -160,120 +185,72 @@ export default function QazaHistoryScreen() {
     />
   );
 
+  const viewingCurrentMonth =
+    mode === "hijri"
+      ? hYear === todayHijri.year && hMonth === todayHijri.month
+      : year === now.getFullYear() && month === now.getMonth();
+
+  const goToday = () => {
+    setYear(now.getFullYear());
+    setMonth(now.getMonth());
+    setHYear(todayHijri.year);
+    setHMonth(todayHijri.month);
+  };
+
+  const cellFor = (day: (typeof weeks)[number][number]): MonthGridCell => {
+    const entry = byDate.get(day.date);
+    const hasData = !!entry && day.inMonth;
+    return {
+      fill: hasData ? 2 : 0,
+      badge: hasData ? formatCount(entry.total) : undefined,
+      disabled: !hasData,
+      selected: twoPane && selected?.date === day.date,
+      accessibilityLabel: hasData
+        ? t("qazaHistory.dayA11y", { date: formatDate(day.date), count: entry.total })
+        : formatDate(day.date),
+    };
+  };
+
   const monthCard = (
-    <Card padding="three">
-      <View style={styles.header}>
-        <NavButton
-          icon={chevronBackward}
-          label={t("calendar.prevMonth")}
-          onPress={() => shift(-1)}
-        />
-        <PressableScale
-          haptic="light"
-          accessibilityRole="button"
-          accessibilityLabel={t("calendar.pickMonthYear")}
-          onPress={() => setPickerOpen(true)}
-          style={styles.monthLabelButton}
-        >
-          <ThemedText type="subtitle">{label}</ThemedText>
-          <SymbolView
-            name={{
-              ios: "chevron.down",
-              android: "keyboard_arrow_down",
-              web: "keyboard_arrow_down",
-            }}
-            size={14}
-            tintColor={colors.mutedForeground}
-          />
-        </PressableScale>
-        <NavButton icon={chevronForward} label={t("calendar.nextMonth")} onPress={() => shift(1)} />
-      </View>
-
-      <View style={styles.weekRow}>
-        {weekdays.map((weekday) => (
-          <View key={weekday.key} style={styles.cell}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {weekday.label}
-            </ThemedText>
-          </View>
-        ))}
-      </View>
-
-      {weeks.map((week) => (
-        <View key={week[0]?.date} style={styles.weekRow}>
-          {week.map((day) => {
-            const entry = byDate.get(day.date);
-            const hasData = !!entry && day.inMonth;
-            const disabled = !day.inMonth || !hasData;
-
-            return (
-              <PressableScale
-                key={day.date}
-                haptic="light"
-                disabled={disabled}
-                accessibilityRole="button"
-                accessibilityLabel={
-                  hasData
-                    ? t("qazaHistory.dayA11y", {
-                        date: formatDate(day.date),
-                        count: entry.total,
-                      })
-                    : undefined
-                }
-                accessibilityState={
-                  twoPane ? { disabled, selected: selected?.date === day.date } : { disabled }
-                }
-                onPress={() => entry && setSelected(entry)}
-                style={styles.cell}
-              >
-                <View
-                  style={[
-                    styles.dayCell,
-                    tv ? styles.dayCellTv : null,
-                    twoPane ? styles.dayCellWide : null,
-                    hasData && {
-                      backgroundColor: withAlpha(colors.accent, 0.18),
-                    },
-                    // TV: accent ring is reserved for D-pad focus — today is neutral.
-                    day.isToday && {
-                      borderColor: tv ? colors.foreground : colors.accent,
-                      borderWidth: 2,
-                    },
-                    twoPane &&
-                      selected?.date === day.date && {
-                        borderColor: colors.foreground,
-                        borderWidth: 2,
-                      },
-                  ]}
-                >
-                  <ThemedText
-                    type="smallBold"
-                    style={{
-                      color: day.inMonth ? colors.foreground : colors.mutedForeground,
-                      opacity: day.inMonth ? 1 : 0.45,
-                    }}
-                  >
-                    {day.day}
-                  </ThemedText>
-                  {hasData ? (
-                    <ThemedText
-                      type="caption"
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.7}
-                      style={{ color: colors.accent, textAlign: "center" }}
-                    >
-                      {t("qazaHistory.count", { count: entry.total })}
-                    </ThemedText>
-                  ) : null}
-                </View>
-              </PressableScale>
-            );
-          })}
-        </View>
-      ))}
+    <Card>
+      <MonthGridHeader
+        label={label}
+        prevIcon={chevronBackward}
+        nextIcon={chevronForward}
+        prevLabel={t("calendar.prevMonth")}
+        nextLabel={t("calendar.nextMonth")}
+        pickLabel={t("calendar.pickMonthYear")}
+        onPrev={() => shift(-1)}
+        onNext={() => shift(1)}
+        onPick={() => setPickerOpen(true)}
+        todayLabel={viewingCurrentMonth ? undefined : t("calDay.today")}
+        onToday={goToday}
+      />
+      <MonthGrid
+        weeks={weeks}
+        weekdays={weekdays}
+        cell={cellFor}
+        wide={twoPane}
+        onPressDay={(day) => {
+          const entry = byDate.get(day.date);
+          if (entry) setSelected(entry);
+        }}
+      />
+      <MonthGridLegend items={[{ key: "madeUp", label: t("stats.madeUp"), fills: [2] }]} />
     </Card>
   );
+
+  const removeEntry = async () => {
+    if (!removal) return;
+    const { entry, prayerId } = removal;
+    const count = entry.progress.completed[prayerId] ?? 0;
+    if (count <= 0) return;
+    await removeQazaProgress(prayerId, entry.date, count);
+    triggerHaptic("warning");
+    setSelected(null);
+    load();
+    await refresh();
+  };
 
   return (
     <ScreenLayout
@@ -284,13 +261,20 @@ export default function QazaHistoryScreen() {
       onBack={() => goBackOrReplace(router, "/qaza")}
     >
       <Seo path="/qaza/history" />
-      {loaded && !hasEntries ? (
-        <EmptyState
-          icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
-          title={t("qazaHistory.emptyTitle")}
-          description={t("qazaHistory.emptyDesc")}
-        />
-      ) : (
+      <ContentState
+        status={!loaded ? "loading" : failed ? "error" : hasEntries ? "ready" : "empty"}
+        skeleton="card"
+        loadingLabel={t("uiFeedback.loading")}
+        errorMessage={t("uiFeedback.loadFailed")}
+        onRetry={load}
+        empty={{
+          icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
+          title: t("qazaHistory.emptyTitle"),
+          description: t("qazaHistory.emptyDesc"),
+          actionLabel: t("qazaHistory.emptyAction"),
+          onAction: () => goBackOrReplace(router, "/qaza"),
+        }}
+      >
         <Stagger>
           {twoPane ? (
             <View style={styles.split}>
@@ -299,9 +283,13 @@ export default function QazaHistoryScreen() {
                 {monthCard}
               </View>
               <View style={styles.aside}>
-                <Card padding="three" style={styles.detailCard}>
+                <Card style={styles.detailCard}>
                   {selected ? (
-                    <DayDetail entry={selected} formatDate={formatDate} />
+                    <DayDetail
+                      entry={selected}
+                      formatDate={formatDate}
+                      onRemove={(prayerId) => setRemoval({ entry: selected, prayerId })}
+                    />
                   ) : (
                     <ThemedText
                       type="caption"
@@ -338,23 +326,46 @@ export default function QazaHistoryScreen() {
           />
 
           {twoPane ? null : (
-            <Card variant="muted" padding="three">
+            <Card variant="muted">
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
                 {tTv(t, "qazaHistory.legendHint", "qazaHistory.legendHintTv")}
               </ThemedText>
             </Card>
           )}
         </Stagger>
-      )}
+      </ContentState>
+
+      <ConfirmDialog
+        visible={removal != null}
+        title={t("qazaHistory.confirmRemoveTitle")}
+        message={
+          removal
+            ? t("qazaHistory.confirmRemoveMsg", {
+                prayer: t(`prayers.${removal.prayerId}`),
+                value: formatCount(removal.entry.progress.completed[removal.prayerId] ?? 0),
+                date: formatDate(removal.entry.date),
+              })
+            : undefined
+        }
+        confirmLabel={t("qazaHistory.confirmRemoveAction")}
+        destructive
+        onConfirm={removeEntry}
+        onClose={() => setRemoval(null)}
+      />
 
       <Sheet
         visible={!twoPane && selected != null}
         variant="bottom"
+        title={selected ? formatDate(selected.date) : t("qazaHistory.title")}
         onClose={() => setSelected(null)}
       >
         {selected ? (
           <>
-            <DayDetail entry={selected} formatDate={formatDate} />
+            <DayDetail
+              entry={selected}
+              formatDate={formatDate}
+              onRemove={(prayerId) => setRemoval({ entry: selected, prayerId })}
+            />
             {tv ? (
               // TV: give focus a visible home in the sheet (otherwise it lands on the
               // invisible backdrop); remote Back also closes.
@@ -377,15 +388,19 @@ export default function QazaHistoryScreen() {
 function DayDetail({
   entry,
   formatDate,
+  onRemove,
 }: {
   entry: HistoryEntry;
   formatDate: (iso: string) => string;
+  onRemove: (prayerId: QazaPrayer) => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   return (
     <>
-      <ThemedText type="subtitle">{formatDate(entry.date)}</ThemedText>
+      <ThemedText type="subtitle" accessibilityRole="header">
+        {formatDate(entry.date)}
+      </ThemedText>
       <Pill
         label={t("qazaHistory.count", { count: entry.total })}
         color={colors.accent}
@@ -414,41 +429,22 @@ function DayDetail({
               <ThemedText type="small" style={styles.prayerName}>
                 {t(`prayers.${prayerId}`)}
               </ThemedText>
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                 {count}
               </ThemedText>
+              <IconButton
+                name={{ ios: "trash", android: "delete", web: "delete" }}
+                accessibilityLabel={t("qazaHistory.removeEntry", {
+                  prayer: t(`prayers.${prayerId}`),
+                })}
+                onPress={() => onRemove(prayerId)}
+                tintColor={colors.mutedForeground}
+              />
             </View>
           );
         })}
       </View>
     </>
-  );
-}
-
-function NavButton({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: Parameters<typeof SymbolView>[0]["name"];
-  label: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      onPress={onPress}
-      style={[
-        styles.navButton,
-        isTV() ? styles.navButtonTv : null,
-        { backgroundColor: tokens.accentSoft },
-      ]}
-    >
-      <SymbolView name={icon} size={18} tintColor={colors.accent} />
-    </PressableScale>
   );
 }
 
@@ -469,57 +465,6 @@ const styles = StyleSheet.create({
   },
   detailCard: {
     gap: Spacing.two,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: Spacing.three,
-  },
-  monthLabelButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one,
-    paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.one,
-    maxWidth: "52%",
-  },
-  navButton: {
-    width: 36,
-    height: 36,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  navButtonTv: {
-    width: TvLayout.minFocusTarget,
-    height: TvLayout.minFocusTarget,
-  },
-  weekRow: {
-    flexDirection: "row",
-  },
-  cell: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: Spacing.one,
-  },
-  dayCell: {
-    width: "100%",
-    minHeight: 52,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: Spacing.one,
-    paddingVertical: Spacing.one,
-    gap: 2,
-  },
-  dayCellWide: {
-    minHeight: 72,
-  },
-  dayCellTv: {
-    minHeight: TvLayout.minFocusTarget,
   },
   legendHint: {
     textAlign: "center",

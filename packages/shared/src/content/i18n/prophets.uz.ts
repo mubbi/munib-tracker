@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Ularning Qur'ondagi hikoyalari faqat uzoq tarix emas; ular iymon, sabr, oilaviy hayot, etakchilik va tavba qilish uchun amaliy saboqlardir.",
       "Barcha payg‘ambarlarga iymon keltirish iymonning bir qismidir. Musulmonlar ularning barchasini hurmat qiladilar, mubolag'a qilishdan saqlaydilar va Muhammad sollallohu alayhi vasallamning so'nggi xabarlariga amal qiladilar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Payg'ambarlar xushxabar keltiruvchi va ogohlantiruvchi bo'lib, odamlar Payg'ambarlardan keyin Allohga qarshi hech qanday dalil bo'lmasin.",
-      },
-      {
-        excerpt:
-          "Batahqiq, Biz har bir ummatga: Allohga ibodat qilinglar va botildan qochinglar, Paygambar yubordik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Payg'ambarlar ilohiy emas va hech qachon ibodat qilinmaydi. Ular toatda, xulqda va omonatda Allohning bandalari bo'lib qolavergan holda yaratilganlarning eng yaxshisidirlar.",
       "Ularning vazifasi birdir: yolg'iz Allohga ibodat qiling. Muayyan huquqiy tafsilotlar Allohning hikmatiga ko'ra jamoalarda farq qilishi mumkin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Payg'ambarlari ularga dedilar: \"Biz ham sizlarga o'xshagan insonlarmiz, lekin Alloh bandalaridan kimni xohlasa, marhamat qiladi\".",
-      },
-      {
-        excerpt:
-          "Biz sendan oldin biron bir payg‘ambar yuborganimiz, magar unga: “Mendan o‘zga iloh yo‘q. Bas, Menga ibodat qilinglar”, deb vahiy qilganmiz.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Qur'on ikkala atamani hurmat bilan ishlatadi va musulmonlar hech kimni rad etmasdan barcha payg'ambar va elchilarga ishonishadi.",
       "Aniq texnik ta'riflar ilmiy iboralar bilan farq qilishi mumkin, ammo amaliy dars izchil: vahiyni kamtarlik bilan qabul qiling va Allohning yo'l-yo'rig'iga ergashing.",
     ],
-    quran: [
-      {
-        excerpt: "U saylangan va u elchi va payg'ambar edi.",
-      },
-      {
-        excerpt: "Biz Uning payg'ambarlari orasida farq qilmaymiz.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Terminologiya tafsilotlari keng, olimlar uchun neytral tarzda taqdim etiladi; ilg'or teologik tasniflar uchun malakali o'qituvchilar bilan maslahatlashing.",
     appLinks: [{}],
@@ -74,14 +49,7 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Ularning hayoti ham rad etilganda sabrni, noaniqlikda Allohga tavakkal qilishni, donolik va jasorat bilan jamiyatni isloh qilishga tayyorligini ko'rsatadi.",
       "Ularni o'rganish chidamlilikni oshiradi: imonlilar tezda tavba qilishni, axloqiy yo'l tutishni va haqiqat mashhur bo'lmagan taqdirda ham printsipial bo'lib qolishni o'rganadilar.",
     ],
-    quran: [
-      {
-        excerpt: "Ularning qissalarida aql egalari uchun ibrat bor.",
-      },
-      {
-        excerpt: "Ular Alloh hidoyat qilgan zotlardir. Bas, ularning hidoyatiga ergash.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Har hafta bitta bashoratli darsni tanlang va uni ataylab qo'llang.",
       "Namozdan keyin qayerda ko'proq sabr yoki tavba qilish kerakligini o'ylab ko'ring.",
@@ -97,16 +65,7 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Mo''jizalar payg'ambarlarning mustaqil kuchlari emas; Ular Allohning irodasi bilan vahiyni qo'llab-quvvatlash va dalilni to'g'rilash uchun yuzaga keladi.",
       "Qur'on shuni ko'rsatadiki, ba'zilar oyat-mo''jizalarga qaramay hamon inkor etar ekan, hidoyatni isbotlash faqat tomoshaga emas, ixlos va bo'ysunishga bog'liqdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz Payg'ambarlarimizni ochiq-oydin hujjatlar bilan yubordik va ular bilan birga Kitob va tarozini tushirdik.",
-      },
-      {
-        excerpt:
-          "Ayting: «Allohning oyat-belgilari faqat Allohning huzuridadir... Senga ularga tilovat qilingan Kitobni nozil qilganimiz ularga yetarli emasmi?!",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -118,16 +77,7 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Sozlamalar har xil bo'lsa-da, ularning da'vati bitta: tavhid, solihlik, javobgarlik va tavba orqali rahm-shafqat.",
       "Ushbu modul Qur'onga asoslangan bo'lib qoladi va ishonchli dalillar bilan tasdiqlanmasa, ikkinchi darajali tarixiy tafsilotlarni qisqacha saqlaydi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz sendan oldin ham Payg'ambarlar yuborganmiz. Ulardan senga hikoya qilganimiz ham bor, senga aytmaganimiz ham bor.",
-      },
-      {
-        excerpt:
-          "Biz Allohga, nozil qilingan narsaga... Muso, Iso va payg'ambarlarga Robbilari tomonidan berilgan narsaga iymon keltirdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -138,17 +88,8 @@ export const PROPHETS_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       "Qur'on tamoyillari yoki payg'ambarlik qadr-qimmatiga zid keladigan shov-shuvli yoki zaif xabarlardan saqlaning. Har bir mashhur hikoyaning ishonchli dalillari mavjud emas.",
       "Faqat tarixiy faktlarni to'plash uchun emas, balki o'z ibodat va xarakteringizni isloh qilish uchun bashoratli biografiyalardan foydalaning.",
     ],
-    quran: [
-      {
-        excerpt:
-          "So'zga quloq solib, uning eng go'zaliga ergashganlar, ana o'shalar Alloh hidoyat qilgan zotlardir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim ilm izlab yo'lga chiqsa, Alloh unga jannat yo'lini oson qiladi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Har hafta to'g'ridan-to'g'ri Qur'ondan bir payg'ambar hikoyasini o'qing.",
       "Faqat vaqt jadvalidagi faktlarni emas, balki amaliy mashg'ulotlarni ham yozib oling.",
@@ -199,26 +140,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Uning tavbasi Qur'onning tavbaning birinchi namunasidir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Robbing farishtalarga: «Men er yuzida bir-birini to'g'rilab berurman», deganini [eslang.",
-      },
-      {
-        excerpt:
-          "Ular: «Ey Robbimiz, biz o'zimizga zulm qildik, agar bizni mag'firat qilmasang va rahm qilmasang, albatta ziyon ko'rguvchilardan bo'lamiz», dedilar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qiyomat kuni odamlar Odam alayhissalomning oldiga kelib: Sen odamlarning otasisan. Robbing huzurida biz uchun shafoat qil.",
-      },
-      {
-        excerpt:
-          "Odam Ato bilan Muso bahslashdilar. Muso: «Sen Alloh O'z qo'li bilan yaratgan zotsan», dedi. Odam alayhissalom: «Alloh meni yaratishdan oldin men uchun belgilab qo'ygan ishda meni ayblaysanmi?» dedi. Bas, Odam tortishuvda Musodan ustun keldi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -243,16 +166,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Alloh tomonidan yuksak darajaga ko'tarilgan deb ta'riflangan",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Va kitobda Idrisni zikr et. Darhaqiqat, u haq so‘zli va payg‘ambar edi. Va uni yuksak maqomga ko'tardik.",
-      },
-      {
-        excerpt:
-          "Ismoil, Idris va Zul-Kifl ham sabrlilardan edilar. Va ularni O'z rahmatimizga kiritdik. Albatta, ular solihlardan edilar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -292,22 +206,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Uning hikoyasi ko'plab suralarda, jumladan, uning nomi bilan atalgan suralarda uchraydi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Va Nuhga vahiy qilindiki, qavmingdan faqat iymon keltirganlardan boshqa hech kim iymon keltirmas. Bas, ularning qilayotgan amallaridan siqilma.",
-      },
-      {
-        excerpt:
-          "U: «Ey Robbim, men qavmimni kechayu kunduz da'vat qildim, lekin mening da'vatim ularni faqat uchishda ziyoda qildi», dedi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Odamlar Nuhning huzuriga kelib: «Ey Nuh, sen er yuziga yuborilgan birinchi payg'ambarsan va Alloh seni shukr qiluvchi banda deb atadi. biz uchun shafoat qil.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -343,16 +243,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Od qavmining hikoyasi Qur'onda keyingi jamoalar uchun ogohlantirish sifatida takrorlanadi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Od qavmiga ham birodarlari Hudni yubordik. U: «Ey qavmim, Allohga ibodat qiling. Sizning Undan o'zga iloh yo'qdir. Undan qo'rqmaysizlarmi?",
-      },
-      {
-        excerpt:
-          "Bas, qachonki uni vodiylariga bulut yaqinlashayotganini ko'rganlarida: «Bu bizga yomg'ir yog'diruvchi bulutdir», dedilar. Balki bu siz sabr qilganingizdan alamli azob bordir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -387,16 +278,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Samud qavmi tog'larga chiroyli uylar yasash bilan mashhur edi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Bu Allohning tuyasi sizlar uchun oyat-belgidir. Bas, uni Allohning diyorida yeyishi uchun qo'yib yuboringlar va unga yomonlik tegmanglar, balki sizni alamli azob tutadi.",
-      },
-      {
-        excerpt:
-          "Samud ularning eng badbaxtlari yuborilganida, zulmlari sababli yolg'onga chiqardilar... Bas, Robbilari ularga gunohlari uchun halokat tushirdi va ularni bir tekis qilib qo'ydi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -437,22 +319,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Ismoil va Ishoq orqali payg'ambarlarning ajdodlari",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ibrohimni Parvardigori amrlar bilan imtihon qilganini va u ularni bajo keltirganini [eslang. U: «Albatta, men seni odamlarga peshvo qilurman», dedi.",
-      },
-      {
-        excerpt:
-          "Biz: «Ey olov, Ibrohimga salqin va omon bo‘l», dedik. Va ular unga yomonlik qilishni xohladilar. Lekin Biz ularni eng ko'p ziyon ko'rguvchilarga aylantirdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizlar yalangoyoq, yalang'och va sunnatsiz to'planasizlar. Qiyomatda birinchi kiyinadigan kishi Ibrohimdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -486,16 +354,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ibrohimning qarindoshi, u bilan birga hijrat qilgan va Sado'mga yuborilgan"],
     },
-    quran: [
-      {
-        excerpt:
-          "Sizlar olamlarning erkaklariga yaqinlashib, Robbingiz sizlar uchun yaratgan narsalarni juft qilib qoldirasizmi? Balki siz zolim qavmsiz.",
-      },
-      {
-        excerpt:
-          "Qachonki amrimiz kelganida, shaharlarning eng baland qismini eng past qilib qo'ydik va ularning ustiga qattiq loydan toshlar yog'dirdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -533,16 +392,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Arab qabilalarining ajdodlari va oxirgi bashoratli nasl",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Va kitobda Ismoilni zikr et. Darhaqiqat, u o'z va'dasiga sodiq bo'lib, payg'ambar va payg'ambar edi. U zot ahlini namozga va zakotga buyurar va Parvardigorini rozi qilardi.",
-      },
-      {
-        excerpt:
-          "Qachonki Ibrohim Baytullohi va Ismoilning poydevorini ko‘tarayotgan edilar: “Ey Robbimiz, buni bizdan qabul qilgin. Albatta, Sen eshituvchi va bilguvchisan.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -573,16 +423,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Tanlangan oila sifatida Ibrohim va Ya'qub bilan birga ism qo'yilgan",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Xotini esa tik turgan edi, u kulib yubordi. So'ngra unga Ishoq va Ishoqdan keyin Ya'qub bilan xushxabar berdik.",
-      },
-      {
-        excerpt:
-          "Qudratli va ko‘ruvchi bandalarimiz Ibrohim, Ishoq va Ya’qubni esla. Darhaqiqat, Biz ularni fazilat uchun tanladik: Uyni zikr qilish.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -616,16 +457,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Isroil deb ham ataladi", "Yusufning otasi va Bani Isroil qabilalari"],
     },
-    quran: [
-      {
-        excerpt:
-          "U zot: Balki, nafslaringiz sizni biror narsaga vasvasaga soldi. Shunday qilib, sabr-toqat eng mos keladi. Shoyadki, Alloh ularning hammasini mening oldimga keltirar.",
-      },
-      {
-        excerpt:
-          "Ular: «Sening ilohingga hamda ota-bobolaring Ibrohim, Ismoil va Ishoqning ilohiga — bir ilohga ibodat qilamiz va biz Unga bo'yinsunuvchimiz», dedilar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -662,18 +494,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Qissalarning eng yaxshisi deb atalgan Yusuf surasi hammasi uning hayotiga qaratilgan",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "U zot: «Bugun sizlarga ayb yo'q», dedilar. Alloh sizni kechirsin; U rahmlilarning eng rahmlisidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Aslzoda, zodagon o‘g‘li, zodagon o‘g‘li, zodagon o‘g‘li: Yusuf, Ya’qub o‘g‘li, Ishoq o‘g‘li, Ibrohim o‘g‘li.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -703,16 +525,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Faqat og'irlik va o'lchovlarni ta'kidlash uchun tanilgan"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey qavmim, Allohga ibodat qiling. Sizning Undan o'zga iloh yo'qdir. O'lchov va tarozini to'liq bering va odamlarning haqlarini kamaytirmang va er yuzida buzg'unchilik qilmang.",
-      },
-      {
-        excerpt:
-          "Muvaffaqiyatim esa Alloh orqali emas. Unga tavakkul qildim va Unga qaytguvchiman.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -744,15 +557,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Islom anʼanalarida sabr namunasi sifatida keltirilgan"],
     },
-    quran: [
-      {
-        excerpt: "Ayyubni ham Robbisiga duo qilganida: «Albatta, menga musibat yetdi.",
-      },
-      {
-        excerpt:
-          "Albatta, Biz uni sabrli, zo'r banda deb topdik. Darhaqiqat, u Allohga qayta-qayta qaytguvchilardan edi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -776,15 +581,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Musulmonlarning asosiy ro'yxatidagi payg'ambarlar qatoriga kiritilgan",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ismoil, Idris va Zul-Kifl ham sabrlilardan edilar. Va ularni O'z rahmatimizga kiritdik. Albatta, ular solihlardan edilar.",
-      },
-      {
-        excerpt: "Ismoilni, Al-Yasa'ni va Zul-Kiflni esla, ularning barchasi ulug'lardandir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -826,22 +623,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Kalimulloh deb atalgan - Alloh u bilan bevosita gaplashgan kishi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Va men seni tanladim, bas, vahiy qilingan narsaga quloq tut. Albatta, men Allohman. Mendan o'zga iloh yo'q. Bas, Menga ibodat qil va Meni zikr qilish uchun namozni to'kis ado et.",
-      },
-      {
-        excerpt:
-          "Musoning onasiga: «Uni emiz, agar undan qo'rqsangiz, uni daryoga tashlang va qo'rqmang va qayg'urmang», deb vahiy qildik. Albatta, Biz uni senga qaytarurmiz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Musoga o'lim farishtasi yuborildi. Uning oldiga kelganida Muso uni urdi va Alloh uning ko'zini tikladi va o'lim vaqtini tanlash imkoniyatini berdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -875,16 +658,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Musoning akasi", "Qur’oni karimda uning fasohati uchun maqtalgan"],
     },
-    quran: [
-      {
-        excerpt:
-          "Va menga oilamdan bir vazir tayinlang, uka Horunni. U orqali mening kuchimni oshiring va u mening vazifam bilan bo'lishsin.",
-      },
-      {
-        excerpt:
-          "U aytdi: «Onamning o'g'li, albatta, odamlar meni mag'lub etdilar va meni o'ldirmoqchi edilar, dushmanlar mendan xursand bo'lmasin.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -922,22 +696,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Zaburni oluvchi (Zabur)", "Jalutni (G‘oliyot) yoshligida mag‘lub etdi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey Dovud, darhaqiqat, Biz seni yer yuzida xalifa qildik. Bas, odamlar o‘rtasida haq bilan hukm qil va nafsga ergashma, chunki u seni Allohning yo‘lidan adashtiradi.",
-      },
-      {
-        excerpt:
-          "Dovud bilan birga tog'larni ham, qushlarni ham tasbih qilish uchun bo'ysundirdik... Va unga dushmanlaringizdan himoya qilish uchun zirh yasashni o'rgatganmiz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taologa eng sevimli namoz Dovud alayhissalomning namozidir, Alloh uchun eng sevimli ro‘za esa Dovud alayhissalomning ro‘zasidir: bir kuni ro‘za tutib, bir kuni iftor qilardi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -976,16 +736,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Qur'onda eng to'liq tasvirlangan payg'ambar podshohlar qatorida"],
     },
-    quran: [
-      {
-        excerpt:
-          "U zot tabassum qildi va uning gapidan zavqlanib: «Ey Robbim, menga va ota-onamga bergan ne'matingga shukr qilishimga va O'zing rozi bo'lgan solih amallar qilishga meni nasib et», dedi.",
-      },
-      {
-        excerpt:
-          "Va Sulaymonga shamolni (bo'ysundirdik) — ertalabki yo'li bir oylik, peshindan keyin esa bir oylik yo'l.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1013,15 +764,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Solihlar qatorida nom olgan", "Ba'l butiga sig'inish bilan yuzma-yuz keldi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Qavmlariga: Allohdan qo'rqmaysizlarmi? Siz Ba'lni chaqirib, eng yaxshi ijodkorni tark etasizmi?",
-      },
-      {
-        excerpt: "Zakariyo, Yahyo, Iso va Ilyos ham solihlardan edilar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1044,14 +787,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["To'g'ridan-to'g'ri Qur'onda taniqli va tanlanganlar qatorida nom berilgan"],
     },
-    quran: [
-      {
-        excerpt: "Ismoil, Yasa, Yunus va Lutni ham olamlardan afzal qildik.",
-      },
-      {
-        excerpt: "Ismoilni, Al-Yasa'ni va Zul-Kiflni esla, ularning barchasi ulug'lardandir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1089,22 +825,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Qur'onda Zun-Nun (baliq odami) deb ham ataladi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Va zulmatlar ichida nido qildi: Sendan boshqa iloh yo'q. Senga shon-sharaflar bo'lsin. Albatta, men zolimlardan bo'ldim.",
-      },
-      {
-        excerpt:
-          "Yunus qavmidan boshqa iymon keltirgan va iymoni o'ziga foyda bergan shahar yo'qmi? Qachonki ular iymon keltirganlarida, Biz ulardan xorlik azobini ketkazdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Zun-nun baliqning qornidan Allohga duo qilganda duosi: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Hech bir musulmon u bilan hech narsa uchun duo qilmaydi, magar Alloh uni ijobat qiladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1142,16 +864,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Maryamning qo'riqchisi", "Yahyo alayhissalomning duosini ijobat qilgan otasi"],
     },
-    quran: [
-      {
-        excerpt:
-          "U yerda Zakariyo Parvardigoriga duo qilib: «Ey Robbim, menga O'z huzuringdan pokiza zurriyot bergin», dedi. Albatta, Sen duoni eshitguvchisan.",
-      },
-      {
-        excerpt:
-          "U zot: Parvardigorim, albatta, suyaklarim zaiflashdi, boshim oqga to‘ldi va Senga duo qilishimdan hech qachon norozi bo‘lmaganman, ey Robbim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1187,16 +900,7 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
         "Tug'ilishda, o'limda va tirilishda tinchlik bilan ulug'lanadi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey Yahyo, Muqaddas Kitobni qat'iyat bilan ol. Biz unga bolaligida hikmat, o'zimizdan mehribonlik va poklik berdik va u Allohdan qo'rqardi.",
-      },
-      {
-        excerpt:
-          "Alloh sizlarga Allohning so'zini tasdiqlovchi, hurmatli, tiyiladigan va solihlardan bir payg'ambar bo'lgan Yahyoning xushxabarini beradi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1235,22 +939,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Injil (Injil) berilgan", "Sunniy aqidada qiyomatdan oldin qaytadi"],
     },
-    quran: [
-      {
-        excerpt:
-          "(Iso dedi): «Albatta, Alloh mening ham, sizning ham Robbingizdir. Bas, Unga ibodat qiling. Bu to'g'ri yo'ldir.",
-      },
-      {
-        excerpt:
-          "Ular uni o‘ldirmadilar va xochga mixlamadilar. Lekin u ularga shunday ko'rsatildi... Balki Alloh uni O'ziga ko'tardi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Men Maryam ibn Isoga odamlarning eng yaqiniman. Payg'ambarlar har xil onalarning aka-ukalari, lekin dinlari bir, oramizda payg'ambar bo'lmagan.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1288,21 +978,8 @@ export const PROPHETS_BIO_TOPICS_UZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Payg'ambarlarning muhri", "Mo'minlar uchun eng yaxshi namuna (usva hasana)."],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammad sizning erkaklaringizning otasi emas, balki u Allohning elchisi va payg'ambarlarning muhridir.",
-      },
-      {
-        excerpt: "Biz seni faqat olamlarga rahmat qilib yubordik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mening misolim va mendan oldingi payg‘ambarlarning misoli, bir g‘isht o‘rnidan boshqa uyni go‘zal va mukammal qurgan odamning misolidir. Men o‘sha g‘ishtman, payg‘ambarlarning muhriman.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

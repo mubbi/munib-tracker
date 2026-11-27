@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Sütünleriň arasynda özboluşly namaz, ýere inen bir perişde arkaly aýan edilmedi, ýöne gijeki syýahatda (al-Isra 'wa al-Miýraj) asmandan direlende göni Pygambere emr edildi. Ilki bilen doga-dileg edildi, soň bolsa pygamberiň ymmatyna rahatlyk gözleýän gaýta-gaýta gaýdyp gelmegi bilen, elli sylagy saklamak bilen amalda ýerine ýetirilen bäşlige çenli azaldyldy.",
       "Şonuň üçin namaz yslam durmuşynyň merkezinde oturýar: günde bäş gezek gaýtalanýar, ýüregi Allaha berkitmek üçin iş, dynç alyş we dynç alyş kesilýär we bu guluň kyýamat güni jogapkärçilige çekiljek ilkinji işidir. Ses tapylsa, ýazgylaryň galan bölegi yzarlanýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Göze görünmeýänlere iman edýänler, doga edýärler we olar üçin üpjün eden zatlarymyzy harçlaýarlar.",
-      },
-      {
-        excerpt:
-          "Kitapda size aýan edilenleri okaň we doga ediň. Hakykatdanam, doga ahlaksyzlykdan we nädogry hereketlerden saklanýar we Allany ýatlamak has uludyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Gijeki syýahatda Allah elli doga etmegi emr etdi; Pygamberimiz five bäş ýaşyna çenli kömek sorap gaýdyp geldi - 'Bular bäş, elli, sebäbi meniň bilen söz üýtgemeýär.' (şeýle hem Sahih Musulman 162)",
-      },
-      {
-        excerpt:
-          "Hyzmatkäriň kyýamat güni jogapkärçilige çekiljek ilkinji zady, onuň dogasydyr; dogry bolsa, galan amallary dogry. (şeýle hem Abu Dawud 864, an-Nasa'i 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,28 +32,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Ikinji miwesi içki rahatlykdyr. Gurhan ýürekleriň Allany ýatlamakda dynç aljakdygyny wada berýär we Pygamber aladasyz pursatlarda namaz okamaga 'Eý Bilal, bize rahatlyk ber' diýer. Gözleriniň lezzetini namazda goýlandygyny aýtdy.",
       "Jemgyýet we ebedi miweleri suraty tamamlaýar: jemagat namazynyň derejesi baý we garyplary bir hatara düzýär we doganlygy ösdürýär, şol bir wagtyň özünde namazy goramak Allanyň bagyşlamagyna we Jennete barýan iň ygtybarly ýollaryň biridir. Resul alaýhyssalam, Fajr we Asryň iki 'salkyn' dogasyny goraýanlara Jennete söz berdi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam, men Allah. Menden başga hudaý ýok, şonuň üçin Maňa ybadat ediň we ýatlamam üçin doga ediň.",
-      },
-      {
-        excerpt: "Hakykatdanam imanlylar - dogalarynda kiçigöwünliler üstünlik gazanýarlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "'Eger biriňiziň gapyňyzda günde bäş gezek ýuwunýan derýa bar bolsa, onda hapa galarmy?' Olar: 'Noneok' diýdiler. Ol: \"Bäş doganyň meňzeşligi - Allatagala olar bilen günäleri süpürýär\" diýdi. (şeýle hem Sahih Musulman 667)",
-      },
-      {
-        excerpt: "Kim iki salkyn doga okasa - Fajr we Asr - Jennete girer.",
-      },
-      {
-        excerpt:
-          "Dünýäňizden maňa söýgüli edilen aýallar we atyrlar, gözlerimiň salkynlygy doga edildi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Häzirki wagtda diňe bir doga wagtynda doly doga ediň - kämillik däl-de, yzygiderlilik ilkinji maksatdyr.",
       "Size jogap beriljekdigini duýmak üçin indiki namazyňyzdan öň bir gezek Fatihanyň manysyny okaň.",
@@ -88,30 +50,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Namazdan ýüz öwürýän adamyň höküminde sünni alymlarynyň arasynda belli we hormat goýulýan tapawut bar. Käbir adamlar muny bilgeşleýin terk etmek - hökmanydygyny tassyklamak bilen bir adamy yslamdan kowýan uly ynamsyzlyk hasaplaýarlar; köplük (Hanafi, Maliki, Şafi) beýle adamyň borçlaryny inkär etmese, iň uly günäleriň birinde günäkär musulman bolup galýandygyny öňe sürýär. Hemmeler namazdan ýüz öwürmegiň betbagtçylykdygyny we kim öz borjuny inkär etse, yslamdan ylalaşyk bilen gidendigi bilen ylalaşýarlar.",
       "Amaly sapak her nukdaýnazardan deňdir: gündelik bäş namazy goramak imanly üçin hökmany ýa-da gepleşik däl. Meýletin dogalar (sünnet we nafl), kyýamat güni farz namazlarynda kemçilikleri düzüp, howpsuzlyk toruny ýerine ýetirýär.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Namazlary we orta namazy seresaplylyk bilen saklaň we yhlas bilen Allanyň huzurynda duruň.",
-      },
-      {
-        excerpt:
-          "Emma olaryň yzyndan namazy äsgermezlik edip, islegleri yzarlaýanlar geldi. ýamanlyga garşy durjak bolýarlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yslam bäşlige esaslanýar: Alladan başga hudaýyň ýokdugyna we Muhammediň Resulydygyna şaýatlyk edip, namazyny okaýar, zekat, haja we oraza tutýar. (şeýle hem Sahih al-Buhari 8)",
-      },
-      {
-        excerpt:
-          "Biziň bilen olaryň arasyndaky äht doga; kim muny terk etse, imansyzlyk etdi. (Buraýda; an-Nasa'i, Ibn Majah 1079)",
-      },
-      {
-        excerpt:
-          "Ynsan bilen imansyzlyk bilen butparazlygyň arasynda namazyň terk edilmegi dur. (Jabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Alymlar ýaltalygy sebäpli namazdan ýüz öwürýän (köpler üçin uly günä; başgalara ynanmazlyk) bilen borçlaryny inkär edýän (ylalaşyga ynanmazlyk) bilen takyk hökümde tapawutlanýar. Bu programma haýsydyr bir adama höküm çykarmaýar - şahsy ýagdaýlar üçin ökde alym bilen maslahatlaşyň.",
   },
@@ -125,17 +65,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Aýbaşydan (otdan) ýa-da dogrumdan soňky gan (nifas) aýallar doga etmeýärler; sypdyrylan farz dogalary soň okalmaýar - alymlar tarapyndan ylalaşylan rehim we karar. (Doga-dileglerden tapawutlylykda, ýitirilen orazalar düzülýär.) Aýal gan dökülenden soň namazyny dowam etdirýär we taharet bilen arassalanýar.",
       "Hakyky ukypsyzlyk eglişik getirýär, hiç haçan ýatyrylmaýar: agyr kesel, huşsuzlyk we aşa gorky adamy belli bir wagta çenli bagyşlap biler, hassalar bolsa ukyplaryna görä doga edýärler - oturmak, ýalan sözlemek ýa-da yşaratlar bilen. Syýahat namazy aýyrmaýar, ýöne syýahat gollanmasynda görkezilen gysgaltmak (kasr) we birleşdirmek (jam) arkaly ýeňilleşdirýär.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Çagalaryňyza ýedi ýaşyndaka doga etmegi buýruň we on ýaşynda olara tertip-düzgün beriň we ýatýan ýerlerini aýyryň. ('Amr ibn Şuaýb kakasyndan kakasyndan)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Maşgalaňyza doga etmegi buýruň we onda berk boluň.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -196,16 +127,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Bu däp-dessurlardan aýratynlykda, peşew, damjalar, akýan gan we şuňa meňzeşler ýaly göze görnüp duran hapalar (beden), eşiklerden we doga edýän ýeriňizden fiziki taýdan aýrylmalydyr. Dogry taharetiň bolmagy mümkin, ýöne namaz okamazdan öň eşikleriňizdäki tegmilleri arassalamaly.",
       "Suw esasy arassalaýjydyr. Haçan-da suw hakykatdanam elýeterli däl bolsa ýa-da kesel ýa-da sowuk sebäpli size zyýan ýetirse, yslam tayammuma - arassa topragy ulanyp gury arassalamaga doly ornuny berýär. Arassalanmak hiç wagt kynçylyk diýmek däldir; ýakynlaşmagyň serişdesidir.",
     ],
-    hadith: [
-      {
-        excerpt: "Arassalamak imanyň ýarysydyr ... (Abu Malik al-Aşari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Hakykatdanam, Allah hemişe toba edýänleri we özüni arassalaýanlary söýýär.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Her agzyňyz dogry ýuwulmagy üçin indiki doganyňyzdan öň tahareti öwreniň.",
       "Hapa ýerlerde işleýän bolsaňyz, namaz okamak üçin arassa eşik saklaň.",
@@ -261,18 +184,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Dua bilen tamamlaň: 'Aşhadu an la ilaha illallah ...' - taharetden soň kim diýse, Jennetiň sekiz derwezesi açylýar.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hyzmatkär ýüzüni taharetde ýuwanda, gözleri bilen gören her bir günäsi suwdan çykýar ... günäden saplanýança.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler, namaz okamak üçin turanyňyzda ýüzüňizi we biliňizi tirsegiňize ýuwuň, kelläňizi süpüriň we aýaklaryňyzy topuklara ýuwuň.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Tirsekleri we topuklary barlap, her ädimi sesli okaňda ýuwaş-ýuwaşdan ýerine ýetiriň.",
       "Taharetden soň gysga duany ýatda saklaň - Salahyň sözlerine serediň.",
@@ -311,18 +224,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -339,11 +242,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Alymlaryň köpüsiniň pikiriçe, aýallar üçin ýüz we ellerden başga tutuş beden namazda namaz okaýar; aýal saçlaryny, boýnuny we aýaklaryny ýapýar, adatça boş eşik we hijap bilen. Alymlar aýaklaryň üstünde tapawutlanýar, käbirleri görkezilip bilinjek zatlara goşulýar diýip hasaplaýarlar - olar bilen doga etmek has ygtybarly we köplükdir.",
       "Iki geýim hökümi daşarda namazyň daşyndadyr: erkekleriň geýmegi ýüpek we altyn (aýallara rugsat berilýär), geýimler gaty berk, gödek ýa-da ünsli bolmaly däldir, şonuň üçin namazyň talaplaryny ýeňip geçer. Düzgün bolşy ýaly, gijeki eşikler ýa-da plýa beach eşikleri däl-de, hormatlaýan biri bilen tanyşmak üçin geýjek zadyňyzda doga ediň.",
     ],
-    quran: [
-      {
-        excerpt: "Eý, Adam atalar, bezegleriňizi namazlaryň her ýerinde alyň.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Elmydama taýyn bolar ýaly bir arassa, sada eşik ýa-da ýörite doga eşigini goýuň.",
       "Bir zadyň ýeterlikdigini ýa-da ýokdugyny bilmeseňiz, az däl-de, has köp ýapyň.",
@@ -382,21 +281,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Garaňky düşmekden daň atýança; ýary gijeden öň iň gowusy. Ondan soň Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamberimiziň pray doga etmegimizi gadagan eden üç gezek bar: gün dogýança, günortan duranda we gün ýaşýança. (Ukba ibn Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Dogrudanam, iman edenlere doga belli bir wagt karary berildi.",
-      },
-      {
-        excerpt:
-          "Günüň iki ujunda we gijäniň golaýynda doga ediň. Dogrudanam, ýagşy amallar erbet işleri kowýar.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "“Asr” -yň başlangyjynda iki sany habar bar (kölegäniň bir obýektiň uzynlygyna deň ýa-da iki gezek). Bularyň ikisi hem dogry; ýerli hasaplamalaryňyza we jemgyýetiňize eýeriň.",
@@ -409,18 +295,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Gybla bilen dogry kesgitläp bilşiňiz ýaly takyk ýüzlenmeli - kompas, metjidiň mihraby, ygtybarly programma ýa-da syýahat edeniňizde gün we ýyldyzlar bilen. Ujypsyz, gutulgysyz gyşarmak bagyşlanýar; möhüm zat dogry ugra yhlasly tagalla etmekdir.",
       "Eger hakykatdanam ugruny kesgitläp bilmeýän bolsaňyz - deňizde, bulutda, gije nätanyş bir ýerde ýitirilen bolsaňyz - ony çözmäge çalyşýarsyňyz we iň gowy karara doga ediň; doga soňra birneme subut edilse-de dogrydyr. Hökmany namaz okamak üçin kybla bilen ýüzbe-ýüz bolup bilmeýän hereketli ulagda ýa-da uçarda, eliňizden gelenini edip bilersiňiz, sebäbi Allatagala kalbyňy artdyrmaýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Şonuň üçin ýüzüňizi al-Masjid al-Harama öwüriň. Nirede bolsaňyzam, ýüzüňizi oňa öwüriň.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namaz okamak üçin turanyňyzda tahareti gowy ýerine ýetiriň, soňra kybla ýüz tutuň we takbir diýiň. (erbet doga eden adamyň hadyslaryndan)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -461,12 +337,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Alladan başga hudaý ýok ​​- çagyryş şol bir söz bilen ýapylýar.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim bu jaňy eşidip: 'Eý, Allatagala, bu ajaýyp çagyryşyň we berk doganyň Rebbi, Muhammet alaýhyssalam we fazylet ber ...' diýse, kyýamat güni şepagatym bolar. (Jabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -489,25 +360,19 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Takbiriň açylmagy (Takbirat al-Ihram)",
         body: "Elleriňizi egniňize ýa-da gulaklaryňyza galdyryň we takbir diýiň, soňra sag eliňizi döşüň üstünde goýuň. Munuň bilen doga başlaýar we adaty namaza we herekete salam gelýänçä gadagan edilýär.",
-        translation: "Allah iň beýikdir.",
         tip: "Elleri (raf 'al-ýadayn) takbir bilen galdyrmak sütün däl-de, tassyklanan sünnetdir.",
       },
       {
         title: "3. Dileg açmak (Du'a al-Istiftah)",
         body: "Allanyň sözleriniň öňünde ýüregi rahatlandyrmak üçin gysga bir dileg ediň. Birnäçe hakyky sözler habar berilýär; iň ýaýranlardan biridir.",
-        translation: "Alla, şöhrat we öwgi. Seniň adyň bagtly we beýikdir. Senden başga hudaý ýok.",
       },
       {
         title: "4. Taawwudh we Basmalah",
         body: "Şeýtandan Allaha gaçybatalga gözläň, soňra Fatihadan öň Basmaladan başlaň. Ikisem sesli dogalarda-da ýuwaşlyk bilen aýdylýar.",
-        translation:
-          "Men näletlenen Şeýtandan Allaha sygynýaryn. Rehimdar, esasanam rehimdar Allanyň ady bilen.",
       },
       {
         title: "5. Fatihany okaň",
         body: "Kitabyň açylyşyny her rekagatda okaň - 'Kitabyň açylyşyny okamaýan adam üçin doga ýok.' Ymam we ýalňyz ybadat edýän adam ony sesli dogalarda okaýar; bolmasa ýuwaşlyk bilen okalýar.",
-        translation:
-          "Rehimdar, esasanam rehimdar Allanyň ady bilen. Hemme öwgi älemleriň Rebbi bolan Allaha, bütinleý rehimdar, esasanam rehimdar, jeza gününiň hökümdary Allaha şükürdir. Biz ybadat edýäris we siz kömek soraýarys. Bizi göni ýoly - gahar gazananlaryň ýa-da azaşanlaryň däl-de, merhemet edenleriň ýoluna ugrukdyr.",
         tip: "Ondan soň 'Amin' diýiň (sesli dogalarda). Hanafis synpy, Gurhany sütün hökmünde, Al-Fatiha bolsa wajib hökmünde okaýar; köplük Al-Fatihanyň özi her rekagatda sütün bolup durýar.",
       },
       {
@@ -518,31 +383,26 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Baş egmek (ruku)",
         body: "'Allahu Akbar' diýiň we tekiz, tekiz arka, elleri dyzlaryny gysyp, üç gezek ýa-da ondanam köp wagtlap Rebbiňizi şöhratlandyryň.",
-        translation: "Ajaýyp Rebbim şöhratdyr.",
         tip: "Dynç bilen saklanýan ýaýyň özi sütün; Onda okalýan tasbih sünnetdir (käbir mekdeplerde wajyp).",
       },
       {
         title: "8. Rukudan çykmak (i'tidal)",
         body: "Ymam we ýalňyz ybadat edýän, tasmi diýýän we tahmid diýýänleriň hemmesi dik duruň we aşak inmezden ozal doly duruň.",
-        translation: "Allany öwýänleri Alla eşidýär. Lorda Reb, ähli öwgüler saňa degişlidir.",
         tip: "Göni we rahat ýagdaýda durmak sütün - bu ýerde mesgen tutýançaňyz sujuda çümmäň.",
       },
       {
         title: "9. Sejde (sujud)",
         body: "'Allahu Akbar' diýiň we ýedi süňküň üstünde seňde ediň - maňlaýy burun, iki el, iki dyz we iki aýak barmak bilen bilelikde Beýik Allany üç gezek ýa-da ondan köp şöhratlandyrýar. Bu Allaha iň ýakyn duruşdyr, şonuň üçin tasbihden soň dileg ediň.",
-        translation: "Beýik Rebbim şöhratdyr.",
         tip: "Bilekleri ýerden ýokary galdyryp, gapdallardan, garnyny budlardan uzakda saklaň.",
       },
       {
         title: "10. Iki sejdäniň arasynda oturmak (jalsah)",
         body: "Ilkinji sujuddan 'Allahu Akbar' diýiň, arkaýyn we dik oturyň we sejde etmezden ozal Rebbiňizden ötünç soraň.",
-        translation: "Lorda Reb, meni bagyşla.",
         tip: "Arkaýyn bolýançaňyz oturyň - bu gysga oturmak, ümsümlik bilen öz sütünidir.",
       },
       {
         title: "11. Ikinji sejde",
         body: "'Allahu Akbar' diýiň we şol bir tasbih we şol bir ümsümlik bilen ikinji gezek sejde ediň. Bu bir rekagat namazyny tamamlaýar.",
-        translation: "Beýik Rebbim şöhratdyr.",
       },
       {
         title: "12. Indiki raka üçin dur",
@@ -552,8 +412,6 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Ilkinji daşahhud (3-nji we 4-rekagat namazlarynda)",
         body: "Magrib, Zhuhr, Asr ýa-da Işanyň ikinji rekagatyndan soň oturyp, At-Tahiýaty okaň, soňra galan rekagatlar üçin duruň. Iki rekagat namazyň birinji namazy ýok.",
-        translation:
-          "Hemme salamlar, dogalar we arassa sözler Allaha degişlidir. Salam, salam, Allahyň rahmeti we nygmatlary bolsun. Salam we Allanyň dogruçyl bendelerine salam bolsun! Alladan başga hudaýyň ýokdugyna şaýatlyk edýärin we Muhammediň guly we Resulydygyna şaýatlyk edýärin.",
         tip: "Oturylyşykda dogry görkeziji barmagy galdyryň. Ilkinji daşahhudy ýatdan çykarsaňyz we salamdan öň durup, dowam etdiriň we sujud as-sahw ýerine ýetiriň - oturmaň.",
       },
       {
@@ -563,36 +421,19 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Pygambere salawat iber (Salawat)",
         body: "Jemleýji At-Tahiýatdan soň, Pygambere salawat iberiň, sahabalaryna öwreden sözleri bilen.",
-        translation:
-          "Eý, Allatagala, Ybraýyma we Ybraýymyň maşgalasyna ak pata berşiň ýaly, Muhammet we Muhammet maşgalasyna alkyş iber! hakykatdanam Sen öwgä mynasyp, şöhratlysyň. Eý, Allatagala, Ybraýymy we Ybraýymyň maşgalasyny söýşüň ýaly, Muhammede we Muhammet maşgalasyna merhemet et! hakykatdanam Sen öwgä mynasyp, şöhratlysyň.",
         tip: "Şafygy we Hanbali mekdepleri jemleýji mejlisde namazy farz hasaplaýar.",
       },
       {
         title: "16. Salamdan öň dileg ediň",
         body: "Ahyry gutarmazdan ozal dört synagdan Allaha pena tapyň, soňra bu durmuş we ahyret üçin arap ýa-da öz diliňizde islän duaňyzy ediň.",
-        translation:
-          "Eý, Allatagala, gabryň jezasyndan, dowzahyň jezasyndan, ýaşaýyş we ölüm synaglaryndan, ýalan Mesihiň (Dajjal) synagyndan erbetlik alýaryn.",
       },
       {
         title: "17. osingapylýan salamlar (Taslim)",
         body: "Her gezek parahatçylyk salamyny berip, ýüzüňizi saga, soňra çepe öwrüp, dogany tamamlaň. Salam bilen doga doly.",
-        translation: "Salam we Allanyň rahmeti bolsun.",
         tip: "Ilkinji taslim (sagda) sütün; ikinjisi (çepde) käbir mekdeplerde sünnetdir.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Meniň doga edişimi görşüňiz ýaly doga ediň. (Mälik ibn al-Huweýrit)",
-      },
-      {
-        excerpt:
-          "'Yzyňa doga et, çünki doga etmediň' - üç gezek gaýtalady - soň bolsa öwretdi: takbir diý, Gurhanyň edip biläýjek zadyny oka, soň rahat bolýança baş eg, göni durýança tur, rahat bolýança setrde et ... (erbet doga eden adam; Sahih Musulman 397)",
-      },
-      {
-        excerpt:
-          "Kitabyň açylyşyny okamaýan adam üçin doga ýok. (Ubadah ibn-Samit; şeýle hem Sahih Musulman 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, { label: "Sesli we içinden okamak" }, {}, {}, {}],
   },
   {
@@ -649,24 +490,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Okalýan tekst üýtgemeýär, diňe ses derejesi: her rekagatda Fatiha, ilkinji ikisinde süre, soň diňe Fatiha. Ertir, agşam we ýassy namazlarynda sesli okamak mustahapdyr.",
       },
     ],
-    quran: [
-      { excerpt: "Siziň üçin Allahyň Resulynda ajaýyp görelde bardyr." },
-      { excerpt: "Gurhan okalanda, ony diňläň we dymyň, belki merhemet edilersiňiz." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamber ﷺ öýle we ikindiniň ilkinji iki rekagatynda Fatiha bilen süre, soňky iki rekagatynda diňe Fatiha okady. (Abu Katada; Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Kitabyň Açylşyny okamadyk adamyň namazy ýokdur. (Ubada ibn as-Samit; Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Ol öýle we ikindiniň ilkinji iki rekagatynda has uzyn, soňky ikisinde has gysga okaýandygyny duýdurardy. (Abu Katada)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Indiki jemagat namazyňyzda ymamyň haýsy rekagatlary sesli okaýandygyna üns beriň.",
       "Mezhebiňizdäki mugallymdan sesli kyraatda ymamyň yzynda Fatihany okaýandygyňyzy soraň.",
@@ -717,12 +542,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Parahatçylyk sözleri bilen ýüzüňizi doly saga, soňra çepe öwüriň - her egniňizde perişdeler bilen salamlaşanyňyzda namazy tamamlaň.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hyzmatkäri Rebbine iň ýakyn wagtda seatedde edýär, şonuň üçin köp dileg ediň. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Eliň ýerleşdirilmeginde, oturmagyň usulynda we eliňi götermekde ownuk tapawutlar bularyň hemmesi hakyky hasabatlardan gözbaş alýar; mekdepleriň hersi dogry bir kyssa berýär. Hiç kim başga biriniň dogasyny ýatyrmaýar.",
   },
@@ -785,20 +605,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Metjide sag aýagyňyz bilen giriň we çep bilen gidiň, hersi dua bilen.",
       "Her namazdan soň döredilen adkar okaň - Namazdan soň serediň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ymmatymy ýüklemeýän bolsam, her namazdan öň siwak ulanmagy buýrardym. (Abu Hureýra; Sahih Muslim 252)",
-      },
-      {
-        excerpt:
-          "Pygamber alaýhyssalam, iki rekagat namazdan öň hiç wagt üns bermedi. (Aýşa; Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Kim gündizine we gündizine on iki rekagat namaz okasa, Allatagala oňa Jennetde bir jaý gurar - ikisi Fajrdan, dördüsi Duhrdan, ikisi Zhuhrdan, ikisi Magribden we ikisi Işadan soň. (Umm Habibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       {
         label: "Salahyň görnüşleri - rawatib gollanmasy",
@@ -820,20 +627,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Huşu gurulýar, islenmeýär. Okaýan zatlaryňyzyň manylaryny öwreniň, sözler sizi herekete getirer. Takbiriň öňündäki zatlary aýyryň. Haýal ediň we her duruşyňyza rahatlyk beriň. Addressüzlenýäniň beýikligi we bu doganyň iň soňky bolup biljekdigi hakda pikirleniň. Pygamberimiziň maslahat berşi ýaly her dogany hoşlaşyk dogasy hökmünde okaň.",
       "Aýlanyp ýören pikirler bilen ruhdan düşmäň - hatda sahabalar hem olar bilen göreşdiler. Ünsüňizi gaýta-gaýta yzyna gaýtarmak ugrundaky göreş, ybadatyň bir bölegidir. Huşu ömrüniň dowamynda ösýär; yzygiderlilik ony terbiýeleýär.",
     ],
-    quran: [
-      {
-        excerpt: "Hakykatdanam imanlylar - dogalarynda kiçigöwünliler üstünlik gazanýarlar.",
-      },
-      {
-        excerpt: "Namaz okaýanlara - dogalaryna biperwaý gynanýanlara waý!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsan, Allany görýän ýaly ybadat etmekdir, çünki Ony görmeseňizem, sizi hökman görýär. (Jibriliň hadyslary, Umar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Şu hepde her namazdan öň Namaz sözlerinden bir sözlemiň manysyny okaň.",
       "Geçmezden ozal her duruşda üç gyssagly sekunt saklaň.",
@@ -880,16 +675,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Hakyky şübhe dörände, ýol görkeziji ýörelge: şübhäni taşlaň, anyk zadyňyzy guruň (az sanly), namazy tamamlaň we iki sejde ediň. Bu bulaşyklygy aladaly çaklama däl-de, çözülen, dogry dilege öwürýär.",
       "Iş ýüzünde: takjir bilen öň we soň, soň bolsa salam bilen adaty sujudyňyz ýaly iki sejde ediň. Alymlar ýalňyşyň görnüşine baglylykda salamdan öň ýa-da soň gelýändikleri bilen tapawutlanýar - ikisiniň-de özbaşdak habar berilendigi sebäpli namazyň hem kabul edilip bilinmejekdigi aýdylýar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Siziň biriňiz dogasynda ynamsyz bolsaňyz we näçeräk doga edendigini bilmese - üç ýa-da dört - şübhe goýmasyn, anyk zadyna esaslansyn, soň bolsa iki gezek salamdan öň sejde ediň. (Abu Said al-Hudri)",
-      },
-      {
-        excerpt:
-          "Biriňiz dogasynda şübhelenýän bolsaňyz, dogry we doly zady gözlesin, soň salam beriň we iki gezek sejde ediň. (Ibn Masud; Sahyh Musulman 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Şübhe üçin düzgüni ýatda saklaň: az mukdarda gur, gutar, soň iki gezek sejde et.",
       "Orta namazyň birinji taşahuddan çykandygyna düşünýän bolsaň, soňunda sujud al-sahw et.",
@@ -970,41 +756,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Jynaza namazy - jemagat borjy (fard kifayah) ruku ýa-da sujudsyz durmagy teklip edýär.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamber alaýhyssalam, iki rekagat namazdan öň hiç wagt üns bermedi. (Aýşa; Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Kim gündizine we gündizine on iki rekagat namaz okasa, Allatagala oňa Jennetde bir jaý gurar - ikisi Fajrdan, dördüsi Duhrdan, ikisi Zhuhrdan, ikisi Magribden we ikisi Işadan soň. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Kim Duhryň öňünde dört rekagat namaz okasa, Allatagala ony otdan saklar. (Umm Habibah; köp alym tarapyndan bahalandyrylan)",
-      },
-      {
-        excerpt: "Alla Asrdan öň dört rekagat namaz okaýan adama rehim etsin.",
-      },
-      {
-        excerpt:
-          "Magribiň öňünde doga et, Magribiň öňünde doga et, soň aýtdy: kim islese. (Ibni Umar)",
-      },
-      {
-        excerpt:
-          "Her iki jaňyň arasynda (adhan we ikama) namaz bar. (Anas ibn Mälik; Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Witr borjydyr, şonuň üçin kim islese bäş dileg etsin, kim üç dileg etsin, kim islese dileg etsin. (Ibni Umar)",
-      },
-      {
-        excerpt: "Hökmany namazdan soň iň gowy doga, gijeki namazdyr. (Abu Hureýra)",
-      },
-      {
-        excerpt: "Hyzmatkärim, ony söýýänçäm, meýletin işler bilen Maňa ýakynlaşýar. (Hadys Kudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "On iki rawatib bilen başlaň - goşmaça nafl goşmazdan ozal endigi dörediň.",
       "Her merkeziň töwereginde nygtalýan sünnetleri yzarlamak üçin bu merkezdäki rakats tablisasyny ulanyň.",
@@ -1033,26 +785,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Oňa äsgermezlik etmek uly howp: Pygamber alaýhyssalam üç Jumany äsgermezlikden terk etse, Allanyň ýüregine möhür basjakdygyny duýdurdy. Şeýle-de bolsa, onuň peýdasy hem gaty uly - Juma günüň dogýan iň gowy güni we du'a jogap berilýän bir sagat dowam edýär.",
       "Pygamberimiziň edişi ýaly oňa taýynlaň: taharet ediň, iň oňat arassa eşikleriňizi geýiň, hoşboý ys çalyň, ir gidiň we hutbany ümsümlikde üns bilen diňläň (bu hakda boş gürlemek sylagy ýitirýär). Kahf süresini anna güni okamak iki anna gününiň arasynda ýagtylyk getirýär.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler, anna güni doga okalsa, Allany ýatlamaga howlugyň we söwdany taşlaň. Diňe bilýän bolsaňyz, bu siziň üçin has gowudyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jemgyýetdäki juma namazy dörtden başga her bir musulman üçin hökmany borjydyr: gul, aýal, çaga ýa-da syrkaw. (Tarik ibn Şihab)",
-      },
-      {
-        excerpt:
-          "Kim üç juma namazyny biperwaýlyk bilen terk etse, Allatagala ýüregine möhür basar. (Abu al-Ja'd; Abu Dawud 1052, Tirmizi 500)",
-      },
-      {
-        excerpt:
-          "Juma anna güni kämillik ýaşyna ýeten her bir adam üçin farzdyr. (Abu Said al-Hudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Ghus ýasaýyň, arassa eşikler we hoşboý yslar geýiň we ir geliň - iň irki gatnaşyjylar iň uly sylag gazanýarlar.",
       "Kahf süresini iki anna gününiň arasynda ýagtylyk üçin okaň.",
@@ -1071,17 +805,8 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Ymam başlansoň gelen bolsaňyz (soňky gelenlere masbuq diýilýär), haýsy duruňda derrew goşulyň - bu bölek henizem onuň bilen doga etmek hasaplanýar. Iň soňky salam bereninde, durup, özüňiz sypdyran rekagatlaryňyzy tamamlaň, soň bolsa tamamlaň.",
       "Jemgyýet diňe bir metjitde däl: iki adam bilelikde namaz okaýarlar, şonuň üçin çagasy bilen bir kaka ýa-da syýahat edýän iki dosty sylagyna ýetip biler. Aýallar ýygnakda namaz okap, amatly desgalar bar bolan metjide gatnaşyp bilerler, emma öýlerinde namazlary hem köp sylaglanýar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Congregationygnakdaky doga, diňe okalýan dogadan ýigrimi ýedi dereje has mertebedir. (Ibni Umar; Sahih Musulman 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Namaz okaň we zekat beriň we baş egýänler bilen baş egiň.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Şu gün metjitde iň bolmanda bir doga ediň ýa-da öýüňizi öýüňize yzygiderli ýygnaň.",
       "Soňky adam hökmünde näme etmelidigini öwreniň: birbada goşulyň, ymamyň namazyndan soň sypdyran rekagatlaryňyzy tamamlaň.",
@@ -1095,12 +820,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Namaz okalýan namaz asyl görnüşde okalýar: sypdyrylan dört rekagat Duhr, gije ýa-da syýahat edeniňizde hem dört rekagat namaz okalýar. Hakyky bahana sebäpli doga-dilegleri ýitiren adam (çuňňur uky ýaly) gijä galmak üçin günä etmeýär; bilgeşleýin terk eden adam, çyn ýürekden, gyssagly toba etmek bilen birlikde olary düzmeli.",
       "Alymlar sypdyrylan dogalary derrew we mümkin boldugyça tertip-düzgüne jemlemegi maslahat berýärler, sebäbi wagt we gijä galmak bilen ýük has agyrlaşýar. Köp ýyllaryň dowamynda sypdyrylan bolsa, umytsyzlyga däl-de, hakyky gündelik meýilnama bilen çemeleşiň; Allanyň gaýdyp gelýän gapysy hemişe açykdyr.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim namazy ýatdan çykarsa ýa-da onuň üstünde uklasa, onuň günäsi, ýadyna düşende okamakdyr. (Anas; şeýle hem Sahih Musulman 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Näçe doga bermelidigiňizi dogry hasaplaň we gündelik makiýa up maksadyny kesgitläň.",
       "Her farz namazyny yzky arassalanýança bir makiýa namazy bilen jübütläň.",
@@ -1116,16 +836,7 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
       "Namazdan soňky kesgitlenen düzgün ýönekeý we agyr: “Astagfirullah” üç gezek aýdyň; soň tawhid we öwgi sözleri; soň 'SubhanAllah', 'Alhamdulillah' we 'Allahu Akbar' otuz üç gezek \"La ilaha illallah ...\" bilen ýüzden birine möhür basýar - kim muny eden bolsa, deňziň köpügi ýaly bolsa-da, günäleri bagyşlanýar.",
       "Her farz namazyndan soň Aýat al-Kursi okamak, pygamberiň wada berşi ýaly diňe bir adam bilen Jennetiň arasyndaky ölümi aýyrýar. Üç Kül (Al-Yhlas, Al-Falaq, An-Nas) bilen yzarlaň we Fajrdan soň ertir adhkaryny we ýüz tutan ýerlerinde Asr ýa-da Magribden soň agşam adhkar goşuň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim her dogadan soň otuz üç gezek Allany şöhratlandyrsa, öwse we şöhratlandyrsa ... we ýüz sanysyny tahid sözleri bilen tamamlasa, deňziň köpügi ýaly bolsa-da, günäleri bagyşlanar. (Abu Hureýra)",
-      },
-      {
-        excerpt:
-          "Kim her namazdan soň Aýat al-Kursi okasa, onuň arasynda ölümden başga hiç zat durmaz we Jennete girer. (Abu Umama; al-Albani tarapyndan bahalandyrylan sahih)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Falsealandan soňky tasbih (33/33/33 + tahlil) şu hepde ýatda saklaň.",
       "Aýat al-Kursi we üç Kül durmazdan ozal okaň.",
@@ -1139,89 +850,72 @@ export const SALAH_GUIDE_PHRASES_TK: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Taharet gutarandan soň",
     when: "Taharet gutarandan soň, namazdan öň.",
-    translation:
-      "Diňe Alladan başga hudaýyň ýokdugyna, şärigi ýokdygyna şaýatlyk edýärin we Muhammediň guly we Resulydygyna şaýatlyk edýärin.",
     meaning:
       "Bedeniňiz täze arassalananda imanyň şaýatlygyny täzelemek. Pygamber alaýhyssalam muny taharetden soň kim aýtsa, Jennetiň sekiz derwezesiniň islänine girip biljekdigini wada berdi.",
   },
   {
     title: "Takbirat al-Ihram",
     when: "Namazyň başynda we wezipeleriň arasynda hereket edende.",
-    translation: "Allah iň beýikdir.",
     meaning:
       "Namaz şu ýerden başlaýar - 'al-ihram', dünýädäki zatlary (sözlemek, iýmek, ýüz öwürmek) gadagan edýär. Allany sizi ünsüňizi sowup biljek we Onuň huzuryna doly ädim edip biljek ähli zatdan beýik diýip yglan edýärsiňiz. Ondan soňky her takbir özüni tabşyrýar.",
   },
   {
     title: "Du'a al-Istiftah (ýalbarýan dileg)",
     when: "Alnan takbirden soň, Al-Fatihadan öň dymmak.",
-    translation: "Alla, şöhrat we öwgi. Seniň adyň bagtly we beýikdir. Senden başga hudaý ýok.",
     meaning:
       "Söhbetdeşligi Allany şöhratlandyrmak we öwmek we Onuň birligini tassyklamak, sözlerini okamazdan ozal ýüregi berkitmek bilen açýarsyňyz. Birnäçe hakyky açyk dilegler bar - bu iň köp ulanylýanlardan biridir.",
   },
   {
     title: "Fatiha süresi",
     when: "Her rekagatda durmak - rekagatsyz sütün.",
-    translation:
-      "Rehimdar, esasanam rehimdar Allanyň ady bilen. Hemme öwgi älemleriň Rebbi bolan Allaha, bütinleý rehimdar, esasanam rehimdar, jeza gününiň hökümdary Allaha şükürdir. Biz ybadat edýäris we siz kömek soraýarys. Bizi göni ýoly - gahar gazananlaryň ýa-da azaşanlaryň däl-de, merhemet edenleriň ýoluna ugrukdyr.",
     meaning:
       "'Kitabyň enesi': Allany alkyşlamak we ýarysyny ýol görkezmek üçin ýalbarmak, olaryň arasynda çeňňek hökmünde 'Saňa ybadat edýäris'. Allatagala bu süresi Özüniň we gulunyň arasynda bölendigini aýtdy - her setiri okaýarka jogap berýär. Pygamberimiz ﷺ okamaýan adam üçin doga ýokdugyny aýtdy.",
   },
   {
     title: "Dikr",
     when: "Baş egip, tekiz bilen yza çekildi.",
-    translation: "Ajaýyp Rebbim şöhratdyr.",
     meaning:
       "Baş egmek, hormat goýmakdyr, şonuň üçin siz Allanyň beýikligini şöhratlandyrýarsyňyz - üç ýa-da ondan köp gezek howlukman aýtdyňyz. Pygamberimiz ruku-da Rebbi beýgeldýäris, şonuň üçin dilegleriňize jogap berilmegine umyt baglaýarys.",
   },
   {
     title: "Rukudan turmak",
     when: "Egilenden soň doly dik durmak.",
-    translation: "Allany öwýänleri Alla eşidýär. Lorda Reb, ähli öwgüler saňa degişlidir.",
     meaning:
       "Allany öwýän adamy hakykatdanam eşidýändigini, soň bolsa ähli öwgüleri Oňa gaýtaryp berjekdigini tassyklaýarsyňyz. Pygamberimiz, ymam muny aýdanda we adamlar jogap berenlerinde, kimiň sözleri perişdelere gabat gelse, öňki günäleriniň bagyşlanandygyny aýtdy.",
   },
   {
     title: "Dikr",
     when: "Sejde etmek - Allaha iň ýakyn ýer.",
-    translation: "Beýik Rebbim şöhratdyr.",
     meaning:
       "Iň pes fiziki nokatda Beýik Allany şöhratlandyrýarsyňyz - ybadatyň merkezindäki gapma-garşylyk. Pygamber alaýhyssalam sejde edeninde bir hyzmatkäri Rebbine iň ýakyndygyny aýtdy, şonuň üçin zekrden soň dileg ediň.",
   },
   {
     title: "Iki sejdäniň arasynda",
     when: "Her rekagatyň birinji we ikinji sujudlarynyň arasynda arkaýyn oturmak.",
-    translation: "Lorda Reb, meni bagyşla. Lorda Reb, meni bagyşla.",
     meaning:
       "Her rekagatda bagyşlanmak üçin gysga, ýöne göni haýyş - hatda orta namazyň hem Allanyň günäsiniň geçilmegine mätäçdigimizi ýatladýar. Ikinji sejde etmezden ozal rahat boluň.",
   },
   {
     title: "At-Tahiýat (Taşahhud)",
     when: "Orta oturylyşykda we namazyň soňky oturylyşygynda.",
-    translation:
-      "Hemme salamlar, dogalar we arassa sözler Allaha degişlidir. Salam, salam, Allahyň rahmeti we nygmatlary bolsun. Salam we Allanyň dogruçyl bendelerine salam bolsun! Alladan başga hudaýyň ýokdugyna şaýatlyk edýärin we Muhammediň guly we Resulydygyna şaýatlyk edýärin.",
     meaning:
       "Namazyň oturýan ýüregi: siz diňe Allaha ybadat edýärsiňiz, Pygambere we dogruçyllara salam iberýärsiňiz we iki şaýatlygy täzeden yglan edýärsiňiz. Ibni Mesud, bir süräni öwrenişi ýaly, Pygamberimizden sözme-söz öwrendi.",
   },
   {
     title: "Salawat Ybraýymiýa",
     when: "Iň soňky daşhudda, At-Tahiýatdan soň.",
-    translation:
-      "Eý, Allatagala, Ybraýyma we Ybraýymyň maşgalasyna ak pata berşiň ýaly, Muhammet we Muhammet maşgalasyna alkyş iber! hakykatdanam Sen öwgä mynasyp, şöhratlysyň. Eý, Allatagala, Ybraýymy we Ybraýymyň maşgalasyny söýşüň ýaly, Muhammede we Muhammet maşgalasyna merhemet et! hakykatdanam Sen öwgä mynasyp, şöhratlysyň.",
     meaning:
       "Sahabalar oňa nädip bereket ibermelidigini soranlarynda, Pygamber alaýhyssalam bu takyk sözleri - sünnetde iň tassyklanan salawat öwretdi. Allahyň emri bilen Resuly hormatlaýarsyňyz, doga etmegi öwreden adama söýgi bilen doga ediň.",
   },
   {
     title: "Salamdan öň gaçybatalga gözlemek",
     when: "Iň soňky namazdan we namazdan soň, namazy gutarmanka.",
-    translation:
-      "Eý, Allatagala, gabryň jezasyndan, dowzahyň jezasyndan, ýaşaýyş we ölüm synaglaryndan, ýalan Mesihiň (Dajjal) synagyndan erbetlik alýaryn.",
     meaning:
       "Pygamber alaýhyssalam namaz okamazdan ozal bir adamyň bu dört howpdan gaçybatalga bermegini buýurdy - doganyň soňky haýyşy bu durmuşy, gabry, oty we geljekdäki iň uly synagy öz içine alýar.",
   },
   {
     title: "Taslim (ýapylýan salam)",
     when: "Namazyň soňy - ýüzüň saga, soňra çepe öwrülmegi.",
-    translation: "Salam we Allanyň rahmeti bolsun.",
     meaning:
       "Hormatly adamlar bilen bile gideniňizde, her egniňizde ýazýan perişdelere we ýanyňyzda doga edýänlere parahatçylyk gutlagy bilen gidýärsiňiz. Salam sütün; bilen doga doly.",
   },
@@ -1229,10 +923,10 @@ export const SALAH_GUIDE_PHRASES_TK: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_TK: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Her gün ylalaşylan sünnet rawatib näçe rekagat?",
+    prompt: "Ummu Habibanyň hadysynda gündelik sünnet rawatib näçe rekagat diýilýär?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "On iki rawatib: Fajrdan öň 2, Dhuhrdan öň 4, Dhuhrdan soň 2, Magribden soň 2 we Işadan soň 2 (Sahih Muslim 728).",
+      "Ummu Habibanyň hadysy gije-gündizde on iki rekagat sünnet okan adama jennetde öý wada berýär (Sahih Muslim 728); Jami' at-Tirmizi 415 olary sanaýar: Fajrdan öň 2, Dhuhrdan öň 4, Dhuhrdan soň 2, Magribden soň 2 we Işadan soň 2.",
   },
   {
     prompt: "Fajrdan öň, nygtalan (mu'akkadah) sünnet:",
@@ -1241,10 +935,10 @@ export const SALAH_GUIDE_QUIZ_TK: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Fajrdan öň iki rekagat sünnet mu'akkadah — Pygamber ﷺ olary hiç haçan taşlamady (Sahih al-Buhari 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Dhuhryň daşyndaky ylalaşylan rawatib:",
+    prompt: "Ummu Habibanyň hadysynda (Jami' at-Tirmizi 415) Dhuhryň daşyndaky rawatib:",
     options: ["Öň 2, soň 2", "Öň 4, soň 2", "Öň 4, soň 4", "Diňe öň 2"],
     explanation:
-      "Dhuhrdan öň dört we soň iki rekagat on iki rawatibyň bölegi. Goşmaça rekagatlar maslahat berilýän nafl, däl-de, kesgitlenen rawatib.",
+      "Ummu Habibanyň hadysynda Dhuhrdan öň dört, soň iki rekagat agzalýar. Ibn Umaryň rowaýatynda (Sahih al-Buhari 1180) öň iki rekagat aýdylýar, şonuň üçin mezhepler haýsysyny muakkada rawatib hasaplamakda tapawutlanýar; mundan artyk rekagatlar nafl.",
   },
   {
     prompt: "Dogry ýa-da nädogry: Asrdan öň dört rekagat gündelik on iki rawatibyň bölegi.",

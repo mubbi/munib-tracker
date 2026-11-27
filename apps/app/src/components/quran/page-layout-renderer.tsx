@@ -1,14 +1,23 @@
 import type { Ayah } from "@munib-tracker/shared/types";
-import { type ReactNode, useMemo } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
+import { type PageAyahHint, usePageAyahHints } from "@/components/quran/ayah-annotations";
+import { BISMILLAH } from "@/components/quran/basmala";
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
+import {
+  noteHintHandlers,
+  noteUnderlineStyle,
+  TvNoteFocusPreview,
+  webHintProps,
+} from "@/components/quran/note-hints";
 import { SurahBanner } from "@/components/quran/surah-banner";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
+import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { getSurahByNumber } from "@/lib/quran";
@@ -41,9 +50,10 @@ type PageLayoutRendererProps = {
   /** TV: lets the reader know focus is inside the page body (D-pad Left/Right turns pages). */
   onItemFocus?: () => void;
   onItemBlur?: () => void;
+  /** NF-3.21: tint the user's highlighted ayahs (off for previews / practice). */
+  showAnnotations?: boolean;
 };
 
-const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 /** Unicode ARABIC END OF AYAH (۝) — Android/web overlay ornament only; never send this to iOS TextKit. */
 const END_OF_AYAH = "\u06DD";
 
@@ -195,6 +205,7 @@ export function PageLayoutRenderer({
   tvFocusTarget,
   onItemFocus,
   onItemBlur,
+  showAnnotations = false,
 }: PageLayoutRendererProps) {
   const { t } = useTranslation();
   const tv = isTV();
@@ -203,6 +214,39 @@ export function PageLayoutRenderer({
   const arabicFontFamily = useArabicFontFamily();
   const groups = useMemo(() => groupBySurah(ayahs), [ayahs]);
   const interleaved = showTransliteration || showTranslation;
+  const annotationHints = usePageAyahHints(ayahs, showAnnotations);
+  const hintFor = (ayah: Ayah): PageAyahHint | null =>
+    annotationHints?.get(`${ayah.surah}:${ayah.ayah}`) ?? null;
+  const tintFor = (ayah: Ayah) => hintFor(ayah)?.tint ?? null;
+  const fineHover = useFinePointerHover();
+  const [tvFocusedAyah, setTvFocusedAyah] = useState<string | null>(null);
+  // NF-3.21 note hint for a noted ayah: a11y "has my note", dotted underline and,
+  // on desktop web, the hover / focus preview card. Tap keeps opening the
+  // ayah's action sheet, which shows the note with "Open note".
+  // G-01: the label carries the scripture itself — reference, the Unicode
+  // Arabic and (when shown) the translation — so VoiceOver / TalkBack read the
+  // ayah, not just "2:5". "Opens actions" rides in the hint, separately.
+  const ayahLabel = (ayah: Ayah, shownTranslation?: string) =>
+    [
+      t("quran.ayahRef", { surah: ayah.surah, ayah: ayah.ayah }),
+      ayah.arabic,
+      shownTranslation,
+      hintFor(ayah)?.noteId ? t("quranNotes.hasNote") : null,
+    ]
+      .filter(Boolean)
+      .join(", ");
+  const opensActionsHint = t("quran.reader.opensActions");
+  const noteUnderline = (ayah: Ayah) => {
+    const color = hintFor(ayah)?.underline;
+    return color ? noteUnderlineStyle(color) : null;
+  };
+  const noteWebProps = (ayah: Ayah) => {
+    const noteId = hintFor(ayah)?.noteId;
+    if (!noteId || !fineHover) return {};
+    const handlers = noteHintHandlers({ surah: ayah.surah, ayah: ayah.ayah, noteId }, true);
+    // Hover / focus only — a click still opens the ayah's action sheet.
+    return webHintProps(handlers);
+  };
 
   // TV: key of the block (interleaved: ayah, flow: surah group) that takes
   // initial D-pad focus.
@@ -247,6 +291,7 @@ export function PageLayoutRenderer({
             {startsSurah && meta?.bismillahPre ? (
               <ThemedText
                 type="arabic"
+                accessibilityLanguage="ar"
                 style={[arabicReadingLayout(arabicSize - 4, "center"), styles.bismillah]}
               >
                 {BISMILLAH}
@@ -273,25 +318,36 @@ export function PageLayoutRenderer({
                     haptic="light"
                     scaleTo={0.995}
                     accessibilityRole="button"
-                    accessibilityLabel={t("quran.ayahRef", { surah: ayah.surah, ayah: ayah.ayah })}
+                    accessibilityLabel={ayahLabel(ayah, trans)}
+                    accessibilityHint={onAyahPress ? opensActionsHint : undefined}
                     onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
-                    onFocus={onItemFocus}
-                    onBlur={onItemBlur}
+                    onFocus={() => {
+                      onItemFocus?.();
+                      if (tv) setTvFocusedAyah(`${ayah.surah}:${ayah.ayah}`);
+                    }}
+                    onBlur={() => {
+                      onItemBlur?.();
+                      if (tv) setTvFocusedAyah(null);
+                    }}
                     {...(tvFocusKey === `${ayah.surah}:${ayah.ayah}`
                       ? { hasTVPreferredFocus: true }
                       : {})}
+                    {...noteWebProps(ayah)}
                     style={[
                       styles.ayahBlock,
                       { borderBottomColor: mushaf.bandBorder },
                       highlighted
                         ? { backgroundColor: mushaf.highlight, borderRadius: Radius.sm }
-                        : null,
+                        : tintFor(ayah)
+                          ? { backgroundColor: tintFor(ayah) ?? undefined, borderRadius: Radius.sm }
+                          : null,
                     ]}
                   >
                     <ThemedText
                       key={`ar-${ayah.surah}-${ayah.ayah}-${arabicSize}`}
                       type="arabic"
-                      style={[styles.blockArabic, { fontSize: arabicSize }]}
+                      accessibilityLanguage="ar"
+                      style={[styles.blockArabic, { fontSize: arabicSize }, noteUnderline(ayah)]}
                     >
                       {ayahTextWithMarker(ayah, renderMarker(ayah))}
                     </ThemedText>
@@ -300,7 +356,7 @@ export function PageLayoutRenderer({
                         type="small"
                         style={[
                           styles.translit,
-                          { color: colors.accent },
+                          { color: colors.accentText },
                           transliterationSize ? { fontSize: transliterationSize } : null,
                         ]}
                       >
@@ -334,6 +390,11 @@ export function PageLayoutRenderer({
                         {second}
                       </ThemedText>
                     ) : null}
+                    {tv &&
+                    tvFocusedAyah === `${ayah.surah}:${ayah.ayah}` &&
+                    hintFor(ayah)?.noteId ? (
+                      <TvNoteFocusPreview surah={ayah.surah} ayah={ayah.ayah} />
+                    ) : null}
                   </PressableScale>
                 );
               })
@@ -344,10 +405,14 @@ export function PageLayoutRenderer({
               <PressableScale
                 scaleTo={0.995}
                 accessibilityRole="button"
-                accessibilityLabel={t("quran.ayahRef", {
-                  surah: group.surah,
-                  ayah: group.ayahs[0]?.ayah ?? 1,
-                })}
+                accessibilityLabel={[
+                  t("quran.ayahRef", {
+                    surah: group.surah,
+                    ayah: group.ayahs[0]?.ayah ?? 1,
+                  }),
+                  ...group.ayahs.map((a) => a.arabic),
+                ].join(", ")}
+                accessibilityHint={onAyahPress ? opensActionsHint : undefined}
                 onPress={() => {
                   const target =
                     group.ayahs.find((a) => ayahMatchesHighlight(a, highlightAyah)) ??
@@ -362,6 +427,7 @@ export function PageLayoutRenderer({
                 <ThemedText
                   key={`flow-${group.surah}-${arabicSize}`}
                   type="arabic"
+                  accessibilityLanguage="ar"
                   style={[styles.flow, { fontSize: arabicSize }]}
                 >
                   {group.ayahs.map((ayah) => (
@@ -372,7 +438,10 @@ export function PageLayoutRenderer({
                         { fontSize: arabicSize },
                         ayahMatchesHighlight(ayah, highlightAyah)
                           ? { backgroundColor: mushaf.highlight }
-                          : null,
+                          : tintFor(ayah)
+                            ? { backgroundColor: tintFor(ayah) ?? undefined }
+                            : null,
+                        noteUnderline(ayah),
                       ]}
                     >
                       {ayahTextWithMarker(ayah, renderMarker(ayah))}
@@ -386,6 +455,7 @@ export function PageLayoutRenderer({
               <ThemedText
                 key={`flow-${group.surah}-${arabicSize}`}
                 type="arabic"
+                accessibilityLanguage="ar"
                 style={[styles.flow, { fontSize: arabicSize }]}
               >
                 {group.ayahs.map((ayah) => {
@@ -395,14 +465,19 @@ export function PageLayoutRenderer({
                       key={`${ayah.surah}:${ayah.ayah}`}
                       type="arabic"
                       accessibilityRole="button"
-                      accessibilityLabel={t("quran.ayahRef", {
-                        surah: ayah.surah,
-                        ayah: ayah.ayah,
-                      })}
+                      accessibilityLabel={ayahLabel(ayah)}
+                      accessibilityHint={onAyahPress ? opensActionsHint : undefined}
+                      accessibilityLanguage="ar"
                       onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
+                      {...noteWebProps(ayah)}
                       style={[
                         { fontSize: arabicSize },
-                        highlighted ? { backgroundColor: mushaf.highlight } : null,
+                        highlighted
+                          ? { backgroundColor: mushaf.highlight }
+                          : tintFor(ayah)
+                            ? { backgroundColor: tintFor(ayah) ?? undefined }
+                            : null,
+                        noteUnderline(ayah),
                       ]}
                     >
                       {ayahTextWithMarker(ayah, renderMarker(ayah))}
@@ -440,7 +515,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.two,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
   },
   blockArabic: {
     writingDirection: "rtl",

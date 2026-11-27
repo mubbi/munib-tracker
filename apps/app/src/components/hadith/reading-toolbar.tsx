@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { ReadingFontControls } from "@/components/reading-font-controls";
-import { ThemedText } from "@/components/themed-text";
+import { ToggleChip } from "@/components/ui/chip";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
@@ -17,7 +17,6 @@ import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -267,51 +266,6 @@ export function HadithReadingToolbar({
   );
 }
 
-function ToggleChip({
-  icon,
-  label,
-  enabled,
-  accessibilityLabel,
-  onPress,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  accessibilityLabel: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  const tint = enabled ? colors.accent : colors.mutedForeground;
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="switch"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityState={{ checked: enabled }}
-      onPress={onPress}
-      style={[
-        styles.chip,
-        tv && styles.chipTv,
-        {
-          backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          // TV: hairline (not accent) on enabled chips so the focus ring stays distinct.
-          borderColor: enabled ? (tv ? tokens.hairline : colors.accent) : "transparent",
-        },
-      ]}
-    >
-      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
-      <ThemedText
-        type="smallBold"
-        numberOfLines={1}
-        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
-      >
-        {label}
-      </ThemedText>
-    </PressableScale>
-  );
-}
-
 const styles = StyleSheet.create({
   bar: {
     overflow: "hidden",
@@ -346,28 +300,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
   },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one + 2,
-    maxWidth: 200,
-    paddingVertical: Spacing.two - 1,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    borderColor: "transparent",
-  },
-  chipTv: {
-    maxWidth: 280,
-    minHeight: TvLayout.chipMinHeight,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.four,
-  },
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,

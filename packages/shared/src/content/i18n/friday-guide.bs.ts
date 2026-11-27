@@ -14,16 +14,7 @@ export const FRIDAY_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Njegovo ibadetsko obilježavanje nosi i stalno obećanje oprosta. Ebu Hurejre prenosi da je Poslanik ﷺ rekao: 'Ko se okupa u petak, zatim dođe na džuma-namaz, i sluša i šuti dok imam drži hutbu, biće mu oprošteni grijesi između tog petka i narednog, plus još tri dana' (Sahih Muslim 857).",
       "Ove vrline poziv su da se rano pripremimo, pažljivo slušamo, i petak tretiramo kao sedmični duhovni reset — a ne samo kao slobodan dan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Najbolji dan u kojem je izašlo sunce je petak; na taj dan je stvoren Adem, na taj dan je uveden u Džennet, na taj dan je iz njega izbačen, i Sudnji dan neće nastupiti ni u koji drugi dan osim u petak.",
-      },
-      {
-        excerpt:
-          "Ko se okupa u petak, zatim dođe na džuma-namaz, i sluša i šuti dok imam drži hutbu, biće mu oprošteni grijesi između tog petka i narednog, plus još tri dana.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Postavite namjeru petkom ujutro: gusul, najbolja odjeća, i dolazak rano.",
       "Tretirajte hutbu kao ibadet — tišina i pažnja su dio nagrade.",
@@ -39,24 +30,8 @@ export const FRIDAY_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Nemar je ozbiljno upozorenje: Ebul-Dža'd prenosi da onome ko izostavi tri džuma-namaza iz nemara, Allah stavlja pečat na srce (Sunen en-Nesai 1369). Tokom hutbe, prazan govor uništava nagradu — Ebu Hurejre prenosi da ako kažete svom drugu 'Ćuti' dok imam govori, govorili ste pogrešno (Sahih Buhari 934).",
       "Nakon džume se preporučuje klanjati četiri rekata: Ebu Hurejre prenosi da je Poslanik ﷺ rekao: 'Kada neko od vas obavi džuma-namaz, neka nakon toga klanja četiri (rekata)' (Sahih Muslim 881).",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vi koji vjerujete, kada se pozove na namaz u petak, požurite ka spominjanju Allaha i ostavite trgovinu. To je bolje za vas, kad biste znali. A kada se namaz završi, raziđite se po zemlji i tražite Allahovu blagodat...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Džuma-namaz u džematu je obavezujuća dužnost za svakog muslimana, osim četvero: roba, žene, djeteta, ili bolesnog.",
-      },
-      { excerpt: "Onome ko izostavi tri džuma-namaza iz nemara, Allah će staviti pečat na srce." },
-      {
-        excerpt:
-          "Ako kažete svom drugu 'Ćuti' u petak dok imam drži hutbu, govorili ste pogrešno (laghawta).",
-      },
-      { excerpt: "Kada neko od vas obavi džuma-namaz, neka nakon toga klanja četiri (rekata)." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Planirajte put tako da stignete u džamiju prije početka hutbe.",
       "Držite telefone na nečujno i izbjegavajte razgovor tokom hutbe.",
@@ -74,21 +49,7 @@ export const FRIDAY_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Osim gusula, Poslanik ﷺ je podsticao da se izgleda najbolje moguće. Selman el-Farisi prenosi da je Poslanik ﷺ rekao: 'Ko se okupa petkom, očisti se koliko može, zatim upotrijebi svoje (kosno) ulje ili miris, zatim izađe, i bez guranja između dvije osobe sjedne na svoje mjesto slušajući imama do kraja, zatim klanja što mu je propisano — njegovi grijesi između tog petka i narednog bivaju oprošteni' (Sahih Buhari 883).",
       "Rani dolazak umnožava nagradu. Ebu Hurejre prenosi da je onaj koji ode u prvom satu kao onaj koji žrtvuje kamilu, zatim kravu, zatim ovna, zatim kokošku, zatim jaje — a kada imam izađe, anđeli sklapaju svoje svitke i slušaju podsjetnik (Sahih Buhari 881).",
     ],
-    hadith: [
-      { excerpt: "Gusul petkom je obavezan za svakog ko je dostigao punoljetstvo." },
-      {
-        excerpt:
-          "Kupanje petkom je obavezno za svakog muškog muslimana koji je dostigao punoljetstvo.",
-      },
-      {
-        excerpt:
-          "Ko se okupa petkom, očisti se koliko može, zatim upotrijebi svoje ulje ili miris, zatim izađe, i bez guranja između dvije osobe sjedne na svoje mjesto slušajući imama do kraja, zatim klanja što mu je propisano — njegovi grijesi između tog petka i narednog bivaju oprošteni.",
-      },
-      {
-        excerpt:
-          "Ko se okupa petkom, zatim rano ode (u džamiju), kao da je žrtvovao kamilu... zatim kravu... zatim ovna... zatim kokošku... zatim jaje. Kada imam izađe, anđeli se javljaju da slušaju podsjetnik.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Uzmite gusul petkom ujutro (ili prije odlaska u džamiju).",
       "Obucite čistu, skromnu najbolju odjeću i nanesite blagi miris ako možete.",
@@ -106,19 +67,8 @@ export const FRIDAY_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Posebno, prvih deset ajeta sure El-Kehf su štit protiv iskušenja Dedžala. Ebu Derda prenosi da je Poslanik ﷺ rekao: 'Ko zapamti deset ajeta s početka sure El-Kehf, bit će zaštićen od Dedžala' (Sahih Muslim 809).",
       "Nađite vremena između četvrtak navečer i petkovog akšama da pročitate suru — čak i ako ne možete završiti cijelo poglavlje, počnite s uvodnim ajetima i vraćajte se koliko možete.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sva hvala Allahu koji je poslao Knjigu Svome robu i u njoj nije učinio nikakvu izvitoperenost... Ili si mislio da su stanovnici pećine i natpisa bili čudo među Našim znakovima?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ko pročita suru El-Kehf petkom, svjetlo će mu zasvijetliti između dva petka. (Ocijenjeno sahih od el-Albanija)",
-      },
-      { excerpt: "Ko zapamti deset ajeta s početka sure El-Kehf, bit će zaštićen od Dedžala." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Otvorite suru El-Kehf petkom i pročitajte što možete s prisutnošću srca.",
       "Zapamtite ili ponovite prvih deset ajeta za zaštitu od Dedžala.",
@@ -134,12 +84,7 @@ export const FRIDAY_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Petak je izdvojen za obilne salavate. Evs ibn Evs prenosi da je Poslanik ﷺ rekao: 'Među najboljim vašim danima je petak; zato uvećajte svoje salavate na mene tog dana, jer će vaši salavati biti mi predstavljeni.' Rekli su: 'O Allahov Poslaniče, kako će nam salavati biti predstavljeni tebi kada se raspadneš?' Rekao je: 'Allah je zabranio zemlji da proždere tijela poslanika' (Sunen Ebu Davud 1047).",
       "Bilo koja autentična formula salavata se računa — durudi koji se uče u namazu, ili duže forme iz sunneta. Bit je u obilju i iskrenosti petkom, a ne u jednom fiksnom broju.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Među najboljim vašim danima je petak; zato uvećajte svoje salavate na mene tog dana, jer će vaši salavati biti mi predstavljeni.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Postavite lični cilj salavata petkom — čak i skroman, dosljedan broj.",
       "Koristite kolekciju duruda u aplikaciji ako želite spremnu formulu.",
@@ -154,20 +99,7 @@ export const FRIDAY_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Učenjaci se razlikuju o tome kada taj sat točno pada. Jedno snažno mišljenje ga smješta u posljednji dio petka nakon ikindije: Džabir ibn Abdullah prenosi da je Poslanik ﷺ rekao: 'Petak ima dvanaest sati, i u njemu postoji sat u kojem nijedan musliman rob ne traži nešto od Allaha bez da mu On to dâ — zato ga potražite u posljednjem satu nakon ikindije' (Sunen Ebu Davud 1048).",
       "Koje god mišljenje slijedite, ispunite petak — posebno kasno popodne — iskrenom dovom, istigfarom, i salavatima, vjerujući Allahovom obećanju odgovora.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Postoji sat petkom u kojem nijedan musliman rob ne stane i traži nešto od Allaha bez da mu On to dâ — i pokazao je rukom da je kratak.",
-      },
-      {
-        excerpt:
-          "Postoji sat petkom u kojem se nijedan musliman ne nalazi u namazu tražeći nešto od Allaha bez da mu On to dâ.",
-      },
-      {
-        excerpt:
-          "Petak ima dvanaest sati, i u njemu postoji sat u kojem nijedan musliman rob ne traži nešto od Allaha bez da mu On to dâ — zato ga potražite u posljednjem satu nakon ikindije.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Nakon ikindije petkom, sjednite s kratkom listom dova i tražite s prisutnošću.",
       "Kombinujte dovu sa salavatima — oba se naglašavaju ovog dana.",

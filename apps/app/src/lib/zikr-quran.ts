@@ -26,6 +26,11 @@ const ZIKR_QURAN_RANGES: Record<string, ZikrQuranRange[]> = {
   "before_sleep-ayat-kursi": [{ surah: 2, ayahFrom: 255, ayahTo: 255 }],
   "before_sleep-baqarah-end": [{ surah: 2, ayahFrom: 285, ayahTo: 286 }],
   "before_sleep-ikhlas": [fullSurahRange(112), fullSurahRange(113), fullSurahRange(114)],
+  // After-Salah recitations (evidence refs live on the zikr items themselves).
+  "after_prayer-ayat-al-kursi": [{ surah: 2, ayahFrom: 255, ayahTo: 255 }],
+  "after_prayer-al-ikhlas": [fullSurahRange(112)],
+  "after_prayer-al-falaq": [fullSurahRange(113)],
+  "after_prayer-an-nas": [fullSurahRange(114)],
 };
 
 /** Ayah spans for an embedded Qur'an card view, or `null`. */

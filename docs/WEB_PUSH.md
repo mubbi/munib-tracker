@@ -1,6 +1,6 @@
 # Web Push + Surface Push (Salah phases)
 
-Ops guide for scheduled Salah phase notifications on the Expo web PWA and
+Ops guide for scheduled Salah phase notifications on the Expo web PWA (install + offline: [`PWA.md`](PWA.md)) and
 shared QStash/cron delivery used by Android Expo Push Live Update corrections.
 Product UI / native surfaces: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md).
 ActivityKit (iOS) remains separate — [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).
@@ -46,6 +46,9 @@ POST https://api.munibtracker.app/api/v1/surface-push/internal/dispatch-due
 Authorization: Bearer $SURFACE_PUSH_CRON_SECRET
 ```
 
+The same tick also drives the weekly family digest (D40, Friday 18:00 UTC; see
+[`CIRCLES.md`](./CIRCLES.md)) — without this cron no digest is sent.
+
 ## Client
 
 - Permission + subscribe: `registerWebPushSubscriptionWithApi` (user gesture)
@@ -76,3 +79,12 @@ Migration: `1720000011000-SurfacePush`. Regenerate client: `pnpm generate:api`.
 - Cron also expires registrations past `expiresAt` (cancelling their jobs) and deletes ended/invalid/expired registrations after 7 days.
 - The client persists the last registration id, so Stop / sign-out after a restart still ends server jobs. Android ignores data pushes whose `sessionId` is not the active, undismissed tracking session.
 - Admin broadcasts prune `push_tokens` rows reported dead (Expo `DeviceNotRegistered`, Web Push 404/410); registering a token on a new account removes it from other accounts.
+
+## Visible product pushes (circle events, D33)
+
+`@munib-tracker/surface-push-delivery` also exports a typed **visible** path —
+`createExpoVisiblePushSender()` (batched, 100 per request, `channelId: "default"`) and
+`createWebVisiblePushSender(config)` (same VAPID keys; payload `{ title, body, data, tag }` read by
+the service worker's `push` handler, tap → `data.url`). The silent `SurfaceSender` above stays
+Salah-phase only. Circle khatm / dua events use it via `CirclePushService` against the
+`push_tokens` registry — see [`CIRCLES.md`](./CIRCLES.md#realtime--push-d33).

@@ -1,0 +1,54 @@
+diff --git a/build/LocationSubscribers.js b/build/LocationSubscribers.js
+index 1255cae9eed1f90aec949d9cd9b6177062e222e9..677ef001830f94039ee68d7a38d784e2629873ac 100644
+--- a/build/LocationSubscribers.js
++++ b/build/LocationSubscribers.js
+@@ -42,7 +42,10 @@ class Subscriber {
+             return;
+         }
+         delete this.callbacks[id];
+-        ExpoLocation.removeWatchAsync(id);
++        void Promise.resolve(ExpoLocation.removeWatchAsync(id)).catch(() => {
++            // Native remove can reject (e.g. Android auth gate on older builds).
++            // Cleanup is best-effort — never leave an unhandled rejection.
++        });
+         if (Object.keys(this.callbacks).length === 0 && this.eventSubscription) {
+             this.eventSubscription.remove();
+             this.eventSubscription = null;
+@@ -67,7 +70,9 @@ class Subscriber {
+         if (callback) {
+             callback(event[this.eventDataField]);
+         } else {
+-            ExpoLocation.removeWatchAsync(watchId);
++            void Promise.resolve(ExpoLocation.removeWatchAsync(watchId)).catch(() => {
++                // Best-effort native teardown for orphaned watches.
++            });
+         }
+     }
+ }
+diff --git a/src/LocationSubscribers.ts b/src/LocationSubscribers.ts
+index 655ffd33e4ed92ee338de74fe1c5823f62120713..1818146515a1742e970e96555185187ad9db3324 100644
+--- a/src/LocationSubscribers.ts
++++ b/src/LocationSubscribers.ts
+@@ -75,7 +75,10 @@ class Subscriber<
+     }
+ 
+     delete this.callbacks[id];
+-    ExpoLocation.removeWatchAsync(id);
++    void Promise.resolve(ExpoLocation.removeWatchAsync(id)).catch(() => {
++      // Native remove can reject (e.g. Android auth gate on older builds).
++      // Cleanup is best-effort — never leave an unhandled rejection.
++    });
+ 
+     if (Object.keys(this.callbacks).length === 0 && this.eventSubscription) {
+       this.eventSubscription.remove();
+@@ -107,7 +110,9 @@ class Subscriber<
+     if (callback) {
+       callback(event[this.eventDataField]);
+     } else {
+-      ExpoLocation.removeWatchAsync(watchId);
++      void Promise.resolve(ExpoLocation.removeWatchAsync(watchId)).catch(() => {
++        // Best-effort native teardown for orphaned watches.
++      });
+     }
+   }
+ }

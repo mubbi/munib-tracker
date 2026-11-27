@@ -1,12 +1,14 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
+import { preferencesStore } from "@/stores/preferences-store";
 import { resetAuthMock, setMockAuth } from "@/test-support/mocks/auth-provider";
 import {
   mockNotificationsOs,
   resetSwitchableNotificationsPlatformMock,
 } from "@/test-support/mocks/notifications-platform";
 import { mockToast, resetToastMock } from "@/test-support/mocks/toast-provider";
+import { resetPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
 
 type PermState = {
@@ -17,13 +19,12 @@ type PermState = {
   openSettings: jest.Mock;
   canEnableLocalReminders: boolean;
   isExpoGo: boolean;
-  webGuidance: { tier: string; needsSafariForInstall?: boolean };
+  webGuidance: { tier: string; needsSafariForInstall?: boolean; installMethod?: string };
 };
 
 let mockPerm: PermState;
 let mockBeginResult: unknown = null;
 let mockCanRequestWeb = true;
-const mockSetPrefs = jest.fn(async (_p: unknown) => undefined);
 const mockReschedule = jest.fn(async (..._a: unknown[]) => undefined);
 const mockRegisterWebPush = jest.fn(async (_t: string) => undefined);
 
@@ -51,10 +52,6 @@ jest.mock("@/lib/notifications/web-environment", () => ({
 }));
 jest.mock("@/notifications/scheduler", () => ({
   rescheduleAll: (...args: unknown[]) => mockReschedule(...args),
-}));
-jest.mock("@/stores/preferences-store", () => ({
-  ...jest.requireActual("@/stores/preferences-store"),
-  usePreferencesActions: () => ({ setNotificationPrefs: mockSetPrefs }),
 }));
 
 const ENABLE = "Enable notifications";
@@ -84,11 +81,11 @@ async function pressEnable() {
 }
 
 describe("NotificationPermissionBanner", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     resetSwitchableNotificationsPlatformMock();
     mockBeginResult = null;
     mockCanRequestWeb = true;
-    mockSetPrefs.mockClear();
+    await resetPreferences();
     mockReschedule.mockClear();
     mockRegisterWebPush.mockClear();
     resetAuthMock();
@@ -108,7 +105,8 @@ describe("NotificationPermissionBanner", () => {
       const perm = await renderBanner();
       await pressEnable();
       expect(perm.requestPermission).toHaveBeenCalledWith();
-      expect(mockSetPrefs).toHaveBeenCalledWith({ masterEnabled: true });
+      // Shared `enableNotifications()` path (NF-3.0b): master on + one reschedule.
+      expect(preferencesStore.getState().prefs.notificationPrefs.masterEnabled).toBe(true);
       expect(mockReschedule).toHaveBeenCalledTimes(1);
       expect(mockRegisterWebPush).not.toHaveBeenCalled();
     });
@@ -135,10 +133,29 @@ describe("NotificationPermissionBanner", () => {
       expect(screen.queryByText(ENABLE)).toBeNull();
     });
 
-    it("explains Expo Go cannot schedule reminders", async () => {
+    it("explains a preview build cannot schedule reminders (dev only)", async () => {
       await renderBanner({ isExpoGo: true });
-      expect(screen.getByText("Development build required")).toBeTruthy();
+      expect(screen.getByText("Reminders unavailable in this version")).toBeTruthy();
       expect(screen.queryByText(ENABLE)).toBeNull();
+    });
+
+    it("hides the Expo Go notice outside development builds", async () => {
+      const g = globalThis as { __DEV__?: boolean };
+      const dev = g.__DEV__;
+      g.__DEV__ = false;
+      try {
+        await renderBanner({ isExpoGo: true });
+        expect(screen.queryByText("Reminders unavailable in this version")).toBeNull();
+      } finally {
+        g.__DEV__ = dev;
+      }
+    });
+
+    it("offers exactly one action: Open Settings when blocked", async () => {
+      const perm = await renderBanner({ denied: true });
+      expect(screen.getAllByRole("button")).toHaveLength(1);
+      await fireEvent.press(screen.getByRole("button", { name: "Open Settings" }));
+      expect(perm.openSettings).toHaveBeenCalled();
     });
   });
 
@@ -205,5 +222,12 @@ describe("NotificationPermissionBanner", () => {
         expect(screen.queryByText(ENABLE)).toBeNull();
       },
     );
+
+    it("guides iOS Chrome / Edge / Firefox to their own Share menu", async () => {
+      await renderBanner({
+        webGuidance: { tier: "ios_webkit_tab", installMethod: "ios_browser_share" },
+      });
+      expect(screen.getByText(/In this browser: Share/)).toBeTruthy();
+    });
   });
 });

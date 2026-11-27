@@ -6,20 +6,20 @@ import Foundation
 enum ExternalCommandQueue {
   static let appGroup = "group.app.munibtracker.widgets"
   static let key = "pending_commands_v1"
+  /// Hard cap on queued commands (oldest dropped). The watch app does not append here:
+  /// its marks go to the phone over WatchConnectivity (`WatchPrayerModel.mark`).
+  static let maxQueued = 32
   /// Darwin (cross-process) notification posted after every queue write so a
   /// running app instance drains immediately (Siri extension, widget buttons,
   /// watch bridge). Observed by `MunibExternalCommandsModule`.
   static let changedDarwinNotification = "app.munibtracker.commands.changed"
 
+  /// The queue is a JSON array of JSON-encoded command strings (`drainAll` reads `[String]`).
   static func appendCommandJson(_ json: String) {
     defer { notifyChanged() }
-    guard let data = readRaw().data(using: .utf8),
-          var array = try? JSONSerialization.jsonObject(with: data) as? [String] else {
-      writeRaw("[\(json)]")
-      return
-    }
+    var array = readArray() ?? []  // unreadable queue: start over rather than drop this command
     array.append(json)
-    if array.count > 32 { array = Array(array.suffix(32)) }
+    if array.count > maxQueued { array = Array(array.suffix(maxQueued)) }
     if let out = try? JSONSerialization.data(withJSONObject: array),
        let str = String(data: out, encoding: .utf8) {
       writeRaw(str)
@@ -27,13 +27,19 @@ enum ExternalCommandQueue {
   }
 
   static func drainAll() -> [String] {
-    let raw = readRaw()
+    let array = readArray() ?? []
     writeRaw("[]")
-    guard let data = raw.data(using: .utf8),
-          let array = try? JSONSerialization.jsonObject(with: data) as? [String] else {
-      return []
-    }
     return array
+  }
+
+  /// Read without draining: widgets and Siri show queued marks as done before the app applies them.
+  static func peekAll() -> [String] {
+    readArray() ?? []
+  }
+
+  private static func readArray() -> [String]? {
+    guard let data = readRaw().data(using: .utf8) else { return nil }
+    return (try? JSONSerialization.jsonObject(with: data)) as? [String]
   }
 
   /// Local calendar date (yyyy-MM-dd) for `mark-prayer` commands. Must match

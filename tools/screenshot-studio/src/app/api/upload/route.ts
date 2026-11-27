@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { rejectCrossSiteWrite } from "@/lib/same-origin-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,8 @@ function parseDataUrl(dataUrl: string): { mime: string; bytes: Buffer } | null {
 }
 
 export async function POST(req: Request) {
+  const rejected = rejectCrossSiteWrite(req);
+  if (rejected) return rejected;
   let body: { dataUrl?: string };
   try {
     body = (await req.json()) as { dataUrl?: string };

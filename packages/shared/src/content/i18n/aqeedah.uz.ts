@@ -15,22 +15,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Aqida mavhum seminar mavzusi emas; u butun ibodat va xarakter o'sib chiqadigan ildizdir. Insonning Allohning kimligi, nima uchun yaratilganligi va qayerga qarab ketayotgani haqidagi eʼtiqodlari uning qanday ibodat qilishi, boshqalarga qanday munosabatda boʻlishi, qiyinchilik va oʻlimga qanday duchor boʻlishini boshqaradi.",
       "To'g'ri e'tiqod qalbni ulug' ibodat holatlari - sevgi va qo'rquv, umid va qo'rquv, tavakkal va harakat, shukr va tavba o'rtasida muvozanatda ushlab turadi, shunda mo'min Allohning rahmatidan umidini uzmaydi va Uning hisob-kitobidan omon qolmaydi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yaxshilik Allohga, oxirat kuniga, farishtalarga, kitobga va payg'ambarlarga iymon keltirishidir...",
-      },
-      {
-        excerpt:
-          "Ey iymon keltirganlar, Allohga, Uning payg‘ambariga, O‘z payg‘ambariga nozil qilgan kitobiga va avval nozil qilgan kitobiga iymon keltiringlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iymon - Allohga, farishtalariga, kitoblariga, payg'ambarlariga, oxirat kuniga ishonish, ilohiy hukmga, uning yaxshi va achchiqligiga ishonishdir. (Jibril hadis, Umar rivoyati).",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -42,12 +28,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Ahli sunna ichida tan olingan ilohiyot maktablari, xususan, athoriy, ash’ariy va moturidiy yondashuvlari mavjud bo‘lib, ular iymonning zaruriy jihatlari bo‘yicha to‘liq rozi bo‘lib, ayrim masalalarni, xususan, ilohiy sifatlarni ifodalashning ba’zi texnik usullarida farq qiladi. Ularning umumiy asosi yagona va mustahkamdir: Allohning mutlaq birligi, vahiysining rostligi va oxiratda haqiqiy hisob-kitobi.",
       "Demak, aqida jonli e'tiqod sifatida eng yaxshi o'rganiladi: aqidaning har bir nuqtasi ibodat qilish usuli, xulq-atvori va tasalli manbai bilan bog'lanadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ilm egalari: «Biz unga iymon keltirdik. Bularning hammasi Robbimizdandir», dedilar.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Aqiydani ijtimoiy tarmoqlardagi bahslardan emas, ishonchli olimlar va asosiy matnlardan o'rganing.",
       "O'rganayotgan har bir e'tiqodingiz uchun so'rang: bu mening sajda qilish va yashashimni qanday o'zgartiradi?",
@@ -62,18 +43,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "To'g'ri e'tiqod mo'minni butun umri davomida olib boradigan narsadir: qiyinchilikda Allohning amriga sabrli bo'lishga, ne'matga kamtarona shukr qilishga, noaniqlik va o'lim oldida xotirjamlikka o'rgatadi. Qadrga va oxiratga chinakam ishongan odam sinovdan o'tmaydi.",
       "Nihoyat, sog'lom aqida ixtilofda adabni - yaxshi xulq-atvorni o'rgatadi: samimiy ulamolar uzoq vaqt ixtilof qilgan ikkinchi darajali masalalarda aniq asoslarga qat'iy rioya qilish va hurmat va vazminlik ko'rsatish. E'tiqodni bilish kamtarlik va rahm-shafqatni oshirishi kerak, hech qachon takabburlik emas.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Alloh iymon keltirganlarni dunyo hayotida ham, oxiratda ham mustahkam so'z bilan mustahkam qilur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "O'zingizga foyda keltiradigan narsaga ishtiyoqli bo'ling, Allohdan yordam so'rang va nochor qolmang... (Abu Hurayra)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Iymonning olti maqomi",
@@ -83,12 +54,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Oltitasi: Allohga iymon keltirish; Uning farishtalarida; Uning nozil kitoblarida; Uning payg'ambarlarida; oxiratda; va ilohiy hukmda (qadr) uning yaxshi va achchiqligi. Ulardan birortasini inkor etish haqiqiy iymondan chetda qolishdir, chunki ular bir matodir.",
       "Ular, shuningdek, bir-biriga chuqur bog'langan. Kitoblarga va payg'ambarlarga iymon keltirish oxirat kuni va hisob-kitobni bilishga olib keladi; Qiyomat kuniga iymon keltirish har bir amalni talon-taroj qiladi; Qadrga e'tiqod esa Allohga tavakkal qilishni va Uning hikmati oldida kamtarlikni o'rgatadi. Ularni tartib bilan o'rganish aniq va muvozanatli dunyoqarashni shakllantiradi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "...Allohga, farishtalariga, kitoblariga, payg‘ambarlariga, oxirat kuniga iymon keltirishingiz, hukmga, uning yaxshi va achchiqligiga iymon keltirishingiz. (Jibril hadisi sharif)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -101,15 +67,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Ahli sunnat Alloh taoloning Oʻziga va Rasuli sollallohu alayhi vasallamning U zot uchun tasdiqlagan goʻzal ismlari va yuksak sifatlarini Oʻzining ulugʻvorligiga yarasha tarzda tasdiqlaydilar, uni Oʻz ijodiga (taʼtil) oʻxshatmay, maʼno sifatlarini inkor etmay, boʻshatmay. Himoya qiluvchi oyat: “Unga oʻxshagan hech narsa yoʻq, U eshituvchi va koʻruvchidir” (42:11) – bu ham oʻxshashlikni inkor etadi, ham Uning eshitish va koʻrishini tasdiqlaydi.",
       "Allohni ismlari ila bilish — mehribon, o‘ta bilguvchi, barhayot tirik, podshoh, mag‘firat — qalb taomidir: Uni qanchalik ko‘p tanisang, shunchalik ko‘p sevasan, qo‘rq, Unga murojaat etasan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ayting: «U Alloh yagonadir... U tug'ilmaydi va tug'ilmaydi va Unga teng keladigani yo'q.",
-      },
-      {
-        excerpt: "Va eng go'zal ismlar Allohnikidir. Bas, ular bilan Unga duo qilinglar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -121,16 +79,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Ularga ishonish, ko‘rinmas olam atrofimizdagi haqiqiy va faol ekanligiga ishonishdir. Farishtalar vahiy keltiradilar, odamlarni qo'riqlaydilar, har bir so'z va ishlarni yozib qo'yadilar, o'lim paytida jonlarni oladilar va Allohning izni bilan er va osmon ishlarini boshqaradilar.",
       "Matnlarda ma'lum rollar bilan bir nechta nom berilgan: Vahiy farishtasi Jibril; Mikoilga yomg'ir va rizq topshirilgan. Sur chaluvchi Isrofil; Malak al-Mavt, o'lim farishtasi; va har bir kishining amallarini yozib turuvchi oliyjanob ulamolar (Kiraman Katibin). Munkar va Nakir marhumni qabrda so‘roq qilishadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Uning ustida Allohning amriga osiy bo'lmaydigan va buyurilgan narsani bajaradigan qattiqqo'l va qattiqqo'l farishtalar bor.",
-      },
-      {
-        excerpt:
-          "Ayting: Kim Jabroilga dushman bo'lsa, bas, u Allohning izni bilan uni qalbingga tushirgandir.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Yozuvchi farishtalar hech qachon biron bir so'z yoki harakatni o'tkazib yubormasligini anglab yashang.",
     ],
@@ -144,15 +93,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Qur'on o'ziga xos darajaga ega. Bu oxirgi vahiy boʻlib, “oʻzidan oldingi narsalarni tasdiqlovchi va uning ustidan hukm qiluvchi” (5:48), yaʼni u hukm qiladi va toʻgʻrilaydi, chunki avvalgi kitoblar asl holida qolmagan, balki oʻzgartirilgan (tahrif) va avlodlar davomida yoʻqolib ketgan.",
       "Muqaddas kitoblar ichida yagona bo‘lib, Qur’oni karim buzg‘unchilikdan ilohiy himoyalangan: “Albatta, eslatmani Biz nozil qildik va, albatta, Biz uning qo‘riqchisimiz” (15:9). Demak, kitoblarga iymon keltirish vahiyni hurmat qilish, Qur'onni tafakkur bilan tilovat qilish va hayotda uning hidoyatiga bo'ysunish demakdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Va Biz senga o'zidan oldingi kitobni tasdiqlovchi va uni ajratuvchi bo'lib haq kitobni nozil qildik.",
-      },
-      {
-        excerpt: "Darhaqiqat, zikrni Biz nozil qildik va, albatta, Biz uni himoya qilguvchidirmiz.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -164,15 +105,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Payg'ambarlar rostgo'ylik va ishonchlilik bo'yicha yaratilganlarning eng yaxshisidirlar, ular Alloh tomonidan xabar haqida yolg'on gapirishdan va katta gunohlardan himoyalangan - lekin ular ilohiy emas, balki inson bo'lib qoladilar va hech qachon ibodat qilinmaydilar. “Qat’iy” elchilar (ulu al-azm) sifatida besh kishi ajratilgan: Nuh, Ibrohim, Muso, Iso va Muhammad alayhissalom.",
       "Muhammad sollallohu alayhi vasallam payg'ambarlarning muhri (xotam an-nabiyyin): undan keyin hech bir payg'ambar kelmaydi va uning xabari umumbashariy bo'lib, qiyomatgacha butun insoniyatga yuboriladi. Unga ishonish, uni sevish, amrlariga bo'ysunish, xabarlariga ishonish va faqat u o'rgatgan yo'l bilan ibodat qilishni o'z ichiga oladi.",
     ],
-    quran: [
-      {
-        excerpt: "...Biz Uning payg‘ambarlaridan birortasini farq qilmaymiz...",
-      },
-      {
-        excerpt:
-          "Muhammad birorta odamingizning otasi emas, balki Allohning rasuli va payg‘ambarlarning muhridir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -184,12 +117,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Bu e'tiqod har bir daqiqaga ma'naviy yuk beradi. Alloh taolo yashirinni ko‘rib, eng kichik amalni yozib qo‘ygani uchun hech qanday yaxshilik zoye ketmaydi va hech bir yomonlik ko‘zdan qochmaydi: “Kim zarrachalik yaxshilik qilsa, uni ko‘radi, kim zarrachalik yomonlik qilsa, uni ko‘radi”.",
       "Ahli sunnat bu voqeliklarning barchasini qat’iylik bilan tasdiqlab, ularga aynan xabar qilinganidek e’tiqod qiladilar, shu bilan birga, ulamolar o‘ziga xos hodisa va alomatlarning nozik tafsilotlarini talqin qilishda turlicha bo‘lishlarini e’tirof etadilar. E'tiqodning maqsadi taxmin emas, balki tayyorgarlikdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Bas, kim zarrachalik yaxshilik qilsa, uni ko'radi, kim zarrachalik yomonlik qilsa, uni ko'radi.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -202,21 +130,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Ahli sunnat ikki xato o'rtasida yo'l tutadi: hukmni inkor etish (hodisalar Allohning ilmi va irodasidan qochgandek) va fatalizm (inson mas'uliyatini bekor qilish va gunohni kechirish uchun farmondan foydalanish). Mo'min vositani yaxshilik bilan oladi, so'ngra oqibatini Allohga topshiradi.",
       "Amalda, qadr - tinchlikning buyuk manbai: o'z burchingizni bajarganingizdan so'ng, sizga erishgan narsa sizni hech qachon o'tkazib yubormasligini va siz o'tkazib yuborgan narsa sizga hech qachon etib bormasligini bilishga dam olasiz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Agar senga biror narsa yetsa, “Agar shunday qilgan boʻlsam”, dema, balki “Alloh belgilab qoʻydi, xohlaganini qildi”, degin, chunki “Qaniydi” shaytonga eshikni ochadi. (Abu Hurayra)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Darhaqiqat, Biz har bir narsani o'lchov bilan yaratganmiz.",
-      },
-      {
-        excerpt:
-          "Darhaqiqat, bir qavm o'z nafsini o'zgartirmaguncha, Alloh ularning ahvolini o'zgartirmas.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Noto'g'ri tushuncha: Agar hamma narsa belgilab qo'yilgan bo'lsa, urinish befoyda. Tuzatish: Islom sa'y-harakatlarni, rejalashtirishni, ibodat qilishni va tavba qilishni buyuradi - vositalarni olishning o'zi farmonning bir qismidir.",
       "Noto'g'ri tushuncha: Qadr, mening gunohim uchun Alloh aybdor degan ma'noni anglatadi. Tuzatish: xizmatkor tanlaydi va hisob beradi; farmon hech qachon itoatsizlik uchun bahona emas.",
@@ -237,14 +152,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Bu uch qismli ramka bo'linish manbai emas, balki o'qitish vositasidir; uning maqsadi mo'minga ixlosni saqlashga yordam berish va birlik qayerda buzilishi mumkinligini aniqlashdir. Uning to'liqligi har bir musulmonning duosining birinchi duosida aks ettirilgan: \"Biz faqat Senga ibodat qilamiz va faqat Sendan yordam so'raymiz\".",
       "Muhim tushuncha: Allohning Yaratuvchi ekanligini tan olish (rububiya) o'z-o'zidan etarli emas. Payg'ambarlarni inkor etganlarning ko'plari hali ham Alloh osmonlar va erni yaratganini tan oldilar - ular yolg'iz Unga ibodat qilishdan bosh tortdilar (uluhiyya). Haqiqiy tavhid faqat kelib chiqishi haqidagi e'tiqodda emas, balki ibodatda isbotlangan.",
     ],
-    quran: [
-      {
-        excerpt: "Sengagina ibodat qilamiz va faqat sendan yordam so'raymiz.",
-      },
-      {
-        excerpt: "Alloh - Undan o'zga iloh yo'q. Eng go'zal ismlar Unikidir.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Noto'g'ri tushuncha: Tavhid faqat bitta gapni aytadi. Tuzatish: Bu qalbning iymoni, tilning bayoni va ibodatda yashagan haqiqatdir.",
       "Noto'g'ri tushuncha: Allohni yaratuvchi deb ishonish butun tavhiddir. Tuzatish: Hatto ko'p kofirlar ham buni tasdiqladilar - bu sinov yolg'iz Allohga ibodat qilishdir.",
@@ -260,21 +168,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Kichik shirk (ash-shirk al-asg'ar) Islomdan chiqarib yubormaydi, lekin o'ta xavflidir va amallarning savobini bekor qilishi mumkin. Uning eng aniq ko'rinishi riyo - odamlarga ko'rinadigan va maqtovga sazovor bo'lgan ibodatdir - Payg'ambar sollallohu alayhi vasallam o'z ummatlari uchun eng ko'p qo'rqadigan narsa deb atadilar. Allohdan boshqasiga ulug'lovchi tarzda qasam ichish ham shu yerga tushadi.",
       "Ahli sunnat til va hukmda ehtiyotkor bo‘ladi: umuman shirkdan ogohlantirish muhim va tushunarli, biroq muayyan shaxsni mushrik yoki kofir (takfir) deb e’lon qilish muhim masala bo‘lib, bilim, asosli dalillar va uzrlarni olib tashlashni talab qiladi – bu oddiy odamlarga yoki internetga emas, malakali olimlarga tegishlidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, Alloh O'ziga shirk qo'shishni kechirmas, balki undan ozroq narsani O'zi xohlagan kishi uchun kechirur.",
-      },
-      {
-        excerpt: "Ey o'g'lim, Allohga shirk keltirma. Darhaqiqat, uyushma katta zulmdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Men siz uchun eng ko'p qo'rqadigan narsa kichik shirkdir. Bu nima, deb so'ralganda, u zot: \"O'zini ko'rsatish (riyo)\", dedilar. (Mahmud ibn Labid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Noto'g'ri tushuncha: Har bir tilning siljishi katta shirkdir. Tuzatish: Olimlar kattani kichikdan ajratadilar va har bir ishni dalillar bilan sinchkovlik bilan baholaydilar.",
       "Noto'g'ri tushuncha: Shirkdan ogohlantirish odamlarga nisbatan qattiqqo'llikni talab qiladi. Tuzatish: bashoratli yo'l haqiqatning ravshanligini rahm-shafqat va sabrli ta'limot bilan birlashtiradi.",
@@ -288,17 +183,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Chunki savob niyatga bog'liq bo'lib, Alloh uchun ixlos bilan qilingan kichik, sokin amal, obro'-e'tibor uchun qilingan katta, oshkora amaldan ustun turadi. Xuddi shu zohiriy amal - sadaqa berish, namoz o'qish, o'rgatish - qalbning orqasiga qarab ibodat yoki bo'shlik bo'lishi mumkin.",
       "Samimiylik bir marta erishilmaydi, balki doimiy ravishda yangilanadi, chunki o'z-o'zini e'tiborga olishga moyil. Shuning uchun mo'minlar qayta-qayta niyatlarini poklaydilar va Allohdan ularni riyoning yashirin shirkidan va o'zlarini aldashdan saqlashini so'raydilar.",
     ],
-    quran: [
-      {
-        excerpt: "Va ular faqat Allohga dinni xolis qilib ibodat qilishga buyurilgan edilar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Amallar faqat niyatga bog'liq va har bir inson faqat o'zi niyat qilgan narsaga ega bo'ladi. (Umar ibn al-Xattob)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -309,15 +195,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Ahli sunnat bular ikki qanot va bosh bilan uchayotgan qush kabi muvozanatda turishi kerak, deb taʼlim beradi. Sevgi va qo'rquvsiz umid beparvolik va Allohning rahmatini oddiy holga keltirishi mumkin; umidsiz qo'rquv tushkunlikka tushishi mumkin. Qur'on ularga qo'shiladi: \"Unga qo'rquv va umid bilan duo qilinglar\".",
       "Bu muvozanat shunchaki tuyg'u emas; amalda namoyon bo'ladi - namozni qo'riqlashda, tavba qilishga shoshilishda, boshqalarga xizmat qilishda, g'azabni tiyishda va uni hukm qilgan Zotga bo'lgan muhabbat tufayli qiyinchilikda sabr qilishda.",
     ],
-    quran: [
-      {
-        excerpt: "...Iymon keltirganlarning Allohga muhabbati kuchliroqdir.",
-      },
-      {
-        excerpt:
-          "...Va Unga qo'rquv va umid bilan duo qiling. Albatta, Allohning rahmati yaxshilik qiluvchilarga yaqindir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -329,21 +207,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Allohning da'vati hayratlanarli darajada saxovatlidir: «Ayting: Ey o'zlariga zulm qilgan bandalarim, Allohning rahmatidan noumid bo'lmanglar. Albatta, Alloh barcha gunohlarni mag'firat qilguvchidir». Tavba eshigi quyosh g'arbdan chiqmaguncha yoki shaxsning o'limi yaqinlashguncha ochiq qoladi.",
       "Samimiy tavba qilishning aniq shartlari bor: gunohni darhol tark etish, qilgani uchun chin dildan pushaymon bo'lish va hech qachon qaytib kelmaslikka qat'iy qaror qilish - va agar gunoh boshqa birovning huquqlari bilan bog'liq bo'lsa, bu huquqlarni tiklash yoki ulardan kechirim so'rash. Bular ro'yobga chiqqanda, Alloh taoloning javobi shunchaki qabul qilish emas, balki xursandchilik bo'ladi: U taqir cho'lda yo'qolgan tog'ini va rizqini qaytarib olgan odamdan ko'ra \"O'z bandasining tavbasidan ko'proq xursand bo'ladi\".",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ayting: Ey o'zlariga zulm qilgan bandalarim, Allohning rahmatidan noumid bo'lmanglar. Albatta, Alloh barcha gunohlarni kechiradi.",
-      },
-      {
-        excerpt: "Ey iymon keltirganlar, Allohga xolis tavba qilinglar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taolo bandasining tavba-tavbasi bilan taqir yerda togʻini yoʻqotib, yegulik-ichimligini koʻtarib, keyin yana topib olgan kishidan koʻra koʻproq xursand boʻladi. (Ibn Mas'ud)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -355,18 +220,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Jannatga kirish oxir-oqibat Allohning rahmati bilan bo'ladi - hech kimning amali abadiy saodatga erisha olmaydi - lekin ixlos iymon va solih amal Alloh belgilab qo'ygan va qabul qiladigan vositadir. Ikkisi bir-biriga zid emas: rahm-shafqat sabab, iymon va amal esa unga ochgan yo‘ldir.",
       'Jannatga bo‘lgan e’tiqod insonning hozirgi yashash tarzini qayta shakllantiradi: u sabr-toqatni mashaqqat bilan, saxovatni boylik bilan, ibodatdagi matonatni kuchaytiradi, chunki mo‘min o‘tkinchi dunyoni mangu uyga almashtiradi. Qur\'on bizni unga "poyga" qilishga chaqiradi.',
     ],
-    quran: [
-      {
-        excerpt:
-          "Robbingizdan mag'firatga va kengligi osmonlaru yerdek bo'lgan taqvodorlar uchun tayyorlangan jannatga shoshiling.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taolo aytdi: «Men solih bandalarim uchun hech bir ko‘z ko‘rmagan, hech bir quloq eshitmagan va inson qalbi o‘ylab topmagan narsalarni tayyorlab qo‘ydim. (Abu Hurayra; Yana Sahih Musulmon 2824)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -378,16 +233,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Ogohlantirishlar rahm-shafqatli maqsadga xizmat qiladi: ular odamlarni o'zlari tasvirlagan oqibatlardan himoya qilish uchun mavjud - takabburlik, zulm va qat'iyatli, haqiqatni rad etishni bilish va eshik ochiq bo'lsa, g'aflatni tavba qilishga undash.",
       "Ahli sunnat ogohlantirishlar va rahmatni birga tutadi. Do‘q-po‘pisalar jiddiy va haqiqiydir, lekin Allohning rahmati Unga yuz o‘girgan kishiga keng bo‘lib qoladi – va tavhid ahlidan do‘zaxga kirgan gunohkorlar u yerda abadiy qolmaydilar, oxir oqibat Allohning rahmati va U izn bergan shafoati bilan chiqariladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iymon keltirganlar, o'zingizni va oilangizni yoqilg'isi odamlar va toshlar bo'lgan do'zaxdan saqlaning.",
-      },
-      {
-        excerpt:
-          "...Allohning rahmatidan noumid bo'lmang. Albatta, Alloh barcha gunohlarni kechiradi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -398,16 +244,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "O'lim va tirilish o'rtasida barzax bor - qabrning oraliq hayoti, uning so'rovi va uning oson yoki qiyinligi bilan. So‘ngra sur chalinib, butun maxluqot tirilib, hisob-kitob uchun Alloh huzuriga to‘planadi.",
       "Bu e’tiqod inson hayotiga axloqiy jiddiylik baxsh etadi: tirilishsiz bemalol o‘lgan zolim ham, zulm qilinib o‘lgan mazlum ham xuddi shunday natijaga erishadi. U bilan har bir xatoga javob beriladi va har bir yaxshilikka ajr beriladi, sabr va adolatga ma'no beradi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "U zot: «Suyaklarni chirigan hollarida kim tiriltiradi?» deydi. Ayting: «Ularni birinchi marta yaratgan zot tiriltirur...»",
-      },
-      {
-        excerpt:
-          "Darhaqiqat, qiyomat soati keladi, bunga shubha yo'q va Alloh qabrdagilarni tiriltirur.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Qiyomat kuni",
@@ -417,12 +254,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "U kunda na nasl, na mol, na tabaqa, na millat va na dunyoviy martaba hech kimga foyda keltirmaydi; Alloh tomonidan qabul qilingan xolis iymon va solih amalgina foyda beradi. Yozuvlar tarqatiladi, amallar tortiladi, hatto odamlar o'rtasida qilingan yomonliklar ham yaxshi va yomon ishlarni ko'chirish yo'li bilan tugatiladi.",
       "Bu aniqlik hozir xarakterni o'zgartirish uchun mo'ljallangan: u mo'minni halollikka, ishonchlilikka, boshqalarning haqlarini himoya qilishga va yomonliklarni tuzatishga va qarzni pul bilan emas, balki amalda to'lanadigan Kundan oldin qaytarishga chaqiradi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz qiyomat kuni uchun adolat tarozisini qo'yamiz. Bas, hech bir jonga zulm qilinmas.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -433,16 +265,7 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Sirot jahannam ustidan cho'zilgan ko'prik bo'lib, hamma o'tishi kerak. Qurʼoni karimda “Sizlardan hech kim yoʻqki, undan oʻtib oʻtmas”, soʻngra “Allohga taqvo qilganlarga najot berurmiz”, deyilgan. Odamlar qilgan ishlariga ko'ra - kimdir yorug'lik yoki shamoldek tez, ba'zilari qiynalib, ba'zilari sirpanib - Allohning rahmati va adolati bilan kesib o'tadi.",
       "Bu haqiqatlar qo'rqitish uchun emas, balki jiddiylik tarbiyalash uchun aytiladi: kichik amallarning og'irligi haqida, ibodatning ixlosi haqida va boshqalarning haqlarini hurmat qilish haqida, chunki bularning barchasi tarozida bo'ladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kimning tarozisi og'ir bo'lsa, bas, u rohat hayotda bo'lur. Kimning tarozisi engil bo'lsa, uning panohi tubsizlikdir.",
-      },
-      {
-        excerpt:
-          "Sizlardan birortangiz u yerdan o'tib ketsa... So'ngra Allohdan qo'rqqanlarga najot berurmiz.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -453,21 +276,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Lekin hech kim o'z vakolati bilan shafoat qilmaydi. Har bir sahih shafoat faqat «Uning izni bilan» va faqat Alloh rozi bo'lgan zotlar uchun bo'ladi: «Uning huzurida Uning iznisiz kim shafoat qila oladi?» Bu Allohning oqibatda mutlaq hukmronligini saqlaydi.",
       "Ulamolar shafoatning bir necha tasdiqlangan turlarini ta'riflaydilar - hisob-kitob boshlanishi, odamlarning jannatga kirishi, gunohkor mo'minlarning mag'firat qilinishi yoki do'zaxdan olib tashlanishi uchun - va yakuniy hukm doimo yolg'iz Allohga tegishli ekanligiga rozi bo'lishadi.",
     ],
-    quran: [
-      {
-        excerpt: "Kim Uning huzurida faqat Uning iznisiz shafoat qila oladi?",
-      },
-      {
-        excerpt:
-          "O'sha kunda Rahmon izn bergan va so'zidan rozi bo'lgan kishigagina shafoat foyda berur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Odamlar mening oldimga keladilar va men Robbimga sajda qilaman. keyin aytiladi: Boshingni ko'tar, so'ra, senga beriladi, shafoat qil va shafoating qabul qilinadi. (Abu Said — buyuk shafoat)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Noto'g'ri tushuncha: Shafoat tavba qilish zaruratini yo'q qiladi. Tuzatish: Bu faqat Allohning izni bilan sodir bo'ladi va hech qachon gunohda davom etish uchun ruxsat bermaydi.",
       "Noto'g'ri tushuncha: Shafoat qilish uchun hozir payg'ambarlarni yoki solihlarni chaqirish mumkin. Tuzatish: Ibodat va duo faqat Alloh uchundir; Oxiratda shafoat qilish Uning amri ila, Uning roziligi uchun so'raladi.",
@@ -484,22 +294,8 @@ export const AQEDAH_TOPICS_UZ: DeepPartial<AqeedahTopic>[] = [
       "Payg'ambarimiz sollallohu alayhi vasallamning hadislarida o'nta asosiy belgi birgalikda keltirilgan: Dajjolning paydo bo'lishi, Iso alayhissalomning tushishi, Ya'juj va Ma'jujning paydo bo'lishi, uchta katta ko'chki, tutun, quyoshning g'arbdan chiqishi va odamlarni so'nggi yig'ilishlariga olib boradigan olov.",
       "Baʼzida ulamolar baʼzi alomatlarning aniq ketma-ketligi borasida ixtilof qiladilar, lekin ular ikki narsada ixtilof qiladilar: qiyomatning kelishi aniq va uning aniq vaqtini Allohdan boshqa hech kim bilmaydi, hatto Jabroil alayhissalom soʻraganlarida ham Paygʻambar alayhissalomga ham maʼlum. Shuning uchun belgilarga bashoratli javob spekulyativ emas, amaliydir: cheksiz bashorat qilishdan ko'ra imon, tavba, adolat va foydali amallarni oshiring.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ular sendan qiyomat soati haqida so'raydilar: qachon keladi? Ayting: «Uning ilmi faqat Robbim huzuridadir.",
-      },
-      {
-        excerpt:
-          "Ular faqat qiyomatning to'satdan kelishini kutmoqdalarmi? Uning belgilari allaqachon paydo bo'lgan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "O'nta alomatni ko'rmaguningizcha qiyomat qolmaydi: tutun, Dajjol, hayvon, quyosh g'arbdan chiqishi, Iso, Ya'juj va Ma'jujning tushishi va uchta ko'chki... (Huzayfa ibn Usayd).",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Noto'g'ri tushuncha: Har bir yirik jahon hodisasi, albatta, yakuniy belgidir. Tuzatish: Bunday da'volar sensatsiya emas, balki haqiqiy dalillar va ilmiy ehtiyotkorlikni talab qiladi.",
       "Noto'g'ri tushuncha: Alomatlarni bilish bizga soatni sanab berish imkonini beradi. Tuzatish: Aniq vaqt faqat Allohga ma'lum; belgilar bizni bashorat qilishga emas, balki tayyorlanishga chaqiradi.",

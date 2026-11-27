@@ -1,3 +1,4 @@
+import "server-only";
 import { createPgDatabase } from "@munib-tracker/db/pg/createDb";
 import type * as schema from "@munib-tracker/db/schema";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";

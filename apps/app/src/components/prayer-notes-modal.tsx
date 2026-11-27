@@ -5,7 +5,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -38,7 +38,7 @@ export function PrayerNotesModal({
   }, [visible, initialValue]);
 
   return (
-    <Sheet visible={visible} onClose={onClose}>
+    <Sheet accessibilityLabel={title} visible={visible} onClose={onClose}>
       <ThemedText type="subtitle">{title}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("notesModal.hint")}
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     fontSize: 15,
     textAlignVertical: "top",
   },

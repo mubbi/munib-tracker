@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Open Source — {appName} on GitHub",
+    "description": "{appName} is source-available on GitHub for personal and educational use under the {license}."
+  },
+  "eyebrow": "Open source",
+  "title": "Built in the open for the ummah",
+  "summary": "{appName} is source-available on GitHub for personal and educational use. You may use, modify, and redistribute it — with credit and a link to munibtracker.app. It may not be sold or used commercially.",
+  "cards": {
+    "source": {
+      "title": "Source on GitHub",
+      "body": "Browse the monorepo — Expo app (phone + TV), NestJS API, admin console, and this marketing site — in one place."
+    },
+    "license": {
+      "title": "Clear license",
+      "body": "Non-commercial use, modification, and redistribution with required attribution."
+    },
+    "fork": {
+      "title": "Fork & improve",
+      "body": "Adapt for your community’s non-commercial needs — keep the credit and the link."
+    },
+    "contribute": {
+      "title": "Contribute",
+      "body": "Code, docs, translations, and careful content corrections are all welcome."
+    }
+  },
+  "permitted": {
+    "heading": "What the license allows",
+    "items": {
+      "personalUse": "Use the app and source for personal worship, study, and education",
+      "modify": "Modify the code and share your changes non-commercially",
+      "redistribute": "Redistribute copies with the license, NOTICE, and marketing-site credit",
+      "contribute": "Contribute bug fixes, translations, docs, and content corrections"
+    }
+  },
+  "notPermitted": {
+    "heading": "What is not allowed",
+    "items": {
+      "sell": "Sell the app, a fork, or a customized version as a product",
+      "commercial": "Use the project as part of a commercial product or paid service",
+      "stripAttribution": "Strip attribution or remove the link to munibtracker.app",
+      "inventScripture": "Invent or AI-generate religious scripture for inclusion in the app",
+      "solicitMoney": "Solicit or accept money in the name of {appName} (no sponsorship, funding, or donations at this time)"
+    },
+    "legal": "Full legal text: <licenseLink>{license}</licenseLink>. Attribution requirements live in our <notice>NOTICE</notice> file on GitHub."
+  },
+  "attribution": {
+    "heading": "Required attribution",
+    "body": "Anyone who uses, modifies, or redistributes {appName} must keep the license and NOTICE, credit <strong>{appName}</strong>, and include a visible link to <home>munibtracker.app</home>."
+  },
+  "noFunding": {
+    "heading": "No sponsorship or donations",
+    "notice": "{appName} does not currently accept sponsorship, funding, or donations. Do not send money to anyone claiming to collect funds on behalf of {appName}.",
+    "body": "There is no official Patreon, GitHub Sponsors, crypto wallet, or payment link for this project at this time. Help by contributing code, docs, translations, or careful content corrections — see <contributing>CONTRIBUTING.md</contributing>."
+  },
+  "contribute": {
+    "heading": "How to contribute",
+    "body": "Start with the <guide>contributing guide</guide>. Good first steps: docs typos, UI polish, translations, and content accuracy reports. See everyone who has helped on our <contributors>Contributors</contributors> page. Religious datasets remain under their own licenses — listed on <credits>Credits</credits>.",
+    "viewRepository": "View repository",
+    "contributingGuide": "Contributing guide",
+    "licenseOnGitHub": "License on GitHub",
+    "meetContributors": "Meet contributors"
+  }
+}

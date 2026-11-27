@@ -32,29 +32,8 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Recitimi i Kuranit është në vetvete një akt adhurimi, jo thjesht leximi i informacionit. Profeti ﷺ mësoi se çdo shkronjë e vetme e recituar fiton një vepër të mirë dhe secila vepër e mirë shumëzohet të paktën dhjetëfish – kështu që edhe një fillestar që tingëllon një rresht tashmë po grumbullon shpërblim. Në Ditën e Kijametit, Kur'ani do të vijë si ndërmjetës, duke u lutur në emër të atyre që e mbajtën shoqërinë e tij në këtë jetë. Ai që e reciton rrjedhshëm është në shoqërinë e engjëjve fisnikë-skribë, dhe ai që pengohet mbi të, duke luftuar për të mësuar, fiton një shpërblim të dyfishtë për mundin.",
       "Ndihmon për të qenë i qartë se çfarë nuk është Kur'ani. Kurani është fjalë fjalë për fjalë e vetë Allahut në arabisht, të pandryshuara që nga shpallja. Hadithi - thëniet, veprimet dhe miratimet e heshtura të Profetit - janë të ndara: ato shpjegojnë dhe demonstrojnë Kur'anin, por janë shprehje e Profetit ﷺ, të ruajtura përmes zinxhirëve të emërtuar të transmetuesve dhe të vlerësuar nga dijetarët si sahih (autentike), hasan (i mirë) ose da'if (i dobët). Të dyja janë shpallje dhe të dyja janë të detyrueshme, por vetëm Kur'ani lexohet si adhurim në namaz, dhe vetëm Kur'ani është fjala e mrekullueshme, e paimitueshme e Allahut.",
     ],
-    quran: [
-      {
-        excerpt: "Muaji i Ramazanit në të cilin ka zbritur Kurani si udhërrëfyes për njerëzimin…",
-      },
-      {
-        excerpt:
-          "Thuaj: Sikur njerëzit dhe xhinët të mblidheshin për të nxjerrë një Kuran të ngjashëm, ata nuk do të mund…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që lexon një shkronjë nga libri i Allahut, merr një hasen, dhe hasenja shumëzohet me dhjetë.",
-      },
-      {
-        excerpt:
-          "Lexojeni Kuranin, sepse ai do të vijë ndërmjetësues për shokët e tij në Ditën e Kijametit.",
-      },
-      {
-        excerpt:
-          "Ai që është i aftë në Kur'an është me shkruesit fisnikë e të drejtë, dhe ai që e lexon atë me vështirësi, duke belbëzuar mbi të, ka shpërblim të dyfishtë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Vendosni një kohë të caktuar ditore për Kuranin – edhe pesë minuta të fokusuara ndërtojnë berake dhe qëndrueshmëri.",
       "Lexoni të paktën një rresht me kuptim: recitoni arabishten, më pas lexoni përkthimin ngadalë.",
@@ -73,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Ruajtja e tekstit filloi që në jetën e vetë Profetit ﷺ. Sahabët e mësuan përmendësh shpalljen ashtu siç vinte dhe skribët e shkruajtën atë në pergamenë, kërcell palme, kocka dhe gurë nën mbikëqyrjen e drejtpërdrejtë të Profetit ﷺ. Pasi shumë kujtues u martirizuan në Betejën e Jemames, Ebu Bekri urdhëroi Zejd ibn Thabit të mblidhte Kur'anin e shkruar në një koleksion të vetëm (suhuf). Më vonë, ndërsa perandoria u përhap dhe dialektet ndryshonin, Uthmani kishte kopje autoritative të bëra në dialektin e kurejshëve dhe dërguar në qytetet kryesore, duke standardizuar një tekst të shkruar për të gjithë umetin.",
       "Vetë Allahu garantoi mbrojtjen e Kuranit: “Ne e zbritëm Përkujtimin dhe vërtet Ne do ta ruajmë atë”. Ky premtim është përmbushur përmes tre masave mbrojtëse të ndërlidhura - memorizimi masiv në çdo gjeneratë, transmetimi i kujdesshëm me shkrim dhe zinxhirët e pandërprerë të recitimit (qiraat) nga mësuesi te nxënësi që arrin deri te Profeti ﷺ. Për besimtarin kjo është një shenjë teologjike; për historianin është një fakt i dokumentuar: Kur'ani i recituar sot është i njëjti tekst i shpallur katërmbëdhjetë shekuj më parë.",
     ],
-    quran: [
-      {
-        excerpt: "Vërtet, Ne e kemi zbritur Përkujtimin dhe vërtet, Ne do ta ruajmë atë.",
-      },
-      {
-        excerpt: "Lexo me emrin e Zotit tënd i cili krijoi…",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -92,12 +64,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Për lexim të menaxhueshëm, Kur'ani ndahet gjithashtu në 30 pjesë të barabarta të quajtura xhuz (shumësi ajza'), dhe çdo xhuz në dy gjysma të quajtura hizb, duke dhënë 60 hizb në total. Kjo është ajo që e bën khatm të Ramazanit - plotësimi i të gjithë Kuranit në një muaj - kaq të natyrshëm: një xhuz në ditë përfundon Librin për tridhjetë ditë, dhe një gjysmë xhuz dy herë në ditë është akoma më e butë. Brenda çdo sureje ajetet (ajetet) janë të numëruara, kështu që çdo pasazh mund të citohet saktësisht si sure:ayah; numërimi standard i Medinës është 6,236 ajete, me vetëm dallime të vogla, të mirëdokumentuara në mënyrën se si numërohen disa kufij të vargjeve - vetë teksti është identik.",
       "Kuptimi i kësaj strukture i kthen qëllimet e paqarta në një plan konkret. Ju mund të angazhoheni për një pjesë fikse ditore, të synoni Xhuz Amma (pjesa e fundit, e tridhjetë, plot me sure të shkurtra) për memorizimin, të ndiqni një temë të vetme si durimi në disa sure, ose të planifikoni një lexim të plotë rreth Ramazanit. Struktura është skela që e bën të arritshme një marrëdhënie të përjetshme me Kuranin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…Një libër, vargjet e të cilit janë të detajuara, një Kur'an arabisht për njerëzit që dinë.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -126,15 +93,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Ju nuk keni nevojë të zotëroni gjithçka menjëherë. Rregullat thelbësore mësohen sipas radhës: vendimet e mesditës sakinah dhe tanween (izhar, idgham, iqlab, ikhfa), rregullat e meem sakinah, llojet e ndryshme të madd-it (zgjatja), qalqalah (kërcimi i dritës në shkronja të caktuara), gunnah (rezonanca nazale) dhe vakëf (waqf). Secili ka një përkufizim të qartë, shembuj të përditshëm dhe diçka për të praktikuar, dhe kjo qendër i kalon ato një nga një.",
       "Një rregull i fortë: mësoni texhvidin me vesh nga një mësues i kualifikuar, jo vetëm nga librat apo aplikacionet. Lexojini dikujt që mund t'i dëgjojë gabimet tuaja dhe t'i korrigjojë ato - kështu është mësuar gjithmonë texhvidi dhe është e vetmja rrugë e besueshme drejt saktësisë së vërtetë dhe, përfundimisht, një ixhaze (një zinxhir i certifikuar recitimi).",
     ],
-    hadith: [
-      {
-        excerpt: "Më të mirët prej jush janë ata që e mësojnë Kuranin dhe e mësojnë atë.",
-      },
-      {
-        excerpt:
-          "Ai që është i aftë në Kur'an është me shkruesit fisnikë e të drejtë, dhe ai që e lexon atë me vështirësi, duke belbëzuar mbi të, ka shpërblim të dyfishtë.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -167,12 +126,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Ju nuk e përktheni Kur'anin fjalë për fjalë në këtë mënyrë - kjo është puna e tefsirit dhe përkthimit - por filloni të njihni emrat e Allahut, urdhrat, premtimet dhe paralajmërimet drejtpërdrejt, në momentin e recitimit. Filloni me fjalët që shfaqen më shumë dhe kanë peshën më të madhe: Allah, Rabb (Zot), rahmah (mëshirë), iman (besimi), sabr (durim), taqwa (vetëdija ndaj Zotit), dunya (kjo botë) dhe akhirah (Ahireti). Nga ai grup spirancash, zgjeroni pak nga jashtë.",
       "Përdorni përsëritjen e ndarë në vend se të grumbulloni. Të mësosh pesë fjalë të reja në javë dhe t'i rishikosh të gjitha ato çdo ditë do t'ju çojë shumë më larg në një vit sesa të mësoni përmendësh pesëdhjetë në një ulur dhe t'i harroni ato. Allahu premton se Kur'ani është bërë i lehtë për t'u marrë në zemër - afrojuni fjalorit të tij në mënyrë të qëndrueshme dhe ju do ta ndjeni atë lehtësi nga dora e parë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe Ne e bëmë Kur'anin të lehtë për t'u përmendur, e a ka ndokush që të përkujtojë?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -211,11 +165,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Vini re modelin që kalon nëpër to. Profetët i thirrën njerëzit e tyre në adhurimin vetëm të Allahut; ata u tallën, u kundërshtuan dhe shpesh u dëbuan; ata duruan me durim dhe me mbështetje të plotë në Allahun (tevakkul); dhe në fund premtimi i Allahut u realizua. Kur lexoni për vështirësitë e tyre, nxirrni forcë nga mënyra se si u përgjigjën - pa e imagjinuar kurrë se grada juaj është e barabartë me e tyre. Çështja është të përvetësohet qëndrueshmëria dhe besimi i tyre, jo të krahasohet statusi.",
       "Vetë Kurani veçon një tregim: suren Jusuf, të cilën Allahu e quan 'rrëfimet më të mira'. Në mënyrë të pazakontë, ajo thuhet nga fillimi deri në fund në një sure të vetme, kështu që lexoni atë me një takim si një udhëtim i vazhdueshëm - tradhti, durim përmes skllavërisë dhe burgut, dhe më në fund falje dhe ribashkim - dhe shikoni se si shpaloset plani i Allahut pas viteve të fatkeqësisë së dukshme.",
     ],
-    quran: [
-      {
-        excerpt: "Në tregimet e tyre është sigurisht një mësim për ata që kuptojnë…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -227,11 +177,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Do të dëgjoni gjithashtu për 'mrekullitë shkencore' - vargje që prekin fazat e embrionit, zgjerimin e kozmosit dhe të ngjashme. Trajtoni këto me kujdes. Tefsiri klasik shpesh i kuptonte vargje të tilla në mënyra krejt të ndryshme nga apologjetët modernë dhe detyrimi i Kuranit që të përputhet me çdo hipotezë shkencore të ndryshueshme mund të dështojë kur teoritë ndryshojnë. Dalloni në mënyrë të vendosur midis interpretimit të vendosur dhe hamendjes bashkëkohore.",
       "Profecitë historike citohen gjithashtu nga studiues - fitorja e parathënë e romakëve, hapja paqësore e Mekës - dhe ato ia vlen të studiohen, por përmes tefsirit dhe serahut të matur, jo videoklipeve sensacionale. Rasti më i fortë për Kuranin ka qenë gjithmonë teuhidi i tij, transformimi moral i një populli dhe gjuha dhe ruajtja e tij e pakrahasueshme.",
     ],
-    quran: [
-      {
-        excerpt: "Pastaj nxirrni një sure si ajo... nëse jeni të sinqertë.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Shmangni pretendimet e mbivlerësuara të mrekullive shkencore që e vënë në siklet davetin kur shqyrtohen. Udhëheq me teuhid, moral dhe prova gjuhësore dhe historike të Kur'anit.",
   },
@@ -244,16 +190,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Metoda praktike: përdorni përsëritje në distancë, qëndroni në një recitues të vetëm në mënyrë që vetë melodia të sinjalizojë kujtesën tuaj, recitoni nga kujtesa çdo ditë dhe jo vetëm duke lexuar, dhe kërkoni një mësues të dëgjojë dhe të shënojë gabimet tuaja - gabime që nuk mund t'i dëgjoni vetë. Gjurmuesi hifz i Munibit regjistron përparimin deri në ajetin individual, në mënyrë që të dini gjithmonë se çfarë duhet të rishikohet.",
       "Zgjidhni një plan që i përshtatet skenës tuaj. Fillestar: mësoni përmendësh Xhuz Amma, pjesën e fundit, plot sure të shkurtra. E ndërmjetme: shtoni dhjetë sure të recituara shpesh si el-Mulk, Ja-Sin dhe el-Kehf. E avancuar: plotësoni një xhuz të plotë me rishikim të fortë të gjithçkaje para tij. Dhe udhëtimi i Hafizit: i gjithë mus'hafi, i mësuar përmendësh me një mësues të kualifikuar dhe, në mënyrë ideale, një sened - një zinxhir i vërtetuar transmetimi tek Profeti ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sahabit të Kuranit do t'i thuhet: Lexo dhe ngjitu siç lexoje në këtë botë, sepse grada jote do të jetë në ajetin e fundit që lexon.",
-      },
-      {
-        excerpt:
-          "Shëmbëlltyra e shokut të Kuranit është ajo e pronarit të një deveje të lidhur: nëse kujdeset për të e ruan atë, e nëse e lë të shkojë e humb.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -274,15 +211,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Tedaburi nuk është i njëjtë me tefsir. Tefsir është shpjegimi dijetar i kuptimit të një ajeti; tadabbur është përgjigja juaj personale, nderuese ndaj këtij kuptimi sapo ta kuptoni. Të dyja punojnë së bashku: fillimisht mëson kuptimin tingullor nga tefsir, pastaj ulesh me të dhe pyet se si të flet. Një kornizë e dobishme është tre pyetje - Çfarë po më mëson Allahu këtu? Si e ndryshon kjo atë që bëj sot? Cilin zakon duhet të ndërtoj apo të heq për shkak të tij?",
       "Një kufi i fortë e mban tadaburin të sigurt: reflektoni për atë që ju kërkon një varg, por kurrë mos shpikni kuptime të reja për vetë tekstin. Lëreni tefsirin autentik të përcaktojë kufijtë e interpretimit dhe mbajini reflektimet tuaja personale në vendin e tyre - një ditar privat, si ai i Munibit, është ideal për të kapur atë që një varg nxiti tek ju dhe për t'u kthyer tek ai më vonë.",
     ],
-    quran: [
-      {
-        excerpt: "A nuk mendojnë ata për Kur'anin, apo ka brava në zemrat e tyre?",
-      },
-      {
-        excerpt:
-          "Atëherë, a nuk mendojnë ata për Kur'anin? Sikur të ishte prej dikujt tjetër përveç Allahut, ata do të gjenin shumë kundërthënie në të.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -293,11 +222,7 @@ export const QURAN_GUIDE_TOPICS_SQ: DeepPartial<QuranGuideTopic>[] = [
       "Për këtë janë këto sfida. Secili lidh një varg të veçantë me një sjellje të vetme, të mundshme për sot: të ruash gjuhën tënde me të folur të sjellshëm, të japësh një dashuri të qetë, të ulësh shikimin nga ajo që është e ndaluar, të heqësh dorë nga mëria që ke mbajtur. Një varg, një veprim - mjaft i vogël për ta bërë në të vërtetë, mjaft i vërtetë për t'ju ndryshuar.",
       "Shënoni një sfidë të përfunduar vetëm kur e keni bërë vërtet. Pika e gjurmimit nuk është shfaqja – kjo do ta mposhtte qëllimin – por përgjegjësia e ndershme me Allahun, i cili sheh atë që të tjerët nuk e shohin. Me kalimin e kohës, varg për varg, kështu recitimi kthehet në karakter.",
     ],
-    quran: [
-      {
-        excerpt: "A urdhëroni drejtësinë e të tjerëve dhe e harroni veten ndërsa lexoni Shkrimin?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -434,14 +359,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Metoda e shejtanit është pëshpëritja e vazhdueshme, jo forca – njohja e sugjerimeve të tij është gjysma e rezistencës ndaj tyre.",
       "Vlera njerëzore është e lidhur me diturinë dhe me kthimin tek Allahu, jo me të qenit pa mëkate - është përgjigja ndaj gabimit që na përcakton.",
     ],
-    quran: [
-      {
-        excerpt: "Krijimi i Ademit dhe sexhdeja e engjëjve.",
-      },
-      {
-        excerpt: "Prova, rënia dhe pendimi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Xheneti, pastaj toka",
   },
   {
@@ -460,14 +378,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Këmbëngulja në thirrjen drejt Allahut, qoftë edhe kundër talljeve të vazhdueshme, është në vetvete një formë adhurimi.",
       "Shpëtimi i Allahut vjen në kohën e caktuar - besimtari ndërton 'arkën' e bindjes para përmbytjes, duke i besuar premtimit.",
     ],
-    quran: [
-      {
-        excerpt: "Historia e Nuhut në detaje.",
-      },
-      {
-        excerpt: "Lutja e Nuhut drejtuar popullit të tij.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Mesopotamia e lashtë (vlerësime shkencore)",
   },
   {
@@ -485,14 +396,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Mbështetja në Allahun nuk do të thotë pasivitet: Haxherja vrapoi dhe kërkoi, dhe erdhi Zemzemi - përpjekjet dhe tevakkuli punojnë së bashku.",
       "Aktet e sinqerta të përkushtimit jehojnë ndër breza; ritet e haxhit dhe nderimi i Qabes rrjedhin tek bindja e Ibrahimit.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahimi, Ismaili dhe kurbani.",
-      },
-      {
-        excerpt: "Besëlidhja dhe trashëgimia.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Iraku, Levanti, Meka",
   },
   {
@@ -511,11 +415,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Plani i Allahut shpesh fshihet pas viteve të fatkeqësisë së dukshme – pusi, skllavëria dhe burgu ishin të gjitha hapa drejt nderit të Jusufit.",
       "Të fortët e tregojnë forcën e tyre përmes faljes: në kulmin e fuqisë së tij, Jusufi i fali ata që i bënë padrejtësi.",
     ],
-    quran: [
-      {
-        excerpt: "Historitë më të mira - të treguara në një sure.",
-      },
-    ],
+    quran: [{}],
     location: "Kanaan, Egjipt",
   },
   {
@@ -533,14 +433,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Të dëshmosh mrekullitë në vetvete nuk prodhon besim - udhëzimi është një dhuratë që Allahu ia jep zemrës së përulur, jo kokëfortëve.",
       "Allahu i shpëton të shtypurit dhe i kërkon llogari kryelartëve, sado të fuqishëm të duken.",
     ],
-    quran: [
-      {
-        excerpt: "Musai në Tur dhe para Faraonit.",
-      },
-      {
-        excerpt: "Lindja dhe edukimi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Egjipt, Sinai",
   },
   {
@@ -559,14 +452,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Profetët janë shërbëtorë njerëzorë të nderuar të Allahut, që nuk duhen adhuruar kurrë – Kurani e ruan statusin e vërtetë të Isait kundër ekzagjerimit.",
       "Dlirësia, durimi dhe besimi i Merjemes e bëjnë atë model besimi për të gjithë besimtarët, si për gratë ashtu edhe për burrat.",
     ],
-    quran: [
-      {
-        excerpt: "Fjalimi i lindjes dhe i djepit.",
-      },
-      {
-        excerpt: "Jo i vrarë as i kryqëzuar; i ngritur.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Palestinën",
   },
   {
@@ -584,14 +470,7 @@ export const QURAN_GUIDE_STORIES_SQ: DeepPartial<QuranGuideStory>[] = [
       "Thirrësi për tek Allahu e përcjell mesazhin me sinqeritet dhe durim, por përfundimin ia lë Allahut - udhëzimi është i Tij.",
       "Sprovat janë rruga e profetëve; durimi i vështirësive për hir të Allahut, siç bëri ai, është shenjë e besimit të vërtetë.",
     ],
-    quran: [
-      {
-        excerpt: "Ne nuk të dërguam ty vetëm si mëshirë për botët.",
-      },
-      {
-        excerpt: "Të mëshirshëm mes tyre, të patundur ndaj jobesimtarëve.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -607,18 +486,8 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Profeti ﷺ mësoi se besimi ka mbi shtatëdhjetë degë, duke filluar nga më të mëdhatë - dëshmia se nuk ka zot tjetër përveç Allahut - deri te heqja e dëmeve nga rruga, duke treguar se edhe veprat e mira të vogla janë pjesë e besimit.",
       "Imani i vërtetë është një çështje e zemrës para gjuhës: të njohësh vërtetë Allahun, ta duash Atë mbi të gjitha, të kesh frikë nga pakënaqësia e Tij dhe të mbështetesh tërësisht tek Ai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I Dërguari i beson asaj që i është shpallur nga Zoti i tij, po ashtu edhe besimtarët…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Besimi ka mbi shtatëdhjetë degë; më e larta është të thuash "Nuk ka Zot tjetër përveç Allahut", dhe më e ulta është heqja e diçkaje të dëmshme nga rruga - dhe modestia është një degë e besimit.',
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Rinovoni shehadetin tuaj sot me vëmendje të plotë ndaj asaj që do të thotë, jo si një frazë rutinë.",
       "Mësoni një nga emrat e Allahut, kuptoni atë dhe thirreni Atë me të në duanë tuaj.",
@@ -633,18 +502,8 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Ndryshe nga obligimet e tjera të shpallura në tokë, namazi u përshkrua për ummetin gjatë ngjitjes së Profetit ﷺ (el-Isra uel-Mi'raj), duke e shënuar atë si një dhuratë të veçantë dhe mjetin e vetë besimtarit për t'u ngjitur tek Allahu.",
       "Për shkak se përsëritet pesë herë në ditë, namazi është ritmi i qëndrueshëm që e mban të gjallë besimin ndërmjet një akti të adhurimit dhe adhurimit tjetër.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Vërtet, namazi e ndalon imoralitetin dhe keqbërjen, e përmendja e Allahut është më e madhe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "E para nga veprat e një robi që do të gjykohet në Ditën e Kijametit do të jetë namazi i tij; nëse është e shëndoshë ai ka pasur sukses, dhe nëse është me të meta ka dështuar dhe ka humbur.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Falni një namaz sot ngadalë, duke i kuptuar fjalët e el-Fatihas ndërsa i recitoni ato.",
       "Hapni udhëzuesin Mësoni Namazin e Munibit për të forcuar një pjesë të lutjes suaj.",
@@ -660,12 +519,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Urdhri arrin kulmin në pleqëri, kur prindërit kanë më shumë nevojë për durim: kujdesu për ta ashtu siç kujdeseshin dikur për ty dhe uli krahun e përulësisë nga mëshira.",
       "Devotshmëria nuk mbaron me vdekjen - vazhdimi i bërjes dua për prindërit, dhënia e bamirësisë në emër të tyre dhe nderimi i miqve dhe premtimeve të tyre janë akte të vazhdueshme besnikërie.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zoti yt ka vendosur që të mos adhuroni tjetër pos Tij dhe të silleni mirë me prindërit…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Telefononi ose dërgoni një prind me fjalë të mira sot.",
       "Bëni dua për prindërit tuaj me emër.",
@@ -680,12 +534,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Allahu deklaron se është 'me durimtarët' dhe u premton durimtarëve shpërblimin e tyre pa masë - një nder që i lidhet pothuajse asnjë cilësi tjetër.",
       "Profetët ishin njerëzit më të sprovuar dhe Kur'ani e mban qëndrueshmërinë e tyre - Ejubi në sëmundje, Jakubi në pikëllim, Jusufi përmes tradhtisë dhe burgut - si model për t'u imituar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, kërkoni ndihmë me durim dhe namaz. Vërtet, Allahu është me durimtarët.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Kur acarimi rritet sot, ndaloni, merrni frymë dhe thoni 'Inna lillahi ue inna ilayhi raji'un' para se të reagoni.",
       "Një moment vështirësie këtë javë kthejeni në dy rekate namaz në vend të ankesës.",
@@ -700,12 +549,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Bamirësia nuk është vetëm para. Profeti ﷺ mësoi se edhe ta takosh vëllain tënd me fytyrë të qeshur është sadaka, kështu që askush nuk është shumë i varfër për të dhënë.",
       "Dhënia pastron edhe pasurinë edhe dhuruesin, duke e liruar kontrollin e lakmisë dhe duke krijuar dhembshuri – kjo është arsyeja pse vetë fjala zekat do të thotë pastrim dhe rritje.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Shembulli i atyre që shpenzojnë në rrugën e Allahut është si një kokërr që mbijnë shtatë kalli…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Jepni diçka sot - para, kohën tuaj ose një fjalë vërtet të mirë - edhe nëse është e vogël dhe e padukshme.",
       "Rishikoni detyrimet tuaja të zekatit në Munib dhe shënoni se kur duhet paguar pagesa tjetër.",
@@ -720,12 +564,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Dera e mëshirës është çuditërisht e gjerë: Allahu u thotë edhe atyre që i kanë bërë keq vetes së tyre të mos dëshpërohen, sepse Ai ia fal të gjitha mëkatet atij që pendohet sinqerisht.",
       "Pendimi nuk është i rezervuar për mëkatet e mëdha apo momentet dramatike - istigfar (kërkimi i faljes) gjatë gjithë ditës e mban zemrën të butë dhe llogarinë të pastër.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Thuaj 'Astaghfirullah' 100 herë sot, që do të thotë, dhe ndjeje ngritjen e peshës.",
       "Emërtoni një zakon që e dini se nuk e pëlqen Allahun dhe bëni hapin e parë konkret për ta lënë atë.",
@@ -741,11 +580,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       'Kur\'ani i nxit besimtarët që të garojnë dhe të nxitojnë drejt faljes dhe një kopshti "i gjerë sa qiejt dhe toka" - ai ka për qëllim të ndiqet në mënyrë aktive, jo të shpresohet pasivisht.',
       "Shpërblimi më i madh nga të gjithë nuk janë kopshtet apo lumenjtë, por shikimi i Fytyrës së Allahut – gëzimi i fundit që u premtohet njerëzve të Xhenetit.",
     ],
-    quran: [
-      {
-        excerpt: "Dhe nxitoni në faljen e Zotit tuaj dhe një Xhenet të gjerë sa qiejt dhe toka…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -758,11 +593,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "I vetmi mëkat që Kur'ani e veçon si të pafalshëm nëse një person vdes mbi të është shirku - bërja shok Allahut; çdo gjë më pak se që Ai të falë kujt të dojë.",
       "Allahu paralajmëron për t'i kthyer njerëzit tek Ai, për të mos shtypur atë që pendohet - çdo paralajmërim shoqërohet në Kur'an me një ftesë të hapur për t'u kthyer.",
     ],
-    quran: [
-      {
-        excerpt: "Vërtet, Allahu nuk ia fal shoqërinë Atij, por më pak se kaq ia fal kujt të dojë.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Pas çdo namazi sot, lutuni Allahut sinqerisht që t'ju mbrojë nga zjarri.",
       "Përtërijeni teuhidin tuaj: reflektoni për adhurimin vetëm ndaj Allahut, mbrojtja më e sigurt nga Xhehenemi.",
@@ -777,12 +608,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Prej shtypjes (dhulm) paralajmërohet rëndë; Profeti ﷺ mësoi se keqbërja do të shfaqet si errësirë ​​mbi keqbërësin në Ditën e Kiametit.",
       "Drejtësia nuk është vetëm për gjyqtarët dhe sundimtarët - ajo jeton në të folur të ndershëm, sjellje të drejtë, duke mbajtur fjalën tuaj dhe duke i dhënë çdo personi të drejtën e duhur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bëhuni mbajtës të drejtësisë, dëshmitarë për Allahun, qoftë edhe kundër vetes suaj ose kundër prindërve dhe të afërmve.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Jepini dikujt të drejtën që i takon sot - një pagë të drejtë, një përgjigje të sinqertë ose kredi që i detyroheni.",
       "Kapni një moment ku paragjykimi ju tundon të jeni të padrejtë dhe zgjidhni drejtësinë në vend të kësaj.",
@@ -797,11 +623,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Njohuria e dobishme është menduar të veprohet dhe të transmetohet; Profeti ﷺ mësoi se dijetarët janë trashëgimtarë të profetëve, të cilët nuk trashëgojnë pasuri, por dituri.",
       "Kërkimi i diturisë së shenjtë është në vetvete adhurim dhe Kur'ani bën dallimin mes atyre që dinë dhe atyre që nuk dinë - 'a janë ata të barabartë?'",
     ],
-    quran: [
-      {
-        excerpt: "Dhe thuaj: Zoti im, më shto diturinë.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mësoni një gjë të re nga Kurani sot - një varg, një fjalë ose një vendim - dhe mësojini dikujt.",
       "Mëso përmendësh duanë 'Rabbi zidni ilma' dhe thuaje para se të studiosh.",
@@ -816,11 +638,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Muhamedi ﷺ është vula e profetëve, i dërguari i fundit dhe një musliman duhet të besojë në të gjithë profetët para tij - Nuhun, Ibrahimin, Musain, Isain dhe të tjerët - duke mos bërë asnjë dallim mes tyre.",
       "Profetët ishin qenie njerëzore dhe shërbëtorë të Allahut, jo hyjnorë; Kur'ani i nderon ata, por i mban të vendosur në anën e krijimit, të pa adhuruar kurrë përkrah Krijuesit.",
     ],
-    quran: [
-      {
-        excerpt: "Në tregimet e tyre është një mësim për ata që kuptojnë…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -832,12 +650,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Kurani e mban Merjemen, nënën e Isait, si model për të gjithë besimtarët dhe i nderon aq shumë nënat, saqë mësimet e njohura e vendosin Parajsën në këmbët e tyre.",
       "Të dyja gjinitë e kanë origjinën e vetme - 'të krijoi nga një shpirt' - duke krijuar një humanizëm dhe dinjitet të përbashkët që në ajetin e parë të sures an-Nisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kini frikë Zotin tuaj, i cili ju krijoi prej një shpirti dhe prej tij krijoi partnerin e tij…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Nderojeni një grua në jetën tuaj sot – një nënë, grua, motër ose vajzë – me një të drejtë ose mirësi specifike që i detyrohet.",
     ],
@@ -851,11 +664,7 @@ export const QURAN_GUIDE_THEMES_SQ: DeepPartial<QuranGuideTheme>[] = [
       "Një pjesë e përsëritur gjerësisht e mençurisë prindërore këshillon takimin e fëmijëve në fazën e tyre - të luani me ta në vitet e hershme, më pas t'i mësoni dhe t'i disiplinoni me butësi, më pas t'i miqësoni ndërsa rriten.",
       "Rritja e një fëmije të drejtë është një investim përtej kësaj jete: një pasardhës i drejtë që lutet për një prind vazhdon t'i sjellë dobi shumë kohë pas vdekjes.",
     ],
-    quran: [
-      {
-        excerpt: "O ju që besuat, ruani veten dhe familjen tuaj nga zjarri…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mësojini një fëmije një varg të shkurtër ose një sjellje të mirë sot, me durim dhe me inkurajim.",
       "Bëni dua për fëmijët tuaj (apo fëmijët në kujdesin tuaj) me emër që të jenë të drejtë dhe të dashur tek Allahu.",
@@ -981,17 +790,13 @@ export const QURAN_GUIDE_VOCABULARY_SQ: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Zoti i vetëm i vërtetë - emri i duhur që përfshin të gjithë emrat e bukur.",
     frequency: "2700+ dukuri",
     example: "Bismillah - Në emër të Allahut",
-    quranRef: {
-      excerpt: "Me emrin e Allahut, Gjithëmëshirshmit, Mëshirëbërësit të Veçantë.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Zot, Mjeshtër, Mbajtës - ai që krijon, zotëron, ushqen dhe qeveris.",
     frequency: "Shumë e shpeshtë",
     example: "Rabbana - Zoti ynë",
-    quranRef: {
-      excerpt: "Falënderimi i takon vetëm Allahut, Zotit të botëve.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Mëshirë, dhembshuri, butësi nga Allahu dhe në mesin e krijimit.",
@@ -1037,9 +842,7 @@ export const QURAN_GUIDE_VOCABULARY_SQ: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Drita - udhëzim, shpallje dhe ndriçim i zemrës.",
     frequency: "Të shpeshta",
     example: "Allahu është drita e qiejve dhe e tokës",
-    quranRef: {
-      excerpt: "Allahu është drita e qiejve dhe e tokës…",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1260,8 +1063,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_SQ: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "O ju që besuat, kërkoni ndihmë me durim dhe namaz. Vërtet, Allahu është me durimtarët.",
     context:
       "Nga sureja el-Bekare, e zbritur në Medine. Allahu bashkon dy burime fuqie për besimtarin që përballet me vështirësi - durimin dhe kthimin në namaz - dhe premton shoqërimin e Tij të veçantë për ata që qëndrojnë të patundur.",
     reflection:
@@ -1270,7 +1071,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] 
       "Falni një namaz sot pa nxitim dhe në suxhudin tuaj kërkoni Allahun me emër për durim në sprovën specifike që po kaloni.",
   },
   {
-    translation: "Mëshira ime përfshin të gjitha gjërat.",
     context:
       "Nga sureja el-A'raf, e folur në kontekstin e Musait dhe popullit të tij. Allahu e përshkruan mëshirën e Tij sikur përfshin të gjitha gjërat - një mëshirë kaq e madhe saqë i paraprin dhe e tejkalon dënimin e Tij, e cila është e rezervuar për ata që këmbëngulin në gabime.",
     reflection:
@@ -1279,7 +1079,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] 
       "Zgjidhni një person për të cilin keni inat, fali sinqerisht në zemrën tuaj sot dhe bëni një dua të shkurtër duke i kërkuar Allahut t'i udhëzojë dhe t'i falë ata gjithashtu.",
   },
   {
-    translation: "Nëse jeni mirënjohës, me siguri do t'ju shtoj.",
     context:
       "Nga sureja Ibrahim, pjesë e përkujtimit të Musait për Beni Isra'ilin. Allahu e lidh rritjen e Tij drejtpërsëdrejti me mirënjohjen - falënderimi për një bekim është pikërisht ajo gjë që e bën atë të rritet, ndërsa mosmirënjohja e fton humbjen e tij.",
     reflection:
@@ -1288,7 +1087,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] 
       "Para se të flini sonte, thoni me zë të lartë 'Elhamdulillah' për tre bekime specifike, duke e emërtuar secilën prej tyre në mënyrë që mirënjohja të bëhet e vetëdijshme, jo automatike.",
   },
   {
-    translation: "Dhe thuaju njerëzve fjalë të mira.",
     context:
       "Nga sureja el-Isra. Mes udhëzimeve se si duhet të sillen besimtarët, Allahu urdhëron që t'u flasim njerëzve - të gjithë njerëzve - në mënyrën më të mirë, pasi fjalët e ashpra janë një nga dyert nëpër të cilat shejtani mbjell përçarje.",
     reflection:
@@ -1297,7 +1095,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] 
       "Sinqerisht inkurajoni ose falenderoni një person sot pa kritika të fshehura dhe mbajeni një vërejtje të ashpër që jeni tunduar të bëni.",
   },
   {
-    translation: "Kush i mbështetet Allahut, Ai i mjafton atij.",
     context:
       "Nga sureja et-Talak, e vendosur ndër vendimet mbi shkurorëzimin dhe furnizimin - pikërisht aty ku njerëzit ndihen më të shqetësuar financiarisht. Aty Allahu premton se kushdo që i frikësohet Atij, Ai do ta furnizojë atë nga ku nuk e prisnin, dhe kushdo që mbështetet tek Ai do ta gjejë mjaftueshëm.",
     reflection:
@@ -1306,7 +1103,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] 
       "Merrni një vendim që ju shqetëson, falni dy rekate istikhare ose bëni një dua të përzemërt mbi të dhe pastaj besojini Allahut përfundimin.",
   },
   {
-    translation: "Zoti im, më shto diturinë.",
     context:
       "Nga sureja Ta-Ha. Kjo është e vetmja gjë në Kuran që Allahu e udhëzon Profetin ﷺ që të kërkojë më shumë prej - diturisë - e cila tregon se sa shumë dobiprurëse vlerësohet dija dhe se askush, sado i ditur, të përfundojë së kërkuari atë.",
     reflection:
@@ -1315,8 +1111,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SQ: DeepPartial<QuranGuideDailyLesson>[] 
       "Mësoni përmendësh këtë dua të shkurtër, 'Rabbi zidni ilma' dhe bëjeni zakon ta thoni atë pas sabahut para se të filloni ditën tuaj.",
   },
   {
-    translation:
-      "Shembulli i atyre që e shpenzojnë pasurinë e tyre në rrugën e Allahut është si fara që mbijnë shtatë kalli…",
     context:
       "Nga sureja el-Bekare. Allahu vizaton një pamje të gjallë të mënyrës se si rritet bamirësia: një farë e vetme që mbin shtatë kallinj, secili me njëqind kokrra - një kthim shtatëqindfish dhe Ai shumëzon edhe më shumë për kë të dojë. Pasuria e dhënë për hir të Tij nuk humbet kurrë.",
     reflection:

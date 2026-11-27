@@ -1,25 +1,20 @@
+import { evaluateRecitationMilestones } from "@munib-tracker/shared/achievements";
+import { OBLIGATORY_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type {
+  PrayerId,
   PrayerLog,
   QazaCounter,
   QazaDailyProgress,
   QazaRozaCounter,
-  ZikrCategoryId,
   ZikrProgress,
 } from "@munib-tracker/shared/types";
-import {
-  addDays,
-  aggregateByDate,
-  buildDayActivity,
-  dailyCompletionSeries,
-  getLocalDateString,
-  parseLocalDateString,
-  sumPrayerTotals,
-} from "@munib-tracker/shared/utils";
-import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { getLocalDateString, parseLocalDateString } from "@munib-tracker/shared/utils";
+import { type Href, useFocusEffect, useRouter } from "expo-router";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
+import { BarChart, type BarDatum, DENSE_BAR_COUNT } from "@/components/charts/bar-chart";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import {
@@ -27,18 +22,29 @@ import {
   LinkRow,
   type Metric,
   MetricGrid,
+  ReadableView,
   StatLine,
   StatsGroup,
 } from "@/components/statistics/metrics";
+import { RawatibStatsCard } from "@/components/statistics/rawatib-stats-card";
+import { SalahRateList } from "@/components/statistics/salah-rate-list";
+import { StatusDistribution } from "@/components/statistics/status-distribution";
+import { TodaySalahStrip } from "@/components/statistics/today-salah-strip";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { IconWell } from "@/components/ui/icon-well";
+import { Pill } from "@/components/ui/pill";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { RetryCard } from "@/components/ui/retry-card";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import {
   HadithRepository,
@@ -47,64 +53,87 @@ import {
   QuranRepository,
   ZikrRepository,
 } from "@/db";
+import type { QuranReadingProgress } from "@/db/repositories/quran-repository";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
+import {
+  adhkarSetHistory,
+  adhkarSetKey,
+  adhkarSetsForDay,
+  zikrCountsByDate,
+} from "@/lib/adhkar-history";
+import { masjidPrayerStats } from "@/lib/masjid/masjid-stats";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { getSurahMeta } from "@/lib/quran-meta";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import {
+  averageLevel,
+  dailyPoints,
+  indexPrayerDays,
+  monthlyPoints,
+  periodRange,
+  projectQazaFinish,
+  type StatsPeriod,
+  salahBreakdown,
+  salahExtremes,
+  strongestWeekday,
+  summarizePeriod,
+  summarizeQuranReading,
+  sumQazaMadeUp,
+} from "@/lib/statistics";
+import { practiceTotals, withLifetimeTotals } from "@/lib/statistics-practice";
+import { ZIKR_CORPUS } from "@/lib/zikr";
+import { useEnsureFastingLoaded, useFastingDays } from "@/stores/fasting-store";
+import { useEnsurePracticeLoaded, usePracticeHistory } from "@/stores/quran-practice-store";
 import {
   useAchievementStats,
   useDailySummary,
+  useDayExcused,
   useDevotionProgress,
+  useQazaSchedule,
   useStreak,
+  useTodayPrayers,
   useTrackerActions,
 } from "@/stores/tracker-store";
 
-type Period = "week" | "month" | "year";
-
-const MONTH_INITIALS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
-const QURAN_SURAH_COUNT = 114;
-
-const PERIOD_HINT_KEYS: Record<Period, string> = {
+const PERIOD_HINT_KEYS: Record<StatsPeriod, string> = {
   week: "statistics.periodWeek",
   month: "statistics.periodMonth",
   year: "statistics.periodYear",
 };
 
-function countPerfectDaysInRange(logs: PrayerLog[], from: string, to: string): number {
-  let count = 0;
-  for (const day of aggregateByDate(logs).values()) {
-    if (day.date < from || day.date > to) continue;
-    if (day.completed >= day.total) count += 1;
-  }
-  return count;
-}
+const COMPARE_KEYS: Record<StatsPeriod, string> = {
+  week: "statistics.compareWeek",
+  month: "statistics.compareMonth",
+  year: "statistics.compareYear",
+};
 
-function countActiveDaysInRange(logs: PrayerLog[], from: string, to: string): number {
-  let count = 0;
-  for (const day of aggregateByDate(logs).values()) {
-    if (day.date < from || day.date > to) continue;
-    if (day.completed + day.missed + day.qaza + day.delayed > 0) count += 1;
-  }
-  return count;
-}
+const SUNNAH_STAT_PRAYERS: PrayerId[] = ["tahajjud", "ishraq", "duha"];
+const TODAY_STRIP_PRAYERS: PrayerId[] = [...OBLIGATORY_PRAYERS, WITR_PRAYER];
 
-function sumQazaPerformedInRange(
-  progressMap: Record<string, QazaDailyProgress>,
-  from: string,
-  to: string,
-): number {
-  let sum = 0;
-  for (const [date, progress] of Object.entries(progressMap)) {
-    if (date < from || date > to) continue;
-    for (const count of Object.values(progress.completed)) {
-      sum += count ?? 0;
-    }
-  }
-  return sum;
-}
+type Insight = {
+  key: string;
+  icon: SymbolViewProps["name"];
+  text: string;
+  tone: "success" | "warning" | "info";
+};
+
+type LoadedData = {
+  logs: PrayerLog[];
+  zikr: ZikrProgress[];
+  counters: QazaCounter[];
+  roza: QazaRozaCounter;
+  qazaDaily: Record<string, QazaDailyProgress>;
+  quranProgress: QuranReadingProgress;
+  quranBookmarks: number;
+  hadithBookmarks: number;
+};
 
 export default function StatisticsScreen() {
   const router = useRouter();
@@ -115,28 +144,35 @@ export default function StatisticsScreen() {
   const streak = useStreak();
   const devotion = useDevotionProgress();
   const achievementStats = useAchievementStats();
+  const todayPrayers = useTodayPrayers();
+  const excusedToday = useDayExcused();
+  const qazaSchedule = useQazaSchedule();
+  useEnsureFastingLoaded();
+  const fastingDays = useFastingDays();
   const tv = isTV();
+  const contentBottomInset = useContentBottomInset();
+  const { date: adhkarDate } = useAdhkarClock();
   const { width } = useWindowDimensions();
-  // Wide web / tablets (never TV): overview cards side by side, metric groups
-  // and detail breakdowns in grids instead of one long column.
-  const wide = !tv && width >= 1024;
-  const groupColumns = wide ? (width >= 1200 ? 3 : 2) : 1;
-  const [period, setPeriod] = useState<Period>("week");
-  const [logs, setLogs] = useState<PrayerLog[]>([]);
-  const [zikr, setZikr] = useState<ZikrProgress[]>([]);
-  const [counters, setCounters] = useState<QazaCounter[]>([]);
-  const [roza, setRoza] = useState<QazaRozaCounter>({ remaining: 0, completed: 0 });
-  const [qazaDailyMap, setQazaDailyMap] = useState<Record<string, QazaDailyProgress>>({});
-  const [quranSurahsStarted, setQuranSurahsStarted] = useState(0);
-  const [quranBookmarks, setQuranBookmarks] = useState(0);
-  const [hadithBookmarks, setHadithBookmarks] = useState(0);
-  const [, setCorpusReady] = useState(false);
-  useEffect(() => {
-    void ensureZikrCorpus().then(() => setCorpusReady(true));
-  }, []);
+  // Wide web / tablets (never TV): cards side by side, blocks in grids.
+  const wide = !tv && width >= Breakpoints.wide;
+  const [period, setPeriod] = useState<StatsPeriod>("week");
+  const [selectedBar, setSelectedBar] = useState<number | null>(null);
+  const [data, setData] = useState<LoadedData | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
+  // Categorical hues for non-status data (zikr, bookmarks, qaza); status hues
+  // stay reserved for status (on time / delayed / missed).
+  const rose = useCategoryHue("rose");
+  const sky = useCategoryHue("sky");
+  const dawn = useCategoryHue("dawn");
+  // The corpus maps stored zikr ids to their set — memos below must recompute
+  // once it lands, or a cold open shows every adhkar set as empty.
+  const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
 
   const locale = i18n.language?.split("-")[0];
-  const formatCount = (value: number) => value.toLocaleString(locale);
+  const formatCount = useCallback((value: number) => value.toLocaleString(locale), [locale]);
+  const formatPercent = (value: number) => `${Math.round(value * 100)}%`;
+  const formatShortDate = (date: string) => shortDate(date, locale);
 
   useFocusEffect(
     useCallback(() => {
@@ -147,6 +183,9 @@ export default function StatisticsScreen() {
   useFocusEffect(
     useCallback(() => {
       let active = true;
+      // reloadKey is read so Retry re-runs this focus effect.
+      void reloadKey;
+      setLoadFailed(false);
       void Promise.all([
         refresh(),
         PrayerRepository.getAll(),
@@ -157,154 +196,551 @@ export default function StatisticsScreen() {
         QuranRepository.getReadingProgress(),
         QuranRepository.getBookmarks(),
         HadithRepository.getBookmarks(),
-      ]).then(([_, l, z, c, r, qazaProgress, quranProgress, qBookmarks, hBookmarks]) => {
-        if (!active) return;
-        setLogs(l);
-        setZikr(z);
-        setCounters(c);
-        setRoza(r);
-        setQazaDailyMap(qazaProgress);
-        setQuranSurahsStarted(Object.keys(quranProgress).length);
-        setQuranBookmarks(qBookmarks.length);
-        setHadithBookmarks(hBookmarks.length);
-      });
+      ])
+        .then(([_, logs, zikr, counters, roza, qazaDaily, quranProgress, qB, hB]) => {
+          if (!active) return;
+          setData({
+            logs,
+            zikr,
+            counters,
+            roza,
+            qazaDaily,
+            quranProgress,
+            quranBookmarks: qB.length,
+            hadithBookmarks: hB.length,
+          });
+        })
+        .catch(() => {
+          // A rejected repository must never leave the skeleton up forever (B-76).
+          if (active) setLoadFailed(true);
+        });
       return () => {
         active = false;
       };
-    }, [refresh]),
+    }, [refresh, reloadKey]),
   );
 
   const today = getLocalDateString();
-
-  const { chart, from, averageLevel } = useMemo(() => {
-    if (period === "year") {
-      const year = new Date().getFullYear();
-      const currentMonth = new Date().getMonth();
-      const bars: BarDatum[] = MONTH_INITIALS.map((label, month) => {
-        if (month > currentMonth) return { label, value: 0 };
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const lastDay = month === currentMonth ? new Date().getDate() : daysInMonth;
-        let sum = 0;
-        for (let day = 1; day <= lastDay; day += 1) {
-          const date = `${year}-${`${month + 1}`.padStart(2, "0")}-${`${day}`.padStart(2, "0")}`;
-          sum += buildDayActivity(logs, date).level;
-        }
-        return { label, value: lastDay ? sum / lastDay : 0 };
-      });
-      const elapsed = bars.filter((_, month) => month <= currentMonth);
-      const avg =
-        elapsed.length > 0 ? elapsed.reduce((sum, bar) => sum + bar.value, 0) / elapsed.length : 0;
-      return { chart: bars, from: `${year}-01-01`, averageLevel: avg };
-    }
-
-    const days = period === "week" ? 7 : 30;
-    const series = dailyCompletionSeries(logs, days, today);
-    const monthTickIndexes =
-      period === "month"
-        ? new Set(
-            [0, Math.floor((series.length - 1) / 2), series.length - 1].filter(
-              (i) => i >= 0 && i < series.length,
-            ),
-          )
-        : null;
-    const bars: BarDatum[] = series.map((activity, index) => {
-      const d = parseLocalDateString(activity.date);
-      let label = "";
-      if (period === "week") {
-        label = d.toLocaleDateString(locale, { weekday: "short" });
-      } else if (monthTickIndexes?.has(index)) {
-        label = d.toLocaleDateString(locale, { month: "short", day: "numeric" });
-      }
-      return { label, value: activity.level };
-    });
-    const avg =
-      series.length > 0
-        ? series.reduce((sum, activity) => sum + activity.level, 0) / series.length
-        : 0;
-    return { chart: bars, from: addDays(today, -(days - 1)), averageLevel: avg };
-  }, [period, logs, today, locale]);
-
-  const prayerTotals = useMemo(() => sumPrayerTotals(logs, from, today), [logs, from, today]);
-
-  const zikrCompleted = useMemo(
-    () => zikr.filter((z) => z.completed && z.date >= from && z.date <= today).length,
-    [zikr, from, today],
+  const logs = data?.logs ?? EMPTY_LOGS;
+  const zikr = data?.zikr ?? EMPTY_ZIKR;
+  const index = useMemo(() => indexPrayerDays(logs), [logs]);
+  const range = useMemo(() => periodRange(period, today), [period, today]);
+  const points = useMemo(
+    () => dailyPoints(index, range.from, range.to, today),
+    [index, range, today],
+  );
+  const previousAverage = useMemo(
+    () => averageLevel(dailyPoints(index, range.previousFrom, range.previousTo, today)),
+    [index, range, today],
+  );
+  const periodSummary = useMemo(() => summarizePeriod(index, points), [index, points]);
+  const months = useMemo(
+    () => (period === "year" ? monthlyPoints(index, today) : null),
+    [period, index, today],
   );
 
-  const zikrByCategory = useMemo(() => {
-    const map = new Map<ZikrCategoryId, number>();
-    for (const entry of zikr) {
-      if (!entry.completed || entry.date < from || entry.date > today) continue;
-      const category = getZikrById(entry.zikrId)?.categoryId ?? "anytime";
-      map.set(category, (map.get(category) ?? 0) + 1);
-    }
-    return [...map.entries()].sort((a, b) => b[1] - a[1]);
-  }, [zikr, from, today]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new period clears the inspected bar
+  useEffect(() => setSelectedBar(null), [period]);
 
+  const chart: BarDatum[] = useMemo(() => {
+    if (months) {
+      return months.map((month) => {
+        const name = new Date(2000, month.month, 1).toLocaleDateString(locale, { month: "long" });
+        const narrow = new Date(2000, month.month, 1).toLocaleDateString(locale, {
+          month: "narrow",
+        });
+        return {
+          label: narrow,
+          value: month.level ?? 0,
+          tone:
+            month.future || month.level == null
+              ? "muted"
+              : month.isCurrent
+                ? "highlight"
+                : "default",
+          accessibilityLabel:
+            month.level == null
+              ? t("statistics.monthNoData", { month: name })
+              : t("statistics.monthDetail", {
+                  month: name,
+                  percent: Math.round(month.level * 100),
+                }),
+        };
+      });
+    }
+    const tickIndexes =
+      period === "month"
+        ? new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])
+        : null;
+    return points.map((point, i) => {
+      const d = parseLocalDateString(point.date);
+      const day = index.days.get(point.date);
+      let label = "";
+      if (period === "week") label = d.toLocaleDateString(locale, { weekday: "short" });
+      else if (tickIndexes?.has(i)) label = shortDate(point.date, locale);
+      const date = dayDate(point.date, locale);
+      const accessibilityLabel = point.excused
+        ? t("statistics.dayExcused", { date })
+        : point.beforeStart
+          ? t("statistics.dayNotTracked", { date })
+          : day
+            ? t("statistics.dayDetail", {
+                date,
+                done: day.completed,
+                total: OBLIGATORY_PRAYERS.length,
+              })
+            : t("statistics.dayNotLogged", { date });
+      return {
+        label,
+        value: point.level,
+        tone: point.excused
+          ? "excused"
+          : point.beforeStart
+            ? "muted"
+            : point.isToday
+              ? "highlight"
+              : "default",
+        accessibilityLabel,
+      };
+    });
+  }, [months, points, period, index, locale, t]);
+
+  const average = periodSummary.average;
+  const delta =
+    average != null && previousAverage != null
+      ? Math.round((average - previousAverage) * 100)
+      : null;
+
+  const fardRows = useMemo(
+    () => salahBreakdown(index, points, OBLIGATORY_PRAYERS),
+    [index, points],
+  );
+  const witrRow = useMemo(() => salahBreakdown(index, points, [WITR_PRAYER])[0], [index, points]);
+  const rateRows =
+    witrRow &&
+    witrRow.days > 0 &&
+    witrRow.completed + witrRow.delayed + witrRow.missed + witrRow.qaza > 0
+      ? [...fardRows, witrRow]
+      : fardRows;
+  const extremes = useMemo(() => salahExtremes(fardRows), [fardRows]);
+  const bestWeekday = useMemo(
+    () => (period === "week" ? null : strongestWeekday(points)),
+    [period, points],
+  );
+
+  const sunnahCounts = useMemo(() => {
+    const counts = new Map<PrayerId, number>();
+    let jama = 0;
+    for (const log of logs) {
+      if (log.date < range.from || log.date > range.to || log.status !== "completed") continue;
+      if (SUNNAH_STAT_PRAYERS.includes(log.prayerId)) {
+        counts.set(log.prayerId, (counts.get(log.prayerId) ?? 0) + 1);
+      } else if (log.isJama) {
+        jama += 1;
+      }
+    }
+    return { counts, jama };
+  }, [logs, range]);
+
+  const zikrInPeriod = useMemo(
+    () => zikr.filter((z) => z.completed && z.date >= range.from && z.date <= range.to).length,
+    [zikr, range],
+  );
+  const adhkarHistory = useMemo(
+    () => (corpusReady ? adhkarSetHistory(zikr, range.from, range.to) : []),
+    [corpusReady, zikr, range],
+  );
+  const hasAdhkarHistory = adhkarHistory.some((row) => row.doneDays > 0 || row.partialDays > 0);
+  // Today's sets on the adhkar day (Fajr → Fajr), the day sessions log under.
+  const todaySets = useMemo(() => {
+    if (!corpusReady) return null;
+    const sets = adhkarSetsForDay(zikrCountsByDate(zikr).get(adhkarDate) ?? {});
+    return { done: sets.filter((set) => set.done).length, total: sets.length };
+  }, [corpusReady, zikr, adhkarDate]);
+
+  const counters = data?.counters ?? [];
+  const roza = data?.roza ?? { remaining: 0, completed: 0 };
+  const qazaDaily = data?.qazaDaily ?? {};
   const qazaRemaining = counters.reduce((sum, c) => sum + c.remaining, 0);
   const qazaCompleted = counters.reduce((sum, c) => sum + c.completed, 0);
-  const qazaPerformedInPeriod = useMemo(
-    () => sumQazaPerformedInRange(qazaDailyMap, from, today),
-    [qazaDailyMap, from, today],
+  const qazaTotal = qazaRemaining + qazaCompleted;
+  const qazaInPeriod = useMemo(
+    () => sumQazaMadeUp(qazaDaily, range.from, range.to),
+    [qazaDaily, range],
   );
-  const perfectDaysInPeriod = useMemo(
-    () => countPerfectDaysInRange(logs, from, today),
-    [logs, from, today],
+  const elapsedDays = points.length;
+  const projection = useMemo(
+    () => projectQazaFinish(qazaRemaining, qazaDaily, qazaSchedule, today),
+    [qazaRemaining, qazaDaily, qazaSchedule, today],
   );
-  const activeDaysInPeriod = useMemo(
-    () => countActiveDaysInRange(logs, from, today),
-    [logs, from, today],
+  const rozaTotal = roza.remaining + roza.completed;
+  const ramadanFasts = useMemo(
+    () => Object.values(fastingDays).filter((status) => status === "fasted").length,
+    [fastingDays],
   );
-
   const perPrayerQaza = counters.filter((c) => c.remaining > 0 || c.completed > 0);
-  const hasReadingData = quranSurahsStarted > 0 || quranBookmarks > 0 || hadithBookmarks > 0;
-  const hasDetails = perPrayerQaza.length > 0 || zikrByCategory.length > 0 || hasReadingData;
-  const maxZikrCategoryCount = zikrByCategory[0]?.[1] ?? 1;
-  const qazaTodayValue =
-    summary.qazaTargetToday > 0
-      ? `${summary.qazaCompletedToday}/${summary.qazaTargetToday}`
-      : `${summary.qazaCompletedToday}`;
+  const hasDebt = qazaTotal > 0 || rozaTotal > 0 || ramadanFasts > 0;
+
+  const reading = useMemo(
+    () => summarizeQuranReading(data?.quranProgress ?? {}, getSurahMeta()),
+    [data?.quranProgress],
+  );
+  // D68: Qur'an practice — minutes and ayahs recited, personal milestones only.
+  useEnsurePracticeLoaded();
+  const practiceHistory = usePracticeHistory();
+  // D71: counts never drop below the lifetime Recitation totals (the history keeps 30 rows).
+  const recitationLifetime = achievementStats.recitation;
+  const practice = useMemo(
+    () => withLifetimeTotals(practiceTotals(practiceHistory), recitationLifetime),
+    [practiceHistory, recitationLifetime],
+  );
+  const recitationBadges = useMemo(
+    () => evaluateRecitationMilestones(practice).filter((m) => m.unlocked),
+    [practice],
+  );
+  const quranBookmarks = data?.quranBookmarks ?? 0;
+  const hadithBookmarks = data?.hadithBookmarks ?? 0;
+  const hasReadingData = reading.surahsStarted > 0 || quranBookmarks > 0 || hadithBookmarks > 0;
+
+  const loaded = data != null;
+  const isEmpty =
+    loaded &&
+    logs.length === 0 &&
+    zikr.length === 0 &&
+    qazaTotal === 0 &&
+    !hasReadingData &&
+    practice.sessions === 0;
+
+  const insights: Insight[] = [];
+  if (extremes.strongest?.onTimeRate != null) {
+    insights.push({
+      key: "strongest",
+      icon: { ios: "star.fill", android: "star", web: "star" },
+      tone: "success",
+      text: t("statistics.insightStrongest", {
+        salah: t(`prayers.${extremes.strongest.prayerId}`),
+        percent: Math.round(extremes.strongest.onTimeRate * 100),
+      }),
+    });
+  }
+  if (extremes.weakest?.onTimeRate != null && extremes.weakest.onTimeRate < 0.8) {
+    insights.push({
+      key: "weakest",
+      icon: { ios: "leaf.fill", android: "eco", web: "eco" },
+      tone: "warning",
+      text: t("statistics.insightWeakest", {
+        salah: t(`prayers.${extremes.weakest.prayerId}`),
+        percent: Math.round(extremes.weakest.onTimeRate * 100),
+      }),
+    });
+  }
+  if (bestWeekday != null) {
+    // 2000-01-02 was a Sunday — offset to the weekday for a localized name.
+    const day = new Date(2000, 0, 2 + bestWeekday).toLocaleDateString(locale, { weekday: "long" });
+    insights.push({
+      key: "weekday",
+      icon: { ios: "calendar", android: "calendar_today", web: "calendar_today" },
+      tone: "info",
+      text: t("statistics.insightBestDay", { day }),
+    });
+  }
+  if (periodSummary.bestPerfectRun >= 2) {
+    insights.push({
+      key: "run",
+      icon: { ios: "flame.fill", android: "local_fire_department", web: "local_fire_department" },
+      tone: "warning",
+      text: t("statistics.insightPerfectRun", { value: formatCount(periodSummary.bestPerfectRun) }),
+    });
+  }
+  if (periodSummary.excusedDays > 0) {
+    insights.push({
+      key: "excused",
+      icon: { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" },
+      tone: "info",
+      text: t("statistics.insightExcused", { value: formatCount(periodSummary.excusedDays) }),
+    });
+  }
+
+  const denseChart = chart.length > DENSE_BAR_COUNT;
+  const selectedDetail = selectedBar != null ? chart[selectedBar]?.accessibilityLabel : null;
 
   const lifetimeMetrics: Metric[] = [
     {
-      value: streak,
+      value: formatCount(streak),
       label: t("statistics.streak"),
-      color: tokens.status.warning.color,
+      color: tokens.status.warning.text,
+    },
+    {
+      value: formatCount(achievementStats.bestStreak),
+      label: t("statistics.bestStreak"),
+      color: tokens.status.warning.text,
     },
     {
       value: formatCount(achievementStats.prayersCompleted),
-      label: t("statistics.totalPrayers"),
-      color: tokens.status.success.color,
-    },
-    {
-      value: formatCount(achievementStats.zikrCompleted),
-      label: t("statistics.totalZikr"),
-      color: tokens.status.danger.color,
+      label: t("statistics.salahOnTime"),
+      color: tokens.status.success.text,
     },
     {
       value: formatCount(achievementStats.perfectDays),
       label: t("statistics.perfectDays"),
-      color: tokens.status.info.color,
+      color: tokens.status.info.text,
     },
   ];
 
+  const qazaTodayValue =
+    summary.qazaTargetToday > 0
+      ? `${summary.qazaCompletedToday}/${summary.qazaTargetToday}`
+      : `${summary.qazaCompletedToday}`;
   const todayMetrics: Metric[] = [
     {
       value: `${summary.salahCompleted}/${summary.salahTotal}`,
       label: t("statistics.todayPrayers"),
-      color: tokens.status.success.color,
+      color: tokens.status.success.text,
     },
     {
-      value: `${summary.zikrCompleted}/${summary.zikrTotal}`,
-      label: t("statistics.todayZikr"),
-      color: tokens.status.danger.color,
+      value: todaySets ? `${todaySets.done}/${todaySets.total}` : "—",
+      label: t("statistics.todayAdhkarSets"),
+      color: rose.text,
     },
-    {
-      value: qazaTodayValue,
-      label: t("statistics.todayQaza"),
-      color: tokens.status.info.color,
-    },
+    { value: qazaTodayValue, label: t("statistics.todayQaza"), color: sky.text },
   ];
+
+  const toneColors = (tone: Insight["tone"]) => ({
+    color: tokens.status[tone].onSoft,
+    background: tokens.status[tone].soft,
+  });
+
+  const rangeLabel =
+    period === "year"
+      ? t(PERIOD_HINT_KEYS.year)
+      : t("statistics.periodWithRange", {
+          period: t(PERIOD_HINT_KEYS[period]),
+          range: `${formatShortDate(range.from)} – ${formatShortDate(range.to)}`,
+        });
+
+  const statusTotal =
+    periodSummary.completed +
+    periodSummary.delayed +
+    periodSummary.qaza +
+    periodSummary.missed +
+    periodSummary.unlogged;
+
+  const statusBlock = (
+    <ReadableView style={styles.block}>
+      <BlockTitle title={t("statistics.statusMix")} tag={t("statistics.tagPeriod")} />
+      <View style={[styles.blockShell, { backgroundColor: colors.muted }]}>
+        <StatusDistribution
+          formatValue={formatCount}
+          segments={[
+            {
+              key: "completed",
+              label: t("statistics.statusOnTime"),
+              amount: periodSummary.completed,
+              color: tokens.status.success.color,
+            },
+            {
+              key: "delayed",
+              label: t("prayerStatus.delayed"),
+              amount: periodSummary.delayed,
+              color: tokens.status.warning.color,
+            },
+            {
+              key: "qaza",
+              label: t("prayerStatus.qaza"),
+              amount: periodSummary.qaza,
+              color: tokens.status.info.color,
+            },
+            {
+              key: "missed",
+              label: t("prayerStatus.missed"),
+              amount: periodSummary.missed,
+              color: tokens.status.danger.color,
+            },
+            {
+              key: "unlogged",
+              label: t("statistics.statusUnlogged"),
+              amount: periodSummary.unlogged,
+              color: tokens.track,
+            },
+          ]}
+          accessibilityLabel={t("statistics.statusMixA11y", {
+            completed: formatCount(periodSummary.completed),
+            total: formatCount(statusTotal),
+          })}
+        />
+      </View>
+    </ReadableView>
+  );
+  const perSalahBlock = (
+    <View style={styles.block}>
+      <BlockTitle
+        title={t("statistics.perSalah")}
+        hint={t("statistics.perSalahHint")}
+        tag={t("statistics.tagPeriod")}
+      />
+      <SalahRateList rows={rateRows} formatCount={formatCount} />
+    </View>
+  );
+  const consistencyBlock = (
+    <StatsGroup
+      title={t("statistics.consistency")}
+      tag={t("statistics.tagPeriod")}
+      collapsible={!wide}
+      columns={2}
+      metrics={[
+        {
+          value: formatCount(periodSummary.perfectDays),
+          label: t("stats.perfectDays"),
+          color: tokens.status.success.text,
+        },
+        {
+          value: formatCount(periodSummary.activeDays),
+          label: t("stats.activeDays"),
+          color: tokens.status.info.text,
+        },
+        {
+          value: formatCount(periodSummary.bestPerfectRun),
+          label: t("statistics.longestPerfectRun"),
+          color: tokens.status.warning.text,
+        },
+        {
+          value: formatCount(sunnahCounts.jama),
+          label: t("statistics.jama"),
+          color: colors.accentText,
+        },
+      ]}
+    />
+  );
+  const zikrQazaBlock = (
+    <StatsGroup
+      title={t("statistics.zikrAndQaza")}
+      tag={t("statistics.tagPeriod")}
+      collapsible={!wide}
+      defaultExpanded={false}
+      columns={2}
+      metrics={[
+        {
+          value: formatCount(zikrInPeriod),
+          label: t("statistics.zikrThisPeriod"),
+          color: rose.text,
+        },
+        {
+          value: formatCount(achievementStats.zikrCompleted),
+          label: t("statistics.zikrAllTime"),
+          color: rose.text,
+        },
+        {
+          value: formatCount(qazaInPeriod),
+          label: t("statistics.qazaThisPeriod"),
+          color: sky.text,
+        },
+        {
+          value: (qazaInPeriod / Math.max(1, elapsedDays)).toLocaleString(locale, {
+            maximumFractionDigits: 1,
+          }),
+          label: t("statistics.qazaPerDay"),
+          color: sky.text,
+        },
+      ]}
+    />
+  );
+  const sunnahBlock =
+    sunnahCounts.counts.size > 0 ? (
+      <StatsGroup
+        title={t("statistics.sunnah")}
+        tag={t("statistics.tagPeriod")}
+        collapsible={!wide}
+        defaultExpanded={false}
+        columns={sunnahCounts.counts.size >= 3 ? 3 : 2}
+        metrics={SUNNAH_STAT_PRAYERS.filter((p) => sunnahCounts.counts.has(p)).map((p) => ({
+          value: formatCount(sunnahCounts.counts.get(p) ?? 0),
+          label: t(`prayers.${p}`),
+          color: colors.accentText,
+        }))}
+      />
+    ) : null;
+  // NF-3.11: Salah logged at the masjid — only rendered when the period has any.
+  const masjidStats = useMemo(
+    () => masjidPrayerStats(logs, range.from, [range.to, today].sort()[0] ?? today),
+    [logs, range, today],
+  );
+  const masjidBlock =
+    masjidStats.count > 0 ? (
+      <StatsGroup
+        title={t("masjidLog.statsTitle")}
+        tag={t("statistics.tagPeriod")}
+        collapsible={!wide}
+        defaultExpanded={false}
+        columns={2}
+        metrics={[
+          {
+            value: formatCount(masjidStats.count),
+            label: t("masjidLog.statsCount"),
+            color: colors.accentText,
+          },
+          {
+            value: masjidStats.perWeek.toLocaleString(locale, { maximumFractionDigits: 1 }),
+            label: t("masjidLog.statsPerWeek"),
+            color: tokens.status.success.text,
+          },
+        ]}
+      />
+    ) : null;
+  const adhkarBlock = hasAdhkarHistory ? (
+    <View style={styles.block}>
+      <BlockTitle
+        title={t("statistics.adhkarBySet")}
+        hint={t("statistics.adhkarBySetHint")}
+        tag={t("statistics.tagPeriod")}
+      />
+      <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+        {adhkarHistory.map((row, i) => (
+          <TvReadableBlock key={adhkarSetKey(row.scope)}>
+            {i > 0 ? (
+              <View style={[styles.listDivider, { backgroundColor: tokens.hairline }]} />
+            ) : null}
+            <StatLine
+              label={
+                row.scope.prayer
+                  ? t("zikrSession.afterPrayerEyebrow", {
+                      prayer: t(`prayers.${row.scope.prayer}`),
+                    })
+                  : t(`zikrCat.${row.scope.categoryId}`)
+              }
+              value={t("statistics.adhkarDays", {
+                done: formatCount(row.doneDays),
+                days: formatCount(row.days),
+              })}
+              color={tokens.status.success.text}
+              bar={row.days > 0 ? row.doneDays / row.days : 0}
+            />
+          </TvReadableBlock>
+        ))}
+      </View>
+    </View>
+  ) : null;
+
+  // Pinned under the header while the page scrolls: one control for every "This period" block.
+  const periodBar = (
+    <View style={[styles.periodStick, { backgroundColor: colors.background }]}>
+      <View style={styles.periodBar}>
+        <SegmentedControl<StatsPeriod>
+          options={[
+            { id: "week", label: t("statistics.week") },
+            { id: "month", label: t("statistics.month") },
+            { id: "year", label: t("statistics.year") },
+          ]}
+          value={period}
+          onChange={setPeriod}
+          accessibilityLabel={t("statistics.periodLabel")}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.periodRange}>
+          {rangeLabel}
+        </ThemedText>
+      </View>
+    </View>
+  );
+  const showPeriodBar = loaded && !loadFailed && !isEmpty;
 
   return (
     <ScreenLayout
@@ -312,324 +748,635 @@ export default function StatisticsScreen() {
       title={t("statistics.title")}
       subtitle={t("statistics.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      scrollable={false}
     >
       <Seo path="/statistics" />
-      <Stagger>
-        <View style={styles.stack}>
-          <ResponsiveGrid columns={wide ? 2 : 1} gap={Spacing.four}>
-            <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
-              <View style={styles.heroRow}>
-                <View
-                  style={[
-                    styles.devotionBadge,
-                    tv ? { width: tvDp(64), height: tvDp(64) } : null,
-                    { backgroundColor: tokens.status.warning.soft },
-                  ]}
-                >
-                  <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
-                    {devotion.level}
-                  </ThemedText>
-                </View>
-                <View style={styles.heroCopy}>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("achievements.devotion")}
-                  </ThemedText>
-                  <ThemedText type="subtitle">
-                    {t("achievements.devotionLevel", { level: devotion.level })}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("achievements.devotionNoor", {
-                      current: devotion.noor - devotion.noorForCurrentLevel,
-                      next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
-                    })}
-                  </ThemedText>
-                </View>
-              </View>
-              <ProgressBar value={devotion.progress} color={tokens.status.warning.color} />
-              <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                <MetricGrid metrics={lifetimeMetrics} columns={2} />
-              </View>
-              <LinkRow
-                label={t("statistics.viewAchievements")}
-                onPress={() => router.push("/achievements")}
-              />
-            </Card>
-
-            <Card padding="three" style={[styles.sectionCard, wide ? styles.fill : null]}>
-              <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("statistics.todayHint")}
-              </ThemedText>
-              <TvReadableBlock style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                <MetricGrid metrics={todayMetrics} columns={3} />
-              </TvReadableBlock>
-            </Card>
-          </ResponsiveGrid>
-
-          <Card padding="three" style={styles.trendsCard}>
-            <View style={styles.trendsHeader}>
-              <View style={styles.trendsTitleRow}>
-                <View style={styles.trendsCopy}>
-                  <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t(PERIOD_HINT_KEYS[period])}
-                  </ThemedText>
-                </View>
-                <View style={[styles.avgPill, { backgroundColor: tokens.status.success.soft }]}>
-                  <ThemedText type="smallBold" style={{ color: tokens.status.success.text }}>
-                    {t("statistics.avgCompletion", {
-                      percent: Math.round(averageLevel * 100),
-                    })}
-                  </ThemedText>
-                </View>
-              </View>
-
-              <SegmentedControl<Period>
-                options={[
-                  { id: "week", label: t("statistics.week") },
-                  { id: "month", label: t("statistics.month") },
-                  { id: "year", label: t("statistics.year") },
-                ]}
-                value={period}
-                onChange={setPeriod}
-              />
-
-              <BarChart
-                data={chart}
-                color={tokens.status.success.color}
-                height={period === "month" ? 120 : 112}
-                emptyLabel={t("statistics.chartEmpty")}
-              />
-            </View>
-
-            <CardDivider />
-
-            <ResponsiveGrid columns={groupColumns} gap={Spacing.three}>
-              <StatsGroup
-                title={t("statistics.prayer")}
-                columns={2}
-                metrics={[
-                  {
-                    value: prayerTotals.completed,
-                    label: t("stats.completed"),
-                    color: tokens.status.success.color,
-                  },
-                  {
-                    value: prayerTotals.missed,
-                    label: t("stats.missed"),
-                    color: tokens.status.danger.color,
-                  },
-                  {
-                    value: prayerTotals.delayed,
-                    label: t("stats.delayed"),
-                    color: tokens.status.warning.color,
-                  },
-                  {
-                    value: prayerTotals.qaza,
-                    label: t("stats.qazaLogged"),
-                    color: tokens.status.info.color,
-                  },
-                ]}
-              />
-
-              <StatsGroup
-                title={t("statistics.consistency")}
-                columns={2}
-                metrics={[
-                  {
-                    value: perfectDaysInPeriod,
-                    label: t("stats.perfectDays"),
-                    color: tokens.status.success.color,
-                  },
-                  {
-                    value: activeDaysInPeriod,
-                    label: t("stats.activeDays"),
-                    color: tokens.status.info.color,
-                  },
-                ]}
-              />
-
-              <StatsGroup
-                title={t("statistics.qaza")}
-                columns={3}
-                metrics={[
-                  {
-                    value: qazaPerformedInPeriod,
-                    label: t("stats.madeUpPeriod"),
-                    color: tokens.status.success.color,
-                  },
-                  {
-                    value: qazaRemaining,
-                    label: t("stats.remaining"),
-                    color: tokens.status.info.color,
-                  },
-                  {
-                    value: qazaCompleted,
-                    label: t("stats.madeUp"),
-                    color: tokens.status.success.color,
-                  },
-                ]}
-              />
-
-              <StatsGroup
-                title={t("statistics.roza")}
-                columns={2}
-                metrics={[
-                  {
-                    value: roza.remaining,
-                    label: t("stats.remaining"),
-                    color: tokens.status.info.color,
-                  },
-                  {
-                    value: roza.completed,
-                    label: t("stats.completed"),
-                    color: tokens.status.success.color,
-                  },
-                ]}
-              />
-
-              <StatsGroup
-                title={t("statistics.zikr")}
-                columns={2}
-                metrics={[
-                  {
-                    value: zikrCompleted,
-                    label: t("stats.completed"),
-                    color: tokens.status.warning.color,
-                  },
-                  {
-                    value: zikrByCategory.length,
-                    label: t("stats.categories"),
-                    color: tokens.status.info.color,
-                  },
-                ]}
-              />
-            </ResponsiveGrid>
+      <TvScrollView
+        style={styles.scroller}
+        stickyHeaderIndices={showPeriodBar ? [0] : undefined}
+        contentContainerStyle={{ paddingBottom: contentBottomInset }}
+        keyboardShouldPersistTaps="handled"
+        contentInsetAdjustmentBehavior="never"
+        showsVerticalScrollIndicator={false}
+      >
+        {showPeriodBar ? periodBar : null}
+        {loadFailed && !loaded ? (
+          <RetryCard
+            message={t("statistics.loadFailed")}
+            onRetry={() => setReloadKey((key) => key + 1)}
+          />
+        ) : !loaded ? (
+          <StatisticsSkeleton />
+        ) : isEmpty ? (
+          <Card padding="four">
+            <EmptyState
+              icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+              title={t("statistics.emptyTitle")}
+              description={t("statistics.emptyDesc")}
+              actionLabel={t("statistics.openTracker")}
+              onAction={() => router.push("/tracker")}
+            />
           </Card>
-
-          {hasDetails ? (
-            <Card padding="three" style={styles.sectionCard}>
-              <ThemedText type="subtitle">{t("statistics.details")}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("statistics.detailsHint")}
-              </ThemedText>
-
-              <ResponsiveGrid columns={groupColumns} gap={wide ? Spacing.three : Spacing.two}>
-                {perPrayerQaza.length > 0 ? (
-                  <View style={styles.detailBlock}>
-                    <ThemedText
-                      type="smallBold"
-                      themeColor="mutedForeground"
-                      style={styles.detailLabel}
+        ) : (
+          <Stagger>
+            <View style={styles.stack}>
+              {/* ── Journey + today ─────────────────────────────────────────── */}
+              <ResponsiveGrid columns={wide ? 2 : 1} gap={Spacing.four}>
+                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                  <ReadableView style={styles.heroRow}>
+                    <View
+                      style={[
+                        styles.devotionBadge,
+                        tv ? { width: tvDp(64), height: tvDp(64) } : null,
+                        { backgroundColor: tokens.status.warning.soft },
+                      ]}
                     >
-                      {t("statistics.perPrayer")}
+                      <ThemedText type="title" style={{ color: tokens.status.warning.text }}>
+                        {devotion.level}
+                      </ThemedText>
+                    </View>
+                    <View style={styles.heroCopy}>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("achievements.devotion")}
+                      </ThemedText>
+                      <ThemedText type="subtitle">
+                        {t("achievements.devotionLevel", { level: devotion.level })}
+                      </ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("achievements.devotionNoor", {
+                          current: formatCount(devotion.noor - devotion.noorForCurrentLevel),
+                          next: formatCount(
+                            devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                          ),
+                        })}
+                      </ThemedText>
+                    </View>
+                  </ReadableView>
+                  <ProgressBar
+                    value={devotion.progress}
+                    accessibilityLabel={t("a11yProgress.devotionLevel")}
+                    color={tokens.status.warning.color}
+                  />
+                  <Pill
+                    label={t("statistics.tagLifetime")}
+                    tone="neutral"
+                    compact
+                    style={styles.tagStart}
+                  />
+                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                    <MetricGrid metrics={lifetimeMetrics} columns={2} />
+                  </ReadableView>
+                  <LinkRow
+                    label={t("statistics.viewAchievements")}
+                    onPress={() => router.push("/achievements")}
+                  />
+                </Card>
+
+                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                  <View style={styles.cardHeader}>
+                    <View style={styles.cardHeaderCopy}>
+                      <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {parseLocalDateString(today).toLocaleDateString(locale, {
+                          weekday: "long",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </ThemedText>
+                    </View>
+                    {excusedToday ? (
+                      <View style={[styles.pill, { backgroundColor: tokens.status.info.soft }]}>
+                        <ThemedText type="smallBold" style={{ color: tokens.status.info.text }}>
+                          {t("statistics.todayExcused")}
+                        </ThemedText>
+                      </View>
+                    ) : null}
+                  </View>
+                  <TvReadableBlock>
+                    <TodaySalahStrip prayers={TODAY_STRIP_PRAYERS} statuses={todayPrayers.status} />
+                  </TvReadableBlock>
+                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                    <MetricGrid metrics={todayMetrics} columns={3} />
+                  </ReadableView>
+                  <View style={styles.spacer} />
+                  <LinkRow
+                    label={t("statistics.openTracker")}
+                    onPress={() => router.push("/tracker")}
+                  />
+                </Card>
+              </ResponsiveGrid>
+
+              {/* ── Trends ──────────────────────────────────────────────────── */}
+              <Card padding="four" style={styles.trendsCard}>
+                <View style={styles.cardHeader}>
+                  <View style={styles.cardHeaderCopy}>
+                    <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
+                  </View>
+                  <View style={styles.pillColumn}>
+                    {average != null ? (
+                      <View style={[styles.pill, { backgroundColor: tokens.status.success.soft }]}>
+                        <ThemedText type="smallBold" style={{ color: tokens.status.success.text }}>
+                          {t("statistics.avgOnTime", { percent: Math.round(average * 100) })}
+                        </ThemedText>
+                      </View>
+                    ) : null}
+                    {delta != null ? (
+                      <ThemedText
+                        type="caption"
+                        style={{
+                          color:
+                            delta > 0
+                              ? tokens.status.success.text
+                              : delta < 0
+                                ? tokens.status.danger.text
+                                : colors.mutedForeground,
+                        }}
+                      >
+                        {t(COMPARE_KEYS[period], {
+                          delta: `${delta > 0 ? "▲" : delta < 0 ? "▼" : "•"} ${Math.abs(delta)}%`,
+                        })}
+                      </ThemedText>
+                    ) : null}
+                  </View>
+                </View>
+
+                <BarChart
+                  data={chart}
+                  color={tokens.status.success.color}
+                  height={period === "week" ? 132 : 120}
+                  emptyLabel={t("statistics.chartEmpty")}
+                  average={average}
+                  selectedIndex={selectedBar}
+                  onSelect={(i) => setSelectedBar((current) => (current === i ? null : i))}
+                  summaryLabel={t("statistics.chartSummary", {
+                    range: rangeLabel,
+                    percent: average != null ? Math.round(average * 100) : 0,
+                  })}
+                />
+
+                <View style={styles.chartFooter}>
+                  {selectedDetail && !denseChart ? (
+                    <ThemedText type="smallBold" style={styles.chartDetail}>
+                      {selectedDetail}
                     </ThemedText>
-                    <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
-                      {perPrayerQaza.map((counter, index) => (
-                        <TvReadableBlock key={counter.prayerId}>
-                          {index > 0 ? (
+                  ) : (
+                    <View style={styles.legendRow}>
+                      <LegendKey
+                        swatch={
+                          <View
+                            style={[
+                              styles.legendSwatch,
+                              styles.legendToday,
+                              { borderColor: tokens.status.success.color },
+                            ]}
+                          />
+                        }
+                        label={
+                          period === "year"
+                            ? t("statistics.legendThisMonth")
+                            : t("statistics.legendToday")
+                        }
+                      />
+                      {period !== "year" ? (
+                        <LegendKey
+                          swatch={
                             <View
-                              style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                              style={[
+                                styles.legendSwatch,
+                                styles.legendExcused,
+                                { borderColor: colors.mutedForeground },
+                              ]}
                             />
-                          ) : null}
-                          <View style={styles.qazaRow}>
-                            <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
-                            <View style={styles.qazaCopy}>
-                              <ThemedText type="small">
-                                {t(`prayers.${counter.prayerId}`)}
+                          }
+                          label={t("statistics.legendExcused")}
+                        />
+                      ) : null}
+                      <LegendKey
+                        swatch={
+                          <View
+                            style={[
+                              styles.legendLine,
+                              { borderColor: tokens.status.success.color },
+                            ]}
+                          />
+                        }
+                        label={t("statistics.legendAverage")}
+                      />
+                      {!tv && !denseChart ? (
+                        <ThemedText type="caption" themeColor="mutedForeground">
+                          {period === "year"
+                            ? t("statistics.tapMonthHint")
+                            : t("statistics.tapBarHint")}
+                        </ThemedText>
+                      ) : null}
+                    </View>
+                  )}
+                </View>
+
+                {insights.length > 0 ? (
+                  <View style={styles.insights}>
+                    {insights.map((insight) => {
+                      const tone = toneColors(insight.tone);
+                      return (
+                        <View
+                          key={insight.key}
+                          style={[styles.insight, { backgroundColor: tone.background }]}
+                        >
+                          <SymbolView name={insight.icon} size={14} tintColor={tone.color} />
+                          <ThemedText type="caption" style={{ color: tone.color }}>
+                            {insight.text}
+                          </ThemedText>
+                        </View>
+                      );
+                    })}
+                  </View>
+                ) : null}
+
+                <CardDivider />
+
+                {wide ? (
+                  <View style={styles.columns}>
+                    <View style={styles.column}>
+                      {statusBlock}
+                      {consistencyBlock}
+                      {zikrQazaBlock}
+                      {sunnahBlock}
+                      {masjidBlock}
+                    </View>
+                    <View style={styles.column}>
+                      {perSalahBlock}
+                      {adhkarBlock}
+                    </View>
+                  </View>
+                ) : (
+                  <View style={styles.column}>
+                    {statusBlock}
+                    {perSalahBlock}
+                    {consistencyBlock}
+                    {zikrQazaBlock}
+                    {sunnahBlock}
+                    {masjidBlock}
+                    {adhkarBlock}
+                  </View>
+                )}
+                <LinkRow
+                  label={t("statistics.openCalendar")}
+                  onPress={() => router.push("/calendar")}
+                />
+              </Card>
+
+              {/* ── Sunnah rawatib (NF-3.1) — separate from the fard rates above ── */}
+              <RawatibStatsCard
+                logs={logs}
+                index={index}
+                from={range.from}
+                to={range.to}
+                today={today}
+                formatCount={formatCount}
+              />
+
+              {/* ── Lifetime make-up (qaza + fasting) and reading ───────────── */}
+              <ResponsiveGrid
+                columns={wide && hasDebt && hasReadingData ? 2 : 1}
+                gap={Spacing.four}
+              >
+                {hasDebt ? (
+                  <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                    <View style={styles.headerStack}>
+                      <View style={styles.blockTitleRow}>
+                        <ThemedText type="subtitle" style={styles.flex}>
+                          {t("statistics.debtTitle")}
+                        </ThemedText>
+                        <Pill label={t("statistics.tagLifetime")} tone="neutral" compact />
+                      </View>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("statistics.debtHint")}
+                      </ThemedText>
+                    </View>
+
+                    {qazaTotal > 0 ? (
+                      <ReadableView style={styles.block}>
+                        <BlockTitle title={t("statistics.qaza")} />
+                        <View style={styles.progressHeader}>
+                          <ThemedText type="header" style={{ color: tokens.status.info.text }}>
+                            {formatPercent(qazaCompleted / qazaTotal)}
+                          </ThemedText>
+                          <ThemedText
+                            type="caption"
+                            themeColor="mutedForeground"
+                            style={styles.flex}
+                          >
+                            {t("statistics.madeUpOf", {
+                              done: formatCount(qazaCompleted),
+                              total: formatCount(qazaTotal),
+                            })}
+                          </ThemedText>
+                        </View>
+                        <ProgressBar
+                          value={qazaCompleted / qazaTotal}
+                          accessibilityLabel={t("a11yProgress.qazaMadeUp")}
+                          color={tokens.status.info.color}
+                        />
+                        <ThemedText type="caption" themeColor="mutedForeground">
+                          {qazaRemaining === 0
+                            ? t("statistics.qazaCleared")
+                            : projection
+                              ? t(
+                                  projection.basis === "pace"
+                                    ? "statistics.projectionPace"
+                                    : "statistics.projectionPlan",
+                                  {
+                                    perDay: projection.perDay.toLocaleString(locale, {
+                                      maximumFractionDigits: 1,
+                                    }),
+                                    date: parseLocalDateString(
+                                      projection.finishDate,
+                                    ).toLocaleDateString(locale, {
+                                      month: "long",
+                                      year: "numeric",
+                                    }),
+                                  },
+                                )
+                              : t("statistics.projectionNone")}
+                        </ThemedText>
+                      </ReadableView>
+                    ) : null}
+
+                    {perPrayerQaza.length > 0 ? (
+                      <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                        {perPrayerQaza.map((counter, i) => {
+                          const total = counter.remaining + counter.completed;
+                          return (
+                            <TvReadableBlock key={counter.prayerId}>
+                              {i > 0 ? (
+                                <View
+                                  style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                                />
+                              ) : null}
+                              <View style={styles.qazaRow}>
+                                <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
+                                <View style={styles.qazaCopy}>
+                                  <ThemedText type="small">
+                                    {t(`prayers.${counter.prayerId}`)}
+                                  </ThemedText>
+                                  <ProgressBar
+                                    value={total > 0 ? counter.completed / total : 0}
+                                    accessibilityLabel={t(`prayers.${counter.prayerId}`)}
+                                    height={4}
+                                    color={tokens.status.info.color}
+                                  />
+                                  <ThemedText type="caption" themeColor="mutedForeground">
+                                    {t("qaza.rowMeta", {
+                                      remaining: formatCount(counter.remaining),
+                                      completed: formatCount(counter.completed),
+                                    })}
+                                  </ThemedText>
+                                </View>
+                              </View>
+                            </TvReadableBlock>
+                          );
+                        })}
+                      </View>
+                    ) : null}
+
+                    {rozaTotal > 0 || ramadanFasts > 0 ? (
+                      <ReadableView style={styles.block}>
+                        <BlockTitle title={t("statistics.roza")} />
+                        {rozaTotal > 0 ? (
+                          <>
+                            <View style={styles.progressHeader}>
+                              <ThemedText
+                                type="header"
+                                style={{ color: tokens.status.success.text }}
+                              >
+                                {formatPercent(roza.completed / rozaTotal)}
                               </ThemedText>
-                              <ThemedText type="caption" themeColor="mutedForeground">
-                                {t("qaza.rowMeta", {
-                                  remaining: counter.remaining,
-                                  completed: counter.completed,
+                              <ThemedText
+                                type="caption"
+                                themeColor="mutedForeground"
+                                style={styles.flex}
+                              >
+                                {t("statistics.fastsMadeUpOf", {
+                                  done: formatCount(roza.completed),
+                                  total: formatCount(rozaTotal),
                                 })}
                               </ThemedText>
                             </View>
-                          </View>
-                        </TvReadableBlock>
-                      ))}
-                    </View>
-                  </View>
-                ) : null}
-
-                {zikrByCategory.length > 0 ? (
-                  <View style={styles.detailBlock}>
-                    <ThemedText
-                      type="smallBold"
-                      themeColor="mutedForeground"
-                      style={styles.detailLabel}
-                    >
-                      {t("statistics.zikrBreakdown")}
-                    </ThemedText>
-                    <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
-                      {zikrByCategory.map(([categoryId, count], index) => (
-                        <TvReadableBlock key={categoryId}>
-                          {index > 0 ? (
-                            <View
-                              style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                            <ProgressBar
+                              value={roza.completed / rozaTotal}
+                              accessibilityLabel={t("a11yProgress.qazaFasts")}
+                              color={tokens.status.success.color}
                             />
-                          ) : null}
+                          </>
+                        ) : null}
+                        {ramadanFasts > 0 ? (
                           <StatLine
-                            label={t(`zikrCat.${categoryId}`)}
-                            value={formatCount(count)}
-                            color={tokens.status.warning.color}
-                            bar={count / maxZikrCategoryCount}
+                            label={t("statistics.ramadanFasts")}
+                            value={formatCount(ramadanFasts)}
+                            color={tokens.status.success.text}
                           />
-                        </TvReadableBlock>
-                      ))}
-                    </View>
-                  </View>
+                        ) : null}
+                      </ReadableView>
+                    ) : null}
+                    <View style={styles.spacer} />
+                    <LinkRow
+                      label={t("statistics.openQaza")}
+                      onPress={() => router.push("/qaza")}
+                    />
+                  </Card>
                 ) : null}
 
                 {hasReadingData ? (
-                  <View style={styles.detailBlock}>
-                    <ThemedText
-                      type="smallBold"
-                      themeColor="mutedForeground"
-                      style={styles.detailLabel}
-                    >
-                      {t("statistics.reading")}
-                    </ThemedText>
-                    <TvReadableBlock
-                      style={[styles.metricShell, { backgroundColor: colors.muted }]}
-                    >
+                  <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                    <View style={styles.blockTitleRow}>
+                      <ThemedText type="subtitle" style={styles.flex}>
+                        {t("statistics.reading")}
+                      </ThemedText>
+                      <Pill label={t("statistics.tagLifetime")} tone="neutral" compact />
+                    </View>
+                    <ReadableView style={styles.block}>
+                      <View style={styles.progressHeader}>
+                        <ThemedText type="header" style={{ color: colors.accentText }}>
+                          {(reading.ayahsRead / reading.totalAyahs).toLocaleString(locale, {
+                            style: "percent",
+                            maximumFractionDigits: 1,
+                          })}
+                        </ThemedText>
+                        <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
+                          {t("statistics.ayahsReadOf", {
+                            read: formatCount(reading.ayahsRead),
+                            total: formatCount(reading.totalAyahs),
+                          })}
+                        </ThemedText>
+                      </View>
+                      <ProgressBar
+                        value={reading.ayahsRead / reading.totalAyahs}
+                        accessibilityLabel={t("a11yProgress.quranRead")}
+                        color={colors.accent}
+                      />
+                    </ReadableView>
+                    <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
                       <MetricGrid
                         columns={2}
                         metrics={[
                           {
-                            value: `${quranSurahsStarted}/${QURAN_SURAH_COUNT}`,
+                            value: `${formatCount(reading.surahsCompleted)}/${formatCount(114)}`,
+                            label: t("statistics.surahsCompleted"),
+                            color: tokens.status.success.text,
+                          },
+                          {
+                            value: formatCount(reading.surahsStarted),
                             label: t("statistics.quranSurahs"),
-                            color: colors.accent,
+                            color: colors.accentText,
                           },
                           {
-                            value: quranBookmarks,
+                            value: formatCount(quranBookmarks),
                             label: t("statistics.quranBookmarks"),
-                            color: tokens.status.info.color,
+                            color: sky.text,
                           },
                           {
-                            value: hadithBookmarks,
+                            value: formatCount(hadithBookmarks),
                             label: t("statistics.hadithBookmarks"),
-                            color: tokens.status.warning.color,
-                          },
-                          {
-                            value:
-                              quranSurahsStarted > 0
-                                ? `${Math.round((quranSurahsStarted / QURAN_SURAH_COUNT) * 100)}%`
-                                : "0%",
-                            label: t("statistics.quranProgress"),
-                            color: tokens.status.success.color,
+                            color: dawn.text,
                           },
                         ]}
                       />
-                    </TvReadableBlock>
-                  </View>
+                    </ReadableView>
+                    <View style={styles.spacer} />
+                    <LinkRow
+                      label={t("statistics.openQuran")}
+                      onPress={() => router.push("/quran")}
+                    />
+                  </Card>
+                ) : null}
+
+                {practice.sessions > 0 ? (
+                  <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                    <ThemedText type="subtitle">{t("handsFreeZikr2.stats.title")}</ThemedText>
+                    <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                      <MetricGrid
+                        columns={2}
+                        metrics={[
+                          {
+                            value: formatCount(practice.minutes),
+                            label: t("handsFreeZikr2.stats.minutes"),
+                            color: colors.accentText,
+                          },
+                          {
+                            value: formatCount(practice.ayahsRecited),
+                            label: t("handsFreeZikr2.stats.ayahsRecited"),
+                            color: tokens.status.success.text,
+                          },
+                          {
+                            value: formatCount(practice.sessions),
+                            label: t("handsFreeZikr2.stats.sessions"),
+                            color: tokens.status.info.text,
+                          },
+                          {
+                            value: formatCount(practice.bestRevisionStreak),
+                            label: t("handsFreeZikr2.stats.revisionStreak"),
+                            color: tokens.status.warning.text,
+                          },
+                        ]}
+                      />
+                    </ReadableView>
+                    {recitationBadges.length > 0 ? (
+                      <ReadableView style={styles.block}>
+                        <BlockTitle title={t("handsFreeZikr2.stats.milestones")} />
+                        {recitationBadges.map((milestone) => (
+                          <View key={milestone.id}>
+                            <ThemedText
+                              type="smallBold"
+                              style={{ color: tokens.status.success.text }}
+                            >
+                              {milestoneTitle(milestone)}
+                            </ThemedText>
+                            <ThemedText type="caption" themeColor="mutedForeground">
+                              {milestoneDescription(milestone)}
+                            </ThemedText>
+                          </View>
+                        ))}
+                      </ReadableView>
+                    ) : null}
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("handsFreeZikr2.stats.privacy")}
+                    </ThemedText>
+                    <View style={styles.spacer} />
+                    <LinkRow
+                      label={t("handsFreeZikr2.stats.open")}
+                      onPress={() => router.push("/quran/practice" as Href)}
+                    />
+                  </Card>
                 ) : null}
               </ResponsiveGrid>
-            </Card>
-          ) : null}
-        </View>
-      </Stagger>
+            </View>
+          </Stagger>
+        )}
+      </TvScrollView>
     </ScreenLayout>
+  );
+}
+
+const EMPTY_LOGS: PrayerLog[] = [];
+
+function shortDate(date: string, locale: string | undefined): string {
+  return parseLocalDateString(date).toLocaleDateString(locale, { month: "short", day: "numeric" });
+}
+
+function dayDate(date: string, locale: string | undefined): string {
+  return parseLocalDateString(date).toLocaleDateString(locale, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
+const EMPTY_ZIKR: ZikrProgress[] = [];
+
+function BlockTitle({ title, hint, tag }: { title: string; hint?: string; tag?: string }) {
+  return (
+    <View style={styles.blockTitle}>
+      <View style={styles.blockTitleRow}>
+        <ThemedText type="label" themeColor="mutedForeground" style={styles.flex}>
+          {title}
+        </ThemedText>
+        {tag ? <Pill label={tag} tone="neutral" compact /> : null}
+      </View>
+      {hint ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {hint}
+        </ThemedText>
+      ) : null}
+    </View>
+  );
+}
+
+function LegendKey({ swatch, label }: { swatch: ReactNode; label: string }) {
+  return (
+    <View style={styles.legendKey}>
+      {swatch}
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {label}
+      </ThemedText>
+    </View>
+  );
+}
+
+/** Placeholder shapes while the repositories load (avoids a flash of zeros). */
+function StatisticsSkeleton() {
+  return (
+    <View
+      style={styles.stack}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+    >
+      {[180, 320, 220].map((height) => (
+        <Card key={height} padding="four" style={styles.journeyCard}>
+          <Skeleton width="40%" height={20} />
+          <Skeleton height={height - 80} radius={Radius.md} />
+          <Skeleton width="70%" height={14} />
+        </Card>
+      ))}
+    </View>
   );
 }
 
@@ -662,43 +1409,128 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     overflow: "hidden",
   },
-  sectionCard: {
-    gap: Spacing.two,
-  },
-  trendsCard: {
-    gap: Spacing.three,
-  },
-  trendsHeader: {
-    gap: Spacing.two,
-  },
-  trendsTitleRow: {
+  cardHeader: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: Spacing.two,
   },
-  trendsCopy: {
+  cardHeaderCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
-  avgPill: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one + 2,
+  /** Title + hint stacked in a column card (no flex: it would collapse there). */
+  headerStack: {
+    gap: Spacing.half,
+  },
+  pillColumn: {
+    alignItems: "flex-end",
+    gap: Spacing.one,
+    flexShrink: 1,
+  },
+  pill: {
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
-    marginTop: 2,
+  },
+  scroller: { flex: 1 },
+  // Sticky wrapper: opaque so scrolled content never shows through the switcher.
+  periodStick: { paddingTop: Spacing.one, paddingBottom: Spacing.two },
+  periodBar: {
+    gap: Spacing.one,
+  },
+  periodRange: {
+    textAlign: "center",
+  },
+  trendsCard: {
+    gap: Spacing.three,
+  },
+  columns: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.four,
+  },
+  column: {
+    flex: 1,
+    gap: Spacing.four,
+  },
+  chartFooter: {
+    minHeight: 24,
+    justifyContent: "center",
+  },
+  chartDetail: {
+    textAlign: "center",
+  },
+  legendRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    columnGap: Spacing.three,
+    rowGap: Spacing.one,
+  },
+  legendKey: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  legendSwatch: {
+    width: 12,
+    height: 12,
+    borderRadius: 3,
+  },
+  legendToday: {
+    borderWidth: BorderWidth.thick,
+  },
+  legendExcused: {
+    borderWidth: BorderWidth.thin,
+    borderStyle: "dashed",
+  },
+  legendLine: {
+    width: 14,
+    borderTopWidth: BorderWidth.thin,
+    borderStyle: "dashed",
+  },
+  insights: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+  },
+  insight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.oneHalf,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.oneHalf,
+    borderRadius: Radius.pill,
   },
   /** Wide grid cell: stretch the card to the row height. */
   fill: {
     flexGrow: 1,
   },
-  detailBlock: {
-    gap: Spacing.two,
-    marginTop: Spacing.one,
+  tagStart: {
+    alignSelf: "flex-start",
   },
-  detailLabel: {
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    fontSize: 11,
+  spacer: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  block: {
+    gap: Spacing.two,
+  },
+  blockTitle: {
+    gap: Spacing.half,
+  },
+  blockTitleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  blockShell: {
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    padding: Spacing.three,
   },
   detailList: {
     borderRadius: Radius.md,
@@ -709,6 +1541,11 @@ const styles = StyleSheet.create({
   listDivider: {
     height: StyleSheet.hairlineWidth,
   },
+  progressHeader: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: Spacing.two,
+  },
   qazaRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -717,7 +1554,7 @@ const styles = StyleSheet.create({
   },
   qazaCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.one,
   },
 });
 

@@ -36,19 +36,6 @@ describe("quranCompanionPrefsStore", () => {
       keepAwake: false,
     });
   });
-
-  it("seeds reader toggles only on the first call", async () => {
-    const { seedReadingToggles } = quranCompanionPrefsStore.getState();
-    await seedReadingToggles(false, false);
-    expect(quranCompanionPrefsStore.getState().prefs).toMatchObject({
-      showTranslation: false,
-      showTransliteration: false,
-      readingTogglesSeeded: true,
-    });
-
-    await quranCompanionPrefsStore.getState().seedReadingToggles(true, true);
-    expect(quranCompanionPrefsStore.getState().prefs.showTranslation).toBe(false);
-  });
 });
 
 describe("companion prefs hooks", () => {
@@ -68,13 +55,8 @@ describe("companion prefs hooks", () => {
 
     await act(async () => {
       await result.current.actions.update({ autoAdvance: true });
-      await result.current.actions.seedReadingToggles(false, true);
     });
-    expect(result.current.prefs).toMatchObject({
-      autoAdvance: true,
-      showTranslation: false,
-      showTransliteration: true,
-    });
+    expect(result.current.prefs).toMatchObject({ autoAdvance: true });
   });
 
   it("skips loading when already ready", async () => {

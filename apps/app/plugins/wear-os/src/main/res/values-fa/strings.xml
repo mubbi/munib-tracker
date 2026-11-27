@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">نماز بعدی</string>
+  <string name="wear_today">برنامه امروز</string>
+  <string name="wear_tasbeeh">تسبیح</string>
+  <string name="wear_progress">پیشرفت امروز</string>
+  <string name="wear_open_phone">برای همگام‌سازی، Munib Tracker را در گوشی خود باز کنید</string>
+  <string name="wear_connect_phone">برای دیدن اوقات نماز، گوشی خود را وصل کنید</string>
+  <string name="wear_install_phone">برای دیدن اوقات نماز، Munib Tracker را روی گوشی خود نصب کنید</string>
+  <string name="wear_tasbeeh_standalone">تسبیح بدون گوشی هم روی ساعت شما کار می‌کند</string>
+  <string name="wear_tasbeeh_of_target">از %1$d</string>
+  <string name="wear_tasbeeh_unlimited">نامحدود</string>
+  <string name="wear_tasbeeh_options">گزینه‌ها</string>
+  <string name="wear_tasbeeh_undo">واگرد آخرین</string>
+  <string name="wear_tasbeeh_target">هدف</string>
+  <string name="wear_tasbeeh_mode">حالت</string>
+  <string name="wear_tasbeeh_free">شمارش آزاد</string>
+  <string name="wear_tasbeeh_after_salah">بعد از نماز</string>
+  <string name="wear_tasbeeh_reset">بازنشانی</string>
+  <string name="wear_tasbeeh_reset_confirm">شمارش به ۰ بازنشانی شود؟</string>
+  <string name="wear_tasbeeh_start_again">دوباره شروع کنید</string>
+  <string name="wear_tasbeeh_all_done">تسبیح کامل شد</string>
+  <string name="wear_tasbeeh_step">مرحله %1$d از %2$d</string>
+  <string name="wear_tasbeeh_target_reached">به هدف رسید</string>
+  <string name="wear_tasbeeh_tap_to_count">برای شمردن ضربه بزنید</string>
+  <string name="wear_tasbeeh_a11y">شمارنده تسبیح، %1$d از %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">شمارنده تسبیح، %1$d</string>
+  <string name="wear_tasbeeh_count_one">یکی بشمار</string>
+  <string name="wear_open">باز کردن</string>
+  <string name="wear_open_app">باز کردن Munib Tracker</string>
+  <string name="wear_mark_confirm">این نماز به‌عنوان خوانده‌شده ثبت شود؟</string>
+  <string name="wear_confirm">تأیید</string>
+  <string name="wear_marked">ثبت شد ✓</string>
+  <string name="wear_mark_sent">به گوشی شما ارسال شد</string>
+  <string name="wear_mark_will_sync">وقتی گوشی‌تان نزدیک باشد همگام‌سازی می‌شود</string>
+</resources>

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 export type ButtonVariant = "primary" | "gold" | "outline" | "ghost" | "glass" | "hero";

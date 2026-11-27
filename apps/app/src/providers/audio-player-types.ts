@@ -16,6 +16,11 @@ export type AudioTrack = {
   playlistSecondary?: string;
   /** When true, `playlistPrimary` uses Arabic typography. */
   playlistPrimaryRtl?: boolean;
+  /**
+   * Lock screen / media notification "artist" line (e.g. the Qur'an reciter).
+   * When set, `subtitle` moves to the album line with the queue position.
+   */
+  lockScreenArtist?: string;
   uri: string;
   /** Bundled asset module (from `require()`), used instead of `uri` when set. */
   source?: number;

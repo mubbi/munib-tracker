@@ -56,7 +56,7 @@ export default function LearnQuranTadabburScreen() {
               <LearnGrid maxColumns={2} gap={Spacing.four} passthrough>
                 {prompts.map((prompt) => (
                   <TvReadableBlock key={prompt.id}>
-                    <Card padding="three" style={styles.card}>
+                    <Card style={styles.card}>
                       <LearnProseText proseRole="title">{prompt.question}</LearnProseText>
                       <LearnProseText proseRole="caption" themeColor="mutedForeground">
                         {prompt.hint}

@@ -8,6 +8,8 @@ jest.mock("./tilawa-adapter", () => ({
     mockCreateTilawaEngine(engine, assets, platform),
 }));
 
+import { SPEECH_SESSION_IDLE_MS } from "@/lib/speech/session-cache";
+
 import { createPlatformEngine, isEngineRuntimeSupported } from "./tilawa.native";
 
 describe("tilawa.native", () => {
@@ -26,13 +28,53 @@ describe("tilawa.native", () => {
       InferenceSession: { create: jest.fn(async () => ({ run: jest.fn(), outputNames: [] })) },
       Tensor: class {},
     } as unknown as OrtNamespace;
-    await platform.createSession(ort, assets);
+    const lease = await platform.createSession(ort, assets);
     expect(ort.InferenceSession.create).toHaveBeenCalledWith("/data/model.onnx", {
       executionProviders: ["cpu"],
       graphOptimizationLevel: "all",
+      intraOpNumThreads: 2,
     });
+    await lease.release?.();
     await expect(platform.createSession(ort, { json: {} })).rejects.toMatchObject({
       code: "model-missing",
     });
+  });
+
+  it("shares one warmed-up session per model file and releases it after the idle delay", async () => {
+    jest.useFakeTimers();
+    try {
+      const run = jest.fn(async () => ({
+        log_probs: { data: new Float32Array(1025), dims: [1, 1, 1025] },
+      }));
+      const release = jest.fn(async () => {});
+      const create = jest.fn(async () => ({
+        run,
+        release,
+        outputNames: ["log_probs"],
+        inputNames: ["audio_signal", "length"],
+      }));
+      const ort = {
+        InferenceSession: { create },
+        Tensor: class {},
+      } as unknown as OrtNamespace;
+      await createPlatformEngine("tilawa-fastconformer", { json: {}, modelPath: "/fc.onnx" });
+      const platform = mockCreateTilawaEngine.mock.calls.at(-1)?.[2] as EnginePlatform;
+      const assets = { json: {}, modelPath: "/fc.onnx" };
+
+      const practice = await platform.createSession(ort, assets);
+      const tasbeeh = await platform.createSession(ort, assets);
+      expect(create).toHaveBeenCalledTimes(1);
+      // One warm-up inference (0.5 s of silence) when the session was created.
+      expect(run).toHaveBeenCalledTimes(1);
+
+      await practice.release?.();
+      await tasbeeh.release?.();
+      await tasbeeh.release?.();
+      expect(release).not.toHaveBeenCalled();
+      await jest.advanceTimersByTimeAsync(SPEECH_SESSION_IDLE_MS);
+      expect(release).toHaveBeenCalledTimes(1);
+    } finally {
+      jest.useRealTimers();
+    }
   });
 });

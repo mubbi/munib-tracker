@@ -1,5 +1,40 @@
 import { createPronunciationClient } from "./client.ts";
-import { QuranLabError, quranLabKeyFor, toQuranLabCode } from "./types";
+import {
+  QuranLabError,
+  quranLabKeyFor,
+  quranLabNeeds,
+  toQuranLabCode,
+  toQuranLabError,
+} from "./types";
+
+describe("quranLabNeeds (SDK 4.0.2 errorCause)", () => {
+  it("reads the web SDK's errorCause object", () => {
+    expect(quranLabNeeds({ code: "needs_connection", errorCause: { needs: "model" } })).toBe(
+      "model",
+    );
+    expect(quranLabNeeds({ errorCause: { needs: "lease" } })).toBe("lease");
+    expect(quranLabNeeds({ errorCause: { needs: "other" } })).toBeNull();
+  });
+
+  it("reads the native bridges' leading message tokens only", () => {
+    expect(quranLabNeeds(new Error("[needs=lease stage=lease reason=network] x"))).toBe("lease");
+    expect(quranLabNeeds(new Error("[stage=download reason=http http=503] x"))).toBeNull();
+    expect(quranLabNeeds(new Error("the text needs=model later"))).toBeNull();
+    expect(quranLabNeeds(null)).toBeNull();
+  });
+
+  it("toQuranLabError keeps code, message and needs, and passes QuranLabError through", () => {
+    const err = toQuranLabError(
+      Object.assign(new Error("[needs=model stage=download reason=network] offline"), {
+        code: "needs_connection",
+      }),
+    );
+    expect(err).toBeInstanceOf(QuranLabError);
+    expect(err).toMatchObject({ code: "needs_connection", needs: "model" });
+    const same = new QuranLabError("storage_full");
+    expect(toQuranLabError(same)).toBe(same);
+  });
+});
 
 describe("toQuranLabCode", () => {
   it("passes through known codes", () => {
@@ -15,7 +50,9 @@ describe("toQuranLabCode", () => {
 
   it("maps SDK state errors and anything else to engine_failed", () => {
     expect(toQuranLabCode({ code: "client_exists" })).toBe("engine_failed");
-    expect(toQuranLabCode({ code: "session_open" })).toBe("engine_failed");
+    // SDK 4 codes the UI words itself (Android waits 3 s for another client, then session_open).
+    expect(toQuranLabCode({ code: "session_open" })).toBe("session_open");
+    expect(toQuranLabCode({ code: "sdk_too_old" })).toBe("sdk_too_old");
     expect(toQuranLabCode({ code: 42 })).toBe("engine_failed");
     expect(toQuranLabCode(new Error("x"))).toBe("engine_failed");
     expect(toQuranLabCode(null)).toBe("engine_failed");

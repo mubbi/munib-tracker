@@ -1,5 +1,4 @@
-import { SymbolView } from "expo-symbols";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type LayoutChangeEvent,
@@ -10,10 +9,7 @@ import {
 } from "react-native";
 import { GlassSurface } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
-import { NotificationBadge } from "@/components/ui/notification-badge";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -29,6 +25,11 @@ type AppHeaderProps = {
   notificationCount?: number;
   onNotificationsPress?: () => void;
   onBack?: () => void;
+  /**
+   * Trailing actions (save / share / text size), rendered after the title and
+   * before the bell. Pass at most two `IconButton`s.
+   */
+  trailing?: ReactNode;
   /** Android: scroll content captured beneath this floating header. */
   blurTargetRef?: RefObject<ViewInstance | null>;
   /** Reports the rendered header height so the layout can inset content beneath it. */
@@ -47,6 +48,7 @@ export function AppHeader({
   notificationCount = 0,
   onNotificationsPress,
   onBack,
+  trailing,
   blurTargetRef,
   onLayout,
   contentMaxWidth,
@@ -117,35 +119,28 @@ export function AppHeader({
               {eyebrow}
             </ThemedText>
           ) : null}
-          <ThemedText type="header" heading={1}>
+          <ThemedText type="header" heading={1} numberOfLines={2}>
             {title}
           </ThemedText>
           {subtitle ? (
-            <ThemedText type="small" themeColor="mutedForeground">
+            <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
               {subtitle}
             </ThemedText>
           ) : null}
         </View>
 
+        {trailing}
+
         {onNotificationsPress ? (
-          <PressableScale
+          <IconButton
+            name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+            size={19}
+            tintColor={colors.accent}
+            background={tokens.accentSoft}
             accessibilityLabel={t("common.notifications")}
-            accessibilityRole="button"
-            haptic="light"
+            badge={notificationCount}
             onPress={withNavigationBlur(onNotificationsPress)}
-            style={[
-              styles.notificationButton,
-              tv && styles.notificationButtonTv,
-              { backgroundColor: tokens.accentSoft },
-            ]}
-          >
-            <SymbolView
-              name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-              size={19}
-              tintColor={colors.accent}
-            />
-            <NotificationBadge count={notificationCount} />
-          </PressableScale>
+          />
         ) : null}
       </View>
     </GlassSurface>
@@ -157,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.three,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
   },
   /** Header content row — capped to the ScreenLayout column on wide screens. */
   row: {
@@ -171,17 +166,5 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: Spacing.half,
     alignSelf: "stretch",
-  },
-  notificationButtonTv: {
-    width: tvDp(56),
-    height: tvDp(56),
-  },
-  notificationButton: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    borderCurve: "continuous",
   },
 });

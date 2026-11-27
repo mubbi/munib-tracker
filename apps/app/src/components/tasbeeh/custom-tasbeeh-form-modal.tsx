@@ -1,16 +1,15 @@
-import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { TASBEEH_MODES } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { PressableScale } from "@/components/ui/pressable-scale";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
+import { TextField } from "@/components/ui/text-field";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { isTV } from "@/lib/platform/is-tv";
 import type { CustomTasbeehInput } from "@/stores/custom-tasbeeh-store";
 
 const MAX_TITLE = 60;
@@ -43,12 +42,13 @@ export function CustomTasbeehFormModal({
   onSubmit,
   onClose,
 }: CustomTasbeehFormModalProps) {
-  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const { tokens } = useThemeTokens();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [preset, setPreset] = useState<TargetPreset>("33");
   const [customTarget, setCustomTarget] = useState("");
+  const [discardOpen, setDiscardOpen] = useState(false);
 
   useEffect(() => {
     if (!visible) return;
@@ -90,8 +90,27 @@ export function CustomTasbeehFormModal({
     { id: "custom", label: t("tasbeehUi.custom") },
   ];
 
+  // Unsaved edits are never dropped silently (backdrop, swipe, Cancel).
+  const initialTarget = initial?.target ?? 33;
+  const dirty =
+    title !== (initial?.title ?? "") ||
+    description !== (initial?.description ?? "") ||
+    preset !== presetForTarget(initialTarget, TASBEEH_MODES) ||
+    (preset === "custom" && customTarget !== String(initialTarget));
+  const requestClose = () => {
+    if (dirty) setDiscardOpen(true);
+    else onClose();
+  };
+
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      accessibilityLabel={
+        mode === "create" ? t("tasbeeh.customCreateTitle") : t("tasbeeh.customEditTitle")
+      }
+      visible={visible}
+      onClose={requestClose}
+      variant="bottom"
+    >
       <ThemedText type="subtitle">
         {mode === "create" ? t("tasbeeh.customCreateTitle") : t("tasbeeh.customEditTitle")}
       </ThemedText>
@@ -104,110 +123,98 @@ export function CustomTasbeehFormModal({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.form}
       >
-        <Field label={t("tasbeeh.customTitleLabel")}>
-          <TextInput
-            value={title}
-            onChangeText={(text) => setTitle(text.slice(0, MAX_TITLE))}
-            placeholder={t("tasbeeh.customTitlePlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("tasbeeh.customTitleLabel")}
-            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.counter}>
-            {title.length}/{MAX_TITLE}
-          </ThemedText>
-        </Field>
+        <TextField
+          label={t("tasbeeh.customTitleLabel")}
+          required
+          value={title}
+          onChangeText={(text) => setTitle(text.slice(0, MAX_TITLE))}
+          placeholder={t("tasbeeh.customTitlePlaceholder")}
+          maxLength={MAX_TITLE}
+          returnKeyType="next"
+        />
 
-        <Field label={t("tasbeeh.customDescLabel")}>
-          <TextInput
-            value={description}
-            onChangeText={(text) => setDescription(text.slice(0, MAX_DESCRIPTION))}
-            placeholder={t("tasbeeh.customDescPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("tasbeeh.customDescLabel")}
-            multiline
-            style={[
-              styles.input,
-              styles.textArea,
-              tokens.inputSurface,
-              { color: colors.foreground },
-            ]}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.counter}>
-            {description.length}/{MAX_DESCRIPTION}
-          </ThemedText>
-        </Field>
+        <TextField
+          label={t("tasbeeh.customDescLabel")}
+          value={description}
+          onChangeText={(text) => setDescription(text.slice(0, MAX_DESCRIPTION))}
+          placeholder={t("tasbeeh.customDescPlaceholder")}
+          maxLength={MAX_DESCRIPTION}
+          multiline
+          minLines={3}
+        />
 
-        <Field label={t("tasbeeh.customTargetLabel")}>
-          <View
-            accessibilityRole="tablist"
-            style={[styles.presetTrack, { backgroundColor: colors.muted }]}
-          >
-            {presets.map((option) => {
-              const active = preset === option.id;
-              return (
-                <PressableScale
-                  key={option.id}
-                  haptic="selection"
-                  accessibilityRole="tab"
-                  accessibilityState={{ selected: active }}
-                  onPress={() => setPreset(option.id)}
-                  style={[
-                    styles.presetSegment,
-                    isTV() && styles.presetSegmentTv,
-                    active && { backgroundColor: tokens.segmentThumb, ...Shadows.sm },
-                  ]}
-                >
-                  <ThemedText
-                    type="smallBold"
-                    style={{ color: active ? colors.foreground : colors.mutedForeground }}
-                  >
-                    {option.label}
-                  </ThemedText>
-                </PressableScale>
-              );
-            })}
-          </View>
+        <View style={styles.field}>
+          <ThemedText type="smallBold">{t("tasbeeh.customTargetLabel")}</ThemedText>
+          <SegmentedControl
+            tabs
+            options={presets}
+            value={preset}
+            onChange={setPreset}
+            accessibilityLabel={t("tasbeeh.customTargetLabel")}
+          />
 
           {preset === "custom" ? (
-            <TextInput
+            <TextField
+              label={t("tasbeehUi.customPlaceholder")}
               value={customTarget}
               onChangeText={(text) =>
                 setCustomTarget(text.replace(/[^0-9]/g, "").slice(0, MAX_TARGET_DIGITS))
               }
               keyboardType="number-pad"
               placeholder={t("tasbeehUi.customPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("tasbeehUi.customPlaceholder")}
-              style={[
-                styles.input,
-                styles.customTargetInput,
-                tokens.inputSurface,
-                { color: colors.foreground },
-              ]}
+              inputStyle={styles.customTargetInput}
+              style={styles.customTarget}
             />
           ) : null}
-        </Field>
+        </View>
       </TvScrollView>
 
-      <View style={styles.actions}>
-        <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />
-        <Button
-          label={mode === "create" ? t("tasbeeh.customCreateAction") : t("common.save")}
-          onPress={submit}
-          disabled={!canSubmit}
-        />
-      </View>
+      {discardOpen ? (
+        // Inline, inside the open form sheet — never a second modal: iOS will
+        // not present another modal while this sheet is up, so a separate
+        // dialog never appeared and a dirty close silently did nothing.
+        <View
+          accessibilityRole="alert"
+          accessibilityLiveRegion="polite"
+          style={[
+            styles.discard,
+            { backgroundColor: tokens.status.danger.soft, borderColor: tokens.hairline },
+          ]}
+        >
+          <ThemedText type="smallBold" role="heading">
+            {t("common.discardTitle")}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("common.discardMessage")}
+          </ThemedText>
+          <View style={styles.actions}>
+            <Button
+              label={t("common.keepEditing")}
+              variant="ghost"
+              onPress={() => setDiscardOpen(false)}
+              preferredFocus
+            />
+            <Button
+              label={t("common.discard")}
+              variant="destructive"
+              onPress={() => {
+                setDiscardOpen(false);
+                onClose();
+              }}
+            />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.actions}>
+          <Button label={t("common.cancel")} variant="ghost" onPress={requestClose} />
+          <Button
+            label={mode === "create" ? t("tasbeeh.customCreateAction") : t("common.save")}
+            onPress={submit}
+            disabled={!canSubmit}
+          />
+        </View>
+      )}
     </Sheet>
-  );
-}
-
-function Field({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <View style={styles.field}>
-      <ThemedText type="smallBold">{label}</ThemedText>
-      {children}
-    </View>
   );
 }
 
@@ -219,47 +226,21 @@ const styles = StyleSheet.create({
   field: {
     gap: Spacing.one,
   },
-  input: {
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    fontSize: 16,
-  },
-  textArea: {
-    minHeight: 88,
-    textAlignVertical: "top",
-  },
-  counter: {
-    alignSelf: "flex-end",
-  },
-  presetTrack: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    padding: Spacing.half + 2,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    gap: Spacing.half,
-  },
-  presetSegment: {
-    flexGrow: 1,
-    flexBasis: "18%",
-    minWidth: 52,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    minHeight: 40,
-  },
-  presetSegmentTv: {
-    minHeight: TvLayout.chipMinHeight,
+  customTarget: {
+    marginTop: Spacing.one,
   },
   customTargetInput: {
-    marginTop: Spacing.one,
     fontSize: 20,
     fontWeight: "700",
     textAlign: "center",
+  },
+  discard: {
+    gap: Spacing.one,
+    marginTop: Spacing.two,
+    padding: Spacing.three,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: BorderWidth.hairline,
   },
   actions: {
     flexDirection: "row",

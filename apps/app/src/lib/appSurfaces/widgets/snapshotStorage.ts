@@ -36,8 +36,10 @@ function normalizeWidgetSnapshot(
     ...empty,
     ...parsed,
     version: 1,
+    date: parsed.date ?? empty.date,
     locale: parsed.locale ?? empty.locale,
     isRtl: parsed.isRtl ?? empty.isRtl,
+    strings: { ...empty.strings, ...parsed.strings },
     theme: { ...empty.theme, ...parsed.theme, followsSystem: parsed.theme?.followsSystem ?? true },
     nextPrayer: {
       ...empty.nextPrayer,
@@ -54,14 +56,21 @@ function normalizeWidgetSnapshot(
       rows: (parsed.schedule?.rows ?? []).map((row) => ({
         ...row,
         statusLabel: row.statusLabel ?? row.status,
+        atMs: row.atMs ?? 0,
       })),
       accessibilityLabel: parsed.schedule?.accessibilityLabel ?? empty.schedule.accessibilityLabel,
+      tomorrowDate: parsed.schedule?.tomorrowDate ?? "",
+      tomorrowRows: (parsed.schedule?.tomorrowRows ?? []).map((row) => ({
+        ...row,
+        atMs: row.atMs ?? 0,
+      })),
     },
     progress: {
       ...empty.progress,
       ...parsed.progress,
       markLabel: parsed.progress?.markLabel ?? empty.progress.markLabel,
       accessibilityLabel: parsed.progress?.accessibilityLabel ?? empty.progress.accessibilityLabel,
+      resetDetail: parsed.progress?.resetDetail ?? empty.progress.resetDetail,
     },
     streak: {
       ...empty.streak,
@@ -94,12 +103,22 @@ function normalizeWidgetSnapshot(
       ...parsed.hijriDate,
       accessibilityLabel:
         parsed.hijriDate?.accessibilityLabel ?? empty.hijriDate.accessibilityLabel,
+      tomorrow: parsed.hijriDate?.tomorrow ?? null,
     },
     qibla: {
       ...empty.qibla,
       ...parsed.qibla,
       accessibilityLabel: parsed.qibla?.accessibilityLabel ?? empty.qibla.accessibilityLabel,
     },
+    afterSalahTasbeeh: {
+      ...empty.afterSalahTasbeeh,
+      ...parsed.afterSalahTasbeeh,
+      steps: parsed.afterSalahTasbeeh?.steps ?? [],
+    },
+    tasbeeh: { ...empty.tasbeeh, ...parsed.tasbeeh },
+    friday: { ...empty.friday, ...parsed.friday },
+    adhkar: { ...empty.adhkar, ...parsed.adhkar, sets: parsed.adhkar?.sets ?? [] },
+    events: { ...empty.events, ...parsed.events, items: parsed.events?.items ?? [] },
   };
 }
 

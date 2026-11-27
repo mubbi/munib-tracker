@@ -2,15 +2,15 @@ import { DEFAULT_ENGINE } from "@/constants/recitation-models";
 
 import type { QuranCompanionPrefs } from "./types";
 
-/** Defaults from §9.5. `showTranslation`/`showTransliteration` are seeded from the reader once. */
+/**
+ * Defaults from §9.5. Translation / transliteration visibility is the app-wide
+ * `prefs.readingDisplay` (D13), no longer a practice field.
+ */
 export const DEFAULT_COMPANION_PREFS: QuranCompanionPrefs = {
   schemaVersion: 1,
   defaultMode: "follow",
   rangePreset: "ayah",
   feedbackTiming: "ayah",
-  showTranslation: true,
-  showTransliteration: true,
-  readingTogglesSeeded: false,
   showTajweedColors: false,
   practiceView: "ayah",
   hearBeforeRecite: "off",
@@ -23,6 +23,9 @@ export const DEFAULT_COMPANION_PREFS: QuranCompanionPrefs = {
   coachDismissed: false,
   engineChoice: DEFAULT_ENGINE,
   wifiOnlyDownload: true,
+  feedCoachingFromAssessment: true,
+  tajweedInRevisionReminder: true,
+  logToReadingLog: true,
 };
 
 const MODES = new Set(["follow", "check", "hide-words", "hide-ayahs"]);
@@ -42,6 +45,15 @@ export function coercePrefs(value: unknown): QuranCompanionPrefs | null {
   const merged: QuranCompanionPrefs = { ...DEFAULT_COMPANION_PREFS, ...v, schemaVersion: 1 };
   if (!MODES.has(merged.defaultMode)) merged.defaultMode = DEFAULT_COMPANION_PREFS.defaultMode;
   if (!VIEWS.has(merged.practiceView)) merged.practiceView = DEFAULT_COMPANION_PREFS.practiceView;
+  if (typeof merged.feedCoachingFromAssessment !== "boolean") {
+    merged.feedCoachingFromAssessment = DEFAULT_COMPANION_PREFS.feedCoachingFromAssessment;
+  }
+  if (typeof merged.tajweedInRevisionReminder !== "boolean") {
+    merged.tajweedInRevisionReminder = DEFAULT_COMPANION_PREFS.tajweedInRevisionReminder;
+  }
+  if (typeof merged.logToReadingLog !== "boolean") {
+    merged.logToReadingLog = DEFAULT_COMPANION_PREFS.logToReadingLog;
+  }
   if (!LIMITS.has(merged.dailyRevisionLimit)) {
     merged.dailyRevisionLimit = DEFAULT_COMPANION_PREFS.dailyRevisionLimit;
   }
@@ -57,15 +69,13 @@ export function coercePrefs(value: unknown): QuranCompanionPrefs | null {
 /**
  * True for the exact defaults with no `lastPassage` (blob-sync `isPristine`, §10)
  * so a brand-new install never pushes defaults over an account with settings.
- * The two seeded reading toggles are ignored — they copy the reader, not a choice.
+ * Legacy reading toggles in old blobs are ignored (only default keys are compared).
  */
 export function isPristineCompanionPrefs(value: unknown): boolean {
   if (value == null || typeof value !== "object") return true;
   const v = value as Record<string, unknown>;
   if (v.lastPassage != null || v.pronunciationConsentAt != null) return false;
-  const ignore = new Set(["showTranslation", "showTransliteration", "readingTogglesSeeded"]);
   for (const [key, def] of Object.entries(DEFAULT_COMPANION_PREFS)) {
-    if (ignore.has(key)) continue;
     if (key in v && v[key] !== def) return false;
   }
   return true;

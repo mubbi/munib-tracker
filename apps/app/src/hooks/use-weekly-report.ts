@@ -1,4 +1,3 @@
-import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import {
   buildWeeklyReport,
   getLocalDateString,
@@ -10,15 +9,14 @@ import { useTranslation } from "react-i18next";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
-import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
-import { scheduleReviewTriggerFromWake } from "@/features/reviews/lib/reviewPendingTrigger";
+import { COACH_ROUTE } from "@/lib/coach/constants";
 import { tTv } from "@/lib/i18n/t-tv";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 
 /**
  * Delivers an in-app weekly worship report (NF-1.6) at most once every 7 days.
  * Runs from the home screen; skips empty weeks so new users aren't nagged. The
- * report deep-links to the statistics screen.
+ * report deep-links to the weekly reflection (NF-3.14 coach), which extends it.
  */
 export function useWeeklyReport(): void {
   const { deliver } = useInAppNotifications();
@@ -54,10 +52,8 @@ export function useWeeklyReport(): void {
           qaza: report.qazaCleared,
           zikr: report.zikrSessions,
         }),
-        route: "/statistics",
+        route: COACH_ROUTE,
       });
-      void scheduleReviewTriggerFromWake(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
-      void maybeDeliverReviewReactivation(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
     })();
     return () => {
       active = false;

@@ -3,6 +3,10 @@ import { addDays, getLocalDateString } from "@munib-tracker/shared/utils";
 import { act, renderHook } from "@testing-library/react-native";
 
 import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
+import { QuranPracticeRepository } from "@/db/repositories/quran-practice-repository";
+import { onTrackingChanged } from "@/lib/sync/tracking-changes";
+import { buildPracticeSummary } from "@/test-support/fixtures/quran-companion";
+import { usePlatform } from "@/test-support/platform";
 import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
 import { preferencesStore } from "./preferences-store";
@@ -28,7 +32,17 @@ import {
   useZikrCounts,
 } from "./tracker-store";
 
+jest.mock(
+  "@/lib/notifications/reschedule",
+  () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
+);
+
+const { requestReminderReschedule: mockReschedule } = jest.requireMock(
+  "@/lib/notifications/reschedule",
+) as { requestReminderReschedule: jest.Mock };
+
 beforeEach(resetTrackerStore);
+beforeEach(() => mockReschedule.mockClear());
 
 describe("trackerStore", () => {
   it("becomes ready after load", () => {
@@ -76,6 +90,27 @@ describe("trackerStore", () => {
     const counter = await QazaRepository.getCounter("isha");
     expect(counter.remaining).toBe(2);
     expect(counter.completed).toBe(1);
+  });
+
+  it("removeQazaProgress credits back at most what the counter holds as completed", async () => {
+    const date = getLocalDateString();
+    await trackerStore.getState().adjustQaza("isha", 5, 2);
+    await trackerStore.getState().removeQazaProgress("isha", date, 4);
+    const counter = await QazaRepository.getCounter("isha");
+    expect(counter.remaining).toBe(7);
+    expect(counter.completed).toBe(0);
+  });
+
+  it("load failure sets loadError, keeps isReady false, and a retry clears it", async () => {
+    trackerStore.setState({ isReady: false, loadError: null });
+    const spy = jest.spyOn(QazaRepository, "getCounters").mockRejectedValueOnce(new Error("boom"));
+    await trackerStore.getState().load();
+    expect(trackerStore.getState().isReady).toBe(false);
+    expect(trackerStore.getState().loadError).toBeTruthy();
+    spy.mockRestore();
+    await trackerStore.getState().load();
+    expect(trackerStore.getState().isReady).toBe(true);
+    expect(trackerStore.getState().loadError).toBeNull();
   });
 
   it("applies calculator counters in one shot and updates the store immediately", async () => {
@@ -152,6 +187,26 @@ describe("trackerStore", () => {
     expect(trackerStore.getState().achievementStats.zikrCompleted).toBe(0);
   });
 
+  it("feeds Qur'an practice into the Recitation track and its Noor (D71)", async () => {
+    expect(trackerStore.getState().achievementStats.recitation).toEqual({
+      sessions: 0,
+      bestRevisionStreak: 0,
+      ayahsRecited: 0,
+    });
+    const noorBefore = trackerStore.getState().devotionProgress.noor;
+
+    await QuranPracticeRepository.add(buildPracticeSummary({ id: "s1", heardAyahs: [1, 2, 3] }));
+    await trackerStore.getState().refresh();
+
+    expect(trackerStore.getState().achievementStats.recitation).toEqual({
+      sessions: 1,
+      bestRevisionStreak: 0,
+      ayahsRecited: 3,
+    });
+    // One session (5) + three ayahs (3 × 1).
+    expect(trackerStore.getState().devotionProgress.noor).toBe(noorBefore + 8);
+  });
+
   it("persists prayer status across a reload (offline, no network)", async () => {
     await trackerStore.getState().setPrayerStatus("maghrib", "completed");
     await loadTrackerStore();
@@ -226,6 +281,29 @@ describe("trackerStore", () => {
     expect((await PreferencesRepository.get()).activeExcusedReason).toBe("travel");
   });
 
+  it("reschedules reminders right away when an excused period starts or ends (H4)", async () => {
+    await preferencesStore.getState().load();
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(mockReschedule).toHaveBeenCalledTimes(1);
+
+    // Same reason again — nothing to re-arm.
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(mockReschedule).toHaveBeenCalledTimes(1);
+
+    await trackerStore.getState().setDayExcused(null);
+    expect(mockReschedule).toHaveBeenCalledTimes(2);
+
+    // A past-day calendar edit doesn't touch the ongoing period.
+    await trackerStore.getState().setDayExcusedOnDate(addDays(getLocalDateString(), -3), "sick");
+    expect(mockReschedule).toHaveBeenCalledTimes(2);
+  });
+
+  it("reschedules after a repository-only write too (prefs not ready)", async () => {
+    preferencesStore.setState({ isReady: false });
+    await trackerStore.getState().setDayExcused("travel");
+    expect(mockReschedule).toHaveBeenCalledTimes(1);
+  });
+
   it("updates the in-memory preferences store once it is ready", async () => {
     await preferencesStore.getState().load();
     await trackerStore.getState().setDayExcused("hayd");
@@ -262,6 +340,35 @@ describe("trackerStore notes, jama and past days", () => {
     expect(await PrayerRepository.getLog("isha", yesterday())).toBeDefined();
   });
 
+  it("setPrayerCombinedOnDate flags both prayers of the pair and keeps other fields", async () => {
+    const today = getLocalDateString();
+    await state().setPrayerStatus("asr", "completed");
+    await state().setPrayerJama("asr", true);
+    await state().setPrayerCombinedOnDate(today, "asr", "takhir");
+    expect(state().prayerCombined).toEqual({
+      asr: { with: "dhuhr", mode: "takhir" },
+      dhuhr: { with: "asr", mode: "takhir" },
+    });
+    expect(await PrayerRepository.getLog("asr", today)).toMatchObject({
+      status: "completed",
+      isJama: true,
+      combinedWith: "dhuhr",
+      combineMode: "takhir",
+    });
+    // A later status change keeps the jam' flag.
+    await state().setPrayerStatus("asr", "delayed");
+    expect((await PrayerRepository.getLog("asr", today))?.combinedWith).toBe("dhuhr");
+
+    await state().setPrayerCombinedOnDate(today, "dhuhr", null);
+    expect(state().prayerCombined).toEqual({});
+    expect((await PrayerRepository.getLog("asr", today))?.combinedWith).toBeUndefined();
+  });
+
+  it("setPrayerCombinedOnDate ignores prayers that can't be combined", async () => {
+    await state().setPrayerCombinedOnDate(getLocalDateString(), "fajr", "taqdim");
+    expect(await PrayerRepository.getLog("fajr", getLocalDateString())).toBeUndefined();
+  });
+
   it("setZikrCountOnDate for a past day only touches storage", async () => {
     await state().setZikrCountOnDate(yesterday(), "z1", 5, 10);
     expect(state().zikrCounts.z1).toBeUndefined();
@@ -270,6 +377,28 @@ describe("trackerStore notes, jama and past days", () => {
   it("setZikrCount clamps today's optimistic count at zero", async () => {
     await state().setZikrCount("z1", -4, 10);
     expect(state().zikrCounts.z1).toBe(0);
+  });
+
+  it("signals cloud sync after every persisted zikr write (per salah included)", async () => {
+    const listener = jest.fn();
+    const unsubscribe = onTrackingChanged(listener);
+    try {
+      await state().setZikrCount("after_prayer-tasbih", 5, 33, { prayerId: "fajr" });
+      await state().incrementZikr("morning-protection", 3);
+      await state().setZikrCounts([
+        { zikrId: "after_prayer-tasbih", count: 33, target: 33, prayerId: "asr" },
+        { zikrId: "after_prayer-tahmid", count: 33, target: 33, prayerId: "asr" },
+      ]);
+    } finally {
+      unsubscribe();
+    }
+    expect(listener).toHaveBeenCalledTimes(3);
+    expect(state().zikrCounts).toMatchObject({
+      "after_prayer-tasbih::fajr": 5,
+      "after_prayer-tasbih::asr": 33,
+      "after_prayer-tahmid::asr": 33,
+      "morning-protection": 1,
+    });
   });
 
   it("clearing today's excuse ends the active period", async () => {
@@ -406,5 +535,16 @@ describe("tracker hooks", () => {
       await actions.resetRoza();
     });
     expect(result.current.qazaSummary).toEqual({ remaining: 0, completed: 0 });
+  });
+});
+
+describe("trackerStore on TV (no Qur'an practice)", () => {
+  usePlatform({ isTV: true });
+
+  it("leaves the Recitation track out of the achievement stats", async () => {
+    await QuranPracticeRepository.add(buildPracticeSummary({ id: "tv1", heardAyahs: [1, 2] }));
+    await trackerStore.getState().refresh();
+    expect(trackerStore.getState().achievementStats.recitation).toBeNull();
+    expect(trackerStore.getState().devotionProgress.noor).toBe(0);
   });
 });

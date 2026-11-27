@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { getTtsVoices, type TtsVoice } from "@/lib/tts";
+
+/** One row per voice id — some platforms list a voice twice (duplicate React keys). */
+function dedupeVoices(voices: TtsVoice[]): TtsVoice[] {
+  const seen = new Set<string>();
+  return voices.filter((voice) => {
+    if (!voice.identifier || seen.has(voice.identifier)) return false;
+    seen.add(voice.identifier);
+    return true;
+  });
+}
 
 export type TtsVoiceSheetProps = {
   visible: boolean;
@@ -48,16 +59,20 @@ export function TtsVoiceSheet({
     let cancelled = false;
     setVoices(null);
     void (async () => {
-      const filtered = await getTtsVoices(lang);
-      if (cancelled) return;
-      if (filtered.length > 0) {
-        setVoices(filtered);
-        return;
+      try {
+        const filtered = await getTtsVoices(lang);
+        if (cancelled) return;
+        if (filtered.length > 0) {
+          setVoices(dedupeVoices(filtered));
+          return;
+        }
+        // Web often has no `ar` voice installed — fall back to every installed
+        // voice so the sheet matches learn listen instead of an empty state.
+        const all = await getTtsVoices();
+        if (!cancelled) setVoices(dedupeVoices(all));
+      } catch {
+        if (!cancelled) setVoices([]);
       }
-      // Web often has no `ar` voice installed — fall back to every installed
-      // voice so the sheet matches learn listen instead of an empty state.
-      const all = await getTtsVoices();
-      if (!cancelled) setVoices(all);
     })();
     return () => {
       cancelled = true;
@@ -68,31 +83,39 @@ export function TtsVoiceSheet({
   const selectedBorder = tv ? tokens.accentBorder : colors.accent;
 
   const pick = (voiceId: string | undefined) => {
-    onSelectVoice(voiceId);
+    // Close first, so playback (and the mini-player mounting) starts while this
+    // modal animates out — not while it is still presented.
     onClose();
+    onSelectVoice(voiceId);
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{t("reading.listenVoiceTitle")}</ThemedText>
+    <Sheet
+      title={t("reading.listenVoiceTitle")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+    >
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {t("reading.listenVoiceHint")}
       </ThemedText>
 
       {voices === null ? (
-        <View style={styles.loading}>
-          <ActivityIndicator color={colors.accent} />
-        </View>
+        <SkeletonPlaceholder
+          preset="rows"
+          count={3}
+          accessibilityLabel={t("reading.listenVoiceTitle")}
+        />
       ) : voices.length === 0 ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.empty}>
           {t("reading.listenVoiceEmpty")}
         </ThemedText>
       ) : (
-        <View style={styles.voiceList}>
+        <View style={styles.voiceList} accessibilityRole="radiogroup">
           <PressableScale
             haptic="selection"
             accessibilityRole="radio"
-            accessibilityState={{ selected: !selectedVoiceId }}
+            accessibilityState={{ checked: !selectedVoiceId }}
             {...(tv && !selectedVoiceId ? { hasTVPreferredFocus: true } : {})}
             onPress={() => pick(undefined)}
             style={[
@@ -116,7 +139,7 @@ export function TtsVoiceSheet({
                 key={voice.identifier}
                 haptic="selection"
                 accessibilityRole="radio"
-                accessibilityState={{ selected }}
+                accessibilityState={{ checked: selected }}
                 {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
                 onPress={() => pick(voice.identifier)}
                 style={[
@@ -144,12 +167,7 @@ export function TtsVoiceSheet({
 
 const styles = StyleSheet.create({
   hint: {
-    marginTop: Spacing.one,
     marginBottom: Spacing.three,
-  },
-  loading: {
-    paddingVertical: Spacing.four,
-    alignItems: "center",
   },
   empty: {
     marginTop: Spacing.two,
@@ -160,9 +178,9 @@ const styles = StyleSheet.create({
   voiceRow: {
     gap: Spacing.half,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
 });

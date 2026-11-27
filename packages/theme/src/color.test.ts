@@ -3,9 +3,14 @@ import { accentColorIds } from "./accents";
 import {
   accentOnSurface,
   bestForeground,
+  compositeOver,
+  contrastMatrix,
   contrastRatio,
   ensureContrastAgainst,
+  ensureReadableAccent,
+  hexToHsl,
   hexToRgb,
+  hslToHex,
   isValidHex,
   normalizeHex,
   relativeLuminance,
@@ -160,5 +165,77 @@ describe("ensureContrastAgainst fallbacks", () => {
 
     expect(out).not.toBe("#101010");
     expect(contrastRatio(out, DARK_BG)).toBeGreaterThanOrEqual(UI);
+  });
+});
+
+describe("compositeOver", () => {
+  it("blends 50% black over white to mid grey", () => {
+    const rgb = hexToRgb(compositeOver("#000000", 0.5, "#FFFFFF"));
+    expect(rgb?.r).toBeGreaterThanOrEqual(127);
+    expect(rgb?.r).toBeLessThanOrEqual(129);
+  });
+
+  it("returns the background at alpha 0 and the foreground at alpha 1", () => {
+    expect(compositeOver("#123456", 0, "#ABCDEF")).toBe("#abcdef");
+    expect(compositeOver("#123456", 1, "#ABCDEF")).toBe("#123456");
+  });
+
+  it("falls back to the background for invalid input", () => {
+    expect(compositeOver("nope", 0.5, "#FFFFFF")).toBe("#FFFFFF");
+  });
+});
+
+describe("contrastMatrix", () => {
+  it("returns only the pairs below their minimum", () => {
+    const failures = contrastMatrix([
+      { label: "black on white", foreground: "#000000", background: "#FFFFFF", min: 4.5 },
+      { label: "grey on white", foreground: "#BBBBBB", background: "#FFFFFF", min: 4.5 },
+    ]);
+    expect(failures.map((f) => f.label)).toEqual(["grey on white"]);
+    expect(failures[0]?.ratio).toBeLessThan(4.5);
+  });
+});
+
+describe("hexToHsl / hslToHex", () => {
+  it("round-trips primary and mixed colours", () => {
+    for (const hex of ["#ff0000", "#00ff00", "#0000ff", "#0c390f", "#d4a017", "#808080"]) {
+      const hsl = hexToHsl(hex);
+      expect(hsl).not.toBeNull();
+      if (hsl) expect(hslToHex(hsl.h, hsl.s, hsl.l)).toBe(hex);
+    }
+  });
+
+  it("returns null for invalid hex", () => {
+    expect(hexToHsl("nope")).toBeNull();
+  });
+});
+
+describe("ensureReadableAccent", () => {
+  const darkSurfaces = ["#152921", "#1E3830"];
+  const lightSurfaces = ["#F5F0E6", "#FFFDF9"];
+
+  it("returns a passing accent unchanged (normalised)", () => {
+    expect(ensureReadableAccent("#3B82F6", darkSurfaces)).toBe("#3b82f6");
+  });
+
+  it("lightens a deep green on the dark page without greying it out", () => {
+    const out = ensureReadableAccent("#0C390F", darkSurfaces);
+    for (const s of darkSurfaces) expect(contrastRatio(out, s)).toBeGreaterThanOrEqual(3);
+    const before = hexToHsl("#0C390F");
+    const after = hexToHsl(out);
+    expect(after?.h).toBeCloseTo(before?.h ?? 0, 0);
+    expect(after?.s).toBeCloseTo(before?.s ?? 0, 1);
+    expect(after?.l).toBeGreaterThan(before?.l ?? 1);
+  });
+
+  it("darkens a pale accent on the light page", () => {
+    const out = ensureReadableAccent("#FDE68A", lightSurfaces);
+    for (const s of lightSurfaces) expect(contrastRatio(out, s)).toBeGreaterThanOrEqual(3);
+    expect(hexToHsl(out)?.l).toBeLessThan(hexToHsl("#FDE68A")?.l ?? 0);
+  });
+
+  it("passes invalid input and empty surfaces through", () => {
+    expect(ensureReadableAccent("nope", darkSurfaces)).toBe("nope");
+    expect(ensureReadableAccent("#0C390F", [])).toBe("#0C390F");
   });
 });

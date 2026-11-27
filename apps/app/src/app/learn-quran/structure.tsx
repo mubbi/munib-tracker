@@ -13,7 +13,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -55,7 +55,7 @@ export default function LearnQuranStructureScreen() {
             <JannahCallout tone="info">{t("learnQuran.structureIntro")}</JannahCallout>
 
             <LearnReadingChrome surface="learn_quran">
-              <Card padding="three">
+              <Card>
                 <SectionHeader
                   title={t("learnQuran.structurePyramid")}
                   icon={{ ios: "square.stack.3d.up.fill", android: "layers", web: "layers" }}
@@ -88,7 +88,7 @@ export default function LearnQuranStructureScreen() {
                         >
                           <LearnProseText
                             proseRole="title"
-                            style={[styles.label, { color: colors.accent }]}
+                            style={[styles.label, { color: tokens.accentOnSoft }]}
                           >
                             {level.label}
                           </LearnProseText>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.four,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     alignItems: "center",
     gap: Spacing.two,
     overflow: "visible",

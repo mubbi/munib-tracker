@@ -1,17 +1,17 @@
 import type { SalahGuideQuizQuestion } from "../types/salah-guide";
 
 /** Educational quiz — review knowledge, not spiritual ranking. Bump when questions change. */
-export const SALAH_GUIDE_QUIZ_VERSION = 1;
+export const SALAH_GUIDE_QUIZ_VERSION = 2;
 
 export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
   {
     id: "rawatib-total",
     type: "multiple-choice",
-    prompt: "How many sunnah rawatib rakahs are agreed upon each day?",
+    prompt: "How many daily sunnah rawatib rakahs does the hadith of Umm Habibah describe?",
     options: ["8", "10", "12", "14"],
     correctIndex: 2,
     explanation:
-      "The twelve rawatib are: 2 before Fajr, 4 before Dhuhr, 2 after Dhuhr, 2 after Maghrib, and 2 after Isha (Sahih Muslim 728).",
+      "Umm Habibah's hadith promises a house in Jannah for twelve sunnah rakahs a day and night (Sahih Muslim 728); Jami' at-Tirmidhi 415 lists them: 2 before Fajr, 4 before Dhuhr, 2 after Dhuhr, 2 after Maghrib and 2 after Isha.",
   },
   {
     id: "rawatib-fajr",
@@ -25,11 +25,11 @@ export const SALAH_GUIDE_QUIZ: SalahGuideQuizQuestion[] = [
   {
     id: "rawatib-dhuhr",
     type: "multiple-choice",
-    prompt: "The agreed rawatib around Dhuhr are:",
+    prompt: "In the hadith of Umm Habibah (Jami' at-Tirmidhi 415), the rawatib around Dhuhr are:",
     options: ["2 before, 2 after", "4 before, 2 after", "4 before, 4 after", "2 before only"],
     correctIndex: 1,
     explanation:
-      "Four before Dhuhr and two after are part of the twelve rawatib. Extra rakahs beyond these are recommended nafl, not fixed rawatib.",
+      "Umm Habibah's hadith lists four before Dhuhr and two after. Ibn 'Umar's report (Sahih al-Bukhari 1180) mentions two before, so schools differ on which set they count as the emphasised rawatib; rakahs beyond these are nafl.",
   },
   {
     id: "asr-ghayr-muakkadah",

@@ -1,10 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 import { FormInput } from "@/components/form-input";
 import { trackContactError, trackContactSubmit } from "@/lib/analytics";
+import { type ContactErrorResponse, isContactErrorCode } from "@/lib/contact-errors";
+
+/** A failed response's body, unchecked: fields are validated before use. */
+type UntrustedErrorBody = { [K in keyof ContactErrorResponse]?: unknown };
 
 export function ContactForm() {
+  const t = useTranslations("contactForm");
   const formId = useId();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,11 +38,11 @@ export function ContactForm() {
     event.preventDefault();
     const nextErrors: Record<string, string> = {};
 
-    if (!name.trim()) nextErrors.name = "Please enter your name.";
+    if (!name.trim()) nextErrors.name = t("validation.name");
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      nextErrors.email = "Please enter a valid email address.";
+      nextErrors.email = t("validation.email");
     }
-    if (!message.trim()) nextErrors.message = "Please enter a message.";
+    if (!message.trim()) nextErrors.message = t("validation.message");
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
@@ -46,6 +52,8 @@ export function ContactForm() {
 
     setStatus("loading");
 
+    // Translated message for a failed submission; null falls back to the generic one.
+    let formError: string | null = null;
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -53,26 +61,36 @@ export function ContactForm() {
         body: JSON.stringify({ name, email, message, company }),
       });
 
-      if (!response.ok) {
-        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(payload?.error || "Request failed");
+      if (response.ok) {
+        trackContactSubmit();
+        setStatus("success");
+        setName("");
+        setEmail("");
+        setMessage("");
+        return;
       }
 
-      trackContactSubmit();
-      setStatus("success");
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch (error) {
-      trackContactError("server");
-      setStatus("error");
-      setErrors({
-        form:
-          error instanceof Error && error.message && error.message !== "Request failed"
-            ? error.message
-            : "Something went wrong. Please try again.",
-      });
+      const payload = (await response.json().catch(() => null)) as UntrustedErrorBody | null;
+      formError = serverErrorMessage(payload);
+    } catch {
+      // Network failure: use the generic message.
     }
+
+    trackContactError("server");
+    setStatus("error");
+    setErrors({ form: formError ?? t("errors.generic") });
+  }
+
+  /** Maps the API's stable error `code` to catalog copy (the route has no locale). */
+  function serverErrorMessage(payload: UntrustedErrorBody | null): string | null {
+    const code = payload?.code;
+    if (!isContactErrorCode(code)) return null;
+    if (code === "rate_limited_email") {
+      return typeof payload?.limit === "number"
+        ? t("errors.rate_limited_email", { limit: payload.limit })
+        : null;
+    }
+    return t(`errors.${code}`);
   }
 
   if (status === "success") {
@@ -83,8 +101,8 @@ export function ContactForm() {
         tabIndex={-1}
         className="rounded-[var(--radius-card)] border border-border/60 bg-card p-6 outline-none"
       >
-        <p className="font-semibold">Message sent.</p>
-        <p className="mt-1 text-sm text-muted">Thank you — we will respond as soon as we can.</p>
+        <p className="font-semibold">{t("success.title")}</p>
+        <p className="mt-1 text-sm text-muted">{t("success.body")}</p>
       </div>
     );
   }
@@ -93,7 +111,7 @@ export function ContactForm() {
     <form id={formId} onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
       {/* Honeypot: hidden from users; bots that autofill it are rejected server-side. */}
       <div aria-hidden="true" className="sr-only">
-        <label htmlFor={`${formId}-company`}>Company</label>
+        <label htmlFor={`${formId}-company`}>{t("labels.company")}</label>
         <input
           id={`${formId}-company`}
           type="text"
@@ -106,7 +124,7 @@ export function ContactForm() {
       </div>
       <FormInput
         id={`${formId}-name`}
-        label="Name"
+        label={t("labels.name")}
         name="name"
         value={name}
         onChange={setName}
@@ -116,7 +134,7 @@ export function ContactForm() {
       />
       <FormInput
         id={`${formId}-email`}
-        label="Email"
+        label={t("labels.email")}
         type="email"
         name="email"
         value={email}
@@ -127,22 +145,17 @@ export function ContactForm() {
       />
       <FormInput
         id={`${formId}-message`}
-        label="Message"
+        label={t("labels.message")}
         type="textarea"
         name="message"
         value={message}
         onChange={setMessage}
         error={errors.message}
-        placeholder="How can we help?"
+        placeholder={t("messagePlaceholder")}
         required
       />
       {errors.form ? (
-        <p
-          ref={errorRef}
-          role="alert"
-          tabIndex={-1}
-          className="text-sm text-red-600 outline-none dark:text-red-400"
-        >
+        <p ref={errorRef} role="alert" tabIndex={-1} className="text-sm text-rose-300 outline-none">
           {errors.form}
         </p>
       ) : null}
@@ -151,7 +164,7 @@ export function ContactForm() {
         disabled={status === "loading"}
         className="inline-flex h-12 w-fit items-center justify-center rounded-full bg-accent px-8 text-sm font-semibold text-accent-foreground transition-[transform,opacity] hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
       >
-        {status === "loading" ? "Sending…" : "Send message"}
+        {status === "loading" ? t("sending") : t("submit")}
       </button>
     </form>
   );

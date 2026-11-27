@@ -20,11 +20,8 @@ import {
   resolveArabicFontFamily,
   resolveReadingFontSizes,
 } from "@/lib/reading-typography";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 import { usePreferences } from "@/stores/preferences-store";
-import {
-  useReadingTextVisibility,
-  useReadingTextVisibilityActions,
-} from "@/stores/reading-text-visibility-store";
 
 /** Roles for custom English/prose copy inside LearnReadingChrome. */
 export type LearnProseRole = "title" | "body" | "caption";
@@ -183,8 +180,8 @@ export function ReadingTypographyBar({
 function ReadingTextVisibilityToggles() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
-  const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+  const { showTransliteration, showTranslation, toggleTransliteration, toggleTranslation } =
+    useReadingDisplayToggles();
   const tv = isTV();
   const hit = tv ? TvLayout.minFocusTarget : 36;
 

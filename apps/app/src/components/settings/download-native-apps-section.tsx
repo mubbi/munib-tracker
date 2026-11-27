@@ -4,7 +4,7 @@ import { Linking, Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 
 type StorePlatform = "ios" | "android";
@@ -38,7 +38,14 @@ export function StoreDownloadBadge({
       accessibilityLabel={accessibilityLabel}
       style={styles.badge}
     >
-      <Image source={ICON_BY_PLATFORM[platform]} style={styles.icon} contentFit="contain" />
+      {/* Decorative store logo: the link is already named (P9-06). */}
+      <Image
+        source={ICON_BY_PLATFORM[platform]}
+        style={styles.icon}
+        contentFit="contain"
+        accessible={false}
+        alt=""
+      />
       <View style={styles.textWrap}>
         <ThemedText type="caption" style={styles.topLine}>
           {topLine}
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.sm,
     backgroundColor: "#000000",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderColor: "rgba(255,255,255,0.18)",
     ...(Platform.OS === "web" ? { cursor: "pointer" as const } : {}),
   },

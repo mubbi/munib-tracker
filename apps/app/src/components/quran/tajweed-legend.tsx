@@ -10,7 +10,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
 import { TAJWEED_RULES } from "@/constants/tajweed";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -225,16 +225,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   rainbowRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 2,
+    gap: Spacing.half,
   },
   rainbowDot: {
     width: 7,
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   cell: {
     width: "50%",
@@ -263,11 +263,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     minHeight: 36,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   swatch: {
     width: 10,
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
 
 const stickyStyles = StyleSheet.create({
   bar: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
     overflow: "hidden",
   },
   scroll: {
@@ -292,19 +292,19 @@ const stickyStyles = StyleSheet.create({
   content: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
   },
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   swatch: {
     width: 8,

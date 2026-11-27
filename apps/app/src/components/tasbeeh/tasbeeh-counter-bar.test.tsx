@@ -32,7 +32,6 @@ jest.mock("@/components/ui/glass-surface", () => {
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock("@/lib/haptics", () => require("@/test-support/mocks/haptics").hapticsMock);
 // Imported transitively (reading typography → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 
 // The first render warms the theme + i18n graph, which is slow on a busy machine.
 
@@ -91,13 +90,12 @@ describe("TasbeehCounterBar", () => {
     expect(triggerHaptic).toHaveBeenCalledWith("light");
   });
 
-  it("decrements after confirming undo", async () => {
+  it("undoes instantly with no confirm dialog", async () => {
     const { props } = await renderBar({ count: 4 });
     await fireEvent.press(screen.getByRole("button", { name: "Undo" }));
-    expect(screen.getByText("Undo last count?")).toBeTruthy();
-    const undo = screen.getAllByRole("button", { name: "Undo" });
-    await fireEvent.press(undo[undo.length - 1]);
+    expect(screen.queryByText("Undo last count?")).toBeNull();
     expect(props.onDecrement).toHaveBeenCalledTimes(1);
+    expect(triggerHaptic).toHaveBeenCalledWith("light");
   });
 
   it("shows the completion state and ignores taps at the target", async () => {

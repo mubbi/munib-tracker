@@ -32,18 +32,18 @@ async function renderPicker({
 }
 
 const press = (label: string | RegExp) => fireEvent.press(screen.getByLabelText(label));
-const confirm = (passage: string) => fireEvent.press(screen.getByText(`Practise ${passage}`));
+const confirm = (passage: string) => fireEvent.press(screen.getByText(`Practice ${passage}`));
 
 describe("PracticePassagePicker", () => {
   it("renders nothing while closed", async () => {
     await renderPicker({ visible: false });
-    expect(screen.queryByText("Choose what to practise")).toBeNull();
+    expect(screen.queryByText("Choose what to practice")).toBeNull();
   });
 
   it("opens on the ayah step for the current passage", async () => {
     await renderPicker();
     expect(screen.getByLabelText("Ayah 2")).toBeSelected();
-    expect(screen.getByText(`Practise ${FATIHAH} 2–3`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} 2–3`)).toBeTruthy();
   });
 
   it("confirms the passage as shown", async () => {
@@ -76,13 +76,13 @@ describe("PracticePassagePicker", () => {
   it("pushes the end along when the start moves past it", async () => {
     await renderPicker();
     await press("Ayah 5");
-    expect(screen.getByText(`Practise ${FATIHAH} 5`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} 5`)).toBeTruthy();
   });
 
   it("keeps the end when the start moves back", async () => {
     await renderPicker();
     await press("Ayah 1");
-    expect(screen.getByText(`Practise ${FATIHAH} 1–3`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} 1–3`)).toBeTruthy();
   });
 
   it.each([
@@ -91,13 +91,13 @@ describe("PracticePassagePicker", () => {
   ])("%s steps the end", async (label, range) => {
     await renderPicker();
     await press(label);
-    expect(screen.getByText(`Practise ${FATIHAH} ${range}`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} ${range}`)).toBeTruthy();
   });
 
   it("stops the end at the last ayah", async () => {
     await renderPicker({ initial: { surah: 1, ayahStart: 1, ayahEnd: 7 } });
     await press("Increase End at ayah");
-    expect(screen.getByText(`Practise ${FATIHAH} 1–7`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} 1–7`)).toBeTruthy();
   });
 
   it.each([
@@ -107,7 +107,7 @@ describe("PracticePassagePicker", () => {
   ])("the %s shortcut sets the end", async (shortcut, range) => {
     await renderPicker();
     await fireEvent.press(screen.getByText(shortcut));
-    expect(screen.getByText(`Practise ${FATIHAH} ${range}`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} ${range}`)).toBeTruthy();
   });
 
   it("resets to the passage each time it reopens", async () => {
@@ -125,7 +125,7 @@ describe("PracticePassagePicker", () => {
     await view.rerender(
       <PracticePassagePicker visible initial={initial} onClose={jest.fn()} onSelect={jest.fn()} />,
     );
-    expect(screen.getByText(`Practise ${FATIHAH} 2–3`)).toBeTruthy();
+    expect(screen.getByText(`Practice ${FATIHAH} 2–3`)).toBeTruthy();
   });
 
   it("closes from the sheet", async () => {

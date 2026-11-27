@@ -3,9 +3,11 @@ import { buildAppUrl } from "@/lib/app-links";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 import {
   actionForPhase,
+  progressForPhase,
   resolveSalahPhase,
   type SalahPhase,
   type SalahPhaseBoundary,
+  shortCriticalTextForPhase,
 } from "@/lib/salah-phase";
 
 /**
@@ -61,6 +63,14 @@ export interface OngoingNotificationState {
   followingTargetTimeMs: number;
   /** Localized Android notification channel name ("Next Salah countdown"). */
   channelName: string;
+  /** App accent (hex) for ProgressStyle segments and the notification color. */
+  accentColor: string;
+  /**
+   * After-Salah action applied by the in-place Mark button when no after-Salah
+   * boundary is scheduled (ambient mode). Empty outside the mark window.
+   */
+  markedActionLabel: string;
+  markedActionDeepLink: string;
 }
 
 export type BuildOngoingNotificationStateInput = {
@@ -93,20 +103,20 @@ export function buildOngoingNotificationState(
   const phase = resolveSalahPhase(snapshot, now);
   const action = actionForPhase(phase === "ended" ? "afterSalah" : phase, snapshot);
   const showingCurrent = phase !== "upcoming" && phase !== "ended";
+  const afterMark = phase === "markSalah" ? actionForPhase("afterSalah", snapshot) : null;
   const boundary = input.boundaries?.[0];
-  const progressPercent =
-    boundary?.progressPercent ?? (phase === "upcoming" ? 20 : phase === "markSalah" ? 65 : 85);
-  const progressSegments = boundary?.progressSegments ?? [60, 15, 30];
-  const progressPoints = boundary?.progressPoints ?? [60, 75];
+  // Without a scheduled boundary, derive the same values the boundaries carry.
+  const fallback = progressForPhase(phase);
+  const progressPercent = boundary?.progressPercent ?? fallback.progressPercent;
+  const progressSegments = boundary?.progressSegments ?? fallback.progressSegments;
+  const progressPoints = boundary?.progressPoints ?? fallback.progressPoints;
   const shortCriticalText =
     boundary?.shortCriticalText ??
-    (phase === "upcoming"
-      ? minutesUntil < 60
-        ? `${minutesUntil}m`
-        : `${Math.floor(minutesUntil / 60)}h`
-      : phase === "markSalah"
-        ? "Mark"
-        : "Adhkar");
+    shortCriticalTextForPhase(
+      phase,
+      showingCurrent ? nextPrayer.currentPrayerName : nextPrayer.prayerName,
+      minutesUntil,
+    );
 
   const schedule = (input.boundaries ?? []).map((b) => ({
     executeAtMs: Date.parse(b.executeAt),
@@ -149,5 +159,8 @@ export function buildOngoingNotificationState(
     followingTime: nextPrayer.followingTime,
     followingTargetTimeMs: targetTimeMs + 2 * 60 * 60_000,
     channelName: i18n.t("notif.channels.prayerOngoing"),
+    accentColor: snapshot.theme.primary,
+    markedActionLabel: afterMark?.actionLabel ?? "",
+    markedActionDeepLink: afterMark?.actionDeepLink ?? "",
   };
 }

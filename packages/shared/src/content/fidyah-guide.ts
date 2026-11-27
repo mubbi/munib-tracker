@@ -50,6 +50,7 @@ export const FIDYAH_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "fidyah-feeding-poor",
+    differenceIds: ["fidyah.measure"],
     section: "fidyah",
     title: "What is fidyah for missed fasts?",
     summary: "One poor person fed per missed day when qaza is not possible.",
@@ -108,6 +109,7 @@ export const FIDYAH_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "kaffarah-ramadan",
+    differenceIds: ["fasting.kaffarah"],
     section: "kaffarah",
     title: "Kaffarah for deliberately breaking the fast",
     summary: "Freeing a slave, or sixty consecutive fasts, or feeding sixty poor.",

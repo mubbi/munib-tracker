@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Islomda poklanish ikki jihatga ega. Tashqi ko'rinadigan poklik - yuvish, iflos narsalarni olib tashlash, toza saqlash. Ichida yuvinish uyg'otish uchun mo'ljallangan kamtarlik, aql va qalbning tayyorligidir. Rasululloh sollallohu alayhi vasallam poklikni «iymonning yarmi» deb ataganlarida, jismonan poklik bilan qalbning gunohdan poklanishini qo‘shib, ikkalasini bir-biriga bog‘laganlar.",
       "Ushbu modul butun mavzuni tartibda ko'rib chiqadi: tozalagan suv, tahorat (kichik tahorat), g'usl (to'liq hammom), tayammum (suvdan foydalanish mumkin bo'lmaganda quruq tozalash), najosa (jismoniy iflosliklarni olib tashlash) va alohida holatlar va imtiyozlar. Buni bir marta o'rganing va ibodat shubha bilan emas, balki ishonch bilan kirishingiz mumkin bo'lgan narsaga aylanadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iymon keltirganlar, namozga tursangiz, yuzlaringizni va bilaklaringizni tirsakgacha yuving, boshingizga masx qiling, oyoqlaringizni to‘pig‘igacha yuving.",
-      },
-      {
-        excerpt: "Albatta, Alloh tavba qiluvchilarni sevadi va poklanganlarni sevadi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibodatning kaliti poklanishdir; uning boshlanishi takbir, oxiri esa taslimdir. (Ali; shuningdek, Jomiy at-Termiziy 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Poklanishni shoshilinch ish emas, balki Alloh bilan uchrashishga tayyorgarlik sifatida qabul qiling.",
       "Butun oqim tabiiy bo'lguncha har kuni bitta taxara mavzusini o'rganing.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Rasululloh sollallohu alayhi vasallam poklikni mo'minning xislatiga ko'tarib, uni \"iymonning yarmi\" deb ataganlar. Muntazam poklanish insonni tarbiyalaydi, uni deyarli doimiy ibodatga tayyor holatda ushlab turadi va - hadisda aytilishicha - kichik gunohlarni suv bilan yuvib tashlaydi.",
       "Namozni saqlagani uchun tahorat mo'minni beparvolik tufayli noto'g'ri namoz o'qish gunohidan ham saqlaydi. Shuning uchun uning hukmlarini yaxshi o'rganish Islomdagi eng ulug' amallardan biri bo'lgan himoyadir.",
     ],
-    hadith: [
-      {
-        excerpt: "Poklanish iymonning yarmidir. (Abu Molik al-Ash’ariy)",
-      },
-      {
-        excerpt:
-          "Alloh taolo poklanmagan namozni ham, o‘g‘irlangan zakotni ham qabul qilmaydi. (Ibn Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Har bir namozdan oldin, boshlashdan oldin pokligingizni tasdiqlang.",
       "Oddiy aqliy nazorat ro'yxatini saqlang: tana, kiyim, joy va tahorat.",
@@ -66,12 +45,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Katta nopoklik (hadas akbar, janob deb ham ataladi) yaqinlik, jinsiy aloqa va hayz ko'rishning tugashi yoki tug'ruqdan keyingi qon ketishidan kelib chiqadi. G'usl bilan ko'tariladi, ya'ni to'liq badanni hammom bilan ko'taradi - suv bo'lmagan yoki zararli bo'lsa, yana tayammum bilan almashtiriladi.",
       "Siydik, najas yoki oqayotgan qon kabi jismoniy iflosliklar (najosa) alohida masala: marosim holatidan qat'i nazar, tanadan, kiyimdan va namozgohdan jismonan olib tashlanishi kerak. To'rtta sunniy mazhablar bu uch toifaga rozi bo'lib, ular faqat poklikni bekor qiladigan narsa yoki qanday iz miqdori uzrli ekanligi haqidagi ba'zi tafsilotlarda farq qiladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Agar janob bo'lsangiz, pok bo'ling. Agar kasal bo'lsangiz yoki safarda bo'lsangiz... suv topmasangiz, toza tuproq bilan tayammum qiling.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Avval holatingizni aniqlang (kichik, katta yoki iflos), keyin to'g'ri usulni qo'llang.",
       "Tafsilotlar haqida ishonchingiz komil bo'lmaganda, doimiy ravishda taniqli maktabdagi malakali o'qituvchini kuzatib boring.",
@@ -86,17 +60,8 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Faqihlar suvni batafsil (sof va poklovchi, sof, lekin tozalanmaydigan va harom) toifalarga ajratadilar, ammo kundalik hayotning amaliy qoidasi oddiy: suv tahorat va g'usl uchun mos bo'lib qoladi, agar najosat uni aniq o'zgartirmasa. Mavjud toza muqobil bilan chinakam shubhangiz bo'lsa, muqobildan foydalaning.",
       "Islom isrofgarchiliksiz puxtalikka o'rgatadi. Rasululloh sollallohu alayhi vasallam to'liq yuvindilar, lekin juda oz suv iste'mol qildilar - tahorat uchun bir mudd (ikki hovuch hovuch), to'liq g'usl uchun esa bir so' (taxminan to'rtta). Suv ko'p bo'lsa ham isrof qilishdan qaytariladi, chunki me'yorning o'zi ham ibodat odoblaridandir.",
     ],
-    quran: [
-      {
-        excerpt: "Va osmondan pokiza suv tushirdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam bir mudd suv bilan tahorat, besh muddgacha so' bilan g'usl olar edilar. (Anas; shuningdek, Sahihi Musulmon 325 - mo''tadil sunnat)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "To'liq yuvish uchun etarli miqdorda suvdan foydalaning, lekin jo'mrakni pastga aylantiring va ortiqcha suvdan saqlaning.",
       "Agar suv manbai ifloslik bilan o'zgargan ko'rinsa yoki hidlansa, eng yaqin toza manbani qidiring.",
@@ -112,12 +77,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Har bir namozdan oldin, agar avvalgi namozdan so'ng to'g'ri bo'lmasangiz, va ko'pchilik ulamolarning fikriga ko'ra, Ka'ba atrofida tavof qilishdan oldin va Qur'onning jismoniy matniga (mushaf) tegmasdan oldin talab qilinadi.",
       "Tahorat o'ziga xos bir ibodatdir, shunchaki oldindan emas. Rasululloh sollallohu alayhi vasallam: “Sizlardan birortangiz yana tahorat olmaguncha, tahoratini buzgan namozni Alloh qabul qilmaydi”, deb ogohlantirdilar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taolo sizlardan biringizning tahoratini buzgan namozini tahorat qilmaguncha qabul qilmaydi. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -126,14 +86,9 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
     body: [
       "Tahorat hisoblanishi uchun ma'lum shartlar (shurut) bo'lishi kerak. Inson ibodat (niyyah) uchun poklanishni niyat qilgan, aqli raso musulmon bo'lishi kerak. Ba'zi maktablar niyatni harakatning ustuni, boshqalari esa shart sifatida tasniflaydi, ammo hamma bu mukofot uchun va ko'pchilik uchun haqiqiyligi uchun zarurligiga rozi.",
       "Ishlatilgan suv toza va toza bo'lishi kerak. Eng muhimi, u haqiqatan ham teriga etib borishi kerak - shuning uchun oyoq-qo'l ustidagi suv o'tkazmaydigan to'siqni (qalin bo'yoq, tirnoq, mum, elim) birinchi navbatda olib tashlash kerak, aks holda uning ostidagi yuvish yaroqsiz. Suvni to'sib qo'ymaydigan oddiy axloqsizlik yoki xina dog'i muammo emas.",
-      "Shofe'iy va Hanbaliy mazhabi ham yuvishni Qur'on tartibida va oyoq-qo'llarni quritadigan uzoq vaqt to'xtatmasdan (muvalat) qilishni talab qiladi. Hanafiy va Molikiyning qat'iy ketma-ketlik va davomiylik haqidagi pozitsiyalari ba'zi holatlarda yumshoqroqdir. Muvofiqlik uchun bitta maktab uslubiga amal qiling.",
+      "Shofe'iy va Hanbaliy mazhablari, shuningdek, a'zolar Qur'onda zikr qilingan tartibda yuvilishini (tartib), Molikiy va Hanbaliy mazhablari esa a'zolar yuvilgan a'zolar quriydigan darajada uzoq tanaffus qilinmay, ketma-ket yuvilishini (muvolot) shart qiladi. Hanafiy mazhabi ikkalasini ham sunnat deb hisoblaydi. Izchillik uchun bitta mazhab uslubiga amal qiling.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yuzlaringizni va bilaklaringizni tirsaklaringizgacha yuving, boshingizni arting va oyoqlaringizni to'piqgacha yuving.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Tahoratdan oldin tirnoq bo'yog'ini, suvni ushlab turadigan halqalarni va terini yopishtiruvchi narsalarni olib tashlang.",
       "Hech bir a'zo o'tkazib yuborilmasligi yoki qurib qolmasligi uchun bir oqimda tinchgina tahorat qiling.",
@@ -144,15 +99,10 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
     summary: "Qur'on ustunlari (faraid), ularsiz tahorat yaroqsizdir.",
     body: [
       "Tahoratning vojiblari (uning faraidlari) Alloh taolo oyatda zikr qilgan qismlardir: butun yuzni yuvish; ikkala qo'lni tirsaklargacha yuvish; boshni artish; ikki oyog'ini to'pig'igacha yuvish. Bulardan birortasini o'tkazib yuborsa, tahorati to'liq bo'lmaydi.",
-      "Bularga mazhablar sunnat va fiqhiy fikrdan qo'shimcha farzlarni qo'shadilar. Ko‘pchilik mazhablarda niyat farzdir (hanafiylar uni kichik nopoklikni ko‘tarish uchun qattiq ta’kidlangan sunnat deb tasniflaydilar). Tartib (tartib) va davomiylik (muvolot) shofiiy va hanbaliylarga farzdir. Molikiylar a'zolarni (dalk) ishqalashni farz qilib qo'shadilar.",
+      "Bularga mazhablar sunnat va fiqhiy ijtihoddan qo'shimcha farzlarni qo'shadilar. Ko'pchilik mazhablarda niyat farzdir (hanafiylar uni kichik hadasni ko'tarishda sunnati muakkada deb hisoblaydilar). Tartib shofe'iylar va hanbaliylar nazdida, uzluksizlik (muvolot) esa molikiylar va hanbaliylar nazdida farzdir. Molikiylar a'zolarni ishqalashni (dalk) ham farz sifatida qo'shadilar.",
       "Bulardan tashqari hamma narsa - og'iz va burunni chayish, avval qo'l yuvish, uch marta yuvish - farz emas, balki tavsiya (sunnat)dir. Farqni bilish, tahoratning noto'g'ri ekanligini va haqiqiy noto'g'ri ekanligini aniqlay olasiz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yuzlaringizni va bilaklaringizni tirsaklaringizgacha yuving, boshingizni arting va oyoqlaringizni to'piqgacha yuving.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Faraidlarning aniq ro'yxati (masalan, niyat, tartib va ​​ishqalanish vojibmi) to'rt mazhabda farq qiladi. Doimiy ravishda bitta ishonchli maktabni o'rganing va qo'llang.",
   },
@@ -164,12 +114,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Sobit sunnat amallarga quyidagilar kiradi: boshida “Bismillah” deyish; boshlashdan oldin qo'llarni uch marta yuvish; og'iz (madmada) va burunni (istinshoq) chayish; ho‘l barmoqlarni qalin soqoldan o‘tkazib, barmoqlar va oyoq barmoqlari orasidan yugurish (tahlil); har bir juft oyoq-qo'lni o'ngdan boshlash; va har bir yuvishni uch martagacha takrorlang.",
       "Ikkita sunnatni alohida ta'kidlab o'tish joiz: Payg'ambarimiz sollallohu alayhi vasallam deyarli farz qilgan misvokni oldindan qo'llash va tugatgandan so'ng iymon shahodatini o'qish, buni aytgan kishiga jannatning sakkiz eshigini ochadi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim yaxshi tahorat olib, keyin «Guvohlik beramanki, Allohdan o‘zga iloh yo‘q... va Muhammad uning bandasi va rasulidir», desa, unga jannatning sakkiz eshigi ochiladi. (Umar ibn al-Xattob)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "To'liq sunnat ketma-ketligi sizning tabiiy tartibingizga aylanmaguncha mashq qiling.",
       "Har safar tahoratdan keyingi shahodatni o'qing.",
@@ -224,12 +169,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
         tip: "Qisqa, lekin katta savobli sunnat.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Usmon roziyallohu anhu Rasululloh sollallohu alayhi vasallamni ko'rganlaridek har bir a'zosini uch marta yuvdilar, so'ng: Kim shunday tahorat olib, ikki rakat namozni to'liq o'qisa, uning o'tgan gunohlari kechiriladi, dedilar. (Humron, Usmondan.)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -240,12 +180,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Shuni bilish kerakki, ba'zi risolalarda kelgan har bir a'zo uchun duo (qo'l, yuz, qo'l va hokazolarni yuvishda aytiladigan maxsus duo) Payg'ambarimiz sollallohu alayhi vasallamning sahihligi bilan tasdiqlanmagan. Ulamolar tahoratda Allohni umumiy zikr qilishning zarari yo'q bo'lsa-da, bularni sunnat deb hisoblamaslikni tavsiya qiladilar.",
       "Ishning mohiyati hozir bo'lishdir: har bir a'zoning gunohlari ketayotganini bilgan holda yuving va amalni o'z maqsadi bilan bog'laydigan shahodat bilan yakunlang - yolg'iz Allohga iymon.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim yaxshi tahorat olib, keyin iymonga guvohlik bersa, unga jannatning sakkiz eshigi ochilib, xohlaganidan kirishi mumkin. (Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tahoratdan keyingi shahodatni yodlamagan bo'lsangiz.",
       "Har bir a'zoda tasdiqlanmagan formulalarni sunnat bo'lgandek o'qishdan saqlaning.",
@@ -260,12 +195,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Boshqa masalalarda maktablar o'rtasida hurmatli farq bor: avratga to'g'ridan-to'g'ri teginish va qarama-qarshi jinsdagi nomahram bilan teriga teginish ba'zi maktablarda bir xil matnlarni turli xil o'qish asosida bekor qiladi, boshqalari esa bekor qiladi.",
       "Hayotiy boshqaruv tamoyili sizni doimiy tashvish (vasvas)dan himoya qiladi: ishonch shubha bilan olib tashlanmaydi. Agar siz tahorat olgan bo'lsangiz va uni buzganingizga ishonchingiz komil bo'lmasa, siz tahoratli bo'lganingizga ishonchingiz komil bo'lmaguningizcha tahorat olgan hisoblanasiz. Rasululloh sollallohu alayhi vasallam bu tuyg'udan bezovta bo'lgan kishiga: «To tovush eshitmagunicha yoki hid topmagunicha namozni tark etma», dedilar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "To tovush eshitmagunicha yoki hid topmagunicha (namozini) tark etmasin. (Abbod ibn Tamim amakisidan)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Qarama-qarshi jinsga tegish yoki avratga tegish tahoratni buzadimi, maktablarda farq qiladi. Malakali mahalliy o'qituvchi va bitta maktab uslubiga amal qiling.",
   },
@@ -277,12 +207,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Rasululloh sollallohu alayhi vasallam bir kuni tovonlari suv yetib kelmagani uchun quruq qolgan odamlarni ko'rib: «Do'zaxdan poshnalarga voy!» deb qattiq ogohlantirdilar. To'piqlar, to'piqlar va yuzning burchaklari eng ko'p e'tiborga olinmaydigan joylardir.",
       "Qarama-qarshi xato ortiqcha: uch martadan ko'proq yuvish yoki suvni isrof qilish, bu me'yor sunnatiga ziddir. Boshqalar esa tahoratni qayta-qayta takrorlab, vasvasga (obsesif shubhaga) tushib qoladilar - bu ham xatodir, chunki shubha bilan aniqlik buzilmaydi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Do'zaxdan poshnalarga voy! — dedi tahoratda quruq qolgan poshnalarini ko'rib. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Har bir yuvilgan oyoq-qo'lning, ayniqsa to'piq va tirsaklarning to'liq qoplanishini sekinlashtiring va ongli ravishda tasdiqlang.",
       "O'rtacha suvdan foydalaning; obsesif shubha sizni keraksiz takrorlashga majburlamasin.",
@@ -297,12 +222,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Bu keyingi hayotda ham alohida sharafdir. Payg'ambarimiz sollallohu alayhi vasallam qiyomat kuni o'z tarafdorlarini yuzlari, qo'llari va oyoqlaridagi tahorat izlaridan taniydilar - bu ummatga xos nur bo'lib, \"al-g'urr al-muhajjalun\" deb ataladi.",
       "Ana shu fazilatlari tufayli tahoratli bo'lish tavsiya etilgan odatdir: har bir namozda uni yangilash va tahorat ustida uxlash mo'minning himoya ishlaridandir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mening ummatim qiyomat kuni tahorat izidan yuzlari yorug‘, qo‘l va oyoqlari bilan chaqiriladilar. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Imkoniyatingiz bo'lgan har bir namoz oynasi uchun tahoratni yangilang.",
       "Tahorat bilan uxlashni kechaning sunnatiga aylantiring.",
@@ -317,11 +237,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Uning mohiyati shundaki, suv tashqi tananing har bir qismiga etib boradi - quruq nuqta qolmasligi mumkin, shu jumladan soch ildizlari, teri burmalari, quloq orqasi, kindik va oyoq barmoqlari orasiga. Og'iz va burunni chayish ko'p ulamolar tomonidan g'uslga kiritilgan.",
       "Janobni ko‘tarish niyatida qilingan bir g‘usl ham kichik najosatni ketkazadi, shuning uchun g‘uslni tamomlagan kishi alohida tahoratsiz namoz o‘qishi mumkin (garchi g‘usl ichida tahorat olish sunnatdir).",
     ],
-    quran: [
-      {
-        excerpt: "Agar janob bo'lsangiz, pok bo'ling.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -332,16 +248,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Farz emas, balki boshqa g'usllar tavsiya qilingan (mustahab)dir: Juma kunidan oldin juma kuni g'usl olish juda qattiq targ'ib qilinganki, Payg'ambarimiz sollallohu alayhi vasallam buni har bir balog'atga etgan kishiga farz deb atadilar. ikki hayit uchun g'usl; va haj yoki umradan oldin ehrom gusli.",
       "Yangi musulmonga Islomga kirgandan so'ng g'usl qilish buyuriladi - ba'zi ulamolar tomonidan farz qilingan va boshqalar tomonidan qat'iy tavsiya etilgan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Erkak xotinining to‘rt a’zosi orasiga o‘tirsa va u bilan yaqinlik qilsa, g‘usl vojib bo‘ladi. (Abu Hurayra; Yana Sahih Musulmon 348)",
-      },
-      {
-        excerpt:
-          "Juma kuni g'usl olish balog'at yoshiga etgan har bir kishiga farzdir. (Abu Said al-Xudriy; Yana Sahih Musulmon 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Juma va g'usl farzmi yoki qat'iy tavsiya qilinadimi, maktab va sharoitga qarab farq qiladi.",
     appLinks: [{}],
@@ -384,12 +291,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
         tip: "Ayollarga suvning bosh terisiga yetib borishi sharti bilan o'rilgan sochlarini yechishga hojat yo'q.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam janobdan cho'milganda, qo'llarini yuvar, namoz uchun tahorat olar, barmoqlarini sochlariga o'tkazar, so'ngra uch marta boshlariga suv quyib, badanlarining qolgan qismiga suv quyib, namozga qo'yardilar. (Oisha)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "G'usl qilishda keng tarqalgan xatolar",
@@ -399,12 +301,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Ikkinchi keng tarqalgan xato quruq dog'larni qoldirishdir. Farz shundaki, suv butun tanaga tegib tursa, boshning ildizlari, quloqlari, kindiklari, orqa qismining kichik qismi yoki oyoq barmoqlari orasiga e'tibor bermaslik g'uslni to'liq bo'lmaydi. Ishonch hosil qilish uchun suvni bu joylarga surting.",
       "Sochlar uchun: sochi o‘ralgan ayolning sochi o‘ralgan bo‘lsa, sochini yechmasligi shart emas, agar suv bosh terisi ildiziga yetib borsa, — Payg‘ambarimiz sollallohu alayhi vasallam Ummu Salamaga boshiga uch hovuch quyishning o‘zi kifoya, dedilar. Erkakning sochlari, odatda, bo'shashmasdan, suv ildizlariga etib borishi uchun ishlov berilishi kerak.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Boshingizga uchta hovuch suv quyishingiz kifoya, keyin o'zingizga suv quying va siz poklanasiz - ortiqcha oro bermay iplaringizni yechishingiz shart emas. (Ummu Salama)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Birinchi quyishdan oldin niyat ayting, shuning uchun yuvish g'usl hisoblanadi.",
       "Osonlik bilan o'tkazib yuborilgan joylarni suv bilan ishqalang; noaniq bo'lsa, shubha bilan tugatgandan ko'ra, qismni qayta yuving.",
@@ -418,18 +315,8 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Tayammum, xususan, bu ummatga tuhfadir: Rasululloh sollallohu alayhi vasallam: “Yer men uchun namozgoh va poklanish vositasi qilib qo‘yildi”, dedilar va uni avvalgi payg‘ambarlarga emas, balki o‘ziga berilgan imtiyozlar qatoriga kiritdilar. Bu dinning asosiy tamoyilini o'zida mujassam etgan - majburiyat saqlanib qoladi, ammo qiyinchilik ko'tariladi.",
       "Bu vaqtinchalik chora: suv mavjud va foydalanishga yaroqli bo'lgach, suv bilan oddiy tozalash qayta boshlanadi. Ba'zi mazhablarga ko'ra, kishi har bir namoz uchun tayammumni yangilashi kerak bo'lishi mumkin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...va suv topmasangiz, toza tuproq bilan tayammum qiling va u bilan yuzlaringizni va qo'llaringizni arting.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yer men uchun namozgoh va poklanish vositasi qilib berildi. (Jobir - Rasululloh sollallohu alayhi vasallamga berilgan besh narsadan)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Tayammumga ruxsat berilganda",
@@ -440,12 +327,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Uchinchidan, mavjud bo'lgan ozroq suv zarur bo'lganda, masalan, ichish, o'ziniki yoki boshqasi yoki hayvonning hayotini saqlab qolish uchun kerak bo'ladi. Har bir holatda shariat hayot va salomatlikni saqlashni afzal ko'rgan poklanish usulidan ustun qo'yadi.",
       "Huquqshunoslar nozik chegaralar bo'yicha farq qiladilar - suvni qanchalik uzoqdan izlash kerak, zarardan qo'rqish qanchalik etarli - lekin ular asosiy rahm-shafqat haqida bir ovozdan: ibodat hech qachon to'xtatilmaydi, faqat osonlashtiriladi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Tayammum boblarida rivoyat qilingan: Foydalanishga yaroqli suv bo'lmaganda toza tuproq bilan poklanishga imtiyoz.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tayammum qilishdan oldin suvni oqilona qidiring.",
       "Agar shifokor yara yoki kasallikni quruq saqlashni tavsiya qilsa, unga amal qiling va tayammum qiling.",
@@ -481,12 +363,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
         tip: "Bitta maktab usuliga (bilaklar va bilaklar) izchil amal qiling.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam yerga kaftlari bilan urdilar, so'ng yuzlari va qo'llarini artdilar va Ammorga buning o'zi kifoya ekanini aytdilar. (Ammar ibn Yosir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Tayammumni nima buzadi?",
@@ -513,12 +390,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Nopoklik ko'rinadigan joyda suv bilan olib tashlanadi, modda va uning izlari yo'qolguncha yuviladi. Islom dini najosat manbalariga ham jiddiy munosabatda bo'ladi: Payg'ambarimiz (s.a.v.) qabr azobining ko'p qismi siydik bilan ehtiyotsizlik - undan sachratish va noto'g'ri tozalashdan kelib chiqishi haqida ogohlantirganlar.",
       "Maktablar ba'zi moddalarni tasniflashda (masalan, oz miqdorda ma'lum suyuqliklar kechiriladimi yoki yo'qmi) va qanday iz miqdoriga yo'l qo'yilishi bo'yicha farq qiladi. Kundalik hayotning amaldagi printsipi: yaxshilab tozalang va ifloslik isboti bo'lmagan joyda poklikka shubha qilmang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam ikkita qabrning yonidan o'tib, ulardagilar jazolanayotganini aytdilar: biri tuhmat tarqatgani uchun, ikkinchisi esa siydikdan saqlamagani uchun. (Ibn Abbos; Yana Sahihi Musulmon 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Kiyimlarni nopoklikdan tozalash",
@@ -528,12 +400,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Agar samimiy va sinchkovlik bilan harakat qilgandan so'ng, xira rangdagi dog 'yoki engil hid qolsa, u chiqmaydi, ko'pchilik olimlar olib tashlash haqiqatan ham qiyin bo'lgan narsani kechiradilar - majburiyat beg'ubor bo'yoqni kafolatlash emas, balki moddani olib tashlashdir.",
       "Ba'zi holatlarning o'ziga xos tafsilotlari bor, masalan, ko'krak suti bilan boqiladigan chaqaloqning siydigi (ma'lum qilingan imtiyozda to'liq yuvilgan emas, balki sepiladi) - shuning uchun siz haqiqatda duch keladigan vaziyatlar uchun maktabingizning amaliy qoidalarini bilib oling.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kiyimdagi hayz qoni haqida: uni qirib tashlang, so'ngra suv bilan surting, keyin yuving va unda namoz o'qing. (Asmo binti Abu Bakr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namoz uchun kamida bitta toza kiyimni ajratib qo'ying.",
       "Agar uydan uzoqda kiyimingizga kir tegsa, iloji boricha yuving va iloji boricha o'zgartiring.",
@@ -547,12 +414,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Nopoklikni yo'qotishdan tashqari, Islom tanani toza va ibodat qilishga tayyor bo'lishini ta'minlaydigan tabiiy gigiena (fitra) asoslarini tavsiya qiladi: tirnoqlarni kesish, qo'ltiq ostidagi va qo'ltiq ostidagi tuklarni olib tashlash va shunga o'xshash narsalarni muntazam ravishda.",
       "Bu amallar shunchaki madaniy go'zalliklar emas, balki mo'minning ibodatda Alloh huzurida namoyon bo'ladigan hurmat va poklikning bir qismidir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam yengillikdan keyin suv bilan tozalar erdilar. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Hojatxonadan chiqqandan keyin tahorat oldidan har doim istijani to'ldiring.",
       "Sayohat paytida ro'molcha va iloji bo'lsa, suv vositasini olib yuring.",
@@ -566,12 +428,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Boshqaruv qoidasi aniqlikdir. Yer odatda ibodat qilinadigan joy bo'lgan, shuning uchun sizda ifloslik haqida aniq dalillar bo'lmasa, sirt toza hisoblanadi. Agar nopoklik borligini bilsangiz, uni olib tashlang yoki toza joyga o'ting; Agar u erda bo'lishi mumkinligini tasavvur qilsangiz, shivirlashga e'tibor bermang va davom eting.",
       "Bu muvozanat soqchilari ikki ekstremal sig'inadilar: aniq iflos tuproqda beparvolik bilan ibodat qilish va har bir yuzaga asossiz shubha bilan falaj bo'lish.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir badaviy masjidda siydik qilganida, Rasululloh sollallohu alayhi vasallam masjidga bir chelak suv quyishni buyurdilar. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namozdan oldin to'shak va polga bir nazar tashlang.",
       "Nopoklikning haqiqiy dalillarisiz, asossiz shubhalardan voz keching va ibodat qiling.",
@@ -585,12 +442,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Ro'za boshqacha: hayz ko'rganligi sababli Ramazon oyida tutilgan ro'zalar keyinroq tutiladi, namoz esa shunchaki ko'tariladi. Qon oqishi tugab, poklik alomati paydo bo‘lgach, ayol g‘usl qilib namoz va ro‘zani davom ettiradi.",
       "Hayd va nifosning aniq minimal va maksimal muddatlari, poklikning chegara belgilarini qanday o'qish, maktablar bir-biridan batafsil farq qiladigan masalalardir. Ayollar malakali o'qituvchi bilan bitta ishonchli maktabning amaliy hukmlarini o'rganishdan foyda olishadi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Oisha roziyallohu anho nega hayz ko'rgan ayol ro'za tutadi, namoz o'qiysiz, degan savolga: «Biz ro'za tutishga buyurilganmiz, namozni qazo qilishga buyurilmaganmiz. (Muozha, Oisha roziyallohu anhodan; Yana Sahihi Musulmon 335).",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -619,16 +471,7 @@ export const TAHARAH_TOPICS_UZ: DeepPartial<TaharahTopic>[] = [
       "Amaliy hukmlar uchun to'rtta sunniy mazhablarning klassik fiqh qo'llanmalarida batafsil pozitsiyalar berilgan - va ularning farqlari nuqson emas, balki an'ananing qonuniy qismidir. Ushbu moduldan tuzilgan umumiy ko'rinish uchun foydalaning, so'ngra malakali o'qituvchi va asosiy matnlar bilan o'rganishingizni chuqurlashtiring.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt:
-          "To'plamni ochadigan tahorat, g'usl, tayammum va hayd haqidagi keng qamrovli boblar.",
-      },
-      {
-        excerpt:
-          "Poklanish kitobi — tahorat hukmlari, odoblari va tamoyillari haqidagi sahih xabarlar.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Tarqalgan qarorlardan chalkashmaslik uchun bitta ishonchli o'quv dasturiga amal qiling.",
       "Amaliy ishonch barqaror bo'lgunga qadar ushbu mavzularni vaqti-vaqti bilan qayta ko'rib chiqing.",

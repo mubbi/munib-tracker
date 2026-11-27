@@ -1,11 +1,11 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import type { QazaPrayer } from "@munib-tracker/shared/types";
 import { getLocalDateString, sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
@@ -16,6 +16,8 @@ import { TvLayout } from "@/constants/tv-layout";
 import { QazaRepository } from "@/db";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import {
@@ -24,8 +26,6 @@ import {
   useQazaSchedule,
   useTrackerActions,
 } from "@/stores/tracker-store";
-
-type PendingQazaAction = { kind: "perform" | "undo"; prayerId: QazaPrayer };
 
 type QazaDailyChecklistProps = {
   /** Defaults to today. Past dates render read-only when progress exists. */
@@ -42,10 +42,10 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
   const storeProgress = useQazaDailyProgress();
   const counters = useQazaCounters();
   const { performQaza, undoQaza } = useTrackerActions();
-  const [pending, setPending] = useState<PendingQazaAction | null>(null);
+  const undoToast = useUndoToast();
   const [historicalProgress, setHistoricalProgress] = useState(storeProgress);
   const tv = isTV();
-  const iconTarget = tv ? TvLayout.minFocusTarget : 40;
+  const iconTarget = tv ? TvLayout.minFocusTarget : undefined;
 
   useEffect(() => {
     if (isToday) return;
@@ -77,31 +77,28 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
     [counters],
   );
 
-  const confirmCopy = useMemo(() => {
-    if (!pending) return null;
-    const prayer = t(`prayers.${pending.prayerId}`);
-    if (pending.kind === "perform") {
-      return {
-        title: t("qaza.confirmPerformTitle"),
-        message: t("qaza.confirmPerformMsg", { prayer }),
-      };
-    }
-    return {
-      title: t("qaza.confirmUndoPerformTitle"),
-      message: t("qaza.confirmUndoPerformMsg", { prayer }),
-    };
-  }, [pending, t]);
+  /** One tap logs a make-up; the toast offers Undo (no confirm dialog). */
+  const perform = (prayerId: QazaPrayer) => {
+    triggerHaptic("success");
+    trackReviewInteraction("mark_qaza");
+    void undoToast.run({
+      do: () => performQaza(prayerId),
+      undo: () => undoQaza(prayerId),
+      messageKey: "qaza.toastMadeUp",
+      messageOptions: { prayer: t(`prayers.${prayerId}`) },
+    });
+  };
 
-  const handleConfirm = useCallback(() => {
-    if (!pending) return;
-    if (pending.kind === "perform") {
-      void performQaza(pending.prayerId);
-      trackReviewInteraction("mark_qaza");
-    } else {
-      void undoQaza(pending.prayerId);
-    }
-    setPending(null);
-  }, [pending, performQaza, undoQaza]);
+  /** Takes one make-up back from today; the toast offers Undo to re-log it. */
+  const takeBack = (prayerId: QazaPrayer) => {
+    void undoToast.run({
+      do: () => undoQaza(prayerId),
+      undo: () => performQaza(prayerId),
+      messageKey: "qaza.toastTakenBack",
+      messageOptions: { prayer: t(`prayers.${prayerId}`) },
+      type: "info",
+    });
+  };
 
   if (dailyTotal <= 0) return null;
   if (!isToday && dailyDone <= 0) return null;
@@ -110,7 +107,7 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
   // would flatten the Modal and open an extra gap before the next card).
   return (
     <View style={styles.root}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("tracker.qazaTargets")}
           icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
@@ -120,7 +117,11 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
           <ThemedText type="smallBold" themeColor="mutedForeground">
             {t("tracker.qazaTargetsProgress", { done: dailyDone, total: dailyTotal })}
           </ThemedText>
-          <ProgressBar value={dailyTotal ? dailyDone / dailyTotal : 0} height={6} />
+          <ProgressBar
+            value={dailyTotal ? dailyDone / dailyTotal : 0}
+            accessibilityLabel={t("tracker.qazaTargets")}
+            height={6}
+          />
         </View>
 
         <View style={[styles.rows, tv && styles.rowsTv]}>
@@ -162,7 +163,7 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
                     accessibilityLabel={t("qaza.undoPerformed", { prayer: prayerName })}
                     disabled={!canUndo}
                     hitTarget={iconTarget}
-                    onPress={() => setPending({ kind: "undo", prayerId: prayerId as QazaPrayer })}
+                    onPress={() => takeBack(prayerId as QazaPrayer)}
                   />
                   <IconButton
                     name={{
@@ -175,26 +176,22 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
                     accessibilityLabel={t("qaza.markPerformed", { prayer: prayerName })}
                     disabled={!canPerform}
                     hitTarget={iconTarget}
-                    onPress={() =>
-                      setPending({ kind: "perform", prayerId: prayerId as QazaPrayer })
-                    }
+                    onPress={() => perform(prayerId as QazaPrayer)}
                   />
                 </View>
               </View>
             );
           })}
         </View>
+        {tv && undoToast.undoAvailable ? (
+          <Button
+            label={t("uiFeedback.undo")}
+            variant="secondary"
+            size="sm"
+            onPress={() => undoToast.undo()}
+          />
+        ) : null}
       </Card>
-
-      <ConfirmDialog
-        visible={pending != null}
-        title={confirmCopy?.title ?? ""}
-        message={confirmCopy?.message}
-        confirmLabel={t("common.confirm")}
-        destructive={pending?.kind === "undo"}
-        onConfirm={handleConfirm}
-        onClose={() => setPending(null)}
-      />
     </View>
   );
 }
@@ -223,14 +220,14 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
-    padding: Spacing.two + 2,
+    gap: Spacing.twoHalf,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   actions: {
     flexDirection: "row",

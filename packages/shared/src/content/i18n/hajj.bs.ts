@@ -13,22 +13,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hurejre prenosi da je Poslanik Allaha ﷺ rekao: «Ko obavi hadž radi Allaha, pa ne učini rafas niti grijeh, vrati se kao na dan kad ga je majka rodila» (Sahih al-Buhari 1521; Sahih Muslim 1350).",
       "Također je rekao: «Prihvaćeni hadž (hadž mabrur) nema druge nagrade osim Dženneta» (Sahih al-Buhari 1773; Sahih Muslim 1349). Prihvatljivost je povezana sa iskrenosti i čuvanjem hadža od nehajnosti i grijeha — ne samo sa završetkom spoljašnjih koraka.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko obavi hadž radi Allaha, pa ne učini rafas niti grijeh, vrati se kao na dan kad ga je majka rodila.",
-      },
-      {
-        excerpt:
-          "Ko obavi hadž radi Allaha, pa ne učini rafas niti grijeh, vrati se kao na dan kad ga je majka rodila.",
-      },
-      {
-        excerpt: "Prihvaćeni hadž nema druge nagrade osim Dženneta.",
-      },
-      {
-        excerpt: "Prihvaćeni hadž nema druge nagrade osim Dženneta.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Namjeravaj hadž isključivo radi Allaha — čuvaj jezik i karakter tokom cijelog putovanja.",
       "Koristi aplikacijsku listu hadža samo kao podsjetnik; neka srce ostane usmjereno na prihvat.",
@@ -46,16 +31,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hurejre prenosi da je Poslanik ﷺ rekao: «Obavljanje umre iskupljuje grijehe između nje i prethodne, a prihvaćeni hadž nema druge nagrade osim Dženneta» (Sahih al-Buhari 1773; Sahih Muslim 1349).",
       "Umra se može obaviti bilo kada tokom godine. Kraća je od hadža, ali je veliko ibadet: ihram, tavaf, sa'j i brijanje ili skraćivanje kose.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Obavljanje umre iskupljuje grijehe između nje i prethodne, a prihvaćeni hadž nema druge nagrade osim Dženneta.",
-      },
-      {
-        excerpt:
-          "Obavljanje umre iskupljuje grijehe između nje i prethodne, a prihvaćeni hadž nema druge nagrade osim Dženneta.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Otvori listu umre kad budeš spreman proći obrede redom."],
     appLinks: [
       {
@@ -70,18 +46,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Abd ar-Rahman ibn Ja'mar prenosi da je Poslanik ﷺ rekao: «Hadž je Arafa» (Sunan Ebu Davud 1949; Džami' et-Tirmizi 889). Ko propusti stajanje unutar granica Arafe u njenom vremenu, propustio je hadž te godine.",
       "Za one koji nisu na hadžu, post na Dan Arafaha je snažno preporučen: Ebu Katade prenosi da post na Arafi iskupljuje grijehe prošle i naredne godine (Sahih Muslim 1162). Sami hodočasnici ne poste kako bi dan posvetili du'a.",
     ],
-    hadith: [
-      {
-        excerpt: "Hadž je Arafa.",
-      },
-      {
-        excerpt: "Hadž je Arafa.",
-      },
-      {
-        excerpt:
-          "Post na Dan Arafaha, nadam se od Allaha, iskupljuje grijehe godine prije nje i godine poslije nje.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Hadž — peti stub",
@@ -91,23 +56,8 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Poziv je objavljen svim ljudima: «I obavijesti ljude o hadžu; doći će k tebi pješice i na svakom mršavom devu; doći će iz svake duboke doline» (Kur'an 22:27).",
       "Ibn Omar prenosi da je Poslanik ﷺ rekao da je islam izgrađen na pet stvari: svjedočenje, salat, zekat, post u Ramazanu i hadž Kući onome ko je sposoban (Sahih al-Buhari 8; Sahih Muslim 16). Učenjaci se slažu da je obavezan jednom u životu kad su ispunjeni uslovi; ponavljanje je dobrovoljna vrjednoba.",
     ],
-    quran: [
-      {
-        excerpt: "A ljudima je dužan hadž Kući — onome ko može naći put do nje...",
-      },
-      {
-        excerpt: "I obavijesti ljude o hadžu; doći će k tebi pješice i na svakom mršavom devu...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam je izgrađen na pet stvari: svjedočenje da nema boga osim Allaha i da je Muhammed Poslanik Allaha, uspostavljanje salata, davanje zekata, post u Ramazanu i hadž Kući onome ko može naći put do nje.",
-      },
-      {
-        excerpt: "Islam je izgrađen na pet stvari... i hadž Kući onome ko može naći put do nje.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Sposobnost (istita'ah)",
@@ -116,11 +66,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Uslov u Kur'anu 3:97 je sposobnost (istita'ah). Klasični učenjaci to sažimaju kao: tjelesno zdravlje za put, dovoljan halal imetak za putovanje i potrebe uzdržavanih dok ste odsutni, te siguran i otvoren put.",
       "Ko ove godine nema ta sredstva nije griješan ako odgodi dok ne bude sposoban. Sposobnost se procjenjuje slučaj po slučaj — bolest, dug koji se mora vratiti ili nesigurno putovanje mogu ukinuti neposrednu obavezu. Pitaj kvalificiranog učenjaka kad ti situacija nije jasna.",
     ],
-    quran: [
-      {
-        excerpt: "...onome ko može naći put do nje.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Podmiri obavezne dugove i uredi uzdržavanje za zavisne prije rezervacije.",
       "Provjeri pakete samo kroz službene kanale (vidi teme Priprema).",
@@ -133,16 +79,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas prenosi da je Poslanik ﷺ rekao da žena ne smije putovati osim s mahramom, i da muškarac ne smije ući k njoj osim ako je mahram prisutan (Sahih al-Buhari 1862; Sahih Muslim 1341). Mnogi učenjaci to primjenjuju na put hadža i umre.",
       "Neki kasniji učenjaci — vodeći računa o sigurnosti, nuždi i savremenom putovanju — dopuštaju ženi put za obavezni hadž u pouzdanoj grupi kad mahram nije dostupan. Ovo ostaje sporno fikh pitanje.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Žena ne smije putovati osim s mahramom, i muškarac ne smije ući k njoj osim ako je mahram s njom.",
-      },
-      {
-        excerpt:
-          "Nije dopušteno ženi koja vjeruje u Allaha i Posljednji dan da putuje dan i noć osim s mahramom.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Većina smatra da žena treba mahrama za hadž put. Neki kasniji učenjaci dopuštaju put u sigurnoj grupi žena za obavezni hadž. Slijedi učenjaka kojem vjeruješ i propise tvoje hadž vlasti.",
     disclaimer: "Ovo je opći pregled, a ne lična fetva za tvoje okolnosti.",
@@ -156,12 +93,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': obaviti punu umru u mjesecima hadža, izaći iz ihrama, zatim ponovo ući u ihram za hadž 8. zul-hidždžeta. To danas radi većina hodočasnika; i ovdje je potreban hady.",
       "Allah kaže o onima koji spoje obrede: «...Ko iskoristi umru za hadž, neka prinese žrtvenu životinju koliko je lako dostupno...» a ko ne može, neka posti tri dana tokom hadža i sedam po povratku (Kur'an 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "I dovršite hadž i umru radi Allaha... Ko iskoristi umru za hadž, neka prinese žrtvenu životinju koliko je lako dostupno. A ko je ne nađe — neka posti tri dana tokom hadža i sedam kad se vratite...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Odluči vrstu s vođom grupe prije mikat.",
       "Ako radiš tamattu', završi umru u potpunosti prije ponovnog ulaska u ihram za hadž.",
@@ -182,16 +114,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas prenosi da je Poslanik ﷺ odredio mikate za ljude: Zul-Hulajfu za Medinu, El-Džuhfu za Šam, Karn al-Manazil za Nejd i Jelamlam za Jemen; a za Irak, Dat Irk. Rekao je da su to za njih i za svakoga ko dođe do njih namjeravajući hadž ili umru; a ko živi unutar tih mjesta ulazi u ihram odakle krene, pa čak i Mečani iz Meke (Sahih al-Buhari 1524; Sahih Muslim 1181).",
       "Moderni aerodromi i luke imaju odgovarajuće tačke ihrama ili objavljene procedure — slijedi upute prevoznika i Ministarstva hadža i umre da ne prođeš granicu bez ihrama.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik Allaha ﷺ odredio je Zul-Hulajfu za Mečane, El-Džuhfu za Šam, Karn al-Manazil za Nejd i Jelamlam za Jemen... Ovi mikati su za ljude na tim mjestima i za one koji dođu do njih namjeravajući hadž ili umru...",
-      },
-      {
-        excerpt:
-          "Poslanik Allaha ﷺ odredio je mikate... Ko živi unutar tih granica neka ulazi u ihram od mjesta odakle krene...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ulazak u ihram",
@@ -201,19 +124,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Muškarci mogu staviti miris na tijelo prije ihrama, ne na ihram odjeću nakon ulaska u stanje (Sahih al-Buhari 1539). Zatim formiraj namjeru i započni telbiju.",
       "Telbija koju je učio Poslanik ﷺ glasi: «Lebbeyk Allāhumma lebbeyk, lebbeyke lā šerīke leke lebbeyk, inne'l-hamde ve'n-ni'mete leke ve'l-mulke, lā šerīke lek» — nastavlja se dok ne počne tavaf za umru, ili do bacanja na Džemrat al-Akaba za hadž prema poznatoj praksi (Sahih al-Buhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aiša je rekla: Mirisala sam Poslanika Allaha ﷺ za njegov ihram prije nego što uđe u ihram...",
-      },
-      {
-        excerpt:
-          "Lebbeyk Allāhumma lebbeyk, lebbeyke lā šerīke leke lebbeyk, inne'l-hamde ve'n-ni'mete leke ve'l-mulke, lā šerīke lek.",
-      },
-      {
-        excerpt: "Poslanik ﷺ podigao je glas s telbijom: Lebbeyk Allāhumma lebbeyk...",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Spakuj barem dvije garniture ihrama za muškarce; drži miris-free potrepštine pri ruci.",
       "Vježbaj telbiju prije puta da teče na putu.",
@@ -253,12 +164,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Muškarci rade raml (brži hod) u prva tri kruga i idtiba' (otkrivanje desnog ramena) tokom ovog tavafa dolaska za umru, prema poznatoj sunnet praksi.",
       "Između Jemenskog ugla i Crnog kamena preporučeno je reći: «Gospodaru naš, daj nam dobro na ovom svijetu i dobro u ahiretu, i zaštiti nas od kazne vatre» (Kur'an 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Gospodaru naš, daj nam dobro na ovom svijetu i dobro u ahiretu, i zaštiti nas od kazne vatre.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Dva rekata i Zemzem",
@@ -267,11 +173,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Nakon tavafa klanjaj dva rekata iza Makam Ibrahima ako ima mjesta, ili negdje drugdje u džamiji ako je gužva — u skladu s Allahovim riječima: «...I uzmite, o vjernici, od mjesta Ibrahima mjesto za molitvu...» (Kur'an 2:125).",
       "Zatim pij vodu Zemzem. Džabirov opis hadža Poslanika ﷺ uključuje piće Zemzema nakon tavafa; Poslanik ﷺ je rekao da je Zemzem za ono radi čega se pije (autentična izvješća koja su kasniji učenjaci sastavili; namjera i du'a su preporučeni).",
     ],
-    quran: [
-      {
-        excerpt: "...I uzmite, o vjernici, od mjesta Ibrahima mjesto za molitvu...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Sa'j između Safa i Marve",
@@ -280,12 +182,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Allah kaže: «Zaista, Safa i Marva su među Allahovim znakovima. Ko obavi hadž Kući ili umru — nema grijeha da hoda između njih...» (Kur'an 2:158).",
       "Hodaj sedam puta između Safa i Marve, počevši od Safe. Na Safi okreni se prema Ka'bi, podigni ruke u tekbir i du'a kao Poslanik ﷺ. Muškarci trče između zelenih markera.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, Safa i Marva su među Allahovim znakovima. Ko obavi hadž Kući ili umru — nema grijeha da hoda između njih...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq ili taqsir — završetak umre",
@@ -295,15 +192,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Muškarci obriju glavu (halq) — za što je Poslanik ﷺ tri puta molio — ili ravnomjerno skrate (taqsir). Žene skupljaju kosu i skrate za otprilike dužinu vrha prsta. Time je umra završena i zabrane ihrama se uklanjaju.",
       "Abdullah ibn Omar prenosi da je Poslanik Allaha ﷺ rekao: «Allahu, smiluj se onima koji obriju glave.» Rekli su: «I onima koji skrate, o Poslanice Allaha?» Rekao je: «Allahu, smiluj se onima koji obriju glave.» Rekli su: «I onima koji skrate?» Treći put rekao: «I onima koji skrate» (Sahih al-Buhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt: "Allahu, smiluj se onima koji obriju glave... I (treći put) onima koji skrate.",
-      },
-      {
-        excerpt:
-          "Allahu, oprosti onima koji obriju glave... zatim treći put: i onima koji skrate kosu.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8. zul-hidždža — Dan Tarvije",
@@ -312,12 +201,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Za tamattu' hodočasnike: namjeri hadž i ponovo uđi u ihram iz svog boravka u Mekki, obnavljajući telbiju. Ifrad i kiran hodočasnici su već u ihramu.",
       "Putuj u Minu i klanjaj Dhuhr, Asr, Magrib, Isha i sljedeći Fajr, svaki skraćen na dva rekata u svom vremenu, slijedeći praksu Poslanika ﷺ u hadžu oproštaja kako prenosi Džabir (Sahih Muslim 1218). Provodi dan i noć u ibadetu, čekajući Arafu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Džabirovo dugo izvješće o hadžu oproštaja Poslanika ﷺ — uključujući boravak u Mini i redoslijed obreda.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Otvori listu hadža ujutro osmog dana."],
     appLinks: [
       {
@@ -333,15 +217,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Klanjaj Dhuhr i Asr zajedno i skraćeno u vrijeme Dhuhr (džem' takdim), zatim posveti ostatak dana du'a umjesto nafile — slijedeći praksu Poslanika ﷺ (Sahih Muslim 1218).",
       "Nakon zalaska sunca mirno putuj u Muzdelifu. Spoji Magrib i Isha (Isha skraćeno), odmori noć i sakupi kamenčiće za bacanje. Slabi i žene mogu otići u Minu poslije ponoći prema poznatim olakšicama u sunnetu.",
     ],
-    hadith: [
-      {
-        excerpt: "Hadž je Arafa.",
-      },
-      {
-        excerpt:
-          "Poslanik ﷺ spojio je Dhuhr i Asr na Arafi, zatim krenuo poslije zalaska sunca u Muzdelifu...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10. zul-hidždža — Dan Nahra",
@@ -352,12 +228,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Obrij (halq) ili skrati (taqsir); žene skraćuju za dužinu vrha prsta. Nakon bacanja i brijanja/skracivanja nastupa prvo oslobođenje (tahallul evvel) — većina zabrana ihrama se uklanja osim intimnosti.",
       "Idi u Mekku za Tavaf al-Ifada — stub hadža — i sa'j za tamattu' hodočasnike (ifrad/kiran koji su već uradili sa'j s tavafom dolaska slijede presudu svog mezheba). Time se završava potpuno oslobođenje iz ihrama.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Ko iskoristi umru za hadž, neka prinese žrtvenu životinju koliko je lako dostupno...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Redoslijed obreda Dana Nahra ima fleksibilnost u sunnetu; mezhebi se razlikuju o tačnom redoslijedu i kada je sa'j potreban za svaku vrstu hadža. Slijedi vodiča svoje grupe.",
   },
@@ -369,22 +240,8 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Svako poslijepodne poslije Dhuhr baci sedam kamenčića na svaki od tri stuba redom — mali, zatim srednji, zatim veliki — uz tekbir pri svakom bacanju. Ko požuri može otići poslije bacanja 12. (Kur'an 2:203).",
       "Prije odlaska iz Meke obavi Tavaf al-Vada kako bi posljednji čin s Kućom bio oproštaj. Ibn Abbas prenosi da su ljudi naređeni da im posljednji obred bude kod Kuće, osim što je olakšano za menstruirajuću ženu (Sahih al-Buhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "I spominjite Allaha u određenim brojanim danima. Ko požuri u dva dana — nema grijeha na njemu; a ko odgodi — nema grijeha na njemu — za onoga ko se Allaha boji...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ljudima je naređeno da oproštajni tavaf oko Ka'be bude posljednji obred, osim menstruirajućih žena koje su oslobođene.",
-      },
-      {
-        excerpt:
-          "Ljudima je naređeno da posljednji obred bude kod Kuće, ali je olakšano za ženu u menstruaciji.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Stubovi i obaveze",
@@ -404,12 +261,7 @@ export const HAJJ_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Hadis o povratku bez grijeha (Buhari 1521; Muslim 1350) jasno pokazuje da hadž kvare nehajnost (rafas), grijeh (fusuk) i rasprave. Strpljenje, nježnost i pomoć drugim hodočasnicima dio su ibadeta.",
       "Ne dopusti da telefon i prazni razgovori dominiraju Arafom i džamijom. Ustupi mjesto u tavafu; ne guraj prema Crnom kamenu. Prihvaćeni hadž prati Džennet — teži izvrsnom karakteru tokom cijelog puta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko obavi hadž radi Allaha, pa ne učini rafas niti grijeh, vrati se kao na dan kad ga je majka rodila.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Postavi dnevnu namjeru: jedan dobar čin i jedan iskren du'a iznad gužve."],
   },
   {

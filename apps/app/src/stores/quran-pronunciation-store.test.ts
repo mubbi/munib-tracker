@@ -9,8 +9,10 @@ import { setPlatform } from "@/test-support/platform";
 
 import { quranCompanionPrefsStore } from "./quran-companion-prefs-store";
 import {
+  hasCurrentPronunciationConsent,
   pronunciationClient,
   quranPronunciationStore,
+  SDK4_CONSENT_FROM,
   useEnsurePronunciationLoaded,
   usePronunciationState,
   wipePronunciationModels,
@@ -50,7 +52,7 @@ function setConsent(consented: boolean) {
   quranCompanionPrefsStore.setState({
     prefs: {
       ...DEFAULT_COMPANION_PREFS,
-      pronunciationConsentAt: consented ? "2026-07-01T00:00:00.000Z" : undefined,
+      pronunciationConsentAt: consented ? "2026-11-26T00:00:00.000Z" : undefined,
     },
   });
 }
@@ -70,6 +72,7 @@ beforeEach(async () => {
     bytesDone: 0,
     bytesTotal: 0,
     error: null,
+    errorNeeds: null,
     model: null,
     cached: null,
     sharing: NO_SHARING,
@@ -90,6 +93,36 @@ describe("load", () => {
     client.available = false;
     await state().load();
     expect(state()).toMatchObject({ status: "unavailable", isReady: true });
+  });
+
+  it("asks again when consent was given under the 3.x terms (before D66's disclosure)", async () => {
+    quranCompanionPrefsStore.setState({
+      prefs: { ...DEFAULT_COMPANION_PREFS, pronunciationConsentAt: "2026-11-01T00:00:00.000Z" },
+    });
+    await writeJSON(DB_KEYS.quranPronunciationModel, {
+      version: "1",
+      context: "hafs",
+      reliable: [],
+    });
+    await state().load();
+    expect(state().status).toBe("needs-consent");
+    expect(hasCurrentPronunciationConsent(SDK4_CONSENT_FROM)).toBe(true);
+    expect(hasCurrentPronunciationConsent(undefined)).toBe(false);
+  });
+
+  it("keeps SDK 4's errorCause.needs when a download fails offline", async () => {
+    setConsent(true);
+    client.prefetch.mockRejectedValue(
+      Object.assign(new Error("[needs=lease stage=lease reason=network] x"), {
+        code: "needs_connection",
+      }),
+    );
+    await state().download();
+    expect(state()).toMatchObject({
+      status: "failed",
+      error: "needs_connection",
+      errorNeeds: "lease",
+    });
   });
 
   it("asks for consent before anything else, keeping the cached heads", async () => {

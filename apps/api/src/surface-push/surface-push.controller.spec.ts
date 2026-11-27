@@ -1,5 +1,7 @@
 import { UnauthorizedException } from "@nestjs/common";
 import { describe, expect, it, vi } from "vitest";
+import type { CircleRetentionService } from "../circles/circle-retention.service";
+import type { FamilyDigestService } from "../circles/family-digest.service";
 import { buildRequest, TEST_ACCESS_TOKEN, TEST_BEARER } from "../test-support/http";
 import {
   buildConfigService,
@@ -83,6 +85,56 @@ describe("SurfacePushController", () => {
   it("dispatches due jobs with the trimmed cron secret", async () => {
     const { controller } = setup();
     await expect(controller.dispatchDue("Bearer cron-secret")).resolves.toEqual(DISPATCH_RESULT);
+  });
+
+  it("ticks the weekly family digest (D40) from the same cron", async () => {
+    const { service, qstash } = setup();
+    const familyDigest = { maybeRun: vi.fn().mockResolvedValue(undefined) };
+    const controller = new SurfacePushController(
+      service as unknown as SurfacePushService,
+      qstash as unknown as SurfacePushQStashService,
+      buildConfigService({ SURFACE_PUSH_CRON_SECRET: "cron-secret" }),
+      familyDigest as unknown as FamilyDigestService,
+    );
+    await expect(controller.dispatchDue("Bearer cron-secret")).resolves.toEqual(DISPATCH_RESULT);
+    expect(familyDigest.maybeRun).toHaveBeenCalledTimes(1);
+    await expect(controller.dispatchDue("Bearer wrong")).rejects.toThrow(UnauthorizedException);
+    expect(familyDigest.maybeRun).toHaveBeenCalledTimes(1);
+  });
+
+  it("runs the circles retention sweep (A4) from the same cron, never on a bad secret", async () => {
+    const { service, qstash } = setup();
+    const retention = { maybeRun: vi.fn().mockResolvedValue(undefined) };
+    const controller = new SurfacePushController(
+      service as unknown as SurfacePushService,
+      qstash as unknown as SurfacePushQStashService,
+      buildConfigService({ SURFACE_PUSH_CRON_SECRET: "cron-secret" }),
+      undefined,
+      retention as unknown as CircleRetentionService,
+    );
+    await expect(controller.dispatchDue("Bearer cron-secret")).resolves.toEqual(DISPATCH_RESULT);
+    expect(retention.maybeRun).toHaveBeenCalledTimes(1);
+    await expect(controller.dispatchDue("Bearer wrong")).rejects.toThrow(UnauthorizedException);
+    expect(retention.maybeRun).toHaveBeenCalledTimes(1);
+  });
+
+  it("still runs the digest and retention when the push dispatch fails", async () => {
+    const { service, qstash } = setup();
+    service.dispatchDue.mockRejectedValueOnce(new Error("push provider down"));
+    const familyDigest = { maybeRun: vi.fn().mockResolvedValue(undefined) };
+    const retention = { maybeRun: vi.fn().mockResolvedValue(undefined) };
+    const controller = new SurfacePushController(
+      service as unknown as SurfacePushService,
+      qstash as unknown as SurfacePushQStashService,
+      buildConfigService({ SURFACE_PUSH_CRON_SECRET: "cron-secret" }),
+      familyDigest as unknown as FamilyDigestService,
+      retention as unknown as CircleRetentionService,
+    );
+    await expect(controller.dispatchDue("Bearer cron-secret")).rejects.toThrow(
+      "push provider down",
+    );
+    expect(familyDigest.maybeRun).toHaveBeenCalledTimes(1);
+    expect(retention.maybeRun).toHaveBeenCalledTimes(1);
   });
 
   it.each<[string, string | undefined, TestEnv, string]>([

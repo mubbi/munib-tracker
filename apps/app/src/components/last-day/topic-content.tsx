@@ -11,7 +11,7 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { BalancePansBlock } from "@/components/learn-mizan";
-import { useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -38,10 +38,9 @@ const IMPORTANCE_TONE: Record<
 function LastDayMisconceptions({ items }: { items: NonNullable<LastDayTopic["misconceptions"]> }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("lastDay.misconceptionsTitle")}
         icon={{ ios: "exclamationmark.bubble.fill", android: "forum", web: "forum" }}
@@ -50,16 +49,7 @@ function LastDayMisconceptions({ items }: { items: NonNullable<LastDayTopic["mis
         {items.map((item) => (
           <TvReadableBlock key={item}>
             <View style={[styles.misconceptionRow, { backgroundColor: tokens.status.info.soft }]}>
-              <ThemedText
-                type="small"
-                style={{
-                  color: colors.foreground,
-                  fontSize: sizes.translation,
-                  lineHeight: sizes.translation * 1.45,
-                }}
-              >
-                {item}
-              </ThemedText>
+              <LearnProseText style={{ color: colors.foreground }}>{item}</LearnProseText>
             </View>
           </TvReadableBlock>
         ))}
@@ -99,7 +89,7 @@ export function LastDayTopicContent({ topic }: { topic: LastDayTopic }) {
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("lastDay.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -146,5 +136,5 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

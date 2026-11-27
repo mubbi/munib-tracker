@@ -25,8 +25,12 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 export default function BattlesLessonsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
+  const { tokens } = useThemeTokens();
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const cards = getBattlesLessonCards();
   const wide = useLearnHubLayout();
   // Wide web / tablets: lesson cards flow into 2–3 columns.
@@ -45,14 +49,14 @@ export default function BattlesLessonsScreen() {
         })
       }
     >
-      <Card padding="three" style={[styles.card, columns > 1 && styles.fill]}>
+      <Card style={[styles.card, columns > 1 && styles.fill]}>
         <ThemedText type="caption" themeColor="mutedForeground">
           {card.battleTitle}
         </ThemedText>
         <LearnProseText proseRole="title">{card.lesson}</LearnProseText>
         <LearnProseText themeColor="mutedForeground">{card.detail}</LearnProseText>
         <View style={[styles.chip, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="caption" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
             {t("battles.readBattle")}
           </ThemedText>
         </View>
@@ -65,11 +69,12 @@ export default function BattlesLessonsScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.lessonsTitle")}
       subtitle={t("battles.lessonsSubtitle")}
+      readingProgress
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/lessons" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="info">{t("battles.lessonsIntro")}</JannahCallout>
 

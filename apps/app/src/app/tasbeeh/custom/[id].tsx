@@ -7,17 +7,21 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { CustomTasbeehFormModal } from "@/components/tasbeeh/custom-tasbeeh-form-modal";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { arabicWordCount, isHandsFreeCounter } from "@/lib/tasbeeh-voice/steps";
+import { voiceZikrFromCustom } from "@/lib/tasbeeh-voice/voice-zikr";
 import {
   useCustomTasbeeh,
   useCustomTasbeehActions,
+  useCustomTasbeehReady,
   useEnsureCustomTasbeehLoaded,
 } from "@/stores/custom-tasbeeh-store";
 
@@ -26,15 +30,19 @@ export default function CustomTasbeehScreen() {
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ id: string }>();
   useEnsureCustomTasbeehLoaded();
+  const ready = useCustomTasbeehReady();
   const item = useCustomTasbeeh(params.id);
   const { update, remove, setCount } = useCustomTasbeehActions();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const { width: windowWidth } = useWindowDimensions();
   // Wide web / tablets: note + manage actions beside the counter (TV keeps one column).
-  const wide = !isTV() && windowWidth >= 1024;
+  const wide = !isTV() && windowWidth >= Breakpoints.wide;
 
   const goBack = () => goBackOrReplace(router, "/tasbeeh/free");
+
+  // "Not found" only once the list has loaded — never a flash before it (B-57).
+  if (!item && !ready) return <TasbeehLoadingScreen onBack={goBack} />;
 
   if (!item) {
     return (
@@ -79,6 +87,12 @@ export default function CustomTasbeehScreen() {
         onDecrement={() => persist(count - 1)}
         onReset={() => persist(0)}
         keyboardShortcuts={!editOpen && !deleteOpen}
+        voiceZikr={
+          // An Arabic title is the zikr itself: a long one stays tap-counted.
+          isHandsFreeCounter({ arabic: arabicWordCount(item.title) > 0 ? item.title : "" }, target)
+            ? voiceZikrFromCustom(item)
+            : null
+        }
       />
     </Card>
   );

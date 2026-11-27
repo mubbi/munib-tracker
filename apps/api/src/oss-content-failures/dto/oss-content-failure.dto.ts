@@ -6,7 +6,17 @@ import {
   type OssContentKind,
 } from "@munib-tracker/shared/types/oss-content-download-failure";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsIn, IsInt, IsObject, IsOptional, IsString, Max, MaxLength, Min } from "class-validator";
+import {
+  IsIn,
+  IsInt,
+  IsObject,
+  IsOptional,
+  IsString,
+  Matches,
+  Max,
+  MaxLength,
+  Min,
+} from "class-validator";
 
 export class ReportOssContentDownloadFailureDto {
   @ApiProperty({ enum: OSS_CONTENT_KINDS })
@@ -26,9 +36,11 @@ export class ReportOssContentDownloadFailureDto {
   @MaxLength(128)
   sourceProvider!: string;
 
-  @ApiProperty({ description: "Full CDN URL that failed" })
+  @ApiProperty({ description: "Full CDN URL that failed (http/https only)", maxLength: 2048 })
   @IsString()
   @MaxLength(2048)
+  // The admin console renders this as a link: refuse javascript:/data: schemes.
+  @Matches(/^https?:\/\/\S+$/i, { message: "sourceUrl must be an http(s) URL" })
   sourceUrl!: string;
 
   @ApiProperty({

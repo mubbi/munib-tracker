@@ -1,8 +1,14 @@
-import * as Localization from "expo-localization";
+import {
+  isNisabBasis,
+  MADHHAB_RULES,
+  type MadhhabId,
+  type NisabBasis,
+} from "@munib-tracker/shared/fiqh";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getCurrencyInfo } from "@/constants/currencies";
 import { ZakatCalculatorRepository } from "@/db/repositories/zakat-calculator-repository";
+import { useMadhhab } from "@/hooks/use-madhhab";
 import { useZakatMarketData } from "@/hooks/use-zakat-market-data";
 import {
   DEFAULT_NUMBER_FORMAT,
@@ -12,25 +18,59 @@ import {
   parseNumberInput,
   reformatNumberString,
 } from "@/lib/format-currency";
+import { defaultCurrencyCode, defaultNumberFormat } from "@/lib/money-defaults";
+import { setFiqhCustomValue } from "@/lib/settings/fiqh-settings";
 import {
   type CropIrrigation,
   computeZakat,
+  effectiveZakatNisab,
   type GoldKarat,
   goldValueFromWeight,
-  lowerNisab,
   type MetalWeightUnit,
+  NISAB_BASES,
+  nisabFor,
   nisabFromGoldPrice,
   nisabFromSilverPrice,
+  resolveZakatFiqhSetup,
   type SilverPurity,
   silverValueFromWeight,
   type ZakatAssets,
+  type ZakatCombineMethod,
+  type ZakatFiqhOptions,
 } from "@/lib/zakat";
+import { useStore } from "@/stores/create-store";
+import { preferencesStore } from "@/stores/preferences-store";
 
 type AssetFieldKey = keyof ZakatAssets;
+
+/** Draft `values` key for women's personal-use jewellery (NF-3.0a; older drafts simply lack it). */
+export const PERSONAL_JEWELLERY_FIELD = "personalJewellery" satisfies AssetFieldKey;
+
+/** One all-views result row (madhhab = "Show all views"): the due amount on each nisab basis. */
+export interface ZakatBasisRow {
+  basis: NisabBasis;
+  nisab: number;
+  totalDue: number;
+  meetsNisab: boolean;
+  /** Due when personal jewellery is NOT counted; `null` when no jewellery was entered. */
+  totalDueWithoutJewellery: number | null;
+  /** The user's saved custom basis (`fiqhCustom.nisabBasis`). */
+  selected: boolean;
+}
+
+/**
+ * Saves (or, with `null`, clears) the calculator's nisab-basis override in
+ * `fiqhCustom.nisabBasis`, leaving every other custom value untouched.
+ */
+export function setNisabBasisOverride(basis: NisabBasis | null): Promise<void> {
+  // Same write path as Settings › Fiqh & madhhab › Advanced (single write, §4.5.4).
+  return setFiqhCustomValue("nisabBasis", basis ?? undefined);
+}
 
 const WEALTH_FIELDS: AssetFieldKey[] = [
   "cash",
   "gold",
+  PERSONAL_JEWELLERY_FIELD,
   "silver",
   "stocks",
   "business",
@@ -71,10 +111,9 @@ export const ZAKAT_ASSET_GROUPS = [
 
 const PERSIST_DEBOUNCE_MS = 350;
 
+/** Settings default currency (first open only — a saved draft wins), else the device region. */
 function resolveDefaultCurrency(): string {
-  const device = Localization.getLocales()[0]?.currencyCode?.toUpperCase();
-  if (device && getCurrencyInfo(device)) return device;
-  return "USD";
+  return defaultCurrencyCode();
 }
 
 function asMetalUnit(value: unknown): MetalWeightUnit {
@@ -101,7 +140,7 @@ function asNumberFormat(value: unknown): NumberFormatStyle {
 
 export function useZakatCalculator() {
   const [currencyCode, setCurrencyCodeState] = useState(resolveDefaultCurrency);
-  const [numberFormat, setNumberFormatState] = useState<NumberFormatStyle>(DEFAULT_NUMBER_FORMAT);
+  const [numberFormat, setNumberFormatState] = useState<NumberFormatStyle>(defaultNumberFormat);
   const [values, setValues] = useState<Record<string, string>>({});
   const [nisab, setNisab] = useState("");
   const [nisabManual, setNisabManual] = useState(false);
@@ -293,16 +332,36 @@ export function useZakatCalculator() {
     () => nisabFromSilverPrice(num(nisabSilverPrice)),
     [nisabSilverPrice, num],
   );
+  // NF-3.0a: the school's basis / combining / jewellery rules (custom basis applied).
+  const { resolve } = useMadhhab();
+  const fiqh = resolve("zakat");
+  const school: MadhhabId | null = fiqh.school;
+  const rawCustomBasis = useStore(preferencesStore, (s) => s.prefs.fiqhCustom?.nisabBasis);
+  const customBasis: NisabBasis | null = isNisabBasis(rawCustomBasis) ? rawCustomBasis : null;
+  /** The school's own default (before the user's override); `null` in all-views mode. */
+  const schoolBasis: NisabBasis | null = school ? MADHHAB_RULES[school].zakat.nisabBasis : null;
+  // All views: the user's saved basis, else "lower" (the app's behaviour before
+  // madhhab support) — labelled, with a row per basis so no school is implied.
+  // Shared with the debts / wasiyyah obligations summary (`resolveZakatFiqhSetup`).
+  const setup = resolveZakatFiqhSetup(fiqh.rules?.zakat ?? null, customBasis);
+  const nisabBasis: NisabBasis = setup.basis;
+  const nisabBasisContested = fiqh.rules?.zakat.nisabBasisContested ?? false;
+  const combine: ZakatCombineMethod = setup.combine;
+  const personalJewelleryCounted = setup.includePersonalJewellery;
+  const nisabBasisCustom = customBasis != null;
+
   const suggestedNisab = useMemo(
-    () => lowerNisab(goldNisab, silverNisab),
-    [goldNisab, silverNisab],
+    () => nisabFor(nisabBasis, goldNisab, silverNisab),
+    [nisabBasis, goldNisab, silverNisab],
   );
 
-  const effectiveNisab = nisabManual
-    ? num(nisab)
-    : suggestedNisab > 0
-      ? suggestedNisab
-      : num(nisab);
+  const effectiveNisab = effectiveZakatNisab({
+    basis: nisabBasis,
+    goldNisab,
+    silverNisab,
+    manual: nisabManual,
+    manualNisab: num(nisab),
+  });
 
   const livestock = useMemo(
     () => ({
@@ -321,15 +380,70 @@ export function useZakatCalculator() {
     [harvestValue, irrigation, num],
   );
 
-  const result = useMemo(() => {
-    const assets: ZakatAssets = {};
+  const assets = useMemo(() => {
+    const out: ZakatAssets = {};
     for (const field of [...WEALTH_FIELDS, ...DEDUCTION_FIELDS]) {
-      assets[field] = num(values[field] ?? "");
+      out[field] = num(values[field] ?? "");
     }
-    assets.gold = num(values.gold ?? "") + goldFromWeight;
-    assets.silver = num(values.silver ?? "") + silverFromWeight;
-    return computeZakat(assets, effectiveNisab, { livestock, agriculture });
-  }, [values, effectiveNisab, goldFromWeight, silverFromWeight, livestock, agriculture, num]);
+    out.gold = num(values.gold ?? "") + goldFromWeight;
+    out.silver = num(values.silver ?? "") + silverFromWeight;
+    return out;
+  }, [values, goldFromWeight, silverFromWeight, num]);
+
+  const fiqhOptions = useMemo(
+    (): ZakatFiqhOptions => ({
+      combine,
+      basis: nisabBasis,
+      goldNisab,
+      silverNisab,
+      includePersonalJewellery: personalJewelleryCounted,
+    }),
+    [combine, nisabBasis, goldNisab, silverNisab, personalJewelleryCounted],
+  );
+
+  const result = useMemo(
+    () => computeZakat(assets, effectiveNisab, { livestock, agriculture }, fiqhOptions),
+    [assets, effectiveNisab, livestock, agriculture, fiqhOptions],
+  );
+
+  const personalJewelleryValue = assets.personalJewellery ?? 0;
+
+  /** All-views mode only: one row per nisab basis (pooled by value). */
+  const basisRows = useMemo((): ZakatBasisRow[] => {
+    if (school != null) return [];
+    const extras = { livestock, agriculture };
+    return NISAB_BASES.map((basis) => {
+      const nisabValue = nisabFor(basis, goldNisab, silverNisab) || num(nisab);
+      const options: ZakatFiqhOptions = { combine: "value", basis, goldNisab, silverNisab };
+      const withJewellery = computeZakat(assets, nisabValue, extras, options);
+      const withoutJewellery =
+        personalJewelleryValue > 0
+          ? computeZakat(assets, nisabValue, extras, {
+              ...options,
+              includePersonalJewellery: false,
+            }).totalDue
+          : null;
+      return {
+        basis,
+        nisab: nisabValue,
+        totalDue: withJewellery.totalDue,
+        meetsNisab: withJewellery.meetsNisab,
+        totalDueWithoutJewellery: withoutJewellery,
+        selected: basis === customBasis,
+      };
+    });
+  }, [
+    school,
+    assets,
+    livestock,
+    agriculture,
+    goldNisab,
+    silverNisab,
+    nisab,
+    num,
+    personalJewelleryValue,
+    customBasis,
+  ]);
 
   const money = (n: number) => formatMoneyAmount(n, currencyCode, numberFormat);
 
@@ -445,6 +559,22 @@ export function useZakatCalculator() {
     silverNisab,
     suggestedNisab,
     effectiveNisab,
+    /** School governing zakat (`null` ⇒ show all views). */
+    zakatSchool: school,
+    /** Basis in effect for the headline result. */
+    nisabBasis,
+    /** The school's own default basis (before the user's override). */
+    schoolNisabBasis: schoolBasis,
+    /** `fiqhCustom.nisabBasis`, if the user saved one. */
+    customNisabBasis: customBasis,
+    nisabBasisCustom,
+    /** Shafi'i / Maliki: classical texts don't settle the basis for currency ("scholars differ"). */
+    nisabBasisContested,
+    setNisabBasisOverride,
+    combineMethod: combine,
+    personalJewelleryCounted,
+    personalJewelleryValue,
+    basisRows,
     sheepCount,
     setSheepCount,
     cattleCount,

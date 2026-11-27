@@ -1,0 +1,134 @@
+{
+  "crumbs": {
+    "home": "ہوم",
+    "features": "خصوصیات",
+    "compare": "موازنہ",
+    "audiences": "کن کے لیے",
+    "resources": "وسائل",
+    "guides": "رہنما مضامین"
+  },
+  "breadcrumbLabel": "راستہ",
+  "faqEyebrow": "عام سوالات",
+  "learnMore": "مزید جانیں",
+  "loading": "لوڈ ہو رہا ہے…",
+  "dates": {
+    "updated": "اپ ڈیٹ: <time>{date}</time>",
+    "lastVerified": "آخری تصدیق: <time>{date}</time>"
+  },
+  "cardMeta": {
+    "feature": "خصوصیت",
+    "guide": "رہنما",
+    "comparison": "موازنہ",
+    "compare": "موازنہ"
+  },
+  "featureGroups": {
+    "track": "اپنی عبادت کا ریکارڈ",
+    "quran": "قرآن اور حدیث",
+    "everyday": "روزمرہ کے اوزار",
+    "life": "خاندان اور زندگی"
+  },
+  "notes": {
+    "info": "مشورہ",
+    "scholar": "کسی عالم سے پوچھیں",
+    "app": "{appName} میں"
+  },
+  "evidence": {
+    "quran": "قرآن",
+    "hadith": "حدیث"
+  },
+  "downloadCta": {
+    "noAds": "کوئی اشتہار نہیں",
+    "noAccount": "ذاتی استعمال کے لیے اکاؤنٹ نہیں",
+    "offline": "آف لائن کام کرتی ہے",
+    "noSubscriptions": "کوئی سبسکرپشن نہیں"
+  },
+  "feature": {
+    "howItWorksEyebrow": "قدم بہ قدم",
+    "benefitsEyebrow": "فوائد",
+    "benefitsTitle": "اس سے آپ کو کیا ملتا ہے",
+    "screenshotsEyebrow": "ایپ میں",
+    "screenshotsTitle": "{appName} میں دیکھیں",
+    "examplesEyebrow": "عملی طور پر",
+    "faqTitle": "{feature}: عام سوالات",
+    "relatedEyebrow": "مزید دیکھیں",
+    "relatedTitle": "متعلقہ خصوصیات اور رہنما مضامین",
+    "summaryFooter": "مفت · کوئی اشتہار نہیں · ایپ میں"
+  },
+  "compare": {
+    "verdictEyebrow": "مختصر جواب",
+    "verdictTitle": "آپ کو کون سی چننی چاہیے؟",
+    "tableEyebrow": "ساتھ ساتھ",
+    "tableTitle": "خصوصیات کا موازنہ",
+    "tableIntro": "آفیشل ویب سائٹس اور امریکی App Store و Google Play لسٹنگز سے جانچا گیا۔ «تصدیق شدہ نہیں» کا مطلب ہے کہ ہم آفیشل ذریعے سے اس کی تصدیق نہیں کر سکے، یہ نہیں کہ وہ خصوصیت موجود نہیں۔",
+    "tableIntroWithPlanned": "آفیشل ویب سائٹس اور امریکی App Store و Google Play لسٹنگز سے جانچا گیا۔ «تصدیق شدہ نہیں» کا مطلب ہے کہ ہم آفیشل ذریعے سے اس کی تصدیق نہیں کر سکے، یہ نہیں کہ وہ خصوصیت موجود نہیں۔ «جلد آ رہا ہے» {appName} کی ان خصوصیات کو ظاہر کرتا ہے جو ہمارے منصوبے میں ہیں مگر ابھی ایپ میں نہیں۔",
+    "inventoryEyebrow": "خصوصیات کی مکمل فہرست",
+    "inventoryTitle": "{appName} میں سب کچھ",
+    "inventoryIntro": "{appName} کی تمام {shipped} خصوصیات، شعبوں کے لحاظ سے ترتیب دی گئی۔ ہر ایک مفت ہے، بغیر اشتہارات کے۔",
+    "inventoryIntroWithPlanned": "آج ایپ میں {shipped} خصوصیات، اور ہمارے منصوبے میں {planned} مزید جن پر «جلد آ رہا ہے» لکھا ہے۔ منصوبے کی خصوصیات ابھی ایپ میں نہیں، اس لیے اوپر کے جدول میں انہیں کبھی دستیاب شمار نہیں کیا جاتا۔",
+    "strengthsEyebrow": "خوبیاں",
+    "strengthsTitle": "ہر ایپ کس چیز میں اچھی ہے",
+    "bestFor": "کس کے لیے بہترین:",
+    "sourcesEyebrow": "ماخذ",
+    "sourcesTitle": "یہ معلومات کہاں سے آتی ہیں",
+    "sourcesNote": "قیمتیں امریکی App Store کی ہیں اور آپ کے ملک میں مختلف ہو سکتی ہیں۔ خصوصیات اور قیمتیں بدلتی رہتی ہیں؛ براہِ کرم آفیشل لسٹنگز دیکھیں۔ آخری تصدیق: <time>{date}</time>۔",
+    "faqTitle": "لوگ کیا پوچھتے ہیں",
+    "relatedEyebrow": "مزید دیکھیں",
+    "relatedTitle": "متعلقہ صفحات",
+    "allComparisons": "تمام موازنے",
+    "allComparisonsDescription": "ایپس کے تمام موازنے ایک جگہ۔",
+    "ctaTitle": "{appName} آزمائیں اور خود فیصلہ کریں",
+    "ctaText": "یہ مفت ہے، نہ اشتہار نہ اکاؤنٹ، اس لیے اپنی موجودہ ایپ کے ساتھ اسے آزمانے میں کوئی نقصان نہیں۔",
+    "glanceEyebrow": "ایپ میں",
+    "glanceTitle": "{appName} ایک نظر میں",
+    "glance": {
+      "home": "ہوم: آج کی نمازوں کے اوقات اور آج کا ہدف۔",
+      "tracker": "Android پر نماز ٹریکر۔",
+      "quran": "قرآن: پڑھنا جاری رکھیں، تلاش اور ختم۔",
+      "zikr": "دن کے ہر حصے کے اذکار، Android پر۔"
+    }
+  },
+  "comparisonTable": {
+    "status": {
+      "yes": "دستیاب",
+      "no": "دستیاب نہیں",
+      "partial": "جزوی طور پر دستیاب",
+      "unverified": "تصدیق شدہ نہیں",
+      "planned": "جلد آ رہا ہے"
+    },
+    "caption": "{title}: خصوصیات کا موازنہ، آخری تصدیق {date}",
+    "featureColumn": "خصوصیت",
+    "empty": "—"
+  },
+  "inventory": {
+    "comingSoon": "جلد آ رہا ہے"
+  },
+  "audience": {
+    "helpsEyebrow": "{appName} کیسے مدد کرتا ہے",
+    "helpsTitle": "آپ کی موجودہ حالت کے مطابق اوزار",
+    "learningLibrary": "علمی لائبریری کھولیں",
+    "planEyebrow": "آغاز",
+    "goodToKnow": "جاننے کی بات",
+    "faqTitle": "عام سوالات",
+    "guidesEyebrow": "رہنما مضامین",
+    "guidesTitle": "مفید مطالعہ"
+  },
+  "article": {
+    "readingTime": "{minutes, plural, other {# منٹ کا مطالعہ}}",
+    "byline": "از <link>{appName}</link>",
+    "takeaways": "اہم نکات",
+    "tieInTitle": "آزمائیں: {feature}",
+    "tieInText": "{text} [{feature} کے بارے میں جانیں]({href})۔",
+    "faqTitle": "اکثر پوچھے جانے والے سوالات",
+    "sourcesTitle": "ماخذ",
+    "disclaimer": "یہ رہنما مضمون تعلیمی ہے اور {appName} نے اوپر درج ماخذ سے تیار کیا ہے۔ یہ فتویٰ نہیں ہے۔ اپنی ذاتی صورتِ حال کے بارے میں سوالات کے لیے براہِ کرم کسی مستند عالم سے رجوع کریں۔ کوئی غلطی ملی؟ <link>ہمیں بتائیں</link>۔",
+    "onThisPage": "اس صفحے پر",
+    "keepReading": "مزید پڑھیں"
+  },
+  "tryIt": {
+    "button": "براؤزر میں مفت آزمائیں",
+    "hint": "ویب ایپ کھلے گی۔ نہ ڈاؤن لوڈ، نہ اکاؤنٹ۔",
+    "orApp": "یا اپنے فون پر ایپ حاصل کریں:",
+    "appOnly": "اس فیچر کے لیے iPhone یا Android ایپ درکار ہے۔",
+    "link": "براؤزر میں آزمائیں"
+  }
+}

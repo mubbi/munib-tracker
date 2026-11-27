@@ -8,27 +8,25 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { ControlLabel, PrefToggle } from "@/components/content/pref-toggle";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { ToggleChip } from "@/components/ui/chip";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { ltrControlViewProps } from "@/lib/rtl";
-import {
-  useReadingTextVisibility,
-  useReadingTextVisibilityActions,
-} from "@/stores/reading-text-visibility-store";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 
 /** Extra width so a reading list and filters pane can sit side by side. */
 export const SCRIPTURE_LIST_DETAIL_MAX_WIDTH = 1280;
@@ -49,7 +47,7 @@ export const scriptureListDetailStyles = StyleSheet.create({
     flex: 1,
     minWidth: 280,
     maxWidth: 400,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderStartWidth: BorderWidth.hairline,
     gap: Spacing.three,
   },
   listDetailSecondaryTv: {
@@ -86,11 +84,11 @@ const FILTER_ICONS = {
 export function ScriptureReadingFilters() {
   const { t } = useTranslation();
   const tv = isTV();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
-  const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+  const { showTransliteration, showTranslation, toggleTransliteration, toggleTranslation } =
+    useReadingDisplayToggles();
 
   return (
-    <Card padding="three" style={[styles.filtersCard, tv && styles.filtersCardTv]}>
+    <Card style={[styles.filtersCard, tv && styles.filtersCardTv]}>
       <View
         style={[
           styles.controlRow,
@@ -141,8 +139,8 @@ export function ScriptureReadingToolbar({
   const tv = isTV();
   const scrollRef = useHorizontalWheelScroll();
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
-  const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+  const { showTransliteration, showTranslation, toggleTransliteration, toggleTranslation } =
+    useReadingDisplayToggles();
   const showBar = visible || fullscreen.active;
   const reveal = useSharedValue(showBar ? 1 : 0);
 
@@ -306,7 +304,7 @@ export function ScriptureReaderChrome({
             size={16}
             tintColor={colors.accent}
           />
-          <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+          <ThemedText weight="semibold" type="caption" style={{ color: colors.accentText }}>
             {t("reading.backToTop")}
           </ThemedText>
         </PressableScale>
@@ -326,7 +324,7 @@ export function ScriptureReaderChrome({
             {
               backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
               borderColor: fullscreen.active ? colors.accent : "transparent",
-              borderWidth: 1,
+              borderWidth: BorderWidth.thin,
             },
           ]}
         >
@@ -336,10 +334,10 @@ export function ScriptureReaderChrome({
             tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
           />
           <ThemedText
+            weight="semibold"
             type="caption"
             style={{
               color: fullscreen.active ? colors.accentText : colors.mutedForeground,
-              fontWeight: "600",
             }}
           >
             {fullscreen.active ? t("reading.exitFullscreen") : t("reading.enterFullscreen")}
@@ -347,149 +345,6 @@ export function ScriptureReaderChrome({
         </PressableScale>
       ) : null}
     </View>
-  );
-}
-
-function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
-  const { colors } = useThemeTokens();
-  const tv = isTV();
-  return (
-    <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
-
-function PrefToggle({
-  icon,
-  label,
-  enabled,
-  onToggle,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  onToggle: () => void;
-}) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-
-  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
-  // clear on/off chrome are easier to focus and activate with Select.
-  if (tv) {
-    return (
-      <PressableScale
-        haptic="selection"
-        accessibilityRole="switch"
-        accessibilityLabel={label}
-        accessibilityState={{ checked: enabled }}
-        onPress={onToggle}
-        scaleTo={0.98}
-        style={[
-          styles.prefToggleTv,
-          {
-            // On = soft fill + muted hairline; the solid accent ring is D-pad focus.
-            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-            borderColor: enabled ? withAlpha(colors.accent, 0.35) : tokens.hairline,
-          },
-        ]}
-      >
-        <SymbolView
-          name={icon}
-          size={22}
-          tintColor={enabled ? colors.accent : colors.mutedForeground}
-        />
-        <ThemedText
-          type="smallBold"
-          numberOfLines={2}
-          style={{
-            flex: 1,
-            minWidth: 0,
-            fontSize: TvLayout.bodyFontSize,
-            color: enabled ? colors.accentText : colors.foreground,
-          }}
-        >
-          {label}
-        </ThemedText>
-        <View
-          style={[
-            styles.prefToggleStateTv,
-            { backgroundColor: enabled ? colors.accent : colors.card },
-          ]}
-        >
-          <ThemedText
-            type="caption"
-            style={{
-              color: enabled ? colors.accentForeground : colors.mutedForeground,
-              fontWeight: "700",
-            }}
-          >
-            {enabled ? t("common.on") : t("common.off")}
-          </ThemedText>
-        </View>
-      </PressableScale>
-    );
-  }
-
-  return (
-    <View style={[styles.controlRow, styles.toggleRow]}>
-      <ControlLabel icon={icon} label={label} />
-      <View style={styles.controlValue}>
-        <ThemedSwitch value={enabled} onValueChange={onToggle} accessibilityLabel={label} />
-      </View>
-    </View>
-  );
-}
-
-function ToggleChip({
-  icon,
-  label,
-  enabled,
-  accessibilityLabel,
-  onPress,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  accessibilityLabel: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  const tint = enabled ? colors.accent : colors.mutedForeground;
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="switch"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityState={{ checked: enabled }}
-      onPress={onPress}
-      style={[
-        styles.chip,
-        tv && styles.chipTv,
-        {
-          backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled
-            ? tv
-              ? withAlpha(colors.accent, 0.35)
-              : colors.accent
-            : "transparent",
-        },
-      ]}
-    >
-      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
-      <ThemedText
-        type="smallBold"
-        numberOfLines={1}
-        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
-      >
-        {label}
-      </ThemedText>
-    </PressableScale>
   );
 }
 
@@ -514,40 +369,12 @@ const styles = StyleSheet.create({
   translationRow: {
     alignItems: "center",
   },
-  toggleRow: {
-    paddingVertical: Spacing.half,
-  },
-  controlLabel: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexShrink: 1,
-  },
   controlValue: {
     flexShrink: 0,
   },
   controlValueTv: {
     width: "100%",
     flexShrink: 1,
-  },
-  prefToggleTv: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    minHeight: TvLayout.minFocusTarget,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
-  prefToggleStateTv: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    minWidth: 44,
-    alignItems: "center",
   },
   bar: {
     overflow: "hidden",
@@ -582,28 +409,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
   },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one + 2,
-    maxWidth: 200,
-    paddingVertical: Spacing.two - 1,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    borderColor: "transparent",
-  },
-  chipTv: {
-    maxWidth: 280,
-    minHeight: TvLayout.chipMinHeight,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.four,
-  },
+
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,
@@ -620,8 +430,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

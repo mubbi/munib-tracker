@@ -101,7 +101,9 @@ git commit -m "feat(app): add white days calendar reminder"
 | `chore`    | Maintenance that does not fit above      |
 | `revert`   | Revert a previous commit                 |
 
-**Optional scopes** (monorepo): `app`, `api`, `admin`, `marketing`, `shared`, `db`, `theme`, `ci`, `deps`, `docs`, `i18n`, `release`, `tv`, `screenshots`.
+**Optional scopes** (monorepo; commitlint warns on anything else): `app`, `api`, `admin`, `marketing`, `shared`, `db`, `theme`, `ci`, `deps`, `docs`, `i18n`, `release`, `tv`, `screenshots`. Omit the scope when a change spans many areas.
+
+Keep body lines at 100 characters or fewer (commitlint rejects longer ones). Do not add AI attribution trailers (`Co-Authored-By: <AI tool>`, "Generated with …").
 
 Examples:
 
@@ -132,18 +134,19 @@ Full guide (tags, Release PRs, product build numbers): [`docs/RELEASES.md`](docs
 
 ## Project rules that block PRs
 
-1. **No hardcoded user-facing strings** in the product app — use i18n (`apps/app/src/i18n/en.json`).
+1. **No hardcoded user-facing strings** in the product app — use i18n (`apps/app/src/i18n/en.json`). Translate new keys for every locale with a one-off `apps/app/scripts/i18n/<change>-i18n.json` patch applied by `node scripts/i18n/apply-patch-i18n.mjs` (from `apps/app`), then delete the patch in the same PR — the catalogs are the only source of truth.
 2. **Never hand-edit generated content** (`apps/app/assets/data/*`, generated shared content). Change the builder under `apps/app/scripts/build-data/` and run `pnpm --filter app build:data`.
 3. **Religious text** must come from vetted open datasets — never invent or AI-generate scripture bodies.
 4. **Theme colors** in the product app come from `useTheme()` — no hardcoded palette values.
 5. **Fuzzy search** goes through `apps/app/src/lib/search.ts` (Fuse.js) — see `.agents/skills/fuse-js/SKILL.md`.
+6. **Tests never touch the network** — a guard fails any real request; mock `fetch` / clients and use fixtures.
 
 ## Pull request checklist
 
 - [ ] Commit messages follow Conventional Commits (`pnpm commit` or see CONTRIBUTING)
 - [ ] `pnpm check:quick` passes (or `pnpm check:ci` for larger changes)
 - [ ] Tests added/updated when behavior changes
-- [ ] i18n keys added for new product UI strings (Phase 1: `en` + `ar`/`ur` when touching those locales)
+- [ ] i18n keys added for new product UI strings and translated into all locales (patch file deleted after applying)
 - [ ] No secrets, keystores, `.p8`, `.cer`, or real `.env` files
 - [ ] PR description explains _why_ and links the related issue
 - [ ] Attribution / license notices left intact

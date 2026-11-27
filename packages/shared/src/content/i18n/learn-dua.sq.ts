@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       'Besimtari bën dua në lehtësi dhe vështirësi, me zë dhe në fshehtësi, i sigurt se Allahu dëgjon çdo thirrje dhe nuk e kthen shpinën të sinqertin duarbosh. Ai është aq afër sa thotë: "Unë i përgjigjem thirrjes së thirrësit kur ai më thërret Mua".',
       "Përgjigja merr njërën nga tre format, të mësuara nga Profeti ﷺ: Allahu jep atë që kërkohet; ose Ai e mban atë dhe ruan një shpërblim të barabartë ose më të madh për botën tjetër; ose Ai largon një dëm të barabartë me të. Pra, asnjë dua e sinqertë nuk është kurrë me të vërtetë pa përgjigje - ndonjëherë mëshira më e madhe është në përgjigjen që nuk e shohim.",
     ],
-    quran: [
-      {
-        excerpt: "Dhe Zoti juaj thotë: “Më thirrni Mua; Unë do t'ju përgjigjem.'",
-      },
-      {
-        excerpt:
-          "E kur robërit e Mi të pyesin ty për Mua, Unë jam afër. Unë i përgjigjem thirrjes së thirrësit kur ai më thërret Mua.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duaja është adhurim. - pastaj ai lexoi: \"Dhe Zoti juaj thotë: Më thirrni Mua; Unë do t'ju përgjigjem.' (en-Nu'man ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       "Lutjuni Allahut me tre cilësi të brendshme: përulësi, bindje se Ai mund dhe do të përgjigjet, dhe një mendim i mirë për Të (husn el-zann). Përballuni me kiblen ku të keni mundësi, ngrini duart, zgjidhni kohët e bekuara dhe kërkoni për punët e kësaj jete dhe të botës tjetër. Rekomandohet të përsërisni kërkesat e rëndësishme dhe të përfundoni siç keni filluar - me lavdërime dhe salavat.",
       'Mbi të gjitha, mos u nxitoni. Pejgamberi ﷺ paralajmëroi se një dua i përgjigjet përderisa një person nuk dëshpërohet dhe thotë: "Thirra dhe thirra por nuk u përgjigja" dhe pastaj ta braktisë atë. Këmbëngulja në të kërkuar është vetë adhurim dhe Allahu e do robin që vazhdon të trokasë në derën e Tij.',
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duaja e shërbëtorit vazhdon të përgjigjet për sa kohë që ai nuk nxiton - duke thënë: 'Kam bërë dua, por nuk jam përgjigjur.' (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Kur dikush prej jush falet, le të fillojë duke lavdëruar dhe madhëruar Zotin e tij, pastaj dërgoni salavate mbi Pejgamberin ﷺ, pastaj kërkoni atë që dëshiron. (Fadalah ibn Ubejd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Hape çdo dua me Elhamdulilah dhe salavat mbi Pejgamberin ﷺ.",
       "Kërkoni Allahun me emrat më të përshtatshëm për nevojën tuaj (p.sh. Ya Razzak për furnizim, Ya Ghafur për falje).",
@@ -65,16 +43,7 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       'Ushqimi i ligjshëm është një çelës i fuqishëm. Pejgamberi ﷺ e përshkroi një udhëtar i cili ngre duart drejt qiellit duke thirrur "O Zot, o Zot", por "ushqimi i tij është i ndaluar, pija e tij është e ndaluar, veshja e tij është e ndaluar dhe ai ushqehet nga të paligjshmet - kështu që si mund të përgjigjet?" Ruajtja e të ardhurave, pendimi nga mëkati dhe moskërkimi për asgjë mëkatare apo shkëputja e lidhjeve familjare, të gjitha i heqin barrierat ndërmjet duasë dhe pranimit të saj.',
       "Megjithatë, pranimi është përfundimisht mëshira e Allahut, jo një transaksion që ne kontrollojmë. Prandaj, besimtari bashkon përpjekjet e tij më të mira - sinqeritetin, jetesën hallall, pendimin - me besimin e përulur dhe nuk dëshpërohet kurrë nëse përgjigja vonohet. Dobësia dhe mëkatet e kaluara nuk janë arsye për të ndaluar së kërkuari; ata janë edhe më shumë arsye për t'u kthyer tek i Gjithëmëshirshmi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…ushqimi i tij është i paligjshëm, pija e tij e paligjshme, veshja e tij e paligjshme, e ushqyer nga i paligjshmi – pra si mund t'i përgjigjet atij? (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Duaja e robit i përgjigjet përderisa ai nuk kërkon diçka mëkatare apo shkëputjen e lidhjeve familjare. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Rishikoni të ardhurat dhe shpenzimet tuaja për ligjshmëri - kjo ndikon drejtpërdrejt në duanë tuaj.",
       "Paraprijani lutjeve të gjata me istigfar dhe pendim të sinqertë.",
@@ -89,16 +58,7 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       'Ndër më të fortat janë: e treta e fundit e natës, kur Allahu zbret (në një mënyrë që i përshtatet madhërisë së Tij) në qiellin më të ulët dhe thërret: "Kush do të më kërkojë që t\'ia jap?"; sexhdeja në namaz, pozita më e afërt me Allahun; momenti ndërmjet ezanit dhe ikametit; përderisa njeriu është agjërues, sidomos në momentin e prishjes së agjërimit; gjatë shiut; dhe ora e fundit e xhumasë para perëndimit të diellit, në të cilën ka një orë kur nuk refuzohet duaja.',
       "Vendet dhe gjendjet e bekuara përfshijnë qëndrimin në Arafah gjatë haxhit, qëndrimin brenda zonave të shenjta dhe duanë e një udhëtari, një prindi për fëmijën e tyre dhe një të padrejtë. Përdorini këto si spiranca fikse për një jetë të qëndrueshme lutjeje.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Zoti ynë zbret çdo natë në qiellin më të ulët në të tretën e fundit të natës dhe thotë: Kush po më thërret Mua që t'i përgjigjem? Kush po më kërkon që unë t'ia jap? (Ebu Hurejre)",
-      },
-      {
-        excerpt:
-          "Robi më i afërt me Zotin e tij është kur është në sexhde, andaj bëni shumë lutje në të. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -113,14 +73,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sejid el-Istighfar (shefi i kërkimit të faljes)",
         when: "Një herë çdo mëngjes dhe mbrëmje",
-        translation:
-          "O Allah, Ti je Zoti im; nuk ka zot përveç Teje. Ti më krijove dhe unë jam robi Yt, dhe unë i përmbahem besëlidhjes dhe premtimit Tënd sa të mundem. Kërkoj strehim tek Ti nga e keqja që kam bërë. Unë e pranoj mirësinë Tënde ndaj meje dhe e rrëfej mëkatin tim, prandaj më fal, sepse askush nuk i fal mëkatet përveç Teje.",
       },
       {
         title: "Hasbijallahu la ilahe illa Huve",
         when: "Shtatë herë çdo mëngjes dhe mbrëmje",
-        translation:
-          "Allahu më mjafton mua; nuk ka zot përveç Tij. Tek Ai mbështetem dhe Ai është Zoti i Arshit Fuqiplotë.",
       },
     ],
     appLinks: [{}, {}],
@@ -136,19 +92,14 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua në zgjim",
         when: "Menjëherë pas zgjimit",
-        translation:
-          "Falënderimet i takojnë Allahut që na ngjall pasi na bëri të vdesim dhe vetëm Atij i takon ringjallja.",
       },
       {
         title: "Dua para gjumit",
         when: "Kur shtriheni për të fjetur",
-        translation: "Në emrin Tënd, o Allah, unë vdes dhe jetoj.",
       },
       {
         title: "Ajet al-Kursi para gjumit",
         when: "Para gjumit",
-        translation:
-          "Allahu - nuk ka zot tjetër përveç Tij, të Gjallës, Mbajtësit të gjithçkaje. Atë nuk e kapin as përgjumja, as gjumi. E Tij është çdo gjë që gjendet në qiej dhe në tokë. Kush mund të ndërmjetësojë tek Ai përveçse me lejen e Tij? Ai e di atë që ka para tyre dhe pas tyre, dhe ata nuk përfshijnë asgjë nga dituria e Tij, përveç asaj që Ai dëshiron. Arshi i Tij shtrihet mbi qiej dhe në tokë dhe ruajtja e tyre nuk e lodh Atë. Ai është më i Larti, i Madhërishmi.",
       },
     ],
     appLinks: [{}, {}],
@@ -164,13 +115,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua kur del nga shtëpia",
         when: "Kur del nga shtëpia",
-        translation:
-          "Në emër të Allahut; Unë besoj tek Allahu; nuk ka fuqi dhe fuqi përveç Allahut.",
       },
       {
         title: "Dua duke hyrë në xhami",
         when: "Me të hyrë, futet me këmbën e djathtë",
-        translation: "O Allah, më hap dyert e mëshirës Tënde.",
       },
     ],
     appLinks: [{}, {}],
@@ -186,13 +134,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Para se të hahet",
         when: "Në fillim të një vakti",
-        translation: "Në emër të Allahut.",
       },
       {
         title: "Pas ngrënies",
         when: "Në përfundim të një vakti",
-        translation:
-          "I gjithë lavdërimi i takon Allahut që më ushqeu me këtë dhe më dha pa asnjë fuqi apo fuqi nga ana ime.",
       },
     ],
     appLinks: [{}],
@@ -208,14 +153,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Pas abdesit",
         when: "Menjëherë pas përfundimit të abdesit",
-        translation:
-          "Dëshmoj se nuk ka zot tjetër përveç Allahut të vetëm, pa ortak dhe dëshmoj se Muhamedi është rob dhe i Dërguar i Tij.",
       },
       {
         title: "Para selamit në namaz",
         when: "Në teshehudin e fundit, para përfundimit të namazit",
-        translation:
-          "O Allah, kërkoj mbrojtje te Ti nga dënimi i Xhehenemit, nga dënimi i varrit, nga sprova e jetës dhe e vdekjes dhe nga e keqja e sprovës së Mesihut të rremë (Dexhallit).",
       },
     ],
     appLinks: [{}, {}],
@@ -231,16 +172,9 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua pas ezanit",
         when: "Kur mbaron ezani",
-        translation:
-          "O Allah, Zot i kësaj thirrjeje të përsosur dhe namazit të vendosur, jepi Muhamed el-Vasilah dhe el-Fadilah dhe ngrije atë në pozitën e lavdëruar që i ke premtuar.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duaja e bërë ndërmjet ezanit dhe ikametit nuk refuzohet. (Enes ibn Malik; gjithashtu et-Tirmidhi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -254,13 +188,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua për ankth dhe pikëllim",
         when: "Në ankth, shqetësim ose pikëllim dërrmues",
-        translation:
-          "O Allah, unë kërkoj mbrojtje te Ti nga ankthi dhe pikëllimi, nga paaftësia dhe dembelizmi, nga koprracia dhe frikacakët, nga barra e borxhit dhe nga të qenit i mbizotëruar nga të tjerët.",
       },
       {
         title: "Allahu na mjafton",
         when: "Kur i frikësuar ose i dërrmuar",
-        translation: "Allahu na mjafton dhe Ai është rregulluesi më i mirë i punëve.",
       },
     ],
     appLinks: [{}, {}],
@@ -276,8 +207,6 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua për shërim",
         when: "Kur sëmuret ose lutet për dikë që është i sëmurë",
-        translation:
-          "O Allah, Zot i njerëzve, largoje fatkeqësinë dhe jep shërim - Ti je Shëruesi; nuk ka shërim përveç shërimit Tënd - një kurë që nuk lë pas asnjë sëmundje.",
       },
     ],
     appLinks: [{}, {}],
@@ -293,12 +222,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Pendimi i shpeshtë",
         when: "Në mënyrë të përsëritur, gjatë gjithë ditës",
-        translation: "Kërkoj falje nga Allahu dhe i drejtohem Atij me pendim.",
       },
       {
         title: "Dua për zemër të palëkundur",
         when: "Kur keni frikë nga devijimi ose lëkundjet",
-        translation: "O rrotullues i zemrave, ma forco zemrën në fenë Tënde.",
       },
     ],
     appLinks: [{}, {}],
@@ -314,13 +241,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua kur niset për të udhëtuar",
         when: "Gjatë montimit të transportit dhe nisjes",
-        translation:
-          "Lavdi atij që na nënshtroi këtë, kur ne vetë nuk mund ta kishim bërë këtë; dhe me të vërtetë, ne me siguri do të kthehemi te Zoti ynë.",
       },
       {
         title: "Dua kur bie shi",
         when: "Në fillim të reshjeve",
-        translation: "O Allah, bëje atë një shi të dobishëm.",
       },
     ],
     appLinks: [{}, {}],
@@ -332,18 +256,11 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       "Furnizimi (rizk) është vetëm nga Allahu; besimtari e lidh devenë e tij - duke punuar dhe duke fituar - pastaj i kërkon Furnizuesit furnizim të ligjshëm, berake në atë që fiton, lirim nga borxhi dhe pavarësi nga nevoja për të tjerët. Profeti ﷺ mësoi një dua të bukur që kërkon pikërisht këtë.",
       "Për shtëpinë, vetë Kurani mëson lutjen e të drejtëve: t'u jepen bashkëshorte dhe fëmijë që janë 'ngushëllim për sytë' dhe të udhëheqin një familje të lidhur me besim, lutje dhe mëshirë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zoti ynë, na dhuro nga bashkëshortet dhe pasardhësit tanë rehati për sytë tanë dhe na bëj prijës të të devotshmëve.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Dua për dispozitë të ligjshme",
         when: "Mëngjeset, pas namazit dhe në tendosje financiare",
-        translation:
-          "O Allah, më mjafto me atë që e lejove kundër asaj që e bëre të ndaluar dhe më pasuro me mirësinë Tënde, kështu që nuk kam nevojë për askënd përveç Teje.",
       },
     ],
     appLinks: [{}],
@@ -359,14 +276,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Mirë në të dyja botët",
         when: "Një dua e përgjithshme, e gjithanshme - më e shpeshta e Profetit ﷺ",
-        translation:
-          "Zoti ynë, na jep të mira në këtë botë dhe të mira në botën tjetër dhe na ruaj nga dënimi i zjarrit.",
       },
       {
         title: "Qëndrueshmëria në besim",
         when: "Kur keni frikë nga devijimi ose pasi jeni udhëzuar",
-        translation:
-          "Zoti ynë, mos na devijoni zemrat tona pasi na udhëzove dhe na jep mëshirë nga ana Jote. Vërtet, Ti je Dhuruesi.",
       },
     ],
     appLinks: [{}, {}],
@@ -382,8 +295,6 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua gjithëpërfshirëse e të katërve",
         when: "Një lutje e përgjithshme e përditshme",
-        translation:
-          "O Allah, të kërkoj udhëzim, devotshmëri, dëlirësi dhe mjaftueshmëri të kënaqur.",
       },
     ],
     appLinks: [{}],
@@ -399,13 +310,10 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Fjalë të dashura dhe mëkatuese",
         when: "Gjatë gjithë ditës; 100 herë i fshin mëkatet",
-        translation: "Lavdia i qoftë All-llahut dhe i gjithë lavdërimi i takon Atij.",
       },
       {
         title: "Dy fjalë të rënda në peshore",
         when: "Në çdo kohë",
-        translation:
-          "I Lartësuar qoftë Allahu dhe i Tij është falënderimi; lavdia i qoftë Allahut të Madhërishëm.",
       },
     ],
     appLinks: [{}],
@@ -417,18 +325,11 @@ export const LEARN_DUA_TOPICS_SQ: DeepPartial<LearnDuaTopic>[] = [
       "Dërgimi i salavateve mbi Pejgamberin ﷺ është urdhëruar nga Allahu në Kuran: “Vërtet, Allahu dhe engjëjt e Tij dërgojnë bekime mbi Profetin; O besimtarë, dërgoni bekime mbi të dhe përshëndetje!” – dhe asnjë dua tjetër nuk ka një kthim të tillë të garantuar: Pejgamberi ﷺ ka thënë se kushdo që i dërgon një bekim, Allahu dërgon dhjetë mbi atë person.",
       "Salavatet e shpeshta sjellin mëshirë, ngre gradat, fshin mëkatet dhe e afron njeriun më të afërt me Pejgamberin ﷺ në Ditën e Gjykimit. Formulari i plotë Ibrahimik më poshtë - ai që ua mësoi shokëve të tij kur ata pyetën se si t'i dërgonin bekime mbi të - lexohet në çdo teshehud të namazit dhe është i shkëlqyer për t'u mbajtur në gjuhë gjatë gjithë ditës.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Vërtet, Allahu dhe engjëjt e Tij dërgojnë bekime mbi Pejgamberin. O ju që besuat, dërgoni salavate dhe selame mbi të.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Salavati i plotë Ibrahimije",
         when: "Në teshehudin e namazit dhe gjatë gjithë ditës",
-        translation:
-          "O Allah, dërgoje salavate mbi Muhammedin dhe familjen e Muhammedit, ashtu siç e bekove Ibrahimin dhe familjen e Ibrahimit; me të vërtetë Ti je i Lavdëruar, i Lavdishëm. O Allah, jepi mirësi Muhammedit dhe familjes së Muhammedit, ashtu siç e ke favorizuar Ibrahimin dhe familjen e Ibrahimit; me të vërtetë Ti je i Lavdëruar, i Lavdishëm.",
       },
     ],
     appLinks: [{}],

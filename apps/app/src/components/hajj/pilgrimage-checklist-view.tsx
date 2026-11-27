@@ -117,7 +117,7 @@ export function PilgrimageChecklistView({
   }, [items]);
 
   const progressCard = (
-    <Card padding="three" style={styles.progressCard}>
+    <Card style={styles.progressCard}>
       <View style={styles.progressHead}>
         <ThemedText type="smallBold">
           {t(`${progressKeyPrefix}.progress`, { done: doneCount, total: totalSteps })}
@@ -131,12 +131,17 @@ export function PilgrimageChecklistView({
           />
         ) : null}
       </View>
-      <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
+      <ProgressBar
+        value={progress}
+        accessibilityLabel={t("a11yProgress.rites")}
+        height={6}
+        color={tokens.status.success.color}
+      />
     </Card>
   );
 
   const dayCards = grouped.map(([day, dayItems], groupIndex) => (
-    <Card key={day || "rites"} padding="three" style={styles.sectionCard}>
+    <Card key={day || "rites"} style={styles.sectionCard}>
       {day ? (
         <ThemedText type="subtitle" style={styles.dayTitle}>
           {day}

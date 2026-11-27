@@ -7,6 +7,7 @@ jest.mock("@/lib/hadith", () => ({
 }));
 
 import { getBundledCollection } from "@/lib/hadith";
+import { loadNawawiSyncForTests } from "@/lib/hadith-nawawi-test-loader";
 
 import { hadithCollectionId, hadithExcerpt, PRAYER_INFO, resolveHadithItem } from "./prayer-info";
 
@@ -66,6 +67,8 @@ describe("hadithExcerpt", () => {
 
 describe("resolveHadithItem", () => {
   it("finds a bundled hadith by id", () => {
+    const nawawi = loadNawawiSyncForTests();
+    mockGetBundledCollection.mockImplementation((id) => (id === "nawawi40" ? nawawi : undefined));
     const item = resolveHadithItem("nawawi40:1");
     expect(item?.id).toBe("nawawi40:1");
     expect(item?.collection).toBe("nawawi40");

@@ -1,10 +1,10 @@
-import type { HadithItem, PrayerId } from "@munib-tracker/shared/types";
+import type { HadithItem, PrayerId, RawatibId } from "@munib-tracker/shared/types";
 import { fetchRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ensureBundledCollection, getBundledCollection } from "@/lib/hadith";
 import type { DailyScheduleEntryId } from "@/lib/prayer-times";
 
-/** Schedule entries and tracked prayers that have learn-more content. */
-export type PrayerInfoId = DailyScheduleEntryId | PrayerId;
+/** Schedule entries and tracked prayers that have learn-more content (rawatib use /rawatib). */
+export type PrayerInfoId = DailyScheduleEntryId | Exclude<PrayerId, RawatibId>;
 
 export type PrayerInfoReference =
   | { type: "hadith"; id: string }

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ZIndex } from "@/constants/theme";
 import { PinLockScreen } from "@/features/pin-lock/components/pin-lock-screen";
 import { SetPinModal } from "@/features/pin-lock/components/set-pin-modal";
 import { usePinLock } from "@/features/pin-lock/providers/pin-lock-provider";
@@ -72,7 +73,7 @@ export function PinLockGate() {
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFill,
-    zIndex: 9999,
+    zIndex: ZIndex.gate,
     elevation: 9999,
   },
 });

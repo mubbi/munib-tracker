@@ -1,78 +1,112 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/** Brushed-titanium rail gradient shared by the frame edge and side buttons. */
-const TITANIUM =
-  "linear-gradient(145deg,#eef0f2 0%,#b3b9c0 12%,#d8dce1 26%,#8b9199 46%,#c4c9cf 64%,#787e86 82%,#adb3bb 100%)";
-const BUTTON = "linear-gradient(180deg,#c9ced4,#8b9199 55%,#6c727a)";
+/** Silver iPhone 17 Pro Max finish (reads best on the night-sky background). */
+const FINISH = {
+  // Horizontal gradient = light catching the rounded aluminium edges.
+  rail: "linear-gradient(90deg,#c9cdd2 0%,#f7f8f9 4%,#d4d8dc 9%,#eceef0 30%,#e3e6e9 70%,#d4d8dc 91%,#f7f8f9 96%,#c3c7cc 100%)",
+  button: "linear-gradient(180deg,#eef0f2 0%,#c2c6cb 55%,#a9aeb4 100%)",
+  edge: "rgba(255,255,255,0.75)",
+} as const;
+
+/** Side buttons as [top %, height %] of the body. Left: Action, volume up, volume down. */
+const LEFT_BUTTONS = [
+  [19.5, 4.2],
+  [26.5, 7.6],
+  [35.6, 7.6],
+] as const;
+/** Right: side button, then Camera Control (sits flush, sapphire-dark). */
+const SIDE_BUTTON = [29, 11] as const;
+const CAMERA_CONTROL = [54, 6.4] as const;
 
 /**
- * Realistic iPhone Pro–style device frame with a brushed-titanium rail.
- * When `tilted`, applies the same sideways 3D perspective as the Day Arc concept.
+ * iPhone 17 Pro Max device frame: thin aluminium rail, slim black bezel,
+ * Dynamic Island, and the Pro button layout. Every size is in container
+ * units, so the frame keeps the same proportions from a 150px thumbnail to
+ * the 300px hero phone. Use it for every real screenshot on the site.
  */
 export function DeviceFrame({
   src,
   alt,
   className,
-  tilted = false,
+  preload = false,
+  width = 1206,
+  height = 2622,
+  sizes = "(min-width: 1024px) 300px, 260px",
 }: {
   src: string;
   alt: string;
   className?: string;
-  tilted?: boolean;
+  /** Preload in `<head>`: only for the above-the-fold (LCP) device. */
+  preload?: boolean;
+  width?: number;
+  height?: number;
+  sizes?: string;
 }) {
   return (
-    <div
-      className={cn("relative", className)}
-      style={
-        tilted
-          ? {
-              transform: "perspective(2000px) rotateY(-7deg) rotateX(1deg) rotateZ(5.5deg)",
-              transformStyle: "preserve-3d",
-            }
-          : undefined
-      }
-    >
+    <div className={cn("@container relative", className)}>
+      {/* Body: aluminium rail */}
       <div
-        className="relative rounded-[3.4rem] p-[4px] shadow-[0_50px_140px_-30px_rgba(0,0,0,0.9),12px_24px_50px_-20px_rgba(0,0,0,0.55)]"
-        style={{ background: TITANIUM }}
+        className="relative rounded-[17cqw] p-[1.05cqw] shadow-[0_50px_120px_-30px_rgba(0,0,0,0.85),0_18px_40px_-18px_rgba(0,0,0,0.6)]"
+        style={{ background: FINISH.rail }}
       >
-        {/* Side buttons — clearly visible on the camera-facing right rail */}
+        {/* Polished chamfer highlight on the rail */}
         <span
           aria-hidden
-          className="absolute -left-[4px] top-[16%] h-9 w-[4px] rounded-l-md"
-          style={{ background: BUTTON }}
-        />
-        <span
-          aria-hidden
-          className="absolute -left-[4px] top-[26%] h-14 w-[4px] rounded-l-md"
-          style={{ background: BUTTON }}
-        />
-        <span
-          aria-hidden
-          className="absolute -left-[4px] top-[38%] h-14 w-[4px] rounded-l-md"
-          style={{ background: BUTTON }}
-        />
-        <span
-          aria-hidden
-          className="absolute -right-[5px] top-[28%] h-24 w-[5px] rounded-r-md shadow-[1px_0_2px_rgba(0,0,0,0.5)]"
-          style={{ background: BUTTON }}
+          className="pointer-events-none absolute inset-0 rounded-[17cqw]"
+          style={{
+            boxShadow: `inset 0 0 0 0.35cqw ${FINISH.edge}, inset 0 0.6cqw 1cqw rgba(255,255,255,0.18)`,
+          }}
         />
 
-        {/* Black bezel + screen */}
-        <div className="rounded-[3.1rem] bg-[#08090b] p-[10px] ring-1 ring-black/60">
-          <div className="relative overflow-hidden rounded-[2.55rem]">
+        {LEFT_BUTTONS.map(([top, h]) => (
+          <span
+            key={top}
+            aria-hidden
+            className="absolute -left-[0.75cqw] w-[0.95cqw] rounded-l-[0.6cqw] shadow-[-0.2cqw_0_0.4cqw_rgba(0,0,0,0.35)]"
+            style={{ top: `${top}%`, height: `${h}%`, background: FINISH.button }}
+          />
+        ))}
+        <span
+          aria-hidden
+          className="absolute -right-[0.75cqw] w-[0.95cqw] rounded-r-[0.6cqw] shadow-[0.2cqw_0_0.4cqw_rgba(0,0,0,0.35)]"
+          style={{
+            top: `${SIDE_BUTTON[0]}%`,
+            height: `${SIDE_BUTTON[1]}%`,
+            background: FINISH.button,
+          }}
+        />
+        <span
+          aria-hidden
+          className="absolute -right-[0.35cqw] w-[0.55cqw] rounded-r-[0.4cqw] bg-[linear-gradient(180deg,#3a3f46,#1d2126)]"
+          style={{ top: `${CAMERA_CONTROL[0]}%`, height: `${CAMERA_CONTROL[1]}%` }}
+        />
+
+        {/* Black bezel */}
+        <div className="relative rounded-[16cqw] bg-[#050607] p-[2.2cqw]">
+          {/* Display */}
+          <div className="relative overflow-hidden rounded-[13.8cqw] bg-black">
             <Image
               src={src}
               alt={alt}
-              width={1206}
-              height={2622}
-              priority
+              width={width}
+              height={height}
+              preload={preload}
+              sizes={sizes}
               className="block h-auto w-full"
             />
-            <div
+            {/* Dynamic Island (hardware art: the camera stays on the right in RTL too) */}
+            <span
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[2.55rem] bg-[linear-gradient(115deg,rgba(255,255,255,0.16),transparent_38%)]"
+              dir="ltr"
+              className="absolute left-1/2 top-[1.25%] flex h-[3.85%] w-[31%] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[3.2%]"
+            >
+              <span className="block aspect-square h-[42%] rounded-full bg-[radial-gradient(circle_at_35%_35%,#2b3a52,#0b0f16_70%)]" />
+            </span>
+            {/* Glass glare */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.13),transparent_36%)]"
             />
           </div>
         </div>

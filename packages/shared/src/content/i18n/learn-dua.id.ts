@@ -19,21 +19,8 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       "Seorang mukmin berdoa dalam kemudahan maupun kesulitan, secara terang-terangan maupun tersembunyi, dengan keyakinan bahwa Allah mendengar setiap panggilan dan tidak pernah menolak hamba yang tulus dengan tangan hampa. Dia begitu dekat sampai-sampai berfirman, 'Aku kabulkan permohonan orang yang berdoa apabila ia berdoa kepada-Ku.'",
       "Jawaban doa datang dalam salah satu dari tiga bentuk, sebagaimana diajarkan Nabi ﷺ: Allah memberikan apa yang diminta; atau Dia menahannya dan menyimpan ganjaran yang setara atau lebih besar untuk akhirat; atau Dia menghindarkan suatu keburukan yang setara darinya. Jadi tidak ada doa yang tulus yang benar-benar tidak terjawab — kadang rahmat terbesar justru ada pada jawaban yang tidak kita sadari.",
     ],
-    quran: [
-      {
-        excerpt: "Dan Tuhanmu berfirman, 'Berdoalah kepada-Ku, niscaya akan Aku kabulkan bagimu.'",
-      },
-      {
-        excerpt:
-          "Dan apabila hamba-hamba-Ku bertanya kepadamu tentang Aku, maka sesungguhnya Aku dekat. Aku kabulkan permohonan orang yang berdoa apabila ia berdoa kepada-Ku.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Doa adalah ibadah. — lalu beliau ﷺ membaca, 'Dan Tuhanmu berfirman, berdoalah kepada-Ku, niscaya akan Aku kabulkan bagimu.' (an-Nu'man ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Jelajahi doa" }],
   },
   {
@@ -45,16 +32,7 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       "Panggillah Allah dengan tiga sikap batin: kerendahan hati, keyakinan bahwa Dia mampu dan akan mengabulkan, serta prasangka baik kepada-Nya (husnuzan). Menghadaplah kiblat bila memungkinkan, angkat kedua tanganmu, pilih waktu-waktu yang penuh berkah, dan mohonlah kebaikan dunia maupun akhirat. Dianjurkan untuk mengulang permohonan yang penting, dan menutup doa sebagaimana memulainya — dengan pujian dan selawat.",
       "Yang terpenting, jangan tergesa-gesa. Nabi ﷺ memperingatkan bahwa doa akan terus dikabulkan selama seseorang tidak putus asa lalu berkata, 'Aku sudah berdoa berkali-kali tetapi tidak dikabulkan,' kemudian meninggalkan doa itu. Kesungguhan dalam memohon itu sendiri adalah ibadah, dan Allah mencintai hamba yang terus mengetuk pintu-Nya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Doa seorang hamba akan terus dikabulkan selama ia tidak tergesa-gesa — dengan berkata, 'Aku telah berdoa namun tidak dikabulkan.' (Abu Hurairah)",
-      },
-      {
-        excerpt:
-          "Apabila salah seorang dari kalian berdoa, hendaklah ia memulai dengan memuji dan menyanjung Tuhannya, kemudian bersalawat kepada Nabi ﷺ, barulah memohon apa yang ia kehendaki. (Fadalah bin 'Ubaid)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Bukalah setiap doa dengan Alhamdulillah dan selawat kepada Nabi ﷺ.",
       "Mohonlah kepada Allah dengan nama-nama yang paling sesuai dengan kebutuhanmu (misalnya Ya Razzaq untuk rezeki, Ya Ghafur untuk ampunan).",
@@ -70,16 +48,7 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       "Rezeki yang halal adalah kunci yang sangat penting. Nabi ﷺ menggambarkan seorang musafir yang mengangkat kedua tangannya ke langit sambil berseru 'Ya Rabb, ya Rabb,' namun 'makanannya haram, minumannya haram, pakaiannya haram, dan ia tumbuh dari yang haram — bagaimana mungkin doanya dikabulkan?' Menjaga penghasilan, bertobat dari dosa, dan tidak meminta sesuatu yang berdosa atau memutus tali silaturahmi — semua ini menghilangkan penghalang antara doa dan terkabulnya doa itu.",
       "Meski demikian, terkabulnya doa pada akhirnya adalah rahmat Allah, bukan sebuah transaksi yang bisa kita kendalikan. Karena itu, seorang mukmin memadukan usaha terbaiknya — keikhlasan, kehidupan yang halal, tobat — dengan tawakal yang rendah hati, dan tidak pernah putus asa jika jawaban tertunda. Kelemahan dan dosa masa lalu bukanlah alasan untuk berhenti berdoa; justru itu semua menjadi alasan yang lebih kuat untuk kembali kepada Yang Maha Penyayang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…makanannya haram, minumannya haram, pakaiannya haram, tumbuh dari yang haram — bagaimana mungkin doanya dikabulkan? (Abu Hurairah)",
-      },
-      {
-        excerpt:
-          "Doa seorang hamba akan dikabulkan selama ia tidak meminta sesuatu yang berdosa atau memutus tali silaturahmi. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Periksalah penghasilan dan pengeluaranmu dari sisi kehalalannya — ini berpengaruh langsung pada doamu.",
       "Dahului doa-doa panjang dengan istigfar dan tobat yang tulus.",
@@ -94,16 +63,7 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       "Di antara waktu yang paling utama adalah: sepertiga malam terakhir, ketika Allah turun (dengan cara yang sesuai dengan keagungan-Nya) ke langit dunia dan menyeru, 'Siapa yang memohon kepada-Ku, akan Aku kabulkan?'; sujud dalam salat, posisi terdekat seorang hamba dengan Allah; saat antara azan dan ikamah; ketika seseorang sedang berpuasa, terutama saat berbuka; saat turunnya hujan; dan sesaat menjelang terbenamnya matahari pada hari Jumat, yang di dalamnya terdapat satu waktu ketika tidak ada doa yang ditolak.",
       "Tempat dan keadaan yang diberkahi meliputi berdiri di Arafah saat haji, berada di dalam tanah suci, serta doa seorang musafir, doa orang tua untuk anaknya, dan doa orang yang teraniaya. Jadikan semua ini sebagai sandaran tetap bagi kehidupan berdoa yang konsisten.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Tuhan kita turun setiap malam ke langit dunia pada sepertiga malam terakhir dan berfirman: Siapa yang berdoa kepada-Ku, akan Aku kabulkan? Siapa yang memohon kepada-Ku, akan Aku berikan? (Abu Hurairah)",
-      },
-      {
-        excerpt:
-          "Saat terdekat seorang hamba dengan Tuhannya adalah ketika ia sedang sujud, maka perbanyaklah doa di dalamnya. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Pengingat salat" }, { label: "Zikir harian" }],
   },
 
@@ -119,16 +79,12 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyidul Istigfar (penghulu istigfar)",
         when: "Sekali setiap pagi dan petang",
-        translation:
-          "Ya Allah, Engkau adalah Tuhanku, tidak ada tuhan yang berhak disembah selain Engkau. Engkau menciptakanku dan aku adalah hamba-Mu, dan aku berpegang pada janji dan ikrar-Mu semampuku. Aku berlindung kepada-Mu dari keburukan apa yang telah kuperbuat. Aku mengakui nikmat-Mu atasku, dan aku mengakui dosaku, maka ampunilah aku — sebab tidak ada yang mengampuni dosa-dosa kecuali Engkau.",
         reference:
           "Sahih al-Bukhari 6306 — barangsiapa mengucapkannya di siang hari dengan penuh keyakinan lalu meninggal pada hari itu, ia termasuk penghuni surga",
       },
       {
         title: "Hasbiyallahu la ilaha illa Huwa",
         when: "Tujuh kali setiap pagi dan petang",
-        translation:
-          "Cukuplah Allah bagiku, tidak ada tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.",
         reference: "Qur'an 9:129 (redaksinya); Sunan Abi Dawud 5081 untuk amalan pagi/petangnya",
       },
     ],
@@ -145,21 +101,16 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa saat bangun tidur",
         when: "Segera setelah bangun",
-        translation:
-          "Segala puji bagi Allah yang telah menghidupkan kami setelah mematikan kami, dan kepada-Nya kebangkitan itu (kembali).",
         reference: "Sahih al-Bukhari 6312",
       },
       {
         title: "Doa sebelum tidur",
         when: "Saat berbaring untuk tidur",
-        translation: "Dengan nama-Mu, ya Allah, aku mati dan aku hidup.",
         reference: "Sahih al-Bukhari 6324",
       },
       {
         title: "Ayat Kursi sebelum tidur",
         when: "Sebelum tidur",
-        translation:
-          "Allah, tidak ada tuhan selain Dia, Yang Maha Hidup, Yang terus-menerus mengurus (makhluk-Nya). Tidak mengantuk dan tidak pula tidur. Milik-Nya apa yang ada di langit dan apa yang ada di bumi. Siapakah yang dapat memberi syafaat di sisi-Nya tanpa izin-Nya? Dia mengetahui apa yang ada di hadapan mereka dan apa yang ada di belakang mereka, dan mereka tidak mengetahui sedikit pun dari ilmu-Nya kecuali apa yang Dia kehendaki. Kursi-Nya meliputi langit dan bumi. Dan Dia tidak merasa berat memelihara keduanya, dan Dialah Yang Maha Tinggi lagi Maha Besar.",
         reference:
           "Qur'an 2:255; Sahih al-Bukhari 2311 — seorang penjaga tetap menyertai pembacanya hingga pagi",
       },
@@ -177,14 +128,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa saat keluar rumah",
         when: "Saat melangkah keluar rumah",
-        translation:
-          "Dengan nama Allah, aku bertawakal kepada Allah; tidak ada daya dan kekuatan kecuali dengan (pertolongan) Allah.",
         reference: "Sunan Abi Dawud 5095; Jami' at-Tirmidhi 3426 (hasan sahih)",
       },
       {
         title: "Doa masuk masjid",
         when: "Saat masuk, melangkah dengan kaki kanan",
-        translation: "Ya Allah, bukakanlah bagiku pintu-pintu rahmat-Mu.",
         reference: "Sahih Muslim 713",
       },
     ],
@@ -201,14 +149,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sebelum makan",
         when: "Pada awal makan",
-        translation: "Dengan nama Allah.",
         reference: "Sahih al-Bukhari 5376; Jami' at-Tirmidhi 1858 (dengan koreksi bila terlupa)",
       },
       {
         title: "Setelah makan",
         when: "Saat selesai makan",
-        translation:
-          "Segala puji bagi Allah yang telah memberiku makan ini dan memberiku rezeki tanpa daya dan kekuatan dariku.",
         reference: "Jami' at-Tirmidhi 3458 (hasan) — dosa-dosanya yang telah lalu diampuni",
       },
     ],
@@ -225,15 +170,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Setelah wudu",
         when: "Segera setelah selesai berwudu",
-        translation:
-          "Aku bersaksi bahwa tidak ada tuhan selain Allah semata, tidak ada sekutu bagi-Nya, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya.",
         reference: "Sahih Muslim 234",
       },
       {
         title: "Sebelum salam dalam salat",
         when: "Pada tasyahud akhir, sebelum mengakhiri salat",
-        translation:
-          "Ya Allah, aku berlindung kepada-Mu dari azab Jahanam, dari azab kubur, dari fitnah kehidupan dan kematian, dan dari keburukan fitnah Al-Masih Dajjal.",
         reference: "Sahih al-Bukhari 1377; Sahih Muslim 588",
       },
     ],
@@ -250,17 +191,10 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa setelah azan",
         when: "Ketika azan selesai",
-        translation:
-          "Ya Allah, Tuhan pemilik seruan yang sempurna ini dan salat yang akan didirikan, berikanlah kepada Muhammad al-Wasilah dan al-Fadhilah, dan bangkitkanlah dia pada kedudukan terpuji yang telah Engkau janjikan kepadanya.",
         reference: "Sahih al-Bukhari 614",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Doa yang dipanjatkan antara azan dan ikamah tidak akan ditolak. (Anas bin Malik; juga at-Tirmidzi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Doa azan & salat" }, { label: "Pustaka zikir" }],
   },
 
@@ -276,14 +210,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa untuk kecemasan dan duka",
         when: "Saat gelisah, khawatir, atau dilanda kesedihan berat",
-        translation:
-          "Ya Allah, aku berlindung kepada-Mu dari rasa cemas dan sedih, dari kelemahan dan kemalasan, dari sifat kikir dan pengecut, dari lilitan utang, dan dari tekanan orang lain.",
         reference: "Sahih al-Bukhari 6369 (Anas ibn Malik)",
       },
       {
         title: "Cukuplah Allah bagi kami",
         when: "Ketika takut atau merasa tertekan",
-        translation: "Cukuplah Allah bagi kami, dan Dia sebaik-baik pelindung.",
         reference: "Qur'an 3:173 — ucapan orang-orang beriman ketika diancam",
       },
     ],
@@ -300,8 +231,6 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa untuk kesembuhan",
         when: "Saat sakit, atau saat mendoakan orang yang sakit",
-        translation:
-          "Ya Allah, Tuhan manusia, hilangkanlah penyakit ini dan berilah kesembuhan — Engkaulah Sang Penyembuh; tidak ada kesembuhan kecuali kesembuhan dari-Mu — kesembuhan yang tidak meninggalkan penyakit.",
         reference: "Sahih al-Bukhari 5743; Sahih Muslim 2191 ('Aishah)",
       },
     ],
@@ -318,13 +247,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Tobat yang terus-menerus",
         when: "Berulang-ulang, sepanjang hari",
-        translation: "Aku memohon ampunan Allah dan bertobat kepada-Nya.",
         reference: "Sahih al-Bukhari 6307 — Nabi ﷺ memohon ampunan lebih dari 70 kali sehari",
       },
       {
         title: "Doa hati yang teguh",
         when: "Saat khawatir tersesat atau goyah",
-        translation: "Wahai Yang membolak-balikkan hati, teguhkanlah hatiku di atas agama-Mu.",
         reference: "Jami' at-Tirmidhi 2140 (hasan) — sumpah dan doa beliau yang paling sering",
       },
     ],
@@ -341,14 +268,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa saat memulai perjalanan",
         when: "Saat menaiki kendaraan dan berangkat",
-        translation:
-          "Mahasuci Zat yang telah menundukkan ini untuk kami, padahal kami sebelumnya tidak mampu menguasainya; dan sesungguhnya kami akan kembali kepada Tuhan kami.",
         reference: "Qur'an 43:13–14 (redaksinya); Sahih Muslim 1342 (amalan perjalanan Nabi ﷺ)",
       },
       {
         title: "Doa saat hujan turun",
         when: "Pada awal turunnya hujan",
-        translation: "Ya Allah, jadikanlah ia hujan yang bermanfaat.",
         reference: "Sahih al-Bukhari 1032 ('Aishah)",
       },
     ],
@@ -361,18 +285,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       "Rezeki hanya berasal dari Allah semata; seorang mukmin mengikat untanya — yakni bekerja dan berusaha — lalu memohon kepada Sang Pemberi Rezeki akan rezeki yang halal, keberkahan dalam apa yang ia peroleh, terbebas dari utang, serta tidak bergantung pada orang lain. Nabi ﷺ mengajarkan doa yang indah yang memohon persis hal ini.",
       "Untuk rumah tangga, Al-Qur'an sendiri mengajarkan doa orang-orang saleh: agar dikaruniai pasangan dan keturunan yang menjadi 'penyejuk mata,' serta memimpin rumah tangga yang terikat oleh iman, salat, dan kasih sayang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya Tuhan kami, anugerahkanlah kepada kami pasangan dan keturunan kami sebagai penyejuk mata, dan jadikanlah kami pemimpin bagi orang-orang yang bertakwa.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Doa rezeki yang halal",
         when: "Pagi hari, setelah salat, dan saat kesulitan finansial",
-        translation:
-          "Ya Allah, cukupkanlah aku dengan yang halal dari-Mu sehingga tidak butuh yang haram, dan kayakanlah aku dengan karunia-Mu sehingga tidak butuh selain-Mu.",
         reference: "Jami' at-Tirmidhi 3563 (hasan) ('Ali ibn Abi Talib)",
       },
     ],
@@ -391,15 +308,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Kebaikan di dua alam",
         when: "Doa umum untuk segala keperluan — yang paling sering dibaca Nabi ﷺ",
-        translation:
-          "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari siksa neraka.",
         reference: "Qur'an 2:201 (doa yang paling sering dibaca Nabi ﷺ — Sahih al-Bukhari 6389)",
       },
       {
         title: "Keteguhan dalam iman",
         when: "Saat khawatir menyimpang atau setelah mendapat petunjuk",
-        translation:
-          "Ya Tuhan kami, janganlah Engkau condongkan hati kami kepada kesesatan sesudah Engkau beri petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi-Mu. Sesungguhnya Engkaulah Maha Pemberi.",
         reference: "Qur'an 3:8",
       },
     ],
@@ -416,8 +329,6 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Doa menyeluruh empat perkara",
         when: "Doa harian yang umum",
-        translation:
-          "Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian diri, dan kecukupan.",
         reference: "Sahih Muslim 2721 (Ibn Mas'ud)",
       },
     ],
@@ -434,13 +345,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Kalimat yang dicintai dan penghapus dosa",
         when: "Sepanjang hari; 100 kali menghapus dosa",
-        translation: "Mahasuci Allah dan segala puji bagi-Nya.",
         reference: "Sahih al-Bukhari 6405; Sahih Muslim 2691",
       },
       {
         title: "Dua kalimat yang berat dalam timbangan",
         when: "Kapan saja",
-        translation: "Mahasuci Allah dan segala puji bagi-Nya; Mahasuci Allah Yang Mahaagung.",
         reference:
           "Sahih al-Bukhari 6406; Sahih Muslim 2694 — ringan di lisan, berat dalam timbangan",
       },
@@ -454,18 +363,11 @@ export const LEARN_DUA_TOPICS_ID: DeepPartial<LearnDuaTopic>[] = [
       "Mengirimkan selawat kepada Nabi ﷺ diperintahkan langsung oleh Allah dalam Al-Qur'an — 'Sesungguhnya Allah dan malaikat-malaikat-Nya bersalawat untuk Nabi; wahai orang-orang yang beriman, bersalawatlah kalian untuk Nabi dan ucapkanlah salam penghormatan kepadanya' — dan tidak ada doa lain yang memberikan balasan sepasti ini: Nabi ﷺ bersabda bahwa siapa yang bersalawat sekali kepadanya, Allah akan bersalawat sepuluh kali kepada orang itu.",
       "Memperbanyak selawat mendatangkan rahmat, mengangkat derajat, menghapus dosa, dan membuat seseorang paling dekat dengan Nabi ﷺ pada hari kiamat. Bentuk lengkap Ibrahimiyyah di bawah ini — yang diajarkan beliau kepada para sahabat ketika mereka bertanya bagaimana cara bersalawat kepadanya — dibaca dalam tasyahud setiap salat dan sangat baik untuk selalu diucapkan sepanjang hari.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah dan malaikat-malaikat-Nya bersalawat untuk Nabi. Wahai orang-orang yang beriman, bersalawatlah kalian untuk Nabi dan ucapkanlah salam penghormatan kepadanya.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Selawat Ibrahimiyyah lengkap",
         when: "Dalam tasyahud salat dan sepanjang hari",
-        translation:
-          "Ya Allah, limpahkanlah selawat kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau telah melimpahkan selawat kepada Ibrahim dan keluarga Ibrahim; sesungguhnya Engkau Maha Terpuji lagi Maha Mulia. Ya Allah, limpahkanlah berkah kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau telah melimpahkan berkah kepada Ibrahim dan keluarga Ibrahim; sesungguhnya Engkau Maha Terpuji lagi Maha Mulia.",
         reference: "Sahih al-Bukhari 3370; Sahih Muslim 406 (Ka'b ibn 'Ujrah)",
       },
     ],

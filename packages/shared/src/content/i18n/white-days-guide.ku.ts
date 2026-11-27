@@ -1,121 +1,80 @@
 import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-// ku overlay for white-days-guide. Index-aligned with WHITE_DAYS_GUIDE_TOPICS in ../white-days-guide.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
+// Kurdish (Sorani) translation overlay for the Learn White Days guide. Mirrors the order
+// of WHITE_DAYS_GUIDE_TOPICS in ../white-days-guide.ts (index-aligned); untranslated
+// entries fall back to English. Only human-readable text is translated — ids, routes,
+// surah/ayah numbers, collections, citations and grades stay in the English source.
 export const WHITE_DAYS_GUIDE_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Rojên Spî çi ne?",
-    summary: "13, 14 û 15ê her meha Hicrî - şevên geş û bi heyvê.",
+    title: "ڕۆژە سپییەکان چین؟",
+    summary: "ڕۆژانی 13، 14 و 15ی هەموو مانگێکی کۆچی — شەوە ڕووناک و مانگەشەوەکان.",
     body: [
-      "Eyyam el-Bîḍ, 'Rojên Spî', 13, 14 û 15'ê her meha Îslamî (Hicrî) ye. ",
-      "Rojîgirtina sê rojên her mehê sunneta Pêxember (s.a.a) ye û rojên spî jî sê roj in. ",
-      "Ji ber ku meha Hicrî li pey heyvê ye, ev sê roj her meh di salnameya mîladî de derbas dibin û li gorî dema dîtina heyva nû li herêma we dikare rojek zûtir an dereng dest pê bike. ",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rojîgirtina sê rojên her mehê rojîgirtina ji bo jiyanê ye û rojên Spî (Eyyam el-Bîḍ) sêzdeh, çardeh û panzdehemîn in.",
-      },
+      "ئەییامی بیض، «ڕۆژە سپییەکان»، ڕۆژانی 13، 14 و 15ی هەموو مانگێکی ئیسلامی (کۆچی)ن. پێیان دەوترێت «سپی» چونکە شەوەکانیان ڕووناکن: مانگ چواردەیە یان نزیکی چواردەیە و زۆربەی شەو ڕووناک دەمێنێتەوە، بۆیە شەوەکان خۆیان بە تیشکی مانگ سپی دەردەکەون.",
+      "ڕۆژووگرتنی سێ ڕۆژ لە هەر مانگێکدا سوننەتێکی جەختکراوی پێغەمبەرە ﷺ، و ڕۆژە سپییەکان ئەو سێ ڕۆژە پەسەندکراوەن. جەریری کوڕی عەبدوڵڵا گێڕاویەتییەوە کە پێغەمبەر ﷺ فەرموویەتی: «Fasting three days of each month is fasting for a lifetime, and the White Days (Ayyām al-Bīḍ) are the thirteenth, fourteenth and fifteenth» (واتای ئینگلیزی) (سونەنی نەسائی 2420).",
+      "لەبەر ئەوەی مانگی کۆچی شوێن مانگ دەکەوێت، ئەم سێ ڕۆژە هەموو مانگێک لە ساڵنامەی زایینیدا دەجووڵێن و دەکرێت ڕۆژێک زووتر یان درەنگتر دەست پێبکەن، بەپێی ئەوەی کەی مانگی نوێ لە ناوچەکەتدا بینراوە. ئەم ئەپە لە ساڵنامە کۆچییەکەی خۆیەوە هەژماریان دەکات، بۆیە هەمیشە دەزانیت دەکەونە چ بەروارێک.",
     ],
     actions: [
-      "Dîtina qonaxa heyvê vekin da ku bibînin ka rojên Spî yên vê mehê kengê dikeve.",
-      "Bala xwe bidin sê tarîxan da ku hûn li dora wan suhûr û fitarê plan bikin.",
+      "پیشاندەری قۆناغەکانی مانگ بکەرەوە بۆ ئەوەی ببینیت ڕۆژە سپییەکانی ئەم مانگە کەین.",
+      "سێ بەروارەکە بنووسەرەوە تا بتوانیت پارشێو و بەربانگیان بۆ ڕێکبخەیت.",
     ],
     disclaimer:
-      "Dîrokên rast bi meha Hicrî ve girêdayî ye, ku li gorî dîtina heyvê ji herêm bi herêm ve tê guhertin. ",
+      "بەروارە وردەکان بەستراون بە مانگی کۆچییەوە، کە بەپێی بینینی مانگ لە ناوچەیەکەوە بۆ ناوچەیەکی تر جیاوازە. شوێن بینینی متمانەپێکراوی ناوخۆ یان ساڵنامەی کۆمەڵگاکەت بکەوە؛ بەروارەکانی ئەپەکە ڕێنماییە، نەک فەتوا.",
   },
   {
-    title: "Mîna rojiya jiyanê",
-    summary: "Her meh sê roj xelata rojiyê ya tevahiya salê digire.",
+    title: "وەک ڕۆژووگرتنی هەموو تەمەن",
+    summary: "سێ ڕۆژ لە هەر مانگێکدا پاداشتی ڕۆژووگرتنی هەموو ساڵی هەیە.",
     body: [
-      "Pêxember (s.a.a) xelata xwe bi prensîba Qur’anê ku Xweda qenciyekê bi deh qatan zêde dike rave kiriye: “Kî bi qencîyekê bê, deh qatan jê re ye” (Qur’an 6:160). ",
-      "Ebdullah îbn Emr radigihîne ku Pêxember (s.a.a) jê re gotiye: “Ji bo te girtina sê rojan ji mehekê bes e, ji ber ku xelata qenciyê deh qat zêde dibe, lewra ew ê bibe wek rojiya tevahiya salê.” (Sahih el-Buxarî 1975). ",
-      "Ji ber vê ye ku sê rojên nefsbiçûkî yên ku bi berdewamî têne girtin, ew qas hezkirî ne: Ew li ser bedenê sivik in, lê bi xêra Xwedê, wekî jiyanek rojîgirtinê têne giran kirin. ",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Kî bi qencîyek hatibe deh qatan wekê wê jê re û yê ku bi qenciyekê hatibe, ji xeynî wê qenciyê nayê celatkirin. ",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ji we re bes e ku hûn di mehekê de sê rojan rojî bigirin, ji ber ku xelata qenciyekê deh qat tê zêdekirin, lewra ew jî wekî rojiya salê ye.",
-      },
-      {
-        excerpt: "Rojiya sê rojan (mehê) bi rojiya tevahiya salê re ye.",
-      },
+      "پێغەمبەر ﷺ پاداشتەکەی بەو بنەما قورئانییە ڕوون کردەوە کە خوا کردەوەی چاک دە هێندە دەکات: «ئه‌وه‌ی به‌یه‌ک خێرو چاکه‌وه هاتبێت ئه‌وه ده چه‌ندانه‌ی چاکه‌که پاداشتی بۆ هه‌یه‌…» (قورئان 6:160). بۆیە ڕۆژووگرتنی سێ ڕۆژ لە مانگێکدا وەک ئەوە هەژمار دەکرێت کە سی ڕۆژت بە ڕۆژوو بووبیت — مانگێکی تەواو — و بە درێژایی ساڵ ئەوە پاداشتی ڕۆژووگرتنی هەموو ڕۆژێکە.",
+      "عەبدوڵڵای کوڕی عەمر گێڕاویەتییەوە کە پێغەمبەر ﷺ پێی فەرموو: «It is sufficient for you to fast three days in a month, for the reward of a good deed is multiplied ten times, so it will be like fasting the whole year» (واتای ئینگلیزی) (صەحیحی بوخاری 1975). لە دەربڕینێکی تردا: «Fasting three days a month is equal to fasting the whole year» (واتای ئینگلیزی) (صەحیحی بوخاری 1979).",
+      "هەر بۆیە سێ ڕۆژی سادە، کە بە بەردەوامی بگیرێن، ئەوەندە خۆشەویستن: بۆ جەستە سووکن، بەڵام بە بەخشندەیی خوا بە ڕۆژووی هەموو تەمەن دەکێشرێن. ڕۆژە سپییەکان تەنها ئەو سێ ڕۆژەن کە سوننەت هەڵیبژاردوون.",
     ],
     actions: [
-      "Ji bo xatirê Xwedê niyeta xwe ji şeva berê nû bikin, li xelata Wî bigerin.",
-      "Armanc ji bo domdariyê: sê rojên nerm her mehê li şûna teqînan ku hûn nekarin bidomînin.",
+      "شەوی پێشتر نیەتەکەت نوێ بکەرەوە — لە پێناو خوادا و بە هیوای پاداشتەکەی.",
+      "بەردەوامی بکە بە ئامانج: سێ ڕۆژی سادە لە هەر مانگێکدا، نەک هەڵمەتی کورت کە ناتوانیت بەردەوامیان پێبدەیت.",
     ],
   },
   {
-    title: "Rojên Spî çawa rojiyê digirin",
-    summary: "Niyet, rojî wek her rojek dilxwazî ​​ye, di rojên 13, 14 û 15 de.",
+    title: "چۆن ڕۆژووی ڕۆژە سپییەکان بگریت",
+    summary: "نیەت، و هەمان ڕۆژووی هەر ڕۆژێکی سوننەت، لە ڕۆژانی 13، 14 و 15دا.",
     body: [
-      "Rojên Spî tam wek rojên din rojî tê girtin: dûrketina ji xwarin, vexwarin û têkiliyên zewacê ji berbanga sibeha rast (Fecrê) heya rojava (Mexribê), bi mebesta rojîgirtineke dilxwaz. ",
-      "Resûlê Xuda [dirûd û silavên Xuda lê bin] bi navê wan ferman li rojiyê dikir. ",
-      "Ger hûn nikaribin her sêyan jî rojî bigirin - ji ber rêwîtî, nexweşî an rojek ku we bêyî niyeta rojiyê dest pê kiriye - çi ji destê we tê rojî bigirin; ",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Resûlê Xuda [dirûd û silavên Xuda lê bin] ferman dikir ku em rojên Spî rojî bigirin: sêzdeh, çardeh û panzdehê mehê. ",
-      },
-      {
-        excerpt:
-          "Dema ku hûn dixwazin di mehekê de sê rojan rojî bigirin, hingê sêzdeh, çardeh û panzdeh rojî bigirin.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Gelî ewanê ku we bawer kirîye, rojî li ser we jî hatîye ferz kirin, wekî ku li ser yên berî we hatîye ferz kirin, ji bo ku hûn qenc bibin.",
-      },
+      "ڕۆژە سپییەکان ڕێک وەک هەر ڕۆژێکی تر بە ڕۆژوو دەبن: خۆگرتنەوە لە خواردن، خواردنەوە و پەیوەندیی هاوسەری لە بەرەبەیانی ڕاستەقینەوە (بەیانی) تا ئاوابوونی خۆر (ئێوارە)، بە نیەتی ڕۆژوویەکی سوننەت. هیچ دوعا یان ڕێوڕەسمێکی تایبەت بەوانەوە نییە — نیەتی ڕۆژووگرتن لە پێناو خوادا بەسە.",
+      "پێغەمبەری خوا ﷺ بە ناوەوە فەرمانی بە ڕۆژووگرتنیان دەکرد. ئیبن میلحانی قەیسی لە باوکییەوە گێڕاویەتییەوە: «The Messenger of Allah ﷺ used to command us to fast the White Days: the thirteenth, fourteenth and fifteenth of the month», و فەرمووی: «This is like fasting perpetually» (واتای ئینگلیزی) (سونەنی ئەبو داود 2449). ئەبو زەڕ گێڕاویەتییەوە کە پێغەمبەر ﷺ پێی فەرموو: «When you wish to fast three days in a month, then fast the thirteenth, fourteenth and fifteenth» (واتای ئینگلیزی) (جامیعی تیرمیزی 761).",
+      "ئەگەر نەتوانیت هەر سێکیان بە ڕۆژوو بیت — بەهۆی سەفەر، نەخۆشی، یان ڕۆژێک کە بێ نیەتی ڕۆژوو دەستت پێکردبوو — ئەوەی دەتوانیت بیگرە؛ تەنانەت یەک یان دوو ڕۆژیشیان پاداشتە چەندهێندەکراوەکەی هەیە. ڕۆژووی سوننەت دەکرێت بە نیەتێک دەست پێبکرێت کە لە کاتی بەیانیدا هێنراوە، بە مەرجێک هیچت نەخواردبێت. هەروەها ئافرەت لە کاتی سووڕی مانگانەدا ڕۆژوو ناگرێت؛ تەنها لەو مانگانەدا کە دەتوانێت سوننەتەکە دەستپێدەکاتەوە، و هیچ قەزایەک پێویست نییە بۆ ڕۆژووە سوننەتەکانی کە بەو هۆیەوە لەدەستی چوون.",
     ],
     actions: [
-      "Niyet bikin ku rojiyên Spî ji bo Xwedê bigerin û li xelata Wî bigerin.",
-      "Tiştê ku hûn dikarin zû bikin - yek an du roj hîn jî xelata deh qat hildigirin ger her sê jî ne mumkin bin.",
-      "Ji bo ku hûn di rojên 13, 14 û 15-ê de di wextê xwe de şiyar bibin, bîranînek suhûrê saz bikin.",
+      "نیەتی ڕۆژووی ڕۆژە سپییەکان بهێنە لە پێناو خوادا، بە هیوای پاداشتەکەی.",
+      "ئەوەی دەتوانیت بیگرە — یەک یان دوو ڕۆژیش پاداشتی دە هێندەیان هەیە ئەگەر هەر سێکیان نەکرا.",
+      "بیرخەرەوەیەکی پارشێو دابنێ تا لە ڕۆژانی 13، 14 و 15دا لە کاتی خۆیدا هەستیت.",
     ],
     disclaimer:
-      "Rêzikên hevgirtina rojiya dilxwazî ​​bi rojiya makyajê (qaza) re, û gelo yek niyet têrê dike, pirsên fiqhê yên berfireh in ku li gorî dibistanê ji hev cuda ne. ",
+      "یاساکانی کۆکردنەوەی ڕۆژووی سوننەت لەگەڵ ڕۆژووی قەزا، و ئایا یەک نیەت بەسە یان نا، پرسیاری فیقهیی وردن کە بەپێی مەزهەب جیاوازن. ئەمە ناوەڕۆکێکی فێرکارییە، نەک فەتوا.",
   },
   {
-    title: "Beşek ji sunneta fireh a rojiyê",
-    summary: "Rojên Spî li kêleka Duşem, Pêncşem û rojiyên din ên hezkirî rûdinin.",
+    title: "بەشێک لە سوننەتی فراوانتری ڕۆژوو",
+    summary: "ڕۆژە سپییەکان لە پاڵ دووشەممە، پێنجشەممە و ڕۆژووە خۆشەویستەکانی تردان.",
     body: [
-      "Rojên Spî yek rê ye ku Pêxember (s.a.a) rojiya xwe ya sê rojî ya mehane girtiye, lê ew ne tenê rojiya dilxwazî ​​ya ku tê pêşniyar kirin in. ",
-      "Hin kes tercîh dikin ku sê rojên xwe yên mehê roja duşem û pêncşemê li şûna 13-15-ê bihêlin, û ew jî sunneta sê rojên mehê pêk tîne. ",
-      "Nimûneya ku hûn dikarin bidomînin hilbijêrin. ",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Li ser rojiya roja duşemê ji Resûlê Xuda [dirûd û silavên Xuda lê bin] hate pirsîn. ",
-      },
+      "ڕۆژە سپییەکان یەکێکن لەو ڕێگایانەی پێغەمبەر ﷺ ڕۆژووی سێ ڕۆژەی مانگانەی پێ دەگرت، بەڵام تاکە ڕۆژووی سوننەتی پەسەندکراو نین. ئەو ﷺ زۆرجار دووشەممە و پێنجشەممەشی بە ڕۆژوو دەبوو. کاتێک پرسیاری لێکرا دەربارەی ڕۆژووی دووشەممە، فەرمووی: «On it I was born, and on it revelation was sent down to me» (واتای ئینگلیزی) (صەحیحی موسلیم 1162e).",
+      "هەندێک کەس پێیان باشترە سێ ڕۆژە مانگانەکەیان لە دووشەممە و پێنجشەممەدا بگرن لە جیاتی 13–15، و ئەوەش سوننەتی سێ ڕۆژ لە مانگێکدا جێبەجێ دەکات. هەندێکی تر هەرکات توانیان هەردووکیان کۆدەکەنەوە. ئامانج خوویەکی جێگیر و دڵسۆزانەی ڕۆژووی سوننەتە، نەک فۆرمولێکی ڕەق.",
+      "ئەو شێوازە هەڵبژێرە کە دەتوانیت بەردەوامی پێبدەیت. ئەگەر ڕۆژە سپییەکان لەگەڵ مانگەکەت دەگونجێن، لێرە بەدواداچوونیان بۆ بکە؛ ئەگەر دووشەممە و پێنجشەممە ئاسانترن، ئەوانە بگرە. ئەوەی خوا زیاتر لە هەموو شتێک خۆشی دەوێت کردەوەیەکە کە بە بەردەوامی بکرێت، هەرچەندە بچووکیش بێت.",
     ],
     actions: [
-      "Nimûneyek domdar hilbijêrin: Rojên Spî, an Duşem û Pêncşem, an her du.",
-      "Bidomîne - karekî piçûk ku bi rêkûpêk tê kirin, li cem Xwedê hezkirî ye.",
+      "شێوازێکی بەردەوام هەڵبژێرە: ڕۆژە سپییەکان، یان دووشەممە و پێنجشەممە، یان هەردووکیان.",
+      "بەردەوامی پێبدە — کردەوەیەکی بچووک کە بە ڕێکی بکرێت لای خوا خۆشەویستە.",
     ],
   },
   {
-    title: "Rojên Spî li Munibê bişopînin",
-    summary: "Bîranînek mehane li ser ekrana malê û navnîşek kontrolê ya sê-rojî ya hêsan.",
+    title: "بەدواداچوونی ڕۆژە سپییەکان لە مونیبدا",
+    summary: "بیرخەرەوەیەکی مانگانە لەسەر شاشەی سەرەکی و لیستێکی سادەی سێ ڕۆژە.",
     body: [
-      "Munib her meha Hicrî rojên Spî ji salnameya xwe ya heyvê derdixe. ",
-      "Di her sê rojan de şopgerê vekin da ku rojiya Roja Spî wekî ku hatiye kirin nîşan bidin. ",
-      "Bîranînê wekî bargiraniyê bikar bînin, rojiyê ji bo Xwedê bikin niyeta xwe û bihêlin ku şopger ji we re bibe alîkar ku hûn meh bi meh sunnetê zindî bihêlin.",
+      "مونیب ڕۆژە سپییەکانی هەر مانگێکی کۆچی لە ساڵنامەی مانگیی خۆیەوە هەژمار دەکات. لە ڕۆژانی 13، 14 و 15دا بیرخەرەوەیەکی نەرم لە «ئامانجی ئەمڕۆ»دا لەسەر شاشەی سەرەکی دەبینیت، هەر بەو شێوەیەی هەینی و جومعە دیار دەخرێن.",
+      "لە هەر کام لەو سێ ڕۆژەدا شوێنپێهەڵگرەکە بکەرەوە بۆ ئەوەی ڕۆژووی ڕۆژی سپی وەک کراو نیشان بکەیت. لیستەکەت تایبەتە بە مانگی کۆچیی ئێستا، بۆیە هەر مانگێک لە سەرەتاوە دەست پێدەکات و کاتێک چوویتە ژوورەوە پێشکەوتنەکەت لە نێوان ئامێرەکانتدا هاوکات دەبێت.",
+      "بیرخەرەوەکە وەک پاڵنەرێک بەکاربهێنە، نەک بارێکی قورس — نیەتی ڕۆژووەکە لە پێناو خوادا بهێنە، و با شوێنپێهەڵگرەکە یارمەتیت بدات سوننەتەکە مانگ لە دوای مانگ زیندوو ڕابگریت.",
     ],
     actions: [
-      "Gava ku hûn rojiyê didin wan, 13-an, 14-an û 15-an di şopgerê de nîşan bikin.",
-      "Bila bîranîna malê her meh sunnetê li ser radara we bigire.",
+      "کاتێک ڕۆژانی 13، 14 و 15 بە ڕۆژوو دەبیت، لە شوێنپێهەڵگرەکەدا نیشانیان بکە.",
+      "با بیرخەرەوەی شاشەی سەرەکی هەموو مانگێک سوننەتەکەت بیر بخاتەوە.",
     ],
-    appLinks: [{ label: "Şopgerê veke" }, { label: "Qonaxên heyvê bibîne" }],
+    appLinks: [{ label: "کردنەوەی شوێنپێهەڵگر" }, { label: "بینینی قۆناغەکانی مانگ" }],
   },
 ];

@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     minHeight: 56,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   copy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     paddingEnd: Spacing.two,
   },
   checkPlaceholder: {

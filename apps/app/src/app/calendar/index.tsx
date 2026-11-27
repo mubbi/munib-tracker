@@ -4,6 +4,7 @@ import {
   aggregateByDate,
   type DayActivity,
   getLocalDateString,
+  matchesEnabledKinds,
 } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -19,19 +20,25 @@ import {
 } from "react-native";
 import { CalendarDayPanel } from "@/components/calendar-day-panel";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
+import { HijriAdjustLink } from "@/components/hijri/hijri-adjust-link";
+import {
+  MonthGrid,
+  type MonthGridCell,
+  MonthGridHeader,
+  MonthGridLegend,
+  type MonthGridMarker,
+} from "@/components/hijri/month-grid";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
-import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { PrayerRepository } from "@/db";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
+import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   buildHijriMonthGrid,
@@ -47,8 +54,14 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { fastingCalendarContext, fastingDaysForRange } from "@/lib/voluntary-fasting";
 import { isTypingTarget } from "@/lib/web/is-typing-target";
 import { useLocation } from "@/stores/location-store";
+import { usePreferences } from "@/stores/preferences-store";
+import {
+  useEnsureVoluntaryFastingLoaded,
+  useVoluntaryFastingEntries,
+} from "@/stores/voluntary-fasting-store";
 
 /** Stable empty list so row-edge guides stay tvOS-selectable without re-setting on render. */
 const NO_DESTINATIONS: ViewInstance[] = [];
@@ -81,7 +94,7 @@ export default function CalendarScreen() {
    * Desktop / wide web: a large month grid with the selected day's checklist in
    * a side panel (edited in place) instead of navigating to `/calendar/[date]`.
    */
-  const twoPane = !tv && width >= 1024;
+  const twoPane = !tv && width >= Breakpoints.wide;
   const [selectedDate, setSelectedDate] = useState(() => getLocalDateString());
   // TV row-wrap: day-cell host nodes + invisible edge guides per week row.
   const cellRefs = useRef(new Map<string, ViewInstance | null>());
@@ -103,11 +116,36 @@ export default function CalendarScreen() {
   );
 
   const today = getLocalDateString();
+  // D14: a Hijri correction moves month boundaries — rebuild the grid when it changes.
+  const hijriAdjustment = useHijriAdjustment();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
   const weeks = useMemo(
     () =>
       mode === "hijri" ? buildHijriMonthGrid(hYear, hMonth, today) : buildMonthGrid(year, month),
-    [mode, hYear, hMonth, year, month, today],
+    [mode, hYear, hMonth, year, month, today, hijriAdjustment],
   );
+
+  // NF-3.2: fasting ruling dots — a recommended fast the user follows, or a day
+  // fasting is not allowed (Eid / Tashriq). Missed-salah dots take precedence.
+  const fastingPrefs = usePreferences();
+  useEnsureVoluntaryFastingLoaded();
+  const fastingEntries = useVoluntaryFastingEntries();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
+  const fastRulings = useMemo(() => {
+    const dates = weeks.flat().map((day) => day.date);
+    const map = new Map<string, "recommended" | "prohibited">();
+    if (dates.length === 0) return map;
+    const ctx = fastingCalendarContext(fastingPrefs, fastingEntries);
+    for (const { date, classification } of fastingDaysForRange(
+      dates[0] as string,
+      dates[dates.length - 1] as string,
+      ctx,
+    )) {
+      if (classification.blocking) map.set(date, "prohibited");
+      else if (matchesEnabledKinds(classification, ctx.prefs)) map.set(date, "recommended");
+    }
+    return map;
+  }, [weeks, fastingPrefs, fastingEntries, hijriAdjustment]);
 
   // TV: D-pad past the end of a week wraps to the next week's first selectable
   // day (and before its start to the previous week's last one). Edge guides
@@ -145,19 +183,40 @@ export default function CalendarScreen() {
   const weekdays = localizedWeekdayInitials(i18n.language ?? "en");
 
   // Localized, screen-reader-friendly label for a day cell: the full date in the
-  // active calendar plus its worship status (prayed / partial / missed / today).
+  // active calendar plus its worship status (prayed / partial / missed / today)
+  // and its fasting ruling, so nothing depends on the marker glyphs.
   const describeDay = (date: string, isToday: boolean) => {
     const parsed = new Date(`${date}T00:00:00`);
     const dateText = formatCalendarDate(parsed, mode, locale, undefined, location.timeZone);
     const info = activity.get(date);
-    let statusText: string | null;
-    if (date > today) statusText = t("calDay.futureSubtitle");
-    else if ((info?.level ?? 0) >= 1) statusText = t("calendar.prayed");
-    else if ((info?.level ?? 0) > 0) statusText = t("calendar.partial");
-    else if ((info?.missed ?? 0) > 0) statusText = t("calendar.missed");
-    else statusText = null; // past/current day with no logged worship yet
-    const todayPrefix = isToday ? `${t("calDay.today")}, ` : "";
-    return statusText ? `${todayPrefix}${dateText}, ${statusText}` : `${todayPrefix}${dateText}`;
+    const parts: string[] = [dateText];
+    if (date > today) parts.push(t("calDay.futureSubtitle"));
+    else if ((info?.level ?? 0) >= 1) parts.push(t("calendar.prayed"));
+    else if ((info?.level ?? 0) > 0) parts.push(t("calendar.partial"));
+    else if ((info?.missed ?? 0) > 0) parts.push(t("calendar.missed"));
+    const ruling = fastRulings.get(date);
+    if (ruling === "prohibited") parts.push(t("voluntaryFasting.calendar.prohibited"));
+    else if (ruling === "recommended") parts.push(t("voluntaryFasting.calendar.recommended"));
+    return isToday ? `${t("calDay.today")}, ${parts.join(", ")}` : parts.join(", ");
+  };
+
+  /** Fill level (3 discrete steps) + up to two glyph markers for one day. */
+  const cellFor = (day: (typeof weeks)[number][number]): MonthGridCell => {
+    const info = activity.get(day.date);
+    const level = info?.level ?? 0;
+    const markers: MonthGridMarker[] = [];
+    if ((info?.missed ?? 0) > 0) markers.push("missed");
+    const ruling = fastRulings.get(day.date);
+    if (ruling === "prohibited") markers.push("prohibited");
+    else if (ruling === "recommended") markers.push("recommended");
+    const disabled = !day.inMonth || day.isFuture;
+    return {
+      fill: level >= 1 ? 3 : level >= 0.5 ? 2 : level > 0 ? 1 : 0,
+      markers,
+      disabled,
+      selected: twoPane && day.date === selectedDate,
+      accessibilityLabel: describeDay(day.date, day.isToday),
+    };
   };
 
   const shift = (delta: number) => {
@@ -253,159 +312,76 @@ export default function CalendarScreen() {
     />
   );
 
+  const viewingCurrentMonth =
+    mode === "hijri"
+      ? hYear === todayHijri.year && hMonth === todayHijri.month
+      : year === now.getFullYear() && month === now.getMonth();
+
+  const goToday = () => {
+    setYear(now.getFullYear());
+    setMonth(now.getMonth());
+    setHYear(todayHijri.year);
+    setHMonth(todayHijri.month);
+    if (twoPane) setSelectedDate(today);
+  };
+
   const monthCard = (
-    <Card padding="three">
-      <View style={styles.header}>
-        <NavButton
-          icon={chevronBackward}
-          label={t("calendar.prevMonth")}
-          onPress={() => shift(-1)}
-        />
-        <PressableScale
-          haptic="light"
-          accessibilityRole="button"
-          accessibilityLabel={t("calendar.pickMonthYear")}
-          onPress={() => setPickerOpen(true)}
-          style={styles.monthLabelButton}
-        >
-          <ThemedText
-            type="subtitle"
-            numberOfLines={1}
-            adjustsFontSizeToFit
-            minimumFontScale={0.85}
-            style={styles.monthLabelText}
-          >
-            {label}
-          </ThemedText>
-          <SymbolView
-            name={{
-              ios: "chevron.down",
-              android: "keyboard_arrow_down",
-              web: "keyboard_arrow_down",
-            }}
-            size={14}
-            tintColor={colors.mutedForeground}
-          />
-        </PressableScale>
-        <NavButton icon={chevronForward} label={t("calendar.nextMonth")} onPress={() => shift(1)} />
-      </View>
-
-      <View style={styles.weekRow}>
-        {weekdays.map((weekday) => (
-          <View key={weekday.key} style={styles.cell}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {weekday.label}
-            </ThemedText>
-          </View>
-        ))}
-      </View>
-
-      {weeks.map((week, weekIndex) => (
-        <View key={week[0]?.date} style={styles.weekRow}>
-          {tv ? (
-            <TvFocusGuide
-              ref={(node) => {
-                rowStartGuides.current[weekIndex] = node;
-              }}
-              destinations={NO_DESTINATIONS}
-              style={[styles.rowEdgeGuide, styles.rowEdgeGuideStart]}
-            />
-          ) : null}
-          {week.map((day) => {
-            const info = activity.get(day.date);
-            const level = info?.level ?? 0;
-            const hasMiss = (info?.missed ?? 0) > 0;
-            const fill =
-              level > 0
-                ? withAlpha(tokens.status.success.color, 0.2 + level * 0.55)
-                : "transparent";
-            const disabled = !day.inMonth || day.isFuture;
-            const isSelected = twoPane && day.date === selectedDate;
-
-            return (
-              <View key={day.date} style={styles.cell}>
-                <PressableScale
-                  ref={
-                    tv
-                      ? (node) => {
-                          cellRefs.current.set(day.date, node);
-                        }
-                      : undefined
-                  }
-                  // TV: start on today so the D-pad begins where the user is.
-                  {...(tv && day.isToday && !disabled ? { hasTVPreferredFocus: true } : {})}
-                  haptic="light"
-                  disabled={disabled}
-                  accessibilityRole="button"
-                  accessibilityLabel={describeDay(day.date, day.isToday)}
-                  accessibilityState={twoPane ? { disabled, selected: isSelected } : { disabled }}
-                  onPress={() =>
-                    twoPane
-                      ? selectDay(day.date)
-                      : router.push({
-                          pathname: "/calendar/[date]",
-                          params: { date: day.date, calendar: mode },
-                        })
-                  }
-                  style={[
-                    styles.dayCircle,
-                    tv ? styles.dayCircleTv : null,
-                    { backgroundColor: fill },
-                    // TV keeps the accent ring for D-pad focus only; today
-                    // gets a neutral inner ring (below) instead.
-                    day.isToday && !tv && { borderColor: colors.accent, borderWidth: 2 },
-                    twoPane && styles.dayCellWide,
-                    isSelected && { borderColor: colors.foreground, borderWidth: 2 },
-                  ]}
-                >
-                  {tv && day.isToday ? (
-                    <View style={[styles.todayRingTv, { borderColor: colors.foreground }]} />
-                  ) : null}
-                  <ThemedText
-                    type={(tv && day.isToday) || isSelected ? "smallBold" : "small"}
-                    style={{
-                      color: day.inMonth ? colors.foreground : colors.mutedForeground,
-                      opacity: disabled && !day.isToday ? 0.4 : 1,
-                    }}
-                  >
-                    {day.day}
-                  </ThemedText>
-                </PressableScale>
-                {hasMiss ? (
-                  <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
-                ) : (
-                  <View style={styles.dot} />
-                )}
-              </View>
-            );
-          })}
-          {tv ? (
-            <TvFocusGuide
-              ref={(node) => {
-                rowEndGuides.current[weekIndex] = node;
-              }}
-              destinations={NO_DESTINATIONS}
-              style={[styles.rowEdgeGuide, styles.rowEdgeGuideEnd]}
-            />
-          ) : null}
-        </View>
-      ))}
+    <Card>
+      <MonthGridHeader
+        label={label}
+        prevIcon={chevronBackward}
+        nextIcon={chevronForward}
+        prevLabel={t("calendar.prevMonth")}
+        nextLabel={t("calendar.nextMonth")}
+        pickLabel={t("calendar.pickMonthYear")}
+        onPrev={() => shift(-1)}
+        onNext={() => shift(1)}
+        onPick={() => setPickerOpen(true)}
+        todayLabel={viewingCurrentMonth ? undefined : t("calDay.today")}
+        onToday={goToday}
+      >
+        {mode === "hijri" ? <HijriAdjustLink year={hYear} month={hMonth} align="center" /> : null}
+      </MonthGridHeader>
+      <MonthGrid
+        weeks={weeks}
+        weekdays={weekdays}
+        cell={cellFor}
+        wide={twoPane}
+        cellRefs={cellRefs}
+        rowStartGuides={rowStartGuides}
+        rowEndGuides={rowEndGuides}
+        guideDestinations={NO_DESTINATIONS}
+        onPressDay={(day) =>
+          twoPane
+            ? selectDay(day.date)
+            : router.push({
+                pathname: "/calendar/[date]",
+                params: { date: day.date, calendar: mode },
+              })
+        }
+      />
     </Card>
   );
 
   const legendCard = (
-    <Card variant="muted" padding="three">
-      <View style={styles.legend}>
-        <LegendSwatch
-          color={withAlpha(tokens.status.success.color, 0.75)}
-          label={t("calendar.prayed")}
-        />
-        <LegendSwatch
-          color={withAlpha(tokens.status.success.color, 0.3)}
-          label={t("calendar.partial")}
-        />
-        <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
-      </View>
+    <Card variant="muted">
+      <MonthGridLegend
+        items={[
+          { key: "prayed", label: t("calendar.prayed"), fills: [3] },
+          { key: "partial", label: t("calendar.partial"), fills: [1, 2] },
+          { key: "missed", label: t("calendar.missed"), marker: "missed" },
+          {
+            key: "recommended",
+            label: t("voluntaryFasting.calendar.recommended"),
+            marker: "recommended",
+          },
+          {
+            key: "prohibited",
+            label: t("voluntaryFasting.calendar.prohibited"),
+            marker: "prohibited",
+          },
+        ]}
+      />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
         {tTv(t, "calendar.legendHint", "calendar.legendHintTv", {
           date: formatCalendarDate(
@@ -422,8 +398,8 @@ export default function CalendarScreen() {
 
   const converterCard = (
     <Card
-      padding="three"
       onPress={() => router.push("/calendar/converter")}
+      href="/calendar/converter"
       accessibilityLabel={t("calendar.converterRowTitle")}
     >
       <View style={styles.converterRow}>
@@ -500,55 +476,6 @@ export default function CalendarScreen() {
   );
 }
 
-function NavButton({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: Parameters<typeof SymbolView>[0]["name"];
-  label: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      onPress={onPress}
-      style={[
-        styles.navButton,
-        isTV() ? styles.navButtonTv : null,
-        { backgroundColor: tokens.accentSoft },
-      ]}
-    >
-      <SymbolView name={icon} size={18} tintColor={colors.accent} />
-    </PressableScale>
-  );
-}
-
-function LegendSwatch({ color, label }: { color: string; label: string }) {
-  return (
-    <View style={styles.legendItem}>
-      <View style={[styles.legendSwatch, { backgroundColor: color }]} />
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
-
-function LegendDot({ color, label }: { color: string; label: string }) {
-  return (
-    <View style={styles.legendItem}>
-      <View style={[styles.legendDot, { backgroundColor: color }]} />
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   split: {
     flexDirection: "row",
@@ -564,116 +491,6 @@ const styles = StyleSheet.create({
     width: 400,
     maxWidth: "42%",
   },
-  /** Desktop: big rounded day tiles instead of 36px circles. */
-  dayCellWide: {
-    width: "100%",
-    maxWidth: 96,
-    height: 60,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    marginBottom: Spacing.three,
-  },
-  monthLabelButton: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.one,
-    paddingHorizontal: Spacing.one,
-    paddingVertical: Spacing.one,
-    minWidth: 0,
-  },
-  monthLabelText: {
-    flexShrink: 1,
-    textAlign: "center",
-  },
-  navButton: {
-    width: 36,
-    height: 36,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  navButtonTv: {
-    width: TvLayout.minFocusTarget,
-    height: TvLayout.minFocusTarget,
-  },
-  weekRow: {
-    flexDirection: "row",
-  },
-  /** Invisible TV focus guides at each week's edges (row wrap). */
-  rowEdgeGuide: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    width: 2,
-  },
-  rowEdgeGuideStart: {
-    start: 0,
-  },
-  rowEdgeGuideEnd: {
-    end: 0,
-  },
-  cell: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: Spacing.one,
-  },
-  dayCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dayCircleTv: {
-    width: TvLayout.minFocusTarget,
-    height: TvLayout.minFocusTarget,
-    borderRadius: TvLayout.minFocusTarget / 2,
-  },
-  todayRingTv: {
-    position: "absolute",
-    top: 4,
-    bottom: 4,
-    start: 4,
-    end: 4,
-    borderRadius: TvLayout.minFocusTarget / 2,
-    borderWidth: 2,
-    pointerEvents: "none",
-  },
-  dot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    marginTop: 3,
-  },
-  legend: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: Spacing.three,
-    justifyContent: "center",
-  },
-  legendItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one + 2,
-  },
-  legendSwatch: {
-    width: 14,
-    height: 14,
-    borderRadius: 4,
-  },
-  legendDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
   legendHint: {
     marginTop: Spacing.three,
     textAlign: "center",
@@ -685,7 +502,7 @@ const styles = StyleSheet.create({
   },
   converterCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
 });
 

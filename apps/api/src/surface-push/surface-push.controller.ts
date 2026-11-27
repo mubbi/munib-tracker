@@ -6,6 +6,7 @@ import {
   Headers,
   HttpCode,
   HttpStatus,
+  Optional,
   Param,
   ParseIntPipe,
   Post,
@@ -17,6 +18,9 @@ import { ConfigService } from "@nestjs/config";
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import type { Request } from "express";
 import { resolveAccessToken } from "../auth/resolve-access-token";
+import { CircleRetentionService } from "../circles/circle-retention.service";
+import { FamilyDigestService } from "../circles/family-digest.service";
+import { assertCronSecret } from "../common/cron-secret";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
   DispatchSurfaceJobDto,
@@ -35,6 +39,8 @@ export class SurfacePushController {
     private readonly surfacePushService: SurfacePushService,
     private readonly qstash: SurfacePushQStashService,
     private readonly config: ConfigService<EnvironmentVariables, true>,
+    @Optional() private readonly familyDigest?: FamilyDigestService,
+    @Optional() private readonly circleRetention?: CircleRetentionService,
   ) {}
 
   @Put()
@@ -105,14 +111,24 @@ export class SurfacePushController {
     @Headers("authorization") authorization: string | undefined,
   ): Promise<SurfacePushDispatchResponseDto> {
     this.assertInternalSecret(authorization);
-    return this.surfacePushService.dispatchDue();
+    try {
+      return await this.surfacePushService.dispatchDue();
+    } finally {
+      // Independent of the dispatch: a failed push run must not skip them.
+      // D40: the same 1–5 min cron drives the weekly family digest (throttled,
+      // idempotent, never throws). See docs/CIRCLES.md.
+      await this.familyDigest?.maybeRun();
+      // A4: circles retention (30-day deletions, D34 lapsed consent) runs here
+      // too, so it never depends on circle traffic (throttled, idempotent).
+      await this.circleRetention?.maybeRun();
+    }
   }
 
   private assertInternalSecret(authorization: string | undefined): void {
-    const secret = this.config.get("SURFACE_PUSH_CRON_SECRET", { infer: true })?.trim();
-    if (!secret) throw new UnauthorizedException("Surface push cron is not configured");
-    if (authorization !== `Bearer ${secret}`) {
-      throw new UnauthorizedException("Invalid surface push cron secret");
-    }
+    assertCronSecret(
+      authorization,
+      this.config.get("SURFACE_PUSH_CRON_SECRET", { infer: true }),
+      "surface push",
+    );
   }
 }

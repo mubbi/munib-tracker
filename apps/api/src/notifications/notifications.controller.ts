@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Headers,
   HttpCode,
@@ -20,6 +21,8 @@ import {
   InAppNotificationDto,
   InAppNotificationListResponseDto,
   PushTokenResponseDto,
+  RemovePushTokenDto,
+  RemovePushTokenResponseDto,
   UnreadCountResponseDto,
   UpsertPushTokenDto,
   VapidPublicKeyResponseDto,
@@ -48,6 +51,19 @@ export class NotificationsController {
     @Body() dto: UpsertPushTokenDto,
   ): Promise<PushTokenResponseDto> {
     return this.notificationsService.upsertPushToken(resolveAccessToken(req, authorization), dto);
+  }
+
+  @Delete("push-token")
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: "Unregister this device's push token(s) (call before sign-out)" })
+  @ApiOkResponse({ type: RemovePushTokenResponseDto })
+  removePushToken(
+    @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
+    @Body() dto: RemovePushTokenDto,
+  ): Promise<RemovePushTokenResponseDto> {
+    return this.notificationsService.removePushToken(resolveAccessToken(req, authorization), dto);
   }
 
   @Get("in-app")

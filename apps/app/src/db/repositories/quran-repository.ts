@@ -25,13 +25,10 @@ export interface QuranLastRead {
 export interface QuranPrefs {
   preferredTranslationIds: string[];
   preferredReciterDir: string;
-  showTransliteration: boolean;
-  showTranslation: boolean;
   /** Word-by-word glosses under each ayah (NF-2.7, cache-first from api.quran.com). */
   showWordByWord?: boolean;
   /** Colored tajweed markup for Arabic lines (cache-first from api.alquran.cloud). */
   showTajweed?: boolean;
-  script?: "uthmani";
   /** Optional second translation shown side-by-side beneath the first (NF-1.13). */
   secondaryTranslationId?: string;
   /**
@@ -57,11 +54,8 @@ export type QuranReadingProgress = Record<number, { furthestAyah: number; update
 export const DEFAULT_QURAN_PREFS: QuranPrefs = {
   preferredTranslationIds: ["en-pickthall"],
   preferredReciterDir: "Alafasy_128kbps",
-  showTransliteration: true,
-  showTranslation: true,
   showWordByWord: false,
   showTajweed: false,
-  script: "uthmani",
   readerLayout: "ayah",
   translationAudio: "off",
   repeatMode: "off",
@@ -105,6 +99,19 @@ export const QuranRepository = {
   async removeBookmark(surah: number, ayah: number): Promise<void> {
     await bookmarks.remove(bookmarkKey(surah, ayah));
     await this.touchBookmarks();
+  },
+
+  /**
+   * Undo of a removal: re-insert the exact prior record (same id, createdAt).
+   * Stamps the blob watermark so the restore wins last-write-wins sync over the
+   * earlier removal. A no-op when the ayah was re-bookmarked in the meantime.
+   */
+  async restoreBookmark(bookmark: QuranBookmark): Promise<boolean> {
+    const key = bookmarkKey(bookmark.surah, bookmark.ayah);
+    if (await bookmarks.get(key)) return false;
+    await bookmarks.upsert(key, { ...bookmark });
+    await this.touchBookmarks();
+    return true;
   },
 
   // ── Bookmark sync (blob last-write-wins) ───────────────
@@ -175,7 +182,9 @@ export const QuranRepository = {
 
   // ── Preferences ────────────────────────────────────────
   async getPrefs(): Promise<QuranPrefs> {
-    const stored = await readJSON<Partial<QuranPrefs>>(DB_KEYS.quranPrefs, {});
+    const raw = await readJSON<Partial<QuranPrefs> & { script?: unknown }>(DB_KEYS.quranPrefs, {});
+    // B5: the never-read `script` field is gone; tolerate (and drop) it in old blobs.
+    const { script: _removed, ...stored } = raw;
     return { ...DEFAULT_QURAN_PREFS, ...stored };
   },
 

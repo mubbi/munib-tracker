@@ -7,14 +7,17 @@ import { SelectChip, ToggleChip } from "@/components/quran/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { GlassSurface } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { RECITERS } from "@/lib/quran-audio";
 import type { PracticeMode, PracticeView } from "@/lib/quran-companion/types";
 import { ltrControlViewProps } from "@/lib/rtl";
-import { useCompanionPrefs, useCompanionPrefsActions } from "@/stores/quran-companion-prefs-store";
-import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
+import { updateCompanionPrefs as update } from "@/lib/settings/companion-shortcuts";
+import { updateQuranPrefs as updatePrefs } from "@/lib/settings/quran-shortcuts";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
+import { useCompanionPrefs } from "@/stores/quran-companion-prefs-store";
+import { useQuranPrefs } from "@/stores/quran-store";
 
 const ICONS = {
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
@@ -68,9 +71,10 @@ export function PracticeToolbar({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const prefs = useCompanionPrefs();
-  const { update } = useCompanionPrefsActions();
   const quranPrefs = useQuranPrefs();
-  const { updatePrefs } = useQuranActions();
+  // Toolbar chips are shortcuts to Settings (Qur'an › Practice, Text & fonts).
+  const { showTranslation, showTransliteration, toggleTranslation, toggleTransliteration } =
+    useReadingDisplayToggles();
   const scrollRef = useHorizontalWheelScroll();
   const [picker, setPicker] = useState<"mode" | "reciter" | "view" | null>(null);
 
@@ -137,16 +141,16 @@ export function PracticeToolbar({
           <ToggleChip
             icon={ICONS.translation}
             label={t("quran.translation")}
-            enabled={prefs.showTranslation}
+            enabled={showTranslation}
             accessibilityLabel={t("quran.showTranslation")}
-            onPress={() => void update({ showTranslation: !prefs.showTranslation })}
+            onPress={() => void toggleTranslation()}
           />
           <ToggleChip
             icon={ICONS.transliteration}
             label={t("quran.transliteration")}
-            enabled={prefs.showTransliteration}
+            enabled={showTransliteration}
             accessibilityLabel={t("quran.showTransliteration")}
-            onPress={() => void update({ showTransliteration: !prefs.showTransliteration })}
+            onPress={() => void toggleTransliteration()}
           />
           <ToggleChip
             icon={ICONS.tajweed}
@@ -207,7 +211,7 @@ export function PracticeToolbar({
 }
 
 const styles = StyleSheet.create({
-  bar: { overflow: "hidden", borderBottomWidth: StyleSheet.hairlineWidth },
+  bar: { overflow: "hidden", borderBottomWidth: BorderWidth.hairline },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -226,7 +230,7 @@ const styles = StyleSheet.create({
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,

@@ -28,9 +28,12 @@ jest.mock("expo-notifications", () => ({
   setNotificationHandler: jest.fn(),
   setNotificationCategoryAsync: jest.fn().mockResolvedValue(undefined),
   setNotificationChannelAsync: jest.fn().mockResolvedValue(undefined),
+  getNotificationChannelsAsync: jest.fn().mockResolvedValue([]),
+  deleteNotificationChannelAsync: jest.fn().mockResolvedValue(undefined),
   cancelAllScheduledNotificationsAsync: jest.fn().mockResolvedValue(undefined),
   scheduleNotificationAsync: jest.fn().mockResolvedValue("id"),
   getAllScheduledNotificationsAsync: jest.fn().mockResolvedValue([]),
+  getPresentedNotificationsAsync: jest.fn().mockResolvedValue([]),
 }));
 
 jest.mock("@/lib/notifications/platform", () => ({
@@ -69,7 +72,9 @@ import {
   markFromNotification,
   osTriggerForReminder,
   rescheduleAll,
+  shouldArmReminder,
   snoozeNotification,
+  syncAdhanChannel,
 } from "./scheduler";
 
 const mockCancelAll = Notifications.cancelAllScheduledNotificationsAsync as jest.MockedFunction<
@@ -80,6 +85,9 @@ const mockSchedule = Notifications.scheduleNotificationAsync as jest.MockedFunct
 >;
 const mockGetAll = Notifications.getAllScheduledNotificationsAsync as jest.MockedFunction<
   typeof Notifications.getAllScheduledNotificationsAsync
+>;
+const mockGetPresented = Notifications.getPresentedNotificationsAsync as jest.MockedFunction<
+  typeof Notifications.getPresentedNotificationsAsync
 >;
 const mockPermission = readNotificationPermissionUiState as jest.MockedFunction<
   typeof readNotificationPermissionUiState
@@ -102,6 +110,8 @@ beforeEach(() => {
   mockSchedule.mockResolvedValue("id");
   mockGetAll.mockReset();
   mockGetAll.mockResolvedValue([]);
+  mockGetPresented.mockReset();
+  mockGetPresented.mockResolvedValue([]);
   mockSupported.mockReturnValue(true);
   mockPermission.mockResolvedValue("granted");
 });
@@ -262,6 +272,35 @@ describe("rescheduleAll", () => {
     expect(snoozeCall?.trigger.seconds).toBe(400);
   });
 
+  it("restores a snoozed adhan without the delivered `custom` sound marker", async () => {
+    // iOS reports a scheduled custom sound back as the literal "custom" (not a
+    // file name); scheduling that back made iOS look for a file called "custom".
+    mockGetAll.mockResolvedValue([
+      {
+        identifier: "snooze:prayer:fajr:2026-07-03",
+        content: {
+          title: "Fajr",
+          body: "Pray",
+          sound: "custom",
+          data: { channelId: "prayerAdhan", androidChannelId: "adhan-default" },
+        },
+        trigger: { type: "timeInterval", seconds: 300 },
+      },
+    ] as never);
+
+    await rescheduleAll(makePrefs(), SET_LOCATION);
+
+    const restored = mockSchedule.mock.calls
+      .map(([arg]) => arg as Notifications.NotificationRequestInput)
+      .find((arg) => arg.identifier === "snooze:prayer:fajr:2026-07-03");
+    expect(restored?.content).not.toHaveProperty("sound");
+    expect(restored?.content).toMatchObject({
+      categoryIdentifier: "prayer_now",
+      threadIdentifier: "prayerAdhan",
+    });
+    expect(restored?.trigger).toMatchObject({ channelId: "adhan-default", seconds: 300 });
+  });
+
   it("keeps scheduling reminders when restoring a snooze throws", async () => {
     mockGetAll.mockResolvedValue([
       {
@@ -303,23 +342,156 @@ function dateReminder(over: Partial<BuiltReminder> = {}): BuiltReminder {
   };
 }
 
+describe("rescheduleAll around a reminder that just fired", () => {
+  const prefs = makePrefs({ afterAzan: true });
+  // Only fake the clock — the serialized reschedule queue still needs real timers.
+  const fakeClock = (now: Date) =>
+    jest.useFakeTimers({
+      now,
+      doNotFake: [
+        "nextTick",
+        "setImmediate",
+        "clearImmediate",
+        "setTimeout",
+        "clearTimeout",
+        "setInterval",
+        "clearInterval",
+        "queueMicrotask",
+        "hrtime",
+        "performance",
+      ],
+    });
+
+  /** The After-Isha-Adhan reminder of the day built at `base`. */
+  function afterIshaAdhan(base: Date): BuiltReminder {
+    const found = buildReminders(prefs, SET_LOCATION, base).find((r) =>
+      r.id.startsWith("afterAzan:isha:"),
+    );
+    if (!found) throw new Error("no after-Isha-Adhan reminder");
+    return found;
+  }
+
+  const scheduledIds = () =>
+    mockSchedule.mock.calls.map(([arg]) => (arg as { identifier: string }).identifier);
+
+  afterEach(() => jest.useRealTimers());
+
+  it("tap → foreground reschedule inside the window does not schedule it a second time", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+
+    // Pass 1: five minutes before — armed once as a DATE trigger.
+    fakeClock(new Date(target.fireAt.getTime() - 5 * 60_000));
+    await rescheduleAll(prefs, SET_LOCATION);
+    expect(scheduledIds().filter((id) => id === target.id)).toHaveLength(1);
+    const pendingAfterPass1 = mockSchedule.mock.calls.map(([arg]) => ({
+      identifier: (arg as { identifier: string }).identifier,
+      content: { title: "", body: "", data: {} },
+      trigger: { type: "date", value: target.fireAt.getTime() },
+    }));
+
+    // It fires; the user taps it 20 s later → the app foregrounds and reschedules.
+    // The OS no longer has it pending and shows it in the tray.
+    mockSchedule.mockClear();
+    fakeClock(new Date(target.fireAt.getTime() + 20_000));
+    mockGetAll.mockResolvedValue(
+      pendingAfterPass1.filter((item) => item.identifier !== target.id) as never,
+    );
+    mockGetPresented.mockResolvedValue([{ request: { identifier: target.id } }] as never);
+    await rescheduleAll(prefs, SET_LOCATION);
+
+    expect(scheduledIds()).not.toContain(target.id);
+  });
+
+  it("does not re-arm a just-fired reminder the OS already delivered (no longer pending)", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+    fakeClock(new Date(target.fireAt.getTime() + 15_000));
+    await rescheduleAll(prefs, SET_LOCATION);
+    expect(scheduledIds()).not.toContain(target.id);
+  });
+
+  it("does not re-arm a just-fired reminder that is already in the tray", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+    fakeClock(new Date(target.fireAt.getTime() + 15_000));
+    mockGetAll.mockResolvedValue([
+      { identifier: target.id, content: { title: "", body: "", data: {} }, trigger: null },
+    ] as never);
+    mockGetPresented.mockResolvedValue([{ request: { identifier: target.id } }] as never);
+    await rescheduleAll(prefs, SET_LOCATION);
+    expect(scheduledIds()).not.toContain(target.id);
+  });
+
+  it("re-arms a due reminder the OS still had pending (not delivered yet)", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+    fakeClock(new Date(target.fireAt.getTime() + 15_000));
+    mockGetAll.mockResolvedValue([
+      { identifier: target.id, content: { title: "", body: "", data: {} }, trigger: null },
+    ] as never);
+    await rescheduleAll(prefs, SET_LOCATION);
+    const call = mockSchedule.mock.calls
+      .map(([arg]) => arg as { identifier: string; trigger: { type: string; seconds?: number } })
+      .find((arg) => arg.identifier === target.id);
+    expect(call?.trigger).toMatchObject({ type: TRIGGER.TIME_INTERVAL, seconds: 1 });
+  });
+
+  it("still schedules when reading presented notifications fails", async () => {
+    mockGetPresented.mockRejectedValue(new Error("unsupported"));
+    await expect(rescheduleAll(prefs, SET_LOCATION)).resolves.toBeUndefined();
+    expect(mockSchedule).toHaveBeenCalled();
+  });
+});
+
+describe("shouldArmReminder", () => {
+  const empty = { pendingIds: new Set<string>(), deliveredIds: new Set<string>() };
+  const now = Date.parse("2026-07-03T12:00:00.000Z");
+  const base: BuiltReminder = {
+    id: "prayer:asr:2026-07-03",
+    fireAt: new Date(now - 10_000),
+    title: "Asr",
+    body: "",
+    channelId: "prayer",
+    repeat: "date",
+    route: "/tracker",
+    priority: 110,
+  };
+
+  it("arms future and daily reminders unconditionally", () => {
+    expect(shouldArmReminder({ ...base, fireAt: new Date(now + 1_000) }, empty, now)).toBe(true);
+    expect(shouldArmReminder({ ...base, repeat: "daily" }, empty, now)).toBe(true);
+  });
+
+  it("arms a due one-off only while still pending and not shown", () => {
+    expect(shouldArmReminder(base, empty, now)).toBe(false);
+    const pending = { pendingIds: new Set([base.id]), deliveredIds: new Set<string>() };
+    expect(shouldArmReminder(base, pending, now)).toBe(true);
+    expect(shouldArmReminder(base, { ...pending, deliveredIds: new Set([base.id]) }, now)).toBe(
+      false,
+    );
+  });
+});
+
 describe("osTriggerForReminder", () => {
   const nowMs = Date.parse("2026-09-03T11:02:05.000Z");
 
   describe("precise Adhan timing on Android (alarm-clock delivery)", () => {
     usePlatform({ OS: "android" });
 
-    it("adds alarmClock delivery to Adhan-channel DATE triggers", () => {
+    it("adds alarmClock delivery to Adhan-channel DATE triggers on the style channel", () => {
       const reminder = dateReminder({
         fireAt: new Date(nowMs + 60_000),
         channelId: "prayerAdhan",
+        androidChannelId: "adhan-medina",
       });
       expect(osTriggerForReminder(reminder, nowMs, { preciseAdhan: true })).toEqual({
         type: TRIGGER.DATE,
         date: reminder.fireAt,
-        channelId: "prayerAdhan",
+        channelId: "adhan-medina",
         delivery: "alarmClock",
       });
+    });
+
+    it("maps a logical Adhan reminder without an override to the active style channel", () => {
+      const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "prayerAdhan" });
+      expect(osTriggerForReminder(reminder, nowMs)).toMatchObject({ channelId: "adhan-default" });
     });
 
     it("leaves other channels and the default setting on best-effort delivery", () => {
@@ -508,14 +680,15 @@ describe("markFromNotification", () => {
 describe("configureNotifications on Android", () => {
   usePlatform({ OS: "android" });
 
-  it("creates every channel, giving the Adhan channel its sound at high importance", async () => {
+  it("creates every channel, giving the style's Adhan channel its sound at high importance", async () => {
     const setChannel = Notifications.setNotificationChannelAsync as jest.Mock;
     setChannel.mockClear();
     await configureNotifications();
     expect(setChannel).toHaveBeenCalledWith(
-      "prayerAdhan",
-      expect.objectContaining({ importance: 4, sound: "adhan.mp3" }),
+      "adhan-default",
+      expect.objectContaining({ importance: 4, sound: "adhan_default.wav" }),
     );
+    expect(setChannel).not.toHaveBeenCalledWith("prayerAdhan", expect.anything());
     expect(setChannel).toHaveBeenCalledWith(
       "zikr",
       expect.not.objectContaining({ sound: expect.anything() }),
@@ -595,5 +768,53 @@ describe("listScheduled", () => {
     await expect(listScheduled(makePrefs({ masterEnabled: false }), SET_LOCATION)).resolves.toEqual(
       [],
     );
+  });
+});
+
+describe("syncAdhanChannel on Android (B2)", () => {
+  usePlatform({ OS: "android" });
+  const setChannel = Notifications.setNotificationChannelAsync as jest.Mock;
+  const getChannels = Notifications.getNotificationChannelsAsync as jest.Mock;
+  const deleteChannel = Notifications.deleteNotificationChannelAsync as jest.Mock;
+
+  beforeEach(() => {
+    setChannel.mockClear();
+    deleteChannel.mockClear();
+  });
+
+  it("creates the selected style's channel and deletes stale adhan channels", async () => {
+    getChannels.mockResolvedValueOnce([
+      { id: "prayerAdhan" },
+      { id: "adhan-default" },
+      { id: "adhan-medina" },
+      { id: "zikr" },
+    ]);
+    await syncAdhanChannel("medina");
+    expect(setChannel).toHaveBeenCalledWith(
+      "adhan-medina",
+      expect.objectContaining({ importance: 4, sound: "adhan_medina.wav" }),
+    );
+    expect(deleteChannel.mock.calls.map(([id]) => id).sort()).toEqual([
+      "adhan-default",
+      "prayerAdhan",
+    ]);
+  });
+
+  it("switching style re-arms adhan reminders on the new style's channel", async () => {
+    const prefs = buildUserPreferences({
+      adhanStyleId: "mishary",
+      notificationPrefs: buildNotificationPreferences({ playAdhanOnPrayer: true }),
+    });
+    await rescheduleAll(prefs, SET_LOCATION);
+
+    expect(setChannel).toHaveBeenCalledWith("adhan-mishary", expect.anything());
+    const adhanCalls = mockSchedule.mock.calls
+      .map(([arg]) => arg as { content: { sound?: string }; trigger: { channelId?: string } })
+      .filter((arg) => arg.content.sound);
+    expect(adhanCalls.length).toBeGreaterThan(0);
+    for (const call of adhanCalls) {
+      expect(call.trigger.channelId).toBe("adhan-mishary");
+      expect(call.content.sound).toBe("adhan_mishary.wav");
+    }
   });
 });

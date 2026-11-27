@@ -22,7 +22,7 @@ export default function ZakatChecklistScreen() {
     >
       <Seo path="/zakat/checklist" />
       <Stagger>
-        <LearnReadingChrome surface="jannah">
+        <LearnReadingChrome surface="finance">
           <ZakatChecklistContent />
         </LearnReadingChrome>
         <JannahDisclaimer textKey="zakat.disclaimer" />

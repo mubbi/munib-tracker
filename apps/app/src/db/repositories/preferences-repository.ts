@@ -13,9 +13,9 @@ function withDefaults(stored: Partial<UserPreferences>): UserPreferences {
       ...DEFAULT_USER_PREFERENCES.notificationPrefs,
       ...stored.notificationPrefs,
     },
+    // B5: only the scopes still read survive; older blobs may also carry the
+    // removed `global` / `titles` / `transliteration` / `color` — dropped here.
     fontPrefs: {
-      ...DEFAULT_USER_PREFERENCES.fontPrefs,
-      ...stored.fontPrefs,
       arabic: {
         ...DEFAULT_USER_PREFERENCES.fontPrefs.arabic,
         ...stored.fontPrefs?.arabic,
@@ -24,18 +24,9 @@ function withDefaults(stored: Partial<UserPreferences>): UserPreferences {
         ...DEFAULT_USER_PREFERENCES.fontPrefs.translation,
         ...stored.fontPrefs?.translation,
       },
-      transliteration: {
-        ...DEFAULT_USER_PREFERENCES.fontPrefs.transliteration,
-        ...stored.fontPrefs?.transliteration,
-      },
-      global: {
-        ...DEFAULT_USER_PREFERENCES.fontPrefs.global,
-        ...stored.fontPrefs?.global,
-      },
-      titles: {
-        ...DEFAULT_USER_PREFERENCES.fontPrefs.titles,
-        ...stored.fontPrefs?.titles,
-      },
+      ...(stored.fontPrefs?.readingOverrides
+        ? { readingOverrides: stored.fontPrefs.readingOverrides }
+        : {}),
     },
     weatherPrefs: {
       ...DEFAULT_USER_PREFERENCES.weatherPrefs,
@@ -66,6 +57,20 @@ export const PreferencesRepository = {
         ...patch,
         updatedAt: patch.updatedAt ?? new Date().toISOString(),
       });
+      await writeJSON(DB_KEYS.userPreferences, next);
+      return next;
+    });
+  },
+
+  /**
+   * Writes fields that never sync (D46: the active excused period, applied from
+   * the vault) **without** stamping `updatedAt`, so no preferences push is
+   * triggered and last-write-wins on the synced fields is unaffected.
+   */
+  async patchLocal(patch: Partial<UserPreferences>): Promise<UserPreferences> {
+    return withKeyLock(DB_KEYS.userPreferences, async () => {
+      const current = await this.get();
+      const next = withDefaults({ ...current, ...patch, updatedAt: current.updatedAt });
       await writeJSON(DB_KEYS.userPreferences, next);
       return next;
     });

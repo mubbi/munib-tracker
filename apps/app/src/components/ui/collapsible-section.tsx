@@ -1,12 +1,18 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Spacing } from "@/constants/theme";
+import { Durations } from "@/constants/motion";
+import { IconSize, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type CollapsibleSectionProps = {
@@ -50,25 +56,35 @@ export function CollapsibleSection({
 
   const toggle = () => setOpen(!open);
 
+  // Chevron eases through 180 degrees instead of snapping (A-36).
+  const rotation = useSharedValue(open ? 180 : 0);
+  useEffect(() => {
+    rotation.value = withTiming(open ? 180 : 0, { duration: Durations.fast });
+  }, [open, rotation]);
+  const chevronStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }));
+
   const headerRow = (
     <>
       <View style={styles.left}>
-        {icon ? <IconWell icon={icon} well={28} radius={9} size={14} /> : null}
+        {icon ? <IconWell icon={icon} well={28} radius={Radius.xs} size={IconSize.sm} /> : null}
         <ThemedText type="subtitle" style={styles.title}>
           {title}
         </ThemedText>
       </View>
-      <SymbolView
-        name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
-        size={16}
-        tintColor={colors.mutedForeground}
-        style={{ transform: [{ rotate: open ? "180deg" : "0deg" }] }}
-      />
+      <Animated.View style={chevronStyle}>
+        <SymbolView
+          name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
+          size={IconSize.md}
+          tintColor={colors.mutedForeground}
+        />
+      </Animated.View>
     </>
   );
 
   const body = open ? (
-    <Animated.View entering={FadeIn.duration(180)}>{children}</Animated.View>
+    <Animated.View entering={FadeIn.duration(Durations.fast)}>{children}</Animated.View>
   ) : null;
 
   if (pressableArea === "none") {

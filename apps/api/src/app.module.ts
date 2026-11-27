@@ -1,12 +1,14 @@
 import { Module } from "@nestjs/common";
 import { AppFeedbackModule } from "./app-feedback/app-feedback.module";
 import { AuthModule } from "./auth/auth.module";
+import { CirclesModule } from "./circles/circles.module";
 import { CommonModule } from "./common/common.module";
 import { AppConfigModule } from "./config/config.module";
 import { ContentReportsModule } from "./content-reports/content-reports.module";
 import { DatabaseModule } from "./database/database.module";
 import { HealthModule } from "./health/health.module";
 import { LiveActivitiesModule } from "./live-activities/live-activities.module";
+import { MasjidsModule } from "./masjids/masjids.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { OssContentFailuresModule } from "./oss-content-failures/oss-content-failures.module";
 import { SurfacePushModule } from "./surface-push/surface-push.module";
@@ -30,6 +32,8 @@ import { VersionModule } from "./version/version.module";
     LiveActivitiesModule,
     SurfacePushModule,
     VersionModule,
+    MasjidsModule,
+    CirclesModule,
   ],
 })
 export class AppModule {}

@@ -16,6 +16,7 @@ function setup() {
     markAllRead: vi.fn().mockResolvedValue({ count: 0 }),
     markRead: vi.fn().mockResolvedValue({ id: 5 }),
     engage: vi.fn().mockResolvedValue({ id: 6 }),
+    removePushToken: vi.fn().mockResolvedValue({ removed: 1 }),
   };
   const controller = new NotificationsController(service as unknown as NotificationsService);
   return { controller, service };
@@ -42,6 +43,11 @@ describe("NotificationsController", () => {
       "engage",
       (c, a) => c.engage(a, buildRequest(), 6, { action: "click" }),
       [6, { action: "click" }],
+    ],
+    [
+      "removePushToken",
+      (c, a) => c.removePushToken(a, buildRequest(), { token: "t" }),
+      [{ token: "t" }],
     ],
   ])("%s forwards the resolved bearer token", async (method, route, args) => {
     const { controller, service } = setup();

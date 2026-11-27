@@ -1,3 +1,4 @@
+import "server-only";
 import { appFeedbackTable, usersTable } from "@munib-tracker/db/schema";
 import { count, desc, eq, ilike, or, type SQL, sql } from "drizzle-orm";
 import { getDb } from "../db";

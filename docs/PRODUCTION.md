@@ -139,7 +139,18 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   **off** in the console, use `redis://…`; if TLS is **on**, use `rediss://…`.
   Optional `REDIS_TLS=true|false` overrides the scheme. Ensure the database CIDR
   allow list permits Vercel (or leave the public endpoint open with a strong password).
+- **Client IP & rate limits:** per-IP limits (auth, child-link redeem, masjids proxy)
+  key on `clientIp(req)` (`apps/api/src/common/client-ip.ts`), never the first
+  `X-Forwarded-For` value (client-controlled, so trivially spoofed). The API assumes
+  it sits behind **exactly one trusted proxy hop** — Vercel's edge, which overwrites
+  `X-Forwarded-For` with the real client address. `create-app.ts` therefore sets
+  Express `trust proxy` to `1` whenever `VERCEL` is set and `clientIp` uses `req.ip`.
+  Hosting elsewhere (Fly, a load balancer, Cloudflare in front of Vercel …) must set
+  `TRUST_PROXY_HOPS` to the real number of trusted hops (`0` disables); without
+  `trust proxy` the helper falls back to the right-most `X-Forwarded-For` hop, then
+  the socket address. Client IPs are rate-limit keys only — never logged.
 - Optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` (+ `VAPID_SUBJECT`) for Web Push (admin + API scheduler).
+- **Masjid finder:** `GEOAPIFY_API_KEY` (Production only, **Sensitive**; never `EXPO_PUBLIC_*`) — key restrictions, quota guard and rotation in [`GEOAPIFY.md`](./GEOAPIFY.md). Unset = public Overpass only.
 - **ActivityKit Live Activity push:** `APNS_*`, `LIVE_ACTIVITY_CRON_SECRET` (+ cron), optional `QSTASH_*` / `API_PUBLIC_URL` / `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).
 - **Surface push (Web + Android Expo Push):** `SURFACE_PUSH_CRON_SECRET` — [`WEB_PUSH.md`](./WEB_PUSH.md).
 
@@ -189,12 +200,55 @@ Production client env (baked at build time):
 
 ### Marketing on Vercel
 
-| Variable                        | Example                                                                                                          |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`          | `https://munibtracker.app`                                                                                       |
-| `NEXT_PUBLIC_PRODUCT_APP_URL`   | `https://my.munibtracker.app`                                                                                    |
-| `NEXT_PUBLIC_API_URL`           | `https://api.munibtracker.app/api/v1` (if the site calls the API)                                                |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-XXXXXXXX` (optional GA4; empty disables). First-party cookie banner + Consent Mode v2 gates analytics storage |
+| Variable                           | Example                                                                                                                                                                                |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`             | `https://munibtracker.app`                                                                                                                                                             |
+| `NEXT_PUBLIC_PRODUCT_APP_URL`      | `https://my.munibtracker.app`                                                                                                                                                          |
+| `NEXT_PUBLIC_API_URL`              | `https://api.munibtracker.app/api/v1` (if the site calls the API)                                                                                                                      |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID`    | `G-XXXXXXXX` (optional GA4; empty disables). First-party cookie banner + Consent Mode v2 gates analytics storage                                                                       |
+| `NEXT_PUBLIC_APPLE_PROVIDER_TOKEN` | Optional. App Store Connect provider token (`pt`): App Analytics → Sources → Campaigns → generate any link and copy its `pt=` value. Adds `pt`/`ct` campaign tokens to App Store links |
+
+#### After every production deploy: IndexNow
+
+```bash
+cd apps/marketing-web && vercel deploy --prod
+pnpm indexnow:marketing            # from the repo root
+```
+
+`scripts/indexnow.ts` reads the live sitemap and submits the pages whose `<lastmod>` changed
+since the last ping (first run: the last 7 days) to IndexNow — Bing, Yandex, Seznam, Naver and
+others share it, and ChatGPT search uses Bing's index, so new pages are picked up within hours.
+`--dry-run` prints the URLs, `--all` submits every page, `--since YYYY-MM-DD` picks a date. It
+refuses to run until the key file `https://munibtracker.app/413e0ed5370853ba9114f22952893236.txt`
+(from `apps/marketing-web/public/`) is live. Google doesn't use IndexNow: submit
+`https://munibtracker.app/sitemap.xml` once in Search Console (it re-reads it on its own after that),
+and the same sitemap in Bing Webmaster Tools.
+
+#### One-time setup: store attribution
+
+- **Google Play:** nothing to set up. Play links carry an install `referrer` with
+  `utm_campaign` (where the link sits, e.g. `feature_hero`) and `utm_content` (the feature page).
+  See Play Console → Grow users → Store listing acquisition → filter by UTM.
+- **App Store:** set `NEXT_PUBLIC_APPLE_PROVIDER_TOKEN` (above), redeploy, then see App Store
+  Connect → App Analytics → Sources → Campaigns. Campaign name = `<placement>-<feature>`.
+- **Web app:** links carry the same UTM tags, but `my.munibtracker.app` has no analytics by design,
+  so web-app visits are measured on the marketing side only (`download_click` with
+  `platform: web`, `placement`, `feature`).
+
+#### One-time setup: Google Analytics 4 (≈ 3 minutes, do it on launch day)
+
+Events are collected automatically, but their **parameters only appear in reports after you
+register them**, and registration is not retroactive.
+
+1. GA4 → **Admin → Data display → Custom definitions → Create custom dimension**, scope **Event**,
+   once for each parameter: `feature`, `placement`, `platform`, `menu`, `percent`, `page_language`
+   (dimension name = parameter name). `content_group` is built in — nothing to register.
+2. **Admin → Data display → Events**: once `download_click` has fired at least once (click any
+   store badge on the live site with analytics allowed), toggle **Mark as key event**. Optionally
+   also `contact_form_submit`.
+3. Check it works: **Admin → DebugView**, or Reports → Realtime, while clicking around the site.
+
+Event reference: [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md#analytics--consent).
 
 ## Verify after deploy
 

@@ -10,13 +10,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
+import { ToggleChip } from "@/components/ui/chip";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
@@ -341,6 +343,9 @@ export function QuranReadingToolbar({
   );
 }
 
+/** Re-exported for `practice-toolbar.tsx`; the one implementation lives in `ui/chip`. */
+export { ToggleChip };
+
 /** Value chip that opens a picker sheet (reciter / translation). */
 export function SelectChip({
   icon,
@@ -386,7 +391,7 @@ export function SelectChip({
           style={[
             styles.chipValue,
             filterValueTextStyle(value),
-            active ? { color: colors.accent } : null,
+            active ? { color: colors.accentText } : null,
             tv ? { fontSize: TvLayout.bodyFontSize } : null,
           ]}
         >
@@ -398,55 +403,6 @@ export function SelectChip({
         size={tv ? 16 : 12}
         tintColor={active ? colors.accent : colors.mutedForeground}
       />
-    </PressableScale>
-  );
-}
-
-/** On/off chip for a visibility preference (transliteration / translation). */
-export function ToggleChip({
-  icon,
-  label,
-  enabled,
-  accessibilityLabel,
-  onPress,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  accessibilityLabel: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  const tint = enabled ? colors.accent : colors.mutedForeground;
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="switch"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityState={{ checked: enabled }}
-      onPress={onPress}
-      style={[
-        styles.chip,
-        tv && styles.chipTv,
-        {
-          backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled
-            ? tv
-              ? withAlpha(colors.accent, 0.35)
-              : colors.accent
-            : "transparent",
-        },
-      ]}
-    >
-      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
-      <ThemedText
-        type="smallBold"
-        numberOfLines={1}
-        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
-      >
-        {label}
-      </ThemedText>
     </PressableScale>
   );
 }
@@ -488,17 +444,17 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     maxWidth: 200,
-    paddingVertical: Spacing.two - 1,
+    paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderColor: "transparent",
   },
   chipTv: {
-    maxWidth: 280,
+    maxWidth: tvDp(280),
     minHeight: TvLayout.chipMinHeight,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.four,
@@ -513,7 +469,7 @@ const styles = StyleSheet.create({
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,

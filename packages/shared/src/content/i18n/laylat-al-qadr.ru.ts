@@ -2,137 +2,111 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ru overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_RU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Что такое Ляйлят аль-Кадр?",
+    summary: "Ночь предопределения — лучше тысячи месяцев.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Ляйлят аль-Кадр, Ночь предопределения (или Ночь могущества), — это ночь, в которую Пророку ﷺ начал ниспосылаться Коран. Аллах посвятил ей целую суру, которая начинается словами: «Воистину, Мы ниспослали его (Коран) в ночь предопределения (или величия)» (Коран 97:1). Её ценность несколькими аятами ниже выражена предельно ясно: «Ночь предопределения (или величия) лучше тысячи месяцев» (Коран 97:3) — поклонение в одну эту ночь превосходит поклонение, растянутое более чем на восемьдесят три года.",
+      "Далее сура описывает эту ночь: в неё ангелы и Дух (Джибриль) нисходят с дозволения своего Господа со всяким повелением, и она «благополучна вплоть до наступления зари» (Коран 97:4–5). Это ночь огромной милости, умиротворения и божественного предопределения — ночь, которую Пророк ﷺ призывал своих сподвижников усердно искать, а не позволять ей пройти незамеченной.",
+      "Именно поэтому последние десять ночей Рамадана имеют такой духовный вес: среди них находится ночь, ценнее которой нет ни одной ночи в жизни человека. Мудрость в том, что она не названа прямо, заключается в том, чтобы верующие старались в каждую из последних десяти ночей, а не расслаблялись во все, кроме одной.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Награда за ночное стояние в намазе",
+    summary: "Искреннее поклонение в эту ночь стирает прошлые грехи.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Пророк ﷺ связал с этой ночью необыкновенное обещание: «Тому, кто выстаивал Ночь предопределения с верой и надеждой на награду от Аллаха, простятся его прошлые прегрешения» (аль-Бухари 1901). К нему приложены два условия — иман (искренняя вера в то, что это поклонение любимо Аллахом и установлено Им) и ихтисаб (стремление только к награде Аллаха, а не к тому, чтобы тебя видели или хвалили).",
+      "Это прощение не даётся автоматически всякому, кто просто присутствует; оно для того, кто поклоняется с искренним сердцем, полным надежды. Поэтому последние десять ночей обычно наполнены дополнительным ночным намазом (кыямом), чтением Корана и зикром — не потому, что награда является сделкой, а потому, что искреннее, постоянное усердие и есть то, что хадис называет иманом и ихтисабом.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Обновляйте намерение перед каждой ночью поклонения — ради Аллаха, надеясь на Его награду.",
+      "Совершайте ночной намаз (кыям аль-лайль) в последние десять ночей, пусть даже всего несколько ракаатов.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Когда её искать",
+    summary: "В нечётные ночи последней десятки Рамадана — а не в одну фиксированную дату.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Пророк ﷺ велел: «Ищите Ночь предопределения /Лейлят-уль-кадр/ в нечётные ночи последних десяти дней рамадана» (аль-Бухари 2017), — это передано от Аиши. В обычном 30-дневном Рамадане нечётными ночами, как правило, считаются 21-я, 23-я, 25-я, 27-я и 29-я. Другие достоверные хадисы расширяют это на все последние десять ночей, а сам Пророк ﷺ говорил, что точная дата этой ночи была ему показана, а затем он её забыл, — чтобы умма старалась во все эти ночи, а не в одну.",
+      "Многие учёные и общины склоняются к тому, что наиболее вероятна 27-я ночь (на основании других хадисов, сопоставления признаков и частоты сообщений сподвижников), но это научный вывод из хадисов, а не отдельно установленная дата, с уверенностью названная в текстах. В разные годы и в разных регионах она может приходиться на разные ночи, ведь и сама дата начала Рамадана зависит от наблюдения луны.",
+      "Некоторые каждый год публикуют одну печатную дату, словно она точно установлена, а в интернете широко распространяются народные списки «признаков» (особенно тихая ночь, сны, особый свет). Ни у одного из них нет прочной опоры в хадисах, поэтому это руководство их не повторяет. Надёжный, основанный на текстах подход прост — усиливать поклонение во все нечётные ночи, а в идеале и во все последние десять, чтобы, какой бы ни оказалась эта ночь, вы встретили её в поклонении.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Это руководство не поддерживает ни одну фиксированную календарную дату и никакие народные «признаки» для определения этой ночи — только то, что сказано в хадисах: искать её в нечётные ночи последних десяти ночей Рамадана.",
   },
   {
-    title: "Что говорить, если встретите её",
+    title: "Что говорить, если вы её застанете",
     summary: "Аиша спросила Пророка ﷺ, что именно говорить.",
     body: [
-      "Аиша (да будет доволен ею Аллах) спросила Пророка ﷺ: «О Посланник Аллаха, если я узнаю, какая ночь — ночь Кадра, что мне говорить в неё?» Он ﷺ научил её короткой дуа просьбы прощения, показанной ниже (Термизи 3513, хасан сахих по классификации ат-Термизи).",
-      "Эта дуа короткая, легко запоминается и намеренно о прощении, а не о мирских просьбах — напоминание, что величайшая награда этой ночи — прощение Аллаха. Повторяйте её часто в последние десять ночей — в намазе, в земном поклоне и между ними, — а не откладывайте на одну предполагаемую ночь.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Я сказала: О Посланник Аллаха, если я узнаю, какая ночь — ночь Кадра, что мне говорить в неё? Он ﷺ сказал: Говорите — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (О Аллах, Ты — Прощающий и любишь прощение, прости меня).",
-      },
+      "Аиша (да будет доволен ею Аллах) спросила Пророка ﷺ: «O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?» (английское значение). Он научил её короткой дуа о прощении, приведённой ниже (ат-Тирмизи 3513, хадис уровня хасан сахих по оценке ат-Тирмизи).",
+      "Эта дуа коротка, легко запоминается и намеренно посвящена прощению, а не мирским просьбам, — напоминание о том, что величайшее приобретение этой ночи — прощение Аллаха. Повторяйте её часто в течение последних десяти ночей — в намазе, в земном поклоне (суджуде) и между намазами, — а не откладывайте её на одну угаданную ночь.",
     ],
     actions: [
-      "Выучите дуа прощения, показанную выше.",
-      "Повторяйте её часто в последние десять ночей, особенно в нечётные ночи.",
+      "Выучите наизусть дуа о прощении, приведённую выше.",
+      "Часто повторяйте её в последние десять ночей, особенно в нечётные.",
+    ],
+    appLinks: [{ label: "Открыть эту дуа" }],
+  },
+  {
+    title: "Как провести эту ночь",
+    summary: "Ночной намаз, Коран, зикр и дуа, садака.",
+    body: [
+      "Для Ляйлят аль-Кадр нет какого-то особого обязательного «обряда», помимо искреннего поклонения, поэтому сунна просто усиливает уже установленные деяния: стояние в добровольном ночном намазе (кыям аль-лайль / таравих), чтение Корана и размышление над ним, повторение зикра и истигфара и обращение с дуа — особенно с той дуа, которой Пророк ﷺ научил Аишу. Многие сподвижники и последующие учёные также увеличивали в эти ночи садаку, следуя примеру Пророка ﷺ, чья щедрость достигала пика именно в Рамадан.",
+      "Если вы способны лишь на немногое, делайте немногое, но постоянно, — это лучше, чем ничего: даже короткий кыям, несколько страниц Корана и искренне повторённая дуа о прощении исполняют те «иман и ихтисаб», о которых говорит хадис. Те, кто может взять отпуск или больше уединиться, могут также совершить итикаф (уединение в мечети) в последние десять ночей, следуя практике самого Пророка ﷺ.",
+    ],
+    actions: [
+      "Совершайте дополнительный ночной намаз (кыям/таравих) в последние десять ночей.",
+      "Каждую ночь читайте часть Корана и размышляйте над ней.",
+      "Увеличьте истигфар, зикр и дуа о прощении.",
+      "Давайте садаку в эти ночи, пусть даже небольшую.",
+    ],
+    appLinks: [
+      { label: "Чтение Корана" },
+      { label: "Утренние и вечерние азкары" },
+      { label: "Трекер намазов" },
+      { label: "Закят и садака" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Итикаф в последние десять ночей",
+    summary: "Уединение в мечети — практика Пророка ﷺ в завершение Рамадана.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Итикаф — это пребывание в мечети ради поклонения с отказом от обычных мирских отвлечений на определённый срок. Пророк ﷺ регулярно совершал итикаф в последние десять ночей Рамадана, ища Ляйлят аль-Кадр в сосредоточенном поклонении, а не выходя из мечети по обычным делам («Сахих» аль-Бухари 2026).",
+      "Классическое учение рассматривает полный итикаф последних десяти ночей как подтверждённую сунну для того, кто в состоянии его совершить. Подробности того, что его нарушает, могут ли женщины совершать его в отведённом месте мечети и как с ним сочетаются рабочие или семейные обязанности, различаются в разных мазхабах — это руководство лишь описывает саму практику и её цель: непрерывное чтение Корана, намаз и дуа в ночи, которые с наибольшей вероятностью включают Ляйлят аль-Кадр.",
+      "Если полноценное уединение в мечети невозможно, сократите разрыв: задерживайтесь подольше после таравиха, выделяйте дома самые тихие часы ночи для кыяма и Корана и оберегайте их от ненужных отвлечений. Награда связана с искренним поклонением, а не только с формальным названием «итикаф».",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Если в вашей мечети проводится итикаф, заранее узнайте о записи и правилах, которым там следуют.",
+      "Если вы не можете остаться на ночь, всё равно продлевайте своё пребывание ради Корана и кыяма в последние десять ночей.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "У итикафа есть подробные условия фикха (намерение, выход из мечети, супружеская близость, порядок для женщин). Прежде чем приступить, уточните их у знающего местного учёного или в своей мечети.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Поклонение всей семьёй в последние десять ночей",
+    summary: "Вовлекайте детей и домочадцев, не гоняясь за фиксированной датой.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Последние десять ночей — это возможность для всей семьи, а не только для тех, кто может бодрствовать в одиночку. Объясните детям простыми словами смысл Ляйлят аль-Кадр — что Аллах сделал одну ночь лучше тысячи месяцев — и пригласите их к коротким, посильным делам: прочитать несколько страниц Корана, постоять на таравихе столько, сколько смогут, повторять дуа о прощении и дать немного садаки.",
+      "Сохраняйте мягкий тон. Цель — искреннее усердие во все нечётные ночи, а не изнурение всех ради одной угаданной даты. Чередуйте, кто ведёт короткий семейный зикр, вместе принимайте намерение перед магрибом и берегите сон настолько, чтобы поклонение оставалось посильным, а не единичным порывом на одну ночь, за которым следует упадок сил.",
+      "Те, кого ограничивают забота о близких или работа, тоже участвуют в этой ночи: готовят сухур, освобождают других для намаза в мечети или делают дуа, пока другие стоят в намазе, — каждый искренний вклад засчитывается в совместные поиски этой ночи.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Договоритесь всей семьёй, каким нечётным ночам вы отдадите приоритет для дополнительного чтения Корана и намаза.",
+      "Выучите вместе дуа о прощении и повторяйте её после магриба и перед сном.",
+      "Позвольте детям дать немного садаки в последние десять ночей.",
     ],
+    appLinks: [{ label: "Дуа из «Крепости мусульманина»" }, { label: "Чтение Корана" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Просто и искренне",
+    summary:
+      "Оставьте фиксированные даты и народные приметы; сосредоточьтесь на поклонении во все ночи.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Двух распространённых практик стоит избегать, поскольку они выходят за рамки установленного текстами. Во-первых, считать одну напечатанную дату несомненной Ночью предопределения — хадисы намеренно оставляют её среди нескольких нечётных ночей, а не в одном календарном дне, и это зависит от наблюдения луны и местности. Во-вторых, гоняться за народными «признаками» (определённый сон, необычайно тихая ночь, странное поведение животных) как за доказательством того, что ночь наступила, — они не подкреплены сильными хадисами и могут отвлечь от того поклонения, к которому эта ночь на самом деле призывает.",
+      "Практический вывод прост: постепенно усиливайте поклонение в течение последних десяти ночей, часто произносите дуа о прощении и пусть в центре внимания будет милость Аллаха, а не угаданная дата. Даже если вам не удастся осознанно застать эту ночь, искреннее усердие во все эти ночи само по себе щедро вознаграждается.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Это общий образовательный материал, излагающий основное суннитское учение на основе Корана и достоверных хадисов. Это не фетва. По вопросам итикафа, пропущенных намазов или ваших конкретных обстоятельств обращайтесь к знающему местному учёному.",
   },
 ];

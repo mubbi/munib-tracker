@@ -73,9 +73,18 @@ export async function fetchGoogleProfile(accessToken: string): Promise<{
   if (!response.ok) {
     throw new Error("Failed to fetch Google profile");
   }
-  const data = (await response.json()) as { email?: string; name?: string; picture?: string };
+  const data = (await response.json()) as {
+    email?: string;
+    email_verified?: boolean | string;
+    name?: string;
+    picture?: string;
+  };
   if (!data.email) {
     throw new Error("Google profile missing email");
+  }
+  // The allowlist is keyed on email — only trust an address Google has verified.
+  if (data.email_verified !== true && data.email_verified !== "true") {
+    throw new Error("Google account email is not verified");
   }
   return { email: data.email, name: data.name, picture: data.picture };
 }

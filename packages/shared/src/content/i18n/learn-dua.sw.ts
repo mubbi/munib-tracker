@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       "Muumini hufanya dua kwa wepesi na dhiki, kwa sauti na kwa siri, na yakini ya kwamba Mwenyezi Mungu anasikia kila mwito, wala hamrudishii mwenye ikhlasi mikono mitupu. Yuko karibu sana hata husema: Mimi naitikia mwito wa mwitaji anaponiomba.",
       "Jibu lipo katika aina tatu, alizofundisha Mtume ﷺ: Mwenyezi Mungu hutoa alichoombwa; au Anaizuia na akaiwekea Akhera malipo sawa au makubwa zaidi. au Anayaondosha madhara sawa na hayo. Kwa hivyo hakuna dua ya dhati ambayo haijajibiwa - wakati mwingine rehema kubwa iko kwenye jibu ambalo hatuoni.",
     ],
-    quran: [
-      {
-        excerpt: "Na Mola wenu Mlezi anasema: Niombeni; nitakujibu.'",
-      },
-      {
-        excerpt:
-          "Na waja wangu watakapokuuliza kuhusu Mimi, hakika mimi nipo karibu. Naitikia mwito wa mwitaji anaponiomba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua ni ibada. Kisha akasoma, “Na Mola wenu Mlezi anasema: Niombeni! nitakujibu.' (an-Nu'man bin Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       "Muombeni Mwenyezi Mungu kwa sifa tatu za ndani: unyenyekevu, yakini kwamba Anaweza na ataitikia, na maoni mazuri juu Yake (husn al-zann). Ielekee kibla pale unapoweza, inua mikono yako, chagua nyakati zenye baraka, na uulize mambo ya maisha ya dunia na ya Akhera. Inashauriwa kurudia maombi muhimu, na kumaliza kama ulivyoanza - kwa sifa na salawat.",
       "Zaidi ya yote, usiwe na haraka. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) ametahadharisha kuwa dua hujibiwa ilimradi mtu asikate tamaa na kusema, ‘Niliita na nimeita lakini sikuitikiwa,’ na kisha kuiacha. Kudumu katika kuomba ni ibada yenyewe, na Mwenyezi Mungu humpenda mja anayebisha hodi mlangoni mwake.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dua ya mja inaendelea kujibiwa maadamu hana haraka - kusema, 'Nilifanya dua lakini sikujibiwa.' (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Anaposwali mmoja wenu na aanze kwa kumhimidi na kumtukuza Mola wake Mlezi, kisha amswalie Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) na aombe anachotaka. (Fadalah bin ́Ubayd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Fungua kila dua kwa Alhamdulillah na salawat juu ya Mtume ﷺ.",
       "Muombe Mwenyezi Mungu kwa majina yanayofaa zaidi haja yako (k.m. Ya Razzaq kwa ajili ya riziki, Ya Ghafur kwa ajili ya msamaha).",
@@ -65,16 +43,7 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       "Riziki ya halali ni ufunguo wenye nguvu. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) ameeleza msafiri anayeinua mikono yake mbinguni huku akilia: ‘Ewe Mola, Ewe Mola Mlezi,’ lakini ‘chakula chake ni haramu, na kinywaji chake ni haramu, na nguo yake ni haramu, na analishwa na haramu — basi vipi atajibiwa? Kuchunga mapato ya mtu, kutubia dhambi, na kutoomba dhambi au kukata uhusiano wa kifamilia, yote hayo yanaondoa vizuizi baina ya dua na kuikubali.",
       "Hata hivyo, kukubalika ni rehema ya Mwenyezi Mungu, sio shughuli tunayodhibiti. Kwa hiyo muumini anachanganya juhudi zake bora zaidi - uaminifu, maisha ya halali, toba - na uaminifu wa unyenyekevu, na kamwe hakati tamaa ikiwa jibu litachelewa. Udhaifu na dhambi zilizopita si sababu ya kuacha kuuliza; hao ndio sababu zaidi ya kurejea kwa Mwingi wa Rehema.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "... chakula chake ni haramu, kinywaji chake ni haramu, nguo zake ni haramu, na zinazolishwa na haramu - basi vipi atajibiwa? (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Dua ya mja hujibiwa maadamu haombi jambo la dhambi au kukata mahusiano ya kifamilia. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kagua mapato na matumizi yako kwa uhalali - huathiri moja kwa moja dua yako.",
       "Tanguliza dua ndefu pamoja na istighfar na toba ya kweli.",
@@ -89,16 +58,7 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       "Miongoni mwa yenye nguvu zaidi ni: thuluthi ya mwisho ya usiku, pale Mwenyezi Mungu anapoteremka (kwa namna inayostahiki utukufu wake) kwenye mbingu ya chini kabisa na kuita: ‘Ni nani atakayeniomba nimpe? kusujudu katika sala, msimamo wa karibu zaidi na Mwenyezi Mungu; wakati kati ya adhana na iqamah; wakati mtu anafunga, hasa wakati wa kufuturu; wakati wa mvua; na saa ya mwisho ya Ijumaa kabla ya kuzama kwa jua, ambayo ndani yake kuna saa ambayo hakuna dua inayokataliwa.",
       "Maeneo na majimbo yaliyobarikiwa ni pamoja na kusimama Arafa wakati wa Hija, kuwa ndani ya eneo tukufu, na dua ya msafiri, mzazi kwa mtoto wake, na aliyedhulumiwa. Tumia hizi kama nanga zisizobadilika kwa maisha thabiti ya maombi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mola wetu Mlezi huteremka kila usiku kwenye mbingu ya chini kabisa katika theluthi ya mwisho ya usiku na husema: Ni nani anayeniomba ili nimjibu? Ni nani aniombaye ili nimpe? (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Mja aliye karibu zaidi na Mola wake Mlezi ni hali ya kuwa amesujudu, basi omba sana humo. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -113,14 +73,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyid al-Istighfar (mkuu wa kuomba msamaha)",
         when: "Mara moja kila asubuhi na jioni",
-        translation:
-          "Ewe Mwenyezi Mungu, Wewe ndiye Mola wangu Mlezi; hakuna mungu ila Wewe. Umeniumba na mimi ni mja Wako, na ninashikilia ahadi Yako na ahadi kadiri niwezavyo. Najikinga Kwako kutokana na uovu nilioufanya. Ninakiri fadhila Yako juu yangu na ninakiri dhambi yangu, basi nisamehe - hakuna anayesamehe dhambi ila Wewe.",
       },
       {
         title: "Hasbiyallahu la ilaha illa Huwa",
         when: "Mara saba kila asubuhi na jioni",
-        translation:
-          "Mwenyezi Mungu ananitosheleza; hakuna mungu ila Yeye. Kwake mimi nimetegemea, na Yeye ni Mola Mlezi wa Arshi Kuu.",
       },
     ],
     appLinks: [{}, {}],
@@ -137,19 +93,14 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua juu ya kuamka",
         when: "Mara baada ya kuamka",
-        translation:
-          "Sifa njema zote ni za Mwenyezi Mungu aliye tuhuisha baada ya kutufisha, na kwake Yeye ndiye kufufuliwa.",
       },
       {
         title: "Dua kabla ya kulala",
         when: "Wakati amelala chini kulala",
-        translation: "Kwa jina lako, Ewe Mwenyezi Mungu, ninakufa na ninaishi.",
       },
       {
         title: "Ayat al-Kursi kabla ya kulala",
         when: "Kabla ya kulala",
-        translation:
-          "Mwenyezi Mungu - hapana mungu ila Yeye, Aliye hai, Msimamia kila kitu. Wala usingizi wala usingizi haumfikii. Ni vyake vilivyomo mbinguni na katika ardhi. Nani awezaye kumuombea isipokuwa kwa idhini yake? Anayajua yaliyo mbele yao na nyuma yao, na wao hawajumui chochote katika ilimu yake ila apendavyo. Enzi yake imetanda juu ya mbingu na ardhi, na kuhifadhiwa kwake hakumchoshi. Yeye ndiye Aliye juu, Mtukufu.",
       },
     ],
     appLinks: [{}, {}],
@@ -165,13 +116,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua wakati wa kuondoka nyumbani",
         when: "Wakati wa kutoka nje ya nyumba",
-        translation:
-          "Kwa jina la Mwenyezi Mungu; Ninamtegemea Mwenyezi Mungu; hakuna nguvu wala uwezo ila kwa Mwenyezi Mungu.",
       },
       {
         title: "Dua ikiingia msikitini",
         when: "Unapoingia, ukiingia kwa mguu wa kulia",
-        translation: "Ewe Mwenyezi Mungu nifungulie milango ya rehema zako.",
       },
     ],
     appLinks: [{}, {}],
@@ -187,13 +135,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Kabla ya kula",
         when: "Mwanzoni mwa chakula",
-        translation: "Kwa jina la Mwenyezi Mungu.",
       },
       {
         title: "Baada ya kula",
         when: "Baada ya kumaliza chakula",
-        translation:
-          "Sifa njema zote ni za Mwenyezi Mungu aliyenilisha haya na akaniruzuku bila ya uwezo wala uwezo wowote kwa upande wangu.",
       },
     ],
     appLinks: [{}],
@@ -209,14 +154,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Baada ya wudhu",
         when: "Mara tu baada ya kumaliza kutawadha",
-        translation:
-          "Nashuhudia ya kwamba hapana mungu ila Mwenyezi Mungu peke yake, hana mshirika, na nashuhudia kwamba Muhammad ni mja na Mtume wake.",
       },
       {
         title: "Kabla ya salam katika swalah",
         when: "Katika tashahhud ya mwisho, kabla ya kumaliza sala",
-        translation:
-          "Ewe Mwenyezi Mungu, najikinga Kwako na adhabu ya Jahannam, na adhabu ya kaburi, na mtihani wa maisha na mauti, na shari ya mtihani wa Masihi wa Uongo (Dajjal).",
       },
     ],
     appLinks: [{}, {}],
@@ -232,16 +173,9 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua baada ya adhana",
         when: "Adhana inapokwisha",
-        translation:
-          "Ewe Mwenyezi Mungu, Mola Mlezi wa wito huu mkamilifu na swala thabiti, mpe Muhammad al-Wasilah na al-Fadilah, na umnyanyue kwenye daraja tukufu ulilomuahidi.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dua inayofanywa baina ya adhana na iqamah haikatazwi. (Anas bin Malik; pia at-Tirmidhiy 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -255,13 +189,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua kwa wasiwasi na huzuni",
         when: "Katika dhiki, wasiwasi, au huzuni nyingi",
-        translation:
-          "Ewe Mwenyezi Mungu, najikinga Kwako kutokana na wasiwasi na huzuni, na kutoweza na uvivu, na ubakhili na woga, na mizigo ya deni, na kushindwa na wengine.",
       },
       {
         title: "Mwenyezi Mungu anatutosha",
         when: "Wakati wa kuogopa au kuzidiwa",
-        translation: "Mwenyezi Mungu anatutosheleza, na Yeye ndiye mbora wa kusimamia mambo.",
       },
     ],
     appLinks: [{}, {}],
@@ -277,8 +208,6 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua kwa uponyaji",
         when: "Wakati mgonjwa, au kuomba juu ya mtu ambaye ni mgonjwa",
-        translation:
-          "Ewe Mwenyezi Mungu, Mola Mlezi wa watu, niondolee dhiki na Upe uponyaji - Wewe ndiye Mponyaji; hakuna tiba ila tiba Yako - tiba isiyoacha ugonjwa.",
       },
     ],
     appLinks: [{}, {}],
@@ -294,12 +223,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Toba ya mara kwa mara",
         when: "Mara kwa mara, siku nzima",
-        translation: "Naomba msamaha kwa Mwenyezi Mungu na ninatubia kwake.",
       },
       {
         title: "Dua kwa moyo thabiti",
         when: "Wakati wa kuogopa upotofu au kuyumbayumba",
-        translation: "Ewe Mwenye kugeuza nyoyo, uimarishe moyo wangu juu ya dini yako.",
       },
     ],
     appLinks: [{}, {}],
@@ -315,13 +242,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua wakati wa kusafiri",
         when: "Unapoweka usafiri wako na kuondoka",
-        translation:
-          "Ametakasika aliye tutiisha haya, na hali sisi wenyewe tusingeweza kufanya hivyo; na hakika sisi tutarejea kwa Mola wetu Mlezi.",
       },
       {
         title: "Dua mvua inaponyesha",
         when: "Mwanzoni mwa mvua",
-        translation: "Ewe Mwenyezi Mungu, ifanye kuwa mvua yenye manufaa.",
       },
     ],
     appLinks: [{}, {}],
@@ -333,18 +257,11 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       "Riziki (rizq) inatoka kwa Mwenyezi Mungu peke yake; Muumini humfunga ngamia wake - kufanya kazi na kuchuma - kisha anamuomba Riziki ya halali, barakah katika anachochuma, uhuru kutoka kwa deni, na uhuru kutoka kwa kuhitaji wengine. Mtume ﷺ alifunza dua nzuri inayotaka hili hasa.",
       "Kwa nyumba, Qur'ani yenyewe inafundisha maombi ya watu wema: kupewa wanandoa na watoto ambao ni 'faraja kwa macho,' na kuongoza nyumba iliyounganishwa kwa imani, sala na rehema.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mola wetu Mlezi, tujaalie kutokana na wake zetu na dhuria katika macho yetu, na utujaalie tuwe viongozi kwa watu wema.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Dua kwa utoaji halali",
         when: "Asubuhi, baada ya maombi, na katika matatizo ya kifedha",
-        translation:
-          "Ewe Mwenyezi Mungu, nitoshe kwa yale Uliyoyahalalisha Uliyoharamisha, na Unitajirishe kwa fadhila Yako, hivyo sihitaji ila Wewe.",
       },
     ],
     appLinks: [{}],
@@ -360,14 +277,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Nzuri katika ulimwengu wote",
         when: "Dua ya jumla, yenye malengo yote - ﷺ ya Mtume ﷺ mara nyingi zaidi",
-        translation:
-          "Mola wetu Mlezi, tupe mema duniani na Akhera mema, na utulinde na adhabu ya Moto.",
       },
       {
         title: "Uthabiti katika imani",
         when: "Wakati wa kuogopa kupotoka au baada ya kuongozwa",
-        translation:
-          "Mola wetu Mlezi, zisipotoke nyoyo zetu baada ya wewe kutuongoza, na utupe rehema itokayo kwako. Hakika Wewe ndiye Mpaji.",
       },
     ],
     appLinks: [{}, {}],
@@ -383,7 +296,6 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua ya kina ya wanne",
         when: "Dua ya jumla ya kila siku",
-        translation: "Ewe Mwenyezi Mungu, nakuomba uwongofu, uchamungu, usafi, na utoshelevu.",
       },
     ],
     appLinks: [{}],
@@ -399,13 +311,10 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Maneno mpendwa na yanayofuta dhambi",
         when: "Siku nzima; Mara 100 hufuta dhambi",
-        translation: "Ametakasika Mwenyezi Mungu, na sifa njema zote ni zake.",
       },
       {
         title: "Maneno mawili mazito kwenye Mizani",
         when: "Wakati wowote",
-        translation:
-          "Ametakasika Mwenyezi Mungu na sifa njema ni zake. utukufu ni wa Mwenyezi Mungu Mtukufu.",
       },
     ],
     appLinks: [{}],
@@ -417,18 +326,11 @@ export const LEARN_DUA_TOPICS_SW: DeepPartial<LearnDuaTopic>[] = [
       "Kumswalia Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) kumeamrishwa na Mwenyezi Mungu ndani ya Qur'ani - 'Hakika Mwenyezi Mungu na Malaika wake wanamsalia Mtume; Enyi Waumini, rehema na amani ziwe juu yake - na hakuna dua nyingine yenye marejeo ya uhakika kama haya: Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) amesema kuwa mwenye kumteremshia rehema Mwenyezi Mungu humteremshia mtu kumi.",
       "Salawat za mara kwa mara huleta rehema, hupandisha daraja, hufuta madhambi, na humkurubisha mtu kwa Mtume ﷺ Siku ya Qiyaamah. Fomu kamili ya Ibrahim hapa chini - ile aliyowafundisha Maswahaba zake walipouliza jinsi ya kumtakia baraka - inasomwa katika kila tashahhud ya sala na ni bora kuweka ulimi siku nzima.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu na Malaika wake wanamsalia Mtume. Enyi mlio amini mpe baraka na salamu za amani.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Salawat kamili Ibrahimiyyah",
         when: "Katika tashahhud ya sala na mchana mzima",
-        translation:
-          "Ewe Mwenyezi Mungu mrehemu Muhammad na Aali Muhammad kama ulivyombariki Ibrahim na ukoo wa Ibrahim. Hakika Wewe ni Msifiwa, Mtukufu. Ewe Mwenyezi Mungu mrehemu Muhammad na Aali Muhammad kama ulivyo mneemesha Ibrahim na ukoo wa Ibrahim. Hakika Wewe ni Msifiwa, Mtukufu.",
       },
     ],
     appLinks: [{}],

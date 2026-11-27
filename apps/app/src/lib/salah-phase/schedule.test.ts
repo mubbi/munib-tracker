@@ -1,10 +1,16 @@
+import fs from "node:fs";
+import path from "node:path";
+
+import i18n from "@/i18n";
 import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import { DEFAULT_LOCATION } from "@/lib/location";
 import {
   buildSalahPhaseSchedule,
   createSalahTrackingSession,
+  progressForPhase,
   resolveSalahPhase,
   SALAH_PHASE_MARK_WINDOW_MS,
+  shortCriticalTextForPhase,
   shouldPromoteSession,
 } from "@/lib/salah-phase";
 
@@ -105,5 +111,50 @@ describe("salah-phase", () => {
     );
     const catchUp = boundaries.find((b) => Date.parse(b.executeAt) === currentAt + 30 * 60_000);
     expect(catchUp?.phase).toBe("upcoming");
+  });
+});
+
+describe("Android status-chip text", () => {
+  afterEach(async () => {
+    await i18n.changeLanguage("en");
+  });
+
+  it("counts down while upcoming, then names the phase action", () => {
+    expect(shortCriticalTextForPhase("upcoming", "Maghrib", 45)).toBe("45m");
+    expect(shortCriticalTextForPhase("upcoming", "Maghrib", 150)).toBe("2h");
+    expect(shortCriticalTextForPhase("upcoming", "Maghrib", 0)).toBe("Maghri");
+    expect(shortCriticalTextForPhase("markSalah", "Asr", 0)).toBe("Mark");
+    expect(shortCriticalTextForPhase("afterSalah", "Asr", 0)).toBe("Adhkar");
+    expect(shortCriticalTextForPhase("ended", "Asr", 0)).toBe("Done");
+  });
+
+  it("localizes the phase action instead of hardcoded English", async () => {
+    i18n.addResourceBundle("ar", "translation", require("@/i18n/ar.json"), true, true);
+    await i18n.changeLanguage("ar");
+    expect(shortCriticalTextForPhase("markSalah", "Asr", 0)).toBe("سجّل");
+    expect(shortCriticalTextForPhase("afterSalah", "Asr", 0)).toBe("أذكار");
+    expect(shortCriticalTextForPhase("ended", "Asr", 0)).toBe("تم");
+  });
+
+  it("keeps every catalog's chip text within the 6 characters Android shows", () => {
+    const dir = path.join(__dirname, "../../i18n");
+    for (const file of fs.readdirSync(dir).filter((name) => /^[a-z]{2}\.json$/.test(name))) {
+      const catalog = JSON.parse(fs.readFileSync(path.join(dir, file), "utf8"));
+      const chip = catalog.notif.trackSalah.chip as Record<string, string>;
+      for (const key of ["mark", "adhkar", "done"]) {
+        expect({ file, key, fits: chip[key].length > 0 && chip[key].length <= 6 }).toEqual({
+          file,
+          key,
+          fits: true,
+        });
+      }
+    }
+  });
+
+  it("grows the progress through the phases", () => {
+    expect(progressForPhase("upcoming").progressPercent).toBe(20);
+    expect(progressForPhase("markSalah").progressPercent).toBe(65);
+    expect(progressForPhase("afterSalah").progressPercent).toBe(85);
+    expect(progressForPhase("ended").progressPercent).toBe(100);
   });
 });

@@ -36,6 +36,8 @@ function setup() {
   const oauth = {
     resolveAccessToken: vi.fn().mockReturnValue(TEST_ACCESS_TOKEN),
     resolveRefreshToken: vi.fn().mockReturnValue(SESSION.refreshToken),
+    usesRefreshCookie: vi.fn().mockReturnValue(false),
+    revokeCookieRefreshSession: vi.fn().mockResolvedValue(undefined),
     issueSessionResponse: vi.fn().mockResolvedValue(WEB_RESPONSE),
     completeGoogleNative: vi.fn().mockResolvedValue(SESSION),
     completeGoogleOauth: vi.fn().mockResolvedValue(SESSION),
@@ -61,13 +63,13 @@ function setup() {
 describe("AuthController", () => {
   it.each<[string, RequestOverrides, string]>([
     [
-      "first x-forwarded-for hop",
+      "nearest proxy hop (not the spoofable first one)",
       { headers: { "x-forwarded-for": "1.1.1.1, 2.2.2.2" } },
-      "1.1.1.1",
+      "2.2.2.2",
     ],
-    ["blank first hop", { headers: { "x-forwarded-for": ", 2.2.2.2" } }, "unknown"],
-    ["array header", { headers: { "x-forwarded-for": ["3.3.3.3,4.4.4.4"] } }, "3.3.3.3"],
-    ["array header with blank hop", { headers: { "x-forwarded-for": [" , 4.4.4.4"] } }, "unknown"],
+    ["non-blank last hop", { headers: { "x-forwarded-for": "2.2.2.2, " } }, "2.2.2.2"],
+    ["array header", { headers: { "x-forwarded-for": ["3.3.3.3,4.4.4.4"] } }, "4.4.4.4"],
+    ["blank-only header", { headers: { "x-forwarded-for": [" , "] } }, "unknown"],
     ["socket ip", { headers: { "x-forwarded-for": [] as string[] }, ip: " 5.5.5.5 " }, "5.5.5.5"],
     ["blank socket ip", { ip: "  " }, "unknown"],
     ["no ip at all", {}, "unknown"],
@@ -75,6 +77,20 @@ describe("AuthController", () => {
     const { controller, authService } = setup();
     await controller.createGuestSession({ deviceId: "d" }, buildRequest(overrides));
     expect(authService.createGuestSession).toHaveBeenCalledWith({ deviceId: "d" }, ip);
+  });
+
+  it("can't dodge the guest limit by rotating a spoofed first X-Forwarded-For hop", async () => {
+    const { controller, authService } = setup();
+    for (const spoof of ["203.0.113.1", "203.0.113.2"]) {
+      await controller.createGuestSession(
+        {},
+        buildRequest({ headers: { "x-forwarded-for": `${spoof}, 10.0.0.7` } }),
+      );
+    }
+    expect(authService.createGuestSession.mock.calls.map(([, ip]) => ip)).toEqual([
+      "10.0.0.7",
+      "10.0.0.7",
+    ]);
   });
 
   it("creates a TV pairing", async () => {
@@ -160,14 +176,21 @@ describe("AuthController", () => {
     );
     expect(oauth.resolveRefreshToken).toHaveBeenCalledWith(req, "body");
     expect(authService.refreshSession).toHaveBeenCalledWith(SESSION.refreshToken, CLIENT_IP);
-    expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER);
+    expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER, false);
+  });
+
+  it("forces the cookie response when the refresh token came from the cookie", async () => {
+    const { controller, oauth, req, res } = setup();
+    oauth.usesRefreshCookie.mockReturnValueOnce(true);
+    await controller.refresh({}, req, res);
+    expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER, true);
   });
 
   it("links a guest account and issues a client-appropriate response", async () => {
     const { controller, authService, oauth, req, res } = setup();
     const dto = { provider: AuthProvider.Google, code: "c" };
     await expect(controller.linkAccount(TEST_BEARER, dto, req, res)).resolves.toBe(WEB_RESPONSE);
-    expect(authService.linkGuestAccount).toHaveBeenCalledWith(TEST_ACCESS_TOKEN, dto);
+    expect(authService.linkGuestAccount).toHaveBeenCalledWith(TEST_ACCESS_TOKEN, dto, CLIENT_IP);
     expect(oauth.issueSessionResponse).toHaveBeenCalledWith(req, res, SESSION, USER);
   });
 
@@ -181,6 +204,15 @@ describe("AuthController", () => {
     const { controller, authService, oauth, req, res } = setup();
     await controller.logout(TEST_BEARER, req, res);
     expect(authService.revokeSession).toHaveBeenCalledWith(TEST_ACCESS_TOKEN);
+    expect(oauth.revokeCookieRefreshSession).toHaveBeenCalledWith(req);
+    expect(oauth.clearAuthCookies).toHaveBeenCalledWith(res);
+  });
+
+  it("still revokes the refresh cookie and clears cookies when the access token is dead", async () => {
+    const { controller, authService, oauth, req, res } = setup();
+    authService.revokeSession.mockRejectedValueOnce(new Error("Invalid or expired session"));
+    await expect(controller.logout(TEST_BEARER, req, res)).rejects.toThrow("Invalid");
+    expect(oauth.revokeCookieRefreshSession).toHaveBeenCalledWith(req);
     expect(oauth.clearAuthCookies).toHaveBeenCalledWith(res);
   });
 

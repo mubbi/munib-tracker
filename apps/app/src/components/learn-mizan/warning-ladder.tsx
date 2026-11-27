@@ -9,7 +9,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { useChevronForward } from "@/lib/rtl";
@@ -41,7 +41,7 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
 
   return (
     <View style={styles.stack}>
-      <JannahCallout tone="warning">{t("jahannam.mizan.warningCallout")}</JannahCallout>
+      <JannahCallout tone="info">{t("jahannam.mizan.warningCallout")}</JannahCallout>
 
       <View style={styles.ladder}>
         {LADDER_STEPS.map((step) => {
@@ -54,7 +54,7 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
                 { backgroundColor: palette.soft, borderColor: withAlpha(palette.color, 0.3) },
               ]}
             >
-              <ThemedText type="caption" style={{ color: palette.color, fontWeight: "700" }}>
+              <ThemedText weight="bold" type="caption" style={{ color: palette.onSoft }}>
                 {t(`jahannam.mizan.ladder.${step.key}`)}
               </ThemedText>
             </View>
@@ -62,7 +62,7 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
         })}
       </View>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("jahannam.mizan.sevenTitle")}
           icon={{ ios: "shield.lefthalf.filled", android: "security", web: "security" }}
@@ -77,7 +77,7 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
                 ]}
               >
                 <View style={styles.sealNumber}>
-                  <ThemedText type="smallBold" style={{ color: tokens.status.danger.color }}>
+                  <ThemedText type="smallBold" style={{ color: tokens.status.danger.onSoft }}>
                     {item.order}
                   </ThemedText>
                 </View>
@@ -156,7 +156,7 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
               accessibilityLabel={t("jahannam.mizan.bankruptLink")}
               style={styles.bankruptLink}
             >
-              <ThemedText type="smallBold" style={{ color: tokens.status.danger.color }}>
+              <ThemedText type="smallBold" style={{ color: tokens.status.danger.onSoft }}>
                 {t("jahannam.mizan.bankruptLink")}
               </ThemedText>
             </PressableScale>
@@ -164,7 +164,7 @@ export function WarningLadderBlock({ items }: { items: DestructiveSinItem[] }) {
         </View>
       ) : null}
 
-      <JannahCallout tone="success">{t("jahannam.mizan.hopeCallout")}</JannahCallout>
+      <JannahCallout tone="info">{t("jahannam.mizan.hopeCallout")}</JannahCallout>
     </View>
   );
 }
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderCurve: "continuous",
   },
   list: { gap: Spacing.two, marginTop: Spacing.three },
@@ -193,19 +193,19 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderCurve: "continuous",
   },
   sealNumber: {
     width: 22,
     alignItems: "center",
   },
-  sealText: { flex: 1, gap: 2 },
-  summary: { lineHeight: 16 },
+  sealText: { flex: 1, gap: Spacing.half },
+  summary: {},
   bankrupt: {
     padding: Spacing.three,
     borderRadius: Radius.md,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderCurve: "continuous",
   },
   bankruptLink: { marginTop: Spacing.three },

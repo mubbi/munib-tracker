@@ -26,20 +26,7 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Qodob ka mid ah raaxada udub dhexaad u ah caqiidada Sunniga ah waxay dhex maraysaa cutubkan oo dhan: kuwa u dhinta iyagoo rumaysan Allaah oo keliya, xitaa haddii dembigu culaysyo, kuma sii jirayaan naarta weligood. Naxariista Eebe iyo shafeeco uu idmo, Mu'miniinta dambiga galay ayaa ugu dambeyn la soo saaray; Waxaa hadhay kuwa rumaysad la'aan ku dhinta. So the study of Jahannam is, for the believer, ultimately a study of how to reach mercy.",
       "Qaybtani waxa ay soo bandhigaysaa waxa ay qoraaladu si cad u sheegeen, waxa uu si daacad ah u xusayaa halka ay culimadu ku khilaafeen, waxa uu daliishanayaa oo kaliya daliil sugan, waxa aanu si joogto ah kuu tilmaamayaa dhinaca tawbah, camalka suuban iyo talo saarashada Alle.",
     ],
-    quran: [
-      {
-        excerpt:
-          "ka Dhawrsada Naarta Gaalada loo Darbay, Adeecana Eebe iyo Rasuulka waxaad u Dhawdihiin in laydiin Naxariisto.",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa: Addoomadayda ku xad gudbay Naftooda, ha ka quusanina naxariista Eebe. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
-      },
-      {
-        excerpt:
-          "Kuwa (xaqa) rumeeyow u toobad keena Eebbe toobad toosan, waxay u dhawdahay inuu Eebihiin idinka reebo xumaantiinna oo idin galiyo Jannooyin.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -48,29 +35,13 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Cadaalada Rabbaani ah, isla xisaabtanka, iyo cawaaqibka ka dhalan kara doorashada xorta ah.",
     body: [
       "Jahannama waxay u jirtaa muujinta cadaaladda qumman ee Alle ('adl). Koonka ay dulmiga iyo dulmanaha, daacadda iyo khaa’inul-wadayaasha, dhammaan isku meel ku wada kulmaan, xaq noqon mayso. Maxaa yeelay Alle waa caadil qummane, waa in xisaab dambe la helaa oo xumaan kasta laga jawaabo, wanaag kastana lagu sharfo.",
-      "Taas waxa udub dhexaad u ah in Alle cidna aanu dulmiyin. Naf kasta oo naarta gasha waxay ku gashaa dooq ay iyadu dejisay oon toobad keenin, waligoodna waxay ku galaysaa xukun aan la soo koobi karin. Qur'aanku waxa uu ku nuuxnuuxsaday: 'Ilaah dadka waxba ma dulmiyo, laakiin dadku naftooda ayay dulmiyaan' (4:40). Qofna laguma ciqaabo wuxuusan samayn, iyo wax dhaafsiisan wixii uu mudnaa.",
+      "Taas waxa udub dhexaad u ah in Alle cidna aanu dulmiyin. Naf kasta oo naarta gasha waxay ku gashaa dooq ay iyadu dejisay oon toobad keenin, waligoodna waxay ku galaysaa xukun aan la soo koobi karin. Qur'aanku waxa uu ku nuuxnuuxsaday: 'Ilaah dadka waxba ma dulmiyo, laakiin dadku naftooda ayay dulmiyaan' (10:44). Qofna laguma ciqaabo wuxuusan samayn, iyo wax dhaafsiisan wixii uu mudnaa.",
       "Bini'aadmiga mugdi lagagama tegin. Eebbana wuxuu siiyey caqli, una soo diray rususha, una soo dejiyey hanuun cad, ka dibna wuxuu ku sharfay inay aqbalaan ama diidaan: “Ruuxii doono ha rumeeyo; (18:29) Ruuxii doonana ha beeniyo. Ku adkaysiga diidmada runta, dulmiga, ama dembiga weyn ee aan toobad keenin waxay keenaysaa cawaaqib aakhiro si sax ah sababtoo ah doorashadu waxay ahayd mid dhab ah midda.",
       "Haddana xataa halkan naxariistu waxay abuurtaa caddaaladda. Eebbana wuu ka digtoonaadaa intuusan xukumin, wuuna dib u dhigaa xisaabinta si uu u banneeyo soo noqoshadiisa, wuuna cafiyaa marka la waydiiyo, wuxuuna ka abaalmariyaa camal keliya oo wanaag ah marar badan isagoo dembi keli ah qoraya. Caddaaladdiisu weligeed kama soocna naxariistiisa.",
       "Haddaba dib u milicsiga sababta uu Jahannam u jiro waa in la kordhiyo taqwada (Ilaah-miyirka) iyo in la kordhiyo mahadnaqa maalin kasta oo nolosha ah oo weli ah fursad lagu towbad keeno. Waxaa loola jeedaa in wadnaha laga dhigo mid dhab ah oo rajo leh hal mar - marnaba yaan la curyaamin rajo beel.",
     ],
-    quran: [
-      {
-        excerpt: "Illeen Alle dadka ma dulmiyo haba yaraatee, laakiin dadku naftooda ayaa dulmiya.",
-      },
-      {
-        excerpt: "Waxna lagama warsado wuxuu fali waase la warsan.",
-      },
-      {
-        excerpt:
-          "Ku alla kii doonaya ha rumaysto; Ruuxii doonana ha beeniyo. Waxaana u darabnay Daalimiinta Naarta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Midkiin Jannada kuma galo camalkiisa oo keliya. Waxay yiraahdeen: Xataa adiga ma aha, Rasuulkii Alloow? Wuxuu yidhi: Xataa anigu ma aha, hadduusan Eebbe iga qarin naxariistiisa.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -83,16 +54,7 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "In la arko jidka oo dhan ayaa sidoo kale dib u habaynaya Dabka. Waa hal meel oo suurtagal ah dhamaadka safarka naf kasta ayaa horay u safreysay - taas oo macnaheedu yahay doorashada maanta maaha mid aan la taaban karin. Waxay yihiin tillaabooyin jidkaas mara, welina annagaa iska leh inaan toosinno.",
       "Ogaanshaha tixdan waxa ay ka caawisaa qofka mu’minka ah in uu u diyaargaroobo intii uu ka cabsan lahaa: in uu la noolaado xusuus caafimaad qabta oo geerida (dhikir al-mawt), in uu hagaajiyo wixii khaldamay ka hor inta aan la gelin shirka, iyo in uu buuxiyo xisaabaadka camalka wanaagsan iyada oo weli albaabkii camalku furan yahay. Geeridu waxay xidhay albaabkaas; waxba laguma dari karo ka dib.",
     ],
-    quran: [
-      {
-        excerpt:
-          "markaas dabadeed waad dhimanaysaa. Markaas waxaa laydin soo bixin Maalinta qiyaame.",
-      },
-      {
-        excerpt:
-          "Ruuxiise miisaankiisu cuslaado wuxuu gali nolol wanaagsan. Kii miisaankiisu fududaa, magangalkiisu wuxuu ahaan doonaa yaamays.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Baro marxalad kasta Baro Aqidah oo ku xidh caqiidada iyo doorashooyinka maalinlaha ah.",
       "In la badiyo xusuusta geerida (dhikir al-mawt) iyadoon la dayacin rajada naxariista.",
@@ -110,14 +72,7 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Halkan waa eray taxaddar leh. Qaar ka mid ah qorayaasha dambe waxay soo bandhigaan magac kasta si gaar ah, oo loo qiimeeyo 'heerka' Jahannamo, mararka qaarkoodna leh jaantusyo faahfaahsan. Taasi waa tafsiir cilmiyeed ee ma aha liis hubin cad oo lagu sheegay Qur'aanka ama xadiiska la isku raacay. Habka isku dheeli tiran waa in la barto macnaha qoraaladu si dhab ah u bixiyaan iyo in laga fogaado soo bandhigida khariidadaha mala-awaalka ah sida hubaal ah.",
       "Ujeedada barashada magacyadu maaha in la qanciyo xiisaha laakiin waa in la jilciyo qalbiga oo loo dhaqaajiyo naxariista uu cutubkani tilmaamayo. Ka baadh ururinta magacyada oo buuxa magac kasta dhacdada Qur'aanka, macnaha guud iyo tafsiirka oo kooban.",
     ],
-    quran: [
-      {
-        excerpt: "Jahannamo waa ku filan meel lagu nasto.",
-      },
-      {
-        excerpt: "Waxaa lagu tuuri doonaa al-Hutamah - Naarta wax burburisa.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -131,21 +86,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Laba shay, si kastaba ha ahaatee, waa hubaal. Ugu horrayn, dulmigaas (dhulm), shirkiga, iyo dembiga waaweyn ee joogtada ah oo aan ka toobad keenin ayaa xambaarsan digniin adag. Midda labaad - oo aan marnaba la hilmaamin - in naxariista iyo dembi-dhaafka Alle ay u furan yihiin illaa laga gaarayo geerida qof kasta oo si dhab ah ugu soo noqda. Ujeedada barashada shahaadooyinka ayaa ah in la doorto dariiqa fudud inta doorashadu ay hadhsan tahay.",
       "Dhab ahaantii, tani waxay ka dhigan tahay in liisaska tifaftiran ee 'toddobo heer' ama qorshayaal la mid ah loola dhaqmo sidii ra'yi cilmiyeed halkii laga ahaan lahaa caqiido la dejiyay, iyo in fiiro gaar ah loo yeesho waxa dhab ahaantii ilaaliya: iimaanka, towbada, iyo camalka xaqa ah.",
     ],
-    quran: [
-      {
-        excerpt: "Dhammaan waxaa jiri doona shahaadooyin sida ay sameeyeen.",
-      },
-      {
-        excerpt:
-          "Munaafiqiintu waxay ku sugnaan meesha ugu hoosaysa ee naarta umana heshid gargaare.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ciqaabta ugu yar ee ehelka naarta waa nin cagihiisa hoostooda la geliyo laba shil oo ay maskaxdiisu ka karkariso.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Jaantusyada heerarka Jahannamo ee laga helay buugaagta qaarkood waxay ka tarjumayaan tafsiir cilmiyeed, ma aha heshiis loo dhan yahay.",
   },
@@ -158,12 +100,7 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Waxaa muhiim ah in la ogaado halka uu hubaalku ku dhammaanayo. Qaar ka mid ah shaqooyinka dambe waxay ku meeleeyaan albaab kasta dembi gaar ah ama koox gaar ah. Shaqooyinkan gaarka ah maaha kuwo si isku mid ah loo aasaasay ilaha ugu horreeya, sidaa darteed waxaa sida ugu wanaagsan loogu soo bandhigay aragtiyo aqoonyahanno gaar ah halkii ay ahaan lahaayeen qeexitaan nebiyad.",
       "Sida heerarka, casharrada albaabadu maaha mid dhismeed laakiin waa akhlaaq: waxaa jira albaabo badan oo u horseedaya Naarta, iyo habka looga badbaadi karo dhammaantood waa isku mid - iimaan daacad ah, ka fogaanshaha dembiga weyn, iyo towbad keen degdeg ah marka qofku simbiriiro.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Jahannamo waa u yaboohay dhammaantood. Waxay leedahay toddoba irdood; Waayo, irid kasta waa qayb loo qoondeeyey.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -177,26 +114,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Waxa jirta aadaabta (adab) in la akhriyo tuducyadan oo kale. Waxaa lagu qaabilaa is-hoosaysiin, Alle ka cabsi, iyo dareen degdeg ah si ay u toobad keenaan oo ay magangal u helaan - ma aha in ay si xun u soo jiitaan, oo weligood rajo la'aan, mar haddii ujeeddada digniintu ay tahay in aan weli haysanno waqti aan kaga fogaano.",
       "Waxaa laga yaabaa in mawduuca ugu cuslaa ee tilmaantan uu yahay qoomamo. 'Hadii aan lahaan lahaa...' ayaa la odhan doonaa marka uu wakhtiga ficilku xidhmo. Naxariista marka la maqlo qoomamadaas hadda waa in aan ku dhaqmi karno 'hadday kaliya' maanta, iyadoo ay weli beddeli karto dhammaadkayaga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaana hortiisa ah Naarta Jahannamo, waxaana laga waraabin Biyo xun. Wuu ceshan doonaa laakiin wuu liqi doonaa.",
-      },
-      {
-        excerpt:
-          "Oo iyaga waxaa loo gooyn doonaa dhar dab ah, oo madaxana waxaa lagu shubi doonaa biyo kulayl ah.",
-      },
-      {
-        excerpt:
-          "Naarta Jahannamo Maalintaas waa la soo bixin (Qiyaamada) Maalintaas Dadku wuu waasici, maxaase u wanaag ah xusku.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dabkaagu waa qayb ka mid ah todobaatanka qaybood ee naarta Jahannamo. Waxaa la yiri: Rasuulkii Alloow dabkaan waa ku filnaan lahaaye. Wuxuu yidhi: Waxaa la siiyey itaalkeeda sagaal iyo lixdan qaybood, qayb walbana waxay la mid tahay kulaylkeeda.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -208,19 +127,7 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Sababtaas awgeed, Islaamku ma ogola in aan ku dhawaaqno aayaha kama dambaysta ah ee qof gaar ah - in la yiraahdo 'qofkani wuxuu ku jiraa naarta' - marka laga reebo xaalado dhif ah oo uu Eebbe ama Rasuulkiisu ﷺ si cad ugu sheegay waxyi dhab ah. Xukunka quluubta iyo aakhirka waxaa iska leh Alle oo keliya; hawsheenu waa xisaabinteena.",
       "Markaa habka saxda ah ee digniin kasta loo akhriyi karo waa in gudaha loo rogo: maaha 'yaa kan ku tilmaamay?' Laakiin 'mid ka mid ah kuwan ma i sifeynayaan, oo maxaan maanta beddeli doonaa?' Qof kasta oo aad tahay, martiqaadka inaad u soo noqoto Alle hadda way furan tahay - berrina cidna looma ballan qaadayo.",
     ],
-    quran: [
-      {
-        excerpt: "Munaafiqiintu waxay ku sugnaan gunta hoose ee Naarta.",
-      },
-      {
-        excerpt:
-          "Ruuxii kasbada dambi oo uu ku asturo kuwaasu waa asaxaabta naarta wayna ku waari.",
-      },
-      {
-        excerpt:
-          "Ha u malayn in Eebe halmaansan yahay waxay fali daalimiintu. Eebana wuxuu dib u dhigaa maalin ay indhuhu arkaan.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -233,25 +140,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       'Waana tan ugu sarraysa dhammaan: marka laga reebo in lagu dhinto shirkiga, dembi kasta - mid weyn ama mid yar - wuxuu ku dhacayaa dambi dhaafka Eebbe hadduu doono. "Ilaahay ma dhaafo la wadaajinta, wuxuuse ka dhaafaa waxa ka yar cidduu doono" (4:48). Mu\'minna waa inuu waligiis soo gebogebeeyaa in dembiyadooda waaweyni ay ka dhigayaan wax naxariis ah.',
       "Mawduuc kasta oo dembi weyn oo cutubkan ku jira wuxuu bixiyaa qeexitaankiisa, caddayntiisa, sababta uu qabriga u yahay, iyo jidka la taaban karo ee toobadkeenka iyo ka fogaanshaha - had iyo jeer waxay ku dhammaanayaan isla albaabkaas furan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Haddaad ka fogaataan dambiyada waaweyn oo laydinka xarrimay waxaan idinka tageynaa dambigiinna yaryar waxaana idin galin meel sharaf leh.",
-      },
-      {
-        excerpt: "Eebana ma dhaafo la wadaajinta, wuxuuse ka dhaafaa waxa ka yar cidduu doono.",
-      },
-      {
-        excerpt:
-          "Ee ah kuwa ka fogaada dambiyada waaweyn iyo xumaanta, wax yar mooyee, Eebahaana waa u dambi dhaaf wayn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dambiyada ugu waaweyn waxaa ka mid ah: la wadaajinta Alle, nafta oo la dilo, waalidka oo la caasiyo, iyo marag been ah.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -264,21 +154,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Waxa dembiyadan ka dhigaya kuwo aad khatar u ah waa sida ay u fudud yihiin oo ay caado u yihiin. Dadku waxay ku dhex simbiriiraan sheeko caadi ah iyagoon fikir labaad gelin, waana sababta uu Nebigu ﷺ ku xidhay iimaanka laftiisa oo ilaalinaya hadalka: 'Qofkii rumeeyey Eebbe iyo maalinta aakhiro haku hadlo wanaag ama ha iska aamuso. Hakin fudud ka hor hadalka waa cibaado dhab ah.",
       "Ka toobadkeenida dembiga carrabka waxay raacdaa shuruudaha caadiga ah - joojinta, qoomamaynta, go'aanso inaadan soo laaban - oo leh cabbir dheeraad ah marka qof kale xaqiisa ku lug yeesho. Meesha sifaynta magacooda ama cafis ladoonto lagu samayn karo iyada oo aan dhibaato kale loo geysan, taasi waa qayb ka mid ah towbada; Meesha ay wargelintooda sii kordhinayso dhaawaca, culimadu waxay ku talinayaan beddelkooda in si wanaagsan looga hadlo, la difaaco markay maqan yihiin, una duceeyaan dambi dhaaf.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Midba midka kale ha isku xanto. Midkiin ma jeclaan lahaa inuu cuno hilibka walaalkiis oo dhintay?",
-      },
-      {
-        excerpt: "Waxaa iska hoogay mid kasta oo wax quudhsada.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ruuxii rumeeyey Allaah iyo maalinta aakhiro wanaag ha ku hadlo ama ha iska aamuso.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Kahor intaadan hadlin, weydii: ma runbaa? Ma loo baahan yahay? Ma naxariisbaa?",
       "Haddii aad qof caado, u duceyso oo cafis weydiiso halka ay suurtagal tahay.",
@@ -295,20 +172,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Tani waxay baraysaa cashar muhim ah oo ku saabsan towbad keenka: in Alle loo noqdo waa lama huraan, laakiin marka xuquuqul insaanka lagu xadgudbo, keligeed kuma filna. Sheegashada qofka la dulmiyey way jirtaa ilaa la xaliyo ama laga cafiyo. Haddaba tawbadkeenku halkan waxa uu leeyahay shardi afraad oo ka baxsan joojinta, qoomamaynta, iyo xallinta - soo celinta wixii lagu leeyahay.",
       "Dhaqan ahaan taasi waxay ka dhigan tahay dib u soo celinta wixii la qaatay ama qiimihiisii, bixinta deynta xitaa si tartiib tartiib ah, dib u soo celinta sumcadda mid ka mid ah waxyeelada, iyo in la heshiiyo qaraabada mid ka gooyay. Taasna waxaa ku jirta naxariis: Talaabo kasta oo dib-u-celin ah lafteedu waa camal wanaagsan, Eebbana wuu u fududeeyaa qalbi daacad ah oo u taagan inuu hagaajiyo wixii jabay.",
     ],
-    quran: [
-      {
-        excerpt: "Haddaydaan ka tegin ribada ka digtoonaada dagaal Eebbe iyo Rasuulkiisa.",
-      },
-      {
-        excerpt: "Ee ah kuwa buriya ballanka Eebbe oo gooyay wuxuu faray.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ma garanaysaa cidda musalaftay? Ruuxii la yimaadda salaad iyo soon, iyo sadaqo, laakiin caytamay, oo caytamay, oo xoolo xaaraan ah ku cunay, oo dhiig daadiyey, oo camalkiisii ​​wanaagsanaa cid kale loo dhiibay.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Liis garee qof kasta oo aad dulmiday oo qaado tillaabo hagaajinta usbuucan.",
       "Bixi deymaha kugu maqan xitaa qaybo yaryar haddii ay taasi tahay waxa kaliya ee aad maareyn karto.",
@@ -324,21 +189,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Kala soocidaani aad bay muhiim ugu tahay sida aan u isticmaalno mowduuca. Calaamadaha hab-dhaqanka waxa loo bixiyaa muraayad ahaan, ee looma bixiyo calaamad lagu dhejiyo dadka kale. Nabiga ﷺ iyo asxaabtiisu waxay naftooda uga baqeen munaafaqnimada, sababtoo ah qalbigu wuu qarsoon yahay oo wuu isbedeli karaa.",
       "Markaa jawaabta caafimaadka qabtaa waa gudaha: in la iska hubiyo daacadnimadiisa, daacadnimada ballanka iyo aaminaadda, iyo in Eebbe la waydiiyo daacadnimo (ikhlaas). Allaah kaliya ayaa og waxa qofka ku jira, in dad gaar ah lagu eedeeyo munaafaqnimada lafteedu waa gef weyn oo iyaga laga galay.",
     ],
-    quran: [
-      {
-        excerpt: "Munaafiqiintu waxay ku sugnaan gunta hoose ee Naarta.",
-      },
-      {
-        excerpt:
-          "Markay kuu yimaadaan munaafiqiintu waxay ku dhahaan waxaan marag ka nahay inaad tahay Rasuul Eebe, Eebbana waa ogyahay inay beenaalayaal yihiin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Calaamooyinka munaafiqiintu waa saddex: markuu hadlo been buu sheegaa, markuu ballanta waa ka baxaa, markii loo wakiishayna wuu khiyaameeyaa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Ha ku eedayn shakhsiyaad nifaq ah. Qoraaladu waxay uga digayaan bulshada; daahirintu waxay ka bilaabataa nafta.",
   },
@@ -351,16 +203,7 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Sida mu'minku waxaas oo dhan ula falgala waa waxa muhiimka ah. Ujeeddadu maaha in aan waligeed ku dul istaagin tafaasiisha garaafka ama in wadnuhu dego; waa in la helo digniinta, lagana toobad keeno wax kasta oo khuseeya, ka dibna u rogto tamarta xagga camalka dhabta ah ee ilaalinaya. Taasi waa sababta cutubkani uu si ula kac ah u siinayo meel ka badan ilaalinta, towbada, iyo naxariista halkii ciqaabta.",
       "Marka la soo koobo, ka qaadista saxda ah ee ciqaab kasta oo lagu sheego waa su'aal, maaha cabsi: 'Miyaan samaynayaa tan - iyo haddii ay sidaas tahay, sidee baan u joojinayaa oo u saxayaa?' Maanta si daacad ah ayaa looga jawaabay, digniintu waxay hore u qabatay hawsheeda naxariista leh.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa ku dacwooda haweenka dhawrsoon oon afar marag u furin garaac siddeetan karbaash.",
-      },
-      {
-        excerpt:
-          "Kuwa kaydsada dahabka iyo fiddada oon ku bixinin dar Eebe ugu bishaaree cadaab daran.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -373,21 +216,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "U fiirso dheelitirka shareecada ayaa ku dhufatay. Habka ilaalinta ayaa aad u badan, xooga la saaray, lagana gaari karo marka loo eego sababaha burburka - tani lafteedu waa calaamad muujinaysa naxariista Eebe. In la badbaadsho aad bay uga fududahay in la lumiyo.",
       "Qaybtani si badheedh ah ayaa ah tan ugu weyn ee cutubka, sababtoo ah waa sida Islaamku laftiisa u miisaamayo arrinta: digniinta had iyo jeer waxay ku lamaanan tahay rajo, oo aan marnaba laga soocin ficil la taaban karo oo qofku maanta bilaabi karo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa Yidhi Eebow waan Rumaynay ee noo Dhaaf Dambiganaga Naga Dhawr Cadaabka Naarta.",
-      },
-      {
-        excerpt: "Eebow na sii adduunyo wanaag, aakhirona wanaag, naga ilaali cadaabka naarta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii saddex jeer Alle weydiista Jannada Jannada wuxuu ku leeyahay: Alloow Jannada geli. Qofkii saddex jeer naarta ka magan gala, naarta waxay tiraahdaa: Alloow naarta ka ilaali.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Xafid ducada ka magangalka Jahannamada ka hor salaada salaada.",
       "Ku tukada shanta salaadood wakhtigeeda - oo ka mid ah gaashaanka ugu xoogga badan.",
@@ -406,26 +236,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Tani waa run xataa kii dhacay oo marar badan toobad keenay. Inta soo laabashadu run tahay mar kasta, Eebbe wuu aqbalayaa; Quustu waxay ka timi shaydaan ee maaha mid diinta ka timid. Waxa kaliya ee ay tahay in la xaliyo geerida ka hor waa shirki, mar haddii qofka ku dhinta uu dhinto isagoon haysan iimaanka ay tawbaddu u baahan tahay - waana sababta dhabta ah ee u noqosho buuxda oo Alle kaliya ah soo noqoshada degdega ah ee dhammaan.",
       "Qaadashada la taaban karo waa mid fudud: hadda toobad keen, badi toobad keen, oo weligaa ha u oggolaan in cabbirka dembigu, ama tiradii hore ay dhacdo, ay kugula doodaan soo noqoshada. Martiqaadku had iyo jeer waa furan yahay.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Naxariista Eebe ha ka quusanina. Illeen Eebbe wuu dhaafaa dambiyada oo dhan. Eebana waa dambi dhaafe Naxariista.",
-      },
-      {
-        excerpt:
-          "Kuwa Toobadkeena oo Rumeeya oo Camal Fiican Falay Mooyee Eebe wuxuu ku badali Xumaantooda Wanaag.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alle ayaa uga raalli noqday towbada addoonkiisa midkiin midkiin ku hela buurtiisa dhuntay isagoo jooga dhul abaar ah.",
-      },
-      {
-        excerpt:
-          "Eebbe wuxuu u fidiyaa gacantiisa habeenkii si uu u towbad keeno dembiilaha maalinta, wuxuuna u fidiyaa gacantiisa maalintii si uu u aqbalo dembiilaha habeenka, ilaa ay qorraxdu ka soo baxdo galbeedkeeda.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "U sheeg Astaghfirullah maalintii oo dhan - ujeedo joogteynta, ma aha oo kaliya ka dib silbashooyinka waaweyn.",
       "Baro sayid al-istigfar oo akhri subax iyo galabba.",
@@ -443,29 +255,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Dhanka kale, naxariistu waxay ku dhisan tahay nolol maalmeedka: camalka wanaagsan wuxuu tirtiraa kuwa xun (11:114), iyo cibaadada yar ee joogtada ah - hal duco oo waqtigeeda lagu tukado, hal samafal oo xasiloon, hal daqiiqo oo samir Alle dartiis ah - waxay si joogto ah u soo jiidataa qofka isaga u dhow oo ka sii fogaanaya waxyeellada. Joogteynta ayaa ka muhiimsan xoojinta.",
       "Markaa sidaan ha ahaato gunaanadka daraasaddaada: digniinta si dhab ah u qaado, laakiin rajadu ha ka dheeraato cabsida. Ogow khatarta, dooro jidka naxariista, oo ku soco - tallaabo hal mar - maalin kasta ilaa aad la kulanto Alle.",
     ],
-    quran: [
-      {
-        excerpt: "Naxariistaydu wax walba way koobtay.",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa: Addoomadayda ku xad gudbay Naftooda, ha ka quusanina naxariista Eebe. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
-      },
-      {
-        excerpt:
-          "Runtii camalka wanaagsani wuxuu fogeeyaa xumaanta. Kaasina waa waanada kuwa wax xusuusan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Eebe wuxuu yidhi: Malaa'igtu way shafeecday, Nabiyadiina way shafeeceen, Mu'miniintana way shafeeceen, mana hadhin Eebaha Naxariista Naxariista mooyee. Wuxuu ka qaadi wax yar naarta, wuxuuna ka soo bixin dad aan wanaag falin.",
-      },
-      {
-        excerpt:
-          "Qofkii qalbigiisa rumaysad ku leh iniin khardal le'eg ayaa naarta laga soo saarayaa.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ku dhammee maalin kasta istighfar iyo mahadnaq duco kasta.",
       "Ku lammaan cutubkan iyo Safarka Jannada - digniin iyo rajo wadajir ah.",
@@ -516,35 +307,8 @@ export const JAHANNAM_CORE_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
         summary: "Qofka xasanaadkiisa loo qaado si loo bixiyo xuquuqda dadka.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Ha ka quusanina naxariista Alle; albaabka tawbaddu wuu furan yahay ilaa geerida.",
-      },
-      {
-        excerpt:
-          "Marka laga reebo qof ku dhinta shirkiisii isaga oo aan toobad keenin, Alle wuu cafiyaa cidda uu doono.",
-      },
-      {
-        excerpt: "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
-      },
-      {
-        excerpt: "Qofka ku xadgudba xuquuqda dadka waxaa laga siin karaa xasanaadkiisa.",
-      },
-      {
-        excerpt: "Shirki",
-      },
-      {
-        excerpt: "Dil aan xaq ahayn",
-      },
-      {
-        excerpt: "Qofka xasanaadkiisa loo qaado si loo bixiyo xuquuqda dadka.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Nebigu ﷺ wuxuu amray in laga fogaado toddobada dembi ee halaagga ah.",
       "Qofka ku xadgudba xuquuqda dadka waxaa laga siin karaa xasanaadkiisa.",
@@ -577,20 +341,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Qaababkeeda: culimadu waxay kala saaraan shirkiga weyn - caabudida sanamyada, kuwii dhintay, awliyo, ama waxyaalaha la abuuray; baryidda Eebe ka sokow wuxuu siin kara; iyo u hoggaansanaanta allabari ama nidar aan isaga ahayn - taasoo qofka ka saarta meel ka baxsan Islaamka haddii aan laga toobad keenin. Waxaa kaloo jira shirki ka yar oo qarsoon, sida istuska cibaadada (riyaad), ku dhaarashada Eebe ka sokow, ama ku talaxtagga sifaadka iyo sharka, taas oo ah dembi culus balse aan nafteeda diinta ka saarin.",
       "Waddada laga fogaanayo: Ilaali oo ku xooji tawxiidka adigoo baranaya, caabuda Allaah oo kaliya, niyaddana la daahirinayo si camalku isaga u ahaado ee uusan dadka indhaha ugu hayn. Qofkii ku dhacay shirkigu wuxuu u towbad keenaa isagoo si dhab ah uga tanaasulay oo u soo noqday cibaadada Alle kaligii - albaabkaa soo laabashaduna wuu furan yahay inta uu noolyahay.",
     ],
-    quran: [
-      {
-        excerpt: "Eebana ma dhaafo la wadaajinta, wuxuuse ka dhaafaa waxa ka yar cidduu doono.",
-      },
-      {
-        excerpt: "Wiilkaygiiyow, ha la wadaajinin Eebbe waxba. Illeen ururku waa gaf weyn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dambiyada ugu waaweyn waxaa ka mid ah: la wadaajinta Alle, nafta oo la dilo, waalidka oo la caasiyo, iyo marag been ah.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Baro tawxiidka Baro Aqidah iyo 99ka Magac ee Allaah.",
       "Nadiifi niyada cibaadada - Allaah ka bari daacad maalin kasta.",
@@ -607,22 +359,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Dulmi laba jibaaran ah: dilku mar keliya waa dembi Alle laga galay, oo xaqa uu ku leeyahay xurmada nolosha lagu tuntay, dembina laga galay dadka - dhibanaha iyo kuwa ay ka tageen. Waana sababta towbad keenkeedu uga culus yahay inta badan: in Alle loo noqdo waa lama huraan, laakiin xaqqa qofka la dulmiyey ayaa sidoo kale taagan, oo meesha sharciga dalka ama shareecada Islaamku uu qeexayo lacagta dhiiga (diyah) ama cawaaqibka kale, kuwaas waa in loo maro dariiq sax ah iyo culimo tayo leh.",
       "Dariiqa laga fogaanayo: nolol kasta ka dhig mid muqadas ah, iska ilaali cadhada iyo cadhada intaanay adkayn, khilaafyadana ku xalliya samir iyo cadaalad halkii ay ka ahaan lahayd colaad. Xataa tan ugu weyn ee dambiyada laga galay dadka ma dhaafsana naxariista Alle ruuxii si dhab ah u towbad keena, ka soo baxa xuquqaha ay khusayso intii suurtagal ah, oo aan dib ugu soo laaban wadadaas.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ruuxii u dila naf naf mooyee ama dhulka fasaad, wuxuu la mid yahay inuu laayay dadka oo dhan.",
-      },
-      {
-        excerpt:
-          "Ruuxii u dila mu‘min kas ah, abaalkiisuna waa Jahannamo wuuna ku waari dhexdeeda.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dambiyada ugu waaweyn waxaa ka mid ah: la wadaajinta Alle, nafta oo la dilo, waalidka oo la caasiyo, iyo marag been ah.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Qiime nolol kasta; xalinta khilaafaadka samir iyo cadaalad."],
     appLinks: [{}],
   },
@@ -636,15 +374,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Xikmadda ku jirta caqabadaha: halkii ay ka tagi lahayd dadka inay la dagaallamaan rabitaanka halka ugu sarreysa, Islaamku wuxuu ku hareeraysan yahay ilaalin hore - hoos u dhigista aragtida, xishoodka labiska iyo dhaqanka, ka fogaanshaha gooni-u-goosashada jinsiga ka soo horjeeda, iyo dhiirigelinta guurka oo ah marinka sharciga ah, sharafta leh ee baahiyahaas. Horay u dhisidda xuduudahan aad ayay uga sahlan tahay iska caabinta cidhifka.",
       "Waddada dib u noqoshada: qof kasta oo dhacay, dariiqa uu ka bixi karo waa tawbah daacad ah - ka tagista dembiga oo dhan, ka qoomamaynta, xallinta weligeed ah, iyo daboolida halkii uu qofku sheegi lahaa wixii hore. Zina waa dembi weyn, laakiin si cad waxay ka mid tahay kuwa Eebbe u dambi dhaafo qofkii u noqda; Niyad-xumadu meel ma laha, mar walbana bilow cusub ayaa diyaar ah.",
     ],
-    quran: [
-      {
-        excerpt: "Ha u dhowaan galmo aan sharci ahayn. Illeen waa akhlaaq xumo iyo jid xun.",
-      },
-      {
-        excerpt:
-          "Kuwaan falin galmo xaaraan ah... ruuxii toobad keena oo rumeeya oo camal fiican fala mooyee, Eebe wuu ku badali xumaantooda oo wanagsan.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Ilaali indhaha iyo isticmaalka baraha bulshada.",
       "Duco u samee xaaska xaqa ah haddaan la qabin.",
@@ -660,15 +390,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Xikmadda iyo naxariista: mamnuuciddu waxay dadka u jihaysaa ganacsiga dhabta ah, khatarta la wadaago, iyo samafalka, waxayna ka ilaalisaa kuwa nugul in lagu burburiyo deynta. Xataa halkan, in kastoo, naxariista Eebbe ay joogto: markii amarku yimid, ma uusan dalbanin in dulsaarkii hore ee hore loo qaatay dib loo celiyo, laakiin wuxuu u sheegay rumaystayaasha inay iska dhaafaan waxa hadhay - 'waxaad yeelan doontaan maamulahaaga' (2: 279) - fudayd kuwa ka leexanaya.",
       "Dariiqa laga fogaanayo: xisaabi dhaqaalihiina wax soo saarka ribada ku salaysan, raadso xalal xalaal ah, la tasho culumo aqoon u leh kiisas dhab ah oo aad u adag sida dayn lagu haysto dhulalka aan muslimka ahayn. Ka tagista ribadu waxay la macno tahay doorashooyin dhaqaale oo adag, laakiin badbaadada nafta ayaa ka miisaan badan faa'iido kasta oo ku meel gaar ah - wuxuuna Eebe u ballan qaaday inuu ku arzuqi doono qofka isaga ka cabsada meel uusan filaynin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa xaqa rumeeyow ka dhawrsada Eebbe, kana taga waxa ka hadhay ribada, haddaad tihiin kuwa rumeeyey. Haddaydaan yeelin, ka warrama dagaal Eebbe iyo Rasuulkiisa ka yimid. Laakiin haddaad toobad keento, waxaa laga yaabaa inaad hesho maamulahaaga - ma xumaan doontid, lagumana dulmiyo.",
-      },
-      {
-        excerpt: "Eebbaa halaagay ribada, sadaqadana wuu kordhiyaa.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Xisaabi dhaqaalaha alaabta ku salaysan ribada.",
       "La tasho aqoonyahan u qalma amaahaha iyo deynta.",
@@ -684,21 +406,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Waxay ku xidhan tahay carrabka: maragga beenta ahu waa cidhifka dembiyada waaweyn ee hadalka. Maxaa yeelay, erayadu waa raqiis in lagu dhawaaqo, dembigani aad bay u fududahay in lagu dhaco - saxiix, buunbuunin, aamusnaan ku habboon - haddana miisaankiisa maalinta qiyaame waa mid aad u weyn, marka xubnaha iyo carrabka dadku ay si dhab ah ugu markhaati furaan iyaga.",
       "Dariiqa laga fogaanayo: in runta la qabto xataa marka ay qaali tahay ama ka hor imanayso danta gaarka ah, diido in aad erey bixiso been kasta, ku hadasho marag xaq ah marka loo baahdo. Qofkii marag been ah ku marag furay wuxuu ka toobad keenaa isagoo beentii ka noqday meeshii ay u suurtowdo, isagoo ku dadaalaya sidii uu xumaanta uga bixi lahaa, una soo celin lahaa xaquuqda qof kasta oo la dulmiyay, Allaahna u noqonayo isagoo qoomamo dhaba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwaan ku marag furin been oo markay xumaan u dhawaadaan way maraan iyagoo sharaf leh.",
-      },
-      {
-        excerpt: "Haddaba ka fogaada xumaanta sanamyada, kana fogow xumaanta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Miyaanan idiinka warramin waxa ugu wayn dambiyada. Eebe oo lala wadaajiyo, waalidka la caasiyo -iyo marag been ah, iyo marag been ah.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -710,18 +419,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Dhaqannada la xidhiidha: isla digniinta la mid ah waxay ku fidsan tahay faaliga, in xiddigiska loola dhaqmo sida aqoonta waxyaalahan la arki karo, iyo maadada iyo soo jiidashada shirkiga. Sheegashada aqoonta mustaqbalka daahsoon waxaa iska leh Allaah oo keliya, una soo jeesta kuwa sheeganaya waxay wiiqaysaa xididkeeda.",
       "Dariiqa laga fogaanayo: Qofka ku dhex milmay dhaqamadaas, tawbaddu waxay ka dhigan tahay in gebi ahaanba laga tagayo, la baabi'iyo shay kasta oo xaaraan ah, oo la gooyo xidhiidhka dadka la macaamilaya, iyo dib u cusboonaysiinta tawxiidka dhabta ah iyo talo-saarashada Eebbe oo keliya. Ilaalinta waxay ku jirtaa iimaanka, adkaarka maalinlaha ah, iyo ka magangalka Eebbe, dambi-dhaafkiisuna wuxuu u furan yahay ciddii si dhab ah u soo noqota.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxay raaceen wixii shayaadiintu akhrin jireen dawladii Sulaymaan...waxayna barteen waxa dhibaya oo aan waxba u tarayn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ruuxii u yimaadda faaliyaha oo rumeeya wuxuu yidhi wuu ka gaaloobay wixii lagu soo dejiyey Muxammad.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -733,15 +432,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Waxa ka mid ah: ma aha oo kaliya xatooyo toos ah, laakiin qaabab khiyaano leh - isku darka hantida agoonta iyo mid ka mid ah si ay u kharribaan khadka, dib u dhigista soo noqoshada mar alla markii agoonku uu weynaado, ama maalgelin ama kharash la'aan. Eebe wuxuu amray caksigeeda: ' Siiya agoonta xoolahooda, xumaantana ha ku badalina wanaag' (4:2).",
       "Dariiqa laga fogaanayo: Xoolaha Agoonta si taxaddar leh u dhawra, kala saara oo xisaabiya, u dhiiba oo dhammayn markay qaan-gaaraan, ruuxii gaalayna-na u toobad keena waxii lagu leeyahay oo loo kordhiyo, kana cafiyo kuwa la dulmiyey. (44) Maalinta ayan u gargaarayn Xoolo iyo Nasab midna Qalbi Wanaagsan mooyee, soo celinta ammaanada iyadaa ah camal la dhawro.",
     ],
-    quran: [
-      {
-        excerpt: "Kuwa xoolaha agoonta si xaqdarro ah u cuna, Oo calooshooda waxay ku gubaan dab.",
-      },
-      {
-        excerpt:
-          "Siiya Agoonta Xoolahooda, hana ku Badalina Xumaan wanaag, hana ku Cunina Xoolahooda iyo Xoolihiinna.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -753,21 +444,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Isku dheeli tirnaan muhiim ah: dhawrsanaantu macnaheedu maaha in waalidka loo hoggaansamo caasinimada Alle - makhluuqa laguma addeeci dembi ka dhan ah abuuraha. Laakiin xitaa haddii qofku hoos u dhaco, waxaa lagu sameeyaa dabacsanaan, ixtiraam, iyo naxariis joogto ah. Quraanku waxa uu xarrimay xataa hadalka ugu yar ee xanaajinta: 'ha ku odhan uff' (17:23).",
       "Jidka soo laabashada: naxariista halkan waa in waalidiintu inta badan wali ay gaadhi karaan. Qofkii gaabnaa, towbadkeenku inta badan waa wax la taaban karo - dib u bilaabo naxariista, cafis weydiiso, u adeeg oo u ducee iyaga, gaar ahaan inta ay nool yihiin. Haddii waalidku dhaafo, dhawrsanaantu waxay ku sii socotaa u duceeynta iyaga, u bixinta sadaqo iyaga oo wakiil ka ah, oo ixtiraamaya xidhiidhkooda iyo saaxiibadooda.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eebahaana wuxuu faray inaydaan caabudin isaga mooyee, waalidkiina wanaag. Ha odhanina Uff hana celinina ee kula hadal hadal wanaagsan.",
-      },
-      {
-        excerpt: "Caabuda Eebbe hana la wadaajinna waxba, waalidkiina wanaag fala.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Miyaanan idiinka warramin waxa ugu wayn dambiyada. Eebe oo loo wadaajiyo, waalidkana lagu caasiyo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Wac ama booqo waalidiinta usbuucan kalmad naxariis leh."],
     appLinks: [{}],
   },
@@ -781,12 +459,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Wajigeeda casriga ah: tuuganimadu kuma koobna in guri la jabsado. Waxaa ka mid ah ka qaadashada loo shaqeeyaha, khiyaamaynta ganacsiga, ka joojinta mushaharka shaqaalaha, budhcad-badeednimada dhijitaalka ah, been-abuurka, iyo ka faa'iidaysiga wax aan si sharci ah qofku u lahayn. Waxa dadka ka qarsooma marna ka qarsoona Alle oo arka wax kasta oo gaar ah.",
       "Dariiqa soo noqoshada: sababtoo ah xuquuqda bini'aadamka ayaa ku lug leh, towbaddu waxay u baahan tahay wax ka badan qoomamaynta Eebbe hortiisa. Qofku waa inuu u soo celiyaa shayga la xaday laftiisa, ama qiimahiisa, mulkiilaha xaqa u leh, oo uu cafis weydiistaa halka ay suurtagal tahay; haddii la heli waayo mulkiilaha, culimadu waxay ku talinayaan in ay bixiyaan qaddarka sadaqo iyaga oo wakiil ka ah. Sidan oo kale xatooyada ayaa loo cafiyaa kan jecel addoonka soo noqday.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Tuugii, lab iyo dhaddig, waxay ka gooyeen gacmahooda iyagoo ka abaal-marin waxay kasbadeen, xag Eebbe xaggiisa ka ahaaday.",
-      },
-    ],
+    quran: [{}],
     actions: ["Soo celi alaabta la xado ama qiimahooda; Cafis weydiiso kuwii la dulmiyay."],
     appLinks: [{}],
   },
@@ -800,17 +473,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SO: DeepPartial<JahannamTopic>[] = [
       "Xikmadda sida loo xaaraantinimeeyey: Alle kuma uu mamnuucin Khamr hal mar oo istaroog kedis ah, balse waxa uu madnuucay marxalado kala duwan, isaga oo bulshadii hore ka saaray caado xididnimo si tartiib ah. In si tartiib tartiib ah lafteedu ay cashar u tahay naxariista - iyo tusaalaha rajada qof kasta oo la halgamaya inuu maanta ka tago.",
       "Jidka soo noqoshada, oo naxariis leh: kuwa lagu qabto balwadda maaha in la quudhsado ee la taageero. Towbadkeenku waxa weeye in la xaliyo oo laga tago walaxda, lagana saaro nafteeda iyo waxyaalaha kiciya, gargaar iyo daweynna la raadiyo ceeb la'aan, meesha bannaanna lagu buuxiyo shuraako wanaagsan, zikri iyo cibaado. Albaabkiisu waa furan yahay, tallaabo kasta oo daacad ah oo ka fogaanshada maandooriyahana waa tallaabo uu soo dhawaynayo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa xaqa rumeeyow Khamriga, khamaarka, Sanamyada iyo faalka waa nijaas camal Shaydaanka ee ka fogaada.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Maandooriye kasta waa khamr, khamr walbana waa xaaraan.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Caawinaad raadso haddii loo baahdo; caadadii ku bedel dhikriga iyo wada shaqayn wanaagsan.",
     ],
@@ -822,9 +486,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jahannama",
     meaning: "Naarta - Magaca Qur'aanka ugu badan ee Naarta.",
-    quran: {
-      excerpt: "Ka Dhawrsada Naarta Shidadeedu Dad iyo Dhagax tahay, loona Darbay Gaalada.",
-    },
+    quran: {},
     context:
       "Qur'aanka oo dhan ayaa loo adeegsaday sidii hoyga ciqaabta kuwa gaaloobay ee ku adkaysta xumaanta.",
     tafsirNote:
@@ -835,10 +497,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jaheem",
     meaning: "Dab ololaya - kulayl daran oo daran.",
-    quran: {
-      excerpt:
-        "Idinka iyo waxaad caabudaysaan oo Eebe ka soo hadhay waxaad u tihiin Shidaalka Jahannamo, waadna galisaan.",
-    },
+    quran: {},
     context: "Wuxuu qeexayaa darnaanta naarta ee sugaysa kuwa Alle la shirtama.",
     tafsirNote:
       "Al-Tabari waxa uu jaxiim la xidhiidha dab holcaya oo shiday oo aan waxba ka reebin.",
@@ -846,9 +505,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Saqar",
     meaning: "Taas oo gubta ama aan waxba ka tagin - kulayl daran.",
-    quran: {
-      excerpt: "Waxaan u kaxeeyaa Saqar. Maxaase ku garan kara waxa ay Saqar tahay?",
-    },
+    quran: {},
     context: "Waxaa lagu xusay suuradda al-Muddaththir qofkii ka jeedsaday waxyiga.",
     tafsirNote:
       "Tafsiirka qadiimiga ahi waxa uu Saqar ku tilmaamay heerka Jahannamo oo aad u guba; faahfaahintu way ku kala duwan yihiin culimada.",
@@ -858,9 +515,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Saciir",
     meaning: "Dab ololaya - dab shiday.",
-    quran: {
-      excerpt: "Waxayna gali Saciir oo ah Naarta Saciira.",
-    },
+    quran: {},
     context: "Digniin ku socota kuwa ku cuna xoolaha agoonta xaq-darro.",
     tafsirNote:
       "Xididku wuxuu gudbiyaa gubasho iyo shid - xoogga saaraya firfircoonida, dabka cunaya.",
@@ -868,9 +523,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Xutamah",
     meaning: "Burburiyaha - kaas oo jebiya oo burburiya.",
-    quran: {
-      excerpt: "Waxa lagu tuurayaa al-Hutamah. Maxaase ku garan kara waxa uu yahay al-Hutamah?",
-    },
+    quran: {},
     context:
       "Qofkii dib u sheega oo hanti urursada ciqaabtiisa, isagoo u malaynaya inuu waari doono.",
     tafsirNote: "Ibn Kathir wuxuu sharxayaa Xutamah inuu burburiyo oo uu gubo - dab Eebbe shiday.",
@@ -878,9 +531,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Hawiyah",
     meaning: "Godka ama godka - dhicitaan qoto dheer.",
-    quran: {
-      excerpt: "Midka miisaankiisu fudud yahay, magangalkiisuna waa Hawiyah.",
-    },
+    quran: {},
     context: "Halkay u socdaan kuwa camalkoodu fudud yahay maalinta qiyaame.",
     tafsirNote:
       "Lagu tilmaamay god gun dheer oo naarta ku dhex yaal; al-Tabari waxay diiwaan gelisaa aragtiyaha qoto dheer iyo darnaanta.",
@@ -890,9 +541,7 @@ export const JAHANNAM_NAMES_SO: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Lazaa",
     meaning: "Olol - dab ololaya.",
-    quran: {
-      excerpt: "Macnaheedu maaha! Waa Ololkii Eebe, oo shiday.",
-    },
+    quran: {},
     context: "Suuradda al-Macaarij — waxay uga digaysaa kuwa beeniya Saacadda (Qiyaame).",
     tafsirNote:
       "Ku xidhan ololka ka baxa oo gubanaya - Lazaa waxay xooga saaraysaa ololka firfircoon.",
@@ -938,118 +587,80 @@ export const JAHANNAM_GATES_SO: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_SO: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "ka dhawrsada naarta loo darbay gaalada.",
     context: "Lagula hadlo rumaystayaasha - cabsida sida dhiirigelinta addeecidda.",
     tafsirSummary: "Ibnu Kathiir: waa baaq taqwa ah oo lagu lammaaniyay addeecidda Rasuulka.",
   },
   {
-    excerpt: "Naxariista Eebe ha ka quusanina. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
     context:
       "La kashifay si uu u qalbi qaboojiyo kuwa ka cabsaday dembiyadooda aad bay u weynaadeen.",
     tafsirSummary: "Waa tiirkii rajada, naxariistu waa weyn tahay kuwa dib u noqda.",
   },
   {
-    excerpt:
-      "Eebana u toobad keen una toobad keen, wuxuu u dhawyahay Eebihiin inuu idinka tago xumaanta.",
     context: "Ku amar mu'miniinta ka dib hanuuninta qoyska iyo dhaqanka.",
     tafsirSummary: "Nasuh tawbah - toobad dhab ah oo aan dembiga ku noqon.",
   },
   {
-    excerpt: "Dhammaan waxaa jiri doona shahaadooyin sida ay sameeyeen.",
     context: "Cadaaladda rabaaniga ah - abaal-marin iyo ciqaab loo siman yahay camalka.",
     tafsirSummary: "Shahaadooyinku waxay khuseeyaan Jannada iyo Naarta labadaba.",
   },
   {
-    excerpt: "Alle dadka ma dulmiyo haba yaraatee, laakiin dadku naftooda ayaa dulmiya.",
     context: "Hubinta in xukunka rabbaani yahay mid cadaalad ah.",
   },
   {
-    excerpt: "Eebow na sii labada adduunyo wanaag, naga ilaali cadaabka naarta.",
     context: "Ducada kuwa adduunyo iyo kheyr adduunyo isku dara.",
     tafsirSummary: "Duco nebiyad ah oo lagu baray Qur'aanka - dheelitirka adduunka iyo aakhirah.",
   },
   {
-    excerpt: "Jahannamo wuxuu leeyahay toddoba irdood; Waayo, irid kasta waa qayb loo qoondeeyey.",
-    context: "Isagoo ka hadlaya dooddii Ibraahim ee dadkiisa.",
+    context: "Waxay timaaddaa kadib qaybta uu Ibliis ku dhaartay inuu dadka lumin doono.",
     tafsirSummary: "Si cad oo loo xuso toddoba irdood - faahfaahinta hawsha waa xigmad rabaani ah.",
   },
   {
-    excerpt:
-      "Kuwa Toobadkeena ee Rumeeya oo Camal Fiican Falay Mooyee Eebe wuxuu ku badali Xumaanta Wanaag.",
     context: "Marka laga reebo ka dib marka la tiriyo dembiyada waaweyn.",
     tafsirSummary: "Rajada kuwa toobad keena - camalka waxaa lagu beddeli karaa naxariis.",
   },
   {
-    excerpt:
-      "Kuwii ka gaaloobay Eebahood waxaa u sugnaaday cadaabka Jahannamo iyadaana u xun meel loo ahaado.",
     context: "Suuradda al-Mulk - waa xusuusinta waxa maqan.",
   },
   {
-    excerpt: "Runtii camalka wanaagsani wuxuu fogeeyaa xumaanta.",
     context: "Amar ku oogida salaadda labada daraf ee maalinta.",
     tafsirSummary: "Dhiirigelinta in cibaadada joogtada ahi ay tirtirto silbashooyinka hore.",
   },
   {
-    excerpt: "Eebow noo dambi dhaaf, naga ilaali cadaabka naarta.",
     context: "Sharaxaada muttaqin (Ilaah miyir qabo).",
   },
   {
-    excerpt: "Midka miisaankiisu fudud yahay, magangalkiisuna waa Hawiyah.",
     context: "Suuradda al-Qaari'ah - miisaanka camalka.",
   },
 ];
 
 export const JAHANNAM_HADITH_SO: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Qofkii saddex jeer Alle weydiista Jannada Jannada wuxuu ku leeyahay: Alloow Jannada geli. Qofkii saddex jeer naarta ka magan gala, naarta waxay tiraahdaa: Alloow naarta ka ilaali.",
-    },
+    hadith: {},
     context: "Dhiirri-gelinta in aad u ducayso Jannada, lagana magan galo Jannada.",
   },
   {
-    hadith: {
-      excerpt:
-        "Alle ayaa uga raalli noqday towbada addoonkiisa midkiin midkiin ku hela buurtiisa dhuntay isagoo jooga dhul abaar ah.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Midkiin Jannada kuma galo camalkiisa oo keliya - xataa aniga, hadduusan Eebbe iga daboolin naxariistiisa.",
-    },
+    hadith: {},
     context: "Dheelitiran: ku dadaal camalka laakiin ku kalsoonow naxariista.",
   },
   {
-    hadith: {
-      excerpt:
-        "Dabkaagu waa qayb ka mid ah toddobaatanka qaybood ee naarta Jahannamo, qayb kastaana waxay la mid tahay kulaylkeeda.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Axdiga naga dhexeeya annaga iyo iyaga waa salaadda; Qofkii ka tagana wuu gaaloobay.",
-    },
+    hadith: {},
     context: "Darnaanta dayaca Salaadda - ka mid ah digniinaha ugu daran.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kii khasaaray wuxuu la yimaadaa tukasho, iyo soon, iyo sadaqo, laakiin wuu caayay, oo caytamay, oo maal si aan sharci ahayn ku cunay, oo dhiig buu daadiyey.",
-    },
+    hadith: {},
     context: "Xuquuqda dadka waxaa lagu xallin karaa kahor falalka maalinta qiyaamaha.",
   },
   {
-    hadith: {
-      excerpt:
-        "Eebbe wuxuu u fidiyaa gacantiisa habeenkii si uu u towbad keeno dembiilaha maalinta, wuxuuna u fidiyaa gacantiisa maalintii si uu uga aqbalo dembiilaha habeenka.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Ruuxii rumeeyey Allaah iyo maalinta aakhiro wanaag ha ku hadlo ama ha iska aamuso.",
-    },
+    hadith: {},
     context: "Ilaalinta carrabka - la xisaabtanka maalinlaha ah.",
   },
 ];
@@ -1113,7 +724,4 @@ export const JAHANNAM_DUAS_SO: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_SO: { translation: string } = {
-  translation:
-    "Allahayow waxaan kaa magan galay cadaabka naarta, cadaabka qabriga, imtixaamaadka nolosha iyo dhimashada, iyo fitnada xun ee masiixa beenta ah.",
-};
+export const JAHANNAM_REFUGE_DUA_SO: { translation?: string } = {};

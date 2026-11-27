@@ -250,3 +250,34 @@ export function articleSchema(options: {
   }
   return schema;
 }
+
+/**
+ * WebApplication for an interactive tool page (calculator, finder, converter).
+ * Links to the site-wide app (`#software`) so engines see the tool as part of
+ * Munib Tracker. `applicationCategory` is a schema.org / Google category, e.g.
+ * `FinanceApplication`, `UtilitiesApplication`.
+ */
+export function webApplicationSchema(options: {
+  path: string;
+  name: string;
+  description: string;
+  applicationCategory: string;
+}): JsonLd {
+  const url = absoluteUrl(options.path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": `${url}#app`,
+    url,
+    name: options.name,
+    description: options.description,
+    applicationCategory: options.applicationCategory,
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript.",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    isPartOf: { "@id": SOFTWARE_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    image: ogImageUrl,
+  };
+}

@@ -91,4 +91,27 @@ describe("useEnsureContent", () => {
     });
     expect(result.current.ready).toBe(true);
   });
+
+  it("reports a cold failure as error and recovers on retry", async () => {
+    const ensure = jest
+      .fn<Promise<void>, []>()
+      .mockRejectedValueOnce(new Error("chunk failed"))
+      .mockResolvedValueOnce(undefined);
+    const { result } = await renderHook(() => useEnsureContent(ensure, () => false));
+
+    await waitFor(() => {
+      expect(result.current.error).toBeInstanceOf(Error);
+    });
+    expect(result.current.ready).toBe(false);
+
+    await act(async () => {
+      result.current.retry();
+    });
+
+    await waitFor(() => {
+      expect(result.current.ready).toBe(true);
+    });
+    expect(result.current.error).toBeNull();
+    expect(ensure).toHaveBeenCalledTimes(2);
+  });
 });

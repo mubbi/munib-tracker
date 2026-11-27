@@ -6,8 +6,10 @@ import {
   isTvPreviousEvent,
 } from "@/hooks/use-tv-event-handler";
 import {
+  isTvBackAtSystemRoot,
   isTvRailExpanded,
   registerTvRailBackHandler,
+  setTvOnHomeTab,
   setTvRailExpanded,
   subscribeTvRailExpanded,
   tryExpandTvRailOnBack,
@@ -17,6 +19,7 @@ describe("tv rail back coordination", () => {
   afterEach(() => {
     registerTvRailBackHandler(null);
     setTvRailExpanded(true);
+    setTvOnHomeTab(true);
   });
 
   it("returns false when no rail is mounted so Back reaches the system", () => {
@@ -42,6 +45,21 @@ describe("tv rail back coordination", () => {
     unsubscribe();
     setTvRailExpanded(true);
     expect(listener).toHaveBeenCalledTimes(1);
+  });
+
+  it("only reaches the system root with the rail open on the Home tab", () => {
+    const listener = jest.fn();
+    const unsubscribe = subscribeTvRailExpanded(listener);
+
+    expect(isTvBackAtSystemRoot()).toBe(true);
+    setTvOnHomeTab(false);
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(isTvBackAtSystemRoot()).toBe(false);
+
+    setTvOnHomeTab(true);
+    setTvRailExpanded(false);
+    expect(isTvBackAtSystemRoot()).toBe(false);
+    unsubscribe();
   });
 });
 

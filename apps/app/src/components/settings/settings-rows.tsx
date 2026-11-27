@@ -6,17 +6,15 @@ import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward, useIsRTL } from "@/lib/rtl";
 
-/** Window width at which settings row groups lay out in two columns (web / tablets). */
-export const SETTINGS_TWO_COLUMN_MIN_WIDTH = 1024;
+import { SETTINGS_TWO_COLUMN_MIN_WIDTH } from "./settings-layout";
 
 /** True inside a multi-column `SettingsRowGroup` — rows fill their grid cell. */
 const FillCellContext = createContext(false);
@@ -58,14 +56,40 @@ export function SettingsRow({
   value,
   onPress,
   preferredFocus,
+  accessory,
+  showChevron = true,
+  disabled,
+  titleColor,
+  leading,
+  selected,
+  trailing,
+  accessibilityHint,
 }: {
-  icon: AppIcon;
+  icon?: AppIcon;
+  /** Custom leading visual (e.g. the account avatar) in place of the icon well. */
+  leading?: ReactNode;
   title: string;
   subtitle?: string;
   value?: string;
   onPress: () => void;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
+  /** Small trailing-title adornment (e.g. the "This device" badge). */
+  accessory?: ReactNode;
+  /** Actions (preview, reset…) don't navigate, so they draw no chevron. */
+  showChevron?: boolean;
+  disabled?: boolean;
+  /** Destructive rows tint the title. */
+  titleColor?: string;
+  /** List–detail: the row whose content the detail pane shows (spoken as selected). */
+  selected?: boolean;
+  /**
+   * Drawn-only trailing affordance before the chevron (e.g. a danger row's
+   * "Clear" label). The whole row stays the one pressable, so this must not be
+   * interactive itself (web renders the row as a <button>).
+   */
+  trailing?: ReactNode;
+  accessibilityHint?: string;
 }) {
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
@@ -76,21 +100,42 @@ export function SettingsRow({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={title}
+      // Screen readers hear the current value with the title ("Time format, 24-hour").
+      accessibilityLabel={value ? `${title}, ${value}` : title}
+      accessibilityHint={accessibilityHint}
+      accessibilityState={
+        disabled || selected
+          ? { ...(disabled ? { disabled: true } : {}), ...(selected ? { selected: true } : {}) }
+          : undefined
+      }
+      disabled={disabled}
       onPress={onPress}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.row,
         tv && styles.rowTv,
         fill && styles.rowFill,
-        { backgroundColor: colors.muted },
+        { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
       ]}
     >
-      <IconWell icon={icon} well={tv ? TV_WELL : undefined} size={tv ? 22 : undefined} />
+      {leading ??
+        (icon ? (
+          <IconWell icon={icon} well={tv ? TV_WELL : undefined} size={tv ? 22 : undefined} />
+        ) : null)}
       <View style={styles.body}>
-        <ThemedText type="small" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-          {title}
-        </ThemedText>
+        <View style={styles.titleLine}>
+          <ThemedText
+            type="small"
+            style={[
+              styles.title,
+              tv ? { fontSize: TvLayout.bodyFontSize } : undefined,
+              titleColor ? { color: titleColor } : undefined,
+            ]}
+          >
+            {title}
+          </ThemedText>
+          {accessory}
+        </View>
         {subtitle ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {subtitle}
@@ -107,16 +152,35 @@ export function SettingsRow({
           {value}
         </ThemedText>
       ) : null}
-      <SymbolView
-        key={rtl ? "chevron-rtl" : "chevron-ltr"}
-        name={chevron}
-        size={tv ? 20 : 16}
-        tintColor={colors.mutedForeground}
-      />
+      {trailing != null ? (
+        <View
+          accessible={false}
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          style={styles.trailing}
+        >
+          {trailing}
+        </View>
+      ) : null}
+      {showChevron ? (
+        <SymbolView
+          key={rtl ? "chevron-rtl" : "chevron-ltr"}
+          name={chevron}
+          size={tv ? 20 : 16}
+          tintColor={colors.mutedForeground}
+        />
+      ) : null}
     </PressableScale>
   );
 }
 
+/**
+ * Settings on/off row — renders the one `ui/SwitchRow` (D-15/D-16): the whole
+ * row is a single pressable with role `switch`, so tapping the label toggles
+ * it and web has one tab stop (no native `<input role=switch>` nested inside a
+ * focusable row). Keeps the settings card look (muted fill) and the two-up
+ * grid cell stretch.
+ */
 export const ToggleRow = memo(
   function ToggleRow({
     icon,
@@ -125,6 +189,7 @@ export const ToggleRow = memo(
     value,
     disabled,
     onValueChange,
+    accessory,
   }: {
     icon?: AppIcon;
     title: string;
@@ -132,86 +197,37 @@ export const ToggleRow = memo(
     value: boolean;
     disabled?: boolean;
     onValueChange: (value: boolean) => void;
+    /** Small trailing-title adornment (e.g. the "This device" badge). */
+    accessory?: ReactNode;
   }) {
-    const { colors, tokens } = useThemeTokens();
-    const tv = isTV();
     const fill = useContext(FillCellContext);
-
-    if (tv) {
-      // 10-foot: the whole row is the D-pad target and Select toggles it. A small
-      // native Switch is a poor focus target (and UISwitch doesn't exist on tvOS),
-      // so draw a non-focusable track/knob instead.
-      return (
-        <PressableScale
-          accessibilityRole="switch"
-          accessibilityLabel={title}
-          accessibilityState={{ checked: value, disabled: !!disabled }}
-          disabled={disabled}
-          onPress={() => onValueChange(!value)}
-          style={[
-            styles.row,
-            styles.rowTv,
-            { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
-          ]}
-        >
-          {icon ? <IconWell icon={icon} well={TV_WELL} size={22} /> : null}
-          <View style={styles.body}>
-            <ThemedText type="small" style={{ fontSize: TvLayout.bodyFontSize }}>
-              {title}
-            </ThemedText>
-            {subtitle ? (
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {subtitle}
-              </ThemedText>
-            ) : null}
-          </View>
-          <View
-            style={[
-              styles.tvTrack,
-              {
-                backgroundColor: value ? colors.accent : tokens.track,
-                alignItems: value ? "flex-end" : "flex-start",
-              },
-            ]}
-          >
-            <View style={[styles.tvKnob, { backgroundColor: colors.card }]} />
-          </View>
-        </PressableScale>
-      );
-    }
-
-    return (
-      <View
-        style={[
-          styles.row,
-          fill && styles.rowFill,
-          { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
-        ]}
-      >
-        {icon ? <IconWell icon={icon} /> : null}
-        <View style={styles.body}>
-          <ThemedText type="small">{title}</ThemedText>
-          {subtitle ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {subtitle}
-            </ThemedText>
-          ) : null}
-        </View>
-        <ThemedSwitch
-          value={value}
-          disabled={disabled}
-          onValueChange={onValueChange}
-          accessibilityLabel={title}
-        />
-      </View>
+    const tv = isTV();
+    // Same icon well as `SettingsRow`, so toggles and navigation rows line up.
+    const leading = icon ? (
+      <IconWell icon={icon} well={tv ? TV_WELL : undefined} size={tv ? 22 : undefined} />
+    ) : undefined;
+    const row = (
+      <SwitchRow
+        leading={leading}
+        title={title}
+        subtitle={subtitle}
+        value={value}
+        disabled={disabled}
+        onValueChange={onValueChange}
+        accessory={accessory}
+        surface="filled"
+      />
     );
+    return fill ? <View style={styles.rowFill}>{row}</View> : row;
   },
   (prev, next) =>
     prev.value === next.value &&
     prev.disabled === next.disabled &&
     prev.title === next.title &&
     prev.subtitle === next.subtitle &&
-    prev.icon === next.icon,
+    prev.icon === next.icon &&
+    // Badges are static adornments; compare presence, not element identity.
+    Boolean(prev.accessory) === Boolean(next.accessory),
 );
 
 const styles = StyleSheet.create({
@@ -236,12 +252,21 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     // Keep room for the title's longest word: a long trailing value (e.g. a
     // calculation-method name) otherwise squeezed it to ~80dp and Android broke
     // "Calculation" mid-word.
     minWidth: "40%",
   },
+  titleLine: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+  },
+  /** Whole words: the accessory wraps under a long title before the title breaks. */
+  title: { flexShrink: 1 },
+  trailing: { flexShrink: 0, pointerEvents: "none" },
   /** Trailing value shrinks and wraps instead of claiming its full text width. */
   value: {
     flexShrink: 1,
@@ -249,20 +274,5 @@ const styles = StyleSheet.create({
   },
   valueTv: {
     maxWidth: "40%",
-  },
-  /** TV toggle visual (non-focusable; the row carries focus). Logical start/end. */
-  tvTrack: {
-    width: tvDp(56),
-    height: tvDp(32),
-    borderRadius: tvDp(16),
-    padding: tvDp(3),
-    // flex-start/flex-end follow layout direction, so "on" sits at the trailing
-    // edge in both LTR and RTL.
-    justifyContent: "center",
-  },
-  tvKnob: {
-    width: tvDp(26),
-    height: tvDp(26),
-    borderRadius: tvDp(13),
   },
 });

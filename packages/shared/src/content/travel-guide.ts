@@ -48,11 +48,16 @@ export const TRAVEL_QURAN_REFS: Omit<JannahQuranRef, "excerpt">[] = [
 ];
 
 /** Curated hadith — excerpts live in i18n (`travel.hadith.{n}.excerpt`). */
+/**
+ * Paired by index with `travel.hadith.{n}.excerpt` (en.json, verbatim fawazahmed0 English).
+ * Numbers and grades checked against the hadith-api dataset on 2026-11-27 (Tirmidhi 553:
+ * al-Albani, Ahmad Shakir — sahih).
+ */
 export const TRAVEL_HADITH_REFS: Omit<JannahHadithRef, "excerpt">[] = [
-  { collection: "Sahih al-Bukhari", citation: "1080", grade: "sahih" },
-  { collection: "Sahih Muslim", citation: "705", grade: "sahih" },
   { collection: "Sahih al-Bukhari", citation: "1081", grade: "sahih" },
-  { collection: "Jami' at-Tirmidhi", citation: "553", grade: "hasan" },
+  { collection: "Sahih Muslim", citation: "705", grade: "sahih" },
+  { collection: "Sahih Muslim", citation: "686", grade: "sahih" },
+  { collection: "Jami' at-Tirmidhi", citation: "553", grade: "sahih" },
 ];
 
 /** Number of obligation bullet keys: `travel.obligations.{n}`. */

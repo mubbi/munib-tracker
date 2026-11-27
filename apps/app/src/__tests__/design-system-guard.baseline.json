@@ -1,0 +1,55 @@
+{
+  "fontSizeLiteral": {
+    "app": 1,
+    "app/achievements": 1,
+    "app/adhkar-builder": 1,
+    "app/last-third-night": 1,
+    "app/learn-quran": 2,
+    "app/names-of-allah": 3,
+    "app/quran": 3,
+    "app/sahaba": 1,
+    "components": 3,
+    "components/audio": 2,
+    "components/kids": 2,
+    "components/learn-mizan": 1,
+    "components/masjid": 3,
+    "components/notifications": 1,
+    "components/onboarding": 2,
+    "components/prophets": 2,
+    "components/quran": 7,
+    "components/tajweed-coaching": 1,
+    "components/tasbeeh": 3,
+    "components/travel": 1,
+    "components/ui": 4,
+    "components/umrah": 1,
+    "components/zakat": 13,
+    "components/zikr": 2
+  },
+  "hexLiteral": {
+    "components/prophets": 4,
+    "components/settings": 3,
+    "components/tasbeeh": 1,
+    "components/ui": 2
+  },
+  "rgbaLiteral": {
+    "components/attachments": 1,
+    "components/settings": 1,
+    "components/ui": 1
+  },
+  "accentOrStatusAsText": {
+    "app/(tabs)": 2,
+    "app/statistics": 4,
+    "components": 2,
+    "components/learn-mizan": 1,
+    "components/quran": 5,
+    "components/ui": 1
+  },
+  "spacingArithmetic": {
+    "components/learn-guide": 2
+  },
+  "alertAlert": {},
+  "rawModalImport": {},
+  "physicalLeftRight": {
+    "components/qibla": 4
+  }
+}

@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       "Qur'an bu icazə ətrafında daimi bir həddi müəyyən etmişdir: “Sizinlə vuruşanlarla Allah yolunda vuruşun, lakin həddi aşmayın” (Bəqərə, 190). Mübarizə cəmiyyətə qarşı təcavüzlə bağlı idi və heç vaxt ədalətin sərhədlərini aşmamalıdır.",
       "Bu kampaniyalar tarixdir: onlar 7-ci əsrin xüsusi ərəb kontekstində qəbilə müharibəsi, pozulmuş müqavilələr və mühasirə şəraitində baş verib. Sülh, ədalət, mərhəmət və qonşuluq haqqında ümumi İslam təlimləri çərçivədir; bu döyüşlərin təfərrüatları həmin çərçivənin içində oxunmalıdır, ondan qoparılan şüarlara çevrilməməlidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Haqsız yerə yurdlarından didərgin salınanlara, zülmə məruz qaldıqları üçün vuruşanlara – Allah onlara qələbə çalmağa qadirdir – ancaq: “Rəbbimiz Allahdır!” – demələrinə görə icazə verildi. Əgər Allah insanların bir qismini digərləri ilə dəf etməsəydi, monastırlar, kilsələr, sinaqoqlar və Allahın adı çox zikr olunan məscidlər, şübhəsiz ki, dağılardı.",
-      },
-      {
-        excerpt:
-          "Sizinlə vuruşanlarla Allah yolunda vuruşun, lakin həddi aşmayın. Həqiqətən, Allah həddi aşanları sevməz.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       "Müqavilə pozuntuları sona qədər həlledici olaraq qaldı. Məhz Qüreyşin müttəfiqləri müsəlmanların müttəfiqləri olan Bənu Xuzaya hücum edərək Hudeybiyyə müqaviləsini ləğv etdi və - diqqətəlayiq şəkildə - Məkkənin qırğına yox, demək olar ki, qansız açılmasına səbəb oldu.",
       "Bütün bunlara baxmayaraq, məqsədlər ardıcıl idi: həyatı və dini müdafiə etmək, zəifləri qorumaq və tövhidin təqib edilmədən həyata keçirilə biləcəyi qədər təhlükəsizlik yaratmaq. Məqsəd heç vaxt öz xatirinə sonsuz genişlənmə deyildi və mənbələrdə Peyğəmbərin (sallallahu aleyhi və səlləm) düşmən sülhə meyl etdiyi zaman atəşkəsə və müqaviləyə üstünlük verdiyi qeyd olunur.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mənə insanlar Allahdan başqa ilah olmadığına və Muhəmmədin Allahın Rəsulu olduğuna şəhadət verənə, namaz qılıb zəkat verənə qədər onlarla döyüşmək əmr olundu. Əgər belə etsələr, onların canları və malları İslam haqqı istisna olmaqla, məndən qorunur və onların haqq-hesabı Allaha məxsusdur. — Klassik alimlər “xalqı” Ərəbistanın xüsusi bütpərəstləri kimi oxudular və xəbər onlara çatdıqdan sonra İslama qarşı müharibə apardılar; bu, dinc qeyri-müsəlmanlara hücum etmək və ya Qur'an 2:256-nın açıq şəkildə qadağan etdiyi inancı məcbur etmək üçün lisenziya deyil, düşmən döyüşçülər haqqında bəyanatdır.",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Dində məcburiyyət yoxdur. Doğru yol xətadan ayrıldı.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Yuxarıdakı hədis tez-tez yerindən çıxarılaraq sitat gətirilir. Klassik alimlər bunu öz dövrünün xüsusi düşmənçilikləri çərçivəsində və Qur'anın dində məcburiyyəti qadağan etməsi (2:256) və döyüşün yalnız sizinlə vuruşanlara qarşı olması hüdudunun (2:190) yanında yerləşdirdilər.",
     appLinks: [{}],
@@ -72,29 +54,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       "Mülkiyyət və yerin özü qorunur. Ümumi qaydalar meyvə ağaclarının kobud şəkildə kəsilməsini, əkinlərin yandırılmasını və mal-qaranın lazımsız şəkildə kəsilməsini qadağan edirdi. Məhkumlar yemək yeyərkən və geyindikləri kimi geyindirilməli idilər; Qur'an Allah sevgisi üçün əsiri yedizdirənləri tərifləyir (76:8) və bir çoxları fidyə, mübadilə və ya sadə mərhəmət yolu ilə azad edildi - bəziləri Bədrdə müsəlmanlara oxumağı öyrətmək müqabilində.",
       "Bunlar dinin normativ təlimləridir. Tarix boyu onları pozan ayrı-ayrı müsəlmanlar İslamı müəyyən etmir, pozurlar, necə ki, hər hansı bir inancın ardıcılları tərəfindən edilən pozuntular o inancın əmr etdiyini yenidən yazmır.",
     ],
-    quran: [
-      {
-        excerpt: "Sizinlə vuruşanlarla Allah yolunda vuruşun, lakin həddi aşmayın.",
-      },
-      {
-        excerpt:
-          "Əgər onlar sülhə meyl etsələr, siz də ona meyl edin və Allaha təvəkkül edin. Həqiqətən, O, Eşidəndir, Biləndir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İbn Ömər rəvayət edir ki, Rəsulullahın (sallallahu aleyhi və səlləm) səfərlərinin birində bir qadın öldürülmüş vəziyyətdə tapıldı və o, qadın və uşaqların öldürülməsini qadağan etdi.",
-      },
-      {
-        excerpt:
-          "Peyğəmbər (sallallahu aleyhi və səlləm) bir orduya sərkərdə təyin etdikdə ona buyurdu: “Allahın adı ilə vuruşun... qəniməti mənimsəməyin, əhdi pozmayın, şikəst etməyin və uşağı öldürməyin. Düşmənlə qarşılaşdığınız zaman əvvəlcə onları İslama dəvət edin; Əgər imtina etsələr, onlara sülh təklif edin; ancaq hər ikisindən imtina edərlərsə, vuruşun.",
-      },
-      {
-        excerpt:
-          "Əskik qocanı, gənc uşağı, qadını öldürməyin. — Bu dəqiq ifadənin bəzi zəncirləri zəif dərəcəyə malikdir, lakin onun bəyan etdiyi hökm yuxarıdakı səhih rəvayət və fəqihlərin icması ilə təsdiq edilmişdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "İslamın əmr etdikləri ilə tarixdəki hər hansı bir ordunun əslində etdiklərini aydın şəkildə ayırın.",
       "Hər hansı bir döyüş hekayəsindən əvvəl bu etika bölməsini oxuyun - idarəetmə prinsipləri olmayan tarix anlaşılmazlığa səbəb olur.",
@@ -139,26 +100,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
         "Mədinə uşaqlarına savad öyrətmək müqabilində bəzi əsirlər azad edildi.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "O zaman ki, siz Rəbbinizdən kömək diləyirdiniz, O da sizə cavab verdi: “Mən sizə bir-birinin ardınca gələn min mələklə kömək edəcəyəm.",
-      },
-      {
-        excerpt:
-          "Qarşılaşan iki orduda sizin üçün bir dəlil var idi: biri Allah yolunda vuruşur, digəri isə kafirlərdəndir.",
-      },
-      {
-        excerpt:
-          "Onları siz öldürmədiniz, ancaq Allah öldürdü. Siz atdığınız zaman atmadınız, ancaq Allah atandı.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ömər (radiyallahu anhu) rəvayət edir ki, Bədr günü Peyğəmbər (Ona Allahın salavatı və salamı olsun) öz səhabələri üç yüzdən bir qədər çox olarkən min nəfərin düşməninə baxdı, sonra qibləyə tərəf dönüb əllərini uzadıb Rəbbinə yalvardı: “Allahım, mənə verdiyin vədi yerinə yetir. İlahi, əgər bu mömin dəstəsi məhv olsa, yer üzündə Sənə ibadət olunmaz. O, libası çiynindən düşənə qədər yalvardı və Əbu Bəkr onu əvəz etdi və dedi: Bəsdir, ey Allahın Peyğəmbəri, Allah sənə vəd etdiyini yerinə yetirəcək.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -194,22 +137,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Sınaqlar möminləri islah edər; uğursuzluq tövbə ilə qarşılaşdı və səbir böyüməyə səbəb olur.",
     },
-    quran: [
-      {
-        excerpt:
-          "Siz onları Onun izni ilə öldürdüyünüz zaman, şübhəsiz ki, Allah sizə verdiyi vədini yerinə yetirdi, nəhayət ki, siz cəsarətinizi itirdiniz, əmr üzərində mübahisə etdiniz və sevdiyiniz şeyi sizə göstərdikdən sonra asi oldunuz.",
-      },
-      {
-        excerpt:
-          "Odur ki, zəifləməyin və qəm-qüssə etməyin, çünki siz həqiqi möminsinizsə, üstün olarsınız.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər Uhud günü Abdullah ibn Cübeyri əlli oxçuya təyin etdi və dedi: “Məqsədinizi qoruyun. Əgər bizi quşlar tərəfindən qaçırıldığını görsən də, mən səni çağırana qədər onu tərk etmə. Düşmən darmadağın edildikdə və oxatanlar qənimətləri görəndə dedilər: “Qənimət! və öz vəzifəsini tərk etdilər - yetmiş nəfərimiz öldürüldü.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -247,22 +176,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Mühasirə altında möhkəm durun və nəticəsini küləklə bir ordunu geri qaytara bilən Allaha həvalə edin.",
     },
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, Allahın sizə olan nemətini xatırlayın ki, qoşunlar üzərinizə gəldi və Biz onların üstünə külək və görmədiyiniz ordular göndərdik... Orada möminlər imtahana çəkildi və şiddətli bir sarsıntı ilə sarsıldı.",
-      },
-      {
-        excerpt:
-          "Möminlər birlikləri gördükdə dedilər: “Bu, Allahın və Onun Rəsulunun bizə vəd etdiyi şeydir və bu, onların iman və təslimiyyətlərini daha da artırdı.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Həzrət Peyğəmbər (s) Əhzab günü müttəfiqlərin əleyhinə dua edərək dedi: “Ey Kitabı nazil edən, tez haqq-hesab çəkən Allahım, qoşunları məğlub et. İlahi, onları məğlub et və sarsıt.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -296,22 +211,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ortaq təhlükə anında qarşılıqlı qoruma əhdini pozmaq xəyanətlərin ən ağırlarındandır.",
     },
-    quran: [
-      {
-        excerpt:
-          "O, kitab əhlindən onlara yardım edənləri qalalarından endirdi və onların qəlblərinə qorxu saldı. Onların torpaqlarını və yurdlarını sizə varis etdi.",
-      },
-      {
-        excerpt:
-          "Allah sizə din yolunda sizinlə vuruşmayan və sizi yurdunuzdan çıxartmayanlarla yaxşılıq etməyi və ədalətlə davranmağı sizə qadağan etməz. Həqiqətən, Allah ədalətli olanları sevir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bəni Qureyzə Səd ibn Muazın hökmünü qəbul etməyə razı olduqda, Peyğəmbər (s) onu çağırtdırdı. O, gəldi və Peyğəmbər (s) buyurdu: “Əşinin yanında ol. Səd hökm etdi ki, onların döyüşən kişiləri öldürülsün, qadın və uşaqları əsir götürülsün. Peyğəmbər (salləllahu aleyhi və səlləm) buyurdu: “Sən Allahın hökmü ilə hökm etdin, ya da padşahın hökmü ilə dedi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Bu, tayfanın özünün seçdiyi arbitr tərəfindən mühakimə olunan döyüşçülər tərəfindən xüsusi bir müharibə zamanı xəyanət aktına görə cəza idi. Bu, dinlərinə görə heç bir xalqa qarşı bir hökm deyil və İslamın ədalət və xeyirxahlıqla rəftar edilməsini əmr etdiyi yəhudilərlə və ya hər hansı bir inanclı cəmiyyətlə münasibətlər üçün nümunə deyildir (Qur'an 60:8). Bəzi sonrakı alimlər ötürülən nömrələrin təfərrüatlarını şübhə altına aldılar.",
   },
@@ -344,22 +245,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Qərarın hikməti gizləndiyi zaman Allaha və Rəsuluna təvəkkül edin - səbir ən həqiqi qələbə ola bilər.",
     },
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Biz sənə açıq-aydın bir qələbə bəxş etdik ki, Allah sənin əvvəlki və sonrakı günahlarını bağışlasın, sənə olan nemətini tamamlasın və səni düz yola yönəltsin.",
-      },
-      {
-        excerpt:
-          "Şübhəsiz ki, Allah möminlərdən ağacın altında sənə beyət etdikləri zaman onlardan razı qaldı və onların ürəklərində olanı bildi, buna görə də onlara aramlıq nazil etdi və onları yaxın bir fəthlə mükafatlandırdı.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cabir ibn Abdullah dedi: “Hüdeybiyyə günü biz on dörd yüz idik. Biz ağacın altında Peyğəmbərə beyət etdik və o, insanların ən yaxşısı idi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -391,12 +278,7 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Uzun sürən çətinliklərə dözmək, ixlasla birləşmək, Allahın köməyini gətirir.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Xeybər günü Peyğəmbər (salləllahu aleyhi və səlləm) buyurdu: “Sabah mən bu bayrağı Allahı və Rəsulunu sevən, Allah və Rəsulunun da sevdiyi və Allah onun əli ilə qələbə çalan şəxsə verəcəyəm. Ertəsi gün gözləri ağrıyan Əlini çağırdı; gözlərinə tüpürdü və onun üçün dua etdi və Əli heç xəstələnməmiş kimi sağaldı və bayrağı ona verdilər.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -462,16 +344,7 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Məqsəd intiqam deyil, rəhbərlik idi - güc özünə deyil, mesaja xidmət etmək üçün verilir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allahın zəfəri və fəth gəldiyi zaman insanların dəstə-dəstə Allahın dininə daxil olduqlarını gördükdə Rəbbini həmd-səna ilə təqdis et və Ondan bağışlanma dilə. Həqiqətən, O, tövbələri qəbul edəndir.",
-      },
-      {
-        excerpt:
-          "O dedi: Bu gün sizə heç bir günah yoxdur. Allah sizi bağışlasın və O, rəhm edənlərin ən rəhmlidir. - Həzrət Yusifin sözləri, Peyğəmbər (sallallahu aleyhi və səlləm) fəth günü Qureyşlə səsləşdi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -504,18 +377,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Heç vaxt rəqəmlərə və ya son nailiyyətlərə etibar etməyin; qələbə və əmin-amanlıq ancaq Allahdandır.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah sizə bir çox bölgələrdə qələbə bəxş etdi və çoxluğunuz sizi razı salsa da, heç bir fayda vermədiyi Huneyn günündə, yer üzü bütün genişliyinə görə üzərinizə qapandı və siz geriyə dönüb geri çəkildiniz. Sonra Allah Öz Peyğəmbərinə və möminlərə öz aramlığını nazil etdi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Əl-Bəra ibn Azibdən soruşdular ki, onlar Huneyn günü qaçıblarmı? Dedi: Amma Rəsulullah (sallallahu aleyhi və səlləm) qaçmadı. Camaat geri döndü və Peyğəmbər (s) ağ qatırının üstündə idi və dedi: Mən Peyğəmbərəm, bu yalan deyil. Mən Əbdül-Müttəlibin oğluyam.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -549,22 +412,8 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Görünən mükafatı olmayan qurban kəsmək və sınaq zamanı doğruluq imanın ən yüksək imtahanlarındandır.",
     },
-    quran: [
-      {
-        excerpt:
-          "Geridə qalanlar isə Allah Rəsulunun (sallallahu aleyhi və səlləm) arxasında qaldıqlarına sevinir, malları və canları ilə Allah yolunda cihad etməyi xoşlamırdılar və dedilər: İstidə döyüşə çıxmayın. De: “Cəhənnəm atəşi daha şiddətlidir, kaş anlaya bilsələr.",
-      },
-      {
-        excerpt:
-          "O, geridə qalan üç nəfəri də bağışladı, nə qədər geniş olsa da, yer üzü onların üstünə, öz canları da onlara bağlandı və onlar Allahdan başqa heç bir sığınacaq olmadığına əmin oldular. Sonra tövbə etsinlər deyə, onlara tövbə etdi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kəb ibn Malik üzrsüz olaraq Təbukdan geri qaldığını və bu barədə yalan danışmadığını nəql edir; Peyğəmbər (salləllahu aleyhi və səlləm) möminlərə əmr etdi ki, yer üzü onlar üçün dar olana qədər əlli gecə onunla və iki yoldaşı ilə danışmasınlar - sonra onların bağışlanması nazil oldu və bu, onun həyatının ən xoşbəxt günlərindən idi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -622,20 +471,7 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
       "Səfərlərlə bağlı hədislərə istinad etməzdən əvvəl səhihliyi yoxlanılmalıdır. Aşağıdakı rəvayətlər “Səhih” məcmuələrindən götürülmüşdür və bu kampaniyaların gedişi və ruhuna aiddir; hər biri öz dərəcəsini daşıyır.",
       "Müəyyən bir nişanla bağlı rəvayətlər üçün həmin döyüşün öz mövzusuna baxın. Tam zəncirləri oxumaq və kontekstdə qiymətləndirmək üçün Munib-in hədis brauzerindən istifadə edin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Düşmənlə qarşılaşmaq istəməyin və Allahdan salamatlıq diləyin. Onlarla qarşılaşdığınız zaman səbr edin və bilin ki, Cənnət qılıncların kölgəsi altındadır.",
-      },
-      {
-        excerpt:
-          "Peyğəmbər (s) buyurur: “Müharibə hiylədir. — Alimlər bunu heç vaxt müqaviləni pozmaq və ya qorunan tərəfə xəyanət etmək üçün lisenziya kimi döyüşdə taktiki hiylələrə icazə (fiints, sürpriz, yanlış istiqamətləndirmə) kimi izah edirlər.",
-      },
-      {
-        excerpt:
-          "Peyğəmbər səllallahu aleyhi və səlləm bir sərkərdə təyin edərkən ona Allahdan qorxmağı, döyüşdən əvvəl düşməni İslama dəvət etməyi, əhdi pozmamağı, şikəst etməməyi və uşağı öldürməməyi əmr etdi.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -657,68 +493,44 @@ export const BATTLES_TOPICS_AZ: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_AZ: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Zülm edildiyi üçün döyüşənlərə icazə verilir... Əgər Allah bir camaatı digəri ilə yoxlamasaydı, monastırlar, kilsələr, sinaqoqlar, məscidlər dağılardı.",
     context:
       "Döyüş üçün ilk ümumi icazə - Məkkədə uzun illər davam edən silahsız təqiblərdən sonra.",
   },
   {
-    excerpt:
-      "Sizinlə vuruşanlarla Allah yolunda vuruşun, lakin həddi aşmayın. Həqiqətən, Allah həddi aşanları sevməz.",
     context: "Təməl həddi: yalnız müdafiə, sərhədləri aşmağın qəti qadağanı ilə.",
   },
   {
-    excerpt:
-      "Siz Rəbbinizdən kömək dilədiyiniz zaman O, belə cavab verdi: “Mən sizi sıra-sətbə min mələklə qüvvətləndirəcəyəm.",
     context: "Bədrlə bağlı nazil olmuşdur – sayca çox olan möminlərə ilahi yardım.",
   },
   {
-    excerpt:
-      "Qarşılaşan iki orduda sizin üçün bir ibrət vardır: biri Allah yolunda vuruşur, digəri isə kafirlərdəndir.",
     context: "Allah Bədirdə müsəlmanları düşmənə daha çox göstərdi, qəlblərə qüvvət verdi.",
   },
   {
-    excerpt:
-      "Şübhəsiz ki, siz onları Onun izni ilə öldürdüyünüz zaman Allah sizə verdiyi vədini yerinə yetirdi, nəhayət ki, siz cəsarətinizi itirdiniz, əmr barəsində mübahisə etdiniz və sevdiyiniz şeyi sizə göstərdikdən sonra asi oldunuz.",
     context: "Oxçuların itaətsizliyinə və Uhudda dönüş nöqtəsinə müraciət edir.",
   },
   {
-    excerpt:
-      "Ey iman gətirənlər, Allahın sizə olan nemətini xatırlayın ki, sizə qoşunlar gəldi və biz onların üstünə külək və görmədiyiniz ordular göndərdik.",
     context: "Əl-Əhzab surəsi Konfederasiya mühasirəsi və ilahi yardım haqqında.",
   },
   {
-    excerpt:
-      "O, kitab əhlindən onlara yardım edənləri qalalarından endirdi və onların qəlblərinə qorxu saldı. Onların torpaqlarını və yurdlarını sizə varis etdi.",
     context:
       "Mühasirə zamanı əhdi pozan Bənu Qureyzə haqqında Əhzab surəsi — imana qarşı hökm deyil, müharibə zamanı xəyanətin məhdud bir epizodu.",
   },
   {
-    excerpt:
-      "Həqiqətən, Biz sənə açıq-aydın bir qələbə bəxş etdik ki, Allah sənin əvvəlki və sonrakı günahlarını bağışlasın, sənə olan nemətini tamamlasın və səni düz yola yönəltsin.",
     context:
       "Hüdeybiyyədən qayıdanda nazil oldu - səhabələrin ilk dəfə acı bir güzəşt kimi hiss etdiklərini açıq-aşkar bir qələbə kimi adlandırdılar.",
   },
   {
-    excerpt:
-      "Şübhəsiz ki, Allah möminlərdən ağacın altında sənə beyət etdikləri zaman onlardan razı qaldı və onların ürəklərində olanı bildi, buna görə də onlara aramlıq nazil etdi və onları yaxın bir fəthlə mükafatlandırdı.",
     context:
       "Rıdvan beyəti — 1400-ə yaxın səhabə bir akasiya ağacının altında qaçmayacağına söz verdi və Allah onlardan razılığını bildirdi.",
   },
   {
-    excerpt:
-      "Allahın zəfəri və fəth gəldiyi zaman insanların dəstə-dəstə Allahın dininə daxil olduqlarını gördükdə Rəbbini həmd-səna ilə təqdis et və Ondan bağışlanma dilə. Həqiqətən, O, tövbələri qəbul edəndir.",
     context:
       "Ən-Nəsr surəsi Məkkənin açılışı - zəfərlə deyil, həmd-səna, bağışlanma diləməsi və imana daxil olan izdihamla taclanmış bir fəth.",
   },
   {
-    excerpt:
-      "Allah sizə bir çox bölgələrdə qələbə bəxş etdi... Sonra Allah Öz Peyğəmbərinə və möminlərə rahatlıq nazil etdi.",
     context: "Allah möminlərə xatırladır ki, zəfər Onun hədiyyəsidir, sayla öyünmək deyil.",
   },
   {
-    excerpt:
-      "Geridə qalanlar isə Rəsulullahdan geri qalmalarına sevinir, Allah yolunda malları və canları ilə cihad etməyi sevmirdilər.",
     context: "Tövbə surəsi çətin Təbuk yürüşündən üzr istəyənlərə xitab edir.",
   },
 ];

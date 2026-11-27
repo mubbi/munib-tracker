@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "title": "{appName}: Salah Tracker, Qaza, Zikr & Qur'an Practice App",
+    "description": "A free Islamic app with no ads: track your five daily Salah, make up Qaza, keep daily Zikr, and read, learn and practise the Qur'an with on-device AI."
+  },
+  "hero": {
+    "announcementBadge": "New",
+    "announcement": "Qur'an practice with AI",
+    "headline": "<line>Track Your</line> <line>Journey</line> <accent>Back to Allah.</accent>",
+    "lead": "Log your Salah, make up missed prayers, keep your daily Zikr, and read and practise the Qur'an. Free, private and without ads.",
+    "getApp": "Get the app",
+    "exploreFeatures": "Explore features",
+    "trust": {
+      "noAds": {
+        "top": "No ads",
+        "bottom": "Ever"
+      },
+      "noAccount": {
+        "top": "No account",
+        "bottom": "Needed"
+      },
+      "offline": {
+        "top": "Works",
+        "bottom": "Offline"
+      }
+    },
+    "moonTitle": "Crescent moon",
+    "platforms": "On iPhone, iPad, Android, Apple Watch, Wear OS, Apple TV, Android TV and the web"
+  },
+  "stats": {
+    "ayahs": "Qur'an ayahs, fully offline",
+    "library": "Cited topics in the learning library",
+    "duas": "Duas from Hisnul Muslim",
+    "languages": "Interface languages, incl. Arabic & Urdu"
+  },
+  "featureHub": {
+    "eyebrow": "Features",
+    "title": "Everything you need to stay consistent",
+    "intro": "Each feature has its own page with screenshots, examples and answers to common questions.",
+    "seeAll": "See the complete list",
+    "seeAllHint": "Hadith, duas, learning library and more",
+    "allFeatures": "All features"
+  },
+  "howItWorks": {
+    "eyebrow": "How it works",
+    "title": "Up and running in a minute",
+    "intro": "{appName} fits around the five daily Salah, so your routine and the app stay in step.",
+    "steps": {
+      "download": {
+        "title": "Download",
+        "text": "Install on iPhone or Android, or open the web app. No account needed."
+      },
+      "location": {
+        "title": "Set your location",
+        "text": "Salah times appear for your city, with your method and madhab."
+      },
+      "log": {
+        "title": "Log as you go",
+        "text": "Tap each Salah and zikr. Your progress builds day by day."
+      }
+    },
+    "walkthrough": "See the full walkthrough"
+  },
+  "privacy": {
+    "eyebrow": "Why {appName}",
+    "title": "Built for your worship, not for screen time",
+    "intro": "Many Islamic apps are funded by ads or subscriptions. {appName} isn't, so it can stay calm, private and focused on helping you.",
+    "promises": {
+      "noAds": {
+        "title": "No ads",
+        "text": "No ads, no subscriptions, no in-app purchases."
+      },
+      "noAccount": {
+        "title": "No account needed",
+        "text": "Every personal feature works as a guest. Sign in to sync or to share with family."
+      },
+      "private": {
+        "title": "Private by default",
+        "text": "Your record stays on your device. Practice audio never leaves it."
+      },
+      "offline": {
+        "title": "Works offline",
+        "text": "Tracking, the Qur'an text, adhkar and lessons need no signal."
+      },
+      "sources": {
+        "title": "Authentic sources",
+        "text": "Qur'an, hadith and adhkar from established, credited datasets."
+      },
+      "openSource": {
+        "title": "Open to inspect",
+        "text": "The source code is public on {github}."
+      }
+    },
+    "principles": "Our principles"
+  },
+  "audiences": {
+    "eyebrow": "Who it's for",
+    "title": "Wherever you're starting from",
+    "intro": "Coming back to Salah, new to Islam, memorizing the Qur'an or teaching your children: see how the app fits."
+  },
+  "compareGuides": {
+    "title": "Compare, learn, and decide for yourself",
+    "compareTitle": "Honest comparisons",
+    "compareText": "Sourced, dated comparisons with other Islamic apps, including where they do better.",
+    "allComparisons": "All comparisons",
+    "guidesTitle": "Guides worth reading",
+    "guidesText": "Practical, cited guides on Salah, Zikr and the Qur'an, useful with or without the app.",
+    "allGuides": "All guides"
+  },
+  "aiPractice": {
+    "eyebrow": "New · Qur'an practice with AI",
+    "title": "Recite, and it follows along",
+    "description": "An AI listener that runs on your phone follows your recitation word by word, so you can memorize and revise the Qur'an on your own, privately and for free.",
+    "chipsLabel": "Highlights",
+    "chips": {
+      "onDevice": "AI on your device",
+      "offline": "Works offline",
+      "free": "Free, no account"
+    },
+    "points": {
+      "follow": {
+        "title": "Follows you word by word",
+        "body": "Recite at your own pace. Words light up as the listener hears them, and words to try again are marked gently. No scores."
+      },
+      "memorize": {
+        "title": "Built for memorization",
+        "body": "Hide words or whole ayahs and recite from memory. Each word appears as you reach it, and you can tap any word to hear it."
+      },
+      "revise": {
+        "title": "Revision that remembers",
+        "body": "Passages you practise come back for review after 1, 3, 7, 14, and 30 days, with an optional daily reminder."
+      },
+      "private": {
+        "title": "Private by design",
+        "body": "Your recitation is processed on your device. It is never recorded, stored, or uploaded. Only counts and ayah numbers are kept."
+      }
+    },
+    "tryPractice": "Try Qur'an practice",
+    "howItWorks": "How Qur'an practice works",
+    "footnote": "The listener is a one-time optional download (about 70 MB) on iOS, Android, and the web. It helps you practise; it is not a replacement for a teacher."
+  },
+  "practicePreview": {
+    "label": "Illustration of a Qur'an practice session",
+    "heading": "Al-Fatiha · Ayah {ayah}",
+    "listening": "Listening",
+    "legend": {
+      "heard": "Heard",
+      "tryAgain": "Try again",
+      "upNext": "Up next"
+    },
+    "controls": {
+      "hear": "Hear",
+      "end": "End"
+    },
+    "caption": "Illustration, not a screenshot · Audio stays on your device"
+  },
+  "learn": {
+    "eyebrow": "Learn, don't just track",
+    "title": "A cited library in your pocket",
+    "description": "Every lesson is referenced to the Qur'an and authenticated hadith, with per-topic progress so you always know where you are.",
+    "areas": {
+      "aqeedah": {
+        "title": "Aqeedah",
+        "meta": "24 topics on the articles of faith"
+      },
+      "prophets": {
+        "title": "The Prophets",
+        "meta": "25 prophets, a timeline and family tree"
+      },
+      "seerah": {
+        "title": "Seerah & battles",
+        "meta": "30-event life + 21 battles"
+      },
+      "jannah": {
+        "title": "Jannah",
+        "meta": "45 topics · the eight gates"
+      },
+      "jahannam": {
+        "title": "Jahannam",
+        "meta": "16 topics & repentance"
+      },
+      "last_day": {
+        "title": "The Last Day",
+        "meta": "20 lessons + an interactive quiz"
+      },
+      "learn_quran": {
+        "title": "Learn the Qur'an",
+        "meta": "Letters, tajweed & memorization"
+      },
+      "learn_dua": {
+        "title": "Learn dua",
+        "meta": "46 topics on when & how to supplicate"
+      },
+      "fiqh_guides": {
+        "title": "Fiqh guides",
+        "meta": "Salah, zakat, Hajj & Umrah & purification"
+      }
+    },
+    "explore": "Explore the learning library"
+  },
+  "devices": {
+    "eyebrow": "On every screen",
+    "title": "Your phone, tablet, TV and watch",
+    "intro": "The same calm app wherever you are, with a layout made for each screen. Sign in to keep your phone, tablet and TV in step.",
+    "more": "See every device and widget",
+    "items": {
+      "tv": {
+        "name": "Apple TV & Android TV",
+        "text": "Read the Qur'an together on the big screen"
+      },
+      "androidTablet": {
+        "name": "Android tablets",
+        "text": "The Salah tracker beside today's schedule"
+      },
+      "iphone": {
+        "name": "iPhone",
+        "text": "A Tasbeeh counter with targets"
+      },
+      "android": {
+        "name": "Android phones",
+        "text": "The 99 Names of Allah with meanings"
+      },
+      "ipad": {
+        "name": "iPad",
+        "text": "Today's Salah times and full schedule"
+      },
+      "watch": {
+        "name": "Apple Watch",
+        "text": "The next Salah at a glance"
+      },
+      "wear": {
+        "name": "Wear OS",
+        "text": "A Tasbeeh tile on your wrist"
+      }
+    }
+  }
+}

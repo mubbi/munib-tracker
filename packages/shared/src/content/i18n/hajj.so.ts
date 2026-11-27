@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       'Abu Hurayrah wuxuu sheegay in Rasuulka Ilaahay ﷺ yidhi: "Qofkii u xajiya Ilaah dartiis oo aan galmo samayn ama dembi samayn, wuxuu ku soo noqdaa siduu ahaa maalintii hooyadiis dhashay" (Sahih al-Bukhari 1521; Sahih Muslim 1350).',
       'Wuxuu sidoo kale yidhi: "Xaj la aqbalay (xaj mabrur) ma laha abaalmarin aan ahayn Jannada" (Sahih al-Bukhari 1773; Sahih Muslim 1349). Aqbalaaddu waxay ku xiran tahay daacadnimo iyo in xajka laga ilaaliyo xumaanta iyo dembiga — ma aha oo kaliya dhammaystirka tallaabooyinka dibadda ah.',
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii u xajiya Ilaah dartiis oo aan galmo samayn ama dembi samayn, wuxuu ku soo noqdaa siduu ahaa maalintii hooyadiis dhashay.",
-      },
-      {
-        excerpt:
-          "Qofkii u xajiya Ilaah dartiis oo aan galmo samayn ama dembi samayn, wuxuu ku soo noqdaa siduu ahaa maalintii hooyadiis dhashay.",
-      },
-      { excerpt: "Xaj la aqbalay ma laha abaalmarin aan ahayn Jannada." },
-      { excerpt: "Xaj la aqbalay ma laha abaalmarin aan ahayn Jannada." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "U niyeyso xajka Ilaah keliya — ilaali afkaaga iyo dabeecaddaada safarka oo dhan.",
       "Isticmaal liiska xajka ee app-ka kaliya xusuusin ahaan; qalbigaaga ku hay aqbalaadda.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       'Abu Hurayrah wuxuu sheegay in Nabiga ﷺ yidhi: "Cumro la sameeyo waa kafaaro dembiyada u dhexeeya iyada iyo kan ka horreeyay, xaj la aqbalayna ma laha abaalmarin aan ahayn Jannada" (Sahih al-Bukhari 1773; Sahih Muslim 1349).',
       "Cumro waxaa la samayn karaa wakhti kasta oo sanadka ah. Way ka gaaban tahay xajka laakiin weli waa cibaado weyn: ihram, tawaf, sa'i, iyo goynta ama xiiridda timaha.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Cumro la sameeyo waa kafaaro dembiyada u dhexeeya iyada iyo kan ka horreeyay, xaj la aqbalayna ma laha abaalmarin aan ahayn Jannada.",
-      },
-      {
-        excerpt:
-          "Cumro la sameeyo waa kafaaro dembiyada u dhexeeya iyada iyo kan ka horreeyay, xaj la aqbalayna ma laha abaalmarin aan ahayn Jannada.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Fur liiska cumro markaad diyaar u tahay inaad manasikka ku socoto si taxaddar leh."],
     appLinks: [{ label: "Liiska manasikka cumro" }],
   },
@@ -58,14 +38,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Cabd al-Rahman ibn Ya'mar wuxuu sheegay in Nabiga ﷺ yidhi: \"Xajku waa Carafah\" (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Qofkii ka maqnaado istaagga xuduudaha Carafah waqtigeeda wuxuu ka maqnaaday xajka sannadkaas.",
       "Kuwa aan xajka ku jirin, soonka Maalinta Carafah waa sunno xooggan: Abu Qatadah wuxuu sheegay in soonka Carafah uu kafaaro dembiyada sanadkii hore iyo kan soo socda (Sahih Muslim 1162). Xujeydu ma soomaan si ay maalinta ugu huraan ducada.",
     ],
-    hadith: [
-      { excerpt: "Xajku waa Carafah." },
-      { excerpt: "Xajku waa Carafah." },
-      {
-        excerpt:
-          "Soonka Maalinta Carafah, waxaan Ilaah ka rajaynayaa inuu kafaaro dembiyada sanadkii ka horreeyay iyo kan ka dambeeyay.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Xaj — tiirka shanaad",
@@ -75,23 +48,8 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       'Baaqii waxaa loo dhawaaqay dadka oo dhan: "U dhawaaq dadka xajka; waxay kuu imaan doonaan lug iyo geel khafiif ah; waxay ka imaan doonaan dariiq kasta oo fog" (Qur\'an 22:27).',
       "Ibn Umar wuxuu sheegay in Nabiga ﷺ yidhi Islaamka waxaa lagu dhisay shan: shahaadada, salaadda, zakada, soonka Ramadaan, iyo xajka Guriga qofkii awooda (Sahih al-Bukhari 8; Sahih Muslim 16). Culimadu waxay isku raaceen inuu waajib yahay hal mar nolosha marka shuruudaha la buuxiyo; ku celcelintu waa fadli ikhtiyaari ah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dadka waxaa Ilaah ka saaran xajka Guriga — qofkii awood u leh jid u heliddiisa...",
-      },
-      { excerpt: "U dhawaaq dadka xajka; waxay kuu imaan doonaan lug iyo geel khafiif ah..." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islaamka waxaa lagu dhisay shan: shahaadada in aan ilaah jirin Ilaah mooyee iyo in Muxammad yahay Rasuulka Ilaah, oogista salaadda, bixinta zakada, soonka Ramadaan, iyo xajka Guriga qofkii awood u leh jid u heliddiisa.",
-      },
-      {
-        excerpt:
-          "Islaamka waxaa lagu dhisay shan... iyo xajka Guriga qofkii awood u leh jid u heliddiisa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Awood (istita'ah)",
@@ -101,7 +59,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Shuruudda Qur'an 3:97 waa awood (istita'ah). Culimada qadiimka ah waxay ku soo koobayaan: caafimaad jireed oo safarka u qalma, hanti sharci ah oo ku filan safarka iyo baahiyaha kuwa aad masuul ka tahay intaad maqan tahay, iyo jid ammaan ah oo furan.",
       "Qofkii sanadkan ka maqan yahay waxyaalahan ma dembaabayo inuu dib u dhigo ilaa uu awoodo. Awoodda waxaa lagu qiimeeyaa kiis kasta — jirro, deyn waajib ah in la bixiyo, ama safar aan ammaan ahayn ayaa ka qaadi kara waajibka degdegga ah. Weydii caalim aqoon leh marka xaaladdaadu aan caddayn.",
     ],
-    quran: [{ excerpt: "...qofkii awood u leh jid u heliddiisa." }],
+    quran: [{}],
     actions: [
       "Bixi deymaha waajibka ah oo diyaari nafaqada kuwa aad masuul ka tahay ka hor intaadan ballansan.",
       "Hubi baakadaha kaliya kanaalada rasmiga ah (eeg mowduucyada diyaarinta).",
@@ -115,16 +73,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas wuxuu sheegay in Nabiga ﷺ yidhi haweeneydu ha u safrin mooyee mahram, ninna ha u gelin iyada mooyee mahram la joogo (Sahih al-Bukhari 1862; Sahih Muslim 1341). Culimo badan ayaa tan ku dabaqaya safarka xajka iyo cumro.",
       "Culimo dambe qaarkood — iyagoo miisaamaya amniga, baahida, iyo safarka casriga ah — waxay ogolaadaan in haweeney u safrto xajka waajibka ah koox la isku halleyn karo marka mahram la waayo. Tani weli waa su'aal fiqh oo muran leh.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Haweeneydu ha u safrin mooyee mahram, ninna ha u gelin iyada mooyee mahram la joogo.",
-      },
-      {
-        excerpt:
-          "Ma bannaana haweeney rumaysan Ilaah iyo Maalinta Dambe inay u safrto maalin iyo habeen mooyee mahram.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Jamaacadu badankood waxay qabaan in haweeney u baahan tahay mahram safarka xajka. Culimo dambe qaarkood waxay ogolaadaan safarka koox haween ah oo ammaan ah xajka waajibka ah. Raac caalim aad aaminayso iyo xeerarka hay'adda xajka.",
   },
@@ -137,12 +86,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': samee cumro buuxda bilaha xajka, ka bax ihram, ka dibna dib u geli ihram xajka 8 Dhul-Hijjah. Tani waa waxa xujeydu badankood maanta sameeyaan; sidoo kale waxay u baahan tahay hady.",
       "Ilaah wuxuu ku saabsan kuwa isku dara manasikka yidhi: \"...Qofkii ka faa'iidaysanayo cumro si uu u xajiyo, waxa si fudud loo heli karo xoolaha allabariga...\" kuwa aan awoodinna waxay soomaan saddex maalmood xajka gudahiisa iyo toddoba markay soo noqdaan (Qur'an 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "O dhammaystira xajka iyo cumro Ilaah dartiis... Qofkii ka faa'iidaysanayo cumro si uu u xajiyo, waxa si fudud loo heli karo xoolaha allabariga. Qofkii aan helin — soon saddex maalmood xajka gudahiisa iyo toddoba markaad soo noqdaan...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Go'aanso noocaaga hoggaamiyaha kooxda ka hor miqat.",
       "Haddii aad samaynayso Tamattu', dhammaystir cumro si buuxda ka hor intaadan dib u gelin ihram xajka.",
@@ -156,16 +100,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas wuxuu sheegay in Nabiga ﷺ u go'aamiyay miqato dadka: Dhul-Hulayfah reer Madinah, Al-Juhfah reer Shaam, Qarn al-Manazil reer Najd, iyo Yalamlam reer Yemen; reer Ciraaqna Dhat 'Irq. Wuxuu yidhi kuwan waa iyaga iyo qof kasta oo soo mara iyagoo doonaya xaj ama cumro; qofka ku nool gudahooda wuxuu ka galaa ihram meeshuu ka bilaabo, xataa reer Makkah Makkah ka (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Garoomada diyaaradaha iyo dekedaha casriga ah waxay leeyihiin meelo ihram ama habraacyo la shaaciyay — raac tilmaamaha shirkaddaada iyo Wasaaradda Xajka iyo Cumro si aadan xadka uga gudbin adigoon ihram gelin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasuulka Ilaahay ﷺ wuxuu u go'aamiyay Dhul-Hulayfah reer Madinah, Al-Juhfah reer Shaam, Qarn al-Manazil reer Najd, iyo Yalamlam reer Yemen... Miqatadan waa kuwa meelahaas iyo kuwa soo mara iyagoo doonaya xaj ama cumro...",
-      },
-      {
-        excerpt:
-          "Rasuulka Ilaahay ﷺ wuxuu cayimay miqato... Qofka ku nool gudahooda wuxuu ka galaa ihram meeshuu ka bilaabo...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Gelitaanka ihram",
@@ -175,17 +110,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Raggu waxay ku mari karaan udgoon jirkooda ka hor ihram, ma aha dharka ihram ka dib gelitaanka xaaladda (Sahih al-Bukhari 1539). Kadib samee niyada oo bilow talbiyah.",
       'Talbiyah uu baray Nabiga ﷺ waa: "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni\'mata laka wal-mulk, la sharika lak" — ilaa tawaf bilaabmo cumro, ama ilaa la dhagaxyo Jamrat al-Aqaba xaj sida caadada caanka ah (Sahih al-Bukhari 1549; Sahih Muslim 1184).',
     ],
-    hadith: [
-      {
-        excerpt:
-          "Caa'ishah waxay tidhi: Waxaan udgoon u mari jiray Rasuulka Ilaahay ﷺ ihramkiisa ka hor inta uusan gelin ihram...",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Nabiga ﷺ wuxuu codkiisa kor u qaaday talbiyah: Labbayk Allahumma labbayk..." },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "U diyaari ragga ugu yaraan laba xirmo ihram; hayso alaab nadiif ah oo aan udgoon lahayn.",
       "Tababar talbiyah ka hor safarka si ay ugu socoto jidka.",
@@ -220,12 +145,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Raggu waxay sameeyaan raml (socod degdeg ah) saddexda wareeg ee ugu horreeya iyo idtiba' (muujinta garbka midig) tawafkan cumro ee imaatinka, sida Sunnada caanka ah.",
       'Inta u dhexeysa Geeska Yamani iyo Dhagaxa Madow waxaa lagula talinayaa in la yidhaahdo: "Rabbigeenna, na si wanaag adduunkan iyo wanaag aakhiro, oo naga ilaali ciqaabta Naarta" (Qur\'an 2:201).',
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbigeenna, na si wanaag adduunkan iyo wanaag aakhiro, oo naga ilaali ciqaabta Naarta.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Laba rakaco iyo Zamzam",
@@ -234,7 +154,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       'Tawaf ka dib, tukada laba rakaco gadaasha Maqam Ibrahim haddii meel bannaan tahay, ama meel kale oo masjidka ah haddii dad badan yihiin — raac erayada Ilaah: "...O rumaystayaal, ka qaata meesha Ibraahim taagan yahay meel salaad..." (Qur\'an 2:125).',
       "Kadib cab biyaha Zamzam. Sharaxaadda Jabir ee xajka Nabiga ﷺ waxay ku jirtaa cabitaanka Zamzam ka dib tawaf; Nabiga ﷺ wuxuu yidhi Zamzam waa waxa loo cabbo (warbixinno sax ah oo ay ururiyeen culimada dambe; u niyeyso ujeedada iyo ducada sida lagula taliyay).",
     ],
-    quran: [{ excerpt: "...O rumaystayaal, ka qaata meesha Ibraahim taagan yahay meel salaad..." }],
+    quran: [{}],
   },
   {
     title: "Sa'i inta u dhexeysa Safa iyo Marwah",
@@ -243,12 +163,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       'Ilaah wuxuu yidhi: "Runtii, Safa iyo Marwah waxay ka mid yihiin calaamadaha Ilaah. Qofkii u xajiya Guriga ama sameeya cumro — wax dembi ah kuma saarayo inuu u socdo inta u dhexeysa..." (Qur\'an 2:158).',
       "Socod toddoba jeer inta u dhexeysa Safa iyo Marwah, laga bilaabo Safa. Safa, u jeedso Ka'bah, kor u qaad gacmahaaga takbir iyo ducada sida Nabiga ﷺ sameeyay. Raggu waxay ordaan inta u dhexeysa calaamadaha cagaaran.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Runtii, Safa iyo Marwah waxay ka mid yihiin calaamadaha Ilaah. Qofkii u xajiya Guriga ama sameeya cumro — wax dembi ah kuma saarayo inuu u socdo inta u dhexeysa...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq ama taqsir — dhammaystirka cumro",
@@ -258,13 +173,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Raggu waxay xiiraan madaxa (halq) — Nabiga ﷺ wuxuu u duceeyay saddex jeer — ama si siman u gooyaan (taqsir). Haweeneydu waxay ururiyaan timaheeda oo gooyaan qiyaas faraha. Tan kadib cumro waa dhammaatay oo xaddidaadaha ihram way baxaan.",
       'Cabdullah ibn Umar wuxuu sheegay in Rasuulka Ilaahay ﷺ yidhi: "Ilaahow, u naxariiso kuwa madaxa xiira." Waxay yidhaahdeen: "Kuwa gooya, Rasuulkii Ilaahay?" Wuxuu yidhi: "Ilaahow, u naxariiso kuwa madaxa xiira." Waxay yidhaahdeen: "Kuwa gooya, Rasuulkii Ilaahay?" Wuxuu yidhi markii saddexaad: "Iyo kuwa gooya" (Sahih al-Bukhari 1727; Sahih Muslim 1301).',
     ],
-    hadith: [
-      { excerpt: "Ilaahow, u naxariiso kuwa madaxa xiira... Markii saddexaad: iyo kuwa gooya." },
-      {
-        excerpt:
-          "Ilaahow, cafi kuwa madaxa xiira... markii saddexaad wuxuu yidhi: iyo kuwa timaha gooya.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Dhul-Hijjah — Maalinta Tarwiyah",
@@ -273,12 +182,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Xujeyda Tamattu': samee niyada xajka oo dib u geli ihram gurigaaga Makkah, oo cusbooneysii talbiyah. Xujeyda Ifrad iyo Qiran horay ayay ihram ku jireen.",
       "U safar Mina oo tukada Dhuhr, Asr, Maghrib, Isha, iyo Fajr ee xigta, mid kasta oo loo gaabiyay laba rakaco waqtigeeda, raac dhaqanka Nabiga ﷺ xajkii Wadaagga sida Jabir sheegay (Sahih Muslim 1218). Ku qaad maalinta iyo habeenka cibaadada, sugaya Carafah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sheekada dheer ee Jabir ee xajkii Wadaagga Nabiga ﷺ — oo ay ku jirto joogitaanka Mina iyo taxanaha manasikka.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Fur liiska xajka subaxdii 8-aad."],
     appLinks: [{ label: "Liiska xajka" }],
   },
@@ -290,13 +194,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Tukada Dhuhr iyo Asr wada jir oo la gaabiyay waqtiga Dhuhr (jam' taqdim), ka dibna maalinta inteeda kale u hibee ducada halkii salaad ikhtiyaari ah — raac dhaqanka Nabiga ﷺ (Sahih Muslim 1218).",
       "Qorrax dhac ka dib, si degan ugu safar Muzdalifah. Isku dar Maghrib iyo Isha (Isha la gaabiyay), naso habeenka, oo ururi dhagaxyo dhagaxynta. Kuwa daciifka ah iyo haweenka waxay u bixi karaan Mina ka dib saqdii dhexe sida ogolaanshaha caanka ah ee Sunnada.",
     ],
-    hadith: [
-      { excerpt: "Xajku waa Carafah." },
-      {
-        excerpt:
-          "Nabiga ﷺ wuxuu isku daray Dhuhr iyo Asr Carafah, ka dibna wuxuu ka baxay qorrax dhac kadib u socda Muzdalifah...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Dhul-Hijjah — Maalinta Nahr",
@@ -307,12 +205,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Xiir (halq) ama gooy (taqsir); haweeneydu waxay gooyaan qiyaas faraha. Dhagaxayn iyo xiir/gooy kadib, tahallul awwal ayaa khuseeyaa — xaddidaadaha ihram intooda badan way baxaan marka laga reebo galmo.",
       "Tag Makkah Tawaf al-Ifadah — tiir xaj — iyo sa'i xujeyda Tamattu' (Ifrad/Qiran oo horay sa'i la sameeyay tawafkooda imaatinka waxay raacaan xukunka dugsigooda). Tani waxay dhammaystirtaa bixitaanka buuxda ee ihram.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Qofkii ka faa'iidaysanayo cumro si uu u xajiyo, waxa si fudud loo heli karo xoolaha allabariga...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Taxanaha manasikka Maalinta Nahr wuxuu leeyahay dabacsanaan Sunnada; dugsiyadu way kala duwan yihiin taxanaha saxda ah iyo goorta sa'i looga baahan yahay nooc kasta oo xaj. Raac hagaha kooxdaada.",
   },
@@ -324,22 +217,8 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Galab kasta Dhuhr ka dib, tuur toddoba dhagaxood mid kasta oo saddexda tiir — kan yar, ka dhexe, ka weyn — takbir tuur kasta. Qofkii degdegaya wuxuu bixi karaa dhagaxayn 12 (Qur'an 2:203).",
       "Ka hor intaadan ka bixin Makkah, samee Tawaf al-Wada si ficilka ugu dambeeya ee Guriga uu noqdo salaanta. Ibn Abbas wuxuu sheegay in dadka lagu amray in manasikooda ugu dambeeya ay ka ahaato Guriga, marka laga reebo in laga fududeeyay haweeneyda caadada leh (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Xusuusta Ilaah maalmaha la tiriyey. Qofkii degdegaya laba maalmood — dembi kuma saarayo; qofkii dib u dhigana — dembi kuma saarayo — qofkii Ilaah ka cabsada...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dadka waxaa lagu amray inay sameeyaan tawaf salaanta Ka'bah sida manasikka ugu dambeeya, marka laga reebo haweeneyda caadada leh oo laga cafiyay.",
-      },
-      {
-        excerpt:
-          "Dadka waxaa lagu amray in manasikooda ugu dambeeya ay ka ahaato Guriga, laakiin waxaa laga fududeeyay haweeneyda caadada leh.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Tiirarka iyo waajibaadka",
@@ -358,12 +237,7 @@ export const HAJJ_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Hadiska soo noqoshada aan dembi lahayn (Bukhari 1521; Muslim 1350) wuxuu cadeynayaa in xajka uu burburiyo xumaanta (rafath), dembiga (fusuq), iyo muranka. Samir, jilicsanaan, iyo caawinta xujeyda kale waa qayb cibaado ah.",
       "Ha u oggolaan taleefannada iyo hadalka madhan inay ka taliyaan Carafah iyo masjidka. Ka daa jidka tawaf; ha riixin Dhagaxa Madow. Xaj la aqbalay waa saaxiibka Jannada — ku dadaal anshax wanaagsan safarka oo dhan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii u xajiya Ilaah dartiis oo aan galmo samayn ama dembi samayn, wuxuu ku soo noqdaa siduu ahaa maalintii hooyadiis dhashay.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Samee niyad maalinle ah: hal ficil naxariis iyo hal ducda daacad ah oo ka sarreysa dadka.",
     ],

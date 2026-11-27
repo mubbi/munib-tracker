@@ -22,16 +22,7 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Ka'idoji biyu ne ke sarrafa komai a nan. Na farko, haqiqanin waxannan al’amura tabbatacce ne kuma lamari ne na aqida (aqida); inkarin tashin kiyama ko hisabi shine karyata addinin da kansa. Na biyu, Allah ne kadai ya san lokacin tashin Alkiyama – babu wani malami, kalanda ko lissafi da zai iya hasashenta, kuma duk wani da’awar kwanan wata karya ce. Annabi SAW bai tava yi wa sahabbansa kidaya ba; Ya ba su hanyar rayuwa. Don haka manufar yin nazarin Ranar Ƙarshe shi ne shiri, ba tsinkaya ba: don tausasa zuciya, daidaita abubuwan da suka fi muhimmanci, da tsere zuwa ga alheri kafin lokacin da aka ƙayyade ya isa.",
       "Bayanan kula akan tushe: shahararrun 'alamomin ƙarshen zamani' jawabai cike suke da rauni har ma da ƙirƙira ruwayoyi. Wannan manhajja ta kunshi abin da yake ingantacce ne kawai, kuma inda malaman Sunna na kwarai suka yi sabani na gaske - alal misali a kan jerin wasu manyan alamomi - ana gabatar da sabanin ne a matsayin wani bambanci, ba wai an sassauto ko wuce gona da iri ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Idan aka girgiza ƙasa da girgizar ƙasa ta ƙarshe, kuma ta fitar da kayanta na nauyi, kuma mutum ya yi kuka: "Mẽne ne a wurinta?" — A rãnar nan, zã ta bãyar da lãbãranta, sabõda abin da Ubangijinka Ya yi wahayi zuwa gare shi. Kuma a rãnar nan mutãne zã su fita dabam-dabam, dõmin a nũna musu ayyukansu. To, wanda ya aikata gwargwadon nauyin zarra na alheri, zai gan shi, kuma wanda ya aikata nauyin zarra na sharri, zai gan shi.',
-      },
-      {
-        excerpt:
-          "Yanã yin wahayi zuwa ga umurninSa a kan wanda Yake so daga cikin bãyinSa, dõmin ya yi gargaɗi ga Rãnar Haɗu da su, a rãnar da suke bayyanawa, bãbu wani bõye a gare su daga Allah. Mulki na wane ne a yau? Zuwa ga Allah Makaɗaici, Mai rinjaya.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -43,22 +34,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Wannan imani kuma yana ladabtar da injunan zuciya guda biyu - tsoro da bege - kuma yana kiyaye su cikin daidaito. Gargadi na gaskiya ne, don haka mumini ba ya yin girman kai ko gafala; amma duk da haka rahamar Allah mai girma ce kuma kofar tuba a bude take har mutuwa, don haka mumini ba ya yanke kauna. Zuciyar da ke rayuwa tsakanin tsoro da bege ita ce zuciyar da ta ci gaba da gwagwarmaya ba tare da karaya ba.",
       "Haƙiƙa, ranar ƙarshe tana ba wa marasa ƙarfi girma kuma tana kame maƙarƙashiya. Tana gaya wa wanda aka zalunta cewa, ba wani rauni da Allah ya manta da shi, kuma yana gaya wa masu qarfi cewa babu wani dukiya ko matsayi ko tasiri da zai yi garkuwa da su wajen hisabi. Don haka imani da shi ba jin dadi ba ne na sirri amma tushen adalci, hakuri da rikon amana a wannan duniya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma adalci bai zama ku juyar da fuskõkinku ba wajen gabas ko yamma, kuma salihai shi ne wanda ya yi imani da Allah da Ranar Lahira da Mala'iku da Littafi da Annabawa, kuma ya ciyar da dukiya, ga dangi da marayu da miskinai da matafiyi da masu tambaya.",
-      },
-      {
-        excerpt:
-          "Kada ka yi zaton cewa Allah bai zama Mai gafala daga abin da azzalumai suke aikatãwa ba. Abin sani kawai Yanã jinkirtar da su zuwa ga wani yini da idãnu zã su yi firgita.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imani shine ka yi imani da Allah, da Mala'ikunSa, da LittattafanSa, da ManzanninSa, da Ranar Lahira, kuma ka yi imani da kaddara ta Ubangiji, da alherinta da cutarwarsa. - daga hadisin Jibrilu, lokacin da ya zo karantar da addini.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ka sabunta niyya a kowace rana: ayyukana na Allah ne kuma na ranar da zan hadu da Shi.",
       "Sa'ad da zalunci ya shafe ku, kuma babu wata kotu ta duniya da za ta amsa, to, ku ba da shi ga Kotun Ranar Lahira.",
@@ -75,25 +52,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Manzon Allah ﷺ ya koyar da yawaita ambaton mutuwa – ‘Ku yawaita tuna mai halaka jin daɗi,’ ma’ana mutuwa (Jami’ at-Tirmidhi 2307, hasan) – ba don ya sa mu ɓata lokaci ba, amma don a farke. Tunawa da mutuwa yana rage kamun wannan duniyar, yana warware bacin rai, kuma yana sake tsara abin da ke da mahimmanci. Cikakkun bayanai na tafiyar rai wanda ya bayyana kawai a cikin rahotanni masu rauni sun fi kyau a bar su; ingantaccen abu ya isa ya sanya tsoro da shiri.",
       "Mutuwa kuma tana rufe lissafin ayyuka - tare da keɓance guda uku. Annabi SAW ya ce idan mutum ya mutu ayyukansa suna yanke sai guda uku: sadaka mai gudana (sadaqah jariyah), ilimin da yake ci gaba da amfana da shi, da salihai da ya yi masa addu’a (Sahih Musulmi 1631). Wannan yana da amfani sosai: yana nufin cewa abin da kuke ginawa, koyarwa, da kuma reno yayin da kuke raye zai iya ci gaba da samun riba a gare ku da daɗewa bayan kun tafi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kõwane rai mai ɗanɗanar mutuwa ne, kuma bã zã a cika ku ba fãce dãɗinku a Rãnar ¡iyãma. To, wanda aka nisantar daga wuta, kuma aka shigar da shi Aljanna, ya rabauta. Kuma rãyuwar dũniya ita ce jin dãɗin rũɗi kawai.",
-      },
-      {
-        excerpt:
-          "Ka ce: “Mala’ikan Mutuwa, wanda aka ba ku amana, zai karɓe ku. To, zuwa ga Ubangijinku ake mayar da ku.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Idan mutum ya mutu ayyukansa sun kare sai guda uku: Sadaka mai gudana, ko ilimin da ake samun riba daga gare shi, ko dan salihai ya roke shi.",
-      },
-      {
-        excerpt: "Ka tuna sau da yawa mai lalata jin dadi - ma'anar mutuwa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ƙara yawan istighfar da addu'a akan lokaci-musamman yayin da kuke cikin koshin lafiya da aiki, ba lokacin rashin lafiya kaɗai ba.",
       "Ku tuba yau ga wani takamaiman abin da kuke jinkirtawa; kar a yi caca gobe.",
@@ -110,25 +70,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Sai ni'ima ko azaba ta biyo baya a cikin kabari, a cikin ingantattun nassoshi: 'Kabari ko dai lambu ne daga gidajen Aljannah ko kuma rami daga ramukan wuta' (Jami' at-Tirmidhi 2460, hasan sahihi). Kur'ani ya yi ishara da irin azabar da mutanen Fir'auna za su fuskanta a cikin wuta 'safe da maraice' kafin Sa'a ta zo (Alkur'ani 40:46). Ahlus Sunna suna tabbatar da haqiqanin lada da azaba mai tsanani tare da barin ainihin yanayinsa ga Allah, tunda ga gaibi ne, ba a iya riskarsa a wurin rayayye.",
       "An yi ittifaqi a kan cewa tambayar kabari da ni'imar kabari ko azabar kabari gaskiya ne; malamai sun tattauna batutuwa masu kyau—kamar ko ya taɓa jiki, rai, ko duka biyun, da kuma yadda ya kai waɗanda ba su da kabari na yau da kullun—ba tare da barin waɗannan tambayoyin su janye hankalinsu daga batun ba. Barzakh shi ne babban mai kwadaitarwa: yana mai da kabari daga ramin kasa ya zama madubin ayyukansa, kuma yana bayyana cewa abin da ka aika gaba shi ne zai gaishe ka a can.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Har idan mutuwa ta je wa ɗayansu, sai ya ce: “Ya Ubangijĩna! A'a! Kalma ce kawai yake cewa; Kuma a bãyansu akwai wani shãmaki har rãnar da ake tãyar da su.",
-      },
-      {
-        excerpt:
-          "Wuta ana gitta su a kanta sãfe da maraice. Kuma a rãnar da Sa'a ta bayyana a ce: \"Ku shigar da mutãnen Fir'auna a cikin mafi tsananin azãba.\"",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kabari ko dai lambu ne daga gidajen Aljannah ko rami daga ramukan wuta.",
-      },
-      {
-        excerpt:
-          "Lokacin da aka binne mamacin sai mala'iku biyu suka zo masa suka tambaye shi: Wanene Ubangijinka? Menene addininku? Wanene annabinka? Mumini ya amsa da yak’i sannan aka shimfida masa kabarinsa aka haska masa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Kuskure: Hukunci kabari imani ne na jama'a ba tare da tushe ba. GYARA: Hakikanin tambaya da ni'ima ko azaba ya tabbata a cikin ingantaccen hadisi kuma ya yi ishara da shi a cikin Alkur'ani; wuri ne tabbatattu na aqidar Sunna.",
       "Rashin fahimta: Ya kamata mu yi jayayya a kan ainihin kamanni da sunayen mala’iku. Gyara: Sunan Munkar da Nakir ya zo a cikin rahoton hasan; ainihin imani shine tambayar kanta. Shirye-shiryen amsa shi da gaske yana da muhimmanci fiye da yin muhawara da cikakken bayani.",
@@ -148,22 +91,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Nassin nassi ga manya-manyan alamomi shine hadisin Huzaifa bn Usayd, wanda Manzon Allah (SAW) ya lissafta goma: hayaki (Dukhan), Dajjal, Dabbar kasa (Dabbat al-ard), fitowar rana daga inda take faduwa (yamma), saukowar Isa bn Maryam, Yajuj da Ma'jujuj, daya daga cikin Gabas, da Majujuj guda daya, da Majujuj guda daya. a yamma, da kuma daya a yankin Larabawa - wanda wata wuta ta rufe da kai mutane zuwa wurin taronsu (Sahih Musulmi 2901). Al-Mahdi da Dajjal sun zo a cikin wasu ingantattun rahotanni kuma an sanya su gabanin saukar Annabi Isa.",
       "Matsayin malamai na gaskiya shi ne, yayin da kowace alamar ta tabbata, ainihin tsarinsu bai cika nassi ba, kuma manyan malaman Sunna sun yi sabani a kan madaidaicin jeri. Wannan bambancin al'ada ce ta al'ada kuma ba ta da wani sabani. Amsar annabci ga duka ba ta tsoro ba ne ko hasashe marar iyaka game da abubuwan da ke faruwa a yau, amma ƙara imani, tuba, da ayyuka masu fa'ida.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Sunã tambayar ka game da Sa\'a, "Yaushe ne makõmarta?" Ka ce: "Abin sani kawai, saninta a wurin Ubangijina yake." Bãbu mai bayyana lõkacinta fãce Shi. Yana kwance a cikin sammai da ƙasa. Bã zã ta zo muku ba fãce bisa ga tsammãni.',
-      },
-      {
-        excerpt:
-          "Shin kuma sunã jiran (wani abu) fãce dõmin Sa'a ta je musu kwatsam? Wasu alamominsa sun riga sun zo. To, yãya, idan ta jẽ musu, zã a tunãtar da su?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sa’a ba za ta zo ba, sai kun ga alamu goma a gabanta: hayaki, Dajjal, Dabba, fitowar rana daga yamma, saukar Isa dan Maryama, Ya’juj da Ma’juj, zabtarewar kasa uku – daya a gabas daya a yamma daya kuma a cikin Jaziratul Arab – da na karshensu wata wuta wadda take tara mutane.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -175,20 +104,7 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Sauran sun haɗa da haɓaka gabaɗaya cikin jin lokaci, ƙaruwar girgizar ƙasa da kisa, da bacewar ilimi. Akan ilimi Annabi ﷺ ya yi daidai game da tsarin: 'Sa'a ba za ta tabbata ba har sai an dauke ilimi, girgizar kasa ta karu, lokaci ya yi sauri ya wuce, fitintinu suka bayyana, kashe-kashe ya karu' (Sahihul Bukhari 1036). Kuma ya yi bayanin yadda ilimi ke tafiya: “Allah ba ya gusar da ilimi ta hanyar fizge shi daga mutane, sai dai ya xauke malamai, har sai babu wanda ya rage, kuma mutane sun xauki jahilai a matsayin shugabanni da ake tambaya, suna bayar da fatawa ba tare da ilimi ba, sai su vata, su batar da wasu.” (Sahihul Bukhari 100). Don haka 'rasa ilimi' ba ƙarancin bayanai ba ne - shekaru na iya nutsewa cikin bayanai - amma asarar ƙwararrun malamai da aiwatar da rayuwa.",
       "Muhimmiyar tarbiyya a nan: fassara ce, ba tabbatacciya ba ce, a ayyana cewa takamaiman abin da ya faru na zamani 'shine' hadisi na musamman ya cika. Gasar sama ko tashe-tashen hankula na iya yin daidai da maganar Annabi, amma sanya wahayi ga kanun labarai da gaba gaɗi ba hanya ce ta malamai masu hankali ba. Madaidaicin amsa ga kowace ƙaramar alama tana cikin ciki: karanta ta a matsayin kira zuwa ga komawa ga Allah, don koyi da aiki da addini, da riko da riƙon amana da gaskiya - ba don abin damuwa ko kallo ba.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Idan amana ta ɓace, to, ku yi jiran Sa'a. Sai aka ce: Ta yaya za a bata ya Manzon Allah? Ya ce: “Idan aka yi wa wadanda ba su cancanta ba, to, ku dakata da Sa’a.",
-      },
-      {
-        excerpt:
-          "Daga cikin alamomin Sa'a: cewa kuyanga za ta haifi uwargidanta, kuma za ku ga makiyaya marasa takalmi, tsirara, marasa takalmi suna fafatawa a cikin ginin dogayen gine-gine. - daga hadisin Jibrilu.",
-      },
-      {
-        excerpt:
-          "Allah ba ya gusar da ilimi da kwacewa, sai dai yana kawar da shi ta hanyar daukar malamai, har sai babu wanda ya saura, mutane suka dauki jahilai a matsayin shugabanni masu yanke hukunci ba tare da ilmi ba, sai su bata suna batar da wasu.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Aiwatar da ƙayyadaddun alamun ƙayyadaddun ƙayyadaddun al'amuran yau da kullun na fassara ne, ba tabbatacce ba ne. Wannan tsarin yana gabatar da ingantaccen hadisi ba tare da tabbatar da wanne al'amuran zamani ne suka cika su ba.",
     actions: [
@@ -207,20 +123,7 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Isa bn Maryam (amincin Allah ya tabbata a gare shi) zai sauko - tabbataccen batu na aqidar Sunna. Annabi ﷺ ya ce: “Ina rantsuwa da wanda raina ke hannunsa, da sannu xan Maryamu zai sauka a cikinku yana mai adalci; zai karya giciye, ya kashe alade, ya shafe jiziya, kuma dukiya za ta cika har sai wani ya karbe ta.” (Sahihul Bukhari 3448). Yana sauka a matsayin mabiyin Muhammad s.a.w, yayi sallah a bayan limamin al'ummah (Sahihul Bukhari 3439), ya kashe Dajjal, kuma yana shari'ar Muhammad s.a.w. Sai a saki Yajuj da Ma'juj, sauran alamomin su bayyana har wutar da take tara mutane.",
       "Baki biyu na gaskiya. Na farko malamai sun yi ittifaqi a kan haqiqanin kowace alamar da ke cikin hadisin ayoyi goma amma sun yi savani a kan madaidaicin tsarinsu, kuma bambancin halas ne kuma tsoho. Na biyu, Dukhan da Dabba suna daga cikin wannan hadisin sahih shi kansa; wasu ruwayoyin da ke bayyaninsu daban-daban sun bambanta da ƙarfi, don haka wannan tsarin ya dogara da ƙaƙƙarfan rahoton alamomi goma maimakon a kan ƙararrakin ƙararrawa.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sa’a ba za ta zo ba sai kun ga alamomi guda goma: hayaki, Dajjal, Dabba, fitowar rana daga yamma, gangarowar Isa dan Maryama, Ya’juju da Ma’juj, da zabtarewar kasa uku – daya a gabas, daya a yamma daya kuma a cikin Jaziratul Arab – na karshensu wuta ce mai kora mutane zuwa ga taronsu.",
-      },
-      {
-        excerpt:
-          "Ina rantsuwa da wanda raina ke hannunsa, dan Maryama zai sauka a cikinku yana mai adalci. Zai karya giciye, ya kashe alade, ya shafe jiziya, kuma dukiya za ta yawaita ta yadda babu mai karba.",
-      },
-      {
-        excerpt:
-          "Da a ce rana daya ta rage a duniya, da Allah ya tsawaita wannan ranar har sai ya fito da wani mutum daga cikin iyalan gidana (Mahdi) a cikinta wanda zai cika kasa da adalci kamar yadda ta cika da zalunci da zalunci.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "An tabbatar da haqiqanin manyan alamomin, amma ainihin tsarinsu da lokacinsu bai dace ba a wajen malamai. Ka guje wa tsara kwanan wata, ka guje wa da'awar duk wani adadi na yau shine Mahdi, Dajjal, ko Isa.",
     appLinks: [{}],
@@ -233,21 +136,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Akwai fashewa guda biyu, kuma Kur'ani ya bambanta su. Da farko, ‘a busa ƙaho, kuma wanda ke a cikin sammai da ƙasa zai faɗi matacce, sai wanda Allah Ya so’ (Alkur’ani 39:68) — Ƙaho na firgita da mutuwa wanda ke ƙare tsarin halitta. Sa'an nan kuma ta biyu: 'Sa'an nan kuma za a sake hura, sa'an nan kuma za su tsaya, suna kallo' (aya ta ci gaba) - tashin tashin kiyama, wanda dukan halitta ke tashi daga matattu.",
       "Malamai da yawa, daga aya guda da rahotanni masu goyan baya, suna magana akan keɓantacce - waɗanda Allah ya so waɗanda ba a kashe su ba - da tazara tsakanin fashewar guda biyu, ko da yake tsayinta da cikakkun bayanai sun dogara ne akan rahotannin ƙarfi dabam-dabam kuma an bar su ga Allah. Tabbacin shine nau'i biyu na fashewa: ƙarewa, sa'an nan kuma tayarwa. Ana kiran wannan 'Ranar Gargaɗi' (Alƙur'ani 50:20) domin ita ce sammaci na ƙarshe, da ake yi lokacin da babu lokacin shiryawa - wanda shine ainihin dalilin da ya sa dole ne a amsa sammacin a yanzu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma aka yi busa a cikin ƙaho, kuma wanda yake a cikin sammai da wanda yake a cikin ƙasa ya mutu, fãce wanda Allah Ya so. Sa'an nan kuma za a sake hura, kuma nan da nan za su tsaya suna kallo.",
-      },
-      {
-        excerpt: "Kuma a yi busa a cikin ƙaho. Wancan ita ce rãnar gargaɗi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yaya zan sami natsuwa alhali mai ɗaukar ƙaho ya sanya shi a bakinsa, ya tanƙwara goshinsa, yana jiran a yi busa? Sai sahabbai suka shiga damuwa, sai ya ce da su: Allah ya ishe mu, kuma shi ne mafificin al’amura.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Tashin Kiyama",
@@ -257,26 +147,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Tashin matattu na duniya ne - kowane mutum daga na farko zuwa na ƙarshe, na kowace al'umma, an ta da shi. Annabi SAW ya siffanta halin da mutane ke tashi a cikinsa: 'Za a tara mutane ba takalmi, tsirara da marasa kaciya.' Yayin da A’isha ta tambaya cikin damuwa ko maza da mata za su kalli juna, sai ya ce al’amarin ranar zai yi tsanani da ba zai shafi kowa ba (Sahihul Bukhari 6527). Ya kuma ce: “Za a tara ku ba takalmi, tsirara da marasa kaciya – kuma farkon wanda za a fara tufatar a ranar qiyama shi ne Ibrahim.” (Sahihul Bukhari 3349).",
       "Batun koyaswar ba abin kallo bane amma alhakin da ta zartar. Domin komawa zuwa ga Allah tabbatacciya ce, babu wani aiki da ya kebanta da gaskiya, kuma babu mutuwa ta zama tsira. 'Sa'a tana zuwa - babu shakka a cikinta - kuma Allah zai tayar da wadanda ke cikin kaburbura' (Alkur'ani 22:7). Imani da tashin matattu shine abin da ke sanya nauyin ɗabi'a na wannan rayuwa ya zama gaskiya maimakon na ɗan lokaci.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Kuma Ya buga Mana wani misãli, kuma Ya manta halittarsa, Ya ce: "Wãne ne yake rãyar da ƙasũsuwa, alhãli kuwa sũ, sun ruɓaɓɓe?" Ka ce: "Wanda ya ƙãga halittarsu a farkon lõkaci zai rãyar da su, kuma Shĩ Masani ne ga dukan halitta."',
-      },
-      {
-        excerpt:
-          "Kuma lalle ne Sa'a mai zuwa - babu shakka a cikinta - kuma lalle ne Allah Yana tayar da wadanda suke a cikin kaburbura.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Za a tattara ku ba takalmi, tsirara, marasa kaciya. Sai ya karanta: Kamar yadda Muka fara halitta ta farko, za mu maimaita ta. Kuma farkon wanda za a fara tufatar da shi ranar qiyama shi ne Ibrahim.",
-      },
-      {
-        excerpt:
-          "Za a tara mutane ba takalmi, tsirara da marasa kaciya. Aisha ta ce: maza da mata za su kalli juna? Ya ce: Al'amarin zai yi tsanani ga haka.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Taron (Mahshar)",
@@ -286,22 +158,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Yanayin tsayuwar yana da tsanani. Manzon Allah (SAW) ya ce: “A ranar kiyama za a kusantar da rana ga mutane ta yadda za ta yi nisa mil guda, kuma za su nutse cikin zufansu gwargwadon ayyukansu, wasu zuwa ga idon sawu, wasu zuwa gwiwoyinsu, wasu zuwa kugunsu, wasu kuma zufa za su yi tashe.” (Sahih Musulmi 2864). Amma duk da haka rahotannin sun bayyana rahamar da ayyuka ke rarrabawa: wani nau'i na Annabi SAW zai kasance inuwa a cikin inuwar Al'arshin Allah a ranar da babu wata inuwa sai nasa - daga cikinsu akwai shugaba adali, da samari da aka tashi a cikin ibada, da wanda ya yi sadaka a boye hannun hagunsa bai san abin da hannun damansa ya kashe ba.",
       "Jiran ya yi tsawo – Kur’ani ya yi magana a kan ‘rana da gwargwadonsa shekaru dubu hamsin’ (Alkur’ani 70:4) – amma tsawonsa ba daya ba ne ga kowa. Ingantattun rahotanni sun ce za a yi haske ga mumini, gwargwadon lokacin da ake yin sallah a tsakanin salloli biyu, yayin da ta matsa wa wasu. Don haka Mahshar shine inda keɓaɓɓen littafan rayuwa ya zama gaskiya na jama'a: rana ɗaya, fili ɗaya, da gogewa daban-daban, waɗanda aka zana gaba ɗaya daga abin da kowane mutum ya aika gaba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rãnar da aka musanya ƙasã da wata ƙasã, da sammai kuma, kuma zã su fita ga Allah Makaɗaici, Mai rinjãya.",
-      },
-      {
-        excerpt:
-          "Mala'iku da Rũhi suna tãka zuwa gare Shi a cikin yini wanda gwargwadonsa shẽkara dubu hamsin ne.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Za a kusantar da rana zuwa ga mutane a Ranar Kiyama har ta yi nisa kusan mil guda, sai su nutse da gumi bisa ga ayyukansu-wasu zuwa ga idon sawunsu, wani a kan gwiwoyinsu, wani zuwa ga kugu, wani kuma zufan ya kaure.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Ceto (Shafa'ah)",
@@ -312,25 +170,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Sauran sifofi ingantattu suna zuwa: ceton wasu muminai su shiga Aljanna ba tare da hisabi ba; cẽto mai girma daraja; sannan sama da dukkan ceton masu zunubi daga cikin muminai, domin a fitar da mutane daga wuta ta hanyar ceton Annabi SAW, da sauran annabawa, da mala'iku, da muminai, da kuma rahamar Allah, wanda shi ne mafi rahamar masu rahama. Annabawa, shahidai, salihai, har ma da yara da suka mutu suna ƙanana suna iya yin ceto ta hanyar izini, kodayake ƙarfin rahotannin mutum ɗaya ya bambanta.",
       "Muhimmiyar taka tsantsan: cẽto a Lahira ba ta ba da lasisin yin kira ga matattu ko waɗanda ba su nan don neman taimako a yanzu. Kiran Annabi ko waliyyi a cikin kabari, neman su yaye matsi ko biyan buqata, shi ne shiryar da ibada zuwa ga wanin Allah – wato shirka, kuma savanin shafa’ar da aka siffanta a nan ita ce falala da Allah ke yi wa wanda ya so a wannan ranar. Kuma ba ya maye gurbin buqatar imani da tuba a rayuwar duniya; rahamar Allah ce ga wadanda suka rayu kuma suka mutu akan tauhidi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wane ne wanda ke yin cẽto a wurinSa, fãce da izninSa? Yanã sanin abin da yake a gaba gare su da abin da yake a bãyansu, kuma bã su kẽwayẽwa daga ilminSa, fãce abin da Yake so.",
-      },
-      {
-        excerpt: "Kuma cẽto bã ya amfãni a wurinSa, fãce ga wanda Ya yi izni.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mutane za su zo gare ni, sai in yi sujada ga Allah, sai a ce: Ya Muhammadu ka daga kan ka; ku yi tambaya za a ba ku, ku yi ceto kuma a karɓe ku.",
-      },
-      {
-        excerpt:
-          "Mutane za su je ga Adam, sa'an nan zuwa ga Ibrahim, sa'an nan zuwa ga Musa, sa'an nan zuwa ga Isa, kuma kowa zai ba da uzuri, har sai sun zo ga Muhammadu s.a.w, kuma a gare shi da mafi girma cẽto.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Kuskure: Neman ceto na nufin Annabi SAW ko salihai ana bautawa. GYARA: Bauta ta Allah ce Shi kaɗai; Shafa'ah a Ranar Lahira wata rahama ce da Allah Ya bayar da izininsa, kuma ba ta halasta kiran matattu a cikin rayuwar duniya.",
     ],
@@ -343,22 +184,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Babu wani abu da aka keɓe daga waɗannan bayanan - ba ƙaramin aiki ba, ba tunani mai wucewa wanda ya zama aiki ba. Kuma azzalumai cikamakinsa za su yi mamaki: ‚Suka ce: “Ya kaitonmu! Menene wannan littafi da bai bar wani ƙarami ko babba ba face ya rubuta shi? Kuma za su sami abin da suka aikata a gaba gare su, kuma Ubangijinka ba Ya zaluntar kowa.” (k:18:49). Da rahamar Allah, kyautata niyya da zunubai da aka yi watsi da su su ma suna cikin falalar mumini.",
       "Domin harshe da gaɓoɓi ne ke cika shafuka, kiyaye su shine kiyaye rikodin. Annabi ﷺ ya sanya harshe a tsakiyan ceto: ‘Duk wanda ya lamunce min abin da ke tsakanin haqoqinsa da abin da ke tsakanin qafafunsa, na lamunce masa Aljannah’ (Sahihul Bukhari 6474) – wato duk wanda ya kiyaye maganarsa da farjinsa. Halin yau da kullun na bita na gaskiya - tambayar abin da ya ƙara a yau a cikin littafin - yana ɗaya daga cikin mafi yawan tunani da ayyuka masu amfani da mumini zai iya kiyayewa.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Kuma aka sanya littãfi, sai ka ga mãsu laifi sunã tsõro daga abin da ke cikinsa, sunã cẽwa: "Yã kaitonmu! Menene wannan littafi da bai bar wani ƙarami ko babba ba face ya rubuta shi? Kuma za su sãmi abin da suka aikata a gabãni, kuma Ubangijinka bã Ya zãluntar kowa.',
-      },
-      {
-        excerpt:
-          "Amma wanda aka bai wa littafinsa a hannun damansa, sai ya ce: “To, ku karanta littafina! Na tabbata zan hadu da asusuna. Don haka zai kasance a cikin rayuwa mai dadi. Amma wanda aka bai wa littafinsa a hannunsa na hagu zai ce: “Da dai ba a ba ni littafina ba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya lamunce min abin da ke tsakanin hakulansa da abin da ke tsakanin kafafunsa, na lamunce masa Aljanna – ma’ana harshensa da farjinsa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Kiyaye harshe sama da kowane abu - mafi yawan abin da ke cika rikodin don mai kyau ko mara lafiya ya wuce ta.",
       "Yi nazarin ranar ku kafin barci: tambayi abin da kuke so, da abin da za ku ji tsoro, don ganin an rubuta a cikin littafinku.",
@@ -373,26 +200,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Abin da ke sa ma'auni yayi nauyi ba yawan aiki ba ne, amma nauyinsa a wurin Allah - kuma nauyi yana zuwa daga ikhlasi. Annabi (SAW) ya yi nuni ga ayyukan da ba su da qoqari amma manya-manya: “Kalmomi guda biyu masu haske a kan harshe, masu nauyi a kan sikeli, soyuwa ga mai rahama: SubhanAllahi wa bihamdih, SubhanAllahil-’Azim” (Sahih al-Bukhari 6406). Ya kuma ce: “Babu wani abu da ya fi nauyi akan ma’aunin mumini a ranar kiyama face kyawawan halaye” (Jami’ at-Tirmidhi 2002, sahihul). Don haka sauƙaƙan zikiri da aka maimaita da gaske, ko kuma ɗabi'a mai haƙuri, na iya fin tsaunin tsaunuka na nuna sha'awa.",
       "Sabanin haka shi ne hatsarin ayyuka maras tushe. Ayyukan da mutane za su gani (riya') ko gurɓata su da munafunci na iya zuwa kan Ma'auni mara nauyi - babba a zahiri, babu komai a ciki. Don haka ne ma ikhlasi (ikhlasi) ba xaya ba ce a tsakanin da yawa sai dai abin da ke baiwa kowane aiki nauyinsa. Darasin shi ne gina ranar a kan kananan ayyuka na gaskiya da daidaito, da tsarkake niyya a bayan abubuwan da ake gani.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma Mun sanya ma'auni na adalci ga Rãnar ¡iyãma, sabõda haka ba a zãluntar rai da kõme. Kuma idan nauyin ƙwãyar ƙwaya ta kasance, zã Mu fitar da ita, kuma Mun isa Mu zama mãsu lissafi.",
-      },
-      {
-        excerpt:
-          "Amma wanda ma'auninsa suka yi nauyi, to, zai kasance a cikin rayuwa jin daɗi. Kuma amma wanda ma'aunansa suka yi sauƙi, to, makõmarsa ta kasance a cikin rami.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kalmomi guda biyu masu haske akan harshe, masu nauyi akan sikeli, masoyi ga mai rahama: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim.",
-      },
-      {
-        excerpt:
-          "Babu wani abu da ya fi nauyi akan ma'aunin mumini a ranar kiyama face kyawawan halaye. Lallai mai kyawun hali yana riskar mai azumi da sallah da shi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -404,22 +213,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Akwai nau’in bashi wanda hatta gafarar Allah ba wai kawai ya ke shafewa ba: hakkin sauran mutane (huququl-ibad). Sai Annabi SAW ya ce, shin kun san wanda ya yi fatara? Sai suka ce: Wanda ba shi da kudi. Sai ya ce: “Mai barar al’ummata, shi ne wanda ya zo ranar qiyama da sallah da azumi da sadaka, amma wanda ya zagi wannan, ya zagi waccan, ya yi wa waccan kazafi, ya xauki dukiyar wani, ya zubar da jinin wani – sai a danka musu ayyukansa na qwarai, kuma idan ayyukansa na qwarai suka qare sai a dora masa zunubansu, sai a jefa shi a wuta.” (2Sahi 1:8). Ibada ba ta kawar da zalunci; kawai daidaita zalunci yayi.",
       "Ƙarshe a aikace yana da gaggawa kuma takamaiman: basusukan da ba a biya ba, dukiyar da aka sace, da zage-zage, da karyewar amana dole ne a daidaita su a cikin wannan rayuwa ta hanyar tuba zuwa ga Allah da ramawa da neman gafara ga mutane - domin ya fi arha zama a cikin kuɗin kuɗi da tawali'u a yanzu fiye da kuɗin ayyukan alheri a lokacin. Kuma a cikinsa ne adalcin Allah ya cika kuma rahamarsa ta mamaye duk wanda ya yi jihadi da gaskiya kuma ya tuba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Amma wanda aka bai wa littafinsa a hannun damansa, za a yi masa hisabi da sauki, kuma ya koma ga mutanensa da jin dadi. Kuma wanda aka bai wa littãfinsa a bãyansa, to, ya yi kira ga halaka, kuma ya shiga Sa'ĩm.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda aka yi wa hisabi za a halaka. A’isha ta ce: Ashe Allah bai ce, za a yi masa hukunci da sauki ba? Sai ya ce: “Wannan ita ce gabatar da ayyuka kawai; Amma wanda aka yi wa tambaya a kansa, za a halaka shi.",
-      },
-      {
-        excerpt:
-          "Kun san wanda ya yi fatara? Shi ne wanda ya zo ranar qiyama da sallah da azumi da zakka, amma ya yi zagi, da kazafi, da zalunci, sai a ba su ayyukansa na alheri, kuma idan sun gama sai a dora masa zunubansu, kuma a jefa shi wuta.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Ku daidaita basussuka, kuma ku mayar da abin da aka karɓe ba da hakki ba, komai kankantarsa, a gabanin ranar da aka ƙaddara ya isa.",
       "Ku nemi gafarar duk wanda kuka zalunta a baki, dukiya ko mutunci - ramawa yanzu ya fi arha fiye da ramawa a lokacin.",
@@ -435,16 +230,7 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       'Annabi SAW da kansa zai karbi mabiyansa a can: "Zan isa Hauwad da ke gabanku, kuma zan sa ido ga wadanda suke zuwa gare ni" (Sahih Musulmi 2292). Ya gane ummansa annurin fuskokinsu, hannuwa da qafafunsu daga alamun alwala. A kai gare shi a kashe shi har abada; ana ciyar da shi, cikin fahimta mai kyau, ta al-Kausar, kogin Allah ya baiwa Annabi SAW a cikin Aljanna.',
       "Duk da haka wasu za a kore su daga Hawd. Annabi Sallallahu Alaihi Wasallama ya siffanta yadda ake gaya wa wasu mutane cewa, ‘Ba na ku ba ne; sun musanya, kuma suka musanya addini a bãyanku, kõ kuwa suka jũya bãya a bãyansa. Malamai sun yi hattara da wannan: yana nuni ne ga wasu nau’o’i na musamman a cikin hadisi – kamar ridda da kabari, da bidi’a da gangan a cikin addini bayan shiriya bayyananna – kuma ba hurumin ba ne ga musulmi talakawa su rika jifan junansu. Amintaccen tafarkin Hauwadi shi ne riko da Sunnah, da kiyaye alwala da sallah, da kiyaye hadin kan muminai.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hawd dina tafiyar wata daya ce. Ruwansa ya fi madara fari fari, ƙamshinsa ya fi miski daɗi, kofunansa suna da yawa kamar taurarin sama. Wanda ya sha daga gare ta, ba zai sake jin ƙishirwa ba.",
-      },
-      {
-        excerpt:
-          "Zan isa Hawd a gabanku, kuma zan sa ido ga waɗanda suke zuwa gare ni. Za a kwace mini wadansu mazaje, sai in ce: Ya Ubangiji, sahabbai! A ce: Ba ku sanin abin da suka bidi'a a bayanku.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Rahotanni game da wadanda aka bijire daga Hawd suna nuni ne da wasu nau'i na musamman da aka ambata a cikin hadisi, musamman ridda da bidi'a a cikin addini. Ba lasisi ba ne ga musulmi su bayyana juna a cikin bata.",
   },
@@ -457,18 +243,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Haske da sauri akan Sirat ana samun su a wannan rayuwar. Addu'a akan lokaci, sadaka akai-akai, gaskiya a cikin mu'amala, da kyawawan halaye sun zama tushe da hasken da ake tsallakawa da shi. Annabi ﷺ zai yi wa muminai da ke wurin ceto, kuma da rahamar Allah ne kowa ya riski wani vangare kwata-kwata.",
       "Kamar yadda yake tare da sauran tashoshin da ba a iya gani ba, hanya mai hikima ba shine yin hasashe game da girman jiki na gada ba - yadda bakin ciki, yaya kaifi, tsawon lokacin - fiye da abin da wahayi ya fada, amma a mayar da hankali ga ayyukan da ke sa hasken haye. Abin da ba za ku iya hoto ba, har yanzu kuna iya shiryawa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma babu kowa a cikinku face ya je mata. Wancan, a kan Ubangijinka, wajabce ta tabbata. Sa'an nan kuma Mu tsĩrar da waɗanda suka bi Allah da taƙawa, kuma Mu bar azzãlumai a cikinsa gurfãne.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Za a kafa gadar a kan Jahannama, kuma ni ne farkon wanda zai haye. Jama'a za su haye ta bisa ga ayyukansu, kamar walƙiya, kamar iska, kamar tsuntsaye, kamar mai gudu, na ce, Ya Ubangiji, ka kiyaye su, ka kiyaye su. Wasu an tsira, wasu an toke su a sake su, wasu kuma sun fada wuta.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Yi salloli biyar akan lokaci - addu'ar ita ce hasken da ke jagorantar gada.",
       "Bada sadaka akai-akai koda kadan ne.",
@@ -483,21 +259,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Mafi girman ladansa ba wani lambu ko kogi ba ne face yardar Allah da ganin fuskarsa. 'A ranar nan wasu fuskõki za su yi haske, suna kallon Ubangijinsu' (Alkur'ani 75:22-23) - Ahlul Sunna sun fahimci cewa muminai suna ganin Allah a Lahira, ni'imar Aljanna, wanda aka ba su ta hanyar da ta dace da daukakarSa, ba tare da kamanta ga halitta ba. Allah ya yi alkawari cewa: 'Ga waɗanda suka kyautata suna da mafi kyawun sakamako, da ƙari' (Qur'ani 10:26) - kuma an bayyana 'ƙarin' a cikin ingantaccen hadisi a matsayin wannan hangen nesa na FuskarSa mai daraja.",
       "Shiga Aljannah da rahamar Allah ne, wanda aka runguma ta hanyar imani da ayyuka na qwarai – ba a tava savawa biyun: rahama ita ce sababi, kuma ayyuka su ne alama da hanyoyin da Allah Ya daure ta da ita. Ranar lahira tana ƙarewa, ga mutanen Aljanna, a cikin ni'ima wadda ba ta shuɗewa kuma ba ta ƙarewa. Wannan tsarin yana taƙaita maganin Aljanna a takaice; cikakken jagorar Tafiya zuwa Aljannah ya kunshi ƙofofinta, da darajoji, da ayyukan da suke kaiwa gare ta, da addu'o'in da ke cikinta a zurfafa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma ku yi gaugãwa zuwa ga gãfara daga Ubangijinku, da Aljanna fãɗinta kamar sammai da ƙasã, an yi tattalinta dõmin mãsu taƙawa.",
-      },
-      {
-        excerpt: "Fuskõki a rãnar nan, zã su yi haske, sunã kallon Ubangijinsu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah yana cewa: Na tanadar wa bayina salihai abin da ido bai taba gani ba, kuma kunne bai ji ba, da abin da zuciyar mutum ba ta taba dauka ba.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -508,16 +271,7 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Manufar waɗannan gargaɗin shine jinƙai a ɓoye. Suna wanzuwa don su karya girman kai, su daina ƙin yarda da gaskiya, da kuma mayar da mutum baya kafin lokaci ya kure. Shi ya sa kusan kullum gargadin da ke cikin Alkur'ani yana hade da bude kofar tuba - batun siffanta Wuta shi ne dai dai domin mutane su guje ta alhalin suna iyawa. Azãbarta ãdalci ce: bãbu mai shiga cikinta fãce da zãɓensu daga shiriya bayyananna, kuma Allah bã Ya zãluntar kõwa.",
       "Ga muminai masu xauke da zunubai, ingantaccen imanin Ahlus-Sunnah shi ne ma’auni tsakanin tsoro da bege: mai zunubi yana qarqashin iznin Allah – Ya gafartawa, ko kuma ya tsarkake wuta, sa’annan ta hanyar ceto da rahamar da aka ambata a baya, ya fitar da duk wanda yake da koda kwatankwacin zarra na imani. Wannan tsarin yana ba da Jahannama taƙaitaccen magani da gangan. Cikakken nazarin gargaɗinsa, da manyan zunubai, da faffadan kofofin tuba da rahama ana samun su a cikin Fahimtar Jahannama da batutuwan aqida masu alaƙa - wanda ake kusantar da shi koyaushe da bege, ba yanke yanke ƙauna ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma waɗanda suka kãfirta da Ubangijinsu suna da azãbar Jahannama, kuma tir da makoma.",
-      },
-      {
-        excerpt:
-          "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya. Lalle Shĩ, Shĩ ne Mai gãfara, Mai jin ƙai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -529,12 +283,7 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Malamai sun yi magana akan adadin da kansa: wasu suna ganin dubu saba'in na zahiri ne, wasu kuma an ninka ta da ƙarin rahotanni, wasu kuma suna nuni da yawan falalar Allah da ba za a iya ƙididdige shi ba maimakon ƙayyadaddun ƙididdiga. Abin da suka yi ittifaqi a kai shi ne ainihin gaskiya - cewa rahamar Allah ta zarce abin da ’yan adam za su yi tsammani, kuma ceto na ƙarshe ta wannan rahamar ne.",
       "Wannan tasha ce ta bege, ba madogarar kasala ba. Tana kwadaitar da mumini zuwa ga tawakkali na gaske ga Allah da nisantar camfe-camfe, alhali yana jihadin bauta. Ba wanda yake samunsa ta hanyar barin ayyuka; an jawo mutum zuwa gare ta da ikhlasi da tawakkali da zuciya mai ma'ana ga Allah fiye da fara'a da tsoro.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dubu saba'in daga cikin al'ummata za su shiga Aljanna ba tare da hisabi ba: su ne wadanda ba sa neman ruqya a wurin wani, ba su yi imani da mugun nufi ba, ba sa yin tawakkali, kuma suka dogara ga Ubangijinsu.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Malamai sun yi sabani a kan ko ‘ba tare da hisabi ba’ na nufin tsayayyen adadi dubu saba’in ko mafi girma, wanda ba a iya tantancewa ba. Dukkansu sun yi ittifaqi a kan cewa ceto na qarshe da rahamar Allah ne, kuma wannan dalili ne na bege, ba ga barin ayyuka ba.",
   },
@@ -547,25 +296,8 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       "Ka kiyaye abubuwa guda biyu da Annabi ﷺ ya daure kai tsaye da Aljanna – harshe da tsafta (Sahihul Bukhari 6474) – domin wadannan, fiye da manya-manyan zunubai, su ne suke cika ko barar da wani littafi cikin nutsuwa. Kuma ku daidaita hakkin mutane alhalin kuna iya: ku biya bashi, ku mayar da abin da aka karbe, ku nemi afuwar cutarwa, ku yi adalci a cikin kowace mu’amala, ta yadda ba za ku isa a matsayin ‘basarai’ wanda addu’arsa ta ci da da’awar waxanda ya zalunta.",
       "Komai yana kan niyya guda ne, a cikin hadisin farko na Sahihul Bukhari cewa: ‚Ayyuka ba su kasance ba sai da niyya. Kada ku yi amfani da maƙiyan Munib a matsayin maki don yin gasa amma a hankali a hankali don waɗannan halaye - addu'a, Alƙur'ani, zikiri, sadaka, tuba - kowane ɗayanku a hankali yana nuna ranarku ga saduwa da Allah. Wannan ita ce dukan manufar: rayuwa a yanzu kamar wanda yake fatan tsayawa a gabansa da gaske.",
     ],
-    quran: [
-      {
-        excerpt: "Kuma ban halicci aljanu da mutane ba face domin su bauta Mini.",
-      },
-      {
-        excerpt:
-          "Ya ku wadanda suka yi imani ku tuba zuwa ga Allah da tuba na gaskiya. Tsammãnin Ubangijinku Ya kankare muku ayyukanku, kuma Ya shigar da ku gidãjen Aljanna, ƙoramu na gudãna daga ƙarƙashinsu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ayyuka kawai bisa niyya ne, kuma kowane mutum zai sami abin da ya yi niyya ne kawai.",
-      },
-      {
-        excerpt:
-          "Duk wanda ya lamunce min abin da ke tsakanin hakulansa da abin da ke tsakanin kafafunsa – harshensa da farjinsa – Na lamunce masa Aljanna.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Yi salloli biyar akan lokaci.",
       "Karanta ko sauraron Kur'ani kullum - har ma da ayoyi kaɗan.",
@@ -591,75 +323,41 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
       {
         title: "Kyakkyawan hali",
         summary: "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
-        hadith: {
-          excerpt: "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
-        },
+        hadith: {},
       },
       {
         title: "Kalmomi biyu masu sauƙi",
         summary: "Masu sauƙi a harshe, masu nauyi a Mizan kuma masoya ga Mai rahama.",
-        hadith: {
-          excerpt: "Subhanallahi wa bihamdihi, Subhanallahil-azim.",
-        },
+        hadith: {},
       },
       {
         title: "Alhamdulillah yana cika Mizan",
         summary: "Godiya ga Allah tana cika ma'auni.",
-        hadith: {
-          excerpt: "Alhamdulillah yana cika Mizan.",
-        },
+        hadith: {},
       },
       {
         title: "Katin shahada",
         summary: "Tauhidi na gaskiya ya fi takardun zunubi nauyi.",
-        hadith: {
-          excerpt: "Katin shahada ya fi takardun zunubi nauyi.",
-        },
+        hadith: {},
       },
       {
         title: "Mafi alherin zikiri",
         summary: "Mafi alherin zikiri shi ne La ilaha illallah.",
-        hadith: {
-          excerpt: "Mafi alherin zikiri shi ne La ilaha illallah.",
-        },
+        hadith: {},
       },
       {
         title: "Kalmomi huɗu mafi soyuwa",
         summary: "Magana mafi soyuwa ga Allah kalmomi huɗu ne.",
-        hadith: {
-          excerpt: "Subhanallah, Alhamdulillah, La ilaha illallah, Allahu Akbar.",
-        },
+        hadith: {},
       },
       {
         title: "Subhanallahi wa bihamdihi ×100",
         summary: "Wanda ya faɗa sau ɗari a rana an yi masa albishir da gafara.",
-        hadith: {
-          excerpt: "Wanda ya faɗa sau ɗari a rana, za a gafarta masa zunubansa.",
-        },
+        hadith: {},
       },
     ],
-    quran: [
-      {
-        excerpt: "Aiki da ikhlasi yana da nauyi a Mizan.",
-      },
-      {
-        excerpt: "Kyakkyawan hali yana da nauyi ƙwarai a ma'aunin mumini.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Babu abin da ya fi kyakkyawan hali nauyi a ma'aunin mumini.",
-      },
-      {
-        excerpt: "Subhanallahi wa bihamdihi, Subhanallahil-azim.",
-      },
-      {
-        excerpt: "Alhamdulillah yana cika Mizan.",
-      },
-      {
-        excerpt: "Katin shahada ya fi takardun zunubi nauyi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}, {}],
     misconceptions: [
       "Alkur'ani da Sunna ba su ba da jeri na dukkan ayyuka ba; muna tsaya ga kalmomin nassosi.",
       "Nauyi a Mizan yana fara ne da ikhlasi; ƙaramin aiki na gaskiya zai fi babban riya nauyi.",
@@ -692,251 +390,169 @@ export const LAST_DAY_TOPICS_HA: DeepPartial<LastDayTopic>[] = [
 
 export const LAST_DAY_HADITH_HA: DeepPartial<LastDayHadithEntry>[] = [
   {
-    hadith: {
-      excerpt: "Ka tuna sau da yawa mai lalata jin dadi - ma'anar mutuwa.",
-    },
+    hadith: {},
     context:
       "Zikirin mutuwa akai-akai yana tausasa zuciya, yana narkar da bacin rai, yana gyara abubuwan da suka fi dacewa ba tare da haifar da yanke kauna ba.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kada ɗayanku ya mutu face yana mai zato ga Allah, yana mai kyautata zaton rahamar Ubangijinsa.",
-    },
+    hadith: {},
     context:
       "Kyakkyawar kyakyawan qarshe (husn al-khatimah) ana fatan samun qarshen imani da tuba da kyakkyawan fatan Allah.",
   },
   {
-    hadith: {
-      excerpt: "Kabari ko dai lambu ne daga gidajen Aljannah ko rami daga ramukan wuta.",
-    },
+    hadith: {},
     context:
       "Barzakh ya hada da lada ko ukuba a cikin kabari, da hikimar Allah - kabari yana madubin ayyukan mutum.",
   },
   {
-    hadith: {
-      excerpt:
-        "Idan aka binne mamacin sai mala'iku biyu suka zo suna tambayarsa game da Ubangijinsa, da addininsa, da Annabinsa.",
-    },
+    hadith: {},
     context:
       "Tambayoyi a cikin kabari sun tabbata a cikin ingantattun rahotanni; a cikin wannan ruwaya ana kiran Mala'iku biyu Munkar da Nakir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Idan mutum ya mutu ayyukansa sun kare sai guda uku: Sadaka mai gudana, ko ilimin da ake samun riba daga gare shi, ko dan salihai ya roke shi.",
-    },
+    hadith: {},
     context: "Abin da ya ci gaba da amfanar mamaci - ya tabbata a hadisi sahihi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Za a tara ku ba takalmi, tsirara da marasa kaciya, kuma farkon wanda za a fara tufatar da ku ranar kiyama shi ne Ibrahim.",
-    },
+    hadith: {},
     context: "Tawali'u a Ranar Tara; Allah Yana girmama wanda Yake so, yadda Yake so.",
   },
   {
-    hadith: {
-      excerpt:
-        "Za a kusantar da rana zuwa ga mutane a Ranar Kiyama har ta yi nisa kamar mil guda, kuma za su nutse cikin zufansu gwargwadon ayyukansu.",
-    },
+    hadith: {},
     context: "Sharuɗɗa akan Mahshar - tsanani ya bambanta da ayyuka a cikin ingantattun ruwayoyi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mutane za su zo gare ni, sai in yi sujada ga Allah, sai a ce: ku daga kai; ku yi tambaya za a ba ku, ku yi ceto kuma a karɓe ku.",
-    },
+    hadith: {},
     context: "Mafi girman ceto - al-Shafa'ah al-'Udhma, keɓanta ga Annabi ﷺ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Duk wanda aka yi wa hisabi za a halaka. A’isha ta ce: Ashe Allah bai ce za a yi masa hukunci da sauki ba? Sai ya ce: “Wannan ita ce gabatar da ayyuka kawai; Amma wanda aka yi wa tambaya a kansa, za a halaka shi.",
-    },
+    hadith: {},
     context:
       "'Asusu mai sauƙi' jinƙai ne - ana nuna wa mutum ayyukansa kuma a gafarta masa, ba abin da aka yi masa tambayoyi da abu ba.",
   },
   {
-    hadith: {
-      excerpt:
-        "Bakar al'ummata, shi ne wanda ya zo da sallah da azumi da sadaka, amma ya zage shi, ya zage shi, ya zalunce shi - don haka a ba su kyawawan ayyukansa, an ɗora masa zunubansu.",
-    },
+    hadith: {},
     context:
       "Hakkokin mutane (huquq al-'ibad) ba wai kawai ana soke su ta hanyar ibada ba; dole ne a daidaita su ko a biya su a ranar.",
   },
   {
-    hadith: {
-      excerpt:
-        "Dubu saba'in daga cikin al'ummata za su shiga Aljanna ba tare da hisabi ba: wadanda ba su neman ruqya a wajen wani ba, ba su yi imani da mugun nufi ba, ba su yi tawakkali ba, kuma suka dogara ga Ubangijinsu.",
-    },
+    hadith: {},
     context:
       "Malamai sun yi sabani a kan shin adadin na zahiri ne ko kuma yana nuni da girman rahamar Allah mai girma, wanda ba a iya misalta shi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Hawd dina tafiyar wata daya ce. Ruwansa ya fi madara fari fari, ƙamshinsa ya fi miski daɗi, kofunansa suna da yawa kamar taurarin sama. Wanda ya sha daga gare ta, ba zai sake jin ƙishirwa ba.",
-    },
+    hadith: {},
     context: "Tafki - rahama ga al'ummar Muhammad ﷺ ranar kishirwa.",
   },
   {
-    hadith: {
-      excerpt:
-        "An saita gadar akan Jahannama. Jama'a suna haye ta bisa ga ayyukansu - kamar walƙiya, kamar iska, kamar tsuntsaye, kamar mai gudu - wasu kuma an ɗebo su sun tsira, wasu kuma sun faɗi.",
-    },
+    hadith: {},
     context: "Gudun ketare yana nuna bangaskiya da ayyuka; Rahamar Allah mai girma ce.",
   },
   {
-    hadith: {
-      excerpt:
-        "Sa’a ba za ta zo ba, sai kun ga alamomi guda goma: hayaki, Dajjal, Dabba, fitowar rana daga yamma, gangarowar Isa dan Maryama, Yajuju da Ma’juj, zabtarewar kasa uku, da wata wuta wadda ke kai mutane zuwa ga taronsu.",
-    },
+    hadith: {},
     context:
       "Manyan alamomi guda goma, daga Huzaifa bn Usayd. Malamai suna tabbatar da kowace alamar amma sun bambanta akan ainihin jerin.",
   },
   {
-    hadith: {
-      excerpt:
-        "Ina rantsuwa da wanda raina ke hannunSa, da dan Maryama zai sauka a cikinku yana mai adalci. zai karya giciye, ya kashe alade, ya shafe jiziya, kuma dukiya za ta cika har sai wani ya karbe ta.",
-    },
+    hadith: {},
     context:
       "Saukar Annabi Isa wani batu ne tabbatacce na aqidar Sunna; yana yin hukunci da shariar Muhammad ﷺ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Idan amana ta ɓace, to, ku yi jiran Sa'a. Sai aka ce: Ta yaya za a yi asara? Ya ce: Idan aka ba da mulki ga wanda bai cancanta ba.",
-    },
+    hadith: {},
     context:
       "Alamar ƙananan sanannun sanannun - asarar amana. Mai da hankali kan shiri, ba tsoro ba.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah ba ya gusar da ilimi da kwacewa, sai dai da daukar malamai, har sai babu wanda ya saura, kuma mutane suka riki jahilai shugabanni masu yanke hukunci ba tare da ilimi ba, sai su bata suna batar da wasu.",
-    },
+    hadith: {},
     context:
       "'Rashin ilimi' yana nufin asarar ƙwararrun malamai da aikin rayuwa - ba ƙarancin bayanai ba.",
   },
   {
-    hadith: {
-      excerpt: "Aiki da ikhlasi yana da nauyi a Mizan.",
-    },
+    hadith: {},
     context: "Shirin Mizan mai nauyi",
   },
   {
-    hadith: {
-      excerpt: "Kyakkyawan hali yana da nauyi ƙwarai a ma'aunin mumini.",
-    },
+    hadith: {},
     context: "Mai nauyi a Mizan",
   },
   {
-    hadith: {
-      excerpt: "Zikiri mai sauƙi a harshe yana da nauyi a Mizan.",
-    },
+    hadith: {},
     context: "Mai nauyi a Mizan",
   },
 ];
 
 export const LAST_DAY_VERSES_HA: DeepPartial<LastDayVerseEntry>[] = [
   {
-    excerpt:
-      "Kõwane rai mai ɗanɗanar mutuwa ne, kuma bã zã a cika ku ba fãce dãɗinku a Rãnar ¡iyãma. To, wanda aka nisantar daga wuta, kuma aka shigar da shi Aljanna, to, ya rabauta, kuma rãyuwar dũniya ba ta zama ba fãce jin dãɗin rũɗi.",
     context:
       "Mutuwa ta duniya ce kuma wannan rayuwa ta ɗan lokaci ce; hisãbi na gaskiya da na ƙarshe bã ya zuwa fãce a Rãnar Lãhira.",
     tafsirSummary:
       "Ayar ta sake bayyana nasara: ba dukiya ko matsayi a nan ba, sai dai tsira daga wuta kuma a shigar da shi Aljanna a can.",
   },
   {
-    excerpt:
-      "A rãnar nan, mutãne zã su fita ƙungiya-ƙungiya dabam-dabam, dõmin a nuna musu ayyukansu. To, wanda ya aikata gwargwadon nauyin zarra na alheri, zai gan shi, kuma wanda ya aikata nauyin zarra na sharri, zai gan shi.",
     context:
       "Cikakken adalci kuma cikakke - ƙaramin aiki, mai kyau ko mara kyau, ana rubuta shi kuma a mayar da shi ga mai yin sa.",
     tafsirSummary:
       "Babu wani abu da ya yi ƙanƙanta da za a ƙidaya. Wannan aya taka tsantsan ce ta tsawon rayuwa akan kawar da 'kananan' zunubai da kwarin gwiwa ga 'kananan' ayyuka nagari.",
   },
   {
-    excerpt:
-      "Kuma Mun sanya ma'auni na adalci ga Rãnar ¡iyãma, sabõda haka ba a zãluntar rai da kõme. Kuma kõ dã ya kasance nauyin ƙwãyar ƙyãma, zã Mu fitar da shi, kuma Mũ, Mũ, Mãsu lissafi ne.",
     context: "Mizan (Scale) gaskiya ne kuma adalcinsa cikakke ne.",
     tafsirSummary:
       "Kuma bãbu wani rai, a rãnar nan, da gwargwadon nauyin ƙwayar mustard. lissafin Allah bashi da aibi.",
   },
   {
-    excerpt:
-      "Amma wanda sikelinsa ya yi nauyi, to, yana a cikin rayuwa mai dadi. Kuma amma wanda ma'aunansa suka yi sauƙi, to, makõmarsa ta kasance a cikin rami.",
     context: "Sakamako na ƙarshe yana kunna nauyin ayyukan adalci na mutum akan Sikeli.",
     tafsirSummary:
       "Nauyi ya fito ne daga ikhlasi, ba ƙarar ƙaranci ba - zikiri mai sauƙi wanda aka ce zalla zai iya fin girman tsaunuka na ayyukan ban sha'awa.",
   },
   {
-    excerpt:
-      "Kuma ku yi gaugãwa zuwa ga gãfara daga Ubangijinku, da Aljanna fãɗinta kamar sammai da ƙasã, an yi tattalinta dõmin mãsu taƙawa.",
     context:
       "Umurni kai tsaye ga yin tsere zuwa ga alheri, kuma zuwa ga gafara a gabanin haduwa da Allah.",
     tafsirSummary:
       "Aljanna tana da girman da ba za ta yi hasashe ba, kuma hanyar da za ta kai gare ta ita ce gaugawa - ba a jinkirta tuba da ayyukan alheri ba.",
   },
   {
-    excerpt: "Fuskõki a rãnar nan, zã su yi haske, sunã kallon Ubangijinsu.",
     context: "Mafi girman lada na Aljanna ba wani lambu ko kogi ba ne face ganin fuskar Allah.",
     tafsirSummary:
       "Ahlus Sunna sun tabbatar da cewa muminai za su ga Ubangijinsu a Lahira, ta hanyar da ta dace da daukakarSa, ba tare da kamanceceniya da halitta ba - rawanin ni'ima.",
   },
   {
-    excerpt:
-      "Kuma waɗanda suka kãfirta da Ubangijinsu suna da azãbar Jahannama, kuma tir da makoma.",
     context: "Jahannama sakamako ne na gaskiya da adalci - wurin zama na gaske, ba alama ba.",
     tafsirSummary:
       "Gargadi wata rahama ce da ake nufin mayar da mutum baya alhali da sauran lokaci; a koda yaushe yana haɗe a cikin Alƙur'ani tare da buɗe kofar tuba.",
   },
   {
-    excerpt:
-      "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya. Lalle Shĩ, Shĩ ne Mai gãfara, Mai jin ƙai.",
     context: "Duk da girman zunubin, ƙofar tuba ta gaskiya a buɗe take har mutuwa.",
     tafsirSummary:
       "Shi kansa yanke yanke tsammani daga rahamar Allah daga Shaidan yake; mumini yana daidaita tsoron wuta da fata mara yankewa da gafarar Allah.",
   },
   {
-    excerpt:
-      "Kuma lalle ne Sa'a mai zuwa - babu shakka a cikinta - kuma lalle ne Allah Yana tayar da wadanda suke a cikin kaburbura.",
     context: "Tashin kiyama ya tabbata, duk da cewa lokacinsa yana boye.",
     tafsirSummary:
       "Tabbatacce game da Sa'a, haɗe tare da rashin tabbas game da lokacinta, shine ainihin abin da ke tabbatar da alhakin ɗabi'a a halin yanzu.",
   },
   {
-    excerpt:
-      "Wane ne wanda ke yin cẽto a wurinSa, fãce da izninSa? Yanã sanin abin da yake a gaba gare su da abin da yake a bãyansu, kuma bã su kẽwayẽwa daga ilminSa, fãce abin da Yake so.",
     context: "Ceto (shafa'ah) gaskiya ce amma ba ta barranta daga iznin Allah ba.",
     tafsirSummary:
       "Wannan sharadi guda - 'sai da izininsa' - shi ne yake raba ceto na gaskiya daga kowane fasadi nasa, kuma ya haramta kiran matattu a cikin rayuwar duniya.",
   },
   {
-    excerpt:
-      "Kuma kada ka yi zaton cewa Allah bai zama Mai gafala ba daga abin da azzalumai suke aikatãwa. Abin sani kawai Yanã jinkirtar da su zuwa ga wani yini da idãnu zã su yi firgita.",
     context: "Ta'aziyya ga wanda aka zalunta - jinkirin da aka yi na adalci ba shine rashinsa ba.",
     tafsirSummary:
       "Ba a manta zalunci a wurin Allah; Abin sani kawai anã yi wa azzãlumai jinkiri zuwa wani yini da bã a ƙetare haddi.",
   },
   {
-    excerpt:
-      "Kuma babu kowa a cikinku face ya je mata. Wancan, a kan Ubangijinka, wajabce ta tabbata. Sa'an nan kuma Mu tsĩrar da waɗanda suka bi Allah da taƙawa, kuma Mu bar azzãlumai a cikinsa gurfãne.",
     context: "Wucewa Siratu na duniya ne; rahmar Allah da takawa ta tabbata agareshi.",
     tafsirSummary:
       "Kowa ya zo wucewa; Bambanci shine wanda ya sami ceto da wanda ya fadi - yanke shawara ta bangaskiya da ayyukan da aka aiko gaba.",
   },
   {
-    excerpt:
-      'Sunã tambayar ka game da Sa\'a, "Yaushe ne makõmarta?" Ka ce: "Abin sani kawai, saninta a wurin Ubangijina yake." Bãbu mai bayyana lõkacinta fãce Shi. Bã zã ta zo muku ba fãce bisa ga tsammãni.',
     context:
       "Madaidaicin lokacin Allah ne kaɗai ya sani - al'amuran shirye-shirye, tsinkaya banza ce.",
     tafsirSummary:
       "Hatta Annabi SAW ba a ba shi kwanan wata ba; duk da'awar mutum na shekara ko kirgawa ya saba wa wannan ayar.",
   },
   {
-    excerpt:
-      "Amma wanda aka bai wa littafinsa a hannun damansa, sai ya ce: “To, ku karanta littafina! Na tabbata cewa zan hadu da asusuna. Don haka zai kasance a cikin rayuwa mai dadi.",
     context:
       "Yadda ake karɓar littafin mutum - hannun dama ko hagu - shine shi kansa hukunci na farko.",
     tafsirSummary:

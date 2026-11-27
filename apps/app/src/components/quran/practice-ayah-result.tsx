@@ -6,7 +6,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicWordRowStyle } from "@/lib/quran-companion/arabic-row";
 import { type AyahPracticeState, countWords } from "@/lib/quran-companion/reduce-session";
@@ -91,7 +91,11 @@ export function PracticeAyahResult({
       <View style={[styles.group, { backgroundColor: colors.muted, borderColor: colors.border }]}>
         <View style={styles.groupHead}>
           <View style={[styles.dot, { backgroundColor: color }]} />
-          <ThemedText type="caption" style={[styles.groupTitle, { color: colors.foreground }]}>
+          <ThemedText
+            weight="semibold"
+            type="caption"
+            style={[styles.groupTitle, { color: colors.foreground }]}
+          >
             {title}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
@@ -108,7 +112,7 @@ export function PracticeAyahResult({
               onPress={() => onHearWord(i)}
               style={[styles.wordChip, { backgroundColor: soft, borderColor: color }]}
             >
-              <ThemedText type="arabic" style={styles.wordText}>
+              <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.wordText}>
                 {ayah.words[i]}
               </ThemedText>
               <SymbolView
@@ -139,7 +143,7 @@ export function PracticeAyahResult({
   );
 
   return (
-    <Card padding="three" style={{ borderColor: tone.border, borderWidth: 1 }}>
+    <Card style={{ borderColor: tone.border, borderWidth: BorderWidth.thin }}>
       <View style={styles.head}>
         <View style={[styles.badge, { backgroundColor: tone.soft }]}>
           <SymbolView name={icon} size={20} tintColor={tone.color} />
@@ -285,31 +289,31 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
     overflow: "hidden",
-    gap: 2,
+    gap: Spacing.half,
     marginTop: Spacing.three,
   },
   stats: { flexDirection: "row", gap: Spacing.two, marginTop: Spacing.two },
-  stat: { flex: 1, alignItems: "center", gap: 2 },
-  statZero: { opacity: 0.45 },
+  stat: { flex: 1, alignItems: "center", gap: Spacing.half },
+  statZero: { opacity: 0.75 },
   group: {
     marginTop: Spacing.three,
     gap: Spacing.two,
     padding: Spacing.two,
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   groupHead: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
-  groupTitle: { flex: 1, fontWeight: "600" },
+  groupTitle: { flex: 1 },
   dot: { width: 8, height: 8, borderRadius: 4 },
   words: { flexWrap: "wrap", gap: Spacing.one },
   wordChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.sm,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   wordText: { fontSize: 20, lineHeight: 34, writingDirection: "rtl" },
   actions: { flexDirection: "row", gap: Spacing.two, marginTop: Spacing.three },
@@ -317,7 +321,7 @@ const styles = StyleSheet.create({
   link: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
     paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.two,
   },

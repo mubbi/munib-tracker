@@ -13,864 +13,456 @@ import type { DeepPartial } from "./localize";
 
 export const JANNAH_TOPICS_MS: DeepPartial<JannahTopic>[] = [
   {
-    title: "Apa itu Jannah?",
-    summary: "Taman abadi yang Allah siapkan bagi orang-orang yang saleh.",
+    title: "Apakah itu Jannah?",
+    summary: "Taman abadi yang Allah sediakan bagi orang-orang yang soleh.",
     body: [
-      "Jannah (Syurga) adalah tempat tinggal kekal penuh ganjaran yang Allah siapkan bagi mereka yang beriman kepada-Nya dan beramal saleh. Secara bahasa, kata ini berarti taman yang rimbun dan teduh — tetapi Al-Quran menggunakannya untuk sebuah kenyataan yang jauh lebih agung daripada taman mana pun di bumi: sebuah alam berisi sungai-sungai, buah-buahan, istana, dan kebersamaan, tempat orang beriman hidup selamanya dalam keridaan Tuhannya. Inilah tujuan yang diserukan oleh setiap nabi, dan inilah destinasi yang menjadi inti seluruh perjalanan ini.",
-      "Kehidupan di Jannah berbeda dari segala sesuatu di dunia ini kerana ia bebas dari setiap cacat yang merusak kebahagiaan duniawi. Tidak ada kematian, tidak ada penyakit, tidak ada penuaan, tidak ada rasa takut, tidak ada kesedihan, dan tidak ada keletihan. Penghuninya tidak pernah bertengkar, tidak pernah lelah, dan tidak pernah kehilangan yang mereka cintai. Apa pun yang diinginkan hati akan dikabulkan, dan Allah bahkan menambahkan lebih banyak lagi dari kemurahan-Nya — 'Mereka memperoleh di dalamnya apa yang mereka kehendaki, dan pada sisi Kami ada tambahannya' (Quran 50:35).",
-      "Kenikmatan Syurga berada di luar jangkauan imajinasi manusia. Dalam sebuah hadis qudsi, Allah berfirman bahawa Dia telah menyiapkan bagi hamba-hamba-Nya yang saleh apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah terlintas di hati manusia. Oleh itulah sebabnya Al-Quran menggambarkan Syurga dengan citra yang familiar — taman-taman, sungai-sungai, dan naungan — sembari mengingatkan bahawa kenyataannya jauh melampaui setiap penggambaran. Ganjaran terbesar dari semuanya bukanlah taman-taman itu sendiri, melainkan keridaan Allah, dan bagi yang berderajat tertinggi, kehormatan memandang wajah-Nya yang mulia.",
-      "Seorang mukmin harus memegang dua kebenaran sekaligus. Pertama, Syurga itu nyata, dekat, dan layak diperjuangkan dengan segenap usaha — Al-Quran memerintahkan kita untuk 'berlomba-lomba' menujunya (Quran 3:133). Kedua, tidak ada seorang pun yang meraih Syurga semata-mata dengan amalnya; masuknya pada akhirnya adalah kerana rahmat Allah, dengan iman yang tulus dan amal saleh sebagai sarana yang Dia pilih untuk diterima. Keseimbangan ini menjaga harapan tetap hidup tanpa menumbuhkan kesombongan: kita berusaha sekuat tenaga, lalu menyerahkan diri sepenuhnya pada rahmat-Nya.",
-      "Secara praktis, biarkan kenyataan tentang Jannah membentuk pilihan harianmu. Ketika ibadat terasa berat atau godaan terasa kuat, ingatlah apa yang menanti dan apa yang dipertaruhkan. Mintalah Syurga kepada Allah dengan sering, berusahalah untuknya secara konsisten dengan cara-cara kecil yang berkelanjutan, dan biarkan kerinduan padanya melembutkan hatimu dalam kehidupan yang fana ini.",
+      "Jannah (Syurga) ialah tempat ganjaran yang kekal abadi yang Allah sediakan bagi mereka yang beriman kepada-Nya dan mengerjakan amal soleh. Dari segi bahasa, perkataan ini bermaksud taman yang subur dan redup — tetapi Al-Quran menggunakannya untuk suatu hakikat yang jauh lebih agung daripada mana-mana taman di bumi: alam yang dipenuhi sungai, buah-buahan, istana dan teman yang baik, tempat orang beriman hidup selama-lamanya dalam keredaan Tuhannya. Itulah matlamat yang diserukan oleh setiap nabi, dan itulah destinasi yang menjadi teras seluruh perjalanan ini.",
+      "Kehidupan di Jannah tidak sama dengan apa-apa pun di dunia ini kerana ia bebas daripada segala kecacatan yang merosakkan kebahagiaan duniawi. Tiada kematian, tiada penyakit, tiada penuaan, tiada ketakutan, tiada kesedihan dan tiada keletihan. Penghuninya tidak pernah bertengkar, tidak pernah penat dan tidak pernah kehilangan apa yang mereka cintai. Apa sahaja yang diingini hati akan diberikan, malah Allah menambah lagi daripada kemurahan-Nya — 'Mereka beroleh apa yang mereka kehendaki di situ, dan di sisi Kami ada lagi tambahan' (Al-Quran 50:35).",
+      "Nikmat Syurga berada di luar jangkauan imaginasi manusia. Dalam sebuah hadis qudsi, Allah berfirman bahawa Dia telah menyediakan bagi hamba-hamba-Nya yang soleh apa yang tidak pernah dilihat oleh mata, tidak pernah didengar oleh telinga dan tidak pernah terlintas di hati manusia. Kerana itulah Al-Quran menggambarkan Syurga dengan imej yang biasa kita kenali — taman, sungai dan naungan — sambil mengingatkan kita bahawa hakikatnya lebih agung daripada sebarang gambaran. Ganjaran yang paling besar bukanlah taman-taman itu sendiri, tetapi keredaan Allah dan, bagi mereka yang berada di darjat tertinggi, kemuliaan memandang Wajah-Nya Yang Mulia.",
+      "Seorang mukmin perlu memegang dua kebenaran serentak. Pertama, Syurga itu benar, dekat dan layak diusahakan dengan sepenuh tenaga — Al-Quran menyuruh kita 'segera' menujunya (Al-Quran 3:133). Kedua, tiada sesiapa pun memperoleh Syurga dengan amalnya semata-mata; kemasukan ke dalamnya akhirnya adalah dengan rahmat Allah, manakala iman yang ikhlas dan amal soleh ialah jalan yang Dia pilih untuk diterima. Keseimbangan ini memastikan harapan terus hidup tanpa menyuburkan keangkuhan: kita berusaha sedaya upaya, kemudian menyerahkan diri sepenuhnya kepada rahmat-Nya.",
+      "Dari segi amalan, biarlah hakikat Jannah membentuk pilihan harian anda. Apabila ibadah terasa berat atau godaan terasa kuat, ingatlah apa yang sedang menanti dan apa yang dipertaruhkan. Mohonlah Syurga kepada Allah dengan kerap, usahakannya secara berterusan melalui langkah-langkah kecil yang mampan, dan biarlah kerinduan kepadanya melembutkan hati anda dalam kehidupan yang sementara ini.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bukanlah menghadapkan wajahmu ke arah timur dan barat itu suatu kebajikan, akan tetapi sesungguhnya kebajikan itu ialah beriman kepada Allah, hari kemudian, malaikat-malaikat, kitab-kitab, nabi-nabi…",
-      },
-      {
-        excerpt:
-          "Allah menjanjikan kepada laki-laki dan perempuan yang mukmin, (akan mendapat) syurga yang di bawahnya mengalir sungai-sungai, kekal mereka di dalamnya, dan (mendapat) tempat-tempat yang bagus di syurga 'Adn. Dan keridaan Allah adalah lebih besar.",
-      },
-      {
-        excerpt:
-          "Seorang pun tidak mengetahui berbagai nikmat yang menyenangkan hati yang disembunyikan (untuk mereka) sebagai balasan atas apa yang telah mereka kerjakan.",
-      },
-      {
-        excerpt:
-          "Mereka memperoleh di dalamnya apa yang mereka kehendaki, dan pada sisi Kami ada tambahannya.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya orang-orang yang beriman dan beramal saleh, bagi mereka adalah syurga Firdaus menjadi tempat tinggal.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah berfirman: Aku telah menyiapkan bagi hamba-hamba-Ku yang saleh apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah terlintas di hati manusia.",
-      },
-      {
-        excerpt:
-          "Allah Yang Mahatinggi berfirman: Aku telah menyiapkan bagi hamba-hamba-Ku yang saleh apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah sama sekali terlintas di hati manusia.",
-      },
-    ],
-    appLinks: [{}, {}],
   },
   {
-    title: "Tingkatan di Syurga",
-    summary: "Syurga memiliki banyak derajat — bukan tangga tetap berjumlah tujuh.",
+    title: "Darjat di Syurga",
+    summary: "Syurga mempunyai banyak darjat — bukan tangga tetap tujuh tingkat.",
     body: [
-      "Syurga bukanlah satu tempat datar yang seragam; ia memiliki banyak derajat, disebut darajat, dan orang-orang beriman diangkat di dalamnya sesuai dengan iman dan amal mereka. Salah satu kesalahpahaman yang sangat umum adalah bahawa Jannah memiliki tepat tujuh tingkatan. Ini mencampuradukkan dua hal yang berbeda: Al-Quran berbicara tentang tujuh langit (samawat) — lapisan langit yang diciptakan di atas kita — bukan tujuh tingkatan tetap Syurga. Nas-nas tidak pernah membatasi Jannah pada tujuh derajat.",
-      "Apa yang diberitahukan sumber-sumber sahih kepada kita adalah bahawa derajat-derajat itu sangat banyak dan luas. Nabi ﷺ bersabda bahawa Syurga memiliki seratus tingkat yang Allah siapkan bagi orang-orang yang berjuang di jalan-Nya, dan jarak antara satu tingkat dengan tingkat berikutnya bagaikan jarak antara langit dan bumi. Bahkan angka ini menunjuk pada keluasan, bukan pada tangga kaku yang boleh kita daki dengan mencentang daftar.",
-      "Allah mengangkat setiap mukmin sesuai dengan kekuatan imannya, ketulusan niatnya, dan bobot amalnya — 'Dan masing-masing orang memperoleh derajat-derajat (seimbang) dengan apa yang dikerjakannya' (Quran 6:132). Derajat pasti yang dicapai setiap orang hanya diketahui oleh Allah. Wahyu dengan sengaja tidak memberi kita daftar mekanis 'lakukan amal X untuk mencapai tingkat N', kerana ibadat dimaksudkan untuk didorong oleh cinta dan keikhlasan, bukan dengan menghitung derajat.",
-      "Hikmah di balik ini sungguh indah. Jika kita mengetahui posisi kita secara pasti, sebahagian akan menjadi lengah dan sebahagian lagi akan berputus asa. Sebaliknya, kita diajarkan untuk terus memandang kepada Allah, terus berusaha, dan terus berharap. Orang beriman berlomba dalam kebaikan — 'maka hendaklah orang yang berlomba-lomba berlomba dalam hal ini' — sambil menyerahkan penilaian akhir kepada Yang Mahaadil.",
-      "Maka daripada membidik tingkatan bernomor, bidiklah yang tertinggi dan biarkan Allah menempatkanmu di mana Dia kehendaki. Nabi ﷺ mengajarkan para sahabat untuk tidak puas dengan permintaan yang biasa-biasa sahaja, tetapi meminta secara khusus Al-Firdaus, puncak tertinggi Syurga.",
+      "Syurga bukanlah satu tempat yang rata dan seragam; ia mempunyai banyak tingkatan yang disebut darajat, dan orang beriman diangkat di dalamnya menurut iman dan amal mereka. Satu salah faham yang sangat biasa ialah anggapan bahawa Jannah mempunyai tepat tujuh tingkat. Ini mencampuradukkan dua perkara yang berbeza: Al-Quran menyebut tujuh langit (samawat) — langit-langit ciptaan di atas kita — bukan tujuh tingkat Syurga yang tetap. Nas tidak pernah mengehadkan Jannah kepada tujuh darjat.",
+      "Apa yang dinyatakan oleh sumber-sumber yang sahih ialah darjat-darjat itu sangat banyak dan luas. Nabi ﷺ bersabda bahawa Syurga mempunyai seratus darjat yang disediakan bagi mereka yang berjuang di jalan Allah, dan jarak antara satu darjat dengan darjat yang berikutnya adalah seperti jarak antara langit dan bumi. Malah bilangan ini menunjukkan keluasan yang amat sangat, bukan tangga kaku yang boleh kita daki dengan menanda senarai semak.",
+      "Allah mengangkat setiap mukmin menurut kekuatan imannya, keikhlasan niatnya dan berat amalannya — 'Dan bagi tiap-tiap seorang … beberapa darjat (tingkatan balasan) disebabkan (amal baik atau jahat) yang mereka telah kerjakan' (Al-Quran 6:132). Darjat sebenar yang dicapai oleh setiap orang hanya diketahui oleh Allah. Wahyu sengaja tidak memberikan kita senarai semak mekanikal seperti 'lakukan amalan X untuk mencapai tingkat N', kerana ibadah sepatutnya didorong oleh cinta dan keikhlasan, bukan dengan mengira darjat.",
+      "Hikmah di sebaliknya sungguh indah. Jika kita mengetahui kedudukan kita dengan tepat, sebahagian orang akan menjadi leka dan sebahagian lagi akan berputus asa. Sebaliknya, kita diajar untuk terus memandang kepada Allah, terus berusaha dan terus berharap. Orang beriman berlumba-lumba dalam kebaikan — 'dan untuk (memperolehi nikmat kesenangan) itu hendaknya berlumba-lumba mereka yang ingin merebut kelebihan' — sambil menyerahkan penilaian akhir kepada Yang Maha Adil.",
+      "Maka, daripada menyasarkan tingkat yang bernombor, sasarkanlah yang tertinggi dan biarlah Allah menempatkan anda di mana sahaja yang Dia kehendaki. Nabi ﷺ mengajar para sahabat agar tidak berpuas hati dengan permintaan yang sederhana, tetapi memohon secara khusus Al-Firdaus, puncak tertinggi Syurga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan masing-masing orang memperoleh derajat-derajat (seimbang) dengan apa yang dikerjakannya.",
-      },
-      {
-        excerpt:
-          "Perhatikanlah bagaimana Kami lebihkan sebahagian dari mereka atas sebahagian (yang lain). Dan sesungguhnya kehidupan akhirat lebih tinggi tingkatnya dan lebih besar keutamaannya.",
-      },
-      {
-        excerpt:
-          "Dan barang siapa yang menaati Allah dan Rasul-Nya, mereka itu akan bersama-sama dengan orang-orang yang dianugerahi nikmat oleh Allah, iaitu para nabi, para siddiqin, orang-orang yang mati syahid, dan orang-orang saleh. Dan mereka itulah teman yang sebaik-baiknya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Syurga memiliki seratus tingkat yang Allah siapkan bagi orang-orang yang berjuang di jalan-Nya. Jarak antara setiap dua tingkat bagaikan jarak antara langit dan bumi. Maka apabila kamu meminta kepada Allah, mintalah Al-Firdaus, kerana ia adalah bahagian Syurga yang terbaik dan tertinggi.",
-      },
-      {
-        excerpt:
-          "Apabila kamu meminta kepada Allah, mintalah Al-Firdaus, kerana ia adalah bahagian Syurga yang tertinggi dan pertengahan Syurga, dan darinyalah mengalir sungai-sungai Syurga, dan di atasnya adalah Arsy Yang Maha Pengasih.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Mohon Al-Firdaus" }],
   },
   {
     title: "Al-Firdaus — yang tertinggi",
-    summary: "Puncak Syurga, paling dekat dengan Arsy.",
+    summary: "Puncak Syurga, yang paling hampir dengan Arasy.",
     body: [
-      "Al-Firdaus adalah tingkatan Syurga yang tertinggi dan paling utama yang disebutkan dalam Sunnah yang sahih. Nabi ﷺ menggambarkannya sebagai yang terbaik dari Syurga dan pertengahannya — jantungnya yang sejati — tempat mengalirnya sungai-sungai Syurga, dan di atasnya adalah Arsy Yang Maha Pengasih. Mencapai Al-Firdaus berarti berada sedekat mungkin dengan Allah seperti makhluk ciptaan boleh capai.",
-      "Yang membuat topik ini begitu praktis adalah sebuah tuntunan kenabian: ketika kita berdoa memohon Syurga, kita tidak boleh membidik rendah. Nabi ﷺ mengajarkan para sahabat bahawa ketika mereka meminta Syurga kepada Allah, mereka hendaknya meminta secara khusus Al-Firdaus, bukannya puas dengan permintaan yang lebih rendah. Kemurahan Allah tidak terbatas, sehingga merupakan suatu kekurangan jika kita hanya meminta yang minimal dari-Nya. Ini mengajarkan kita keberanian bercita-cita tinggi dalam ibadat: bidiklah puncaknya, dan biarkan Allah, dengan rahmat-Nya, memutuskan di mana menempatkanmu.",
-      "Bagaimana seorang hamba menjadi layak untuk derajat seperti itu? Sarana-sarananya sama dengan sarana yang mengantar menuju Syurga itu sendiri, ditempuh dengan keunggulan: akidah yang benar (tauhid) yang dipegang dengan tulus, pemenuhan yang cermat atas kewajiban-kewajiban yang Allah perintahkan, kemudian kehidupan ibadat sunah yang terus bertambah di atasnya — solat malam, puasa tambahan, zikir, sedekah, dan akhlak yang baik. Dalam sebuah hadis qudsi yang terkenal, Allah menggambarkan bagaimana hamba terus mendekat kepada-Nya melalui amalan-amalan sunah hingga Allah mencintainya.",
-      "Namun anugerah terakhir dan penentu selalu adalah rahmat Allah. Dalam napas yang sama saat kita membidik yang tertinggi, kita mengingat sabda Nabi ﷺ sendiri: tidak seorang pun masuk Syurga semata-mata kerana amalnya — bahkan Nabi ﷺ sendiri pun tidak — kecuali bahawa Allah menyelimutinya dengan rahmat-Nya. Inilah keseimbangan sempurna yang dipegang orang beriman: harapan dan cita-cita yang tinggi di satu sisi, kerendahan hati yang tulus di sisi lain.",
-      "Maka jadikanlah Al-Firdaus bahagian tetap dari doamu — dalam sujud, di sepertiga malam terakhir, dan sebelum tidur — sementara engkau diam-diam berusaha sebaik mungkin setiap hari dan bersandar sepenuhnya pada rahmat Tuhanmu untuk selebihnya.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila kamu meminta kepada Allah, mintalah Al-Firdaus, kerana ia adalah bahagian Syurga yang tertinggi dan pertengahan Syurga, dan darinyalah mengalir sungai-sungai Syurga, dan di atasnya adalah Arsy Yang Maha Pengasih.",
-      },
-      {
-        excerpt:
-          "Tidak seorang pun di antara kamu yang masuk Syurga semata-mata kerana amalnya. Para sahabat bertanya: Tidak juga engkau, wahai Rasulullah? Baginda bersabda: Tidak juga aku, kecuali bahawa Allah menyelimutiku dengan rahmat-Nya.",
-      },
+      "Al-Firdaus ialah darjat Syurga yang tertinggi dan paling utama yang disebut dalam Sunnah yang sahih. Nabi ﷺ menyifatkannya sebagai bahagian Syurga yang terbaik dan pertengahannya — jantung Syurga itu sendiri — tempat terpancarnya sungai-sungai Syurga, dan di atasnya ialah Arasy Ar-Rahman. Mencapai Al-Firdaus bererti berada sedekat mungkin dengan Allah sebagaimana yang mampu dicapai oleh makhluk.",
+      "Yang menjadikan topik ini begitu praktikal ialah satu bimbingan daripada Nabi: apabila kita berdoa memohon Syurga, kita tidak sepatutnya menyasarkan yang rendah. Nabi ﷺ mengajar para sahabat bahawa apabila mereka memohon Syurga daripada Allah, hendaklah mereka memohon Al-Firdaus secara khusus dan tidak berpada dengan permintaan yang lebih rendah. Kemurahan Allah tidak terbatas, maka memohon yang paling minimum sahaja daripada-Nya adalah satu kekurangan. Ini mengajar kita bercita-cita tinggi dalam ibadah: sasarkan puncaknya dan biarlah Allah, dengan rahmat-Nya, menentukan di mana Dia menempatkan anda.",
+      "Bagaimanakah seorang hamba menjadi layak untuk darjat sedemikian? Caranya sama dengan cara yang membawa kepada Syurga itu sendiri, tetapi dilakukan dengan sebaik-baiknya: akidah yang benar (tauhid) yang dipegang dengan ikhlas, menunaikan kewajipan yang Allah perintahkan dengan teliti, kemudian kehidupan ibadah sunat yang semakin bertambah di atasnya — solat malam, puasa sunat, zikir, sedekah dan akhlak yang baik. Dalam sebuah hadis qudsi yang masyhur, Allah menggambarkan bagaimana seorang hamba terus mendekatkan diri melalui amalan sunat sehingga Allah mencintainya.",
+      "Namun anugerah yang terakhir dan menentukan sentiasa ialah rahmat Allah. Ketika kita menyasarkan yang tertinggi, kita juga mengingati sabda Nabi ﷺ sendiri: tiada seorang pun masuk Syurga dengan amalnya semata-mata — termasuk Nabi ﷺ sendiri — melainkan Allah melimpahkan rahmat-Nya kepadanya. Inilah keseimbangan sempurna yang dipegang oleh orang beriman: harapan dan cita-cita yang tinggi di satu pihak, dan kerendahan hati yang tulus di pihak yang lain.",
+      "Maka jadikanlah Al-Firdaus sebahagian tetap daripada doa anda — ketika sujud, pada sepertiga malam yang terakhir dan sebelum tidur — sambil anda berusaha sebaik mungkin setiap hari secara diam-diam dan bersandar sepenuhnya kepada rahmat Tuhan anda untuk selebihnya.",
     ],
     actions: [
-      "Mintalah Al-Firdaus kepada Allah dalam doamu, terutamanya saat sujud dan sebelum tidur.",
-      "Sempurnakan apa yang wajib atasmu, lalu perbanyak ibadat sunah.",
-      "Perbarui tobat dengan sering, dan bersandarlah pada rahmat Allah, bukan semata pada amalmu.",
+      "Mohonlah Al-Firdaus daripada Allah dalam doa anda, terutamanya ketika sujud dan sebelum tidur.",
+      "Sempurnakan apa yang wajib ke atas anda, kemudian tambahkan ibadah sunat.",
+      "Perbaharui taubat dengan kerap dan bergantunglah kepada rahmat Allah, bukan kepada amalan anda semata-mata.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Doa memohon Syurga" }, { label: "Zikir pagi & petang" }],
   },
   {
-    title: "Apa yang membahayakan akhirat",
-    summary: "Dosa besar memerlukan tobat yang tulus; ampunan Allah sangat luas.",
+    title: "Perkara yang membahayakan akhirat",
+    summary: "Dosa besar memerlukan taubat yang ikhlas; keampunan Allah amat luas.",
     body: [
-      "Bahagian ini tidak dimaksudkan untuk menakutimu hingga putus asa — justru sebaliknya. Allah mengampuni semua dosa bagi orang yang kembali kepada-Nya dengan tulus, dan Dia menyatakannya dengan kata-kata paling tegas: 'Katakanlah: Wahai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya' (Quran 39:53). Tujuan di sini hanyalah untuk mengetahui apa yang diperingatkan oleh nas-nas, supaya kita mengenali bahaya dan segera kembali kepada-Nya sebelum terlambat.",
-      "Ada satu dosa yang berdiri terpisah dari semua yang lain: syirik — menyekutukan sesuatu dengan Allah dalam ibadat. Ini adalah satu-satunya dosa yang tidak akan Allah ampuni jika seseorang meninggal dunia dalam keadaan itu tanpa bertobat, seperti Dia nyatakan dengan jelas dalam Quran 4:48. Segala sesuatu yang lain termasuk dalam 'Dia mengampuni apa (dosa) yang selain dari (syirik) itu, bagi siapa yang dikehendaki-Nya'. Inilah sebabnya tauhid yang benar adalah fondasi di bawah setiap amal yang diterima: rumah yang dibangun di atas fondasi retak tidak boleh berdiri.",
-      "Selepas syirik, nas-nas memberikan bobot khusus pada meninggal duniakan solat. Mengabaikan lima waktu solat secara terus-menerus dan tanpa uzur yang sah termasuk di antara peringatan-peringatan paling berat dalam Sunnah — Nabi ﷺ menyebut solat sebagai perjanjian yang membedakan orang beriman, sedemikian rupa sehingga meninggal duniakannya mendekati kekufuran. Dosa-dosa besar lainnya — pembunuhan yang tidak sah, hubungan yang tidak halal, memakan riba, memakan harta anak yatim, dan kezaliman yang berat — adalah perkara serius yang memerlukan tobat yang tulus dan boleh mendatangkan hukuman jika Allah tidak mengampuni.",
-      "Dosa-dosa yang disebut 'kecil' pun penting dan tidak boleh pernah dianggap remeh. Gibah, dusta, kesombongan, memutus silaturahmi, dan kelalaian perlahan-lahan mengikis hati dan akhlak. Nabi ﷺ memperingatkan bahawa dosa-dosa kecil yang menumpuk boleh membinasakan seseorang seperti ranting-ranting kecil yang dikumpulkan boleh memasak satu hidangan penuh. Masing-masing memerlukan kembali kepada Allah tersendiri.",
-      "Intinya adalah harapan dalam tindakan: jangan pernah biarkan besarnya suatu dosa meyakinkanmu bahawa tobat itu sia-sia. Kembalilah kepada Allah begitu engkau tergelincir, ikuti perbuatan buruk dengan perbuatan baik untuk menghapusnya, dan jagalah pintu istigfar terbuka setiap hari. Rahmat-Nya selalu lebih besar daripada kesalahanmu.",
+      "Bahagian ini bukan bertujuan menakut-nakutkan anda sehingga berputus asa — malah sebaliknya. Allah mengampunkan semua dosa bagi sesiapa yang kembali kepada-Nya dengan ikhlas, dan Dia mengumumkannya dengan kata-kata yang paling tegas: 'Katakanlah (wahai Muhammad): Wahai hamba-hambaKu yang telah melampaui batas terhadap diri mereka sendiri …, janganlah kamu berputus asa dari rahmat Allah, kerana sesungguhnya Allah mengampunkan segala dosa' (Al-Quran 39:53). Tujuannya di sini hanyalah untuk mengetahui perkara yang diberi amaran oleh nas, supaya kita dapat mengenal pasti bahaya dan segera kembali kepada-Nya sebelum terlambat.",
+      "Ada satu dosa yang terasing daripada semua dosa lain: syirik — menyekutukan Allah dengan sesuatu dalam ibadah. Inilah satu-satunya dosa yang tidak akan Allah ampunkan jika seseorang mati dalam keadaan itu tanpa bertaubat, sebagaimana Dia nyatakan dengan jelas dalam Al-Quran 4:48. Segala dosa yang lain termasuk di bawah firman-Nya: 'dan akan mengampunkan dosa yang lain dari itu bagi sesiapa yang dikehendakiNya'. Kerana itulah tauhid yang benar menjadi asas bagi setiap amalan yang diterima: rumah yang dibina di atas asas yang retak tidak akan dapat berdiri.",
+      "Selepas syirik, nas memberi penekanan khusus terhadap perbuatan meninggalkan solat. Mengabaikan solat lima waktu secara berterusan tanpa uzur yang sah adalah antara amaran yang paling berat dalam Sunnah — Nabi ﷺ menyebut solat sebagai perjanjian yang membezakan orang beriman, sehingga meninggalkannya menghampiri kekufuran. Dosa-dosa besar yang lain — membunuh tanpa hak, hubungan yang haram, memakan riba, memakan harta anak yatim dan kezaliman yang berat — adalah perkara serius yang memerlukan taubat yang ikhlas dan boleh mendatangkan azab jika Allah tidak mengampunkannya.",
+      "Dosa-dosa yang dianggap 'kecil' juga penting dan tidak sepatutnya dipandang ringan. Mengumpat, berdusta, sombong, memutuskan silaturahim dan kelalaian perlahan-lahan menghakis hati dan akhlak. Nabi ﷺ memberi amaran bahawa dosa-dosa kecil yang bertimbun boleh membinasakan seseorang, sebagaimana ranting-ranting kecil yang dikumpulkan boleh memasak satu hidangan penuh. Setiap satunya memerlukan taubat tersendiri kepada Allah.",
+      "Kesimpulannya ialah harapan yang diterjemahkan dalam tindakan: jangan sekali-kali biarkan besarnya sesuatu dosa meyakinkan anda bahawa taubat itu sia-sia. Kembalilah kepada Allah sebaik sahaja anda tergelincir, ikutilah perbuatan buruk dengan perbuatan baik untuk menghapuskannya, dan biarlah pintu istighfar sentiasa terbuka setiap hari. Rahmat-Nya sentiasa lebih besar daripada kesilapan anda.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak akan mengampuni dosa syirik, dan Dia mengampuni segala dosa yang selain dari (syirik) itu, bagi siapa yang dikehendaki-Nya.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya.",
-      },
+    appLinks: [
+      { label: "Penjejak solat" },
+      { label: "Qada & menggantikan ibadah yang tertinggal" },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Perjanjian antara kami dan mereka adalah solat; barang siapa meninggal duniakannya, ia telah kafir.",
-      },
-    ],
-    appLinks: [{}, {}],
     disclaimer:
-      "Daftar dosa besar dalam fikih berbeda-beda antar ulama, dan penilaian atas individu adalah wewenang orang yang berilmu. Ini adalah pengingat umum untuk bertobat — bukan vonis pribadi. Konsultasikan situasimu dengan ulama yang tepercaya.",
+      "Senarai dosa besar dalam fiqh berbeza antara ulama, dan hukum ke atas individu adalah urusan mereka yang berkelayakan. Ini ialah peringatan umum untuk bertaubat — bukan keputusan peribadi. Rujuklah ulama yang dipercayai tentang keadaan anda.",
   },
   {
     title: "Mereka yang dimuliakan dalam nas",
-    summary: "Orang-orang dan kelompok yang disebutkan Nabi ﷺ berkaitan dengan Syurga.",
+    summary: "Individu dan golongan yang disebut oleh Nabi ﷺ berkaitan Syurga.",
     body: [
-      "Al-Quran dan Sunnah menonjolkan individu-individu tertentu, kategori-kategori orang beriman, dan amal-amal tertentu yang dikaitkan dengan kabar gembira Syurga. Penting bagi memahami ini dengan benar: ini adalah kabar yang jujur tentang orang-orang atau sifat-sifat tertentu tersebut — bukan jaminan yang boleh dipindahkan kepada siapa pun yang sekadar mendengar nama mereka atau mengaguminya. Kabar gembira itu bergantung pada iman dan amal mereka, dan pintu yang sama terbuka bagi kita melalui sarana yang sama.",
-      "Kelompok paling terkenal adalah Sepuluh yang Dijanjikan Syurga (al-'Asyrah al-Mubasysyarah), disebutkan bersama oleh Nabi ﷺ dalam satu riwayat: Abu Bakar, Umar, Utsman, Ali, Thalhah, Zubair, Abdurrahman bin Auf, Sa'ad bin Abi Waqqash, Sa'id bin Zaid, dan Abu Ubaidah bin Al-Jarrah (semoga Allah meridai mereka semua). Mereka adalah sahabat Nabi ﷺ yang paling dekat dan paling banyak berkorban, dan Ahlus Sunnah mencintai serta memuliakan mereka semua tanpa berlebihan atau merendahkan siapa pun di antara mereka.",
-      "Di luar individu-individu yang disebutkan namanya, nas-nas menggambarkan kategori-kategori yang diberi kabar gembira: orang-orang yang jujur dan sabar, mereka yang mati sebagai syahid sejati di jalan Allah sesuai syariat Islam, dan mereka yang kata-kata terakhirnya dalam hidup ini adalah kalimat tauhid, la ilaha illallah. Setiap sifat menunjuk pada suatu kenyataan batin — keikhlasan, pengorbanan, atau hati yang terpaut kepada Allah pada napas terakhir — bukan sekadar label lahiriah.",
-      "Pengajaran bagi kita bukanlah merasa aman kerana keterkaitan, ataupun mengklaim derajat-derajat ini untuk diri kita sendiri, melainkan supaya terinspirasi. Biarkan teladan mereka menarik kita ke atas: cintailah apa yang mereka cintai, berjuanglah seperti mereka berjuang, dan ubahlah kekaguman itu menjadi doa dan amal, memohon di atas segalanya kepada Allah husnul khatimah — akhir yang baik.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakar di Syurga, Umar di Syurga, Utsman di Syurga, Ali di Syurga, Thalhah di Syurga, Zubair di Syurga, Abdurrahman bin Auf di Syurga, Sa'ad di Syurga, Sa'id bin Zaid di Syurga, dan Abu Ubaidah bin Al-Jarrah di Syurga.",
-      },
-      {
-        excerpt:
-          "Barang siapa yang kata-kata terakhirnya adalah 'Tiada tuhan selain Allah' akan masuk Syurga.",
-      },
+      "Al-Quran dan Sunnah menyebut secara khusus individu tertentu, golongan orang beriman tertentu dan amalan tertentu yang dikaitkan dengan khabar gembira Syurga. Penting untuk memahaminya dengan betul: ia ialah khabar yang benar tentang individu atau sifat tersebut — bukan jaminan yang boleh dipindahkan kepada sesiapa yang sekadar mendengar nama mereka atau mengagumi mereka. Khabar gembira itu bersandarkan iman dan amalan mereka, dan pintu yang sama terbuka kepada kita melalui jalan yang sama.",
+      "Golongan yang paling masyhur ialah Sepuluh Sahabat yang Dijanjikan Syurga (al-'Asyarah al-Mubasysyarah), yang disebut bersama oleh Nabi ﷺ dalam satu riwayat: Abu Bakar, Umar, Uthman, Ali, Talhah, Zubair, Abdul Rahman bin Auf, Saad bin Abi Waqqas, Said bin Zaid dan Abu Ubaidah bin al-Jarrah (semoga Allah meredai mereka semua). Mereka ialah sahabat Nabi ﷺ yang paling rapat dan paling banyak berkorban, dan Ahli Sunnah mencintai serta memuliakan mereka semua tanpa melampau dan tanpa merendahkan seorang pun daripada mereka.",
+      "Selain individu yang disebut namanya, nas turut menggambarkan golongan yang diberi khabar gembira: orang yang benar dan orang yang sabar, mereka yang mati syahid yang sebenar di jalan Allah menurut syariat Islam, dan mereka yang kata-kata terakhirnya dalam kehidupan ini ialah kalimah tauhid, la ilaha illallah. Setiap sifat itu menunjukkan hakikat dalaman — keikhlasan, pengorbanan, atau hati yang terpaut kepada Allah pada hembusan nafas terakhir — bukan sekadar label luaran.",
+      "Pengajaran bagi kita bukanlah untuk berasa selamat kerana pertalian, dan bukan juga untuk mendakwa darjat ini untuk diri sendiri, tetapi untuk mendapat inspirasi. Biarlah teladan mereka menarik kita ke atas: cintailah apa yang mereka cintai, berusahalah sebagaimana mereka berusaha, dan jadikan kekaguman itu doa dan amalan, dengan memohon kepada Allah, melebihi segalanya, husnul khatimah — pengakhiran yang baik.",
     ],
     disclaimer:
-      "Kabar gembira dalam hadis merujuk pada mereka yang disebutkan namanya atau kategori yang digambarkan. Ini tidak menggantikan kebutuhan akan iman, amal, dan akhir yang baik bagi diri seseorang. Allah yang paling mengetahui.",
+      "Khabar gembira dalam hadis merujuk kepada mereka yang disebut namanya atau golongan yang digambarkan. Ia tidak menggantikan keperluan seseorang terhadap iman, amalan dan pengakhiran yang baik bagi dirinya sendiri. Allah lebih mengetahui.",
   },
   {
     title: "Tauhid — akidah yang benar",
-    summary: "Tidak ada amal yang diterima tanpa tauhid yang tulus.",
+    summary: "Tiada amalan diterima tanpa tauhid yang ikhlas.",
     body: [
-      "Tauhid berarti mengesakan Allah semata dalam ibadat — meyakini bahawa hanya Dia Tuhan dan Pencipta, hanya Dia yang berhak disembah, dan bahawa Dia Maha Esa dalam nama-nama dan sifat-sifat-Nya. Inilah pesan yang dibawa oleh setiap nabi dan hal pertama yang menjadi pintu masuk seseorang ke dalam Islam. Kerana ini menyangkut Zat yang kita sembah, inilah fondasi tempat seluruh bangunan agama berdiri.",
-      "Kepentingannya tidak boleh dilebih-lebihkan: Allah tidak menerima amal apa pun dari orang yang menyekutukan-Nya. 'Jika kamu mempersekutukan (Allah), pasti akan hapuslah amalmu' (Quran 39:65). Gunungan amal saleh yang dibangun di atas syirik tidak memiliki bobot sama sekali pada Hari Kiamat, sementara amal terkecil yang dibangun di atas tauhid yang murni boleh menjadi sangat berat. Inilah sebabnya menjaga akidah bahkan lebih mendesak daripada memperbanyak amal.",
-      "Tauhid juga menuntut keikhlasan, disebut ikhlas — bahawa kita menyembah Allah 'dengan memurnikan ketaatan kepada-Nya dalam (menjalankan) agama' (Quran 98:5). Bahaya tersembunyi di sini adalah riya, iaitu beribadat untuk dilihat dan dipuji orang. Nabi ﷺ memperingatkan bahawa riya yang tersembunyi pun boleh diam-diam merusak sebuah amal. Obatnya adalah terus-menerus memperbarui niat: sebenarnya untuk siapa aku melakukan ini? Keikhlasan adalah yang mengubah amal biasa menjadi ibadat yang berharga.",
-      "Hikmah menjadikan tauhid sebagai fondasi adalah bahawa ia membebaskan hati. Orang yang menyembah Allah semata dibebaskan dari rasa takut kepada makhluk, dari mengejar restu semua orang, dan dari keletihan melayani banyak tuan. Hidupnya memperoleh satu arah yang jelas: meridakan Yang menciptakannya.",
-      "Secara praktis, pelajarilah akidah yang benar dari ulama yang tepercaya, murnikan ibadatmu dari syirik dan kemunafikan, dan periksalah niatmu sebelum bertindak. Langkah pertama ini bukan opsional atau lanjutan — di sinilah setiap jalan menuju Syurga dimulai.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya telah diwahyukan kepadamu dan kepada (nabi-nabi) yang sebelummu: Jika kamu mempersekutukan (Allah), pasti akan hapuslah amalmu dan tentulah kamu termasuk orang-orang yang merugi.",
-      },
-      {
-        excerpt:
-          "Padahal mereka tidak disuruh kecuali supaya menyembah Allah dengan memurnikan ketaatan kepada-Nya dalam (menjalankan) agama.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sesungguhnya setiap amal tergantung niatnya, dan setiap orang akan mendapatkan sesuai dengan apa yang ia niatkan.",
-      },
+      "Tauhid bermaksud mengesakan Allah semata-mata dalam ibadah — meyakini bahawa hanya Dia Tuhan dan Pencipta, hanya Dia yang berhak disembah, dan Dia Maha Esa pada nama-nama dan sifat-sifat-Nya. Inilah risalah yang dibawa oleh setiap nabi dan perkara pertama yang dengannya seseorang memasuki Islam. Oleh kerana ia berkaitan dengan Zat yang kita sembah, ia menjadi asas tempat berdirinya seluruh binaan agama.",
+      "Kepentingannya terlalu besar untuk digambarkan: Allah tidak menerima sebarang amalan daripada orang yang menyekutukan-Nya. 'jika engkau … mempersekutukan (sesuatu yang lain dengan Allah) tentulah akan gugur amalmu' (Al-Quran 39:65). Segunung amal kebaikan yang dibina di atas syirik tidak mempunyai sebarang berat pada Hari Kiamat, manakala amalan yang paling kecil yang dibina di atas tauhid yang murni boleh menjadi amat berat. Kerana itulah menjaga akidah lebih mendesak daripada memperbanyak amalan.",
+      "Tauhid juga menuntut keikhlasan (ikhlas) — iaitu kita menyembah Allah 'dengan mengikhlaskan ibadat kepadaNya' (Al-Quran 98:5). Bahaya yang halus di sini ialah riak, iaitu beribadah supaya dilihat dan dipuji orang. Nabi ﷺ memberi amaran bahawa riak yang tersembunyi pun boleh merosakkan sesuatu amalan secara senyap. Penawarnya ialah sentiasa memperbaharui niat: sebenarnya untuk siapakah aku melakukan ini? Keikhlasanlah yang mengubah perbuatan biasa menjadi ibadah yang amat berharga.",
+      "Hikmah menjadikan tauhid sebagai asas ialah ia membebaskan hati. Orang yang menyembah Allah semata-mata terlepas daripada rasa takut kepada makhluk, daripada mengejar perkenan semua orang dan daripada keletihan berkhidmat kepada banyak tuan. Hidupnya memperoleh satu hala tuju yang jelas: mencari keredaan Zat yang menciptakannya.",
+      "Dari segi amalan, pelajarilah akidah yang benar daripada ulama yang dipercayai, bersihkan ibadah anda daripada syirik dan nifak, dan periksalah niat anda sebelum bertindak. Langkah pertama ini bukan pilihan dan bukan peringkat lanjutan — di sinilah bermulanya setiap jalan menuju Syurga.",
     ],
     actions: [
-      "Pelajari dasar-dasar tauhid dari ulama yang tepercaya.",
-      "Perbarui niatmu sebelum beribadat.",
-      "Mohonlah ampunan atas riya yang tersembunyi.",
+      "Pelajari asas-asas tauhid daripada ulama yang dipercayai.",
+      "Perbaharui niat anda sebelum beribadah.",
+      "Mohon ampun atas riak yang tersembunyi.",
     ],
   },
   {
-    title: "Salah — sang tiang",
-    summary: "Menjaga lima waktu salah termasuk di antara amal yang paling agung.",
+    title: "Solat — tiang agama",
+    summary: "Menjaga solat lima waktu adalah antara amalan yang paling agung.",
     body: [
-      "Salah — lima waktu salah wajib — adalah rukun kedua Islam dan amal ibadat harian yang paling utama. Nabi ﷺ menggambarkan salah sebagai tiang agama: siapa yang menegakkannya telah menegakkan agama, dan siapa yang meninggal duniakannya telah merobohkan banyak hal yang menopangnya. Salah adalah lima pertemuan harian orang beriman dengan Tuhannya, berdiri, rukuk, dan sujud dalam hubungan langsung dengan Allah.",
-      "Kedudukannya tak tertandingi di antara amal-amal praktis kerana apa yang Nabi ﷺ sabdakan tentang Hari Kiamat: perkara pertama yang akan dihisab dari seorang hamba adalah salahnya. Jika ia baik, maka baiklah seluruh amalnya; jika ia rusak, maka amal yang lain pun dalam bahaya. Di dunia ini pun, salah adalah sarana penyucian — Nabi ﷺ mengumpamakan lima waktu salah dengan sungai yang mengalir di depan pintu seseorang: siapa yang mandi di dalamnya lima kali sehari, tidak akan tersisa kotoran padanya, dan begitulah salah menghapus dosa-dosa kecil.",
-      "Namun salah dimaksudkan untuk lebih dari sekadar gerakan fisik. Al-Quran memuji 'orang-orang yang khusyuk dalam solatnya' (Quran 23:1–2) dan memuliakan 'orang-orang yang tetap setia melaksanakan solatnya' (Quran 70:22–23). Dua hal yang paling penting: khusyuk — hati yang hadir dan rendah hati yang menyadari bahawa ia sedang berdiri di hadapan Allah — dan konsistensi, menjaga setiap salah pada waktunya. Salah berjamaah, bagi yang mampu, melipatgandakan pahala berkali-kali lipat.",
-      "Hikmah mendalam dari salah adalah transformasi. Salah yang dilaksanakan dengan benar mencegah seseorang dari perbuatan keji dan mungkar; ia adalah pengatur ulang berulang yang menarik kembali hati kepada Allah di tengah hari yang sibuk. Oleh sebab itu, meninggal duniakan salah tanpa uzur yang sah adalah perkara serius yang memerlukan tobat yang tulus dan mengqada-nya. Salah sunah dan rawatib — salah sunah sebelum dan sesudah yang wajib — menambahkan cahaya lebih dan mengangkat derajat.",
-      "Secara praktis: jagalah lima waktu salah pada waktunya sebagai prioritas utamamu, gantilah (qaza) salah yang terlewat, dan tambahkan salah sunah yang boleh kau lakukan secara konsisten. Jika salahmu membaik, seluruh ibadatmu yang lain cenderung membaik bersamanya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya beruntunglah orang-orang yang beriman, (iaitu) orang-orang yang khusyuk dalam solatnya.",
-      },
-      {
-        excerpt:
-          "Kecuali orang-orang yang mengerjakan solat, yang mereka tetap setia melaksanakan solatnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Perkara pertama yang akan dihisab dari seorang hamba pada Hari Kiamat adalah salahnya. Jika ia baik, maka ia beruntung dan berhasil; dan jika ia rusak, maka ia gagal dan merugi.",
-      },
-      {
-        excerpt:
-          "Seandainya ada sungai di depan pintu salah seorang dari kamu, lalu ia mandi di dalamnya lima kali sehari, apakah masih tersisa kotoran padanya? Para sahabat menjawab: Tidak. Baginda bersabda: Itulah perumpamaan lima waktu salah — dengannya Allah menghapus dosa-dosa.",
-      },
+      "Solat — solat lima waktu sehari semalam — ialah rukun Islam yang kedua dan ibadah harian yang paling utama. Nabi ﷺ menyifatkan solat sebagai tiang agama: sesiapa yang mendirikannya telah mendirikan agama, dan sesiapa yang mengabaikannya telah meruntuhkan banyak daripada apa yang menopangnya. Ia ialah lima temu janji harian orang beriman dengan Tuhannya — berdiri, rukuk dan sujud dalam hubungan langsung dengan Allah.",
+      "Kedudukannya tiada tandingan dalam kalangan amalan kerana sabda Nabi ﷺ tentang Hari Kiamat: perkara pertama yang akan dihisab daripada seorang hamba ialah solatnya. Jika solatnya baik, baiklah amalan-amalannya yang lain; jika solatnya cacat, amalan yang lain turut berada dalam bahaya. Di dunia ini juga, solat ialah wasilah penyucian — Nabi ﷺ mengumpamakan solat lima waktu seperti sungai yang mengalir di hadapan pintu rumah seseorang: sesiapa yang mandi di dalamnya lima kali sehari tidak akan tinggal sebarang kotoran padanya, dan demikianlah solat menghapuskan dosa-dosa kecil.",
+      "Namun solat bukan sekadar gerakan fizikal. Al-Quran memuji 'mereka yang khusyuk dalam sembahyangnya' (Al-Quran 23:1–2) dan memuliakan 'mereka yang tetap mengerjakan sembahyangnya' (Al-Quran 70:22–23). Dua sifat yang paling penting ialah khusyuk — hati yang hadir dan merendah diri kerana sedar bahawa ia sedang berdiri di hadapan Allah — dan istiqamah, iaitu menjaga setiap solat pada waktunya. Solat berjemaah, bagi yang mampu, melipatgandakan pahala berkali-kali ganda.",
+      "Hikmah solat yang lebih mendalam ialah perubahan diri. Solat yang didirikan dengan betul mencegah seseorang daripada perbuatan keji dan mungkar; ia merupakan titik mula semula yang berulang-ulang, menarik hati kembali kepada Allah sepanjang hari yang sibuk. Oleh itu, meninggalkan solat tanpa uzur yang sah adalah perkara berat yang memerlukan taubat yang ikhlas dan menggantikannya (qada). Solat sunat dan rawatib — solat sunat yang tetap sebelum dan selepas solat fardu — menambah lagi cahaya dan meninggikan darjat.",
+      "Dari segi amalan: jagalah solat lima waktu pada waktunya sebagai keutamaan mutlak anda, qadalah solat yang tertinggal, dan tambahkan solat sunat yang mampu anda kekalkan. Apabila solat anda bertambah baik, ibadah anda yang lain lazimnya turut bertambah baik.",
     ],
     actions: [
-      "Jagalah lima waktu salah pada waktunya.",
-      "Qadalah salah yang terlewat dengan tulus.",
-      "Tambahkan salah sunah sebelum dan sesudah yang wajib jika memungkinkan.",
+      "Jagalah solat lima waktu pada waktunya.",
+      "Qadalah solat yang tertinggal dengan ikhlas.",
+      "Tambahkan solat sunat sebelum dan selepas solat fardu apabila mampu.",
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [
+      { label: "Senarai semak solat" },
+      { label: "Jadual solat" },
+      { label: "Panduan solat" },
+      { label: "Jurnal khusyuk" },
+    ],
   },
   {
-    title: "Tobat yang tulus",
-    summary: "Allah mencintai mereka yang terus-menerus kembali kepada-Nya.",
+    title: "Taubat yang ikhlas",
+    summary: "Allah mencintai mereka yang sentiasa kembali kepada-Nya.",
     body: [
-      "Tobat adalah kembali kepada Allah selepas berbuat dosa. Tobat yang tulus (tobat nasuha) memiliki rukun yang jelas: penyesalan yang tulus dalam hati atas apa yang telah dilakukan, segera menghentikan dosa itu, dan tekad yang kukuh untuk tidak pernah mengulanginya — dan jika dosa itu melibatkan kezaliman terhadap orang lain, mengembalikan haknya atau meminta maaf kepadanya. Ini bukan peristiwa sekali sahaja, melainkan kembali seumur hidup, sebuah pintu yang Allah jaga tetap terbuka bagi setiap orang beriman.",
-      "Kepentingannya adalah bahawa tidak ada manusia yang bebas dari dosa, sehingga tobat bukan untuk segelintir pendosa, melainkan untuk semua orang. Nabi ﷺ bersabda bahawa setiap anak Adam berbuat dosa, dan sebaik-baik orang yang berbuat dosa adalah mereka yang bertobat. Allah menerima tobat seorang hamba hingga saat ruh mencapai kerongkongan menjelang kematian, dan bahkan terbitnya matahari dari barat adalah batas waktu bagi dunia ini — hingga saat itu, undangan tetap terbuka.",
-      "Yang mengagumkan, Allah tidak sekadar menerima hamba yang kembali — Dia bergembira. Nabi ﷺ menggambarkan Allah lebih bergembira atas tobat hamba-Nya daripada seseorang yang, tersesat di padang gurun yang tandus, berputus asa dari kehidupan selepas untanya hilang membawa seluruh perbekalan makanan dan minumannya, lalu tiba-tiba menemukannya kembali. Gambaran kegembiraan yang meluap itu memberi tahu kita betapa dicintainya hamba yang bertobat di sisi Tuhannya.",
-      "Hikmahnya sangat dalam: dosa tidak harus menjadi akhir dari kisah seseorang. 'Allah akan mengganti kejahatan mereka dengan kebajikan' (Quran 25:70) — tobat yang tulus boleh mengubah catatan kegagalan menjadi keberhasilan, dan boleh mengubah keterjatuhan menjadi awal baru yang membawa seseorang lebih dekat kepada Allah daripada sebelumnya. Putus asa selepas berbuat dosa itu sendiri adalah jebakan setan; harapan pada rahmat Allah adalah jawaban orang beriman.",
-      "Secara praktis: jangan menunda tobat walau sehari — kembalilah begitu engkau tergelincir. Ikuti setiap perbuatan buruk dengan perbuatan baik untuk menghapusnya, dan jagalah istigfar terus mengalir di lidahmu sepanjang hari, seperti Nabi ﷺ memohon ampunan berkali-kali setiap hari walaupun baginda telah diampuni.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, bertobatlah kepada Allah dengan tobat yang semurni-murninya, mudah-mudahan Tuhanmu akan menghapus kesalahan-kesalahanmu dan memasukkanmu ke dalam syurga yang mengalir di bawahnya sungai-sungai.",
-      },
-      {
-        excerpt:
-          "Kecuali orang-orang yang bertobat, beriman, dan mengerjakan amal saleh; maka Allah akan mengganti kejahatan mereka dengan kebajikan. Dan Allah Maha Pengampun lagi Maha Penyayang.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang di antara kamu yang, selepas kehilangan untanya di padang tandus, tiba-tiba menemukannya kembali.",
-      },
+      "Taubat ialah kembali kepada Allah selepas melakukan dosa. Taubat yang ikhlas (taubat nasuha) mempunyai rukun yang jelas: penyesalan yang tulus di dalam hati atas apa yang telah dilakukan, berhenti daripada dosa itu dengan segera, dan azam yang kuat untuk tidak mengulanginya — dan jika dosa itu melibatkan kezaliman terhadap orang lain, mengembalikan haknya atau memohon kemaafannya. Ia bukan peristiwa sekali sahaja, tetapi perjalanan kembali sepanjang hayat, satu pintu yang Allah biarkan terbuka bagi setiap orang beriman.",
+      "Kepentingannya ialah tiada manusia yang bebas daripada dosa, maka taubat bukan untuk segelintir pendosa sahaja, tetapi untuk semua orang. Nabi ﷺ bersabda bahawa setiap anak Adam melakukan dosa, dan sebaik-baik orang yang berdosa ialah mereka yang bertaubat. Allah menerima taubat seorang hamba sehinggalah saat roh sampai ke kerongkong ketika ajal, dan terbitnya matahari dari barat pula ialah tarikh akhir bagi seluruh dunia — sehingga saat itu, jemputan itu tetap terbuka.",
+      "Yang menakjubkan, Allah bukan sekadar menerima hamba yang kembali — Dia bergembira. Nabi ﷺ menggambarkan Allah lebih gembira dengan taubat hamba-Nya berbanding seorang lelaki yang sesat di padang pasir yang tandus, lalu berputus asa untuk hidup selepas untanya hilang membawa semua makanan dan minumannya, kemudian tiba-tiba menemuinya semula. Gambaran kegembiraan yang melimpah itu memberitahu kita betapa dicintainya hamba yang bertaubat di sisi Tuhannya.",
+      "Hikmahnya sangat mendalam: dosa tidak semestinya menjadi pengakhiran kisah seseorang. 'Allah akan menggantikan (pada tempat) kejahatan mereka dengan kebaikan' (Al-Quran 25:70) — taubat yang ikhlas boleh mengubah catatan kegagalan menjadi catatan kejayaan, dan boleh menjadikan sesuatu kejatuhan sebagai permulaan baharu yang membawa seseorang lebih dekat kepada Allah berbanding sebelumnya. Berputus asa selepas berdosa itu sendiri ialah perangkap Syaitan; berharap kepada rahmat Allah ialah jawapan orang beriman.",
+      "Dari segi amalan: jangan tangguhkan taubat walau sehari — kembalilah sebaik sahaja anda tergelincir. Ikutilah setiap perbuatan buruk dengan perbuatan baik untuk menghapuskannya, dan biarlah lidah anda sentiasa basah dengan istighfar sepanjang hari, sebagaimana Nabi ﷺ memohon ampun berkali-kali setiap hari walaupun baginda telah diampunkan.",
     ],
     actions: [
-      "Bertobatlah segera saat engkau berbuat dosa — jangan menunda.",
-      "Ikuti dosa dengan perbuatan baik untuk menghapusnya.",
-      "Ucapkanlah istigfar sepanjang hari.",
+      "Bertaubatlah segera apabila anda berdosa — jangan bertangguh.",
+      "Ikutilah dosa dengan amalan baik untuk menghapuskannya.",
+      "Beristighfarlah sepanjang hari.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Zikir pagi & petang" }, { label: "Penjejak qada" }],
   },
   {
     title: "Al-Quran",
-    summary: "Bacalah, hafalkanlah, dan amalkanlah Kitab Allah.",
+    summary: "Bacalah, hafallah dan hiduplah berpandukan Kitab Allah.",
     body: [
-      "Al-Quran adalah firman Allah yang sebenarnya, diturunkan sebagai petunjuk, rahmat, dan penyembuh bagi hati. Membangun hubungan dengannya — membacanya, merenungkan maknanya, mengamalkan perintah-perintahnya, dan mengajarkannya kepada orang lain — termasuk di antara ibadat yang paling agung dan paling berpahala yang boleh ditekuni seorang mukmin sepanjang hidupnya. Ia adalah tali Allah yang terulur kepada kita; siapa yang berpegang teguh padanya akan dituntun ke jalan yang lurus.",
-      "Pahala yang menyertainya luar biasa. Nabi ﷺ mengajarkan bahawa Allah memberikan kepada mereka yang membaca Kitab-Nya dan menegakkan salah, ganjaran besar yang tidak akan pernah musnah (Quran 35:29–30), dan bahawa setiap satu huruf yang dibaca menboleh pahala yang dilipatgandakan sepuluh kali. Bahkan orang yang tertatih-tatih dan bersusah payah dengan kata-katanya, selama ia terus berusaha, menboleh pahala ganda — satu untuk bacaannya dan satu untuk usahanya.",
-      "Al-Quran juga mengangkat derajat seseorang di kehidupan berikutnya dengan cara yang jelas dan nyata. Nabi ﷺ bersabda bahawa sahabat Al-Quran akan dikatakan kepadanya pada Hari Kiamat: 'Bacalah dan naiklah, dan bacalah seperti engkau dulu membaca di dunia, kerana kedudukanmu berada pada ayat terakhir yang engkau baca.' Dengan kata lain, kedudukan seseorang di Syurga meningkat sejalan dengan bahagiannya dari Kitab tersebut — dorongan yang kuat untuk terus menghafal dan mengulang.",
-      "Namun tujuan yang lebih dalam bukanlah bacaan demi bacaan itu sendiri, melainkan transformasi. Allah memerintahkan kita untuk 'membaca Al-Quran dengan tartil' (Quran 73:4) justru supaya maknanya meresap dan membentuk ulang cara kita berpikir, merasa, dan berperilaku. Al-Quran diturunkan untuk dijalani, bukan sekadar dibaca; para sahabat mempelajari sepuluh ayat dan tidak melangkah maju sampai mereka memahaminya dan mengamalkannya.",
-      "Secara praktis: bacalah sebahagian setiap hari, walau hanya beberapa ayat, tetapi bacalah dengan perenungan. Hafalkan surah-surah baru atau jagalah yang sudah kau hafal, dan — yang terpenting — amalkan apa yang kau pelajari sebelum bergegas mempelajari lebih banyak lagi.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya orang-orang yang selalu membaca kitab Allah dan mendirikan solat dan menafkahkan sebahagian dari rezeki yang Kami anugerahkan kepada mereka dengan diam-diam dan terang-terangan, mereka itu mengharapkan perniagaan yang tidak akan merugi, supaya Allah menyempurnakan kepada mereka pahalanya dan menambah kepada mereka dari karunia-Nya.",
-      },
-      {
-        excerpt: "Dan bacalah Al-Quran itu dengan perlahan-lahan (tartil).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Akan dikatakan kepada sahabat Al-Quran: Bacalah dan naiklah, dan bacalah seperti engkau dulu membaca di dunia, kerana kedudukanmu berada pada ayat terakhir yang engkau baca.",
-      },
+      "Al-Quran ialah kalam Allah yang sebenar, diturunkan sebagai petunjuk, rahmat dan penawar bagi hati. Membina hubungan dengannya — membacanya, merenungi maknanya, melaksanakan perintahnya dan mengajarkannya kepada orang lain — adalah antara ibadah yang paling agung dan paling besar ganjarannya yang boleh ditekuni oleh seorang mukmin sepanjang hayat. Ia ialah tali Allah yang dihulurkan kepada kita; sesiapa yang berpegang teguh kepadanya akan dipimpin ke jalan yang lurus.",
+      "Ganjaran yang dikaitkan dengannya amat luar biasa. Nabi ﷺ mengajar bahawa Allah mengurniakan kepada mereka yang membaca Kitab-Nya dan mendirikan solat ganjaran besar yang tidak akan musnah (Al-Quran 35:29–30), dan bagi setiap satu huruf yang dibaca ada ganjaran yang digandakan sepuluh kali. Malah orang yang bersusah payah dan tersekat-sekat ketika membacanya, selagi dia terus berusaha, mendapat dua pahala — satu untuk bacaannya dan satu untuk usahanya.",
+      "Al-Quran juga meninggikan darjat seseorang di akhirat dengan cara yang langsung dan jelas. Nabi ﷺ bersabda bahawa sahabat Al-Quran akan dikatakan kepadanya pada Hari Kiamat: 'Recite and ascend, and recite as you used to recite in the world, for your rank will be at the last verse you recite.' (maksud dalam bahasa Inggeris). Dengan kata lain, kedudukan seseorang di Syurga meningkat seiring dengan bahagiannya daripada Kitab itu — satu galakan yang kuat untuk terus menghafal dan mengulang kaji.",
+      "Namun tujuan yang lebih mendalam bukanlah membaca semata-mata, tetapi perubahan diri. Allah memerintahkan kita: 'bacalah Al-Quran dengan Tartil' (Al-Quran 73:4) supaya maknanya meresap dan membentuk semula cara kita berfikir, merasa dan bertindak. Al-Quran diturunkan untuk dihayati dalam kehidupan, bukan sekadar dibaca; para sahabat mempelajari sepuluh ayat dan tidak beralih kepada ayat berikutnya sehingga mereka memahami dan mengamalkannya.",
+      "Dari segi amalan: bacalah sebahagian setiap hari, walaupun hanya beberapa ayat, tetapi bacalah dengan penghayatan. Hafallah surah-surah baharu atau jagalah hafalan yang sedia ada, dan — yang paling penting — amalkan apa yang anda pelajari sebelum tergesa-gesa mempelajari lebih banyak.",
     ],
     actions: [
-      "Bacalah setiap hari — walau beberapa ayat dengan perenungan.",
-      "Hafalkan surah-surah baru atau jagalah yang sudah kau hafal.",
-      "Amalkan apa yang kau pelajari sebelum mencari lebih banyak.",
+      "Bacalah setiap hari — walaupun beberapa ayat dengan penghayatan.",
+      "Hafallah surah baharu atau jagalah hafalan anda.",
+      "Amalkan apa yang anda pelajari sebelum mencari lebih banyak.",
     ],
-    appLinks: [{}, {}, {}],
+    appLinks: [
+      { label: "Pembaca Al-Quran" },
+      { label: "Perancang khatam" },
+      { label: "Penjejak hafazan" },
+    ],
   },
   {
-    title: "Zikir — mengingat Allah",
+    title: "Zikir — mengingati Allah",
     summary: "Ringan di lidah, berat di timbangan.",
     body: [
-      "Zikir berarti mengingat Allah — menghadirkan-Nya di hati dan lidah melalui kata-kata pengagungan (subhanallah), pujian (alhamdulillah), pembesaran (Allahu akbar), penegasan keesaan-Nya (la ilaha illallah), dan permohonan ampun (istigfar). Dari semua jalan menuju Syurga, zikir termasuk yang paling mudah dilakukan namun paling besar pahalanya, kerana boleh dilakukan di mana sahaja, dalam keadaan apa pun, kapan pun.",
-      "Allah sendiri memerintahkannya dengan penuh kemurahan — 'Wahai orang-orang yang beriman, berzikirlah (dengan menyebut nama) Allah, zikir yang sebanyak-banyaknya' (Quran 33:41–42) — dan menjanjikan buah yang unik baginya: ketenteraman hati. 'Ingatlah, hanya dengan mengingat Allah hati menjadi tenteram' (Quran 13:28). Dalam dunia yang gelisah dan cemas, ini adalah salah satu anugerah terbesar zikir. Nabi ﷺ juga menimbang pahalanya, bersabda bahawa ada dua kalimat yang ringan di lidah namun berat di timbangan dan dicintai oleh Yang Maha Pengasih: 'subhanallahi wa bihamdihi, subhanallahil-'azhim'.",
-      "Sebuah kategori khusus adalah zikir pagi dan petang — doa-doa sahih yang Nabi ﷺ ajarkan untuk dua ujung hari. Ini bekerja seperti benteng spiritual, menjaga orang beriman dari bahaya dan menarik perlindungan dan keridaan Allah. Hanya beberapa menit di awal dan akhir setiap hari, diucapkan dengan kehadiran hati, diam-diam membentuk ulang hati seiring waktu.",
-      "Hikmah zikir adalah bahawa ia menjaga hubungan dengan Allah tetap hidup di sela-sela amal ibadat formal. Lidah yang basah dengan zikir dan — yang lebih penting — hati yang mengingat Allah dalam pilihan-pilihan hariannya, berhenti sejenak sebelum marah, sebelum berbelanja, sebelum mengambil keputusan — itulah tujuan sesungguhnya. Zikir tidak dimaksudkan untuk tinggal di bibir sahaja; ia dimaksudkan untuk mengarahkan kehidupan.",
-      "Secara praktis: jadikan zikir pagi dan petang sebagai kebiasaan harian, jagalah sebahagian sederhana tasbih, istigfar, atau selawat tetap mengalir di waktu-waktu luang, dan ingatlah Allah terutamanya sebelum tidur dan selepas bangun. Konsistensi dalam sedikit lebih baik daripada semangat sesaat dalam jumlah banyak.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "(Iaitu) orang-orang yang beriman dan hati mereka menjadi tenteram dengan mengingat Allah. Ingatlah, hanya dengan mengingat Allah hati menjadi tenteram.",
-      },
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, berzikirlah (dengan menyebut nama) Allah, zikir yang sebanyak-banyaknya. Dan bertasbihlah kepada-Nya pagi dan petang.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ada dua kalimat yang ringan di lidah, berat di timbangan, dan dicintai oleh Yang Maha Pengasih: subhanallahi wa bihamdihi, subhanallahil-'azhim.",
-      },
+      "Zikir bermaksud mengingati Allah — menghadirkan-Nya di dalam hati dan di lidah melalui kalimah tasbih (SubhanAllah), tahmid (Alhamdulillah), takbir (Allahu Akbar), tahlil yang mengesakan-Nya (La ilaha illallah) dan istighfar. Daripada semua jalan menuju Syurga, zikir antara yang paling mudah dilakukan tetapi antara yang paling besar ganjarannya, kerana ia boleh dilakukan di mana-mana, dalam apa jua keadaan dan pada bila-bila masa.",
+      "Allah sendiri memerintahkannya dengan murah hati — 'Wahai orang-orang yang beriman, … ingatlah serta sebutlah nama Allah dengan ingatan serta sebutan yang sebanyak-banyaknya' (Al-Quran 33:41–42) — dan menjanjikan buah yang istimewa baginya: ketenangan hati. 'Ketahuilah dengan zikrullah itu, tenang tenteramlah hati manusia' (Al-Quran 13:28). Dalam dunia yang resah dan gelisah, inilah antara anugerah zikir yang paling besar. Nabi ﷺ juga menimbang ganjarannya, dengan bersabda bahawa dua kalimah yang ringan di lidah tetapi berat di timbangan, dan dicintai oleh Ar-Rahman, ialah SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
+      "Satu kategori yang istimewa ialah zikir pagi dan petang — doa-doa sahih yang diajarkan oleh Nabi ﷺ untuk dua hujung hari. Ia berfungsi sebagai benteng rohani yang memelihara orang beriman daripada bahaya serta mendatangkan perlindungan dan keredaan Allah. Hanya beberapa minit pada awal dan akhir setiap hari, yang dibaca dengan hati yang hadir, perlahan-lahan membentuk semula hati dari semasa ke semasa.",
+      "Hikmah zikir ialah ia memastikan hubungan dengan Allah terus hidup di antara ibadah-ibadah yang formal. Lidah yang sentiasa basah dengan zikir dan, lebih penting lagi, hati yang mengingati Allah dalam pilihan hariannya — berhenti seketika sebelum marah, sebelum berbelanja, sebelum membuat keputusan — itulah matlamat sebenar. Zikir bukan untuk kekal di bibir sahaja; ia bertujuan memandu kehidupan.",
+      "Dari segi amalan: jadikan zikir pagi dan petang sebagai tabiat harian, kekalkan sedikit tasbih, istighfar atau selawat pada waktu-waktu lapang, dan ingatlah Allah terutamanya sebelum tidur dan selepas bangun. Sedikit yang berterusan lebih baik daripada banyak yang sekali-sekala.",
     ],
     actions: [
-      "Selesaikan zikir pagi dan petang setiap hari.",
-      "Gunakan penghitung tasbih untuk istigfar atau selawat.",
+      "Lengkapkan zikir pagi dan petang setiap hari.",
+      "Gunakan pembilang tasbih untuk istighfar atau selawat.",
       "Ingatlah Allah sebelum tidur dan selepas bangun.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Koleksi zikir" }, { label: "Pembilang tasbih" }],
   },
   {
     title: "Sedekah & zakat",
-    summary: "Berinfaklah dari apa yang Allah berikan — secara tersembunyi maupun terang-terangan.",
+    summary:
+      "Belanjakanlah daripada apa yang Allah kurniakan — secara tersembunyi dan terang-terangan.",
     body: [
-      "Islam memerintahkan orang beriman untuk berinfak dari harta yang Allah percayakan kepadanya, baik secara wajib maupun sukarela. Zakat adalah kewajiban tahunan atas harta yang telah mencapai nisab — salah satu dari lima rukun Islam — dan ia wajib, bukan opsional, bagi mereka yang memenuhi syarat-syaratnya. Di luar itu ada sedekah: pemberian sukarela dalam jumlah berapa pun, kapan pun, kerana Allah.",
-      "Pahala berinfak di jalan Allah dilipatgandakan melampaui hitungan biasa. Allah mengumpamakan orang yang berinfak di jalan-Nya seperti sebutir benih yang menumbuhkan tujuh bulir, setiap bulir berisi seratus biji — 'Allah melipatgandakan (ganjaran) bagi siapa yang Dia kehendaki' (Quran 2:261). Alih-alih mengurangi harta, sedekah menyucikannya dan menambah keberkahannya, serta memadamkan dosa seperti air memadamkan api.",
-      "Dua bentuk sedekah patut menboleh perhatian khusus. Yang pertama adalah sedekah tersembunyi, diberikan dengan begitu diam-diam sehingga, seperti digambarkan Nabi ﷺ, tangan kiri tidak mengetahui apa yang diberikan tangan kanan — keikhlasan ini sangat dicintai Allah dan akan menaungi seseorang pada Hari Kiamat. Yang kedua adalah sedekah jariah, sedekah yang terus mengalir yang manfaatnya berlanjut selepas kematian. Nabi ﷺ bersabda bahawa ketika seseorang meninggal dunia, amalnya terputus kecuali tiga: sedekah jariah, ilmu yang bermanfaat bagi orang lain, dan anak saleh yang mendoakannya.",
-      "Hikmah sedekah adalah bahawa ia bekerja pada pemberi sama besarnya seperti pada penerima. Ia melonggarkan cengkeraman keserakahan dari hati, membangun rasa iba, memperkuat ikatan masyarakat, dan mengingatkan orang kaya bahawa ia adalah pemegang amanah, bukan pemilik sejati. Dan Islam meluaskan definisi sedekah sehingga tidak seorang pun terkecualikan: Nabi ﷺ mengajarkan bahawa senyum kepada saudaramu, perkataan yang bermanfaat, dan bahkan menyingkirkan benda berbahaya dari jalan adalah bentuk-bentuk sedekah.",
-      "Secara praktis: jika engkau wajib berzakat, hitunglah dan bayarlah dengan akurat; berilah sedekah secara rutin, sekecil apa pun, supaya memberi menjadi kebiasaan bukan sekadar peristiwa; dan carilah sedekah jariah yang bertahan lama — membiayai seorang penuntut ilmu, membangun sumur, atau mendukung sebuah masjid — yang terus memberimu pahala jauh selepas engkau tiada.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Perumpamaan (nafkah yang dikeluarkan oleh) orang-orang yang menafkahkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir, pada tiap-tiap bulir seratus biji. Allah melipatgandakan (ganjaran) bagi siapa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Dan infakkanlah sebahagian dari apa yang telah Kami berikan kepadamu sebelum datang kematian kepada salah seorang di antara kamu, lalu ia berkata: Ya Tuhanku, mengapa Engkau tidak menangguhkan (kematian)ku sampai waktu yang dekat, yang menyebabkan aku boleh bersedekah dan aku termasuk orang-orang yang saleh.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila seorang manusia meninggal dunia dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah, ilmu yang bermanfaat, atau anak saleh yang mendoakannya.",
-      },
+      "Islam memerintahkan orang beriman untuk memberi daripada harta yang Allah amanahkan kepadanya, sama ada secara wajib mahupun sukarela. Zakat ialah kewajipan tahunan ke atas harta yang memenuhi syarat — salah satu daripada lima rukun Islam — dan ia wajib ditunaikan, bukan pilihan, bagi mereka yang memenuhi syarat-syaratnya. Selain itu ada sedekah: pemberian sukarela dalam apa jua jumlah, pada bila-bila masa, kerana Allah.",
+      "Ganjaran membelanjakan harta di jalan Allah digandakan melampaui kiraan biasa. Allah mengumpamakan orang yang membelanjakan hartanya di jalan-Nya seperti sebiji benih yang menumbuhkan tujuh tangkai, setiap tangkai mengandungi seratus biji — 'Dan (ingatlah), Allah akan melipatgandakan pahala bagi sesiapa yang dikehendakiNya' (Al-Quran 2:261). Sedekah tidak mengurangkan harta, malah menyucikannya dan menambah keberkatannya, di samping memadamkan dosa sebagaimana air memadamkan api.",
+      "Dua bentuk sedekah wajar disebut secara khusus. Yang pertama ialah sedekah secara sembunyi, yang diberikan dengan begitu rahsia sehingga, sebagaimana digambarkan oleh Nabi ﷺ, tangan kiri tidak mengetahui apa yang diberikan oleh tangan kanan — keikhlasan ini amat dicintai Allah dan menaungi seseorang pada Hari Kiamat. Yang kedua ialah sedekah jariah, sedekah berterusan yang manfaatnya berkekalan selepas kematian. Nabi ﷺ bersabda bahawa apabila seseorang meninggal dunia, terputuslah amalannya kecuali tiga perkara: sedekah jariah, ilmu yang memberi manfaat kepada orang lain, dan anak soleh yang mendoakannya.",
+      "Hikmah sedekah ialah ia memberi kesan kepada pemberi sebagaimana kepada penerima. Ia melonggarkan cengkaman tamak dalam hati, menyuburkan rasa belas kasihan, mengukuhkan ikatan masyarakat, dan mengingatkan orang kaya bahawa mereka ialah pemegang amanah, bukan pemilik yang sebenar. Islam juga meluaskan makna sedekah supaya tiada sesiapa yang terkecuali: Nabi ﷺ mengajar bahawa senyuman kepada saudaramu, kata-kata yang membantu, malah mengalihkan benda yang membahayakan dari jalan, semuanya ialah bentuk sedekah.",
+      "Dari segi amalan: jika anda wajib berzakat, kiralah dan tunaikanlah dengan tepat; berilah sedekah secara tetap, walaupun sedikit, supaya memberi menjadi tabiat dan bukan sekadar peristiwa; dan carilah sedekah jariah yang berkekalan — menaja seorang pelajar, membiayai sebuah telaga atau menyokong sebuah masjid — yang terus memberi anda ganjaran lama selepas anda tiada.",
     ],
     actions: [
-      "Hitung dan bayarlah zakat jika engkau wajib atasnya.",
-      "Berilah sedekah rutin, walau sedikit.",
+      "Kira dan tunaikan zakat jika anda wajib berzakat.",
+      "Bersedekahlah secara tetap, walaupun sedikit.",
       "Carilah peluang sedekah jariah.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Kalkulator zakat" }],
   },
   {
     title: "Akhlak yang baik",
-    summary: "Hal yang paling berat di timbangan boleh jadi adalah akhlak yang mulia.",
+    summary: "Perkara yang paling berat di timbangan mungkin ialah akhlak yang mulia.",
     body: [
-      "Akhlak yang baik (husn al-khuluq) adalah kumpulan sifat mulia yang ditampilkan seorang mukmin dalam berinteraksi dengan makhluk Allah: kejujuran, kesabaran, kerendahan hati, kasih sayang, kedermawanan, kelembutan, dan menepati janji. Jauh dari sekadar kesopanan sosial, Islam menjadikan akhlak sebagai ukuran mendasar keimanan dan salah satu amal terberat yang boleh dibawa seseorang pada Hari Kiamat.",
-      "Kedudukannya dinyatakan dengan kata-kata yang paling terang. Nabi ﷺ bersabda bahawa tidak ada sesuatu pun yang diletakkan di timbangan yang lebih berat daripada akhlak yang baik, dan bahawa orang beriman yang paling sempurna imannya adalah mereka yang paling baik akhlaknya. Baginda bahkan meringkas misinya sendiri dengan mengatakan bahawa baginda diutus untuk menyempurnakan akhlak yang mulia. Ini berarti cara engkau memperlakukan orang tuamu, pasanganmu, anak-anakmu, tetanggamu, bahkan orang asing, tidaklah terpisah dari ibadatmu — melainkan bahagian utamanya.",
-      "Akhlak yang indah begitu kuat kerana apa yang Nabi ﷺ janjikan boleh dicapainya: dengan akhlaknya yang baik, seorang mukmin boleh mencapai derajat orang yang berpuasa sepanjang hari dan solat sepanjang malam. Dengan kata lain, akhlak yang unggul boleh mengangkat orang biasa ke tingkat para ahli ibadat yang paling tekun, kerana ia sulit, konstan, dan menguji ego di setiap kesempatan — menahan amarah, memaafkan penghinaan, dan memilih kelembutan ketika kekerasan lebih mudah.",
-      "Hikmahnya adalah bahawa Islam bukan hanya hubungan pribadi antara seseorang dengan Allah; ia dimaksudkan untuk meluap ke dalam cara seseorang memperlakukan semua orang di sekitarnya. Seorang ahli ibadat yang solatnya tidak melembutkan sikapnya telah kehilangan intinya, sedangkan akhlak yang baik adalah dakwah itu sendiri, menarik orang menuju keimanan melalui teladan hidup. Inilah sebabnya nas-nas berulang kali memasangkan ibadat kepada Allah dengan keunggulan terhadap makhluk-Nya.",
-      "Secara praktis: kerjakan satu sifat pada satu waktu — tahanlah lidahmu saat tersulut amarah, maafkanlah mereka yang menzalimimu, perbaikilah hubungan yang telah putus, dan tepatilah janjimu walaupun harus membayar mahal. Perenungan singkat setiap hari selepas salah tentang bagaimana engkau memperlakukan orang hari itu adalah cara sederhana untuk terus berkembang.",
-    ],
-    quran: [
-      {
-        excerpt: "Dan sesungguhnya engkau benar-benar berbudi pekerti yang agung.",
-      },
-      {
-        excerpt:
-          "(Iaitu) orang-orang yang menafkahkan (hartanya), baik di waktu lapang maupun sempit, dan orang-orang yang menahan amarahnya dan memaafkan (kesalahan) orang. Allah menyukai orang-orang yang berbuat kebajikan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak ada sesuatu pun yang lebih berat di timbangan seorang mukmin pada Hari Kiamat daripada akhlak yang baik. Dan sesungguhnya Allah membenci orang yang berkata keji dan kasar.",
-      },
-      {
-        excerpt:
-          "Orang beriman yang paling sempurna imannya adalah mereka yang paling baik akhlaknya, dan sebaik-baik kamu adalah yang paling baik terhadap istri-istrinya.",
-      },
-    ],
-    actions: [
-      "Berlatihlah bersabar ketika tersulut.",
-      "Maafkanlah orang lain dan perbaikilah hubungan yang putus.",
-      "Renungkan akhlakmu selepas salah dalam jurnal harian.",
-    ],
-    appLinks: [
-      {},
-      {
-        label: "Sins against others",
-      },
+      "Akhlak yang baik (husnul khuluq) bukan sekadar kesopanan atau senyuman. Ia ialah cara seorang mukmin berkelakuan secara konsisten terhadap Allah, terhadap orang lain dan terhadap dirinya sendiri: bercakap benar, sabar, rendah hati, belas kasihan, pemurah, lemah lembut, menepati janji dan menahan marah. Allah memuji Rasul-Nya ﷺ: 'Dan bahawa sesungguhnya engkau mempunyai akhlak yang amat mulia' (Al-Quran 68:4).",
+      "Kedudukannya pada Hari Akhirat dinyatakan dengan jelas. Nabi ﷺ bersabda bahawa tiada sesuatu yang lebih berat di timbangan orang beriman daripada akhlak yang baik (Jami' at-Tirmizi 2002, hasan). Baginda merumuskan kebajikan itu sendiri sebagai akhlak yang baik (Sahih Muslim 2553), dan mengajar bahawa sahabat yang paling dikasihi oleh baginda — dan yang paling hampir dengan baginda pada Hari Kiamat — ialah mereka yang paling baik akhlaknya (Jami' at-Tirmizi 2018, hasan).",
+      "Banyak ibadah memberi manfaat terutamanya kepada orang yang melakukannya; akhlak yang baik pula menyentuh setiap orang di sekeliling anda. Percakapan yang benar, sabar ketika disakiti, berlaku adil terhadap orang yang tidak anda sukai, serta berbuat baik kepada ibu bapa dan jiran mengisi catatan amalan melalui detik-detik harian yang tidak terkira banyaknya. Itulah sebabnya bahasa 'timbangan' tentang husnul khuluq begitu kuat.",
+      "Dari segi amalan: usahakan satu sifat pada satu masa — tahan lidah apabila diprovokasi, maafkan apabila anda mampu membalas, perbaiki hubungan yang terputus, dan tepati janji walaupun ia memerlukan pengorbanan. Gunakan mozek di bawah untuk sifat-sifat yang dipuji oleh nas, dan senarai perbandingan untuk sifat-sifat yang merosakkan akhlak.",
     ],
     characterTraits: [
       {
-        title: "Kebenaran",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        title: "Bercakap benar",
+        summary: "Bersamalah dengan orang yang benar — kejujuran ialah asas kepercayaan.",
       },
       {
-        title: "Kesabaran",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        title: "Sabar",
+        summary: "Mintalah pertolongan dengan sabar dan solat.",
       },
       {
         title: "Menahan marah",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        summary:
+          "Mereka yang menahan kemarahan dan memaafkan manusia — Allah mengasihi orang yang berbuat baik.",
       },
       {
-        title: "Memaafkan",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        title: "Memaafkan orang lain",
+        summary:
+          "Hendaklah mereka memaafkan dan melupakan — tidakkah kamu suka supaya Allah mengampunkan dosa kamu?",
       },
       {
         title: "Rendah hati",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        summary: "Hamba-hamba Ar-Rahman berjalan di bumi dengan rendah hati.",
       },
       {
         title: "Amanah",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        summary: "Allah menyuruh kamu menyerahkan amanah kepada ahlinya.",
       },
       {
-        title: "Berbakti kepada ibu bapa",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        title: "Berbuat baik kepada ibu bapa",
+        summary:
+          "Sembahlah Allah dan berbuat baiklah kepada ibu bapa — hak mereka mengiringi hak-Nya.",
       },
       {
-        title: "Kata-kata baik",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        hadith: {
-          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
-        },
+        title: "Berkata baik atau diam",
+        summary:
+          "Sesiapa yang beriman kepada Allah dan Hari Akhirat, hendaklah dia berkata baik atau diam.",
       },
       {
-        title: "Senyuman",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        hadith: {
-          excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
-        },
+        title: "Senyuman yang ikhlas",
+        summary: "Senyumanmu di hadapan saudaramu adalah sedekah.",
       },
       {
         title: "Keadilan",
-        summary: "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-        },
+        summary: "Berlaku adillah — itu lebih hampir kepada takwa.",
       },
     ],
     characterDestroyers: [
-      {
-        title: "Dusta",
-      },
-      {
-        title: "Ghibah",
-      },
-      {
-        title: "Fitnah",
-      },
-      {
-        title: "Sombong",
-      },
-      {
-        title: "Kezaliman",
-      },
-      {
-        title: "Memungkiri janji",
-      },
-      {
-        title: "Mengejek",
-      },
-      {
-        title: "Kekasaran",
-      },
+      { title: "Berdusta" },
+      { title: "Mengumpat (ghibah)" },
+      { title: "Fitnah (buhtan)" },
+      { title: "Sombong" },
+      { title: "Kezaliman (zulm)" },
+      { title: "Mungkir janji" },
+      { title: "Mengejek orang beriman" },
+      { title: "Kekasaran yang tidak wajar" },
+    ],
+    actions: [
+      "Berlatihlah bersabar apabila diprovokasi.",
+      "Maafkan orang lain dan perbaiki hubungan yang terputus.",
+      "Berkata baik atau diam — jagalah lidah setiap hari.",
+      "Renungi akhlak anda selepas solat dalam jurnal harian.",
+    ],
+    appLinks: [
+      { label: "Jurnal khusyuk & akhlak" },
+      { label: "Berat di timbangan" },
+      { label: "Dosa-dosa lidah" },
+      { label: "Dosa terhadap orang lain" },
     ],
   },
   {
     title: "Menuntut ilmu",
-    summary: "Allah memudahkan jalan menuju Syurga bagi penuntut ilmu.",
+    summary: "Allah memudahkan jalan ke Syurga bagi orang yang menuntut ilmu.",
     body: [
-      "Menuntut ilmu yang bermanfaat — mempelajari apa yang Allah dan Rasul-Nya ﷺ ajarkan, lalu mengamalkannya dan meneruskannya — adalah sebuah ibadat dan, dalam hal-hal pokoknya, kewajiban bagi setiap muslim. Inilah ilmu suci yang menjernihkan akidah, memurnikan ibadat, dan membedakan yang benar dari yang salah; ia bukan ilmu untuk pamer, melainkan cahaya yang menuntun amal.",
-      "Nabi ﷺ mengaitkan usaha ini secara langsung dengan tujuan seluruh perjalanan ini: 'Barang siapa menempuh suatu jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju Syurga.' 'Jalan' ini bermakna harfiah sekaligus kiasan — Allah memudahkan jalan penuntut ilmu di dunia ini dan memudahkan jalannya menuju Jannah di akhirat. Baginda juga mengajarkan bahawa para malaikat merendahkan sayap-sayap mereka sebagai tanda rida bagi penuntut ilmu, dan bahawa segala sesuatu di langit dan bumi, bahkan ikan-ikan di laut, memohonkan ampun bagi orang yang mengajarkan kebaikan.",
-      "Ilmu juga termasuk amal langka yang terus memberi pahala kepada seseorang selepas kematian. Nabi ﷺ menyebutkan ilmu yang bermanfaat di antara tiga hal yang pahalanya terus mengalir di dalam kubur, bersama sedekah jariah dan anak saleh. Maka mengajarkan satu perkara yang bermanfaat — membantu seseorang belajar salah dengan benar, menyampaikan sebuah hadis yang sahih, atau membimbing seseorang menuju kebenaran — boleh menjadi aliran pahala yang mengalir bertahun-tahun, bahkan berlintas generasi.",
-      "Hikmahnya adalah bahawa amal tanpa ilmu itu buta, dan ilmu tanpa amal itu tidak berbuah. Ilmu yang benar melindungi seseorang dari bidah dan kesesatan, memperdalam keikhlasan, dan memberinya kemampuan untuk memberi manfaat bukan hanya bagi dirinya sendiri tetapi juga bagi orang lain. Para ulama Islam selalu memperingatkan dua bahaya: beramal tanpa ilmu, dan berilmu tanpa beramal.",
-      "Secara praktis: bertekadlah untuk mempelajari sesuatu yang bermanfaat secara rutin — satu ayat, satu hadis, satu masalah yang engkau perlukan untuk ibadat harianmu. Mulailah dari dasar-dasar akidah, salah, bersuci, dan larangan-larangan besar, lalu perdalamlah secara bertahap. Bagikan apa yang kau pelajari dengan rendah hati, dan selalu amalkan terlebih dulu pada dirimu sendiri.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Katakanlah: Apakah sama orang-orang yang mengetahui dengan orang-orang yang tidak mengetahui? Sesungguhnya orang yang berakallah yang boleh menerima pengajaran.",
-      },
-      {
-        excerpt: "Dan katakanlah: Ya Tuhanku, tambahkanlah kepadaku ilmu pengetahuan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa menempuh suatu jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju Syurga.",
-      },
-      {
-        excerpt:
-          "Apabila seorang manusia meninggal dunia dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah, ilmu yang bermanfaat, atau anak saleh yang mendoakannya.",
-      },
+      "Menuntut ilmu yang bermanfaat — mempelajari apa yang diajarkan oleh Allah dan Rasul-Nya ﷺ, kemudian mengamalkannya dan menyampaikannya — ialah satu bentuk ibadah dan, pada perkara-perkara asasnya, satu kewajipan ke atas setiap Muslim. Inilah ilmu agama yang menjelaskan akidah, menyucikan ibadah dan membezakan yang benar daripada yang salah; ia bukan ilmu untuk menunjuk-nunjuk, tetapi cahaya yang memandu amalan.",
+      "Nabi ﷺ mengaitkan usaha ini secara langsung dengan matlamat seluruh perjalanan ini: 'Whoever takes a path in search of knowledge, Allah will make easy for him a path to Paradise.' (maksud dalam bahasa Inggeris). 'Jalan' di sini bermaksud secara harfiah dan kiasan — Allah memudahkan perjalanan penuntut ilmu dalam kehidupan ini dan memudahkan jalannya ke Jannah di akhirat. Baginda juga mengajar bahawa para malaikat merendahkan sayap mereka tanda reda kepada penuntut ilmu, dan segala yang ada di langit dan di bumi, hatta ikan-ikan di laut, memohon ampun bagi orang yang mengajarkan kebaikan.",
+      "Ilmu juga antara amalan yang jarang ditemui yang terus memberi ganjaran kepada seseorang selepas kematiannya. Nabi ﷺ menyebut ilmu yang bermanfaat antara tiga perkara yang ganjarannya berterusan di dalam kubur, bersama sedekah jariah dan anak yang soleh. Maka mengajarkan satu perkara yang bermanfaat — membantu seseorang belajar solat dengan betul, berkongsi hadis yang sahih atau membimbing seseorang kepada kebenaran — boleh menjadi aliran ganjaran yang mengalir bertahun-tahun, malah merentasi generasi.",
+      "Hikmahnya ialah amalan tanpa ilmu adalah buta dan ilmu tanpa amalan tidak berbuah. Ilmu yang benar melindungi seseorang daripada bidaah dan kesesatan, memperdalam keikhlasan, dan memberinya keupayaan untuk memberi manfaat kepada orang lain, bukan sekadar kepada dirinya sendiri. Para ulama Islam sentiasa memberi amaran tentang dua bahaya: beramal tanpa ilmu, dan berilmu tanpa beramal.",
+      "Dari segi amalan: berazamlah untuk mempelajari sesuatu yang bermanfaat secara tetap — satu ayat, satu hadis, satu hukum yang anda perlukan untuk ibadah harian. Mulakan dengan asas-asas akidah, solat, bersuci dan larangan-larangan besar, kemudian dalamilah secara beransur-ansur. Kongsikan apa yang anda pelajari dengan rendah hati, dan sentiasa amalkannya pada diri sendiri terlebih dahulu.",
     ],
     actions: [
       "Pelajari sesuatu yang bermanfaat setiap minggu.",
-      "Bagikan ilmu tanpa kesombongan.",
-      "Amalkan apa yang kau pelajari sebelum mengumpulkan lebih banyak.",
+      "Kongsikan ilmu tanpa rasa sombong.",
+      "Amalkan apa yang anda pelajari sebelum mengumpul lebih banyak.",
     ],
-    appLinks: [{}, {}, {}],
+    appLinks: [{ label: "Koleksi hadis" }, { label: "Panduan solat" }, { label: "Hadis harian" }],
   },
   {
-    title: "Ibadat sunah",
-    summary: "Dekatilah Allah melalui amalan sunah melampaui yang wajib.",
+    title: "Ibadah sunat",
+    summary: "Dekatkan diri kepada Allah melalui amalan sunat melebihi yang wajib.",
     body: [
-      "Ibadat sunah (nafl) merujuk pada amal ibadat tambahan yang dipersembahkan seorang mukmin melampaui apa yang Allah wajibkan — salah tambahan, puasa tambahan, sedekah dan zikir tambahan. Kewajiban selalu didulukan dan tidak boleh ditawar, tetapi selepas semua itu ditunaikan, ibadat sunahlah tempat seorang hamba mengungkapkan cinta, kedekatan, dan kerinduan yang melampaui batas minimal yang diwajibkan.",
-      "Ada janji menakjubkan yang menyertainya. Dalam sebuah hadis qudsi, Allah berfirman: 'Hamba-Ku tidak mendekat kepada-Ku dengan sesuatu yang lebih Aku cintai daripada apa yang telah Aku wajibkan atasnya. Dan ia terus mendekat kepada-Ku melalui amalan-amalan sunah hingga Aku mencintainya' — dan ketika Allah mencintai seorang hamba, doa-doanya dikabulkan dan urusannya diperbaiki. Ibadat sunah kerananya adalah tangga kedekatan, yang mendaki dari sekadar ketaatan menuju cinta ilahi.",
-      "Sunah kaya dengan bentuk-bentuk yang mudah dijangkau: salah malam (tahajud) pada sepertiga malam terakhir, salah duha, salah sunah rawatib sebelum dan sesudah yang wajib, dan puasa sunah seperti hari Senin dan Kamis atau ayyamul bidh setiap bulan. Ibadat sunah juga diam-diam menambal kekurangan kita — Nabi ﷺ mengajarkan bahawa kekurangan dalam salah wajib akan dilengkapi dari salah sunah seseorang pada Hari Kiamat.",
-      "Hikmahnya adalah bahawa amalan sunah menjaga iman tetap hidup dan bertumbuh. Kewajiban menjaga fondasi, tetapi amalan sukarela adalah tempat hati meluas, tempat ibadat pribadi yang tidak dilihat siapa pun membangun keikhlasan, dan tempat seseorang melatih dirinya untuk ujian-ujian hidup yang lebih berat. Ini juga suatu rahmat bahawa amal-amal ini bersifat opsional — Allah membuka banyak pintu supaya setiap orang boleh melewati pintu-pintu yang sesuai dengannya.",
-      "Secara praktis, kuncinya adalah keberlanjutan, bukan intensitas. Nabi ﷺ mengajarkan bahawa amal yang paling dicintai Allah adalah yang paling konsisten, walau sedikit. Pilihlah beberapa amalan sunah yang benar-benar boleh kau pertahankan — dua rakaat tahajud, satu hari puasa seminggu, satu bahagian tetap Al-Quran — daripada lonjakan semangat ambisius yang padam dalam beberapa hari.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Lambung mereka jauh dari tempat tidurnya, sedang mereka berdoa kepada Tuhannya dengan rasa takut dan penuh harap, dan mereka menafkahkan sebahagian dari rezeki yang Kami berikan kepada mereka. Seorang pun tidak mengetahui berbagai nikmat yang menyenangkan hati yang disembunyikan (untuk mereka) sebagai balasan atas apa yang telah mereka kerjakan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hamba-Ku tidak mendekat kepada-Ku dengan sesuatu yang lebih Aku cintai daripada apa yang telah Aku wajibkan atasnya. Dan hamba-Ku terus mendekat kepada-Ku melalui amalan-amalan sunah hingga Aku mencintainya.",
-      },
+      "Ibadah sunat (nafl) merujuk kepada amalan tambahan yang dipersembahkan oleh seorang mukmin melebihi apa yang Allah wajibkan — solat tambahan, puasa tambahan, sedekah dan zikir tambahan. Kewajipan didahulukan dan tidak boleh ditawar-tawar, tetapi apabila semuanya sedang ditunaikan, ibadah sunat ialah ruang seorang hamba menzahirkan cinta, kedekatan dan kerinduan yang melangkaui tahap minimum yang diwajibkan.",
+      "Ada janji yang menakjubkan berkaitan dengannya. Dalam sebuah hadis qudsi, Allah berfirman: 'My servant does not draw near to Me with anything more beloved to Me than what I have made obligatory upon him. And he continues to draw near to Me through voluntary deeds until I love him' (maksud dalam bahasa Inggeris) — dan apabila Allah mencintai seorang hamba, doanya dimakbulkan dan urusannya diperelokkan. Oleh itu, ibadah sunat ialah tangga kedekatan, yang mendaki daripada sekadar ketaatan menuju cinta Ilahi.",
+      "Sunnah kaya dengan bentuk-bentuknya yang mudah dicapai: solat malam (tahajud) pada bahagian akhir malam, solat dhuha, solat sunat rawatib sebelum dan selepas solat fardu, serta puasa sunat seperti pada hari Isnin dan Khamis atau hari-hari putih (ayyamul bidh) setiap bulan. Ibadah sunat juga menampung kekurangan kita secara senyap — Nabi ﷺ mengajar bahawa sebarang kekurangan dalam solat fardu akan disempurnakan daripada solat sunat seseorang pada Hari Kiamat.",
+      "Hikmahnya ialah amalan sunat memastikan iman terus hidup dan bertumbuh. Kewajipan memelihara asasnya, tetapi amalan sukarela ialah tempat hati berkembang, tempat ibadah peribadi yang tidak dilihat sesiapa membina keikhlasan, dan tempat seseorang melatih dirinya untuk ujian hidup yang lebih berat. Ia juga satu rahmat bahawa amalan ini tidak diwajibkan — Allah membuka banyak pintu supaya setiap orang dapat melalui pintu yang sesuai dengannya.",
+      "Dari segi amalan, kuncinya ialah keberterusan, bukan intensiti. Nabi ﷺ mengajar bahawa amalan yang paling dicintai Allah ialah yang paling berterusan, walaupun sedikit. Pilihlah beberapa amalan sunat yang benar-benar mampu anda kekalkan — dua rakaat tahajud, sehari puasa seminggu, satu bahagian tetap Al-Quran — daripada semangat yang membara seketika lalu padam dalam beberapa hari.",
     ],
     actions: [
-      "Solatlah tahajud walau hanya dua rakaat.",
-      "Berpuasalah sunah bila mampu.",
-      "Tambahkan salah sunah sebelum/sesudah yang wajib secara konsisten.",
+      "Solatlah tahajud walaupun hanya dua rakaat.",
+      "Berpuasalah sunat apabila mampu.",
+      "Tambahkan solat sunat sebelum/selepas fardu secara berterusan.",
     ],
-    appLinks: [{}, {}, {}],
+    appLinks: [
+      { label: "Penjejak tahajud" },
+      { label: "Ramadan & puasa" },
+      { label: "Senarai semak solat" },
+    ],
   },
   {
     title: "Sabar & syukur",
-    summary: "Allah mencintai orang-orang yang sabar dan bersyukur.",
+    summary: "Allah mencintai orang yang sabar dan bersyukur.",
     body: [
-      "Sabar dan syukur adalah dua sayap yang membuat seorang mukmin terbang menjalani hidup. Sabar adalah keteguhan dalam tiga arena: tetap tegar dalam ketaatan kepada Allah, menahan diri dari kemaksiatan, dan menanggung ujian hidup tanpa mengeluh terhadap ketetapan-Nya. Syukur adalah mengakui setiap nikmat berasal dari Allah dan meresponsnya dengan terima kasih di hati, di lidah, dan melalui amal ketaatan. Bersama-sama, keduanya melengkapi respons orang beriman terhadap kesulitan maupun kemudahan.",
-      "Kepentingannya adalah bahawa keduanya menentukan bagaimana orang beriman menghadapi segala sesuatu yang menimpanya. Nabi ﷺ takjub bahawa seluruh perkara orang beriman adalah baik: ketika kebaikan sampai kepadanya, ia bersyukur dan itu baik baginya; dan ketika kesulitan menimpa, ia bersabar dan itu pun baik baginya — sebuah anugerah yang tidak diberikan kepada siapa pun kecuali orang beriman. Maka apa pun yang datang, orang beriman memiliki jalan menuju pahala.",
-      "Pahala kesabaran secara unik tidak terbatas. Sementara sebahagian besar amal diganjar dengan kelipatan tertentu, Allah berfirman: 'Sesungguhnya hanya orang-orang yang bersabarlah yang dicukupkan pahala mereka tanpa batas' (Quran 39:10). Dan syukur membawa janji tersendiri berupa tambahan: 'Jika kamu bersyukur, pasti akan Kutambah (nikmat) kepadamu' (Quran 14:7). Maka rasa syukur bukan hanya respons yang benar terhadap nikmat — ia adalah sesuatu yang menyebabkannya bertambah.",
-      "Hikmah di sini mengubah seluruh makna penderitaan. Ujian bukanlah hukuman secara otomatis; bagi orang beriman yang meresponsnya dengan baik, ujian boleh menjadi penyucian yang menghapus dosa dan pengangkatan yang menaikkan derajat. Nabi ﷺ mengajarkan bahawa tidak ada kelelahan, penyakit, kekhawatiran, bahkan tusukan duri yang menimpa seorang muslim melainkan Allah menghapus sebahagian dosanya melaluinya. Ini mengubah momen-momen tersulit dalam hidup menjadi peluang, bukan semata kerugian.",
-      "Secara praktis: ketika musibah menimpa, ucapkanlah kata-kata yang Allah ajarkan — 'inna lillahi wa inna ilaihi raji'un' (sesungguhnya kami milik Allah dan kepada-Nya kami kembali) — dan tahanlah lidahmu dari keluhan yang menolak ketetapan-Nya. Di saat lapang, hitunglah nikmatmu dengan suara keras dan syukurilah Allah untuk setidaknya beberapa nikmat setiap hari; menyebutnya menjaga hati tetap lembut dan bersyukur.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan sampaikanlah kabar gembira kepada orang-orang yang sabar, (iaitu) orang-orang yang apabila ditimpa musibah, mereka mengucapkan: Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Mereka itulah yang menboleh keberkatan yang sempurna dan rahmat dari Tuhan mereka, dan mereka itulah orang-orang yang menboleh petunjuk.",
-      },
-      {
-        excerpt:
-          "Jika kamu bersyukur, pasti akan Kutambah (nikmat) kepadamu, dan jika kamu mengingkari (nikmat-Ku), maka sesungguhnya azab-Ku sangat pedih.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sungguh menakjubkan perkara orang beriman, seluruh perkaranya adalah baik. Jika kemudahan menimpanya, ia bersyukur dan itu baik baginya; dan jika kesulitan menimpanya, ia bersabar dan itu pun baik baginya. Ini tidak berlaku bagi siapa pun kecuali orang beriman.",
-      },
+      "Sabar dan syukur ialah dua sayap yang membawa seorang mukmin terbang mengharungi kehidupan. Sabar ialah keteguhan dalam tiga medan: tetap teguh dalam ketaatan kepada Allah, menahan diri daripada maksiat, dan menanggung ujian hidup tanpa merungut terhadap ketentuan-Nya. Syukur ialah mengakui bahawa setiap nikmat datang daripada Allah dan membalasnya dengan rasa terima kasih di dalam hati, di lidah dan melalui amalan ketaatan. Bersama-sama, kedua-duanya merangkumi sikap orang beriman terhadap kesusahan dan kesenangan.",
+      "Kepentingannya ialah kedua-duanya menentukan cara orang beriman menghadapi segala yang menimpanya. Nabi ﷺ berasa kagum bahawa seluruh urusan orang beriman adalah baik: apabila kebaikan sampai kepadanya, dia bersyukur dan itu baik baginya; dan apabila kesusahan menimpanya, dia bersabar dan itu juga baik baginya — satu nikmat yang tidak diberikan kepada sesiapa pun kecuali orang beriman. Maka apa sahaja yang datang, orang beriman mempunyai jalan menuju ganjaran.",
+      "Ganjaran kesabaran tidak terbatas secara istimewa. Sedangkan kebanyakan amalan diberi ganjaran dengan gandaan yang tertentu, Allah berfirman: 'Sesungguhnya orang-orang yang bersabarlah sahaja yang akan disempurnakan pahala mereka dengan tidak terkira' (Al-Quran 39:10). Syukur pula membawa janji tambahan tersendiri: 'Jika kamu bersyukur nescaya Aku akan tambahi nikmatKu kepada kamu' (Al-Quran 14:7). Oleh itu, kesyukuran bukan sahaja sambutan yang betul terhadap nikmat — ia sendiri yang menyebabkan nikmat itu bertambah.",
+      "Hikmah di sini mengubah sepenuhnya cara kita memandang penderitaan. Ujian tidak semestinya hukuman; bagi orang beriman yang menghadapinya dengan baik, ujian boleh menjadi penyucian yang menghapuskan dosa dan pengangkatan yang meninggikan darjat. Nabi ﷺ mengajar bahawa tiada keletihan, penyakit, kebimbangan, malah tusukan duri yang menimpa seorang Muslim melainkan Allah menghapuskan sebahagian dosanya dengannya. Ini menjadikan saat-saat paling sukar dalam hidup sebagai peluang, bukan semata-mata kerugian.",
+      "Dari segi amalan: apabila musibah menimpa, ucapkanlah kalimah yang Allah ajarkan — 'Inna lillahi wa inna ilayhi raji'un' (Sesungguhnya kami adalah kepunyaan Allah dan kepada Allah jualah kami kembali) — dan tahanlah lidah daripada keluhan yang menolak ketentuan-Nya. Pada waktu senang, sebutlah nikmat-nikmat anda dengan lisan dan bersyukurlah kepada Allah atas sekurang-kurangnya beberapa nikmat setiap hari; menyebutnya memastikan hati kekal lembut dan bersyukur.",
     ],
     actions: [
-      "Ucapkanlah 'inna lillahi wa inna ilaihi raji'un' ketika diuji.",
-      "Syukurilah Allah dengan suara keras untuk tiga nikmat setiap hari.",
-      "Jangan mengeluh dengan cara yang menolak ketetapan Allah.",
+      "Ucapkan 'inna lillahi wa inna ilayhi raji'un' apabila diuji.",
+      "Bersyukurlah kepada Allah dengan lisan atas tiga nikmat setiap hari.",
+      "Jangan merungut dengan cara yang menolak ketentuan Allah.",
     ],
   },
   {
     title: "Menyeru kepada Allah",
-    summary: "Siapa yang membimbing orang lain menboleh pahala seperti yang mengamalkannya.",
+    summary:
+      "Sesiapa yang membimbing orang lain mendapat ganjaran seperti orang yang mengikutinya.",
     body: [
-      "Dakwah berarti mengajak orang lain menuju Allah — menyampaikan pesan Islam, mengajarkan seseorang salah, mendorong kebaikan, mencegah kemungkaran dengan lembut, atau membantu seorang muslim yang berjuang untuk kembali kepada ketaatan. Ini adalah misi setiap nabi dan merupakan tanggung jawab bersama umat, masing-masing sesuai kemampuan dan pengetahuannya. Ini bukan hanya milik para ulama; siapa pun yang menyampaikan satu hal bermanfaat sedang menyeru kepada Allah.",
-      "Pahalanya termasuk yang paling murah hati dalam seluruh ajaran Islam. Nabi ﷺ bersabda bahawa siapa yang membimbing seseorang kepada kebaikan akan menboleh pahala seperti orang yang mengamalkannya — dan dalam riwayat lain, siapa yang menyeru kepada petunjuk akan menboleh pahala semua orang yang mengikutinya, tanpa mengurangi sedikit pun pahala mereka sendiri. Ini berarti kebaikan yang engkau mulai boleh terus melipatgandakan pahalamu melalui setiap orang yang tersentuh olehnya, bahkan lama selepas engkau tiada.",
-      "Namun dakwah memiliki adab — sebuah cara — yang harus dijaga supaya berhasil. Allah memerintahkan: 'Serulah (manusia) kepada jalan Tuhanmu dengan hikmah dan pengajaran yang baik, dan bantahlah mereka dengan cara yang baik' (Quran 16:125). Hikmah berarti mengatakan hal yang tepat, kepada orang yang tepat, dengan cara dan waktu yang tepat; kekerasan, kesombongan, dan mencari-cari kesalahan menjauhkan orang dan mengkhianati tujuannya. Tugas penyeru adalah menyampaikan dan menanam benih, bukan memaksa hati, yang hanya menjadi milik Allah.",
-      "Hikmah mengaitkan pahala yang begitu luas dengan membimbing orang lain adalah bahawa ini menjadikan setiap mukmin sumber kebaikan yang berkelanjutan. Ini juga melindungi iman si penyeru sendiri: mengajak orang lain kepada salah, kejujuran, dan ibadat adalah pengingat untuk berpegang teguh padanya sendiri. Dan ini mengikat umat dalam kepedulian bersama, bukan kelalaian bersama.",
-      "Secara praktis, mulailah dari rumahmu sendiri. Perbaiki dan ajarkan keluargamu — pasangan, anak, saudara — kerana mereka adalah tanggung jawabmu yang pertama dan paling bertahan lama. Bagikan ilmu yang bermanfaat dengan kebaikan, bantulah seseorang belajar salah atau membaca Al-Quran, dan ingatlah bahawa kehidupan berakhlak baik dan beribadat secara konsisten seringkali merupakan dakwah paling efektif.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Serulah (manusia) kepada jalan Tuhanmu dengan hikmah dan pengajaran yang baik, dan bantahlah mereka dengan cara yang lebih baik.",
-      },
-      {
-        excerpt:
-          "Siapakah yang lebih baik perkataannya daripada orang yang menyeru kepada Allah, mengerjakan amal saleh, dan berkata: Sesungguhnya aku termasuk orang-orang yang berserah diri?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang membimbing seseorang kepada kebaikan akan menboleh pahala seperti orang yang mengamalkannya.",
-      },
+      "Dakwah bermaksud mengajak orang lain kepada Allah — menyampaikan risalah Islam, mengajar seseorang bersolat, menggalakkan kebaikan, mencegah kemungkaran dengan lembut, atau membantu seorang Muslim yang sedang bergelut untuk kembali taat. Ia ialah misi setiap nabi dan tanggungjawab bersama umat, masing-masing menurut kemampuan dan ilmunya. Ia bukan khusus untuk ulama; sesiapa yang menyampaikan walau satu perkara yang bermanfaat sedang menyeru kepada Allah.",
+      "Ganjarannya antara yang paling pemurah dalam seluruh ajaran Islam. Nabi ﷺ bersabda bahawa sesiapa yang menunjukkan seseorang kepada kebaikan, baginya ganjaran seperti orang yang melakukannya — dan dalam riwayat lain, sesiapa yang menyeru kepada petunjuk mendapat ganjaran semua orang yang mengikutinya, tanpa dikurangkan sedikit pun ganjaran mereka. Ini bermakna kebaikan yang anda mulakan boleh terus menggandakan ganjaran anda melalui setiap orang yang disentuhnya, lama selepas anda beralih.",
+      "Namun dakwah mempunyai adab — satu cara — yang mesti dijaga agar ia berjaya. Allah memerintahkan: 'Serulah ke jalan Tuhanmu (wahai Muhammad) dengan hikmat kebijaksanaan dan nasihat pengajaran yang baik, dan berbahaslah dengan mereka … dengan cara yang lebih baik' (Al-Quran 16:125). Hikmah bermaksud menyatakan perkara yang betul, kepada orang yang betul, dengan cara dan pada masa yang betul; kekasaran, kesombongan dan sikap ingin menang berhujah menjauhkan manusia dan mengkhianati tujuannya. Tugas pendakwah ialah menyampaikan dan menyemai, bukan memaksa hati, kerana hati hanya milik Allah.",
+      "Hikmah mengaitkan ganjaran yang begitu luas dengan membimbing orang lain ialah ia menjadikan setiap mukmin sumber kebaikan yang berterusan. Ia juga melindungi iman pendakwah itu sendiri: mengajak orang lain kepada solat, kejujuran dan ibadah bererti mengingatkan dirinya untuk berpegang teguh kepadanya. Ia juga mengikat masyarakat dalam sikap saling mengambil berat, bukan saling mengabaikan.",
+      "Dari segi amalan, mulakan dekat dengan rumah. Perbaiki dan ajarlah keluarga anda sendiri — pasangan, anak, adik-beradik — kerana merekalah tanggungjawab pertama dan paling berkekalan bagi anda. Kongsikan ilmu yang bermanfaat dengan baik, bantu seseorang belajar solat atau membaca Al-Quran, dan ingatlah bahawa kehidupan yang berakhlak baik dan ibadah yang istiqamah sering kali merupakan dakwah yang paling berkesan.",
     ],
     actions: [
-      "Bagikan ilmu yang bermanfaat dengan kebaikan.",
-      "Bantulah seseorang belajar salah atau membaca Al-Quran.",
-      "Jadilah teladan akhlak yang baik di tengah masyarakat.",
+      "Kongsikan ilmu yang bermanfaat dengan baik.",
+      "Bantu seseorang belajar solat atau membaca Al-Quran.",
+      "Jadilah contoh akhlak yang baik di khalayak ramai.",
     ],
   },
   {
-    title: "Amal besar seumur hidup",
-    summary: "Haji, keluarga, dan sedekah yang bertahan lama.",
+    title: "Amalan besar sepanjang hayat",
+    summary: "Haji, keluarga dan sedekah yang berkekalan.",
     body: [
-      "Selain amal ibadat harian dan mingguan, Islam mengarahkan orang beriman kepada beberapa amal besar seumur hidup — investasi besar yang pahalanya luar biasa dan, dalam beberapa hal, tidak pernah berakhir. Inilah proyek-proyek yang layak dijadikan poros hidup: ibadat haji, membesarkan keluarga yang saleh, dan membangun amal kebaikan yang bertahan lama.",
-      "Yang paling utama di antaranya adalah Haji, rukun kelima Islam, wajib sekali seumur hidup bagi setiap muslim yang mampu secara fisik dan finansial — 'Mengerjakan haji adalah kewajiban manusia terhadap Allah, iaitu (bagi) orang yang sanggup mengadakan perjalanan ke Baitullah' (Quran 3:97). Pahalanya adalah penyucian total: Nabi ﷺ bersabda bahawa siapa yang berhaji kerana Allah dan menghindari perbuatan keji serta dosa akan kembali bersih dari dosa, seperti hari ketika ibunya melahirkannya. Baginda bersabda bahawa haji yang mabrur tidak ada balasannya kecuali Syurga. Umrah, haji kecil, juga membawa pahala besar dan menghapus dosa-dosa di antara satu umrah dengan umrah berikutnya.",
-      "Investasi besar kedua adalah sedekah jariah — sedekah yang terus mengalir yang tetap memberi pahala kepada seseorang selepas kematian. Nabi ﷺ menyebutkannya di antara tiga hal yang terus bermanfaat bagi seseorang di dalam kubur, bersama ilmu yang bermanfaat dan anak saleh yang mendoakannya. Membesarkan anak-anak dalam keimanan dan akhlak yang baik barangkali adalah yang terbesar di antaranya, tetapi demikian juga membangun atau merawat masjid, menggali sumur, membiayai anak yatim, menanam pohon, atau mendanai pendidikan — masing-masing adalah aliran pahala yang bertahan lebih lama daripada pemberinya.",
-      "Hikmah dari amal-amal ini adalah bahawa ia memperluas catatan seseorang melampaui masa hidupnya. Tahun-tahun aktif seorang mukmin singkat, tetapi sumur yang ia gali atau anak yang ia besarkan dengan baik boleh terus mendatangkan pahala baginya selama berabad-abad. Islam dengan demikian mendorong visi jangka panjang: bukan hanya memikirkan salah hari ini, tetapi juga memikirkan kebaikan apa yang akan terus mengalir darimu selepas engkau tiada.",
-      "Secara praktis: jika engkau mampu, rencanakanlah haji atau umrah dengan sungguh-sungguh, bukan terus-menerus menundanya. Curahkan usaha nyata untuk iman dan akhlak keluargamu, kerana mereka adalah warisanmu yang paling bertahan lama. Dan pilihlah setidaknya satu proyek amal yang bertahan lama untuk didukung — ilmu, air, tempat tinggal, atau anak yatim — supaya amal kebaikanmu terus berlanjut selepas kematian.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Mengerjakan haji adalah kewajiban manusia terhadap Allah, iaitu (bagi) orang yang sanggup mengadakan perjalanan ke Baitullah.",
-      },
-      {
-        excerpt:
-          "Dan berserulah kepada manusia untuk mengerjakan haji, pasti mereka akan datang kepadamu dengan berjalan kaki, dan mengendarai unta yang kurus yang datang dari segenap penjuru yang jauh, supaya mereka menyaksikan berbagai manfaat bagi mereka.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang berhaji kerana Allah dan tidak berbuat keji atau maksiat, akan kembali bersih dari dosa, seperti hari ketika ibunya melahirkannya.",
-      },
-      {
-        excerpt:
-          "Apabila seorang manusia meninggal dunia dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah, ilmu yang bermanfaat, atau anak saleh yang mendoakannya.",
-      },
+      "Di samping ibadah harian dan mingguan, Islam mengarahkan orang beriman kepada beberapa amalan besar sepanjang hayat — pelaburan besar yang ganjarannya amat besar dan, dalam sesetengah keadaan, tidak pernah berakhir. Inilah projek-projek yang wajar dijadikan teras perancangan hidup: ibadah Haji, membesarkan keluarga yang soleh, dan membina amal kebajikan yang berkekalan.",
+      "Yang paling utama ialah Haji, rukun Islam yang kelima, wajib sekali seumur hidup ke atas setiap Muslim yang mampu dari segi fizikal dan kewangan — 'Dan Allah mewajibkan manusia mengerjakan ibadat Haji dengan mengunjungi Baitullah iaitu sesiapa yang mampu sampai kepadanya' (Al-Quran 3:97). Ganjarannya ialah penyucian yang sempurna: Nabi ﷺ bersabda bahawa sesiapa yang menunaikan Haji kerana Allah serta menjauhi perkataan keji dan dosa akan kembali bersih daripada dosa, seperti hari dia dilahirkan oleh ibunya. Baginda bersabda bahawa Haji yang mabrur tiada balasan baginya melainkan Syurga. Umrah, iaitu haji kecil, juga membawa ganjaran yang besar dan menghapuskan dosa antara satu Umrah dengan Umrah yang berikutnya.",
+      "Pelaburan besar yang kedua ialah sedekah jariah — sedekah berterusan yang terus memberi ganjaran kepada seseorang selepas kematiannya. Nabi ﷺ menyebutnya antara tiga perkara yang terus memberi manfaat kepada seseorang di dalam kubur, bersama ilmu yang bermanfaat dan anak soleh yang mendoakannya. Membesarkan anak-anak di atas iman dan akhlak yang baik mungkin yang paling besar antaranya, tetapi begitu juga membina atau menyelenggara masjid, menggali telaga, menaja anak yatim, menanam pokok atau membiayai pendidikan — setiap satunya aliran ganjaran yang kekal lebih lama daripada pemberinya.",
+      "Hikmah amalan-amalan ini ialah ia memanjangkan catatan amalan seseorang melangkaui hayatnya. Tahun-tahun aktif seorang mukmin adalah singkat, tetapi telaga yang digalinya atau anak yang dibesarkannya dengan baik boleh terus memberinya ganjaran selama berabad-abad. Oleh itu, Islam menggalakkan wawasan jangka panjang: bukan hanya memikirkan solat hari ini, tetapi juga kebaikan apa yang masih akan mengalir daripada anda selepas anda tiada.",
+      "Dari segi amalan: jika anda mampu, rancanglah Haji atau Umrah dengan bersungguh-sungguh dan jangan terus menangguhkannya. Curahkan usaha yang sebenar untuk iman dan akhlak keluarga anda, kerana merekalah warisan anda yang paling berkekalan. Dan kenal pastilah sekurang-kurangnya satu projek kebajikan yang berkekalan untuk disokong — ilmu, air, tempat tinggal atau anak yatim — supaya amal kebaikan anda berterusan selepas kematian.",
     ],
     actions: [
-      "Rencanakan haji atau umrah jika engkau mampu.",
-      "Investasikan pada iman dan akhlak keluargamu.",
-      "Dukunglah sebuah proyek amal yang bertahan lama.",
+      "Rancanglah Haji atau Umrah jika anda mampu.",
+      "Curahkan usaha untuk iman dan akhlak keluarga anda.",
+      "Sokonglah projek kebajikan yang berkekalan.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Panduan Haji & Umrah" }, { label: "Zakat & sedekah" }],
   },
   {
-    title: "Rahmat Allah — kata terakhir",
-    summary: "Amal adalah sarana; masuk Syurga adalah kerana rahmat-Nya.",
+    title: "Rahmat Allah — kata akhir",
+    summary: "Amalan ialah wasilah; kemasukan ke Syurga adalah dengan rahmat-Nya.",
     body: [
-      "Selepas segala amal, segala usaha, dan segala jalan, orang beriman tiba pada sebuah kebenaran yang merendahkan hati, yang menjadi kata terakhir dari perjalanan ini: tidak seorang pun masuk Syurga hanya kerana amalnya semata. Nabi ﷺ menyatakan hal ini tentang dirinya sendiri — makhluk yang paling dicintai Allah di antara seluruh ciptaan — dengan mengatakan bahawa bahkan baginda pun tidak akan masuk Syurga kerana amalnya sendiri, kecuali bahawa Allah menyelimutinya dengan rahmat-Nya. Jika demikian bagi baginda, tentu demikian pula bagi kita.",
-      "Ini tidak boleh disalahpahami sebagai izin untuk mengabaikan ibadat. Amal tetap merupakan sarana yang Allah pilih dan perintahkan; Dia telah mengaitkan rahmat-Nya dengan iman dan amal saleh, dan meninggal duniakannya bukanlah kerendahan hati melainkan kelalaian. Makna yang benar adalah soal proporsi: amal kita, sebanyak apa pun, tidak akan pernah boleh membalas bahkan sebahagian kecil dari nikmat Allah atas kita, apalagi membeli keabadian Syurga. Maka kita mempersembahkan amal kita sebagai tanda cinta dan ketaatan, lalu bersandar sepenuhnya pada karunia-Nya untuk menerimanya dan memasukkan kita ke dalam Syurga.",
-      "Luasnya rahmat itu sungguh menakjubkan. Nabi ﷺ bersabda bahawa Allah membagi rahmat menjadi seratus bahagian; Dia hanya menurunkan satu bahagian kepada seluruh makhluk-Nya — dan dengan satu bahagian itulah seorang ibu penuh kasih terhadap anaknya dan hewan-hewan bersikap lembut kepada anak-anak mereka — sementara sembilan puluh sembilan bahagian sisanya Dia simpan untuk diri-Nya sendiri guna dicurahkan kepada hamba-hamba-Nya pada Hari Kiamat. Rahmat apa pun yang pernah kita saksikan di dunia ini hanyalah sebahagian kecil dari satu bahagian dari seratus.",
-      "Inilah sebabnya orang beriman yang seimbang hidup di antara harapan dan rasa takut, seperti burung yang terbang dengan dua sayap. Ia cukup takut akan keadilan Allah sehingga tidak pernah lengah atau berani nekat berbuat dosa, dan ia cukup berharap pada rahmat Allah sehingga tidak pernah berputus asa, betapapun jauh ia tersesat. Condong sepenuhnya pada rasa takut menumbuhkan keputusasaan; condong sepenuhnya pada harapan menumbuhkan kesombongan. Nama-nama Allah — Ar-Rahman (Yang Maha Pengasih), Ar-Rahim (Yang Maha Penyayang), Al-Ghafur (Yang Maha Pengampun) — menjadi penopang sayap harapan.",
-      "Maka jadikanlah ini semangat yang menutup setiap harimu: mintalah Al-Firdaus kepada Allah, berusahalah sebaik-baiknya dengan tulus, bertobatlah atas kekuranganmu, lalu serahkan derajat akhirmu kepada Yang Mahaadil dan Maha Penyayang — dengan keyakinan bahawa Dia yang menyimpan sembilan puluh sembilan bahagian rahmat untuk hari itu tidak akan menolak hamba yang datang kepada-Nya dengan berusaha dan berharap.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan rahmat-Ku meliputi segala sesuatu. Maka akan Kutetapkan rahmat-Ku untuk orang-orang yang bertakwa, yang menunaikan zakat dan orang-orang yang beriman kepada ayat-ayat Kami.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak seorang pun di antara kamu yang masuk Syurga semata-mata kerana amalnya. Para sahabat bertanya: Tidak juga engkau, wahai Rasulullah? Baginda bersabda: Tidak juga aku, kecuali bahawa Allah menyelimutiku dengan rahmat-Nya.",
-      },
-      {
-        excerpt:
-          "Allah memiliki seratus bahagian rahmat. Dia menurunkan satu bahagian di antara jin, manusia, hewan, dan serangga, yang dengannya mereka saling mengasihi satu sama lain; dan Dia menyimpan sembilan puluh sembilan bahagian pada diri-Nya, yang dengannya Dia akan menunjukkan rahmat kepada hamba-hamba-Nya pada Hari Kiamat.",
-      },
+      "Selepas semua amalan, semua usaha dan semua jalan, orang beriman tiba pada satu kebenaran yang merendahkan diri, yang menjadi kata akhir bagi perjalanan ini: tiada seorang pun masuk Syurga kerana amalannya semata-mata. Nabi ﷺ menyatakannya tentang diri baginda sendiri — makhluk yang paling dicintai Allah — dengan bersabda bahawa baginda sendiri pun tidak akan masuk Syurga dengan amalannya, melainkan Allah melimpahkan rahmat-Nya kepada baginda. Jika demikian halnya bagi baginda, tentu lebih-lebih lagi bagi kita.",
+      "Ini tidak sekali-kali boleh disalah faham sebagai kebenaran untuk mengabaikan ibadah. Amalan tetap merupakan wasilah yang Allah pilih dan perintahkan; Dia telah mengaitkan rahmat-Nya dengan iman dan amal soleh, dan meninggalkannya bukan tanda rendah diri tetapi kelalaian. Maksud yang betul ialah soal perbandingan: amalan kita, walau sebanyak mana pun, tidak akan dapat membalas walau sebahagian kecil nikmat Allah ke atas kita, apatah lagi membeli Syurga yang kekal abadi. Maka kita mempersembahkan amalan kita sebagai tanda cinta dan ketaatan, kemudian bergantung sepenuhnya kepada kurnia-Nya untuk menerimanya dan memasukkan kita ke dalam Syurga.",
+      "Keluasan rahmat itu sungguh menakjubkan. Nabi ﷺ bersabda bahawa Allah membahagikan rahmat kepada seratus bahagian; Dia menurunkan hanya satu bahagian kepada seluruh makhluk — dan dengan satu bahagian itulah seorang ibu berlemah lembut terhadap anaknya dan haiwan berkasih sayang kepada anak-anaknya — manakala sembilan puluh sembilan bahagian yang lain Dia simpan di sisi-Nya untuk dilimpahkan kepada hamba-hamba-Nya pada Hari Kiamat. Apa jua rahmat yang pernah kita saksikan di dunia ini hanyalah sebahagian kecil daripada satu bahagian daripada seratus.",
+      "Kerana itulah orang beriman yang seimbang hidup di antara harapan dan takut, seperti burung yang terbang dengan dua sayap. Dia cukup takut akan keadilan Allah sehingga tidak pernah leka atau berani bermain dengan dosa, dan dia cukup berharap kepada rahmat Allah sehingga tidak pernah berputus asa, walau sejauh mana dia telah tersasar. Condong sepenuhnya kepada rasa takut melahirkan putus asa; condong sepenuhnya kepada harapan melahirkan keangkuhan. Nama-nama Allah — Ar-Rahman (Yang Maha Pemurah), Ar-Rahim (Yang Maha Penyayang), Al-Ghafur (Yang Maha Pengampun) — menjadi penambat sayap harapan.",
+      "Maka jadikanlah ini semangat yang menutup setiap hari anda: mohonlah Al-Firdaus daripada Allah, lakukan yang terbaik dengan jujur, bertaubatlah atas kekurangan anda, kemudian serahkan darjat akhir anda kepada Yang Maha Adil lagi Maha Penyayang — dengan penuh yakin bahawa Dia yang menyimpan sembilan puluh sembilan bahagian rahmat untuk Hari itu tidak akan menolak hamba yang datang kepada-Nya dengan berusaha dan berharap.",
     ],
     actions: [
-      "Seimbangkan rasa takut kepada Allah dengan harapan pada rahmat-Nya.",
-      "Jangan pernah berputus asa selepas berbuat dosa — bertobatlah dan teruslah berusaha.",
-      "Mintalah Al-Firdaus dan husnul khatimah (akhir yang baik) kepada Allah.",
+      "Seimbangkan rasa takut kepada Allah dengan harapan kepada rahmat-Nya.",
+      "Jangan sekali-kali berputus asa selepas berdosa — bertaubatlah dan teruskan berusaha.",
+      "Mohonlah Al-Firdaus dan pengakhiran yang baik (husnul khatimah) daripada Allah.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Doa memohon Syurga" }, { label: "Papan pemuka Perjalanan Saya" }],
   },
 ];
 
 export const JANNAH_GATES_MS: DeepPartial<JannahGate>[] = [
   {
-    name: "Pintu Salah",
-    deedSummary: "Bagi mereka yang menjaga dan menegakkan lima waktu salah.",
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang berinfak sepasang sesuatu di jalan Allah, ia akan dipanggil dari pintu-pintu Syurga. Siapa yang termasuk ahli salah akan dipanggil dari Pintu Salah.",
-      },
-    ],
+    name: "Pintu Solat",
+    deedSummary: "Bagi mereka yang menjaga dan mendirikan solat lima waktu.",
   },
   {
     name: "Pintu Sedekah",
-    deedSummary: "Bagi mereka yang bersedekah dengan tulus kerana Allah.",
-    hadith: [
-      {
-        excerpt: "Siapa yang termasuk ahli sedekah akan dipanggil dari Pintu Sedekah.",
-      },
-    ],
+    deedSummary: "Bagi mereka yang bersedekah dengan ikhlas kerana Allah.",
   },
   {
     name: "Pintu Ar-Rayyan",
-    deedSummary:
-      "Dikhususkan bagi orang-orang yang berpuasa — pintu yang hanya mereka yang masuk melaluinya.",
-    hadith: [
-      {
-        excerpt:
-          "Di Syurga ada sebuah pintu bernama Ar-Rayyan, yang hanya dimasuki oleh orang-orang yang berpuasa pada Hari Kiamat. Apabila yang terakhir dari mereka telah masuk, pintu itu akan ditutup.",
-      },
-    ],
+    deedSummary: "Dikhaskan bagi orang yang berpuasa — pintu yang hanya mereka sahaja memasukinya.",
   },
   {
     name: "Pintu Jihad",
-    deedSummary: "Bagi mereka yang berjihad di jalan Allah dengan tulus.",
-    hadith: [
-      {
-        excerpt: "Siapa yang termasuk ahli jihad akan dipanggil dari Pintu Jihad.",
-      },
-    ],
+    deedSummary: "Bagi mereka yang berjuang di jalan Allah dengan ikhlas.",
   },
   {
-    name: "Pahala Haji",
-    deedSummary: "Bagi mereka yang berhaji dengan murni dan kembali bersih dari dosa.",
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang berhaji kerana Allah dan tidak berbuat keji atau maksiat, akan kembali bersih dari dosa, seperti hari ketika ibunya melahirkannya.",
-      },
-    ],
+    name: "Ganjaran Haji",
+    deedSummary:
+      "Bagi mereka yang menunaikan Haji dengan ikhlas, lalu kembali bersih daripada dosa.",
   },
   {
     name: "Dipanggil dari setiap pintu",
-    deedSummary:
-      "Sebahagian orang, seperti Abu Bakar, akan dipanggil untuk masuk dari semua pintu.",
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakar bertanya: Apakah ada yang akan dipanggil dari semua pintu ini? Baginda bersabda: Ya, dan aku berharap engkau termasuk salah satu di antara mereka.",
-      },
-    ],
+    deedSummary: "Sebahagian orang, seperti Abu Bakar, akan dipanggil masuk dari semua pintu.",
   },
 ];
 
 export const JANNAH_VERSES_MS: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Berlomba-lombalah kamu kepada ampunan dari Tuhanmu dan syurga yang luasnya seluas langit dan bumi, yang disediakan bagi orang-orang yang bertakwa.",
-  },
-  {
-    excerpt:
-      "Syurga yang di bawahnya mengalir sungai-sungai, dan tempat-tempat tinggal yang bagus di syurga 'Adn. Dan keridaan Allah adalah lebih besar.",
-  },
-  {
-    excerpt:
-      "Bagi orang-orang yang beriman dan beramal saleh adalah syurga Firdaus menjadi tempat tinggal.",
-  },
-  {
-    excerpt:
-      "Seorang pun tidak mengetahui berbagai nikmat yang menyenangkan hati yang disembunyikan (untuk mereka) sebagai balasan atas apa yang telah mereka kerjakan.",
-  },
-  {
-    excerpt:
-      "Mereka memperoleh di dalamnya apa yang mereka kehendaki, dan pada sisi Kami ada tambahannya.",
-  },
-  {
-    excerpt:
-      "Dan masing-masing orang memperoleh derajat-derajat (seimbang) dengan apa yang dikerjakannya.",
-  },
-  {
-    excerpt:
-      "Mereka memperoleh derajat-derajat di sisi Allah, dan Allah Maha Melihat apa yang mereka kerjakan.",
-  },
-  {
-    excerpt:
-      "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari siksa neraka.",
-  },
-  {
-    excerpt:
-      "Janganlah kamu berputus asa dari rahmat Allah — sesungguhnya Allah mengampuni dosa-dosa semuanya.",
-  },
-  {
-    excerpt:
-      "Wahai hamba-hamba-Ku, tidak ada rasa takut atasmu pada hari ini, dan tidak pula kamu bersedih hati.",
-  },
-  {
-    excerpt:
-      "Dan orang-orang yang paling dulu (beriman), merekalah yang paling dulu (masuk Syurga). Mereka itulah orang-orang yang didekatkan (kepada Allah).",
-  },
-  {
-    excerpt:
-      "Maka Allah memelihara mereka dari kesusahan hari itu, dan memberikan kepada mereka kejernihan (wajah) dan kegembiraan hati.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_MS: DeepPartial<JannahDuaEntry>[] = [
   {
-    context: "Doa yang komprehensif untuk kebaikan di kedua alam dan perlindungan dari api neraka.",
+    context:
+      "Doa yang menyeluruh untuk kebaikan di dunia dan akhirat serta perlindungan daripada api neraka.",
   },
   {
-    context: "Doa singkat selepas tasyahud: memohon Syurga dan berlindung dari api neraka.",
+    context: "Doa ringkas selepas tasyahhud: memohon Syurga dan berlindung daripada api neraka.",
   },
   {
-    context: "Selepas tasyahud, mohonlah Syurga dengan wasilah nama-nama indah Allah.",
+    context: "Mohonlah Syurga dengan menyebut nama-nama Allah yang indah selepas tasyahhud.",
   },
   {
-    context: "Mohonlah manisnya memandang Allah dan kerinduan untuk bertemu dengan-Nya.",
+    context: "Mohonlah kemanisan memandang Allah dan kerinduan untuk bertemu dengan-Nya.",
   },
 ];
 
 export const JANNAH_PROMISED_MS: DeepPartial<JannahPromisedEntry>[] = [
   {
-    name: "Sepuluh yang Dijanjikan Syurga",
+    name: "Sepuluh Sahabat yang Dijanjikan Syurga",
     summary:
-      "Abu Bakar, Umar, Utsman, Ali, Thalhah, Zubair, Abdurrahman bin Auf, Sa'ad, Sa'id bin Zaid, dan Abu Ubaidah (semoga Allah meridai mereka).",
-    note: "Disebutkan bersama dalam sebuah hadis di Sunan at-Tirmidzi (3747, sahih).",
+      "Abu Bakar, Umar, Uthman, Ali, Talhah, Zubair, Abdul Rahman bin Auf, Saad, Said bin Zaid dan Abu Ubaidah (semoga Allah meredai mereka).",
+    note: "Disebut bersama dalam sebuah hadis dalam Sunan at-Tirmizi (3747, sahih).",
   },
   {
-    name: "Orang-orang yang jujur dan sabar",
-    summary: "Allah memuji mereka yang jujur dalam iman dan sabar dalam ketaatan serta ujian.",
-    note: "Lihat Quran 4:69 dan banyak ayat tentang as-sadiqin dan as-sabirin.",
+    name: "Orang yang benar dan sabar",
+    summary: "Allah memuji mereka yang benar dalam iman serta sabar dalam ketaatan dan ujian.",
+    note: "Lihat Al-Quran 4:69 dan banyak ayat tentang as-sadiqin dan as-sabirin.",
   },
   {
     name: "Syuhada di jalan Allah",
-    summary: "Mereka yang gugur membela Islam sesuai syariat Islam diberi kabar gembira Syurga.",
-    note: "Para ulama mendefinisikan syahadah secara cermat; tidak setiap kematian dalam pertempuran secara otomatis memenuhi kriteria ini.",
+    summary:
+      "Mereka yang gugur mempertahankan Islam menurut syariat Islam diberi khabar gembira dengan Syurga.",
+    note: "Ulama mentakrifkan syahid dengan teliti; bukan setiap kematian dalam peperangan layak dengan sendirinya.",
   },
   {
-    name: "Mereka yang kata terakhirnya adalah tauhid",
-    summary:
-      "Barang siapa yang kata-kata terakhirnya adalah 'Tiada tuhan selain Allah' akan masuk Syurga.",
-    note: "Sunan Abu Dawud 3116 (sahih). Akhir yang baik adalah pencarian seumur hidup.",
+    name: "Mereka yang kata-kata terakhirnya ialah tauhid",
+    summary: "Sesiapa yang kata-kata terakhirnya ialah 'La ilaha illallah' akan masuk Syurga.",
+    note: "Sunan Abu Dawud 3116 (sahih). Pengakhiran yang baik ialah usaha sepanjang hayat.",
   },
   {
     name: "Para nabi",
-    summary: "Setiap nabi berada di tingkatan tertinggi Syurga atas ketetapan Allah.",
-    note: "Kedudukan mereka tidak dicapai melalui amal biasa — mereka dipilih dan dijaga.",
+    summary: "Setiap nabi berada di darjat tertinggi Syurga dengan ketetapan Allah.",
+    note: "Kedudukan mereka tidak dicapai dengan amalan biasa — mereka dipilih dan dipelihara.",
   },
 ];
 
@@ -879,7 +471,4 @@ export const JANNAH_FIRDAWS_DUA_MS: DeepPartial<{
   transliteration: string;
   translation: string;
   reference: string;
-}> = {
-  translation:
-    "Ya Allah, aku memohon kepada-Mu Al-Firdaus yang tertinggi — bahagian Syurga yang paling tinggi.",
-};
+}> = {};

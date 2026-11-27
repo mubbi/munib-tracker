@@ -60,12 +60,35 @@ function resolveTvosProfileName() {
   return process.env.TVOS_PROVISIONING_PROFILE?.trim() || DEFAULT_TVOS_PROFILE;
 }
 
+/** Top Shelf extension profile (EXPO_TVOS_TOP_SHELF=1 builds). Override with TVOS_TOP_SHELF_PROVISIONING_PROFILE. */
+const DEFAULT_TVOS_TOP_SHELF_PROFILE = "Munib Tracker tvOS Top Shelf App Store";
+const TOP_SHELF_BUNDLE_ID = "app.munibtracker.topshelf";
+
+function resolveTopShelfProfileName() {
+  return process.env.TVOS_TOP_SHELF_PROVISIONING_PROFILE?.trim() || DEFAULT_TVOS_TOP_SHELF_PROFILE;
+}
+
+/** True when the prebuild added the Top Shelf extension (plugins/withTvTopShelf.cjs). */
+function hasTopShelfExtension() {
+  const project = fs.existsSync(iosDir)
+    ? fs.readdirSync(iosDir).find((name) => name.endsWith(".xcodeproj"))
+    : null;
+  if (!project) return false;
+  const pbx = path.join(iosDir, project, "project.pbxproj");
+  return fs.existsSync(pbx) && fs.readFileSync(pbx, "utf8").includes("MunibTopShelf");
+}
+
 /**
  * Manual signing — automatic fails without a registered Apple TV development device.
  * Expects a TVOS_APP_STORE profile installed locally (see docs/TV.md).
  */
-function ensureTvosExportOptionsPlist(teamId, profileName) {
+function ensureTvosExportOptionsPlist(teamId, profileName, topShelfProfileName) {
   fs.mkdirSync(keysDir, { recursive: true });
+  const topShelfEntry = topShelfProfileName
+    ? `
+    <key>${TOP_SHELF_BUNDLE_ID}</key>
+    <string>${topShelfProfileName}</string>`
+    : "";
   const plist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -81,7 +104,7 @@ function ensureTvosExportOptionsPlist(teamId, profileName) {
   <key>provisioningProfiles</key>
   <dict>
     <key>app.munibtracker</key>
-    <string>${profileName}</string>
+    <string>${profileName}</string>${topShelfEntry}
   </dict>
 </dict>
 </plist>
@@ -101,12 +124,13 @@ function ensureTeamConfigured() {
   }
   syncDevelopmentTeam(teamId);
   const profileName = resolveTvosProfileName();
-  ensureTvosExportOptionsPlist(teamId, profileName);
+  const topShelfProfileName = hasTopShelfExtension() ? resolveTopShelfProfileName() : null;
+  ensureTvosExportOptionsPlist(teamId, profileName, topShelfProfileName);
   if (!fs.existsSync(exportOptionsTvosPath)) {
     console.error(`Missing ${exportOptionsTvosPath}`);
     process.exit(1);
   }
-  return { teamId, profileName };
+  return { teamId, profileName, topShelfProfileName };
 }
 
 function resolveExportIpaPath() {
@@ -151,18 +175,29 @@ function main() {
     process.exit(1);
   }
   logIosKeysSummary(appRoot);
-  const { profileName } = ensureTeamConfigured();
+  const { profileName, topShelfProfileName } = ensureTeamConfigured();
   cleanXcodeArchiveCaches();
   ensureIosReactCodegen();
 
   const env = buildNativeReleaseProcessEnv();
   env.EXPO_TV = "1";
   const ascAuthArgs = buildXcodeAscAuthArgs(appRoot);
+  // With the Top Shelf extension each target reads its own profile variable
+  // (set per target by withTvTopShelf.cjs); a global PROVISIONING_PROFILE_SPECIFIER
+  // would also be applied to the extension's bundle ID and fail signing.
   const manualSignArgs = [
     "CODE_SIGN_STYLE=Manual",
     "CODE_SIGN_IDENTITY=Apple Distribution",
-    `PROVISIONING_PROFILE_SPECIFIER=${profileName}`,
+    ...(topShelfProfileName
+      ? [
+          `MUNIB_TVOS_APP_PROFILE=${profileName}`,
+          `MUNIB_TVOS_TOP_SHELF_PROFILE=${topShelfProfileName}`,
+        ]
+      : [`PROVISIONING_PROFILE_SPECIFIER=${profileName}`]),
   ];
+  if (topShelfProfileName) {
+    console.log(`Top Shelf extension: profile "${topShelfProfileName}" (${TOP_SHELF_BUNDLE_ID})`);
+  }
 
   fs.mkdirSync(buildDir, { recursive: true });
 

@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 
 import {
@@ -58,5 +61,39 @@ describe("getIntentsForPlatform", () => {
       expect(androidHrefs).toContain(href);
       expect(iosHrefs).toContain(href);
     }
+  });
+});
+
+describe("native mirrors", () => {
+  const appRoot = join(__dirname, "../../../..");
+
+  it("exposes every shared screen in the Android App Actions inventory", () => {
+    const plugin = readFileSync(join(appRoot, "plugins/withExternalCommands.cjs"), "utf8");
+    for (const intent of getIntentsForPlatform("android")) {
+      if (intent.type !== "navigation" || !intent.href || intent.href === "/search") continue;
+      expect(plugin).toContain(`url="munib-tracker://${intent.href.slice(1)}"`);
+    }
+    expect(plugin).toContain("actions.intent.GET_THING");
+  });
+
+  it("gives every shared screen a Siri MunibFeature case with the same route", () => {
+    const swift = readFileSync(
+      join(appRoot, "targets/munib-tracker-widgets/_shared/MunibFeatureIntents.swift"),
+      "utf8",
+    );
+    for (const intent of getIntentsForPlatform("ios")) {
+      if (intent.type !== "navigation" || !intent.href) continue;
+      expect(swift).toContain(`return "${intent.href}"`);
+    }
+  });
+
+  it("stays within Apple's 10 App Shortcuts limit", () => {
+    const swift = readFileSync(
+      join(appRoot, "targets/munib-tracker-intents/_shared/MunibAppIntents.swift"),
+      "utf8",
+    );
+    const count = (swift.match(/^\s+AppShortcut\(/gm) ?? []).length;
+    expect(count).toBeGreaterThan(0);
+    expect(count).toBeLessThanOrEqual(10);
   });
 });

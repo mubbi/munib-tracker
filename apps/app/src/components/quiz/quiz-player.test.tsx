@@ -15,7 +15,6 @@ jest.mock(
   () => require("@/test-support/mocks/use-window-dimensions").useWindowDimensionsMock,
 );
 // Imported transitively (learn layout → reading typography → audio provider); never played.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 
 /** Scored multiple-choice question; options are `"<id> A" | "<id> B" | "<id> C"`. */
 function buildQuestion(overrides: Partial<QuizPlayerQuestion> = {}): QuizPlayerQuestion {

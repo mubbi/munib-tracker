@@ -7,6 +7,7 @@ import {
 import type { QuranEdition } from "@munib-tracker/shared/types";
 
 import { QuranCacheRepository } from "@/db";
+import { shouldCacheQuranEditions } from "@/lib/cache-prefs";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 
@@ -58,7 +59,8 @@ function versesFromPayload(data: FawazSurahPayload): FawazVerse[] {
 /**
  * Cache-first fetch of a remote edition for one surah. Returns ayah-number →
  * text. Reads AsyncStorage first; on a miss, fetches, then writes back so the
- * translation is available offline afterward.
+ * translation is available offline afterward (unless the user turned off
+ * "Save Qur'an translations locally" — then it is kept for the session only).
  */
 export async function fetchRemoteEditionSurah(
   editionId: string,
@@ -126,6 +128,8 @@ export async function fetchRemoteEditionSurah(
     throw error;
   }
 
-  await QuranCacheRepository.set(editionId, surah, out);
+  // Persist only when the user allows saving Qur'an editions locally;
+  // otherwise it stays in the session cache and refetches next launch.
+  await QuranCacheRepository.set(editionId, surah, out, shouldCacheQuranEditions());
   return out;
 }

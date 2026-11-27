@@ -29,5 +29,7 @@ export const ContentReportReferenceDtoKind = {
   hajj: 'hajj',
   travel: 'travel',
   excused: 'excused',
+  jahannam: 'jahannam',
+  last_day: 'last_day',
   screen: 'screen',
 } as const;

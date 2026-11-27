@@ -1,8 +1,11 @@
 # Quran Lab TajweedFormer bridge (Phase 6 pronunciation drills).
 #
-# The Apple SDK is a Swift package (`Quran-Lab/tajweedformer-apple`, from 3.1.4,
+# The Apple SDK is a Swift package (`Quran-Lab/tajweedformer-apple`, from 4.0.3,
 # product `TajweedFormer`), iOS 15+ on Apple silicon (arm64 devices / arm64
-# simulator only — no x86_64 simulator). CocoaPods cannot depend on a Swift
+# simulator only — no x86_64 simulator), Xcode 16. SDK 4 brings the closed
+# `QuranLabCore.xcframework` with it: never post-process it (a changed Core gets
+# no lease). App Attest (entitlement added in app.config.js) makes installs
+# hardware-verified; the Simulator needs a development key. CocoaPods cannot depend on a Swift
 # package directly, so this uses React Native's `spm_dependency` podspec helper
 # (react-native ≥ 0.75; this app runs react-native-tvos 0.88).
 #
@@ -26,7 +29,7 @@ Pod::Spec.new do |s|
   if defined?(spm_dependency)
     spm_dependency(s,
       url: 'https://github.com/Quran-Lab/tajweedformer-apple',
-      requirement: { kind: 'upToNextMinorVersion', minimumVersion: '3.1.4' },
+      requirement: { kind: 'upToNextMinorVersion', minimumVersion: '4.0.3' },
       products: ['TajweedFormer']
     )
   else

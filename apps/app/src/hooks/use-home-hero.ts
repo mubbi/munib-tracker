@@ -4,14 +4,14 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { PrayerTime } from "@/components/prayer-times-hero";
+import { useMadhhab } from "@/hooks/use-madhhab";
 import { useNow } from "@/hooks/use-now";
 import { type DualCalendarDates, formatDualCalendarDate } from "@/lib/calendar-format";
 import { toAppLocale } from "@/lib/locale-bcp47";
-import { locationCalcExtras } from "@/lib/location";
+import { computeLocationPrayerTimes, locationCalcExtras } from "@/lib/location";
 import { moonPhase } from "@/lib/moon";
 import {
   buildDailySchedule,
-  computePrayerTimes,
   duhaWindow,
   formatDuration,
   formatPrayerTime,
@@ -24,6 +24,7 @@ import {
   tahajjudTime,
   witrTime,
 } from "@/lib/prayer-times";
+import { preferredWindows } from "@/lib/salah-phase/preferred-window";
 import { type ScheduleEntryStatus, scheduleEntryStatus } from "@/lib/schedule-ui";
 import {
   type CelestialPosition,
@@ -77,6 +78,11 @@ export interface ScheduleItem {
   status: ScheduleEntryStatus;
   /** Epoch ms for timed entries; null for flexible markers. */
   atMs: number | null;
+  /**
+   * Pre-localized preferred-time hint for Fajr / Asr / Isha (NF-3.0a), e.g.
+   * "Preferred (Hanafi): 5:45 – 6:15", or a neutral note in all-views mode.
+   */
+  preferred?: string;
 }
 
 /**
@@ -145,30 +151,50 @@ export function useHomeHero(): HomeHeroData {
   // biome-ignore lint/correctness/useExhaustiveDependencies: dayKey is the calendar-day proxy for `now`; recompute only when the day (or location) changes, not every tick.
   const day = useMemo(() => {
     const coords = { latitude: location.latitude, longitude: location.longitude };
-    const extras = locationCalcExtras(location);
     const anchor = prayerDayAnchor(now, location.timeZone);
-    const today = computePrayerTimes(coords, anchor, location.method, location.madhab, extras);
-    const tomorrowTimes = computePrayerTimes(
-      coords,
-      shiftPrayerDay(anchor, 1),
-      location.method,
-      location.madhab,
-      extras,
-    );
-    const yesterdayTimes = computePrayerTimes(
-      coords,
-      shiftPrayerDay(anchor, -1),
-      location.method,
-      location.madhab,
-      extras,
-    );
+    const today = computeLocationPrayerTimes(location, anchor);
+    const tomorrowTimes = computeLocationPrayerTimes(location, shiftPrayerDay(anchor, 1));
+    const yesterdayTimes = computeLocationPrayerTimes(location, shiftPrayerDay(anchor, -1));
     const slots = prayerSlots(today);
     const boundaries = scheduleBoundaries(today, tomorrowTimes, yesterdayTimes, now);
     // Sky-phase markers are day-stable; build them once so the per-tick palette
     // lookup below is a cheap `skyPhaseForTime(now, markers)` call.
     const markers = Object.fromEntries(slots.map((s) => [s.id, s.date])) as unknown as SkyMarkers;
-    return { coords, today, slots, boundaries, markers };
+    return { coords, today, tomorrow: tomorrowTimes, slots, boundaries, markers };
   }, [location, dayKey]);
+
+  // Preferred-time sub-bands (Fajr isfar/taghlis, Asr, Isha) — day-stable, and
+  // re-derived when the user's madhhab (salah domain) changes.
+  const madhhab = useMadhhab();
+  const preferredLabels = useMemo(() => {
+    const tz = location.timeZone;
+    const salahSchool = madhhab.schoolFor("salah");
+    const salahRules = madhhab.rules("salah");
+    const windows = preferredWindows(
+      {
+        fajr: day.today.fajr,
+        sunrise: day.today.sunrise,
+        asr: day.today.asr,
+        maghrib: day.today.maghrib,
+        isha: day.today.isha,
+        nextFajr: day.tomorrow.fajr,
+      },
+      salahRules,
+    );
+    const labels: Record<string, string> = {};
+    for (const [prayer, window] of Object.entries(windows)) {
+      if (!window) continue;
+      labels[prayer] =
+        window.kind === "allViews" || salahSchool == null
+          ? t("prayerWindow.preferred.allViews")
+          : t("prayerWindow.preferred.band", {
+              school: t(`fiqh.school.${salahSchool}`),
+              start: formatPrayerTime(window.start, timeFormat, tz),
+              end: formatPrayerTime(window.end, timeFormat, tz),
+            });
+    }
+    return labels;
+  }, [day, madhhab, location.timeZone, timeFormat, t]);
 
   // Prayer-row display times are day-stable (the formatted marker strings don't
   // change within a day), so they are keyed on the day + formatting inputs only.
@@ -221,6 +247,7 @@ export function useHomeHero(): HomeHeroData {
       active: entry.active,
       status: scheduleEntryStatus(entry.kind, entry.active, entry.at, now),
       atMs: entry.at?.getTime() ?? null,
+      ...(preferredLabels[entry.id] ? { preferred: preferredLabels[entry.id] } : null),
     }));
 
     return {
@@ -229,7 +256,16 @@ export function useHomeHero(): HomeHeroData {
       nextScheduleId: nextEntry?.id ?? null,
       nextEntryAt: nextEntry?.at ?? null,
     };
-  }, [day, crossingKey, location.method, location.madhab, location.timeZone, timeFormat, t]);
+  }, [
+    day,
+    crossingKey,
+    location.method,
+    location.madhab,
+    location.timeZone,
+    timeFormat,
+    t,
+    preferredLabels,
+  ]);
 
   // Minute-scoped layer: the clock, countdown, live progress, and sky/moon. These
   // are cheap scalars derived from the memoized selection + day objects each tick.
@@ -243,7 +279,7 @@ export function useHomeHero(): HomeHeroData {
     const scheduleMinutesUntil = nextEntryAt
       ? Math.max(0, Math.round((nextEntryAt.getTime() - now.getTime()) / 60000))
       : minutesUntil;
-    const nextIn = t("hero.nextIn", { time: formatDuration(scheduleMinutesUntil) });
+    const nextIn = t("hero.nextIn", { time: formatDuration(scheduleMinutesUntil, t) });
 
     const sky = skyPalette(skyPhaseForTime(now, day.markers));
     const moon = moonPhase(now);

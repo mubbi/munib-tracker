@@ -2,149 +2,89 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // so overlay for ruqyah. Index-aligned with RUQYAH_TOPICS in ../ruqyah.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const RUQYAH_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is ruqyah?",
-    summary: "Reciting Qur'an, Allah's Names, or prophetic du'a for healing.",
+    title: "Waa maxay ruqyadu?",
+    summary: "Akhrinta Qur'aanka, Magacyada Alle, ama ducada Nabiga si loo raadiyo caafimaad.",
     body: [
-      "Ruqyah is the practice of reciting Qur'an, the Names and Attributes of Allah, or authentic prophetic supplications over oneself or another person — often with a light blow of breath — seeking healing or protection from Allah alone. It predates Islam as a general Arab custom of incantation, and the Prophet ﷺ was asked directly whether it was permissible.",
-      "'Awf ibn Malik reported that the companions said: 'We used to practise ruqyah in the pre-Islamic days; what is your view on it?' The Prophet ﷺ replied: 'Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200). This single hadith is the foundation for everything else in this guide: ruqyah itself is permissible; what matters is its content.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "We used to practise ruqyah in the pre-Islamic days, and we said: O Messenger of Allah, what is your view on that? He said: Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk.",
-      },
+      "Ruqyadu waa dhaqanka akhrinta Qur'aanka, Magacyada iyo Sifaadka Alle, ama ducooyinka saxda ah ee Nabiga, oo lagu akhriyo qofka laftiisa ama qof kale — inta badan iyadoo la tufayo neef fudud — iyadoo caafimaad ama ilaalin laga raadinayo Alle keligii. Waxay jirtay ka hor Islaamka iyadoo ahayd caado guud oo Carbeed oo xirsi ah, Nabigana ﷺ si toos ah ayaa loo weydiiyay inay bannaan tahay iyo in kale.",
+      "Cawf ibn Maalik wuxuu weriyay in saxaabadu yiraahdeen: 'We used to practise ruqyah in the pre-Islamic days; what is your view on it?' (macnaha Ingiriisiga) Nabigu ﷺ wuxuu ku jawaabay: 'Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk' (macnaha Ingiriisiga) (Saxiix Muslim 2200). Xadiiskan keliya ayaa aasaas u ah wax kasta oo kale oo hagahan ku jira: ruqyada laftigeedu way bannaan tahay; waxa muhiimka ahi waa waxa ay ka kooban tahay.",
     ],
   },
   {
-    title: "Halal vs. haram ruqyah",
-    summary: "Qur'an, Allah's Names, and clear du'a — never shirk or the unseen.",
+    title: "Ruqyada xalaasha ah iyo tan xaaraanta ah",
+    summary: "Qur'aan, Magacyada Alle iyo duco cad — weligeed shirki ama sheegashada waxa qarsoon.",
     body: [
-      "Lawful ruqyah rests on the conditions scholars have drawn from the hadith: it uses the Qur'an, Allah's Names and Attributes, or an authentic prophetic supplication; it is in a language whose meaning is understood (not unknown syllables or symbols); and the person reciting and the person being treated both believe the ruqyah itself has no power — healing is from Allah alone, and the words are only a means He has permitted.",
-      "The Prophet ﷺ modelled this personally: Aisha reported that whenever he fell ill, he would recite the Mu'awwidhat (the last two surahs) over himself and blow his breath, and when his final illness worsened, she would do the same for him, wiping his body with his own hand hoping for its blessing (Bukhari 5016). This is ruqyah in its clearest, most authentic form.",
-      "Ruqyah becomes unlawful when it crosses into shirk: calling on anyone besides Allah, seeking help from jinn, using unknown words or symbols whose meaning is unclear, hanging amulets or charms, or claiming the ruqyah practitioner has knowledge of the unseen or a guaranteed cure. It is also never a substitute for the five daily prayers or for seeking appropriate medical treatment — it complements both rather than replacing either.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever Allah's Messenger ﷺ became sick, he would recite the Mu'awwidhat and then blow his breath over his body. When he became seriously ill, I used to recite them and wipe his body with his hand, hoping for its blessing.",
-      },
+      "Ruqyada sharciga ahi waxay ku dhisan tahay shuruudaha ay culimadu ka soo saareen xadiiska: waxay adeegsataa Qur'aanka, Magacyada iyo Sifaadka Alle, ama duco saxiix ah oo Nabiga ka timid; waxay ku jirtaa luqad macnaheeda la fahmo (ma aha dhawaaqyo aan la garanayn ama calaamado); qofka akhrinaya iyo qofka loo akhrinayaba waxay rumeysan yihiin in ruqyada laftigeedu aanay awood lahayn — caafimaadku waa Alle keligii xaggiisa, ereyaduna waa uun sabab uu oggolaaday.",
+      "Nabigu ﷺ shakhsi ahaan ayuu tan u muujiyay: Caa'isha waxay weriyay in mar kasta oo uu jiran yahay, uu naftiisa ku akhrin jiray Mucawwidhaadka (labada suuradood ee ugu dambeeya) oo uu tufi jiray, markii jirradiisii ugu dambaysay culaatayna, ay iyadu sidaas oo kale u samayn jirtay, iyadoo jidhkiisa ku masaxaysa gacantiisa laftigeeda iyadoo rajaynaysa barakadeeda (Bukhaari 5016). Tani waa ruqyada qaabkeeda ugu cad uguna saxsan.",
+      "Ruqyadu waxay noqotaa mid aan bannaanayn markay gasho shirki: in la baryo cid aan Alle ahayn, in gargaar laga raadiyo jinniga, in la adeegsado ereyo ama calaamado aan la garanayn oo macnahoodu aanu caddayn, in la sudho xirsi ama tiimaamo, ama in la sheego in qofka ruqyada sameeyaa leeyahay aqoonta waxa qarsoon ama daawo dammaanad ah. Sidoo kale weligeed ma aha beddelka shanta salaadood ee maalinlaha ah ama raadinta daawayn caafimaad oo ku habboon — labadaba way kaabtaa, midkoodna ma beddesho.",
     ],
     disclaimer:
-      "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor for physical or mental illness, nor does it replace the five daily prayers.",
+      "Ruqyadu waa dhaqan ruuxi ah, ma aha daawayn caafimaad. Ma beddesho u tagista dhakhtar u qalma xanuun jireed ama maskaxeed, mana beddesho shanta salaadood ee maalinlaha ah.",
   },
   {
-    title: "Surat al-Fatiha as ruqyah",
-    summary: "The opening surah — explicitly confirmed as valid ruqyah.",
+    title: "Suuratul Faatixa oo ruqyo ah",
+    summary: "Suuradda furitaanka — oo si cad loo xaqiijiyay inay tahay ruqyo sax ah.",
     body: [
-      "Abu Sa'id al-Khudri narrated that when a tribal chief was bitten by a snake, one of the Prophet's ﷺ companions recited Surat al-Fatiha over him and he was cured. When the companions later asked the Prophet ﷺ whether this was permissible, he smiled and said: 'How do you know it is a ruqyah?' — confirming that al-Fatiha, recited with sincere belief and understanding, is itself valid ruqyah (Bukhari 5736).",
-      "This app's Qur'an reader carries the full text and translation of al-Fatiha; this guide only points to it as a source of ruqyah rather than reproducing it here.",
+      "Abuu Saciid al-Khudri wuxuu weriyay in markii madax qabiil abeesadu qaniintay, mid ka mid ah saxaabada Nabiga ﷺ uu ku akhriyay Suuratul Faatixa oo uu bogsaday. Markii saxaabadu kadib Nabiga ﷺ weydiiyeen in taasi bannaan tahay, wuu dhoolla-caddeeyay oo yiri: 'How do you know it is a ruqyah?' (macnaha Ingiriisiga) — isagoo xaqiijinaya in al-Faatixa, marka lagu akhriyo rumayn daacad ah iyo fahan, ay laftigeedu tahay ruqyo sax ah (Bukhaari 5736).",
+      "Akhriyaha Qur'aanka ee app-kan ayaa sida qoraalka buuxa iyo tarjumadda al-Faatixa; hagahani wuxuu uun u tilmaamayaa inay tahay il ruqyo, isagoon halkan ku soo celinayn.",
     ],
-    quran: [
-      {
-        excerpt: "In the name of Allah, the Most Gracious, the Most Merciful...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "One of them started reciting Surat al-Fatiha... the patient was cured. When they asked the Prophet ﷺ, he smiled and said: How do you know that al-Fatiha is a ruqyah?",
-      },
-    ],
+    appLinks: [{ label: "Akhri al-Faatixa" }],
   },
   {
-    title: "Ayat al-Kursi (2:255)",
-    summary: "The Throne Verse — recited at night for Allah's protection.",
+    title: "Aayatul Kursi (2:255)",
+    summary: "Aayadda Kursiga — oo habeenkii la akhriyo si loo helo ilaalinta Alle.",
     body: [
-      "Ayat al-Kursi (Qur'an 2:255) describes Allah's absolute sovereignty and is widely recited for protection, especially before sleep. Abu Huraira narrated that a nightly visitor stealing from the Zakat he was guarding told him: 'Whenever you go to bed, recite Ayat al-Kursi — a guardian from Allah will stay with you, and no shaytan will approach you until morning.' When the Prophet ﷺ heard this, he confirmed: 'He told you the truth, though he is a liar — that was a shaytan' (Bukhari 5010).",
-      "As with other verses in this guide, only a short excerpt is given here; read the full verse and its translation in the app's Qur'an reader.",
+      "Aayatul Kursi (Qur'aanka 2:255) waxay sharraxdaa madaxbannaanida buuxda ee Alle, waxaana si ballaaran loogu akhriyaa ilaalin ahaan, gaar ahaan hurdada ka hor. Abuu Hurayra wuxuu weriyay in booqde habeenkii ka xadayay sakadii uu ilaalinayay uu ku yiri: 'Whenever you go to bed, recite Ayat al-Kursi — a guardian from Allah will stay with you, and no shaytan will approach you until morning.' (macnaha Ingiriisiga) Markii Nabigu ﷺ taas maqlay, wuxuu xaqiijiyay: 'He told you the truth, though he is a liar — that was a shaytan' (macnaha Ingiriisiga) (Bukhaari 5010).",
+      "Sida aayadaha kale ee hagahan, halkan waxaa lagu bixiyay oo keliya qayb gaaban; aayadda oo dhan iyo tarjumaddeeda ka akhri akhriyaha Qur'aanka ee app-ka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah — there is no deity except Him, the Ever-Living, the Sustainer of existence.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever you go to your bed, recite Ayat al-Kursi — a guard from Allah will protect you all night, and no shaytan will come near you until morning.",
-      },
-    ],
+    appLinks: [{ label: "Akhri Aayatul Kursi" }],
   },
   {
-    title: "Al-Ikhlas, Al-Falaq & An-Nas (112–114)",
-    summary: "The three closing surahs — the Prophet's ﷺ nightly ruqyah.",
+    title: "Al-Ikhlaas, Al-Falaq iyo An-Naas (112–114)",
+    summary: "Saddexda suuradood ee ugu dambeeya — ruqyadii habeen walba ee Nabiga ﷺ.",
     body: [
-      "Aisha described the Prophet's ﷺ nightly routine: every night before sleeping he would cup his hands together, recite Surat al-Ikhlas, Surat al-Falaq, and Surat an-Nas, blow into his hands, and wipe them over his body — starting with his head and face — repeating this three times (Bukhari 5017). These same three surahs (Al-Ikhlas affirming Allah's oneness, and the two Mu'awwidhat seeking refuge from evil) are also what he recited over himself during illness (Bukhari 5016).",
-      "Together they form one of the simplest and most authentic daily ruqyah routines available — short enough to memorise, and directly attested in the Sunnah.",
-    ],
-    quran: [
-      {
-        excerpt: "Say: He is Allah, [who is] One.",
-      },
-      {
-        excerpt: "Say: I seek refuge in the Lord of daybreak.",
-      },
-      {
-        excerpt: "Say: I seek refuge in the Lord of mankind.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever the Prophet ﷺ went to bed, he used to cup his hands together and blow over them after reciting Surat al-Ikhlas, al-Falaq and an-Nas, then rub his hands over whatever parts of his body he could, starting with his head and face. He used to do that three times.",
-      },
+      "Caa'isha waxay sharraxday caadadii habeen walba ee Nabiga ﷺ: habeen kasta hurdada ka hor wuxuu isku qaban jiray sacabbadiisa, wuxuu akhrin jiray Suuratul Ikhlaas, Suuratul Falaq iyo Suuratu Naas, wuxuu ku tufi jiray gacmihiisa, kadibna wuu ku masaxi jiray jidhkiisa — isagoo ka bilaabaya madaxa iyo wajiga — isagoo saddex jeer ku celin jiray (Bukhaari 5017). Isla saddexdan suuradood (Al-Ikhlaas oo xaqiijinaysa kalinnimada Alle, iyo labada Mucawwidhaad oo magangal looga dhigto sharka) ayaa sidoo kale ahaa kuwii uu naftiisa ku akhrin jiray xilliga jirrada (Bukhaari 5016).",
+      "Wadajir ahaan waxay sameeyaan mid ka mid ah caadooyinka ruqyada maalinlaha ah ee ugu fudud uguna saxsan ee jira — gaaban oo si fudud loo xifdin karo, si toos ahna Sunnada loogu caddeeyay.",
     ],
     actions: [
-      "Memorise Al-Ikhlas, Al-Falaq, and An-Nas.",
-      "Recite them each night before sleeping, as the Prophet ﷺ did.",
+      "Xifdi Al-Ikhlaas, Al-Falaq iyo An-Naas.",
+      "Akhri habeen kasta hurdada ka hor, sidii Nabigu ﷺ samayn jiray.",
     ],
+    appLinks: [{ label: "Akhri saddexda suuradood" }],
   },
   {
-    title: "Daily protection: morning & evening adhkar",
-    summary: "The sustained, everyday form of ruqyah for protection.",
+    title: "Ilaalinta maalinlaha ah: adkaarta subaxa iyo fiidka",
+    summary: "Qaabka joogtada ah ee maalinlaha ah ee ruqyada ilaalinta.",
     body: [
-      "Beyond ruqyah for a specific ailment, the Prophet ﷺ taught a set of morning and evening remembrances (adhkar) that function as ongoing spiritual protection — many of them the very same verses covered in this guide (Ayat al-Kursi, the three closing surahs) alongside other authentic du'a. Reciting them consistently, rather than only reaching for ruqyah when something feels wrong, is the Sunnah way to seek Allah's protection every single day.",
-      "This app's adhkar library carries the full, sourced collection of morning and evening remembrances in one place, ready to read or track daily.",
+      "Ruqyada xanuun gaar ah ka sokow, Nabigu ﷺ wuxuu baray xusuusyo (adkaar) subax iyo fiid ah oo u shaqeeya ilaalin ruuxi ah oo joogto ah — qaar badan oo ka mid ah waa isla aayadaha hagahan ku jira (Aayatul Kursi, saddexda suuradood ee ugu dambeeya) iyo ducooyin kale oo saxiix ah. In si joogto ah loo akhriyo, intii oo keliya ruqyada loo dhaqaaqi lahaa marka wax khaldan la dareemo, waa habka Sunnada ee ilaalinta Alle loo raadiyo maalin kasta.",
+      "Maktabadda adkaarta ee app-kan ayaa hal meel ku haysa ururinta buuxda ee la xaqiijiyay ee xusuusyada subaxa iyo fiidka, oo diyaar u ah in la akhriyo ama maalin walba la diiwaangeliyo.",
     ],
     actions: [
-      "Recite the morning adhkar after Fajr.",
-      "Recite the evening adhkar before Maghrib/sunset.",
+      "Akhri adkaarta subaxa salaadda Subax kadib.",
+      "Akhri adkaarta fiidka ka hor Maqribka/qorrax-dhaca.",
     ],
+    appLinks: [{ label: "Adkaarta subaxa iyo fiidka" }],
   },
   {
-    title: "Avoid fortune-tellers and soothsayers",
-    summary: "Seeking the unseen from anyone but Allah is a serious warning.",
+    title: "Ka fogow faaliyayaasha iyo sheegayaasha",
+    summary: "Raadinta waxa qarsoon cid aan Alle ahayn waa digniin culus.",
     body: [
-      "Islam draws a hard line between authentic ruqyah and consulting fortune-tellers, soothsayers, astrologers, or anyone claiming to know the unseen (ghayb) or to lift a spiritual affliction through non-Islamic means. The Prophet ﷺ warned: 'Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights' (Sahih Muslim 2230) — a severe warning against even testing such claims out of curiosity.",
-      "If a person also believes the fortune-teller's claims about the unseen, scholars treat this as a matter of disbelief, since only Allah has knowledge of the unseen (Qur'an 27:65). Whatever difficulty prompts someone to consider such a person, the correct response in this guide's teaching is always to turn to authentic ruqyah, du'a, and trusted medical or scholarly help — never to those who claim hidden knowledge.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights.",
-      },
+      "Islaamku wuxuu xad adag u dhigaa ruqyada saxda ah iyo la-tashiga faaliyayaasha, sheegayaasha, xiddigiyayaasha, ama qof kasta oo sheegta inuu yaqaan waxa qarsoon (ghayb) ama inuu dhibaato ruuxi ah ku qaadi karo habab aan Islaami ahayn. Nabigu ﷺ wuxuu ka digay: 'Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights' (macnaha Ingiriisiga) (Saxiix Muslim 2230) — digniin culus oo ka dhan ah xitaa in sheegashooyinkaas la tijaabiyo xiiso darteed.",
+      "Haddii qofku sidoo kale rumeeyo sheegashooyinka faaliyaha ee ku saabsan waxa qarsoon, culimadu tan waxay u arkaan arrin gaalnimo, maadaama Alle keligii yaqaan waxa qarsoon (Qur'aanka 27:65). Dhibaato kasta oo qofka ku kallifta inuu ka fiirsado qof noocaas ah, jawaabta saxda ah ee waxbarista hagahan waa had iyo jeer inuu u jeesto ruqyada saxda ah, ducada, iyo caawimaad caafimaad ama cilmiyeed oo la isku halleyn karo — weligeed ma aha kuwa sheegta aqoon qarsoon.",
     ],
     actions: [
-      "Never consult fortune-tellers, astrologers, or those who claim knowledge of the unseen.",
+      "Weligaa ha la tashan faaliyayaasha, xiddigiyayaasha, ama kuwa sheegta aqoonta waxa qarsoon.",
     ],
   },
   {
-    title: "Tawakkul — reliance on Allah alone",
-    summary: "Ruqyah is a means; the cure and the outcome belong to Allah.",
+    title: "Tawakul — isku hallaynta Alle keligii",
+    summary: "Ruqyadu waa sabab; daawada iyo natiijaduba Alle ayay u taallaa.",
     body: [
-      "The final and most important reminder in this guide is tawakkul: sincere reliance on Allah while using the permitted means He has given. Reciting ruqyah, seeking medical care, and asking others to pray for you are all legitimate means — but the heart's trust must rest in Allah alone, not in the words recited or the person reciting them. This mirrors exactly the condition in the very first hadith of this guide: 'There is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200).",
-      "This guide has deliberately left out the folk 'protocols' and symptom checklists that circulate widely online — none of these have a strong basis in the Qur'an or authentic Sunnah, and relying on them can quietly shift a person's trust away from Allah and toward a ritual or a list of guesses. Keep to what is textually grounded, and leave the rest to Allah's decree.",
-    ],
-    hadith: [
-      {
-        excerpt: "There is no harm in ruqyah so long as it does not contain shirk.",
-      },
+      "Xusuusinta ugu dambeysa uguna muhiimsan ee hagahan waa tawakul: isku hallayn daacad ah oo Alle lagu kalsoon yahay iyadoo la adeegsanayo sababaha bannaan ee uu bixiyay. Akhrinta ruqyada, raadinta daryeel caafimaad, iyo in dadka kale laga codsado inay kuu duceeyaan dhammaantood waa sababo sharci ah — balse kalsoonida qalbigu waa inay Alle keligii saarnaataa, ee ma aha ereyada la akhriyo ama qofka akhrinaya. Tani waxay si sax ah u waafaqsan tahay shardiga ku jira xadiiska ugu horreeya ee hagahan: 'There is no harm in ruqyah so long as it does not contain shirk' (macnaha Ingiriisiga) (Saxiix Muslim 2200).",
+      "Hagahani si ula kac ah ayuu uga tagay 'hab-raacyada' dhaqan-dhaqameedka ah iyo liisaska calaamadaha ee si ballaaran internetka ugu faafa — midkoodna ma laha aasaas adag oo Qur'aanka ama Sunnada saxda ah ka yimid, ku tiirsanaantooduna waxay si aamusnaan ah kalsoonida qofka uga leexin kartaa Alle oo u wareejin kartaa caado ama liis mala-awaal ah. Ku eekow waxa nusuusta ku salaysan, inta kalena u daa qaddarka Alle.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa, and it is not a medical or psychological treatment. For serious or persistent affliction, consult both a qualified local scholar and an appropriate medical professional.",
+      "Tani waa waxbarasho guud oo soo koobaysa waxbarista Sunniga guud ee ka timid Qur'aanka iyo xadiiska saxda ah. Ma aha fatwo, mana aha daawayn caafimaad ama nafsi. Dhibaato culus ama joogto ah, la tasho caalim deegaanka ah oo u qalma iyo xirfadle caafimaad oo ku habboon.",
   },
 ];

@@ -50,7 +50,7 @@ export default function LearnQuranThemesScreen() {
           <Stagger>
             <JannahCallout tone="info">{t("learnQuran.themesIntro")}</JannahCallout>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("learnQuran.themesListTitle")}
                 icon={{ ios: "tag.fill", android: "label", web: "label" }}

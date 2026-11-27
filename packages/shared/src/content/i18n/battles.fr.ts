@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       "Le Qur'an a fixé une limite permanente autour de cette permission : « Combattez dans le chemin d'Allah ceux qui vous combattent, mais ne transgressez pas » (Qur'an 2 : 190). Les combats étaient liés à une agression contre la communauté et ne devaient jamais dépasser les limites de la justice.",
       "Ces campagnes appartiennent à l’histoire : elles se sont déroulées dans un contexte arabe spécifique du VIIe siècle, marqué par des guerres tribales, des traités rompus et un siège. Les enseignements islamiques généraux sur la paix, la justice, la miséricorde et le bon voisinage constituent le cadre ; les détails de ces batailles doivent être lus à l’intérieur de ce cadre, et non réduits à des slogans arrachés à celui-ci.",
     ],
-    quran: [
-      {
-        excerpt:
-          "La permission est donnée à ceux qui combattent parce qu'ils ont été lésés - et Allah est en effet capable de leur donner la victoire - à ceux qui ont été chassés de leurs maisons sans droit, uniquement parce qu'ils ont dit : Notre Seigneur est Allah. Si Allah n'avait pas repoussé certaines personnes au moyen d'autres, les monastères, les églises, les synagogues et les mosquées – dans lesquelles le nom d'Allah est souvent mentionné – auraient sûrement été démolis.",
-      },
-      {
-        excerpt:
-          "Combattez dans le sentier d'Allah ceux qui vous combattent, mais ne transgressez pas. En effet, Allah n'aime pas les transgresseurs.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,18 +36,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       "Les violations du traité sont restées décisives jusqu’au bout. Ce sont les alliés de Quraysh qui ont attaqué les alliés des musulmans, les Banu Khuza'ah, qui ont annulé le traité de Hudaybiyyah et conduit – de manière remarquable – à l'ouverture presque sans effusion de sang de Makkah plutôt qu'à un massacre.",
       "Dans tout cela, les objectifs étaient cohérents : défendre la vie et la religion, protéger les personnes vulnérables et établir suffisamment de sécurité pour que le tawhid puisse être pratiqué sans persécution. L’objectif n’a jamais été une expansion sans fin en soi, et les sources rapportent que le Prophète ﷺ préférait la trêve et le traité chaque fois que l’ennemi penchait vers la paix.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "J'ai reçu l'ordre de combattre les gens jusqu'à ce qu'ils témoignent qu'il n'y a de dieu qu'Allah et que Mohammed est le Messager d'Allah, qu'ils accomplissent la prière et qu'ils accordent la zakat. S'ils le font, leurs vies et leurs biens me sont protégés, sauf par le droit de l'Islam, et leur compte appartient à Allah. — Les érudits classiques lisent « le peuple » comme les idolâtres spécifiques de l'Arabie qui ont ensuite mené la guerre contre l'Islam après que le message leur soit parvenu ; il s'agit d'une déclaration concernant ces combattants hostiles, et non d'une autorisation d'attaquer des non-musulmans pacifiques ou de les contraindre à croire, ce que le Qur'an 2 : 256 interdit catégoriquement.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Il n’y a aucune contrainte en religion. La bonne voie est devenue distincte de l’erreur.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Le hadith ci-dessus est souvent cité dépouillé de son cadre. Les érudits classiques l'ont placé dans le cadre des hostilités spécifiques de son époque et à côté de l'interdiction coranique de la contrainte en matière de religion (2 : 256) et de la limite selon laquelle se battre est uniquement contre ceux qui vous combattent (2 : 190).",
     appLinks: [{}],
@@ -73,30 +54,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       "La propriété et la terre elle-même sont protégées. Les directives générales interdisaient l'abattage gratuit d'arbres fruitiers, le brûlage des récoltes et l'abattage de bétail au-delà de la nécessité. Les prisonniers devaient être nourris comme les ravisseurs et s'habiller comme ils s'habillaient ; le Qur'an fait l'éloge de ceux qui nourrissent les captifs pour l'amour d'Allah (76 :8), et beaucoup ont été libérés par rançon, échange ou simple miséricorde – certains à Badr en échange d'apprendre à lire aux musulmans.",
       "Ce sont les enseignements normatifs de la religion. Tout au long de l’histoire, les musulmans qui les ont violés ont violé l’Islam, sans le définir – tout comme les violations commises par les adeptes d’une religion ne réécrivent pas ce que cette foi commande.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Combattez dans le sentier d'Allah ceux qui vous combattent, mais ne transgressez pas.",
-      },
-      {
-        excerpt:
-          "Et s’ils penchent vers la paix, alors inclinez-y aussi et comptez sur Allah. En effet, c’est Lui qui est l’Audient, le Connaissant.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Umar a rapporté qu'une femme a été retrouvée tuée lors d'une des expéditions du Messager d'Allah ﷺ, il a donc interdit de tuer des femmes et des enfants.",
-      },
-      {
-        excerpt:
-          "Lorsque le Prophète ﷺ nomma un commandant à la tête d'une armée, il lui ordonna : Combattez au nom d'Allah… ne détournez pas le butin, ne rompez pas votre engagement, ne mutilez pas et ne tuez pas d'enfant. Lorsque vous rencontrez l’ennemi, invitez-le d’abord à l’Islam ; s'ils refusent, offrez-leur la paix ; seulement s'ils refusent les deux, alors combattez.",
-      },
-      {
-        excerpt:
-          "Ne tuez pas un vieillard décrépit, ni un jeune enfant, ni une femme. — Certaines chaînes de cette formulation exacte sont classées comme faibles, mais la décision qu'elle énonce est confirmée par le récit authentique ci-dessus et par le consensus des juristes.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Faites une distinction claire entre ce que l’Islam commande et ce que n’importe quelle armée dans l’histoire a réellement fait.",
       "Lisez cette section sur l’éthique avant tout récit de bataille – l’histoire sans ses principes directeurs invite aux malentendus.",
@@ -143,26 +102,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
         "Certains captifs ont été libérés en échange de l'alphabétisation des enfants de Madinah.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Lorsque vous demandiez de l'aide à votre Seigneur et qu'Il vous répondit : Je vous renforcerai de mille anges, se succédant.",
-      },
-      {
-        excerpt:
-          "Il y avait déjà un signe pour vous dans les deux armées qui se sont rencontrées, l'une combattant dans le sentier d'Allah et l'autre des mécréants.",
-      },
-      {
-        excerpt:
-          "Vous ne les avez pas tués, mais c'est Allah qui les a tués. Et vous n'avez pas lancé lorsque vous avez lancé, mais c'est Allah qui a lancé.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Umar a rapporté que le jour de Badr, le Prophète ﷺ a regardé l'ennemi de mille alors que ses propres compagnons étaient un peu plus de trois cents, puis s'est tourné vers la qibla, a tendu les mains et a imploré son Seigneur : Ô Allah, accomplis ce que Tu m'as promis. Ô Allah, si cette bande de croyants est détruite, Tu ne seras pas adoré sur terre. Il a continué à implorer jusqu'à ce que son manteau tombe de ses épaules, et Abu Bakr le replaça et dit : Assez, ô Prophète d'Allah, Allah accomplira ce qu'Il t'a promis.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -198,22 +139,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Les épreuves affinent les croyants ; le revers rencontré avec le repentir et la fermeté mène à la croissance.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah avait certainement tenu Sa promesse lorsque vous les tuiez avec Sa permission – jusqu'à ce que vous perdiez courage, contestiez l'ordre et désobéissiez après qu'Il vous ait montré ce que vous aimez.",
-      },
-      {
-        excerpt:
-          "Alors ne vous affaiblissez pas et ne vous affligez pas, car vous serez supérieurs si vous êtes de vrais croyants.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ a nommé Abdallah ibn Jubayr à la tête des cinquante archers le jour d'Uhud et a dit : Tenez votre position ; même si vous nous voyez être enlevés par les oiseaux, ne partez pas jusqu'à ce que je vous envoie chercher - et même si vous nous voyez les vaincre, ne partez pas jusqu'à ce que je vous envoie chercher. Lorsque l'ennemi fut mis en déroute et que les archers virent le butin, ils dirent : Le butin ! et ont quitté leur poste, ce qui fait que soixante-dix d'entre nous ont été tués.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -251,22 +178,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Tenez bon en cas de siège et confiez le résultat à Allah, qui peut repousser une armée avec le vent.",
     },
-    quran: [
-      {
-        excerpt:
-          "Ô vous les croyants, souvenez-vous de la faveur d'Allah sur vous lorsque des armées sont venues vers vous et que Nous avons envoyé contre elles un vent et des armées que vous n'avez pas vues… Là, les croyants ont été éprouvés et secoués d'une forte secousse.",
-      },
-      {
-        excerpt:
-          "Et quand les croyants virent les Confédérés, ils dirent : C'est ce qu'Allah et Son Messager nous ont promis, et cela n'a fait qu'accroître leur foi et leur soumission.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ a supplié contre les Confédérés le jour d'al-Ahzab, en disant : Ô Allah, Révélateur du Livre, Rapide dans les comptes, bats les Confédérés. Ô Allah, bats-les et secoue-les.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -298,22 +211,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Rompre une alliance de protection mutuelle dans un moment de danger commun est l’une des trahisons les plus graves.",
     },
-    quran: [
-      {
-        excerpt:
-          "Et Il a fait tomber de leurs forteresses ceux des Gens de l’Écriture qui les soutenaient et a semé la terreur dans leurs cœurs – un groupe que vous avez tué et un groupe que vous avez emmené captif. Et Il vous a fait hériter de leur pays et de leurs maisons.",
-      },
-      {
-        excerpt:
-          "Allah ne vous interdit pas à ceux qui ne vous combattent pas à cause de la religion et ne vous expulsent pas de vos maisons d'être justes envers eux et d'agir avec justice envers eux. En effet, Allah aime ceux qui agissent avec justice.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsque Banu Qurayzah accepta d'accepter le jugement de Sa'd ibn Mu'adh, le Prophète ﷺ l'envoya chercher. Il vint et le Prophète ﷺ dit : Défendez votre chef. Sa'd a jugé que leurs combattants seraient tués et que leurs femmes et leurs enfants seraient faits prisonniers. Le Prophète ﷺ a dit : Vous avez jugé par le jugement d'Allah – ou dit-il, par le jugement du Roi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Il s'agissait d'une punition pour un acte spécifique de trahison en temps de guerre commis par des combattants, jugée par un arbitre choisi par la tribu elle-même. Il ne s'agit pas d'un jugement contre un peuple en raison de sa religion et ne constitue pas un modèle pour les relations avec les Juifs ou toute autre communauté religieuse, à qui l'Islam ordonne d'être traité avec justice et bonté (Qur'an 60 : 8). Certains érudits ultérieurs ont remis en question les détails des numéros transmis.",
   },
@@ -348,22 +247,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Faites confiance à Allah et à Son Messager lorsque la sagesse d'une décision est cachée – la patience peut être la plus vraie victoire.",
     },
-    quran: [
-      {
-        excerpt:
-          "En effet, Nous vous avons donné une victoire manifeste, afin qu'Allah vous pardonne ce qui a précédé votre péché et ce qui suivra, complète Sa faveur sur vous et vous guide vers un chemin droit.",
-      },
-      {
-        excerpt:
-          "Certes, Allah a été satisfait des croyants lorsqu'ils vous ont prêté allégeance sous l'arbre, et Il savait ce qu'il y avait dans leurs cœurs, alors Il a fait descendre sur eux la tranquillité et les a récompensés par une conquête imminente.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir ibn Abdullah a dit : Le jour d'al-Hudaybiyyah, nous étions quatorze cents. Nous avons prêté allégeance au Prophète ﷺ sous l'arbre, et il était le meilleur des gens.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -395,12 +280,7 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "La persévérance malgré des difficultés prolongées, alliée à la sincérité, apporte l’aide d’Allah.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Le jour de Khaybar, le Prophète ﷺ a dit : Demain, je donnerai cette bannière à un homme qui aime Allah et Son Messager, et qu'Allah et Son Messager aiment, et par les mains duquel Allah accordera la victoire. Le lendemain, il appela Ali, qui avait mal aux yeux ; il lui cracha dans les yeux et pria pour lui, et Ali fut guéri comme s'il n'avait jamais été malade, et on lui remit la bannière.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -468,16 +348,7 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Le but était de guider, pas de se venger – le pouvoir est fait pour servir le message, pas soi-même.",
     },
-    quran: [
-      {
-        excerpt:
-          "Lorsque la victoire d'Allah est arrivée et la conquête, et que vous voyez les gens entrer en multitude dans la religion d'Allah, alors exaltez-vous en louant votre Seigneur et demandez-lui pardon. En effet, Il accepte toujours le repentir.",
-      },
-      {
-        excerpt:
-          "Il a dit : Aucun blâme ne vous est imputé aujourd'hui. Qu'Allah vous pardonne, et Il est le plus miséricordieux des miséricordieux. — les paroles du Prophète Yusuf que le Prophète ﷺ a fait écho aux Quraysh le jour de la conquête.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -511,18 +382,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ne vous fiez jamais aux chiffres ou aux succès récents ; la victoire et la tranquillité ne viennent que d'Allah.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah vous a déjà donné la victoire dans de nombreuses régions, et le jour de Hunayn, lorsque votre grand nombre vous a plu mais ne vous a servi à rien, et que la terre, malgré toute son immensité, s'est refermée sur vous, et vous avez fait demi-tour en retraite. Alors Allah fit descendre Sa tranquillité sur Son Messager et sur les croyants.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "On a demandé à Al-Bara ibn Azib s'ils avaient fui le jour de Hunayn. Il dit : Mais le Messager d'Allah ﷺ n'a pas fui. Les gens se retournèrent et le Prophète ﷺ était sur sa mule blanche et il disait : Je suis le Prophète, ce n'est pas un mensonge ; Je suis le fils d'Abd al-Muttalib.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -558,22 +419,8 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Le sacrifice sans récompense visible et la véracité mise à l’épreuve comptent parmi les plus hautes épreuves de la foi.",
     },
-    quran: [
-      {
-        excerpt:
-          "Ceux qui restèrent se réjouirent de rester derrière le Messager d'Allah et n'aimèrent pas lutter avec leurs richesses et leurs vies dans le sentier d'Allah. Ils dirent : Ne sortez pas dans la chaleur. Dis : Le feu de l’Enfer est plus intense en chaleur, si seulement ils pouvaient comprendre.",
-      },
-      {
-        excerpt:
-          "Et Il a pardonné aux trois qui étaient restés derrière, jusqu'à ce que la terre, si vaste soit-elle, se referme sur eux, et que leurs propres âmes se referment sur eux, et ils furent certains qu'il n'y a de refuge contre Allah qu'en Lui. Puis Il s’est tourné vers eux avec miséricorde afin qu’ils se repentent.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Malik a raconté comment il est resté à Tabuk sans excuse et ne voulait pas mentir à ce sujet ; le Prophète ﷺ a ordonné aux croyants de ne pas lui parler, ni à ses deux compagnons, pendant cinquante nuits, jusqu'à ce que la terre devienne étroite pour eux – alors la révélation de leur pardon est venue, et ce fut l'un des jours les plus heureux de sa vie.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -632,20 +479,7 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
       "L'authenticité des hadiths concernant les expéditions doit être vérifiée avant d'être invoquée. Les récits ci-dessous sont tirés des recueils Sahih et concernent la conduite et l'esprit de ces campagnes ; chacun porte son grade.",
       "Pour les narrations liées à un engagement spécifique, consultez le sujet de cette bataille. Utilisez le navigateur de hadiths de Munib pour lire les chaînes complètes et les notes en contexte.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ne souhaitez pas rencontrer l'ennemi et demandez à Allah votre sécurité. Mais lorsque vous les rencontrerez, soyez patient et sachez que le Paradis se trouve à l’ombre des épées.",
-      },
-      {
-        excerpt:
-          "Le Prophète ﷺ a dit : La guerre est une tromperie. — Les érudits expliquent cela comme une autorisation pour des stratagèmes tactiques au combat (feintes, surprise, mauvaise orientation), jamais comme une autorisation de rompre un traité ou de trahir une partie protégée.",
-      },
-      {
-        excerpt:
-          "Lorsqu'il nomma un commandant, le Prophète ﷺ lui demanda de craindre Allah, d'inviter l'ennemi à l'Islam avant de combattre, de ne pas rompre son engagement, de ne pas mutiler et de ne pas tuer un enfant.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -667,71 +501,47 @@ export const BATTLES_TOPICS_FR: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_FR: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "La permission est donnée à ceux qui combattent parce qu'ils ont été lésés… Si Allah n'avait pas contrôlé un groupe de personnes au moyen d'un autre, les monastères, les églises, les synagogues et les mosquées auraient été détruits.",
     context:
       "La première autorisation générale de combattre – après des années de persécution sans armes à Makkah.",
   },
   {
-    excerpt:
-      "Combattez dans le sentier d'Allah ceux qui vous combattent, mais ne transgressez pas. En effet, Allah n'aime pas les transgresseurs.",
     context:
       "La limite fondamentale : défense uniquement, avec interdiction stricte de dépasser les limites.",
   },
   {
-    excerpt:
-      "Lorsque vous avez demandé de l'aide à votre Seigneur, Il a répondu : Je vous renforcerai de mille anges, rang après rang.",
     context: "Révélé concernant Badr – aide divine aux croyants en infériorité numérique.",
   },
   {
-    excerpt:
-      "Il y a déjà eu pour vous un signe dans les deux armées qui se sont rencontrées : l'une combattant dans le sentier d'Allah et l'autre composée de mécréants, qui ont vu de leurs yeux deux fois plus nombreux.",
     context:
       "Allah a fait paraître les musulmans plus grands à l'ennemi à Badr, renforçant ainsi les cœurs.",
   },
   {
-    excerpt:
-      "Allah a certainement tenu Sa promesse envers vous lorsque vous les avez tués avec Sa permission, jusqu'à ce que vous perdiez courage, que vous vous mettiez à discuter au sujet de l'ordre et que vous désobéissiez après qu'Il vous ait montré ce que vous aimez.",
     context: "Aborde la désobéissance des archers et le tournant d'Uhud.",
   },
   {
-    excerpt:
-      "Ô vous les croyants, souvenez-vous de la faveur d'Allah sur vous lorsque des armées sont venues vers vous et que Nous avons envoyé contre elles un vent et des armées que vous n'avez pas vus.",
     context: "Sourate al-Ahzab sur le siège confédéré et l'assistance divine.",
   },
   {
-    excerpt:
-      "Et Il a fait tomber de leurs forteresses ceux des Gens de l’Écriture qui les soutenaient et a semé la terreur dans leurs cœurs – un groupe que vous avez tué et un groupe que vous avez emmené captif. Et Il vous a fait hériter de leur pays et de leurs maisons.",
     context:
       "Sourate al-Ahzab sur les Banu Qurayzah, qui ont rompu l'alliance pendant le siège – un épisode limité de trahison en temps de guerre, et non une décision contre une foi.",
   },
   {
-    excerpt:
-      "En effet, Nous vous avons donné une victoire manifeste, afin qu'Allah vous pardonne ce qui a précédé votre péché et ce qui suivra, complète Sa faveur sur vous et vous guide vers un chemin droit.",
     context:
       "Révélé au retour de Hudaybiyyah – désignant comme une victoire manifeste ce que les compagnons avaient d'abord ressenti comme un amer compromis.",
   },
   {
-    excerpt:
-      "Certes, Allah a été satisfait des croyants lorsqu'ils vous ont prêté allégeance sous l'arbre, et Il savait ce qu'il y avait dans leurs cœurs, alors Il a fait descendre sur eux la tranquillité et les a récompensés par une conquête imminente.",
     context:
       "L'engagement de Ridwan — environ 1 400 compagnons se sont engagés sous un acacia à ne pas fuir, et Allah a déclaré Son plaisir avec eux.",
   },
   {
-    excerpt:
-      "Lorsque la victoire d'Allah est arrivée et la conquête, et que vous voyez les gens entrer en multitude dans la religion d'Allah, alors exaltez-vous en louant votre Seigneur et demandez-lui pardon. En effet, Il accepte toujours le repentir.",
     context:
       "Sourate an-Nasr sur l'ouverture de Makkah – une conquête couronnée non pas de triomphe mais de louange, de recherche du pardon et d'adhésion de multitudes à la foi.",
   },
   {
-    excerpt:
-      "Allah vous a déjà donné la victoire dans de nombreuses régions… Puis Allah a fait descendre Sa tranquillité sur Son Messager et sur les croyants.",
     context:
       "Allah rappelle aux croyants que la victoire est Son don et non le résultat d’une vantardise en nombre.",
   },
   {
-    excerpt:
-      "Ceux qui restèrent se réjouirent de rester derrière le Messager d'Allah et n'aimèrent pas lutter avec leurs richesses et leurs vies dans le sentier d'Allah.",
     context:
       "La sourate at-Tawbah s'adresse à ceux qui se sont excusés de la difficile marche de Tabuk.",
   },

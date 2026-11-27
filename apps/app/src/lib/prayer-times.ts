@@ -278,17 +278,32 @@ export function formatPrayerTime(
   return formatDisplayTime(date, timeFormat, timeZone);
 }
 
+/** Translator shape accepted by {@link formatDuration} (i18next `t` / widget `input.t`). */
+export type DurationTranslate = (
+  key: string,
+  fallback: string,
+  options: Record<string, unknown>,
+) => string;
+
 /**
  * Compact human duration for a whole-minute count, e.g. 27 → "27m", 95 → "1h 35m".
  * Used for the "next prayer in {{time}}" countdown line and the schedule card.
+ * Pass `t` so the units follow the UI locale (`duration.*`, e.g. ar "1 س 35 د");
+ * without it the English compact form is returned (tests / locale-free callers).
  */
-export function formatDuration(minutes: number): string {
+export function formatDuration(minutes: number, t?: DurationTranslate): string {
   const total = Math.max(0, Math.round(minutes));
   const hrs = Math.floor(total / 60);
   const mins = total % 60;
-  if (hrs <= 0) return `${mins}m`;
-  if (mins === 0) return `${hrs}h`;
-  return `${hrs}h ${mins}m`;
+  if (hrs <= 0) {
+    return t ? t("duration.minutes", "{{min}}m", { min: mins }) : `${mins}m`;
+  }
+  if (mins === 0) {
+    return t ? t("duration.hours", "{{hours}}h", { hours: hrs }) : `${hrs}h`;
+  }
+  return t
+    ? t("duration.hoursMinutes", "{{hours}}h {{min}}m", { hours: hrs, min: mins })
+    : `${hrs}h ${mins}m`;
 }
 
 /**
@@ -561,6 +576,16 @@ export function buildPrayerTimeMap(
     duha: formatPrayerTime(duha.recommended, timeFormat, timeZone),
     tahiyyatul_masjid: flexibleLabel,
     hajat_istikhara: flexibleLabel,
+    // NF-3.1 rawatib open with their fard's time (the tracker shows them as chips).
+    fajr_before: formatPrayerTime(today.fajr, timeFormat, timeZone),
+    dhuhr_before: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    dhuhr_after: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    dhuhr_after_extra: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    asr_before: formatPrayerTime(today.asr, timeFormat, timeZone),
+    maghrib_before: formatPrayerTime(today.maghrib, timeFormat, timeZone),
+    maghrib_after: formatPrayerTime(today.maghrib, timeFormat, timeZone),
+    isha_before: formatPrayerTime(today.isha, timeFormat, timeZone),
+    isha_after: formatPrayerTime(today.isha, timeFormat, timeZone),
   };
 }
 

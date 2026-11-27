@@ -2,136 +2,108 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // fa overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_FA: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "شب قدر چیست؟",
+    summary: "شب تقدیر — بهتر از هزار ماه.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
+      "شب قدر، شبِ تقدیر (یا شبِ منزلت)، شبی است که نزول قرآن بر پیامبر ﷺ در آن آغاز شد. خداوند یک سوره کامل را به آن اختصاص داده است که با این آیه آغاز می‌شود: «ما آن [= قرآن‌] را در شب قدر نازل کردیم» (قرآن ۹۷:۱). ارزش آن چند آیه بعد با روشن‌ترین بیان آمده است: «شب قدر بهتر از هزار ماه است» (قرآن ۹۷:۳) — عبادت در همین یک شب، از عبادتی که در بیش از هشتاد و سه سال پراکنده باشد برتر است.",
+      "این سوره شب را بیشتر توصیف می‌کند: فرشتگان و روح (جبرئیل) در آن شب به اذن پروردگارشان برای هر فرمانی فرود می‌آیند، و آن «شبی است سرشار از سلامت (و برکت و رحمت) تا طلوع سپیده» (قرآن ۹۷:۴–۵). شبی است سرشار از رحمت بی‌کران، آرامش و تقدیر الهی — شبی که پیامبر ﷺ یارانش را تشویق می‌کرد فعالانه به جست‌وجویش برخیزند، نه اینکه بگذارند بی‌توجه بگذرد.",
+      "به همین دلیل است که ده شب آخر رمضان چنین وزن معنوی‌ای دارند: در جایی میان آن‌ها شبی هست که از هر شب دیگری در زندگی انسان ارزشمندتر است. حکمتِ آشکار نکردنِ آن این است که مؤمنان در تک‌تکِ ده شب آخر بکوشند، نه اینکه جز یک شب، در بقیه آسوده بنشینند.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
-    ],
+    quran: [{}],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "پاداش شب‌زنده‌داری به نماز",
+    summary: "عبادت خالصانه در این شب، گناهان گذشته را پاک می‌کند.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
+      "پیامبر ﷺ وعده‌ای شگفت را به این شب پیوند زد: «Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven» (معنای انگلیسی) (بخاری ۱۹۰۱). دو شرط همراه آن است — ایمان (باور راستین به اینکه این عبادت همان چیزی است که خدا دوست دارد و تشریع کرده است) و احتساب (جست‌وجوی پاداش تنها از خدا، نه برای دیده یا ستوده شدن).",
+      "این آمرزش برای هر کسی که صرفاً حاضر باشد خودبه‌خود نیست؛ برای کسی است که با دلی خالص و امیدوار عبادت کند. به همین دلیل ده شب آخر معمولاً سرشار از نماز شبِ اضافی (قیام)، قرآن و ذکر است — نه به این خاطر که پاداش داد و ستدی است، بلکه چون تلاشِ خالصانه و پیوسته، خودش همان چیزی است که حدیث آن را ایمان و احتساب می‌نامد.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "پیش از هر شب عبادت، نیت خود را تازه کنید — برای خدا و به امید پاداش او.",
+      "در ده شب آخر قیام‌اللیل بخوانید، حتی اگر تنها چند رکعت باشد.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "چه زمانی آن را بجوییم",
+    summary: "شب‌های فرد از دههٔ آخر رمضان — نه یک تاریخ ثابت.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
+      "پیامبر ﷺ فرمود: «Search for the Night of Qadr in the odd nights of the last ten days of Ramadan» (معنای انگلیسی) (بخاری ۲۰۱۷)، به روایت عایشه. در یک رمضان معمولیِ سی‌روزه، شب‌های فرد معمولاً شب‌های بیست‌ویکم، بیست‌وسوم، بیست‌وپنجم، بیست‌وهفتم و بیست‌ونهم شمرده می‌شوند. روایات صحیح دیگر این بازه را به کل ده شب آخر گسترش می‌دهند، و خودِ پیامبر ﷺ فرمود که تاریخ دقیق آن شب به او نشان داده شد و سپس از یادش برده شد — تا امت در همهٔ این شب‌ها بکوشد، نه تنها در یک شب.",
+      "شب بیست‌وهفتم شبی است که بسیاری از عالمان و جوامع آن را محتمل‌ترین می‌دانند (بر پایهٔ روایات دیگری که نشانه‌ها و فراوانیِ گزارش‌های صحابه را می‌سنجند)، اما این برداشتی علمی از احادیث است، نه تاریخی جداگانه و ثابت که در متون با قطعیت بیان شده باشد. ممکن است در سال‌ها و مناطق مختلف بر شب متفاوتی بیفتد، زیرا خودِ تاریخ آغاز رمضان بسته به رؤیت هلال متفاوت است.",
+      "برخی هر سال یک تاریخ چاپی را چنان منتشر می‌کنند که گویی با قطعیت تعیین شده است، و فهرست‌هایی عامیانه از «نشانه‌ها» (شبی به‌طرز بی‌مانندی آرام، خواب‌ها، نوری خاص) در فضای مجازی به‌طور گسترده دست‌به‌دست می‌شود. هیچ‌یک از این‌ها پشتوانهٔ حدیثیِ محکمی ندارند، از این رو این راهنما آن‌ها را تکرار نمی‌کند. رویکرد مطمئن و مستند به متون، تنها افزودن عبادت در همهٔ شب‌های فرد — و بهتر از آن، در سراسر ده شب آخر — است تا آن شب هر کدام که باشد، شما در آن مشغول عبادت باشید.",
     ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "این راهنما هیچ تاریخ تقویمیِ ثابت یا «نشانه»‌های عامیانه‌ای را برای شناختن آن شب تأیید نمی‌کند — تنها آنچه احادیث می‌گویند: آن را در شب‌های فرد از ده شب آخر رمضان بجویید.",
   },
   {
-    title: "اگر شب را دریافتید چه بگویید",
+    title: "اگر آن شب را دریافتید چه بگویید",
     summary: "عایشه از پیامبر ﷺ پرسید دقیقاً چه بگوید.",
     body: [
-      "عایشه (رضی الله عنها) از پیامبر ﷺ پرسید: «ای رسول خدا، اگر بدانم کدام شب شب قدر است، در آن چه بگویم؟» او ﷺ دعای کوتاه آمرزش نشان‌داده‌شده در پایین را به او آموخت (ترمذی ۳۵۱۳، درجهٔ حسن صحیح به‌دست ترمذی).",
-      "این دعا کوتاه، آسان برای حفظ، و عمداً درباره آمرزش است نه درخواست‌های دنیا — یادآوری که بزرگ‌ترین دستاورد این شب، عفو الهی است. آن را در ده شب آخر مکرر تکرار کنید، در نماز، در سجده، و میان آنها، نه اینکه برای یک شب حدس‌زده ذخیره‌اش کنید.",
+      "عایشه (رضی الله عنها) از پیامبر ﷺ پرسید: «O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?» (معنای انگلیسی). او ﷺ دعای کوتاهِ آمرزش را که در پایین آمده به او آموخت (ترمذی ۳۵۱۳، که ترمذی آن را حسن صحیح دانسته است).",
+      "این دعا کوتاه و آسان برای حفظ کردن است و عمداً دربارهٔ آمرزش است نه خواسته‌های دنیوی — یادآوری اینکه بزرگ‌ترین دستاورد این شب، عفو خداست. آن را در سراسر ده شب آخر، در نماز، در سجده و میان نمازها بسیار تکرار کنید، نه اینکه برای یک شبِ حدس‌زده نگهش دارید.",
     ],
-    hadith: [
-      {
-        excerpt: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "دعای آمرزش نشان‌داده‌شده در بالا را حفظ کنید.",
-      "آن را در ده شب آخر، به‌ویژه در شب‌های فرد، مکرر تکرار کنید.",
+      "دعای آمرزش را که در بالا آمده حفظ کنید.",
+      "آن را در ده شب آخر، به‌ویژه در شب‌های فرد، بسیار تکرار کنید.",
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "چگونه شب را بگذرانیم",
+    summary: "نماز شب، قرآن، ذکر و دعا، و صدقه.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "برای شب قدر هیچ «آیین» الزامیِ ویژه‌ای جز عبادت خالصانه وجود ندارد؛ از این رو سنت تنها همان عبادت‌های تشریع‌شده را بیشتر می‌کند: ایستادن به نماز شبِ مستحب (قیام‌اللیل / تراویح)، تلاوت قرآن و تأمل در آن، تکرار ذکر و استغفار، و دعا — به‌ویژه دعایی که پیامبر ﷺ به عایشه آموخت. بسیاری از صحابه و عالمانِ پس از آنان نیز در این شب‌ها صدقهٔ بیشتری می‌دادند، هم‌سو با اینکه بخشندگیِ خودِ پیامبر ﷺ در رمضان به اوج می‌رسید.",
+      "اگر تنها توان اندکی دارید، به‌جای هیچ، همان اندک را پیوسته انجام دهید: حتی قیامی کوتاه، چند صفحه قرآن و دعای آمرزش که با اخلاص تکرار شود، همان «ایمان و احتساب» را که حدیث توصیف می‌کند محقق می‌سازد. کسانی که می‌توانند از کار مرخصی بگیرند یا خلوت خود را بیشتر کنند، می‌توانند به پیروی از سنت خودِ پیامبر ﷺ در ده شب آخر اعتکاف (خلوت‌گزینی در مسجد) نیز انجام دهند.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
+      "در ده شب آخر نماز شبِ اضافی (قیام/تراویح) بخوانید.",
+      "هر شب بخشی از قرآن را تلاوت کنید و در آن بیندیشید.",
+      "استغفار، ذکر و دعای آمرزش را بیشتر کنید.",
+      "در این شب‌ها صدقه‌ای بدهید، هرچند اندک.",
     ],
   },
   {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
+    title: "اعتکاف در ده شب آخر",
+    summary: "خلوت‌گزینی در مسجد — سنت پیامبر ﷺ در پایانِ رمضان.",
     body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
+      "اعتکاف یعنی ماندن در مسجد برای عبادت و بریدن از سرگرمی‌های عادیِ دنیوی برای مدتی معین. پیامبر ﷺ به‌طور منظم در ده شب آخر رمضان اعتکاف می‌کرد و با عبادتی متمرکز شب قدر را می‌جست، به‌جای آنکه برای کارهای عادی از مسجد بیرون برود (صحیح بخاری ۲۰۲۶).",
+      "آموزه‌های سنتی، اعتکافِ کامل در ده شب آخر را برای کسی که توانش را دارد سنتی مؤکد می‌دانند. جزئیاتِ اینکه چه چیزی اعتکاف را باطل می‌کند، آیا زنان می‌توانند آن را در بخش ویژه‌ای از مسجد انجام دهند، و وظایف کاری یا خانوادگی چگونه با آن کنار می‌آیند، در مذهب‌های فقهی متفاوت است — این راهنما تنها اصلِ این عمل و هدفش را بیان می‌کند: قرآن، نماز و دعای پیوسته در شب‌هایی که به احتمال بیشتر شب قدر را در بر دارند.",
+      "اگر اعتکاف کامل در مسجد ممکن نیست، فاصله را کم کنید: پس از تراویح بیشتر بمانید، گوشه‌های آرام‌ترِ شب را در خانه به قیام و قرآن اختصاص دهید، و این ساعت‌ها را از سرگرمی‌های غیرضروری حفظ کنید. پاداش به عبادت خالصانه گره خورده است، نه تنها به عنوان رسمیِ اعتکاف.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "اگر مسجد شما برنامهٔ اعتکاف دارد، زودتر دربارهٔ ثبت‌نام و قواعدی که رعایت می‌کنند بپرسید.",
+      "اگر نمی‌توانید شب را در مسجد بمانید، باز هم در ده شب آخر حضور خود را برای قرآن و قیام طولانی‌تر کنید.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "اعتکاف شرایط فقهیِ مفصلی دارد (نیت، بیرون رفتن از مسجد، رابطهٔ زناشویی، ترتیبات ویژهٔ زنان). پیش از تصمیم گرفتن، با عالمی شایسته در محل یا با مسجد خود مشورت کنید.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "عبادت با خانواده در ده شب آخر",
+    summary: "کودکان و اهل خانه را همراه کنید، بی‌آنکه دنبال تاریخی ثابت باشید.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "ده شب آخر فرصتی برای همهٔ اهل خانه است، نه تنها برای کسانی که می‌توانند به‌تنهایی بیدار بمانند. معنای شب قدر را با واژه‌هایی ساده به کودکان بیاموزید — اینکه خداوند یک شب را از هزار ماه بهتر قرار داد — و آنان را به کارهای کوتاه و شدنی دعوت کنید: چند صفحه قرآن، همراهی در تراویح تا هر جا که می‌توانند، تکرار دعای آمرزش، و دادن صدقه‌ای اندک.",
+      "لحن را ملایم نگه دارید. هدف، تلاش خالصانه در شب‌های فرد است، نه خسته کردنِ همه برای یک تاریخ تقویمیِ حدس‌زده. نوبت را در اینکه چه کسی ذکرِ کوتاهِ خانوادگی را رهبری کند بچرخانید، پیش از مغرب نیتی مشترک کنید، و خواب را به اندازه‌ای حفظ کنید که عبادت پایدار بماند، نه جهشی یک‌شبه که از پا افتادن در پی آن بیاید.",
+      "کسانی که به‌خاطر مراقبت از دیگران یا کار محدودیت دارند، باز هم با آماده کردن سحری، فراهم کردن فرصت برای دیگران تا به نماز مسجد بروند، یا دعا کردن در حالی که دیگران به نماز ایستاده‌اند، در این شب سهیم‌اند — هر سهمِ خالصانه‌ای در جست‌وجوی مشترکِ این شب به حساب می‌آید.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "به‌عنوان یک خانواده توافق کنید که کدام شب‌های فرد را برای قرآن و نماز بیشتر در اولویت قرار می‌دهید.",
+      "دعای آمرزش را با هم حفظ کنید و پس از مغرب و پیش از خواب تکرارش کنید.",
+      "بگذارید کودکان در ده شب آخر صدقه‌ای اندک بدهند.",
     ],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "ساده و خالصانه نگهش دارید",
+    summary: "از تاریخ‌های ثابت و نشانه‌های عامیانه بگذرید؛ بر عبادت در سراسر این شب‌ها تمرکز کنید.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "از دو کارِ رایج بهتر است پرهیز کرد، زیرا از آنچه متون ثابت کرده‌اند فراتر می‌روند. نخست، اینکه یک تاریخ چاپی را با قطعیت شب قدر بدانیم — احادیث عمداً آن را میان چند شب فرد گذاشته‌اند، نه یک روز تقویمی، و این بسته به رؤیت هلال و محل متفاوت است. دوم، دنبال کردنِ «نشانه»‌های عامیانه (خوابی خاص، شبی به‌طرز غیرعادی آرام، رفتار عجیب حیوانات) به‌عنوان دلیلی بر فرارسیدن آن شب — این‌ها پشتوانهٔ حدیثیِ محکمی ندارند و می‌توانند از عبادتِ واقعی‌ای که آن شب می‌طلبد بازدارند.",
+      "نتیجهٔ عملی ساده است: عبادت خود را در سراسر ده شب آخر پیوسته بیشتر کنید، دعای آمرزش را بسیار بگویید، و بگذارید رحمت خدا — نه یک تاریخ حدس‌زده — کانون توجه باشد. اگر نتوانستید آگاهانه آن شب را دریابید، تلاش خالصانه در سراسر این شب‌ها خودش پاداشی فراوان دارد.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "این محتوای آموزشیِ کلی است که آموزه‌های رایج اهل سنت را بر پایهٔ قرآن و احادیث صحیح خلاصه می‌کند. فتوا نیست. برای احکام مربوط به اعتکاف، نمازهای قضا یا شرایط خاص خود، با عالمی شایسته در محل مشورت کنید.",
   },
 ];

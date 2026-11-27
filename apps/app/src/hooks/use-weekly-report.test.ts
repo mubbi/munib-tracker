@@ -2,8 +2,6 @@ import { buildWeeklyReport, shouldDeliverWeeklyReport } from "@munib-tracker/sha
 import { act, renderHook } from "@testing-library/react-native";
 
 import { readJSON, writeJSON } from "@/db/store";
-import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
-import { scheduleReviewTriggerFromWake } from "@/features/reviews/lib/reviewPendingTrigger";
 import i18n from "@/i18n";
 import { deferred } from "@/test-support/async";
 
@@ -23,12 +21,6 @@ jest.mock("@/db", () => ({
 jest.mock("@/db/store", () => ({
   readJSON: jest.fn(async () => undefined),
   writeJSON: jest.fn(async () => undefined),
-}));
-jest.mock("@/features/reviews/lib/maybeDeliverReviewReactivation", () => ({
-  maybeDeliverReviewReactivation: jest.fn(async () => undefined),
-}));
-jest.mock("@/features/reviews/lib/reviewPendingTrigger", () => ({
-  scheduleReviewTriggerFromWake: jest.fn(async () => undefined),
 }));
 jest.mock("@/providers/in-app-notifications-provider", () => ({
   useInAppNotifications: () => ({ deliver: mockDeliver }),
@@ -56,7 +48,7 @@ beforeEach(() => {
 });
 
 describe("useWeeklyReport", () => {
-  it("delivers the weekly report linking to statistics", async () => {
+  it("delivers the weekly report linking to the weekly reflection", async () => {
     await setup();
     expect(readJSON).toHaveBeenCalledWith(expect.any(String), undefined);
     expect(writeJSON).toHaveBeenCalledWith(expect.any(String), expect.any(String));
@@ -65,10 +57,8 @@ describe("useWeeklyReport", () => {
       id: "weekly-2026-11-18",
       title: i18n.t("weeklyReport.title"),
       body: i18n.t("weeklyReport.body", { prayers: 20, perfect: 2, qaza: 3, zikr: 4 }),
-      route: "/statistics",
+      route: "/coach",
     });
-    expect(scheduleReviewTriggerFromWake).toHaveBeenCalled();
-    expect(maybeDeliverReviewReactivation).toHaveBeenCalled();
   });
 
   it("skips when the last report is recent", async () => {

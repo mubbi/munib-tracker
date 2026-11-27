@@ -110,3 +110,72 @@ describe("mapTilawaEvent (shapes)", () => {
     ).toBeNull();
   });
 });
+
+describe("mapTilawaEvent (free recitation verse events)", () => {
+  const FREE = { confirmedMismatchEnabled: false, verseEvents: true };
+
+  it("drops verse-level messages unless verse events are on (practice)", () => {
+    const match = {
+      type: "verse_match",
+      surah: 2,
+      ayah: 255,
+      confidence: 0.9,
+    } as TilawaMessage;
+    expect(mapTilawaEvent(match, ON)).toBeNull();
+    expect(mapTilawaEvent(match, FREE)).toEqual({
+      type: "verseMatch",
+      surah: 2,
+      ayah: 255,
+      confidence: 0.9,
+    });
+  });
+
+  it("maps ranked candidates, clamps confidence and keeps a multi-ayah span", () => {
+    const e = mapTilawaEvent(
+      {
+        type: "verse_candidate",
+        candidates: [
+          { surah: 1, ayah: 1, ayah_end: 3, confidence: 1.4, rank: 0 },
+          { surah: 112, ayah: 1, ayah_end: null, confidence: 0.4, rank: 1 },
+          { surah: 0, ayah: 1, confidence: 0.9 },
+          { surah: 115, ayah: 1, confidence: 0.9 },
+        ],
+        stable: true,
+        final_flush: false,
+      },
+      FREE,
+    );
+    expect(e).toEqual({
+      type: "verseCandidates",
+      candidates: [
+        { surah: 1, ayah: 1, ayahEnd: 3, confidence: 1 },
+        { surah: 112, ayah: 1, confidence: 0.4 },
+      ],
+      stable: true,
+      final: false,
+    });
+  });
+
+  it("drops a candidate list with no valid ayah", () => {
+    expect(
+      mapTilawaEvent(
+        { type: "verse_candidate", candidates: [], stable: false, final_flush: true },
+        FREE,
+      ),
+    ).toBeNull();
+  });
+
+  it("maps the recorded final sequence", () => {
+    const fatiha = (events.fatihaCorrect as TilawaMessage[]).find(
+      (m) => m.type === "final_sequence",
+    ) as TilawaMessage;
+    const e = mapTilawaEvent(fatiha, FREE);
+    expect(e?.type).toBe("verseSequence");
+    expect(e && "verses" in e ? e.verses.map((v) => v.ayah) : []).toEqual([1, 2, 3, 4, 5, 6, 7]);
+  });
+
+  it("still maps word progress and issues the same way", () => {
+    const mapped = mapAll(events.fatihaCorrect, FREE);
+    expect(mapped.filter((e) => e?.type === "position").length).toBe(80);
+  });
+});

@@ -1,0 +1,8 @@
+{
+  "metaTitle": "Page not found",
+  "code": "404",
+  "heading": "This page has wandered off",
+  "body": "The page you are looking for does not exist or has moved. Let's get you back on the path.",
+  "returnHome": "Return home",
+  "explore": "Explore {appName}"
+}

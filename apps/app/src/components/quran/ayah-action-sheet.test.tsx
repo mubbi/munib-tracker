@@ -5,7 +5,31 @@ import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
-jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
+// The shared sheet mock skips `title`; this one renders it so the sheet's heading is testable.
+jest.mock("@/components/ui/sheet", () => {
+  const { createElement } = require("react");
+  const { Text, View } = require("react-native");
+  return {
+    __esModule: true,
+    Sheet: ({
+      visible,
+      title,
+      children,
+    }: {
+      visible: boolean;
+      title?: string;
+      children: unknown;
+    }) =>
+      visible
+        ? createElement(
+            View,
+            { testID: "sheet" },
+            title ? createElement(Text, null, title) : null,
+            children,
+          )
+        : null,
+  };
+});
 
 jest.mock("@/components/content-report/content-report-button", () => {
   const { createElement } = require("react");
@@ -89,8 +113,8 @@ describe("AyahActionSheet", () => {
   });
 
   it.each([
-    [false, "Bookmark verse", "Save"],
-    [true, "Remove bookmark", "Saved"],
+    [false, "Save ayah", "Save"],
+    [true, "Remove from saved", "Saved"],
   ])("toggles the bookmark (isBookmarked=%p)", async (isBookmarked, label, text) => {
     const props = await renderSheet({ isBookmarked });
     expect(screen.getByText(text)).toBeTruthy();
@@ -118,7 +142,7 @@ describe("AyahActionSheet", () => {
 
   it("opens practice", async () => {
     const props = await renderSheet({ onPractise: jest.fn() });
-    await fireEvent.press(screen.getByLabelText("Practise ayah 255"));
+    await fireEvent.press(screen.getByLabelText("Practice ayah 255"));
     expect(props.onPractise).toHaveBeenCalled();
   });
 

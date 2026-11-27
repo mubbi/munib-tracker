@@ -1,4 +1,5 @@
 import { RECITATION_MODELS } from "@/constants/recitation-models";
+import { createFastConformerRunner } from "@/lib/speech/fastconformer-runner";
 
 import { createChunker } from "../audio/resample";
 import { PracticeError, reportPracticeError, toPracticeErrorCode } from "../error-codes";
@@ -14,7 +15,21 @@ import type { EngineMode, EnginePlatform, OrtNamespace, RecitationEngine } from 
  * Correction issues are acknowledged with `review_later` straight away: the
  * session screen never pauses a take mid-word (§9.2), and acknowledging lets the
  * controller raise the next issue in the same take.
+ *
+ * Free recitation (recite-to-find, D68): `freeRecitation: true` builds the same
+ * engine for "which ayah is this?" instead of a known passage. The Zipformer
+ * session is created with `stayOnSurah: false` (so it can relocate anywhere in
+ * the Qur'an when the reciter moves on), always runs in tracking mode with no
+ * expected passage, and the mapper also forwards the verse-level messages
+ * (`verse_match` → `verseMatch`, `verse_candidate` → `verseCandidates`,
+ * `final_sequence` → `verseSequence`). FastConformer already discovers over the
+ * whole Qur'an, so only the mapping changes for it.
  */
+
+export type TilawaEngineOptions = {
+  /** Recite-to-find: no passage, whole-Qur'an lookup, verse-level events. */
+  freeRecitation?: boolean;
+};
 
 type ZipformerLike = {
   feed(samples: Float32Array): Promise<TilawaMessage[]>;
@@ -54,8 +69,10 @@ export async function createTilawaEngine(
   engineId: EngineId,
   assets: LoadedModelAssets,
   platform: EnginePlatform,
+  engineOptions: TilawaEngineOptions = {},
 ): Promise<RecitationEngine> {
   const spec = RECITATION_MODELS[engineId];
+  const free = engineOptions.freeRecitation === true;
   const listeners = new Set<(event: CompanionEvent) => void>();
   const emit = (event: CompanionEvent) => {
     for (const l of listeners) l(event);
@@ -83,21 +100,15 @@ export async function createTilawaEngine(
       session: inference as never,
       Tensor: ort.Tensor as never,
       corpus,
-      stayOnSurah: true,
+      // Practice stays on the passage's surah; free lookup must be able to move.
+      stayOnSurah: !free,
     })) as unknown as ZipformerLike;
     engineWords = (s, a) => zipformerWords(corpus, s, a);
   } else {
     const quran = assets.json["quran.json"];
-    const runner = {
-      async run(audio: Float32Array) {
-        const input = new ort.Tensor("float32", audio, [1, audio.length]);
-        const length = new ort.Tensor("int64", BigInt64Array.from([BigInt(audio.length)]), [1]);
-        const results = await inference.run({ audio_signal: input, length });
-        const output = results[inference.outputNames[0]];
-        const [, timeSteps, vocabSize] = output.dims as number[];
-        return { logprobs: output.data as Float32Array, timeSteps, vocabSize };
-      },
-    };
+    // Shared with hands-free tasbeeh / pronunciation (lib/speech/fastconformer-runner).
+    // The adapter keeps owning the session's release (dispose below).
+    const runner = createFastConformerRunner(ort, inference);
     const session = await tilawa.createRecognitionSession({
       engine: "fastconformer",
       runner,
@@ -112,7 +123,8 @@ export async function createTilawaEngine(
   }
 
   const options = {
-    confirmedMismatchEnabled: spec.confirmedMismatchEnabled && spec.supportsCorrection,
+    confirmedMismatchEnabled: !free && spec.confirmedMismatchEnabled && spec.supportsCorrection,
+    verseEvents: free,
   };
   const chunker = createChunker(480, 2000);
   let busy = false;
@@ -169,9 +181,11 @@ export async function createTilawaEngine(
       active = true;
       if (zipformer) {
         handle(zipformer.reset());
-        handle(zipformer.setMode(spec.supportsCorrection ? mode : "tracking"));
+        const engineMode = free || !spec.supportsCorrection ? "tracking" : mode;
+        handle(zipformer.setMode(engineMode));
+        // Free recitation never has an expected passage (whole-Qur'an lookup).
         zipformer.setExpected(
-          mode === "correction"
+          !free && mode === "correction"
             ? { surah: passage.surah, ayah: passage.ayahStart, ayahEnd: passage.ayahEnd }
             : null,
         );

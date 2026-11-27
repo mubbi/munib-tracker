@@ -1,23 +1,39 @@
 import type { SyncRecordDto } from "@munib-tracker/api-client";
+import {
+  isValidQuranNotesPayload,
+  mergeCoachHistory,
+  mergeQuranNotesCapped,
+  mergeUmrahSessions,
+  mergeVoluntaryFasting,
+} from "@munib-tracker/shared/utils";
+
+import { coarsenCoordinate, coarsenLocation } from "@munib-tracker/shared/validators/private-sync";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, withKeyLock, writeJSON } from "@/db/store";
+import { mergeDhulHijjah } from "@/lib/dhul-hijjah";
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import { DEFAULT_CALCULATION_METHOD, DEFAULT_MADHAB } from "@/lib/prayer-times";
 import { mergeMemorization, mergeSessions } from "@/lib/quran-companion/merge";
 import { isPristineCompanionPrefs } from "@/lib/quran-companion/prefs";
+import { mergeQuranReadingLog } from "@/lib/quran-reading-log";
+import { mergeSunnahHabits } from "@/lib/sunnah-habits";
+import { mergeTajweedCoaching } from "@/lib/tajweed-coaching/progress";
+import { VAULT_BLOB_ENTITIES } from "@/lib/vault/vault-sync";
 import { aqeedahProgressStore } from "@/stores/aqeedah-progress-store";
 import { battlesProgressStore } from "@/stores/battles-progress-store";
+import { coachHistoryStore } from "@/stores/coach-history-store";
 import { customAdhkarStore } from "@/stores/custom-adhkar-store";
+import { dhulHijjahStore } from "@/stores/dhul-hijjah-store";
 import { fastingStore } from "@/stores/fasting-store";
 import { fridayChecklistStore } from "@/stores/friday-checklist-store";
 import { hadithStore } from "@/stores/hadith-store";
 import { hajjChecklistStore } from "@/stores/hajj-checklist-store";
 import { hifzStore } from "@/stores/hifz-store";
+import { homeMasjidTimesStore } from "@/stores/home-masjid-times-store";
 import { jahannamIntentionsStore } from "@/stores/jahannam-intentions-store";
 import { jannahIntentionsStore } from "@/stores/jannah-intentions-store";
 import { khatmStore } from "@/stores/khatm-store";
-import { khushuStore } from "@/stores/khushu-store";
 import { lastDayProgressStore } from "@/stores/last-day-progress-store";
 import { learnDuaProgressStore } from "@/stores/learn-dua-progress-store";
 import { locationStore } from "@/stores/location-store";
@@ -25,21 +41,33 @@ import { prophetsProgressStore } from "@/stores/prophets-progress-store";
 import { quranCompanionPrefsStore } from "@/stores/quran-companion-prefs-store";
 import { quranGuideProgressStore } from "@/stores/quran-guide-progress-store";
 import { quranMemorizationStore } from "@/stores/quran-memorization-store";
+import { quranNotesStore } from "@/stores/quran-notes-store";
 import { quranPracticeStore } from "@/stores/quran-practice-store";
+import { quranReadingLogStore } from "@/stores/quran-reading-log-store";
 import { quranStore } from "@/stores/quran-store";
-import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { sadaqahStore } from "@/stores/sadaqah-store";
 import { salahGuideProgressStore } from "@/stores/salah-guide-progress-store";
+import { sunnahHabitsStore } from "@/stores/sunnah-habits-store";
 import { taharahProgressStore } from "@/stores/taharah-progress-store";
+import { tajweedCoachingStore } from "@/stores/tajweed-coaching-store";
 import { toursStore } from "@/stores/tours-store";
 import { trackerStore } from "@/stores/tracker-store";
 import { umrahChecklistStore } from "@/stores/umrah-checklist-store";
-import { whiteDaysChecklistStore } from "@/stores/white-days-checklist-store";
+import { umrahSessionStore } from "@/stores/umrah-session-store";
+import { voluntaryFastingStore } from "@/stores/voluntary-fasting-store";
+import {
+  clearBlobHold,
+  type HeldMerge,
+  heldMerge,
+  isHeldMerge,
+  readBlobHold,
+  setBlobHold,
+} from "@/sync/blob-hold";
 
 /**
  * Generic cloud sync for the many small "blob" userData entities that carry no
  * per-record `updatedAt` of their own — Ramadan fasting, khatm/hifz plans, the
- * personal adhkar/khushu/hajj collections, every Learn section's progress, the
+ * personal adhkar/hajj collections, every Learn section's progress, the
  * qaza schedule, and so on. Rather than retrofit a hand-written record + apply
  * path (and a bumped watermark on every mutation) into ~20 stores, change and
  * deletion detection is centralised here:
@@ -76,7 +104,44 @@ interface BlobEntity {
    * the generic `{ ...remote, ...local }` cannot converge (per-key records edited
    * on two devices) or cannot propagate a delete (a cleared history). Pure.
    */
-  merge?: (local: unknown, remote: unknown) => unknown;
+  merge?: (local: unknown, remote: unknown) => unknown | Promise<unknown>;
+  /**
+   * Optional: whether this entity may sync right now (vault: only after the
+   * user opts in). A closed gate skips the push, and a pulled value is handed
+   * to `stash` instead of being applied (the pull cursor moves on regardless).
+   */
+  gate?: () => Promise<boolean>;
+  /**
+   * Parks a pulled value: one the gate refused, or one the merge held back
+   * (`HeldMerge`). Without it, held values go to the generic `blob-hold` store.
+   */
+  stash?: (value: unknown, updatedAt: string) => Promise<void>;
+  /**
+   * Custom hold check for entities that park through `stash`. It retries the
+   * parked value and resolves `true` while pushes must still pause. Without
+   * it, the generic `blob-hold` retry runs.
+   */
+  pushPaused?: () => Promise<boolean>;
+  /** Custom release of a parked value no newer than `upTo`, after a newer remote merged cleanly. */
+  releaseHold?: (upTo: string) => Promise<void>;
+  /**
+   * Optional client copy of the server's payload check. A value that fails it
+   * is skipped (and reported by `getSkippedBlobEntities`) instead of being
+   * pushed, because the server would refuse it (H2).
+   */
+  validatePush?: (value: unknown) => boolean;
+  /**
+   * Optional: the form of the value that is pushed (and fingerprinted) when it
+   * differs from what is stored locally — D46 location: coordinates rounded to
+   * ~1 km, while the device keeps its exact fix.
+   */
+  toPushValue?: (value: unknown) => unknown;
+  /**
+   * Optional: how a pulled LWW value is stored, given the local one — D46
+   * location: the device's exact coordinates are kept when the pulled (rounded)
+   * copy points at the same ~1 km cell.
+   */
+  fromRemote?: (local: unknown, remote: unknown) => unknown;
 }
 
 /** Reloads a store's persisted state only if it has already been loaded once. */
@@ -118,11 +183,21 @@ function isPristineLocation(value: unknown): boolean {
   );
 }
 
-/** Factory defaults for reading-text toggles — skip until the user changes them. */
-function isPristineReadingTextVisibility(value: unknown): boolean {
-  if (value == null || typeof value !== "object") return true;
-  const v = value as { showTransliteration?: boolean; showTranslation?: boolean };
-  return v.showTransliteration !== false && v.showTranslation !== false;
+/**
+ * D46 pull side of the location coarsening: when the pulled (rounded) location
+ * is the same ~1 km cell as this device's exact one, the exact coordinates are
+ * kept and everything else (label, method, offsets…) is taken from the pull.
+ * A different place replaces the location, rounded coordinates and all.
+ */
+export function keepExactCoordinates(local: unknown, remote: unknown): unknown {
+  if (remote == null || typeof remote !== "object") return remote;
+  if (local == null || typeof local !== "object") return remote;
+  const exact = local as Partial<StoredLocation>;
+  const pulled = remote as Partial<StoredLocation>;
+  const sameCell =
+    coarsenCoordinate(exact.latitude) === pulled.latitude &&
+    coarsenCoordinate(exact.longitude) === pulled.longitude;
+  return sameCell ? { ...pulled, latitude: exact.latitude, longitude: exact.longitude } : remote;
 }
 
 /**
@@ -139,11 +214,10 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.customAdhkar,
     reload: reloadIfReady(customAdhkarStore),
   },
-  {
-    entity: "khushu_journal",
-    storageKey: DB_KEYS.khushuJournal,
-    reload: reloadIfReady(khushuStore),
-  },
+  // Retired (the API ignores them, see RETIRED_SYNC_ENTITIES in sync.dto.ts):
+  // `khushu_journal` (D46, syncs only as `vault_khushu`), `white_days_checklist`
+  // (NF-3.2, folded into `voluntary_fasting`) and `reading_text_visibility`
+  // (D13, now `preferences.readingDisplay`). Their local keys stay device-only.
   {
     entity: "hajj_checklist",
     storageKey: DB_KEYS.hajjChecklist,
@@ -159,10 +233,24 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.fridayChecklist,
     reload: reloadIfReady(fridayChecklistStore),
   },
+  // NF-3.11 private iqamah times per masjid — plain LWW (not union) so deletions propagate.
   {
-    entity: "white_days_checklist",
-    storageKey: DB_KEYS.whiteDaysChecklist,
-    reload: reloadIfReady(whiteDaysChecklistStore),
+    entity: "home_masjid_times",
+    storageKey: DB_KEYS.homeMasjidTimes,
+    reload: reloadIfReady(homeMasjidTimesStore),
+  },
+  // NF-3.5 / NF-3.3: nested maps need their own merges (max per check, union per year).
+  {
+    entity: "sunnah_habits",
+    storageKey: DB_KEYS.sunnahHabits,
+    reload: reloadIfReady(sunnahHabitsStore),
+    merge: mergeSunnahHabits,
+  },
+  {
+    entity: "dhul_hijjah",
+    storageKey: DB_KEYS.dhulHijjah,
+    reload: reloadIfReady(dhulHijjahStore),
+    merge: mergeDhulHijjah,
   },
   {
     entity: "jannah_intentions",
@@ -229,12 +317,9 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.location,
     reload: reloadLocationFromDisk,
     isPristine: isPristineLocation,
-  },
-  {
-    entity: "reading_text_visibility",
-    storageKey: DB_KEYS.readingTextVisibility,
-    reload: reloadIfReady(readingTextVisibilityStore),
-    isPristine: isPristineReadingTextVisibility,
+    // D46: the server only ever sees coordinates rounded to ~1 km.
+    toPushValue: coarsenLocation,
+    fromRemote: keepExactCoordinates,
   },
   {
     entity: "zakat_calculator",
@@ -276,6 +361,60 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     reload: reloadIfReady(quranMemorizationStore),
     merge: mergeMemorization,
   },
+  // NF-3.15 tajweed coaching: per-head LWW on `lastAt`, newer plan wins.
+  {
+    entity: "tajweed_coaching",
+    storageKey: DB_KEYS.tajweedCoaching,
+    reload: reloadIfReady(tajweedCoachingStore),
+    merge: mergeTajweedCoaching,
+  },
+  // NF-3.21 personal ayah notes (D15 — normal sync, not the vault): per-note LWW
+  // on `updatedAt`, tombstones win over older edits, tombstone GC after 90 days.
+  // H2: the merge enforces the 1 MB server cap. A union that won't fit keeps
+  // every local note, parks the remote and pauses pushes ("notes full" in the UI).
+  {
+    entity: "quran_notes",
+    storageKey: DB_KEYS.quranNotes,
+    reload: reloadIfReady(quranNotesStore),
+    merge: (local: unknown, remote: unknown) => {
+      const result = mergeQuranNotesCapped(local, remote);
+      return result.pending > 0
+        ? heldMerge(result.value, "overflow", result.pending)
+        : result.value;
+    },
+    validatePush: (value: unknown) => isValidQuranNotesPayload({ value }),
+  },
+  // NF-3.2 voluntary fasting: per-date LWW on `updatedAt`; tombstones carry removals.
+  {
+    entity: "voluntary_fasting",
+    storageKey: DB_KEYS.voluntaryFasting,
+    reload: reloadIfReady(voluntaryFastingStore),
+    merge: mergeVoluntaryFasting,
+  },
+  // NF-3.14 coach history: shown ids + goals union, dismiss/snooze LWW on `updatedAt`.
+  {
+    entity: "coach_history",
+    storageKey: DB_KEYS.coachHistory,
+    reload: reloadIfReady(coachHistoryStore),
+    merge: mergeCoachHistory,
+  },
+  // D40 daily Qur'an reading log: union of dates, per-field max on a shared date.
+  {
+    entity: "quran_reading_log",
+    storageKey: DB_KEYS.quranReadingLog,
+    reload: reloadIfReady(quranReadingLogStore),
+    merge: mergeQuranReadingLog,
+  },
+  // NF-3.4 Umrah mode: per-session LWW on `updatedAt`; tombstones carry removals.
+  {
+    entity: "umrah_sessions",
+    storageKey: DB_KEYS.umrahSessions,
+    reload: reloadIfReady(umrahSessionStore),
+    merge: mergeUmrahSessions,
+  },
+  // E2E-encrypted vault (plan §4.2, D2): keyring + one envelope per document.
+  // Gated on the user's opt-in; merges decrypt → domain merge → re-encrypt.
+  ...VAULT_BLOB_ENTITIES,
 ];
 
 const BLOB_BY_ENTITY = new Map(BLOB_ENTITIES.map((e) => [e.entity, e]));
@@ -322,10 +461,22 @@ function isUntouchedBlob(e: BlobEntity, value: unknown, tracked: unknown): boole
   return e.isPristine?.(value) === true;
 }
 
+/** Entities whose last push skipped an invalid value (H2). In memory, for the sync-status UI. */
+const skippedEntities = new Set<string>();
+
+/** Blob entities whose value failed the client copy of the server check on the last push. */
+export function getSkippedBlobEntities(): string[] {
+  return [...skippedEntities];
+}
+
 /**
  * Builds the push records for every blob entity, updating the local fingerprint
  * tracker in the same pass. Unchanged entities reuse their stored timestamp (so
  * the caller's delta filter skips them); changed ones are stamped `nowIso`.
+ *
+ * Held entities (a parked remote that didn't merge yet) are retried first and
+ * skipped while still held. A value that would fail the server's payload check
+ * is skipped on its own, so one bad blob can't fail the whole push.
  */
 export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]> {
   return withKeyLock(DB_KEYS.blobSyncState, async () => {
@@ -334,13 +485,22 @@ export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]>
     let mutated = false;
 
     for (const e of BLOB_ENTITIES) {
+      if (e.gate && !(await e.gate())) continue;
+      if (await isPushPaused(e)) continue;
       const value = await readJSON<unknown>(e.storageKey, null);
       const tracked = state[e.entity];
       // Never meaningfully touched on this device — nothing to sync, and pushing
       // an empty/default blob could clobber real data on another device.
       if (isUntouchedBlob(e, value, tracked)) continue;
+      if (e.validatePush && !e.validatePush(value)) {
+        // Leave the tracker alone so the value is re-checked on the next push.
+        skippedEntities.add(e.entity);
+        continue;
+      }
+      skippedEntities.delete(e.entity);
 
-      const hash = fingerprint(value);
+      const pushValue = e.toPushValue ? e.toPushValue(value) : value;
+      const hash = fingerprint(pushValue);
       let updatedAt: string;
       if (tracked && tracked.hash === hash) {
         updatedAt = tracked.updatedAt;
@@ -353,7 +513,7 @@ export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]>
       records.push({
         entity: e.entity as SyncRecordDto["entity"],
         id: e.entity,
-        data: { value },
+        data: { value: pushValue },
         updatedAt,
       });
     }
@@ -368,6 +528,16 @@ export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]>
  * timestamp. Returns `true` when the local value changed (so the caller can
  * refresh the store). Marking the applied content in the tracker with the remote
  * timestamp is what prevents a sync ping-pong.
+ *
+ * H1: the local read, the (possibly async) merge and the write all run inside
+ * one `withKeyLock(storageKey)`. Store mutations take the same lock, so a local
+ * edit is serialized before or after the merge and is never overwritten. A
+ * writer that skips the lock is caught by re-reading before the write; the
+ * merge then runs again on top of its value.
+ *
+ * A merge that can't take all of the remote (`HeldMerge`), or that throws,
+ * keeps local, parks the remote and pauses the entity's pushes. It never
+ * throws out of here, so one bad record can't stop the rest of the pull.
  */
 export async function applyRemoteBlob(
   entity: string,
@@ -376,6 +546,10 @@ export async function applyRemoteBlob(
 ): Promise<boolean> {
   const e = BLOB_BY_ENTITY.get(entity);
   if (!e) return false;
+  if (e.gate && !(await e.gate())) {
+    await e.stash?.("value" in data ? data.value : null, updatedAt);
+    return false;
+  }
 
   return withKeyLock(DB_KEYS.blobSyncState, async () => {
     const state = await readJSON<BlobSyncState>(DB_KEYS.blobSyncState, {});
@@ -386,9 +560,6 @@ export async function applyRemoteBlob(
     if (!unionMerge && tracked && updatedAt && tracked.updatedAt >= updatedAt) return false;
 
     const remoteValue = "value" in data ? data.value : null;
-    const value = unionMerge
-      ? await mergeBlobValue(entity, e.storageKey, remoteValue)
-      : remoteValue;
 
     // For union-merge, advance watermark to the newer of local/remote.
     const nextUpdatedAt =
@@ -398,22 +569,125 @@ export async function applyRemoteBlob(
           : updatedAt
         : updatedAt;
 
-    const hash = fingerprint(value);
-    // Identical content + watermark (e.g. server echo of our own push) — no-op.
-    if (tracked?.hash === hash && tracked.updatedAt === nextUpdatedAt) return false;
+    const outcome = await withKeyLock(e.storageKey, async () => {
+      for (let attempt = 0; ; attempt += 1) {
+        const localValue =
+          unionMerge || e.fromRemote ? await readJSON<unknown>(e.storageKey, null) : null;
+        let value: unknown = e.fromRemote ? e.fromRemote(localValue, remoteValue) : remoteValue;
+        let held: HeldMerge | null = null;
+        if (unionMerge) {
+          const merged = await runMerge(e, localValue, remoteValue);
+          if (isHeldMerge(merged)) held = merged;
+          value = isHeldMerge(merged) ? merged.value : merged;
+          // A writer that skipped the key lock changed the value mid-merge: redo it.
+          const now = await readJSON<unknown>(e.storageKey, null);
+          if (attempt < 2 && fingerprint(now) !== fingerprint(localValue)) continue;
+        }
+        // Fingerprint the pushed form, so a kept exact location isn't re-pushed.
+        const hash = fingerprint(e.toPushValue ? e.toPushValue(value) : value);
+        if (held) {
+          const changed = hash !== fingerprint(localValue);
+          if (changed) await writeJSON(e.storageKey, value);
+          return { kind: "held" as const, changed, held };
+        }
+        // Identical content + watermark (e.g. server echo of our own push) — no-op.
+        if (tracked?.hash === hash && tracked.updatedAt === nextUpdatedAt) {
+          return { kind: "noop" as const };
+        }
+        await writeJSON(e.storageKey, value);
+        return { kind: "applied" as const, hash };
+      }
+    });
 
-    await withKeyLock(e.storageKey, () => writeJSON(e.storageKey, value));
+    if (outcome.kind === "noop") return false;
+
+    if (outcome.kind === "held") {
+      // Track the server's fingerprint: once the hold clears, the merged value
+      // differs from it and is pushed. Until then `isPushPaused` skips the
+      // entity, so the server copy stays intact.
+      state[entity] = { hash: fingerprint(remoteValue), updatedAt: nextUpdatedAt };
+      await writeJSON(DB_KEYS.blobSyncState, state);
+      await parkRemote(e, remoteValue, updatedAt, outcome.held);
+      return outcome.changed;
+    }
+
     // Custom merges: when the merged value differs from what the server holds,
     // track the server's fingerprint so the next push sends the merged value and
     // both devices converge after one round trip each.
+    const hash = outcome.hash;
     const remoteHash = e.merge ? fingerprint(remoteValue) : hash;
     state[entity] = {
       hash: e.merge && remoteHash !== hash ? remoteHash : hash,
       updatedAt: nextUpdatedAt,
     };
     await writeJSON(DB_KEYS.blobSyncState, state);
+    // A newer remote merged cleanly, so it supersedes any older parked one.
+    if (e.merge) await releaseHold(e, updatedAt);
     return true;
   });
+}
+
+/** Runs the entity's merge. A throw becomes a hold, so the pull keeps going (H2). */
+async function runMerge(e: BlobEntity, local: unknown, remote: unknown): Promise<unknown> {
+  try {
+    return e.merge ? await e.merge(local, remote) : mergeUnion(e.entity, local, remote);
+  } catch {
+    return heldMerge(local, "error");
+  }
+}
+
+async function parkRemote(
+  e: BlobEntity,
+  remoteValue: unknown,
+  updatedAt: string,
+  held: HeldMerge,
+): Promise<void> {
+  if (e.stash) {
+    await e.stash(remoteValue, updatedAt);
+    return;
+  }
+  await setBlobHold(e.entity, {
+    value: remoteValue,
+    updatedAt,
+    reason: held.reason,
+    pending: held.pending,
+  });
+}
+
+async function releaseHold(e: BlobEntity, upTo: string): Promise<void> {
+  if (e.releaseHold) await e.releaseHold(upTo);
+  else await clearBlobHold(e.entity, upTo);
+}
+
+/**
+ * True while `e` has a parked remote that still can't merge. The merge is
+ * retried first, under the storage-key lock. Once it fits, the merged value is
+ * written, the hold is released, and the caller pushes it in the same pass.
+ */
+async function isPushPaused(e: BlobEntity): Promise<boolean> {
+  if (e.pushPaused) return e.pushPaused();
+  if (!e.merge) return false;
+  const hold = await readBlobHold(e.entity);
+  if (!hold) return false;
+
+  const result = await withKeyLock(e.storageKey, async () => {
+    const local = await readJSON<unknown>(e.storageKey, null);
+    const merged = await runMerge(e, local, hold.value);
+    const value = isHeldMerge(merged) ? merged.value : merged;
+    const changed = fingerprint(value) !== fingerprint(local);
+    if (changed) await writeJSON(e.storageKey, value);
+    return { held: isHeldMerge(merged) ? merged : null, changed };
+  });
+
+  if (result.held) {
+    if (result.held.pending !== hold.pending) {
+      await setBlobHold(e.entity, { ...hold, pending: result.held.pending });
+    }
+  } else {
+    await clearBlobHold(e.entity, hold.updatedAt);
+  }
+  if (result.changed) await e.reload();
+  return result.held != null;
 }
 
 /** Entities whose values are plain maps/arrays of independent user edits. */
@@ -422,7 +696,6 @@ const UNION_MERGE_ENTITIES = new Set([
   "hajj_checklist",
   "umrah_checklist",
   "friday_checklist",
-  "white_days_checklist",
   "salah_guide_progress",
   "taharah_progress",
   "aqeedah_progress",
@@ -436,16 +709,9 @@ const UNION_MERGE_ENTITIES = new Set([
   "tours_seen",
 ]);
 
-async function mergeBlobValue(
-  entity: string,
-  storageKey: string,
-  remoteValue: unknown,
-): Promise<unknown> {
-  const custom = BLOB_BY_ENTITY.get(entity)?.merge;
-  if (custom) return custom(await readJSON<unknown>(storageKey, null), remoteValue);
+function mergeUnion(entity: string, localValue: unknown, remoteValue: unknown): unknown {
   if (!UNION_MERGE_ENTITIES.has(entity)) return remoteValue;
 
-  const localValue = await readJSON<unknown>(storageKey, null);
   if (localValue == null || isEmptyBlob(localValue)) return remoteValue;
   if (remoteValue == null || isEmptyBlob(remoteValue)) return localValue;
 

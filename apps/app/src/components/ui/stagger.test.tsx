@@ -3,7 +3,7 @@ import { Text } from "react-native";
 import * as Reanimated from "react-native-reanimated";
 
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { Stagger } from "@/components/ui/stagger";
+import { flattenStaggerChildren, Stagger } from "@/components/ui/stagger";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { completeAllStaggerEntrances } from "@/lib/stagger-entrances";
 import { captureAppStateListener } from "@/test-support/app-state";
@@ -183,5 +183,61 @@ describe("Stagger finishes early", () => {
     await rerender(stagger({ entranceKey }, ["A", "B", "C", "D"]));
 
     expect(isRevealed("D")).toBe(true);
+  });
+});
+
+describe("Stagger fragments", () => {
+  const show = true;
+  const hide = false as boolean;
+
+  it("gives every child inside a fragment its own spaced slot", async () => {
+    await render(
+      <Stagger animate={false} entranceKey={uniqueKey()}>
+        {/* biome-ignore lint/complexity/noUselessFragments: the fragment is what's under test */}
+        <>
+          <Text>A</Text>
+          <Text>B</Text>
+        </>
+        <Text>C</Text>
+      </Stagger>,
+    );
+
+    const slots = ["A", "B", "C"].map((label) => parentOf(screen.getByText(label)));
+    expect(new Set(slots).size).toBe(3);
+    expect(parentOf(slots[0])).toBe(parentOf(slots[2]));
+  });
+
+  it("flattens nested and conditional fragments", () => {
+    const items = flattenStaggerChildren(
+      <>
+        {hide && <Text>Hidden</Text>}
+        {show && (
+          <>
+            <Text>A</Text>
+            {/* biome-ignore lint/complexity/noUselessFragments: a nested fragment is under test */}
+            <>
+              <Text>B</Text>
+            </>
+          </>
+        )}
+        {null}
+        <Text>C</Text>
+      </>,
+    );
+
+    expect(items).toHaveLength(3);
+    expect(new Set(items.map((item) => item.key)).size).toBe(3);
+  });
+
+  it("keeps a child's key when a conditional sibling before it appears", () => {
+    const build = (withFirst: boolean) =>
+      flattenStaggerChildren(
+        <>
+          {withFirst && <Text>First</Text>}
+          <Text>Stable</Text>
+        </>,
+      );
+
+    expect(build(true).at(-1)?.key).toBe(build(false).at(-1)?.key);
   });
 });

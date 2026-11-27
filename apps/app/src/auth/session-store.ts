@@ -29,68 +29,49 @@ const COOKIE_MARKER = "cookie" as const; // keep in sync with WEB_COOKIE_SESSION
 
 const isWeb = Platform.OS === "web";
 
-async function getNativeItem(key: string): Promise<string | null> {
-  return getSecureItem(key);
+type SessionMeta = Omit<StoredSession, "accessToken" | "refreshToken">;
+
+/**
+ * One `sessionStorage` entry on web. Reads resolve `null` and writes are
+ * dropped when storage is unavailable (private mode, quota); `set` callers
+ * verify the access token was persisted.
+ */
+function webSessionItem(key: string) {
+  return {
+    get(): string | null {
+      try {
+        return sessionStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    },
+    set(value: string | null): void {
+      try {
+        if (value == null) sessionStorage.removeItem(key);
+        else sessionStorage.setItem(key, value);
+      } catch {
+        // private mode / quota
+      }
+    },
+  };
 }
 
-async function setNativeItem(key: string, value: string): Promise<boolean> {
-  return setSecureItem(key, value);
-}
+const webAccess = webSessionItem(WEB_ACCESS_KEY);
+const webRefresh = webSessionItem(WEB_REFRESH_KEY);
+const webMetaItem = webSessionItem(WEB_META_KEY);
 
-async function deleteNativeItem(key: string): Promise<void> {
-  await deleteSecureItem(key);
-}
-
-function readWebAccess(): string | null {
+function readWebMeta(): SessionMeta | null {
+  const raw = webMetaItem.get();
+  if (!raw) return null;
   try {
-    return sessionStorage.getItem(WEB_ACCESS_KEY);
+    return JSON.parse(raw) as SessionMeta;
   } catch {
     return null;
   }
 }
 
-function writeWebAccess(value: string | null): void {
-  try {
-    if (value == null) sessionStorage.removeItem(WEB_ACCESS_KEY);
-    else sessionStorage.setItem(WEB_ACCESS_KEY, value);
-  } catch {
-    // private mode / quota — treat as failed persist below
-  }
-}
-
-function readWebRefresh(): string | null {
-  try {
-    return sessionStorage.getItem(WEB_REFRESH_KEY);
-  } catch {
-    return null;
-  }
-}
-
-function writeWebRefresh(value: string | null): void {
-  try {
-    if (value == null) sessionStorage.removeItem(WEB_REFRESH_KEY);
-    else sessionStorage.setItem(WEB_REFRESH_KEY, value);
-  } catch {
-    // ignore
-  }
-}
-
-function readWebMeta(): Omit<StoredSession, "accessToken" | "refreshToken"> | null {
-  try {
-    const raw = sessionStorage.getItem(WEB_META_KEY);
-    return raw ? (JSON.parse(raw) as Omit<StoredSession, "accessToken" | "refreshToken">) : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeWebMeta(meta: Omit<StoredSession, "accessToken" | "refreshToken"> | null): void {
-  try {
-    if (meta == null) sessionStorage.removeItem(WEB_META_KEY);
-    else sessionStorage.setItem(WEB_META_KEY, JSON.stringify(meta));
-  } catch {
-    // ignore
-  }
+function writeWebMeta(meta: SessionMeta | null): void {
+  webMetaItem.set(meta == null ? null : JSON.stringify(meta));
 }
 
 export class SessionPersistError extends Error {
@@ -105,7 +86,7 @@ export const SessionStore = {
     try {
       if (isWeb) {
         const meta = readWebMeta();
-        const accessToken = readWebAccess();
+        const accessToken = webAccess.get();
         if (!meta || !accessToken) return null;
         if (accessToken === COOKIE_MARKER) {
           return {
@@ -114,11 +95,11 @@ export const SessionStore = {
             refreshToken: COOKIE_MARKER,
           };
         }
-        const refreshToken = readWebRefresh();
+        const refreshToken = webRefresh.get();
         if (!refreshToken) return null;
         return { ...meta, accessToken, refreshToken };
       }
-      const raw = await getNativeItem(SESSION_KEY);
+      const raw = await getSecureItem(SESSION_KEY);
       return raw ? (JSON.parse(raw) as StoredSession) : null;
     } catch {
       return null;
@@ -138,26 +119,26 @@ export const SessionStore = {
         provider: session.provider,
       };
       writeWebMeta(meta);
-      writeWebAccess(session.accessToken);
+      webAccess.set(session.accessToken);
       if (session.accessToken === COOKIE_MARKER) {
-        writeWebRefresh(COOKIE_MARKER);
+        webRefresh.set(COOKIE_MARKER);
       } else {
-        writeWebRefresh(session.refreshToken);
+        webRefresh.set(session.refreshToken);
       }
-      if (readWebAccess() !== session.accessToken) {
+      if (webAccess.get() !== session.accessToken) {
         throw new SessionPersistError("Failed to persist web access token");
       }
       return;
     }
-    const ok = await setNativeItem(SESSION_KEY, JSON.stringify(session));
+    const ok = await setSecureItem(SESSION_KEY, JSON.stringify(session));
     if (!ok) throw new SessionPersistError();
   },
 
   async clear(): Promise<void> {
     if (isWeb) {
       writeWebMeta(null);
-      writeWebAccess(null);
-      writeWebRefresh(null);
+      webAccess.set(null);
+      webRefresh.set(null);
       try {
         await AsyncStorage.removeItem(SESSION_KEY);
       } catch {
@@ -165,7 +146,7 @@ export const SessionStore = {
       }
       return;
     }
-    await deleteNativeItem(SESSION_KEY);
+    await deleteSecureItem(SESSION_KEY);
   },
 
   /** A stable per-install device id used to create/resume the guest session. */
@@ -177,10 +158,10 @@ export const SessionStore = {
       await AsyncStorage.setItem(DEVICE_ID_KEY, id);
       return id;
     }
-    const existing = await getNativeItem(DEVICE_ID_KEY);
+    const existing = await getSecureItem(DEVICE_ID_KEY);
     if (existing) return existing;
     const id = `dev_${Crypto.randomUUID()}`;
-    const ok = await setNativeItem(DEVICE_ID_KEY, id);
+    const ok = await setSecureItem(DEVICE_ID_KEY, id);
     if (!ok) throw new SessionPersistError("Failed to persist device id");
     return id;
   },

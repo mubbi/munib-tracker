@@ -1,0 +1,299 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Platform, StyleSheet, View } from "react-native";
+
+import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
+import { Sheet } from "@/components/ui/sheet";
+import {
+  canSubmitNewPassphrase,
+  NewPassphraseFields,
+} from "@/components/vault/new-passphrase-fields";
+import { PassphraseField } from "@/components/vault/passphrase-field";
+import { RecoveryCodeDisplay } from "@/components/vault/recovery-code-display";
+import { VaultSyncSheet } from "@/components/vault/vault-sync-sheet";
+import { VaultUnlockSheet } from "@/components/vault/vault-unlock-sheet";
+import { Spacing } from "@/constants/theme";
+import { usePinLock } from "@/features/pin-lock";
+import { isTV } from "@/lib/platform/is-tv";
+import { vaultErrorI18nKey } from "@/lib/vault/errors";
+import {
+  changeVaultPassphrase,
+  disableVaultSync,
+  regenerateVaultRecoveryCode,
+  verifyVaultPassphrase,
+} from "@/lib/vault/vault";
+import { useVaultLockActions, useVaultLockJournals } from "@/lib/vault/vault-lock";
+import { useVaultStatus } from "@/lib/vault/vault-store";
+import { useAuth } from "@/providers/auth-provider";
+import { useToast } from "@/providers/toast-provider";
+
+import { SettingsRow, ToggleRow } from "../settings-rows";
+import { ThisDeviceBadge } from "../this-device-badge";
+
+/**
+ * Privacy & security › Private journals › "Lock private journals" (§4.2 Lock).
+ * Device-scoped; needs the app PIN, so it is disabled (with "Set up App lock
+ * first") on web and while no PIN is set.
+ */
+export function VaultLockJournalsRow() {
+  const { t } = useTranslation();
+  const lockJournals = useVaultLockJournals();
+  const { setLockJournals } = useVaultLockActions();
+  const { isPinEnabled, hasStoredPin } = usePinLock();
+  const pinReady = Platform.OS !== "web" && isPinEnabled && hasStoredPin;
+  return (
+    <ToggleRow
+      icon={{ ios: "lock.doc.fill", android: "lock", web: "lock" }}
+      title={t("vault.settings.lockJournals")}
+      subtitle={t(pinReady ? "vault.settings.lockJournalsHint" : "vault.settings.lockNeedsPin")}
+      accessory={<ThisDeviceBadge />}
+      value={pinReady && lockJournals}
+      disabled={!pinReady}
+      onValueChange={(v) => void setLockJournals(v)}
+    />
+  );
+}
+
+/**
+ * Encrypted sync (opt-in, §4.2): opens the opt-in / join sheet, or offers to
+ * turn sync off. Hidden on TV (no passphrase entry) and for guests (nothing to
+ * sync to). A vault locked on this device shows an Unlock row instead.
+ */
+export function VaultSyncRow() {
+  const { t } = useTranslation();
+  const toast = useToast();
+  const { isAuthenticated } = useAuth();
+  const status = useVaultStatus();
+  const [sheet, setSheet] = useState<"sync" | "unlock" | "off" | null>(null);
+  if (isTV()) return null;
+
+  const locked = status?.state === "locked";
+  const rows = [];
+  if (locked) {
+    rows.push(
+      <SettingsRow
+        key="unlock"
+        icon={{ ios: "lock.open.fill", android: "lock_open", web: "lock_open" }}
+        title={t("vault.unlock.title")}
+        subtitle={t("vault.errors.locked")}
+        onPress={() => setSheet("unlock")}
+      />,
+    );
+  }
+  if (isAuthenticated && status?.state !== "unavailable") {
+    const value = status?.syncEnabled ? t("common.on") : t("common.off");
+    rows.push(
+      <SettingsRow
+        key="sync"
+        icon={{ ios: "lock.icloud.fill", android: "cloud_sync", web: "cloud_sync" }}
+        title={t("vault.settings.sync")}
+        subtitle={
+          status?.syncEnabled && status.heldDocs.length > 0
+            ? t("vault.sync.paused")
+            : t("vault.sync.howItWorks")
+        }
+        value={value}
+        onPress={() => setSheet(status?.syncEnabled ? "off" : "sync")}
+      />,
+    );
+  }
+  if (rows.length === 0) return null;
+
+  return (
+    <View style={styles.block}>
+      {rows}
+      <VaultSyncSheet visible={sheet === "sync"} onClose={() => setSheet(null)} />
+      <VaultUnlockSheet visible={sheet === "unlock"} onClose={() => setSheet(null)} />
+      <Sheet
+        visible={sheet === "off"}
+        onClose={() => setSheet(null)}
+        variant="bottom"
+        title={t("vault.settings.sync")}
+      >
+        <View style={styles.block}>
+          <ThemedText type="small" themeColor="mutedForeground">
+            {t("settingsStep4.vault.turnOffBody")}
+          </ThemedText>
+          <Button
+            label={t("settingsStep4.vault.turnOff")}
+            variant="secondary"
+            fullWidth
+            onPress={() => {
+              setSheet(null);
+              void disableVaultSync().then(
+                () => toast.success(t("vault.settings.syncTurnedOff")),
+                (e: unknown) => toast.error(t(vaultErrorI18nKey(e))),
+              );
+            }}
+          />
+          <Button
+            label={t("common.cancel")}
+            variant="ghost"
+            fullWidth
+            onPress={() => setSheet(null)}
+          />
+        </View>
+      </Sheet>
+    </View>
+  );
+}
+
+type CredentialSheet = "passphrase" | "recovery" | null;
+
+/**
+ * Change passphrase + new recovery code. Only once a passphrase exists
+ * (`hasKeyring`); hidden on TV. The current passphrase is checked first, and a
+ * new recovery code is shown exactly once.
+ */
+export function VaultCredentialsRows() {
+  const { t } = useTranslation();
+  const toast = useToast();
+  const status = useVaultStatus();
+  const [sheet, setSheet] = useState<CredentialSheet>(null);
+  const [current, setCurrent] = useState("");
+  const [next, setNext] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [words, setWords] = useState<string[] | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [dismissBlocked, setDismissBlocked] = useState(false);
+
+  if (isTV() || !status?.hasKeyring || status.state !== "ready") return null;
+
+  const close = () => {
+    setSheet(null);
+    setCurrent("");
+    setNext("");
+    setConfirm("");
+    setWords(null);
+    setError(null);
+    setBusy(false);
+    setDismissBlocked(false);
+  };
+
+  // S-01: a freshly generated recovery code is shown exactly once, and closing
+  // discards it — so while it is on screen only "Done" (after ticking "I've
+  // saved it") may close the sheet. Scrim, swipe, Back and Escape just remind.
+  const requestClose = () => {
+    if (busy) return;
+    if (words) {
+      setDismissBlocked(true);
+      return;
+    }
+    close();
+  };
+
+  const run = async (task: () => Promise<void>) => {
+    setBusy(true);
+    setError(null);
+    try {
+      await task();
+    } catch (e) {
+      setError(t(vaultErrorI18nKey(e)));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const changePassphrase = () =>
+    run(async () => {
+      if (!(await verifyVaultPassphrase(current))) {
+        setError(t("vault.errors.wrongPassphrase"));
+        return;
+      }
+      await changeVaultPassphrase(next);
+      close();
+      toast.success(t("settingsStep4.vault.passphraseChanged"));
+    });
+
+  const newRecoveryCode = () =>
+    run(async () => {
+      const result = await regenerateVaultRecoveryCode();
+      setWords(result.recoveryWords);
+    });
+
+  return (
+    <View style={styles.block}>
+      <SettingsRow
+        icon={{ ios: "key.fill", android: "vpn_key", web: "vpn_key" }}
+        title={t("vault.settings.changePassphrase")}
+        onPress={() => setSheet("passphrase")}
+      />
+      <SettingsRow
+        icon={{ ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" }}
+        title={t("vault.settings.newRecoveryCode")}
+        subtitle={t("vault.settings.newRecoveryCodeHint")}
+        onPress={() => setSheet("recovery")}
+      />
+      <Sheet
+        visible={sheet != null}
+        onClose={requestClose}
+        variant="bottom"
+        solid
+        title={
+          sheet === "passphrase"
+            ? t("vault.settings.changePassphrase")
+            : words
+              ? undefined
+              : t("vault.settings.newRecoveryCode")
+        }
+        showCloseButton={words ? false : undefined}
+      >
+        {sheet === "passphrase" ? (
+          <View style={styles.block}>
+            <PassphraseField
+              label={t("vault.passphrase.label")}
+              value={current}
+              onChangeText={setCurrent}
+              purpose="password"
+            />
+            <NewPassphraseFields
+              label={t("vault.passphrase.newLabel")}
+              value={next}
+              onChangeText={setNext}
+              confirm={confirm}
+              onChangeConfirm={setConfirm}
+            />
+            {error ? <Callout tone="danger">{error}</Callout> : null}
+            <Button
+              label={t("vault.unlock.savePassphrase")}
+              fullWidth
+              loading={busy}
+              disabled={current.length === 0 || !canSubmitNewPassphrase(next, confirm)}
+              onPress={() => void changePassphrase()}
+            />
+          </View>
+        ) : sheet === "recovery" ? (
+          <View style={styles.block}>
+            {words ? (
+              <RecoveryCodeDisplay
+                words={words}
+                dismissBlocked={dismissBlocked}
+                onConfirmed={close}
+              />
+            ) : (
+              <>
+                <ThemedText type="small" themeColor="mutedForeground">
+                  {t("vault.settings.newRecoveryCodeHint")}
+                </ThemedText>
+                {error ? <Callout tone="danger">{error}</Callout> : null}
+                <Button
+                  label={t("vault.sync.continue")}
+                  fullWidth
+                  loading={busy}
+                  onPress={() => void newRecoveryCode()}
+                />
+              </>
+            )}
+          </View>
+        ) : null}
+      </Sheet>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  block: { gap: Spacing.two },
+});

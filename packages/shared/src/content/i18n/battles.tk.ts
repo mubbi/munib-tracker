@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       'Gurhan bu rugsadyň töwereginde hemişelik çäk kesgitledi: "Size garşy söweşýän, ýöne bozmaň Allanyň ýolunda söweşiň" (Gurhan 2: 190). Söweş jemgyýete garşy agressiýa bilen baglanyşyklydy we hiç haçan adalat çäginden çykmaly däldi.',
       "Bu kampaniýalar taryh: ýedinji asyryň belli bir arap kontekstinde tire-taýpa söweşi, şertnamalary bozmak we gabaw şertlerinde bolup geçdi. Parahatçylyk, adalat, rehimdarlyk we goňşuçylyk baradaky umumy yslam taglymatlary çarçuwadyr; bu söweşleriň aýratynlyklary, şol bölümiň içinde okalmaly, ondan aýrylan şygarlara ýykylmaly däl.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Zalym bolandyklary üçin söweşýänlere rugsat berilýär we Allah olara ýeňiş berip bilýär - öýlerinden haksyz kowlanlara, diňe: "Rebbimiz Alladyr" diýendikleri üçin. Allatagala käbir adamlary beýlekileriň, monastyrlaryň, ybadathanalaryň, sinagoglaryň we metjitleriň üsti bilen kowmasa, Allanyň ady agzalýan metjitler hökman ýykylardy.',
-      },
-      {
-        excerpt:
-          "Allanyň ýolunda söweşiň, ýöne hyýanat etmäň. Hakykatdanam, Allah bozuklary halamaýar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       "Şertnamanyň bozulmagy ahyryna çenli aýgytly bolup galdy. Musulmanlaryň ýaranlary Banu Huza'a hüjüm eden Kuraýşyň ýaranlary, Hudaýbiýa şertnamasyny ýatyrdy we gyrgynçylyga däl-de, Mekgäniň gansyz açylmagyna sebäp boldy.",
       "Bularyň hemmesinde maksatlar yzygiderli boldy: durmuşy we dini goramak, ejizleri goramak we tawhidiň yzarlanmazdan ulanylyp bilinjek ýeterlik howpsuzlygyny üpjün etmek. Maksat hiç haçan öz bähbidi üçin tükeniksiz giňelmek däldi we çeşmeler Pygambere duşman parahatçylyga ymtylanda ýaraşyk we şertnamany ileri tutýandygyny ýazýar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Maňa Alladan başga hudaýyň ýokdugyna we Muhammediň Allahyň Resulydygyna, namaz okamagyna we zekat berýändiklerine güwä geçýänçä, söweşmek tabşyryldy. Şeýle etseler, Yslam hukugyndan başga jany we emlägi menden goralýar we hasaplary Allaha degişlidir. - Nusgawy alymlar "halky" Arabystanyň butparazlary hökmünde okaýarlar, habar gelenden soň Yslam dinine garşy söweşýärler; Gurhan 2: 256-da aç-açan gadagan edýän parahatçylykly musulman dällere hüjüm etmek ýa-da ynanjy mejbur etmek üçin ygtyýarnama däl-de, şol duşman söweşijiler hakda aýdylan söz.',
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Dinde mejburlyk ýok. Dogry kurs ýalňyşlykdan tapawutlandy.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Aboveokardaky hadysda köplenç sazlanylýar. Nusgawy alymlar ony öz döwrüniň belli bir duşmançylygynda we Gurhanyň dine mejbur etmegi gadagan etmegi bilen birlikde (2: 256) we söweşiň diňe size garşy söweşýänlere garşydygyny kesgitleýärler (2: 190).",
     appLinks: [{}],
@@ -72,29 +54,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       "Emläk we ýeriň özi goralýar. Umumy görkezme miweli agaçlaryň islegsiz kesilmegini, ekinleriň ýakylmagyny we mallary zerurlykdan soýmagy gadagan etdi. Tussaglar iýenlerinde we geýnenlerinde iýmitlenmeli boldular; Gurhan ýesirleri Allanyň söýgüsi üçin iýmitlendirýänleri öwýär (76: 8) we köpüsi töleg, alyş-çalyş ýa-da ýönekeý rehimdarlyk bilen azat edildi - käbiri Badrda musulmanlary okamagy öwretmek üçin.",
       "Bular diniň kadalaşdyryjy taglymatlarydyr. Taryh boýunça aýry-aýry musulmanlar yslamy bozýardylar, kesgitlemediler - edil haýsydyr bir dine uýýanlaryň düzgünleriniň bozulmagy, bu imanyň buýruklaryny täzeden ýazmaýşy ýaly.",
     ],
-    quran: [
-      {
-        excerpt: "Allanyň ýolunda söweşiň, ýöne hyýanat etmäň.",
-      },
-      {
-        excerpt:
-          "Parahatçylyga ýykgyn edýän bolsalar, oňa-da ýykgyn ediň we Allaha bil baglaň. Hakykatdanam, eşidýän we bilýän Oldyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Umar, Allahyň Resulynyň ekspedisiýalarynyň birinde bir aýalyň öldürilendigini habar berdi, şonuň üçin aýallaryň we çagalaryň öldürilmegini gadagan etdi.",
-      },
-      {
-        excerpt:
-          "Pygamberimiz bir goşuna serkerde belläninde, oňa: Allanyň adyndan söweşiň ... olja almaň, girewiňizi bozmaň, şikes ýetirmäň we çagany öldürmäň. Duşmana duşanyňyzda ilki bilen olary yslama çagyryň; ret etseler, olara parahatçylyk hödürläň; diňe ikisinden ýüz öwürseler, söweşiň.",
-      },
-      {
-        excerpt:
-          "Garry gojany, ýaş çagany ýa-da aýal öldürme. - Bu takyk sözlemiň käbir zynjyrlary gowşak derejelendirilýär, ýöne onuň aýdýan hökümi ýokardaky sahih kyssasy we hukukçylaryň razyçylygy bilen tassyklanýar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Yslamyň buýruklary bilen taryhdaky islendik goşunyň hakykatdanam edenlerini anyk tapawutlandyryň.",
       "Bu etika bölümini haýsydyr bir söweş kyssasyndan öň okaň - dolandyryş ýörelgeleri bolmazdan taryh düşünişmezlige çagyrýar.",
@@ -139,26 +100,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
         "Käbir ýesirler Medinäniň çagalaryna sowatlylygy öwretmegiň deregine boşadyldy.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Rebbiňizden kömek soraýan wagtyňyz, Ol size jogap berdi: Men sizi biri-biriňize eýerip, müň perişde bilen güýçlendirerin.",
-      },
-      {
-        excerpt:
-          "Iki goşunda duşan bir alamat bardy, biri Allanyň ýolunda söweşýär, beýlekisi kapyrlar.",
-      },
-      {
-        excerpt:
-          "Sen olary öldürmediň, ýöne olary Alla öldürdi. Zyňanyňyzda-da atmadyňyz, zyňan Allahdy.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Umar, Pygamberimiziň Badr güni öz ýoldaşlarynyň üç ýüzden gowrak bolsa, müň duşmana seredendigini, soň bolsa kybla tarap öwrülendigini, ellerini uzadyp, Rebbine ýalbarýandygyny habar berdi: Allaha Allah, maňa söz bereniňi ýerine ýetir. Allaha Allah, bu imanlylar topary ýok edilse, ýer ýüzünde ybadat edilmez. Egninden egninden düşýänçä ýalbardy, Ebu Bekir bolsa: «Eý, Allahyň pygamberi - Allah saňa beren wadasyny ýerine ýetirer» diýdi.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -194,22 +137,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Synaglar imanlylary arassalaýar; toba we çydamlylyk bilen ýüze çykan kynçylyk ösüşe alyp barýar.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allatagala, rugsady bilen öldüreniňizde, size beren wadasyny hökman ýerine ýetirdi - batyrlygy ýitirýänçäňiz, buýruk barada jedel edip, söýýän zadyňyzy görkezenden soň boýun egmänkäňiz.",
-      },
-      {
-        excerpt:
-          "Şonuň üçin ejizlemäň we gynanmaň, sebäbi hakyky imanly bolsaňyz has ýokary bolarsyňyz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamberimiz Abdullah ibn Jubaýry Uhud güni elli okçynyň üstünden belledi we şeýle diýdi: guşlar tarapyndan alnyp gidilendigimizi görseňizem, sizi iberýänçäm goýmaň - hatda olary ýeňýändigimizi görseňizem, men sizi iberýänçäm gitmäň. Duşman derbi-dagyn edilip, ýaýçylar olja görenlerinde: «Olja!» Diýdiler. wezipesinden aýryldy - şonuň üçin ýetmiş adam öldürildi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -247,22 +176,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Gabawda berk duruň we netijäni şemal bilen yzyna öwrüp bilýän Allaha ynanyň.",
     },
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler, goşunlar size gelende Allanyň size beren merhemetini ýada salyň we biz olara garşy ýel we görmedik goşun iberdik ... Şol ýerde imanlylar synag edildi we güýçli titremediler.",
-      },
-      {
-        excerpt:
-          'Imanlylar Konfederasiýany görenlerinde: "Allatagalanyň we Resulynyň bize beren wadasy şu" diýdiler we bu diňe imanda we boýun egmekde artdy.',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamber alaýhyssalam Al-Ahzab güni Konfederasiýalara dileg edip: «Eý, kitaby aýan eden Allah, hasaplaşykly bol - Konfederasiýalary ýeň. Eý, Alla, olary ýeň we silkit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -294,22 +209,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Umumy howp abanýan pursatda özara gorag şertnamasyny bozmak dönüklikleriň arasynda.",
     },
-    quran: [
-      {
-        excerpt:
-          "Özlerini galalaryndan goldaýan we ýüreklerine terror eden Mukaddes .azgy adamlaryny - öldüren partiýaňyzy we ýesir alan partiýaňyzy ýykdy. Ol sizi öz ýerlerine we jaýlaryna miras galdyrdy.",
-      },
-      {
-        excerpt:
-          "Allatagala sizi din sebäpli söweşmeýänlerden we öýleriňizden kowmaýanlardan - olara dogry bolmakdan we olara adalatly hereket etmekden gadagan etmeýär. Hakykatdanam, Allah adalatlylary söýýär.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Banu Kureýza Sa'd ibn Muadyň hökümini kabul etmäge razy bolanda, Pygamber alaýhyssalam ony iberdi. Ol geldi, Pygamber alaýhyssalam aýtdy: «Başlygyň üçin dur. Sa'd söweşýän erkekleriň öldüriljekdigini, aýallarynyň we çagalarynyň ýesir alnandygyny aýtdy. Pygamber alaýhyssalam aýtdy: Allanyň hökümi bilen höküm çykardyňyz ýa-da Patyşanyň hökümi bilen aýtdyňyz.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Bu, taýpanyň özi saýlan bir emin tarapyndan höküm edilen söweşijiler tarapyndan belli bir uruş dönükligi üçin jeza boldy. Bu hiç bir halka öz dini üçin karar däl we Yslamyň adalat we hoşniýetlilik bilen garamagyny buýurýan ýewreýler ýa-da islendik jemagat bilen gatnaşyklar üçin görelde däldir (Gurhan 60: 8). Käbir alymlar iberilen sanlaryň jikme-jikliklerini sorag astyna aldylar.",
   },
@@ -342,22 +243,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kararyň paýhasy gizlenende Allaha we Resulyna bil baglaň - sabyr iň hakyky ýeňiş bolup biler.",
     },
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam, Allatagala günäleriňizden we geljekdäki zatlary bagyşlasyn, size beren merhemetini gutarar we sizi dogry ýola ugrukdyrar ýaly, size aç-açan ýeňiş berdik.",
-      },
-      {
-        excerpt:
-          "Elbetde, agajyň aşagynda saňa wepaly boljakdyklaryny wada berenlerinde, Allatagala göwnünden turdy we ýüreklerinde näme bardygyny bilýärdi, şonuň üçin olara rahatlyk iberdi we basym ýeňiş bilen sylaglady.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir ibn Abdylla aýtdy: Al-Hudaýbiýa güni on dört ýüz bolduk. Agajyň aşagynda Pygambere wepaly boljakdygymyzy wada berdik, ol adamlardan iň gowusydy.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -389,12 +276,7 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Uzaga çeken kynçylyklardan tutanýerlilik, yhlas bilen birleşmek, Allanyň kömegini getirýär.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Haýbar güni Pygamber alaýhyssalam aýtdy: Ertir men bu baýdagy Allany we Resulyny söýýän, Allahy we Resulyny söýýän we elleri bilen Alla ýeňiş berjek adama bererin. Ertesi gün gözleri agyrýan Alyny çagyrdy; gözlerine tüýkürdi we onuň üçin doga etdi, Aly hiç wagt syrkawlamadyk ýaly bejerildi we oňa baýdak berildi.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -458,16 +340,7 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Maksat ar almak däl-de, ýol görkezmekdi - güýç habar däl-de, habara hyzmat etmek üçin edilýär.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allanyň ýeňşi we ýeňşi gelende we adamlaryň Allanyň dinine köp girýänini göreniňizde, Rebbiňizi wasp edip, ondan bagyşlanmagyny soraň. Hakykatdanam, Ol toba kabul edýär.",
-      },
-      {
-        excerpt:
-          "Ol: Şu gün günäkär däl. Goý, Allatagala sizi bagyşlasyn we rehimdarlardan iň rehimlidir. - Yusufusup pygamberiň basyp alan güni Kuraýşlara aýdan sözleri.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -500,18 +373,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Hiç haçan sanlara ýa-da soňky üstünliklere bil baglamaň; ýeňiş we rahatlyk diňe Alladan gelýär.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allatagala eýýäm köp sebitlerde ýeňiş gazandy - Hunaýn güni, köp sanly adam göwnüňizden turanda, size hiç zat bermedi, ýer giňligi üçin size ýapyldy we yza çekildiňiz. Soňra Allatagala rahatlygyny Resulyna we möminlere iberdi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Al-Bara ibn Azibden Hünaýn güni gaçandyklary ýa-da däldigi soraldy. Ol aýtdy: Emma Allahyň Resuly fle gaçmady. Adamlar yzyna öwrüldiler, Pygamberimiz ak ak gatyrynda bolup, ol: "Men Pygamber, bu ýalan däl; Men Abd al-Muttalibiň ogly.',
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -545,22 +408,8 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Görünýän sylagsyz gurban we synag wagtynda hakykat, imanyň iň ýokary synaglaryndan biridir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Yzynda galanlar, Allahyň Resulynyň arkasynda durandyklaryna begendiler we baýlygy we jany bilen Allanyň ýolunda göreşmegi halamadylar we aýtdylar: Yssyda çykmaň. Aýt: Diňe düşünip bilseler, dowzahyň ody yssyda has güýçlidir.",
-      },
-      {
-        excerpt:
-          "Theer, giň ýer ýapylýança, öz janlary ýapylýança, galan üç adamy bagyşlady we Alladan başga pena ýokdugyna ynanýardylar. Soň bolsa toba etmekleri üçin olara rehim etdi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Mälik Tabukdan nädip bahana bilen galandygyny we bu barada ýalan sözlemejekdigini gürrüň berdi; Pygamberimiz imanlylara özi we iki ýoldaşy bilen elli gije gürleşmezligi buýurdy, tä ýer olar üçin dar bolýança - bagyşlanmagyň aýanlygy geldi we bu ömrüniň iň bagtly günleriniň biri boldy.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -619,20 +468,7 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
       "Ekspedisiýalar baradaky hadys, bil baglamazdan ozal hakykylygyny barlamaly. Aşakdaky kyssalar Sahih ýygyndylaryndan alyndy we bu kampaniýalaryň özüni alyp barşyna we ruhuna degişlidir; hersi öz derejesini göterýär.",
       "Belli bir gatnaşyga bagly bolan hekaýalar üçin söweşiň öz mowzugyna serediň. Doly zynjyrlary okamak we kontekstde baha bermek üçin Munibiň hadys brauzerini ulanyň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duşman bilen duşuşmak isleme we Alladan howpsuzlyk sora. Themöne olar bilen duşuşanyňyzda sabyr ediň we Jennetiň gylyç kölegesinde ýatýandygyny biliň.",
-      },
-      {
-        excerpt:
-          "Pygamber alaýhyssalam aýtdy: Uruş hiledir. - Alymlar muny söweşdäki taktiki gatlaklara (yzlary, geň galdyryjylary, ýalňyşlyklary) hiç haçan şertnamany bozmak ýa-da goralýan tarapa dönüklik etmek üçin ygtyýarnama hökmünde düşündirýärler.",
-      },
-      {
-        excerpt:
-          "Pygamberimiz serkerde belläninde Alladan gorkmagy, söweşmezden ozal duşmany yslama çagyrmagy, wadany bozmazlygy, şikes ýetirmezligi we çagany öldürmezligi tabşyrdy.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -654,68 +490,44 @@ export const BATTLES_TOPICS_TK: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_TK: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Söweşenlere zulum edilendigi üçin rugsat berilýär ... Allatagala bir topar adamy başga biriniň üsti bilen barlamasa, monastyrlar, ybadathanalar, sinagoglar we metjitler ýok edilerdi.",
     context: "Söweşmäge ilkinji umumy rugsat - Mekgede ençeme ýyllap ýaragsyz yzarlamalardan soň.",
   },
   {
-    excerpt:
-      "Allanyň ýolunda söweşiň, ýöne hyýanat etmäň. Hakykatdanam, Allah bozuklary halamaýar.",
     context: "Esasy çäk: çäklerden geçmegi berk gadagan etmek bilen diňe goranmak.",
   },
   {
-    excerpt:
-      "Rebbiňizden kömek sorasaňyz, Ol jogap berdi: Men sizi müň perişde bilen güýçlendirerin, derejesi boýunça.",
     context: "Badr hakda aýan boldy - köp sanly imanlylara ylahy kömek.",
   },
   {
-    excerpt:
-      "Iki goşunda eýýäm duşan bir alamat bar - biri Allanyň ýolunda söweşýär, beýlekisi kapyrlar, gözleri bilen iki esse köp görýär.",
     context: "Allatagala musulmanlary Badrda duşmana has ulurak edip, ýürekleri güýçlendirdi.",
   },
   {
-    excerpt:
-      "Allatagala, rugsady bilen öldüreniňizde, size beren wadasyny ýerine ýetirdi, batyrlygy ýitirip, buýruk hakda jedelleşip, söýýän zadyňyzy görkezenden soň boýun egmänkäňiz.",
     context: "Okçularyň boýun egmezligi we Uhuddaky öwrüm nokady.",
   },
   {
-    excerpt:
-      "Eý iman edenler, goşun size gelende, Allanyň size beren merhemetini ýada salyň we biz olara garşy ýel we görmedik goşun iberdik.",
     context: "Konfederasiýa gabawy we ylahy kömek barada Ahzab süresi.",
   },
   {
-    excerpt:
-      "Özlerini galalaryndan goldaýan we ýüreklerine terror eden Mukaddes .azgy adamlaryny - öldüren partiýaňyzy we ýesir alan partiýaňyzy ýykdy. Ol sizi öz ýerlerine we jaýlaryna miras galdyrdy.",
     context:
       "Gabaw döwründe ähtini bozan Banu Kuraýzah-Ahzab süresi - imana garşy höküm däl-de, uruş döwrüniň dönükliginiň çäkli bölümi.",
   },
   {
-    excerpt:
-      "Hakykatdanam, Allatagala günäleriňizden we geljekdäki zatlary bagyşlasyn, size beren merhemetini gutarar we sizi dogry ýola ugrukdyrar ýaly, size aç-açan ýeňiş berdik.",
     context:
       "Hudaýbiýadan gaýdyp gelende aýan boldy - ýoldaşlaryň ilki bilen ajy eglişik hökmünde duýan zatlaryny aç-açan ýeňiş diýip atlandyrmak.",
   },
   {
-    excerpt:
-      "Elbetde, agajyň aşagynda saňa wepaly boljakdyklaryny wada berenlerinde, Allatagala göwnünden turdy we ýüreklerinde näme bardygyny bilýärdi, şonuň üçin olara rahatlyk iberdi we basym ýeňiş bilen sylaglady.",
     context:
       "Ridwan girewi - takmynan 1400 ýoldaş akasiýa agajynyň aşagynda gaçmazlygy wada berdi we Allah olar bilen razydygyny aýtdy.",
   },
   {
-    excerpt:
-      "Allanyň ýeňşi we ýeňşi gelende we adamlaryň Allanyň dinine köp girýänini göreniňizde, Rebbiňizi wasp edip, ondan bagyşlanmagyny soraň. Hakykatdanam, Ol toba kabul edýär.",
     context:
       "Nekr süresi, Mekgäniň açylyşynda ýeňiş bilen däl-de, öwgi, bagyşlanma we imana girýän mähelläniň täji.",
   },
   {
-    excerpt:
-      "Allatagala size köp sebitde ýeňiş berdi ... Soňra Allatagala rahatlygyny Resulyna we möminlere iberdi.",
     context:
       "Allah möminlere ýeňişiň köp sanly öwünmegiň netijesi däl-de, Onuň peşgeşidigini ýatladýar.",
   },
   {
-    excerpt:
-      "Yzynda galanlar, Allahyň Resulynyň arkasynda galandyklaryna begendiler we baýlygy we Allanyň ýolunda ýaşamak islemediler.",
     context: "Tawba süresi, Tabuk ýörişinden özüni bagyş edenlere ýüzlenýär.",
   },
 ];

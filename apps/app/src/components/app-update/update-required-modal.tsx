@@ -1,12 +1,13 @@
 import type { AppVersionMeta } from "@munib-tracker/api-client";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
+import { Pill } from "@/components/ui/pill";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, ZIndex } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
@@ -69,12 +70,10 @@ export function UpdateRequiredModal({
         />
       </View>
 
-      <ThemedText
-        type="caption"
-        style={[styles.badge, { color: accentColor, backgroundColor: `${accentColor}14` }]}
-      >
-        {isHard ? t("update.requiredBadge") : t("update.availableBadge")}
-      </ThemedText>
+      <Pill
+        label={isHard ? t("update.requiredBadge") : t("update.availableBadge")}
+        tone={isHard ? "warning" : "accent"}
+      />
 
       <ThemedText type="title" style={styles.title}>
         {title}
@@ -111,7 +110,11 @@ export function UpdateRequiredModal({
       ) : null}
 
       {isHard ? (
-        <ThemedText type="caption" style={[styles.hardNote, { color: accentColor }]}>
+        <ThemedText
+          weight="semibold"
+          type="caption"
+          style={[styles.hardNote, { color: tokens.status.warning.text }]}
+        >
           {t("update.hardNote")}
         </ThemedText>
       ) : null}
@@ -131,8 +134,8 @@ export function UpdateRequiredModal({
           fullWidth
           // TV: land the remote on the primary action when the prompt opens.
           preferredFocus={tv}
-          labelColor={isHard ? undefined : colors.accentForeground}
-          style={isHard ? { backgroundColor: accentColor } : undefined}
+          // A-04: the required update uses the real AA danger variant — no fill override.
+          variant={isHard ? "destructive" : "primary"}
         />
       </View>
     </View>
@@ -170,7 +173,16 @@ export function UpdateRequiredModal({
   }
 
   return (
-    <Sheet visible={visible} onClose={handleDismiss} solid scrollable={false}>
+    // The Sheet's own close button (not on TV: "Remind me" and remote Back dismiss there)
+    // replaces the old invisible 32×8 grabber-zone target (F-50).
+    <Sheet
+      visible={visible}
+      onClose={handleDismiss}
+      accessibilityLabel={title}
+      showCloseButton={!tv}
+      solid
+      scrollable={false}
+    >
       <TvScrollView
         style={{ maxHeight: windowHeight * 0.75 }}
         contentContainerStyle={styles.sheetScroll}
@@ -178,17 +190,6 @@ export function UpdateRequiredModal({
         bounces={false}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Invisible grabber-zone close. TV: a raw Pressable has no focus feedback and
-            would be an invisible D-pad stop — the "Remind me" button and remote Back
-            already dismiss, so drop it there. */}
-        {!isHard && !tv ? (
-          <Pressable
-            onPress={handleDismiss}
-            accessibilityRole="button"
-            accessibilityLabel={t("common.close")}
-            style={styles.closeHit}
-          />
-        ) : null}
         {inner}
       </TvScrollView>
     </Sheet>
@@ -209,25 +210,12 @@ const styles = StyleSheet.create({
   sheetScroll: {
     paddingBottom: Spacing.two,
   },
-  closeHit: {
-    alignSelf: "flex-end",
-    width: 32,
-    height: 8,
-  },
   iconWrap: {
     width: 72,
     height: 72,
     borderRadius: Radius.pill,
     alignItems: "center",
     justifyContent: "center",
-  },
-  badge: {
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.one,
-    borderRadius: Radius.md,
-    overflow: "hidden",
   },
   title: {
     textAlign: "center",
@@ -240,7 +228,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.three,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.md,
   },
   versionCol: {
@@ -257,7 +245,6 @@ const styles = StyleSheet.create({
   },
   hardNote: {
     textAlign: "center",
-    fontWeight: "600",
   },
   actions: {
     width: "100%",
@@ -266,7 +253,7 @@ const styles = StyleSheet.create({
   },
   fullscreenRoot: {
     ...StyleSheet.absoluteFill,
-    zIndex: 9999,
+    zIndex: ZIndex.gate,
     justifyContent: "center",
     paddingHorizontal: Spacing.four,
     pointerEvents: "auto",

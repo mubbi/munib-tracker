@@ -9,6 +9,7 @@ import {
   LearnSplitLayout,
   useLearnWideLayout,
 } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { QuranVocabPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import {
@@ -24,6 +25,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { useReciteAlongAvailable } from "@/hooks/use-recite-along-available";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureQuranGuideContent,
@@ -35,6 +37,8 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function VocabWord({ word }: { word: ReturnType<typeof getQuranGuideVocabulary>[number] }) {
   const { sizes } = useReadingTypography();
+  const reciteAvailable = useReciteAlongAvailable();
+  const ref = word.quranRef;
 
   return (
     <View style={styles.word}>
@@ -60,9 +64,18 @@ function VocabWord({ word }: { word: ReturnType<typeof getQuranGuideVocabulary>[
           {word.example}
         </LearnProseText>
       ) : null}
-      {word.quranRef ? (
+      {/* D68: the citing ayah is a one-tap recite-along (plain text where unavailable). */}
+      {ref && reciteAvailable ? (
+        <ReciteAlongButton
+          passage={{ surah: ref.surah, ayahStart: ref.ayahFrom, ayahEnd: ref.ayahFrom }}
+          label={ref.label}
+          variant="ghost"
+          size="sm"
+          style={styles.recite}
+        />
+      ) : ref ? (
         <LearnProseText proseRole="caption" themeColor="mutedForeground">
-          {word.quranRef.label}
+          {ref.label}
         </LearnProseText>
       ) : null}
     </View>
@@ -106,7 +119,7 @@ export default function LearnQuranVocabularyScreen() {
             <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
 
             <LearnReadingChrome surface="learn_quran" listenText={listenText}>
-              <Card padding="three">
+              <Card>
                 <SectionHeader
                   title={t("learnQuran.vocabListTitle")}
                   icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
@@ -138,6 +151,7 @@ const styles = StyleSheet.create({
   },
   wordArabic: { flex: 1, minWidth: 0 },
   example: { fontStyle: "italic", marginTop: Spacing.one },
+  recite: { alignSelf: "flex-start", marginTop: Spacing.one },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

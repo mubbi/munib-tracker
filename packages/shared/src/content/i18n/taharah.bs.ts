@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Pročišćenje u islamu ima dvije dimenzije. Spolja je opipljiva čistoća — pranje, uklanjanje prljavštine, održavanje čistoće. Unutrašnjost je poniznost, pažnja i spremnost srca koju pranje treba da probudi. Poslanik, sallallahu alejhi ve sellem, je povezao to dvoje kada je nazvao pročišćenje 'polovinom vjere', uparujući fizičku čistoću sa čišćenjem duše od grijeha.",
       "Ovaj modul prolazi kroz cijelu temu redom: voda kojom čistite, wudu (manji abdest), gusl (potpuno ritualno kupanje), tayammum (suvo pročišćavanje kada se voda ne može koristiti), najasah (uklanjanje fizičke prljavštine) i posebni slučajevi i ustupci. Naučite to jednom i molitva će postati nešto u što možete ući s povjerenjem, a ne sa sumnjom.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, kada ustanete na molitvu, operite svoja lica i svoje podlaktice do lakata, obrišite svoje glave i operite noge svoje do članaka.",
-      },
-      {
-        excerpt: "Zaista, Allah voli one koji se neprestano kaju i voli one koji se čiste.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ključ molitve je pročišćenje; njegov početak je tekbir, a njegov kraj je taslim. (Ali; također Džami' at-Tirmizi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Tretirajte čišćenje kao pripremu za susret s Allahom, a ne kao rutinu koja se žuri.",
       "Proučavajte jednu taharu temu svaki dan dok se cijeli tok ne osjeti prirodnim.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Poslanik, sallallahu alejhi ve sellem, uzdigao je pročišćenje do definišne osobine vjernika, nazivajući ga 'polovinom vjere'. Redovno pročišćavanje disciplinira osobu, drži je u gotovo stalnom stanju spremnosti za ibadet, i — uči hadis — bukvalno vodom spira male grijehe.",
       "Budući da čuva namaz, tahara također čuva vjernika od grijeha nevaljanog klanjanja iz nepažnje. Dobro učenje njegovih odluka je stoga čin zaštite jednog od najvećih djela u islamu.",
     ],
-    hadith: [
-      {
-        excerpt: "Pročišćenje je pola vjere. (Ebu Malik al-Ash'ari)",
-      },
-      {
-        excerpt:
-          "Allah ne prima namaz bez očišćenja, niti dobročinstvo od onoga što je ukradeno. (Ibn 'Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Prije svake molitve potvrdite svoje stanje čistoće prije nego što počnete.",
       "Držite jednostavnu mentalnu kontrolnu listu: tijelo, odjeća, mjesto i vudu.",
@@ -66,12 +45,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Velika ritualna nečistoća (hadath akbar, koja se također naziva dženaba) nastaje zbog intimnosti, seksualnog pražnjenja i završetka menstruacije ili postnatalnog krvarenja. Podiže se guslom, ritualnom kupkom cijelog tijela — sa tayammumom koji se ponovo zamjenjuje kada voda nije dostupna ili je štetna.",
       "Fizička prljavština (najasah) — kao što je urin, izmet ili krv koja teče — je zasebna stvar: ona se mora fizički ukloniti s tijela, odjeće i mjesta za molitvu bez obzira na vaše ritualno stanje. Četiri sunitske škole se slažu oko ove tri kategorije, razlikuju se samo u nekim detaljima o tome šta poništava čistoću ili koje količine u tragovima su opravdane.",
     ],
-    quran: [
-      {
-        excerpt:
-          "A ako ste u stanju dženabe, onda se očistite. Ali ako ste bolesni ili ste na putovanju... i ne nađete vodu, tada obavite tayammum sa čistom zemljom.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Prvo odredite svoje stanje (malo, veliko ili prljavo), a zatim primijenite ispravnu metodu.",
       "Kada niste sigurni u detalje, dosljedno pratite jednog kvalifikovanog nastavnika iz priznate škole.",
@@ -85,17 +59,8 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Pravnici detaljno kategoriziraju vodu (čista i pročišćavajuća, čista, ali ne pročišćavajuća i nečista), ali praktično pravilo za svakodnevni život je jednostavno: voda ostaje prikladna za vudu i gusl osim ako je nadžasah jasno nije promijenio. Kada sumnjate u dostupnu čistu alternativu, koristite alternativu.",
       "Islam uči temeljitosti bez ekstravagancije. Poslanik, sallallahu alejhi ve sellem, se u potpunosti oprao, ali je koristio izuzetno malo vode — oko mud (dvije šake šake) za vudu i sa' (otprilike četiri) za puni gusl. Trošenje vode je obeshrabreno čak i kada je ima u izobilju, jer je umjerenost sama po sebi dio bontona obožavanja.",
     ],
-    quran: [
-      {
-        excerpt: "I Mi sa neba spuštamo čistu vodu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, je obavljao vudu sa blatom vode i gusl sa sa'om do pet muda. (Anas; također Sahih Musliman 325 - sunnet umjerenosti)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Koristite dovoljno vode za temeljno pranje, ali okrenite slavinu prema dolje i izbjegavajte višak.",
       "Ako izvor vode izgleda ili miriše izmijenjen prljavštinom, potražite najbliži jasno čist izvor.",
@@ -111,12 +76,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "To je potrebno prije svakog namaza — osim ako ne ostanete u ispravnom stanju od prethodnog namaza — i, prema mišljenju većine učenjaka, prije obavljanja tavafa oko Kabe i prije dodirivanja fizičkog teksta (mushafa) Kur'ana.",
       "Wudu je čin ibadeta sam po sebi, a ne samo preliminarno. Poslanik, sallallahu alejhi ve sellem, je upozorio da 'Allah ne prima namaz bilo koga od vas ko prekrši svoj vudu sve dok ponovo ne obavi vudu' — tako da čuvanje toga znači čuvanje samog namaza.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ne prima dovu onoga od vas ko prekrši svoj vudu sve dok ne obavi vudu. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -125,14 +85,9 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
     body: [
       "Određeni uslovi (šurut) moraju postojati da bi se vudu računao. Osoba mora biti musliman zdravog uma, s namjerom da se očisti za ibadet (niyyah). Neke škole svrstavaju namjeru kao stub djela, a druge kao uslov, ali sve se slažu da je to potrebno za nagradu i, za većinu, za valjanost.",
       "Voda koja se koristi mora biti čista i pročišćavajuća. Ono što je najvažnije, mora zaista doći do kože - tako da sve što čini vodootpornu barijeru preko ekstremiteta (debela boja, lak za nokte, vosak, ljepilo) mora biti prvo uklonjeno, ili pranje ispod toga nije valjano. Obična prljavština ili mrlja od kane koja ne blokira vodu nije problem.",
-      "Šafijske i hanbelijske škole također zahtijevaju da se pranje obavlja po kur'anskom redoslijedu i bez dužeg prekida (muwalat) koji omogućava da se udovi osuše. Hanefijski i malikijski stavovi o strogom slijedu i kontinuitetu su u nekim situacijama blaži. Slijedite metod jedne škole za dosljednost.",
+      "Šafijski i hanbelijski mezheb također uvjetuju da se dijelovi tijela peru kur'anskim redoslijedom (tertib), a malikijski i hanbelijski mezheb da se peru jedan za drugim, bez dužeg prekida u kojem bi se oprani dijelovi osušili (muvalat). Hanefijski mezheb oboje smatra sunnetom. Radi dosljednosti slijedite metod jednog mezheba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Operite lica i podlaktice do lakata, obrišite glave i operite stopala do članaka.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Uklonite lak za nokte, prstenove koji zadržavaju vodu i sve što zapečati kožu prije vudua.",
       "Wudu obavite mirno u jednom toku, tako da nijedan ud ne promakne ili ostavite da se osuši.",
@@ -143,15 +98,10 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
     summary: "Kur'anski stubovi (faraid) bez kojih je vudu nevažeći.",
     body: [
       "Obavezna djela vudua (njegovog faraida) su dijelovi koje je Allah imenovao u ajetu: pranje cijelog lica; pranje obje ruke do i uključujući laktove; brisanje glave; i pranje oba stopala do i uključujući gležnjeve. Promašite bilo šta od ovoga i vudu je nepotpun.",
-      "Ovome, škole dodaju dodatne obaveze iz sunneta i pravnog obrazloženja. Namjera je obavezna u većini škola (hanefije ga svrstavaju u jako naglašen sunnet za uklanjanje manjih nečistoća). Red (tartib) i kontinuitet (muwalat) su obavezni za šafije i hanbelije. Malikiji dodaju trljanje udova (dalk) kao obavezu.",
+      "Ovome mezhebi dodaju i druge obaveze iz sunneta i pravnog zaključivanja. Nijet je obavezan u većini mezheba (hanefije ga smatraju naglašenim sunnetom pri otklanjanju malog hadesa). Redoslijed (tertib) je obavezan kod šafija i hanbelija, a kontinuitet (muvalat) kod malikija i hanbelija. Malikije dodaju trljanje dijelova tijela (delk) kao obavezu.",
       "Sve osim toga - ispiranje usta i nosa, prvo pranje ruku, pranje tri puta - je preporučljivo (sunnet) nego obavezno. Poznavanje razlike znači da možete reći kada je wudu samo nesavršen ili zapravo nevažeći.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Operite lica i podlaktice do lakata, obrišite glave i operite stopala do članaka.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Tačna lista faraida (npr. da li su namjera, red i trljanje obavezni) razlikuje se među četiri škole. Učite i primjenjivajte jednu pouzdanu školu dosljedno.",
   },
@@ -163,12 +113,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Uspostavljeni sunnetski radnji uključuju: izgovaranje 'Bismillah' na početku; pranje ruku tri puta prije početka; ispiranje usta (madmadah) i nosa (istinshaq); prolazak mokrih prstiju kroz gustu bradu i između prstiju na rukama i nogama (taklil); svaki par udova počinje desnim; i ponavljanje svakog pranja do tri puta.",
       "Dva sunneta zaslužuju posebno spomenuti: korištenje misvaka (siwaka) unaprijed — koji je Poslanik, sallallahu alejhi ve sellem, skoro učinio obaveznim — i učenje svjedočanstva vjere nakon završetka, što otvara osam kapija Dženneta za onoga ko to izgovori.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko dobro obavi vudu, a zatim kaže 'Svjedočim da nema drugog boga osim Allaha... i da je Muhammed Njegov rob i Poslanik', otvaraju mu se osam vrata Dženneta. ('Omar ibn al-Hattab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Vježbajte cijeli niz sunneta dok to ne postane vaša prirodna rutina.",
       "Svaki put recitujte šehadet nakon vudua.",
@@ -223,12 +168,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
         tip: "Kratak, ali jako nagrađen sunnet.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "'Osman je oprao svaki ud tri puta kao što je vidio Poslanika, sallallahu alejhi ve sellem, da radi, a zatim je rekao: Onaj ko ovako obavi vudu i klanja dva rekata sa punim fokusom, oprošteni su mu prošli grijesi. (Humran, od Osmana)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -239,12 +179,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Važno je znati da detaljna 'dova za svaki ud' (posebna dova prilikom pranja ruku, lica, ruku i tako dalje) koja kruži u nekim brošurama nije potvrđena sa čvrstom vjerodostojnošću od Poslanika, sallallahu alejhi ve sellem. Učenjaci savjetuju da mu se ovo ne pripisuje kao sunnet, dok opće spominjanje Allaha tokom vudua nema štete.",
       "Srž stvari je prisustvo: operite se sa sviješću da grijesi svakog uda nestaju, i završite šehadetom koji ponovo povezuje čin s njegovom svrhom - vjerom samo u Allaha.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ko dobro obavi vudu, a zatim izgovori svjedočanstvo vjere, otvaraju mu se osam kapija Dženneta da uđe kroz koju želi. ('Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Zapamtite šehadet nakon vudua ako već niste.",
       "Izbjegavajte recitiranje neprovjerenih formula po udovima kao da su utvrđeni sunnet.",
@@ -259,12 +194,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Ostale stvari podliježu poštovanju razlika između škola: direktno dodirivanje intimnih dijelova i kontakt koža na kožu s ne-mahramom suprotnog spola, poništavaju u nekim školama, ali ne i u drugim, na osnovu različitog čitanja istih tekstova.",
       "Vitalni vladajući princip štiti vas od stalne anksioznosti (waswas): sigurnost se ne uklanja sumnjom. Ako ste imali vudu i jednostavno niste sigurni da li ste ga prekršili, i dalje se smatra da ste obavili vudu dok ne budete sigurni da je došlo do poništavanja. Poslanik, sallallahu alejhi ve sellem, je rekao čovjeku koji je uznemiren ovim osjećajem da ne napušta namaz 'sve dok ne čuje zvuk ili ne pronađe miris.'",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ne treba da napušta (svoju molitvu) sve dok ne čuje zvuk ili ne pronađe miris. (Abbad ibn Tamim, od svog ujaka)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Bilo da dodirivanje suprotnog spola ili nečije intimne dijelove prekida vadu, razlikuje se u školama. Slijedite kvalifikovanog lokalnog nastavnika i metod jedne škole.",
   },
@@ -276,12 +206,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Poslanik, sallallahu alejhi ve sellem, je jednom vidio ljude čije su pete ostale suhe jer voda nije stigla do njih, i oštro je upozorio: 'Teško petama od Vatre!' Pete, gležnjevi i uglovi lica su najčešće zanemarene tačke.",
       "Suprotna greška je pretjeranost: pranje mnogo više od tri puta, ili rasipno korištenje vode, što je u suprotnosti sa sunnetom umjerenosti. Drugi padaju u waswas (opsesivna sumnja), ponavljajući vudu iznova i iznova — i ovo je greška, jer se sumnja ne poništava.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jao do pete od Vatre! – rekao je kada je vidio da su pete osušene u vudu. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Usporite i svjesno potvrdite potpunu pokrivenost svakog opranog uda, posebno peta i laktova.",
       "Koristite umjerenu vodu; ne dozvolite da vas opsesivna sumnja gurne u bespotrebno ponavljanje.",
@@ -295,12 +220,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "To je takođe izuzetna čast u sledećem životu. Na Kijametskom danu Poslanik, sallallahu alejhi ve sellem, će prepoznati svoje sljedbenike po sjaju na njihovim licima, rukama i nogama od tragova vudua – svjetla jedinstvenog za ovaj ummet, zvanog al-ghurr al-muhajjalun.",
       "Zbog ovih vrlina, držanje u stanju vudua je preporučena navika: obnavljanje za svaki namaz i spavanje na vudu spadaju u zaštitne rutine vjernika.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Moj ummet će biti pozvan na Kijametskom danu sa svijetlim licima, rukama i nogama od tragova vudua. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Obnovite vudu za svaki molitveni prozor gdje možete.",
       "Neka spavanje na vudu bude noćni sunnet.",
@@ -315,11 +235,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Njegova suština je da voda dopire do svakog dijela vanjskog tijela - ne smije ostati suha mrlja, uključujući korijene kose, kožne nabore, iza ušiju, pupak i između prstiju na nogama. Mnogi učenjaci uključuju ispiranje usta i nosa u gusl.",
       "Jedan gusl obavljen s namjerom da se podigne dženaba također uklanja manju nečistoću, tako da osoba koja je završila gusl može klanjati bez posebnog vudua (iako je klanjanje vudua unutar gusla sunnet).",
     ],
-    quran: [
-      {
-        excerpt: "A ako ste u stanju dženabe, onda se očistite.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -330,16 +246,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Drugi gusli su preporučljivi (mustahabb), a ne obavezni: gusl za petak prije džume, koji se toliko snažno potiče da ga je Poslanik, sallallahu alejhi ve sellem, nazvao 'dužnošću za svakoga ko je dostigao pubertet'; gusl za dva Bajrama; i gusl ihrama prije hadža ili umre.",
       "Novom muslimanu je naređeno da obavi gusl po ulasku u Islam – što neki učenjaci smatraju obaveznim, a drugi snažno preporučuju.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada muškarac sjedi između četiri uda svoje žene i ima odnos s njom, gusl postaje obavezan. (Ebu Hurejre; također Sahih Musliman 348)",
-      },
-      {
-        excerpt:
-          "Gusl u petak je obaveza svakoga ko je navršio pubertet. (Ebu Sa'id al-Khudri; također Sahih Musliman 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Da li su gusli petkom i preobraćenje obavezni ili preporučljivi zavisi od škole i okolnosti.",
     appLinks: [{}],
@@ -382,12 +289,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
         tip: "Žene ne moraju rasplesti kosu, pod uslovom da voda dopre do vlasišta.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, kada se okupao sa dženabe, oprao je ruke, klanjao vudu kao namaz, prošao prstima kroz kosu, a zatim polio vodu tri puta preko glave i po ostatku tijela. ('Aishah)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Uobičajene greške gusla",
@@ -397,12 +299,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Druga uobičajena greška je ostavljanje suhih mrlja. Obaveza je da voda dodiruje cijelo vanjsko tijelo, tako da zanemarivanje korijena tjemena, ušiju, pupka, donjeg dijela leđa ili između prstiju ostavlja gusl nepotpunim. Utrljajte vodu preko ovih područja da biste bili sigurni.",
       "Za kosu: žena sa ispletenom kosom nije obavezna da rasplete pletenice, sve dok voda dopire do korijena tjemena — Poslanik, sallallahu alejhi ve sellem, je rekao Umm Selamah da je dovoljno preliti tri šake preko glave. Mušku kosu, koja je obično opuštena, treba proraditi tako da voda dođe do korijena.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dovoljno je da prelijete glavu sa tri šake vode, pa se polite vodom i pročišćeni ste – ne morate raspetljavati pletenice. (Umm Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Izgovorite namjeru prije prvog polivanja, tako da se pranje računa kao gusl.",
       "Utrljajte vodu na područja koja se lako propuštaju; kada niste sigurni, ponovo operite deo radije nego završite u nedoumici.",
@@ -416,18 +313,8 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Tayammum je dar posebno ovom ummetu: Poslanik, sallallahu alejhi ve sellem, je rekao: 'Zemlja je za mene načinjena mjestom molitve i sredstvom za čišćenje', navodeći je među posebnim privilegijama koje su date njemu, a ne ranijim poslanicima. On utjelovljuje centralni princip religije - obaveza ostaje, ali teškoće su uklonjene.",
       "To je privremena mjera: kada voda postane dostupna i upotrebljiva, nastavlja se obično prečišćavanje vodom. Prema nekim školama, osoba će možda morati obnoviti tayammum za svaki namaz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…i ne nađete vodu, onda izvršite tayammum sa čistom zemljom i obrišite njome svoja lica i ruke.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Zemlja je za mene načinjena mjestom molitve i sredstvom za pročišćenje. (Džabir — među pet stvari koje su jedinstveno date Poslaniku sallallahu alejhi ve sellem)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kada je Tayammum dozvoljen",
@@ -437,12 +324,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Treće, kada je malo vode potrebno za hitnije potrebe — kao što je piće, za očuvanje života, bilo sopstvenog ili tuđeg ili životinjskog. U svakom slučaju, šerijat stavlja očuvanje života i zdravlja iznad preferiranog metoda pročišćavanja.",
       "Pravnici se razilaze oko finijih pragova – koliko daleko treba tražiti vodu, koliko je straha od zla dovoljan – ali su jednoglasni oko temeljne milosti: obožavanje se nikada ne napušta, samo olakšava.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Izvještava se u poglavljima tayammum: koncesija za pročišćavanje čistom zemljom u nedostatku upotrebljive vode.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Pretražujte razumno vodu prije nego što pribjegnete tayamumu.",
       "Ako doktor savjetuje da ranu ili bolest održavate suhom, postupite prema tome i obavite tayammum.",
@@ -478,12 +360,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
         tip: "Dosljedno slijedite metod jedne škole (ručni zglobovi nasuprot podlakticama).",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, udario je dlanovima po zemlji, a zatim obrisao lice i ruke – učeći 'Ammara da je ovo dovoljno. ('Ammar ibn Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Šta lomi Tayammum?",
@@ -508,12 +385,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Uklanjanje se vrši vodom gdje je prljavština opipljiva, pranjem dok ne nestane supstanca i njen trag. Islam također ozbiljno tretira izvore nadžasa: Poslanik, sallallahu alejhi ve sellem, je upozorio da veliki dio kazne kabura dolazi od nepažnje s urinom – prskanja mokraćom i neispravnog čišćenja.",
       "Škole se razlikuju oko klasifikacije nekih supstanci (na primjer, da li su male količine određenih tečnosti opravdane) i oko toga koje se količine u tragovima tolerišu. Primjenjiv princip za svakodnevni život: temeljito očistite i ne izazivajte sumnju u čistoću tamo gdje nema tragova prljavštine.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, prošao je dva groba i rekao da su njihovi stanovnici kažnjeni - jedan zbog širenja klevete, a drugi zato što se nije zaštitio od svoje mokraće. (Ibn 'Abbas; također Sahih Musliman 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Čišćenje odeće od nečistoća",
@@ -523,12 +395,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Ako nakon iskrenog i temeljitog truda ostane slaba mrlja boje ili blagi miris koji neće izaći, većina učenjaka opravdava ono što je zaista teško ukloniti - obaveza je ukloniti supstancu, a ne garantirati besprijekornu boju.",
       "Neki slučajevi imaju svoje dobro poznate detalje, kao što je urin dojenog dječaka (poškropljen, a ne potpuno opran, u prijavljenoj koncesiji) — pa naučite praktična pravila vaše škole za situacije s kojima se zapravo suočavate.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Što se tiče menstrualne krvi na odjeći: ostružite je, zatim istrljajte vodom, zatim je operite i molite u njoj. (Asma bint Abi Bakr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sačuvajte barem jednu čistu odjeću ostavljenu za molitvu.",
       "Ako prljavština dotakne vašu odjeću daleko od kuće, isperite ono što možete i promijenite kad god je to moguće.",
@@ -542,12 +409,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Osim uklanjanja prljavštine, Islam potiče osnovnu liniju prirodne higijene (fitrah) koja održava tijelo čistim i spremnim za ibadet: podrezivanje noktiju, uklanjanje dlaka ispod pazuha i stidnih dlačica i slično, na redovnoj osnovi.",
       "Ove prakse nisu samo kulturološke ljepote – one su dio dostojanstva i čistoće s kojima se vjernik predstavlja pred Allahom u molitvi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, se čistio vodom nakon što se olakšao. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Uvijek obavite istinju prije klanjanja nakon korištenja toaleta.",
       "Nosite maramice i, gdje možete, sredstvo za vodu dok putujete.",
@@ -561,12 +423,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Glavno pravilo je sigurnost. Zemlja je općenito napravljena mjestom za molitvu, tako da se površina smatra čistom osim ako nemate stvarne dokaze prljavštine. Ako znate da je nečistoća prisutna, uklonite je ili premjestite na čisto mjesto; ako samo zamislite da bi moglo biti tu, zanemarite šapat i nastavite.",
       "Ova ravnoteža čuva obožavanje iz dvije krajnosti: nemarno moliti na očigledno zaprljanom tlu i biti paraliziran neosnovanom sumnjom o svakoj površini.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada je beduin urinirao u džamiju, Poslanik, sallallahu alejhi ve sellem, je naredio da se polije preko nje kantom vode. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Prije namaza pogledajte svoju prostirku i pod.",
       "Bez pravih dokaza prljavštine, odbacite neosnovane sumnje i molite se.",
@@ -580,12 +437,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Post je drugačiji: postovi propušteni u ramazanu zbog menstruacije se naknadno nadoknađuju, dok se namaz jednostavno ukida. Kada se krvarenje završi i pojavi se znak čistoće, žena obavlja gusl i nastavlja molitvu i post.",
       "Tačna minimalna i maksimalna trajanja hajda i nifasa, te kako čitati granične znakove čistoće, stvari su po kojima se škole razlikuju u detaljima. Žene imaju koristi od učenja praktičnih pravila jedne pouzdane škole sa kvalifikovanim nastavnikom.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Upitana zašto žena koja ima menstruaciju posti, ali ne i namaz, Aiša je rekla: nama je naređeno da nadoknadimo postove, a nije nam naređeno da nadoknadimo namaz. (Mu'adhah, od Aiše; također Sahih Musliman 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -614,15 +466,7 @@ export const TAHARAH_TOPICS_BS: DeepPartial<TaharahTopic>[] = [
       "Za primijenjena pravila, klasični priručnici o fikhu četiri sunitske škole daju detaljne stavove - a njihove razlike su legitimni dio tradicije, a ne nedostatak. Koristite ovaj modul za strukturirani pregled, a zatim produbite svoje učenje sa kvalifikovanim nastavnikom i osnovnim tekstovima.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt: "Sveobuhvatna poglavlja o vuduu, guslu, tayamumu i hajdu koja otvaraju zbirku.",
-      },
-      {
-        excerpt:
-          "Knjiga pročišćenja — autentični izvještaji o tahara pravilima, bontonu i principima.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Slijedite jedan pouzdani nastavni plan i program kako biste izbjegli zabunu zbog raštrkanih odluka.",
       "Povremeno ponavljajte ove teme dok se praktično samopouzdanje ne učvrsti.",

@@ -1,3 +1,4 @@
+import "server-only";
 import { adminUsersTable } from "@munib-tracker/db/schema";
 import { sql } from "drizzle-orm";
 import { getDb } from "@/lib/db";

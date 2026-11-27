@@ -18,7 +18,7 @@ const PrayerInfoSheet = lazy(() =>
 
 type PrayerInfoButtonProps = {
   prayerId: PrayerInfoId;
-  /** Glyph tint; defaults to muted foreground. */
+  /** Glyph tint only (never the label text); defaults to muted foreground. */
   tintColor?: string;
   /** Smaller tap target for dense rows (defaults to 44). */
   hitTarget?: number;
@@ -39,7 +39,9 @@ export function PrayerInfoButton({
   const { colors } = useThemeTokens();
   const [open, setOpen] = useState(false);
   const prayerName = t(`prayers.${prayerId}`);
-  const color = tintColor ?? (underlined ? colors.accent : colors.mutedForeground);
+  const color = tintColor ?? (underlined ? colors.accentText : colors.mutedForeground);
+  // Text must stay readable: a category hue (tintColor) only tints the glyph.
+  const labelColor = underlined ? colors.accentText : colors.mutedForeground;
   const tv = isTV();
 
   return (
@@ -63,7 +65,7 @@ export function PrayerInfoButton({
           />
           <ThemedText
             type="caption"
-            style={[{ color }, underlined ? styles.learnMoreUnderlined : null]}
+            style={[{ color: labelColor }, underlined ? styles.learnMoreUnderlined : null]}
           >
             {t("prayerInfo.learnMore")}
           </ThemedText>
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexShrink: 0,
-    gap: Spacing.half + 2,
+    gap: Spacing.one,
     paddingVertical: 0,
   },
   learnMoreTv: {

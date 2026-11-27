@@ -37,6 +37,7 @@ describe("guideAyahTrack", () => {
       id: "guide:2:255:0-end",
       title: "Al-Baqarah",
       subtitle: "Ayah 255",
+      lockScreenArtist: "Mishary Alafasy",
       uri: ayahUri(2, 255),
     });
   });

@@ -3,26 +3,23 @@ import type { SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import {
   LearnColumnsGrid,
   learnColumnsFor,
   useLearnHubLayout,
 } from "@/components/jannah/hub-layout";
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { HadithQuote, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, getJahannamHadith, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -40,9 +37,11 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
 export default function JahannamHadithScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
-  const { sizes } = useReadingTypography();
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const entries = getJahannamHadith();
   const wide = useLearnHubLayout();
   // Wide web / tablets: hadith quotes flow into 2–3 columns per theme.
@@ -68,7 +67,7 @@ export default function JahannamHadithScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/hadith" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retry}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
             <JannahCallout tone="info">{t("jahannam.hadithLead")}</JannahCallout>
@@ -76,58 +75,22 @@ export default function JahannamHadithScreen() {
               const items = grouped.get(theme) ?? [];
               if (items.length === 0) return null;
               return (
-                <Card key={theme} padding="three">
+                <Card key={theme}>
                   <SectionHeader
                     title={t(`jahannam.hadithTheme.${theme}`)}
                     icon={THEME_ICONS[theme]}
                   />
                   <LearnColumnsGrid columns={columns} gap={Spacing.three} style={styles.list}>
                     {items.map((entry) => (
-                      <View
-                        key={entry.id}
-                        style={[
-                          styles.quote,
-                          columns > 1 && styles.quoteFill,
-                          { backgroundColor: tokens.accentSoft },
-                        ]}
-                      >
-                        <View style={styles.quoteMeta}>
-                          <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
-                            {entry.hadith.collection} · {entry.hadith.citation}
-                          </ThemedText>
-                          <View style={styles.quoteMetaActions}>
-                            {entry.hadith.grade ? (
-                              <Pill
-                                label={t(`jahannam.grade.${entry.hadith.grade}`)}
-                                compact
-                                color={tokens.status.success.color}
-                                background={tokens.status.success.soft}
-                              />
-                            ) : null}
-                            <HadithCitationBookmarkButton
-                              collection={entry.hadith.collection}
-                              citation={entry.hadith.citation}
-                            />
-                          </View>
-                        </View>
-                        <TvReadableBlock>
-                          <ThemedText
-                            type="small"
-                            themeColor="mutedForeground"
-                            style={{
-                              fontSize: sizes.translation,
-                              lineHeight: sizes.translation * 1.45,
-                              fontStyle: "italic",
-                            }}
-                          >
-                            "{entry.hadith.excerpt}"
-                          </ThemedText>
-                          {entry.context ? (
+                      <View key={entry.id} style={[styles.entry, columns > 1 && styles.quoteFill]}>
+                        <HadithQuote hadith={entry.hadith} surface="accent" emphasis />
+                        {entry.context ? (
+                          <TvReadableBlock>
                             <ThemedText type="caption" themeColor="mutedForeground">
                               {entry.context}
                             </ThemedText>
-                          ) : null}
-                        </TvReadableBlock>
+                          </TvReadableBlock>
+                        ) : null}
                       </View>
                     ))}
                   </LearnColumnsGrid>
@@ -144,25 +107,8 @@ export default function JahannamHadithScreen() {
 
 const styles = StyleSheet.create({
   list: { marginTop: Spacing.two },
+  entry: { gap: Spacing.two },
   quoteFill: { flexGrow: 1 },
-  quote: {
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    gap: Spacing.two,
-  },
-  quoteMeta: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    gap: Spacing.two,
-  },
-  quoteMetaActions: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

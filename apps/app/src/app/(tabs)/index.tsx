@@ -1,15 +1,19 @@
+import { OBLIGATORY_PRAYER_SET } from "@munib-tracker/shared/constants";
+import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
 import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { usePrayerStatusController } from "@/components/tracker/use-prayer-status-controller";
 import { SafeRefreshControl } from "@/components/ui/safe-refresh-control";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
+import { Breakpoints, MaxContentWidth, Spacing } from "@/constants/theme";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
@@ -17,14 +21,16 @@ import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
+import { useIqamahCountdown } from "@/lib/masjid/use-iqamah-countdown";
 import { isTV } from "@/lib/platform/is-tv";
+import { PRAYER_SLOT_ORDER } from "@/lib/prayer-times";
 import { horizontalSafeAreaPadding } from "@/lib/rtl";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema } from "@/lib/seo/structured-data";
 import { useLocationActions } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
-import { useTrackerActions } from "@/stores/tracker-store";
+import { useTodayPrayers, useTrackerActions, useTrackerReady } from "@/stores/tracker-store";
 import { resolveWeatherEffects, useWeatherSnapshot, weatherActions } from "@/stores/weather-store";
 
 /**
@@ -50,41 +56,27 @@ export function __setHomeBelowFoldForTests(
   HomeBelowFoldForTests = Comp;
 }
 
-/** Visible placeholder while the lazy below-fold chunk loads (avoids a blank “stuck” home). */
+/**
+ * Visible placeholder while the lazy below-fold chunk loads (avoids a blank
+ * "stuck" home): a card-shaped skeleton announced once as "Loading…" (P8-04).
+ */
 function HomeBelowFoldFallback({ dashboard = false }: { dashboard?: boolean }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const title = t("common.loadingRoute");
-  const hint = t("common.loadingRouteHint");
-
   return (
-    <View
-      style={dashboard ? styles.belowFoldFallbackDashboard : styles.belowFoldFallback}
-      accessibilityRole="progressbar"
-      accessibilityLabel={title}
-      accessibilityLiveRegion="polite"
-    >
-      <View
-        style={[
-          styles.belowFoldStatus,
-          {
-            backgroundColor: colors.card,
-            borderColor: tokens.hairline,
-          },
-        ]}
-      >
-        <View style={[styles.belowFoldWell, { backgroundColor: tokens.accentSoft }]}>
-          <ActivityIndicator color={colors.accent} />
-        </View>
-        <View style={styles.belowFoldCopy}>
-          <ThemedText type="smallBold">{title}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {hint}
-          </ThemedText>
-        </View>
-      </View>
+    <View style={dashboard ? styles.belowFoldFallbackDashboard : styles.belowFoldFallback}>
+      <SkeletonPlaceholder preset="card" accessibilityLabel={t("common.loadingRoute")} />
     </View>
   );
+}
+
+/**
+ * The Salah the hero cell marks (P5-04): the running fard, or Fajr while the
+ * sunrise window runs — the same slot `mark-current-obligatory` resolves.
+ */
+function markableHeroPrayer(activeIndex: number): ObligatoryPrayer | null {
+  const slot = PRAYER_SLOT_ORDER[activeIndex];
+  if (slot === "sunrise") return "fajr";
+  return slot && OBLIGATORY_PRAYER_SET.has(slot) ? (slot as ObligatoryPrayer) : null;
 }
 
 /**
@@ -112,6 +104,7 @@ export default function HomeScreen() {
   const { refresh } = useTrackerActions();
   const location = useLocationActions();
   const hero = useHomeHero();
+  const iqamahCountdown = useIqamahCountdown(hero.now);
   const weather = useWeatherDisplay();
   const weatherSnapshot = useWeatherSnapshot();
   const { weatherPrefs } = usePreferences();
@@ -120,6 +113,12 @@ export default function HomeScreen() {
     [weatherSnapshot, weatherPrefs],
   );
   const notificationCount = useNotificationBadgeCount();
+  // Mark today's Salah from the hero (one tap opens its status sheet in place).
+  const prayerStatus = usePrayerStatusController();
+  const trackerReady = useTrackerReady();
+  const { status: todayStatus } = useTodayPrayers();
+  const markPrayer = trackerReady ? markableHeroPrayer(hero.activeIndex) : null;
+  const markStatus = markPrayer ? (todayStatus[markPrayer] ?? "pending") : "pending";
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -137,6 +136,7 @@ export default function HomeScreen() {
       displayDates={hero.displayDates}
       currentTime={hero.currentTime}
       countdown={hero.countdown}
+      iqamahCountdown={iqamahCountdown}
       prayers={hero.prayers}
       activeIndex={hero.activeIndex}
       topInset={dashboard ? Spacing.two : insets.top}
@@ -156,6 +156,10 @@ export default function HomeScreen() {
       onSearchPress={() => router.push("/search")}
       onNotificationsPress={() => router.push("/notifications")}
       onLocationPress={() => router.push("/location")}
+      markIndex={markPrayer ? PRAYER_SLOT_ORDER.indexOf(markPrayer) : -1}
+      markStatusLabel={t(`prayerStatus.${markStatus}`)}
+      markCompleted={markStatus === "completed"}
+      onMarkPress={markPrayer ? () => prayerStatus.open(markPrayer) : undefined}
     />
   );
   const belowFoldProps = {
@@ -164,6 +168,11 @@ export default function HomeScreen() {
     nextScheduleId: hero.nextScheduleId,
     scheduleDateLabel: hero.displayDates.primary,
     scheduleLocationLabel: hero.location,
+    // "Mark {{salah}}" in Today's Goal while the running Salah is unlogged.
+    markPrayer: markPrayer && markStatus === "pending" ? markPrayer : null,
+    // Opens the status sheet (Completed / Missed / Delayed / Qaza, congregation,
+    // note) instead of logging "completed" outright.
+    onMarkPrayer: markPrayer ? () => prayerStatus.open(markPrayer) : undefined,
   };
 
   return (
@@ -211,7 +220,9 @@ export default function HomeScreen() {
                     styles.columnDashboard,
                     {
                       maxWidth:
-                        width >= 1600 ? HOME_DASHBOARD_MAX_WIDTH_XL : HOME_DASHBOARD_MAX_WIDTH,
+                        width >= Breakpoints.xwide
+                          ? HOME_DASHBOARD_MAX_WIDTH_XL
+                          : HOME_DASHBOARD_MAX_WIDTH,
                       paddingTop: insets.top + Spacing.four,
                     },
                   ]
@@ -245,6 +256,7 @@ export default function HomeScreen() {
           </View>
         </TvScrollView>
       </TvFocusGuide>
+      {prayerStatus.sheet}
     </View>
   );
 }
@@ -263,28 +275,6 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   belowFoldFallbackDashboard: { width: "100%", maxWidth: 560 },
-  belowFoldStatus: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderCurve: "continuous",
-    ...Shadows.sm,
-  },
-  belowFoldWell: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    borderCurve: "continuous",
-  },
-  belowFoldCopy: {
-    flex: 1,
-    gap: Spacing.half,
-  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

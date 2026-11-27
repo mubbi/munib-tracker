@@ -21,6 +21,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import type { Request, Response } from "express";
+import { clientIp } from "../common/client-ip";
 import { LenientBody } from "../common/lenient-body.decorator";
 import { AuthService } from "./auth.service";
 import { AuthOAuthService } from "./auth-oauth.service";
@@ -44,17 +45,6 @@ import {
   TvPairingStatusResponseDto,
   WebAuthSessionResponseDto,
 } from "./dto/auth.dto";
-
-function clientIp(req: Request): string {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.trim()) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
-  }
-  if (Array.isArray(forwarded) && forwarded[0]) {
-    return forwarded[0].split(",")[0]?.trim() || "unknown";
-  }
-  return req.ip?.trim() || "unknown";
-}
 
 @ApiTags("auth")
 @Controller("auth")
@@ -215,9 +205,10 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const refreshToken = this.authOAuthService.resolveRefreshToken(req, dto.refreshToken);
+    const fromCookie = this.authOAuthService.usesRefreshCookie(req);
     const session = await this.authService.refreshSession(refreshToken, clientIp(req));
     const user = await this.authService.getCurrentUser(session.accessToken);
-    return this.authOAuthService.issueSessionResponse(req, res, session, user);
+    return this.authOAuthService.issueSessionResponse(req, res, session, user, fromCookie);
   }
 
   @Post("link")
@@ -233,7 +224,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
-    const session = await this.authService.linkGuestAccount(accessToken, dto);
+    const session = await this.authService.linkGuestAccount(accessToken, dto, clientIp(req));
     const user = await this.authService.getCurrentUser(session.accessToken);
     return this.authOAuthService.issueSessionResponse(req, res, session, user);
   }
@@ -259,9 +250,16 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
-    const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
-    await this.authService.revokeSession(accessToken);
-    this.authOAuthService.clearAuthCookies(res);
+    try {
+      const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
+      await this.authService.revokeSession(accessToken);
+    } finally {
+      // Web: also revoke the refresh cookie's session and always clear the
+      // cookies, so logging out with an expired access cookie (401 above) cannot
+      // leave a live 30-day refresh token behind in the browser.
+      await this.authOAuthService.revokeCookieRefreshSession(req);
+      this.authOAuthService.clearAuthCookies(res);
+    }
   }
 
   @Post("reset-app-data")

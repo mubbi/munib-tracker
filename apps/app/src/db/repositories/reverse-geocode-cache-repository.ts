@@ -4,6 +4,8 @@ import { readJSON, writeJSON } from "../store";
 export interface ReverseGeocodePlace {
   city?: string;
   country?: string;
+  /** ISO 3166-1 alpha-2; absent in entries cached by older builds. */
+  countryCode?: string;
 }
 
 type ReverseGeocodeCacheMap = Record<string, ReverseGeocodePlace>;

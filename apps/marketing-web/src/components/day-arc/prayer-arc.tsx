@@ -1,7 +1,9 @@
 import { CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Prayer = {
-  name: string;
+  /** Key under `common.prayers`. */
+  id: "fajr" | "dhuhr" | "asr" | "maghrib" | "isha";
   time: string;
   t: number;
   Icon: typeof Sun;
@@ -12,12 +14,12 @@ type Prayer = {
 
 /** Color-coded prayer markers, matching the Day Arc concept (dawn blue → night green). */
 const PRAYERS: Prayer[] = [
-  { name: "Fajr", time: "04:38", t: 0.13, Icon: Sunrise, color: "#7db9ef", glow: "125,185,239" },
-  { name: "Dhuhr", time: "12:45", t: 0.36, Icon: Sun, color: "#ffd36b", glow: "255,211,107" },
-  { name: "Asr", time: "16:28", t: 0.55, Icon: CloudSun, color: "#f5b44e", glow: "245,180,78" },
-  { name: "Maghrib", time: "19:05", t: 0.74, Icon: Sunset, color: "#ef7a5a", glow: "239,122,90" },
+  { id: "fajr", time: "04:38", t: 0.13, Icon: Sunrise, color: "#7db9ef", glow: "125,185,239" },
+  { id: "dhuhr", time: "12:45", t: 0.36, Icon: Sun, color: "#ffd36b", glow: "255,211,107" },
+  { id: "asr", time: "16:28", t: 0.55, Icon: CloudSun, color: "#f5b44e", glow: "245,180,78" },
+  { id: "maghrib", time: "19:05", t: 0.74, Icon: Sunset, color: "#ef7a5a", glow: "239,122,90" },
   {
-    name: "Isha",
+    id: "isha",
     time: "20:37",
     t: 0.86,
     Icon: Moon,
@@ -54,6 +56,7 @@ const SUN_T = 0.24;
 
 /** Four-point star flare that makes each arc marker shine like a star. */
 function StarFlare({ color, size }: { color: string; size: number }) {
+  const t = useTranslations("common.dayArc");
   return (
     <svg
       viewBox="-20 -20 40 40"
@@ -61,7 +64,7 @@ function StarFlare({ color, size }: { color: string; size: number }) {
       style={{ width: size, height: size }}
       aria-hidden
     >
-      <title>Star flare</title>
+      <title>{t("starFlare")}</title>
       <path
         d="M0 -17 C 1 -5, 5 -1, 17 0 C 5 1, 1 5, 0 17 C -1 5, -5 1, -17 0 C -5 -1, -1 -5, 0 -17 Z"
         fill={color}
@@ -71,17 +74,22 @@ function StarFlare({ color, size }: { color: string; size: number }) {
   );
 }
 
-/** The signature day arc: a luminous curve down the right edge tracing the five prayers. */
+/**
+ * The signature day arc: a luminous curve down the inline-end edge (right in
+ * LTR, left in RTL) tracing the five prayers. The curve is mirrored with a
+ * transform; markers use `inset-inline-start` so their labels read naturally.
+ */
 export function PrayerArc() {
+  const t = useTranslations("common");
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
       <svg
-        className="absolute inset-0 h-full w-full"
+        className="absolute inset-0 h-full w-full rtl:-scale-x-100"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         fill="none"
       >
-        <title>Daily prayer arc</title>
+        <title>{t("dayArc.prayerArc")}</title>
         <defs>
           <linearGradient
             id="arc-halo"
@@ -130,8 +138,8 @@ export function PrayerArc() {
 
       {/* Ringed golden sun orb riding the arc (current moment) */}
       <span
-        className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-        style={{ left: `${bez(SUN_T, "x")}%`, top: `${bez(SUN_T, "y")}%` }}
+        className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rtl:translate-x-1/2"
+        style={{ insetInlineStart: `${bez(SUN_T, "x")}%`, top: `${bez(SUN_T, "y")}%` }}
       >
         <span className="absolute size-9 rounded-full border border-[#ffe2a8]/60" />
         <span className="absolute size-9 rounded-full bg-[#ffd88e]/15 blur-[2px]" />
@@ -140,16 +148,16 @@ export function PrayerArc() {
 
       {PRAYERS.map((prayer) => (
         <div
-          key={prayer.name}
+          key={prayer.id}
           className="absolute flex -translate-y-1/2 items-start gap-4"
-          style={{ top: `${bez(prayer.t, "y")}%`, left: `${bez(prayer.t, "x")}%` }}
+          style={{ top: `${bez(prayer.t, "y")}%`, insetInlineStart: `${bez(prayer.t, "x")}%` }}
         >
           {/* Marker sits ON the arc line, shining like a star */}
-          <span className="relative -ml-[5px] mt-[3px] flex size-2.5 shrink-0 items-center justify-center">
+          <span className="relative -ms-[5px] mt-[3px] flex size-2.5 shrink-0 items-center justify-center">
             <StarFlare color={prayer.color} size={30} />
             {prayer.crescent ? (
               <svg viewBox="0 0 24 24" className="relative size-4" aria-hidden>
-                <title>Crescent</title>
+                <title>{t("dayArc.crescent")}</title>
                 <path
                   d="M15.5 12a7 7 0 11-5.3-6.8A5.6 5.6 0 1015.5 12z"
                   fill="#ffd88e"
@@ -180,11 +188,11 @@ export function PrayerArc() {
                   textShadow: "0 1px 8px rgba(0,0,0,0.45)",
                 }}
               >
-                {prayer.name}
+                {t(`prayers.${prayer.id}`)}
               </span>
             </span>
             <span
-              className="mt-0.5 pl-[26px] text-[13px] tracking-wide"
+              className="mt-0.5 ps-[26px] text-[13px] tracking-wide"
               style={{
                 color: prayer.crescent ? `rgba(${prayer.glow},0.85)` : "rgba(238,243,251,0.75)",
                 textShadow: "0 1px 8px rgba(0,0,0,0.45)",

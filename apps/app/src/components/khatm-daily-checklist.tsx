@@ -46,8 +46,8 @@ export function KhatmDailyChecklist() {
 
   return (
     <Card
-      padding="three"
       onPress={() => router.push("/quran/khatm")}
+      href="/quran/khatm"
       accessibilityLabel={t("tracker.khatm.a11y", {
         day: dayNumber,
         total: plan.days,
@@ -67,7 +67,12 @@ export function KhatmDailyChecklist() {
             total: today.target,
           })}
         </ThemedText>
-        <ProgressBar value={ratio} height={6} color={tone.color} />
+        <ProgressBar
+          value={ratio}
+          accessibilityLabel={t("a11yProgress.khatmToday")}
+          height={6}
+          color={tone.color}
+        />
       </View>
 
       <View style={[styles.row, { backgroundColor: colors.muted }]}>
@@ -108,15 +113,15 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
-    padding: Spacing.two + 2,
+    gap: Spacing.twoHalf,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     marginTop: Spacing.three,
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     minWidth: 0,
   },
 });

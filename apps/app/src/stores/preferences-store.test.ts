@@ -8,6 +8,7 @@ import * as rtl from "@/lib/i18n/rtl";
 import * as cloudSync from "@/lib/sync/preferences-cloud-sync";
 import * as pushPrefs from "@/lib/sync/push-preferences";
 
+import { devicePreferencesStore, resetDevicePreferencesStore } from "./device-preferences-store";
 import {
   type PreferencesState,
   preferencesStore,
@@ -44,6 +45,7 @@ beforeEach(async () => {
   cancelScheduledPreferencesCloudSync.mockImplementation(() => {});
   mockPush.mockResolvedValue(true);
   schedulePreferencesCloudSync.mockImplementation(() => {});
+  resetDevicePreferencesStore();
   preferencesStore.setState({ prefs: DEFAULT_USER_PREFERENCES, isReady: false });
 });
 
@@ -113,12 +115,38 @@ describe("load", () => {
 
 describe("update", () => {
   it("persists, marks dirty and schedules a cloud sync", async () => {
-    await state().update({ hapticsEnabled: false });
-    expect((await PreferencesRepository.get()).hapticsEnabled).toBe(false);
+    await state().update({ timeFormat: "12" });
+    expect((await PreferencesRepository.get()).timeFormat).toBe("12");
     expect(markPreferencesDirty).toHaveBeenCalled();
     expect(schedulePreferencesCloudSync).toHaveBeenCalledWith(
-      expect.objectContaining({ hapticsEnabled: false }),
+      expect.objectContaining({ timeFormat: "12" }),
     );
+  });
+
+  it("diverts device preferences (B4) out of the synced blob", async () => {
+    await state().update({ hapticsEnabled: false, audioVolume: 0.4, timeFormat: "12" });
+    const stored = await PreferencesRepository.get();
+    expect(stored.timeFormat).toBe("12");
+    expect(stored.hapticsEnabled).toBe(DEFAULT_USER_PREFERENCES.hapticsEnabled);
+    expect(devicePreferencesStore.getState().prefs).toMatchObject({
+      hapticsEnabled: false,
+      audioVolume: 0.4,
+    });
+    // Readers of `prefs` see the device values (overlay).
+    expect(state().prefs).toMatchObject({ hapticsEnabled: false, audioVolume: 0.4 });
+  });
+
+  it("a device-only patch never schedules a cloud sync", async () => {
+    await state().update({ cacheAudioLocally: false });
+    expect(schedulePreferencesCloudSync).not.toHaveBeenCalled();
+    expect(state().prefs.cacheAudioLocally).toBe(false);
+  });
+
+  it("diverts notificationPrefs.preciseAdhan to the device", async () => {
+    await state().setNotificationPrefs({ preciseAdhan: true });
+    expect(devicePreferencesStore.getState().prefs.preciseAdhan).toBe(true);
+    expect(state().prefs.notificationPrefs.preciseAdhan).toBe(true);
+    expect(schedulePreferencesCloudSync).not.toHaveBeenCalled();
   });
 
   it("deep-merges font prefs optimistically", async () => {
@@ -137,12 +165,19 @@ describe("update", () => {
 
   it("rolls back when the write fails", async () => {
     failNextWrite();
-    await state().update({ hapticsEnabled: false });
+    await state().update({ timeFormat: "12" });
     expect(state().prefs).toBe(DEFAULT_USER_PREFERENCES);
   });
 
   it("refreshFromDb reloads stored prefs", async () => {
-    await PreferencesRepository.update({ hapticsEnabled: false });
+    await PreferencesRepository.update({ timeFormat: "12" });
+    await state().refreshFromDb();
+    expect(state().prefs.timeFormat).toBe("12");
+  });
+
+  it("refreshFromDb keeps this device's values over a pulled legacy value", async () => {
+    await state().update({ hapticsEnabled: false });
+    await PreferencesRepository.update({ hapticsEnabled: true });
     await state().refreshFromDb();
     expect(state().prefs.hapticsEnabled).toBe(false);
   });

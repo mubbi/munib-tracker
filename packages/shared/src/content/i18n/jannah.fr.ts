@@ -22,37 +22,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "Un croyant doit concilier deux vérités. Premièrement, le Paradis est réel, proche et vaut tous les efforts — le Qur'an nous dit de « courir » vers lui (Qur'an 3 : 133). Deuxièmement, personne ne gagne le Paradis uniquement par ses actes ; l'entrée se fait finalement par la miséricorde d'Allah, la foi sincère et les bonnes actions étant les moyens qu'Il a choisi d'accepter. Cet équilibre maintient l’espoir sans engendrer l’arrogance : nous faisons de notre mieux, puis nous nous en remettons à sa miséricorde.",
       "En pratique, laissez la réalité de Jannah façonner vos choix quotidiens. Lorsque l’adoration semble lourde ou qu’une tentation est forte, rappelez-vous ce qui vous attend et ce qui est en jeu. Demandez souvent le paradis à Allah, travaillez-y de manière cohérente, de manière modeste et durable, et laissez le désir de l'atteindre adoucir votre cœur dans cette vie éphémère.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Courez vers le pardon de votre Seigneur et vers un Jardin dont la largeur est celle des cieux et de la terre, préparé pour les justes.",
-      },
-      {
-        excerpt:
-          "Allah a promis aux croyants et aux croyantes des Jardins sous lesquels coulent les rivières, où ils demeureront éternellement, et des demeures agréables dans des Jardins de résidence éternelle. Mais l'agrément d'Allah est plus grand.",
-      },
-      {
-        excerpt:
-          "Aucune âme ne sait ce qui leur a été caché de réconfort en guise de récompense pour ce qu'ils faisaient.",
-      },
-      {
-        excerpt: "Ils y trouveront tout ce qu'ils voudront, et avec Nous, c'est plus.",
-      },
-      {
-        excerpt:
-          "Ceux qui croient et accomplissent des actions justes, pour eux les Jardins de Refuge sont une hospitalité.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah a dit : J'ai préparé pour Mes serviteurs pieux ce qu'aucun œil n'a vu, aucune oreille n'a entendu et aucun cœur n'a conçu.",
-      },
-      {
-        excerpt:
-          "Allah, le Très-Haut, a dit : J'ai préparé pour Mes serviteurs pieux ce qu'aucun œil n'a vu, aucune oreille n'a entendu et qu'aucun cœur humain n'a jamais perçu.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Rangs au paradis",
@@ -64,29 +35,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse là-dedans est belle. Si nous connaissions notre emplacement exact, certains deviendraient complaisants et d’autres désespéreraient. Au lieu de cela, on nous apprend à garder les yeux fixés sur Allah, à continuer à lutter et à espérer. Le croyant rivalise dans le bien — « pour cela, que les concurrents s'affrontent » — tout en laissant le classement final au Très Juste.",
       "Alors plutôt que de viser un niveau chiffré, visez le plus haut et laissez Allah vous placer là où Il veut. Le Prophète ﷺ a enseigné aux compagnons à ne pas se contenter d'une demande modeste mais à demander spécifiquement Al-Firdaws, le sommet même du Paradis.",
     ],
-    quran: [
-      {
-        excerpt: "Pour tous, il y aura des degrés selon ce qu'ils ont fait.",
-      },
-      {
-        excerpt:
-          "Voyez comment Nous avons favorisé certains d'entre eux par rapport à d'autres. Et l'au-delà est plus grand en degrés et plus grand en distinction.",
-      },
-      {
-        excerpt:
-          "Quiconque obéit à Allah et au Messager sera avec ceux à qui Allah a accordé sa faveur : les prophètes, les véridiques, les martyrs et les justes. Quels excellents compagnons ils sont !",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le Paradis comporte cent niveaux qu'Allah a préparés pour ceux qui combattent pour Sa cause. La distance entre chacun des deux niveaux est comme la distance entre le ciel et la terre. Alors quand vous demandez à Allah, demandez-Lui Al-Firdaws, car c'est la meilleure et la plus haute partie du Paradis.",
-      },
-      {
-        excerpt:
-          "Quand vous demandez à Allah, demandez-Lui Al-Firdaws, car c'est la partie la plus élevée du Paradis et le milieu du Paradis, et de là coulent les rivières du Paradis, et au-dessus se trouve le Trône du Très Miséricordieux.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -99,16 +49,7 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "Pourtant, le don final et décisif est toujours la miséricorde d'Allah. Dans le même souffle que nous visons le plus haut, nous nous souvenons des propres paroles du Prophète ﷺ : personne n'entre au Paradis par ses seuls actes - pas même le Prophète ﷺ lui-même - sans qu'Allah ne l'enveloppe dans Sa miséricorde. C’est l’équilibre parfait que trouve le croyant : un espoir et une ambition grandissants d’un côté, une humilité sincère de l’autre.",
       "Alors faites d'Al-Firdaws une partie régulière de votre supplication - en prosternation, dans le dernier tiers de la nuit et avant de dormir - pendant que vous faites tranquillement de votre mieux chaque jour et que vous vous appuyez entièrement sur la miséricorde de votre Seigneur pour le reste.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Quand vous demandez à Allah, demandez-Lui Al-Firdaws, car c'est la partie la plus élevée du Paradis et le milieu du Paradis, et de là coulent les rivières du Paradis, et au-dessus se trouve le Trône du Très Miséricordieux.",
-      },
-      {
-        excerpt:
-          "Aucun d’entre vous n’entrera au Paradis par ses seuls actes. Ils dirent : Pas même toi, ô Messager d'Allah ? Il dit : Pas même moi, à moins qu'Allah ne me couvre de Sa miséricorde.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Demandez à Allah Al-Firdaws dans votre du'a, en particulier pendant le sujud et avant de dormir.",
       "Perfectionnez ce qui vous est obligatoire, puis augmentez l'adoration volontaire.",
@@ -126,22 +67,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "Les péchés dits « mineurs » sont également importants et ne doivent jamais être pris à la légère. La médisance, le mensonge, l’arrogance, la rupture des liens familiaux et l’insouciance érodent lentement le cœur et le caractère. Le Prophète ﷺ a averti que les petits péchés accumulés peuvent détruire une personne, tout comme de petits bâtons rassemblés peuvent préparer un repas entier. Chacun d’eux a besoin de son propre retour vers Allah.",
       "Ce qu’il faut retenir, c’est l’espoir en action : ne laissez jamais l’ampleur d’un péché vous convaincre que le repentir est inutile. Revenez à Allah dès que vous glissez, faites suivre une mauvaise action d'une bonne pour l'effacer et gardez la porte de l'istighfar ouverte chaque jour. Sa miséricorde est toujours plus grande que votre erreur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, Allah ne pardonne pas la fréquentation de Lui, mais Il pardonne ce qui est inférieur à ce pour qui Il veut.",
-      },
-      {
-        excerpt:
-          "Dis : Ô mes serviteurs qui avez transgressé contre vous-mêmes, ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "L'alliance entre nous et eux, c'est la prière ; celui qui l'abandonne a commis l'incrédulité.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Les listes des péchés majeurs du fiqh varient selon les érudits, et les décisions concernant les individus appartiennent à des personnes qualifiées. Il s’agit d’un rappel général au repentir – et non d’un verdict personnel. Consultez un érudit digne de confiance pour votre situation.",
@@ -155,16 +82,7 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "Au-delà des individus nommés, les textes décrivent des catégories à qui l'on annonce la bonne nouvelle : les véridiques et les patients, ceux qui meurent en véritables martyrs pour la cause d'Allah selon la loi islamique, et ceux dont les dernières paroles dans cette vie sont le témoignage de la foi, la ilaha illallah. Chaque description pointe vers une réalité intérieure – la sincérité, le sacrifice ou un cœur attaché à Allah jusqu’au dernier souffle – et pas seulement une étiquette extérieure.",
       "La leçon pour nous n’est pas de nous sentir en sécurité par association, ni de revendiquer ces rangs pour nous-mêmes, mais d’être inspirés. Laissez leur exemple nous tirer vers le haut : aimez ce qu'ils ont aimé, luttez comme ils l'ont fait, et transformez cette admiration en du'a et en action, en demandant avant tout à Allah husn al-khatimah – une bonne fin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakr est au paradis, Umar est au paradis, Uthman est au paradis, Ali est au paradis, Talhah est au paradis, Zubayr est au paradis, Abd al-Rahman ibn Awf est au paradis, Sa'd est au paradis, Sa'id ibn Zayd est au paradis et Abu Ubaydah ibn al-Jarrah est au paradis.",
-      },
-      {
-        excerpt:
-          "Celui qui prononcera ses dernières paroles : « Il n’y a de dieu qu’Allah » entrera au Paradis.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Les bonnes nouvelles dans les hadiths se réfèrent à ceux nommés ou aux catégories décrites. Ils ne remplacent pas le besoin de sa propre foi, de ses actes et d’une bonne fin. Allah sait mieux.",
   },
@@ -178,22 +96,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse de faire du tawheed le fondement est que cela libère le cœur. Celui qui adore Allah seul est libéré de la peur de la création, de la recherche de l'approbation de tous et de l'épuisement de servir de nombreux maîtres. Sa vie prend une direction unique et claire : plaire à Celui qui l'a créé.",
       "En pratique, apprenez la croyance correcte auprès d’érudits dignes de confiance, purifiez votre culte du shirk et de l’hypocrisie et vérifiez votre intention avant d’agir. Cette première étape n’est ni facultative ni avancée – c’est là que commence tout chemin vers le Paradis.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Il a été révélé à vous et à ceux qui vous ont précédé : Si vous associez d'autres à Allah, vos actions n'aboutiront sûrement à rien et vous serez sûrement parmi les perdants.",
-      },
-      {
-        excerpt:
-          "Il ne leur a été ordonné que d'adorer Allah et d'être sincères envers Lui en religion.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les actions ne sont que des intentions, et chaque personne n'aura que ce qu'elle avait prévu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Apprenez les bases du tawheed auprès d’érudits dignes de confiance.",
       "Renouvelez votre intention avant les actes d’adoration.",
@@ -210,24 +114,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse la plus profonde de Salah est la transformation. La prière, faite correctement, retient une personne de l'indécence et des actes répréhensibles ; c'est une réinitialisation répétée qui ramène le cœur vers Allah tout au long d'une journée bien remplie. Manquer des prières sans excuse valable est donc une affaire grave qui nécessite un repentir sincère et leur rattrapage (qada). Nafl et rawatib – les prières sunna régulières avant et après les prières obligatoires – ajoutent davantage de lumière et élèvent le rang.",
       "En pratique : protégez les cinq prières quotidiennes à leur heure comme votre priorité absolue, rattrapez celles que vous avez manquées et ajoutez les prières sunnah que vous pouvez soutenir. Si votre prière s’améliore, tout le reste de votre culte tend à s’améliorer avec elle.",
     ],
-    quran: [
-      {
-        excerpt: "Les croyants, ceux qui sont humbles dans leur prière, réussissent en effet.",
-      },
-      {
-        excerpt: "Sauf ceux qui prient, ceux qui sont constants dans leur prière.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La première chose dont le serviteur devra rendre compte au Jour de la Résurrection est sa prière. Si c'est valable, il a réussi ; s'il est défectueux, il a échoué et perdu.",
-      },
-      {
-        excerpt:
-          "S'il y avait une rivière à la porte de l'un de vous dans laquelle il se baignait cinq fois par jour, resterait-il de la saleté sur lui ? Ils dirent : Non. Il répondit : C'est la similitude des cinq prières : par elles, Allah efface les péchés.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Surveillez les cinq prières quotidiennes à leur heure.",
       "Rattrapez sincèrement les prières manquées (qaza).",
@@ -245,22 +133,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse est profonde : le péché ne constitue pas nécessairement la fin de l’histoire d’une personne. « Allah remplacera leurs mauvaises actions par de bonnes » (Qur'an 25 : 70) – un repentir sincère peut transformer un échec en un succès, et peut transformer une chute en un nouveau départ qui rapproche une personne d'Allah plus qu'auparavant. Le désespoir après le péché est en soi un piège du Shaytan ; l'espoir en la miséricorde d'Allah est la réponse du croyant.",
       "En pratique : ne retardez pas le repentir d’un seul jour ; revenez dès que vous avez glissé. Suivez chaque mauvaise action par une bonne action pour l'effacer et continuez à couler l'istighfar sur votre langue tout au long de la journée, tout comme le Prophète ﷺ a demandé le pardon plusieurs fois par jour malgré son pardon.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, tournez-vous vers Allah avec un repentir sincère. Peut-être que votre Seigneur éloignera de vous vos méfaits et vous fera entrer dans les Jardins sous lesquels coulent les rivières.",
-      },
-      {
-        excerpt:
-          "Sauf pour ceux qui se repentent, croient et accomplissent de bonnes actions, pour eux, Allah remplacera leurs mauvaises actions par de bonnes, et Allah est Pardonneur et Miséricordieux.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah est plus satisfait du repentir de Son serviteur que de celui d'entre vous qui, après avoir perdu son chameau dans une terre aride, le retrouve soudainement.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Repentez-vous immédiatement lorsque vous péchez – ne tardez pas.",
       "Suivez le péché par une bonne action pour l’effacer.",
@@ -278,21 +152,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "Le but le plus profond, cependant, n’est pas la récitation en soi mais la transformation. Allah nous ordonne de « réciter le Qur'an avec une récitation mesurée » (Qur'an 73 : 4) précisément pour que les significations s'imprègnent et remodèlent notre façon de penser, de ressentir et de nous comporter. Le Qur'an a été envoyé pour être vécu, pas seulement récité ; les compagnons apprendraient dix versets et ne continueraient pas avant de les avoir compris et d'avoir agi en conséquence.",
       "En pratique : lisez chaque jour une partie, ne serait-ce que quelques versets, mais lisez-les avec réflexion. Mémorisez de nouvelles sourates ou conservez ce que vous savez déjà et, plus important encore, agissez sur ce que vous avez appris avant de vous précipiter pour en savoir plus.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ceux qui récitent le Livre d'Allah, accomplissent la prière et dépensent avec ce que Nous leur avons accordé, espèrent un commerce qui ne périra jamais, afin qu'Il leur donne pleinement leurs récompenses et les augmente de Sa générosité.",
-      },
-      {
-        excerpt: "Et récitez le Qur'an avec une récitation mesurée.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Il sera dit au compagnon du Qur'an : Récitez et montez, et récitez comme vous aviez l'habitude de réciter dans le monde, car votre rang sera au dernier verset que vous réciterez.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Lisez quotidiennement – ​​même quelques versets avec réflexion.",
       "Mémorisez de nouvelles sourates ou conservez ce que vous savez.",
@@ -310,22 +171,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse du dhikr est qu’il maintient vivante la relation avec Allah entre les actes formels d’adoration. Une langue humide de souvenir et, plus important encore, un cœur qui rappelle Allah dans ses choix quotidiens – s’arrêtant devant la colère, avant un achat, avant une décision – est le véritable objectif. Le dhikr n’est pas censé rester sur les lèvres ; il est censé diriger la vie.",
       "En pratique : faites de l'adhkar du matin et du soir une habitude quotidienne, faites couler une simple portion de tasbeeh, d'istighfar ou de salawat pendant les moments d'inactivité et souvenez-vous d'Allah en particulier avant de dormir et au réveil. Mieux vaut la cohérence d’un peu que des rafales de beaucoup.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ceux qui croient et dont les coeurs trouvent le repos dans l'invocation d'Allah, en vérité, c'est dans l'évocation d'Allah que les coeurs trouvent le repos.",
-      },
-      {
-        excerpt:
-          "Ô vous qui croyez, souvenez-vous d'Allah avec beaucoup de souvenir et glorifiez-Le matin et soir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Deux mots sont légers sur la langue, lourds sur la Balance et bien-aimés du Très Miséricordieux : SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Complétez l’adhkar matin et soir quotidiennement.",
       "Utilisez un compteur tasbeeh pour l'istighfar ou le salawat.",
@@ -343,22 +190,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse de la charité est qu’elle agit autant sur celui qui donne que sur celui qui reçoit. Cela relâche l’emprise de l’avidité sur le cœur, renforce la compassion, renforce les liens de la communauté et rappelle aux riches qu’ils sont des administrateurs et non de véritables propriétaires. Et l'Islam élargit la définition de la charité afin que personne ne soit exclu : le Prophète ﷺ a enseigné qu'un sourire à son frère, une parole serviable et même le retrait d'un objet nuisible de la route sont toutes des formes de sadaqah.",
       "En pratique : si vous êtes redevable de la zakât, calculez-la et payez-la avec précision ; donnez régulièrement une sadaqah, aussi petite soit-elle, afin que donner devienne une habitude plutôt qu'un événement ; et recherchez une sadaqah jariyah durable – parrainer un étudiant, financer un puits ou soutenir une mosquée – qui continue de vous récompenser longtemps après votre départ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "L'exemple de ceux qui dépensent leurs biens dans le sentier d'Allah est comme un grain qui produit sept épis, dans chaque épi cent grains. Et Allah multiplie pour qui Il veut.",
-      },
-      {
-        excerpt:
-          "Dépensez ce que Nous vous avons accordé avant que la mort ne survienne à l'un de vous, et qu'il dise : Mon Seigneur, si seulement Tu me retardais un peu pour que je puisse faire l'aumône et être parmi les justes.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsqu’une personne meurt, ses actions prennent fin, sauf trois : la charité continue, la connaissance bénéfique ou un enfant juste qui prie pour elle.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Calculez et payez la zakat si vous êtes responsable.",
       "Faites régulièrement des dons, même minimes.",
@@ -376,25 +209,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse est que l’Islam n’est pas seulement une relation privée entre une personne et Allah ; cela est censé déborder sur la façon dont on traite tout le monde autour de soi. Un fidèle dont la prière n’adoucit pas ses relations a raté l’essentiel, alors qu’un bon caractère est en soi une dawah, attirant les gens vers la foi par l’exemple vivant. C’est pourquoi les textes associent encore et encore l’adoration d’Allah à l’excellence envers Sa création.",
       "En pratique : travaillez sur un trait à la fois : tenez votre langue lorsque vous êtes provoqué, pardonnez à ceux qui vous font du tort, réparez une relation que vous avez laissée se briser et tenez vos promesses même si elles vous coûtent cher. Une courte réflexion quotidienne après la salah sur la façon dont vous avez traité les gens ce jour-là est un moyen simple de grandir régulièrement.",
     ],
-    quran: [
-      {
-        excerpt: "Et en effet, vous êtes d’un caractère grand et noble.",
-      },
-      {
-        excerpt:
-          "Ceux qui dépensent dans l’aisance et dans la misère, qui retiennent leur colère et pardonnent aux gens – et Allah aime les bienfaiteurs.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rien n'est plus lourd sur la balance d'un croyant au Jour de la Résurrection que le bon caractère. En effet, Allah n’aime pas les personnes obscènes et grossières.",
-      },
-      {
-        excerpt:
-          "Les croyants les plus complets dans la foi sont ceux qui ont le meilleur caractère, et les meilleurs d'entre vous sont ceux qui sont les meilleurs envers leurs femmes.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Faites preuve de patience lorsque vous êtes provoqué.",
       "Pardonnez aux autres et réparez les relations brisées.",
@@ -410,72 +226,52 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       {
         title: "Véracité",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Patience",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Maîtrise de la colère",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Pardon",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Humilité",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Fiabilité",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Bonté envers les parents",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
       {
         title: "Bonne parole",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        hadith: {
-          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-        },
+        hadith: {},
       },
       {
         title: "Sourire",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        hadith: {
-          excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-        },
+        hadith: {},
       },
       {
         title: "Justice",
         summary: "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
-        quran: {
-          excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -515,25 +311,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse est que l’action sans connaissance est aveugle et que la connaissance sans action est vaine. Une connaissance correcte protège une personne de l’innovation et de l’égarement, approfondit sa sincérité et lui donne la capacité de faire bénéficier les autres plutôt que de simplement en profiter elle-même. Les érudits de l’Islam ont toujours mis en garde contre deux dangers : agir dans l’ignorance et savoir sans agir.",
       "En pratique : engagez-vous à apprendre régulièrement quelque chose de bénéfique : un verset, un hadith, une règle dont vous avez besoin pour votre culte quotidien. Commencez par l’essentiel de la croyance, de la prière, de la purification et des grands interdits, puis approfondissez progressivement. Partagez humblement ce que vous apprenez et appliquez-le toujours à vous-même en premier.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dis : Ceux qui savent sont-ils égaux à ceux qui ne savent pas ? Seuls ceux qui ont de l’intelligence en tiennent compte.",
-      },
-      {
-        excerpt: "Et dis : Mon Seigneur, augmente-moi en connaissance.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui emprunte un chemin à la recherche de la connaissance, Allah lui facilitera le chemin du Paradis.",
-      },
-      {
-        excerpt:
-          "Lorsqu’une personne meurt, ses actions prennent fin, sauf trois : la charité continue, la connaissance bénéfique ou un enfant juste qui prie pour elle.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Apprenez quelque chose de bénéfique chaque semaine.",
       "Partagez vos connaissances sans arrogance.",
@@ -551,18 +330,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse est que nafl maintient la foi vivante et grandissante. Les obligations maintiennent la ligne de base, mais les actes volontaires sont là où le cœur s'étire, où le culte privé que personne ne voit renforce la sincérité et où une personne s'entraîne aux épreuves les plus difficiles de la vie. C’est aussi une miséricorde que ces actes soient facultatifs – Allah ouvre de nombreuses portes pour que chacun puisse franchir celles qui lui conviennent.",
       "En pratique, la clé est la durabilité et non l’intensité. Le Prophète ﷺ a enseigné que les actes les plus appréciés d'Allah sont les plus cohérents, même s'ils sont petits. Choisissez quelques actes volontaires que vous pouvez réellement respecter – deux rak'ahs de tahajjud, un jeûne par semaine, une portion fixe du Qur'an – plutôt qu'un élan ambitieux qui s'épuise en quelques jours.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Leurs côtés abandonnent leurs lits alors qu'ils invoquent leur Seigneur avec crainte et espoir, et ils dépensent de ce que Nous leur avons accordé. Aucune âme ne sait quel réconfort leur est caché en guise de récompense pour ce qu’elles faisaient.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mon serviteur ne s'approche pas de Moi avec quelque chose qui M'est plus cher que ce que Je lui ai rendu obligatoire. Et Mon serviteur continue de s'approcher de Moi par des actes volontaires jusqu'à ce que Je l'aime.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Priez tahajjud même si seulement deux rakahs.",
       "Journées volontaires rapides lorsque cela est possible.",
@@ -580,22 +349,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse ici recadre entièrement la souffrance. Les épreuves ne sont pas automatiquement des punitions ; pour un croyant qui répond bien, elles peuvent être une purification qui efface les péchés et une élévation qui élève le rang. Le Prophète ﷺ a enseigné qu'aucune fatigue, maladie, souci ou même piqûre d'épine n'arrive à un musulman sans qu'Allah n'efface certains de ses péchés par ce biais. Cela transforme les moments les plus difficiles de la vie en opportunités plutôt qu’en pure perte.",
       "En pratique : lorsque la calamité frappe, répondez avec les mots qu'Allah a enseignés : « Inna lillahi wa inna ilayhi raji'un » (En effet, nous appartenons à Allah, et c'est à Lui que nous retournons) - et retenez votre langue des plaintes qui rejettent Son décret. Dans les bons moments, comptez vos bénédictions à haute voix et remerciez Allah pour au moins quelques-unes d'entre elles chaque jour ; les nommer garde le cœur doux et reconnaissant.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Annoncez la bonne nouvelle aux patients, à ceux qui, en cas de malheur, disent : En effet, nous appartenons à Allah et c'est à Lui que nous retournerons. Sur eux sont les bénédictions et la miséricorde de leur Seigneur, et ce sont eux qui sont bien guidés.",
-      },
-      {
-        excerpt:
-          "Si vous êtes reconnaissant, je vous augmenterai sûrement ; mais si vous niez, mon châtiment est en effet sévère.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "L’affaire du croyant est merveilleuse, car toutes ses affaires sont bonnes. Si la facilité vient, il est reconnaissant, et c'est bien pour lui ; et si des difficultés surviennent, il est patient, et cela est bon pour lui. Ceci n'est réservé qu'au croyant.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Dites « inna lillahi wa inna ilayhi raji'un » lorsque vous êtes testé.",
       "Remerciez Allah à haute voix pour trois bénédictions par jour.",
@@ -612,22 +367,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse de lier une telle récompense au fait de guider les autres est que cela fait de chaque croyant une source de bien permanent. Cela protège également la propre foi de celui qui appelle : inviter les autres à la prière, à l'honnêteté et à l'adoration, c'est se rappeler de s'accrocher à soi-même. Et cela lie la communauté dans une attention mutuelle plutôt que dans une négligence mutuelle.",
       "En pratique, commencez près de chez vous. Améliorez et enseignez à votre propre famille – un conjoint, un enfant, un frère ou une sœur – puisqu’elle est votre responsabilité première et la plus durable. Partagez des connaissances bénéfiques avec gentillesse, aidez quelqu'un à apprendre à prier ou à lire le Qur'an et rappelez-vous qu'une vie de bonne moralité et d'adoration constante est souvent la da'wah la plus convaincante de toutes.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Invite-toi à suivre la voie de ton Seigneur avec sagesse et bonne instruction, et discute avec eux de la meilleure manière.",
-      },
-      {
-        excerpt:
-          "Et qui est meilleur en discours que celui qui invite à Allah, pratique la piété et dit : En effet, je suis du nombre des musulmans.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui guide quelqu’un vers le bien aura une récompense comme celui qui le fait.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Partagez des connaissances bénéfiques avec bienveillance.",
       "Aidez quelqu'un à apprendre à prier ou à lire le Qur'an.",
@@ -644,26 +385,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "La sagesse de ces actes est qu’ils prolongent le récit d’une personne au-delà de sa durée de vie. Les années d'activité d'un croyant sont courtes, mais un puits qu'il a creusé ou un enfant qu'il a bien élevé peut lui rapporter une récompense pendant des siècles. L'Islam encourage donc une vision à long terme : penser non seulement à la prière d'aujourd'hui, mais aussi au bien qui découlera encore de vous après votre départ.",
       "En pratique : si vous en êtes capable, planifiez sérieusement le Hajj ou la Umrah plutôt que de les reporter sans fin. Consacrez de réels efforts à la foi et au caractère de votre famille, car ils constituent votre héritage le plus durable. Et identifiez au moins un projet caritatif durable à soutenir – connaissances, eau, abri ou orphelin – afin que vos bonnes actions continuent après la mort.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et le Hajj à la Maison est un devoir envers Allah pour ceux qui sont capables de trouver le chemin pour y parvenir.",
-      },
-      {
-        excerpt:
-          "Et proclamez au peuple le Hajj ; ils viendront vers toi à pied et sur n'importe quel chameau maigre, de tout passage lointain, afin de témoigner pour eux-mêmes de leurs bienfaits.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui accomplit le Hajj pour l'amour d'Allah et ne commet pas d'obscénité ou de transgression revient libre de tout péché, comme le jour où sa mère l'a mis au monde.",
-      },
-      {
-        excerpt:
-          "Lorsqu’une personne meurt, ses actions prennent fin, sauf trois : la charité continue, la connaissance bénéfique ou un enfant juste qui prie pour elle.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Planifiez le Hajj ou la Umrah si vous en êtes capable.",
       "Investissez dans la foi et le caractère de votre famille.",
@@ -681,26 +404,8 @@ export const JANNAH_TOPICS_FR: DeepPartial<JannahTopic>[] = [
       "C’est pourquoi le croyant équilibré vit entre l’espoir et la peur, comme un oiseau volant avec deux ailes. Il craint suffisamment la justice d'Allah pour ne jamais devenir complaisant ou imprudent face au péché, et il espère suffisamment dans la miséricorde d'Allah pour ne jamais désespérer, peu importe jusqu'où il s'est égaré. S’incliner entièrement vers la peur engendre le désespoir ; se tourner entièrement vers l’espoir engendre l’arrogance. Les noms d’Allah – Ar-Rahman (le Plus Compatissant), Ar-Raheem (le Plus Miséricordieux), Al-Ghafoor (le Plus Pardonneur) – ancrent l’aile de l’espoir.",
       "Ainsi, que ce soit l'esprit dans lequel vous terminez chaque journée : demandez à Allah Al-Firdaws, faites de votre mieux, repentez-vous de vos défauts, puis remettez votre rang final au Plus Juste et au Plus Miséricordieux - en ayant confiance que Celui qui a gardé quatre-vingt-dix-neuf parts de miséricorde pour ce jour-là ne refusera pas un serviteur qui est venu à Lui en luttant et en espérant.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et ma miséricorde embrasse tout. Je le décréterai donc pour ceux qui sont justes et qui donnent la zakat, et pour ceux qui croient en Nos versets.",
-      },
-      {
-        excerpt:
-          "Dis : Ô mes serviteurs qui avez transgressé contre vous-mêmes, ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Aucun d’entre vous n’entrera au Paradis par ses seuls actes. Ils dirent : Pas même toi, ô Messager d'Allah ? Il dit : Pas même moi, à moins qu'Allah ne m'enveloppe de Sa miséricorde.",
-      },
-      {
-        excerpt:
-          "Allah a cent parts de miséricorde. Il a fait descendre une partie parmi les djinns, les hommes, les animaux et les insectes, par laquelle ils ont compassion les uns des autres ; et il en garda quatre-vingt-dix-neuf parts avec lui, par lesquelles il fera miséricorde à ses serviteurs le jour de la résurrection.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Équilibrez la crainte d’Allah avec l’espoir en Sa miséricorde.",
       "Ne désespérez jamais après un péché – repentez-vous et continuez à lutter.",
@@ -714,107 +419,48 @@ export const JANNAH_GATES_FR: DeepPartial<JannahGate>[] = [
   {
     name: "Porte de prière",
     deedSummary: "Pour ceux qui gardaient et établissaient les cinq prières quotidiennes.",
-    hadith: [
-      {
-        excerpt:
-          "Quiconque dépense une paire d'objets dans le sentier d'Allah sera rappelé des portes du Paradis. Celui qui était parmi les gens de prière sera appelé de la Porte de Prière.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Porte de la Charité",
     deedSummary: "Pour ceux qui ont sincèrement fait l'aumône pour l'amour d'Allah.",
-    hadith: [
-      {
-        excerpt: "Celui qui était parmi les gens de charité sera appelé à la Porte de la Charité.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Porte d'Ar-Rayyan",
     deedSummary: "Réservé à ceux qui ont jeûné – une porte à laquelle ils seuls entrent.",
-    hadith: [
-      {
-        excerpt:
-          "Il y a une porte au Paradis appelée Ar-Rayyan, par laquelle seuls ceux qui ont jeûné entreront le Jour de la Résurrection. Lorsque le dernier d’entre eux sera entré, il sera fermé.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Porte du Jihad",
     deedSummary: "Pour ceux qui ont lutté avec sincérité dans la cause d’Allah.",
-    hadith: [
-      {
-        excerpt: "Quiconque faisait partie des gens du Jihad sera appelé depuis la Porte du Jihad.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Récompense du Hajj",
     deedSummary: "Pour ceux qui ont accompli le Hajj de manière pure, revenant sans péché.",
-    hadith: [
-      {
-        excerpt:
-          "Celui qui accomplit le Hajj pour l'amour d'Allah et ne commet pas d'obscénité ou de transgression revient libre de tout péché, comme le jour où sa mère l'a mis au monde.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Appelé de chaque porte",
     deedSummary: "Certains, comme Abu Bakr, seront appelés à entrer par toutes les portes.",
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakr a demandé : Quelqu'un sera-t-il appelé depuis toutes ces portes ? Il a répondu : Oui, et j'espère que vous en ferez partie.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_FR: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Courez vers le pardon de votre Seigneur et vers un jardin aussi vaste que les cieux et la terre, préparé pour les justes.",
-  },
-  {
-    excerpt:
-      "Des jardins sous lesquels coulent les rivières et des demeures agréables dans les jardins de la résidence éternelle. Mais l'agrément d'Allah est plus grand.",
-  },
-  {
-    excerpt:
-      "Jardins de Refuge comme hospitalité pour ceux qui croient et accomplissent des actions justes.",
-  },
-  {
-    excerpt:
-      "Aucune âme ne sait quel réconfort leur est caché en guise de récompense pour ce qu’elles faisaient.",
-  },
-  {
-    excerpt: "Ils y trouveront tout ce qu'ils voudront, et avec Nous, c'est plus.",
-  },
-  {
-    excerpt: "Pour tous, il y aura des degrés selon ce qu'ils ont fait.",
-  },
-  {
-    excerpt: "Ils sont degrés auprès d'Allah, et Allah voit ce qu'ils font.",
-  },
-  {
-    excerpt:
-      "Notre Seigneur, donne-nous le bien dans ce monde et le bien dans l'au-delà, et protège-nous du châtiment du Feu.",
-  },
-  {
-    excerpt:
-      "Ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés.",
-  },
-  {
-    excerpt:
-      "Mes serviteurs, vous n'aurez aucune crainte ce jour-là et vous ne serez pas attristés.",
-  },
-  {
-    excerpt: "Et les précurseurs, les précurseurs, ce sont ceux-là qui se sont rapprochés.",
-  },
-  {
-    excerpt: "Ainsi Allah les protégera du mal de ce jour et leur donnera l'éclat et le bonheur.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_FR: DeepPartial<JannahDuaEntry>[] = [

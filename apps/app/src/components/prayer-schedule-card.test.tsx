@@ -3,6 +3,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import {
   PrayerScheduleCard,
   type PrayerScheduleCardProps,
+  ScheduleContextHeader,
 } from "@/components/prayer-schedule-card";
 import type { ScheduleItem } from "@/hooks/use-home-hero";
 import { buildScheduleItem } from "@/test-support/fixtures/prayer";
@@ -10,6 +11,11 @@ import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("@/components/prayer-info-button", () => ({ PrayerInfoButton: () => null }));
+jest.mock("@/components/default-location-banner", () => ({
+  DefaultLocationBanner: require("@/test-support/mocks/stub-component").stubComponent(
+    "default-city-callout",
+  ),
+}));
 
 const hour = (h: number) => h * 3_600_000;
 
@@ -155,5 +161,40 @@ describe("PrayerScheduleCard on TV", () => {
 
     expect(screen.queryByLabelText("Share today's complete schedule as an image")).toBeNull();
     expect(screen.getByLabelText(/^Show 3 earlier/)).toBeTruthy();
+  });
+});
+
+describe("ScheduleContextHeader (P5-06)", () => {
+  const renderHeader = (isDefaultLocation: boolean) => {
+    const onChangeLocation = jest.fn();
+    return renderWithTheme(
+      <ScheduleContextHeader
+        dateLabel="Monday 6 July"
+        secondaryDateLabel="21 Muharram 1448"
+        locationLabel={isDefaultLocation ? "Makkah, Saudi Arabia" : "London"}
+        isDefaultLocation={isDefaultLocation}
+        onChangeLocation={onChangeLocation}
+      />,
+    ).then(() => onChangeLocation);
+  };
+
+  it("names the date and place the times are for, with a Change link", async () => {
+    const onChangeLocation = await renderHeader(false);
+
+    expect(screen.getByText("Monday 6 July")).toBeTruthy();
+    expect(screen.getByText("21 Muharram 1448")).toBeTruthy();
+    expect(screen.getByText("London")).toBeTruthy();
+    expect(screen.queryByText("Default city")).toBeNull();
+    expect(screen.queryByText("default-city-callout")).toBeNull();
+
+    await fireEvent.press(screen.getByRole("button", { name: "Change" }));
+    expect(onChangeLocation).toHaveBeenCalled();
+  });
+
+  it("warns with a pill and the set-location callout on the default city", async () => {
+    await renderHeader(true);
+
+    expect(screen.getByText("Default city")).toBeTruthy();
+    expect(screen.getByText("default-city-callout")).toBeTruthy();
   });
 });

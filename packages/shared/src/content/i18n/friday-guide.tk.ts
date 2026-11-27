@@ -14,16 +14,7 @@ export const FRIDAY_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Onuň ybadaty şeýle hem yzygiderli bagyşlanma wadasyny özünde saklaýar. Ebu Hureýra rowaýat edişine görä, Pygamber ﷺ şeýle diýdi: 'Kim anna güni ýuwunsa, soň anna namazyna gelse, imam wagyz aýdyp durka diňläp we dymyp otursa, şol adamyň şol anna bilen indiki anna aralygyndaky günäleri, ýene üç güne goşulyp bagyşlanar' (Sahyh Muslim 857).",
       "Bu fazletler öňünden taýýarlanmaga, üns bilen diňlemäge, we anna gününi hepdelik ruhy täzelenme hasaplamaga çagyryşdyr — diňe işden dynç alyş güni hökmünde däl.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Güniň iň gowy dogan güni annadyr; şol günde Adam ýaradyldy, şol günde ol Jennete girizildi, şol günde ondan çykaryldy, we Kyýamat güni hem diňe anna gününde bolar.",
-      },
-      {
-        excerpt:
-          "Kim anna güni ýuwunsa, soň anna namazyna gelse, imam wagyz aýdyp durka diňläp we dymyp otursa, şol adamyň şol anna bilen indiki anna aralygyndaky günäleri, ýene üç güne goşulyp bagyşlanar.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Anna güni ertirinden niýet ediň: gusul almak, iň gowy eşik, we ir gelmek.",
       "Wagzy ybadat hökmünde kabul ediň — dymmak we üns bermek sylagyň bir bölegidir.",
@@ -39,26 +30,8 @@ export const FRIDAY_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ony äsgermezlik agyr duýduryşdyr: Ebul-Jagd rowaýat edişine görä, kim ünsüzlik sebäpli üç anna namazyny goýberse, Alla onuň ýüregine möhür basar (Nesaýynyň Sunany 1369). Wagyz wagtynda gerekmejek gürrüň sylagy ýitirer — Ebu Hureýra rowaýat edişine görä, eger dostuňyza imam wagyz okap durka 'Dym' diýseňiz, siz özüňiz gerekmejek gürrüň etdiňiz (Sahyh Buhary 934).",
       "Annadan soň dört rekat okamak maslahat berilýär: Ebu Hureýra rowaýat edişine görä, Pygamber ﷺ şeýle diýdi, 'Biriňiz anna namazyny okanda, soňra dört (rekat) okasyn' (Sahyh Muslim 881).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler! Anna güni namaza çagyrylan wagty, Allany ýatlamaga howlugyň we söwda-satygy taşlaň. Eger bilseňiz, bu siziň üçin has ýagşydyr. Namaz tamamlanandan soň, ýer ýüzüne dargaň we Allanyň keremini gözläň...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jemagat anna namazy her musulmana farz, dört adamdan başga: gul, aýal, çaga, ýa-da näsag.",
-      },
-      {
-        excerpt: "Kim ünsüzlik sebäpli üç anna namazyny goýberse, Alla onuň ýüregine möhür basar.",
-      },
-      {
-        excerpt:
-          "Eger dostuňyza imam anna güni wagyz okap durka 'Dym' diýseňiz, siz özüňiz gerekmejek gürrüň (lagw) etdiňiz.",
-      },
-      { excerpt: "Biriňiz anna namazyny okanda, soňra dört (rekat) okasyn." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Ýoluňyzy wagyz başlamazdan öň metjide ýetmek üçin meýilleşdiriň.",
       "Telefonlaryňyzy dymdyryň we wagyz wagtynda gürleşmekden saklanyň.",
@@ -76,18 +49,7 @@ export const FRIDAY_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Gusuldan başga, Pygamber ﷺ mümkin bolanda has gowy görünmäge höweslendirdi. Salman el-Farisi rowaýat edişine görä, Pygamber ﷺ şeýle diýdi: 'Kim anna güni ýuwunsa, mümkin boldugyça arassalansa, soň saç ýagyny ýa-da ysly zady ulansa, soň çyksa, we iki adamyň arasyndan geçmese, öz ornunda otursa, imamy diňlese ol gutarýança, soň özüne farz edilen namazy okasa — onuň günäleri şol anna bilen indiki anna aralygynda bagyşlanar' (Sahyh Buhary 883).",
       "Ir gelmek sylagy köpeldýär. Ebu Hureýra rowaýat edişine görä, kim birinji sagatda barsa, düýe gurban eden adam ýaly, soň sygyr, soň goýun, soň towuk, soň ýumurtga — imam çykanda, perişdeler ýazgylaryny ýygnap, wagyzy diňlärler (Sahyh Buhary 881).",
     ],
-    hadith: [
-      { excerpt: "Anna güni gusul almak balaga ýeten her kim üçin farzdyr." },
-      { excerpt: "Anna güni gusul almak balaga ýeten her musulman erkek üçin farzdyr." },
-      {
-        excerpt:
-          "Kim anna güni ýuwunsa, mümkin boldugyça arassalansa, soň saç ýagyny ýa-da ysly zady ulansa, soň çyksa, we iki adamyň arasyndan geçmese, öz ornunda otursa, imamy diňlese ol gutarýança, soň özüne farz edilen namazy okasa — onuň günäleri şol anna bilen indiki anna aralygynda bagyşlanar.",
-      },
-      {
-        excerpt:
-          "Kim anna güni ýuwunsa, soň ir barsa, düýe gurban eden adam ýaly... soň sygyr... soň goýun... soň towuk... soň ýumurtga. Imam çykanda, perişdeler wagyzy diňlemek üçin gelerler.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Anna güni ertirine (ýa-da metjide gitmezden öň) gusul alyň.",
       "Iň gowy we arassa eşigiňizi geýiň, mümkin bolsa ýumşak ysly zat ulanyň.",
@@ -105,19 +67,8 @@ export const FRIDAY_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Bulardan aýry, Kehf sürasynyň ilkinji on aýaty Dejjalyň fitnesinden goragdyr. Ebu Derda rowaýat edişine görä, Pygamber ﷺ şeýle diýdi: 'Kim Kehf sürasynyň ilkinji on aýatyny ýat tutsa, Dejjaldan goralar' (Sahyh Muslim 809).",
       "Penşenbe agşamy bilen anna güni Gün ýaşyşynyň aralygynda süräni okamak üçin wagt tapyň — bölümiň hemmesini tamamlap bilmeseňiz-de, ilkinji aýatlardan başlaň we mümkin boldugyça gaýdyp geliň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bütin öwgi Allaha degişlidir, ol öz gulyna Kitaby indirdi we onda hiç bir eğrilik goýmady... Ýa-da siz gowak we ýazgy eýeleriniň biziň belgilerimiziň arasynda geň bir zat bolandygyny pikir edýärsiňizmi?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim anna güni Kehf sürasyny okasa, oňa iki anna aralygynda nur ýalpyldar. (Şeýh el-Albani sahyh diýip bahalandyrdy)",
-      },
-      { excerpt: "Kim Kehf sürasynyň ilkinji on aýatyny ýat tutsa, Dejjaldan goralar." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Anna güni Kehf sürasyny açyň we mümkin boldugyça ünsli okaň.",
       "Dejjaldan goranmak üçin ilkinji on aýaty ýat tutuň ýa-da gaýtalaň.",
@@ -133,12 +84,7 @@ export const FRIDAY_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Anna köp salawat üçin bellenendir. Aws ibn Aws rowaýat edişine görä, Pygamber ﷺ şeýle diýdi: 'Siziň iň gowy günleriňiziň biri annadyr; şonuň üçin şol günde maňa salawaty köpeldiň, sebäbi siziň salawatlaryňyz maňa ýetiriler.' Olar sorady: 'Eý Allanyň Resuly, sen toprak bolan wagty biziň salawatlarymyz saňa nädip ýetiriler?' Ol jogap berdi: 'Alla ýere pygamberleriň bedenlerini iýmegi gadagan etdi' (Ebu Dawudyň Sunany 1047).",
       "Islendik ynamdar salawat formulasy kabul ederlikdir — namazda öwredilýän salawatlar bolsun ýa-da Sünnetden gelen has uzyn görnüşler. Möhüm zat anna güni gaýtalanma we ihlaslylykdyr, berk san däl.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Siziň iň gowy günleriňiziň biri annadyr; şonuň üçin şol günde maňa salawaty köpeldiň, sebäbi siziň salawatlaryňyz maňa ýetiriler.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Anna güni üçin şahsy salawat maksadyňyzy belläň — az sanam bolsa, yzygiderli bolsun.",
       "Taýýar formula gerek bolsa, programmadaky salawat ýygyndysyny ulanyň.",
@@ -153,20 +99,7 @@ export const FRIDAY_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Alymlar bu sagadyň takyk haçandygy barada dürli pikirdedirler. Güýçli bir garaýyş ony anna gününiň ikindiden soňky soňky bölegine ýerleşdirýär: Jabir ibn Abdylla rowaýat edişine görä, Pygamber ﷺ şeýle diýdi: 'Anna on iki sagatdan ybarat, we onda bir sagat bar, eger musulman gul Alladan bir zat sorasa, Ol oňa berer — şonuň üçin ony ikindiden soňky soňky sagatda agtaryň' (Ebu Dawudyň Sunany 1048).",
       "Haýsy garaýşy eýerseňiz-de, anna gününi — aýratyn hem günüň soňky bölegini — ihlasly dogalar, istigfar, we salawat bilen dolduryň, Allanyň jogap bermek wadasyna ynanyp.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Anna güninde bir sagat bar, eger musulman gul şonda dursa we Alladan bir zat sorasa, Ol oňa berer — we eli bilen onuň gysga bolandygyny görkezdi.",
-      },
-      {
-        excerpt:
-          "Anna güninde bir sagat bar, eger musulman namazda durup Alladan bir zat sorasa, Ol oňa berer.",
-      },
-      {
-        excerpt:
-          "Anna on iki sagatdan ybarat, we onda bir sagat bar, eger musulman gul Alladan bir zat sorasa, Ol oňa berer — şonuň üçin ony ikindiden soňky soňky sagatda agtaryň.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Anna güni ikindiden soň, gysga dogalar sanawy bilen otur we ihlasly sora.",
       "Dogany salawat bilen birleşdiriň — ikisi hem şol günde aýratyn maslahat berilýär.",

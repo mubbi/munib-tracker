@@ -1,6 +1,5 @@
 import {
   Column,
-  type ColumnType,
   CreateDateColumn,
   Entity,
   Index,
@@ -10,12 +9,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { JSON_COLUMN_TYPE, TIMESTAMP_TYPE } from "./column-types";
 
-// SQLite (unit/e2e tests + `DATABASE_TYPE=sqlite`) uses `datetime`; Postgres uses
-// `timestamp`. Mirrors the driver choice in `database.module.ts` so the same
-// entities validate under both drivers.
-const usingSqlite = process.env.DATABASE_TYPE === "sqlite" || process.env.NODE_ENV === "test";
-const TIMESTAMP_TYPE: ColumnType = usingSqlite ? "datetime" : "timestamp";
+export * from "./circles";
 
 @Entity("users")
 // The provider's stable subject id is the authoritative identity key; email is
@@ -381,8 +377,6 @@ export class UserMediaEntity {
   @CreateDateColumn({ type: TIMESTAMP_TYPE })
   createdAt!: Date;
 }
-
-const JSON_COLUMN_TYPE: ColumnType = usingSqlite ? "simple-json" : "jsonb";
 
 /** Server-synced in-app inbox rows (including admin broadcast announcements). */
 @Entity("in_app_notifications")

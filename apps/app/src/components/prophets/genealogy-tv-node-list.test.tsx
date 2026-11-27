@@ -1,21 +1,22 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import { GenealogyTvNodeList } from "@/components/prophets/genealogy-tv-node-list";
+import { GenealogyNodeList } from "@/components/prophets/genealogy-tv-node-list";
 import {
   getProphetsGenealogyBranchOrder,
   getProphetsGenealogyNodes,
 } from "@/lib/prophets-genealogy";
+import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 
 const nodes = getProphetsGenealogyNodes();
 const branchOrder = getProphetsGenealogyBranchOrder();
 
-type Props = Parameters<typeof GenealogyTvNodeList>[0];
+type Props = Parameters<typeof GenealogyNodeList>[0];
 
 async function renderList(overrides: Partial<Props> = {}) {
   const onSelect = jest.fn();
   await renderWithTheme(
-    <GenealogyTvNodeList
+    <GenealogyNodeList
       nodes={nodes}
       branchOrder={[...branchOrder, "empty-branch"]}
       selectedId="ibrahim"
@@ -27,7 +28,7 @@ async function renderList(overrides: Partial<Props> = {}) {
   return onSelect;
 }
 
-describe("GenealogyTvNodeList", () => {
+describe("GenealogyNodeList", () => {
   it("groups people under their branch titles", async () => {
     await renderList();
     expect(screen.getByText("Ibrahim's household")).toBeTruthy();
@@ -35,11 +36,30 @@ describe("GenealogyTvNodeList", () => {
   });
 
   it("marks the selected person", async () => {
-    await renderList({ highlightIds: new Set(["ibrahim"]) });
+    await renderList();
     expect(screen.getByLabelText(/^Ibrahim, /).props.accessibilityState).toEqual({
       selected: true,
     });
     expect(screen.getByLabelText(/^Adam, /).props.accessibilityState).toEqual({ selected: false });
+  });
+
+  it("lists only the search / branch matches on phone and web", async () => {
+    await renderList({ highlightIds: new Set(["ibrahim"]) });
+    expect(screen.getByLabelText(/^Ibrahim, /)).toBeTruthy();
+    expect(screen.queryByLabelText(/^Adam, /)).toBeNull();
+    expect(screen.getByTestId("genealogy-node-list")).toBeTruthy();
+  });
+
+  describe("on TV", () => {
+    usePlatform({ isTV: true });
+
+    it("keeps every person in the D-pad list and dims non-matches", async () => {
+      await renderList({ highlightIds: new Set(["ibrahim"]) });
+      expect(screen.getByLabelText(/^Adam, /).props.accessibilityState).toEqual({
+        selected: false,
+      });
+      expect(screen.queryByTestId("genealogy-node-list")).toBeNull();
+    });
   });
 
   it("selects a person", async () => {

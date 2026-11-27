@@ -1,13 +1,15 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { claimTvPairing } from "@/api/endpoints";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -18,6 +20,11 @@ import { useAuth } from "@/providers/auth-provider";
 /**
  * Phone companion route: open from TV QR (`/tv-pair?code=…`), sign in if needed,
  * then claim the pairing so the TV receives a session.
+ *
+ * Claiming hands a full session for this account to whichever device created the
+ * code, so it never happens on link open: anyone can mint a code (the create call
+ * is unauthenticated) and send `/tv-pair?code=…` as a link. The user confirms
+ * with a tap, next to the code to compare with the one on their TV.
  */
 export default function TvPairScreen() {
   const { t } = useTranslation();
@@ -55,13 +62,6 @@ export default function TvPairScreen() {
     }
   }, [code, session?.accessToken, isGuest, t]);
 
-  useEffect(() => {
-    if (!isReady || !code || tv) return;
-    if (isAuthenticated && !isGuest) {
-      void claim();
-    }
-  }, [isReady, code, tv, isAuthenticated, isGuest, claim]);
-
   // TV should not host the phone claim flow.
   if (tv) {
     return (
@@ -86,7 +86,8 @@ export default function TvPairScreen() {
     <ScreenLayout
       eyebrow={t("tv.qrEyebrow")}
       title={t("tv.qrPhoneTitle")}
-      subtitle={code ? t("tv.qrPhoneSubtitle", { code }) : t("tv.qrMissingCode")}
+      // D-35: with no code the body says it once (no duplicated subtitle).
+      subtitle={code ? t("tv.qrPhoneSubtitle", { code }) : undefined}
       onBack={() => goBackOrReplace(router, "/")}
       // Wide web: align the header with the 420px claim column below.
       maxContentWidth={isWide ? PAIR_COLUMN_MAX_WIDTH + Spacing.four * 2 : undefined}
@@ -100,31 +101,46 @@ export default function TvPairScreen() {
 
       <View style={styles.body}>
         {!code ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("tv.qrMissingCode")}
-          </ThemedText>
+          <EmptyState
+            icon={{ ios: "qrcode.viewfinder", android: "qr_code_scanner", web: "qr_code_scanner" }}
+            title={t("tv.qrMissingCodeTitle")}
+            description={t("tv.qrScanAgain")}
+            actionLabel={t("notFound.action")}
+            onAction={() => goBackOrReplace(router, "/")}
+          />
         ) : null}
 
         {code && (!isAuthenticated || isGuest) ? (
           <>
             <ThemedText type="small" themeColor="mutedForeground">
-              {t("tv.qrSignInFirst")}
+              {/* Guests already have a session — they need a linked account, not "sign in". */}
+              {isGuest ? t("tv.qrNeedLinkedAccount") : t("tv.qrSignInFirst")}
             </ThemedText>
             <SocialLoginButtons
               onSuccess={() => {
-                // applySessionDto runs inside social auth; effect will claim.
+                // Signed in: the confirm button appears; the claim still needs a tap.
               }}
             />
           </>
         ) : null}
 
-        {status === "claiming" ? (
-          <ActivityIndicator accessibilityLabel={t("tv.qrClaiming")} />
+        {code &&
+        isReady &&
+        isAuthenticated &&
+        !isGuest &&
+        (status === "idle" || status === "claiming") ? (
+          <Button
+            label={status === "claiming" ? t("tv.qrClaiming") : t("tv.qrPhoneTitle")}
+            fullWidth
+            preferredFocus
+            loading={status === "claiming"}
+            onPress={() => void claim()}
+          />
         ) : null}
 
         {status === "done" ? (
           <>
-            <ThemedText type="smallBold">{t("tv.qrClaimSuccess")}</ThemedText>
+            <Callout tone="success">{t("tv.qrClaimSuccess")}</Callout>
             <Button
               label={t("common.done")}
               fullWidth
@@ -134,20 +150,20 @@ export default function TvPairScreen() {
           </>
         ) : null}
 
-        {error ? (
-          <>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {error}
-            </ThemedText>
-            <Button
-              label={t("tv.qrRetry")}
-              fullWidth
-              onPress={() => {
+        {/* Guests already see the one "link an account" message above — no doomed Retry. */}
+        {error && !isGuest ? (
+          <Callout
+            tone="danger"
+            action={{
+              label: t("tv.qrRetry"),
+              onPress: () => {
                 claimedRef.current = false;
                 void claim();
-              }}
-            />
-          </>
+              },
+            }}
+          >
+            {error}
+          </Callout>
         ) : null}
       </View>
     </ScreenLayout>

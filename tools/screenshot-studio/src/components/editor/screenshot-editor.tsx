@@ -16,6 +16,7 @@ import { isBuiltInElementId, isTextElementId, textElementKey } from "@/lib/eleme
 import { preloadImages } from "@/lib/image-cache";
 import { resolveScreenshot, writeLocalized } from "@/lib/locale";
 import { useProject } from "@/lib/storage";
+import { applyRecipe, DECK_RECIPES } from "@/lib/templates";
 import type {
   BuiltInElementId,
   Device,
@@ -75,12 +76,16 @@ export function ScreenshotEditor() {
 
   const assetPaths = React.useMemo(() => {
     const paths = new Set<string>();
-    paths.add("/mockup.png");
     if (state.appIcon) paths.add(state.appIcon);
     // Preload every locale variant so bulk export doesn't race image loads.
     const allSlides: Slide[] = Object.values(state.slidesByDevice).flat();
     for (const s of allSlides) {
-      for (const raw of [s.screenshot, s.screenshotSecondary]) {
+      for (const raw of [
+        s.screenshot,
+        s.screenshotSecondary,
+        s.screenshotLandscape,
+        s.screenshotSecondaryLandscape,
+      ]) {
         if (!raw || raw.startsWith("data:")) continue;
         if (raw.includes("{locale}")) {
           for (const loc of state.locales) paths.add(resolveScreenshot(raw, loc));
@@ -119,6 +124,25 @@ export function ScreenshotEditor() {
           ),
         },
       }));
+    },
+    [setState],
+  );
+
+  // Restyle every slide of the current deck with a coordinated recipe (lib/templates.ts).
+  const applyDeckRecipe = React.useCallback(
+    (recipeId: string) => {
+      const recipe = DECK_RECIPES.find((r) => r.id === recipeId);
+      if (!recipe) return;
+      setState((prev) => ({
+        ...prev,
+        slidesByDevice: {
+          ...prev.slidesByDevice,
+          [prev.device]: applyRecipe(prev.slidesByDevice[prev.device] || [], recipe),
+        },
+      }));
+      toast.success(`Applied “${recipe.name}” to this deck`, {
+        description: "Undo with Ctrl/⌘+Z.",
+      });
     },
     [setState],
   );
@@ -614,6 +638,8 @@ export function ScreenshotEditor() {
       <Toolbar
         appName={state.appName}
         setAppName={(v) => setState((p) => ({ ...p, appName: v }))}
+        themeId={state.themeId}
+        setThemeId={(v) => setState((p) => ({ ...p, themeId: v }))}
         connectedCanvas={state.connectedCanvas}
         setConnectedCanvas={(v) => setState((p) => ({ ...p, connectedCanvas: v }))}
         locale={state.locale}
@@ -696,6 +722,10 @@ export function ScreenshotEditor() {
               device={state.device}
               orientation={state.orientation}
               locale={state.locale}
+              theme={theme}
+              appName={state.appName}
+              appIcon={state.appIcon}
+              onApplyRecipe={applyDeckRecipe}
               selectedElementId={
                 selectedElement?.slideId === activeSlide.id ? selectedElement.elementId : null
               }

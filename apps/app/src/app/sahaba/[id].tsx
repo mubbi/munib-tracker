@@ -7,7 +7,7 @@ import {
   ContentInlineLinkGroup,
 } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnTopicAside } from "@/components/learn-guide/learn-topic-aside";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
@@ -78,7 +78,11 @@ export default function SahabaProfileScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureSahabaContent, isSahabaContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureSahabaContent, isSahabaContentReady);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize on language/content
   const profile = useMemo(
@@ -119,13 +123,15 @@ export default function SahabaProfileScreen() {
         <EmptyState
           icon={{ ios: "person", android: "person", web: "person" }}
           title={t("sahaba.notFound")}
+          actionLabel={t("sahaba.title")}
+          onAction={() => router.replace("/sahaba" as Href)}
         />
       </ScreenLayout>
     );
   }
 
   const headerCard = profile ? (
-    <Card padding="three">
+    <Card>
       <View style={styles.header}>
         <View style={styles.titleBlock}>
           {profile.arabicName ? (
@@ -166,7 +172,7 @@ export default function SahabaProfileScreen() {
     </Card>
   ) : null;
   const relatedCard = profile ? (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("sahaba.relatedTitle")}
         icon={{ ios: "link", android: "link", web: "link" }}
@@ -213,54 +219,54 @@ export default function SahabaProfileScreen() {
             : undefined
         }
       />
-      {!contentReady ? (
-        <LearnContentLoading />
-      ) : profile ? (
-        <LearnReadingChrome
-          surface="battles"
-          listenText={[profile.summary, profile.body].filter(Boolean).join("\n\n")}
-        >
-          <LearnSplitLayout
-            aside={
-              <>
-                {headerCard}
-                {profile.categories[0] ? (
-                  <LearnTopicAside
-                    title={t(`sahaba.category.${profile.categories[0]}`)}
-                    hubHref={"/sahaba" as Href}
-                    topics={categoryPeers}
-                    currentId={profile.id}
-                  />
-                ) : null}
-                {relatedCard}
-              </>
-            }
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
+        {profile ? (
+          <LearnReadingChrome
+            surface="battles"
+            listenText={[profile.summary, profile.body].filter(Boolean).join("\n\n")}
           >
-            <Stagger>
-              {split ? null : headerCard}
+            <LearnSplitLayout
+              aside={
+                <>
+                  {headerCard}
+                  {profile.categories[0] ? (
+                    <LearnTopicAside
+                      title={t(`sahaba.category.${profile.categories[0]}`)}
+                      hubHref={"/sahaba" as Href}
+                      topics={categoryPeers}
+                      currentId={profile.id}
+                    />
+                  ) : null}
+                  {relatedCard}
+                </>
+              }
+            >
+              <Stagger>
+                {split ? null : headerCard}
 
-              <Card padding="three">
-                <SectionHeader
-                  title={t("sahaba.profileBodyTitle")}
-                  icon={{ ios: "text.book.closed", android: "article", web: "article" }}
-                />
-                <View style={styles.body}>
-                  {paragraphs.map((paragraph) => (
-                    // TV: each paragraph is a D-pad stop so the biography scrolls by remote.
-                    <TvReadableBlock key={paragraph.slice(0, 24)}>
-                      <LearnProseText style={styles.paragraph}>{paragraph}</LearnProseText>
-                    </TvReadableBlock>
-                  ))}
-                </View>
-              </Card>
+                <Card>
+                  <SectionHeader
+                    title={t("sahaba.profileBodyTitle")}
+                    icon={{ ios: "text.book.closed", android: "article", web: "article" }}
+                  />
+                  <View style={styles.body}>
+                    {paragraphs.map((paragraph) => (
+                      // TV: each paragraph is a D-pad stop so the biography scrolls by remote.
+                      <TvReadableBlock key={paragraph.slice(0, 24)}>
+                        <LearnProseText>{paragraph}</LearnProseText>
+                      </TvReadableBlock>
+                    ))}
+                  </View>
+                </Card>
 
-              {split ? null : relatedCard}
+                {split ? null : relatedCard}
 
-              <JannahDisclaimer textKey="sahaba.disclaimer" />
-            </Stagger>
-          </LearnSplitLayout>
-        </LearnReadingChrome>
-      ) : null}
+                <JannahDisclaimer textKey="sahaba.disclaimer" />
+              </Stagger>
+            </LearnSplitLayout>
+          </LearnReadingChrome>
+        ) : null}
+      </LearnContentGate>
     </ScreenLayout>
   );
 }
@@ -282,7 +288,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
   },
   body: { gap: Spacing.three, marginTop: Spacing.two },
-  paragraph: { lineHeight: 22 },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

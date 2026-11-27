@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   ayahsRemaining,
@@ -67,8 +67,8 @@ export function KhatmCard() {
 
   return (
     <Card
-      padding="three"
       onPress={() => router.push("/quran/khatm")}
+      href="/quran/khatm"
       accessibilityLabel={t("home.khatmCard.a11y", {
         day: dayNumber,
         total: plan.days,
@@ -81,7 +81,7 @@ export function KhatmCard() {
         {
           backgroundColor: tone.soft,
           borderColor: tone.border,
-          borderWidth: 1,
+          borderWidth: BorderWidth.thin,
         },
       ]}
     >
@@ -136,7 +136,12 @@ export function KhatmCard() {
                 })}
           </ThemedText>
         </View>
-        <ProgressBar value={percent / 100} height={6} color={tone.color} />
+        <ProgressBar
+          value={percent / 100}
+          accessibilityLabel={t("a11yProgress.khatm")}
+          height={6}
+          color={tone.color}
+        />
       </View>
 
       <View style={styles.statsRow}>
@@ -197,11 +202,11 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     minWidth: 0,
   },
   progressBlock: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   progressLabels: {
     flexDirection: "row",
@@ -217,7 +222,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     gap: Spacing.half,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -226,9 +231,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     gap: Spacing.two,
-    padding: Spacing.two + 2,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
 });

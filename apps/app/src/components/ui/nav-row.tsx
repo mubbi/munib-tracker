@@ -1,12 +1,12 @@
 import { SymbolView } from "expo-symbols";
+import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { NewBadge } from "@/components/ui/new-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
+import { BorderWidth, Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -16,6 +16,12 @@ import { useChevronForward, useIsRTL } from "@/lib/rtl";
 type NavRowProps = {
   icon: AppIcon;
   label: string;
+  /** Second line under the label (muted). */
+  subtitle?: string;
+  /** Custom trailing content (replaces `badge` / `count`), e.g. a value or a switch-less status. */
+  trailing?: ReactNode;
+  /** `danger`: destructive row (sign out, delete) — title and well use the danger status. */
+  tone?: "default" | "danger";
   /** Optional trailing count pill. */
   count?: number;
   /** Optional string badge (takes precedence over `count`), e.g. "3/14" or "Done". */
@@ -23,6 +29,8 @@ type NavRowProps = {
   /** Success tint when today's remaining work in this destination is finished. */
   completed?: boolean;
   onPress: () => void;
+  /** Web: in-app route this opens — renders a crawlable `<a href>` (see `PressableScale`). */
+  href?: string;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
   /** Show a "New" pill after the label (recently released features). */
@@ -35,10 +43,14 @@ type NavRowProps = {
 export function NavRow({
   icon,
   label,
+  subtitle,
+  trailing: trailingNode,
+  tone = "default",
   count,
   badge,
   completed,
   onPress,
+  href,
   preferredFocus,
   isNew,
   newLabel,
@@ -47,15 +59,22 @@ export function NavRow({
   const rtl = useIsRTL();
   const chevron = useChevronForward();
   const tv = isTV();
+  const danger = tone === "danger";
   const trailing = badge ?? (count != null ? String(count) : undefined);
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={[label, isNew ? newLabel : undefined, trailing]
+      accessibilityLabel={[
+        label,
+        isNew ? newLabel : undefined,
+        subtitle,
+        trailingNode ? undefined : trailing,
+      ]
         .filter(Boolean)
         .join(", ")}
       onPress={onPress}
+      href={href}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.row,
@@ -63,18 +82,37 @@ export function NavRow({
         { backgroundColor: colors.muted, borderColor: tokens.hairline },
       ]}
     >
-      <IconWell icon={icon} well={tv ? 48 : undefined} size={tv ? 22 : undefined} />
-      <ThemedText
-        type="small"
-        // A single word wider than the label slot (TV 3-column Library grid,
-        // long locales) otherwise breaks with an orphaned letter ("Bookmark / s").
-        android_hyphenationFrequency="normal"
-        style={[styles.label, tv && { fontSize: TvLayout.bodyFontSize }]}
-      >
-        {label}
-      </ThemedText>
+      <IconWell
+        icon={icon}
+        well={tv ? 48 : undefined}
+        size={tv ? 22 : undefined}
+        {...(danger
+          ? { tint: tokens.status.danger.onSoft, background: tokens.status.danger.soft }
+          : null)}
+      />
+      <View style={styles.labelColumn}>
+        <ThemedText
+          type="small"
+          // A single word wider than the label slot (TV 3-column Library grid,
+          // long locales) otherwise breaks with an orphaned letter ("Bookmark / s").
+          android_hyphenationFrequency="normal"
+          style={[
+            tv && { fontSize: TvLayout.bodyFontSize },
+            danger && { color: tokens.status.danger.text },
+          ]}
+        >
+          {label}
+        </ThemedText>
+        {subtitle ? (
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {subtitle}
+          </ThemedText>
+        ) : null}
+      </View>
       {isNew ? <NewBadge style={styles.newBadge} /> : null}
-      {trailing ? (
+      {trailingNode ? (
+        trailingNode
+      ) : trailing ? (
         <View
           style={[
             styles.countBadge,
@@ -83,11 +121,19 @@ export function NavRow({
             },
           ]}
         >
+          {completed ? (
+            <SymbolView
+              name="checkmark"
+              size={IconSize.xs}
+              tintColor={tokens.status.success.onSoft}
+            />
+          ) : null}
           <ThemedText
             type="caption"
+            maxFontSizeMultiplier={1.2}
             style={[
               styles.countText,
-              { color: completed ? tokens.status.success.color : colors.mutedForeground },
+              { color: completed ? tokens.status.success.onSoft : colors.mutedForeground },
             ]}
           >
             {trailing}
@@ -97,7 +143,7 @@ export function NavRow({
       <SymbolView
         key={rtl ? "chevron-rtl" : "chevron-ltr"}
         name={chevron}
-        size={tv ? 20 : 16}
+        size={tv ? 20 : IconSize.md}
         tintColor={colors.mutedForeground}
       />
     </PressableScale>
@@ -112,12 +158,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    paddingVertical: Spacing.two + 4,
+    paddingVertical: Spacing.twoHalf + Spacing.half,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
-    minHeight: tvDp(52),
+    borderWidth: BorderWidth.thin,
+    minHeight: Control.row,
   },
   rowTv: {
     minHeight: TvLayout.minFocusTarget,
@@ -127,14 +173,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     borderRadius: Radius.lg,
   },
-  label: {
+  labelColumn: {
     flex: 1,
+    minWidth: 0,
+    gap: Spacing.half,
   },
   countBadge: {
+    flexDirection: "row",
+    gap: Spacing.half,
     minWidth: COUNT_SIZE,
-    height: COUNT_SIZE,
-    paddingHorizontal: Spacing.one + 2,
-    borderRadius: COUNT_SIZE / 2,
+    minHeight: COUNT_SIZE,
+    paddingHorizontal: Spacing.oneHalf,
+    borderRadius: Radius.pill,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
@@ -142,7 +192,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   countText: {
-    fontSize: 12,
     lineHeight: 14,
     textAlign: "center",
   },

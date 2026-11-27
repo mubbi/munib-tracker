@@ -195,6 +195,7 @@ export const JANAZAH_GUIDE_TOPICS: LearnGuideTopic[] = [
 
   {
     id: "how-to-pray-janazah",
+    differenceIds: ["janazah.fatiha"],
 
     section: "salah",
 
@@ -487,7 +488,7 @@ export const JANAZAH_GUIDE_TOPICS: LearnGuideTopic[] = [
     summary: "Avoid wailing, delay for show, and baseless rituals.",
 
     body: [
-      "The Prophet ﷺ forbade wailing over the dead while allowing tearful grief. Abdullah ibn Umar reported that Sa'd ibn Ubadah wept at a funeral and the Prophet ﷺ explained that Allah does not punish for tear of the eye or grief of the heart, but for this — and he pointed to his tongue (Sahih al-Bukhari 1304).",
+      "The Prophet ﷺ forbade wailing over the dead while allowing tearful grief. Abdullah ibn Umar reported that when Sa'd ibn Ubadah fell ill, the Prophet ﷺ visited him and wept, and explained that Allah does not punish for tear of the eye or grief of the heart, but for this — and he pointed to his tongue (Sahih al-Bukhari 1304).",
 
       "Do not delay burial for prestige gatherings, nor spend lavishly on the shroud and feast while neglecting the poor. Do not recite or practice innovations attributed to funerals without authentic basis. Condolence, quiet dua, and practical help for the family are the sunnah path.",
 
@@ -503,7 +504,8 @@ export const JANAZAH_GUIDE_TOPICS: LearnGuideTopic[] = [
         grade: "sahih",
 
         excerpt:
-          "Allah does not punish for the tear of the eye or the grief of the heart, but He punishes or shows mercy for this — and he pointed to his tongue.",
+          // Verbatim hadith-api English (Sahih al-Bukhari 1304), checked 2026-11-27.
+          '"Allah does not punish for shedding tears, nor for the grief of the heart but he punishes or bestows His Mercy because of this." He pointed to his tongue.',
       },
     ],
 
@@ -523,6 +525,7 @@ export const JANAZAH_GUIDE_TOPICS: LearnGuideTopic[] = [
 
   {
     id: "takbir-steps",
+    differenceIds: ["janazah.fatiha"],
 
     section: "salah",
 

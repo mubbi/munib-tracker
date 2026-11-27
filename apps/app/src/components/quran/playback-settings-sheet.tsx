@@ -1,14 +1,16 @@
 import type { QuranRepeatMode, QuranTranslationAudio } from "@munib-tracker/shared/types";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
-
+import { StyleSheet, View } from "react-native";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
+import { isNumberInRange, NumberField } from "@/components/ui/number-field";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -85,9 +87,7 @@ export function PlaybackSettingsSheet({
   );
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{t("quran.playback.title")}</ThemedText>
-
+    <Sheet visible={visible} onClose={onClose} variant="bottom" title={t("quran.playback.title")}>
       <View style={styles.section}>
         <ThemedText type="caption" style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
           {t("quran.playback.repeatMode")}
@@ -203,6 +203,8 @@ export function PlaybackSettingsSheet({
           )}
         </View>
       ) : null}
+
+      <MoreInSettingsLink settingId="quran.recitation.repeat" onNavigate={onClose} />
     </Sheet>
   );
 }
@@ -219,7 +221,7 @@ function RangeField({
   onChange: (value: number) => void;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   // TV: -/+ stepper instead of a number-pad field (no typing on the remote).
   if (isTV()) {
     return (
@@ -255,23 +257,19 @@ function RangeField({
       </View>
     );
   }
+  // NumberField never clamps (P6-01 / B-03): an out-of-range ayah shows the
+  // range error and is not applied; a valid one applies as typed.
   return (
-    <View style={styles.rangeField}>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {label}
-      </ThemedText>
-      <TextInput
-        accessibilityLabel={label}
-        keyboardType="number-pad"
-        value={String(value)}
-        onChangeText={(text) => {
-          const parsed = Number.parseInt(text.replace(/\D/g, ""), 10);
-          if (!Number.isFinite(parsed)) return;
-          onChange(Math.max(1, Math.min(max, parsed)));
-        }}
-        style={[styles.rangeInput, tokens.inputSurface, { color: colors.foreground }]}
-      />
-    </View>
+    <NumberField
+      label={label}
+      value={value}
+      min={1}
+      max={max}
+      onChangeValue={(next) => {
+        if (next != null && isNumberInRange(next, 1, max)) onChange(next);
+      }}
+      style={styles.rangeField}
+    />
   );
 }
 
@@ -290,15 +288,6 @@ const styles = StyleSheet.create({
   },
   rangeField: {
     flex: 1,
-    gap: Spacing.one,
-  },
-  rangeInput: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    fontSize: 16,
   },
   rangeStepperTv: {
     flexDirection: "row",
@@ -306,7 +295,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   rangeValueTv: {
-    minWidth: 48,
+    minWidth: tvDp(48),
     textAlign: "center",
     fontSize: TvLayout.bodyFontSize,
     fontVariant: ["tabular-nums"],
@@ -318,9 +307,9 @@ const styles = StyleSheet.create({
   voiceRow: {
     gap: Spacing.half,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
 });

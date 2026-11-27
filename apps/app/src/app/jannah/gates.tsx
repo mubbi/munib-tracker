@@ -2,26 +2,23 @@ import type { JannahGate } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import {
   LearnColumnsGrid,
   LearnTile,
   learnColumnsFor,
   useLearnHubLayout,
 } from "@/components/jannah/hub-layout";
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { HadithQuote, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
-import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJannahContent, getJannahGates, isJannahContentReady } from "@/lib/jannah";
@@ -39,7 +36,6 @@ const GATE_ICONS: Record<string, AppIcon> = {
 };
 
 function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
-  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const icon = GATE_ICONS[gate.id] ?? {
     ios: "door.left.hand.open",
@@ -53,7 +49,7 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
         styles.gateRow,
         !isLast && {
           borderBottomColor: tokens.hairline,
-          borderBottomWidth: StyleSheet.hairlineWidth,
+          borderBottomWidth: BorderWidth.hairline,
         },
       ]}
     >
@@ -62,50 +58,25 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
           <IconWell icon={icon} tint={colors.accent} well={44} size={20} />
           <View style={styles.gateCopy}>
             <LearnProseText proseRole="title">{gate.name}</LearnProseText>
-            <LearnProseText
-              proseRole="caption"
-              themeColor="mutedForeground"
-              style={styles.deedSummary}
-            >
+            <LearnProseText proseRole="caption" themeColor="mutedForeground">
               {gate.deedSummary}
             </LearnProseText>
           </View>
         </View>
       </TvReadableBlock>
       {gate.hadith.map((ref) => (
-        <View
-          key={`${gate.id}-${ref.citation}`}
-          style={[styles.quote, { backgroundColor: tokens.accentSoft }]}
-        >
-          <View style={styles.quoteMeta}>
-            <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
-              {ref.collection} · {ref.citation}
-            </ThemedText>
-            <View style={styles.quoteMetaActions}>
-              {ref.grade ? (
-                <Pill
-                  label={t(`jannah.grade.${ref.grade}`)}
-                  compact
-                  color={tokens.status.success.color}
-                  background={tokens.status.success.soft}
-                />
-              ) : null}
-              <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
-            </View>
-          </View>
-          <TvReadableBlock>
-            <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
-              “{ref.excerpt}”
-            </LearnProseText>
-          </TvReadableBlock>
-        </View>
+        <HadithQuote key={`${gate.id}-${ref.citation}`} hadith={ref} surface="accent" />
       ))}
     </View>
   );
 }
 
 export default function JannahGatesScreen() {
-  const { ready: contentReady } = useEnsureContent(ensureJannahContent, isJannahContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry,
+  } = useEnsureContent(ensureJannahContent, isJannahContentReady);
   const router = useRouter();
   const { t } = useTranslation();
   const wide = useLearnHubLayout();
@@ -122,12 +93,12 @@ export default function JannahGatesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jannah/gates" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retry}>
         <Stagger>
           <LearnReadingChrome surface="jannah">
             <JannahCallout tone="accent">{t("jannah.gatesLead")}</JannahCallout>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("jannah.gatesListTitle")}
                 icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
@@ -159,26 +130,6 @@ const styles = StyleSheet.create({
   gateRow: { paddingVertical: Spacing.three, gap: Spacing.three },
   gateHead: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   gateCopy: { flex: 1, gap: Spacing.one },
-  deedSummary: { lineHeight: 18 },
-  quote: {
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    gap: Spacing.two,
-  },
-  quoteMeta: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    gap: Spacing.two,
-  },
-  quoteMetaActions: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  quoteText: { lineHeight: 22, fontStyle: "italic" },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

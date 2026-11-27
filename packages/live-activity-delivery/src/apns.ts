@@ -10,6 +10,8 @@ const APNS_HOSTS = {
 
 const AUTH_TOKEN_TTL_MS = 50 * 60_000;
 const DEFAULT_BUNDLE_ID = "app.munibtracker";
+/** ActivityKit push tokens are hex strings (the API accepts 64–512 chars). */
+const APNS_TOKEN_RE = /^[0-9a-f]{1,512}$/i;
 
 /**
  * Framework-agnostic APNs HTTP/2 client for ActivityKit `liveactivity` updates.
@@ -54,6 +56,18 @@ export class ApnsLiveActivityClient {
         "ActivityKit APNs delivery is not configured",
         "NOT_CONFIGURED",
       );
+    }
+
+    // The token is interpolated into the HTTP/2 `:path`; only ever send a hex
+    // device token so a corrupt or tampered row can't address another path.
+    if (!APNS_TOKEN_RE.test(input.token)) {
+      return {
+        ok: false,
+        status: 0,
+        reason: "BadDeviceToken",
+        retryable: false,
+        invalidateToken: true,
+      };
     }
 
     const bundleId = this.credentials.bundleId || DEFAULT_BUNDLE_ID;

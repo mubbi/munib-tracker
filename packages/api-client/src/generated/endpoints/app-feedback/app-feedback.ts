@@ -27,7 +27,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
- * @summary Submit low-star in-app review feedback (1–3 stars)
+ * @summary Submit user-initiated app feedback (1–5 star rating + optional message)
  */
 export const appFeedbackControllerSubmit = (
     submitAppFeedbackDto: SubmitAppFeedbackDto,
@@ -80,7 +80,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AppFeedbackControllerSubmitMutationError = unknown
     export type AppFeedbackControllerSubmitMutationVariables = {data: SubmitAppFeedbackDto}
 
-    /** @summary Submit low-star in-app review feedback (1–3 stars) */
+    /** @summary Submit user-initiated app feedback (1–5 star rating + optional message) */
 export const useAppFeedbackControllerSubmit = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof appFeedbackControllerSubmit>>, TError,AppFeedbackControllerSubmitMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<

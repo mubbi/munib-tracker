@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react-native";
+import { act, screen } from "@testing-library/react-native";
 import * as Reanimated from "react-native-reanimated";
 
 import { ProgressRing } from "@/components/ui/progress-ring";
@@ -6,9 +6,12 @@ import { captureAnimationFrames } from "@/test-support/animation-frames";
 import { queryHostsByRole } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 
-type Props = Parameters<typeof ProgressRing>[0];
+type Props = Omit<Parameters<typeof ProgressRing>[0], "accessibilityLabel"> & {
+  accessibilityLabel?: string;
+};
 
-const renderRing = async (props: Props) => {
+const renderRing = async ({ accessibilityLabel = "Progress", ...rest }: Props) => {
+  const props = { ...rest, accessibilityLabel };
   const { rerender, unmount } = await renderWithTheme(<ProgressRing {...props} />);
   return {
     unmount,
@@ -25,11 +28,20 @@ describe("ProgressRing", () => {
   });
   afterEach(() => jest.restoreAllMocks());
 
-  it("labels the ring with its caption", async () => {
+  it("draws the caption and reports the value", async () => {
     await renderRing({ progress: 0.5, caption: "done", valueFontSize: 20 });
 
-    expect(ring().props.accessibilityLabel).toBe("50% done");
+    // The percentage travels in accessibilityValue; the name is the label.
+    expect(ring().props.accessibilityLabel).toBe("Progress");
+    expect(ring().props.accessibilityValue).toEqual({ now: 50, min: 0, max: 100 });
     expect(screen.getByText("done")).toBeTruthy();
+  });
+
+  it("is one accessible stop named by accessibilityLabel", async () => {
+    await renderRing({ progress: 0.25, caption: "done", accessibilityLabel: "Today's Salah" });
+
+    expect(ring().props.accessible).toBe(true);
+    expect(ring().props.accessibilityLabel).toBe("Today's Salah");
   });
 
   it("counts the centre value up from zero", async () => {
@@ -55,7 +67,7 @@ describe("ProgressRing", () => {
     await animation.flush(0, 2000);
 
     expect(screen.getByText("100%")).toBeTruthy();
-    expect(ring().props.accessibilityLabel).toBeUndefined();
+    expect(ring().props.accessibilityLabel).toBe("Progress");
   });
 
   it("cancels a pending frame on unmount", async () => {
@@ -64,6 +76,23 @@ describe("ProgressRing", () => {
     await unmount();
 
     expect(globalThis.cancelAnimationFrame).toHaveBeenCalled();
+  });
+
+  it("settles on the target even when no animation frame ever runs", async () => {
+    jest.useFakeTimers();
+    try {
+      await renderRing({ progress: 0.2 });
+      expect(screen.getByText("0%")).toBeTruthy();
+
+      // Frames are captured but never flushed — as when the OS drops them on resume.
+      await act(async () => {
+        jest.advanceTimersByTime(1200);
+      });
+
+      expect(screen.getByText("20%")).toBeTruthy();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 
   it("snaps to the target under reduced motion", async () => {

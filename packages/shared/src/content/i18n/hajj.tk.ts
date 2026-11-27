@@ -13,22 +13,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hurayra ﷺ Resulullahyň (s) şeýle diýendigini rivayat etdi: «Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
       "Ol şehem diýdi: «Kabul edilen hajyň (mabrur hajyň) sowgy jenetden başga hiç zat däl» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Kabul edilmek yhlas bilen we hajy ahlaksyzlykdan we günäden saklamak bilen baglanyşykly — diňe daşky ädimleri ýerine ýetirmek bilen däl.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär.",
-      },
-      {
-        excerpt:
-          "Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär.",
-      },
-      {
-        excerpt: "Kabul edilen hajyň sowgy jenetden başga hiç zat däl.",
-      },
-      {
-        excerpt: "Kabul edilen hajyň sowgy jenetden başga hiç zat däl.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Hajy diňe Alla üçin niýet et — sapar boyunca dilini we hulguny gorap dur.",
       "Programmadaky haj sanawyny diňe ýatlatma hökmünde ulanyň; ýürek kabul edilmäge gönükdirilen bolsun.",
@@ -46,16 +31,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hurayra ﷺ Peygamberimiziň (s) şeýle diýendigini rivayat etdi: «Umra etmek öňki umra bilen arasyndaky günäni ýok edýär, kabul edilen hajyň sowgy bolsa jenetden başga zat däl» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
       "Umra ýylyň islendik wagtynda edilip bilner. Hajdan gysga, ýöne uly ibadat: ihram, tawaaf, sa'i we saçy almak ýa-da gysmak.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umra etmek öňki umra bilen arasyndaky günäni ýok edýär, kabul edilen hajyň sowgy bolsa jenetden başga zat däl.",
-      },
-      {
-        excerpt:
-          "Umra etmek öňki umra bilen arasyndaky günäni ýok edýär, kabul edilen hajyň sowgy bolsa jenetden başga zat däl.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Aýinleri yzygiderli ýerine ýetirmäge taýyn bolanyňyzda umra sanawyny açyň."],
     appLinks: [
       {
@@ -70,17 +46,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Abd ar-Rahman ibn Ya'mar ﷺ Peygamberimiziň (s) şeýle diýendigini rivayat etdi: «Haj — Arafadyr» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arafanyň çäginde belgilenen wagtda durmakdan galan adam o ýylyň hajyny ýitirýär.",
       "Hajda bolmadyklar üçin Arafa günü oňaşlyk örän maslahat berilýär: Ebu Katada Arafada oňaşlygyň geçen we geljek ýylyň günäni ýok edýändigini rivayat etdi (Sahih Muslim 1162). Hajylar özleri oňaş tutmaýarlar, günü duaga bagyşlaýarlar.",
     ],
-    hadith: [
-      {
-        excerpt: "Haj — Arafadyr.",
-      },
-      {
-        excerpt: "Haj — Arafadyr.",
-      },
-      {
-        excerpt: "Arafa günü oňaşlygy, Alladan umyt edýän, öň we soňky ýylyň günäni ýok edýär.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Haj — bäşinji rukn",
@@ -90,23 +56,8 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Adamlara çagyryldy: «Adamlara hajy yglan et; olar sana aýak bilen we her arassa deýä bilen uzak geçelgelerden geljekdir» (Qur'an 22:27).",
       "Ibn Umar ﷺ Resulullahyň (s) Islam bäş zat üstünde durýar diýendigini rivayat etdi: şehadat, namaz, zakat, Ramazan oňaşlygy we ukyplular üçin Öýe haj (Sahih al-Bukhari 8; Sahih Muslim 16). Ulamalar şertler ýerine ýetende ömürde bir gezek farz diýip ylalaşýarlar; gaýtalamak — gönüden-göni fazilet.",
     ],
-    quran: [
-      {
-        excerpt: "We adamlara Öýe haj farz — oňa barmagy mümkin bolanlar üçin...",
-      },
-      {
-        excerpt: "Adamlara hajy yglan et; olar sana aýak bilen we her arassa deýä bilen...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam bäş zat üstünde durýar: Alladan başga ilah ýok we Muhammed Allanyň elçisidir diýen şehadat, namazy ýerine ýetirmek, zakat bermek, Ramazan oňaşlygy we ukyplular üçin Öýe haj.",
-      },
-      {
-        excerpt: "Islam bäş zat üstünde durýar... we oňa barmagy mümkin bolanlar üçin Öýe haj.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Ukyplulyk (istita'ah)",
@@ -115,11 +66,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Qur'an 3:97-de şert — ukyplulyk (istita'ah). Klassik ulemalar muny şeýle jemleýärler: sapar üçin beden saglygy, sapar we giden wagtynda garamagyndakylaryň zerurlyklary üçin ýeterlik halal pul we howpsuz açyk ýol.",
       "Bu ýyl bu mümkinçilikleri ýok bolan adam ukyplýança gecikdirmekde günäkär däl. Ukyplulyk ýagdaýa görä bahalanýar — kesel, tölenmeli borç ýa-da howpsuz däl sapar derrew farzy aýyrýar. Ýagdaýyň anyk däl bolsa, hünärli ulemadan sor.",
     ],
-    quran: [
-      {
-        excerpt: "...oňa barmagy mümkin bolanlar üçin.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bron etmezden ozal farz borçlary tölä we garamagyndakylary üpjün et.",
       "Paketleri diňe resmi kanallar arkaly barla (Taýýarlyk mowzuklaryna seret).",
@@ -133,15 +80,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas ﷺ Resulullahyň (s) aýal mahramsyz sapar etmeli däl we erkek mahram bolmasa onuň ýanyna girmeli däl diýendigini rivayat etdi (Sahih al-Bukhari 1862; Sahih Muslim 1341). Köp ulemalar muny haj we umra saparyna degişli edýärler.",
       "Käbir soňky ulemalar — howpsuzlygy, zerurlygy we häzirki sapary göz öňünde tutup — mahram bolmadyk ýagdaýda aýala farz haj üçin ynamly toparda sapar etmäge rugsat berýärler. Bu fiqh meseleleri bahasly.",
     ],
-    hadith: [
-      {
-        excerpt: "Aýal mahramsyz sapar etmeli däl we erkek mahram bolmasa onuň ýanyna girmeli däl.",
-      },
-      {
-        excerpt:
-          "Alla we Ahyrky güne ynanýan aýala mahramsyz bir gün bir gije sapar etmek halal däl.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Köpçülik aýala haj saparynda mahram gerek diýýär. Käbir soňky ulemalar farz haj üçin howpsuz aýal toparynda sapary rugsat berýär. Ynanýan ulemaňy we haj edaranyň düzgünlerini yzarla.",
     disclaimer: "Bu umumy maglumat, ýagdaýyňyz üçin şahsy fetwa däl.",
@@ -155,12 +94,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': haj aýlarynda doly umra et, ihramdan çyk, soňra 8 Zul-Hijje haj üçin gaýtadan ihrama gir. Bu gün köp hajylar edýär; hady hem talap edilýär.",
       "Alla aýinleri birleşdirýänler hakda: «...Kim umradan haja peýdalanýan bolsa, aňsatlyk bilen kurban...» diýýär; tapyp bilmeýän bolsa hajda üç gün, gaýdandan soň ýedi gün oňaş tut (Qur'an 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "We hajy we umrany Alla üçin tamamla... Kim umradan haja peýdalanýan bolsa, aňsatlyk bilen kurban. Tapyp bilmeýän bolsa hajda üç gün, gaýdanyňyzda ýedi gün oňaş...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Miqatdan ozal topar ýolbaşçy bilen görnüşi kesgit.",
       "Tamattu' edýän bolsaň, haj ihramyna girmän ozal umrany doly tamamla.",
@@ -181,16 +115,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas ﷺ Resulullahyň (s) adamlar üçin miqatlary kesgitlendigini rivayat etdi: Medine üçin Zul-Hulayfa, Şam üçin Al-Juhfa, Nejd üçin Qarn al-Manazil, Ýemen üçin Yalamlam; Irak üçin Dhat 'Irq. Ol muny olar we haj ýa-da umra niýet edip geçýänler üçin, şol çäklerde ýaşaýanlar bolsa nireden ýola çyksa şol ýerden ihrama girsin, hatda Mekke ýaşaýjylary hem Mekkeden (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Häzirki howa menzilleri we deňiz portlarynda degişli ihram nokatlary ýa-da yglan edilen tertipler bar — daşyjy we Haj we Umra ministrliginiň görkezmelerini yzarla, ihram bolmasa çäkden geçme.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Resulullah ﷺ Medine üçin Zul-Hulayfa, Şam üçin Al-Juhfa, Nejd üçin Qarn al-Manazil, Ýemen üçin Yalamlam kesgitledi... Bu miqatlar ol ýerler we haj ýa-da umra niýet edip geçýänler üçin...",
-      },
-      {
-        excerpt:
-          "Resulullah ﷺ miqatlary kesgitledi... Bu çäklerde ýaşaýan adam nireden ýola çyksa şol ýerden ihrama girsin...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ihrama girmek",
@@ -200,19 +125,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Erkekler ihramdan ozal bedene atyr sürebilir, ýagdaýa girensoň ihram eşiklerine däl (Sahih al-Bukhari 1539). Soňra niýet et we telbiyany başla.",
       "Resulullahyň ﷺ öwretýän telbiyasy: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — umra tawaafy başlanýança ýa-da hajda Jamrat al-Aqaba çenli (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aisha aýtdy: Men Resulullahy ﷺ ihrama girmezden ozal onuň ihramy üçin atyr sürdüm...",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      {
-        excerpt: "Resulullah ﷺ telbiyany sesli aýtdy: Labbayk Allahumma labbayk...",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Erkekler üçin azyndan iki ihram komplekti; atyrsyz zatlary taýýar sakla.",
       "Sapardan ozal telbiyany türgenleşdir, ýolda aňsatlyk bilen aýdyp bilsin.",
@@ -252,11 +165,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Erkekler ilkinji üç aýlanmada raml (çalt ädim) we bu umra geliş tawaafynda idtiba' (sag çygy) — meşhur sunnet.",
       "Ýemen burçy bilen Gara daş arasynda maslahat: «Rabbimiz, bize bu dünýäde we ahiretde gowylyk ber we ot azabyndan gorap dur» (Qur'an 2:201).",
     ],
-    quran: [
-      {
-        excerpt: "Rabbimiz, bize bu dünýäde we ahiretde gowylyk ber we ot azabyndan gorap dur.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Iki rekat we Zemzem",
@@ -265,11 +174,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Tawaafdan soň ýer bolsa Makam Ibrahim arkasynda iki rekat oka, gygyr bolsa mesjide başga ýerde — «...We ynanýanlar, Ibrahim ýerinden namaz ýeri alyň...» (Qur'an 2:125).",
       "Soňra Zemzem suwuny iç. Jabir Resulullahyň ﷺ hajynda tawaafdan soň Zemzem içendigini beýan edýär; Zemzem içilen maksat üçin diýilýär (soňky ulemalar jemleýän durust hadisler; niýet we dua maslahat).",
     ],
-    quran: [
-      {
-        excerpt: "...We ynanýanlar, Ibrahim ýerinden namaz ýeri alyň...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Safa bilen Marwa arasynda sa'i",
@@ -278,12 +183,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Alla şeýle diýýär: «Hakykatdanam Safa we Marwa Allanyň nyşanlarynyň biri. Öýe haj ýa-da umra eden adam olaryň arasynda ýöräninde günäkär bolmaýar...» (Qur'an 2:158).",
       "Safa bilen Marwa arasynda ýedi gezek ýör, Safadan başla. Safada Ka'bä tarap dur, Resulullah ﷺ eden ýaly tekbir we dua üçin elleri galdyr. Erkekler ýaşyl bellikler arasynda ylgamakly ýör.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam Safa we Marwa Allanyň nyşanlarynyň biri. Öýe haj ýa-da umra eden adam olaryň arasynda ýöräninde günäkär bolmaýar...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq ýa-da taqsir — umrany tamamlamak",
@@ -293,14 +193,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Erkekler başy aldyrýar (halq) — Resulullah ﷺ üç gezek dua etdi — ýa-da deňes gysýar (taqsir). Aýallar saçyny ýygnaýar we bir barmak uzynlygynda gysýar. Şeýlelikde umra tamamlanýar we ihram çäklendirmeleri açylýar.",
       "Abdullah ibn Umar ﷺ Resulullahyň (s) «Allahumma, baş aldyranlara rahmet et» diýendigini rivayat etdi. «Gysanlara hem, ey Resul?» — «Baş aldyranlara rahmet et» — «Gysanlara hem?» — üçünji gezek: «Gysanlara hem» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt: "Allahumma, baş aldyranlara rahmet et... We (üçünji gezek) gysanlara hem.",
-      },
-      {
-        excerpt: "Allahumma, baş aldyranlary bagyşla... soňra üçünji gezek: gysanlara hem.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Zul-Hijje — Tarwiya günü",
@@ -309,12 +202,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu' hajylar üçin: haj niýetini et we Mekkedäki ýaşaýan ýeriňden gaýtadan ihrama gir, telbiyany täzele. Ifrad we qiran hajylar eýýäm ihramda.",
       "Minaga git we Dhuhr, Asr, Magrib, Isha we ertirki Fajr — her biri öz wagtynda iki rekata gysgaldyryp oka, Resulullahyň ﷺ Wida hajyndaky amaly ýaly Jabir rivayat etdi (Sahih Muslim 1218). Gün we gijäni ibadatda geçir, Arafany garaş.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir Resulullahyň ﷺ Wida hajy barada uzyn beýany — Minada galmak we aýinler yzygideri.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Sekizinji gün irden haj sanawyny aç."],
     appLinks: [
       {
@@ -330,15 +218,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Dhuhr wagtynda Dhuhr we Asr jama gysgaldyryp oka, galan günü nafile däl-de duaga bagyşla — Resulullahyň ﷺ amaly (Sahih Muslim 1218).",
       "Gün ýaý bolandan soň sakin Muzdalifä git. Magrib-Isha jama (Isha gysgaldyryp), gijäni dynç al we taş ýygna. Gowşaklar we aýallar garaşylýan ruxsat boýunça garaşynyň ýarymyndan soň Minaga gidip bilýärler.",
     ],
-    hadith: [
-      {
-        excerpt: "Haj — Arafadyr.",
-      },
-      {
-        excerpt:
-          "Resulullah ﷺ Arafada Dhuhr we Asr jama etdi, gün ýaý bolandan soň Muzdalifä gitdi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Zul-Hijje — Nahr günü",
@@ -349,11 +229,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Halq ýa-da taqsir; aýallar bir barmak uzynlygynda gysýar. Taş atmak we saç almakdan soň birinji tahallul — köp ihram gadaganlary açylýar, diňe jynsy gatnaşyk galýar.",
       "Mekkä Tawaf al-Ifada — hajyň rukny — we tamattu' üçin sa'i git. Ifrad/qiran geliş tawaafy bilen sa'i edenler mezheb hukumyna yzarla. Şeýlelikde doly ihramdan çykyş tamamlanýar.",
     ],
-    quran: [
-      {
-        excerpt: "...Kim umradan haja peýdalanýan bolsa, aňsatlyk bilen kurban...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Nahr günü aýinler yzygiderinde sunnetde çeýelik bar; mezhebler takyk yzygideri we her haj görnüşi üçin sa'i wagty barada tapawutlanýar. Topar gollanmany yzarla.",
   },
@@ -365,22 +241,8 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Her gün Duhrdan soň üç sütuna yzygider bilen — kiçi, orta, ululy — her birine ýedi taş, her birinde tekbir. Tela eden 12-nji gün taş atandan soň gidip bilýär (Qur'an 2:203).",
       "Mekkeden gitmezden ozal Tawaf al-Wada et, Öý bilen soňky amal hoşlaşyk bolsun. Ibn Abbas adamlara soňky amallaryny Öýde etmeli diýip buyruk berildi, ýöne hayzly aýal üçin ýeňilleşdirildi (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allany sanalylan günlerde ýadyňa sal. Kim iki günde tela eder — günäkär däl; kim gecikdirer — günäkär däl — Alladan gorkýanlar üçin...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Adamlara soňky amallary Ka'ba hoşlaşyk tawaafy bolmaly diýip buyruk berildi, hayzly aýallar goýuldyy.",
-      },
-      {
-        excerpt:
-          "Adamlara soňky amallary Öýde bolmaly diýip buyruk berildi, hayzly aýal üçin ýeňilleşdirildi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Ruknlar we wajibler",
@@ -400,12 +262,7 @@ export const HAJJ_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Günäsiz gaýdyp gelmek hadysy (Bukhari 1521; Muslim 1350) hajy rafas, fusuk we jedel bozýar diýip görkezýär. Sabr, ýumşaklyk we beýleki hajylara kömek — ibadatyň bir bölegi.",
       "Telefon we boş söhbeti Arafada/mesjide üstünlik etmesine ýol ber. Tawaafda ýol ber; Gara daşa iterek etme. Kabul edilen haj jenet bilen bile — sapar boyunca gowy hulka üçin çyndyr.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Alla üçin haj eder we rafas hem-de günä etmez, enesini dogan günündäki ýaly gaýdyp gelýär.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Her gün niýet: bir gowy iş we bir yhlasly dua gygyrdan ýokary."],
   },
   {

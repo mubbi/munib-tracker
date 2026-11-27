@@ -13,7 +13,7 @@ import {
 } from "@/hooks/use-tv-event-handler";
 import { isTV } from "@/lib/platform/is-tv";
 import {
-  isTvRailExpanded,
+  isTvBackAtSystemRoot,
   subscribeTvRailExpanded,
   tryExpandTvRailOnBack,
 } from "@/lib/tv/tv-rail-back";
@@ -25,7 +25,8 @@ import { useAudioPlayerContext } from "@/providers/audio-player-provider";
  * Back / Menu ladder (Android TV quality TV-DB, tvOS HIG "Remotes"):
  *   1. nested stack → pop
  *   2. focus in tab content → expand + focus the side rail
- *   3. rail focused on a tab root → hand Back/Menu to the system so the user
+ *   3. rail focused on Tracker / Library / Settings → switch to the Home tab
+ *   4. rail focused on Home → hand Back/Menu to the system so the user
  *      lands on the TV home screen. No exit confirmation (Android TV guidance
  *      explicitly forbids it; tvOS requires Menu at root to go Home).
  *
@@ -46,10 +47,10 @@ export function TvRemoteBridge() {
   const backLockUntilRef = useRef(0);
   audioRef.current = audio;
 
-  const railExpanded = useSyncExternalStore(
+  const atSystemRoot = useSyncExternalStore(
     subscribeTvRailExpanded,
-    isTvRailExpanded,
-    isTvRailExpanded,
+    isTvBackAtSystemRoot,
+    isTvBackAtSystemRoot,
   );
 
   // `router.canDismiss()` is imperative — refresh it on every navigation via an
@@ -60,7 +61,7 @@ export function TvRemoteBridge() {
     if (!tv) return;
     setInNestedStack(router.canDismiss());
   }, [tv, router, pathname]);
-  const passBackToSystem = tv && railExpanded && !inNestedStack;
+  const passBackToSystem = tv && atSystemRoot && !inNestedStack;
 
   // tvOS: capture Menu only when Back means something in-app.
   useEffect(() => {
@@ -87,13 +88,13 @@ export function TvRemoteBridge() {
       return true;
     }
 
-    // 2) Content focus → expand side rail (Leanback)
+    // 2) Content focus → expand side rail (Leanback); rail on another tab → Home tab
     if (tryExpandTvRailOnBack()) {
       backLockUntilRef.current = now + 350;
       return true;
     }
 
-    // 3) Rail focused at a tab root → system Back (Android TV launcher / tvOS Home).
+    // 3) Rail focused on the Home tab → system Back (Android TV launcher / tvOS Home).
     return false;
   }, [tv, router]);
 

@@ -5,7 +5,22 @@ import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
 import type { TafsirLanguageGroup } from "@/lib/quran-tafsir-options";
 import { renderWithTheme } from "@/test-support/render";
 
-jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
+// Shared sheet mock + the visible `title` heading the real Sheet draws.
+jest.mock("@/components/ui/sheet", () => {
+  const { createElement } = require("react");
+  const { Text } = require("react-native");
+  const { sheetMock } = require("@/test-support/mocks/sheet");
+  return {
+    __esModule: true,
+    Sheet: ({ title, children, ...props }: { title?: string; children?: unknown }) =>
+      createElement(
+        sheetMock.Sheet,
+        props,
+        title ? createElement(Text, null, title) : null,
+        children,
+      ),
+  };
+});
 
 jest.mock("@/components/locale-flag", () => {
   const { createElement } = require("react");

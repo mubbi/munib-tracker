@@ -175,39 +175,41 @@ Do **not** open the LAN IP (`192.168.x.x`) from the TV emulator — Dev Client h
 
 ## Runtime degradations (`Platform.isTV` / `isTV()`)
 
-| Feature                                       | TV behavior                                                                                                                                                                                                         |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Location                                      | Manual city search only (no GPS)                                                                                                                                                                                    |
-| Notifications / Live Activity / push token    | Settings empty state; scheduler no-op                                                                                                                                                                               |
-| Widgets / Watch / Wear / Siri / quick actions | Not built / not synced                                                                                                                                                                                              |
-| Qibla                                         | Static bearing from city; no live compass                                                                                                                                                                           |
-| Verse detector                                | Unavailable empty state                                                                                                                                                                                             |
-| App lock / biometrics / voice shortcuts       | Hidden in Settings                                                                                                                                                                                                  |
-| Camera / gallery / document pickers           | Canceled / toast                                                                                                                                                                                                    |
-| Haptics / store review                        | No-op                                                                                                                                                                                                               |
-| Social OAuth                                  | Best-effort on remote; **QR companion login** preferred (`POST /auth/tv/pairing` + phone `/tv-pair`)                                                                                                                |
-| Side rail                                     | Starts collapsed (icons). D-pad toward the rail from the leading content edge, or Back, opens it as an **overlay drawer** with a scrim — content never reflows                                                      |
-| Back / Menu                                   | Ladder: stack pop (expo-router) → expand rail + preferred tab focus → **system Home** (no exit confirm — Android TV TV-DB / tvOS HIG). tvOS Menu key is captured only while there is something in-app to go back to |
-| Fire TV Menu key                              | Ignored (it is the options key, not Back)                                                                                                                                                                           |
-| Play/Pause remote                             | Toggles in-app audio when a track is loaded                                                                                                                                                                         |
-| Fast-forward / Rewind                         | Next / previous track in the audio queue (per ayah for Qur'an)                                                                                                                                                      |
-| On-screen back button                         | Hidden on TV — `AppHeader` relies on the remote's Back / Menu                                                                                                                                                       |
-| Lock-screen media                             | Intentional no-op on TV                                                                                                                                                                                             |
-| Focus                                         | Rings + scale-on-focus (reduce-motion gated); `hasTVPreferredFocus`; `TvFocusGuide` `autoFocus` (focus memory)                                                                                                      |
-| Copy                                          | `tTv()` prefers `*.tv` / `*Tv` Select wording; high-traffic “Tap …” strings have TV variants                                                                                                                        |
+| Feature                                                 | TV behavior                                                                                                                                                                                                                                                                       |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Location                                                | Manual city search only (no GPS)                                                                                                                                                                                                                                                  |
+| Notifications / Live Activity / push token              | Settings empty state; scheduler no-op                                                                                                                                                                                                                                             |
+| Widgets / Watch / Wear / Siri / quick actions           | Not built / not synced                                                                                                                                                                                                                                                            |
+| Qibla                                                   | Static bearing from city; no live compass                                                                                                                                                                                                                                         |
+| Verse detector                                          | Unavailable empty state                                                                                                                                                                                                                                                           |
+| Finance tools (zakat, sadaqah, fidyah, finance, mirath) | Hidden by default (D-UX5) from Library, its search, Home Explore and direct tool links (direct link → "Finance tools are off on this TV" state; guide topics stay reachable). TV-only device setting `devices.tv.financeTools` (Settings → Devices, off by default) restores them |
+| App lock / biometrics / voice shortcuts                 | Hidden in Settings                                                                                                                                                                                                                                                                |
+| Camera / gallery / document pickers                     | Canceled / toast                                                                                                                                                                                                                                                                  |
+| Haptics / store review                                  | No-op                                                                                                                                                                                                                                                                             |
+| Social OAuth                                            | Best-effort on remote; **QR companion login** preferred (`POST /auth/tv/pairing` + phone `/tv-pair`)                                                                                                                                                                              |
+| Side rail                                               | Starts collapsed (icons). D-pad toward the rail from the leading content edge, or Back, opens it as an **overlay drawer** with a scrim — content never reflows. **Search** is the first rail entry (TV only; Android TV drawer / tvOS tab bar keep Search top-level)              |
+| Back / Menu                                             | Ladder: stack pop (expo-router) → expand rail + preferred tab focus → **Home tab** (from Tracker / Library / Settings) → **system Home** (no exit confirm — Android TV TV-DB / tvOS HIG). tvOS Menu key is captured only while there is something in-app to go back to            |
+| Fire TV Menu key                                        | Ignored (it is the options key, not Back)                                                                                                                                                                                                                                         |
+| Play/Pause remote                                       | Toggles in-app audio when a track is loaded                                                                                                                                                                                                                                       |
+| Fast-forward / Rewind                                   | Next / previous track in the audio queue (per ayah for Qur'an)                                                                                                                                                                                                                    |
+| On-screen back button                                   | Hidden on TV — `AppHeader` relies on the remote's Back / Menu                                                                                                                                                                                                                     |
+| Lock-screen media                                       | Intentional no-op on TV                                                                                                                                                                                                                                                           |
+| Focus                                                   | Ring + accent glow + width-adaptive scale-on-focus (reduce-motion gated); `hasTVPreferredFocus`; `TvFocusGuide` `autoFocus` (focus memory)                                                                                                                                        |
+| App update / store links                                | Android TV → Play Store app (`market://`); **Fire TV → Amazon Appstore** (`amzn://apps/android?p=…`). Never a web store URL (TVs must not open a browser — TV-WB)                                                                                                                 |
+| Copy                                                    | `tTv()` prefers `*.tv` / `*Tv` Select wording; high-traffic “Tap …” strings have TV variants                                                                                                                                                                                      |
 
 ## Focus & remote (native feel)
 
-| Piece                | Where                                                                                                                                                                                                                                                                                                                                                                                   |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Preferred focus      | `Button.preferredFocus`, Continue cards, rail after Back, confirm-dialog Cancel, first Settings/Library rows                                                                                                                                                                                                                                                                            |
-| Focus guides         | [`tv-focus-guide.tsx`](../apps/app/src/components/ui/tv-focus-guide.tsx) — `autoFocus` (focus memory), trap edges on chips / segmented / content; sheets auto-focus                                                                                                                                                                                                                     |
-| Non-focusable scroll | [`tv-scroll-view.tsx`](../apps/app/src/components/ui/tv-scroll-view.tsx) / [`tv-flat-list.tsx`](../apps/app/src/components/ui/tv-flat-list.tsx) — scroll chrome must **not** be a D-pad target (`focusable={false}` on TV). Used by `ScreenLayout`, sheets, home, search, lists, and toolbars. Keep `scrollEnabled` so focus moves between children and the view still scrolls to them. |
-| Viewport CTAs        | Short screens (intro): also `scrollEnabled={false}` + CTA in `TvFocusGuide autoFocus`                                                                                                                                                                                                                                                                                                   |
-| `nextFocus*`         | Rail tabs `nextFocusRight` → content guide                                                                                                                                                                                                                                                                                                                                              |
-| Scale on focus       | [`pressable-scale.tsx`](../apps/app/src/components/ui/pressable-scale.tsx) (~1.08×, skipped when reduce motion)                                                                                                                                                                                                                                                                         |
-| Remote bridge        | [`tv-remote-bridge.tsx`](../apps/app/src/components/tv/tv-remote-bridge.tsx) — Play/Pause → audio; Menu/Back ladder                                                                                                                                                                                                                                                                     |
-| QR login             | TV login shows QR; phone opens `/tv-pair?code=…` and claims via API                                                                                                                                                                                                                                                                                                                     |
+| Piece                | Where                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Preferred focus      | `Button.preferredFocus`, Continue cards, rail after Back, confirm-dialog Cancel, first Settings/Library rows                                                                                                                                                                                                                                                                                                                                                    |
+| Focus guides         | [`tv-focus-guide.tsx`](../apps/app/src/components/ui/tv-focus-guide.tsx) — `autoFocus` (focus memory), trap edges on chips / segmented / content; sheets auto-focus                                                                                                                                                                                                                                                                                             |
+| Non-focusable scroll | [`tv-scroll-view.tsx`](../apps/app/src/components/ui/tv-scroll-view.tsx) / [`tv-flat-list.tsx`](../apps/app/src/components/ui/tv-flat-list.tsx) — scroll chrome must **not** be a D-pad target (`focusable={false}` on TV). Used by `ScreenLayout`, sheets, home, search, lists, and toolbars. Keep `scrollEnabled` so focus moves between children and the view still scrolls to them.                                                                         |
+| Viewport CTAs        | Short screens (intro): also `scrollEnabled={false}` + CTA in `TvFocusGuide autoFocus`                                                                                                                                                                                                                                                                                                                                                                           |
+| `nextFocus*`         | Rail tabs `nextFocusRight` → content guide                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Scale on focus       | [`pressable-scale.tsx`](../apps/app/src/components/ui/pressable-scale.tsx) — width-adaptive (`tvAdaptiveFocusScale`): `1 + min(0.08, 20dp / width)` — up to 1.08× on narrow tiles/buttons, never more than 20dp of total growth (so ~1.02× on full-width rows); 1.04× only as the fallback before the first layout pass; pass `tvFocusScale` to pin it (`1` for reading blocks). Accent ring + soft accent glow (`boxShadow`). Scale skipped when reduce motion |
+| Remote bridge        | [`tv-remote-bridge.tsx`](../apps/app/src/components/tv/tv-remote-bridge.tsx) — Play/Pause → audio; Menu/Back ladder                                                                                                                                                                                                                                                                                                                                             |
+| QR login             | TV login shows QR; phone opens `/tv-pair?code=…` and claims via API                                                                                                                                                                                                                                                                                                                                                                                             |
 
 **Simulator tip:** click the TV window so it has keyboard focus, then **Arrow keys** = D-pad and **Enter** = Select. Mouse clicks alone often do not advance focus.
 
@@ -229,7 +231,88 @@ TV type ramp (`TvType`, dp): body 18 · small 16 · caption 14 · label 13 · su
 
 ## Store / manifest (TV prebuild)
 
-`app.config.js` skips permission-only config plugins on `EXPO_TV=1` (image/document picker, local-auth, location, speech recognition) and adds `blockedPermissions` for CAMERA, RECORD_AUDIO, location, biometrics and Bluetooth. Google Play treats permission-implied hardware as `required="true"` and would otherwise hide the Leanback build from most TVs. `@react-native-tvos/config-tv` adds `LEANBACK_LAUNCHER`, the banner, and `touchscreen` / `faketouch` / `leanback` `required="false"`.
+`app.config.js` skips permission-only config plugins on `EXPO_TV=1` (image/document picker, local-auth, location, speech recognition) and adds `blockedPermissions` for CAMERA, RECORD_AUDIO, location, biometrics and Bluetooth. Google Play treats permission-implied hardware as `required="true"` and would otherwise hide the Leanback build from most TVs. It also blocks the phone / SMS / wallpaper permissions Amazon's Fire TV test criteria (group 1) reject. `@react-native-tvos/config-tv` adds `LEANBACK_LAUNCHER`, the banner, and `touchscreen` / `faketouch` / `leanback` `required="false"`.
+
+[`plugins/withTvAndroidManifest.cjs`](../apps/app/plugins/withTvAndroidManifest.cjs) (TV prebuild only) adds `navigation` to MainActivity `configChanges` (Bluetooth remotes / gamepads sleep and reconnect — without it the activity is recreated mid-use) and marks telephony, Bluetooth, NFC, motion sensors and portrait screen `required="false"`.
+
+## Fire TV
+
+Fire TV runs the same Leanback APK (`pnpm release:app:android-tv:apk`) on Fire OS — Android without Google Play Services or the Play Store.
+
+| Topic            | Behaviour                                                                                                                                                                          |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Detection        | `isFireTV()` / `isAndroidTV()` in [`is-tv.ts`](../apps/app/src/lib/platform/is-tv.ts) — `Platform.constants.Model` starts with `AFT` or manufacturer `Amazon`                      |
+| Store / updates  | Update prompts open the Amazon Appstore (`amzn://apps/android?p=app.munibtracker`), never Play                                                                                     |
+| Sign-in          | QR companion pairing (no Google Play Services needed); every sign-in option shown must work (Amazon 2.4)                                                                           |
+| Menu key         | Ignored — Fire TV Menu is the options key, not Back (Android TV TV-DM: never depend on Menu)                                                                                       |
+| Media keys       | Play/Pause, FF, REW act only while audio is loaded (Amazon 4.6: non-media screens must not reuse them)                                                                             |
+| Background audio | Paused when the app leaves the foreground (Home, voice search, screensaver, HDMI sink off → `AppState` change) — Amazon 2.19 / 3.13 / 3.14, Android TV TV-NP (no Now Playing card) |
+| Assets           | Console-only `firetv-*` icons / background in `assets/images/tv/` (512×512 icon, 1280×720, 1920×1080)                                                                              |
+| Testing          | `adb connect <ip>` → `npx expo run:android -d <AFT…>`; Developer Tools Menu → **Safe Zone** overlay checks overscan                                                                |
+
+## TV home surfaces & voice search
+
+One payload, built from the localized widget snapshot ([`tv-home-payload.ts`](../apps/app/src/lib/tv-home/tv-home-payload.ts)), feeds both platforms — no TV-only strings. `useWidgetSnapshotSync` runs on TV and calls [`syncTvHomeSurfaces`](../apps/app/src/lib/tv-home/sync.ts) instead of writing widgets. Native code: local module [`modules/munib-tv-home`](../apps/app/modules/munib-tv-home) (TV builds only — `TV_ONLY_PACKAGES` in `plugins/tvExcludedPackages.cjs` keeps it out of phone builds).
+
+| Row (in order)       | When                       | Valid until                    |
+| -------------------- | -------------------------- | ------------------------------ |
+| Next Salah           | location set               | that Adhan (then the next one) |
+| Ramadan              | in Ramadan                 | Suhoor / Iftar boundary        |
+| Today's progress     | always                     | local midnight                 |
+| Adhkar due now       | always                     | next Adhan                     |
+| Friday checklist     | on Fridays                 | local midnight                 |
+| Khatm / daily hadith | khatm plan / hadith loaded | — / local midnight             |
+
+Every item has a validity window; the native side shows only what is current, so "Next Salah" stays right while the app is closed. Art: text-free 16:9 cards from `python scripts/generate-tv-home-art.py`.
+
+### Android TV launcher row (recommendations)
+
+- A "Munib Tracker" **preview channel** (TvProvider, `androidx.tvprovider`) — the first channel is the app's default channel and is shown without a prompt. Cards deep-link with `munib-tracker://…`.
+- `TvHomeReceiver` handles `INITIALIZE_PROGRAMS` (install), `BOOT_COMPLETED` and an inexact RTC alarm at the next window boundary — no exact-alarm or wake permission.
+- Permissions (TV build only): `WRITE_EPG_DATA`, `RECEIVE_BOOT_COMPLETED` — neither implies hardware.
+- **Google TV home does not show app channels** — Google limits Google TV home recommendations (Engage SDK) to video apps with large audiences and excludes religious text, so this row appears on Android TV launchers that still have app channels (e.g. Nvidia Shield, many Sony / Philips / Xiaomi boxes). **Fire TV** is skipped (`isFireTV()`; its launcher has no preview channels).
+- Test: `adb shell am broadcast -a android.media.tv.action.INITIALIZE_PROGRAMS -n app.munibtracker/expo.modules.munibtvhome.TvHomeReceiver`.
+
+### Apple TV Top Shelf (opt-in)
+
+`EXPO_TVOS_TOP_SHELF=1` + `pnpm prebuild:app:tv:ios` adds the `MunibTopShelf` app extension ([`plugins/withTvTopShelf.cjs`](../apps/app/plugins/withTvTopShelf.cjs), sources in [`tv-targets/top-shelf/`](../apps/app/tv-targets/top-shelf)) — a sectioned shelf (Today / Library) read from the App Group `group.app.munibtracker.widgets`. Items expire at their window end so tvOS reloads them. Without the flag (or without the App Group) the static Top Shelf image is shown.
+
+Owner steps before enabling (Apple Developer):
+
+1. Register App ID `app.munibtracker.topshelf` with the **App Groups** capability → `group.app.munibtracker.widgets`.
+2. Make sure the tvOS app profile for `app.munibtracker` includes that App Group (regenerate it).
+3. Create a **tvOS App Store** profile for `app.munibtracker.topshelf` (default name "Munib Tracker tvOS Top Shelf App Store", or set `TVOS_TOP_SHELF_PROVISIONING_PROFILE`).
+4. `pnpm release:app:tvos` detects the extension and signs each target with its own profile (`MUNIB_TVOS_APP_PROFILE` / `MUNIB_TVOS_TOP_SHELF_PROFILE` build variables) and adds it to `ExportOptions.tvos.plist`. EAS builds need the extension's credentials too (`eas credentials`).
+
+### Voice search
+
+| Platform   | How                                                                                                                                       |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Android TV | Mic button in the search field opens the system speech prompt (`RecognizerIntent`); the recognizer records, so RECORD_AUDIO stays blocked |
+| Apple TV   | System keyboard dictation (Siri Remote microphone) on the search field — no app code                                                      |
+| Fire TV    | No recognizer activity → mic hidden; the Fire TV keyboard's own voice input applies                                                       |
+
+## Guideline compliance map
+
+What each platform's official guidance requires and where the app meets it. Sources: Android TV [app quality](https://developer.android.com/docs/quality-guidelines/tv-app-quality) + [design for TV](https://developer.android.com/design/ui/tv); Apple [HIG — designing for tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos), [focus](https://developer.apple.com/design/human-interface-guidelines/focus-and-selection), [remotes](https://developer.apple.com/design/human-interface-guidelines/remotes); Amazon [Fire TV design](https://developer.amazon.com/docs/fire-tv/design-and-user-experience-guidelines.html) + [test criteria](https://developer.amazon.com/docs/app-testing/test-criteria).
+
+| Requirement                                                            | Source                          | Where                                                                        |
+| ---------------------------------------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------- |
+| Every control reachable by D-pad; no traps                             | TV-DP · HIG focus · Amazon 2.13 | `TvFocusGuide`, `TvReadableBlock`, non-focusable scrollers                   |
+| Back → previous screen, eventually TV home; no exit confirm, no toggle | TV-DB · HIG remotes             | Back ladder in `tv-remote-bridge.tsx` + `tv-rail-back.ts`                    |
+| App home is the last screen before the launcher                        | Android "Navigation on TV"      | Rail Back → Home tab before system Home                                      |
+| Don't depend on Menu                                                   | TV-DM                           | Fire TV / Android TV Menu ignored                                            |
+| Clear, consistent focus indicator                                      | Android focus · Amazon 2.11     | `PressableScale` ring + glow + adaptive scale                                |
+| Overscan: 5% margins; tvOS 60pt / 80pt                                 | TV-OV · HIG layout · Fire TV    | `TvLayout.contentPaddingX` 48dp, `overscanY` 30dp (×2 on tvOS)               |
+| Readable at 10 ft; Fire TV ≥14sp; tvOS ≥23pt                           | Amazon 2.10 · HIG typography    | `TvType` (caption 14dp; ×2 → 28pt on tvOS)                                   |
+| Minimise text entry                                                    | HIG text fields · Fire TV       | QR pairing, steppers, `tv-number-stepper`                                    |
+| Web content only via WebView; never launch a browser                   | TV-WB                           | Web links → QR sheet; store links → store app                                |
+| Play/Pause toggles media; FF/REW scrub                                 | TV-PP · HIG remotes · Amazon    | `TvRemoteBridge` media keys                                                  |
+| Audio stops when leaving the app (no Now Playing card on TV)           | TV-NP · Amazon 3.13/3.14/2.19   | `AppState` pause in `TvRemoteBridge`                                         |
+| Leanback launcher, banner, touchscreen not required                    | TV-ML · TV-LB · TV-MT           | `@react-native-tvos/config-tv`                                               |
+| Implied hardware optional; no phone/SMS/camera/mic/location perms      | TV-MT · Amazon group 1          | `blockedPermissions`, `withAndroidOptionalHardware`, `withTvAndroidManifest` |
+| Survive remote reconnects                                              | Android "TV controllers"        | MainActivity `configChanges` += keyboard, keyboardHidden, navigation         |
+| No extra hardware beyond the remote                                    | App Review 2.4.3 · Amazon 2.21  | Mic / camera / compass features degrade to empty states                      |
 
 ## Screen patterns (use these, don't reinvent)
 
@@ -265,7 +348,17 @@ TV type ramp (`TvType`, dp): body 18 · small 16 · caption 14 · label 13 · su
 
 - [ ] Android TV emulator: cold start → home side rail; D-pad between tabs
 - [ ] Apple TV simulator: same
-- [ ] Back from nested screen pops stack (once — not twice on tvOS); from tab content expands rail; from rail at a tab root returns to the TV home screen (no confirm)
+- [ ] Back from nested screen pops stack (once — not twice on tvOS); from tab content expands rail; from the rail on Tracker / Library / Settings switches to Home; from the rail on Home returns to the TV home screen (no confirm)
+- [ ] Rail Search entry opens universal search; Back returns to the rail
+- [ ] Focused tiles grow ~1.08× with ring + glow; full-width rows barely grow (no text clipping)
+- [ ] Fire TV: update prompt opens the Amazon Appstore page; Android TV: opens the Play Store app (no browser)
+- [ ] Fire TV: Developer Tools → Safe Zone overlay shows nothing important outside the inner 90%
+- [ ] Pair / unpair a Bluetooth remote mid-screen — the screen and focus survive (no activity restart)
+- [ ] Coach screen: every card is a D-pad stop; the disclaimer is reachable
+- [ ] Android TV (non-Google-TV launcher): "Munib Tracker" row appears after first launch; cards open the right screen; "Next Salah" moves on after the Adhan with the app closed; row survives a reboot
+- [ ] Android TV: search mic opens the system voice prompt; the result fills the query; Back cancels quietly
+- [ ] Apple TV (EXPO_TVOS_TOP_SHELF=1, signed with App Group): Top Shelf shows Today / Library cards; selecting one deep-links; static image shows before first launch
+- [ ] Apple TV: search field accepts Siri Remote dictation
 - [ ] D-pad Left from the leftmost content item opens the rail drawer; content does not shift
 - [ ] Fire TV Menu key does nothing (not Back); FF / REW step through ayahs while reciting
 - [ ] Play/Pause toggles Qur’an / audio mini-player when media is active

@@ -1,0 +1,13 @@
+{
+  "siteDescription": "{appName} is a free Islamic app with no ads: track your Salah, make up Qaza, keep daily Zikr, read and practise the Qur'an, and learn your deen, on phone, web, watch and TV.",
+  "homeFeatures": {
+    "salah": "Salah tracker with streaks, calendar and statistics",
+    "qaza": "Qaza (missed Salah) calculator, daily-pace planner and missed-fast tracking",
+    "zikr": "Zikr tracker with guided adhkar sessions, source hadith and a tasbeeh counter",
+    "quran": "Offline Qur'an with word-by-word, tajweed colours, translations, tafsir and audio",
+    "practice": "On-device AI Qur'an recitation practice with spaced revision",
+    "learn": "Learn the Qur'an: Arabic letters, reading and tajweed lessons",
+    "times": "Salah times, Adhan and Qibla compass",
+    "devices": "Widgets, Live Activities, Apple Watch, Wear OS, Apple TV and Android TV"
+  }
+}

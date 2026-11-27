@@ -5,13 +5,9 @@
 // Pipeline: docs/STORE_ASSETS.md
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { readSpec, repoRoot, studioRoot } from "./paths.mjs";
 
-const studioRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const repoRoot = path.resolve(studioRoot, "..", "..");
-const spec = JSON.parse(
-  fs.readFileSync(path.join(repoRoot, "packages", "store-screenshots", "spec.json"), "utf8"),
-);
+const spec = readSpec();
 const exportsDir = path.join(studioRoot, "exports");
 const storeAssets = path.join(repoRoot, spec.storeAssetsRoot);
 
@@ -97,14 +93,15 @@ const PHONE_TARGETS = [
 // Single-asset slots (one image per locale): exports/<platform>/<device>/<WxH>/<locale>/*.png
 //   → store-assets/<dest>/<locale>.png
 const SINGLE_TARGETS = [
-  { src: ["ios", "ios-header", "5244x2950"], dest: ["ios", "product-page", "header", "5244x2950"] },
+  // App Store creative assets (CREATIVE_SAFE_AREA in src/lib/constants.ts).
+  // Universal 16:9 serves both the header and search results in one upload.
+  {
+    src: ["ios", "ios-universal", "5244x2950"],
+    dest: ["ios", "product-page", "universal", "5244x2950"],
+  },
   {
     src: ["ios", "ios-header-wide", "3840x1646"],
     dest: ["ios", "product-page", "header", "3840x1646"],
-  },
-  {
-    src: ["ios", "ios-search", "5244x2950"],
-    dest: ["ios", "product-page", "search-results", "5244x2950"],
   },
   {
     src: ["ios", "ios-search-3x2", "3840x2560"],
@@ -160,7 +157,15 @@ function copySingleAssets(srcParts, destParts) {
   for (const locale of fs.readdirSync(srcRoot)) {
     const srcLocale = path.join(srcRoot, locale);
     if (!fs.statSync(srcLocale).isDirectory()) continue;
-    const png = fs.readdirSync(srcLocale).find((f) => f.endsWith(".png"));
+    // Newest export wins, so a stale PNG from an older layout never ships.
+    const png = fs
+      .readdirSync(srcLocale)
+      .filter((f) => f.endsWith(".png"))
+      .sort(
+        (a, b) =>
+          fs.statSync(path.join(srcLocale, b)).mtimeMs -
+          fs.statSync(path.join(srcLocale, a)).mtimeMs,
+      )[0];
     if (!png) continue;
     fs.copyFileSync(path.join(srcLocale, png), path.join(destDir, `${locale}.png`));
     copied += 1;

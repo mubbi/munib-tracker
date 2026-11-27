@@ -1,4 +1,4 @@
-import type { CompanionEvent, MismatchReason } from "./types";
+import type { CompanionEvent, MismatchReason, VerseCandidateGuess } from "./types";
 
 /**
  * Maps `@tilawa/core` `WorkerOutbound` messages onto the app's {@link CompanionEvent}
@@ -47,6 +47,29 @@ export type TilawaMessage =
       type: "correction_note";
       issue: { surah: number; ayah: number; word: number; kind: string; words?: number };
     }
+  | {
+      type: "verse_match";
+      surah: number;
+      ayah: number;
+      confidence: number;
+    }
+  | {
+      type: "verse_candidate";
+      candidates: {
+        surah: number;
+        ayah: number;
+        ayah_end?: number | null;
+        confidence: number;
+        rank?: number;
+      }[];
+      stable: boolean;
+      final_flush: boolean;
+    }
+  | {
+      type: "final_sequence";
+      verses: { surah: number; ayah: number; confidence: number }[];
+      confidence: number;
+    }
   | { type: "error"; message: string }
   | { type: string; [key: string]: unknown };
 
@@ -57,6 +80,12 @@ export type MapOptions = {
    * issues degrade to "not sure".
    */
   confirmedMismatchEnabled: boolean;
+  /**
+   * Free recitation (recite-to-find, D68): also map the engine's verse-level
+   * messages (`verse_match`, `verse_candidate`, `final_sequence`). Off for
+   * practice, whose reducer only reads word positions and issues.
+   */
+  verseEvents?: boolean;
 };
 
 const REASONS: Record<string, MismatchReason | undefined> = {
@@ -68,6 +97,22 @@ const REASONS: Record<string, MismatchReason | undefined> = {
 
 function isNumber(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
+}
+
+function isAyahRef(value: { surah?: unknown; ayah?: unknown } | null | undefined): boolean {
+  return (
+    !!value &&
+    isNumber(value.surah) &&
+    isNumber(value.ayah) &&
+    value.surah >= 1 &&
+    value.surah <= 114 &&
+    value.ayah >= 1
+  );
+}
+
+/** Engine confidences are 0..1; clamp anything outside (or missing) into range. */
+function unit(value: unknown): number {
+  return isNumber(value) ? Math.max(0, Math.min(1, value)) : 0;
 }
 
 /**
@@ -128,6 +173,38 @@ export function mapTilawaEvent(message: TilawaMessage, options: MapOptions): Com
         return { type: "extra", surah: issue.surah, ayah: issue.ayah, engineWord: issue.word };
       }
       return null;
+    }
+    case "verse_match": {
+      if (!options.verseEvents) return null;
+      const m = message as Extract<TilawaMessage, { type: "verse_match" }>;
+      if (!isAyahRef(m)) return null;
+      return { type: "verseMatch", surah: m.surah, ayah: m.ayah, confidence: unit(m.confidence) };
+    }
+    case "verse_candidate": {
+      if (!options.verseEvents) return null;
+      const m = message as Extract<TilawaMessage, { type: "verse_candidate" }>;
+      const list = Array.isArray(m.candidates) ? m.candidates : [];
+      const candidates: VerseCandidateGuess[] = list.filter(isAyahRef).map((c) => ({
+        surah: c.surah,
+        ayah: c.ayah,
+        ...(isNumber(c.ayah_end) && c.ayah_end > c.ayah ? { ayahEnd: c.ayah_end } : {}),
+        confidence: unit(c.confidence),
+      }));
+      if (!candidates.length) return null;
+      return {
+        type: "verseCandidates",
+        candidates,
+        stable: m.stable === true,
+        final: m.final_flush === true,
+      };
+    }
+    case "final_sequence": {
+      if (!options.verseEvents) return null;
+      const m = message as Extract<TilawaMessage, { type: "final_sequence" }>;
+      const verses = (Array.isArray(m.verses) ? m.verses : [])
+        .filter(isAyahRef)
+        .map((v) => ({ surah: v.surah, ayah: v.ayah, confidence: unit(v.confidence) }));
+      return { type: "verseSequence", verses };
     }
     default:
       return null;

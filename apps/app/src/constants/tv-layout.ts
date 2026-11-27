@@ -28,8 +28,8 @@ export const TvLayout = {
   contentPaddingY: tvDp(32),
   /** Horizontal overscan-safe inset (5% of 960dp; ≥ tvOS 80pt side margin). */
   contentPaddingX: tvDp(48),
-  /** Vertical overscan-safe inset (5% of 540dp ≈ 27dp; tvOS 60pt). */
-  overscanY: tvDp(28),
+  /** Vertical overscan-safe inset (5% of 540dp ≈ 27dp; 30dp → tvOS 60pt safe area). */
+  overscanY: tvDp(30),
   /**
    * Soft content column cap for landscape TV when a screen still needs a number
    * (list–detail overrides). Prefer leaving ScreenLayout uncapped on TV so the
@@ -68,12 +68,14 @@ export const TvLayout = {
  */
 export const TvType = {
   default: { fontSize: 18, lineHeight: 28 },
+  bodyLarge: { fontSize: 20, lineHeight: 30 },
+  button: { fontSize: 18, lineHeight: 24 },
+  footnote: { fontSize: 14, lineHeight: 20 },
   small: { fontSize: 16, lineHeight: 24 },
   smallBold: { fontSize: 16, lineHeight: 24 },
   caption: { fontSize: 14, lineHeight: 20 },
   label: { fontSize: 13, lineHeight: 18 },
-  link: { fontSize: 16, lineHeight: 30 },
-  linkPrimary: { fontSize: 16, lineHeight: 30 },
+  linkPrimary: { fontSize: 16, lineHeight: 24 },
   code: { fontSize: 14, lineHeight: 20 },
   subtitle: { fontSize: 22, lineHeight: 30 },
   header: { fontSize: 28, lineHeight: 36 },

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">اگلی نماز</string>
+  <string name="wear_today">آج کا شیڈول</string>
+  <string name="wear_tasbeeh">تسبیح</string>
+  <string name="wear_progress">آج کی پیش رفت</string>
+  <string name="wear_open_phone">مطابقت کے لیے اپنے فون پر Munib Tracker کھولیں</string>
+  <string name="wear_connect_phone">نماز کے اوقات دیکھنے کے لیے اپنا فون جوڑیں</string>
+  <string name="wear_install_phone">نماز کے اوقات دیکھنے کے لیے اپنے فون پر Munib Tracker انسٹال کریں</string>
+  <string name="wear_tasbeeh_standalone">تسبیح فون کے بغیر بھی آپ کی گھڑی پر چلتی ہے</string>
+  <!-- Tasbeeh counter (Compose) -->
+  <string name="wear_tasbeeh_of_target">%1$d میں سے</string>
+  <string name="wear_tasbeeh_unlimited">بلا حد</string>
+  <string name="wear_tasbeeh_options">اختیارات</string>
+  <string name="wear_tasbeeh_undo">آخری گنتی واپس</string>
+  <string name="wear_tasbeeh_target">ہدف</string>
+  <string name="wear_tasbeeh_mode">طریقہ</string>
+  <string name="wear_tasbeeh_free">آزاد گنتی</string>
+  <string name="wear_tasbeeh_after_salah">نماز کے بعد</string>
+  <string name="wear_tasbeeh_reset">دوبارہ ترتیب دیں</string>
+  <string name="wear_tasbeeh_reset_confirm">گنتی 0 پر واپس کریں؟</string>
+  <string name="wear_tasbeeh_start_again">دوبارہ شروع کریں</string>
+  <string name="wear_tasbeeh_all_done">تسبیح مکمل</string>
+  <string name="wear_tasbeeh_step">مرحلہ %1$d از %2$d</string>
+  <string name="wear_tasbeeh_target_reached">ہدف پورا ہو گیا</string>
+  <string name="wear_tasbeeh_tap_to_count">گننے کے لیے تھپتھپائیں</string>
+  <string name="wear_tasbeeh_a11y">تسبیح کاؤنٹر، %2$d میں سے %1$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">تسبیح کاؤنٹر، %1$d</string>
+  <string name="wear_tasbeeh_count_one">ایک گنیں</string>
+  <!-- Tiles: actions and Mark delivery -->
+  <string name="wear_open">کھولیں</string>
+  <string name="wear_open_app">Munib Tracker کھولیں</string>
+  <string name="wear_mark_confirm">کیا یہ نماز ادا شدہ درج کریں؟</string>
+  <string name="wear_confirm">تصدیق کریں</string>
+  <string name="wear_marked">درج ہو گئی ✓</string>
+  <string name="wear_mark_sent">آپ کے فون پر بھیج دیا گیا</string>
+  <string name="wear_mark_will_sync">فون قریب ہونے پر سنک ہو جائے گا</string>
+</resources>

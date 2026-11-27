@@ -5,6 +5,17 @@ import { mockTrackerExcused, resetTrackerExcusedMock } from "@/test-support/mock
 import { resetMockWindowSize, setMockWindowSize } from "@/test-support/mocks/use-window-dimensions";
 import { renderWithTheme } from "@/test-support/render";
 
+// G-74: the guide disclaimer carries the shared "Report a problem" link; the sheet provider is app-level.
+jest.mock("@/components/content-report/content-report-footer-link", () => {
+  const { Text: MockText } = require("react-native");
+  return {
+    ContentReportFooterLink: ({
+      contentRef,
+    }: {
+      contentRef: { kind: string; contentId: string };
+    }) => <MockText>{`report:${contentRef.kind}:${contentRef.contentId}`}</MockText>,
+  };
+});
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock("@/stores/tracker-store", () =>
   require("@/test-support/mocks/tracker-store").trackerStoreExcusedMock(),
@@ -29,6 +40,8 @@ describe("ExcusedGuideContent", () => {
   ] as const)("renders the %s guide", async (reason, label) => {
     await renderWithTheme(<ExcusedGuideContent reason={reason} />);
     expect(screen.getByText(`Start excused period (${label})`)).toBeTruthy();
+    // G-74: shared Learn disclaimer with its report link.
+    expect(screen.getByText(`report:excused:${reason}`)).toBeTruthy();
   });
 
   it("shows hadith evidence for hayd", async () => {
@@ -41,6 +54,20 @@ describe("ExcusedGuideContent", () => {
     await fireEvent.press(screen.getByText("Start excused period (illness)"));
     await fireEvent.press(screen.getByText("Mark excused"));
     expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith("sick");
+  });
+
+  it("starts a nifas period from the hayd guide", async () => {
+    await renderWithTheme(<ExcusedGuideContent reason="hayd" />);
+    await fireEvent.press(screen.getByText("Start excused period (nifas)"));
+    await fireEvent.press(screen.getByText("Mark excused"));
+    expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith("nifas");
+  });
+
+  it("shows resume on the hayd guide while nifas is active", async () => {
+    mockTrackerExcused.reason = "nifas";
+    await renderWithTheme(<ExcusedGuideContent reason="hayd" />);
+    await fireEvent.press(screen.getByText("Resume obligatory tracking"));
+    expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith(null);
   });
 
   it("closes the confirmation without marking", async () => {

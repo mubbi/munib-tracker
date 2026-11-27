@@ -1,6 +1,7 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { PilgrimageChecklistView } from "@/components/hajj/pilgrimage-checklist-view";
 import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -8,6 +9,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
+import { SCREEN_DIFFERENCES } from "@/lib/fiqh/screen-differences";
 import { getUmrahChecklistItems } from "@/lib/hajj-guide";
 import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -45,6 +47,8 @@ export default function UmrahChecklistScreen() {
           onToggle={(id) => void toggle(id)}
           onReset={() => void reset()}
         />
+        {/* NF-3.0a: tawaf needs wudu — a condition for most schools, wajib for Hanafis. */}
+        <GuideMadhhabNotes ids={SCREEN_DIFFERENCES["/umrah/checklist"]} />
         <JannahDisclaimer textKey="hajj.disclaimer" />
       </Stagger>
     </ScreenLayout>

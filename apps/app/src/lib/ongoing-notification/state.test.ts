@@ -132,6 +132,20 @@ describe("buildOngoingNotificationState phases", () => {
     });
   });
 
+  it("carries the app accent and the in-place Mark fallback during the mark window", () => {
+    const snapshot = snapshotAt(180, 5);
+    const state = buildOngoingNotificationState({ snapshot, now: NOW });
+    expect(state.accentColor).toBe(snapshot.theme.primary);
+    expect(state.markedActionLabel).toBe(snapshot.strings.afterSalahAdhkar);
+    expect(state.markedActionDeepLink).toContain("zikr/after_prayer?prayer=dhuhr");
+  });
+
+  it("has no in-place Mark fallback outside the mark window", () => {
+    const state = buildOngoingNotificationState({ snapshot: snapshotAt(45, null), now: NOW });
+    expect(state.markedActionLabel).toBe("");
+    expect(state.markedActionDeepLink).toBe("");
+  });
+
   it("moves to after-Salah adhkar once the mark window passes", () => {
     const state = buildOngoingNotificationState({ snapshot: snapshotAt(180, 20), now: NOW });
     expect(state).toMatchObject({

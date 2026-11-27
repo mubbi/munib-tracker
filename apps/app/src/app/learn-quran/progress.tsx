@@ -64,9 +64,9 @@ export default function LearnQuranProgressScreen() {
       <LearnContentGate ready={contentReady}>
         <LearnSplitLayout aside={<QuranGuideTopicAside />}>
           <Stagger>
-            <JannahCallout tone="warning">{t("learnQuran.progressIntro")}</JannahCallout>
+            <JannahCallout tone="info">{t("learnQuran.progressIntro")}</JannahCallout>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("learnQuran.lessonsTitle")}
                 icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
@@ -81,11 +81,14 @@ export default function LearnQuranProgressScreen() {
                     total: snapshot.lessonsTotal,
                   })}
                 </ThemedText>
-                <ProgressBar value={snapshot.lessonProgress} />
+                <ProgressBar
+                  value={snapshot.lessonProgress}
+                  accessibilityLabel={t("learnQuran.lessonsTitle")}
+                />
               </View>
             </Card>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("learnQuran.exploreTitle")}
                 icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
@@ -122,7 +125,7 @@ export default function LearnQuranProgressScreen() {
 }
 
 const styles = StyleSheet.create({
-  hint: { marginTop: Spacing.one, lineHeight: 20 },
+  hint: { marginTop: Spacing.one },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });

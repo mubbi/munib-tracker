@@ -4,48 +4,54 @@ import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/vali
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  type ListRenderItem,
-  type ScrollViewInstance,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { type ListRenderItem, StyleSheet, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
-import { PressableScale } from "@/components/ui/pressable-scale";
+import { IconButton } from "@/components/ui/icon-button";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { useResponsiveColumns } from "@/components/ui/responsive-grid";
+import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
-import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
-import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { AfterSalahPrayerChips } from "@/components/zikr/after-salah-prayer-chips";
+import { CategoryStickyBar, useStickyListHeader } from "@/components/zikr/category-sticky-bar";
+import { useZikrListAudio, zikrHasAudio } from "@/components/zikr/use-zikr-audio";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
-import { TvLayout } from "@/constants/tv-layout";
-import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import {
-  afterSalahApplicablePrayers,
-  afterSalahProgressForPrayer,
-} from "@/lib/after-salah-adhkar-progress";
+  type AdhkarScope,
+  adhkarScopeState,
+  afterSalahScopeStates,
+  completeAllEntries,
+  firstPendingIndex,
+  isSessionItemOptional,
+  sessionItemCount,
+  sessionItemTarget,
+} from "@/lib/adhkar-session";
+import { afterSalahApplicablePrayers } from "@/lib/after-salah-adhkar-progress";
+import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
-import { zikrListProgress, zikrListRowProgress } from "@/lib/zikr-list-progress";
-import { pushZikrDetail } from "@/lib/zikr-quran";
+import { ZIKR_CORPUS, zikrByCategory } from "@/lib/zikr";
+import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { useZikrCounts } from "@/stores/tracker-store";
-
-// After-salah adhkar tabs: the five fard prayers plus Witr (its own adhkar).
-const AFTER_SALAH_PRAYERS: AfterSalahPrayer[] = ["fajr", "dhuhr", "asr", "maghrib", "isha", "witr"];
-type PrayerFilter = AfterSalahPrayer | "all";
 
 /** Expo Router may pass dynamic segments as `string | string[]` on deep links. */
 function paramValue(value: string | string[] | undefined): string | undefined {
@@ -71,30 +77,47 @@ export default function ZikrCategoryScreen() {
     prayer?: string | string[];
   }>();
   const favoriteIds = useFavoriteZikrIds();
-  const { toggleFavorite } = usePreferencesActions();
-  const zikrCounts = useZikrCounts();
+  const { toggleFavorite, setFavoriteOrder } = usePreferencesActions();
+  const undoToast = useUndoToast();
+  // Un-starring is reversible: remove now and offer Undo (adding stays instant).
+  const onToggleFavorite = useCallback(
+    (id: string) => {
+      if (!favoriteIds.includes(id)) {
+        void toggleFavorite(id);
+        return;
+      }
+      const previous = [...favoriteIds];
+      void undoToast.run({
+        do: () => toggleFavorite(id),
+        undo: () => setFavoriteOrder(previous),
+        messageKey: "zikr.favoriteRemoved",
+      });
+    },
+    [favoriteIds, setFavoriteOrder, toggleFavorite, undoToast],
+  );
+  const clock = useAdhkarClock();
+  // Counts for the adhkar day (Fajr → Fajr), the same day the session logs to.
+  const day = useAdhkarDayCounts(clock.date);
+  const zikrCounts = day.counts;
+  const [confirmAll, setConfirmAll] = useState(false);
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
   // Cold opens (notification / deep link) never visit /zikr first, so the corpus
   // must be warmed here — zikrByCategory is sync and returns [] until ready.
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
 
   const categoryParam = paramValue(params.category);
   const isKnownCategory = isZikrCategoryId(categoryParam ?? "");
   const categoryId = (isKnownCategory ? categoryParam : "anytime") as ZikrCategoryId;
-  const allItems = corpusReady ? zikrByCategory(categoryId) : [];
+  // Memoized: a fresh array each render rebuilt the search index on every keystroke.
+  const allItems = useMemo(
+    () => (corpusReady ? zikrByCategory(categoryId) : []),
+    [categoryId, corpusReady],
+  );
 
-  // After-salah adhkar can be narrowed to a single fard prayer. An item with no
-  // `prayers` tag is recited after every prayer, so it shows under each filter.
+  // After-salah adhkar are always logged per salah (never one shared "All"
+  // count), so the list is scoped to one salah — the current one by default.
+  // An item with no `prayers` tag is recited after every fard salah.
   const showPrayerFilter = categoryId === "after_prayer";
   // Live Activity / notification deep links (`?prayer=asr`) can resolve after the
   // first paint, or update while this screen is already mounted.
@@ -103,22 +126,20 @@ export default function ZikrCategoryScreen() {
     const raw = paramValue(params.prayer);
     return raw && isAfterSalahPrayer(raw) ? raw : null;
   }, [showPrayerFilter, params.prayer]);
-  const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>(() => linkedPrayer ?? "all");
+  const [prayerFilter, setPrayerFilter] = useState<AfterSalahPrayer>(
+    () => linkedPrayer ?? clock.currentAfterSalah,
+  );
   useEffect(() => {
     if (linkedPrayer) setPrayerFilter(linkedPrayer);
   }, [linkedPrayer]);
 
-  const chipsScrollRef = useRef<ScrollViewInstance>(null);
-  // Hold null until the chip bar mounts so deep-linked Maghrib/Witr still scroll
-  // into view after the corpus finishes loading.
-  const activePrayerChip = showPrayerFilter && corpusReady ? prayerFilter : null;
-  const { register: registerChip, onScroll: onChipsScroll } = useScrollToActiveHorizontal(
-    chipsScrollRef,
-    activePrayerChip,
+  const scope = useMemo<AdhkarScope>(
+    () => (showPrayerFilter ? { categoryId, prayer: prayerFilter } : { categoryId }),
+    [categoryId, prayerFilter, showPrayerFilter],
   );
 
   const items = useMemo(() => {
-    if (!showPrayerFilter || prayerFilter === "all") return allItems;
+    if (!showPrayerFilter) return allItems;
     // Filter the loaded category list so deep-link prayer switches share one
     // corpus snapshot with `allItems` (Witr keeps only its tagged adhkar).
     return allItems.filter((item) => afterSalahApplicablePrayers(item).includes(prayerFilter));
@@ -140,25 +161,56 @@ export default function ZikrCategoryScreen() {
     tvFirstFocusId.current = filtered[0].id;
   }
 
-  const listProgress = useMemo(() => {
-    if (showPrayerFilter) {
-      if (prayerFilter === "all") return null;
-      return afterSalahProgressForPrayer(prayerFilter, zikrCounts);
-    }
-    return zikrListProgress(items, zikrCounts);
-  }, [items, showPrayerFilter, prayerFilter, zikrCounts]);
+  const scopeState = useMemo(
+    () => adhkarScopeState(scope, zikrCounts, clock.now, clock.times, items),
+    [clock.now, clock.times, items, scope, zikrCounts],
+  );
+  const chipStates = useMemo(
+    () => (showPrayerFilter ? afterSalahScopeStates(zikrCounts, clock.now, clock.times) : null),
+    [clock.now, clock.times, showPrayerFilter, zikrCounts],
+  );
 
-  const onOpen = useCallback(
+  /** Open the guided session — at a tapped zikr, or at the first one still pending. */
+  const openSession = useCallback(
+    (startId?: string) => {
+      const start = startId ?? items[firstPendingIndex(items, zikrCounts, scope)]?.id;
+      router.push({
+        pathname: "/zikr/session/[category]",
+        params: {
+          category: categoryId,
+          ...(showPrayerFilter ? { prayer: prayerFilter } : {}),
+          ...(start ? { start } : {}),
+        },
+      });
+    },
+    [categoryId, items, prayerFilter, router, scope, showPrayerFilter, zikrCounts],
+  );
+  const onOpen = useCallback((id: string) => openSession(id), [openSession]);
+  const onInfo = useCallback(
     (id: string) =>
-      pushZikrDetail(
-        router,
-        id,
-        showPrayerFilter && prayerFilter !== "all" ? { prayer: prayerFilter } : undefined,
-      ),
-    [router, showPrayerFilter, prayerFilter],
+      router.push({
+        pathname: "/zikr/detail/[id]",
+        params: showPrayerFilter ? { id, prayer: prayerFilter } : { id },
+      }),
+    [prayerFilter, router, showPrayerFilter],
   );
 
   const keyExtractor = useCallback((item: ZikrItem) => item.id, []);
+  const contentBottomInset = useContentBottomInset();
+  const sticky = useStickyListHeader();
+  // Rows with a recitation (recorded audio or Qur'an ayahs) get a Play button.
+  const listAudio = useZikrListAudio(`/zikr/${categoryId}`);
+  const itemsById = useMemo(() => new Map(items.map((item) => [item.id, item])), [items]);
+  const toggleListAudio = listAudio.toggle;
+  const onPlay = useCallback(
+    (id: string) => {
+      const entry = itemsById.get(id);
+      if (entry) toggleListAudio(entry);
+    },
+    [itemsById, toggleListAudio],
+  );
+  const playingId = listAudio.playingId;
+  const listExtra = useMemo(() => ({ zikrCounts, playingId }), [playingId, zikrCounts]);
 
   const renderZikrRow = useCallback(
     (item: ZikrItem) => {
@@ -171,17 +223,34 @@ export default function ZikrCategoryScreen() {
       return (
         <ZikrRow
           item={item}
+          target={sessionItemTarget(item, scope)}
+          optional={isSessionItemOptional(item, scope)}
           index={indexById.get(item.id)}
           isFavorite={favoriteIds.includes(item.id)}
-          onToggleFavorite={toggleFavorite}
+          onToggleFavorite={onToggleFavorite}
           onPress={onOpen}
+          onInfo={onInfo}
           completed={completed}
           progressLabel={progressLabel}
           preferredFocus={item.id === tvFirstFocusId.current}
+          onPlay={zikrHasAudio(item) ? onPlay : undefined}
+          playing={playingId === item.id}
         />
       );
     },
-    [favoriteIds, indexById, onOpen, prayerFilter, showPrayerFilter, toggleFavorite, zikrCounts],
+    [
+      onPlay,
+      playingId,
+      favoriteIds,
+      indexById,
+      onOpen,
+      prayerFilter,
+      scope,
+      onToggleFavorite,
+      onInfo,
+      showPrayerFilter,
+      zikrCounts,
+    ],
   );
 
   const renderItem = useCallback<ListRenderItem<ZikrItem>>(
@@ -213,105 +282,181 @@ export default function ZikrCategoryScreen() {
       />
     ) : null;
 
+  const allDone = scopeState.total > 0 && scopeState.completed >= scopeState.total;
+  const started = items.some((item) => sessionItemCount(item, zikrCounts, scope) > 0);
+  const statusColor =
+    scopeState.status === "done"
+      ? tokens.status.success.color
+      : scopeState.status === "missed"
+        ? tokens.status.warning.color
+        : scopeState.status === "upcoming"
+          ? colors.mutedForeground
+          : colors.accent;
+  const setName = showPrayerFilter
+    ? t("zikrSession.afterPrayerEyebrow", { prayer: t(`prayers.${prayerFilter}`) })
+    : t(`zikrCat.${categoryId}`);
+
+  const sessionLabel = allDone
+    ? t("zikrSession.reviewSet")
+    : started
+      ? t("zikrSession.continueSet", { remaining: scopeState.total - scopeState.completed })
+      : t("zikrSession.startSet");
+  const sessionIcon = allDone
+    ? ({ ios: "checkmark.seal.fill", android: "verified", web: "verified" } as const)
+    : ({ ios: "play.fill", android: "play_arrow", web: "play_arrow" } as const);
+  const progressText = t("zikr.afterSalahProgress", {
+    completed: scopeState.completed,
+    total: scopeState.total,
+  });
+
+  const chips =
+    showPrayerFilter && chipStates ? (
+      <AfterSalahPrayerChips
+        selected={prayerFilter}
+        onSelect={setPrayerFilter}
+        states={chipStates}
+        current={clock.currentAfterSalah}
+      />
+    ) : null;
+
+  // Slim session card: one status line, one primary action, and the quieter
+  // Mark all / 33-33-34 sequence actions as a small secondary row.
+  const sessionCard =
+    scopeState.total > 0 ? (
+      <View style={[styles.sessionCard, { backgroundColor: colors.muted }]}>
+        <View style={styles.statusRow}>
+          <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
+          <ThemedText type="smallBold" style={{ color: statusColor }}>
+            {t(`zikrSession.status.${scopeState.status}`)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
+            {progressText}
+          </ThemedText>
+        </View>
+        <ProgressBar
+          value={scopeState.completed / scopeState.total}
+          accessibilityLabel={t("a11yProgress.adhkarSession")}
+          height={4}
+          color={allDone ? tokens.status.success.color : undefined}
+        />
+        <Button
+          label={sessionLabel}
+          icon={sessionIcon}
+          variant={allDone ? "secondary" : "primary"}
+          onPress={() => openSession()}
+          fullWidth={columns === 1}
+          style={columns > 1 ? styles.primaryActionWide : undefined}
+        />
+        {!allDone || showPrayerFilter ? (
+          <View style={styles.secondaryRow}>
+            {!allDone ? (
+              <Button
+                label={t("zikrSession.markAll")}
+                variant="ghost"
+                size="sm"
+                icon={{ ios: "checkmark.circle", android: "task_alt", web: "task_alt" }}
+                accessibilityHint={t("zikrSession.markAllHint")}
+                onPress={() => setConfirmAll(true)}
+              />
+            ) : null}
+            {showPrayerFilter ? (
+              <Button
+                label={t("handsFreeZikr.sequence.openFromSession")}
+                variant="ghost"
+                size="sm"
+                icon={{
+                  ios: "circle.dotted",
+                  android: "radio_button_checked",
+                  web: "radio_button_checked",
+                }}
+                onPress={() =>
+                  router.push({ pathname: "/tasbeeh/sequence", params: { prayer: prayerFilter } })
+                }
+              />
+            ) : null}
+          </View>
+        ) : null}
+      </View>
+    ) : null;
+
+  // One stable SearchField element (never a component re-created per render), so
+  // typing never remounts it or drops focus.
+  const searchField = (
+    <SearchField
+      value={query}
+      onChangeText={setQuery}
+      placeholder={t("zikr.searchInCategory")}
+      style={[styles.search, columns > 1 && styles.searchWide]}
+    />
+  );
+
   const listChrome = (
     <>
-      {showPrayerFilter ? (
-        <TvFocusGuide autoFocus trapFocusLeft trapFocusRight>
-          <TvScrollView
-            ref={chipsScrollRef}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.chips}
-            style={styles.chipsRow}
-            onScroll={onChipsScroll}
-            scrollEventThrottle={16}
-          >
-            {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
-              const active = prayerFilter === prayer;
-              return (
-                <PressableScale
-                  key={prayer}
-                  ref={registerChip(prayer)}
-                  haptic="selection"
-                  accessibilityRole="button"
-                  accessibilityState={{ selected: active }}
-                  onPress={() => setPrayerFilter(prayer)}
-                  style={[
-                    styles.chip,
-                    tv && styles.chipTv,
-                    // TV: selected = soft fill + hairline so it never reads as the
-                    // D-pad focus ring (PressableScale draws that).
-                    tv
-                      ? {
-                          backgroundColor: active ? tokens.accentSoft : colors.muted,
-                          borderColor: active ? colors.accent : "transparent",
-                        }
-                      : { backgroundColor: active ? colors.accent : colors.muted },
-                  ]}
-                >
-                  <ThemedText
-                    type="small"
-                    style={{
-                      color: active
-                        ? tv
-                          ? colors.accentText
-                          : colors.accentForeground
-                        : colors.foreground,
-                      fontSize: tv ? TvLayout.bodyFontSize : undefined,
-                    }}
-                  >
-                    {prayer === "all" ? t("zikr.allPrayers") : t(`prayers.${prayer}`)}
-                  </ThemedText>
-                </PressableScale>
-              );
-            })}
-          </TvScrollView>
-        </TvFocusGuide>
-      ) : null}
-      {listProgress && listProgress.total > 0 ? (
-        <View style={styles.progressBlock}>
-          <View style={styles.progressHeader}>
-            <ThemedText type="smallBold">
-              {showPrayerFilter && prayerFilter !== "all"
-                ? t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${prayerFilter}`) })
-                : t("zikr.today")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("zikr.afterSalahProgress", {
-                completed: listProgress.completed,
-                total: listProgress.total,
-              })}
-            </ThemedText>
-          </View>
-          <ProgressBar
-            value={listProgress.total > 0 ? listProgress.completed / listProgress.total : 0}
-            height={4}
+      {chips ? <View style={styles.chipsRow}>{chips}</View> : null}
+      {sessionCard}
+      {searchField}
+    </>
+  );
+
+  const listHeader = (
+    <View onLayout={sticky.onHeaderLayout} style={styles.listHeader} testID="zikr-list-header">
+      {listChrome}
+    </View>
+  );
+
+  // Compact bar once the header has scrolled away: salah chips (or the progress
+  // line), a small ring, Start / Review, and a search icon that expands.
+  const stickyContent = (
+    <>
+      {chips ? (
+        <View style={styles.flex}>{chips}</View>
+      ) : (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          numberOfLines={1}
+          style={styles.flex}
+        >
+          {progressText}
+        </ThemedText>
+      )}
+      {scopeState.total > 0 ? (
+        <View
+          accessible
+          accessibilityRole="progressbar"
+          accessibilityLabel={t("a11yProgress.adhkarSession")}
+          accessibilityValue={{ min: 0, max: scopeState.total, now: scopeState.completed }}
+          style={chartCoordinateStyle}
+        >
+          <ArcProgressRing
+            size={26}
+            stroke={3}
+            progress={scopeState.completed / scopeState.total}
+            fillColor={allDone ? tokens.status.success.color : colors.accent}
+            trackColor={tokens.track}
+            surfaceColor={colors.background}
           />
         </View>
       ) : null}
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder={t("zikr.searchInCategory")}
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={t("zikr.searchInCategory")}
-        style={[
-          styles.input,
-          tv && styles.inputTv,
-          columns > 1 && styles.inputWide,
-          tokens.inputSurface,
-          { color: colors.foreground },
-        ]}
-      />
+      {scopeState.total > 0 ? (
+        <IconButton
+          name={sessionIcon}
+          size={16}
+          tintColor={allDone ? colors.accentText : colors.accentForeground}
+          background={allDone ? tokens.accentSoft : colors.accent}
+          accessibilityLabel={sessionLabel}
+          onPress={() => openSession()}
+        />
+      ) : null}
     </>
   );
 
   return (
     <ScreenLayout
       eyebrow={t("zikr.categoryEyebrow")}
-      title={t(`zikrCat.${categoryId}`)}
+      title={isKnownCategory ? t(`zikrCat.${categoryId}`) : t("zikr.title")}
       subtitle={
-        !corpusReady
+        !isKnownCategory || !corpusReady
           ? undefined
           : searching
             ? t("zikr.searchResultCount", { count: filtered.length })
@@ -322,6 +467,8 @@ export default function ZikrCategoryScreen() {
       // still collapse to zero height on Leanback even with minHeight:0 chains.
       scrollable={tv}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo
         path={`/zikr/${categoryId}`}
         title={categoryName}
@@ -337,54 +484,91 @@ export default function ZikrCategoryScreen() {
           }),
         ]}
       />
-      {!corpusReady ? null : allItems.length === 0 ? (
+      {!isKnownCategory ? (
+        // An unknown category never silently becomes "anytime" (B-55): nothing
+        // is shown, counted or logged against a set the user did not open.
         <EmptyState
-          icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}
+          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
+          title={t("zikr.unknownCategoryTitle")}
+          description={t("zikr.unknownCategoryDesc")}
+          actionLabel={t("zikr.browseAdhkar")}
+          onAction={() => router.replace("/zikr")}
+        />
+      ) : !corpusReady ? (
+        <ContentState status="loading" skeleton="rows" loadingLabel={t("zikr.loadingAdhkar")} />
+      ) : allItems.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "text.book.closed", android: "menu_book", web: "menu_book" }}
           title={t("zikr.emptyTitle")}
           description={t("zikr.emptyDesc")}
         />
-      ) : (
-        <Card padding="three" style={tv ? undefined : styles.listCard}>
+      ) : tv ? (
+        <Card>
           {listChrome}
-          {tv ? (
-            <View style={styles.tvList}>
-              {filtered.length === 0
-                ? empty
-                : filtered.map((item, index) => (
-                    <View key={item.id}>
-                      {index > 0 ? <ListSeparator /> : null}
-                      {renderZikrRow(item)}
-                    </View>
-                  ))}
-            </View>
-          ) : (
-            <View style={styles.listHost}>
-              <TvFlatList
-                // Remount when the deep-linked salah tab arrives/changes — otherwise
-                // removeClippedSubviews + a late `?prayer=` update can leave a blank list
-                // until the user manually switches chips.
-                // numColumns also needs a remount when the column count changes.
-                key={`${showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}-${columns}`}
-                numColumns={columns}
-                columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
-                style={styles.flatList}
-                data={filtered}
-                extraData={zikrCounts}
-                keyExtractor={keyExtractor}
-                renderItem={renderItem}
-                ItemSeparatorComponent={ListSeparator}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-                initialNumToRender={12}
-                maxToRenderPerBatch={8}
-                windowSize={7}
-                removeClippedSubviews={false}
-                ListEmptyComponent={empty ?? undefined}
-              />
-            </View>
-          )}
+          <View style={styles.tvList}>
+            {filtered.length === 0
+              ? empty
+              : filtered.map((item, index) => (
+                  <View key={item.id}>
+                    {index > 0 ? <ListSeparator /> : null}
+                    {renderZikrRow(item)}
+                  </View>
+                ))}
+          </View>
         </Card>
+      ) : (
+        // Full-height list: the session card and search scroll away with the rows
+        // (ListHeaderComponent); a compact bar pins once they are gone.
+        <View style={styles.listHost}>
+          <TvFlatList
+            // Remount when the deep-linked salah tab arrives/changes — otherwise
+            // removeClippedSubviews + a late `?prayer=` update can leave a blank list
+            // until the user manually switches chips.
+            // numColumns also needs a remount when the column count changes.
+            key={`${showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}-${columns}`}
+            numColumns={columns}
+            columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
+            testID="zikr-category-list"
+            style={styles.flatList}
+            contentContainerStyle={{ paddingBottom: contentBottomInset + Spacing.three }}
+            data={filtered}
+            extraData={listExtra}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            ListHeaderComponent={listHeader}
+            ItemSeparatorComponent={ListSeparator}
+            onScroll={sticky.onScroll}
+            scrollEventThrottle={32}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            initialNumToRender={12}
+            maxToRenderPerBatch={8}
+            windowSize={7}
+            removeClippedSubviews={false}
+            ListEmptyComponent={empty ?? undefined}
+          />
+          <CategoryStickyBar
+            visible={sticky.stuck}
+            query={query}
+            onChangeQuery={setQuery}
+            placeholder={t("zikr.searchInCategory")}
+          >
+            {stickyContent}
+          </CategoryStickyBar>
+        </View>
       )}
+      <ConfirmDialog
+        visible={confirmAll}
+        title={t("zikrSession.confirmAllTitle")}
+        message={t("zikrSession.confirmAllMessage", { set: setName })}
+        confirmLabel={t("zikrSession.markAll")}
+        onConfirm={() => {
+          void day.setCounts(completeAllEntries(items, scope));
+          trackReviewInteraction("mark_zikr");
+        }}
+        onClose={() => setConfirmAll(false)}
+      />
     </ScreenLayout>
   );
 }
@@ -395,50 +579,32 @@ function ListSeparator() {
 }
 
 const styles = StyleSheet.create({
-  listCard: { flex: 1, minHeight: 0 },
   listHost: { flex: 1, minHeight: 0 },
   flatList: { flex: 1 },
+  listHeader: { paddingBottom: Spacing.one },
   tvList: { gap: 0 },
-  chipsRow: { flexGrow: 0, marginBottom: Spacing.three },
-  chips: { gap: Spacing.two, paddingEnd: Spacing.one },
-  progressBlock: {
+  chipsRow: { marginBottom: Spacing.three },
+  sessionCard: {
     marginBottom: Spacing.three,
     gap: Spacing.two,
-  },
-  progressHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: 999,
-    borderCurve: "continuous",
-  },
-  chipTv: {
-    minHeight: TvLayout.chipMinHeight,
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
-    justifyContent: "center",
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  input: {
+    padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    marginBottom: Spacing.three,
-    fontSize: 15,
   },
-  inputTv: {
-    minHeight: TvLayout.minFocusTarget,
-    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
-    paddingHorizontal: Spacing.four,
+  primaryActionWide: { alignSelf: "flex-start", minWidth: 240 },
+  secondaryRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.one,
+    marginStart: -Spacing.two,
   },
+  search: { marginBottom: Spacing.three },
+  searchWide: { maxWidth: 640 },
+  statusRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  statusDot: { width: 8, height: 8, borderRadius: 4 },
+  flex: { flex: 1, minWidth: 0 },
   separator: { height: Spacing.two },
-  inputWide: { maxWidth: 640 },
   gridRow: { marginHorizontal: -Spacing.one },
   gridCell: { paddingHorizontal: Spacing.one },
 });

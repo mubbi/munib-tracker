@@ -10,14 +10,21 @@ import {
   ContentReportAttachmentEntity,
   ContentReportEntity,
   DeletedAccountEntity,
+  InAppNotificationEntity,
+  LiveActivityPushJobEntity,
+  LiveActivityPushTokenEntity,
+  PushTokenEntity,
+  SurfacePushJobEntity,
+  SurfacePushRegistrationEntity,
   SyncRecordEntity,
   UserEntity,
   UserMediaEntity,
 } from "../database/entities";
 import { buildTombstoneEmail, isTombstoneValue } from "./account-tombstone";
-import { AuthService } from "./auth.service";
+import { AuthService, hashRefreshToken } from "./auth.service";
 import {
   isAuthDeleteAccountRateLimited,
+  isAuthGuestCreateRateLimited,
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
@@ -44,6 +51,7 @@ vi.mock("./auth-rate-limit", async (importOriginal) => {
   return {
     ...actual,
     isAuthGuestRateLimited: vi.fn(actual.isAuthGuestRateLimited),
+    isAuthGuestCreateRateLimited: vi.fn(actual.isAuthGuestCreateRateLimited),
     isAuthTvPairCreateRateLimited: vi.fn(actual.isAuthTvPairCreateRateLimited),
     isAuthTvPairPollRateLimited: vi.fn(actual.isAuthTvPairPollRateLimited),
     isAuthTvPairClaimRateLimited: vi.fn(actual.isAuthTvPairClaimRateLimited),
@@ -96,6 +104,11 @@ describe("AuthService", () => {
   describe("rate limits", () => {
     it.each([
       ["guest creation", isAuthGuestRateLimited, (s: AuthService) => s.createGuestSession({})],
+      [
+        "new guest accounts per IP",
+        isAuthGuestCreateRateLimited,
+        (s: AuthService) => s.createGuestSession({ deviceId: `device-${randomUUID()}` }),
+      ],
       ["TV pairing create", isAuthTvPairCreateRateLimited, (s: AuthService) => s.createTvPairing()],
       ["TV pairing poll", isAuthTvPairPollRateLimited, (s: AuthService) => s.pollTvPairing("C")],
       [
@@ -107,6 +120,11 @@ describe("AuthService", () => {
         "OAuth completion",
         isAuthOAuthRateLimited,
         (s: AuthService) => s.completeOAuth(AuthProvider.Google, { code: "c" }),
+      ],
+      [
+        "account linking",
+        isAuthOAuthRateLimited,
+        (s: AuthService) => s.linkGuestAccount("t", { provider: AuthProvider.Google, code: "c" }),
       ],
       ["refresh", isAuthRefreshRateLimited, (s: AuthService) => s.refreshSession("r")],
       [
@@ -306,7 +324,7 @@ describe("AuthService", () => {
           accountType: "user",
           provider: AuthProvider.Google,
           providerAccountId: "closed-1",
-          email: buildTombstoneEmail("closed@example.com", "x"),
+          email: buildTombstoneEmail(),
         }),
       );
       await expect(signIn({ providerAccountId: "closed-1" })).rejects.toThrow(
@@ -404,6 +422,73 @@ describe("AuthService", () => {
         });
       },
     );
+  });
+
+  describe("guest account creation limit", () => {
+    it("caps new accounts per IP even when every request rotates its deviceId", async () => {
+      const { service } = await setup();
+      await service.createGuestSession({ deviceId: `device-${randomUUID()}` }, "198.51.100.1");
+      expect(isAuthGuestCreateRateLimited).toHaveBeenCalledWith("ip:198.51.100.1");
+    });
+
+    it("does not count resuming an existing guest against the IP cap", async () => {
+      const { service } = await setup();
+      const deviceId = `device-${randomUUID()}`;
+      await service.createGuestSession({ deviceId }, "198.51.100.2");
+      vi.mocked(isAuthGuestCreateRateLimited).mockClear();
+      await service.createGuestSession({ deviceId }, "198.51.100.2");
+      expect(isAuthGuestCreateRateLimited).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("refresh tokens at rest", () => {
+    it("stores only a SHA-256 hash of the refresh token", async () => {
+      const { repo, guest } = await setup();
+      const session = await guest();
+      const [row] = await repo(AuthSessionEntity).find();
+      expect(row?.refreshToken).toBe(hashRefreshToken(session.refreshToken));
+      expect(row?.refreshToken).not.toBe(session.refreshToken);
+      // 256-bit base64url secret.
+      expect(session.refreshToken).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    });
+
+    it("refuses a leaked stored hash presented as the token", async () => {
+      const { service, repo, guest } = await setup();
+      await guest();
+      const [row] = await repo(AuthSessionEntity).find();
+      await expect(service.refreshSession(row?.refreshToken ?? "")).rejects.toThrow(
+        "Invalid or expired refresh token",
+      );
+    });
+
+    it("still rotates a legacy plaintext (UUID) refresh token once, into a hash", async () => {
+      const { service, repo, guest } = await setup();
+      const session = await guest();
+      const sessions = repo(AuthSessionEntity);
+      const legacy = randomUUID();
+      await sessions.update({ userId: session.userId }, { refreshToken: legacy });
+
+      const refreshed = await service.refreshSession(legacy);
+      expect(refreshed.userId).toBe(session.userId);
+      const [row] = await sessions.find();
+      expect(row?.refreshToken).toBe(hashRefreshToken(refreshed.refreshToken));
+      await expect(service.refreshSession(legacy)).rejects.toThrow(
+        "Invalid or expired refresh token",
+      );
+    });
+
+    it("revokes a session by its refresh token (cookie logout)", async () => {
+      const { service, repo, guest } = await setup();
+      const session = await guest();
+      await service.revokeSessionByRefreshToken("  ");
+      await service.revokeSessionByRefreshToken("unknown-token");
+      await expect(repo(AuthSessionEntity).count()).resolves.toBe(1);
+      await service.revokeSessionByRefreshToken(session.refreshToken);
+      await expect(repo(AuthSessionEntity).count()).resolves.toBe(0);
+      await expect(service.getCurrentUser(session.accessToken)).rejects.toThrow(
+        UnauthorizedException,
+      );
+    });
   });
 
   describe("refreshSession", () => {
@@ -608,6 +693,88 @@ describe("AuthService", () => {
       );
     });
 
+    it("removes push tokens, the inbox and every push surface with its scheduled jobs", async () => {
+      const { service, repo, signIn } = await setup();
+      const session = await signIn();
+      const other = await signIn({ providerAccountId: "other-account" });
+      const userId = session.userId;
+      const later = new Date(Date.now() + 3_600_000);
+
+      const seed = async (owner: string, suffix: string) => {
+        await repo(PushTokenEntity).save(
+          repo(PushTokenEntity).create({
+            userId: owner,
+            token: `expo-${suffix}`,
+            platform: "expo",
+          }),
+        );
+        await repo(InAppNotificationEntity).save(
+          repo(InAppNotificationEntity).create({
+            userId: owner,
+            kind: "system",
+            title: "t",
+            body: "b",
+          }),
+        );
+        const token = await repo(LiveActivityPushTokenEntity).save(
+          repo(LiveActivityPushTokenEntity).create({
+            userId: owner,
+            activityId: `activity-${suffix}`,
+            tokenHash: `hash-${suffix}`,
+            tokenCiphertext: "ciphertext",
+            apnsEnvironment: "sandbox",
+            expiresAt: later,
+          }),
+        );
+        await repo(LiveActivityPushJobEntity).save(
+          repo(LiveActivityPushJobEntity).create({
+            id: randomUUID(),
+            activityTokenId: token.id,
+            phase: "adhan",
+            executeAt: later,
+            contentStateJson: "{}",
+          }),
+        );
+        const registration = await repo(SurfacePushRegistrationEntity).save(
+          repo(SurfacePushRegistrationEntity).create({
+            userId: owner,
+            channel: "web_push",
+            targetHash: `target-${suffix}`,
+            target: "{}",
+          }),
+        );
+        await repo(SurfacePushJobEntity).save(
+          repo(SurfacePushJobEntity).create({
+            id: randomUUID(),
+            registrationId: registration.id,
+            channel: "web_push",
+            phase: "adhan",
+            dedupeKey: `dedupe-${suffix}`,
+            executeAt: later,
+            payloadJson: "{}",
+          }),
+        );
+      };
+      await seed(userId, "mine");
+      await seed(other.userId, "theirs");
+
+      await service.deleteAccount(session.accessToken, DELETE_BODY);
+
+      await expect(repo(PushTokenEntity).countBy({ userId })).resolves.toBe(0);
+      await expect(repo(InAppNotificationEntity).countBy({ userId })).resolves.toBe(0);
+      await expect(repo(LiveActivityPushTokenEntity).countBy({ userId })).resolves.toBe(0);
+      await expect(repo(SurfacePushRegistrationEntity).countBy({ userId })).resolves.toBe(0);
+      // Only the other account's surfaces (and their jobs) remain.
+      await expect(repo(LiveActivityPushJobEntity).count()).resolves.toBe(1);
+      await expect(repo(SurfacePushJobEntity).count()).resolves.toBe(1);
+      await expect(
+        repo(LiveActivityPushTokenEntity).countBy({ userId: other.userId }),
+      ).resolves.toBe(1);
+      await expect(
+        repo(SurfacePushRegistrationEntity).countBy({ userId: other.userId }),
+      ).resolves.toBe(1);
+    });
+
     it("retains the user row with a tombstoned identity", async () => {
       const { service, repo, signIn } = await setup();
       const session = await signIn();
@@ -618,6 +785,18 @@ describe("AuthService", () => {
       expect(closed.provider).toBeNull();
       expect(closed.providerAccountId).toBeNull();
       expect(closed.displayName).toBeNull();
+      expect(closed.deviceId).toBeNull();
+    });
+
+    it("erases the email: the closed row keeps no personal data", async () => {
+      const { service, repo, signIn } = await setup();
+      const session = await signIn();
+      const before = await repo(UserEntity).findOneByOrFail({ id: session.userId });
+      await service.deleteAccount(session.accessToken, DELETE_BODY);
+
+      const closed = await repo(UserEntity).findOneByOrFail({ id: session.userId });
+      expect(closed.email).toMatch(/^deleted_[a-f0-9]{32}_closed$/);
+      if (before.email) expect(closed.email).not.toContain(before.email);
     });
 
     it.each([
@@ -641,10 +820,7 @@ describe("AuthService", () => {
     it("rejects closing an account that is already closed", async () => {
       const { service, repo, signIn } = await setup();
       const session = await signIn();
-      await repo(UserEntity).update(
-        { id: session.userId },
-        { email: buildTombstoneEmail(null, session.userId) },
-      );
+      await repo(UserEntity).update({ id: session.userId }, { email: buildTombstoneEmail() });
       await expect(service.deleteAccount(session.accessToken, DELETE_BODY)).rejects.toThrow(
         new UnauthorizedException("Account closed"),
       );
@@ -658,12 +834,12 @@ describe("AuthService", () => {
       expect(fresh.userId).not.toBe(session.userId);
     });
 
-    it("tombstones a guest without an email using the user id", async () => {
+    it("tombstones a guest without an email", async () => {
       const { service, repo, guest } = await setup();
       const session = await guest();
       await service.deleteAccount(session.accessToken, DELETE_BODY);
       const user = await repo(UserEntity).findOneByOrFail({ id: session.userId });
-      expect(user.email).toMatch(new RegExp(`^deleted_[a-f0-9]{32}_user_${session.userId}$`));
+      expect(user.email).toMatch(/^deleted_[a-f0-9]{32}_closed$/);
     });
 
     it("purges Cloudinary user-media assets", async () => {

@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayra rivoyat qilganidek, Rasululloh ﷺ shunday dedi: «Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
       "U yana dedi: «Qabul qilingan haj (haj mabrur)ning mukofoti jannatdan boshqa narsa emas» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Qabul qilinishi samimiyat va hajni fohisha va gunohdan asrash bilan bog'liq — faqat tashqi amallarni bajarish bilan emas.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi.",
-      },
-      {
-        excerpt:
-          "Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi.",
-      },
-      { excerpt: "Qabul qilingan hajning mukofoti jannatdan boshqa narsa emas." },
-      { excerpt: "Qabul qilingan hajning mukofoti jannatdan boshqa narsa emas." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Hajni faqat Alloh uchun niyat qiling — butun safarda til va xulq-atvoringizni asrang.",
       "Ilovadagi haj ro'yxatidan faqat eslatma sifatida foydalaning; qalbingizni qabul qilinishga qaratib turing.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayra rivoyat qilganidek, Payg'ambar ﷺ dedi: «Umra qilish avvalgisidan keyingi gunohlarga kefforatdir, qabul qilingan hajning mukofoti esa jannatdan boshqa narsa emas» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
       "Umra yilning istalgan vaqtida bajariladi. Hajdan qisqaroq, lekin baribir katta ibodat: ihram, tavof, sa'y va soch olish yoki qisqartirish.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umra qilish avvalgisidan keyingi gunohlarga kefforatdir, qabul qilingan hajning mukofoti esa jannatdan boshqa narsa emas.",
-      },
-      {
-        excerpt:
-          "Umra qilish avvalgisidan keyingi gunohlarga kefforatdir, qabul qilingan hajning mukofoti esa jannatdan boshqa narsa emas.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Marosimlarni tartib bilan bajarishga tayyor bo'lganingizda umra ro'yxatini oching."],
     appLinks: [{ label: "Umra marosimlari ro'yxati" }],
   },
@@ -58,14 +38,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Abdurrahmon ibn Ya'mar rivoyat qilganidek, Payg'ambar ﷺ dedi: «Haj — Arofa» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arofa chegarasida o'z vaqtida turishni qoldirgan o'sha yil hajini qoldirgan bo'ladi.",
       "Hajda bo'lmaganlar uchun Arofa kunida ro'za tutish qattiq tavsiya etiladi: Abu Qatoda rivoyat qilganidek, Arofa ro'zasi o'tgan va kelgusi yil gunohlarini kefforat qiladi (Sahih Muslim 1162). Hojilar esa duo uchun kunning o'ziga berilib, ro'za tutmaydi.",
     ],
-    hadith: [
-      { excerpt: "Haj — Arofa." },
-      { excerpt: "Haj — Arofa." },
-      {
-        excerpt:
-          "Arofa kunida ro'za tutish — Allohdan o'tgan va kelgusi yil gunohlarini kefforat qilishni umid qilaman.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Haj — beshinchi rukn",
@@ -75,17 +48,8 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Odamlarga haj e'lon qilindi: «Odamlarga haj e'lon qil; ular piyoda va har xil otliq bilan senga keladi; har uzoq yo'l bo'ylab keladi» (Qur'on 22:27).",
       "Ibn Umar rivoyat qilganidek, Payg'ambar ﷺ dedi: Islom beshta asosga qurilgan: shohodat, namoz, zakat, Ramazon ro'zasi va qodir bo'lganlar uchun Uyga haj (Sahih al-Bukhari 8; Sahih Muslim 16). Ulama shartlar bajarilganda hayotda bir marta farz ekaniga kelishdi; takrorlash ixtiyoriy fazilatdir.",
     ],
-    quran: [
-      { excerpt: "Odamlarga Uydan haj farz — yo'l topa oladigan har bir kishi uchun..." },
-      { excerpt: "Odamlarga haj e'lon qil; ular piyoda va har xil otliq bilan senga keladi..." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islom beshta asosga qurilgan: Allohdan boshqa iloh yo'q va Muhammad Allohning Rasuli, namoz o'qish, zakat berish, Ramazon ro'zasi va yo'l topa oladiganlar uchun Uyga haj.",
-      },
-      { excerpt: "Islom beshta asosga qurilgan... va yo'l topa oladiganlar uchun Uyga haj." },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Istito'at (qodirlik)",
@@ -94,7 +58,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Qur'on 3:97 dagi shart istito'atdir. Klassik ulama buni quyidagicha jamlaydi: safarga chidamli jismoniy salomatlik, safar va yo'q paytda qaramog'idagilar ehtiyojlarini qoplash uchun yetarli halol mol, va xavfsiz ochiq yo'l.",
       "Bu yil bu imkoniyatlardan mahrum bo'lgan kechiktirish uchun gunohkor emas, qodir bo'lguncha kutishi mumkin. Istito'at holat bo'yicha baholanadi — kasallik, to'lanishi shart bo'lgan qarz yoki xavfsiz bo'lmagan safar darhol farzni olib tashlashi mumkin. Vaziyatingiz noaniq bo'lsa, malakali olimdan so'rang.",
     ],
-    quran: [{ excerpt: "...yo'l topa oladigan har bir kishi uchun." }],
+    quran: [{}],
     actions: [
       "Bron qilishdan oldin farz qarzlarni to'lang va qaramog'idagilar ta'minotini tartibga soling.",
       "Paketlarni faqat rasmiy kanallar orqali tekshiring (tayyorgarlik mavzulariga qarang).",
@@ -108,13 +72,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbos rivoyat qilganidek, Payg'ambar ﷺ dedi: ayol mahramsiz safar qilmasin, erkak ham mahram bo'lmaguncha unga kirmasin (Sahih al-Bukhari 1862; Sahih Muslim 1341). Ko'p ulama buni haj va umra safariga qo'llaydi.",
       "Ba'zi keyingi ulama — xavfsizlik, zarurat va zamonaviy transportni hisobga olib — mahram bo'lmaganda ayolga farz haj uchun ishonchli guruhda safar qilishga ruxsat beradi. Bu hali fiqh masalasida bahsli.",
     ],
-    hadith: [
-      { excerpt: "Ayol mahramsiz safar qilmasin, erkak ham mahram bo'lmaguncha unga kirmasin." },
-      {
-        excerpt:
-          "Alloh va Oxirat kuniga iymon keltirgan ayolga bir kun va tun mahramsiz safar qilish halol emas.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Ko'pchilik ayol haj safarida mahram kerak deb hisoblaydi. Ba'zi keyingi ulama farz haj uchun xavfsiz ayollar guruhi bilan safarga ruxsat beradi. Ishonadigan olimingiz va haj idorasi qoidalariga amal qiling.",
   },
@@ -127,12 +85,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': haj oylarida to'liq umra bajarish, ihramdan chiqish, keyin 8 zul-hijjada haj uchun qayta ihram. Bugun ko'pchilik hojilar shuni qiladi; bu ham hady talab qiladi.",
       "Alloh marosimlarni birlashtirganlar haqida aytdi: «...Kim umradan hajga foydalanib foydalansa, oson topiladigan qurbon hayvonlari...» topa olmaganlar hajda uch kun, qaytganida yetti kun ro'za tutadi (Qur'on 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Haj va umrani Alloh uchun to'liq bajaring... Kim umradan hajga foydalanib foydalansa, oson topiladigan qurbon hayvonlari. Topa olmagan — hajda uch kun, qaytganingizda yetti kun ro'za...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Miqotdan oldin guruh rahbaringiz bilan turini hal qiling.",
       "Tamattu' qilsangiz, haj uchun qayta ihramdan oldin umrani to'liq bajaring.",
@@ -146,16 +99,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbos rivoyat qilganidek, Payg'ambar ﷺ odamlar uchun miqotlarni belgiladi: Madina uchun Zul-Hulayfa, Sham uchun Al-Juhfa, Najd uchun Qarn al-Manazil, Yemen uchun Yalamlam; va Iroq uchun Zat 'Irq. U dedi: bular o'sha joylar aholisi va ulardan haj yoki umra niyatida o'tadiganlar uchun; chegaralar ichida yashovchi esa qayerdan yo'l olsa shu joydan ihram kiritadi, hatto Makka aholisi Makkadan (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Zamonaviy aeroport va portlarda mos ihram nuqtalari yoki e'lon qilingan tartiblar bor — tashuvchi va Haj va Umra vazirligi ko'rsatmalariga amal qiling, chegarani ihramsiz o'tmang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh ﷺ Madina aholisi uchun Zul-Hulayfa, Sham aholisi uchun Al-Juhfa, Najd aholisi uchun Qarn al-Manazil, Yemen aholisi uchun Yalamlam belgiladi... Bu miqotlar o'sha joylar va haj yoki umra niyatida ulardan o'tadiganlar uchun...",
-      },
-      {
-        excerpt:
-          "Rasululloh ﷺ miqotlarni belgiladi... Chegaralar ichida yashovchi qayerdan yo'l olsa shu joydan ihram kiritadi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ihramga kirish",
@@ -165,14 +109,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Erkak ihramdan oldin tanasiga atir surtishi mumkin, holatga kirgandan keyin ihram matolariga emas (Sahih al-Bukhari 1539). Keyin niyat qiling va talbiyani boshlang.",
       "Payg'ambar ﷺ o'rgatgan talbiya: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — umra tavof boshlanguncha yoki hajda mashhur amal bo'yicha Jamrat al-Aqaba tosh tashlanguncha (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      { excerpt: "Oyisha dedi: Men Rasululloh ﷺ ni ihramdan oldin atir surtardim..." },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Payg'ambar ﷺ talbiyani baland ovozda aytdi: Labbayk Allahumma labbayk..." },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Erkaklar uchun kamida ikki to'plam ihram oling; atirsiz toza vositalarni tayyorlang.",
       "Safardan oldin talbiyani mashq qiling, yo'lda oson aytish uchun.",
@@ -208,12 +145,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Erkaklar birinchi uch aylanada raml (tez qadam) va bu kelish umra tavofida idtiba' (o'ng yelka ochiq) qiladi, mashhur sunnat bo'yicha.",
       "Yaman burchagi va Qora Tosh orasida aytilishi tavsiya etiladi: «Rabbimiz, bizga dunyoda yaxshilik va oxiratda yaxshilik ber, do'zax azobidan asra» (Qur'on 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbimiz, bizga dunyoda yaxshilik va oxiratda yaxshilik ber, do'zax azobidan asra.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Ikki rakat va Zamzam",
@@ -222,9 +154,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Tavofdan keyin, joy bo'lsa Maqom Ibrohim ortida ikki rakat o'qing, olomon bo'lsa masjidning boshqa joyida — Alloh so'ziga amal: «...Ey iymon keltirganlar, Ibrohim turgan joydan namoz o'qish joyi qiling...» (Qur'on 2:125).",
       "Keyin Zamzam suvini iching. Jabirning Payg'ambar ﷺ haj tasvirida tavofdan keyin Zamzam ichish bor; Payg'ambar ﷺ dedi Zamzam niyat qilingan narsa uchun ichiladi (keyingi ulama to'plagan sahih rivoyatlar; niyat va duo tavsiya etiladi).",
     ],
-    quran: [
-      { excerpt: "...Ey iymon keltirganlar, Ibrohim turgan joydan namoz o'qish joyi qiling..." },
-    ],
+    quran: [{}],
   },
   {
     title: "Safa va Marva orasida sa'y",
@@ -233,12 +163,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Alloh aytdi: «Albatta, Safa va Marva Allohning alomatlaridandir. Kim Uyga haj yoki umra qilsa — ular orasida yurishida gunoh yo'q...» (Qur'on 2:158).",
       "Safa va Marva orasida yetti marta yuring, Safadan boshlab. Safada Ka'baga qarab, Payg'ambar ﷺ qilganidek qo'llarni takbir va duo uchun ko'taring. Erkaklar yashil belgilar orasida yuguradi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, Safa va Marva Allohning alomatlaridandir. Kim Uyga haj yoki umra qilsa — ular orasida yurishida gunoh yo'q...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq yoki taqsir — umrani tugatish",
@@ -248,13 +173,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Erkak boshni halq qiladi — Payg'ambar ﷺ uch marta duo qildi — yoki teng qisqartiradi (taqsir). Ayol sochlarini yig'ib barmoq uchi qadar qisqartiradi. Shunda umra tugaydi va ihram cheklovlari ochiladi.",
       "Abdulloh ibn Umar rivoyat qilganidek, Rasululloh ﷺ dedi: «Allohim, qirqilganlarga rahm qil». Dedilar: «Qisqartirilganlarga ham, ey Rasululloh?» Dedilar: «Allohim, qirqilganlarga rahm qil». Yana dedilar: «Qisqartirilganlarga ham?» Uchinchi marta dedi: «Va qisqartirilganlarga» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      { excerpt: "Allohim, qirqilganlarga rahm qil... uchinchi marta: va qisqartirilganlarga." },
-      {
-        excerpt:
-          "Allohim, qirqilganlarni kefforat qil... uchinchi marta dedi: va qisqartirilganlarni.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 zul-hijja — Tarviya kuni",
@@ -263,12 +182,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu' hojilar: haj niyatini qiling va Makkadagi turar joyingizdan qayta ihram kiring, talbiyani yangilang. Ifrod va Qiron hojilar allaqachon ihramda.",
       "Mina'ga boring va Zuhur, Asr, Mag'rib, Isha va keyingi Fajrni har biri o'z vaqtida ikki rakatga qisqartirib o'qing, Jabir rivoyat qilgan Veda haj amaliga amal (Sahih Muslim 1218). Kun va tunni ibodatda, Arofani kutib o'tkazing.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jabirning Payg'ambar ﷺ Veda hajining uzoq rivoyati — Mina'da tunash va marosimlar ketma-ketligi.",
-      },
-    ],
+    hadith: [{}],
     actions: ["8-kun ertalab haj ro'yxatini oching."],
     appLinks: [{ label: "Haj ro'yxati" }],
   },
@@ -280,13 +194,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Zuhur va Asrni Zuhur vaqtida birlashtirib qisqartirib o'qing (jam' taqdim), qolgan kunni ixtiyoriy namoz o'rniga duoga bag'ishlang — Payg'ambar ﷺ amali (Sahih Muslim 1218).",
       "Quyosh botgach, tinch Muzdalifaga boring. Mag'rib va Ishani birlashtiring (Isha qisqartirilgan), tunni dam oling va tosh tashlash uchun toshlar yig'ing. Zaiflar va ayollar mashhur sunnat ruxsati bilan yarim tundan keyin Mina'ga ketishi mumkin.",
     ],
-    hadith: [
-      { excerpt: "Haj — Arofa." },
-      {
-        excerpt:
-          "Payg'ambar ﷺ Arofada Zuhur va Asrni birlashtirdi, keyin quyosh botgach Muzdalifaga yo'l oldi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 zul-hijja — Nahru kuni",
@@ -297,12 +205,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Halq yoki taqsir; ayol barmoq uchi qadar qisqartiradi. Tosh tashlash va halq/taqsirdan keyin birinchi tahallul — ihram cheklovlarining ko'pi ochiladi, jinsiy aloqadan tashqari.",
       "Makka'ga Tavof al-Ifoda — haj rukni — va tamattu' hojilar uchun sa'y. Ifrod/Qiron kelish tavofi bilan sa'y qilganlar mazhab hukmiga amal qiladi. Bu to'liq ihramdan chiqishni tugatadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kim umradan hajga foydalanib foydalansa, oson topiladigan qurbon hayvonlari...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Nahru kuni amallari ketma-ketligida sunnatda moslashuv bor; mazhablar aniq tartib va har haj turi uchun sa'y vaqtida farq qiladi. Guruh yo'riqnomasiga amal qiling.",
   },
@@ -314,22 +217,8 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Har kuni Zuhurdan keyin uch ustunga tartib bilan yetti tosh — kichik, o'rta, katta — har tashlashda takbir. Shoshiluvchi 12-kun tosh tashlagach ketishi mumkin (Qur'on 2:203).",
       "Makkadan ketishdan oldin Tavof al-Vada qiling, Uy bilan oxirgi aloqa vidolash bo'lsin. Ibn Abbos rivoyat qilganidek, odamlarga oxirgi marosim Uyda bo'lishi buyurilgan, hayzli ayol uchun yengillashtirilgan (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allohni sanalgan kunlarda yod eting. Kim ikki kunda shoshilsa — gunoh yo'q; kim kechiktirsa — gunoh yo'q — Allohdan qo'rqqanlar uchun...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Odamlarga Ka'ba vidolash tavofi oxirgi marosim qilib buyurilgan, hayzli ayol kechiktirilgan.",
-      },
-      {
-        excerpt:
-          "Odamlarga oxirgi marosim Uyda bo'lishi buyurilgan, hayzli ayol uchun yengillashtirilgan.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Ruknlar va vajiblar",
@@ -348,12 +237,7 @@ export const HAJJ_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Gunohsiz qaytish hadisi (Buxoriy 1521; Muslim 1350) hajni fohisha (rafast), fisoq va bahslash buzishini ko'rsatadi. Sabr, muloyimlik va boshqa hojilarga yordam ibodat qismidir.",
       "Telefon va behuda gap Arofa va masjidni bosmasin. Tavofda yo'l bering; Qora Toshga itarilmang. Qabul qilingan haj jannat hamrohi — butun safarda yaxshi xulq-atvor intil.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Alloh uchun haj qilsa va jinsiy aloqa ham, gunoh ham qilmasa, onasi uni tug'ilgan kunidagi kabi qaytadi.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Kunlik niyat qiling: bir mehribonlik va olomondan yuqori bir samimiy duo."],
   },
   {

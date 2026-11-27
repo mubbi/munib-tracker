@@ -2,13 +2,15 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { SurahCalligraphyName } from "@/components/quran/surah-calligraphy-name";
+import { SurahNumberMedallion } from "@/components/quran/surah-number-medallion";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -19,6 +21,7 @@ import {
 } from "@/lib/continue-activity";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
+import { getSurahMeta } from "@/lib/quran-meta";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { containsArabicScript, useChevronForward } from "@/lib/rtl";
@@ -78,6 +81,12 @@ const KIND_VISUALS: Record<ContinueKind, KindVisual> = {
     labelKey: "home.continueKind.audio",
     actionKey: "home.continueAction.audio",
   },
+  practice: {
+    icon: { ios: "mic.fill", android: "mic", web: "mic" },
+    palette: "success",
+    labelKey: "home.continueKind.practice",
+    actionKey: "home.continueAction.practice",
+  },
 };
 
 function getPalette(
@@ -90,7 +99,7 @@ function getPalette(
       color: colors.accent,
       soft: tokens.accentSoft,
       border: colors.accent,
-      text: colors.accent,
+      text: colors.accentText,
     };
   }
   const status = tokens.status[key];
@@ -132,7 +141,13 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
     .join(". ");
 
   const quranSurahMatch = activity.kind === "quran" ? activity.href.match(/^\/quran\/(\d+)/) : null;
-  const quranSurahNumber = quranSurahMatch?.[1];
+  // Page / mushaf positions link to `/quran/page/N`: fall back to the surah whose
+  // Arabic name is the preview, so every Qur'an resume shows the surah identity.
+  const quranSurahNumber =
+    activity.kind === "quran"
+      ? Number(quranSurahMatch?.[1]) ||
+        getSurahMeta().find((meta) => meta.nameArabic === activity.preview?.trim())?.number
+      : undefined;
   const previewIsArabic = activity.preview ? containsArabicScript(activity.preview) : false;
   const tv = isTV();
 
@@ -141,7 +156,6 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   // to intrinsic (icon) width and clips the preview against the card edge.
   return (
     <Card
-      padding="three"
       style={[
         styles.card,
         {
@@ -194,17 +208,8 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
       >
         <View style={[styles.previewTop, tv ? styles.previewTopTv : null]}>
           {quranSurahNumber ? (
-            <View
-              style={[
-                styles.quranBadge,
-                tv ? styles.quranBadgeTv : null,
-                { backgroundColor: palette.soft },
-              ]}
-            >
-              <ThemedText type="subtitle" style={{ color: palette.text }}>
-                {quranSurahNumber}
-              </ThemedText>
-            </View>
+            // Same identity as the surah list: the star medallion.
+            <SurahNumberMedallion number={quranSurahNumber} size={tv ? 56 : 48} highlighted />
           ) : (
             <IconWell
               icon={visual.icon}
@@ -240,7 +245,10 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
                 {activity.subtitle}
               </ThemedText>
             ) : null}
-            {activity.preview ? (
+            {quranSurahNumber && activity.preview ? (
+              // The surah name as calligraphy (plain Arabic until the font loads).
+              <SurahCalligraphyName number={quranSurahNumber} nameArabic={activity.preview} />
+            ) : activity.preview ? (
               <ThemedText
                 type={previewIsArabic ? "arabic" : "small"}
                 style={[
@@ -282,7 +290,7 @@ export function ContinueCard() {
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     gap: Spacing.three,
   },
   cardTv: {
@@ -296,13 +304,13 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
-    gap: 2,
-    paddingTop: 2,
+    gap: Spacing.half,
+    paddingTop: Spacing.half,
   },
   preview: {
     width: "100%",
     alignSelf: "stretch",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     overflow: "hidden",
@@ -338,23 +346,11 @@ const styles = StyleSheet.create({
   audioBadge: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
     paddingHorizontal: Spacing.two,
-    paddingVertical: 4,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-  },
-  quranBadge: {
-    width: 48,
-    height: 48,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  quranBadgeTv: {
-    width: 56,
-    height: 56,
   },
   arabic: {},
   footer: {
@@ -362,8 +358,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingVertical: Spacing.twoHalf,
+    borderTopWidth: BorderWidth.hairline,
   },
   footerTv: {
     minHeight: TvLayout.minFocusTarget,

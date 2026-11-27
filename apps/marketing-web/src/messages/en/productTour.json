@@ -1,0 +1,63 @@
+{
+  "eyebrow": "Inside the app",
+  "title": "One app for your daily worship",
+  "intro": "{appName} brings your Salah, Qaza, Zikr and Qur'an together, so you can see your whole day of worship in one place.",
+  "tablistLabel": "App features",
+  "tabs": {
+    "salah": {
+      "label": "Salah",
+      "title": "See your day of Salah at a glance",
+      "text": "Tap each Salah as you pray it. Your progress ring, streak and calendar fill in, without guilt when a day doesn't go to plan.",
+      "points": {
+        "statuses": "Completed, delayed, missed and Qaza",
+        "extras": "Witr, Sunnah and Jama'ah",
+        "progress": "Streaks, calendar and statistics"
+      },
+      "cta": "Explore the Salah tracker",
+      "shotAlt": "Tracker on iPhone: 2 of 5 obligatory Salah logged today with a 2-day streak, and Fajr, Dhuhr and Asr with their status and adhkar."
+    },
+    "qaza": {
+      "label": "Qaza",
+      "title": "Turn missed Salah into a plan",
+      "text": "Estimate what you missed, pick a daily pace you can keep, and watch the number fall, with a finish date that updates as you go.",
+      "points": {
+        "calculator": "Lifetime calculator",
+        "pace": "Gentle to intensive pace presets",
+        "fasts": "Missed fasts tracked too"
+      },
+      "cta": "Explore the Qaza tracker",
+      "shotAlt": "Qaza screen on an Android phone: 25 remaining, 62 made up, 71% complete, an estimated finish date and the count for each Salah."
+    },
+    "zikr": {
+      "label": "Zikr",
+      "title": "Adhkar for every part of your day",
+      "text": "Guided sessions for the morning, evening, after Salah and before sleep, each zikr shown with its source hadith.",
+      "points": {
+        "adhkar": "60 adhkar with sources",
+        "tasbeeh": "Tasbeeh counter with targets",
+        "duas": "{count, plural, one {# dua} other {# duas}} from Hisnul Muslim"
+      },
+      "cta": "Explore Zikr & tasbeeh",
+      "shotAlt": "Zikr screen on an Android tablet: adhkar due now after Isha, after Witr and before sleep, and progress for the morning, evening and before-sleep adhkar."
+    },
+    "quran": {
+      "label": "Qur'an",
+      "title": "Read, listen and practise the Qur'an",
+      "text": "The full Qur'an offline with word-by-word and tajweed colours, a khatm plan, and an on-device listener to practise your recitation.",
+      "points": {
+        "views": "Surah, juz and 604-page mushaf",
+        "translations": "25 translations and tafsir",
+        "practice": "AI recitation practice"
+      },
+      "cta": "Explore the Qur'an reader",
+      "shotAlt": "Qur'an screen on iPad: continue reading Al-Baqarah, the surah list, and study tools such as Learn Qur'an, Khatm, Hifz and Practice."
+    }
+  },
+  "shownOn": "Shown on {device}",
+  "devices": {
+    "iphone": "iPhone",
+    "android": "an Android phone",
+    "ipad": "iPad",
+    "android-tablet": "an Android tablet"
+  }
+}

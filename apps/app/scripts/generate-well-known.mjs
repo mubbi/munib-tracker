@@ -38,7 +38,14 @@ const envFingerprints = (process.env.ANDROID_APP_LINK_SHA256_FINGERPRINTS ?? "")
 const fingerprints = [...new Set([...DEFAULT_FINGERPRINTS, ...envFingerprints])];
 
 /** Paths Apple OAuth + future HTTPS App Links may open into the native app. */
-const AASA_PATHS = ["/oauth/apple", "/oauth/apple/*"];
+const AASA_PATHS = [
+  "/oauth/apple",
+  "/oauth/apple/*",
+  // NF-3.16–3.18 (D36): circle invites + the child-device QR link.
+  "/circle/join/*",
+  "/kids/link",
+  "/kids/link/*",
+];
 
 function buildAasa() {
   if (!(process.env.EXPO_APPLE_TEAM_ID ?? "").trim()) {

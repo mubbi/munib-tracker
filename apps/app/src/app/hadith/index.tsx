@@ -1,28 +1,34 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { REMOTE_COLLECTIONS } from "@/api/hadith-remote";
+import { useCollectionName } from "@/components/hadith/collection-name";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { NavRow } from "@/components/ui/nav-row";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { SearchField } from "@/components/ui/search-field";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { navigateToContinue } from "@/lib/continue-activity";
 import { dailyHadith, ensureDailyHadithPool } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { createFuzzyIndex } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { useContinueActivity } from "@/stores/continue-store";
 
 const HADITH_ITEMS = getBundledCollections().map((collection) => ({
   name: collection.nameEnglish,
@@ -45,11 +51,41 @@ export default function HadithHomeScreen() {
   const tv = isTV();
   const { width } = useWindowDimensions();
   // Wide web / tablets: bookmarks + today side by side, collection lists in two columns.
-  const wide = !tv && width >= 768;
-  const twoCols = tv || (!tv && width >= 1024);
+  const wide = !tv && width >= Breakpoints.tablet;
+  const twoCols = tv || (!tv && width >= Breakpoints.wide);
 
-  const bundled = getBundledCollections();
-  const remote = REMOTE_COLLECTIONS;
+  const collectionName = useCollectionName();
+  const [filter, setFilter] = useState("");
+  const allBundled = getBundledCollections();
+  // Collection filter: shared Fuse defaults over the localised + English names.
+  const nameIndex = useMemo(
+    () =>
+      createFuzzyIndex(
+        [...allBundled, ...REMOTE_COLLECTIONS].map((c) => ({
+          id: c.id,
+          local: collectionName(c),
+          english: c.nameEnglish,
+          arabic: c.nameArabic,
+        })),
+        [
+          { key: "local", weight: 3, get: (c) => c.local },
+          { key: "english", weight: 2, get: (c) => c.english },
+          { key: "arabic", weight: 1, get: (c) => c.arabic },
+        ],
+      ),
+    [allBundled, collectionName],
+  );
+  const matchedIds = useMemo(
+    () => (filter.trim() ? new Set(nameIndex.search(filter).map((c) => c.id)) : null),
+    [filter, nameIndex],
+  );
+  const bundled = matchedIds ? allBundled.filter((c) => matchedIds.has(c.id)) : allBundled;
+  const remote = matchedIds
+    ? REMOTE_COLLECTIONS.filter((c) => matchedIds.has(c.id))
+    : REMOTE_COLLECTIONS;
+  // Continue strip: the last hadith collection / hadith read (P5-34).
+  const lastActivity = useContinueActivity();
+  const resume = lastActivity?.kind === "hadith" ? lastActivity : null;
   const [today, setToday] = useState<ReturnType<typeof dailyHadith>>(undefined);
   const [bookmarkCount, setBookmarkCount] = useState(0);
 
@@ -77,27 +113,40 @@ export default function HadithHomeScreen() {
     router.push({ pathname: "/hadith/[collection]", params: { collection: id } });
 
   const highlightsCard = (
-    <Card key="highlights" padding="three" style={twoCols ? styles.columnTv : undefined}>
+    <Card key="highlights" style={twoCols ? styles.columnTv : undefined}>
       <SectionHeader
         title={t("hadith.highlights")}
         icon={{ ios: "star.fill", android: "star", web: "star" }}
       />
       <View style={styles.list}>
-        {bundled.map((collection) => (
-          <NavRow
-            key={collection.id}
-            icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-            label={collection.nameEnglish}
-            count={getBundledCollection(collection.id)?.items.length}
-            onPress={() => open(collection.id)}
-          />
-        ))}
+        {bundled.map((collection) => {
+          // The bundled JSON loads lazily — show the count only once it is known
+          // instead of a misleading "0 hadith" beside "Available offline".
+          const loaded = getBundledCollection(collection.id)?.items.length;
+          return (
+            <NavRow
+              key={collection.id}
+              icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+              label={collectionName(collection)}
+              // "Available offline" is a phrase, not a count — as a trailing badge it
+              // squeezed the collection name to one word per line on phones.
+              subtitle={[
+                loaded ? t("hadith.hadithCount", { count: loaded }) : null,
+                t("hadith.availableOffline"),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
+              onPress={() => open(collection.id)}
+              href={`/hadith/${collection.id}`}
+            />
+          );
+        })}
       </View>
     </Card>
   );
 
   const fullCollectionsCard = (
-    <Card key="full" padding="three" style={twoCols ? styles.columnTv : undefined}>
+    <Card key="full" style={twoCols ? styles.columnTv : undefined}>
       <SectionHeader
         title={t("hadith.fullCollections")}
         icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
@@ -107,7 +156,7 @@ export default function HadithHomeScreen() {
           <NavRow
             key={collection.id}
             icon={{ ios: "book.fill", android: "book", web: "book" }}
-            label={collection.nameEnglish}
+            label={collectionName(collection)}
             onPress={() => open(collection.id)}
           />
         ))}
@@ -130,13 +179,13 @@ export default function HadithHomeScreen() {
   const todayCard = today ? (
     <Card
       key="today"
-      padding="three"
       onPress={() => router.push("/hadith/daily")}
+      href="/hadith/daily"
       accessibilityLabel={t("dailyHadith.title")}
       style={{
         backgroundColor: tokens.status.info.soft,
         borderColor: tokens.status.info.color,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
       }}
     >
       <View style={styles.dailyHead}>
@@ -184,6 +233,29 @@ export default function HadithHomeScreen() {
         ]}
       />
       <Stagger>
+        <SearchField
+          value={filter}
+          onChangeText={setFilter}
+          placeholder={t("hadith.filterCollections")}
+        />
+        {resume && !matchedIds ? (
+          <NavRow
+            key="continue"
+            icon={{ ios: "book.fill", android: "auto_stories", web: "auto_stories" }}
+            label={t("hadith.continueReading")}
+            subtitle={resume.subtitle ? `${resume.title} · ${resume.subtitle}` : resume.title}
+            onPress={() => navigateToContinue(router, resume)}
+          />
+        ) : null}
+        {matchedIds && bundled.length === 0 && remote.length === 0 ? (
+          <EmptyState
+            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            title={t("search.noResultsTitle")}
+            description={t("search.noResultsDesc")}
+            actionLabel={t("common.clearSearch")}
+            onAction={() => setFilter("")}
+          />
+        ) : null}
         {wide ? (
           <View style={styles.topRowWide}>
             <View style={styles.columnTv}>{savedCard}</View>

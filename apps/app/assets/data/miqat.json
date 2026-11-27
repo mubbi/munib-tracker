@@ -1,0 +1,41 @@
+{
+  "source": "wikidata",
+  "license": "CC0-1.0",
+  "points": [
+    {
+      "id": "dhul_hulayfah",
+      "wikidata": "Q6783320",
+      "revision": 2554134830,
+      "latitude": 24.41361,
+      "longitude": 39.54278
+    },
+    {
+      "id": "al_juhfah",
+      "wikidata": "Q12185431",
+      "revision": 2561331412,
+      "latitude": 22.74057,
+      "longitude": 39.13667
+    },
+    {
+      "id": "qarn_al_manazil",
+      "wikidata": "Q4802980",
+      "revision": 2521380856,
+      "latitude": 21.6264,
+      "longitude": 40.4153
+    },
+    {
+      "id": "yalamlam",
+      "wikidata": "Q3595659",
+      "revision": 2570105425,
+      "latitude": 20.5179,
+      "longitude": 39.8702
+    },
+    {
+      "id": "dhat_irq",
+      "wikidata": "Q12212593",
+      "revision": 2514995936,
+      "latitude": 21.92996,
+      "longitude": 40.4255
+    }
+  ]
+}

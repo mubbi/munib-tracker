@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "Islamic Guides — Salah, Wudu, Dua, Ramadan, Zakat & Umrah",
+    "description": "Practical, cited guides on how to pray and make wudu, Qaza, Zikr and dua, learning the Qur'an, Ramadan and Sunnah fasts, zakat and Umrah."
+  },
+  "crumb": "Resources",
+  "eyebrow": "Resources",
+  "title": "Guides for Salah, Zikr, the Qur'an, fasting and zakat",
+  "intro": "Short, practical guides you can use today, whether or not you use our app. Every Qur'an ayah and hadith is quoted from its source and linked, and we point out where scholars differ.",
+  "topicEyebrow": "Topic",
+  "allGuides": "All {category} guides",
+  "library": {
+    "eyebrow": "Go deeper",
+    "title": "The in-app learning library",
+    "intro": "Beyond these guides, the app includes structured, cited lessons on aqeedah, the prophets, the seerah, the Hereafter and practical fiqh. [See what's in the library](/learn)."
+  },
+  "cta": {
+    "title": "Put a guide into practice",
+    "text": "Munib Tracker helps you keep up the habits these guides describe, privately and for free."
+  },
+  "category": {
+    "title": "{category} guides",
+    "inTheApp": "In the app",
+    "featureIntro": "{description} [See how it works]({href})."
+  }
+}

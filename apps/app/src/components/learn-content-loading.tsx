@@ -1,10 +1,8 @@
 import { createContext, type ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { ContentState } from "@/components/ui/content-state";
+import type { SkeletonPreset } from "@/components/ui/skeleton";
 
 /**
  * When true, nested {@link Stagger} skips opacity-0 entrances so learn body
@@ -18,82 +16,51 @@ export function useLearnBodyReady(): boolean {
 }
 
 /**
- * Inline body placeholder while a learn corpus finishes lazy-loading.
- * Keeps ScreenLayout chrome (title / back) mounted so navigation stays usable.
+ * Inline body placeholder while a learn corpus finishes lazy-loading: a
+ * content-shaped skeleton (one `progressbar` for screen readers) — never a
+ * spinner card with "still loading" copy (G-36, P8-04). Keeps ScreenLayout
+ * chrome (title / back) mounted so navigation stays usable.
  */
-export function LearnContentLoading() {
+export function LearnContentLoading({ skeleton = "card" }: { skeleton?: SkeletonPreset }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const title = t("common.loadingContent");
-  const hint = t("common.loadingContentHint");
-
   return (
-    <View
-      style={styles.root}
-      accessibilityRole="progressbar"
-      accessibilityLabel={title}
-      accessibilityLiveRegion="polite"
-    >
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: colors.card,
-            borderColor: tokens.hairline,
-          },
-        ]}
-      >
-        <View style={[styles.well, { backgroundColor: tokens.accentSoft }]}>
-          <ActivityIndicator color={colors.accent} />
-        </View>
-        <View style={styles.copy}>
-          <ThemedText type="smallBold">{title}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {hint}
-          </ThemedText>
-        </View>
-      </View>
-    </View>
+    <ContentState
+      status="loading"
+      skeleton={skeleton}
+      skeletonCount={skeleton === "card" ? 2 : undefined}
+      loadingLabel={t("common.loadingContent")}
+    />
   );
 }
 
 /**
- * Renders a loader until `ready`, then children — use for learn body content.
- * Once ready, children mount with the corpus already warm (prefer sync imports
- * in `lib/*` learn modules) and nested Stagger skips opacity-0 entrances so the
- * first visit paints the full hub.
+ * Renders a skeleton until `ready`, a `RetryCard` when the load failed
+ * (`error` + `onRetry`, from `useEnsureContent`), then children — use for learn
+ * body content. Once ready, children mount with the corpus already warm (prefer
+ * sync imports in `lib/*` learn modules) and nested Stagger skips opacity-0
+ * entrances so the first visit paints the full hub.
  */
-export function LearnContentGate({ ready, children }: { ready: boolean; children: ReactNode }) {
-  if (!ready) return <LearnContentLoading />;
+export function LearnContentGate({
+  ready,
+  error,
+  onRetry,
+  skeleton,
+  children,
+}: {
+  ready: boolean;
+  /** Truthy when the corpus failed to load (cold cache) — shows "Try again". */
+  error?: unknown;
+  onRetry?: () => void;
+  /** Loading skeleton shape (default `card`). */
+  skeleton?: SkeletonPreset;
+  children: ReactNode;
+}) {
+  const { t } = useTranslation();
+  if (!ready && error) {
+    return (
+      <ContentState status="error" errorMessage={t("learnKit.loadFailed")} onRetry={onRetry} />
+    );
+  }
+  if (!ready) return <LearnContentLoading skeleton={skeleton} />;
   return <LearnBodyReadyContext.Provider value={true}>{children}</LearnBodyReadyContext.Provider>;
 }
-
-const styles = StyleSheet.create({
-  root: {
-    width: "100%",
-    paddingTop: Spacing.two,
-    alignItems: "center",
-  },
-  card: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderCurve: "continuous",
-  },
-  well: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    borderCurve: "continuous",
-  },
-  copy: {
-    flex: 1,
-    gap: Spacing.half,
-  },
-});

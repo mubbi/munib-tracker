@@ -1,6 +1,8 @@
 import { SymbolView } from "expo-symbols";
-import { StyleSheet, View } from "react-native";
+import { type ReactNode, useState } from "react";
+import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { ThemedText } from "@/components/themed-text";
+import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
@@ -45,7 +47,11 @@ export function MetricGrid({ metrics, columns = 2 }: MetricGridProps) {
                     <View style={[styles.colDivider, { backgroundColor: tokens.hairline }]} />
                   ) : null}
                   {metric ? (
-                    <View style={styles.cellInner}>
+                    <View
+                      style={styles.cellInner}
+                      accessible
+                      accessibilityLabel={`${metric.label}: ${metric.value}`}
+                    >
                       <ThemedText
                         type="header"
                         style={metric.color ? { color: metric.color } : undefined}
@@ -74,25 +80,106 @@ export function MetricGrid({ metrics, columns = 2 }: MetricGridProps) {
   );
 }
 
+/**
+ * A read-only block that is a D-pad stop on TV and keeps its layout `style` on
+ * every platform. (`TvReadableBlock` applies `style` on TV only — it renders
+ * bare children elsewhere — so layout styles must live on an inner View.)
+ */
+export function ReadableView({
+  children,
+  style,
+  accessibilityLabel,
+}: {
+  children: ReactNode;
+  style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string;
+}) {
+  // `TvReadableBlock` is a fragment off-TV, so phone / web need the label on the
+  // inner View (a grouped, described summary) — not just on the TV focus stop.
+  const describeHere = accessibilityLabel != null && !isTV();
+  return (
+    <TvReadableBlock accessibilityLabel={accessibilityLabel}>
+      <View
+        style={style}
+        accessible={describeHere ? true : undefined}
+        accessibilityLabel={describeHere ? accessibilityLabel : undefined}
+      >
+        {children}
+      </View>
+    </TvReadableBlock>
+  );
+}
+
 type StatsGroupProps = {
   title: string;
   metrics: Metric[];
   columns?: 2 | 3;
+  /** "This period" / "Lifetime" — says which window the figures cover. */
+  tag?: string;
+  /**
+   * The title row folds the figures away (phones: the lower sections of a long
+   * page). Ignored on TV, where the page is read top to bottom by D-pad.
+   */
+  collapsible?: boolean;
+  /** Initial state when `collapsible`; default expanded. */
+  defaultExpanded?: boolean;
 };
 
-export function StatsGroup({ title, metrics, columns = 2 }: StatsGroupProps) {
+export function StatsGroup({
+  title,
+  metrics,
+  columns = 2,
+  tag,
+  collapsible = false,
+  defaultExpanded = true,
+}: StatsGroupProps) {
   const { colors } = useThemeTokens();
+  const foldable = collapsible && !isTV();
+  const [expanded, setExpanded] = useState(defaultExpanded);
+  const open = !foldable || expanded;
+  const titleRow = (
+    <View style={styles.groupTitleRow}>
+      <ThemedText type="label" themeColor="mutedForeground" style={styles.statLineLabel}>
+        {title}
+      </ThemedText>
+      {tag ? <Pill label={tag} tone="neutral" compact /> : null}
+      {foldable ? (
+        <SymbolView
+          name={
+            expanded
+              ? { ios: "chevron.up", android: "expand_less", web: "expand_less" }
+              : { ios: "chevron.down", android: "expand_more", web: "expand_more" }
+          }
+          size={14}
+          tintColor={colors.mutedForeground}
+        />
+      ) : null}
+    </View>
+  );
   // TV: read-only groups are D-pad stops so the remote can scroll the stats page
   // (plain View on phone / web).
   return (
-    <TvReadableBlock style={styles.group}>
-      <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.groupTitle}>
-        {title}
-      </ThemedText>
-      <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-        <MetricGrid metrics={metrics} columns={columns} />
-      </View>
-    </TvReadableBlock>
+    <ReadableView style={styles.group}>
+      {foldable ? (
+        <PressableScale
+          haptic="selection"
+          accessibilityRole="button"
+          accessibilityLabel={tag ? `${title}, ${tag}` : title}
+          accessibilityState={{ expanded }}
+          onPress={() => setExpanded((value) => !value)}
+          style={styles.foldRow}
+        >
+          {titleRow}
+        </PressableScale>
+      ) : (
+        titleRow
+      )}
+      {open ? (
+        <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+          <MetricGrid metrics={metrics} columns={columns} />
+        </View>
+      ) : null}
+    </ReadableView>
   );
 }
 
@@ -121,7 +208,9 @@ export function StatLine({ label, value, color, bar }: StatLineProps) {
           {value}
         </ThemedText>
       </View>
-      {bar != null ? <ProgressBar value={bar} height={3} color={color} /> : null}
+      {bar != null ? (
+        <ProgressBar value={bar} accessibilityLabel={label} height={3} color={color} />
+      ) : null}
     </View>
   );
 }
@@ -141,7 +230,7 @@ export function LinkRow({ label, onPress }: LinkRowProps) {
       onPress={onPress}
       style={[styles.linkRow, isTV() ? styles.linkRowTv : null]}
     >
-      <ThemedText type="smallBold" style={{ color: colors.accent }}>
+      <ThemedText type="smallBold" style={{ color: colors.accentText }}>
         {label}
       </ThemedText>
       <SymbolView name={chevronForward} size={14} tintColor={colors.accent} />
@@ -182,26 +271,27 @@ const styles = StyleSheet.create({
   metricLabel: {
     textAlign: "center",
   },
+  groupTitleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
   group: {
     gap: Spacing.two,
   },
+  foldRow: { minHeight: 44, justifyContent: "center" },
   metricShell: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
     overflow: "hidden",
-  },
-  groupTitle: {
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    fontSize: 11,
   },
   cardDivider: {
     height: StyleSheet.hairlineWidth,
     marginVertical: Spacing.three,
   },
   statLine: {
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
   },
   statLineMain: {
     flexDirection: "row",

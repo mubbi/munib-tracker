@@ -1,39 +1,22 @@
 import { EID_GUIDE_SECTION_ORDER, EID_GUIDE_TOPICS } from "@munib-tracker/shared/content/eid-guide";
-import type { LearnGuideTopic } from "@munib-tracker/shared/types";
-import { localizeList } from "@/lib/content-i18n";
-import { overlayList } from "@/lib/content-overlay-registry";
+import {
+  createSectionedGuide,
+  ensureBundledGuideContent,
+  type LearnGuideConfig,
+} from "@/lib/sectioned-guide";
 
-type EidGuideSection = (typeof EID_GUIDE_SECTION_ORDER)[number];
+/** English corpus ships with the `/eid` route chunk — sync for reliable first paint. */
+const guide = createSectionedGuide({
+  topics: EID_GUIDE_TOPICS,
+  sectionOrder: EID_GUIDE_SECTION_ORDER,
+  overlayKey: "EID_GUIDE_TOPICS",
+});
 
-/**
- * English corpus is statically imported with the `/eid` route chunk (small guide).
- * Lazy `import()` left the hub empty on first paint when the ensure effect lost
- * the race; sync getters always have topics ready.
- */
-export async function ensureEidGuideContent(): Promise<void> {
-  // Already warm — kept so screens / generateStaticParams share one API.
-}
+export const ensureEidGuideContent = ensureBundledGuideContent;
+export const getEidGuideTopics = guide.getTopics;
+export const getEidGuideTopic = guide.getTopic;
+export const getEidGuideSectionOrder = guide.getSectionOrder;
+export const getEidGuideTopicsBySection = guide.getTopicsBySection;
 
-export function getEidGuideTopics(): LearnGuideTopic[] {
-  return localizeList(EID_GUIDE_TOPICS, overlayList("EID_GUIDE_TOPICS"));
-}
-
-export function getEidGuideTopic(id: string | undefined): LearnGuideTopic | undefined {
-  if (!id) return undefined;
-  return getEidGuideTopics().find((topic) => topic.id === id);
-}
-
-export function getEidGuideSectionOrder(): readonly EidGuideSection[] {
-  return EID_GUIDE_SECTION_ORDER;
-}
-
-export function getEidGuideTopicsBySection(): Record<EidGuideSection, LearnGuideTopic[]> {
-  const grouped = Object.fromEntries(
-    EID_GUIDE_SECTION_ORDER.map((section) => [section, [] as LearnGuideTopic[]]),
-  ) as Record<EidGuideSection, LearnGuideTopic[]>;
-  for (const topic of getEidGuideTopics()) {
-    const bucket = grouped[topic.section as EidGuideSection];
-    if (bucket) bucket.push(topic);
-  }
-  return grouped;
-}
+/** Shared Learn hub / topic screens (`components/learn-guide/learn-guide-screens`). */
+export const eidGuideConfig: LearnGuideConfig = { ns: "eid", basePath: "/eid", guide };

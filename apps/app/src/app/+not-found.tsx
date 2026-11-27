@@ -1,27 +1,40 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
 
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Button } from "@/components/ui/button";
-import { isTV } from "@/lib/platform/is-tv";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Spacing } from "@/constants/theme";
+import { useTheme } from "@/hooks/use-theme";
 
+/**
+ * Unknown route (D-36): one empty state with a description and a real button
+ * back to Home — a D-pad focus target on TV and a 44pt target everywhere else.
+ */
 export default function NotFoundScreen() {
   const { t } = useTranslation();
   const router = useRouter();
+  const { colors } = useTheme();
   return (
-    <ThemedView style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 16 }}>
+    <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <Seo title={t("notFound.title")} description={t("seo.notFound.description")} index={false} />
-      <ThemedText type="subtitle">{t("notFound.title")}</ThemedText>
-      {isTV() ? (
-        // A text Link isn't a D-pad focus target — give the remote a real button.
-        <Button label={t("notFound.action")} preferredFocus onPress={() => router.replace("/")} />
-      ) : (
-        <Link href="/">
-          <ThemedText type="linkPrimary">{t("notFound.action")}</ThemedText>
-        </Link>
-      )}
-    </ThemedView>
+      <EmptyState
+        icon={{ ios: "questionmark.folder", android: "search_off", web: "search_off" }}
+        title={t("notFound.title")}
+        description={t("notFound.description")}
+        actionLabel={t("notFound.action")}
+        actionPreferredFocus
+        onAction={() => router.replace("/")}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Spacing.four,
+  },
+});

@@ -6,7 +6,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 const REORDER_HIT = 36;
@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     minHeight: 76,
   },
   body: {

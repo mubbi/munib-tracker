@@ -28,7 +28,7 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
     <>
       <JannahTakeaway text={t(`zakat.guide.${topicId}.summary`)} />
 
-      <Card padding="three">
+      <Card>
         <View style={styles.headerBlock}>
           <SectionHeader
             title={t(`zakat.guide.${topicId}.title`)}
@@ -47,7 +47,7 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
       </Card>
 
       {topicId === "nisab" ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("zakat.nisabWeightsTitle")}
             icon={{ ios: "scalemass.fill", android: "balance", web: "balance" }}
@@ -65,7 +65,7 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
       ) : null}
 
       {topicId === "recipients" ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("zakat.recipientsListTitle")}
             icon={{
@@ -77,7 +77,7 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
           <View style={styles.recipientList}>
             {ZAKAT_RECIPIENT_IDS.map((recipientId) => (
               <TvReadableBlock key={recipientId}>
-                <View style={[styles.recipientItem, { borderLeftColor: colors.accent }]}>
+                <View style={[styles.recipientItem, { borderStartColor: colors.accent }]}>
                   <ThemedText type="smallBold">
                     {t(`zakat.recipients.${recipientId}.title`)}
                   </ThemedText>

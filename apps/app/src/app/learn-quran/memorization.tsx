@@ -8,6 +8,7 @@ import {
   LearnSplitLayout,
   useLearnWideLayout,
 } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { QuranGuideClipPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -22,13 +23,13 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import {
   ensureQuranGuideContent,
   getQuranGuideMemorizationPlans,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { QURAN_GUIDE_MEMORIZATION_LISTEN } from "@/lib/quran-guide-audio";
+import { wholeSurah } from "@/lib/recite-along/passages";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranMemorizationScreen() {
@@ -64,8 +65,11 @@ export default function LearnQuranMemorizationScreen() {
                   const listen =
                     QURAN_GUIDE_MEMORIZATION_LISTEN[plan.id] ??
                     (plan.surahNumbers?.[0] ? { surah: plan.surahNumbers[0], ayah: 1 } : undefined);
+                  const reciteSurah = plan.surahNumbers?.[0]
+                    ? wholeSurah(plan.surahNumbers[0])
+                    : null;
                   return (
-                    <Card key={plan.id} padding="three" style={styles.card}>
+                    <Card key={plan.id} style={styles.card}>
                       <View style={styles.planHeader}>
                         <ThemedText type="title" style={styles.planTitle}>
                           {plan.title}
@@ -96,7 +100,7 @@ export default function LearnQuranMemorizationScreen() {
                         ))}
                       </View>
                       <View style={[styles.tipBox, { backgroundColor: tokens.status.info.soft }]}>
-                        <ThemedText type="caption" style={{ color: tokens.status.info.color }}>
+                        <ThemedText type="caption" style={{ color: tokens.status.info.onSoft }}>
                           {plan.tip}
                         </ThemedText>
                       </View>
@@ -115,19 +119,9 @@ export default function LearnQuranMemorizationScreen() {
                           }}
                         />
                       ) : null}
-                      {plan.surahNumbers?.[0] && isPracticeAvailable() ? (
-                        <Button
-                          label={t("quranCompanion.entry.practisePlan")}
-                          variant="ghost"
-                          fullWidth
-                          icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
-                          onPress={() =>
-                            router.push({
-                              pathname: "/quran/practice",
-                              params: { surah: String(plan.surahNumbers?.[0]) },
-                            } as unknown as Href)
-                          }
-                        />
+                      {/* D68: recite the plan's first surah along (long → follow or a section). */}
+                      {reciteSurah ? (
+                        <ReciteAlongButton passage={reciteSurah} variant="ghost" fullWidth />
                       ) : null}
                     </Card>
                   );

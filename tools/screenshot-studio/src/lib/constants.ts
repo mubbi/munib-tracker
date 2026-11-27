@@ -3,17 +3,16 @@ import type { Device, Orientation, Platform, SlideLayout, Theme, ThemeId } from 
 // ---------- Canvas dimensions (design at largest required resolution) ----------
 // Every export size of a device must share the canvas aspect ratio (within ~2%;
 // see captureSlide in screenshot-editor.tsx). Store slots whose accepted sizes
-// have *different* aspect ratios (product page header 16:9 vs ~21:9, search
-// results 16:9 vs 3:2) are therefore modelled as separate devices/decks.
+// have *different* aspect ratios (App Store creative assets: universal 16:9,
+// header 21:9, search results 3:2) are therefore modelled as separate devices/decks.
 export const CANVAS: Record<Device, { w: number; h: number; wL?: number; hL?: number }> = {
   iphone: { w: 1320, h: 2868 },
   "iphone-duo": { w: 2007, h: 2853, wL: 2853, hL: 2007 },
   ipad: { w: 2064, h: 2752 },
   "apple-watch": { w: 422, h: 514 },
   "apple-tv": { w: 3840, h: 2160 },
-  "ios-header": { w: 5244, h: 2950 },
+  "ios-universal": { w: 5244, h: 2950 },
   "ios-header-wide": { w: 3840, h: 1646 },
-  "ios-search": { w: 5244, h: 2950 },
   "ios-search-3x2": { w: 3840, h: 2560 },
   android: { w: 1080, h: 1920 },
   "android-7": { w: 1200, h: 1920, wL: 1920, hL: 1200 },
@@ -54,10 +53,9 @@ export const EXPORT_SIZES: Record<Device, ExportSize[]> = {
     { label: "Apple TV 4K", w: 3840, h: 2160 },
     { label: "Apple TV 1080p", w: 1920, h: 1080 },
   ],
-  // Product page creative assets — one per locale.
-  "ios-header": [{ label: "Header 16:9", w: 5244, h: 2950 }],
-  "ios-header-wide": [{ label: "Header wide", w: 3840, h: 1646 }],
-  "ios-search": [{ label: "Search results 16:9", w: 5244, h: 2950 }],
+  // App Store creative assets — one per locale (see CREATIVE_SAFE_AREA).
+  "ios-universal": [{ label: "Universal 16:9", w: 5244, h: 2950 }],
+  "ios-header-wide": [{ label: "Header 21:9", w: 3840, h: 1646 }],
   "ios-search-3x2": [
     { label: "Search results 3:2", w: 3840, h: 2560 },
     { label: "Search results 3:2 (small)", w: 1920, h: 1280 },
@@ -89,9 +87,8 @@ export const DEVICE_PLATFORM: Record<Device, Platform> = {
   ipad: "ios",
   "apple-watch": "ios",
   "apple-tv": "ios",
-  "ios-header": "ios",
+  "ios-universal": "ios",
   "ios-header-wide": "ios",
-  "ios-search": "ios",
   "ios-search-3x2": "ios",
   android: "android",
   "android-7": "android",
@@ -110,9 +107,8 @@ export const DEVICES_BY_PLATFORM: Record<Platform, Device[]> = {
     "ipad",
     "apple-watch",
     "apple-tv",
-    "ios-header",
+    "ios-universal",
     "ios-header-wide",
-    "ios-search",
     "ios-search-3x2",
   ],
   android: [
@@ -129,33 +125,87 @@ export const DEVICES_BY_PLATFORM: Record<Platform, Device[]> = {
 /** Devices that only render the brand banner (icon + name + tagline). */
 const BRAND_ONLY_DEVICES: ReadonlySet<Device> = new Set<Device>(["feature-graphic", "tv-banner"]);
 
-/** Wide marketing canvases that may also pick the brand banner layout. */
-const BANNER_DEVICES: ReadonlySet<Device> = new Set<Device>([
-  "ios-header",
+// ---------- App Store creative assets (product page header / search results) ----------
+// Apple, "Creative assets specifications" (App Store Connect Help) +
+// https://developer.apple.com/app-store/asset-best-practices/ — iOS/iPadOS 27+.
+// The App Store crops these canvases differently per device, orientation and
+// placement; only the *art safe area* is guaranteed visible. Everything outside
+// it is the "auxiliary art area": background atmosphere only, never text,
+// the focal point, or anything that must be read. PNG without alpha.
+export type SafeArea = { x: number; y: number; w: number; h: number };
+export const CREATIVE_SAFE_AREA: Partial<Record<Device, SafeArea>> = {
+  // Universal 16:9 — one image for both header and search results (PNG only).
+  // Note the safe area sits *above* centre: the bottom is under App Store chrome.
+  "ios-universal": { x: 1921, y: 660, w: 1402, h: 962 },
+  // Product page header 21:9 (PNG only).
+  "ios-header-wide": { x: 1097, y: 493, w: 1646, h: 661 },
+  // Search results 3:2, max size; scales proportionally down to 1920×1280.
+  "ios-search-3x2": { x: 836, y: 765, w: 2168, h: 1030 },
+  // Google Play feature graphic 1024×500 (JPEG / 24-bit PNG, no alpha). Google
+  // marks "cutoff zones" at the edges (UI overlays in some formats) but gives no
+  // pixel values, so this is a conservative central focal zone: logo, name,
+  // slogan and anything to read stay inside; edges carry background only.
+  "feature-graphic": { x: 160, y: 75, w: 704, h: 350 },
+  // Google Play / Android TV banner 1280×720: "full logo, icon + text", kept in
+  // the safe area with no border and nothing cropped.
+  "tv-banner": { x: 160, y: 170, w: 960, h: 380 },
+};
+
+/** Which composition a safe-area canvas renders. */
+export type CreativeVariant = "app-store" | "feature-graphic" | "tv-banner";
+
+const APP_STORE_CREATIVE: ReadonlySet<Device> = new Set<Device>([
+  "ios-universal",
   "ios-header-wide",
-  "ios-search",
   "ios-search-3x2",
 ]);
+
+export function creativeSafeArea(device: Device): SafeArea | undefined {
+  return CREATIVE_SAFE_AREA[device];
+}
+
+/** App Store creative-asset decks (header / search results). */
+export function isCreativeAssetDevice(device: Device): boolean {
+  return APP_STORE_CREATIVE.has(device);
+}
+
+export function creativeVariant(device: Device): CreativeVariant {
+  if (device === "feature-graphic") return "feature-graphic";
+  if (device === "tv-banner") return "tv-banner";
+  return "app-store";
+}
 
 export function isBrandOnlyDevice(device: Device): boolean {
   return BRAND_ONLY_DEVICES.has(device);
 }
 
-/** Whether a slide on `device` renders as the brand banner instead of the element canvas. */
-export function rendersBrandBanner(device: Device, layout: SlideLayout): boolean {
-  return isBrandOnlyDevice(device) || layout === "feature-graphic";
+/** Brand-only Play graphics (feature graphic / TV banner): no per-slide device or layout. */
+export function rendersBrandBanner(device: Device, _layout?: SlideLayout): boolean {
+  return isBrandOnlyDevice(device);
+}
+
+/**
+ * Store artwork with a crop-safe zone (App Store creative assets, Play feature
+ * graphic, TV banner) always renders the safe-area composition, whatever layout
+ * an older project saved — free-form layouts are what put copy outside the safe
+ * area and got it cropped.
+ */
+export function rendersCreativeAsset(device: Device): boolean {
+  return device in CREATIVE_SAFE_AREA;
 }
 
 export function allowsLayout(device: Device, layout: SlideLayout): boolean {
+  if (isCreativeAssetDevice(device)) return layout === "creative-asset";
+  if (layout === "creative-asset") return false;
   if (isBrandOnlyDevice(device)) return layout === "feature-graphic";
-  if (layout === "feature-graphic") return BANNER_DEVICES.has(device);
+  if (layout === "feature-graphic") return false;
   return true;
 }
 
 export function defaultLayoutFor(device: Device): SlideLayout {
+  if (isCreativeAssetDevice(device)) return "creative-asset";
   if (isBrandOnlyDevice(device)) return "feature-graphic";
   if (device === "apple-watch" || device === "wear-os") return "full-bleed";
-  if (BANNER_DEVICES.has(device)) return "split-landscape";
   return "device-bottom";
 }
 
@@ -171,25 +221,19 @@ export function getExportSizes(device: Device, orientation: Orientation): Export
 }
 
 // ---------- Frame aspect ratios ----------
-export const MK_RATIO = 1022 / 2082; // iPhone PNG mockup
-export const TAB_P_RATIO = 0.667; // tablet portrait
-export const TAB_L_RATIO = 1.5; // tablet landscape
-export const IPAD_RATIO = 0.77; // iPad
-export const FOLD_P_RATIO = 0.72; // iPhone Duo unfolded, portrait
-export const FOLD_L_RATIO = 1 / FOLD_P_RATIO; // iPhone Duo unfolded, landscape
-export const WATCH_RATIO = 0.82; // Apple Watch Ultra case (41 / 50)
+// Outer w/h of each frame in components/editor/device-frames.tsx (FRAME_ASPECT
+// there derives them from the capture ratio + rail + bezel, so the screen
+// opening matches the real screenshot). Keep these in step with it.
+export const MK_RATIO = 0.47669; // iPhone 17 Pro Max (1206×2622 screen)
+export const ANDROID_RATIO = 0.46963; // Pixel-style phone (1080×2400 screen)
+export const TAB_P_RATIO = 0.64334; // Android tablet portrait (10:16 screen)
+export const TAB_L_RATIO = 1.5544; // Android tablet landscape
+export const IPAD_RATIO = 0.76923; // iPad Pro 13" (2064×2752 screen)
+export const FOLD_P_RATIO = 0.71925; // iPhone Duo unfolded, portrait (2007×2853 screen)
+export const FOLD_L_RATIO = 1.39033; // iPhone Duo unfolded, landscape
+export const WATCH_RATIO = 0.84834; // Apple Watch Ultra (422×514 screen)
 export const WEAR_RATIO = 1; // round Wear OS watch
-export const TV_RATIO = 1.75; // 16:9 panel + thin bezel
-
-// iPhone mockup screen overlay (pre-measured)
-export const PHONE_SCREEN = {
-  L: (52 / 1022) * 100,
-  T: (46 / 2082) * 100,
-  W: (918 / 1022) * 100,
-  H: (1990 / 2082) * 100,
-  RX: (126 / 918) * 100,
-  RY: (126 / 1990) * 100,
-};
+export const TV_RATIO = 1.74978; // 16:9 panel + thin bezel
 
 // ---------- Width formula helpers ----------
 export function phoneW(cW: number, cH: number, clamp = 0.78) {
@@ -238,6 +282,30 @@ export const THEMES: Record<string, Theme> = {
     fgAlt: "#F2EFE6",
     accent: "#66BB6A",
     muted: "#A9C6BB",
+  },
+  // Marketing site Day Arc night (apps/marketing-web .day-arc-scope): night
+  // teal, emerald #34d399 brand, cool silver muted copy.
+  "munib-night": {
+    id: "munib-night",
+    name: "Munib Night",
+    bg: "#0B2226",
+    bgAlt: "#0A1830",
+    fg: "#F2F6F8",
+    fgAlt: "#F2F6F8",
+    accent: "#34D399",
+    muted: "#B0C4CE",
+  },
+  // App light mode (docs/design-system.md colour table): cream page, ink
+  // text, forest accent; inverted slides use the brand hero green.
+  "munib-light": {
+    id: "munib-light",
+    name: "Munib Light",
+    bg: "#F5F0E6",
+    bgAlt: "#12463A",
+    fg: "#152921",
+    fgAlt: "#F2EFE6",
+    accent: "#1F7A63",
+    muted: "#4A6157",
   },
   "clean-light": {
     id: "clean-light",
@@ -308,9 +376,8 @@ export const DEVICE_LABEL: Record<Device, string> = {
   ipad: "iPad",
   "apple-watch": "Apple Watch Ultra",
   "apple-tv": "Apple TV",
-  "ios-header": "Product Page Header",
-  "ios-header-wide": "Product Page Header (Wide)",
-  "ios-search": "Search Results",
+  "ios-universal": "Universal (Header + Search)",
+  "ios-header-wide": "Product Page Header (21:9)",
   "ios-search-3x2": "Search Results (3:2)",
   android: "Android Phone",
   "android-7": 'Android 7" Tablet',
@@ -331,6 +398,10 @@ export const LAYOUT_LABEL: Record<SlideLayout, string> = {
   "split-landscape": "Split (landscape)",
   "full-bleed": "Full-bleed screenshot",
   "feature-graphic": "Brand banner",
+  "creative-asset": "App Store creative",
+  "bleed-bottom": "Docked (bleed)",
+  tilted: "Tilted",
+  "feature-list": "Feature list",
 };
 
 // Short description shown under each layout name
@@ -342,5 +413,11 @@ export const LAYOUT_HINT: Record<SlideLayout, string> = {
   "no-device": "Big standalone headline",
   "split-landscape": "Caption left, device right",
   "full-bleed": "Raw app screenshot fills the canvas — no frame or caption",
-  "feature-graphic": "App icon + name + tagline (feature graphic, TV banner, headers)",
+  "feature-graphic":
+    "Feature graphic: name + value phrase centred, pattern at the edges · TV banner: icon + name",
+  "creative-asset":
+    "Icon + short phrase inside Apple's art safe area; phones and pattern fill the auxiliary area",
+  "bleed-bottom": "Fixed headline band, large device docked to the bottom edge and bleeding off it",
+  tilted: "Headline band, device tilted 7° and bleeding off the corner (Mirror flips it)",
+  "feature-list": "Headline, glass feature chips, docked device",
 };

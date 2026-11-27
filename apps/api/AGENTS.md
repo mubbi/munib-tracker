@@ -19,7 +19,7 @@ NestJS backend for cloud sync, social login, and future server-side features.
 - **PostgreSQL** via **TypeORM 1.x** (`@nestjs/typeorm`) — find `where` values that are `null`/`undefined` throw; use `IsNull()` or guard first
 - **OpenAPI** exported to `@munib-tracker/api-contract` → Orval SDK in `@munib-tracker/api-client`
 - **rspack + SWC** monorepo build (Nest CLI `builder: rspack`, `rspack.config.js`; inlines `@munib-tracker/*` sources)
-- **Biome** lint, **Vitest 5** tests (`vitest.config.mts` for `src/**/*.spec.ts`, `vitest.config.e2e.mts` for `test/**/*.e2e-spec.ts`)
+- **Biome** lint, **Vitest 5** tests (`vitest.config.mts` for `src/**/*.spec.ts`, `vitest.config.e2e.mts` for `test/**/*.e2e-spec.ts`). Both load `NO_NETWORK_SETUP`: only loopback (supertest, in-memory SQLite) is allowed — stub OAuth, APNs, Web Push, QStash, Overpass, Geoapify and Cloudinary clients
 - **date-fns** for API datetime parsing
 
 ## Client integration
@@ -38,19 +38,21 @@ pnpm generate:api
 
 ## Modules
 
-| Module                 | Purpose                                                                                                                                             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `health`               | Liveness probes at `GET /` and `GET /api/v1/health`                                                                                                 |
-| `auth`                 | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions                                                                   |
-| `sync`                 | Pull/push cloud sync (last-write-wins)                                                                                                              |
-| `content-reports`      | User content issue reports with optional attachments                                                                                                |
-| `user-media`           | Private custom-adhkar images (Cloudinary authenticated / disk); UTF-8 filenames, RFC 5987 `Content-Disposition`                                     |
-| `app-feedback`         | Low-star in-app feedback submissions                                                                                                                |
-| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app                                                                                               |
-| `version`              | Soft/hard update policy (`app_versions`)                                                                                                            |
-| `notifications`        | Product inbox + push tokens for admin broadcasts (`/notifications/*`; a token re-registers to the current account only); review-reactivation dedupe |
-| `live-activities`      | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery`   |
-| `surface-push`         | Expo + Web Push Salah phase jobs (`/surface-push/*`) for Android Live Updates and PWA; `@munib-tracker/surface-push-delivery`                       |
+| Module                 | Purpose                                                                                                                                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `health`               | Liveness probes at `GET /` and `GET /api/v1/health`                                                                                                                                                 |
+| `auth`                 | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions                                                                                                                   |
+| `sync`                 | Pull/push cloud sync (last-write-wins); `vault_*` entities are E2E-encrypted — shape/size checks only (`dto/vault-payload.validator.ts`), never log or inspect values                               |
+| `masjids`              | Masjid finder: read-only OpenStreetMap proxy by geohash-5 cell (`/masjids`) — Geoapify (`GEOAPIFY_API_KEY`, daily credit budget) → Overpass mirrors fallback; Redis/in-memory cache + IP rate limit |
+| `content-reports`      | User content issue reports with optional attachments                                                                                                                                                |
+| `user-media`           | Private custom-adhkar images (Cloudinary authenticated / disk); UTF-8 filenames, RFC 5987 `Content-Disposition`                                                                                     |
+| `app-feedback`         | Low-star in-app feedback submissions                                                                                                                                                                |
+| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app                                                                                                                                               |
+| `version`              | Soft/hard update policy (`app_versions`)                                                                                                                                                            |
+| `notifications`        | Product inbox + push tokens for admin broadcasts (`/notifications/*`; a token re-registers to the current account only); review-reactivation dedupe                                                 |
+| `live-activities`      | ActivityKit token registration + scheduled phase updates (`/live-activities/*`); QStash/APNs delivery via `@munib-tracker/live-activity-delivery`                                                   |
+| `surface-push`         | Expo + Web Push Salah phase jobs (`/surface-push/*`) for Android Live Updates and PWA; `@munib-tracker/surface-push-delivery`                                                                       |
+| `circles`              | Family / partner / group-khatm circles, child profiles + QR child sessions, signals, nudges (`/circles/*`, `/circle-child/*`) — see [`docs/CIRCLES.md`](../../docs/CIRCLES.md)                      |
 
 ## Environment
 
@@ -73,6 +75,7 @@ Key variables:
 | Facebook         | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`                                                                                                                                                                                                                                                |
 | Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX`, optional `REDIS_TLS` — rate limits, app-version cache; graceful degrade when unset. Redis Cloud: paste console URI as-is (`redis://` if TLS off, `rediss://` if on)                                                                                    |
 | Surface Push     | Expo Push for Android (no API credentials); optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_SUBJECT` for Web Push; surface cron `SURFACE_PUSH_CRON_SECRET`                                                                                                                   |
+| Masjid finder    | `GEOAPIFY_API_KEY` (free plan, no billing), optional `GEOAPIFY_DAILY_CREDITS` (default 3000), optional `OVERPASS_URL` (comma-separated https mirrors)                                                                                                                                   |
 | ActivityKit push | `APNS_TEAM_ID`, `APNS_KEY_ID`, `APNS_PRIVATE_KEY`, `APNS_BUNDLE_ID`; `LIVE_ACTIVITY_CRON_SECRET`; optional `QSTASH_*`, `API_PUBLIC_URL`, `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — see [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md)                                      |
 
 Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Live Activity remote push (QStash/cron/Fly): [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md). Web + Android Expo surface phases: [`docs/WEB_PUSH.md`](../../docs/WEB_PUSH.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).

@@ -1,5 +1,4 @@
 import { type Href, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -7,29 +6,23 @@ import {
   LearnColumnsGrid,
   learnColumnsFor,
   useLearnHubLayout,
-  useLearnTileStyle,
 } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { JourneyIntentionRow, JourneyMetricRow } from "@/components/learn-mizan/journey-rows";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, isJahannamContentReady } from "@/lib/jahannam";
 import { buildJahannamJourney, type JahannamJourneyRow } from "@/lib/jahannam-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { isTV } from "@/lib/platform/is-tv";
-import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   JAHANNAM_INTENTION_IDS,
@@ -64,51 +57,16 @@ const METRIC_ICONS: Record<JahannamJourneyRow["id"], AppIcon> = {
 
 function IntentionRow({ id }: { id: JahannamIntentionId }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   const checked = useJahannamIntention(id);
   const { toggle } = useJahannamIntentionActions();
-
   return (
-    <PressableScale
-      accessibilityRole="checkbox"
-      accessibilityState={{ checked }}
-      accessibilityLabel={t(`jahannam.intentions.${id}`)}
-      onPress={() => void toggle(id)}
-      haptic="selection"
-      style={[
-        styles.intentionRow,
-        isTV() ? styles.rowTv : styles.rowFill,
-        { backgroundColor: colors.muted },
-      ]}
-    >
-      <IconWell
-        icon={INTENTION_ICONS[id]}
-        tint={checked ? tokens.status.success.color : colors.mutedForeground}
-        background={checked ? tokens.status.success.soft : colors.card}
-        well={40}
-        size={18}
-      />
-      <View style={styles.intentionCopy}>
-        <ThemedText
-          type="smallBold"
-          style={checked ? { color: colors.mutedForeground } : undefined}
-        >
-          {t(`jahannam.intentions.${id}`)}
-        </ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t(`jahannam.intentions.${id}Hint`)}
-        </ThemedText>
-      </View>
-      <SymbolView
-        name={
-          checked
-            ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-            : { ios: "circle", android: "radio_button_unchecked", web: "radio_button_unchecked" }
-        }
-        size={22}
-        tintColor={checked ? tokens.status.success.color : colors.mutedForeground}
-      />
-    </PressableScale>
+    <JourneyIntentionRow
+      icon={INTENTION_ICONS[id]}
+      title={t(`jahannam.intentions.${id}`)}
+      hint={t(`jahannam.intentions.${id}Hint`)}
+      checked={checked}
+      onToggle={() => void toggle(id)}
+    />
   );
 }
 
@@ -119,44 +77,19 @@ function MetricRow({
 }: {
   row: JahannamJourneyRow;
   onPress: () => void;
-  /** Wide grid cell: tile chrome instead of the hairline separator. */
   tiled: boolean;
 }) {
   const { t } = useTranslation();
-  const tileStyle = useLearnTileStyle();
-  const { colors, tokens } = useThemeTokens();
-  const chevronForwardIcon = useChevronForward();
-
   return (
-    <PressableScale
+    <JourneyMetricRow
+      icon={METRIC_ICONS[row.id]}
+      label={t(row.labelKey)}
+      value={row.value}
+      hint={t(row.hintKey)}
+      progress={row.progress}
       onPress={onPress}
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={`${t(row.labelKey)}. ${row.value}`}
-      style={[
-        styles.metricRow,
-        isTV() && [styles.rowTv, styles.metricRowTv],
-        { borderTopColor: tokens.hairline },
-        tiled ? [tileStyle, styles.metricTile] : null,
-      ]}
-    >
-      <IconWell icon={METRIC_ICONS[row.id]} tint={colors.accent} well={40} size={18} />
-      <View style={styles.metricCopy}>
-        <View style={styles.metricHead}>
-          <ThemedText type="smallBold">{t(row.labelKey)}</ThemedText>
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
-            {row.value}
-          </ThemedText>
-        </View>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t(row.hintKey)}
-        </ThemedText>
-        {row.progress != null && row.progress > 0 ? (
-          <ProgressBar value={row.progress} height={4} color={colors.accent} />
-        ) : null}
-      </View>
-      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
-    </PressableScale>
+      tiled={tiled}
+    />
   );
 }
 
@@ -169,7 +102,11 @@ export default function JahannamJourneyScreen() {
   const intentionsSet = useJahannamIntentionsCount();
   const reflectionStreak = useJahannamReflectionStreak();
 
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const wide = useLearnHubLayout();
   // Wide web / tablets: metrics and intentions lay out two per row.
   const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 2 });
@@ -197,11 +134,11 @@ export default function JahannamJourneyScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/journey" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="accent">{t("jahannam.journeyBanner")}</JannahCallout>
 
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("jahannam.journeyToday")}
               icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
@@ -230,7 +167,7 @@ export default function JahannamJourneyScreen() {
             </LearnColumnsGrid>
           </Card>
 
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("jahannam.intentionsTitle")}
               icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
@@ -259,39 +196,10 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
     marginBottom: Spacing.one,
   },
-  empty: { textAlign: "center", lineHeight: 20, maxWidth: 280 },
+  empty: { textAlign: "center", maxWidth: 280 },
   rows: { marginTop: Spacing.two },
-  metricRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    paddingVertical: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-  },
-  metricTile: { borderTopWidth: 0 },
-  // TV: inset so the focus ring does not sit on the icon / value text.
-  metricRowTv: { paddingHorizontal: Spacing.two, borderRadius: Radius.md },
-  metricCopy: { flex: 1, gap: Spacing.one },
-  metricHead: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: Spacing.two,
-  },
-  intentionsHint: { marginTop: Spacing.one, lineHeight: 18 },
+  intentionsHint: { marginTop: Spacing.one },
   intentions: { marginTop: Spacing.three },
-  intentionRow: {
-    flexDirection: "row",
-    gap: Spacing.three,
-    alignItems: "center",
-    padding: Spacing.two + 2,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  intentionCopy: { flex: 1, gap: Spacing.half },
-  rowTv: { minHeight: TvLayout.minFocusTarget },
-  // Grid cells: fill the row height (inert in the phone stack).
-  rowFill: { flexGrow: 1 },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

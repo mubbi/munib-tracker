@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Onların Qurandakı hekayələri yalnız uzaq tarix deyil; onlar iman, səbir, ailə həyatı, liderlik və tövbə üçün əməli dərslərdir.",
       "Bütün peyğəmbərlərə iman imanın bir hissəsidir. Müsəlmanlar onların hamısına hörmət edir, mübaliğədən çəkinir və Məhəmmədin (sallallahu aleyhi və səlləm) gətirdiyi son risalətə əməl edirlər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Elçilər müjdəçi və qorxudandırlar ki, elçilərdən sonra insanların Allaha qarşı heç bir mübahisəsi olmasın.",
-      },
-      {
-        excerpt:
-          "Şübhəsiz ki, Biz hər ümmətə: “Allaha ibadət edin və batildən çəkinin!” – deyə bir peyğəmbər göndərdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Peyğəmbərlər ilahi deyillər və heç vaxt ibadət olunmurlar. Onlar itaətdə, əxlaqda və əmanətdə yaradılışın ən yaxşısıdırlar, eyni zamanda Allaha qul olaraq qalırlar.",
       "Onların missiyası əsasda birdir: yalnız Allaha ibadət edin. Xüsusi hüquqi detallar Allahın hikməti ilə cəmiyyətlər arasında fərqli ola bilər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Elçiləri onlara dedilər: “Biz də sizin kimi kişilərik, lakin Allah Öz bəndələrindən istədiyinə lütf edər.",
-      },
-      {
-        excerpt:
-          "Biz səndən əvvəl heç bir peyğəmbər göndərmədik ki, ona: “Məndən başqa heç bir tanrı yoxdur, Mənə ibadət edin!” – deyə vəhy etdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Qur'an hər iki termini şərəflə işlədir və müsəlmanlar heç birini rədd etmədən bütün peyğəmbərlərə və elçilərə inanırlar.",
       "Dəqiq texniki təriflər elmi ifadələrə görə dəyişə bilər, lakin praktiki dərs ardıcıldır: təvazökarlıqla vəhy alın və Allahın rəhbərliyinə tabe olun.",
     ],
-    quran: [
-      {
-        excerpt: "O, seçilmiş, elçi və peyğəmbər idi.",
-      },
-      {
-        excerpt: "Biz Onun elçiləri arasında heç bir fərq qoymuruq.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Terminologiya təfərrüatları geniş, alim üçün neytral şəkildə təqdim olunur; qabaqcıl teoloji təsnifatlar üçün ixtisaslı müəllimlərə müraciət edin.",
     appLinks: [{}],
@@ -74,14 +49,7 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Onların həyatları da rədd edilməkdə səbr, qeyri-müəyyənlikdə Allaha təvəkkül, hikmət və cəsarətlə cəmiyyəti islah etmək istəyini nümayiş etdirir.",
       "Onları öyrənmək dözümlülük yaradır: möminlər tez tövbə etməyi, etik qaydada rəhbərlik etməyi və həqiqət populyar olmayanda belə prinsipial qalmağı öyrənirlər.",
     ],
-    quran: [
-      {
-        excerpt: "Onların hekayətlərində ağıl sahibləri üçün ibrət vardır.",
-      },
-      {
-        excerpt: "Onlar Allahın doğru yola yönəltdiyi kimsələrdir, onların hidayətinə tabe ol.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Hər həftə bir peyğəmbərlik dərsi seçin və onu qəsdən tətbiq edin.",
       "Namazdan sonra daha çox səbir və ya tövbəyə ehtiyacınız olduğu barədə düşünün.",
@@ -97,16 +65,7 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Möcüzələr peyğəmbərlərin müstəqil səlahiyyətləri deyil; Onlar vəhyi dəstəkləmək və dəlil yaratmaq üçün Allahın iradəsi ilə meydana gəlirlər.",
       "Qur'an göstərir ki, bəzi möcüzələrə baxmayaraq hələ də inkar olunur, hidayətin sübutu yalnız tamaşadan deyil, ixlas və təslimiyyətdən asılıdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz peyğəmbərlərimizi açıq-aydın dəlillərlə göndərdik, onlarla birlikdə Kitab və tərəzi nazil etdik.",
-      },
-      {
-        excerpt:
-          "De: “Ayələr ancaq Allahın yanındadır... Onlara oxunan Kitabı sənə nazil etməyimiz onlar üçün kifayət deyilmi?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -117,16 +76,7 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Şərtlər fərqli olsa da, onların çağırışı birdir: tövhid, salehlik, məsuliyyət və tövbə vasitəsilə mərhəmət.",
       "Bu modul Qurana əsaslanaraq qalır və etibarlı dəlillərlə dəstəklənməyənə qədər ikinci dərəcəli tarixi təfərrüatları qısa saxlayır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz səndən əvvəl də elçilər göndərmişdik. Onların içərisində sənə rəvayət etdiyimiz də var, sənə aid etmədiyimiz də.",
-      },
-      {
-        excerpt:
-          "Biz Allaha, nazil edilənə... və Musaya, İsaya və peyğəmbərlərə Rəbbi tərəfindən verilənə iman gətirdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -137,18 +87,8 @@ export const PROPHETS_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       "Qur'an prinsipləri və ya peyğəmbərlik ləyaqəti ilə ziddiyyət təşkil edən sensasiyalı və ya zəif xəbərlərdən çəkinin. Hər məşhur hekayənin əsaslı sübutu yoxdur.",
       "Yalnız tarixi faktları toplamaq üçün deyil, öz ibadətinizi və xarakterinizi islah etmək üçün peyğəmbərlik tərcümeyi-hallarından istifadə edin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sözə qulaq asıb onun ən gözəlinə tabe olanlar, Allahın doğru yola yönəltdiyi kimsələrdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim elm öyrənmək üçün bir yola getsə, Allah onun üçün Cənnətə gedən yolu asanlaşdırar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Həftəlik bir peyğəmbər hekayəsini birbaşa Qurandan oxuyun.",
       "Nəinki vaxt qrafiki faktlarını deyil, praktiki dərslər haqqında da qeydlər aparın.",
@@ -192,26 +132,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Adəm ilk insan və ilk peyğəmbərdir", "Onun tövbəsi Qur'anın ilk tövbə modelidir"],
     },
-    quran: [
-      {
-        excerpt:
-          "Yadına salın o zaman ki, Rəbbin mələklərə demişdi: “Mən yer üzündə bir-birinin ardınca bir hökmranlıq yaradacağam... Sonra Adəm Rəbbindən söz aldı və O, onun tövbəsini qəbul etdi.",
-      },
-      {
-        excerpt:
-          "Onlar dedilər: “Ey Rəbbimiz, biz özümüzə zülm etdik və əgər bizi bağışlamasan və bizə rəhm etməsən, şübhəsiz ki, ziyana uğrayanlardan olarıq”.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qiyamət günü insanlar Adəmin yanına gəlib deyəcəklər: Sən insanların atasısan; Rəbbinin yanında bizim üçün şəfaət et.",
-      },
-      {
-        excerpt:
-          "Adəmlə Musa mübahisə etdilər. Musa dedi: “Sən Allahın Öz əli ilə yaratdığı kimsəsən. Adəm dedi: “Allah məni yaratmamışdan əvvəl mənim üçün yazmış olduğu bir işdə məni qınayırsınız? Beləliklə, Adəm mübahisədə Musaya qalib gəldi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -236,16 +158,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Allah tərəfindən yüksək məqama yüksəldilmiş kimi təsvir edilmişdir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kitabda İdrisi də xatırla. Həqiqətən, o, haqq adamı və peyğəmbər idi. Biz onu yüksək bir məqama qaldırdıq.",
-      },
-      {
-        excerpt:
-          "İsmayıl, İdris və Zül-Kifl – hamısı səbirlilərdən idi. Biz onları öz mərhəmətimizə qovuşdurduq. Həqiqətən, onlar əməlisalehlərdən idilər.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -282,21 +195,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Onun hekayəsi bir çox surələrdə, o cümlədən onun adını daşıyan surədə rast gəlinir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Nuha vəhy olundu ki, sənin qövmündən iman gətirənlərdən başqa heç kəs iman gətirməyəcək.",
-      },
-      {
-        excerpt:
-          "O dedi: “Ey Rəbbim, mən ümmətimi gecə-gündüz dəvət etdim, lakin mənim dəvətim onları ancaq qaçmaqda artırdı.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "İnsanlar Nuhun yanına gəlib deyəcəklər: “Ey Nuh! bizə şəfaət et.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -330,16 +230,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["“Ad” hekayəsi Quranda sonrakı ümmətlərə xəbərdarlıq olaraq təkrarlanır"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ad qövmünə də qardaşları Hudu (göndərdik). O dedi: “Ey qövmüm, Allaha ibadət edin. Sizin Ondan başqa tanrınız yoxdur. Məgər Ondan qorxmursunuz?",
-      },
-      {
-        excerpt:
-          "Onlar onu vadilərinə yaxınlaşan bulud kimi gördükdə dedilər: “Bu, bizə yağış yağdıran buluddur! Əksinə, bu, sizin səbirsizliyinizdir. Onun içindəki külək ağrılı-acılı bir əzabdır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -374,16 +265,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Səmud qövmü dağlarda nəfis evlər oymaqla tanınırdı"],
     },
-    quran: [
-      {
-        excerpt:
-          "Bu sizin üçün bir ibrət olaraq Allahın dişi dəvəsidir. Onu Allahın torpağında yeməsi üçün buraxın və ona pislik etməyin, yoxsa ağrılı-acılı bir əzab sizi yaxalayar.",
-      },
-      {
-        excerpt:
-          "Onların ən bədbəxtləri göndərildiyi zaman Səmud azğınlıqlarına görə yalançı saydı... Rəbbi də günahlarına görə onların üzərinə fəlakət endirdi və onları bərabərləşdirdi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -421,22 +303,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "İsmayıl və İshaq vasitəsilə peyğəmbərlərin atası",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Yadına salın o zaman ki, İbrahim Rəbbi tərəfindən əmrlərlə imtahana çəkildi və o, onları yerinə yetirdi. O dedi: “Həqiqətən, mən səni insanlara rəhbər edəcəyəm.",
-      },
-      {
-        excerpt:
-          "Biz dedik: Ey od, İbrahimə sərinlik və əmin-amanlıq ver. Onlar ona zərər vermək istəyirdilər, lakin Biz onları ən çox ziyana uğrayanlardan etdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ayaqyalın, çılpaq və sünnətsiz toplanacaqsınız. Qiyamət günü ilk geyinən İbrahim olacaq.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -470,16 +338,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İbrahimin onunla birlikdə hicrət edən və Sodoma göndərilən qohumu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Siz aləmlərdən kişilərə yaxınlaşıb Rəbbinizin sizin üçün yaratdığını zövcə olaraq tərk edirsiniz? Əksinə, siz həddi aşan bir tayfasınız.",
-      },
-      {
-        excerpt:
-          "Əmrimiz gəldikdə şəhərlərin ən hündür yerlərini aşağı saldıq və onların üzərinə qat-qat gildən daşlar yağdırdıq.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -516,16 +375,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Ərəb qəbilələrinin əcdadı və son peyğəmbərlik xətti",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kitabda İsmayılı da xatırla. Həqiqətən, o, vədinə sadiq idi, elçi və peyğəmbər idi. O, ailəsinə namaz qılmağı və zəkat verməyi əmr edərdi və Rəbbinin razılığını qazanardı.",
-      },
-      {
-        excerpt:
-          "İbrahim evin və İsmayılın bünövrəsini ucaltdığı zaman: “Ey Rəbbimiz, bunu bizdən qəbul et! Həqiqətən, Sən Eşidənsən, Biləndir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -556,16 +406,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Seçilmiş bir ailə olaraq İbrahim və Yaqubla yanaşı adlandırılmışdır",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Arvadı isə durmuşdu və güldü. Sonra onu İshaqla və İshaqdan sonra Yəqubla müjdələdik.",
-      },
-      {
-        excerpt:
-          "Qüdrətli və bəsirətli bəndələrimiz İbrahimi, İshaqı və Yəqubu yada sal! Həqiqətən, Biz onları xüsusi bir xüsusiyyətə görə seçdik: Evi zikr etmək.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -599,16 +440,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İsrail də deyilir", "Yusifin atası və Bəni-İsrail qəbilələri"],
     },
-    quran: [
-      {
-        excerpt:
-          "Buyurdu: Əksinə, nəfsiniz sizi bir şeyə sövq etmişdir. Beləliklə, səbir ən uyğundur. Ola bilsin ki, Allah onların hamısını mənim yanıma gətirsin.",
-      },
-      {
-        excerpt:
-          "Onlar dedilər: “Biz sənin məbuduna, ataların İbrahimin, İsmayılın və İshaqın İlahına ibadət edəcəyik və biz Ona təslim olmuşuq.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -645,18 +477,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Qissaların ən yaxşısı adlandırılan “Yusif” surəsinin hamısı onun həyatından bəhs edir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "O dedi: Bu gün sizə heç bir günah yoxdur. Allah sizi bağışlasın; O, rəhm edənlərin ən rəhmlidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Əsilzadə, əsil oğlu, əsil oğlu, əsil oğlu: Yusif, Yəqub oğlu, İshaq oğlu, İbrahim oğlu.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -686,15 +508,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Yalnız çəki və ölçüləri vurğulamaqla tanınır"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey qövmüm, Allaha ibadət edin. Sizin Ondan başqa tanrınız yoxdur. Ölçü və çəkini tam verin, insanların haqqını əsirgəməyin və yer üzündə fitnə-fəsad törətməyin.",
-      },
-      {
-        excerpt: "Mənim uğurum ancaq Allahdandır. Mən Ona təvəkkül etdim və Ona da qayıdıram.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -725,16 +539,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İslam ənənəsində səbrin nümunəsi kimi göstərilmişdir"],
     },
-    quran: [
-      {
-        excerpt:
-          "Əyyubu da Rəbbinə nida etdiyi zaman: “Mənə bir müsibət üz verdi və Sən rəhm edənlərin ən rəhmlisisən.",
-      },
-      {
-        excerpt:
-          "Həqiqətən, Biz onu səbirli, gözəl bir bəndə gördük. Həqiqətən, o, Allaha dönən biri idi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -758,15 +563,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Əsas müsəlman siyahılarında peyğəmbərlər arasında sayılır",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "İsmayıl, İdris və Zül-Kifl – hamısı səbirlilərdən idi. Biz onları öz mərhəmətimizə qovuşdurduq. Həqiqətən, onlar əməlisalehlərdən idilər.",
-      },
-      {
-        excerpt: "Və İsmayılı, Əl-Yəsa'yı və Zül-Kifli xatırlayın ki, hamısı üstün olanlardandır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -807,22 +604,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Kəlimullah adlanır - Allahın birbaşa danışdığı şəxs",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Mən səni seçdim, nazil olana qulaq as. Həqiqətən, mən Allaham. Məndən başqa məbud yoxdur, Mənə ibadət et və Məni zikr etmək üçün namaz qıl.",
-      },
-      {
-        excerpt:
-          "Musanın anasına belə vəhy etdik: “Onu əmizdirin, onun üçün qorxduğunuz zaman onu çaya atın və qorxmayın və kədərlənməyin. Həqiqətən, Biz onu sənə qaytaracağıq.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ölüm mələyi Musaya göndərildi. Onun yanına gəldikdə Musa onu vurdu və Allah onun gözünü bərpa etdi və ölüm vaxtı ilə bağlı ona seçim verdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -855,16 +638,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Musanın böyük qardaşı", "Quranda bəlağətinə görə təriflənmişdir"],
     },
-    quran: [
-      {
-        excerpt:
-          "Mənə ailəmdən bir vəzir – qardaşım Harunu təyin et. Onun vasitəsilə gücümü artır və tapşırığıma şərik çıxmasına icazə ver.",
-      },
-      {
-        excerpt:
-          "Dedi: Anamın oğlu, həqiqətən, camaat mənə qalib gəldi və məni öldürmək istəyirdilər, qoy düşmənlər mənə sevinməsinlər.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -902,21 +676,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Zəbur (Zəbur) alan", "Calutu (Goliath) gənc ikən məğlub etdi"],
     },
-    quran: [
-      {
-        excerpt: "Ey Davud!",
-      },
-      {
-        excerpt:
-          "Biz dağları Davudla birlikdə təsbih etmək üçün ram etdik, quşları da... Sizi düşməninizdən qorumaq üçün ona zirehli paltarlar tikməyi öyrətdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah yanında ən sevimli dua Davudun namazıdır, Allah yanında ən sevimli oruc isə Davudun orucudur: bir gün oruc tutar, bir gün iftar edərdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -955,16 +716,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Quranda ən dolğun təsvir olunan peyğəmbər-padşahlar arasında"],
     },
-    quran: [
-      {
-        excerpt:
-          "O, gülümsədi, onun danışığından əyləndi və dedi: “Ey Rəbbim, mənə və ata-anama bəxş etdiyin nemətə şükür etməyi və razı olduğun yaxşı işlər görməyi mənə nəsib et.",
-      },
-      {
-        excerpt:
-          "Səhər yolu bir aylıq, günortadan sonra isə bir aylıq yol qət edən küləyi Süleymana da ram etdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -992,15 +744,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Salehlər arasında adlanır", "Bütə ibadətlə qarşı-qarşıya qaldı Ba'l"],
     },
-    quran: [
-      {
-        excerpt:
-          "O, öz qövmünə demişdi: “Məgər Allahdan qorxmursunuz? Bəli çağırıb ən yaxşı yaradıcıları tərk edirsən?",
-      },
-      {
-        excerpt: "Zəkəriyya, Yəhya, İsa və İlyas da – hamısı əməlisalehlərdən idi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1023,14 +767,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Bilavasitə Quranda görkəmli və seçilmişlər arasında adı çəkilir"],
     },
-    quran: [
-      {
-        excerpt: "İsmayılı, Əl-Yəsəni, Yunusu və Lutu və hər şeyi aləmlərdən üstün tutduq.",
-      },
-      {
-        excerpt: "Və İsmayılı, Əl-Yəsa'yı və Zül-Kifli xatırlayın ki, hamısı üstün olanlardandır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1068,22 +805,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Quranda Zun-Nun (balıq adamı) da adlandırılır"],
     },
-    quran: [
-      {
-        excerpt:
-          "Zülmətlər içində nida etdi: “Səndən başqa məbud yoxdur. Sən pak və müqəddəssən. Həqiqətən, mən zalımlardan olmuşam.",
-      },
-      {
-        excerpt:
-          "Məgər Yunus qövmündən başqa elə bir məmləkət yoxdurmu ki, iman gətirdi və imanı ona fayda verdi? Onlar iman gətirdikləri zaman rüsvayçılıq əzabını onlardan uzaqlaşdırdıq.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Zun-Nunun balığın qarnından Allahı çağırdığı zaman duası: La ilahə illə əntə, subhənəkə, inni kuntu minaz-zəlimin. Heç bir müsəlman onunla heç bir şey üçün dua etməz ki, Allah ona cavab verməsin.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1118,16 +841,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Məryəmin vəlisi", "Doğulması duasına cavab verən Yəhyanın atası"],
     },
-    quran: [
-      {
-        excerpt:
-          "Orada Zəkəriyya Rəbbinə yalvarıb dedi: “Ey Rəbbim, mənə Öz tərəfindən pak bir övlad bəxş et. Həqiqətən, Sən duaları eşidənsən.",
-      },
-      {
-        excerpt:
-          "O dedi: “Ey Rəbbim, həqiqətən mənim sümüklərim zəiflədi, başım ağ oldu və mən heç vaxt Sənə dua etməkdən bədbəxt olmadım, ey Rəbbim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1163,16 +877,7 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
         "Doğuşda, ölümdə və dirilişdə sülhlə şərəflənir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey Yəhya, Kitabı qətiyyətlə qəbul et. Biz ona hələ uşaq ikən hikmət, Özümüzdən bir şəfqət və paklıq verdik və o, Allahdan qorxurdu.",
-      },
-      {
-        excerpt:
-          "Allah səni Allah tərəfindən olan bir kəlamı təsdiq edən Yəhya ilə müjdə verir: şərəfli, çəkinən və əməlisalehlərdən bir peyğəmbər.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1207,22 +912,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İncil (İncil) nəzərə alınmaqla", "Sünni inancında qiyamətdən əvvəl qayıdacaq"],
     },
-    quran: [
-      {
-        excerpt:
-          '[İsa dedi]: "Həqiqətən, Allah mənim də Rəbbimdir, sizin də Rəbbinizdir. Ona ibadət edin. Bu, düz yoldur.',
-      },
-      {
-        excerpt:
-          "Onu öldürmədilər və çarmıxa çəkmədilər. Lakin onlara belə göstərildi... Əksinə, Allah onu Öz hüzuruna qaldırdı.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mən Məryəm oğlu İsaya insanların ən yaxınıyam. Peyğəmbərlər müxtəlif anaların qardaşlarıdır, lakin onların dini birdir və aramızda peyğəmbər olmayıb.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1260,21 +951,8 @@ export const PROPHETS_BIO_TOPICS_AZ: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Peyğəmbərlərin möhürü", "Möminlər üçün ən gözəl nümunə (usvah-həsənə)."],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhəmməd sizin kişilərinizdən heç birinin atası deyil, lakin o, Allahın Rəsulu və peyğəmbərlərin möhürüdür.",
-      },
-      {
-        excerpt: "Biz səni ancaq aləmlərə rəhmət olaraq göndərdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mənim və məndən əvvəlki peyğəmbərlərin nümunəsi, bir kərpic yeri istisna olmaqla, gözəl və tam bir ev tikmiş bir insanın nümunəsidir. Mən o kərpicəm, peyğəmbərlərin möhürüyəm.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

@@ -9,6 +9,8 @@ export type NavSection = "home" | "tracker" | "library" | "settings" | "search" 
 const CHROMELESS_PREFIXES = [
   "/intro",
   "/intro-location",
+  "/intro-madhhab",
+  "/setup",
   "/login",
   "/oauth",
   "/oauth2redirect",

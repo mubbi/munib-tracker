@@ -25,3 +25,13 @@ describe("StatCard", () => {
     expect(flattenStyle(screen.getByText("12").props.style).color).toBeTruthy();
   });
 });
+
+describe("StatCard well", () => {
+  it("derives the well background from tint", async () => {
+    await renderStatCard({ tint: "#ff0000" });
+    const wells = screen.container.queryAll((node) =>
+      String(flattenStyle(node.props.style)?.backgroundColor ?? "").startsWith("#ff0000"),
+    );
+    expect(wells.length).toBeGreaterThan(0);
+  });
+});

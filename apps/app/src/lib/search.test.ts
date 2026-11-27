@@ -28,6 +28,7 @@ import {
 import { searchLightWithGuides } from "@/lib/search-with-guides";
 import { zikrByCategory } from "@/lib/zikr";
 import { buildHadithItem } from "@/test-support/fixtures/hadith";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
 
 describe("normalize", () => {
   it("strips Latin diacritics and lowercases", () => {
@@ -420,6 +421,35 @@ describe("hadith grade badges", () => {
     await preloadSearchCorpora();
     const hadith = searchLight("zzyzx").find((group) => group.category === "hadith");
     expect(hadith?.results[0]?.badge).toBe("Sahih");
+  });
+});
+
+describe("universal hadith index and the translation language", () => {
+  const nawawi = getBundledCollection("nawawi40") as BundledHadithCollection;
+
+  afterEach(async () => {
+    await resetPreferences();
+    __setBundledHadithForTests("nawawi40", nawawi);
+    await preloadSearchCorpora();
+  });
+
+  it("rebuilds when the translation language changes (no stale translations)", async () => {
+    __setBundledHadithForTests("nawawi40", {
+      ...nawawi,
+      items: [
+        buildHadithItem({
+          english: "Actions are judged by intentions",
+          translations: { ur: "Qwertyurdu amal ka daromadar niyyat par hai" },
+        }),
+      ],
+    });
+    await preloadSearchCorpora();
+    await setPreferences({ translationLocale: "en" });
+    const hadithGroup = () => searchLight("qwertyurdu").find((g) => g.category === "hadith");
+    expect(hadithGroup()).toBeUndefined();
+
+    await setPreferences({ translationLocale: "ur" });
+    expect(hadithGroup()?.results).toHaveLength(1);
   });
 });
 

@@ -24,7 +24,7 @@ export function SavedNavCard({
   rowIcon,
 }: SavedNavCardProps) {
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={title} icon={headerIcon} />
       <View style={styles.list}>
         <NavRow icon={rowIcon} label={viewLabel} count={count} onPress={onPress} />

@@ -4,7 +4,16 @@ import type { Href } from "expo-router";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { zikrQuranHref, zikrQuranPath } from "@/lib/zikr-quran";
 
-export type ContinueKind = "quran" | "hadith" | "dua" | "zikr" | "durood" | "names" | "audio";
+export type ContinueKind =
+  | "quran"
+  | "hadith"
+  | "dua"
+  | "zikr"
+  | "durood"
+  | "names"
+  | "audio"
+  /** D68: a Qur'an practice / recite-along session (resumes the same passage). */
+  | "practice";
 
 export interface ContinueActivity {
   kind: ContinueKind;
@@ -62,6 +71,33 @@ export function buildQuranActivity(
         : `Ayah ${ayah}`,
     preview: meta?.nameArabic,
     isAudio: options?.isAudio,
+  };
+}
+
+/**
+ * A Qur'an practice session (D68), recorded when it starts and when it finishes
+ * so "Continue" resumes practice on the same passage and mode. A revision sitting
+ * resumes the revision queue (its items change as ayahs are revised).
+ */
+export function buildPracticeActivity(
+  passage: { surah: number; ayahStart: number; ayahEnd: number },
+  mode: string,
+): ContinueActivityInput {
+  const meta = getSurahByNumber(passage.surah);
+  const range =
+    passage.ayahStart === passage.ayahEnd
+      ? `${passage.surah}:${passage.ayahStart}`
+      : `${passage.surah}:${passage.ayahStart}–${passage.ayahEnd}`;
+  const href =
+    mode === "revision"
+      ? "/quran/revision"
+      : `/quran/practice/session?surah=${passage.surah}&from=${passage.ayahStart}&to=${passage.ayahEnd}&mode=${encodeURIComponent(mode)}`;
+  return {
+    kind: "practice",
+    href,
+    title: meta?.nameTransliteration ?? `Surah ${passage.surah}`,
+    subtitle: meta ? `${meta.nameEnglish} · ${range}` : range,
+    preview: meta?.nameArabic,
   };
 }
 

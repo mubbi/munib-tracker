@@ -12,12 +12,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Soonka saddex maalmood ee bil kasta waa sunnadii Nabiga ﷺ si weyn loo adkeeyay, maalmaha cadna waa saddexda lagu taliyay. ",
       "Sababtoo ah bisha Hijrigu waxay raacdaa dayaxa, saddexdan maalmood waxay soo maraan jadwalka miilaadiga bil kasta waxayna bilaaban karaan maalin ka hor ama ka dib waxayna ku xiran tahay xilliga bisha cusub ee gobolkaaga. ",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Soonka saddex maalmood ee bil kasta waa soonka cimrigiisa oo dhan, maalmaha cadna (Ayām al-Bīd) waa saddex iyo tobnaad, afar iyo tobnaad iyo shan iyo tobnaad.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Fur wajiga wejiga dayaxa si aad u aragto marka ay bishan dhacayso maalmaha cadcad",
       "U fiirso saddexda taariikhood si aad ugu qorsheysato suxuurta iyo afurka hareerahooda.",
@@ -33,21 +28,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Cabdullaahi ibn Camr waxa laga wariyey in Nabigu s.c.w uu ku yidhi: “Waxaa kugu filan inaad soonto saddex maalmood bishii, waayo camalka ajarkiisu toban jeer baa la jibbaarayaa, markaa waxay la mid tahay soonka sanadka oo dhan” (Saxiixul Bukhaari 1975). ",
       "Taasi waa sababta saddexda maalmood ee xishoodka leh, oo si joogta ah loo ilaaliyo, loogu jecel yahay: waxay ku iftiiminayaan jidhka weli, deeqsinimada Eebe, ayaa lagu miisaamay inta ay nool yihiin soonka. ",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ruuxii la yimaada Wanaag wuxuu mudan Toban Laab oo kale, Ruuxii la yimaada Xumaanna lagama Abaal mariyo wax lamid ah. ",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Waxaa kugu filan inaad soonto saddex maalmood bishii, iyadoo ajarkiisa la labanlaabo toban jeer, sidaas darteed waxay la mid tahay soonka sanadka oo dhan.",
-      },
-      {
-        excerpt: "Soonka saddexda maalmood (bisha) wuxuu la mid noqonayaa soonka sanadka oo dhan.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Dib u cusboonaysii niyadaada habeenka ka horreeya - Allaah dartiis, adoo doondoona ajarkiisa.",
       "Ujeedo joogtaynta: saddex maalmood oo dhexdhexaad ah bishiiba halkii aad ka dillaaci lahayd ma sii wadi kartid.",
@@ -61,22 +43,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Rasuulku (scw) wuxuu ku amri jiray inay soomaan magacyadooda. ",
       "Haddii aadan dhammaan saddexdaa soomi karin - safar, jirro, ama maalin aad bilowday adigoon ku talo jirin inaad soonto - soon wixii aad kari karto; ",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasuulku (scw) wuxuu nagu amri jiray inaan soomo maalmaha cadcad: bisha saddex iyo tobnaad, afar iyo tobnaad iyo shan iyo tobnaad ee bisha. ",
-      },
-      {
-        excerpt:
-          "Markaad rabto inaad soonto saddex maalmood bishii, ka dibna sooma saddex iyo tobnaad, afar iyo tobnaad iyo shan iyo tobnaad.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa xaqa rumeeyow waxaa laydinku waajib yeelay soonka sidii loogu waajib yeelay kuwii idinka horreeyey si aad u dhawrsataan.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Niyo u yeelo inaad u soonto maalmaha cadcad ee Alle dartiis, ajarkeedana aad doonaysid.",
       "Dhaqso waxaad awoodo - hal ama laba maalmood ayaa weli sidi abaal-marintii toban laab-laabantay hadday saddexduba suurtogal noqon waayaan.",
@@ -94,11 +62,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Dadka qaarkiis waxay door bidaan inay saddex maalmood oo bille ah ku ekaadaan Isniinta iyo Khamiista halkii ay ka ahaan lahaayeen 13-15-ka, taasina waxay sidoo kale buuxinaysaa sunnaha saddexda maalmood ee bishii. ",
       "Dooro qaabka aad sii wadi karto. ",
     ],
-    hadith: [
-      {
-        excerpt: "Rasuulka ﷺ waxaa la weydiiyey soonka maalinta Isniinta. ",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Dooro qaab waara: Maalmaha Cad, ama Isniinta iyo Khamiista, ama labadaba.",
       "Si joogto ah u ilaali - camal yar oo si joogto ah loo sameeyo waa mid Eebbe jecel yahay.",

@@ -5,6 +5,7 @@ import {
 } from "@munib-tracker/shared/admin-broadcasts";
 
 import { apiAuthOptions } from "@/api/auth-options";
+import { circleEventHref, parseCircleRouteData } from "@/lib/circles/inbox";
 import type { InAppNotification, InAppNotificationKind } from "@/lib/in-app-notifications/storage";
 
 export type ServerInAppNotification = {
@@ -26,7 +27,8 @@ function isInAppKind(kind: string): kind is InAppNotificationKind {
     kind === "reminder" ||
     kind === "achievement" ||
     kind === "system" ||
-    kind === "admin_announcement"
+    kind === "admin_announcement" ||
+    kind === "circle"
   );
 }
 
@@ -34,6 +36,8 @@ function routeFromRouteData(
   routeData: Record<string, unknown> | null | undefined,
 ): string | undefined {
   if (!routeData) return undefined;
+  const circle = parseCircleRouteData(routeData);
+  if (circle) return circleEventHref(circle);
   const href = routeData.href;
   if (typeof href === "string" && href.trim()) return href.trim();
   return undefined;
@@ -107,6 +111,25 @@ export async function upsertPushToken(
     {
       url: "/notifications/push-token",
       method: "PUT",
+      body: JSON.stringify(input),
+    },
+    apiAuthOptions(accessToken),
+  );
+}
+
+/**
+ * Sign-out: removes this device's push token(s) from the signed-in account
+ * (`DELETE /notifications/push-token`), so the account's broadcasts and circle
+ * pushes stop reaching the device. Must run before the session is revoked.
+ */
+export async function removePushToken(
+  accessToken: string,
+  input: { deviceId?: string; token?: string },
+): Promise<void> {
+  await apiFetch(
+    {
+      url: "/notifications/push-token",
+      method: "DELETE",
       body: JSON.stringify(input),
     },
     apiAuthOptions(accessToken),

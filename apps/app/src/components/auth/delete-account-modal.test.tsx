@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { DeleteAccountModal } from "@/components/auth/delete-account-modal";
 import { usePlatform } from "@/test-support/platform";
+import { queryHostsByRole } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 
 type Props = Parameters<typeof DeleteAccountModal>[0];
@@ -28,10 +29,10 @@ async function goToConfirmStep(reason?: string) {
   await fireEvent.press(screen.getByText("Continue"));
 }
 
-async function confirmAndDelete() {
-  await fireEvent.changeText(screen.getByPlaceholderText("Type DELETE"), " DELETE ");
+async function confirmAndDelete(confirmLabel = "Delete account") {
+  await fireEvent.changeText(screen.getByLabelText("Type DELETE to confirm"), " DELETE ");
   await fireEvent.press(screen.getByRole("checkbox"));
-  await fireEvent.press(screen.getByText("Delete everything"));
+  await fireEvent.press(screen.getByRole("button", { name: confirmLabel }));
 }
 
 describe("DeleteAccountModal", () => {
@@ -71,8 +72,46 @@ describe("DeleteAccountModal", () => {
   it("keeps delete disabled until DELETE is typed and acknowledged", async () => {
     const { props } = await renderModal();
     await goToConfirmStep();
-    await fireEvent.press(screen.getByText("Delete everything"));
+    const confirm = () => screen.getByRole("button", { name: "Delete account" });
+    expect(confirm().props.accessibilityState).toEqual(expect.objectContaining({ disabled: true }));
+    await fireEvent.changeText(screen.getByLabelText("Type DELETE to confirm"), "DELETE");
+    expect(confirm().props.accessibilityState).toEqual(expect.objectContaining({ disabled: true }));
+    await fireEvent.press(confirm());
     expect(props.deleteAccount).not.toHaveBeenCalled();
+    await fireEvent.press(screen.getByRole("checkbox"));
+    expect(confirm().props.accessibilityState).toEqual(
+      expect.objectContaining({ disabled: false }),
+    );
+  });
+
+  it("labels the typed-confirmation field and the reason group (D-44)", async () => {
+    await renderModal();
+    await pickReason();
+    const groups = queryHostsByRole("radiogroup");
+    expect(groups).toHaveLength(1);
+    expect(groups[0]?.props.accessibilityLabel).toBe("Why are you leaving?");
+    expect(screen.getByRole("radio", { name: "Privacy concerns", checked: true })).toBeTruthy();
+    expect(screen.getByLabelText("Anything else? (optional)")).toBeTruthy();
+    await fireEvent.press(screen.getByText("Continue"));
+    expect(screen.getByLabelText("Type DELETE to confirm")).toBeTruthy();
+    expect(
+      screen.getByRole("checkbox", {
+        name: "I understand this permanently deletes my account and all synced data.",
+      }),
+    ).toBeTruthy();
+  });
+
+  it("uses the erase copy for a guest (F-22)", async () => {
+    const { props } = await renderModal({ guest: true });
+    expect(screen.getByText("Erase all data on this device?")).toBeTruthy();
+    expect(screen.queryByText("Delete account?")).toBeNull();
+    await goToConfirmStep();
+    expect(screen.getByText("Confirm erase")).toBeTruthy();
+    await confirmAndDelete("Erase data");
+    expect(props.deleteAccount).toHaveBeenCalledWith({
+      confirmation: "DELETE",
+      primaryReason: "privacy_concerns",
+    });
   });
 
   it("deletes with trimmed details, then closes", async () => {
@@ -101,6 +140,7 @@ describe("DeleteAccountModal", () => {
       confirmation: "DELETE",
       primaryReason: "privacy_concerns",
     });
+    expect(screen.getByRole("alert")).toBeTruthy();
     expect(screen.getByText(/Couldn't delete your account/)).toBeTruthy();
     expect(props.onDeleted).not.toHaveBeenCalled();
   });

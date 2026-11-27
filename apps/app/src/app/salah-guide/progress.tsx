@@ -62,9 +62,9 @@ export default function SalahGuideProgressScreen() {
       <LearnContentGate ready={contentReady}>
         <LearnSplitLayout aside={<SalahGuideTopicAside />}>
           <Stagger>
-            <JannahCallout tone="warning">{t("salahGuide.progressIntro")}</JannahCallout>
+            <JannahCallout tone="info">{t("salahGuide.progressIntro")}</JannahCallout>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("salahGuide.lessonsTitle")}
                 icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
@@ -79,11 +79,14 @@ export default function SalahGuideProgressScreen() {
                     total: snapshot.lessonsTotal,
                   })}
                 </ThemedText>
-                <ProgressBar value={snapshot.lessonProgress} />
+                <ProgressBar
+                  value={snapshot.lessonProgress}
+                  accessibilityLabel={t("salahGuide.lessonsTitle")}
+                />
               </View>
             </Card>
 
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("salahGuide.exploreTitle")}
                 icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
@@ -127,7 +130,7 @@ export default function SalahGuideProgressScreen() {
 }
 
 const styles = StyleSheet.create({
-  hint: { marginTop: Spacing.one, lineHeight: 20 },
+  hint: { marginTop: Spacing.one },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });

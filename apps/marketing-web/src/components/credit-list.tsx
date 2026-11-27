@@ -1,5 +1,3 @@
-"use client";
-
 import { TrackedLink } from "@/components/tracked-link";
 
 type CreditSource = {
@@ -16,7 +14,7 @@ export function CreditList({ sources }: { sources: readonly CreditSource[] }) {
       {sources.map((source) => (
         <article
           key={source.name}
-          className="rounded-[var(--radius-card)] border border-border/50 bg-card p-5"
+          className="min-w-0 rounded-[var(--radius-card)] border border-border/50 bg-card p-5 [overflow-wrap:anywhere]"
         >
           <h3 className="font-semibold">
             <TrackedLink

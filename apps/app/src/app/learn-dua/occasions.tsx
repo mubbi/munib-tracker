@@ -31,7 +31,11 @@ export default function LearnDuaOccasionsScreen() {
   const router = useRouter();
   const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
   const occasions = getLearnDuaOccasions();
 
   return (
@@ -45,7 +49,7 @@ export default function LearnDuaOccasionsScreen() {
       maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-dua/occasions" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <LearnSplitLayout aside={<LearnDuaTopicAside />}>
           <Stagger>
             <JannahCallout tone="info">
@@ -56,7 +60,7 @@ export default function LearnDuaOccasionsScreen() {
               const items = occasions.filter((occasion) => occasion.category === category);
               if (!items?.length) return null;
               return (
-                <Card key={category} padding="three">
+                <Card key={category}>
                   <SectionHeader
                     title={t(`learnDua.occasionsCategory.${category}`)}
                     icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}

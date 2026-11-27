@@ -1,0 +1,27 @@
+// expo-module-gradle-plugin supplies compileSdk / minSdk / targetSdk, Kotlin (AGP 9
+// built-in Kotlin or the Kotlin Gradle plugin, matching the app) and expo-modules-core.
+// TV-only: react-native.config.js keeps this module out of phone builds.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.munibtvhome'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.munibtvhome"
+  defaultConfig {
+    versionCode 1
+    versionName "1.0.0"
+  }
+  lint {
+    abortOnError false
+  }
+}
+
+dependencies {
+  // Preview channels / programs on the Android TV home screen (TvContractCompat,
+  // PreviewChannelHelper). https://developer.android.com/jetpack/androidx/releases/tvprovider
+  implementation "androidx.tvprovider:tvprovider:1.1.0"
+}

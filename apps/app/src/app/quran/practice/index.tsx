@@ -8,6 +8,8 @@ import { ListenerStatusStrip } from "@/components/quran/listener-status-strip";
 import { PracticePassagePicker } from "@/components/quran/practice-passage-picker";
 import { type PracticePillOption, PracticePills } from "@/components/quran/practice-pills";
 import { PracticeRangeEditor } from "@/components/quran/practice-range-editor";
+import { SurahCalligraphyName } from "@/components/quran/surah-calligraphy-name";
+import { SurahNumberMedallion } from "@/components/quran/surah-number-medallion";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { SettingsRow } from "@/components/settings/settings-rows";
@@ -18,7 +20,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -28,12 +30,14 @@ import { isListenerUsable } from "@/lib/quran-companion/model/download-job";
 import { clampPassage, modeNeedsListener, passageForPreset } from "@/lib/quran-companion/passage";
 import type { Passage, PracticeMode, PracticeView, RangePreset } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
+import { isPronunciationCheckPlatformAvailable } from "@/lib/quran-pronunciation/availability";
+import { pronunciationCheckHref } from "@/lib/quran-pronunciation/entry";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { updateCompanionPrefs } from "@/lib/settings/companion-shortcuts";
 import { useEnsureHifzLoaded } from "@/stores/hifz-store";
 import {
   useCompanionPrefs,
-  useCompanionPrefsActions,
   useCompanionPrefsReady,
   useEnsureCompanionPrefsLoaded,
 } from "@/stores/quran-companion-prefs-store";
@@ -114,7 +118,8 @@ export default function PracticeHubScreen() {
   useEnsureHifzLoaded();
   const prefsReady = useCompanionPrefsReady();
   const prefs = useCompanionPrefs();
-  const { update } = useCompanionPrefsActions();
+  // Hub pickers are shortcuts to Settings › Qur'an › Practice (one write path).
+  const update = updateCompanionPrefs;
   // TV: never warm the on-device recitation model — practice is mic-only.
   useEnsureListenerLoaded(prefs.engineChoice, prefsReady && isPracticeAvailable());
   const listener = useListenerState();
@@ -298,7 +303,7 @@ export default function PracticeHubScreen() {
   );
   const reviseCard =
     sitting.items.length > 0 ? (
-      <Card padding="three">
+      <Card>
         <View style={styles.reviseHeader}>
           <IconWell
             icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
@@ -340,7 +345,7 @@ export default function PracticeHubScreen() {
       </Card>
     ) : null;
   const passageCard = (
-    <Card padding="three">
+    <Card>
       <View style={styles.eyebrowRow}>
         <SymbolView
           name={
@@ -356,7 +361,6 @@ export default function PracticeHubScreen() {
         </ThemedText>
       </View>
       <PressableScale
-        haptic="light"
         accessibilityRole="button"
         accessibilityLabel={`${passageLabel}. ${t("quranCompanion.hub.change")}`}
         accessibilityHint={t("quranCompanion.picker.title")}
@@ -366,27 +370,29 @@ export default function PracticeHubScreen() {
           { backgroundColor: colors.muted, borderColor: tokens.accentBorder },
         ]}
       >
-        <View style={[styles.passageBadge, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
-            {passage?.surah ?? start.surah}
-          </ThemedText>
-        </View>
+        {/* Same identity as the surah list: star medallion + Thuluth calligraphy name. */}
+        <SurahNumberMedallion number={passage?.surah ?? start.surah} size={48} highlighted />
         <View style={styles.flex}>
           <ThemedText type="subtitle" numberOfLines={1}>
             {passageLabel}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("quranCompanion.hub.ayahCount", { count: ayahTotal })}
-            {surahMeta?.nameArabic ? ` · ${surahMeta.nameArabic}` : ""}
           </ThemedText>
         </View>
+        {surahMeta?.nameArabic ? (
+          <SurahCalligraphyName
+            number={passage?.surah ?? start.surah}
+            nameArabic={surahMeta.nameArabic}
+          />
+        ) : null}
         <View style={[styles.changeLink, { backgroundColor: tokens.accentSoft }]}>
           <SymbolView
             name={{ ios: "pencil", android: "edit", web: "edit" }}
             size={14}
             tintColor={colors.accent}
           />
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
             {t("quranCompanion.hub.change")}
           </ThemedText>
         </View>
@@ -452,7 +458,7 @@ export default function PracticeHubScreen() {
             tintColor={tokens.status.warning.color}
             style={styles.calloutIcon}
           />
-          <ThemedText type="caption" style={[styles.flex, { color: tokens.status.warning.color }]}>
+          <ThemedText type="caption" style={[styles.flex, { color: tokens.status.warning.text }]}>
             {t("quranCompanion.hub.captionManualMode")}
           </ThemedText>
         </View>
@@ -470,11 +476,25 @@ export default function PracticeHubScreen() {
         icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
         style={styles.startButton}
       />
+      {passage && isPronunciationCheckPlatformAvailable() ? (
+        <Button
+          label={t("quranPronunciation.entry.hub")}
+          variant="secondary"
+          onPress={() =>
+            router.push(
+              pronunciationCheckHref(passage.surah, passage.ayahStart, passage.ayahEnd, "hub"),
+            )
+          }
+          fullWidth
+          icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+          style={styles.startButton}
+        />
+      ) : null}
     </Card>
   );
   const recentCard =
     recent.length > 0 ? (
-      <Card padding="three">
+      <Card>
         <SectionLabel
           first
           icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
@@ -496,7 +516,6 @@ export default function PracticeHubScreen() {
             return (
               <PressableScale
                 key={r.key}
-                haptic="light"
                 accessibilityRole="button"
                 accessibilityLabel={`${label}, ${modeLabel}`}
                 accessibilityHint={t("quranCompanion.hub.recentHint")}
@@ -619,7 +638,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
   },
   sectionGap: { marginTop: Spacing.four },
-  eyebrowRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  eyebrowRow: { flexDirection: "row", alignItems: "center", gap: Spacing.oneHalf },
   modeHelp: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -647,20 +666,13 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  passageBadge: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
+    borderWidth: BorderWidth.hairline,
   },
   changeLink: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    paddingVertical: 6,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
   },
@@ -668,18 +680,18 @@ const styles = StyleSheet.create({
   recentIcon: {
     width: 28,
     height: 28,
-    borderRadius: 14,
+    borderRadius: Radius.pill,
     alignItems: "center",
     justifyContent: "center",
   },
   modeChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
-    paddingVertical: 2,
+    gap: Spacing.one,
+    paddingVertical: Spacing.half,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.pill,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     flexShrink: 1,
   },
   recentRow: {
@@ -698,7 +710,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     padding: Spacing.two,
     borderRadius: Radius.sm,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   startButton: { marginTop: Spacing.four },
 });

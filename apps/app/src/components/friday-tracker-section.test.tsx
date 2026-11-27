@@ -51,7 +51,7 @@ describe("FridayTrackerSection", () => {
   it("opens a practice's related content", async () => {
     await renderSection();
 
-    await fireEvent.press(screen.getAllByLabelText("Open related content")[0]);
+    await fireEvent.press(screen.getAllByLabelText(/^Details: /)[0]);
 
     expect(mockRouter.push).toHaveBeenCalledWith(
       defined(

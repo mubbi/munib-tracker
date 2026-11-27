@@ -1,10 +1,8 @@
-import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { AppLocale } from "@munib-tracker/shared/types";
-import { Image } from "expo-image";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { SymbolView } from "expo-symbols";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
@@ -19,73 +17,32 @@ import {
 import { LanguagePickerSheet } from "@/components/language-picker-sheet";
 import { LocaleFlag } from "@/components/locale-flag";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
+import {
+  IntroSlidePage,
+  INTRO_SLIDES as SLIDES,
+  type SlideLayout,
+} from "@/components/onboarding/intro-slides";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
-import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
+import { isNearbySlide, logicalForOffset, pageIndexForLogical } from "@/lib/onboarding/intro-pager";
+import { chooseSetupLanguage, readSetupProgress } from "@/lib/onboarding/setup-flow";
 import { isTV } from "@/lib/platform/is-tv";
-import { useArrowForward, useIsRTL } from "@/lib/rtl";
+import { useArrowForward, useChevronBack, useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
-
-type SlideKind = "brand" | "feature" | "cta";
-
-type Slide = {
-  key: string;
-  kind: SlideKind;
-  icon?: SymbolViewProps["name"];
-  highlightCount?: number;
-};
-
-const SLIDES: Slide[] = [
-  { key: "brand", kind: "brand" },
-  {
-    key: "slide1",
-    kind: "feature",
-    icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
-    highlightCount: 3,
-  },
-  {
-    key: "slide2",
-    kind: "feature",
-    icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
-    highlightCount: 3,
-  },
-  {
-    key: "slide3",
-    kind: "feature",
-    icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
-    highlightCount: 3,
-  },
-  {
-    key: "slide4",
-    kind: "feature",
-    icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
-    highlightCount: 3,
-  },
-  {
-    key: "cta",
-    kind: "cta",
-    icon: { ios: "lock.shield.fill", android: "shield", web: "shield" },
-  },
-];
-
-const HIGHLIGHT_ICON: SymbolViewProps["name"] = {
-  ios: "checkmark.circle.fill",
-  android: "check_circle",
-  web: "check_circle",
-};
+import { usePreferences } from "@/stores/preferences-store";
 
 const PAGE_COUNT = SLIDES.length;
 
@@ -94,29 +51,13 @@ const WIDE_SPLIT_MIN_WIDTH = 900;
 /** Wide web: footer CTA column (instead of full-bleed buttons across the canvas). */
 const WIDE_FOOTER_MAX_WIDTH = 520;
 
-type SlideLayout = "phone" | "tv" | "wide";
-
-/** Current slide plus neighbors — keeps off-screen pages from mounting nested
- *  ScrollViews / SF Symbols during cold start (Sentry WatchdogTermination). */
-function isNearbySlide(logicalIndex: number, currentIndex: number): boolean {
-  return Math.abs(logicalIndex - currentIndex) <= 1;
-}
-
-/** Pager page index (LTR content offset units) ↔ narrative slide index. */
-function pageIndexForLogical(logical: number, rtl: boolean): number {
-  return rtl ? PAGE_COUNT - 1 - logical : logical;
-}
-
-function logicalForPageIndex(page: number, rtl: boolean): number {
-  return rtl ? PAGE_COUNT - 1 - page : page;
-}
-
 export default function OnboardingIntroScreen() {
   useMarkColdStartReady();
   const router = useRouter();
   const { t } = useTranslation();
   const insets = useAppSafeAreaInsets();
   const arrowForward = useArrowForward();
+  const chevronBack = useChevronBack();
   const isRtl = useIsRTL();
   const { width } = useWindowDimensions();
   const tv = isTV();
@@ -136,44 +77,63 @@ export default function OnboardingIntroScreen() {
   const slidePadBottom = tv ? Spacing.three : Spacing.two;
   const scrollRef = useRef<ScrollViewInstance>(null);
   const buttonDrivenScrollRef = useRef(false);
-  const [index, setIndex] = useState(0);
+  // `?at=end`: Back from the first setup step returns to the guest / sign-in page.
+  const { at } = useLocalSearchParams<{ at?: string }>();
+  const [index, setIndex] = useState(at === "end" ? PAGE_COUNT - 1 : 0);
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
   const prefs = usePreferences();
-  const { setLocale, update } = usePreferencesActions();
 
   const slide = SLIDES[index];
   const isLast = index === PAGE_COUNT - 1;
+  // G-97: phones page by swipe only — give switch-access / screen-reader users
+  // a visible Back from the second page on (wide web has one in the footer).
+  const phoneBack = layout === "phone" && index > 0;
+  // G-97: on the last page "Skip" would do exactly what "Continue as guest" does.
   const isBrand = slide.kind === "brand";
+  const showSkip = !isBrand && !isLast;
   const localeName =
     APP_LOCALES.find((entry) => entry.code === prefs.locale)?.name ?? APP_LOCALES[0].name;
 
   // RTL: reverse children inside an LTR pager so "next" decreases offset (content moves right).
   const pagerSlides = useMemo(() => (isRtl ? [...SLIDES].reverse() : SLIDES), [isRtl]);
 
-  const offsetForLogical = (logical: number) => pageIndexForLogical(logical, isRtl) * width;
+  const offsetForLogical = (logical: number) =>
+    pageIndexForLogical(logical, PAGE_COUNT, isRtl) * width;
 
   const scrollToLogical = (logical: number, animated: boolean) => {
     scrollRef.current?.scrollTo({ x: offsetForLogical(logical), animated });
   };
 
-  /** Carousel complete → location permission step (onboarding finishes there). */
-  const goToLocationStep = (destination: "/" | "/login") => {
+  /** Welcome done → the setup wizard (language, location, madhhab, reminders…). */
+  const goToSetup = (destination: "/" | "/login") => {
     router.replace({
-      pathname: "/intro-location",
-      params: { next: destination },
+      pathname: "/setup",
+      params: destination === "/login" ? { next: destination } : {},
     });
   };
 
+  // A first run interrupted mid-setup (app closed, or an RTL language switch
+  // reloaded it) resumes at the saved step instead of replaying the welcome.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only resume check
+  useEffect(() => {
+    if (at === "end" || prefs.hasCompletedOnboarding) return;
+    const saved = readSetupProgress();
+    if (!saved) return;
+    router.replace({
+      pathname: "/setup",
+      params:
+        saved.next === "/login" ? { step: saved.step, next: saved.next } : { step: saved.step },
+    });
+  }, []);
+
+  // Same write path as the setup wizard's language step (translation follows the UI).
   const onSelectLocale = (locale: AppLocale) => {
-    void setLocale(locale);
-    // Match scripture meaning language on first run so content aligns with the UI.
-    void update({ translationLocale: locale });
+    void chooseSetupLanguage(locale);
   };
 
   const commitPageFromOffset = (offsetX: number) => {
     if (width <= 0) return;
-    const page = Math.round(offsetX / width);
-    const logical = logicalForPageIndex(Math.min(Math.max(page, 0), PAGE_COUNT - 1), isRtl);
+    const logical = logicalForOffset(offsetX, width, PAGE_COUNT, isRtl);
     setIndex((current) => (current === logical ? current : logical));
   };
 
@@ -268,34 +228,45 @@ export default function OnboardingIntroScreen() {
           },
         ]}
       >
-        <PressableScale
-          accessibilityRole="button"
-          accessibilityLabel={t("onboarding.chooseLanguage")}
-          accessibilityHint={t("onboarding.chooseLanguageHint")}
-          hitSlop={8}
-          style={[styles.languageChip, tv ? styles.languageChipTv : null]}
-          onPress={() => {
-            triggerHaptic("light");
-            setLanguagePickerOpen(true);
-          }}
-        >
-          <LocaleFlag
-            locale={prefs.locale}
-            size="sm"
-            backgroundColor={Brand.onHeroMutedSurface}
-            borderColor={withAlpha(Brand.heroText, 0.2)}
-          />
-          <ThemedText type="smallBold" style={styles.languageChipLabel} numberOfLines={1}>
-            {localeName}
-          </ThemedText>
-          <SymbolView
-            name={{ ios: "chevron.down", android: "arrow_drop_down", web: "arrow_drop_down" }}
-            size={14}
-            tintColor={Brand.heroSubtext}
-          />
-        </PressableScale>
+        <View style={styles.topBarStart}>
+          {phoneBack ? (
+            <IconButton
+              name={chevronBack}
+              accessibilityLabel={t("common.back")}
+              tintColor={Brand.heroText}
+              background={Brand.onHeroMutedSurface}
+              onPress={goPrev}
+            />
+          ) : null}
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={t("onboarding.chooseLanguage")}
+            accessibilityHint={t("onboarding.chooseLanguageHint")}
+            hitSlop={8}
+            style={[styles.languageChip, tv ? styles.languageChipTv : null]}
+            onPress={() => {
+              triggerHaptic("light");
+              setLanguagePickerOpen(true);
+            }}
+          >
+            <LocaleFlag
+              locale={prefs.locale}
+              size="sm"
+              backgroundColor={Brand.onHeroMutedSurface}
+              borderColor={withAlpha(Brand.heroText, 0.2)}
+            />
+            <ThemedText type="smallBold" style={styles.languageChipLabel} numberOfLines={1}>
+              {localeName}
+            </ThemedText>
+            <SymbolView
+              name={{ ios: "chevron.down", android: "arrow_drop_down", web: "arrow_drop_down" }}
+              size={14}
+              tintColor={Brand.heroSubtext}
+            />
+          </PressableScale>
+        </View>
 
-        {!isBrand ? (
+        {showSkip ? (
           <PressableScale
             accessibilityRole="button"
             accessibilityLabel={t("common.skip")}
@@ -307,7 +278,7 @@ export default function OnboardingIntroScreen() {
             ]}
             onPress={() => {
               triggerHaptic("light");
-              goToLocationStep("/");
+              goToSetup("/");
             }}
           >
             <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
@@ -372,13 +343,7 @@ export default function OnboardingIntroScreen() {
                   showsVerticalScrollIndicator={false}
                   bounces={false}
                 >
-                  {item.kind === "brand" ? (
-                    <BrandSlide layout={layout} />
-                  ) : item.kind === "cta" ? (
-                    <CtaSlide icon={item.icon} layout={layout} />
-                  ) : (
-                    <FeatureSlide slide={item} layout={layout} />
-                  )}
+                  <IntroSlidePage slide={item} layout={layout} />
                 </TvScrollView>
               ) : null}
             </View>
@@ -388,13 +353,21 @@ export default function OnboardingIntroScreen() {
 
       <View
         style={[styles.dots, tv ? styles.dotsTv : null]}
+        // Dots are decorative; the page position is the progress value (F-50).
         accessibilityRole="progressbar"
         accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: PAGE_COUNT })}
+        accessibilityValue={{ min: 1, max: PAGE_COUNT, now: index + 1 }}
       >
         {SLIDES.map((item, i) => {
           const active = i === index;
           return (
-            <View key={item.key} style={styles.dotSlot} accessibilityElementsHidden>
+            <View
+              key={item.key}
+              style={styles.dotSlot}
+              accessible={false}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
+            >
               <View
                 style={[
                   styles.dot,
@@ -430,7 +403,7 @@ export default function OnboardingIntroScreen() {
                     label={t("common.continueAsGuest")}
                     fullWidth
                     preferredFocus
-                    onPress={() => goToLocationStep("/")}
+                    onPress={() => goToSetup("/")}
                     style={styles.finalActionTv}
                   />
                   <Button
@@ -438,14 +411,8 @@ export default function OnboardingIntroScreen() {
                     variant="ghost"
                     fullWidth
                     labelColor={Brand.heroText}
-                    onPress={() => goToLocationStep("/login")}
-                    style={[
-                      styles.finalActionTv,
-                      {
-                        backgroundColor: Brand.onHeroStrongSurface,
-                        borderColor: withAlpha(Brand.heroText, 0.32),
-                      },
-                    ]}
+                    onPress={() => goToSetup("/login")}
+                    style={[styles.finalActionTv, styles.heroGhost]}
                   />
                 </>
               ) : (
@@ -453,7 +420,7 @@ export default function OnboardingIntroScreen() {
                   <Button
                     label={t("onboarding.signInToSync")}
                     fullWidth
-                    onPress={() => goToLocationStep("/login")}
+                    onPress={() => goToSetup("/login")}
                     style={wide ? styles.finalActionTv : undefined}
                   />
                   <Button
@@ -461,14 +428,8 @@ export default function OnboardingIntroScreen() {
                     variant="ghost"
                     fullWidth
                     labelColor={Brand.heroText}
-                    onPress={() => goToLocationStep("/")}
-                    style={[
-                      wide ? styles.finalActionTv : null,
-                      {
-                        backgroundColor: Brand.onHeroStrongSurface,
-                        borderColor: withAlpha(Brand.heroText, 0.32),
-                      },
-                    ]}
+                    onPress={() => goToSetup("/")}
+                    style={[wide ? styles.finalActionTv : null, styles.heroGhost]}
                   />
                 </>
               )}
@@ -482,13 +443,7 @@ export default function OnboardingIntroScreen() {
                 fullWidth
                 labelColor={Brand.heroText}
                 onPress={goPrev}
-                style={[
-                  styles.finalActionTv,
-                  {
-                    backgroundColor: Brand.onHeroStrongSurface,
-                    borderColor: withAlpha(Brand.heroText, 0.32),
-                  },
-                ]}
+                style={[styles.finalActionTv, styles.heroGhost]}
               />
               <Button
                 label={t("common.next")}
@@ -520,295 +475,6 @@ export default function OnboardingIntroScreen() {
   );
 }
 
-function BrandSlide({ layout }: { layout: SlideLayout }) {
-  const { t } = useTranslation();
-  const tv = layout === "tv";
-
-  const brandBlock = (
-    <>
-      <ThemedText type="header" style={[styles.bismillah, { color: Brand.heroAccent }]}>
-        ﷽
-      </ThemedText>
-
-      <View style={[styles.logoWrap, tv ? styles.logoWrapTv : null]}>
-        <Image
-          style={[styles.logoGlow, tv ? styles.logoGlowTv : null]}
-          source={require("@/assets/images/logo-glow.png")}
-          contentFit="contain"
-          cachePolicy="memory"
-          transition={0}
-          priority="low"
-        />
-        <Image
-          style={[styles.logo, tv ? styles.logoTv : null]}
-          source={require("@/assets/images/munib-logo.png")}
-          contentFit="contain"
-          cachePolicy="memory"
-          transition={0}
-          priority="high"
-        />
-      </View>
-
-      <ThemedText type="header" style={[styles.brandTitle, { color: Brand.heroText }]}>
-        {APP_NAME}
-      </ThemedText>
-      <ThemedText
-        type="subtitle"
-        style={[
-          styles.brandTagline,
-          tv ? styles.brandTaglineTv : null,
-          { color: Brand.heroSubtext },
-        ]}
-      >
-        {t("common.appTagline")}
-      </ThemedText>
-    </>
-  );
-
-  const duaCard = (
-    <View
-      style={[
-        styles.duaCard,
-        tv ? styles.duaCardTv : null,
-        { backgroundColor: Brand.onHeroStrongSurface },
-      ]}
-    >
-      <ThemedText type="label" style={[styles.duaLabel, { color: Brand.heroAccent }]}>
-        {t("onboarding.brandDuaLabel")}
-      </ThemedText>
-      <ThemedText
-        type="arabic"
-        style={[styles.duaArabic, tv ? styles.duaArabicTv : null, { color: Brand.heroText }]}
-      >
-        {t("onboarding.brandDuaArabic")}
-      </ThemedText>
-      <ThemedText type="caption" style={[styles.duaTranslit, { color: Brand.heroSubtext }]}>
-        {t("onboarding.brandDuaTransliteration")}
-      </ThemedText>
-      <ThemedText type="small" style={[styles.duaTranslation, { color: Brand.heroSubtext }]}>
-        {t("onboarding.brandDuaTranslation")}
-      </ThemedText>
-    </View>
-  );
-
-  // TV (960×540 landscape, no scrolling) and wide web: brand beside the dua so
-  // nothing clips and the canvas isn't a narrow centered strip.
-  if (layout !== "phone") {
-    return (
-      <View style={[styles.slideTvRow, tv ? null : styles.slideWideRow]}>
-        <View style={[styles.brandSlide, styles.slideTvCol]}>{brandBlock}</View>
-        <View style={styles.slideTvCol}>{duaCard}</View>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.brandSlide}>
-      {brandBlock}
-      {duaCard}
-    </View>
-  );
-}
-
-/**
- * Landscape slide: icon well beside a start-aligned text column. Pages don't
- * scroll on TV (the pager is button-driven), so a landscape row keeps every line
- * on a 960×540 screen instead of clipping a tall phone column. Wide web reuses
- * the same split with larger art and a readable copy measure.
- */
-function SlideRow({
-  layout,
-  icon,
-  eyebrow,
-  title,
-  body,
-  children,
-}: {
-  layout: "tv" | "wide";
-  icon?: SymbolViewProps["name"];
-  eyebrow: string;
-  title: string;
-  body: string;
-  children?: ReactNode;
-}) {
-  const tv = layout === "tv";
-  return (
-    <View style={[styles.slideTvRow, tv ? null : styles.slideWideRow]}>
-      <View
-        style={[
-          styles.icon,
-          tv ? styles.iconTv : styles.iconWide,
-          { backgroundColor: Brand.onHeroStrongSurface },
-        ]}
-      >
-        {icon ? <SymbolView name={icon} size={tv ? 56 : 96} tintColor={Brand.heroAccent} /> : null}
-      </View>
-      <View style={[styles.slideTvCol, styles.slideTvText]}>
-        <ThemedText
-          type="label"
-          style={[styles.eyebrow, styles.textStartTv, { color: Brand.heroAccent }]}
-        >
-          {eyebrow}
-        </ThemedText>
-        <ThemedText
-          type="title"
-          style={[
-            styles.title,
-            tv ? styles.titleTv : null,
-            styles.textStartTv,
-            { color: Brand.heroText },
-          ]}
-        >
-          {title}
-        </ThemedText>
-        <ThemedText
-          type="default"
-          style={[
-            styles.body,
-            tv ? styles.bodyTv : styles.bodyWide,
-            styles.textStartTv,
-            { color: Brand.heroSubtext },
-          ]}
-        >
-          {body}
-        </ThemedText>
-        {children}
-      </View>
-    </View>
-  );
-}
-
-function FeatureSlide({ slide, layout }: { slide: Slide; layout: SlideLayout }) {
-  const { t } = useTranslation();
-  const tv = layout === "tv";
-  const highlights = Array.from({ length: slide.highlightCount ?? 0 }, (_, i) =>
-    t(`onboarding.${slide.key}Highlight${i + 1}`),
-  );
-
-  const highlightList = (
-    <View
-      style={[
-        styles.highlights,
-        tv ? styles.highlightsTv : null,
-        layout === "wide" ? styles.copyWide : null,
-      ]}
-    >
-      {highlights.map((line) => (
-        <View key={line} style={styles.highlightRow}>
-          <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
-          <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
-            {line}
-          </ThemedText>
-        </View>
-      ))}
-    </View>
-  );
-
-  if (layout !== "phone") {
-    return (
-      <SlideRow
-        layout={layout}
-        icon={slide.icon}
-        eyebrow={t(`onboarding.${slide.key}Eyebrow`)}
-        title={t(`onboarding.${slide.key}Title`)}
-        body={t(`onboarding.${slide.key}Body`)}
-      >
-        {highlightList}
-      </SlideRow>
-    );
-  }
-
-  return (
-    <View style={styles.featureSlide}>
-      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
-        {slide.icon ? (
-          <SymbolView name={slide.icon} size={52} tintColor={Brand.heroAccent} />
-        ) : null}
-      </View>
-
-      <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
-        {t(`onboarding.${slide.key}Eyebrow`)}
-      </ThemedText>
-      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
-        {t(`onboarding.${slide.key}Title`)}
-      </ThemedText>
-      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
-        {t(`onboarding.${slide.key}Body`)}
-      </ThemedText>
-
-      {highlightList}
-    </View>
-  );
-}
-
-function CtaSlide({ icon, layout }: { icon?: SymbolViewProps["name"]; layout: SlideLayout }) {
-  const { t } = useTranslation();
-
-  if (layout === "tv") {
-    // No privacy card on TV: the guest / QR sign-in choice sits right below.
-    return (
-      <SlideRow
-        layout="tv"
-        icon={icon}
-        eyebrow={t("onboarding.ctaEyebrow")}
-        title={t("onboarding.ctaTitle")}
-        body={tTv(t, "onboarding.ctaBody", "onboarding.ctaBodyTv")}
-      />
-    );
-  }
-
-  const privacyCard = (
-    <View
-      style={[
-        styles.privacyCard,
-        layout === "wide" ? styles.copyWide : null,
-        { backgroundColor: Brand.onHeroMutedSurface },
-      ]}
-    >
-      <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-        {t("onboarding.ctaPrivacyTitle")}
-      </ThemedText>
-      <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
-        {t("onboarding.ctaPrivacyBody")}
-      </ThemedText>
-    </View>
-  );
-
-  if (layout === "wide") {
-    return (
-      <SlideRow
-        layout="wide"
-        icon={icon}
-        eyebrow={t("onboarding.ctaEyebrow")}
-        title={t("onboarding.ctaTitle")}
-        body={t("onboarding.ctaBody")}
-      >
-        {privacyCard}
-      </SlideRow>
-    );
-  }
-
-  return (
-    <View style={styles.ctaSlide}>
-      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
-        {icon ? <SymbolView name={icon} size={52} tintColor={Brand.heroAccent} /> : null}
-      </View>
-
-      <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
-        {t("onboarding.ctaEyebrow")}
-      </ThemedText>
-      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
-        {t("onboarding.ctaTitle")}
-      </ThemedText>
-      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
-        {t("onboarding.ctaBody")}
-      </ThemedText>
-
-      {privacyCard}
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   root: { flex: 1 },
   topBar: {
@@ -820,18 +486,24 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     minHeight: 44,
   },
+  topBarStart: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    flexShrink: 1,
+  },
   languageChip: {
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     minHeight: 44,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     backgroundColor: Brand.onHeroMutedSurface,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderColor: withAlpha(Brand.heroText, 0.22),
   },
   languageChipLabel: {
@@ -859,7 +531,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     backgroundColor: Brand.onHeroMutedSurface,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderColor: withAlpha(Brand.heroText, 0.22),
   },
   slidePager: {
@@ -877,219 +549,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: Spacing.two,
   },
-  brandSlide: {
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingBottom: Spacing.two,
-  },
-  bismillah: {
-    textAlign: "center",
-  },
-  logoWrap: {
-    width: 132,
-    height: 132,
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: Spacing.one,
-  },
-  logoGlow: {
-    position: "absolute",
-    width: 168,
-    height: 168,
-    opacity: 0.85,
-  },
-  logo: {
-    width: 108,
-    height: 108,
-    borderRadius: 24,
-  },
-  // TV slides don't scroll: keep the brand column (bismillah → logo → title →
-  // tagline) inside the ~235dp band between the top bar and the dots.
-  logoWrapTv: {
-    width: tvDp(84),
-    height: tvDp(84),
-    marginVertical: 0,
-  },
-  logoGlowTv: {
-    width: tvDp(108),
-    height: tvDp(108),
-  },
-  logoTv: {
-    width: tvDp(68),
-    height: tvDp(68),
-    borderRadius: tvDp(16),
-  },
-  // Wider card + tighter Arabic line so the full dua (incl. translation) fits
-  // without clipping on the non-scrolling TV slide.
-  duaCardTv: {
-    maxWidth: tvDp(480),
-    alignSelf: "center",
-    paddingTop: Spacing.two,
-    paddingBottom: Spacing.two,
-    gap: Spacing.one,
-    marginTop: 0,
-  },
-  duaArabicTv: {
-    fontSize: 17,
-    lineHeight: 28,
-  },
-  brandTitle: {
-    textAlign: "center",
-  },
-  brandTagline: {
-    textAlign: "center",
-    maxWidth: 300,
-  },
-  /** TV: 300 is unscaled — at 2× text that wraps the tagline to 3+ lines. */
-  brandTaglineTv: {
-    maxWidth: tvDp(360),
-  },
-  duaCard: {
-    width: "100%",
-    maxWidth: 360,
-    borderRadius: Radius.lg,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingTop: Spacing.three,
-    paddingBottom: Spacing.three + 2,
-    gap: Spacing.one + 2,
-    marginTop: Spacing.one,
-  },
-  duaLabel: {
-    textAlign: "center",
-    textTransform: "uppercase",
-    letterSpacing: 1,
-  },
-  duaArabic: {
-    textAlign: "center",
-    color: Brand.heroText,
-    fontSize: 20,
-    lineHeight: 32,
-  },
-  duaTranslit: {
-    textAlign: "center",
-    fontStyle: "italic",
-    lineHeight: 18,
-  },
-  duaTranslation: {
-    textAlign: "center",
-    lineHeight: 20,
-  },
-  featureSlide: {
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.two,
-  },
-  ctaSlide: {
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.two,
-  },
-  /** TV landscape slide: visual column beside the copy column. */
-  slideTvRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "center",
-    width: "100%",
-    maxWidth: tvDp(840),
-    gap: Spacing.five,
-  },
-  /** Wide web: same split as TV with web-sized art and gutters. */
-  slideWideRow: {
-    maxWidth: 1040,
-    gap: Spacing.six,
-    paddingHorizontal: Spacing.four,
-  },
-  iconWide: {
-    width: 220,
-    height: 220,
-    borderRadius: 64,
-    marginBottom: 0,
-  },
-  bodyWide: {
-    maxWidth: 520,
-  },
-  copyWide: {
-    maxWidth: 520,
-  },
-  slideTvCol: {
-    flex: 1,
-    minWidth: 0,
-  },
-  slideTvText: {
-    gap: Spacing.two,
-    alignItems: "flex-start",
-  },
-  textStartTv: {
-    textAlign: "auto",
-  },
-  icon: {
-    width: 108,
-    height: 108,
-    borderRadius: 36,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: Spacing.two,
-  },
-  iconTv: {
-    width: tvDp(144),
-    height: tvDp(144),
-    borderRadius: tvDp(40),
-    marginBottom: 0,
-  },
-  eyebrow: {
-    textAlign: "center",
-    textTransform: "uppercase",
-    letterSpacing: 1.2,
-  },
-  title: {
-    textAlign: "center",
-  },
-  titleTv: {
-    fontSize: TvLayout.titleFontSize,
-    lineHeight: TvLayout.titleFontSize + 6,
-  },
-  body: {
-    textAlign: "center",
-    maxWidth: 320,
-  },
-  bodyTv: {
-    maxWidth: tvDp(560),
-    fontSize: TvLayout.bodyFontSize,
-    lineHeight: TvLayout.bodyFontSize + 8,
-    marginBottom: Spacing.two,
-  },
-  highlights: {
-    width: "100%",
-    maxWidth: 340,
-    gap: Spacing.two,
-    marginTop: Spacing.three,
-  },
-  highlightsTv: {
-    maxWidth: tvDp(560),
-    marginTop: Spacing.one,
-  },
-  highlightRow: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: Spacing.two,
-  },
-  highlightText: {
-    flex: 1,
-  },
-  privacyCard: {
-    width: "100%",
-    maxWidth: 340,
-    borderRadius: Radius.lg,
-    borderCurve: "continuous",
-    padding: Spacing.three,
-    gap: Spacing.one + 2,
-    marginTop: Spacing.three,
-  },
-  privacyBody: {
-    lineHeight: 20,
-  },
   dots: {
     flexDirection: "row",
     justifyContent: "center",
@@ -1100,7 +559,7 @@ const styles = StyleSheet.create({
   dotsTv: {
     paddingTop: Spacing.two,
     paddingBottom: Spacing.three,
-    minHeight: 28,
+    minHeight: tvDp(28),
   },
   /** Fixed-width slot so active pill ↔ idle circle never shifts neighbors. */
   dotSlot: {
@@ -1132,6 +591,11 @@ const styles = StyleSheet.create({
   },
   finalActionTv: {
     flex: 1,
+  },
+  /** Ghost button legible on the hero gradient. */
+  heroGhost: {
+    backgroundColor: Brand.onHeroStrongSurface,
+    borderColor: withAlpha(Brand.heroText, 0.32),
   },
 });
 

@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Pastrimi në Islami ka dy dimensione. E jashtme është pastërtia e prekshme - larja, heqja e papastërtisë, mbajtja e pastër. E brendshme është përulësia, ndërgjegjja dhe gatishmëria e zemrës që larja ka për qëllim të zgjojë. Profeti ﷺ i lidhi të dy bashkë kur e quajti pastrimin 'gjysma e besimit', duke e kombinuar pastërtinë fizike me pastrimin e shpirtit nga mëkati.",
       "Ky modul e përshkon të gjithë temën sipas radhës: uji me të cilin pastroni, abdesi (abdesi i vogël), gusli (dushja e plotë rituale), tejemmumi (pastrimi i thatë kur uji nuk mund të përdoret), nexhasah (heqja e papastërtisë fizike) dhe rastet dhe lëshimet e veçanta. Mësoni atë një herë dhe lutja bëhet diçka në të cilën mund të hyni me besim dhe jo me dyshim.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, kur të ngriheni për të falur namazin, lani fytyrat dhe parakrahët deri në bërryla, fshijini kokat tuaja dhe lani këmbët deri në kyçin e këmbës.",
-      },
-      {
-        excerpt: "Vërtet, Allahu i do ata që pendohen vazhdimisht dhe i do ata që pastrohen.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Çelësi i lutjes është pastrimi; fillimi i tij është tekbiri dhe fundi i tij është teslimi. (Ali; edhe Xhemi et-Tirmidhi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Trajtoje pastrimin si përgatitje për takimin me Allahun, jo si një rutinë të nxituar.",
       "Studioni një temë taharah çdo ditë derisa e gjithë rrjedha të duket e natyrshme.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       'Profeti ﷺ e ngriti pastrimin në një tipar përcaktues të besimtarit, duke e quajtur atë "gjysma e besimit". Pastrimi i rregullt disiplinon një person, e mban atë në një gjendje gatishmërie të vazhdueshme për të adhuruar dhe - mëson hadithi - fjalë për fjalë i lan mëkatet e vogla me ujë.',
       "Për shkak se e ruan namazin, taharaja e ruan edhe besimtarin nga mëkati i faljes së pavlefshme nga pakujdesia. Prandaj, mësimi i mirë i vendimeve të tij është një veprim i mbrojtjes së një prej veprave më të mëdha në Islami.",
     ],
-    hadith: [
-      {
-        excerpt: "Pastrimi është gjysma e besimit. (Ebu Malik el-Esh'ari)",
-      },
-      {
-        excerpt:
-          "Allahu nuk e pranon lutjen pa pastrim, as sadaka nga ajo që është vjedhur. (Ibn Umeri)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Para çdo lutjeje, konfirmoni gjendjen tuaj të pastërtisë përpara se të filloni.",
       "Mbani një listë të thjeshtë kontrolli mendor: trupin, veshjen, vendin dhe abdesin.",
@@ -67,12 +46,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Papastërtia e madhe rituale (hadet ekber, i quajtur edhe xhenabe) rezulton nga intimiteti, shkarkimi seksual dhe përfundimi i menstruacioneve ose gjakderdhja pas lindjes. Ai hiqet me gusl, banjë rituale e të gjithë trupit - me tejemum që zëvendësohet përsëri kur uji është i padisponueshëm ose i dëmshëm.",
       "Fëlliqësia fizike (nexhasah) - si urina, jashtëqitjet ose gjaku që rrjedh - është një çështje më vete: ajo duhet të hiqet fizikisht nga trupi, rrobat dhe vendi i faljes, pavarësisht nga gjendja juaj rituale. Katër shkollat ​​sunite bien dakord për këto tre kategori, duke u dalluar vetëm në disa detaje të asaj që e anulon pastërtinë ose çfarë sasie gjurmë justifikohen.",
     ],
-    quran: [
-      {
-        excerpt:
-          "E nëse jeni në gjendje xhenabeje, atëherë pastroni veten. Por nëse jeni i sëmurë ose jeni në udhëtim… dhe nuk gjeni ujë, atëherë bëni tejemmum me tokë të pastër.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Identifikoni së pari gjendjen tuaj (të vogla, të mëdha ose të ndyra), më pas aplikoni metodën e duhur.",
       "Kur nuk jeni të sigurt për detajet, ndiqni vazhdimisht një mësues të kualifikuar nga një shkollë e njohur.",
@@ -87,17 +61,8 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Juristët e kategorizojnë ujin në detaje (i pastër dhe pastrues, i pastër por jo pastrues dhe i papastër), por rregulli praktik për jetën e përditshme është i thjeshtë: uji mbetet i përshtatshëm për abdes dhe gusl, përveç nëse një nexhase e ka ndryshuar qartë atë. Kur jeni në dyshim të vërtetë me një alternativë të pastër të disponueshme, përdorni alternativën.",
       "Islami mëson tërësinë pa ekstravagancë. Profeti ﷺ lau plotësisht, por përdori jashtëzakonisht pak ujë - rreth një baltë (dy grushte të mbushura me gota) për abdes dhe një sa' (afërsisht katër) për një gusl të plotë. Shpërdorimi i ujit dekurajohet edhe kur është i bollshëm, sepse vetë moderimi është pjesë e mirësjelljes së adhurimit.",
     ],
-    quran: [
-      {
-        excerpt: "Dhe Ne lëshojmë nga qielli ujë të pastër.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pejgamberi ﷺ merrte abdes me baltë ujë dhe gusl me sa' deri në pesë baltë. (Enes; gjithashtu Sahih Mysliman 325 - suneti i moderuar)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Përdorni ujë të mjaftueshëm për t'u larë plotësisht, por kthejeni rubinetin poshtë dhe shmangni tepricat.",
       "Nëse një burim uji duket ose ka erë të ndryshuar nga papastërtia, kërkoni burimin më të afërt qartësisht të pastër.",
@@ -113,12 +78,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Kërkohet para çdo namazi - përveç nëse qëndroni në një gjendje të vlefshme nga namazi i mëparshëm - dhe, sipas shumicës së dijetarëve, para kryerjes së tavafit rreth Qabes dhe para se të prekni tekstin fizik (mushafin) të Kur'anit.",
       'Abdesi është një akt adhurimi më vete, jo thjesht një akt paraprak. Pejgamberi ﷺ paralajmëroi se "Allahu nuk ia pranon lutjen asnjërit prej jush që e prish abdesin derisa ai të marrë përsëri abdes" - kështu që ruajtja e tij është ruajtja e vetë namazit.',
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu nuk ia pranon lutjen njërit prej jush që e ndërpret abdesin derisa të marrë abdes. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -128,14 +88,9 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
     body: [
       "Duhet të ekzistojnë disa kushte (shurut) që abdesi të numërohet. Personi duhet të jetë musliman me mendje të shëndoshë, me qëllim pastrimin për adhurim (nijet). Disa shkolla e klasifikojnë qëllimin si shtyllë të veprës dhe të tjera si kusht, por të gjithë pajtohen se ai kërkohet për shpërblimin dhe, për shumicën, për vlefshmërinë.",
       "Uji i përdorur duhet të jetë i pastër dhe pastrues. Më e rëndësishmja, ajo duhet të arrijë në lëkurë - kështu që çdo gjë që formon një barrierë të papërshkueshme nga uji mbi një gjymtyrë (bojë e trashë, manikyr thonjve, dyll, ngjitës) duhet të hiqet së pari, ose larja poshtë saj nuk është e vlefshme. Papastërtia e zakonshme ose njolla këna që nuk bllokon ujin nuk është problem.",
-      "Shkollat ​​Shafi'ite dhe Hanbelite gjithashtu kërkojnë që larjet të bëhen sipas rendit Kur'anor dhe pa ndërprerje të gjatë (muvalat) që lejon që gjymtyrët të thahen. Pozicioni Hanefi dhe Maliki për sekuencën dhe vazhdimësinë strikte janë më të buta në disa situata. Ndiqni metodën e një shkolle për qëndrueshmëri.",
+      "Shkollat shafiite dhe hanbelite kërkojnë gjithashtu që larjet të bëhen sipas renditjes kuranore (tertib), ndërsa shkollat malikite dhe hanbelite që ato të pasojnë njëra-tjetrën pa ndërprerje të gjatë, gjatë së cilës gjymtyrët e larë thahen (muvalat). Shkolla hanefite i konsideron të dyja sunet. Ndiqni metodën e një shkolle për qëndrueshmëri.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lani fytyrat dhe parakrahët deri në bërryla, fshijini kokat dhe lani këmbët deri te kyçet.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hiqni manikyrin e thonjve, unazat që bllokojnë ujin dhe çdo gjë që mbyll lëkurën përpara abdesit.",
       "Merrni abdes me qetësi në një rrjedhë në mënyrë që asnjë gjymtyrë të mos humbasë ose të lihet të thahet.",
@@ -146,15 +101,10 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
     summary: "Shtyllat Kur'anore (feraid) pa të cilat abdesi është i pavlefshëm.",
     body: [
       "Veprat e detyrueshme të abdesit (faraidit të tij) janë pjesët që Allahu i ka emërtuar në ajetin: larja e tërë fytyrës; larja e të dy krahëve deri në bërryla dhe duke përfshirë; fshirja e kokës; dhe larja e të dyja këmbëve deri dhe duke përfshirë kyçet. Mungoni ndonjë nga këto dhe abdesi është i paplotë.",
-      "Këtyre shkollat ​​shtojnë obligime të tjera nga Suneti dhe arsyetimi juridik. Nijeti është i detyrueshëm në shumicën e shkollave (hanefitë e klasifikojnë atë si një sunet i theksuar fort për heqjen e papastërtive të vogla). Rendi (tartib) dhe vazhdimësia (muvalat) janë të detyrueshme për shafiitë dhe hanbelitë. Malikitë shtojnë si obligim fërkimin e gjymtyrëve (dalk).",
+      "Këtyre, shkollat u shtojnë detyrime të tjera nga Suneti dhe arsyetimi juridik. Nijeti është i detyrueshëm në shumicën e shkollave (hanefitë e konsiderojnë sunet të theksuar për largimin e papastërtisë së vogël). Renditja (tertib) është e detyrueshme për shafiitë dhe hanbelitë, ndërsa vazhdimësia (muvalat) për malikitë dhe hanbelitë. Malikitë shtojnë si detyrim fërkimin e gjymtyrëve (delk).",
       "Çdo gjë përtej këtyre – shpëlarja e gojës dhe hundës, larja e duarve në fillim, larja tri herë – rekomandohet (suneh) dhe jo obligim. Njohja e ndryshimit do të thotë që ju mund të dalloni kur një abdes është thjesht i papërsosur kundrejt faktit të pavlefshëm.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lani fytyrat dhe parakrahët deri në bërryla, fshijini kokat dhe lani këmbët deri te kyçet.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Lista e saktë e faraideve (p.sh. nëse qëllimi, porosia dhe fërkimi janë të detyrueshme) ndryshon midis katër shkollave. Mësoni dhe aplikoni vazhdimisht një shkollë të besueshme.",
   },
@@ -166,12 +116,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Veprat e vendosura të sunetit përfshijnë: thënien 'Bismilah' në fillim; larja e duarve tre herë para fillimit; shpëlarja e gojës (madmadah) dhe hundës (istinshaq); kalimi i gishtave të lagur nëpër një mjekër të trashë dhe midis gishtërinjve dhe këmbëve (takhlil); duke filluar çdo palë gjymtyrësh me të djathtën; dhe duke e përsëritur çdo larje deri në tre herë.",
       "Dy sunete meritojnë përmendje të veçantë: përdorimi i misvakut (sivakut) paraprakisht - të cilin Profeti ﷺ gati e bëri obligim - dhe leximi i dëshmisë së besimit pas përfundimit, i cili hap tetë dyert e Xhenetit për atë që e thotë atë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Kushdo që merr abdes mirë, pastaj thotë: "Dëshmoj se nuk ka zot tjetër përveç Allahut... dhe se Muhamedi është rob dhe i Dërguar i Tij", atij i hapen tetë dyert e Xhenetit. (Omer ibn el-Hattab)',
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Praktikoni sekuencën e plotë të sunetit derisa të bëhet rutina juaj natyrale.",
       "Recitoni shehadetin pas abdesit çdo herë.",
@@ -226,12 +171,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
         tip: "Një sunet i shkurtër por shumë i shpërblyer.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Osmani lau çdo gjymtyrë tri herë siç e kishte parë Pejgamberin ﷺ të bënte, pastaj tha: Kushdo që merr abdes në këtë mënyrë dhe fal dy rekate me fokus të plotë, atij i falen mëkatet e kaluara. (Humran, nga Osmani)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -242,12 +182,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Është e rëndësishme të dihet se 'duaja e hollësishme për çdo gjymtyrë' (një lutje specifike gjatë larjes së duarve, fytyrës, krahëve etj.) që qarkullon në disa broshura nuk është vërtetuar me autenticitet të shëndoshë nga Profeti ﷺ. Dijetarët këshillojnë që këto të mos i atribuohen atij si sunet, ndërkohë që nuk ka dëm në përkujtimin e përgjithshëm të Allahut gjatë abdesit.",
       "Thelbi i çështjes është prania: lahuni me vetëdije se mëkatet e çdo gjymtyre po bien dhe përfundoni me shehadetin që rilidh veprën me qëllimin e tij - besimin vetëm në Allahun.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që merr abdes mirë dhe pastaj lexon dëshminë e besimit, atij i hapen tetë dyert e Xhenetit që të hyjë nga ku të dojë. ('Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Mësoni përmendësh shehadetin pas abdesit nëse nuk e keni bërë tashmë.",
       "Shmangni recitimin e formulave të paverifikuara për gjymtyrë sikur të ishin sunet i vendosur.",
@@ -262,12 +197,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Çështje të tjera i nënshtrohen dallimeve respektuese midis shkollave: prekja drejtpërdrejt e pjesëve intime dhe kontakti lëkurë më lëkurë me një jomahram të seksit të kundërt, janë anulues në disa shkolla, por jo në të tjera, bazuar në leximet e ndryshme të të njëjtave tekste.",
       'Një parim jetik qeverisës ju mbron nga ankthi i vazhdueshëm (waswas): siguria nuk hiqet nga dyshimi. Nëse keni marrë abdes dhe nuk jeni thjesht i sigurt nëse e keni prishur atë, ju ende konsideroheni se keni marrë abdes derisa të jeni të sigurt se ka ndodhur një anulues. Profeti ﷺ i tha një njeriu të shqetësuar nga kjo ndjenjë që të mos e lërë namazin e tij "derisa të dëgjojë një zë ose të gjejë një erë".',
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ai nuk duhet të largohet (namazin e tij) derisa të dëgjojë një zë ose të gjejë një erë. (Abbad ibn Temim, nga xhaxhai i tij)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Nëse prekja e seksit të kundërt apo pjesëve intime e prish abdesin ndryshon mes shkollave. Ndiqni një mësues të kualifikuar vendas dhe metodën e një shkolle.",
   },
@@ -279,12 +209,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       'Pejgamberi salAllahu alejhi ue selem pa njerëz, thembrat e të cilëve u lanë të thata pasi uji nuk u kishte arritur, dhe paralajmëroi ashpër: "Mjerë thembra nga zjarri!" Thembrat, kyçet dhe qoshet e fytyrës janë pikat më të neglizhuara.',
       "Gabimi i kundërt është teprimi: larja shumë më tepër se tre herë, ose përdorimi i ujit në mënyrë të kotë, gjë që bie ndesh me sunetin e maturisë. Të tjerët bien në waswas (dyshim obsesiv), duke e përsëritur abdesin vazhdimisht - edhe ky është një gabim, pasi siguria nuk përmbyset nga dyshimi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mjerë thembrat nga zjarri! - tha kur pa takat e mbetura të thata në abdes. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ngadalësoni dhe konfirmoni me vetëdije mbulimin e plotë të çdo gjymtyre të larë, veçanërisht thembrat dhe bërrylat.",
       "Përdorni ujë të moderuar; mos lejoni që dyshimi obsesiv t'ju shtyjë në përsëritje të panevojshme.",
@@ -299,12 +224,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Është edhe një nder dallues në jetën tjetër. Në Ditën e Kiametit, Profeti ﷺ do t'i njohë ndjekësit e tij me anë të shkëlqimit në fytyrat, duart dhe këmbët e tyre nga gjurmët e abdesit - një dritë unike për këtë ummet, e quajtur el-gurr el-muhaxhalun.",
       "Për shkak të këtyre virtyteve, qëndrimi në gjendje të abdesit është zakon i rekomanduar: ripërtëritja e tij për çdo namaz dhe fjetja me abdes, janë nga rutinat mbrojtëse të besimtarit.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umeti im do të thirret në Ditën e Kijametit me fytyra, duar dhe këmbë të shndritshme nga gjurmët e abdesit. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Rinovoni abdesin për çdo dritare lutjeje ku mundeni.",
       "Bëjeni gjumin me abdes një sunet të natës.",
@@ -319,11 +239,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Thelbi i tij është se uji arrin në çdo pjesë të trupit të jashtëm - nuk mund të mbetet asnjë pikë e thatë, duke përfshirë rrënjët e flokëve, palosjet e lëkurës, pas veshëve, kërthizës dhe midis gishtërinjve. Shpëlarja e gojës dhe e hundës është përfshirë në gusl nga shumë dijetarë.",
       "Një gusl i vetëm i kryer me qëllim të heqjes së xhenabes gjithashtu largon papastërtitë e vogla, kështu që një person që ka përfunduar guslin mund të falet pa abdes të veçantë (edhe pse marrja e abdesit brenda guslit është sunet).",
     ],
-    quran: [
-      {
-        excerpt: "E nëse jeni në gjendje xhenabeje, atëherë pastroni veten.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -334,16 +250,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Guslet e tjera janë të rekomanduara (mustehab) dhe jo të detyrueshme: gusli për ditën e xhuma para xhumasë, i cili nxitet aq fort sa Profeti (sal-lAllahu alejhi ue sel-lem) e quajti atë 'detyrë për çdo njeri që ka arritur pubertetin'; gusli për dy bajramet; dhe guslin e ihramit para haxhit apo umres.",
       "Një musliman i ri udhëzohet të kryejë gusl me hyrjen në Islami - i obliguar nga disa dijetarë dhe i rekomanduar fuqishëm nga të tjerët.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kur një burrë ulet në mes të katër gjymtyrëve të gruas së tij dhe kryen marrëdhënie me të, gusli bëhet i detyrueshëm. (Ebu Hurejre; gjithashtu Sahih Mysliman 348)",
-      },
-      {
-        excerpt:
-          "Gusli i xhumasë është detyrë për çdo person që ka arritur moshën e pubertetit. (Ebu Seid el-Khudri; gjithashtu Sahih Mysliman 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Nëse gusli i xhumasë dhe i konvertimit janë të detyrueshme ose të rekomanduara fuqimisht, ndryshon nga shkolla dhe rrethanat.",
     appLinks: [{}],
@@ -386,12 +293,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
         tip: "Gratë nuk duhet të zgjidhin flokët e gërshetuar, me kusht që uji të arrijë në lëkurën e kokës.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pejgamberi salAllahu alejhi ue selem, kur lahej nga xhenabeja, lante duart, merrte abdes si për namaz, kalonte gishtat nëpër flokët e tij, pastaj i derdhi ujë mbi kokën e tij tri herë dhe mbi pjesën tjetër të trupit. (Aishja)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Gabimet e zakonshme të guslit",
@@ -401,12 +303,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Gabimi i dytë i zakonshëm është lënia e pikave të thata. Detyrimi është që uji të prekë tërë trupin e jashtëm, kështu që lënia pas dore e rrënjëve të kokës, e veshëve, e kërthizës, e pjesës së pasme ose ndërmjet gishtërinjve e lë guslin të paplotë. Fërkoni ujin mbi këto zona për t'u siguruar.",
       "Për flokët: një grua me flokë të gërshetuara nuk i kërkohet t'i zgjidhë gërshetat, përderisa uji arrin deri në rrënjët e kokës - Profeti ﷺ i tha Ummu Selemes se mjafton të derdhësh tre grushte mbi kokë. Flokët e një mashkulli, duke qenë zakonisht të lëshuara, duhet të përpunohen në mënyrë që uji të arrijë në rrënjë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mjafton që të derdhni tre grushte ujë mbi kokën tuaj, pastaj derdhni ujë mbi veten tuaj dhe do të jeni të pastruar - nuk keni nevojë t'i zgjidhni gërshetat. (Umm Seleme)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Thuaj nijetin para derdhjes së parë, kështu që larja llogaritet si gusl.",
       "Fërkoni me ujë zona që humbasin lehtësisht; kur jeni të pasigurt, lani një pjesë në vend që të përfundoni në dyshim.",
@@ -420,18 +317,8 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       'Tejemmumi është një dhuratë për këtë ummet në veçanti: Pejgamberi ﷺ tha: "Toka është bërë për mua një vend lutjeje dhe një mjet pastrimi", duke e renditur atë ndër privilegjet e veçanta që i janë dhënë atij dhe jo profetëve të mëparshëm. Ai mishëron një parim qendror të fesë - detyrimi mbetet, por vështirësia hiqet.',
       "Është një masë e përkohshme: pasi uji bëhet i disponueshëm dhe i përdorshëm, rifillon pastrimi i zakonshëm me ujë. Një person mund të ketë nevojë të rinovojë tejemmum për çdo namaz sipas disa shkollave.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…dhe nuk gjeni ujë, pastaj bëni tejemmum me tokë të pastër dhe fshini me të fytyrat dhe duart tuaja.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Toka është bërë për mua një vend lutjeje dhe një mjet pastrimi. (Xhabiri - ndër pesë gjërat që i janë dhënë në mënyrë unike Profetit ﷺ)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kur lejohet tejemumi",
@@ -441,12 +328,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Së treti, kur uji i pakët në dispozicion është i nevojshëm për një domosdoshmëri më të ngutshme - siç është pirja, për të ruajtur jetën, qoftë të vetes, të tjetrit apo të një kafshe. Në secilin rast, sheriati e peshon ruajtjen e jetës dhe shëndetit mbi metodën e preferuar të pastrimit.",
       "Juristët ndryshojnë në lidhje me pragjet më të holla - sa larg duhet kërkuar për ujë, sa mjafton frika nga dëmi - por ata janë unanim për mëshirën themelore: adhurimi nuk hiqet kurrë, vetëm bëhet më i lehtë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Tregohet në kapitujt e tejemmumit: koncesioni për të pastruar me tokë të pastër në mungesë të ujit të përdorshëm.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Kërkoni në mënyrë të arsyeshme për ujë përpara se t'i drejtoheni tejemmumit.",
       "Nëse mjeku këshillon që një plagë ose sëmundje të mbahet e thatë, veproni në të dhe bëni tejemmum.",
@@ -482,12 +364,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
         tip: "Ndiqni vazhdimisht metodën e një shkolle (kyçet e duarve kundrejt parakrahëve).",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Profeti ﷺ goditi tokën me pëllëmbët e tij, pastaj fshiu fytyrën dhe duart e tij duke i mësuar Ammarit se kjo mjaftonte. ('Amar ibn Jasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Çfarë e thyen Tejemmumin?",
@@ -513,12 +390,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Largimi bëhet me ujë ku papastërtia është e prekshme, duke u larë derisa të zhduket lënda dhe gjurmët e saj. Islami gjithashtu i trajton seriozisht burimet e nexhasahut: Profeti a.s. paralajmëroi se shumica e dënimit të varrit vjen nga pakujdesia me urinën - spërkatja prej saj dhe mospastrimi i duhur.",
       "Shkollat ​​ndryshojnë për sa i përket klasifikimit të disa substancave (për shembull, nëse sasitë e vogla të lëngjeve të caktuara janë të justifikuara) dhe mbi sasinë e gjurmëve që tolerohen. Parimi i zbatueshëm për jetën e përditshme: pastroni plotësisht dhe mos krijoni dyshime për pastërtinë aty ku nuk ka dëshmi të ndyrësisë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Profeti ﷺ kaloi dy varre dhe tha se banorët e tyre po ndëshkoheshin - njëri për përhapjen e shpifjeve dhe tjetri sepse ai nuk u mbrojt nga urina e tij. (Ibn Abasi; gjithashtu Sahih Mysliman 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Pastrimi i rrobave nga papastërtitë",
@@ -528,12 +400,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Nëse, pas një përpjekjeje të sinqertë dhe të plotë, mbetet një njollë e zbehtë me ngjyrë ose erë e lehtë që nuk del, shumica e studiuesve justifikojnë atë që është vërtet e vështirë për t'u hequr - detyrimi është heqja e substancës, jo garantimi i një ngjyre pa njolla.",
       "Disa raste kanë detajet e tyre të njohura, si p.sh. urina e një djali të mitur të ushqyer me gji (e spërkatur dhe jo e larë plotësisht, sipas një lëshimi të raportuar) - kështu që mësoni rregullat praktike të shkollës suaj për situatat me të cilat përballeni.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sa i përket gjakut menstrual në një rrobë: kruani atë, pastaj fërkojeni me ujë, pastaj lajeni dhe faluni me të. (Esma bint Ebi Bekr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Mbani të paktën një rrobë të pastër të lënë mënjanë për lutje.",
       "Nëse papastërtia prek rrobat tuaja larg shtëpisë, shpëlani çfarë mundeni dhe ndërroni kur është e mundur.",
@@ -547,12 +414,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Përtej heqjes së papastërtisë, Islami inkurajon një bazë të higjienës natyrore (fitrah) që e mban trupin të pastër dhe të gatshëm për adhurim: shkurtimi i thonjve, heqja e qimeve nën sqetull dhe pubike, dhe të ngjashme, në baza të rregullta.",
       "Këto praktika nuk janë thjesht bukuri kulturore – ato janë pjesë e dinjitetit dhe pastërtisë me të cilën një besimtar paraqitet para Allahut në lutje.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pejgamberi salAllahu alejhi ue selem e pastronte veten me ujë pasi e lehtësonte veten. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Gjithmonë plotësoni istinjen para abdesit pas përdorimit të tualetit.",
       "Mbani shami dhe, ku mundeni, një mjet uji gjatë udhëtimit.",
@@ -566,12 +428,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Rregulli qeverisës është siguria. Toka është bërë përgjithësisht një vend lutjesh, kështu që një sipërfaqe supozohet e pastër nëse nuk keni prova të vërteta të papastërtisë. Nëse e dini se ka papastërti, hiqeni atë ose zhvendoseni në një vend të pastër; nëse thjesht imagjinoni se mund të jetë atje, injoroni pëshpëritjen dhe vazhdoni.",
       "Ky ekuilibër ruan adhurimin nga dy ekstreme: falja e shkujdesur në tokë dukshëm të ndotur dhe paralizimi nga dyshimi i pabazë për çdo sipërfaqe.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kur një beduin urinoi në xhami, Profeti a.s urdhëroi që të derdhej një kovë me ujë. (Ebu Hurejre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Hidhni një sy mbi tapetin tuaj dhe dyshemenë para namazit.",
       "Pa prova të vërteta të ndyrësisë, hidhni poshtë dyshimet e pabaza dhe lutuni.",
@@ -585,12 +442,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Agjërimi është i ndryshëm: agjërimet e humbura në Ramazan për shkak të menstruacioneve falen më vonë, ndërsa lutjet thjesht hiqen. Kur gjakderdhja përfundon dhe shfaqet një shenjë e pastërtisë, gruaja merr guslin dhe rifillon namazin dhe agjërimin.",
       "Kohëzgjatja e saktë minimale dhe maksimale e hajdit dhe nifas, dhe si të lexohen shenjat kufitare të pastërtisë, janë çështje ku shkollat ​​ndryshojnë në detaje. Gratë përfitojnë nga mësimi i rregullave praktike të një shkolle të besueshme me një mësues të kualifikuar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "E pyetur se pse një grua me menstruacione e bën agjërimin, por jo namazin, Aishja tha: Ne jemi urdhëruar të falim agjërimin dhe nuk jemi urdhëruar të falim namazin. (Muadha, nga Aishja; gjithashtu Sahih Mysliman 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -619,16 +471,7 @@ export const TAHARAH_TOPICS_SQ: DeepPartial<TaharahTopic>[] = [
       "Për vendimet e aplikuara, manualet klasike të fikhut të katër shkollave sunite japin pozicionet e detajuara - dhe dallimet e tyre janë një pjesë legjitime e traditës, jo një defekt. Përdoreni këtë modul për një pasqyrë të strukturuar, më pas thelloni studimin tuaj me një mësues të kualifikuar dhe tekstet kryesore.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt:
-          "Kapitujt gjithëpërfshirës mbi abdes, gusl, tejemmum dhe hajd që hapin koleksionin.",
-      },
-      {
-        excerpt:
-          "Libri i pastrimit - raporte autentike mbi vendimet, rregullat e mirësjelljes dhe parimet e taharahut.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ndiqni një kurrikulë të besuar për të shmangur konfuzionin nga vendimet e shpërndara.",
       "Rishikojini këto tema periodikisht derisa besimi praktik të jetë i qëndrueshëm.",

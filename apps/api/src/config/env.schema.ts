@@ -302,6 +302,19 @@ export class EnvironmentVariables {
   @IsOptional()
   API_PUBLIC_URL?: string;
 
+  /**
+   * Masjid finder: Geoapify Places key (free plan, server-only secret — see
+   * docs/GEOAPIFY.md). Unset = public Overpass only.
+   */
+  @IsString()
+  @IsOptional()
+  GEOAPIFY_API_KEY?: string;
+
+  /** Geoapify credits per UTC day the masjid finder may spend (default 3000, the free plan). */
+  @IsString()
+  @IsOptional()
+  GEOAPIFY_DAILY_CREDITS?: string;
+
   /** Upstash QStash token for durable ActivityKit phase scheduling. */
   @IsString()
   @IsOptional()

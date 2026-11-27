@@ -4,13 +4,14 @@ Ops console at `apps/admin` (`@munib-tracker/admin`). Full product docs: [`docs/
 
 ## Stack
 
-- **Next.js 16.4** App Router (React 19.3, Tailwind 4.3, Vitest 5 — `vitest.config.mts`), port **3002** (`app/`, `lib/`, `components/` — no `src/`)
+- **Next.js 16.4** App Router (React 19.3, Tailwind 4.3, Vitest 5 — `vitest.config.mts`, `lib/**/*.{test,spec}.ts` only, behind the shared no-network guard; `test:db` is the one opt-in live-DB smoke), port **3002** (`app/`, `lib/`, `components/` — no `src/`)
 - **Drizzle** through `@munib-tracker/db` — same Postgres as Nest; **no Nest admin CRUD**
 - **Custom Google OAuth** + jose-signed cookie `mt_admin_session` (`ADMIN_SESSION_SECRET`)
 - **Allowlist** `admin_users` with `enabled`; roles: `super_admin` | `support` | `ops` | `content` | `analytics`
 - **Nav / RBAC:** `lib/permissions.ts`
 - **Sign-in gate:** `components/ui/admin-sign-in-gate.tsx` — Google UI only after `?iAmAdmin=1` or `iAmAdmin()` in console
-- **Local bypass:** `ADMIN_DEV_BYPASS_AUTH=1` + `NODE_ENV=development` + no `VERCEL` → synthetic super_admin via `isLocalAuthBypassEnabled()` (never on preview/prod)
+- **Local bypass:** `ADMIN_DEV_BYPASS_AUTH=1` + `NODE_ENV=development` + no `VERCEL` + loopback/unset `ADMIN_URL` → synthetic super_admin via `isLocalAuthBypassEnabled()` (never on preview/prod)
+- **Security boundaries:** `lib/actions/*` helpers that take an `ActionContext` are `server-only`, never `"use server"` — call them from inline actions after `getActionContext()` (enforced by `lib/actions/server-action-boundary.test.ts`). Cookie-authenticated POST route handlers call `rejectCrossOrigin()` (`lib/auth/csrf.ts`). Response headers live in `lib/security-headers.ts`.
 
 ## Do
 

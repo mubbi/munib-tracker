@@ -16,7 +16,6 @@ import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 // Imported transitively (jannah primitives → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/lib/navigation", () => ({ goBackOrReplace: jest.fn() }));
 
 /** Header chrome reduced to labelled text + a back button. */
@@ -42,10 +41,26 @@ jest.mock("@/components/screen-layout", () => {
 });
 
 jest.mock("@/components/learn-content-loading", () => {
-  const { Text } = require("react-native");
+  const { Pressable, Text } = require("react-native");
   return {
-    LearnContentGate: ({ ready, children }: { ready: boolean; children: ReactNode }) =>
-      ready ? children : <Text>loading</Text>,
+    LearnContentGate: ({
+      ready,
+      error,
+      onRetry,
+      children,
+    }: {
+      ready: boolean;
+      error?: unknown;
+      onRetry?: () => void;
+      children: ReactNode;
+    }) =>
+      ready ? (
+        children
+      ) : error ? (
+        <Pressable accessibilityRole="button" accessibilityLabel="retry" onPress={onRetry} />
+      ) : (
+        <Text>loading</Text>
+      ),
   };
 });
 
@@ -133,15 +148,23 @@ describe("LearnSectionQuizScreen", () => {
     questionsMock.mockReturnValue([]);
   });
 
-  it("renders nothing for an unknown section", async () => {
+  it("keeps the chrome and offers a way back for an unknown section", async () => {
     await renderScreen({ def: null });
-    expect(screen.toJSON()).toBeNull();
+    expect(screen.getByText("title:Review quiz")).toBeTruthy();
+    expect(screen.getByText(i18n.t("learnKit.quizEmptyTitle"))).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: i18n.t("learnKit.backToGuide") }));
+    expect(goBackOrReplace).toHaveBeenCalledWith(mockRouter, "/library");
   });
 
   it("loads the section's quiz content on mount", async () => {
     await renderScreen();
     expect(ensureMock).toHaveBeenCalledWith(sectionId);
-    expect(questionsMock).toHaveBeenCalledWith(sectionId, expect.any(Function));
+    // (t, schoolFor): school-dependent questions follow "My madhhab" (NF-3.0a).
+    expect(questionsMock).toHaveBeenCalledWith(
+      sectionId,
+      expect.any(Function),
+      expect.any(Function),
+    );
   });
 
   it("falls back to the common quiz copy when the namespace has none", async () => {
@@ -165,13 +188,12 @@ describe("LearnSectionQuizScreen", () => {
     expect(screen.getByText("NS disclaimer")).toBeTruthy();
   });
 
-  it("shows the empty callout when there are no questions", async () => {
+  it("says plainly there is no quiz yet and links back to the guide", async () => {
     await renderScreen();
-    expect(
-      screen.getByText(
-        "Questions for this guide are still loading. Open a few lessons, then try again.",
-      ),
-    ).toBeTruthy();
+    expect(screen.queryByText(/still loading/)).toBeNull();
+    expect(screen.getByText(i18n.t("learnKit.quizEmptyTitle"))).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: i18n.t("learnKit.backToGuide") }));
+    expect(goBackOrReplace).toHaveBeenCalledWith(mockRouter, "/salah-guide");
   });
 
   it("goes back to the section route", async () => {
@@ -193,6 +215,20 @@ describe("LearnSectionQuizScreen", () => {
     toPlayerMock.mockReturnValue([buildQuestion({ prompt: "Late question" })]);
     await act(async () => resolveEnsure());
     expect(screen.getByText("Late question")).toBeTruthy();
+  });
+
+  it("offers Try again when the quiz content fails to load, and re-runs the load", async () => {
+    ensureMock.mockRejectedValueOnce(new Error("chunk failed"));
+    await renderScreen({ def: buildDef({ isReady: () => false }) });
+    await act(async () => {
+      await Promise.resolve();
+    });
+    expect(screen.queryByText("loading")).toBeNull();
+    ensureMock.mockResolvedValueOnce(undefined);
+    toPlayerMock.mockReturnValue([buildQuestion({ prompt: "After retry" })]);
+    await fireEvent.press(screen.getByRole("button", { name: "retry" }));
+    expect(ensureMock).toHaveBeenCalledTimes(2);
+    expect(screen.getByText("After retry")).toBeTruthy();
   });
 
   it.each([

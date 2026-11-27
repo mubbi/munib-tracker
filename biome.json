@@ -6,6 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
+    "maxSize": 2097152,
     "includes": [
       "**",
       "!**/node_modules",
@@ -28,7 +29,6 @@
       "!**/apps/app/src/lib/quran-companion/__fixtures__",
       "!**/apps/app/scripts/build-data/.cache",
       "!**/apps/app/scripts/i18n/_tmp",
-      "!**/apps/app/scripts/i18n/ui-polish-patches.json",
       "!**/packages/shared/scripts/.hi-*-cache.json",
       "!**/.tmp"
     ]

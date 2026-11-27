@@ -3,7 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const STORAGE_KEY = "@munib_tracker_in_app_notifications_v1";
 const MAX_ITEMS = 100;
 
-export type InAppNotificationKind = "reminder" | "achievement" | "system" | "admin_announcement";
+export type InAppNotificationKind =
+  | "reminder"
+  | "achievement"
+  | "system"
+  | "admin_announcement"
+  /** NF-3.16–3.18 circle events — localized by `routeData.event` (`lib/circles/inbox.ts`). */
+  | "circle";
 
 export interface InAppNotification {
   id: string;
@@ -99,6 +105,19 @@ export async function markAllInAppNotificationsRead(): Promise<void> {
 
 export async function clearAllInAppNotifications(): Promise<void> {
   await AsyncStorage.removeItem(STORAGE_KEY);
+}
+
+/**
+ * Sign-out: drops the account's server inbox rows (`serverId` set — admin
+ * announcements, circle events) so the next account or guest on this device
+ * never sees them. Device-local reminders/achievements stay.
+ */
+export async function removeServerInAppNotifications(): Promise<void> {
+  const items = await loadInAppNotifications();
+  const local = items.filter((item) => item.serverId == null);
+  if (local.length === items.length) return;
+  if (local.length === 0) await AsyncStorage.removeItem(STORAGE_KEY);
+  else await saveInAppNotifications(local);
 }
 
 export function countUnreadInAppNotifications(items: InAppNotification[]): number {

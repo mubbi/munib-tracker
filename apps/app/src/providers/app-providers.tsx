@@ -1,7 +1,8 @@
 import { getLocalDateString, msUntilNextLocalMidnight } from "@munib-tracker/shared/utils";
 import { type ReactNode, useEffect } from "react";
-import { AppState, type AppStateStatus } from "react-native";
+import { AppState, type AppStateStatus, Platform } from "react-native";
 import { type IdleTaskHandle, runWhenIdle } from "@/lib/run-when-idle";
+import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { continueStore } from "@/stores/continue-store";
 import { useStore } from "@/stores/create-store";
 import { locationStore } from "@/stores/location-store";
@@ -34,7 +35,11 @@ function refreshTrackerForCurrentDay(): void {
  */
 export function AppProviders({ children }: { children: ReactNode }) {
   const prefsReady = useStore(preferencesStore, (s) => s.isReady);
-  const onboardingDone = useStore(preferencesStore, (s) => s.prefs.hasCompletedOnboarding);
+  const completedOnboarding = useStore(preferencesStore, (s) => s.prefs.hasCompletedOnboarding);
+  // Same rule as `AppStack`'s `showApp`: web crawlers skip onboarding and see the
+  // app, so its stores must warm up too — otherwise screens that wait for
+  // `isReady` (Tracker, Home) would show skeletons forever to crawlers.
+  const onboardingDone = completedOnboarding || (Platform.OS === "web" && isIndexingBot());
 
   useEffect(() => {
     if (!prefsReady || !onboardingDone) return;
@@ -52,6 +57,11 @@ export function AppProviders({ children }: { children: ReactNode }) {
       void quranStore.getState().load();
       void continueStore.getState().load();
       void weatherStore.getState().load();
+      // NF-3.6: muhasabah retention on app start (no-op unless the vault holds
+      // muhasabah entries and can open them). Lazy so the vault stays off the boot graph.
+      void import("@/lib/muhasabah/retention-on-start")
+        .then((m) => m.runMuhasabahRetentionOnStart())
+        .catch(() => {});
     });
 
     const scheduleWeatherSync = () => {

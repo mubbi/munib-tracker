@@ -9,7 +9,9 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 import type en from "./en.json";
 
-type Catalog = typeof en;
+type DeepPartial<T> = { [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K] };
+/** Non-English catalogs may lag behind English; i18next falls back to `en`. */
+type Catalog = DeepPartial<typeof en>;
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 export const LOCALE_SYNC_LOADERS: Record<Exclude<AppLocale, "en">, () => Catalog> = {

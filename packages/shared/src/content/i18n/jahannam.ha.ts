@@ -26,19 +26,7 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Wani batu na ta'aziyya na tsakiya ga akidar Ahlus-Sunnah yana gudana ta cikin wannan tsari duka: wadanda suka mutu suna masu imani da Allah Shi kadai, ko da zunubi ya dora su, ba za su dawwama a cikin wuta ba har abada. Da rahamar Allah da ceton da Ya yi izini, daga karshe ana fitar da muminai masu zunubi; Sai waɗanda suka mutu alhãli kuwa sunã kãfirta. Don haka karatun Jahannama shi ne, ga mumini, daga qarshe nazarin yadda ake samun rahama.",
       "Wannan tsarin yana gabatar da abin da nassoshi suka yi bayani a sarari, ya lura da gaskiya a inda malamai suka yi sabani, ya kawo ingantacciyar hujja kawai, kuma yana jagorantar ku zuwa ga tawbah, da ayyukan alheri, da dogaro ga Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku ji tsoron wutar da aka yi tattalinta domin kafirai, kuma ku yi da'a ga Allah da ManzonSa, tsammaninku a yi muku rahama.",
-      },
-      {
-        excerpt:
-          "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya.",
-      },
-      {
-        excerpt: "Yã ku waɗanda suka yi ĩmãni, ku tũba zuwa ga Allah da tũba na gaskiya.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -46,29 +34,13 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
     summary: "Adalci na Ubangiji, da hisabi, da sakamakon zaɓe na 'yanci.",
     body: [
       "Jahannama ta wanzu a matsayin bayyanar da cikakken adalcin Allah ('adl). Duniyar da azzalumai da wanda aka zalunta, masu gaskiya da ha'inci, duk suka hadu da shi ba za su yi adalci ba. Domin Allah shi ne mai adalci, dole ne a yi hisabi na karshe inda za a amsa duk wani kuskure da kuma girmama kowane alheri.",
-      "Babban abin nan shi ne Allah ba ya zaluntar kowa. Kuma dukan rai wanda ya shiga Wuta, to, yanã shigar ta bisa ga abũbuwan shirkinsa, ba a tũba ba, bã da wani hukunci ba. Kur'ani ya nanata cewa: 'Allah ba ya zaluntar mutane da komai, amma mutane suna zaluntar kansu' (4:40). Babu wanda ake azabtar da abin da bai aikata ba, ko fiye da abin da ya cancanta.",
+      "Babban abin nan shi ne Allah ba ya zaluntar kowa. Kuma dukan rai wanda ya shiga Wuta, to, yanã shigar ta bisa ga abũbuwan shirkinsa, ba a tũba ba, bã da wani hukunci ba. Kur'ani ya nanata cewa: 'Allah ba ya zaluntar mutane da komai, amma mutane suna zaluntar kansu' (10:44). Babu wanda ake azabtar da abin da bai aikata ba, ko fiye da abin da ya cancanta.",
       "Ba a bar mutane a cikin duhu ba. Allah Ya ba su hankali, Ya aiko manzanni, kuma Ya saukar da shiriya bayyananna, sa’an nan kuma Ya girmama su da ‘yancin karva ko qaryata su: “Wanda ya so – ya yi imani; Kuma wanda ya so, to, ya kafirta.” (18:29). Dagewa cikin ƙin gaskiya, cikin zalunci, ko babban zunubi ba tare da tuba ba yana da sakamako a cikin Lahira daidai domin zaɓin na mutum ne da gaske.",
       "Amma duk da haka ma a nan jinƙai ya tsara adalci. Allah yana yin gargaɗi a gabanin yanke hukunci, yana jinkirta hisabi ya ba da damar mayarwa, yana gafartawa idan an tambaye shi, kuma yana ba da ladan wani aikin alheri mai yawa a yayin rubuta zunubi guda ɗaya. Adalcinsa ba ya rabuwa da rahamarSa.",
       "Yin tunani a kan dalilin da ya sa Jahannama ta wanzu ya kamata a kara takawa (sanin Allah) da zurfafa godiya ga kowace rana ta rayuwa da har yanzu dama ce ta tuba. Ana nufin sanya zuciya mai mahimmanci da bege lokaci guda - kar a taɓa gurɓata ta da yanke ƙauna.",
     ],
-    quran: [
-      {
-        excerpt: "Lalle ne, Allah bã Ya zãluntar mutãne da kõme, amma mutãne suna zãlunta kansu.",
-      },
-      {
-        excerpt: "Bã a tambayar sa ga abin da Yake aikatãwa, kuma amma sũ anã tambayar su.",
-      },
-      {
-        excerpt:
-          "To, wanda ya so, to, ya yi ĩmãni. Kuma wanda ya so, to, ya kafirta. Lalle Mũ, Mun yi tattalin wuta ga azzãlumai.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Babu dayanku da zai shiga Aljanna da aikinsa shi kadai. Sai suka ce: Ba kai ma ya Manzon Allah ba? Ya ce: “Ba ni ma, sai dai idan Allah Ya lullube ni da rahamarSa.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -80,16 +52,7 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Ganin duk hanyar kuma yana gyara Wuta. Hanya ɗaya ce mai yuwuwa a ƙarshen tafiya kowane rai ya riga ya yi tafiya - wanda ke nufin zaɓin yau ba su da hankali. Matakai ne a kan hanyar, kuma har yanzu su namu ne don yin jagora.",
       "Sanin wannan jeri yana taimaka wa mumini ya yi shiri maimakon tsoro: rayuwa da lafiyayyen ambaton mutuwa (zikiril mawt), gyara kurakurai kafin a kai su cikin Taro, da cika lissafin ayyukan alheri alhali kuwa kofar aiki a bude take. Mutuwa ta rufe wannan kofa; babu abin da za a ƙara bayansa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sa'an nan kuma lalle ne ku, a bãyan wancan, mai mutuwa ne. Sa'an nan kuma lalle ne zã a tãyar da ku a Rãnar ¡iyãma.",
-      },
-      {
-        excerpt:
-          "Amma wanda ma'aunansa suka yi nauyi, to, zai kasance a cikin rayuwa mai dadi. Amma wanda ma'aunansa suka yi sauƙi, to, mafakarsa za ta kasance rami mai zurfi.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Yi nazarin kowane mataki a cikin Koyi Aqeedah kuma ku haɗa imani da zaɓin yau da kullun.",
       "Ka yawaita ambaton mutuwa (zikiril mawt) ba tare da sakaci da fatan rahama ba.",
@@ -106,14 +69,7 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Yana da kyau a yi taka tsantsan a nan. Wasu marubutan daga baya suna gabatar da kowane suna a matsayin daban, matsayi na 'matakin' Jahannama, wani lokaci tare da cikakken zane. Wannan fassarori ce ta ilimi, ba wai wani fitaccen abin dubawa da aka ambata a cikin Alkur’ani ko hadisin da aka yarda da shi ba. Madaidaicin hanya ita ce koyon ma'anar da nassin ke bayarwa a zahiri da kuma guje wa gabatar da taswirori a matsayin tabbaci.",
       "Manufar koyan sunayen ba don gamsar da sha'awa ba ne amma don tausasa zuciya da motsa ta zuwa ga rahamar da wannan tsarin ke ci gaba da nunawa. Bincika cikakken tarin sunaye don kowane suna na faruwar Alqur'ani, mahallinsa, da taƙaitaccen tafsiri.",
     ],
-    quran: [
-      {
-        excerpt: "Ya isa Jahannama a matsayin wurin hutawa - Jahannama.",
-      },
-      {
-        excerpt: "Za a jefa shi a cikin al-Hutamah - Wuta mai raɗaɗi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -127,21 +83,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Abubuwa biyu kuwa, sun tabbata. Na farko, zalunci (Dhulm), shirka, da kuma babban zunubi ba tare da tuba ba yana da gargaɗi mai tsanani. Na biyu – kuma kada a manta – cewa rahamar Allah da gafararSa suna nan a bude har zuwa lokacin wafati ga duk wanda ya koma gare shi da gaskiya. Manufar koyo game da digiri shine zaɓi mafi sauƙi yayin da zaɓi ya rage.",
       "A zahiri, wannan yana nufin ɗaukar cikakken jerin 'matakai bakwai' ko tsare-tsare makamantan haka a matsayin ra'ayi na ilimi maimakon ƙayyadaddun koyaswar, da kuma kula da abin da a zahiri ke karewa: bangaskiya, tuba, da ayyuka na adalci.",
     ],
-    quran: [
-      {
-        excerpt: "Domin duk za a sami digiri gwargwadon abin da suka yi.",
-      },
-      {
-        excerpt:
-          "Lalle ne munãfukai suna a cikin mafi ƙasƙan wuta, kuma bã zã ka sãmi mataimaki a kansu ba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi qarancin azaba daga cikin mutanen Wuta, shi ne mutumin da aka sanya garwashi biyu a ƙarƙashin ƙafãfunsa, daga gare ta suke tafasa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Zane-zane na matakan Jahannama da aka samu a wasu littattafai suna nuna fassarar masana, ba yarjejeniya ɗaya ba.",
   },
@@ -154,12 +97,7 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Yana da mahimmanci a lura inda tabbaci ya ƙare. Wasu ayyuka daga baya suna sanya kowace takamaiman kofa zuwa takamaiman zunubi ko rukuni. Waɗannan ayyuka na musamman ba a kafa su iri ɗaya a farkon tushe ba, don haka an fi gabatar da su a matsayin ra'ayoyin malamai guda ɗaya maimakon ƙayyadaddun annabci.",
       "Kamar yadda yake a cikin matakan, darasin ƙofofin ba na gine-gine ba ne amma ɗabi'a: akwai kofofi da yawa waɗanda suke kaiwa zuwa ga wuta, kuma hanyar tsira daga dukkansu iri ɗaya ne - imani na gaskiya, nisantar babban zunubi, da saurin tuba lokacin da mutum ya zame.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma lalle ne Jahannama ita ce wa'adinsu gabã ɗaya. Tana da kofofi bakwai; Domin kowace kofa tana da rabo da aka ba ta.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -172,25 +110,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Akwai ladubba (adab) wajen karanta irin wadannan nassosin. Ana kusantar su da tawali’u, da tsoron Allah, da matsawa nan da nan don tuba da neman tsari—ba tare da sha’awar mugun nufi ba, kuma ba tare da yanke ƙauna ba, tun da dukan manufar gargaɗin ita ce har yanzu muna da lokacin guje wa hakan.",
       "Wataƙila jigon mafi nauyi a cikin waɗannan kwatancin shine nadama. 'Idan da na samu...' za a ce lokacin da lokacin aiki ya riga ya rufe. Jinƙan da muka ji game da wannan nadama a yanzu shi ne cewa za mu iya yin aiki a kan 'idan da' a yau, yayin da zai iya canza ƙarshenmu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "A gaba gare shi akwai Jahannama, kuma a shayar da shi wani ruwa mai radadi. Zai ƙwace ta amma da ƙyar ya haɗiye.",
-      },
-      {
-        excerpt: "Za a yanka musu tufafin wuta, a zuba musu ruwan tafasasshen ruwa.",
-      },
-      {
-        excerpt:
-          "Jahannama, a rãnar nan, ake yin ta, a rãnar nan, mutum zai yi tunãni, to, mene ne tunãni a gare shi?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Wutar ku daya ce daga cikin kashi saba'in na wutar Jahannama. Aka ce: Ya Manzon Allah, da wannan wuta ta isa. Ya ce: An ba shi qarfin kashi sittin da tara fiye da shi, kowane vangare kamar zafinsa ne.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -202,19 +123,7 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Don haka, Musulunci bai ba mu damar bayyana makomar wani keɓaɓɓen mutum ba - mu ce 'wannan mutumin yana cikin Wuta' - sai dai a wasu lokuta da ba kasafai ba, inda Allah ko Manzonsa ﷺ ya bayyana hakan a sarari cikin wahayi. Hukuncin zukata da qarshensu na Allah ne Shi kadai; Aikin mu shine hisabi namu.",
       "Don haka hanyar da ta dace don karanta kowane gargaɗin ita ce juya shi cikin ciki: ba 'wane ne wannan ya kwatanta ba?' amma 'ko ɗaya daga cikin waɗannan ya kwatanta ni, kuma me zan canza a yau?' Ko wanene kai, gayyatar zuwa ga Allah a bayyane take a yanzu – kuma gobe ba a yi wa kowa alkawari ba.",
     ],
-    quran: [
-      {
-        excerpt: "Munafukai suna a cikin mafi ƙasƙancin wuta.",
-      },
-      {
-        excerpt:
-          "To, wanda ya yi tsiwirwirin zunubi, kuma aka rufe shi da shi, to, waɗannan su ne abõkan Wuta, madawwama.",
-      },
-      {
-        excerpt:
-          "Kada ka yi zaton Allah Mai gafala ne daga abin da azzalumai suke aikatãwa. Abin sani kawai Yanã jinkirta su zuwa wani yini da idãnu suke kallo.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -227,26 +136,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       'Ga kuma sararin samammu gaba xaya: in ban da mutu’a akan shirka, kowane zunubi – babba ko qarami – yana cikin gafarar Allah idan Ya so. "Lalle ne, Allah ba Ya gafarta shirka da Shi, kuma Yana gafarta abin da bai kai wannan ba ga wanda Yake so" (4:48). Kada wani mumini ya taba yanke cewa manyan zunubbansu ba su da wata rahama.',
       "Kowane babban batu na zunubi a cikin wannan tsarin yana ba da ma'anarsa, shaidarsa, dalilin da ya sa ya zama kabari, da tabbataccen hanyar tuba da nisantar juna - koyaushe yana ƙarewa a wannan buɗewar kofa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Idan kun nĩsanci manyan zunubai waɗanda aka hana ku, zã Mu kuranye mafi ƙanƙanta daga gare ku, kuma Mu shigar da ku ga wata mashiga ta karimci.",
-      },
-      {
-        excerpt:
-          "Lalle ne, Allah bã Ya gãfarta yin shirka da Shi, kuma amma Yanã gãfarta abin da bai kai haka ba ga wanda Yake so.",
-      },
-      {
-        excerpt:
-          "Kuma waɗanda ke nisantar manyan zunubai da alfãsha, fãce kaɗan. Lalle ne Ubangijinka, haƙĩƙa, Mai gãfara ne.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi girman manyan zunubai su ne: shirka da Allah, da kashe rai, da saba wa iyaye, da shaidar zur.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -258,19 +149,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       'Abin da ya sa waɗannan zunubai su kasance masu haɗari shine daidai yadda suke da sauƙi da kuma al\'ada. Mutane suna shiga cikin su cikin zance na yau da kullun ba tare da tunani na biyu ba, shi ya sa Annabi ﷺ ya daure imani da kansa da kiyaye magana: "Duk wanda ya yi imani da Allah da ranar lahira, to ya fadi alheri ko ya yi shiru." Dakata a sauƙaƙa kafin yin magana ibada ce ta gaske.',
       "Tuba daga zunubin harshe yana bin sharuɗɗan da aka saba - tsayawa, nadama, yanke shawara ba za a dawo ba - tare da ƙarin girma lokacin da hakkin wani ya shiga. Inda za a iya share suna ko neman afuwarsu ba tare da cutar da su ba, wannan yana daga cikin tuba; inda sanar da su ba zai kara zurfafa rauni ba, malamai suna ba da shawara a maimakon su yi magana mai kyau, a kare su idan ba su nan, da kuma yi musu addu’ar gafara.",
     ],
-    quran: [
-      {
-        excerpt: "Kada ku zagi juna. Shin ɗayanku zai so ya ci naman ɗan'uwansa matacce?",
-      },
-      {
-        excerpt: "Bone ya tabbata ga dukkan mai izgili da izgili.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Wanda ya yi imani da Allah da Ranar Lahira, to ya fadi alheri ko ya yi shiru.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Kafin yin magana, tambaya: Shin gaskiya ne? Shin wajibi ne? Yana da kirki?",
       "Idan kuka zagi wani, yi musu addu'a kuma ku nemi gafarar sa idan ya yiwu.",
@@ -286,21 +166,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Wannan yana koyar da darasi mai mahimmanci game da tuba: komawa ga Allah wajibi ne, amma idan aka tauye haƙƙin ɗan adam, bai wadatar da kanta ba. Da'awar wanda aka zalunta ya kasance har sai an daidaita ko kuma a gafarta masa. Don haka tuba a nan yana da sharadi na huɗu da ya wuce tsayawa, nadama, da warwarewa - mayar da abin da ake bi bashi.",
       "A aikace wannan yana nufin mayar da abin da aka karbe ko kimarsa, biyan basussuka ko da sannu a hankali, maido da martabar da mutum ya lalace, da kuma kai ga sasantawa da ’yan uwa da aka yanke. Kuma a cikin wannan ma akwai rahama: duk wani mataki na ramawa shi kansa aikin alheri ne, kuma Allah yana sassauta zuciya mai ikhlasi da ta yi niyyar gyara abin da ya karye.",
     ],
-    quran: [
-      {
-        excerpt: "Idan ba ku hanu daga riba ba, to ku lura da yaqi daga Allah da ManzonSa.",
-      },
-      {
-        excerpt:
-          "Waɗanda suke warware alkawarin Allah, kuma suka yanke abin da Ya yi umurni da shi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kun san waye wanda ya yi fatara? Wanda ya zo da salla, da azumi, da sadaka, amma ya zage-zage, ya zage-zage, da cin dukiyar haram, da zubar da jini, don haka ayyukansa na alheri ake bai wa wasu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ka lissafa duk wanda ka yi wa laifi kuma ka ɗauki mataki don gyara wannan makon.",
       "Biyan basussukan da ba su da yawa ko da a cikin ƙanƙanta kaɗan idan wannan shine kawai za ku iya sarrafa.",
@@ -316,21 +183,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Wannan bambanci yana da mahimmanci ga yadda muke amfani da batun. Ana ba da alamun halayen a matsayin madubi don kansa, ba a matsayin lakabin da za a lika kan wasu ba. Annabi SAW da Sahabbansa sun ji tsoron munafunci a cikin su daidai domin zuciya a boye take kuma tana iya canzawa.",
       "Don haka lafiyayyen amsa yana cikin ciki: don tantance gaskiyarsa, da rikon alqawari, da riqon amana, da roqon Allah ikhlasi. Allah ne kawai ya san abin da ke cikin mutum, kuma zargin wasu mutane da munafunci shi kansa babban zalunci ne a kansu.",
     ],
-    quran: [
-      {
-        excerpt: "Munafukai suna a cikin mafi ƙasƙancin wuta.",
-      },
-      {
-        excerpt:
-          'Kuma idan munafukai suka zo maka sai su ce: "Mun shaida lalle kai Manzon Allah ne, kuma Allah Ya san su maƙaryata ne."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alamomin munafiki guda uku ne: idan ya yi magana sai ya yi karya, idan ya yi alkawari sai ya warware, idan aka ba shi amana sai ya ci amana.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Kada ku zargi mutane da nifaq. Nassosin sun gargadi al'umma; tsarkakewa yana farawa da kansa.",
   },
@@ -343,16 +197,7 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Yadda mumini ke shagaltuwa da duk wannan shi ne abin da yake da muhimmanci. Manufar ba shine a taɓa yin tunani a kan dalla-dalla ba ko kuma a bar zuciya ta nutse; shi ne a karɓi gargaɗi, tuba daga duk abin da ya shafi, sa'an nan kuma juya kuzari zuwa ga ayyukan da a zahiri karewa. Shi ya sa da gangan wannan tsarin ya ba da ƙarin sarari ga kariya, tuba, da rahama fiye da azabtarwa.",
       "A taƙaice, ɗaukar daidai daga kowane hukunci da aka ambata tambaya ce, ba tsoro ba: 'Ina yin wannan - kuma idan haka ne, ta yaya zan tsaya in gyara shi?' An amsa da gaskiya a yau, gargaɗin ya riga ya yi aikin jinƙai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waɗanda suke zargin mata tsarguwa kuma ba su zo da shaidu huɗu ba, to, ku yi musu bulala tamanin.",
-      },
-      {
-        excerpt:
-          "Waɗanda suke yin tarar zinariya da azurfa, kuma ba su ciyar da su a cikin tafarkin Allah, to, ka yi musu bushãra da azãba mai raɗaɗi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -365,21 +210,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Ku lura da ma'aunin da Sharia ta yi. Hanyoyin kariya sun fi yawa, sun fi ba da fifiko, kuma sun fi samuwa fiye da abubuwan da ke haifar da lalacewa - kuma wannan shi kansa alamar rahamar Allah ne. Ya fi sauƙi a sami ceto da a rasa.",
       "Wannan sashe da niyya shi ne mafi girma a cikin tsarin, saboda haka Musulunci da kansa ya auna al'amarin: gargadi ko da yaushe yana tare da bege, kuma ba zai taba rabuwa da wani aiki na zahiri da mutum zai iya farawa a yau ba.",
     ],
-    quran: [
-      {
-        excerpt: "Waɗanda suke cewa: “Ya Ubangijinmu!",
-      },
-      {
-        excerpt:
-          "Ya Ubangijinmu ka bamu mai kyau a duniya da mai kyau a lahira, kuma ka kare mu daga azabar wuta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya roki Allah Aljannah sau uku, Aljannah ta ce: Ya Allah ka shigar da shi Aljannah. Wanda ya nemi tsari daga wuta sau uku, wuta ta ce: Ya Allah ka kare shi daga wuta.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ka haddace addu'o'in neman tsari daga Jahannama kafin sallama a cikin sallah.",
       "Yi salloli biyar akan lokaci - daga cikin garkuwa mafi ƙarfi.",
@@ -397,26 +229,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Wannan gaskiya ne har ma ga wanda ya fadi kuma ya tuba. Matukar komawar ta kasance ta gaskiya a kowane lokaci, Allah yana karba; yanke kauna daga Shaidan ne, ba daga addini ba. Abu daya da ya wajaba a daidaita shi kafin mutuwa shi ne shirka, tunda wanda ya mutu a kanta ya mutu ba tare da imanin da tuba ke bukata ba - wanda shi ne ma ya sa komawa ga Allah kadai shi ne mafi gaggawar dawowar kowa.",
       "Hanya mai amfani mai sauƙi ce: tuba yanzu, tuba akai-akai, kuma kada ka bari girman zunubi, ko adadin faɗuwar da ya gabata, yayi gardama akan dawowa. Gayyatar tana buɗewa koyaushe.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kada ku yanke kauna daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya. Shĩ ne Mai gãfara, Mai jin ƙai.",
-      },
-      {
-        excerpt:
-          "Fãce waɗanda suka tũba, kuma suka yi ĩmãni, kuma suka aikata ayyukan ƙwarai, Allah zai musanya miyãgun ayyukansu da alhẽri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kuma Allah Ya fi yarda da tuban bawanSa fiye da wanda ya iske dutsen da ya bata a cikin kasa bakarara.",
-      },
-      {
-        excerpt:
-          "Allah yana mika hannunsa da dare domin karbar tuban mai zunubin yini, kuma yana mika hannunsa da rana domin karbar tuban mai zunubin dare, har sai rana ta fito daga yammacinta.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ka ce Astaghfirullah a tsawon yini - nufin samun daidaito, ba kawai bayan manyan zamewa ba.",
       "Koyi sayyid al-istigfar a karanta safe da yamma.",
@@ -433,29 +247,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "A halin yanzu, ana gina jinƙai a cikin rayuwar yau da kullun: ayyuka na gari suna shafe munanan ayyuka (11:114), da ƙarama, daɗaɗɗen ibada - addu'a ɗaya akan lokaci, aikin sadaka guda ɗaya, haƙuri ɗaya da aka yi don Allah - yana kusantar mutum zuwa gare shi kuma yana nisanta daga cutarwa. Matsakaicin al'amura fiye da tsanani.",
       "Don haka bari wannan ya zama ƙarshen bincikenku: ku ɗauki gargaɗin da gaske, amma bari bege ya fi tsoro. Ku san hatsarin, ku zabi hanyar rahama, kuma ku yi tafiya da shi - mataki daya - kowace rana har sai kun hadu da Allah.",
     ],
-    quran: [
-      {
-        excerpt: "Rahamata ta kewaye dukkan komai.",
-      },
-      {
-        excerpt:
-          "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya.",
-      },
-      {
-        excerpt:
-          "Lallai aikin kwarai yana kawar da munanan ayyuka. Wancan tunãtarwa ce ga waɗanda suke tunãwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah zai ce: Mala’iku sun yi ceto, annabawa sun yi ceto, kuma muminai sun yi ceto, kuma babu wanda ya rage sai mai rahama mai jin kai. Zai karɓi dãɓãya kaɗan daga Wuta, kuma Ya fitar da mutãne waɗanda ba su kyautatãwa ba.",
-      },
-      {
-        excerpt:
-          "Duk wanda yake da imaninsa a cikin zuciyarsa nauyin ƙwayar mastad za a fitar da shi daga wuta.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ƙare kowace rana tare da istighfar da godiya ga kowace ni'ima.",
       "Haɗa wannan tsarin tare da Tafiya zuwa Jannah - gargaɗi da bege tare.",
@@ -506,34 +299,8 @@ export const JAHANNAM_CORE_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
         summary: "Wanda ake ɗaukar kyawawan ayyukansa domin hakkokin mutane.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Kada ku yanke ƙauna daga rahamar Allah; ƙofar tuba a buɗe take har mutuwa.",
-      },
-      {
-        excerpt: "Sai mutuwa a kan shirka ba tare da tuba ba, Allah yana gafarta wa wanda Ya so.",
-      },
-      {
-        excerpt: "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
-      },
-      {
-        excerpt: "Mai take hakkokin mutane na iya ba su kyawawan ayyukansa.",
-      },
-      {
-        excerpt: "Shirka",
-      },
-      {
-        excerpt: "Kisa ba da hakki ba",
-      },
-      {
-        excerpt: "Wanda ake ɗaukar kyawawan ayyukansa domin hakkokin mutane.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Annabi ﷺ ya umarce mu mu nisanci zunubai bakwai masu halakarwa.",
       "Mai take hakkokin mutane na iya ba su kyawawan ayyukansa.",
@@ -566,21 +333,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Siffofinta: malamai sun bambanta babbar shirka – bautar gumaka, matattu, waliyyai, ko abubuwan halitta; kiran wanin Allah ga abin da Shi kadai yake iya bayarwa. da bayar da sadaukarwa ko bakance ga waninSa - wanda ke fitar da mutum daga Musulunci idan bai tuba ba. Haka nan akwai shirka karama da boye, kamar nuna bajinta a cikin ibada (riya’), rantsuwa da wanin Allah, ko dogaro da ishara da laya, wanda babban zunubi ne amma ba shi kadai ya kore shi daga addini ba.",
       "Hanyar nisantarsa: kiyayewa da karfafa tauhidi da koyonsa, da bautar Allah Shi kadai, da tsarkake niyya domin ayyuka su kasance nasa ne ba na idanun mutane ba. Duk wanda ya fada cikin shirka ya tuba ta hanyar barranta daga gaskiya da komawa zuwa ga bautar Allah Shi kadai – kuma kofar komowa a bude take matukar mutum yana raye.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne, Allah bã Ya gãfarta yin shirka da Shi, kuma amma Yanã gãfarta abin da bai kai haka ba ga wanda Yake so.",
-      },
-      {
-        excerpt: "Ya kai dana kada ka yi shirka da Allah. Lallai ne tarayya zalunci ne mai girma.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi girman manyan zunubai su ne: shirka da Allah, da kashe rai, da saba wa iyaye, da shaidar zur.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Koyi tauhidi ta hanyar Koyi Aqida da Sunayen Allah 99.",
       "Tsarkake niyya a cikin ibada - ku roƙi Allah ikhlasi kullum.",
@@ -596,22 +350,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Kuskure biyu: kisan kai zunubi ne ga Allah, wanda aka tattake haƙƙinsa a kan alfarmar rayuwa, kuma zunubi ne a kan mutane - waɗanda aka kashe da waɗanda suka bari. Shi ya sa tubarta ta fi mafi yawa nauyi: komawa ga Allah wajibi ne, amma kuma hakkin wanda aka zalunta shi ma ya tsaya, kuma a inda shari’ar kasa ko shari’ar Musulunci ta tsara kudin jini (diyah) ko wasu sakamakonsa, to dole ne a cim ma wadannan ta hanyoyin da suka dace da kuma kwararrun malamai.",
       "Hanyar nisantar ta: Ku riƙi kowace rayuwa da tsarki, ku kawar da fushi da ƙiyayya kafin su taurare, kuma a warware husuma ta hanyar haƙuri da adalci maimakon tashin hankali. Kuma ko da mafi girman laifuffukan da ake yi wa mutane bai wuce rahamar Allah ba ga wanda ya tuba na gaskiya, ya sauke haqqoqin da ke cikinsa gwargwadon iko, kuma bai koma ga irin wannan tafarki ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma wanda ya kashe rai fãce da wani rai, kõ kuwa ɓarna a cikin ƙasa, to, kamar dai ya kashe mutãne ne.",
-      },
-      {
-        excerpt:
-          "Kuma wanda ya kashe mũminai da ganganci, to, sakamakonsa Jahannama, yana madawwama a cikinta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi girman manyan zunubai su ne: shirka da Allah, da kashe rai, da saba wa iyaye, da shaidar zur.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Kimar kowace rayuwa; warware sabani da hakuri da adalci."],
     appLinks: [{}],
   },
@@ -624,16 +364,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Hikimar da ke cikin shingayen: maimakon barin mutane don yakar sha’awa a kololuwarta, Musulunci ya kewaye su da kariyar da ta gabata - runtse ido, da kunya a cikin sutura da dabi’u, da nisantar keɓancewa da kishiyar jinsi, da ƙarfafa aure a matsayin halal, tashar daraja ga waɗannan buƙatu. Gina waɗannan iyakoki a gaba ya fi sauƙi fiye da tsayayya a gefen.",
       "Hanyar komawa: ga duk wanda ya fadi, mafita ita ce tawbah na gaskiya - barin zunubi gaba daya, da nadama, da warwarewa ba zai dawo ba, da yin sutura maimakon bayyana abin da ya gabata. Zina zunubi ne babba, amma yana daga cikin wadanda Allah ke gafartawa ga wanda ya tuba zuwa gare Shi; yanke ƙauna ba shi da wuri, kuma sabon farawa koyaushe yana samuwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kada ku kusanci jima'i na haram. Lalle ne ita alfasha ce kuma tafarki ne mummuna.",
-      },
-      {
-        excerpt:
-          "Kuma waɗanda ba su yi zina ba... fãce wanda ya tũba, kuma ya yi ĩmãni, kuma ya aikata aiki na ƙwarai, to, Allah zai musanya musu mũnanan ayyukansu da alhẽri.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Kare idanu da amfani da kafofin sada zumunta.",
       "Yi addu'a ga ma'aurata salihai idan ba a yi aure ba.",
@@ -649,15 +380,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Hikima da jinƙai: haramcin yana karkatar da mutane zuwa ga kasuwanci na gaske, haɗarin haɗari, da sadaka, kuma yana kare masu rauni daga murkushe su ta hanyar bashi. Ko a nan, ko da yake, rahamar Allah tana nan: a lokacin da umurnin ya zo, bai nemi a wargaza riba da ta gabata ba, amma ya ce wa muminai su yi watsi da abin da ya saura – ‘Kuna da shugabanku’ (2:279) – sauki ga masu bijirewa daga gare ta.",
       "Hanyar da ke nesa da shi: bincikar kuɗin ku don samfuran ruwa, nemi hanyoyin halal, da tuntuɓar kwararrun malamai don shari'o'i masu wahala na gaske kamar jinginar gida a ƙasashen da ba na musulmi ba. Barin riba na iya nufin zaban kudi mai wuyar gaske, amma amincin rai ya fi kowane riba na wucin gadi - kuma Allah ya yi alkawari zai azurta wanda ya ji tsoronsa daga inda ba ya zato.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya ku wadanda suka yi imani ku bi Allah da takawa, kuma ku bar abin da ya rage na riba, idan kun kasance muminai. Idan ba ku aikata ba, to, a ba ku labari game da yaƙi daga Allah da ManzonSa. To, idan kun tũba, to, zã ku sami shugabanku, bã zã ku yi zãlunci ba, kuma ba a zãlunce ku ba.",
-      },
-      {
-        excerpt: "Allah yana halakar da riba kuma yana ƙãra sadaka.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Bincika kuɗi don samfuran tushen riba.",
       "Tuntuɓi ƙwararren malami don jinginar gidaje da basussuka.",
@@ -673,21 +396,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Alakarsa da harshe: shaidar zur ita ce mafi kaifin mafi girman zunubban magana. Saboda kalmomi suna da arha a faɗowa, wannan zunubi yana da sauƙin faɗowa cikin haɗari - sa hannu, wuce gona da iri, shiru mai dacewa - amma duk da haka nauyinsa a ranar kiyama yana da girma, lokacin da gaɓoɓin gabobi da harsunan mutane za su yi shaida da gaskiya a kansu.",
       "Hanyar nisantar ta: ka yi riko da gaskiya ko da kuwa tana da tsada ko kuma ta sabawa maslaha, ka qin ba da lamuni ga kowace irin qarya, kuma ka yi magana da shaidar gaskiya a lokacin da ake buqata. Wanda ya yi shaidar zur ya tuba ta hanyar janye karyar a inda ya yiwu, da kokarin gyara barna da mayar da hakkin duk wanda aka zalunta, da komawa ga Allah da nadama na gaske.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma waɗanda ba su yi shaidar zur ba, kuma idan sun shuɗe munanan magana, sai su shuɗe suna masu mutunci.",
-      },
-      {
-        excerpt: "Don haka ku nisanci kazantar gumaka, kuma ku nisanci zancen karya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Shin, ba zan ba ku labari mafi girman zunubai ba? Shirka da Allah, da sava wa iyaye - da yin shaidar zur, da shaidar zur.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -699,18 +409,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Abubuwan da ke da alaƙa: wannan gargaɗin ya kai ga yin duba, da ɗaukar falaki a matsayin wani ilimin gaibi, da layya da laya masu ɗauke da shirka. Da'awar ilimin boyayyen gaba na Allah ne Shi kadai, kuma komawa ga masu da'awar shi yana raunana tauhidi daga tushensa.",
       "Hanyar nisantarsa: ga wanda ya tsunduma cikin wadannan ayyuka, tuba yana nufin barinsu gaba daya, da ruguza duk wani abu da aka haramta, da yanke alaka da wadanda suke hulda da su, da sabunta tauhidi na gaskiya da tawakkali ga Allah Shi kadai. Ana samun kariya a cikin imani, da zakka, da neman tsari ga Allah, kuma gafararSa ta bayyana ga wanda ya komo da gaske.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Suna bin abin da shaidanun suke karantawa a zamanin Sulemanu… kuma suna koyon abin da yake cutar da su kuma ba ya amfanar su.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya je wajen boka, kuma ya yi imani da abin da ya fada, ya kafirta da abin da aka saukar wa Muhammadu.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -722,16 +422,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Abin da ya haɗa da: ba kawai sata na zahiri ba, amma nau'ikan dabara - haɗa kayan marayu da nasa don ɓata layi, jinkirta dawo da ita da zarar maraya ya girma, ko saka hannun jari ko kashe ta ba tare da haƙƙi ba. Allah ya yi umurni da akasin haka: “Ku ba marayu dukiyoyinsu, kuma kada ku musanya mummuna da mai kyau” (4:2).",
       "Hanyar nisantar ta: Ku kiyayi dukiyar marayu da tsafta, ku kebe ta da hisabi, ku mika ta cikakkiya idan sun balaga, kuma – ga wanda ya gaza – ku tuba ta hanyar mayar da abin da ake bi bashi da wani kari da kuma neman gafarar wadanda aka zalunta. A rãnar da wani dũkiya kuma bã zã su sãmu ba, fãce madaidaicin zuciya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waɗanda suke cin dũkiyar marãyu da zãlunci, wuta kawai suke ci a cikin cikkunansu.",
-      },
-      {
-        excerpt:
-          "Ku bai wa marayu dukiyoyinsu, kuma kada ku musanya mummuna da mai kyau, kuma kada ku ci dukiyoyinsu da dukiyoyinku.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -743,21 +434,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Ma'auni mai mahimmanci: Taƙawa ba yana nufin yin biyayya ga iyaye a cikin saba wa Allah ba - babu wani halitta da ake biyayya da zunubi ga mahalicci. Amma ko da inda dole ne mutum ya ƙi, ana yin shi da tausasawa, girmamawa, da ci gaba da alheri. Kur'ani ya hana ko da mafi kankantar kalma na fushi: 'Kada ku ce musu uff' (17:23).",
       "Hanyar komawa: rahama a nan shi ne cewa iyaye yawanci har yanzu ba su isa ba. Ga wanda ya yi kasala, tuba tana da amfani sosai - sake dawowa da alheri, neman gafarar su, yi musu hidima, da yi musu addu'a, musamman ma suna raye. Kuma idan iyaye sun shude, aikin ibada yana ci gaba da yi musu addu'a, da yin sadaka a madadinsu, da girmama alakokinsu da abokansu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ubangijinku Ya rubũta kada ku bauta wa kowa fãce Shi, kuma ga mahaifan mahaifa ku kyautata. Kada ku ce musu 'uff', kuma kada ku tunkuɗe su, kuma ku faɗa musu magana mai karimci.",
-      },
-      {
-        excerpt: "Ku bauta wa Allah, kuma kada ku yi shirki da Shi, kuma ku kyautata wa mahaifa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Shin, ba zan ba ku labari mafi girman zunubai ba? Yin shirka da Allah, da sava wa iyaye.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Kira ko ziyarci iyaye a wannan makon tare da kalma mai kyau."],
     appLinks: [{}],
   },
@@ -770,12 +448,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Fuskokinsa na zamani: sata ba ta iyakance ga shiga gida ba. Ya haɗa da karban ma’aikata, yin ha’inci a kasuwanci, hana albashin ma’aikata, satar fasaha ta zamani, sata, da cin gajiyar abin da ba nasa ba. Abin da yake boye ga sauran mutane bai taba boyewa ga Allah ba, wanda yake ganin duk wani abin da yake boye.",
       "Hanyar komawa: saboda hakkin dan Adam ya shiga, tuba yana bukatar fiye da nadama a wurin Allah. Dole ne mutum ya mayar da abin da aka sace da kansa, ko kimarsa, ga mai shi, sannan a nemi afuwarsu a inda ya yiwu; idan ba a samu mai shi ba, malamai suna ba da shawarar bayar da adadin sadaka a madadinsu. Korar da aka yi ta wannan hanya, hatta sata ana gafartawa Mai son bawa mai dawowa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "To, amma ɓarawo, namiji da mace, sai suka yanke hannãyensu, sabõda sakamakon abin da suka kasance sunã aikatãwa, a kan hani daga Allah.",
-      },
-    ],
+    quran: [{}],
     actions: ["Koma kayan da aka sace ko kimarsu; ku nemi gafara daga wadanda aka zalunta."],
     appLinks: [{}],
   },
@@ -788,17 +461,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_HA: DeepPartial<JahannamTopic>[] = [
       "Hikimar yadda aka haramta ta: Allah bai hana khamr bugun jini ba sai dai ya haramta shi daki-daki, yana yaye al'ummar farko daga dabi'a mai tushe a hankali. Wancan sannu a hankali darasi ne na jinƙai - kuma abin koyi ne na bege ga duk wanda ke fafutukar barinsa a yau.",
       "Hanyar dawowa, tare da tausayi: waɗanda aka kama a cikin jaraba ba za a raina ba amma a tallafa musu. Tuba yana nufin yanke shawara ga barin abu, da kawar da shi da abubuwan da ke haifar da shi daga rayuwar mutum, da neman taimako da magani ba tare da kunya ba, da cike gurbi da shirka na gari da zikiri da ibada. Ƙofar Allah a buɗe take, kuma duk wani mataki na gaskiya daga abin sa maye, mataki ne da Ya ke maraba da shi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yã ku waɗanda suka yi ĩmãni, lalle giya, da cãca, da gumaka, da kiban duba, ƙazanta ne daga aikin Shaiɗan, ku nisance su.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Duk abin sa maye khamr ne, kuma duk wani khamr haramun ne.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: ["Nemi taimako idan an buƙata; maye gurbin al'ada da zikiri da kyakkyawan kamfani."],
     appLinks: [{}],
   },
@@ -808,10 +472,7 @@ export const JAHANNAM_NAMES_HA: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jahannama",
     meaning: "Wuta — sunan Jahannama mafi yawan Alƙur'ani.",
-    quran: {
-      excerpt:
-        "Ku ji tsoron wuta wadda makamashinta mutane ne da duwatsu, an yi tattalinta domin kafirai.",
-    },
+    quran: {},
     context:
       "An yi amfani da shi a ko'ina cikin Kur'ani a matsayin gidan azaba ga waɗanda suka kafirta kuma suka ci gaba da yin zalunci.",
     tafsirNote:
@@ -822,18 +483,14 @@ export const JAHANNAM_NAMES_HA: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jaheem",
     meaning: "Wuta mai zafi - mai tsanani, zafi mai zafi.",
-    quran: {
-      excerpt: "Ku da abin da kuke bautãwa, baicin Allah, makãmashin Jahannama ne, zã ku shige ta.",
-    },
+    quran: {},
     context: "Ya bayyana tsananin wutar da ke jiran waɗanda suka riki kishiyoyi a wurin Allah.",
     tafsirNote: "Al-Tabari ya danganta jaheem da hura wutar da ba ta bar komai ba.",
   },
   {
     name: "Saqar",
     meaning: "Abin da ke ƙonewa ko barin kome - zafi mai tsanani.",
-    quran: {
-      excerpt: "Zan kore shi cikin Saqar. Kuma me zai sanar da kai menene Saqar?",
-    },
+    quran: {},
     context: "An ambata a cikin suratu al-Muddaththir dangane da wanda ya bijire wa wahayi.",
     tafsirNote:
       "Tafsirin gargajiya ya siffanta Saqar a matsayin matakin Jahannama mai tsananin zafi; cikakkun bayanai sun bambanta tsakanin malamai.",
@@ -843,18 +500,14 @@ export const JAHANNAM_NAMES_HA: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Sa'ir",
     meaning: "Wuta mai walƙiya.",
-    quran: {
-      excerpt: "Sunã a cikin Sa'ir, Jahĩm.",
-    },
+    quran: {},
     context: "Gargadi ga masu cin dukiyar marayu da zalunci.",
     tafsirNote: "Tushen yana isar da ƙonawa da hurawa - yana jaddada aiki, yana cinye wuta.",
   },
   {
     name: "Hutamah",
     meaning: "The Crusher - abin da ya karye da murkushe.",
-    quran: {
-      excerpt: "Za a jefa shi cikin al-Hutamah. Kuma me zai sanar da kai menene al-Hutamah?",
-    },
+    quran: {},
     context: "Hukunci ga wanda ya yi gulma da tara dukiya, yana tunanin hakan zai sa shi dauwama.",
     tafsirNote:
       "Ibn Kathir ya bayyana Hutamah tana murkushewa kuma tana cinyewa - wutar da Allah ya kunna.",
@@ -862,9 +515,7 @@ export const JAHANNAM_NAMES_HA: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Hawayyah",
     meaning: "A abyss ko rami - zurfin fall.",
-    quran: {
-      excerpt: "Amma wanda ma'auninsa suka yi sauƙi, to, makomarsa ita ce Hawiyah.",
-    },
+    quran: {},
     context: "Makomarsu ga wadanda ayyukansu suka yi sauki a ranar sakamako.",
     tafsirNote:
       "An siffanta shi da rami mai zurfi a cikin Wuta; al-Tabari ya rubuta ra'ayoyi kan zurfinsa da tsananinsa.",
@@ -874,9 +525,7 @@ export const JAHANNAM_NAMES_HA: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Laza",
     meaning: "harshen wuta - wuta mai zafi.",
-    quran: {
-      excerpt: "A’a! Wutar Allah ce mai hurawa.",
-    },
+    quran: {},
     context: "Surah al-Ma'arij - gargadi ga waɗanda suke ƙaryatãwa game da Sa'a.",
     tafsirNote:
       "An haɗa shi da harshen wuta wanda ke kaɗewa yana konewa - Lazaa yana jaddada hurawa mai ƙarfi.",
@@ -920,116 +569,79 @@ export const JAHANNAM_GATES_HA: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_HA: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Ku ji tsoron wutar da aka yi tattalinta domin kafirai.",
     context: "Bayar da magana ga masu bi - tsoro a matsayin dalili zuwa ga biyayya.",
     tafsirSummary: "Ibn Kathir: kira zuwa ga takawa hade da biyayya ga Manzo.",
   },
   {
-    excerpt: "Kada ku yanke kauna daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya.",
     context: "An bayyana don ta'azantar da waɗanda suke tsoron zunubansu sun yi yawa.",
     tafsirSummary: "Ayar ginshiƙin bege, jinƙai yana da yawa ga waɗanda suka juya baya.",
   },
   {
-    excerpt:
-      "Ku tuba zuwa ga Allah da tũba na gaskiya, akwai tsammãnin Ubangijinku Ya kankare muku ayyukanku.",
     context: "Umurni ga muminai bayan shiriya kan iyali da halaye.",
     tafsirSummary: "Nasuh tawbah - tuba na gaskiya ba tare da komawa ga zunubi ba.",
   },
   {
-    excerpt: "Domin duk za a sami digiri gwargwadon abin da suka yi.",
     context: "Adalcin Allah - lada da azaba gwargwadon ayyuka.",
     tafsirSummary: "Digiri ya shafi Aljanna da Wuta.",
   },
   {
-    excerpt: "Kuma Allah bã Ya zãluntar mutãne da kõme, amma mutãne suna zãlunta kansu.",
     context: "Tabbatar da cewa hukuncin Allah daidai ne.",
   },
   {
-    excerpt:
-      "Ya Ubangijinmu Ka bamu abu mai kyau a cikin talikai biyu, kuma Ka kare mu daga azabar wuta.",
     context: "Addu'ar wadanda suka hada na duniya da lahira.",
     tafsirSummary: "Addu'ar annabci da aka koyar a cikin Kur'ani - ma'auni na duniya da akhirah.",
   },
   {
-    excerpt: "Jahannama tana da kofofi bakwai; Domin kowace kofa tana da rabo da aka ba ta.",
-    context: "An gabatar da shi a cikin mahallin muhawarar Ibrahim da mutanensa.",
+    context: "Ya zo bayan ayoyin da Iblis ya rantse zai ɓatar da mutane.",
     tafsirSummary: "Bayyanar ƙofofin bakwai - cikakkun bayanai na aiki hikima ce ta Allah.",
   },
   {
-    excerpt:
-      "Fãce waɗanda suka tũba, kuma suka yi ĩmãni, kuma suka aikata ayyukan ƙwarai, Allah zai musanya mummuna da alhẽri.",
     context: "Banda bayan lissafta manyan zunubai.",
     tafsirSummary: "Fata ga masu tuba - ayyuka na iya canzawa ta wurin jinƙai.",
   },
   {
-    excerpt: "Kuma waɗanda suka kãfirta da Ubangijinsu, sunã da azãbar Jahannama, tir da makoma.",
     context: "Suratul Mulk — tunatarwa ga gaibi.",
   },
   {
-    excerpt: "Lallai aikin kwarai yana kawar da munanan ayyuka.",
     context: "Umurni da tsai da sallah a karshen yini biyu.",
     tafsirSummary: "Ƙarfafawa cewa tsayayyen ibada yana goge zamewar da ta gabata.",
   },
   {
-    excerpt: "Ubangijinmu Ka gafarta mana zunubanmu, kuma Ka tsare mu daga azabar wuta.",
     context: "Bayanin muttaqin (mai tsoron Allah).",
   },
   {
-    excerpt: "Amma wanda ma'auninsa suka yi sauƙi, to, makomarsa ita ce Hawiyah.",
     context: "Surah al-Qari'ah - ma'aunin ayyuka.",
   },
 ];
 
 export const JAHANNAM_HADITH_HA: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Duk wanda ya roki Allah Aljannah sau uku, Aljannah ta ce: Ya Allah ka shigar da shi Aljannah. Wanda ya nemi tsari daga wuta sau uku, wuta ta ce: Ya Allah ka kare shi daga wuta.",
-    },
+    hadith: {},
     context: "Ƙarfafa yin addu'a ga Jannah da fakewa daga Jahannama.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kuma Allah Ya fi yarda da tuban bawanSa fiye da wanda ya iske dutsen da ya bata a cikin kasa bakarara.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Babu dayanku da zai shiga Aljanna da aikinsa shi kadai, ko da ni, face Allah Ya lullube ni da rahamarSa.",
-    },
+    hadith: {},
     context: "Ma'auni: yi ƙoƙari a cikin ayyuka amma dogara ga rahama.",
   },
   {
-    hadith: {
-      excerpt:
-        "Wutar ku daya ce daga cikin kashi saba'in na wutar Jahannama, kowane bangare kamar zafinta ne.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Alkawari tsakaninmu da su shine addu'a; wanda ya bar ta ya yi kafirci.",
-    },
+    hadith: {},
     context: "Tsananin sakaci da sallah - yana cikin gargaxi mafi girma.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mai ɓarna yana zuwa da addu'a, azumi, da sadaka - amma ya zagi, ya zage shi, ya cinye dukiya ba bisa ƙa'ida ba, ya zubar da jini.",
-    },
+    hadith: {},
     context: "Ana iya warware haƙƙoƙin mutane kafin ayyuka a Ranar Shari'a.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah yana mika hannunsa da dare domin karbar tuban mai zunubin yini, kuma yana mika hannunsa da rana domin karbar tuban mai zunubin dare.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Wanda ya yi imani da Allah da Ranar Lahira, to ya fadi alheri ko ya yi shiru.",
-    },
+    hadith: {},
     context: "Kare harshe - lissafin yau da kullum.",
   },
 ];
@@ -1093,7 +705,4 @@ export const JAHANNAM_DUAS_HA: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_HA: { translation: string } = {
-  translation:
-    "Ya Allah ina neman tsarinka daga azabar wuta, da azabar kabari, da fitintinu na rayuwa da mutuwa, da mugunyar fitinar Al-Masihu Qarya.",
-};
+export const JAHANNAM_REFUGE_DUA_HA: { translation?: string } = {};

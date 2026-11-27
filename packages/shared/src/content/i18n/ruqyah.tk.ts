@@ -2,149 +2,89 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // tk overlay for ruqyah. Index-aligned with RUQYAH_TOPICS in ../ruqyah.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const RUQYAH_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is ruqyah?",
-    summary: "Reciting Qur'an, Allah's Names, or prophetic du'a for healing.",
+    title: "Rukýa näme?",
+    summary: "Şypa üçin Kurany, Allanyň atlaryny ýa-da Pygamberiň ﷺ dogalaryny okamak.",
     body: [
-      "Ruqyah is the practice of reciting Qur'an, the Names and Attributes of Allah, or authentic prophetic supplications over oneself or another person — often with a light blow of breath — seeking healing or protection from Allah alone. It predates Islam as a general Arab custom of incantation, and the Prophet ﷺ was asked directly whether it was permissible.",
-      "'Awf ibn Malik reported that the companions said: 'We used to practise ruqyah in the pre-Islamic days; what is your view on it?' The Prophet ﷺ replied: 'Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200). This single hadith is the foundation for everything else in this guide: ruqyah itself is permissible; what matters is its content.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "We used to practise ruqyah in the pre-Islamic days, and we said: O Messenger of Allah, what is your view on that? He said: Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk.",
-      },
+      "Rukýa — diňe Allahdan şypa ýa-da gorag dileg edip, özüňe ýa-da başga birine Kurany, Allanyň atlaryny we sypatlaryny ýa-da Pygamberiň ﷺ sahyh dogalaryny okamak amalydyr; köplenç ýeňil üflemek bilen bilelikde edilýär. Ol Yslamdan öň araplaryň umumy dem salmak däbi hökmünde bardy we Pygamberden ﷺ onuň rugsat berilýändigi göni soraldy.",
+      "Awf ibn Malik sahabalaryň şeýle diýendigini rowaýat etdi: “We used to practise ruqyah in the pre-Islamic days; what is your view on it?” (iňlisçe manysy). Pygamber ﷺ şeýle jogap berdi: “Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk” (iňlisçe manysy) (Sahih Muslim 2200). Bu ýeke hadys şu gollanmadaky ähli zadyň esasydyr: rukýanyň özi rugsat berilýär; möhüm zat onuň mazmunydyr.",
     ],
   },
   {
-    title: "Halal vs. haram ruqyah",
-    summary: "Qur'an, Allah's Names, and clear du'a — never shirk or the unseen.",
+    title: "Halal we haram rukýa",
+    summary: "Kuran, Allanyň atlary we aýdyň doga — hiç haçan şirk ýa-da gaýyp däl.",
     body: [
-      "Lawful ruqyah rests on the conditions scholars have drawn from the hadith: it uses the Qur'an, Allah's Names and Attributes, or an authentic prophetic supplication; it is in a language whose meaning is understood (not unknown syllables or symbols); and the person reciting and the person being treated both believe the ruqyah itself has no power — healing is from Allah alone, and the words are only a means He has permitted.",
-      "The Prophet ﷺ modelled this personally: Aisha reported that whenever he fell ill, he would recite the Mu'awwidhat (the last two surahs) over himself and blow his breath, and when his final illness worsened, she would do the same for him, wiping his body with his own hand hoping for its blessing (Bukhari 5016). This is ruqyah in its clearest, most authentic form.",
-      "Ruqyah becomes unlawful when it crosses into shirk: calling on anyone besides Allah, seeking help from jinn, using unknown words or symbols whose meaning is unclear, hanging amulets or charms, or claiming the ruqyah practitioner has knowledge of the unseen or a guaranteed cure. It is also never a substitute for the five daily prayers or for seeking appropriate medical treatment — it complements both rather than replacing either.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever Allah's Messenger ﷺ became sick, he would recite the Mu'awwidhat and then blow his breath over his body. When he became seriously ill, I used to recite them and wipe his body with his hand, hoping for its blessing.",
-      },
+      "Kanuny rukýa alymlaryň hadysdan çykaran şertlerine daýanýar: onda Kuran, Allanyň atlary we sypatlary ýa-da Pygamberiň ﷺ sahyh dogasy ulanylýar; ol manysyna düşünilýän dilde bolýar (näbelli bogunlar ýa-da nyşanlar däl); okaýan adam hem, bejerilýän adam hem rukýanyň özüniň hiç hili güýjüniň ýokdugyna ynanýar — şypa diňe Allahdandyr, sözler bolsa diňe Onuň rugsat beren sebäbidir.",
+      "Pygamber ﷺ muny şahsan görkezdi: Aýşanyň rowaýat etmegine görä, ol her gezek kesel bolanda Muawwizatlary (iň soňky iki süräni) okap, öz üstüne üflärdi; soňky keseli agyrlaşanda bolsa Aýşa onuň üçin şeýle edip, bereketini umyt edip, onuň bedenini öz eli bilen sylardy (Bukhari 5016). Bu rukýanyň iň aýdyň, iň sahyh görnüşidir.",
+      "Rukýa şirke geçende haram bolýar: Allahdan başga birine ýalbarmak, jynlardan kömek soramak, manysy düşnüksiz näbelli sözleri ýa-da nyşanlary ulanmak, tumar ýa-da doga asmak, ýa-da rukýa okaýanyň gaýyby bilýändigini ýa-da kepillendirilen şypany öňe sürmek. Şeýle hem ol hiç haçan bäş wagt namazyň ýa-da degişli lukmançylyk bejergisini gözlemegiň ornuny tutmaýar — ol ikisiniň hem ornuny tutman, olary doldurýar.",
     ],
     disclaimer:
-      "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor for physical or mental illness, nor does it replace the five daily prayers.",
+      "Rukýa lukmançylyk bejergisi däl-de, ruhy amaldyr. Ol beden ýa-da psihiki keseller üçin ökde lukmana ýüz tutmagyň ornuny tutmaýar, bäş wagt namazyň ornuny hem tutmaýar.",
   },
   {
-    title: "Surat al-Fatiha as ruqyah",
-    summary: "The opening surah — explicitly confirmed as valid ruqyah.",
+    title: "Fatyha süresi rukýa hökmünde",
+    summary: "Açyş süresi — dogry rukýadygy aç-açan tassyklanan süre.",
     body: [
-      "Abu Sa'id al-Khudri narrated that when a tribal chief was bitten by a snake, one of the Prophet's ﷺ companions recited Surat al-Fatiha over him and he was cured. When the companions later asked the Prophet ﷺ whether this was permissible, he smiled and said: 'How do you know it is a ruqyah?' — confirming that al-Fatiha, recited with sincere belief and understanding, is itself valid ruqyah (Bukhari 5736).",
-      "This app's Qur'an reader carries the full text and translation of al-Fatiha; this guide only points to it as a source of ruqyah rather than reproducing it here.",
+      "Abu Sagyd el-Hudri rowaýat edýär: bir taýpa baştutanyny ýylan çakanda, Pygamberiň ﷺ sahabalarynyň biri onuň üstünde Fatyha süresini okady we ol sagaldy. Sahabalar soňra Pygamberden ﷺ munuň rugsat berilýändigini soranlarynda, ol ýylgyryp: “How do you know it is a ruqyah?” (iňlisçe manysy) diýdi — bu çyn ýürekden ynam we düşünmek bilen okalýan Fatyhanyň özüniň dogry rukýadygyny tassyklaýar (Bukhari 5736).",
+      "Bu programmanyň Kuran okaýjysynda Fatyhanyň doly teksti we terjimesi bar; bu gollanma ony bu ýerde gaýtalaman, diňe rukýanyň çeşmesi hökmünde görkezýär.",
     ],
-    quran: [
-      {
-        excerpt: "In the name of Allah, the Most Gracious, the Most Merciful...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "One of them started reciting Surat al-Fatiha... the patient was cured. When they asked the Prophet ﷺ, he smiled and said: How do you know that al-Fatiha is a ruqyah?",
-      },
-    ],
+    appLinks: [{ label: "Fatyhany okaň" }],
   },
   {
-    title: "Ayat al-Kursi (2:255)",
-    summary: "The Throne Verse — recited at night for Allah's protection.",
+    title: "Aýatul-Kürsi (2:255)",
+    summary: "Kürsi aýaty — Allanyň goragy üçin gije okalýar.",
     body: [
-      "Ayat al-Kursi (Qur'an 2:255) describes Allah's absolute sovereignty and is widely recited for protection, especially before sleep. Abu Huraira narrated that a nightly visitor stealing from the Zakat he was guarding told him: 'Whenever you go to bed, recite Ayat al-Kursi — a guardian from Allah will stay with you, and no shaytan will approach you until morning.' When the Prophet ﷺ heard this, he confirmed: 'He told you the truth, though he is a liar — that was a shaytan' (Bukhari 5010).",
-      "As with other verses in this guide, only a short excerpt is given here; read the full verse and its translation in the app's Qur'an reader.",
+      "Aýatul-Kürsi (Kuran 2:255) Allanyň mutlak hökümdarlygyny beýan edýär we, esasan-da, ýatmazdan öň gorag üçin giňden okalýar. Abu Hureýra rowaýat edýär: onuň goraýan zekatyndan ogurlaýan bir gijeki myhman oňa şeýle diýipdir: “Whenever you go to bed, recite Ayat al-Kursi — a guardian from Allah will stay with you, and no shaytan will approach you until morning” (iňlisçe manysy). Pygamber ﷺ muny eşidende şeýle tassyklady: “He told you the truth, though he is a liar — that was a shaytan” (iňlisçe manysy) (Bukhari 5010).",
+      "Bu gollanmadaky beýleki aýatlarda bolşy ýaly, bu ýerde diňe gysga bölek berilýär; aýatyň doly tekstini we terjimesini programmanyň Kuran okaýjysynda okaň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah — there is no deity except Him, the Ever-Living, the Sustainer of existence.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever you go to your bed, recite Ayat al-Kursi — a guard from Allah will protect you all night, and no shaytan will come near you until morning.",
-      },
-    ],
+    appLinks: [{ label: "Aýatul-Kürsini okaň" }],
   },
   {
-    title: "Al-Ikhlas, Al-Falaq & An-Nas (112–114)",
-    summary: "The three closing surahs — the Prophet's ﷺ nightly ruqyah.",
+    title: "Yhlas, Felak we Nas (112–114)",
+    summary: "Üç soňky süre — Pygamberiň ﷺ her gijeki rukýasy.",
     body: [
-      "Aisha described the Prophet's ﷺ nightly routine: every night before sleeping he would cup his hands together, recite Surat al-Ikhlas, Surat al-Falaq, and Surat an-Nas, blow into his hands, and wipe them over his body — starting with his head and face — repeating this three times (Bukhari 5017). These same three surahs (Al-Ikhlas affirming Allah's oneness, and the two Mu'awwidhat seeking refuge from evil) are also what he recited over himself during illness (Bukhari 5016).",
-      "Together they form one of the simplest and most authentic daily ruqyah routines available — short enough to memorise, and directly attested in the Sunnah.",
-    ],
-    quran: [
-      {
-        excerpt: "Say: He is Allah, [who is] One.",
-      },
-      {
-        excerpt: "Say: I seek refuge in the Lord of daybreak.",
-      },
-      {
-        excerpt: "Say: I seek refuge in the Lord of mankind.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever the Prophet ﷺ went to bed, he used to cup his hands together and blow over them after reciting Surat al-Ikhlas, al-Falaq and an-Nas, then rub his hands over whatever parts of his body he could, starting with his head and face. He used to do that three times.",
-      },
+      "Aýşa Pygamberiň ﷺ gijeki endigini şeýle suratlandyrdy: ol her gije ýatmazdan öň aýalaryny birleşdirip, Yhlas, Felak we Nas sürelerini okap, aýalaryna üflärdi we olary bedenine — kellesinden we ýüzünden başlap — sylardy, muny üç gezek gaýtalardy (Bukhari 5017). Şol bir üç süre (Allanyň birligini tassyklaýan Yhlas we ýamanlykdan pena dileýän iki Muawwizat) onuň kesel wagtynda öz üstüne okaýan süreleri hem bolupdyr (Bukhari 5016).",
+      "Olar bilelikde iň ýönekeý we iň sahyh gündelik rukýa endikleriniň birini emele getirýär — ýat tutar ýaly gysga we Sünnetde göni tassyklanan.",
     ],
     actions: [
-      "Memorise Al-Ikhlas, Al-Falaq, and An-Nas.",
-      "Recite them each night before sleeping, as the Prophet ﷺ did.",
+      "Yhlas, Felak we Nas sürelerini ýat tutuň.",
+      "Pygamberiň ﷺ edişi ýaly, olary her gije ýatmazdan öň okaň.",
     ],
+    appLinks: [{ label: "Üç süräni okaň" }],
   },
   {
-    title: "Daily protection: morning & evening adhkar",
-    summary: "The sustained, everyday form of ruqyah for protection.",
+    title: "Gündelik gorag: irdenki we agşamky zikirler",
+    summary: "Gorag üçin rukýanyň dowamly, gündelik görnüşi.",
     body: [
-      "Beyond ruqyah for a specific ailment, the Prophet ﷺ taught a set of morning and evening remembrances (adhkar) that function as ongoing spiritual protection — many of them the very same verses covered in this guide (Ayat al-Kursi, the three closing surahs) alongside other authentic du'a. Reciting them consistently, rather than only reaching for ruqyah when something feels wrong, is the Sunnah way to seek Allah's protection every single day.",
-      "This app's adhkar library carries the full, sourced collection of morning and evening remembrances in one place, ready to read or track daily.",
+      "Aýratyn bir kesel üçin rukýadan başga-da, Pygamber ﷺ hemişelik ruhy gorag hökmünde hyzmat edýän irdenki we agşamky zikirleri öwretdi — olaryň köpüsi şu gollanmada gürrüň edilen aýatlaryň hut özleri (Aýatul-Kürsi, üç soňky süre) we beýleki sahyh dogalar. Diňe bir zat nädogry ýaly duýlanda rukýa ýüzlenmegiň ýerine, olary yzygiderli okamak her gün Allanyň goragyny dilemegiň Sünnet ýoludyr.",
+      "Bu programmanyň zikir kitaphanasynda irdenki we agşamky zikirleriň çeşmeleri görkezilen doly ýygyndysy bir ýerde jemlenen — okamaga ýa-da her gün yzarlamaga taýýar.",
     ],
     actions: [
-      "Recite the morning adhkar after Fajr.",
-      "Recite the evening adhkar before Maghrib/sunset.",
+      "Ertir namazyndan soň irdenki zikirleri okaň.",
+      "Agşam/gün ýaşmazdan öň agşamky zikirleri okaň.",
     ],
+    appLinks: [{ label: "Irdenki we agşamky zikirler" }],
   },
   {
-    title: "Avoid fortune-tellers and soothsayers",
-    summary: "Seeking the unseen from anyone but Allah is a serious warning.",
+    title: "Palçylardan we jadygöýlerden gaça duruň",
+    summary: "Gaýyby Allahdan başga birinden gözlemek barada agyr duýduryş bar.",
     body: [
-      "Islam draws a hard line between authentic ruqyah and consulting fortune-tellers, soothsayers, astrologers, or anyone claiming to know the unseen (ghayb) or to lift a spiritual affliction through non-Islamic means. The Prophet ﷺ warned: 'Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights' (Sahih Muslim 2230) — a severe warning against even testing such claims out of curiosity.",
-      "If a person also believes the fortune-teller's claims about the unseen, scholars treat this as a matter of disbelief, since only Allah has knowledge of the unseen (Qur'an 27:65). Whatever difficulty prompts someone to consider such a person, the correct response in this guide's teaching is always to turn to authentic ruqyah, du'a, and trusted medical or scholarly help — never to those who claim hidden knowledge.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights.",
-      },
+      "Yslam sahyh rukýa bilen palçylara, jadygöýlere, ýyldyzçylara ýa-da gaýyby (gaýb) bilýändigini ýa-da ruhy belany yslam däl serişdeler arkaly aýyrýandygyny öňe sürýän islendik adama ýüz tutmagyň arasynda berk çäk goýýar. Pygamber ﷺ şeýle duýdurdy: “Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights” (iňlisçe manysy) (Sahih Muslim 2230) — bu şeýle dawalary hatda gyzyklanma bilen synap görmäge garşy agyr duýduryşdyr.",
+      "Eger adam palçynyň gaýyp baradaky dawalaryna hem ynanýan bolsa, alymlar muny küfür meselesi hasaplaýarlar, sebäbi gaýyby diňe Allah bilýär (Kuran 27:65). Kimdir birini şeýle adama ýüz tutmak hakda pikirlendirýän kynçylyk näme bolsa-da, şu gollanmanyň taglymatyna görä dogry jogap hemişe sahyh rukýa, doga we ynamdar lukmançylyk ýa-da alym kömegine ýüzlenmekdir — hiç haçan gizlin bilimi dawa edýänlere däl.",
     ],
     actions: [
-      "Never consult fortune-tellers, astrologers, or those who claim knowledge of the unseen.",
+      "Palçylara, ýyldyzçylara ýa-da gaýyby bilýändigini öňe sürýänlere hiç haçan ýüz tutmaň.",
     ],
   },
   {
-    title: "Tawakkul — reliance on Allah alone",
-    summary: "Ruqyah is a means; the cure and the outcome belong to Allah.",
+    title: "Tewekgül — diňe Allaha bil baglamak",
+    summary: "Rukýa sebäpdir; şypa we netije Allaha degişlidir.",
     body: [
-      "The final and most important reminder in this guide is tawakkul: sincere reliance on Allah while using the permitted means He has given. Reciting ruqyah, seeking medical care, and asking others to pray for you are all legitimate means — but the heart's trust must rest in Allah alone, not in the words recited or the person reciting them. This mirrors exactly the condition in the very first hadith of this guide: 'There is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200).",
-      "This guide has deliberately left out the folk 'protocols' and symptom checklists that circulate widely online — none of these have a strong basis in the Qur'an or authentic Sunnah, and relying on them can quietly shift a person's trust away from Allah and toward a ritual or a list of guesses. Keep to what is textually grounded, and leave the rest to Allah's decree.",
-    ],
-    hadith: [
-      {
-        excerpt: "There is no harm in ruqyah so long as it does not contain shirk.",
-      },
+      "Bu gollanmadaky iň soňky we iň möhüm ýatlatma tewekgüldir: Allanyň beren rugsat edilen sebäplerini ulanmak bilen bir hatarda Oňa çyn ýürekden bil baglamak. Rukýa okamak, lukmançylyk kömegini gözlemek we başgalardan siziň üçin doga etmegi haýyş etmek — bularyň hemmesi kanuny sebäplerdir, ýöne ýüregiň ynamy okalýan sözlere ýa-da olary okaýan adama däl-de, diňe Allaha daýanmalydyr. Bu şu gollanmanyň ilkinji hadysyndaky şerti doly gaýtalaýar: “There is no harm in ruqyah so long as it does not contain shirk” (iňlisçe manysy) (Sahih Muslim 2200).",
+      "Bu gollanma internetde giňden ýaýran halk 'protokollaryny' we alamat sanawlaryny bilkastlaýyn öz içine almady — olaryň hiç biriniň Kuranda ýa-da sahyh Sünnetde berk esasy ýok we olara daýanmak adamyň ynamyny Allahdan däbe ýa-da çaklamalaryň sanawyna duýdansyz geçirip biler. Tekstde esasy bolan zatlara berk eýeriň, galanyny bolsa Allanyň kadaryna goýuň.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa, and it is not a medical or psychological treatment. For serious or persistent affliction, consult both a qualified local scholar and an appropriate medical professional.",
+      "Bu Kurandan we sahyh hadyslardan esasy akymdaky sünni taglymatyny jemleýän umumy bilim mazmunydyr. Ol pätwa däl we lukmançylyk ýa-da psihologik bejergi däl. Agyr ýa-da dowamly bela üçin ökde ýerli alym bilen hem, degişli lukmançylyk hünärmeni bilen hem maslahatlaşyň.",
   },
 ];

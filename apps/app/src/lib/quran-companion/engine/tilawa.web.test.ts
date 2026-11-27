@@ -1,3 +1,5 @@
+import { ORT_WEB_VERSION } from "@/constants/recitation-models";
+
 import type { EnginePlatform, OrtNamespace } from "./types";
 
 const mockCreateTilawaEngine = jest.fn(
@@ -79,7 +81,7 @@ describe("tilawa.web", () => {
     await expect(platform.loadOrt()).rejects.toMatchObject({ code: "runtime-unsupported" });
   });
 
-  it("injects the same-origin ORT script once and configures single-threaded wasm", async () => {
+  it("injects the versioned same-origin ORT script once and configures single-threaded wasm", async () => {
     const mod = loadWebModule();
     await mod.createPlatformEngine("tilawa-zipformer", { json: {} });
     const platform = mockCreateTilawaEngine.mock.calls[0][2];
@@ -87,14 +89,14 @@ describe("tilawa.web", () => {
     const first = platform.loadOrt();
     const second = platform.loadOrt();
     expect(appended).toHaveLength(1);
-    expect(appended[0].src).toBe("/ort/ort.wasm.min.js");
+    expect(appended[0].src).toBe(`/ort/${ORT_WEB_VERSION}/ort.wasm.min.js`);
     expect(appended[0].async).toBe(true);
     expect(appended[0].dataset.munibOrt).toEqual(expect.any(String));
     g.ort = ort;
     appended[0].onload?.();
     await expect(first).resolves.toBe(ort);
     await expect(second).resolves.toBe(ort);
-    expect(ort.env?.wasm).toEqual({ wasmPaths: "/ort/", numThreads: 1 });
+    expect(ort.env?.wasm).toEqual({ wasmPaths: `/ort/${ORT_WEB_VERSION}/`, numThreads: 1 });
   });
 
   it("reuses an existing script tag when ort is already on window", async () => {
@@ -130,9 +132,18 @@ describe("tilawa.web", () => {
       code: "model-missing",
     });
     const bytes = new Uint8Array([1, 2, 3]).buffer;
-    await platform.createSession(ort, { json: {}, modelBytes: bytes });
+    const first = await platform.createSession(ort, { json: {}, modelBytes: bytes });
     expect(ort.InferenceSession.create).toHaveBeenCalledWith(new Uint8Array([1, 2, 3]), {
       executionProviders: ["wasm"],
+      graphOptimizationLevel: "all",
     });
+    // Same model bytes (a fresh copy from the store) → the cached session is leased again.
+    const second = await platform.createSession(ort, {
+      json: {},
+      modelBytes: new Uint8Array([1, 2, 3]).buffer,
+    });
+    expect(ort.InferenceSession.create).toHaveBeenCalledTimes(1);
+    await first.release?.();
+    await second.release?.();
   });
 });

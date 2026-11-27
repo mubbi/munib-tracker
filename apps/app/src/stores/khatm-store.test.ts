@@ -6,13 +6,25 @@ import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 import { khatmTotalForUnit } from "@/lib/khatm";
 
-import { khatmStore, useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "./khatm-store";
+import {
+  khatmPracticeCreditedAyahs,
+  khatmStore,
+  useEnsureKhatmLoaded,
+  useKhatm,
+  useKhatmActions,
+} from "./khatm-store";
 
 const PLAN = { days: 30, startDate: "2026-07-01", unit: "page" as const };
 
 beforeEach(async () => {
   await AsyncStorage.clear();
-  khatmStore.setState({ plan: null, ayahsRead: 0, unit: "ayah", isReady: false });
+  khatmStore.setState({
+    plan: null,
+    ayahsRead: 0,
+    unit: "ayah",
+    practiceCredited: undefined,
+    isReady: false,
+  });
 });
 
 const state = () => khatmStore.getState();
@@ -86,6 +98,76 @@ describe("actions", () => {
     khatmStore.setState({ plan: PLAN, ayahsRead: 30, unit: "page" });
     await state().clear();
     expect(await stored()).toEqual({ plan: null, ayahsRead: 0, unit: "ayah" });
+  });
+});
+
+describe("practice credit (D72)", () => {
+  const AYAH_PLAN = { days: 30, startDate: "2026-07-01", unit: "ayah" as const };
+  const CYCLE = "2026-07-01|30|ayah";
+
+  it("records the credited ayahs and moves progress in one write", async () => {
+    khatmStore.setState({ plan: AYAH_PLAN, ayahsRead: 4, unit: "ayah" });
+    await state().creditPractice([1, 2, 3], 3);
+    await state().creditPractice([5], 1);
+    expect(state().ayahsRead).toBe(8);
+    expect([...khatmPracticeCreditedAyahs()]).toEqual([1, 2, 3, 5]);
+    expect(await stored()).toEqual({
+      plan: AYAH_PLAN,
+      ayahsRead: 8,
+      unit: "ayah",
+      practiceCredited: { cycle: CYCLE, ayahs: "1-3,5" },
+    });
+  });
+
+  it("does nothing without a plan", async () => {
+    await state().creditPractice([1], 1);
+    expect(state()).toMatchObject({ ayahsRead: 0, practiceCredited: undefined });
+  });
+
+  it("keeps the record across a manual correction", async () => {
+    khatmStore.setState({ plan: AYAH_PLAN, ayahsRead: 0, unit: "ayah" });
+    await state().creditPractice([1, 2], 2);
+    await state().setAyahsRead(40);
+    expect(await stored()).toMatchObject({
+      ayahsRead: 40,
+      practiceCredited: { cycle: CYCLE, ayahs: "1-2" },
+    });
+  });
+
+  it.each([
+    ["start", () => state().start(60)],
+    ["setUnit", () => state().setUnit("page")],
+    ["clear", () => state().clear()],
+  ])("%s starts a new cycle with an empty record", async (_name, run) => {
+    khatmStore.setState({ plan: AYAH_PLAN, ayahsRead: 0, unit: "ayah" });
+    await state().creditPractice([1, 2], 2);
+    await run();
+    expect(state().practiceCredited).toBeUndefined();
+    expect(khatmPracticeCreditedAyahs().size).toBe(0);
+    expect(await stored()).not.toHaveProperty("practiceCredited");
+  });
+
+  it("loads the record, ignores a malformed one and one from another cycle", async () => {
+    await writeJSON(DB_KEYS.khatm, {
+      plan: AYAH_PLAN,
+      ayahsRead: 7,
+      unit: "ayah",
+      practiceCredited: { cycle: CYCLE, ayahs: "1-7" },
+    });
+    await state().load();
+    expect(khatmPracticeCreditedAyahs().size).toBe(7);
+
+    await writeJSON(DB_KEYS.khatm, { plan: AYAH_PLAN, ayahsRead: 7, practiceCredited: 42 });
+    await state().load();
+    expect(state().practiceCredited).toBeUndefined();
+
+    await writeJSON(DB_KEYS.khatm, {
+      plan: AYAH_PLAN,
+      ayahsRead: 7,
+      practiceCredited: { cycle: "2026-01-01|30|ayah", ayahs: "1-7" },
+    });
+    await state().load();
+    expect(khatmPracticeCreditedAyahs().size).toBe(0);
   });
 });
 

@@ -1,6 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildFakeRedis, type FakeRedis } from "../test-support/redis";
-import { isRateLimited, resetMemoryRateLimits } from "./durable-rate-limit";
+import {
+  assertWithinRateLimit,
+  isRateLimited,
+  MEMORY_SWEEP_THRESHOLD,
+  resetMemoryRateLimits,
+} from "./durable-rate-limit";
 
 const getRedisClient = vi.fn();
 
@@ -66,6 +71,25 @@ describe("isRateLimited", () => {
       await expect(isRateLimited(options)).resolves.toBe(false);
     });
 
+    it("sweeps expired buckets once the map reaches the threshold", async () => {
+      setup(null);
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2026-01-01T00:00:00Z"));
+      for (let i = 0; i < MEMORY_SWEEP_THRESHOLD; i++) {
+        await isRateLimited({ key: `sweep:${i}`, limit: 1, windowMs: 1_000 });
+      }
+      const live = { key: "sweep:live", limit: 1, windowMs: 60_000 };
+      vi.setSystemTime(new Date("2026-01-01T00:00:00.500Z"));
+      await isRateLimited(live);
+
+      // Old windows expired: the next hit sweeps them, but live buckets keep counting.
+      vi.setSystemTime(new Date("2026-01-01T00:00:02Z"));
+      await expect(isRateLimited(live)).resolves.toBe(true);
+      await expect(isRateLimited({ key: "sweep:0", limit: 1, windowMs: 1_000 })).resolves.toBe(
+        false,
+      );
+    });
+
     it("is used when the client is closed", async () => {
       const redis = setup({ isOpen: false });
       await isRateLimited({ key: "m:4", limit: 1, windowMs: 60_000 });
@@ -103,6 +127,21 @@ describe("isRateLimited", () => {
       expect(redis.expire).toHaveBeenCalledTimes(1);
     });
 
+    it("re-arms a TTL-less key when it refuses a caller", async () => {
+      const redis = setup({
+        incr: vi.fn().mockResolvedValue(3),
+        ttl: vi.fn().mockResolvedValue(-1),
+      });
+      await expect(isRateLimited({ key: "stuck", limit: 2, windowMs: 60_000 })).resolves.toBe(true);
+      expect(redis.expire).toHaveBeenCalledWith("mt:test:rl:stuck", 60);
+    });
+
+    it("leaves a key with a live TTL alone", async () => {
+      const redis = setup({ incr: vi.fn().mockResolvedValue(3) });
+      await isRateLimited({ key: "ok", limit: 2, windowMs: 60_000 });
+      expect(redis.expire).not.toHaveBeenCalled();
+    });
+
     it("coerces string counters", async () => {
       setup({ incr: vi.fn().mockResolvedValue("5") });
       await expect(isRateLimited({ key: "k", limit: 3, windowMs: 60_000 })).resolves.toBe(true);
@@ -121,6 +160,22 @@ describe("isRateLimited", () => {
       getRedisClient.mockReturnValueOnce(redis).mockReturnValueOnce(null);
       await expect(isRateLimited({ key: "race", limit: 1, windowMs: 60_000 })).resolves.toBe(false);
       expect(redis.incr).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("assertWithinRateLimit", () => {
+  beforeEach(() => {
+    getRedisClient.mockReturnValue(null);
+    resetMemoryRateLimits();
+  });
+
+  it("passes under quota and throws 429 with the message over it", async () => {
+    const options = { key: "assert", limit: 1, windowMs: 60_000 };
+    await expect(assertWithinRateLimit(options, "Slow down")).resolves.toBeUndefined();
+    await expect(assertWithinRateLimit(options, "Slow down")).rejects.toMatchObject({
+      message: "Slow down",
+      status: 429,
     });
   });
 });

@@ -9,15 +9,10 @@ export const WHITE_DAYS_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
     summary: "Her Hicrî ayın 13, 14 ve 15. günleri — ay ışığıyla aydınlanan geceler.",
     body: [
       "Eyyâm-ı Bîd, yani Beyaz Günler, her İslami (Hicrî) ayın 13, 14 ve 15. günleridir. Geceleri aydınlık olduğu için “beyaz” denir: ay dolunay ya da dolunaya yakın olur ve gecenin çoğunda parlar; geceler ay ışığıyla beyaz görünür.",
-      "Her ay üç gün oruç tutmak, Peygamberimizin ﷺ kuvvetle tavsiye ettiği bir sünnettir; Eyyâm-ı Bîd de tavsiye edilen bu üç gündür. Cerîr bin Abdullah, Peygamberimizin ﷺ şöyle buyurduğunu rivayet etmiştir: “Her ay üç gün oruç tutmak ömür boyu oruç tutmak gibidir. Beyaz Günler (Eyyâm-ı Bîd) ise ayın on üçüncü, on dördüncü ve on beşinci günleridir” (Sunan an-Nasa'i 2422).",
+      "Her ay üç gün oruç tutmak, Peygamberimizin ﷺ kuvvetle tavsiye ettiği bir sünnettir; Eyyâm-ı Bîd de tavsiye edilen bu üç gündür. Cerîr bin Abdullah, Peygamberimizin ﷺ şöyle buyurduğunu rivayet etmiştir: “Her ay üç gün oruç tutmak ömür boyu oruç tutmak gibidir. Beyaz Günler (Eyyâm-ı Bîd) ise ayın on üçüncü, on dördüncü ve on beşinci günleridir” (Sunan an-Nasa'i 2420).",
       "Hicrî ay ayın hareketine göre belirlendiği için bu üç gün, Miladi takvimde her ay yer değiştirir; bulunduğunuz bölgede hilalin görülmesine göre bir gün erken veya geç başlayabilir. Uygulama bunları kendi Hicrî takviminden hesaplar; böylece hangi tarihlere denk geldiğini her zaman bilirsiniz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Her ay üç gün oruç tutmak ömür boyu oruç tutmak gibidir. Beyaz Günler ayın on üçüncü, on dördüncü ve on beşinci günleridir.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Bu ayın Eyyâm-ı Bîd günlerini görmek için ay evreleri görünümünü açın.",
       "Sahur ve iftarınızı planlamak için üç tarihi not edin.",
@@ -33,21 +28,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Abdullah bin Amr, Peygamberimizin ﷺ kendisine şöyle buyurduğunu rivayet etmiştir: “Her ay üç gün oruç tutman sana yeter; çünkü bir iyiliğin sevabı on kat artırılır, böylece bütün yıl oruç tutmak gibi olur” (Sahih al-Bukhari 1975). Başka bir rivayette: “Her ay üç gün oruç tutmak, bütün yıl oruç tutmaya denktir” (Sahih al-Bukhari 1979).",
       "Bu sebeple düzenli tutulan üç mütevazı gün çok sevilir: bedene hafiftir; fakat Allah'ın lütfuyla ömür boyu oruç sevabı kadar tartılır. Eyyâm-ı Bîd, sünnetin seçtiği bu üç gündür.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kim bir iyilikle gelirse ona bunun on katı vardır; kim bir kötülükle gelirse yalnızca dengiyle cezalandırılır ve onlara haksızlık edilmez.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Her ay üç gün oruç tutman yeter; bir iyiliğin sevabı on kat artırılır, böylece bütün yıl oruç tutmak gibi olur.",
-      },
-      {
-        excerpt: "Her ay üç gün oruç tutmak, bütün yıl oruç tutmaya denktir.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Niyetinizi bir önceki gece yenileyin — Allah rızası ve sevabı için.",
       "Devamlılığı hedefleyin: sürdüremeyeceğiniz yoğun başlangıçlar yerine her ay üç hafif gün.",
@@ -61,22 +43,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Allah'ın Resûlü ﷺ bu günlerin orucunu özellikle emrederdi. İbn Milhân el-Kaysî babasından şöyle rivayet etmiştir: “Allah'ın Resûlü ﷺ bize Beyaz Günlerde, ayın on üçüncü, on dördüncü ve on beşinci günlerinde oruç tutmamızı emrederdi”; “Bu, sürekli oruç tutmak gibidir” buyururdu (Sunan Abi Dawud 2449). Ebû Zer, Peygamberimizin ﷺ şöyle buyurduğunu rivayet etmiştir: “Bir ayda üç gün oruç tutmak istersen on üçüncü, on dördüncü ve on beşinci günlerde tut” (Jami' at-Tirmidhi 761).",
       "Üçünü de tutamıyorsanız — yolculuk, hastalık veya oruç niyeti olmadan başladığınız bir gün sebebiyle — gücünüz yettiğince tutun; bir veya iki gün de katlanmış sevap kazandırır. Nafile oruca, bir şey yememiş olmak şartıyla sabah niyet edilebilir. Kadın hayız döneminde oruç tutmaz; yapabildiği aylarda sünnete devam eder ve bu sebeple kaçırdığı nafile oruçları kaza etmesi gerekmez.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah'ın Resûlü ﷺ bize Beyaz Günlerde, ayın on üçüncü, on dördüncü ve on beşinci günlerinde oruç tutmamızı emrederdi. Bu, sürekli oruç tutmak gibidir.",
-      },
-      {
-        excerpt:
-          "Bir ayda üç gün oruç tutmak istersen on üçüncü, on dördüncü ve on beşinci günlerde tut.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman edenler! Sizden öncekilere farz kılındığı gibi, size de oruç farz kılındı ki takvaya eresiniz.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Allah için, O'nun sevabını umarak Eyyâm-ı Bîd orucuna niyet edin.",
       "Gücünüz yettiğince tutun — üçünün hepsi mümkün değilse bir veya iki gün de on kat sevap taşır.",
@@ -93,12 +61,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Bazı kimseler aylık üç günlerini 13–15 yerine pazartesi ve perşembe günlerinde tutmayı tercih eder; bu da ayda üç gün oruç sünnetini yerine getirir. Başkaları imkân buldukça ikisini birleştirir. Amaç katı bir formül değil, samimi ve düzenli bir nafile oruç alışkanlığıdır.",
       "Sürdürebileceğiniz düzeni seçin. Eyyâm-ı Bîd ayınıza uyuyorsa burada takip edin; pazartesi ve perşembe daha kolaysa onları tutun. Allah'ın en çok sevdiği amel, az da olsa devamlı yapılan ameldir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah'ın Resûlü ﷺ pazartesi orucu sorulduğunda şöyle buyurdu: O gün doğdum ve o gün bana vahiy indirildi.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sürdürülebilir bir düzen seçin: Eyyâm-ı Bîd, pazartesi ve perşembe ya da ikisi birden.",
       "Devamlı olun — düzenli yapılan küçük amel Allah'a sevimlidir.",

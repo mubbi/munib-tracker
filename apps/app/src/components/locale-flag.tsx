@@ -2,7 +2,7 @@ import type { AppLocale } from "@munib-tracker/shared/types";
 import { Image } from "expo-image";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { FLAG_ASSETS } from "@/assets/flags";
-import { Radius } from "@/constants/theme";
+import { BorderWidth, Radius } from "@/constants/theme";
 import { LOCALE_FLAG_DISPLAY } from "@/lib/locale-flag-display";
 
 export { LOCALE_FLAG_DISPLAY } from "@/lib/locale-flag-display";
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   box: {
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     overflow: "hidden",
   },
   emoji: {

@@ -42,5 +42,41 @@ export function localizedUrl(path: string, locale: AppLocale, origin?: string): 
   return `${base}${localized === "/" ? "" : localized}`;
 }
 
-/** Inline script injected into static HTML before the app bundle (web only). */
-export const LOCALE_PATH_BOOT_SCRIPT = `(function(){try{var p=location.pathname.replace(/\\/+$/,'')||'/';var m=p.match(/^\\/([a-z]{2})(\\/.*)?$/);if(!m||m[1]==='en')return;var loc=m[1];var appPath=m[2]||'/';sessionStorage.setItem('${MUNIB_LOCALE_BOOT_KEY}',loc);history.replaceState({munibLocale:loc},'',appPath+location.search+location.hash);}catch(e){}})();`;
+/** Window global the boot script sets to the locale + app path of a `/{locale}/…` entry URL. */
+export const MUNIB_ENTRY_LOCALE_GLOBAL = "__MUNIB_ENTRY_LOCALE__";
+
+/**
+ * Inline script injected into static HTML before the app bundle (web only).
+ *
+ * Expo Router has no `/{locale}/…` routes, so a localized entry URL is rewritten
+ * to its unprefixed app path before the router boots. The requested locale is
+ * kept twice: in sessionStorage for `LocalePathBootstrap` (read once, sets the
+ * UI language) and on `window` for the document's lifetime, so `<Seo>` keeps the
+ * canonical / `og:locale` of the URL that was actually requested
+ * ({@link entryLocaleForPath}) instead of re-pointing it at the English page.
+ */
+export const LOCALE_PATH_BOOT_SCRIPT = `(function(){try{var p=location.pathname.replace(/\\/+$/,'')||'/';var m=p.match(/^\\/([a-z]{2})(\\/.*)?$/);if(!m||m[1]==='en')return;var loc=m[1];var appPath=m[2]||'/';sessionStorage.setItem('${MUNIB_LOCALE_BOOT_KEY}',loc);window.${MUNIB_ENTRY_LOCALE_GLOBAL}={locale:loc,path:appPath};history.replaceState({munibLocale:loc},'',appPath+location.search+location.hash);}catch(e){}})();`;
+
+function normalizeEntryPath(path: string): string {
+  const trimmed = path.split(/[?#]/)[0].replace(/\/+$/, "") || "/";
+  try {
+    return decodeURI(trimmed);
+  } catch {
+    return trimmed;
+  }
+}
+
+/**
+ * Locale of the `/{locale}/…` URL this document was loaded from, while `path`
+ * is still the page that was requested. `null` for unprefixed (English) entries,
+ * after in-app navigation to another page, and outside the browser.
+ */
+export function entryLocaleForPath(path: string): AppLocale | null {
+  if (typeof window === "undefined") return null;
+  const entry = (window as unknown as Record<string, unknown>)[MUNIB_ENTRY_LOCALE_GLOBAL] as
+    | { locale?: unknown; path?: unknown }
+    | undefined;
+  if (!entry || typeof entry.locale !== "string" || typeof entry.path !== "string") return null;
+  if (!isAppLocaleCode(entry.locale) || entry.locale === LOCALE_PATH_DEFAULT) return null;
+  return normalizeEntryPath(entry.path) === normalizeEntryPath(path) ? entry.locale : null;
+}

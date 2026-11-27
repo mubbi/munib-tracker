@@ -342,8 +342,18 @@ describe("useSocialAuth — resumeGoogleFromUrl", () => {
     await unmount();
   });
 
+  it("ignores a return without state and keeps the pending sign-in", async () => {
+    parseGoogle.mockReturnValue({ code: "attacker-code", state: null });
+    loadGoogle.mockResolvedValue(pending);
+    const { result, unmount } = await setup();
+    await expect(result.current.resumeGoogleFromUrl("x")).resolves.toBe("skipped");
+    expect(exchangeGoogle).not.toHaveBeenCalled();
+    expect(clearGoogleOAuthPendingSession).not.toHaveBeenCalled();
+    await unmount();
+  });
+
   it("skips when the exchange returns no token", async () => {
-    parseGoogle.mockReturnValue({ code: "c", state: null });
+    parseGoogle.mockReturnValue({ code: "c", state: "s" });
     loadGoogle.mockResolvedValue(pending);
     exchangeGoogle.mockResolvedValueOnce(null);
     const { result, unmount } = await setup();
@@ -420,8 +430,18 @@ describe("useSocialAuth — resumeAppleFromUrl", () => {
     await unmount();
   });
 
+  it("ignores a return without state and keeps the pending sign-in", async () => {
+    parseApple.mockReturnValue({ code: "attacker-code", state: null });
+    loadApple.mockResolvedValue(pending);
+    const { result, unmount } = await setup();
+    await expect(result.current.resumeAppleFromUrl("x")).resolves.toBe("skipped");
+    expect(appleExchange).not.toHaveBeenCalled();
+    expect(clearAppleOAuthPendingSession).not.toHaveBeenCalled();
+    await unmount();
+  });
+
   it("skips when another exchange already owns the code", async () => {
-    parseApple.mockReturnValue({ code: "c", state: null });
+    parseApple.mockReturnValue({ code: "c", state: "s" });
     loadApple.mockResolvedValue(pending);
     appleExchange.mockResolvedValueOnce(null);
     const { result, unmount } = await setup();

@@ -10,6 +10,7 @@ import {
   isTombstoneEmail,
   maskEmail,
   normalizeEmail,
+  safeExternalHref,
 } from "./utils";
 
 describe("cn", () => {
@@ -140,5 +141,23 @@ describe("maskEmail", () => {
 
   it("returns original when @ is missing", () => {
     expect(maskEmail("not-an-email")).toBe("not-an-email");
+  });
+});
+
+describe("safeExternalHref", () => {
+  it("keeps absolute http(s) URLs", () => {
+    expect(safeExternalHref(" https://cdn.jsdelivr.net/gh/x/y.json ")).toBe(
+      "https://cdn.jsdelivr.net/gh/x/y.json",
+    );
+    expect(safeExternalHref("http://example.com/a")).toBe("http://example.com/a");
+  });
+
+  it("drops script, data and relative URLs", () => {
+    expect(safeExternalHref("javascript:alert(document.cookie)")).toBeNull();
+    expect(safeExternalHref("  JaVaScRiPt:alert(1)")).toBeNull();
+    expect(safeExternalHref("data:text/html,<script>alert(1)</script>")).toBeNull();
+    expect(safeExternalHref("/users/1")).toBeNull();
+    expect(safeExternalHref("")).toBeNull();
+    expect(safeExternalHref(null)).toBeNull();
   });
 });

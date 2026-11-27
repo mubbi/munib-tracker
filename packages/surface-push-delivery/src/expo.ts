@@ -1,8 +1,8 @@
 import type { SurfaceSender, SurfaceSendResult } from "./types.js";
 
-const EXPO_PUSH_URL = "https://exp.host/--/api/v2/push/send";
+export const EXPO_PUSH_URL = "https://exp.host/--/api/v2/push/send";
 
-type ExpoPushTicket = {
+export type ExpoPushTicket = {
   status: "ok" | "error";
   message?: string;
   details?: {
@@ -64,55 +64,72 @@ export function createExpoPushSender(): SurfaceSender {
           }),
         });
 
-        if (response.status === 429 || response.status >= 500) {
-          return {
-            ok: false,
-            status: response.status,
-            reason: `Transient Expo Push failure (${response.status})`,
-            retryable: true,
-            invalidateToken: false,
-          };
-        }
-        if (!response.ok) {
-          return {
-            ok: false,
-            status: response.status,
-            reason: `Expo Push rejected request (${response.status})`,
-            retryable: false,
-            invalidateToken: false,
-          };
-        }
+        const httpFailure = expoHttpFailure(response);
+        if (httpFailure) return httpFailure;
 
         const result = (await response.json()) as {
           data?: ExpoPushTicket | ExpoPushTicket[];
         };
         const ticket = Array.isArray(result.data) ? result.data[0] : result.data;
-        if (!ticket || ticket.status === "ok") return { ok: true };
-
-        const errorCode = ticket.details?.error;
-        if (errorCode === "DeviceNotRegistered") {
-          return {
-            ok: false,
-            reason: ticket.message ?? errorCode,
-            retryable: false,
-            invalidateToken: true,
-          };
-        }
-        const retryable = errorCode === "MessageRateExceeded";
-        return {
-          ok: false,
-          reason: ticket.message ?? errorCode ?? "Expo Push ticket failed",
-          retryable,
-          invalidateToken: false,
-        };
+        return expoTicketResult(ticket);
       } catch (error) {
-        return {
-          ok: false,
-          reason: error instanceof Error ? error.message : "Expo Push network error",
-          retryable: true,
-          invalidateToken: false,
-        };
+        return expoNetworkFailure(error);
       }
     },
+  };
+}
+
+/** Non-2xx Expo Push HTTP response → failure (429 / 5xx retryable), else `null`. */
+export function expoHttpFailure(response: {
+  ok: boolean;
+  status: number;
+}): SurfaceSendResult | null {
+  if (response.status === 429 || response.status >= 500) {
+    return {
+      ok: false,
+      status: response.status,
+      reason: `Transient Expo Push failure (${response.status})`,
+      retryable: true,
+      invalidateToken: false,
+    };
+  }
+  if (!response.ok) {
+    return {
+      ok: false,
+      status: response.status,
+      reason: `Expo Push rejected request (${response.status})`,
+      retryable: false,
+      invalidateToken: false,
+    };
+  }
+  return null;
+}
+
+/** One Expo push ticket → send result (`DeviceNotRegistered` invalidates the token). */
+export function expoTicketResult(ticket: ExpoPushTicket | undefined): SurfaceSendResult {
+  if (!ticket || ticket.status === "ok") return { ok: true };
+  const errorCode = ticket.details?.error;
+  if (errorCode === "DeviceNotRegistered") {
+    return {
+      ok: false,
+      reason: ticket.message ?? errorCode,
+      retryable: false,
+      invalidateToken: true,
+    };
+  }
+  return {
+    ok: false,
+    reason: ticket.message ?? errorCode ?? "Expo Push ticket failed",
+    retryable: errorCode === "MessageRateExceeded",
+    invalidateToken: false,
+  };
+}
+
+export function expoNetworkFailure(error: unknown): SurfaceSendResult {
+  return {
+    ok: false,
+    reason: error instanceof Error ? error.message : "Expo Push network error",
+    retryable: true,
+    invalidateToken: false,
   };
 }

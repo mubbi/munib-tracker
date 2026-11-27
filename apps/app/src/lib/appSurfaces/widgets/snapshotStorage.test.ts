@@ -63,6 +63,11 @@ describe("readWidgetSnapshot", () => {
       accessibilityLabel: empty.nextPrayer.accessibilityLabel,
     });
     expect(snapshot.schedule.rows[0].statusLabel).toBe("completed");
+    // Pre-watch-contract snapshots: no Adhan instants, date, labels or sequence.
+    expect(snapshot.schedule.rows[0].atMs).toBe(0);
+    expect(snapshot.date).toBe("");
+    expect(snapshot.strings.markConfirm).toBe(empty.strings.markConfirm);
+    expect(snapshot.afterSalahTasbeeh.steps).toEqual([]);
     expect(snapshot.progress.progressLabel).toBe("1/5");
     expect(snapshot.qaza.remaining).toBe(3);
     expect(snapshot.qibla.accessibilityLabel).toBe(empty.qibla.accessibilityLabel);

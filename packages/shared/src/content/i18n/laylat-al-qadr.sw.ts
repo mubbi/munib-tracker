@@ -2,137 +2,110 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // sw overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Laylat al-Qadr ni nini?",
+    summary: "Usiku wa Cheo — bora kuliko miezi elfu moja.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      'Laylat al-Qadr, Usiku wa Cheo (au Usiku wa Utukufu), ni usiku ambao Qur\'ani ilianza kuteremshwa kwa Mtume ﷺ. Mwenyezi Mungu ameutengea sura nzima, inayoanza kwa: "Sisi Tumeiteremsha Qur’ani katika usiku wa cheo na utukufu" (Qur\'ani 97:1). Thamani yake imeelezwa kwa maneno yaliyo wazi kabisa aya chache baadaye: "Usiku wa cheo na utukufu ni bora fadhila zake kuliko fadhila za miezi elfu moja" (Qur\'ani 97:3) — ibada katika usiku huu mmoja inazidi ibada iliyoenea kwa zaidi ya miaka themanini na mitatu.',
+      'Sura hiyo inaueleza usiku huo zaidi: Malaika na Roho (Jibril) hushuka ndani yake kwa idhini ya Mola wao kwa kila jambo lililokadiriwa, na ni "…amani… mpaka kutokea alfajiri" (Qur\'ani 97:4–5). Ni usiku wa rehema kubwa, utulivu, na makadirio ya Mwenyezi Mungu — usiku ambao Mtume ﷺ aliwahimiza masahaba wake kuutafuta kwa bidii badala ya kuuacha upite bila kutambuliwa.',
+      "Ndiyo sababu masiku kumi ya mwisho ya Ramadhani yana uzito mkubwa wa kiroho: mahali fulani kati yake kuna usiku wenye thamani kuliko usiku mwingine wowote katika maisha ya mtu. Hekima ya kutoutaja waziwazi ni kwamba waumini wajitahidi katika kila mmoja wa masiku hayo kumi ya mwisho badala ya kulegea katika yote isipokuwa mmoja.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Malipo ya kusimama kwa swala",
+    summary: "Ibada ya dhati katika usiku huu hufuta madhambi yaliyopita.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Mtume ﷺ ameufungamanisha usiku huu na ahadi ya ajabu: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (maana kwa Kiingereza) (Bukhari 1901). Masharti mawili yameambatanishwa — iman (kuamini kikweli kwamba ibada hii ndiyo anayoipenda Mwenyezi Mungu na ameiweka katika sheria) na ihtisab (kutafuta malipo ya Mwenyezi Mungu peke yake, si kuonekana wala kusifiwa).",
+      "Msamaha huu haumfikii moja kwa moja kila aliyepo tu; ni kwa yule anayeabudu kwa moyo wa dhati wenye matumaini. Ndiyo sababu masiku kumi ya mwisho kwa kawaida hujazwa kwa swala za ziada za usiku (qiyam), Qur'ani, na zikr — si kwa sababu malipo ni biashara, bali kwa sababu juhudi ya dhati na endelevu yenyewe ndiyo hadithi inayoieleza kama iman na ihtisab.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Fanya upya nia yako kabla ya kila usiku wa ibada — kwa ajili ya Mwenyezi Mungu, ukitarajia malipo Yake.",
+      "Swali qiyam al-layl katika masiku kumi ya mwisho, hata kama ni rakaa chache tu.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Wakati wa kuutafuta",
+    summary: "Masiku ya witiri ya kumi la mwisho la Ramadhani — si tarehe moja maalum.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Mtume ﷺ aliagiza: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (maana kwa Kiingereza) (Bukhari 2017), kama ilivyosimuliwa na Aisha. Katika Ramadhani ya kawaida ya siku 30, masiku ya witiri kwa kawaida huhesabiwa kuwa ya 21, 23, 25, 27, na 29. Riwaya nyingine sahihi zinapanua hili hadi masiku yote kumi ya mwisho, na Mtume ﷺ mwenyewe alisema kwamba tarehe halisi ya usiku huo alionyeshwa kisha akasahaulishwa — ili umma ujitahidi katika masiku haya yote badala ya mmoja tu.",
+      "Usiku wa 27 ndio ambao wanachuoni na jamii nyingi huelekea kuuona kuwa wenye uwezekano mkubwa zaidi (kwa kuzingatia riwaya nyingine zinazopima ishara na wingi wa taarifa za masahaba), lakini huu ni uamuzi wa kielimu unaotokana na hadithi, si tarehe iliyowekwa kando kwa uhakika katika maandiko. Unaweza kuangukia usiku tofauti katika miaka tofauti na katika maeneo tofauti, kwa kuwa hata tarehe ya kuanza Ramadhani hutofautiana kulingana na kuonekana kwa mwezi.",
+      "Baadhi ya watu huchapisha tarehe moja kila mwaka kana kwamba imethibitishwa kwa uhakika, na orodha za kimila za 'ishara' (usiku wenye utulivu wa kipekee, ndoto, mwanga fulani) husambaa sana mtandaoni. Hakuna kati ya hizi yenye msingi imara wa hadithi, kwa hiyo mwongozo huu hauzirudii. Njia ya kuaminika, yenye msingi katika maandiko, ni kuongeza ibada tu katika masiku yote ya witiri — na ikiwezekana kumi lote la mwisho — ili usiku huo uwe wowote, uwe umejishughulisha na ibada ndani yake.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Mwongozo huu hauungi mkono tarehe moja maalum ya kalenda wala 'ishara' zozote za kimila za kuutambua usiku huo — bali kile tu ambacho hadithi zinaeleza: utafute katika masiku ya witiri ya kumi la mwisho la Ramadhani.",
   },
   {
-    title: "Unachosema ukikipata",
-    summary: "Aisha aliuliza Mtume ﷺ haswa nini cha kusema.",
+    title: "Useme nini ukiupata",
+    summary: "Aisha alimuuliza Mtume ﷺ hasa aseme nini.",
     body: [
-      "Aisha (radhiwa Allah) aliuliza Mtume ﷺ: 'Ewe Mtume wa Allah, nikijua ni usiku gani wa Laylat al-Qadr, niseme nini ndani yake?' Aliﷺ amfundisha dua fupi ya msamaha iliyoonyeshwa hapa chini (Tirmidhi 3513, iliyopewa daraja hasan sahih na al-Tirmidhi).",
-      "Dua hii ni fupi, rahisi kukariri, na kwa makusudi kuhusu msamaha badala ya maombi ya kidunia — ukumbusho kwamba faida kubwa zaidi kutoka usiku huu ni msamaha wa Allah. Irudie mara nyingi katika usiku kumi wa mwisho, katika swala, katika kusujudu, na kati yao, badala ya kuiweka kwa usiku mmoja ulio kadiriwa.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nilisema: Ewe Mtume wa Allah, nikijua ni usiku gani wa Laylat al-Qadr, niseme nini ndani yake? Alisema: Sema — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ewe Allah, Wewe Unasamehe na Unapenda msamaha, nisamehe).",
-      },
+      "Aisha (Mwenyezi Mungu awe radhi naye) alimuuliza Mtume ﷺ: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' (maana kwa Kiingereza). Akamfundisha dua fupi ya msamaha iliyoonyeshwa hapa chini (Tirmidhi 3513, imepewa daraja hasan sahih na at-Tirmidhi).",
+      "Dua hii ni fupi, rahisi kuihifadhi, na kwa makusudi inahusu msamaha badala ya maombi ya kidunia — ukumbusho kwamba faida kubwa zaidi ya usiku huu ni msamaha wa Mwenyezi Mungu. Irudie mara nyingi katika masiku kumi ya mwisho, ndani ya swala, katika sujudi, na kati ya swala, badala ya kuiwekea usiku mmoja tu wa kukisia.",
     ],
     actions: [
-      "Kariri dua ya msamaha iliyoonyeshwa hapo juu.",
-      "Irudie mara nyingi katika usiku kumi wa mwisho, hasa katika usiku wa pekee.",
+      "Hifadhi dua ya msamaha iliyoonyeshwa hapo juu.",
+      "Irudie mara nyingi katika masiku kumi ya mwisho, hasa katika masiku ya witiri.",
+    ],
+    appLinks: [{ label: "Fungua dua hii" }],
+  },
+  {
+    title: "Jinsi ya kuutumia usiku",
+    summary: "Swala ya usiku, Qur'ani, zikr na dua, na sadaka.",
+    body: [
+      "Hakuna 'ibada maalum' moja ya lazima kwa Laylat al-Qadr zaidi ya ibada ya dhati, kwa hiyo Sunna inaongeza tu nguvu ya matendo yaliyokwisha wekwa katika sheria: kusimama katika swala ya hiari ya usiku (qiyam al-layl / tarawehe), kusoma na kuitafakari Qur'ani, kurudia zikr na istighfar, na kuomba dua — hasa dua ambayo Mtume ﷺ alimfundisha Aisha. Masahaba wengi na wanachuoni wa baadaye pia waliongeza sadaka katika masiku haya, sambamba na ukarimu wa Mtume ﷺ mwenyewe uliokuwa katika kilele chake ndani ya Ramadhani.",
+      "Ikiwa unaweza kufanya kidogo tu, fanya kidogo kwa kudumu badala ya kutofanya chochote: hata qiyam fupi, kurasa chache za Qur'ani, na dua ya msamaha inayorudiwa kwa dhati hutimiza 'iman na ihtisab' ambayo hadithi inaieleza. Wenye uwezo wa kuchukua likizo kazini au kuongeza faragha yao wanaweza pia kukaa i'tikaf (kujitenga msikitini) katika masiku kumi ya mwisho, wakifuata mwenendo wa Mtume ﷺ mwenyewe.",
+    ],
+    actions: [
+      "Swali swala za ziada za usiku (qiyam/tarawehe) katika masiku kumi ya mwisho.",
+      "Soma na utafakari sehemu ya Qur'ani kila usiku.",
+      "Zidisha istighfar, zikr, na dua ya msamaha.",
+      "Toa sadaka, hata kama ni kidogo, katika masiku haya.",
+    ],
+    appLinks: [
+      { label: "Msomaji wa Qur'ani" },
+      { label: "Adhkar za asubuhi na jioni" },
+      { label: "Kifuatiliaji cha swala" },
+      { label: "Zaka na sadaka" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "I'tikaf katika masiku kumi ya mwisho",
+    summary: "Kujitenga msikitini — mwenendo wa Mtume ﷺ mwishoni mwa Ramadhani.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "I'tikaf ni kubaki msikitini kwa ajili ya ibada, ukijitenga na shughuli za kawaida za kidunia kwa muda maalum. Mtume ﷺ alikuwa akikaa i'tikaf mara kwa mara katika masiku kumi ya mwisho ya Ramadhani, akiutafuta Laylat al-Qadr kwa ibada iliyoelekezwa badala ya kutoka msikitini kwa shughuli za kawaida (Sahih al-Bukhari 2026).",
+      "Mafundisho ya kitamaduni yanaichukulia i'tikaf kamili ya masiku kumi ya mwisho kuwa sunna iliyosisitizwa kwa mwenye uwezo. Maelezo ya kinachoibatilisha, iwapo wanawake wanaweza kuikaa katika sehemu maalum ya msikiti, na jinsi majukumu ya kazi au familia yanavyohusiana nayo hutofautiana kati ya madhehebu — mwongozo huu unathibitisha tu tendo hilo na lengo lake: Qur'ani, swala, na dua endelevu katika masiku yenye uwezekano mkubwa zaidi wa kujumuisha Laylat al-Qadr.",
+      "Ikiwa kujitenga msikitini kikamilifu hakuwezekani, punguza pengo: kaa muda mrefu zaidi baada ya tarawehe, tenga nyakati tulivu zaidi za usiku nyumbani kwa ajili ya qiyam na Qur'ani, na zilinde saa hizo dhidi ya vishawishi visivyo vya lazima. Malipo yamefungamanishwa na ibada ya dhati, si tu na jina rasmi la i'tikaf.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Ikiwa msikiti wako unaandaa i'tikaf, uliza mapema kuhusu usajili na kanuni wanazozifuata.",
+      "Ikiwa huwezi kulala huko, bado ongeza muda wako wa kuwepo kwa ajili ya Qur'ani na qiyam katika masiku kumi ya mwisho.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "I'tikaf ina masharti ya kifiqhi ya kina (nia, kutoka msikitini, tendo la ndoa, mipango ya wanawake). Thibitisha na mwanachuoni aliyehitimu wa eneo lako au msikiti wako kabla ya kuanza.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Ibada pamoja na familia katika masiku kumi ya mwisho",
+    summary: "Washirikishe watoto na watu wa nyumbani bila kufukuzia tarehe moja maalum.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Masiku kumi ya mwisho ni fursa kwa nyumba nzima, si kwa wale tu wanaoweza kukesha peke yao. Wafundishe watoto maana ya Laylat al-Qadr kwa maneno rahisi — kwamba Mwenyezi Mungu ameufanya usiku mmoja kuwa bora kuliko miezi elfu moja — na uwakaribishe katika matendo mafupi yanayowezekana: kurasa chache za Qur'ani, kujiunga na tarawehe kwa muda wanaoweza, kurudia dua ya msamaha, na kutoa kiasi kidogo cha sadaka.",
+      "Dumisha upole. Lengo ni juhudi ya dhati katika masiku ya witiri, si kumchosha kila mtu kwa ajili ya tarehe moja ya kukisia kwenye kalenda. Badilishaneni nani anaongoza zikr fupi ya familia, wekeni nia ya pamoja kabla ya Magharibi, na lindeni usingizi wa kutosha ili ibada iendelee kuwezekana badala ya kuwa mlipuko wa usiku mmoja unaofuatwa na kuchoka kabisa.",
+      "Wale wenye mipaka ya kazi au ya kuwahudumia wengine bado wanashiriki katika usiku huo kwa kuandaa daku, kuwapa wengine nafasi ya kwenda kuswali msikitini, au kuomba dua huku wengine wakisimama kwa swala — kila mchango wa dhati unahesabika katika kuutafuta usiku huo pamoja.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Kubalianeni kama familia ni masiku gani ya witiri mtakayoyapa kipaumbele kwa Qur'ani na swala za ziada.",
+      "Hifadhini dua ya msamaha pamoja na muirudie baada ya Magharibi na kabla ya kulala.",
+      "Waache watoto watoe sadaka ndogo katika masiku kumi ya mwisho.",
     ],
+    appLinks: [{ label: "Dua za Hisnul Muslim" }, { label: "Msomaji wa Qur'ani" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Ifanye iwe rahisi na ya dhati",
+    summary: "Acha tarehe maalum na ishara za kimila; zingatia ibada katika masiku yote.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Mazoea mawili ya kawaida yanastahili kuepukwa kwa sababu yanavuka kile ambacho maandiko yamethibitisha. Kwanza, kuichukulia tarehe moja iliyochapishwa kuwa ndiyo kwa uhakika Usiku wa Cheo — hadithi zinauacha kwa makusudi kati ya masiku kadhaa ya witiri, si siku moja ya kalenda, na hili hutofautiana kulingana na kuonekana kwa mwezi na eneo. Pili, kufukuzia 'ishara' za kimila (ndoto fulani, usiku uliotulia isivyo kawaida, wanyama wanaotenda kwa namna ya ajabu) kama ushahidi kwamba usiku umefika — hizi haziungwi mkono na hadithi imara na zinaweza kukuvuruga kutoka kwenye ibada halisi ambayo usiku huo unaihitaji.",
+      "Funzo la kivitendo ni rahisi: ongeza ibada yako kwa uthabiti katika masiku kumi ya mwisho, sema dua ya msamaha mara nyingi, na rehema ya Mwenyezi Mungu — si tarehe ya kukisia — iwe ndiyo kitovu. Hata usipoupata usiku huo kwa kujua, juhudi ya dhati katika masiku yote yenyewe ina malipo makubwa.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Haya ni maudhui ya jumla ya kielimu yanayofupisha mafundisho ya Kisunni ya kawaida kutoka Qur'ani na hadithi sahihi. Si fatwa. Kwa hukumu kuhusu i'tikaf, swala za kulipa (qaza), au hali yako mahususi, wasiliana na mwanachuoni aliyehitimu wa eneo lako.",
   },
 ];

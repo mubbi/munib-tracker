@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Sütunlar arasında özünəməxsus bir cəhəti odur ki, namaz yerə enən mələk vasitəsilə nazil edilməmişdir, ancaq Peyğəmbər ﷺ gecə səfərində (əl-İsra vəl-Mirac) səmalara qaldırılarkən birbaşa ona fərz edilmişdir. Əvvəl əlli namaz fərz edildi, sonra Peyğəmbərin (sallallahu aleyhi və səlləm) ümmətinə rahatlıq gətirmək üçün dəfələrlə qayıtması ilə əlli savabı saxlanılmaqla əməldə beşə endirildi.",
       "Buna görə də namaz İslam həyatının tam mərkəzində oturur: gündə beş dəfə təkrarlanır, işi, istirahəti və istirahəti yarımçıq qoyur ki, qəlbi Allaha qaytarsın və bu, bəndənin Qiyamət günü hesaba çəkiləcəyi ilk əməldir. Səs tapılarsa, qeydin qalan hissəsi izlənməyə meyllidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O kəslər ki, qeybə inanır, namaz qılır və onlara verdiyimiz ruzidən xərcləyirlər.",
-      },
-      {
-        excerpt:
-          "Kitabdan sənə vəhy olunanı oxu və namaz qıl. Həqiqətən, namaz əxlaqsızlıqdan və pis əməllərdən çəkindirər və Allahı zikr etmək daha böyükdür.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Gecə səfərində Allah əlli namazı fərz etdi; Peyğəmbər ﷺ onlar beş yaşına çatana qədər geri qayıdıb şəfa diləyirdi: “Bunlar beşdir, bunlar da əllidir, çünki Mənimlə olan söz dəyişməz”. (həmçinin Səhih Müslim 162)",
-      },
-      {
-        excerpt:
-          "Qiyamət günü qulun hesaba çəkiləcəyi ilk şey onun namazıdır; Əgər səhih olarsa, qalan əməlləri də səhihdir. (həmçinin Əbu Davud 864, ən-Nəsai 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,28 +32,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Onun ikinci meyvəsi daxili dinclikdir. Qur'an vəd edir ki, qəlblər Allahı zikr etməklə rahatlıq tapır və Peyğəmbər (sallallahu aleyhi və səlləm) narahatlıq anlarında namaza çağıraraq: “Bununla bizə rahatlıq ver, ey Bilal” deyər. O, gözlərinin ləzzətini namaza qoyulması ilə izah etdi.",
       "Onun ictimai və əbədi bəhrələri mənzərəni tamamlayır: Camaat namazı zəngin və kasıbı bir sıraya düzərək qardaşlıq qurur, namazı qorumaq isə Allahın məğfirətinə və Cənnətə aparan ən etibarlı yollardandır. Peyğəmbər (sallallahu aleyhi və səlləm) sübh və əsrin iki “sərin” namazını qoruyan şəxsə Cənnəti vəd etmişdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, mən Allaham. Məndən başqa məbud yoxdur, Mənə ibadət et və Məni zikr etmək üçün namaz qıl.",
-      },
-      {
-        excerpt: "Həqiqətən, möminlər nicat tapdılar – o kəslər ki, namazda təvazökarlıq edirlər.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "“Əgər birinizin qapısının ağzında gündə beş dəfə yuyunduğu bir çay olsa, onun üzərində kir qalarmı?” Dedilər: “Yox”. O, (sallallahu aleyhi və səlləm) buyurdu: “Beş vaxt namazın məsəli budur ki, Allah onlarla günahları yox edər”. (həmçinin Səhih Müslim 667)",
-      },
-      {
-        excerpt: "Hər kim iki sərin namazı - Sübh və Əsr namazını qılarsa, Cənnətə daxil olar.",
-      },
-      {
-        excerpt:
-          "Sənin aləmindən mənə sevimli qadınlar və ətirlər verildi və gözümün sərinliyi duada oldu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Bu gün yalnız bir namazı tam vaxtında qılın - birinci məqsəd mükəmməllik deyil, ardıcıllıqdır.",
       "Cavab aldığınızı hiss etmək üçün növbəti namazınızdan əvvəl bir dəfə Fatihə surəsinin mənasını oxuyun.",
@@ -88,28 +50,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Namazı tərk edənin hökmü ilə bağlı əhli-sünnə alimləri arasında tanınmış və hörmətli ixtilaf vardır. Bəziləri hesab edir ki, onu qəsdən tamamilə tərk etmək - vacib olduğunu təsdiqləyərək - insanı İslamdan çıxaran böyük küfrə bərabərdir; Əksəriyyət (Hənəfi, Maliki, Şafii) belə bir şəxsin vacibliyini inkar etmədiyi təqdirdə böyük günahlardan birinə görə günahkar müsəlman olaraq qaldığını düşünür. Hamı həmfikirdir ki, namazı tərk etmək fəlakətdir və kim namazı inkar edərsə, icma ilə İslamı tərk etmişdir.",
       "Praktik dərs hər baxışda eynidir: beş vaxt namazı qorumaq mömin üçün ixtiyari və ya razılaşmaq olmaz. Nafilə namazlar (sünnə və nəfl) daha sonra qiyamət günü vacib namazların əskiklərini yerinə yetirərək təhlükəsizlik şəbəkəsi rolunu oynayır.",
     ],
-    quran: [
-      {
-        excerpt: "Namazı və orta namazı ehtiyatla qılın və Allah qarşısında itaətkar olaraq durun.",
-      },
-      {
-        excerpt:
-          "Onların ardınca namazı tərk edən və nəfslərin istəklərinə uyan xəlifələr gəldi. Beləliklə, onlar pisliklə qarşılaşacaqlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İslam beş üzərində qurulmuşdur: Allahdan başqa ilah olmadığına və Muhəmmədin Onun Rəsulu olduğuna şəhadət vermək, namaz qılmaq, zəkat vermək, həcc və Ramazan orucunu tutmaq. (həmçinin Səhih əl-Buxari 8)",
-      },
-      {
-        excerpt:
-          "Bizimlə onların arasında olan əhd namazdır. kim onu ​​tərk edərsə, kafir olmuşdur. (Bureydə; həmçinin ən-Nəsai, İbn Macə 1079)",
-      },
-      {
-        excerpt: "Kişi ilə küfr və bütpərəstlik arasında namazı tərk etmək durur. (Cabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Namazı tənbəllik (çoxluq üçün böyük günah; başqaları üçün küfr) üzündən tərk edən şəxslə, vacibliyini inkar edən şəxslə (icma ilə küfr) namazı tərk edənin dəqiq hökmü barədə alimlər ixtilaf edirlər. Bu proqram hər hansı bir şəxs haqqında hökm çıxarmır - şəxsi işlər üçün ixtisaslı alimlə məsləhətləşin.",
   },
@@ -123,17 +65,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Heyz (heyd) və ya nifas (nifas) halında olan qadınlar o vaxt namaz qılmazlar; rəhmət və alimlərin razılaşdığı hökmlə qəza edilən vacib namazlar sonra qəza edilmir. (Qatılan oruclar, namazdan fərqli olaraq qəza edilir.) Qadın qan qurtardıqdan və qüsllə paklandıqdan sonra namaza davam edər.",
       "Əsl bacarıqsızlıq güzəşt gətirir, heç vaxt ləğv edilmir: ağır xəstəlik, şüursuzluq və hədsiz qorxu insanı bir müddət bəhanə edə bilər və xəstə öz imkanlarına uyğun olaraq dua edir - oturmaq, yalan danışmaq və ya hətta jestlərlə. Səyahət namazı aradan qaldırmır, lakin Səyahət bələdçisində əhatə olunan qısaltmaqla (qəsr) və birləşdirməklə (mürəbbə) asanlaşdırır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Övladlarınıza yeddi yaşında namaz qılmağı əmr edin, on yaşında onlara namaz qılmağı əmr edin və yataq yerlərini ayırın. (Amr ibn Şueyb atasından babasından)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Ailənə namaz qılmağı əmr et və ona səbir et.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -194,16 +127,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Bu ayin hallarından ayrı olaraq, sidik, nəcis, axan qan və bu kimi maddi çirkinliklər bədəndən, paltardan və namaz qıldığınız yerdən fiziki olaraq təmizlənməlidir. Düzgün dəstəmaz almaq mümkündür, lakin namazdan əvvəl paltarınızdakı ləkəni təmizləmək lazımdır.",
       "Su əsas təmizləyicidir. Su həqiqətən əlçatmaz olduqda və ya xəstəlik və ya şiddətli soyuqluq səbəbindən sizə zərər verərsə, İslam tamamilə əvəzedici olaraq təyəmmümə icazə verir - təmiz torpaqdan istifadə edərək quru təmizləmə. Təmizlənmə heç vaxt çətinliyə çevrilmir; yaxınlaşmaq üçün bir vasitədir.",
     ],
-    hadith: [
-      {
-        excerpt: "Təmizlənmə imanın yarısıdır... (Əbu Malik əl-Əşari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Həqiqətən, Allah tövbə edənləri və pak olanları sevər.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Növbəti namazdan əvvəl dəstəmazı addım-addım öyrənin ki, hər bir üzv düzgün yuyulsun.",
       "Əgər çirkli bir mühitdə işləyirsinizsə, namaz üçün ayrılmış təmiz paltarı saxlayın.",
@@ -259,18 +184,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         body: "“Əşhədu ən la ilahə illəllah...” duası ilə tamamlayın – dəstəmazdan sonra Cənnətin səkkiz qapısı açılar.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qul dəstəmazda üzünü yuyanda gözləri ilə baxdığı hər günah su ilə birlikdə çıxır... günahdan təmizlənmiş halda çıxana qədər.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, namaza qalxdığınız zaman üzünüzü və dirsəklərə qədər qollarınızı yuyun, başınıza məsh çəkin, topuqlara qədər ayaqlarınızı yuyun.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Hər addımı ucadan oxuyarkən, dirsəkləri və dabanları yoxlayaraq bir dəfə yavaş-yavaş dəstəmaz alın.",
       "Dəstəmazdan sonra qısa duanı əzbərləyin — Namaz kəlmələrinə baxın.",
@@ -309,18 +224,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -337,11 +242,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Qadınlar üçün əksər alimlərin nəzərinə görə, üz və əllərdən başqa bütün bədəni namazda övrətdir; qadın saçını, boynunu və ayaqlarını adətən boş paltar və baş örtüyü ilə örtür. Alimlər ayaqlara görə fərqlənirlər, bəziləri onları göstərilə biləcək şeylərə daxil etdiyini nəzərə alır - onlarla örtülü dua etmək daha təhlükəsiz və əksəriyyət praktikasıdır.",
       "Namazdan kənarda da iki paltar hökmü var: ipək və qızılı kişilərə geyinməsi haramdır (qadınlar üçün icazəlidir) və paltar o qədər dar, şəffaf və diqqəti cəlb edən olmamalıdır ki, təvazökarlıq namazına qalib gəlsin. Bir qayda olaraq, gecə paltarı və ya çimərlik paltarı deyil, hörmət etdiyiniz bir insanla görüşmək üçün geyinəcəyiniz paltarda dua edin.",
     ],
-    quran: [
-      {
-        excerpt: "Ey Adəm övladları, hər namaz yerində zinətinizi götürün.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bir təmiz, təvazökar paltar və ya xüsusi bir namaz paltarı ayırın ki, hər zaman hazır olasınız.",
       "Bir şeyin kifayət qədər əhatə edib-etmədiyindən əmin deyilsinizsə, az deyil, daha çox örtün.",
@@ -380,21 +281,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Alatoranlığın sönməsindən səhərə qədər; ən yaxşısı gecə yarısından əvvəl. Witr izlədi.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbərin (sallallahu aleyhi və səlləm) bizə namaz qılmağı qadağan etdiyi üç vaxt vardır: Günəş çıxana qədər, günorta dayananda və batan zaman batana qədər. (Uqbə ibn Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Həqiqətən, namaz möminlərə müəyyən vaxtlarda fərz edilmişdir.",
-      },
-      {
-        excerpt:
-          "Günün iki başında və gecəyə yaxınlaşanda namaz qıl. Həqiqətən, yaxşı əməllər pis əməlləri uzaqlaşdırır.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Əsrin başlanğıcında iki rəy bildirilmişdir (kölgə obyektin uzunluğuna bərabər və ya iki dəfə). Hər ikisi etibarlıdır; yerli hesablamanıza və icmanıza əməl edin.",
@@ -407,18 +295,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Səyahət zamanı kompas, məscid mehrabı, etibarlı proqram və ya günəş və ulduzlar ilə əsaslı şəkildə müəyyən edə biləcəyiniz qədər qibləyə üz tutmağınız tələb olunur. Kiçik, qaçınılmaz bir sapma bağışlanır; əsas olan düzgün istiqamətə doğru səmimi səydir.",
       "Əgər sən istiqaməti həqiqətən müəyyən edə bilmirsənsə - dənizdə, buludda, gecələr naməlum torpaqda itirsən - onu işlətməyə çalışırsan və sonra ən yaxşı qərarın üçün dua edirsən; namazı sonradan azacıq da olsa səhihdir. Vacib namaz üçün üzünü qibləyə qılmaq qeyri-mümkün olan hərəkətdə olan nəqliyyat vasitəsində və ya təyyarədə bacardığınız qədər üz-üzə gələ bilərsiniz, çünki Allah heç kəsə gücündən artıq yük verməz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Elə isə üzünü Məscidül-Harama çevir. Harada olursunuzsa olun, üzünüzü ona tərəf çevirin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namaza qalxdıqda yaxşı dəstəmaz al, sonra üzü qibləyə və təkbir de. (pis namaz qılan kişinin hədisindən)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -459,12 +337,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Allahdan başqa heç bir tanrı yoxdur - çağırış ona açılan eyni kəlmə ilə bağlanır.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hər kim çağırışı eşidib: “Ey bu kamil çağırışın və sabit namazın Rəbbi olan Allahım, Muhəmmədə vəsilə və fəzilət bəxş et...” desə, Qiyamət günü mənim şəfaətim ona olacaqdır. (Cabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -487,26 +360,19 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Təkbirin açılması (Təkbirətül-Ehram)",
         body: "Əllərinizi çiyinlərə və ya qulaq məmələrinə qaldırıb təkbir deyin, sonra sağ əli sol əlin üzərinə sinə üzərinə qoyun. Bununla namaz başlanır və indi salama qədər adi danışıq və hərəkət qadağandır.",
-        translation: "Allah ən böyükdür.",
         tip: "Təkbir ilə əlləri qaldırmaq (rəf əl-yədəyn) rükün deyil, təsdiq edilmiş sünnədir.",
       },
       {
         title: "3. Açılış duası (İstiftah duası)",
         body: "Qəlbi Allahın sözlərindən əvvəl sakitləşdirmək üçün qısa bir açılış duası oxuyun. Bir neçə orijinal ifadələr bildirilir; bu ən çox yayılmışlardan biridir.",
-        translation:
-          "İlahi, Sənə həmd və həmd olsun. Sənin adın mübarəkdir və əzəmətin ucadır. Səndən başqa tanrı yoxdur.",
       },
       {
         title: "4. Təavud və Bəsmələ",
         body: "Şeytandan Allaha sığın, sonra Fatihədən əvvəl Bəsmələ başla. Hər ikisi səssizcə, hətta ucadan dualarda belə deyilir.",
-        translation:
-          "Mən lənətlənmiş şeytandan Allaha sığınıram. Mərhəmətli və Rəhmli Allahın adı ilə!",
       },
       {
         title: "5. “Fatihə” surəsini oxuyun",
         body: "Kitabın açılışını hər rükətdə oxuyun — “Kitabın açılışını oxumayanın namazı yoxdur”. İmam və tək ibadət edən ucadan dualarda onu ucadan oxuyur; əks halda sakitcə oxunur.",
-        translation:
-          "Mərhəmətli və Rəhmli Allahın adı ilə! Həmd olsun aləmlərin Rəbbi, mərhəmətli, rəhmli, haqq-hesab gününün sahibi olan Allaha! Sənə ibadət edir və Səndən kömək diləyirik. Bizi düz yola - nemət verdiyin kəslərin yoluna yönəlt, qəzəblənmişlərin və azğınların yoluna deyil.",
         tip: "Bundan sonra (ucadan dualarda ucadan) “Amin” deyin. Hənəfilər sinfi bəzi Qur'anı rükün kimi, Fatihəni isə xüsusi olaraq vacib olaraq oxuyur; Əksəriyyət Əl-Fatihənin özü hər rükətdə sütundur.",
       },
       {
@@ -517,31 +383,26 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Rüku (rüku)",
         body: "“Allahu Əkbər” deyin və düz, düz arxa, əllər dizləri tutaraq rüku edin və tələsmədən üç və ya daha çox dəfə Rəbbinizi təsbih edin.",
-        translation: "Mənim əzəmətli Rəbbim pakdır.",
         tip: "Sükunətlə tutulan yayın özü sütundur; orada deyilən təsbih sünnətdir (bəzi məktəblərdə vacibdir).",
       },
       {
         title: "8. Rukudan qalxmaq (i'tidal)",
         body: "Tam dik qalxın - imam və tək abid təsmi' desin və hər kəs təhmid desin - və enməzdən əvvəl tamamilə dayanın.",
-        translation: "Allah Ona həmd edəni eşidir. Ey Rəbbimiz, həmd Sənə məxsusdur.",
         tip: "Düz və rahat dayanmaq bir dirəkdir - burada məskunlaşana qədər səcdəyə batmayın.",
       },
       {
         title: "9. Səcdə (səcdə)",
         body: "“Allahu Əkbər” deyin və yeddi sümüyə – alınla burun, iki ovuc, hər iki diz və hər iki ayağın barmaqları üzərində üç dəfə və ya daha çox təsbih edərək səcdə edin. Bu, Allaha ən yaxın duruşdur, ona görə də təsbihdən sonra dua edin.",
-        translation: "Uca olan Rəbbim pakdır.",
         tip: "Ön qolları yerdən yuxarı qaldırıb yanlardan, qarnı isə budlardan uzaq tutun.",
       },
       {
         title: "10. İki səcdə arasında oturmaq (cəlsəh)",
         body: "İlk səcdədən “Allahu Əkbər” deyərək qalx, sakit və dik otur və yenidən səcdədən əvvəl Rəbbindən bağışlanma dilə.",
-        translation: "Rəbbim, məni bağışla.",
         tip: "Rahat olana qədər oturun - bu qısa oturuş, sükunətlə, özlüyündə bir sütundur.",
       },
       {
         title: "11. İkinci səcdə",
         body: "“Allahu Əkbər” deyin və eyni təsbih və eyni sükunətlə birinci səcdə kimi ikinci dəfə səcdə edin. Bu, tam bir rükət tamamlayır.",
-        translation: "Uca olan Rəbbim pakdır.",
       },
       {
         title: "12. Növbəti rükət üçün dayanın",
@@ -551,8 +412,6 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. İlk təşəhhüd (3 və 4 rükətli namazlarda)",
         body: "Məğrib, zöhr, əsr və ya işa ayının ikinci rükətindən sonra oturub “Təhiyyat”ı oxuyun, sonra qalan rükət(lər) üçün dayanın. İki rükət namazın birinci təşəhhüdü yoxdur.",
-        translation:
-          "Bütün salamlar, dualar, təmiz sözlər Allah üçündür. Salam olsun sənə, ey Peyğəmbər, Allahın rəhməti və bərəkəti. Salam olsun bizə və Allahın saleh bəndələrinə. Şəhadət verirəm ki, Allahdan başqa ilah yoxdur və şəhadət verirəm ki, Məhəmməd Onun qulu və Rəsuludur.",
         tip: "Oturarkən sağ şəhadət barmağını qaldırın. Əgər birinci təşəhhüdü unudub ayaq üstə durmağa başlamısansa, salamdan əvvəl davam edib səhv səcdəsini yerinə yetir, geri oturma.",
       },
       {
@@ -562,36 +421,19 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Peyğəmbərə (sallallahu aleyhi və səlləm) salavat göndərin.",
         body: "Son ət-Təhiyyətdən sonra Peyğəmbərə (sallallahu aleyhi və səlləm) onun öz səhabələrinə öyrətdiyi sözlərlə salavat göndərin.",
-        translation:
-          "İlahi, İbrahimə və İbrahimin ailəsinə bərəkət verdiyin kimi, Muhəmməd və Muhəmmədin ailəsinə salavat göndər. Həqiqətən, Sən tərifəlayiqsən, izzətlisən! İlahi! Həqiqətən, Sən tərifəlayiqsən, izzətlisən!",
         tip: "Şafii və Hənbəli məzhəbləri son iclasda salavat oxumağı vacib hesab edirlər.",
       },
       {
         title: "16. Salamdan əvvəl dua etmək",
         body: "Bitirməzdən əvvəl dörd fitnədən Allaha sığın - sonra dünya və axirət üçün istədiyin duanı ərəbcə və ya öz dilində et.",
-        translation:
-          "İlahi, qəbir əzabından, cəhənnəm əzabından, həyatın və ölümün fitnəsindən və yalançı Məsihin (Dəccalın) fitnəsinin şərindən Sənə sığınıram.",
       },
       {
         title: "17. Bağlama salamı (Təslim)",
         body: "Üzü sağa, sonra sola çevirərək hər dəfə salam verərək namazı bitirin. Salamla namaz tamam olur.",
-        translation: "Allahın salamı və rəhməti üzərinizə olsun.",
         tip: "Birinci təslim (sağda) sütundur; ikincisi (solda) bəzi məktəblərdə sünnədir.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Mənim namaz qıldığımı gördüyünüz kimi dua edin. (Malik ibn əl-Hüveyris)",
-      },
-      {
-        excerpt:
-          "“Geri dönüb namaz qıl, çünki namaz qılmamısan” – üç dəfə təkrar – sonra o, (sallallahu aleyhi və səlləm) öyrətdi: təkbir de, Qurandan bacardığın qədər oxu, sonra rahat olana qədər rüku et, düz durana qədər qalx, rahat olana qədər səcdə et... (Pis namaz qılan adam; həmçinin Səhih Müslim 397)",
-      },
-      {
-        excerpt:
-          "Kitabın açılışını oxumayanın namazı yoxdur. (Ubadə ibn əs-Samit; həmçinin Səhih Müslim 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, {}, {}, {}, { label: "Səsli və səssiz qiraət" }],
   },
   {
@@ -648,24 +490,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Oxuduğunuzda fərq yoxdur — yalnız səsi qaldırıb-qaldırmamaqda fərq var. Hər rükət: əl-Fatihə. İlk iki rükət: bir surə əlavə edin. Son rükət və ya rükətlər: yalnız əl-Fatihə. Fəcr, Məğrib və İşada səsli oxumaq Sünnədir; Zöhr və Əsr səssiz oxunur.",
       },
     ],
-    quran: [
-      { excerpt: "Həqiqətən, Allahın Elçisində sizin üçün gözəl bir nümunə vardır." },
-      { excerpt: "Quran oxunduğu zaman onu dinləyin və susun ki, sizə rəhm olunsun." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər ﷺ Zöhr və Əsrin ilk iki rükətində əl-Fatihə ilə başqa bir surə, son iki rükətində isə yalnız əl-Fatihə oxuyardı. (Abu Qatadah; also Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Kitabın Açılışını oxumayanın namazı yoxdur. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Zöhr və Əsrin ilk iki rükətində uzun surələr oxuduğunu düşündürəcək qədər, son iki rükətində isə daha qısa surələr oxuduğunu düşündürəcək qədər qiraət edərdi. (Abu Qatadah)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Növbəti camaat namazınızda imamın hansı rükətlərdə səsli oxuduğuna diqqət edin.",
       "Məzhəbinizdən olan müəllimdən səsli namazlarda imamın arxasında əl-Fatihəni oxuyub-oxumadığınızı soruşun.",
@@ -716,11 +542,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Sülh sözləri ilə üzü tam sağa, sonra sola çevirin - hər çiyninizdə mələkləri salamlayarkən namazı bitirin.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Bəndənin Rəbbinə ən yaxın vaxtı səcdə halında olar, çoxlu dua et. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Əllərin yerləşdirilməsi, oturma tərzi və əllərin qaldırılmasındakı kiçik fərqlərin hamısı orijinal hesabatlara əsaslanır; məktəblərin hər biri etibarlı bir rəvayətə əməl edir. Heç kim başqasının namazını batil etməz.",
   },
@@ -783,20 +605,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Sağ ayağınızla məscidə girin və hər birinin öz duası ilə solla çıxın.",
       "Hər namazdan sonra müəyyən edilmiş adhkarı oxuyun - Namazdan sonra baxın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Əgər ümmətimə ağır yük verməsəydim, onlara hər namazdan əvvəl misvakdan istifadə etməyi əmr edərdim. (Əbu Hureyrə; həmçinin Səhih Müslim 252)",
-      },
-      {
-        excerpt:
-          "Peyğəmbər ﷺ Fəcrdən əvvəlki iki rükəti heç vaxt tərk etməzdi. (Aişə; həmçinin Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Kim gecə-gündüz on iki rükətə davam edərsə, Allah ona Cənnətdə bir ev tikər: Fəcrdən əvvəl iki, Zöhrdən əvvəl dörd, Zöhrdən sonra iki, Məğribdən sonra iki və İşadan sonra iki. (Ümmü Həbibə)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       { label: "Namaz növləri — rəvatib bələdçisi" },
       { label: "Namazdan sonrakı sünnə və zikrlər" },
@@ -812,20 +621,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Xuşu tikilir, arzu olunmur. Oxuduqlarınızın mənalarını öyrənin ki, sözlər sizi hərəkətə gətirir. Təkbirdən əvvəl diqqəti yayındıranları aradan qaldırın. Yavaşlayın və hər duruşa öz sükunətini verin. Müraciət etdiyiniz şəxsin böyüklüyünü və bu duanın sizin sonuncu ola biləcəyi reallığını düşünün. Peyğəmbərin (sallallahu aleyhi və səlləm) tövsiyə etdiyi kimi hər namazı vida duası kimi qılın.",
       "Səhv fikirlərdən ruhdan düşməyin - hətta səhabələr belə onlarla mübarizə apardılar. Diqqətinizi təkrar-təkrar geri qaytarmaq üçün mübarizə ibadətin bir hissəsidir. Khushu bir ömür boyu böyüyür; ardıcıllıq onu qidalandırandır.",
     ],
-    quran: [
-      {
-        excerpt: "Həqiqətən, möminlər nicat tapdılar – o kəslər ki, namazda təvazökarlıq edirlər.",
-      },
-      {
-        excerpt: "Vay halına namaz qılanların - öz namazlarından qafil olanların!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ehsan, Allaha sanki Onu görürsən kimi ibadət etməkdir, çünki sən Onu görməsən də, O, səni görür. (Cəbrail, Ömər hədisi)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Bu həftə hər namazdan əvvəl Namazın Sözlərindən bir cümlənin mənasını oxuyun.",
       "Davam etməzdən əvvəl hər duruşda üç tələsik saniyə fasilə verin.",
@@ -872,16 +669,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Həqiqi şəkk etdiyiniz zaman rəhbər prinsip budur: şəkk-şübhəni tərk edin, əmin olduğunuz (daha az sayda) üzərində qurun, namazı tamamlayın və sonra iki səcdə edin. Bu, çaşqınlığı narahat bir təxmindən çox sabit, etibarlı bir duaya çevirir.",
       "Praktiki olaraq: adi səcdəniz kimi iki səcdə edin, əvvəl və sonra təkbir, sonra isə salam. Alimlər xətanın növünə görə salamdan əvvəl və ya sonra gəlmələri mövzusunda ixtilaf etmişlər - hər ikisi səhihdir, ona görə də hər ikisi məqbuldur və heç biri namazı batil etmir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Əgər sizdən biriniz namazında əmin deyilsə və neçə namaz qıldığını bilmirsə - üç və ya dörd - şübhəni aradan qaldırsın, əmin olduğu şeyə əsaslansın, sonra salam üçün iki dəfə səcdə etsin. (Əbu Səid əl-Xudri)",
-      },
-      {
-        excerpt:
-          "Sizlərdən biriniz öz namazında şəkk etdikdə, düzgün və tam olanı axtarsın, sonra salam verib iki dəfə səcdə etsin. (İbn Məsud; həmçinin Səhih Müslim 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Şübhə üçün qaydanı əzbərləyin: daha az rəqəm üzərində qurun, bitirin, sonra iki dəfə səcdə edin.",
       "Əgər birinci təşəhhüdü tərk etdiyinizi başa düşsəniz, namazın ortasında davam edin və sonunda səhv səcdəsini edin.",
@@ -977,37 +765,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
         ruling: "fard",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər ﷺ Fəcrdən əvvəlki iki rükəti heç vaxt tərk etməzdi. (Aişə; həmçinin Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Kim gecə-gündüz on iki rükətə davam edərsə, Allah ona Cənnətdə bir ev tikər: Fəcrdən əvvəl iki, Zöhrdən əvvəl dörd, Zöhrdən sonra iki, Məğribdən sonra iki və İşadan sonra iki. (Ümmü Həbibə)",
-      },
-      {
-        excerpt:
-          "Kim Zöhrdən əvvəl dörd və sonra dörd rükət qılarsa, Allah onu Oddan qoruyar. (Ümmü Həbibə; bir çox alim səhih saymışdır)",
-      },
-      { excerpt: "Əsrdən əvvəl dörd rükət qılan insana Allah rəhm etsin." },
-      {
-        excerpt:
-          "Məğribdən əvvəl namaz qılın, Məğribdən əvvəl namaz qılın — sonra dedi: istəyən. (İbn Ömər)",
-      },
-      {
-        excerpt:
-          "Hər iki çağırışın (azan və iqamənin) arasında namaz vardır. (Ənəs ibn Malik; həmçinin Sahih Muslim 838)",
-      },
-      {
-        excerpt: "Vitr haqdır; istəyən beş, istəyən üç, istəyən bir qılsın. (İbn Ömər)",
-      },
-      { excerpt: "Fərz namazlardan sonra ən fəzilətli namaz gecə namazıdır. (Əbu Hureyrə)" },
-      {
-        excerpt:
-          "Bəndəm nafilələrlə Mənə yaxınlaşmağa davam edər, nəhayət Mən onu sevərəm. (Hadith Qudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "On iki rəvatiblə başlayın; ixtiyari nafilələri artırmazdan əvvəl bu vərdişi qurun.",
       "Hər fərzin yanındakı vurğulanmış sünnələri izləmək üçün bu səhifədəki rükət cədvəlindən istifadə edin.",
@@ -1030,25 +788,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Onun səhlənkarlığı böyük təhlükədir: Peyğəmbər (s) xəbərdarlıq etmişdir ki, hər kəs qəflət üzündən üç cüməni tərk etsə, Allah onun qəlbini möhürləyər. Bununla belə, onun savabları eyni dərəcədə böyükdür - cümə günəşin doğduğu ən yaxşı gündür və duanın qəbul olunduğu bir saatdır.",
       "Bunun üçün də Peyğəmbərin (sallallahu aleyhi və səlləm) hazırladığı kimi hazır olun: qüsl alın, ən təmiz paltarınızı geyinin, ətir çəkin, tez gedin və sükutla xütbəyə diqqətlə qulaq asın (boş danışmaq savabını itirər). Cümə günü Kəhf surəsinin oxunması iki cümə arasına nur gətirər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, cümə günü azan oxunduğu zaman Allahı zikr etməyə tələsin və ticarəti tərk edin. Əgər bilsəniz, bu sizin üçün daha xeyirlidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cümə namazını camaatla qılmaq dörd müsəlmandan başqa hər bir müsəlmana vacibdir: kölə, qadın, uşaq və ya xəstə. (Tariq ibn Şihab)",
-      },
-      {
-        excerpt:
-          "Kim üç cümə namazını qəflət üzündən tərk edərsə, Allah onun qəlbinə möhür vurar. (Əbu əl-Cəd; həmçinin Əbu Davud 1052, ət-Tirmizi 500)",
-      },
-      {
-        excerpt: "Cümə günü qüsl almaq həddi-büluğa çatmış hər kəsə vacibdir. (Əbu Səid əl-Xudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Qüsl edin, təmiz paltar və ətir geyinin və tez gəlin - ən erkən gələnlər ən böyük mükafatı qazanırlar.",
       "İki cümə arasında nur olması üçün cümə günü Kəhf surəsini oxuyun.",
@@ -1067,17 +808,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Əgər imam işə başlayandan sonra gəlsəniz (gecikmiş şəxs məsbuq adlanır), onu görsəniz, dərhal ona qoşulun - bu hissə yenə də onunla namaz qılmaq sayılır. O, son salamı verəndə ayağa qalx və buraxdığın rükətləri tək başına tamamla, sonra bitir.",
       "Camaat təkcə məsciddə deyil: bir yerdə namaz qılan iki nəfər camaat təşkil edir, ona görə də ata uşağı ilə, yaxud iki dost səfərdə olarsa, onun savabına nail olar. Qadınlar camaatla namaz qıla və uyğun şəraitin olduğu yerlərdə məscidə gedə bilərlər, baxmayaraq ki, onların evdə namazı da böyük savab qazanır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Camaatla qılınan namaz tək qılınan namazdan iyirmi yeddi dərəcə fəzilətlidir. (İbn Ömər; həmçinin Səhih Müslim 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Namaz qılın, zəkat verin və rüku edənlərlə birlikdə rüku edin.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Bu gün məsciddə heç olmasa bir namaz qılın və ya ailənizi evdə sıraya toplayın.",
       "Gec gələn kimi nə edəcəyinizi öyrənin: dərhal qoşulun, sonra imamın salamından sonra buraxdığınız rükətləri tamamlayın.",
@@ -1091,12 +823,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Qəza namazı əsli ilə eyni formada qılınır: qəza edilən dörd rükət zöhr, gecə və ya səfərdə olsa belə, dörd rükət olaraq qılınır. Namazı üzrlü (dərin yuxu kimi) tərk edənin gecikməsinə görə heç bir günah yoxdur; onları qəsdən tərk edən, səmimi, təcili tövbə ilə yanaşı onları qəza etməlidir.",
       "Alimlər qəza namazlarını bir yerə yığmağa imkan vermədən dərhal və mümkün olduğu qədər ardıcıllıqla qılmağa təşviq edirlər - çünki vaxt və gecikmə ilə yük daha da ağırlaşır. Əgər illər ərzində çoxlu sayda qaçırılıbsa, ümidsizliyə qapılmaqdansa, ona real gündəlik planla yanaşın; Allahın dönüş qapısı həmişə açıqdır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hər kim bir namazı unudarsa və ya yatıb yatsa, onun kəffarəsi yadına düşəndə ​​onu qılmaqdır. (Ənəs; həmçinin Səhih Müslim 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Nə qədər dua borcunuz olduğunu vicdanla hesablayın və real gündəlik makiyaj hədəfi təyin edin.",
       "Hər bir vacib namazı bir qəza namazı ilə birləşdirin.",
@@ -1112,16 +839,7 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       "Namazdan sonra müəyyən edilmiş qayda sadə və ağırdır: üç dəfə “Əstəğfirullah” demək; sonra tövhid və həmd sözləri; sonra otuz üç dəfə “SubhanAllah”, “Əlhəmdulillah” və “Allahu Əkbər” deyərək, yüzüncü hissəsini “Lə iləhə illəllah...” ilə möhürləmək – hər kim bunu etsə, dəniz köpüyü kimi olsa da, günahları bağışlanar.",
       "Hər fərz namazdan sonra Ayətül-Kürsi oxumaq, Peyğəmbərin (sallallahu aleyhi və səlləm) vəd etdiyi kimi insanla Cənnət arasında ancaq ölümü aradan qaldırar. Onu üç qul (İxlas, Əl-Fələq, Ən-Nas) ilə yerinə yetirin və müraciət etdikləri yerlərdə sübh azərini sübhdən sonra, axşam namazını isə əsr və ya məğribdən sonra əlavə edin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim hər namazdan sonra otuz üç dəfə Allahı təsbih, həmd və həmd-səna ilə təqdis etsə... və yüzü tövhid kəlmələri ilə tamamlasa, günahları dəniz köpüyü kimi olsa da bağışlanar. (Əbu Hureyrə)",
-      },
-      {
-        excerpt:
-          "Kim hər fərz namazdan sonra Ayətül-Kürsi oxuyarsa, onunla Cənnətə daxil olmaq arasında ölümdən başqa heç nə dayanmaz. (Əbu Umamə; əl-Albani tərəfindən səhih qiymətləndirilmişdir)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Bu həftə namazdan sonrakı təsbihləri (33/33/33+təhlil) əzbərləyin.",
       "Ayətül-Kürsi və üç Qulları ayağa qalxmazdan əvvəl oxuyun.",
@@ -1135,90 +853,72 @@ export const SALAH_GUIDE_PHRASES_AZ: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Dəstəmaz aldıqdan sonra",
     when: "Dəstəmaz aldıqdan dərhal sonra, namazdan əvvəl.",
-    translation:
-      "Şəhadət verirəm ki, Allahdan başqa heç bir tanrı yoxdur, şəriki yoxdur və şəhadət edirəm ki, Məhəmməd Onun qulu və Rəsuludur.",
     meaning:
       "Bədəniniz təzə təmizlənərkən iman şəhadətini təzələmək. Peyğəmbər (salləllahu aleyhi və səlləm) vəd etmişdir ki, kim dəstəmaz aldıqdan sonra bunu desə, Cənnətin səkkiz qapısı ona açılar ki, istədiyi qapıdan girsin.",
   },
   {
     title: "Təkbirətül-ehram",
     when: "Namazın əvvəlində və mövqelər arasında hərəkət edərkən.",
-    translation: "Allah ən böyükdür.",
     meaning:
       "Namaz burada başlayır — “əl-ehram” sizə dünya işlərini (danışmaq, yemək, üz çevirmək) haram etmək deməkdir. Siz Allahı diqqətinizi yayındıra biləcək hər şeydən böyük elan edirsiniz və Onun hüzuruna tam addımlayırsınız. Sonra gələn hər təkbir o təslimiyyəti təzələyir.",
   },
   {
     title: "Duaul-İstiftah (açılış duası)",
     when: "Açılış təkbirindən sonra, Fatihədən əvvəl səssizcə.",
-    translation:
-      "İlahi, Sənə həmd və həmd olsun. Sənin adın mübarəkdir və əzəmətin ucadır. Səndən başqa tanrı yoxdur.",
     meaning:
       "Söhbəti Allahı təsbih və təsbih etməklə və Onun birliyini təsdiq etməklə açır, kəlamlarını oxumazdan əvvəl qəlbi sakitləşdirirsiniz. Bir neçə orijinal açılış duaları mövcuddur - bu, ən çox istifadə edilənlərdən biridir.",
   },
   {
     title: "Fatihə surəsi",
     when: "Hər rükətdə ayaq üstə durmaq - bir rükətdir ki, onsuz rükət batildir.",
-    translation:
-      "Mərhəmətli və Rəhmli Allahın adı ilə! Həmd olsun aləmlərin Rəbbi, mərhəmətli, rəhmli, haqq-hesab gününün sahibi olan Allaha! Sənə ibadət edir və Səndən kömək diləyirik. Bizi düz yola - nemət verdiyin kəslərin yoluna yönəlt, qəzəblənmişlərin və azğınların yoluna deyil.",
     meaning:
       '"Kitabın anası": yarı Allaha həmd, yarısı hidayət, onların arasında "Biz Sənə ibadət edirik" sözü ilə. Allah bu surəni Özü ilə qulu arasında böldüyünü söylədi - hər misranı oxuduqca cavab verir. Peyğəmbər (s) buyurur ki, onu oxumayan üçün namaz yoxdur.',
   },
   {
     title: "Rukuda zikr",
     when: "Təzim edərkən, düz ilə, arxaya oturdu.",
-    translation: "Mənim əzəmətli Rəbbim pakdır.",
     meaning:
       "Rüku ehtiram duruşudur, ona görə də sən Allahın əzəmətini tərifləyirsən – üç və ya daha çox dəfə tələsmədən dedi. Peyğəmbər (sallallahu aleyhi və səlləm) öyrətdi ki, rükuda Rəbbi tərifləyirik, ona görə də duanızın qəbul olmasını ümid edin.",
   },
   {
     title: "Rükudan qalxmaq",
     when: "Rükudan sonra tam dik durmaq.",
-    translation: "Allah Ona həmd edəni eşidir. Ey Rəbbimiz, həmd Sənə məxsusdur.",
     meaning:
       "Sən təsdiq edirsən ki, Allah Ona həmd edəni həqiqətən eşidir, sonra bütün həmdləri Ona qaytar. Həzrət Peyğəmbər (s) buyurur ki, imam bunu dedikdə və camaat cavab verdikdə, kimin sözü mələklərin sözü ilə üst-üstə düşərsə, keçmiş günahları bağışlanar.",
   },
   {
     title: "Səcdədə zikr",
     when: "Səcdədə - Allaha ən yaxın məqam.",
-    translation: "Uca olan Rəbbim pakdır.",
     meaning:
       "Ən aşağı fiziki məqamda siz Uca Allahı izzətləndirirsiniz - ibadətin mərkəzində olan paradoksu. Peyğəmbər (salləllahu aleyhi və səlləm) buyurmuşdur ki, bəndə Rəbbinə səcdə halında ən yaxındır, ona görə də zikrdən sonra burada dua edin.",
   },
   {
     title: "İki səcdə arasında",
     when: "Hər rükətin birinci və ikinci səcdələri arasında sakit oturmaq.",
-    translation: "Rəbbim, məni bağışla. Rəbbim, məni bağışla.",
     meaning:
       "Hər rükətdə qısa, lakin birbaşa bağışlanma yalvarışı - hətta orta namazda da Allahın əfvinə möhtac olduğumuzu xatırladan. İkinci səcdədən əvvəl rahat olana qədər oturun.",
   },
   {
     title: "ət-Təhiyyat (Təşəhhüd)",
     when: "Namazın ortasında və son iclasında.",
-    translation:
-      "Bütün salamlar, dualar, təmiz sözlər Allah üçündür. Salam olsun sənə, ey Peyğəmbər, Allahın rəhməti və bərəkəti. Salam olsun bizə və Allahın saleh bəndələrinə. Şəhadət verirəm ki, Allahdan başqa ilah yoxdur və şəhadət verirəm ki, Məhəmməd Onun qulu və Rəsuludur.",
     meaning:
       "Namazın oturan qəlbi: Hər cür ibadəti yalnız Allaha qılırsan, Peyğəmbərə və salehlərə salam göndərirsən və iki şəhadəti yenidən bəyan edirsən. İbn Məsud onu Peyğəmbərdən (sallallahu aleyhi və səlləm) bir surə öyrəndiyi kimi sözbəsöz öyrənmişdir.",
   },
   {
     title: "Salavat İbrahimiyyə",
     when: "Son təşəhhüddə, ət-Təhiyyətdən sonra.",
-    translation:
-      "İlahi, İbrahimə və İbrahimin ailəsinə bərəkət verdiyin kimi, Muhəmməd və Muhəmmədin ailəsinə salavat göndər. Həqiqətən, Sən tərifəlayiqsən, izzətlisən! İlahi! Həqiqətən, Sən tərifəlayiqsən, izzətlisən!",
     meaning:
       "Səhabələr ona necə salavat göndərəcəklərini soruşduqda, Peyğəmbər onlara bu dəqiq sözləri öyrətdi - Sünnədəki ən səhih salavat. Allahın buyurduğu kimi Peyğəmbərə (s) hörmət edirsən, sənə namazı öyrədənə məhəbbətlə namazını tamamlayırsan.",
   },
   {
     title: "Salamdan əvvəl sığınmaq",
     when: "Son təşəhhüd və salavatdan sonra, namazın bitməsinə az qalmış.",
-    translation:
-      "İlahi, qəbir əzabından, cəhənnəm əzabından, həyatın və ölümün fitnəsindən və yalançı Məsihin (Dəccalın) fitnəsinin şərindən Sənə sığınıram.",
     meaning:
       "Peyğəmbər (salləllahu aleyhi və səlləm) son təşəhhüddən sonra insanın salam verməzdən əvvəl bu dörd təhlükədən sığınmasını tapşırdı ki, namazın son nidası dünya həyatı, qəbri, Cəhənnəmi və gələcək ən böyük fitnəni əhatə edir.",
   },
   {
     title: "Təslim (bağlanış salamı)",
     when: "Namazı bitirmək — üzü sağa, sonra sola çevirmək.",
-    translation: "Allahın salamı və rəhməti üzərinizə olsun.",
     meaning:
       "Namazı möhtərəmlərin yanından ayrıldığınız kimi tərk edirsiniz - hər çiyninizdə yazılan mələklərə və yanınızda namaz qılanlara salam verərək. Salam bir sütundur; onunla namaz tamam olur.",
   },
@@ -1226,10 +926,10 @@ export const SALAH_GUIDE_PHRASES_AZ: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_AZ: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Hər gün neçə sünnət rəvatib rükəti razılaşdırılıb?",
+    prompt: "Ümmü Həbibə hədisində gündəlik neçə rükət rəvatib sünnəsi qeyd olunur?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "On iki rəvatib: sübhə qabaq 2, zöhrə qabaq 4, zöhrdən sonra 2, məğribdən sonra 2 və işadan sonra 2 (Səhih Məslim 728).",
+      "Ümmü Həbibə hədisi gecə-gündüzdə on iki rükət sünnət qılana Cənnətdə ev vəd edir (Səhih Məslim 728); Camii ət-Tirmizi 415 onları sayır: sübhə qabaq 2, zöhrə qabaq 4, zöhrdən sonra 2, məğribdən sonra 2 və işadan sonra 2.",
   },
   {
     prompt: "Sübhə namazından əvvəl vurğulanan (müəkkədə) sünnət:",
@@ -1238,10 +938,10 @@ export const SALAH_GUIDE_QUIZ_AZ: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Sübhədən əvvəl iki rükət müəkkədə sünnətdir — Peyğəmbər ﷺ onları heç vaxt tərk etməzdi (Səhih əl-Buxari 1169; Səhih Məslim 724).",
   },
   {
-    prompt: "Zöhr ətrafında razılaşdırılmış rəvatiblər:",
+    prompt: "Ümmü Həbibə hədisində (Camii ət-Tirmizi 415) zöhr ətrafındakı rəvatiblər:",
     options: ["Əvvəl 2, sonra 2", "Əvvəl 4, sonra 2", "Əvvəl 4, sonra 4", "Yalnız əvvəl 2"],
     explanation:
-      "Zöhrə qabaq dörd və sonra iki rükət on iki rəvatibə daxildir. Bunlardan artıq rükətlər tövsiyə olunan nəfildir, sabit rəvatib deyil.",
+      "Ümmü Həbibə hədisində zöhrə qabaq dörd, sonra iki rükət var. İbn Ömərin rəvayətində (Səhih əl-Buxari 1180) qabaq iki rükət deyilir, buna görə məzhəblər hansını müəkkəd rəvatib saydıqlarında fərqlənir; bunlardan artıq rükətlər nafilədir.",
   },
   {
     prompt:

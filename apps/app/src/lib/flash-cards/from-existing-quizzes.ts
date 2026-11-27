@@ -15,6 +15,8 @@ type AuthoredQuiz = {
   correctIndex?: number;
   explanation: string;
   category?: string;
+  differenceId?: StudyMcq["differenceId"];
+  answerSchools?: StudyMcq["answerSchools"];
 };
 
 function mapAuthored(
@@ -40,6 +42,10 @@ function mapAuthored(
       explanation: condenseText(question.explanation, FLASH_EXPLANATION_MAX),
       categoryLabelKey:
         categoryPrefix && question.category ? `${categoryPrefix}.${question.category}` : undefined,
+      ...(question.differenceId && {
+        differenceId: question.differenceId,
+        answerSchools: question.answerSchools ?? [],
+      }),
     });
   }
   return out;

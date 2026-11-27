@@ -1,36 +1,74 @@
-import * as Localization from "expo-localization";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { getCurrencyInfo } from "@/constants/currencies";
 import { FidyahCalculatorRepository } from "@/db/repositories/fidyah-calculator-repository";
 import { computeFidyahEstimate, type FidyahScenario } from "@/lib/fidyah";
 import { DEFAULT_NUMBER_FORMAT, formatMoneyAmount, parseNumberInput } from "@/lib/format-currency";
+import { defaultCurrencyCode } from "@/lib/money-defaults";
 
 const PERSIST_DEBOUNCE_MS = 350;
 
+/** Settings default currency (first open only — a saved draft wins), else the device region. */
 function resolveDefaultCurrency(): string {
-  const device = Localization.getLocales()[0]?.currencyCode?.toUpperCase();
-  if (device && getCurrencyInfo(device)) return device;
-  return "USD";
+  return defaultCurrencyCode();
 }
 
-export function useFidyahCalculator() {
+/** Values a deep link may prefill (e.g. Ramadan "Days to make up" → `/fidyah?scenario=fidyah&days=3`). */
+export type FidyahCalculatorPrefill = { scenario?: FidyahScenario; days?: string };
+
+type RouteParam = string | string[] | undefined;
+
+/**
+ * Reads `scenario` / `days` route params into a prefill, ignoring anything
+ * unexpected: only the two known scenarios, and `days` only as a whole number
+ * from 1 to 10 000. Returns `undefined` when nothing usable was passed.
+ */
+export function parseFidyahRouteParams(params: {
+  scenario?: RouteParam;
+  days?: RouteParam;
+}): FidyahCalculatorPrefill | undefined {
+  const first = (value: RouteParam) => (Array.isArray(value) ? value[0] : value)?.trim();
+  const rawScenario = first(params.scenario);
+  const scenario = rawScenario === "fidyah" || rawScenario === "kaffarah" ? rawScenario : undefined;
+  const rawDays = first(params.days);
+  const n = rawDays && /^\d+$/.test(rawDays) ? Number(rawDays) : Number.NaN;
+  const days = Number.isInteger(n) && n >= 1 && n <= 10_000 ? String(n) : undefined;
+  if (!scenario && !days) return undefined;
+  return { ...(scenario ? { scenario } : {}), ...(days ? { days } : {}) };
+}
+
+/**
+ * Fidyah / kaffarah helper state, persisted as a draft. A `prefill` (from route
+ * params) overrides the saved draft's scenario / days once, on load, and is
+ * saved so the values survive leaving the screen.
+ */
+export function useFidyahCalculator(prefill?: FidyahCalculatorPrefill) {
   const [ready, setReady] = useState(false);
   const [currencyCode, setCurrencyCode] = useState(resolveDefaultCurrency);
   const [scenario, setScenario] = useState<FidyahScenario>("fidyah");
   const [days, setDays] = useState("");
   const [mealCost, setMealCost] = useState("");
   const persistTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Read once: the prefill applies to the first load only, never re-applied on re-render.
+  const prefillRef = useRef(prefill);
 
   useEffect(() => {
     let cancelled = false;
     void FidyahCalculatorRepository.load(resolveDefaultCurrency()).then((draft) => {
       if (cancelled) return;
-      setCurrencyCode(draft.currencyCode);
-      setScenario(draft.scenario);
-      setDays(draft.days);
-      setMealCost(draft.mealCost);
+      const initial = prefillRef.current;
+      const next = {
+        ...draft,
+        scenario: initial?.scenario ?? draft.scenario,
+        days: initial?.days ?? draft.days,
+      };
+      setCurrencyCode(next.currencyCode);
+      setScenario(next.scenario);
+      setDays(next.days);
+      setMealCost(next.mealCost);
       setReady(true);
+      if (initial && (next.scenario !== draft.scenario || next.days !== draft.days)) {
+        void FidyahCalculatorRepository.save(next);
+      }
     });
     return () => {
       cancelled = true;

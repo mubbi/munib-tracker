@@ -1,6 +1,9 @@
 /**
- * Writes public/manifest.json from app.json (web.*) — same fields as src/config/pwa.ts.
- * Copies PWA icons from assets/images/ → public/ (and root apple-touch-icon.png).
+ * Writes public/manifest.json from app.json (web.*) — same fields as src/config/pwa.ts
+ * (`pwa.test.ts` fails if the committed manifest drifts from `pwaWebManifest`).
+ * Copies PWA icons from assets/images/ → public/ (and root apple-touch-icon.png), plus the
+ * maskable icon / shortcut icons / screenshots in assets/images/pwa/ (made by
+ * scripts/generate-pwa-assets.py).
  * Run before `expo export --platform web` (see package.json build:web).
  */
 import fs from "fs";
@@ -29,9 +32,10 @@ const manifest = {
   start_url: "/",
   scope: "/",
   display: "standalone",
-  orientation: "portrait",
+  orientation: "any",
   theme_color: themeColor,
   background_color: backgroundColor,
+  launch_handler: { client_mode: ["navigate-existing", "auto"] },
   prefer_related_applications: false,
   icons: [
     {
@@ -53,10 +57,101 @@ const manifest = {
       purpose: "any",
     },
     {
-      src: "/assets/images/icon-192.png",
+      src: "/assets/images/pwa/icon-192-maskable.png",
       sizes: "192x192",
       type: "image/png",
       purpose: "maskable",
+    },
+    {
+      src: "/assets/images/pwa/icon-512-maskable.png",
+      sizes: "512x512",
+      type: "image/png",
+      purpose: "maskable",
+    },
+  ],
+  shortcuts: [
+    {
+      name: "Mark Salah",
+      short_name: "Mark Salah",
+      description: "Open today's Salah tracker",
+      url: "/tracker",
+      icons: [
+        { src: "/assets/images/pwa/shortcut-tracker.png", sizes: "96x96", type: "image/png" },
+      ],
+    },
+    {
+      name: "Qibla",
+      short_name: "Qibla",
+      description: "Find the Qibla direction",
+      url: "/qibla",
+      icons: [{ src: "/assets/images/pwa/shortcut-qibla.png", sizes: "96x96", type: "image/png" }],
+    },
+    {
+      name: "Tasbeeh",
+      short_name: "Tasbeeh",
+      description: "Open the Tasbeeh counter",
+      url: "/tasbeeh/free",
+      icons: [
+        { src: "/assets/images/pwa/shortcut-tasbeeh.png", sizes: "96x96", type: "image/png" },
+      ],
+    },
+  ],
+  screenshots: [
+    {
+      src: "/assets/images/pwa/screenshot-home.jpg",
+      sizes: "720x1280",
+      type: "image/jpeg",
+      form_factor: "narrow",
+      label: "Track your journey back to Allah",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-salah.jpg",
+      sizes: "720x1280",
+      type: "image/jpeg",
+      form_factor: "narrow",
+      label: "Build unshakeable Salah habits",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-qaza.jpg",
+      sizes: "720x1280",
+      type: "image/jpeg",
+      form_factor: "narrow",
+      label: "Clear your Qaza with clarity",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-library.jpg",
+      sizes: "720x1280",
+      type: "image/jpeg",
+      form_factor: "narrow",
+      label: "Qur'an, Zikr and hadith — offline",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-qibla.jpg",
+      sizes: "720x1280",
+      type: "image/jpeg",
+      form_factor: "narrow",
+      label: "Find the Qibla in seconds",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-wide-home.jpg",
+      sizes: "1280x800",
+      type: "image/jpeg",
+      form_factor: "wide",
+      label: "Track your journey back to Allah",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-wide-salah.jpg",
+      sizes: "1280x800",
+      type: "image/jpeg",
+      form_factor: "wide",
+      label: "Build unshakeable Salah habits",
+    },
+    {
+      src: "/assets/images/pwa/screenshot-wide-library.jpg",
+      sizes: "1280x800",
+      type: "image/jpeg",
+      form_factor: "wide",
+      label: "Qur'an, Zikr and hadith — offline",
     },
   ],
 };
@@ -75,6 +170,27 @@ for (const name of iconNames) {
   }
   fs.mkdirSync(publicImages, { recursive: true });
   fs.copyFileSync(src, path.join(publicImages, name));
+}
+
+// Maskable 512 icon, shortcut icons and install screenshots (generate-pwa-assets.py).
+const assetsPwa = path.join(assetsImages, "pwa");
+const publicPwa = path.join(publicImages, "pwa");
+for (const entry of [
+  ...manifest.icons,
+  ...manifest.shortcuts.flatMap((s) => s.icons),
+  ...manifest.screenshots,
+]) {
+  if (!entry.src.startsWith("/assets/images/pwa/")) continue;
+  const name = path.basename(entry.src);
+  const src = path.join(assetsPwa, name);
+  if (!fs.existsSync(src)) {
+    console.warn(
+      `Missing ${path.relative(projectRoot, src)} — run python scripts/generate-pwa-assets.py`,
+    );
+    continue;
+  }
+  fs.mkdirSync(publicPwa, { recursive: true });
+  fs.copyFileSync(src, path.join(publicPwa, name));
 }
 
 const appleTouchSrc = path.join(assetsImages, "icon-180.png");

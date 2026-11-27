@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Sıradaki namaz</string>
+  <string name="wear_today">Bugünün programı</string>
+  <string name="wear_tasbeeh">Tesbih</string>
+  <string name="wear_progress">Bugünkü ilerleme</string>
+  <string name="wear_open_phone">Eşitlemek için telefonunuzda Munib Tracker\'ı açın</string>
+  <string name="wear_connect_phone">Namaz vakitlerini görmek için telefonunuzu bağlayın</string>
+  <string name="wear_install_phone">Namaz vakitlerini görmek için telefonunuza Munib Tracker\'ı yükleyin</string>
+  <string name="wear_tasbeeh_standalone">Tesbih, telefon olmadan da saatinizde çalışır</string>
+  <string name="wear_tasbeeh_of_target">/ %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Sınırsız</string>
+  <string name="wear_tasbeeh_options">Seçenekler</string>
+  <string name="wear_tasbeeh_undo">Sonuncuyu geri al</string>
+  <string name="wear_tasbeeh_target">Hedef</string>
+  <string name="wear_tasbeeh_mode">Mod</string>
+  <string name="wear_tasbeeh_free">Serbest sayım</string>
+  <string name="wear_tasbeeh_after_salah">Namazdan sonra</string>
+  <string name="wear_tasbeeh_reset">Sıfırla</string>
+  <string name="wear_tasbeeh_reset_confirm">Sayım 0\'a sıfırlansın mı?</string>
+  <string name="wear_tasbeeh_start_again">Yeniden başla</string>
+  <string name="wear_tasbeeh_all_done">Tesbih tamamlandı</string>
+  <string name="wear_tasbeeh_step">Adım %1$d / %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Hedefe ulaşıldı</string>
+  <string name="wear_tasbeeh_tap_to_count">Saymak için dokunun</string>
+  <string name="wear_tasbeeh_a11y">Tesbih sayacı, %1$d / %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Tesbih sayacı, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Bir say</string>
+  <string name="wear_open">Aç</string>
+  <string name="wear_open_app">Munib Tracker\'ı aç</string>
+  <string name="wear_mark_confirm">Bu namaz kılındı olarak işaretlensin mi?</string>
+  <string name="wear_confirm">Onayla</string>
+  <string name="wear_marked">İşaretlendi ✓</string>
+  <string name="wear_mark_sent">Telefonunuza gönderildi</string>
+  <string name="wear_mark_will_sync">Telefonunuz yakındayken eşitlenecek</string>
+</resources>

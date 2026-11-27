@@ -67,6 +67,11 @@ interface CustomAdhkarState {
   create: (input: CustomAdhkarInput) => Promise<CustomAdhkar>;
   update: (id: string, input: CustomAdhkarInput) => Promise<CustomAdhkar | undefined>;
   remove: (id: string) => Promise<CustomAdhkar | undefined>;
+  /**
+   * Puts a previously removed entry back under the SAME id (Undo after delete),
+   * with its attachments. Idempotent: an id that is already present is returned as is.
+   */
+  restore: (item: CustomAdhkar) => Promise<CustomAdhkar>;
 }
 
 export const customAdhkarStore = createStore<CustomAdhkarState>((set, get) => ({
@@ -120,6 +125,20 @@ export const customAdhkarStore = createStore<CustomAdhkarState>((set, get) => ({
     set({ items: get().items.filter((item) => item.id !== id) });
     return existing;
   },
+
+  async restore(item) {
+    const present = get().items.find((entry) => entry.id === item.id);
+    if (present) return present;
+    // A fresh `updatedAt` so the restored entry wins last-write-wins sync over the delete.
+    const restored: CustomAdhkar = {
+      ...item,
+      images: normalizeImages(item.images),
+      updatedAt: new Date().toISOString(),
+    };
+    await collection.upsert(restored.id, restored);
+    set({ items: sortItems([restored, ...get().items]) });
+    return restored;
+  },
 }));
 
 export function useEnsureCustomAdhkarLoaded(): void {
@@ -132,11 +151,23 @@ export function useCustomAdhkarList(): CustomAdhkar[] {
   return useStore(customAdhkarStore, (s) => s.items);
 }
 
+/** One entry by id (the "Count this" counter), `undefined` until loaded or when deleted. */
+export function useCustomAdhkar(id: string | undefined): CustomAdhkar | undefined {
+  return useStore(customAdhkarStore, (s) =>
+    id ? s.items.find((item) => item.id === id) : undefined,
+  );
+}
+
+export function useCustomAdhkarReady(): boolean {
+  return useStore(customAdhkarStore, (s) => s.isReady);
+}
+
 const customAdhkarActions = {
   load: () => customAdhkarStore.getState().load(),
   create: (input: CustomAdhkarInput) => customAdhkarStore.getState().create(input),
   update: (id: string, input: CustomAdhkarInput) => customAdhkarStore.getState().update(id, input),
   remove: (id: string) => customAdhkarStore.getState().remove(id),
+  restore: (item: CustomAdhkar) => customAdhkarStore.getState().restore(item),
 } as const;
 
 export function useCustomAdhkarActions() {

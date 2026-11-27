@@ -16,6 +16,7 @@ export const mockRouter = {
   back: jest.fn(),
   dismiss: jest.fn(),
   dismissAll: jest.fn(),
+  dismissTo: jest.fn(),
   setParams: jest.fn(),
   canGoBack: jest.fn(() => true),
 };
@@ -58,6 +59,8 @@ export const expoRouterMock = {
   useSegments: () => routeState.segments,
   useNavigation: () => ({ setOptions: jest.fn(), addListener: jest.fn(() => jest.fn()) }),
   useIsFocused: () => true,
+  /** Mirrors `router.canDismiss()` — both read `mockRouterCanDismiss`. */
+  useCanDismiss: () => mockRouterCanDismiss(),
   /** Runs the focus callback like a mount effect (screens are "focused" in tests). */
   useFocusEffect: (effect: () => undefined | (() => void)) => {
     useEffect(() => effect(), [effect]);
@@ -69,7 +72,7 @@ export const expoRouterMock = {
 };
 
 /**
- * `router.canDismiss()` stand-in (false by default). Set per test with
+ * `router.canDismiss()` / `useCanDismiss()` stand-in (false by default). Set per test with
  * `mockRouterCanDismiss.mockReturnValue(true)`; reset it in `beforeEach`.
  */
 export const mockRouterCanDismiss = jest.fn(() => false);

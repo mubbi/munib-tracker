@@ -1,15 +1,18 @@
 import path from "node:path";
-import { ciReporting } from "@munib-tracker/vitest-config/ci";
+import { ciReporting, NO_NETWORK_SETUP } from "@munib-tracker/vitest-config/ci";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "."),
+      // `server-only` throws outside the react-server condition; Vitest runs plain Node.
+      "server-only": path.resolve(import.meta.dirname, "vitest.server-only-stub.ts"),
     },
   },
   test: {
     ...ciReporting,
+    setupFiles: [NO_NETWORK_SETUP],
     globals: true,
     environment: "node",
     include: ["lib/**/*.test.ts", "lib/**/*.spec.ts"],

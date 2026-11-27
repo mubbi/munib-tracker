@@ -1,7 +1,7 @@
 import { act, render } from "@testing-library/react-native";
 import { Children, isValidElement, type ReactElement, type ReactNode } from "react";
 
-import { Seo, type SeoProps } from "@/components/seo/seo";
+import { removeStaticJsonLd, Seo, type SeoProps } from "@/components/seo/seo";
 import { resetExpoRouterMock, setMockPathname } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
 
@@ -119,6 +119,38 @@ describe("Seo", () => {
       expect(headTags().filter((t) => t.type === "script")).toHaveLength(3);
     });
 
+    it("passes JSON-LD as the script's text child (Helmet drops dangerouslySetInnerHTML)", async () => {
+      setMockPathname("/a");
+      await renderSeo({ path: "/a", jsonLd: { "@type": "Thing", name: "</script><b>" } });
+      const script = headTags().find((t) => t.type === "script");
+      expect(script?.props.dangerouslySetInnerHTML).toBeUndefined();
+      const text = script?.props.children as string;
+      expect(typeof text).toBe("string");
+      expect(text).not.toContain("</script>");
+      expect(JSON.parse(text)).toEqual({ "@type": "Thing", name: "</script><b>" });
+    });
+
+    it("keeps the localized canonical for a /{locale}/… entry page", async () => {
+      const g = globalThis as Record<string, unknown>;
+      const previous = g.window;
+      g.window = { ...(previous as object), __MUNIB_ENTRY_LOCALE__: { locale: "ar", path: "/a" } };
+      try {
+        setMockPathname("/a");
+        await renderSeo({ path: "/a" });
+        const canonical = headTags().find((t) => t.props.rel === "canonical");
+        expect(canonical?.props.href).toMatch(/\/ar\/a$/);
+        expect(meta("og:locale")).toBe("ar_AR");
+
+        // After in-app navigation the URL is unprefixed again → English canonical.
+        setMockPathname("/b");
+        await renderSeo({ path: "/b" });
+        expect(headTags().find((t) => t.props.rel === "canonical")?.props.href).toMatch(/\/b$/);
+        expect(meta("og:locale")).toBe("en_US");
+      } finally {
+        g.window = previous;
+      }
+    });
+
     it("accepts a single JSON-LD object", async () => {
       setMockPathname("/a");
       await renderSeo({ path: "/a", jsonLd: { "@type": "Thing" } });
@@ -160,5 +192,44 @@ describe("Seo", () => {
       await act(async () => resolvePack());
       expect(mockEnsureSeoLocale).toHaveBeenCalledWith("ur");
     });
+  });
+});
+
+describe("removeStaticJsonLd", () => {
+  const g = globalThis as Record<string, unknown>;
+  let previous: unknown;
+  beforeEach(() => {
+    previous = g.document;
+  });
+  afterEach(() => {
+    g.document = previous;
+  });
+
+  function fakeDocument(types: string[]) {
+    const nodes = types.map((type) => ({
+      textContent: type === "bad" ? "{" : JSON.stringify({ "@type": type }),
+      remove: jest.fn(),
+    }));
+    g.document = { querySelectorAll: jest.fn(() => nodes) };
+    return nodes;
+  }
+
+  it("drops only the build-time blocks the client re-emits", () => {
+    const [article, faq] = fakeDocument(["Article", "FAQPage"]);
+    removeStaticJsonLd(new Set(["Article"]), false);
+    expect(article.remove).toHaveBeenCalled();
+    expect(faq.remove).not.toHaveBeenCalled();
+  });
+
+  it("drops every block (even malformed) after navigating away", () => {
+    const nodes = fakeDocument(["Article", "bad"]);
+    removeStaticJsonLd(new Set(), true);
+    for (const node of nodes) expect(node.remove).toHaveBeenCalled();
+  });
+
+  it("does nothing when there is nothing to drop", () => {
+    fakeDocument(["Article"]);
+    removeStaticJsonLd(new Set(), false);
+    expect((g.document as { querySelectorAll: jest.Mock }).querySelectorAll).not.toHaveBeenCalled();
   });
 });

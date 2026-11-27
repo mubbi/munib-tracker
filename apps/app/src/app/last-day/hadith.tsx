@@ -7,11 +7,7 @@ import {
   learnColumnsFor,
   useLearnHubLayout,
 } from "@/components/jannah/hub-layout";
-import {
-  JannahCallout,
-  JannahDisclaimer,
-  JannahHadithEvidence,
-} from "@/components/jannah/primitives";
+import { HadithQuote, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -30,7 +26,11 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 export default function LastDayHadithScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry,
+  } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const entries = getLastDayHadith();
   const wide = useLearnHubLayout();
   // Wide web / tablets: hadith entries sit two per row.
@@ -57,7 +57,7 @@ export default function LastDayHadithScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/hadith" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retry}>
         <Stagger>
           <JannahCallout tone="info">{t("lastDay.hadithIntro")}</JannahCallout>
 
@@ -65,7 +65,7 @@ export default function LastDayHadithScreen() {
             {themes.map((theme) => {
               const items = grouped.get(theme) ?? [];
               return (
-                <Card key={theme} padding="three">
+                <Card key={theme}>
                   <SectionHeader
                     title={t(`lastDay.hadithTheme.${theme}`)}
                     icon={{
@@ -77,7 +77,8 @@ export default function LastDayHadithScreen() {
                   <LearnColumnsGrid columns={columns} gap={Spacing.four} style={styles.list}>
                     {items.map((entry) => (
                       <View key={entry.id} style={styles.entry}>
-                        <JannahHadithEvidence refs={[entry.hadith]} />
+                        {/* The quote alone — the theme card already titles it (G-49). */}
+                        <HadithQuote hadith={entry.hadith} />
                         {entry.context ? (
                           <TvReadableBlock>
                             <ThemedText type="caption" themeColor="mutedForeground">

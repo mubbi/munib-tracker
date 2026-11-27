@@ -10,6 +10,12 @@ import { getPageForAyah } from "@/lib/quran-meta";
 import { recordContinueActivity } from "@/stores/continue-store";
 
 import { createStore, useStore } from "./create-store";
+import { devicePreferencesStore, overlayDeviceOnQuranPrefs } from "./device-preferences-store";
+
+/** B4: `ttsVoiceByLang` is a device preference (voice ids differ per device). */
+function withDevice(prefs: QuranPrefs): QuranPrefs {
+  return overlayDeviceOnQuranPrefs(prefs, devicePreferencesStore.getState().prefs);
+}
 
 export interface QuranState {
   prefs: QuranPrefs;
@@ -25,6 +31,10 @@ export interface QuranState {
     options?: { isAudio?: boolean; page?: number },
   ) => Promise<void>;
   toggleBookmark: (surah: number, ayah: number) => Promise<boolean>;
+  /** Remove (never re-add) a bookmark; idempotent. */
+  removeBookmark: (surah: number, ayah: number) => Promise<void>;
+  /** Undo of a removal: re-insert the exact prior record (id + createdAt kept). */
+  restoreBookmark: (bookmark: QuranBookmark) => Promise<boolean>;
   recordProgress: (surah: number, ayah: number) => Promise<void>;
 }
 
@@ -41,12 +51,17 @@ export const quranStore = createStore<QuranState>((set, get) => ({
       QuranRepository.getLastRead(),
       QuranRepository.getBookmarks(),
     ]);
-    set({ prefs, lastRead, bookmarks, isReady: true });
+    set({ prefs: withDevice(prefs), lastRead, bookmarks, isReady: true });
   },
 
-  async updatePrefs(patch) {
+  async updatePrefs(input) {
+    const { ttsVoiceByLang, ...patch } = input;
+    if (ttsVoiceByLang !== undefined) {
+      await devicePreferencesStore.getState().update({ ttsVoiceByLang });
+      if (Object.keys(patch).length === 0) return;
+    }
     const prefs = await QuranRepository.updatePrefs(patch);
-    set({ prefs });
+    set({ prefs: withDevice(prefs) });
   },
 
   async setLastRead(surah, ayah, options) {
@@ -66,6 +81,17 @@ export const quranStore = createStore<QuranState>((set, get) => ({
     const added = await QuranRepository.toggleBookmark(surah, ayah);
     set({ bookmarks: await QuranRepository.getBookmarks() });
     return added;
+  },
+
+  async removeBookmark(surah, ayah) {
+    await QuranRepository.removeBookmark(surah, ayah);
+    set({ bookmarks: await QuranRepository.getBookmarks() });
+  },
+
+  async restoreBookmark(bookmark) {
+    const restored = await QuranRepository.restoreBookmark(bookmark);
+    set({ bookmarks: await QuranRepository.getBookmarks() });
+    return restored;
   },
 
   async recordProgress(surah, ayah) {
@@ -102,6 +128,10 @@ const quranActions = {
     quranStore.getState().setLastRead(...args),
   toggleBookmark: (...args: Parameters<QuranState["toggleBookmark"]>) =>
     quranStore.getState().toggleBookmark(...args),
+  removeBookmark: (...args: Parameters<QuranState["removeBookmark"]>) =>
+    quranStore.getState().removeBookmark(...args),
+  restoreBookmark: (...args: Parameters<QuranState["restoreBookmark"]>) =>
+    quranStore.getState().restoreBookmark(...args),
   recordProgress: (...args: Parameters<QuranState["recordProgress"]>) =>
     quranStore.getState().recordProgress(...args),
 } as const;
@@ -109,3 +139,10 @@ const quranActions = {
 export function useQuranActions() {
   return quranActions;
 }
+
+// B4: a device-preference write re-overlays the Qur'an prefs readers see.
+devicePreferencesStore.subscribe(() => {
+  const current = quranStore.getState().prefs;
+  const next = withDevice(current);
+  if (next !== current) quranStore.setState({ prefs: next });
+});

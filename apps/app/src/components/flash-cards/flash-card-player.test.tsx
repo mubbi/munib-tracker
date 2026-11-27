@@ -72,7 +72,7 @@ describe("FlashCardPlayer", () => {
     await fireEvent.press(screen.getByLabelText("B. Wrong"));
     expect(screen.getByText("Almost — here's the idea")).toBeTruthy();
     expect(screen.getByLabelText("B. Wrong").props.accessibilityState).toEqual(
-      expect.objectContaining({ selected: true, disabled: true }),
+      expect.objectContaining({ checked: true, disabled: true }),
     );
   });
 
@@ -151,5 +151,12 @@ describe("FlashCardPlayer", () => {
       expect(webKeyHandlerState.enabled).toBe(false);
       expect(screen.getByLabelText("A. Right")).toBeTruthy();
     });
+  });
+
+  it("exposes the options as a radio group with a live feedback region", async () => {
+    await renderPlayer();
+    expect(screen.getAllByRole("radio").length).toBeGreaterThanOrEqual(3);
+    await fireEvent.press(screen.getByLabelText("B. Wrong"));
+    expect(screen.getByText("Almost — here's the idea")).toBeTruthy();
   });
 });

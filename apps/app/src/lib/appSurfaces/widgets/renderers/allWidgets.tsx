@@ -5,7 +5,6 @@
 import type { WidgetInfo, WidgetRepresentation } from "react-native-android-widget";
 import { FlexWidget } from "react-native-android-widget";
 import i18n from "@/i18n";
-import { buildAppUrl } from "@/lib/app-links";
 import {
   AndroidSurfaceCard,
   scheduleRowColor,
@@ -21,18 +20,45 @@ import {
   isMediumWidgetSurface,
   isSmallHomeWidgetSurface,
 } from "@/lib/appSurfaces/widgets/androidCompact";
-import { formatUpdatedAgo } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
+import { formatUpdatedAgo, pickDueAdhkarSet } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import {
   WIDGET_COMPACT_SCHEDULE_ROWS,
   WIDGET_MARK_CLICK_ACTIONS,
   WIDGET_MAX_SCHEDULE_ROWS,
 } from "@/lib/appSurfaces/widgets/constants";
+import type { WidgetScheduleRow, WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 import {
   readSnapshotForWidget,
   renderCompactOrCard,
 } from "@/lib/appSurfaces/widgets/widgetRenderUtils";
 
-const MARK_URI = buildAppUrl("/mark-current");
+/**
+ * The Salah whose window is running now and is still unmarked: the only one a
+ * one-tap Mark may complete (same rule as `resolve-markable-prayer.ts`).
+ */
+export function markableRow(
+  snapshot: WidgetSnapshot,
+  nowMs = Date.now(),
+): WidgetScheduleRow | undefined {
+  if (snapshot.locationDenied) return undefined;
+  const started = snapshot.schedule.rows.filter((row) => row.atMs > 0 && row.atMs <= nowMs);
+  const current = started[started.length - 1];
+  // The resolver clears `currentPrayerId` on a days-old snapshot: no Mark for another day.
+  if (!current || current.id !== snapshot.nextPrayer.currentPrayerId) return undefined;
+  return current.status !== "completed" ? current : undefined;
+}
+
+function markLabelFor(snapshot: WidgetSnapshot, label: string): string | undefined {
+  const row = markableRow(snapshot);
+  return row ? `${label} · ${row.name}` : undefined;
+}
+
+/** Local calendar day (YYYY-MM-DD) without pulling date utils into the widget graph. */
+function localDay(date: Date): string {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
 
 function liveUpdatedAgo(updatedAt: string): string | undefined {
   const label = formatUpdatedAgo(updatedAt, i18n.t);
@@ -55,7 +81,7 @@ export async function renderNextPrayerWidget(info: WidgetInfo): Promise<WidgetRe
         accentColor={cardTheme.primary}
         accessibilityLabel={nextPrayer.accessibilityLabel}
         theme={cardTheme}
-        markLabel={small || snapshot.locationDenied ? undefined : nextPrayer.markLabel}
+        markLabel={small ? undefined : markLabelFor(snapshot, nextPrayer.markLabel)}
         markClickAction={WIDGET_MARK_CLICK_ACTIONS.markCurrent}
         markClickActionData={{ source: "widget" }}
         compact={small}
@@ -69,7 +95,13 @@ export async function renderNextPrayerWidget(info: WidgetInfo): Promise<WidgetRe
         />
         <WidgetBodyText
           text={nextPrayer.countdownLabel}
-          color={colors.textSecondary}
+          // Last 15 minutes before Adhan: warm accent so the urgency reads at a glance.
+          color={
+            nextPrayer.minutesUntil > 0 && nextPrayer.minutesUntil <= 15
+              ? cardTheme.warning
+              : colors.textSecondary
+          }
+          bold={nextPrayer.minutesUntil > 0 && nextPrayer.minutesUntil <= 15}
           maxLines={1}
         />
         {medium && nextPrayer.followingName ? (
@@ -103,8 +135,9 @@ export async function renderPrayerScheduleWidget(info: WidgetInfo): Promise<Widg
     0,
     small ? WIDGET_COMPACT_SCHEDULE_ROWS : WIDGET_MAX_SCHEDULE_ROWS,
   );
-  // Mark control targets the active (next due, not yet completed) row.
-  const activePrayerId = schedule.rows.find((row) => row.status === "active")?.id;
+  // Mark targets the Salah whose time is running, never the next one (its Adhan
+  // has not begun; `handleExternalCommand` rejects that as not_started).
+  const markable = markableRow(snapshot);
 
   return renderCompactOrCard(info, schedule, theme.primary, theme, (cardTheme) => {
     const colors = themeColors(cardTheme);
@@ -118,11 +151,9 @@ export async function renderPrayerScheduleWidget(info: WidgetInfo): Promise<Widg
         theme={cardTheme}
         updatedAgo={large ? liveUpdatedAgo(snapshot.updatedAt) : undefined}
         compact={small}
-        markLabel={
-          small || snapshot.locationDenied || !activePrayerId ? undefined : schedule.markLabel
-        }
+        markLabel={small ? undefined : markLabelFor(snapshot, schedule.markLabel)}
         markClickAction={WIDGET_MARK_CLICK_ACTIONS.markPrayer}
-        markClickActionData={{ prayerId: activePrayerId, source: "widget" }}
+        markClickActionData={{ prayerId: markable?.id, source: "widget" }}
       >
         {visible.length === 0 ? (
           <WidgetBodyText text={schedule.summary} color={colors.textSecondary} maxLines={3} />
@@ -145,11 +176,16 @@ export async function renderPrayerScheduleWidget(info: WidgetInfo): Promise<Widg
                 <WidgetBodyText
                   text={`${row.name} · ${row.statusLabel}`}
                   color={scheduleRowColor(row.status, cardTheme)}
-                  bold
+                  bold={row.status !== "pending"}
                   maxLines={1}
                 />
               </FlexWidget>
-              <WidgetBodyText text={row.time} color={colors.textSecondary} maxLines={1} />
+              <WidgetBodyText
+                text={row.time}
+                color={row.status === "active" ? cardTheme.primary : colors.textSecondary}
+                bold={row.status === "active"}
+                maxLines={1}
+              />
             </FlexWidget>
           ))
         )}
@@ -173,8 +209,9 @@ export async function renderPrayerProgressWidget(info: WidgetInfo): Promise<Widg
         accentColor={cardTheme.success}
         accessibilityLabel={progress.accessibilityLabel}
         theme={cardTheme}
-        markLabel={small ? undefined : progress.markLabel}
-        markUri={MARK_URI}
+        markLabel={small ? undefined : markLabelFor(snapshot, progress.markLabel)}
+        markClickAction={WIDGET_MARK_CLICK_ACTIONS.markCurrent}
+        markClickActionData={{ source: "widget" }}
         compact={small}
       >
         <WidgetBodyText
@@ -510,6 +547,118 @@ export async function renderQiblaBearingWidget(info: WidgetInfo): Promise<Widget
           maxLines={1}
         />
         <WidgetBodyText text={qibla.lockScreenDetail} color={colors.textSecondary} maxLines={2} />
+      </AndroidSurfaceCard>
+    );
+  });
+}
+
+export async function renderAdhkarWidget(info: WidgetInfo): Promise<WidgetRepresentation> {
+  const snapshot = await readSnapshotForWidget();
+  const { adhkar, theme } = snapshot;
+  const small = isSmallHomeWidgetSurface(info);
+  const pick = pickDueAdhkarSet(adhkar.sets, Date.now());
+  const due = pick?.kind === "due" ? pick.set : undefined;
+  const percent = due && due.total > 0 ? Math.round((due.completed / due.total) * 100) : 0;
+
+  return renderCompactOrCard(info, adhkar, theme.primary, theme, (cardTheme) => {
+    const colors = themeColors(cardTheme);
+    return (
+      <AndroidSurfaceCard
+        title={adhkar.title}
+        summary={small ? "" : adhkar.summary}
+        deepLink={pick?.set.deepLink ?? adhkar.deepLink}
+        accentColor={cardTheme.primary}
+        accessibilityLabel={adhkar.accessibilityLabel}
+        theme={cardTheme}
+        compact={small}
+      >
+        <WidgetBodyText
+          text={pick?.set.title ?? adhkar.allDoneLabel}
+          color={colors.text}
+          bold
+          size={small ? 15 : 17}
+          maxLines={2}
+        />
+        {due ? (
+          <WidgetProgressBar
+            percent={percent}
+            fillColor={cardTheme.primary}
+            trackColor={colors.border}
+          />
+        ) : null}
+        <WidgetBodyText
+          text={due ? due.progressLabel : (pick?.set.nextLabel ?? adhkar.lockScreenDetail)}
+          color={colors.textSecondary}
+          maxLines={2}
+        />
+      </AndroidSurfaceCard>
+    );
+  });
+}
+
+export async function renderIslamicEventsWidget(info: WidgetInfo): Promise<WidgetRepresentation> {
+  const snapshot = await readSnapshotForWidget();
+  const { events, theme } = snapshot;
+  const small = isSmallHomeWidgetSurface(info);
+  const large = isLargeWidgetSurface(info);
+  const today = localDay(new Date());
+  // Relative labels ("in 3 days") are only true on the day they were written.
+  const fresh = snapshot.date === today;
+  const [first, ...rest] = events.items.filter((item) => item.date >= today);
+
+  return renderCompactOrCard(info, events, theme.primary, theme, (cardTheme) => {
+    const colors = themeColors(cardTheme);
+    return (
+      <AndroidSurfaceCard
+        title={events.title}
+        summary=""
+        deepLink={events.deepLink}
+        accentColor={cardTheme.primary}
+        accessibilityLabel={events.accessibilityLabel}
+        theme={cardTheme}
+        compact={small}
+      >
+        {first ? (
+          <WidgetHeroAmount
+            label={first.name}
+            amount={fresh ? first.relativeLabel : first.dateLabel}
+            theme={cardTheme}
+            accent={cardTheme.primary}
+            amountSize={small ? 18 : 22}
+          />
+        ) : (
+          <WidgetBodyText text={events.summary} color={colors.textSecondary} maxLines={2} />
+        )}
+        {first && fresh && !small ? (
+          <WidgetBodyText
+            text={first.dateLabel}
+            color={colors.textSecondary}
+            size={12}
+            maxLines={1}
+          />
+        ) : null}
+        {small
+          ? null
+          : rest.slice(0, large ? 2 : 1).map((item) => (
+              <FlexWidget
+                key={item.id}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexGap: 8,
+                  width: "match_parent",
+                }}
+              >
+                <WidgetBodyText text={item.name} color={colors.text} size={12} maxLines={1} />
+                <WidgetBodyText
+                  text={fresh ? item.relativeLabel : item.dateLabel}
+                  color={colors.textSecondary}
+                  size={12}
+                  maxLines={1}
+                />
+              </FlexWidget>
+            ))}
       </AndroidSurfaceCard>
     );
   });

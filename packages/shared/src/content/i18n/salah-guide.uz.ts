@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Ustunlar orasida o'ziga xos jihati shundaki, namoz yerga tushayotgan farishta orqali nozil bo'lmagan, balki Payg'ambarimiz sollallohu alayhi vasallam tungi safarda (al-Isro' va al-me'roj) osmonga ko'tarilganlarida to'g'ridan-to'g'ri farz qilinganlar. Avval ellik vaqt namoz farz qilindi, so'ngra Payg'ambar sollallohu alayhi vasallam ummatlariga qulaylik izlab qayta-qayta qaytib kelishlari bilan beshta namozga kamaytirilib, ellik savob saqlanib qolindi.",
       "Shuning uchun namoz islom hayotining markazida turadi: har kuni besh marta takrorlanadi, u mehnat, dam olish va bo'sh vaqtni to'xtatib, qalbni Allohga qayta bog'laydi va bu bandaning Qiyomat kuni hisob-kitob qilinadigan birinchi amalidir. Agar ovoz topilsa, qolgan yozuvlar unga ergashishga intiladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ular g‘aybga iymon keltirurlar, namozni to‘kis ado eturlar va Biz rizq qilib bergan narsalardan infoq qilurlar.",
-      },
-      {
-        excerpt:
-          "Kitobdan senga vahiy qilingan narsani tilovat qil va namozni to'kis ado et. Darhaqiqat, namoz fahsh va yomonlikdan saqlaydi va Allohni zikr qilish ulug‘roqdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tun safarida Alloh ellik vaqt namozni farz qildi. Rasululloh sollallohu alayhi vasallam ular besh yoshga to'lgunlaricha yengillik so'rab qaytib keldilar: \"Bular besh, bular ellik, chunki Mendagi so'z o'zgarmaydi\". (Shuningdek, Sahih Musulmon 162)",
-      },
-      {
-        excerpt:
-          "Qiyomatda bandaning birinchi hisob-kitobi uning namozidir; Agar sog'lom bo'lsa, qolgan amallari ham sodiqdir. (shuningdek, Abu Dovud 864, Nasoiy 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,28 +32,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Uning ikkinchi mevasi ichki tinchlikdir. Qur'onda qalblar Allohni zikr qilish bilan orom topishiga va'da qilingan va Rasululloh sollallohu alayhi vasallam tashvishli lahzalarida namozga chaqirib: «Bu bilan bizga taskin ber, ey Bilol», der edilar. Namozga qo'yilgan ko'zlari zavqini ta'rifladi.",
       "Uning ijtimoiy va abadiy mevalari manzarani to'ldiradi: jamoat namozi boy va kambag'allarni bir qatorga qo'yib, birodarlikni mustahkamlaydi, namozni qo'riqlash esa Allohning mag'firati va jannatga olib boradigan eng ishonchli yo'llardandir. Rasululloh sollallohu alayhi vasallam bomdod va asrning ikki salqin namozini saqlasa, jannatni va'da qilganlar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, men Allohman. Mendan o'zga iloh yo'q. Bas, Menga ibodat qil va Meni zikr qilish uchun namozni to'kis ado et.",
-      },
-      {
-        excerpt: "Albatta, mo'minlar, ya'ni namozlarida xokisor bo'lganlar najot topdilar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "— Agar sizlardan biringizning eshigi oldida daryo bo'lsa, u kuniga besh marta cho'milsa, uning ustida kir qolarmidi? Ular: «Yo'q», dedilar. Rasululloh sollallohu alayhi vasallam: «Besh vaqt namozning misoli shuki, Alloh ular bilan gunohlarni o'chiradi», dedilar. (Shuningdek, Sahih Musulmon 667)",
-      },
-      {
-        excerpt: "Kim ikki salqin namozni - bomdod va asr namozini o'qisa, jannatga kiradi.",
-      },
-      {
-        excerpt:
-          "Menga dunyongizdan ayollar va xushbo'y atirlar mahbub qilingan va ko'zlarimning sovuqligi ibodatda bo'lgan.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Bugun faqat bitta namozni o'z vaqtida o'qing - birinchi maqsad mukammallik emas, izchillikdir.",
       "Keyingi namozdan oldin Fotiha surasining ma'nosini bir marta o'qing va sizga javob berilayotganini his qiling.",
@@ -88,29 +50,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Namozni tark etgan kishining hukmi borasida sunniy ulamolar orasida taniqli va hurmatli ixtilof bor. Ba'zilar, uni ataylab butunlay tark etish - bu farz ekanligini tasdiqlagan holda - odamni Islomdan chiqarib yuboradigan katta kufrdir, deb hisoblaydilar. ko'pchilik (Hanafiy, Molikiy, Shofe'iylar) bunday kishi, agar uning farzligini inkor etmasa, eng katta gunohlardan birini qilgan gunohkor musulmon bo'lib qoladi, deb hisoblaydi. Namozni tark etish falokat ekanligiga hamma ijmo bo‘lgan, kimki uning farzligini inkor etsa, ijmo bilan Islomni tark etgan bo‘ladi.",
       "Amaliy saboq har bir qarashda bir xil: besh vaqt namozni qo'riqlash mo'min uchun ixtiyoriy yoki kelishib bo'lmaydi. Keyin nafl namozlar (sunnat va nafl) qiyomat kunidagi farz namozlardagi kamchiliklarni o‘rnini to‘ldirib, xavfsizlik tarmog‘i vazifasini bajaradi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Namozlarni va o'rta namozni ehtiyot qiling va Alloh huzurida toat-ibodat qilib turing.",
-      },
-      {
-        excerpt:
-          "Ulardan keyin namozni tark etgan va havoyi nafsga ergashgan o'rinbosarlar keldi. Bas, ular yovuzlikka duch kelishadi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islom besh asosga qurilgan: Allohdan o'zga iloh yo'qligiga va Muhammad Uning rasuli ekanligiga guvohlik berish, namozni to'kis ado etish, zakot berish, haj qilish va ramazon ro'zasini tutish. (Shuningdek, Sahihi Buxoriy 8)",
-      },
-      {
-        excerpt:
-          "Biz bilan ular orasidagi ahd namozdir. Kim uni tark etsa, kufrga kirdi. (Burayda; yana an-Nasoiy, Ibn Moja 1079)",
-      },
-      {
-        excerpt: "Inson bilan kufr va butparastlik o'rtasida namozni tark etish turadi. (Jobir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Namozni dangasalik (ko‘pchilik uchun katta gunoh; boshqalar uchun kufr) va farzni inkor qiluvchi (ijmo‘ bilan kufr) tufayli namozni tark etganning aniq hukmi borasida ulamolar ixtilof qilganlar. Ushbu ilova biron bir shaxsga nisbatan hukm chiqarmaydi - shaxsiy ishlar uchun malakali olim bilan maslahatlashing.",
   },
@@ -124,17 +65,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Hayz ko'rgan yoki tug'ruqdan keyingi qon (nifos) ko'rgan ayollar bu vaqtda namoz o'qimaydilar; keyin o'tkazib yuborilgan farz namozlari qazo qilinmaydi - rahmat va ulamolar kelishilgan hukm. (O'tkazib yuborilgan ro'zalar, namozdan farqli o'laroq, qazo qilinadi.) Ayol qon ketishi tugagach va g'usl bilan poklanganidan keyin namozni qayta o'qiydi.",
       "Haqiqiy qobiliyatsizlik imtiyozga olib keladi, hech qachon bekor bo'lmaydi: og'ir kasallik, behushlik va haddan tashqari qo'rquv odamni bir muncha vaqt kechirishi mumkin va kasallar o'z qobiliyatiga qarab ibodat qilishadi - o'tirish, yolg'on gapirish yoki hatto imo-ishoralar bilan. Sayohat namozni olib tashlamaydi, balki uni qisqartirish (qasr) va murabbo (jam') orqali osonlashtiradi, bu haqda Sayohat qo'llanmasida keltirilgan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Farzandlaringizni yetti yoshda namoz o‘qishga buyuring, ularni o‘n yoshda namoz o‘qishga buyuring va uxlash joylarini ajrating. (Amr ibn Shuayb otasidan bobosidan)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Va oilangni namozga buyur va unda sabr qil.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -195,16 +127,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Ushbu marosim holatlaridan alohida, siydik, axlat, oqayotgan qon va shunga o'xshash narsalarni tanadan, kiyimdan va namoz o'qiyotgan joydan jismonan olib tashlash kerak. To'g'ri tahorat bo'lishi mumkin, lekin namoz o'qishdan oldin kiyimdagi dog'ni tozalash kerak.",
       "Suv asosiy tozalash vositasidir. Agar suv haqiqatan ham mavjud bo'lmasa yoki kasallik yoki qattiq sovuq tufayli sizga zarar etkazsa, Islom butunlay o'rnini bosuvchi tayammum - toza tuproq yordamida quruq tozalashga ruxsat beradi. Poklanish hech qachon qiyinchilik bo'lmasligi kerak; yaqinlashish vositasidir.",
     ],
-    hadith: [
-      {
-        excerpt: "Poklanish iymonning yarmidir... (Abu Molik al-Ash’ariy).",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Albatta, Alloh tavba qiluvchilarni sevadi va poklanganlarni sevadi.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Keyingi namozdan oldin tahoratni bosqichma-bosqich o'rganing, shunda har bir a'zo to'g'ri yuviladi.",
       "Agar iflos muhitda ishlayotgan bo'lsangiz, namoz uchun toza kiyimni ajratib qo'ying.",
@@ -260,18 +184,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "“Ashhadu an la ilaha illalloh...” duosi bilan toʻldiring. Kim tahoratdan keyin aytsa, jannatning sakkiz eshigi ochiladi.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Agar banda tahoratda yuzini yuvsa, ko‘z bilan qaragan har bir gunohi suv bilan birga chiqib ketadi... to gunohdan pok bo‘lib chiqmaguncha.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ey iymon keltirganlar, namozga tursangiz, yuzlaringizni va bilaklaringizni tirsakgacha yuving, boshingizga masx qiling, oyoqlaringizni to‘pig‘igacha yuving.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Har bir qadamni ovoz chiqarib o'qiyotganda, tirsaklar va tovonlarni tekshirib, asta-sekin bir marta tahorat oling.",
       "Tahoratdan keyin qisqa duolarni yod oling — qarang: Namoz so'zlari.",
@@ -310,18 +224,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -338,11 +242,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Ayollar uchun ko'pchilik ulamolarning fikricha, namozda yuz va qo'llardan boshqa butun vujudi avratdir; ayol sochini, bo'yni va oyoqlarini, odatda, keng kiyim va ro'mol bilan qoplaydi. Olimlar oyoqlarda farq qiladilar, ba'zilari ularni ko'rsatilishi mumkin bo'lgan narsalarga kiritilgan deb hisoblaydilar - ular bilan namoz o'qish xavfsizroq va ko'pchilik amaliyotidir.",
       "Namoz tashqarisida ham ikkita kiyinish hukmi amal qiladi: ipak va tilla erkaklar uchun harom qilingan (ayollar uchun ruxsat etilgan) va kiyim juda qattiq, shaffof va e'tiborni talab qiladigan darajada bo'lmasligi kerak. Qoidaga ko'ra, tungi kiyim yoki plyaj kiyimida emas, balki o'zingiz hurmat qiladigan odam bilan uchrashish uchun nima kiysangiz, ibodat qiling.",
     ],
-    quran: [
-      {
-        excerpt: "Ey Odam bolalari, har bir namozgohda ziynatingizni oling.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Har doim tayyor bo'lish uchun bitta toza, kamtarona kiyim yoki maxsus ibodat kiyimini ajratib qo'ying.",
       "Agar biror narsa etarli darajada qoplaganiga ishonchingiz komil bo'lmasa, kamroq emas, balki ko'proq yoping.",
@@ -381,21 +281,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Alacakaranlık so'lishidan to tong otguncha; eng yaxshisi yarim tundan oldin. Keyin Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Payg'ambarimiz sollallohu alayhi vasallam bizlarni namoz o'qishdan qaytargan uch vaqt bor: quyosh chiqquncha to to'xtaguncha, peshin vaqtida turganda va botganda botguncha. (Uqba ibn Omir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Darhaqiqat, namoz mo'minlarga vaqtlari farz qilindi.",
-      },
-      {
-        excerpt:
-          "Kunning ikki chetida va kechasi yaqinida namozni ado et. Darhaqiqat, yaxshi amallar yomonliklarni ketkazadi.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Asr boshlanishida ikkita fikr bildirilgan (soya ob'ekt uzunligiga teng yoki ikki marta). Ikkalasi ham amal qiladi; mahalliy hisob-kitob va jamoangizga rioya qiling.",
@@ -408,18 +295,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Sayohat paytida kompas, masjid mehrobi, ishonchli ilova yoki quyosh va yulduzlar yordamida siz qiblaga aniq qarab turishingiz talab qilinadi. Kichkina, muqarrar og'ish kechiriladi; muhimi, to'g'ri yo'nalish sari sidqidildan harakat qilishdir.",
       "Agar siz haqiqatan ham yo'nalishni aniqlay olmasangiz - dengizda, bulutda, tunda notanish mamlakatda - siz uni ishlab chiqishga intilasiz va keyin eng yaxshi qaroringiz uchun ibodat qilasiz; Namoz keyinroq bir oz o'chirilgan bo'lsa ham to'g'ri bo'ladi. Farz namoz uchun qiblaga yuzlanib o'qish mumkin bo'lmagan harakatlanuvchi mashina yoki samolyotda qo'lingdan kelganicha yuzma-yuz bo'lasan, chunki Alloh taolo jonni o'z kuchidan ortiq yuklamaydi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bas, yuzingni Masjidul Harom tomonga buring. Qaerda bo'lsangiz ham, yuzlaringizni u tomonga buring.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namozga tursang, yaxshi tahorat olib, keyin qiblaga yuzlanib, takbir ayt. (yomon namoz o'qigan kishining hadisidan)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -461,12 +338,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Allohdan o'zga iloh yo'q - da'vat o'zi ochilgan so'z bilan yopiladi.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kimki nidoni eshitib: “Ey, bu komil ato va barkamol namozning Robbisi, Muhammadga vasila va fazilat bergin...” desa, mening shafoatim qiyomat kuni ungadir. (Jobir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -489,26 +361,19 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Takbirni ochish (Takbirat ul-Ihrom).",
         body: "Qo'llaringizni yelkaga yoki quloq bo'shlig'iga ko'taring va takbir ayting, so'ngra o'ng qo'lni ko'kragiga chapga qo'ying. Shu bilan namoz boshlanadi va oddiy nutq va harakat endi salomga qadar taqiqlanadi.",
-        translation: "Alloh eng buyukdir.",
         tip: "Takbir bilan qo'l ko'tarish (rof'ul-yadayn) ustun emas, tasdiqlangan sunnatdir.",
       },
       {
         title: "3. Ochilish duosi (Istiftoh duosi)",
         body: "Allohning so'zlari oldida qalbni tinchlantirish uchun qisqa duoni ohista o'qing. Bir nechta haqiqiy so'zlar xabar qilinadi; bu eng keng tarqalganlardan biri.",
-        translation:
-          "Allohim, senga pok va hamdlar bo'lsin. Sening isming muborakdir va ulug'vorligingdir. Sendan o'zga iloh yo'q.",
       },
       {
         title: "4. Taavud va basmala",
         body: "Shaytondan Allohdan panoh so'rang, so'ngra Fotihadan oldin Basmala bilan boshlang. Har ikkisi ham ovoz chiqarib o'qiladigan namozlarda ham jimgina aytiladi.",
-        translation:
-          "Men la’nati shaytondan Allohdan panoh tilayman. Mehribon va rahmli Alloh nomi bilan.",
       },
       {
         title: "5. “Fotiha” surasini o‘qing",
         body: "Har bir rakatda kitobning ochilishini o'qing - \"Kitobning ochilishini o'qimaganning namozi yo'q\". Imom va yolg‘iz namozxon ovoz chiqarib o‘qiydigan namozda; aks holda u jim o'qiladi.",
-        translation:
-          "Mehribon va rahmli Alloh nomi bilan. Hamd olamlarning Parvardigori, rahmli, rahmli, qiyomat kunining sohibi Allohga bo'lsin. Senga ibodat qilamiz va Sendan yordam so'raymiz. Bizni to'g'ri yo'lga hidoyat qilgin - O'zing ne'mat bergan zotlar yo'liga, g'azabga uchraganlar yoki adashganlarning yo'liga.",
         tip: "Undan keyin (baland ovoz bilan o'qiydigan namozda) \"Omin\" deng. Hanafiylar toifasi Qur'onni ustun qilib, Fotihani alohida vojib qilib o'qish; ko'pchilik Fotiha surasining o'zi har bir rakatda ustundir.",
       },
       {
@@ -519,31 +384,26 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Ruku (ruku)",
         body: "“Allohu akbar” deng va bir tekis orqaga, qoʻllaringizni tizzalaringizni ushlab ruku qilingiz va shoshmasdan Robbingizga uch yoki undan ortiq tasbih ayting.",
-        translation: "Ulug‘ Robbim pokdir.",
         tip: "Sukunat bilan tutilgan kamonning o'zi ustundir; unda aytiladigan tasbih sunnatdir (ba'zi maktablarda vojib).",
       },
       {
         title: "8. Rukudan turish (i'tidal)",
         body: "To'liq tik turing - imom va yolg'iz namozxon tasmi' aytadi va hamma tahmid aytadi - va tushishdan oldin butunlay jim turing.",
-        translation: "Alloh kimga hamd aytsa, eshitadi. Robbimiz, senga hamd bo'lsin.",
         tip: "To'g'ri va bemalol tik turish ustundir - bu erga joylashguningizcha sujudga botib ketmang.",
       },
       {
         title: "9. Sajda qilish (sujud)",
         body: "“Ollohu akbar” deng va yetti suyakka – peshona bilan burun, ikkala kaft, ikkala tizza va ikki oyoq barmoqlariga sajda qilib, uch marta va undan ortiq tasbih ayting. Bu Alloh taologa eng yaqin holatdir, shuning uchun tasbihdan keyin duo qiling.",
-        translation: "Ulug‘ Robbim pokdir.",
         tip: "Bilaklarni erdan ko'tarib, yon tomonlardan uzoqroq tuting, qorinni esa sonlardan uzoqroq tuting.",
       },
       {
         title: "10. Ikki sajda orasida o‘tirish (jalsah)",
         body: "Birinchi sajdadan “Allohu akbar” deb turib, xotirjam va tik o‘tiring va yana sajda qilishdan oldin Parvardigoringizdan mag‘firat so‘rang.",
-        translation: "Rabbim, meni kechir.",
         tip: "O'zingizga qulay bo'lguningizcha o'tiring - bu qisqa o'tirish, sukunat bilan, o'ziga xos ustundir.",
       },
       {
         title: "11. Ikkinchi sajda",
         body: "“Allohu akbar” deb ayting va xuddi birinchi sajdaga o'xshab, xuddi shu tasbih va bir xil sukunat bilan ikkinchi marta sajda qiling. Shu bilan bir rakat tamom bo'ladi.",
-        translation: "Ulug‘ Robbim pokdir.",
       },
       {
         title: "12. Keyingi rakatga tur",
@@ -553,8 +413,6 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Birinchi tashahhud (3 va 4 rakat namozlarda)",
         body: "Shom, peshin, asr yoki xuftonning ikkinchi rakatlaridan keyin oʻtirib “Tahiyyat”ni oʻqing, soʻngra qolgan rakat(lar)ga turing. Ikki rakat namozning birinchi tashahhudi yo'q.",
-        translation:
-          "Barcha salomlar, duolar va sof so‘zlar Alloh uchundir. Assalomu alaykum, ey payg‘ambar, Allohning rahmati va barakotlari. Bizga va Allohning solih bandalariga salom bo'lsin. Guvohlik beramanki, Allohdan o'zga iloh yo'q va Muhammad Uning quli va rasuli ekanligiga guvohlik beraman.",
         tip: "O'tirishda o'ng ko'rsatkich barmog'ini ko'taring. Agar siz birinchi tashahhudni unutib, tik turishni boshlagan bo'lsangiz, salom berishdan oldin davom eting va sahv sujudini o'tkazing - orqaga o'tirmang.",
       },
       {
@@ -564,36 +422,19 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Payg‘ambar sollallohu alayhi vasallamga salovot ayting.",
         body: "Yakuniy at-Tahiyyatdan keyin Payg'ambar sollallohu alayhi vasallamga sahobalariga o'rgatgan so'zlari bilan salovot ayting.",
-        translation:
-          "Allohim, Ibrohimga va Ibrohimning oilasiga baraka berganingdek, Muhammadga va Muhammadning oilasiga salovotlar yubor. Albatta, Sen maqtovga sazovor va ulug' zotsan. Allohim, Ibrohimga va Ibrohimning oilasiga ne'mat berganingdek, Muhammadga va Muhammadning oilasiga marhamat qil. Albatta, Sen maqtovga sazovor va ulug' zotsan.",
         tip: "Shofe'iy va Hanbaliy mazhabi oxirgi majlisda salovot o'qishni farz deb biladi.",
       },
       {
         title: "16. Salomdan oldin duo qiling",
         body: "Tugatishdan oldin to'rtta fitnadan Allohdan panoh so'rang - so'ngra dunyo va oxirat uchun xohlagan duoni arab tilida yoki o'z tilingizda qiling.",
-        translation:
-          "Allohim, men Sendan qabr azobidan, do'zax azobidan, hayot va o'lim fitnasidan va Soxta Masih (Dajjol) fitnasining yomonligidan panoh so'rayman.",
       },
       {
         title: "17. Yakunlovchi salom (Taslim)",
         body: "Namozni har safar salom berib, yuzni o'ngga, so'ngra chapga burish bilan yakunlang. Salom bilan namoz tamom bo'ladi.",
-        translation: "Assalomu alaykum va rahmatullohi alayh.",
         tip: "Birinchi taslim (o'ngda) ustundir; ikkinchisi (chapda) ba'zi maktablarda sunnatdir.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Meni namoz o‘qiyotganimni ko‘rganingizdek namoz o‘qing. (Molik ibn al-Huvayris)",
-      },
-      {
-        excerpt:
-          "“Orqaga qaytib namoz o‘qing, chunki namoz o‘qimagansiz”, deb uch marta takrorlab, so‘ng: takbir ayt, Qur’ondan qo‘lingdan kelganicha o‘q, so‘ng o‘zingga qulay bo‘lguncha ruku qil, tik turguncha sajda qil... (Yomon namoz o‘qigan kishi; Yana Sahih Musulmon 397).",
-      },
-      {
-        excerpt:
-          "Kitobning ochilishini o'qimaganning namozi yo'q. (Uboda ibn as-Somit; Yana Sahihi Musulmon 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       {},
       {
@@ -658,29 +499,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "O‘qiladigan matn o‘zgarmaydi — faqat ovoz balandligi o‘zgaradi. Har rakatda Fotiha; dastlabki ikkitasida qo‘shimcha sura; keyingilarida faqat Fotiha. Bomdod, shom va xuftonda ovoz chiqarib o‘qish mustahab; peshin va asr ichida o‘qiladi.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Albatta, sizlar uchun Allohning Rasulida go‘zal namuna bordir.",
-      },
-      {
-        excerpt:
-          "Qur’on qiroat qilinganda, unga quloq soling va jim turing, shoyad rahm qilinsangiz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Payg‘ambar ﷺ peshin va asrning dastlabki ikki rakatida Fotiha va surani, keyingi ikki rakatida esa faqat Fotihani o‘qiganlar. (Abu Qatoda; Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Fotiha surasini o‘qimagan kishining namozi yo‘q. (Uboda ibn Somit; Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "U zot peshin va asrning dastlabki ikki rakatida uzunroq, keyingi ikki rakatida esa qisqaroq qiroat qilayotganlarini sezdirardilar. (Abu Qatoda)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Keyingi jamoat namozingizda imom qaysi rakatlarda ovoz chiqarib o‘qishiga e’tibor bering.",
       "Mazhabingizdagi ustozdan so‘rang: ovozli qiroatda imom ortida Fotihani o‘qiysizmi?",
@@ -737,12 +557,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Yuzni to'liq o'ngga, so'ngra chapga, tinchlik so'zlari bilan aylantiring - har bir yelkada farishtalarga salom berganingizda, namozni tugating.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bandaning Parvardigoriga eng yaqin keladigani sajda qilgan paytidir. Bas, ko‘p duo qiling. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Qo'llarni joylashtirish, o'tirish va qo'llarni ko'tarishdagi kichik farqlar haqiqiy hisobotlarga asoslangan; maktablarning har biri to'g'ri rivoyatga amal qiladi. Hech kim birovning namozini buzmaydi.",
   },
@@ -806,20 +621,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Masjidga o'ng oyoq bilan kiring va chap oyoq bilan chiqing, har birining duosi bor.",
       "Har bir namozdan keyin belgilangan azorni o'qing - Namozdan keyin qarang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Agar ummatimga og‘irlik qilmaganimda, har namozdan oldin misvok ishlatishni buyurgan bo‘lardim. (Abu Hurayra; shuningdek Sahih Muslim 252)",
-      },
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam bomdod namozidan oldin ikki rakat namozni hech qachon tark etmasdilar. (Oisha; shuningdek Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Kim kechasi va kunduzi o'n ikki rakat namoz o'qisa, Alloh unga jannatda bir uy quradi - bomdoddan oldin ikkita, peshindan oldin to'rtta, peshindan keyin ikkita, shomdan keyin ikkita va xuftondan keyin ikkita. (Ummu Habiba)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       {
         label: "Namoz turlari - ravotib qo'llanma",
@@ -841,20 +643,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Xushu qurilgan, orzu qilingan emas. O'qiyotganingizning ma'nosini bilib oling, shunda so'zlar sizni harakatga keltiradi. Takbirdan oldin chalg'itadigan narsalarni olib tashlang. Sekinlashtiring va har bir holatga o'z jimligini bering. Siz murojaat qilayotgan Zotning buyukligi va bu ibodat sizning oxirgi bo'lishi mumkinligi haqida o'ylab ko'ring. Rasululloh sollallohu alayhi vasallam tavsiya qilganidek, har bir namozni vidolashuv namozi sifatida o'qing.",
       "Adashgan fikrlardan tushkunlikka tushmang - hatto sahobalar ham ular bilan kurashgan. E'tiboringizni qayta-qayta qaytarish uchun kurashning o'zi ibodatning bir qismidir. Xushu umr bo'yi o'sadi; izchillik uni tarbiyalaydi.",
     ],
-    quran: [
-      {
-        excerpt: "Albatta, mo'minlar, ya'ni namozlarida xokisor bo'lganlar najot topdilar.",
-      },
-      {
-        excerpt: "Bas, namoz o'qiydiganlarning holiga voy, ularning namozidan g'ofil bo'lganlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ehson Allohga go‘yo Uni ko‘rayotgandek ibodat qilishdir, chunki siz Uni ko‘rmasangiz ham, U sizni ko‘rib turuvchidir. (Jibril, Umar hadislari)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Bu hafta har bir namozdan oldin Namoz so'zlaridan bitta iboraning ma'nosini o'qing.",
       "Harakat qilishdan oldin har bir holatda uch soniya davomida to'xtab turing.",
@@ -901,16 +691,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Agar chinakam shubhangiz bo'lsa, asosiy qoida: shubhani tark eting, ishonchingiz komil bo'lgan narsaga (kichikroq raqam) asoslang, namozni to'liq o'qing va keyin ikki sajda qiling. Bu chalkashlikni tashvishli taxminga emas, balki qaror qilingan, to'g'ri ibodatga aylantiradi.",
       "Amaliy: xuddi odatdagi sujudingiz kabi ikki sajda qiling, avval va keyin takbir, so'ngra salom. Ulamolar xato turiga qarab salomdan oldin yoki keyin kelishi borasida ixtilof qilganlar - har ikkisi ham sahih rivoyat qilingan, shuning uchun ikkalasi ham maqbuldir va namozni buzmaydi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Agar sizlardan biringiz namozida ishonchsiz bo'lsa va qancha namoz o'qiganini bilmasa - uch yoki to'rtta - shak-shubhani tashlab, ishonchi komil bo'lgan narsaga asoslanib, so'ngra ikki marta salomga sajda qilsin. (Abu Said al-Xudriy)",
-      },
-      {
-        excerpt:
-          "Agar sizlardan biringiz namozida shak-shubhaga uchrasa, to'g'ri va to'liqligini izlasin, so'ngra salom berib, ikki marta sajda qilsin. (Ibn Mas'ud; Yana Sahih Musulmon 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Shubha uchun qoidani yodlang: kichikroq songa asoslang, tugating, keyin ikki marta sajda qiling.",
       "Namoz o'rtasida birinchi tashahhudni tark etganingizni tushunsangiz, davom eting va oxirida sahv sujud qiling.",
@@ -991,42 +772,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Janoza namozi — ruku va sujudsiz, tik turgan holda o'qiladigan jamoat farzi (farzi kifoya).",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam bomdod namozidan oldin ikki rakat namozni hech qachon tark etmasdilar. (Oisha; shuningdek Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Kim kechasi va kunduzi o'n ikki rakat namoz o'qisa, Alloh unga jannatda bir uy quradi - bomdoddan oldin ikkita, peshindan oldin to'rtta, peshindan keyin ikkita, shomdan keyin ikkita va xuftondan keyin ikkita. (Ummu Habiba)",
-      },
-      {
-        excerpt:
-          "Kim peshindan oldin to'rt rakat va keyin to'rt rakat namoz o'qisa, Alloh uni do'zaxdan qaytaradi. (Ummu Habiba; ko‘p olimlar tomonidan sahih deb baholangan)",
-      },
-      {
-        excerpt: "Asrdan oldin to'rt rakat namoz o'qigan kishini Alloh rahmatiga olsin.",
-      },
-      {
-        excerpt:
-          "Shomdan oldin namoz o'qing, shomdan oldin namoz o'qing, keyin aytdilar: kim xohlasa. (Ibn Umar)",
-      },
-      {
-        excerpt:
-          "Har ikki azon (azon va iqomat) orasida namoz bor. (Anas ibn Molik; shuningdek Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Vitr farz (haq), kim hohlasa besh namoz o'qisin, kim xohlasa uch namoz o'qisin, kim xohlasa bir namoz o'qisin. (Ibn Umar)",
-      },
-      {
-        excerpt: "Farz namozlaridan keyingi eng afzal namoz xuftondir. (Abu Hurayra)",
-      },
-      {
-        excerpt:
-          "Men uni yaxshi ko'rmagunimcha bandam ixtiyoriy amallar bilan Menga yaqinlashadi. (Hadis Qudsiy)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "O'n ikki ravotibdan boshlang - ixtiyoriy naflni qo'shishdan oldin odat hosil qiling.",
       "Har bir farz atrofidagi ta'kidlangan sunnatni kuzatish uchun ushbu markazdagi rak'atlar jadvalidan foydalaning.",
@@ -1055,26 +801,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Unga e'tibor bermaslik katta xavfdir: Rasululloh sollallohu alayhi vasallam ogohlantirganlarki, kim g'aflatda uch jumani tark qilsa, Alloh uning qalbini muhrlab qo'yadi. Ammo uning savoblari ham birdek buyukdir - Juma kuni quyosh chiqadigan eng yaxshi kundir va duo ijobat bo'ladigan bir soatni o'tkazadi.",
       "Unga Payg‘ambarimiz sollallohu alayhi vasallam kabi hozir bo‘linglar: g‘usl qilinglar, eng yaxshi pokiza kiyimlaringizni kiyinglar, xushbo‘y hid suringlar, erta boringlar va jim bo‘lib xutbani diqqat bilan tinglanglar (uning vaqtida behuda gaplar savobni zoe qiladi). Juma kuni Kahf surasini o‘qish ikki juma o‘rtasida nur olib keladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iymon keltirganlar, qachon juma kuni azon aytilsa, Allohni zikr qilishga shoshiling va savdo-sotiqni qoldiring. Agar bilsangiz, bu sizlar uchun yaxshiroqdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Juma namozini jamoat bilan o'qish har bir musulmonga farzdir, faqat to'rt kishidan tashqari: qul, ayol, bola yoki kasal. (Toriq ibn Shihob)",
-      },
-      {
-        excerpt:
-          "Kim g'aflatda uch juma namozini tark qilsa, Alloh uning qalbiga muhr bosadi. (Abu al-Jad; yana Abu Dovud 1052, at-Termiziy 500)",
-      },
-      {
-        excerpt:
-          "Juma kuni g'usl qilish balog'atga etgan har bir kishiga farzdir. (Abu Said al-Xudriy)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "G'usl qiling, toza kiyim va xushbo'y hid kiying va erta keling - eng erta kelganlar eng katta savobga ega bo'ladilar.",
       "Ikki juma o'rtasida nur bo'lishi uchun Juma kunida Kahf surasini o'qing.",
@@ -1093,17 +821,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Agar siz imom boshlanganidan keyin kelsangiz (kech kelgan kishi masbuq deb ataladi), uni topsangiz, darhol qo'shiling - bu qism hali ham u bilan namoz o'qigan hisoblanadi. Oxirgi salom berganida, turib, o'tkazib yuborgan rakatlaringizni o'zingiz to'ldiring, so'ngra tugating.",
       "Jamoat faqat masjidda emas: ikki kishi birga namoz o'qisa, jamoat tuzadi, shuning uchun ota bolasi bilan yoki ikki do'sti safarda bo'lsa, uning savobiga erishadi. Ayollar jamoat bilan namoz o'qishlari va tegishli sharoit mavjud bo'lgan masjidga borishlari mumkin, ammo uyda namoz o'qishlari ham katta savobga ega.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jamoat bilan o'qilgan namoz yolg'iz o'qilgan namozdan yigirma yetti daraja afzaldir. (Ibn Umar; Yana Sahihi Musulmon 650).",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Va namozni ado eting, zakot bering va ruku qiluvchilar bilan birga ruku qiling.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Bugun masjidda hech bo'lmaganda bir marta namoz o'qing yoki uy ahlini uyda to'plang.",
       "Kechikkan bo'lsa nima qilish kerakligini bilib oling: birdaniga qo'shiling, so'ng imom salomidan keyin o'tkazib yuborilgan rakatlaringizni to'ldiring.",
@@ -1117,12 +836,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Qazo namozi asli bilan bir xil shaklda o'qiladi: to'rt rakat o'tkazib yuborilgan peshin namozi kechasi yoki safarda bo'lsa ham to'rt rakat qilib o'qiladi. Uzr tufayli namozni o'tkazib yuborgan kishi (chuqur uyqu kabi) kechikishi uchun gunoh qilmaydi. ularni ataylab tark etgan kishi, ularni chin dildan, shoshilinch tavba qilish bilan birga to'ldirishi kerak.",
       "Ulamolar qazolarni yig'ib qo'ymasdan, iloji bo'lsa, darhol va tartib bilan qazo qilishni tavsiya qiladilar - chunki vaqt va kechikish bilan yuk og'irlashadi. Agar ko'p son yillar davomida o'tkazib yuborilgan bo'lsa, unga umidsizlikdan ko'ra real kunlik reja bilan yondashing; Allohning qaytish eshigi doimo ochiq.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kimki bir namozni unutib qo'ysa yoki uxlab qolsa, uning kafforati esga tushganda o'qishdir. (Anas; Yana Sahih Musulmon 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Qancha ibodat qilish kerakligini aniq hisoblang va kundalik bo'yanish uchun haqiqiy maqsadni belgilang.",
       "Har bir farz namozni bitta qazo namozi bilan qoplang.",
@@ -1138,16 +852,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       'Namozdan keyin o\'rnatilgan tartib oddiy va salmoqlidir: uch marta "Astag\'firulloh" deyish; keyin tavhid va hamd so‘zlari; So\'ngra o\'ttiz uch martadan "Subhanalloh", "Alhamdulillah" va "Allohu Akbar" so\'zlarini o\'qib, yuzinchi qismini "La ilaha illalloh..." bilan muhrlab qo\'yadi.',
       "Har bir farz namozdan keyin Oyatul-Kursiy surasini o'qish, Payg'ambarimiz sollallohu alayhi vasallam va'da qilganidek, inson va jannat o'rtasida faqat o'limni olib tashlaydi. Unga uchta Qul (Ixlos, Al-Falaq, An-Nos) bilan amal qiling va ular qo'llaniladigan joyda bomdoddan keyin bomdodni, asr yoki shomdan keyin kechki zikrni qo'shing.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim har namozdan keyin o‘ttiz uch marta Allohga tasbeh aytsa, hamd aytsa va ulug‘lasa... va yuztasini tavhid kalimalari bilan to‘ldirsa, uning gunohlari dengiz ko‘pikidek bo‘lsa ham mag‘firat qilinadi. (Abu Hurayra)",
-      },
-      {
-        excerpt:
-          "Kim har bir farz namozdan keyin Oyatul Kursiyni o‘qisa, u bilan jannatga kirish o‘rtasida o‘limdan boshqa narsa turmaydi. (Abu Umoma; al-Alboniy sahih deb baholagan)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Bu hafta namozdan keyingi tasbihni (33/33/33+tahlil) yod oling.",
       "Turishdan oldin Oyatul Kursiy va uchta Qulni o‘qing.",
@@ -1161,90 +866,72 @@ export const SALAH_GUIDE_PHRASES_UZ: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Tahorat olgach",
     when: "Darhol tahorat olgach, namoz oldidan.",
-    translation:
-      "Guvohlik beramanki, yolg'iz Allohdan o'zga iloh yo'q, sherigi yo'q va guvohlik beramanki, Muhammad Uning quli va rasulidir.",
     meaning:
       "Sizning tanangiz yangi poklangan paytda imon guvohligini yangilang. Rasululloh sollallohu alayhi vasallam kim tahoratdan keyin bu gapni aytsa, unga jannatning sakkiz eshigi ochilib, xohlagan joyidan kirishiga va'da berdilar.",
   },
   {
     title: "Takbirat al-Ihrom",
     when: "Namozning boshida va pozitsiyalar o'rtasida harakatlanayotganda.",
-    translation: "Alloh eng buyukdir.",
     meaning:
       "Namoz shu yerdan boshlanadi — “al-ehrom” bu dunyo ishlarini (gapirish, ovqatlanish, yuz o'girish) sizga harom qilish demakdir. Siz Allohni sizni chalg'itadigan har qanday narsadan buyukroq deb e'lon qilasiz va Uning huzuriga to'liq qadam qo'yasiz. Unga ergashgan har bir takbir o'sha taslimni yangilaydi.",
   },
   {
     title: "Duo al-Istifto (ochuvchi duo)",
     when: "Ochilgan takbirdan keyin, Fotihadan oldin jim.",
-    translation:
-      "Allohim, senga pok va hamdlar bo'lsin. Sening isming muborakdir va ulug'vorligingdir. Sendan o'zga iloh yo'q.",
     meaning:
       "Suhbatni Allohga tasbih va hamd aytish va Uning birligini tasdiqlash, kalimalarini tilovat qilishdan avval o‘rgatish bilan ochasiz. Bir nechta haqiqiy ochilish iltijolari mavjud - bu eng ko'p ishlatiladiganlardan biridir.",
   },
   {
     title: "Fotiha surasi",
     when: "Har bir rakatda turish - ustun bo'lmasa, rakat noto'g'ri bo'ladi.",
-    translation:
-      "Mehribon va rahmli Alloh nomi bilan. Hamd olamlarning Parvardigori, rahmli, rahmli, qiyomat kunining sohibi Allohga bo'lsin. Senga ibodat qilamiz va Sendan yordam so'raymiz. Bizni to'g'ri yo'lga hidoyat qilgin - O'zing ne'mat bergan zotlar yo'liga, g'azabga uchraganlar yoki adashganlarning yo'liga.",
     meaning:
       "\"Kitobning onasi\": yarmi Allohga hamd va yarmi hidoyat uchun duo, \"Biz Senga ibodat qilamiz\" ular o'rtasida bo'g'in qilib. Alloh taolo bu surani O'zi va bandasi o'rtasida bo'lib qo'yganini aytdi - har bir satrni o'qisangiz, U javob beradi. Rasululloh sollallohu alayhi vasallam aytdilarki, uni o'qimagan kishiga namoz yo'q.",
   },
   {
     title: "Rukuda zikr",
     when: "Ta'zim paytida, bir tekis bilan, orqa o'rnashib.",
-    translation: "Ulug‘ Robbim pokdir.",
     meaning:
       "Ruku - ehtirom holatidir, shuning uchun siz Allohning ulug'vorligini tasbeh qilasiz, - dedi uch yoki undan ko'p marta shoshilmasdan. Rasululloh sollallohu alayhi vasallam rukuda Rabbimizni ulug'laymiz, duoing ijobat bo'lishini umid qil, dedilar.",
   },
   {
     title: "Rukudan ko'tarilish",
     when: "Taʼzimdan keyin toʻliq tik turish.",
-    translation: "Alloh kimga hamd aytsa, eshitadi. Robbimiz, senga hamd bo'lsin.",
     meaning:
       "Alloh taolo O'ziga hamd aytayotganni chindan ham eshitishini tasdiqlaysiz, so'ngra hamma hamdni Unga qaytaring. Rasululloh sollallohu alayhi vasallam aytdilarki, imom shunday desa va odamlar javob bersa, kimning so‘zi farishtalarnikiga to‘g‘ri kelsa, uning o‘tgan gunohlari kechiriladi.",
   },
   {
     title: "Sujudda zikr",
     when: "Sajdada - Allohga eng yaqin joy.",
-    translation: "Ulug‘ Robbim pokdir.",
     meaning:
       "Eng past jismoniy nuqtada siz Xudoyi Taoloni ulug'laysiz - ibodatning markazidagi paradoks. Rasululloh sollallohu alayhi vasallam aytdilarki, banda Parvardigoriga sajdada eng yaqinroqdir, shuning uchun zikrdan keyin duoni shu yerda to‘kib tashlang.",
   },
   {
     title: "Ikki sajda orasida",
     when: "Har rakatning birinchi va ikkinchi sujudlari orasida xotirjam o'tirish.",
-    translation: "Rabbim, meni kechir. Rabbim, meni kechir.",
     meaning:
       "Har bir rakatda qisqa, ammo to'g'ridan-to'g'ri kechirim so'rash - biz o'rta namozda ham Allohning kechirimiga muhtoj ekanligimizni eslatadi. Ikkinchi sajdadan oldin xotirjam bo'lguningizcha o'tiring.",
   },
   {
     title: "At-Tahiyot (Tashahhud)",
     when: "Namozning o'rtasi va oxirgi majlisida.",
-    translation:
-      "Barcha salomlar, duolar va sof so‘zlar Alloh uchundir. Assalomu alaykum, ey payg‘ambar, Allohning rahmati va barakotlari. Bizga va Allohning solih bandalariga salom bo'lsin. Guvohlik beramanki, Allohdan o'zga iloh yo'q va Muhammad Uning quli va rasuli ekanligiga guvohlik beraman.",
     meaning:
       "Namozning qalbi: har qanday ibodatni yolg'iz Alloh uchun qilursiz, Payg'ambarimiz sollallohu alayhi vasallamga va solihlarga salom aytasiz va ikki guvohlikni qayta aytasiz. Ibn Mas'ud buni Rasululloh sollallohu alayhi vasallamdan so'zma-so'z o'rgangan, xuddi sura o'rgangandek.",
   },
   {
     title: "Ibrohimiyya salavotlari",
     when: "Yakuniy tashahhudda, “At-Tahiyot”dan keyin.",
-    translation:
-      "Allohim, Ibrohimga va Ibrohimning oilasiga baraka berganingdek, Muhammadga va Muhammadning oilasiga salovotlar yubor. Albatta, Sen maqtovga sazovor va ulug' zotsan. Allohim, Ibrohimga va Ibrohimning oilasiga ne'mat berganingdek, Muhammadga va Muhammadning oilasiga marhamat qil. Albatta, Sen maqtovga sazovor va ulug' zotsan.",
     meaning:
       "Sahobalar u zotga qanday salovot aytishni so‘raganlarida, Payg‘ambar sollallohu alayhi vasallam ularga mana shu aniq so‘zlarni - sunnatdagi eng sahih salovotni o‘rgatdilar. Alloh buyurganidek, Rasululloh sollallohu alayhi vasallamni hurmat qilasizlar, namozingizni o‘rgatgan zotga muhabbat bilan yakunlaysizlar.",
   },
   {
     title: "Salom oldidan panoh izlash",
     when: "Oxirgi tashahhud va salovotdan so'ng, namoz tugashidan oldin.",
-    translation:
-      "Allohim, men Sendan qabr azobidan, do'zax azobidan, hayot va o'lim fitnasidan va Soxta Masih (Dajjol) fitnasining yomonligidan panoh so'rayman.",
     meaning:
       "Rasululloh sollallohu alayhi vasallam oxirgi tashahhuddan keyin salom berishdan oldin mana shu to'rt xavfdan panoh so'rashini buyurdilar - namozning oxirgi duosi dunyo hayotini, qabrni, do'zaxni va eng katta fitnani qamrab oladi.",
   },
   {
     title: "Taslim (yakunlovchi salom)",
     when: "Namozni tugatish - yuzni o'ngga, keyin chapga burish.",
-    translation: "Assalomu alaykum va rahmatullohi alayh.",
     meaning:
       "Namozni muhtaramlar safidan chiqqandek tark etasiz - har bir yelkangizda yozilgan farishtalarga va yoningizda namoz o'qiyotganlarga salom berib. Salom ustundir; u bilan namoz to'liq bo'ladi.",
   },
@@ -1252,10 +939,10 @@ export const SALAH_GUIDE_PHRASES_UZ: DeepPartial<SalahGuidePhrase>[] = [
 
 export const SALAH_GUIDE_QUIZ_UZ: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    prompt: "Har kuni kelishilgan sunnat ravotib necha rakat?",
+    prompt: "Ummu Habiba hadisida kunlik sunnat ravotib necha rakat deb aytilgan?",
     options: ["8", "10", "12", "14"],
     explanation:
-      "O'n ikki ravotib: bomdoddan oldin 2, peshindan oldin 4, peshindan keyin 2, shomdan keyin 2 va xuftondan keyin 2 (Sahih Muslim 728).",
+      "Ummu Habiba hadisi kecha-kunduzda o'n ikki rakat sunnat o'qiganga jannatda uy va'da qiladi (Sahih Muslim 728); Jome' at-Termiziy 415 ularni sanaydi: bomdoddan oldin 2, peshindan oldin 4, peshindan keyin 2, shomdan keyin 2 va xuftondan keyin 2.",
   },
   {
     prompt: "Bomdoddan oldin ta'kidlangan (mu'akkada) sunnat:",
@@ -1264,10 +951,10 @@ export const SALAH_GUIDE_QUIZ_UZ: DeepPartial<SalahGuideQuizQuestion>[] = [
       "Bomdoddan oldin ikki rakat sunnat mu'akkadadir — Rasululloh sollallohu alayhi vasallam ularni hech qachon tark etmas edi (Sahih al-Buxoriy 1169; Sahih Muslim 724).",
   },
   {
-    prompt: "Peshin atrofidagi kelishilgan ravotib:",
+    prompt: "Ummu Habiba hadisida (Jome' at-Termiziy 415) peshin atrofidagi ravotib:",
     options: ["Oldin 2, keyin 2", "Oldin 4, keyin 2", "Oldin 4, keyin 4", "Faqat oldin 2"],
     explanation:
-      "Peshindan oldin to'rt va keyin ikki rakat o'n ikki ravotibning bir qismidir. Bulardan ortiq rakatlar tavsiya etilgan nafl, sobit ravotib emas.",
+      "Ummu Habiba hadisida peshindan oldin to'rt va keyin ikki rakat bor. Ibn Umar rivoyatida (Sahih al-Buxoriy 1180) oldin ikki rakat aytilgan, shuning uchun mazhablar qaysi birini muakkad ravotib deb hisoblashda farq qiladi; bulardan ortiq rakatlar nafl.",
   },
   {
     prompt:

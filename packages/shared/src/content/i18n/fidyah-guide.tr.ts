@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Oruç tutmak sürekli olarak mümkün değilse, kaçırılan her gün için bir alimden fidye isteyin.",
       "Orucunuzu kasıtlı olarak bozduysanız, bir uygulama tahminine güvenmeyin; bir bilim adamına hangi hükmün geçerli olduğunu sorun.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...(Zorlukla oruç tutmaya gücü yetenlere) bir fakiri doyurmanın fidyesi... Kim hasta veya yolculukta olursa, o kadar başka günler.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Kaçırılan oruçların fidyesi nedir?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Mümkün olduğunda yerel mescidinizin veya belediyenizin günlük fidya ücretini kullanın.",
       "Bir planlama tahmini için gün × bir öğün (veya yayınlanmış fidya birimi) ile çarpın.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Ve (zorlukla oruç tutmaya gücü yetenlere) bir fakiri doyurmanın fidyesi. Kim iyilik yapmaya gönüllü olursa, bu onun için daha hayırlıdır. Ve eğer bilirseniz oruç tutmanız sizin için daha hayırlıdır.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Fidyeyi genellikle kim öder?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Hamilelik, emzirme ve kronik hastalıkların sınıflandırılması bilimsel bir yargıdır. Bu konu yalnızca eğitim amaçlıdır.",
-    quran: [
-      {
-        excerpt:
-          "...Kim ayın [hilalini] görürse oruç tutsun; Kim hasta veya yolculukta olursa, o kadar başka günler de tutar. Allah sizin için kolaylık diler, zorluk dilemez...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bir adam dedi ki: Annem oruç sebebiyle vefat etti. Onun adına oruç tutmalı mıyım? Peygamber Efendimiz (sav) şöyle buyurdu: Evet, Allah'ın borcunun ödenmesi daha haktır.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Orucu kasten bozmanın keffareti",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Nitelikli bir alime, eğer varsa, hangi kefareti borçlu olduğunuzu sorun.",
       "Altmış fakiri doyurmak yerine getirebileceğiniz bir seçenekse, planlama rakamı olarak yerel yemek maliyetini × 60 kullanın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir adam dedi ki: Mahvoldum ey Allah'ın Resulü, Ramazan ayında eşimle ilişkide bulundum. Bir köle azad etmesi, iki ay aralıksız oruç tutması ve altmış fakiri doyurması soruldu...",
-      },
-      {
-        excerpt:
-          "Peygamber Efendimiz (sav)'in yanında otururken bir adam geldi ve şöyle dedi: Mahvoldum... Oruçluyken hanımıyla ilişkiye girdi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Bu yardımcı nasıl kullanılır?",

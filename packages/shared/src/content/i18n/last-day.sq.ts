@@ -22,16 +22,7 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Dy parime rregullojnë gjithçka këtu. Së pari, realiteti i këtyre ngjarjeve është i sigurt dhe është çështje besimi (akide); të mohosh ringjalljen ose përgjegjësinë është të mohosh vetë fenë. Së dyti, koha e saktë e Kiametit është e njohur vetëm për Allahun – asnjë dijetar, kalendar apo llogaritje nuk mund ta parashikojë atë, dhe çdo pretendim për një datë është i rremë. Pejgamberi ﷺ kurrë nuk u bëri shokëve të tij një numërim mbrapsht; ai u dha atyre një mënyrë për të jetuar. Pra, qëllimi i studimit të Ditës së Fundit është përgatitja, jo parashikimi: për të zbutur zemrën, për të korrigjuar përparësitë dhe për të garuar drejt së mirës përpara se të arrijë momenti i caktuar.",
       "Një shënim mbi burimet: bisedat popullore 'shenjat e fundit të kohëve' janë plot me tregime të dobëta, madje edhe të sajuara. Ky modul përfshin vetëm atë që është autentike, dhe aty ku dijetarët e sinqertë sunitë vërtet ndryshojnë - për shembull në renditjen e disa shenjave kryesore - ai ndryshim paraqitet si një ndryshim, jo ​​i zbutur apo i ekzagjeruar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kur toka tronditet me tërmetin e saj përfundimtar, dhe ajo i hedh barrat e saj, dhe njeriu bërtet: Çfarë ka me të? - atë Ditë do të transmetojë lajmet e saj, sepse Zoti yt e ka frymëzuar atë. Atë Ditë njerëzit do të nisen në grupe të veçanta për t'u treguar veprat e tyre; kështu që kushdo që bën të mirën sa një grimcë do ta shohë atë, dhe kushdo që bën të keqen sa një grimcë do ta shohë atë.",
-      },
-      {
-        excerpt:
-          "Ai ia jep frymëzimin e urdhrit të Tij kujt të dojë nga robërit e Tij për të paralajmëruar për Ditën e Takimit – Ditën kur ata do të dalin, dhe asgjë për ta nuk është e fshehur nga Allahu. Kujt i takon sovraniteti sot? Për Allahun, Një, Mbizotërues.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -43,22 +34,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Ky besim disiplinon gjithashtu dy motorët e zemrës - frikën dhe shpresën - dhe i mban ato në ekuilibër. Paralajmërimet janë reale, kështu që besimtari nuk bëhet arrogant apo i pavëmendshëm; megjithatë mëshira e Allahut është e madhe dhe dera e pendimit qëndron e hapur deri në vdekje, kështu që besimtari nuk dëshpërohet kurrë. Një zemër që jeton mes frikës dhe shpresës është një zemër që vazhdon të përpiqet pa u thyer.",
       "Praktikisht, Dita e Fundit i jep dinjitet të pafuqishmit dhe frenim të fuqishmit. Ai u thotë të padrejtëve se asnjë lëndim nuk harrohet nga Allahu, dhe i thotë të fortëve se asnjë pasuri, status apo ndikim nuk do t'i mbrojë ata në llogari. Prandaj, besimi në të nuk është një rehati private, por një burim drejtësie, durimi dhe integriteti në këtë botë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Drejtësi nuk është që t'i ktheni fytyrat nga lindja ose perëndimi, por i drejtë është ai që i beson Allahut, Ditës së Fundit, engjëjve, librit dhe profetëve dhe u jep pasuri, pavarësisht nga dashuria për të, të afërmve, jetimëve, nevojtarëve, udhëtarit dhe atyre që kërkojnë.",
-      },
-      {
-        excerpt:
-          "Kurrë mos mendo se Allahu është i pavetëdijshëm për atë që bëjnë keqbërësit. Ai i vonon ato vetëm për një ditë kur sytë do të shikojnë të tmerruar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imani është që të besosh Allahun, engjëjt e Tij, librat e Tij, të dërguarit e Tij, Ditën e Fundit dhe të besosh në caktimin hyjnor, të mirën dhe dëmin e tij. - nga hadithi i Xhibrilit, kur erdhi për të mësuar fenë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Përtërijeni qëllimin tuaj çdo ditë: veprat e mia janë për Allahun dhe për ditën kur do ta takoj Atë.",
       "Kur padrejtësia të dhemb dhe asnjë gjykatë tokësore nuk përgjigjet, ia beso Gjykatës së Ditës së Fundit.",
@@ -76,25 +53,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Profeti ﷺ mësoi përmendjen e shpeshtë të vdekjes - 'Përkujto shpesh shkatërruesin e kënaqësive', që do të thotë vdekje (Xhami'et-Tirmidhi 2307, hasan) - jo për të na bërë të sëmurë, por për të na mbajtur zgjuar. Të kujtuarit e vdekjes zvogëlon kontrollin e kësaj bote, shpërndan inatet dhe riorganizon atë që në të vërtetë ka rëndësi. Detajet e largimit të shpirtit që shfaqen vetëm në raportet e dobëta janë më mirë të lihen mënjanë; Materiali autentik mjafton për të ngjallur frikë dhe gatishmëri.",
       "Vdekja gjithashtu mbyll librin e veprave - me tre përjashtime. Pejgamberi ﷺ ka thënë se kur njeriu vdes, i ndërpriten veprat e tij, përveç tri: sadakaja e vazhdueshme (sadakaja xherija), dituria që vazhdon të përfitojë dhe një fëmijë i drejtë që lutet për të (Sahih Mysliman 1631). Kjo është thellësisht praktike: do të thotë që ajo që ndërton, mëson dhe rrit ndërsa je gjallë mund të vazhdojë të fitojë për ty shumë kohë pasi të jesh larguar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Çdo shpirt do ta shijojë vdekjen dhe do t'ju jepet kompensimi i plotë vetëm në Ditën e Kijametit. Pra, kushdo që tërhiqet nga zjarri dhe futet në Xhenet ka arritur sukses. Dhe jeta e kësaj bote është vetëm kënaqësi e mashtrimit.",
-      },
-      {
-        excerpt:
-          "Thuaj: Engjëlli i vdekjes, të cilit ju është besuar, do t'ju marrë; atëherë te Zoti juaj do të ktheheni.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kur njeriu vdes, veprat e tij përfundojnë, përveç tri: bamirësisë së vazhdueshme, diturisë nga e cila përfitohet, ose një fëmije të drejtë që lutet për të.",
-      },
-      {
-        excerpt: "Mos harroni shpesh shkatërruesin e kënaqësive - domethënë vdekjen.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Shtoni istigfarin dhe faluni me kohë – veçanërisht kur jeni të shëndetshëm dhe të zënë, jo vetëm kur jeni të sëmurë.",
       "Pendohuni sot për çdo gjë specifike që po vononi; mos luani kumar për nesër.",
@@ -111,25 +71,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Lumturia ose ndëshkimi pason më pas në varr, i pohuar në tekste autentike: 'Varri është ose një kopsht nga kopshtet e Xhenetit ose një gropë nga gropat e zjarrit' (Xhami'et-Tirmidhi 2460, hasen sahih). Kur'ani aludon për dënimin e popullit të Faraonit për t'u ekspozuar ndaj zjarrit 'mëngjes dhe mbrëmje' para se të arrijë Kiameti (Kur'an 40:46). Ehli Suneti pohojnë realitetin e shpërblimit dhe dënimit të rëndë duke ia lënë Allahut natyrën e saktë të tij, pasi që i përket të padukshmes dhe nuk mund të perceptohet nga të gjallët.",
       "Ka marrëveshje që pyetja e rëndë dhe lumturia ose mundimi i varrit janë reale; studiuesit diskutojnë pikat më të holla - të tilla si nëse prek trupin, shpirtin ose të dyja, dhe si arrin tek ata pa varr të zakonshëm - pa i lënë ato pyetje të shpërqendrohen nga pika. Barzakh është motivuesi i madh: ai e kthen varrin nga një vrimë në tokë në një pasqyrë të veprave të veta dhe e bën të qartë se ajo që dërgoni përpara është ajo që do t'ju përshëndes atje.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Derisa, kur njërit prej tyre i vjen vdekja, ai thotë: “Zoti im, më kthe mua, që të bëj vepra të mira në atë që kam lënë pas”. Jo! Është vetëm një fjalë që ai thotë; dhe pas tyre ka një pengesë deri në Ditën që do të ringjallen.",
-      },
-      {
-        excerpt:
-          "Zjarri - ata janë të ekspozuar ndaj tij në mëngjes dhe në mbrëmje. Dhe ditën kur do të shfaqet kijameti, do të thuhet: Pranoi popullin e Faraonit në dënimin më të ashpër.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Varri është ose kopsht nga kopshtet e Xhenetit ose gropë nga gropat e zjarrit.",
-      },
-      {
-        excerpt:
-          "Kur varroset i ndjeri, i vijnë dy engjëj dhe e pyesin: Kush është Zoti yt? Cila është feja juaj? Kush është profeti juaj? Besimtari përgjigjet me siguri dhe varri i tij zgjerohet dhe ndizet për të.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Keqkuptim: Ndëshkimi i rëndë është një besim popullor pa bazë. Korrigjimi: Realiteti i pyetjes dhe i lumturisë ose mundimit të varrit është vërtetuar në hadithin autentik dhe aludohet në Kur'an; është një pikë e vendosur e besimit sunit.",
       "Keqkuptim: Duhet të debatojmë për pamjen e saktë dhe emrat e engjëjve. Korrigjim: Emërtimi i Munkarit dhe Nakirit vjen në një raport hasen; besimi thelbësor është vetë pyetja. Përgatitja për t'iu përgjigjur me vërtetësi ka shumë më tepër rëndësi sesa debatimi për detajet e tij.",
@@ -149,22 +92,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Teksti i ankorimit për shenjat kryesore është hadithi i Hudhejfe ibn Usejdit, në të cilin Profeti ﷺ renditi dhjetë: tymi (Dukhan), Dexhalli, Bisha e tokës (Dabbat al-Ard), lindja e diellit nga vendi i perëndimit të tij (perëndimi), zbritja e 'Isa, ibn Xhug'm' (dhe Mexhhuja). rrëshqitje të mëdha dheu - një në lindje, një në perëndim dhe një në Gadishullin Arabik - të vulosura nga një zjarr që i çon njerëzit në vendin e tyre të grumbullimit (Sahih Mysliman 2901). Mehdiu dhe Dexhalli vijnë në raporte të tjera autentike dhe janë vendosur para zbritjes së Isait.",
       "Qëndrimi i sinqertë i dijetarëve është se përderisa çdo shenjë pohohet, rendi i saktë i tyre nuk është plotësisht i fiksuar nga tekstet, dhe dijetarët me reputacion sunitë ndryshojnë në sekuencën e saktë. Ky dallim është një pjesë normale e traditës dhe nuk ka arsye për mosmarrëveshje. Përgjigja profetike ndaj të gjithave nuk është frikësuese apo spekulime të pafundme rreth ngjarjeve aktuale, por rritje e imanit, pendimit dhe veprimit të dobishëm.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Të pyesin për kijametin: kur vjen ai? Thuaj: Dija e saj është vetëm te Zoti im. Askush nuk do ta zbulojë kohën e vet përveç Tij. Ai është i rëndë në qiej dhe në tokë. Nuk do t'ju vijë veçse papritur.",
-      },
-      {
-        excerpt:
-          "A presin ata përveç që t'u vijë Kijameti papritmas? Disa nga shenjat e saj tashmë kanë ardhur. Por si do të përkujtohen, kur t'u ketë ardhur ajo?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kijameti nuk do të vijë derisa të shihni dhjetë shenja para tij: tymi, Dexhalli, Bisha, lindja e diellit nga perëndimi, zbritja e Isait, birit të Merjemes, Jexhuxhit dhe Mexhuxhit, tre rrëshqitje dheu - një në lindje, një në perëndim dhe një në gadishullin Arabik - dhe zjarri i fundit i shtyn njerëzit e tyre drejt një.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -177,20 +106,7 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Të tjera përfshijnë një përshpejtim të përgjithshëm në ndjenjën e kohës, rritjen e tërmeteve dhe vrasjeve dhe zhdukjen e njohurive. Përsa i përket dijes, Profeti (a.s.) ishte i saktë në lidhje me mekanizmin: 'Nuk do të vendoset Ora derisa të hiqet dituria, tërmetet të rriten, koha të kalojë shpejt, të shfaqen mundimet dhe të shtohen vrasjet' (Sahih el-Bukhari 1036). Dhe ai shpjegoi se si largohet dituria: 'Allahu nuk e largon diturinë duke e rrëmbyer nga njerëzit, por duke ua marrë dijetarët, derisa të mos mbetet asnjë, dhe njerëzit i marrin injorantët si udhëheqës të cilët pyeten dhe japin vendime pa dituri, kështu që ata humbasin dhe i humbasin të tjerët' (Sahih el-Buhari 100). Pra, 'humbja e njohurive' nuk është një mungesë informacioni - një epokë mund të mbytet në të dhëna - por humbje e studiuesve të shëndoshë dhe praktikës së jetuar.",
       "Një disiplinë thelbësore këtu: është interpretuese, jo e sigurt, të deklarohet se një ngjarje specifike moderne 'është' një Hadith i veçantë i përmbushur. Garat e rrokaqiejve ose krimi në rritje mund t'i bëjnë jehonë fjalëve të Profetit, por caktimi i zbulesës në titujt me siguri nuk është mënyra e studiuesve të kujdesshëm. Përgjigja e saktë ndaj çdo shenje të vogël është e brendshme: lexojeni atë si një thirrje për t'u kthyer tek Allahu, për të mësuar dhe për të vepruar sipas fesë, dhe për t'u mbajtur fort pas besueshmërisë dhe vërtetës - jo si material për ankth apo spektakël.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kur të humbet besimi, prit Kiametin. U pyet: Si do të humbet, o i Dërguar i Allahut? Ai tha: Kur t'u jepet autoriteti atyre që nuk e meritojnë atë, prisni Kiametin.",
-      },
-      {
-        excerpt:
-          "Ndër shenjat e Kiametit: se robëria do të lindë dashnoren e saj dhe se do të shohësh barinj zbathur, të zhveshur, të varfër që garojnë në ndërtimin e ndërtesave të larta. - nga hadithi i Xhibrilit.",
-      },
-      {
-        excerpt:
-          "Allahu nuk e largon diturinë duke e rrëmbyer, por e largon duke marrë dijetarët, derisa të mos mbetet asnjë dhe njerëzit të marrin injorantët si prijës të cilët japin vendime pa dituri, kështu që devijojnë dhe i humbin të tjerët.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Zbatimi i shenjave specifike të vogla në ngjarje të veçanta aktuale është interpretues, jo i sigurt. Ky modul paraqet hadithin autentik pa pohuar se cilat dukuri moderne i përmbushin përfundimisht.",
     actions: [
@@ -209,20 +125,7 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Atëherë do të zbresë Isa ibn Merjem (paqja qoftë mbi të) - një pikë e fortë e besimit sunit. Pejgamberi ﷺ tha: \"Pasha Atë në dorën e të cilit është shpirti im, djali i Merjemes së shpejti do të zbresë mes jush si sundimtar i drejtë; ai do të thyejë kryqin, do të vrasë derrat dhe do të shfuqizojë xhizjen dhe pasuria do të vërshojë derisa askush të mos e pranojë atë' (Sahih el-Buhari 3448). Ai zbret si ndjekës i Muhamedit a.s., falet pas imamit të umetit (Sahih el-Bukhari 3439), vret Dexhallin dhe sundon sipas Sheriatit të Muhamedit a.s. Ja'xhuxh dhe Ma'xhuxh pastaj lirohen, dhe shenjat e mbetura shpalosen deri në zjarrin që mbledh njerëzimin.",
       "Dy pika ndershmërie. Së pari, dijetarët bien dakord mbi realitetin e çdo shenje në hadithin me dhjetë shenja, por ndryshojnë në renditjen e tyre të saktë dhe se dallimi është i ligjshëm dhe i vjetër. Së dyti, Dukhani dhe Bisha janë pjesë e vetë këtij hadithi sahih; disa transmetime të tjera që i detajojnë ato individualisht ndryshojnë në fuqi, kështu që ky modul mbështet besimin në raportin e fortë të dhjetë shenjave dhe jo në shtesat më të dobëta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kiameti nuk do të vijë derisa të shihni dhjetë shenja: tymin, Dexhallin, Bishën, lindjen e diellit nga perëndimi, zbritjen e Isait, birit të Merjemes, Jexhuxhit dhe Mexhuxhit, dhe tre rrëshqitje dheu - një në lindje, një në perëndim dhe një në gadishullin Arabik - i fundit prej tyre i shtyn njerëzit në zjarr.",
-      },
-      {
-        excerpt:
-          "Pasha Atë në dorën e të cilit është shpirti im, së shpejti do të zbresë në mesin tuaj biri i Merjemes si sundimtar i drejtë. Ai do të thyejë kryqin, do të vrasë derrat dhe do të shfuqizojë xhizjen dhe pasuria do të bëhet aq e bollshme sa askush nuk do ta pranojë atë.",
-      },
-      {
-        excerpt:
-          "Sikur të mbetej vetëm një ditë nga kjo botë, Allahu do ta zgjaste atë ditë derisa të ringjallte në të një burrë nga familja ime (Mehdiu) i cili do ta mbushë tokën me drejtësi ashtu siç ishte mbushur me padrejtësi dhe zullum.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Realiteti i shenjave kryesore është pohuar, por sekuenca dhe koha e tyre e saktë nuk bien dakord plotësisht nga studiuesit. Shmangni caktimin e datës dhe shmangni pretendimin se ndonjë figurë e sotme është Mehdiu, Dexhalli ose 'Isai.",
     appLinks: [{}],
@@ -235,21 +138,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Janë dy shpërthime dhe Kur'ani i dallon ato. Në fillim, 'do t'i fryhet Surit dhe kushdo që është në qiej dhe në tokë do të bjerë i vdekur, përveç atij që do Allahu' (Kur'an 39:68) - shpërthimi i tmerrit dhe i vdekjes që i jep fund rendit të krijuar. Pastaj vjen e dyta: 'pastaj do të fryhet përsëri, dhe menjëherë ata do të qëndrojnë në këmbë dhe shikojnë' (vazhdon i njëjti varg) - shpërthimi i ringjalljes, në të cilin i gjithë krijimi ngrihet nga të vdekurit.",
       "Shumë dijetarë, nga i njëjti ajet dhe raportet mbështetëse, flasin për një përjashtim – ata “të cilët do Allahu” që nuk goditen – dhe për një interval ndërmjet dy shpërthimeve, megjithëse gjatësia dhe detajet e tij mbështeten në raporte me fuqi të ndryshme dhe i janë lënë Allahut. Siguria është çifti i shpërthimeve: një fund, pastaj një ngritje. Kjo quhet 'Dita e Paralajmërimit' (Kur'an 50:20) sepse është thirrja e fundit, e tingëlluar kur nuk ka më kohë për t'u përgatitur – kjo është pikërisht arsyeja pse thirrja duhet të përgjigjet tani.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe do t'i fryhet Surit, e kush është në qiej dhe kush është në tokë, do të bjerë i vdekur, përveç atij që do Allahu. Pastaj do të fryhet përsëri dhe menjëherë ata do të qëndrojnë në këmbë dhe do të shikojnë.",
-      },
-      {
-        excerpt: "Dhe do t'i fryhet Surit. Ajo është Dita e Paralajmërimit.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Si mund të jem i qetë kur bartësi i Surit e ka vendosur në gojë dhe e ka përkulur ballin, duke pritur urdhrin për të fryrë? Sahabët ishin të shqetësuar, prandaj ai u tha atyre të thoshin: Allahu na mjafton dhe Ai është Rregulluesi më i mirë i punëve.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Ringjallja",
@@ -259,26 +149,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Ringjallja është universale - çdo njeri nga i pari tek i fundit, i çdo kombi, është ngritur. Profeti ﷺ e përshkroi gjendjen në të cilën njerëzit ngrihen: 'Njerëzit do të mblidhen këmbëzbathur, të zhveshur dhe të parrethprerë.' Kur Aisheja pyeti e shqetësuar nëse burrat dhe gratë do të shikonin njëri-tjetrin, ai tha se çështja e asaj Dite do të ishte shumë e rëndë që të mos shqetësonte dikë (Sahih el-Bukhari 6527). Ai gjithashtu tha: 'Do të mblidheni këmbëzbathur, të zhveshur dhe të parrethprerë - dhe i pari që do të visheni në Ditën e Kijametit do të jetë Ibrahimi' (Sahih el-Bukhari 3349).",
       "Thelbi i doktrinës nuk është spektakli, por përgjegjësia që ajo zbaton. Për shkak se kthimi tek Allahu është i sigurt, asnjë vepër nuk është vërtet private dhe asnjë vdekje nuk është vërtet shpëtim. “Po vjen Kiameti – nuk ka dyshim në të – dhe Allahu do t’i ringjallë ata që janë në varre” (Kur’an 22:7). Besimi në ringjalljen trupore është ajo që e bën peshën morale të kësaj jete reale dhe jo të përkohshme.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe ai na sjell shembull dhe harron krijimin e vet, duke thënë: Kush do t'i ringjallë kockat derisa ato janë të kalbura? Thuaj: \"Atyre do t'i ringjallë Ai që i krijoi herën e parë dhe Ai është i Gjithëdijshëm për çdo krijim\".",
-      },
-      {
-        excerpt:
-          "Dhe se kijameti po vjen - nuk ka dyshim për këtë - dhe se Allahu do t'i ringjallë ata që janë në varre.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do të mblidheni këmbëzbathur, lakuriq dhe të parrethprerë. Pastaj lexoi: Ashtu siç e filluam krijimin e parë, do ta përsërisim atë. Dhe i pari që do të vishet në Ditën e Kijametit do të jetë Ibrahimi.",
-      },
-      {
-        excerpt:
-          "Njerëzit do të mblidhen këmbëzbathur, lakuriq dhe të parrethprerë. Aishja tha: A do të shikohen burrat dhe gratë njëri-tjetrin? Ai tha: Çështja do të jetë shumë e rëndë për këtë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Mbledhja (Mahshar)",
@@ -288,22 +160,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Kushtet e asaj qëndrimi janë të rënda. Pejgamberi ﷺ ka thënë: \"Ditën e Kiametit dielli do t'u afrohet njerëzve aq shumë sa do të jetë një milje larg dhe ata do të zhyten në djersën e tyre sipas veprave të tyre - disa në kyçin e këmbës, disa në gjunjë, disa në bel dhe disa djersa do t'i frenojë\" (Sahih Mysliman 2864). Megjithatë, të njëjtat raporte përshkruajnë mëshirën e shpërndarë me vepra: një kategori që Profeti ﷺ e emëroi do të mbulohet nën hijen e Arshit të Allahut në një ditë kur nuk ka hije përveç Tij - mes tyre prijësi i drejtë, i riu i rritur në adhurim dhe ai që dha sadaka aq fshehurazi dora e tij e majtë nuk dinte se çfarë shpenzoi dora e tij e djathtë.",
       "Pritja është e gjatë - Kur'ani flet për 'një ditë masa e së cilës është pesëdhjetë mijë vjet' (Kur'an 70:4) - por gjatësia e saj nuk është e njëjtë për të gjithë. Njoftimet autentike thonë se ai do të jetë i lehtë për besimtarin, aq i shkurtër sa koha ndërmjet dy namazeve, ndërsa i shtyn shumë të tjerët. Pra, Mahshar është vendi ku libri privat i një jete bëhet realitet publik: i njëjti diell, i njëjti fushë dhe përvoja krejtësisht të ndryshme, të nxjerra tërësisht nga ajo që secili person dërgoi përpara.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ditën kur toka do të zëvendësohet me një tokë tjetër, po ashtu edhe qiejt, dhe ata do të dalin para Allahut, Një dhe Mbizotërues.",
-      },
-      {
-        excerpt:
-          "Tek Ai ngjiten engjëjt dhe Shpirti në një ditë, masa e së cilës është pesëdhjetë mijë vjet.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dielli do t'u afrohet njerëzve në Ditën e Kiametit derisa të jetë rreth një milje larg dhe ata do të zhyten në djersë sipas veprave të tyre - disa në kyçin e këmbës, disa në gjunjë, disa në bel, e disa djersa do t'i frenojë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Ndërmjetësimi (Shafa'ah)",
@@ -314,25 +172,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Pasojnë forma të tjera autentike: ndërmjetësimi që disa besimtarë të hyjnë në Xhenet pa llogari; ndërmjetësim që ngre gradë; dhe mbi të gjitha ndërmjetësimi për mëkatarët e rëndë në mesin e besimtarëve, në mënyrë që njerëzit të nxirren nga zjarri me ndërmjetësimin e Pejgamberit ﷺ, profetëve të tjerë, engjëjve, besimtarëve dhe së fundi me mëshirën e Allahut, i cili është Mëshiruesi i mëshiruesve. Profetët, martirët, të drejtët dhe madje edhe fëmijët që vdiqën të vegjël mund të ndërmjetësojnë me leje, megjithëse fuqia e raporteve individuale ndryshon.",
       "Kujdes thelbësor: ndërmjetësimi në Ahiret nuk lejon asnjëherë thirrjen e të vdekurve ose atyre që mungojnë për ndihmë tani. Të lutesh një profet ose një shenjtor në varr, duke u kërkuar atyre të lehtësojnë shqetësimet ose të plotësojnë nevojat, është t'i drejtosh adhurimin dikujt tjetër përveç Allahut - ky është shirk, dhe është e kundërta e shefatit të përshkruar këtu, që është një favor që Allahu ia jep atë Ditë kujt të dojë. As nuk e zëvendëson nevojën për besim dhe pendim në këtë jetë; është mëshira e Allahut ndaj atyre që jetuan dhe vdiqën me teuhid.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kush është ai që mund të ndërmjetësojë tek Ai përveçse me lejen e Tij? Ai e di atë që është para tyre dhe çfarë do të ndodhë pas tyre, dhe ata nuk përfshijnë asgjë nga dituria e Tij, përveç asaj që Ai dëshiron.",
-      },
-      {
-        excerpt: "Ndërmjetësimi nuk i bën dobi vetëm atij që Ai e lejon.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Njerëzit do të vijnë tek unë dhe unë do të bie në sexhde para Allahut dhe do të thuhet: O Muhamed, ngrije kokën; kërkoni dhe do t'ju jepet, ndërmjetësoni dhe ndërmjetësimi juaj do të pranohet.",
-      },
-      {
-        excerpt:
-          "Njerëzimi do të shkojë te Ademi, pastaj te Ibrahimi, pastaj te Musai, pastaj te Isai dhe secili do të justifikohet derisa të vijnë te Muhamedi a.s. dhe atij i jepet ndërmjetësimi më i madh.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Mendimi i gabuar: Të kërkosh ndërmjetësim do të thotë që Profeti a.s. ose të drejtët adhurohen. Korrigjim: Adhurimi i takon vetëm Allahut; Shefati në Ditën e Fundit është mëshirë që Allahu e jep me lejen e Tij dhe nuk e justifikon thirrjen e të vdekurve në këtë jetë.",
     ],
@@ -345,22 +186,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Asgjë nuk është lënë jashtë këtyre të dhënave - as akti më i vogël, as mendimi kalimtar që u bë vepër. Zullumqarët do të habiten nga plotësia e tij: “Do të thonë: O mjerë ne! Cili është ky libër që nuk lë asgjë të vogël apo të madhe përveç se e ka regjistruar? Dhe ata do të gjejnë atë që kanë bërë para tyre dhe Zoti yt nuk i bën padrejtësi askujt” (Kur'an 18:49). Me mëshirën e Allahut, qëllimet e mira dhe mëkatet e braktisura regjistrohen gjithashtu në favor të besimtarit.",
       'Sepse gjuha dhe gjymtyrët janë ato që mbushin faqet, ruajtja e tyre është ruajtja e të dhënave. Profeti ﷺ e bëri gjuhën në qendër të shpëtimit: "Kush më garanton atë që ka midis nofullave dhe asaj midis këmbëve, unë i garantoj atij Xhenetin" (Sahih el-Bukhari 6474) - domethënë, kushdo që mbron fjalën e tij dhe dëlirësinë e tij. Një zakon i përditshëm i rishikimit të sinqertë të vetvetes - të pyesësh atë që sot i shtohet librit - është një nga praktikat më të matura dhe më të dobishme që një besimtar mund të mbajë.',
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe do të vendoset procesverbali dhe do t'i shihni kriminelët të frikësuar nga ajo që është brenda tij, duke thënë: O mjerë ne! Cili është ky libër që nuk lë asgjë të vogël apo të madhe përveç se e ka regjistruar? Dhe ata do të gjejnë atë që kanë bërë, e Zoti yt nuk i bën padrejtësi askujt.",
-      },
-      {
-        excerpt:
-          "Ndërsa atij që i jepet libri i tij në dorën e djathtë, ai do të thotë: Ja, lexo librin tim! Isha i sigurt se do të takohesha me llogarinë time. Kështu ai do të jetë në një jetë të këndshme. Por ai që i jepet procesverbali i tij në dorën e tij të majtë, do të thotë: Do të doja të mos më ishte dhënë procesverbali im.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kush më garanton atë që ka në mes të nofullave dhe të këmbëve të tij, unë i garantoj atij Xhenetin, domethënë gjuhën dhe dëlirësinë e tij.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ruajeni gjuhën mbi pothuajse çdo gjë tjetër - shumica e asaj që mbush një rekord për të mirën ose të keqen kalon nëpër të.",
       "Rishikoni ditën tuaj para gjumit: pyesni se çfarë do të dëshironit dhe çfarë do të kishit frikë të shihnit të shkruar në librin tuaj.",
@@ -375,26 +202,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       'Ajo që e bën një peshore të rëndë nuk është vëllimi i madh i aktivitetit, por pesha e saj para Allahut - dhe pesha vjen nga sinqeriteti. Pejgamberi ﷺ vuri në dukje veprat që janë të pakuptimta, por të pamasë: "Dy fjalë të lehta në gjuhë, të rënda në peshore, të dashura për të Mëshirshmin: SubhanAllahi ue bihamdih, SubhanAllahil-\'Azim" (Sahih el-Bukhari 6406). Ai gjithashtu tha: "Asgjë nuk është më e rëndë në peshoren e besimtarit në Ditën e Kijametit sesa karakteri i mirë" (Xhami\'et-Tirmidhi 2002, sahih). Pra, një kujtim i thjeshtë i përsëritur sinqerisht, ose sjellje të mira me durim, mund të peshojë më shumë se malet e aktivitetit të dukshëm.',
       "E kundërta është rreziku i veprave të zbrazëta. Veprimet e bëra për t'u parë nga njerëzit (riya') ose për t'u korruptuar nga hipokrizia mund të arrijnë në peshore pa peshë - nga jashtë të mëdha, nga brenda bosh. Kjo është arsyeja pse sinqeriteti (ikhlas) nuk është një virtyt në mesin e shumë njerëzve, por është pikërisht ajo gjë që i jep peshë çdo vepre tjetër. Mësimi është të ndërtoni ditën rreth veprimeve të vogla, të sinqerta, të qëndrueshme dhe të pastroni qëllimin pas atyre të dukshme.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe Ne e vendosim peshoren e drejtësisë për Ditën e Kijametit, kështu që askujt nuk i bëhet padrejtësi. E nëse është sa një kokërr sinapi, Ne do ta nxjerrim atë dhe mjafton që Ne të llogarisim.",
-      },
-      {
-        excerpt:
-          "Sa i përket atij që peshon i rëndë, ai do të jetë në një jetë të këndshme. Por, sa i përket atij që ka peshoret e lehta, streha e tij do të jetë një humnerë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dy fjalë të lehta në gjuhë, të rënda në peshore, të dashura tek i Gjithëmëshirshmi: SubhanAllahi ue bihamdih, SubhanAllahil-'Azim.",
-      },
-      {
-        excerpt:
-          "Asgjë nuk është më e rëndë në peshoren e besimtarit në Ditën e Kijametit sesa karakteri i mirë. Vërtet, ai me karakter të mirë e arrin gradën e agjëruesit dhe falësit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -406,22 +215,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Ekziston një kategori borxhi që edhe falja e Allahut nuk e fshin thjesht: të drejtat e njerëzve të tjerë (hukuk al-'ibad). Pejgamberi ﷺ pyeti: \"A e dini se kush është i falimentuar?\" Ata thanë: Një pa para. Ai tha: “I falimentuari i ummetit tim është ai që vjen në ditën e kijametit me namaz, agjërim dhe sadaka, por që e ka fyer këtë, e ka shpifur për atë, e ka marrë pasurinë e tjetrit dhe ka derdhur gjakun e tjetrit, kështu që veprat e tij të mira do t'u dorëzohen atyre, dhe kur i mbarojnë veprat e tij të mira, gjynahet e tij hidhen mbi të. 2581). Adhurimi nuk e anulon padrejtësinë; vetëm zgjidhja e padrejtësisë e bën.",
       "Përfundimi praktik është urgjent dhe specifik: borxhet e papaguara, pasuritë e vjedhura, shpifjet dhe amanetet e prishura duhet të korrigjohen në këtë jetë – përmes pendimit tek Allahu dhe kthimit dhe faljes ndaj njerëzve – sepse është shumë më lirë të zgjidhet me një monedhë të parave dhe përulësisë tani sesa me monedhën e veprave të mira atëherë. Dhe përmes gjithë kësaj, drejtësia e Allahut është e përsosur dhe mëshira e Tij përfshin këdo që u përpoq sinqerisht dhe u pendua.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sa i përket atij që i jepet ana e tij në dorën e djathtë, ai do të gjykohet me një llogari të lehtë dhe do të kthehet te populli i tij i lumtur. Por atij që i jepet rekordi pas shpine do të qajë për shkatërrim dhe do të hyjë në një Flakë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që thirret në llogari do të shkatërrohet. Aishja tha: A nuk thotë Allahu se do të gjykohet me një llogari të lehtë? Ai tha: Kjo është vetëm prezantimi i veprave; por kushdo që merret në pyetje për llogarinë e tij do të shkatërrohet.",
-      },
-      {
-        excerpt:
-          "A e dini kush është i falimentuar? Ai është ai që vjen në ditën e kijametit me namaz, agjërim dhe sadaka, por që ka fyer, shpifur dhe u ka bërë padrejtësi të tjerëve, kështu që veprat e tij të mira u jepen atyre, e kur t'u mbarojnë gjynahet e tyre dhe ai hidhet në zjarr.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Shlyeni borxhet dhe ktheni çdo gjë të marrë padrejtësisht, sado e vogël, para se të vijë dita e caktuar.",
       "Kërkoni dhe kërkoni falje kujtdo që i keni bërë keq me fjalë, pasuri ose dinjitet – kthimi tani është shumë më i lirë se kthimi në atë kohë.",
@@ -437,16 +232,7 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       'Profeti ﷺ vetë do t\'i pranojë ndjekësit e tij atje: "Unë do të arrij në Haud para jush dhe do të shikoj për ata prej jush që vijnë tek unë" (Sahih Mysliman 2292). Ai e njeh umetin e tij nga drita në fytyrat, duart dhe këmbët e tyre nga gjurmët e abdesit. Për ta arritur atë është të shuhesh përgjithmonë; ushqehet, në kuptimin e shëndoshë, nga el-Kevtheri, lumi që Allahu i dha Profetit të Tij (ﷺ) në Xhenet.',
       "Megjithatë, disa do të dëbohen nga Havdi. Profeti ﷺ përshkroi se u tha disa njerëzve: 'Ata nuk janë prej jush; ata ndryshuan dhe ndryshuan fenë pas teje, ose u kthyen pas tij. Dijetarët janë të kujdesshëm me këtë: ai u referohet kategorive të veçanta në Hadith - të tilla si braktisja dhe risitë e rënda, të qëllimshme në fe pas udhëzimeve të qarta - dhe nuk është prerazi një leje për muslimanët e zakonshëm që t'i hedhin akuzat njëri-tjetrit. Rruga e sigurt për në Haud është mbajtja pas Sunetit, ruajtja e abdesit dhe namazit dhe ruajtja e unitetit të besimtarëve.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "My Hawd është një udhëtim prej një muaji. Uji i tij është më i bardhë se qumështi, aroma e tij më e ëmbël se misku dhe kupat e tij janë të shumtë sa yjet e qiellit. Kushdo që pi prej saj nuk do të ketë më etje.",
-      },
-      {
-        excerpt:
-          "Unë do të arrij në Haud para jush dhe do të jem i kujdesshëm për ata prej jush që vijnë tek unë. Do të më hiqen disa njerëz dhe unë do të them: Zoti im, shokët e mi! Do të thuhet: Ti nuk e di se çfarë bidati kanë pas teje.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Raportet për ata që janë larguar nga Haudi u referohen kategorive të veçanta të përmendura në Hadith, kryesisht braktisjes dhe risive të rënda në fe. Ato nuk janë leje për muslimanët që të deklarojnë njëri-tjetrin të humbur.",
   },
@@ -459,18 +245,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Drita dhe shpejtësia në Sirat fitohen në këtë jetë. Lutja e kryer në kohë, bamirësia e dhënë rregullisht, ndershmëria në marrëdhënie dhe karakteri i mirë bëhen, në fakt, baza dhe drita përmes së cilës njeriu kalon. Profeti ﷺ do të ndërmjetësojë për besimtarët atje dhe është me mëshirën e Allahut që dikush arrin fare në anën tjetër.",
       "Ashtu si me stacionet e tjera të padukshme, rruga e mençur nuk është të spekulosh për dimensionet fizike të urës - sa e hollë, sa e mprehtë, sa e gjatë - përtej asaj që thotë zbulesa, por të përqendrohesh tërësisht në veprat që e bëjnë kalimin të lehtë. Atë që nuk mund ta imagjinoni, mund të përgatiteni ende për të.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe nuk ka asnjë prej jush përveç se ai do të vijë tek ajo. Kjo është mbi Zotin tuaj një dekret i pashmangshëm. Pastaj Ne do t'i shpëtojmë ata që e përkujtuan Allahun dhe do t'i lëmë zullumqarët në të të gjunjëzuar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ura do të vendoset mbi Ferr dhe unë do të jem i pari që do të kaloj. Njerëzit do ta kalojnë atë sipas veprave të tyre - si rrufeja, si era, si zogjtë, si një vrapues - ndërsa unë them: O Zot, ruaji ata, ruaji ata. Disa shpëtohen, disa gërvishten dhe lëshohen, e disa bien në zjarr.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Falni pesë namazet në kohë - namazi është drita që të çon nëpër urë.",
       "Jepni bamirësi rregullisht, edhe në sasi të vogla.",
@@ -485,21 +261,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Më i madhi nga të gjitha shpërblimet e tij nuk është ndonjë kopsht apo lumë, por kënaqësia e Allahut dhe vizioni i Fytyrës së Tij. 'Atë Ditë fytyrat do të ndriçojnë dhe do të shikojnë drejt Zotit të tyre' (Kur'an 75:22-23) - kuptohet nga Ehl al-Suneh si besimtarët që shohin Allahun në Ahiret, lumturinë kurorëzuese të Xhenetit, të dhënë në një mënyrë që i përshtatet madhërisë së Tij dhe pa ngjashmëri me krijimin. Allahu premton: \"Për ata që bënë mirë është shpërblimi më i mirë dhe më shumë\" (Kur'an 10:26) - dhe \"më shumë\" shpjegohet në hadithin autentik si ky vizion i Fytyrës së Tij fisnike.",
       "Hyrja në Xhenet është me mëshirën e Allahut, e përqafuar përmes besimit dhe veprave të mira – të dyja nuk kundërshtohen kurrë: mëshira është shkaku, dhe veprat janë shenja dhe mjetet që Allahu ka lidhur me të. Dita e Fundit përfundon, për banorët e Xhenetit, në një lumturi që nuk shuhet dhe nuk mbaron kurrë. Ky modul e mban të shkurtër me qëllim trajtimin e tij për Parajsën; udhëzuesi i plotë i Udhëtimit për në Xhenet mbulon dyert e tij, gradat, veprat që të çojnë tek ai dhe lutjet për të në thellësi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe nxitoni në faljen e Zotit tuaj dhe një Xhenet të gjerë sa qiejt dhe toka, i përgatitur për të devotshmit.",
-      },
-      {
-        excerpt: "Atë ditë, fytyrat do të shkëlqejnë dhe do të shikojnë kah Zoti i tyre.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu thotë: Unë kam përgatitur për robërit e Mi të devotshëm atë që nuk e ka parë syri, nuk e ka dëgjuar veshi dhe atë që nuk e ka ngjizur zemra e njeriut.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -510,16 +273,7 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Qëllimi i këtyre paralajmërimeve është mëshira e maskuar. Ato ekzistojnë për të thyer arrogancën, për të ndaluar refuzimin e vazhdueshëm të së vërtetës dhe për të kthyer një person para se të jetë tepër vonë. Kjo është arsyeja pse paralajmërimet në Kur'an pothuajse gjithmonë shoqërohen me derën e hapur të pendimit - qëllimi i përshkrimit të Zjarrit është pikërisht që njerëzit ta shmangin atë përderisa munden. Dënimi i tij është i drejtë: askush nuk hyn në të, përveç me zgjedhjen e tyre këmbëngulëse kundër udhëzimit të qartë, dhe Allahu nuk i bën padrejtësi askujt.",
       "Për besimtarët që bartin mëkate, besimi i shëndoshë sunit është një ekuilibër midis frikës dhe shpresës: një mëkatar është nën vullnetin e Allahut - Ai mund të falë, ose mund të pastrohet në zjarr dhe pastaj, me ndërmjetësimin dhe mëshirën e përshkruar më sipër, të nxjerrë prej tij të gjithë ata që kishin qoftë edhe një grimcë besimi. Ky modul i jep Ferrit një trajtim qëllimisht të shkurtër dhe të matur. Studimi më i plotë i paralajmërimeve të tij, i mëkateve të mëdha dhe i dyerve të gjera të pendimit dhe mëshirës gjendet në modulin Kuptimi i Xhehenemit dhe temave të lidhura me akiden – të trajtuara gjithmonë me shpresë, kurrë me dëshpërim.",
     ],
-    quran: [
-      {
-        excerpt:
-          "E për ata që nuk besuan Zotin e tyre është dënimi i Xhehenemit dhe i mjerë është përfundimi.",
-      },
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet. Vërtet, Ai është Falës, Mëshirues.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -531,12 +285,7 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Dijetarët diskutojnë vetë numrin: disa thonë se shtatëdhjetë mijë është fjalë për fjalë, të tjerë se shumëzohet shumë me raportet shtesë, dhe të tjerë ende se sinjalizon një bollëk të pamatshëm të hirit të Allahut dhe jo një numër fiks. Ajo për të cilën ata bien dakord është e vërteta themelore – se mëshira e Allahut e tejkalon shumë atë që do të priste kontabiliteti njerëzor, dhe se shpëtimi përfundimtar është nga kjo mëshirë.",
       "Ky është një stacion shprese, jo një shteg për dembelizmin. Ai e frymëzon besimtarin drejt mbështetjes së vërtetë në Allahun dhe larg besëtytnisë, ndërkohë që ende përpiqet në adhurim. Askush nuk e fiton atë duke lënë pas dore veprat; njeriu tërhiqet drejt tij nga sinqeriteti, besimi dhe një zemër e lidhur me Allahun dhe jo nga hijeshitë dhe frika.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Shtatëdhjetë mijë nga ummeti im do të hyjnë në Xhenet pa llogari: ata janë ata që nuk kërkojnë rukje nga të tjerët, nuk besojnë në shenjat e këqija, nuk kujdesen dhe mbështeten te Zoti i tyre.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Dijetarët ndryshojnë nëse 'pa llogari' do të thotë një shtatëdhjetë mijë fiks ose një numër shumë më i madh, i pamatshëm. Të gjithë pajtohen se shpëtimi përfundimtar është me mëshirën e Allahut dhe se kjo është një shkak për shpresë, jo për neglizhencë të veprave.",
   },
@@ -549,25 +298,8 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       "Ruaji dy gjërat që Profeti ﷺ i lidhi drejtpërdrejt me Xhenetin – gjuhën dhe dëlirësinë (Sahih el-Bukhari 6474) – sepse këto, më shumë se mëkate dramatike, janë ato që mbushin ose falimentojnë në heshtje një dokument. Dhe zgjidhi të drejtat e njerëzve përderisa mundeni: paguani borxhet, ktheni atë që ju është marrë, kërkoni falje për dëmin dhe jini të drejtë në çdo marrëveshje, në mënyrë që të mos arrini kurrë si 'falimentuari', lutjet e të cilit hahen nga pretendimet e atyre që i ka bërë padrejtësi.",
       'Çdo gjë mbështetet në një qëllim, thuhet në hadithin e parë të Sahih el-Buhariut: "Veprat janë vetëm me qëllim". Përdorni gjurmuesit e Munibit jo si pikë për të konkurruar, por si skelë të butë për këto zakone - lutje, Kur\'an, dhikri, bamirësi, pendim - secili duke ju drejtuar qetësisht ditën drejt takimit me Allahun. Ky është i gjithë qëllimi: të jetosh tani si dikush që me të vërtetë pret të qëndrojë para Tij.',
     ],
-    quran: [
-      {
-        excerpt: "Dhe unë nuk i krijova xhinët dhe njerëzit vetëm që të më adhurojnë Mua.",
-      },
-      {
-        excerpt:
-          "O ju që besuat, kthehuni tek Allahu me një pendim të sinqertë. Ndoshta Zoti juaj do t'ju largojë veprat tuaja të këqija dhe do t'ju futë në kopshte, nëpër të cilat rrjedhin lumenj.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Veprimet janë vetëm nga qëllimet, dhe çdo njeri do të ketë vetëm atë që ka menduar.",
-      },
-      {
-        excerpt:
-          "Kush më garanton atë që ka midis nofullave dhe këmbëve të tij - gjuhën dhe dëlirësinë e tij, unë i garantoj atij Xhenetin.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Falni pesë namazet ditore me kohë.",
       "Lexoni ose dëgjoni Kuranin çdo ditë – qoftë edhe disa vargje.",
@@ -592,75 +324,41 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
       {
         title: "Karakteri i mirë",
         summary: "Butësi dhe sjellje e mirë.",
-        hadith: {
-          excerpt: "Asgjë nuk është më e rëndë në peshore se karakteri i mirë.",
-        },
+        hadith: {},
       },
       {
         title: "Dy fjalë",
         summary: "Të lehta në gjuhë, të rënda në peshore.",
-        hadith: {
-          excerpt: "Subhanallahi ue bihamdihi, Subhanallahil-adhim.",
-        },
+        hadith: {},
       },
       {
         title: "Elhamdulilah",
         summary: "E mbush peshoren.",
-        hadith: {
-          excerpt: "Elhamdulilah e mbush peshoren.",
-        },
+        hadith: {},
       },
       {
         title: "Kartela",
         summary: "Teuhidi i tejkalon mëkatet.",
-        hadith: {
-          excerpt: "Kartela me La ilahe il-lallah e rëndon peshoren.",
-        },
+        hadith: {},
       },
       {
         title: "Dhikri më i mirë",
         summary: "Thoni shpesh teuhidin.",
-        hadith: {
-          excerpt: "Dhikri më i mirë është La ilahe il-lallah.",
-        },
+        hadith: {},
       },
       {
         title: "Katër fjalë",
         summary: "Fjalë të dashura për Allahun.",
-        hadith: {
-          excerpt: "Subhanallah, Elhamdulilah, La ilahe il-lallah, Allahu ekber.",
-        },
+        hadith: {},
       },
       {
         title: "Njëqind tesbihe",
         summary: "Shkak për falje.",
-        hadith: {
-          excerpt: "Kush thotë njëqind herë Subhanallah, i falen mëkatet.",
-        },
+        hadith: {},
       },
     ],
-    quran: [
-      {
-        excerpt: "Atë ditë peshoret vendosen me drejtësi.",
-      },
-      {
-        excerpt: "Ai që e ka peshoren të rëndë do të jetë në jetë të kënaqur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Vepra më e dashur është ajo e vazhdueshme, edhe nëse e pakët.",
-      },
-      {
-        excerpt: "Mos e nënçmoni asnjë të mirë.",
-      },
-      {
-        excerpt: "Buzëqeshja jote është lëmoshë.",
-      },
-      {
-        excerpt: "Mysliman është ai nga gjuha dhe dora e të cilit njerëzit janë të sigurt.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}, {}],
     misconceptions: [
       "Vetëm shumësia e veprave nuk mjafton; sinqeriteti është thelbësor.",
       "Veprat e zemrës nuk janë të parëndësishme.",
@@ -693,254 +391,172 @@ export const LAST_DAY_TOPICS_SQ: DeepPartial<LastDayTopic>[] = [
 
 export const LAST_DAY_HADITH_SQ: DeepPartial<LastDayHadithEntry>[] = [
   {
-    hadith: {
-      excerpt: "Mos harroni shpesh shkatërruesin e kënaqësive - domethënë vdekjen.",
-    },
+    hadith: {},
     context:
       "Kujtimi i rregullt i vdekjes zbut zemrën, shpërndan mëritë dhe korrigjon përparësitë pa ngjallur dëshpërim.",
   },
   {
-    hadith: {
-      excerpt:
-        "Askush prej jush nuk duhet të vdesë përveçse duke e supozuar më të mirën për Allahun – duke menduar mirë për mëshirën e Zotit të tij.",
-    },
+    hadith: {},
     context:
       "Një fund i mirë (husn al-khatima) pritet përmes besimit të sinqertë, pendimit dhe pritjes së mirë nga Allahu.",
   },
   {
-    hadith: {
-      excerpt: "Varri është ose kopsht nga kopshtet e Xhenetit ose gropë nga gropat e zjarrit.",
-    },
+    hadith: {},
     context:
       "Berzahu përfshin shpërblimin ose dënimin në varr, me urtësinë e Allahut - varri pasqyron veprat e një personi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kur varroset i ndjeri, vijnë dy engjëj dhe e pyesin për Zotin, fenë dhe profetin e tij.",
-    },
+    hadith: {},
     context:
       "Pyetja në varr vërtetohet në raportet autentike; në këtë transmetim dy engjëjt quhen Munker dhe Nakir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kur njeriu vdes, veprat e tij përfundojnë, përveç tri: bamirësisë së vazhdueshme, diturisë nga e cila përfitohet, ose një fëmije të drejtë që lutet për të.",
-    },
+    hadith: {},
     context: "Ajo që vazhdon t'i sjellë dobi të ndjerit - e vërtetuar në hadithin sahih.",
   },
   {
-    hadith: {
-      excerpt:
-        "Do të mblidheni këmbëzbathur, të zhveshur dhe të parrethprerë - dhe i pari që do të visheni në Ditën e Kijametit do të jetë Ibrahimi.",
-    },
+    hadith: {},
     context: "Përulësia në ditën e tubimit; Allahu nderon kë të dojë, ashtu siç do.",
   },
   {
-    hadith: {
-      excerpt:
-        "Dielli do t'u afrohet njerëzve në Ditën e Kijametit derisa të jetë rreth një milje larg dhe ata do të fundosen në djersën e tyre sipas veprave të tyre.",
-    },
+    hadith: {},
     context: "Kushtet në Mahshar - ashpërsia ndryshon sipas veprave në transmetimet autentike.",
   },
   {
-    hadith: {
-      excerpt:
-        "Njerëzit do të vijnë tek unë dhe unë do të bie në sexhde para Allahut dhe do të thuhet: Ngrije kokën; kërkoni dhe do t'ju jepet, ndërmjetësoni dhe ndërmjetësimi juaj do të pranohet.",
-    },
+    hadith: {},
     context: "Ndërmjetësimi më i madh - Shafa'ah el-Udhma, i veçantë për Profetin ﷺ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kushdo që thirret në llogari do të shkatërrohet. Aishja pyeti: A nuk thotë Allahu, Ai do të gjykohet me një llogari të lehtë? Ai tha: Kjo është vetëm prezantimi i veprave; por kushdo që merret në pyetje për llogarinë e tij do të shkatërrohet.",
-    },
+    hadith: {},
     context:
       "Një 'llogari e lehtë' është një mëshirë - të tregosh veprat e dikujt dhe të falesh, jo të pyetesh pikë për pikë.",
   },
   {
-    hadith: {
-      excerpt:
-        "I falimentuari i ummetit tim është ai që vjen me namaz, agjërim dhe sadaka, por ka fyer, shpifur dhe bërë padrejtësi ndaj të tjerëve - kështu që veprat e tij të mira u jepen atyre dhe mëkatet e tyre i ngarkohen atij.",
-    },
+    hadith: {},
     context:
       "Të drejtat e njerëzve (hukuk al-'ibad) nuk anulohen thjesht nga adhurimi; ato duhet të paguhen ose të paguhen atë Ditë.",
   },
   {
-    hadith: {
-      excerpt:
-        "Shtatëdhjetë mijë nga ummeti im do të hyjnë në Xhenet pa llogari: ata që nuk kërkojnë rukje nga të tjerët, nuk besojnë në shenjat e këqija, nuk kujdesen dhe që mbështeten te Zoti i tyre.",
-    },
+    hadith: {},
     context:
       "Dijetarët ndryshojnë nëse numri është fjalë për fjalë apo nënkupton një bollëk shumë më të madh dhe të pamatshëm të mëshirës së Allahut.",
   },
   {
-    hadith: {
-      excerpt:
-        "My Hawd është një udhëtim prej një muaji. Uji i tij është më i bardhë se qumështi, aroma e tij më e ëmbël se misku dhe kupat e tij janë të shumtë sa yjet e qiellit. Kushdo që pi prej saj nuk do të ketë më etje.",
-    },
+    hadith: {},
     context: "Pellgu - mëshirë për umetin e Muhamedit a.s. në ditën e etjes.",
   },
   {
-    hadith: {
-      excerpt:
-        "Ura është vendosur mbi Ferr. Njerëzit e kalojnë atë sipas veprave të tyre - si rrufeja, si era, si zogjtë, si një njeri që vrapon - dhe disa gërvishten dhe shpëtohen, ndërsa disa bien.",
-    },
+    hadith: {},
     context: "Shpejtësia e kalimit pasqyron besimin dhe veprat; Mëshira e Allahut është e madhe.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kiameti nuk do të vijë derisa të shihni dhjetë shenja: tymin, Dexhallin, Bishën, lindjen e diellit nga perëndimi, zbritjen e Isait, birit të Merjemes, Jexhuxhit dhe Mexhuxhit, tre rrëshqitje dheu dhe një zjarr që i shtyn njerëzit në tubimin e tyre.",
-    },
+    hadith: {},
     context:
       "Dhjetë shenjat kryesore, nga Hudhejfe ibn Usejd. Dijetarët pohojnë çdo shenjë, por ndryshojnë në sekuencën e saktë.",
   },
   {
-    hadith: {
-      excerpt:
-        "Pasha Atë në dorën e të cilit është shpirti im, i biri i Merjemes së shpejti do të zbresë mes jush si sundimtar i drejtë; ai do të thyejë kryqin, do të vrasë derrat dhe do ta shfuqizojë xhizjen dhe pasuria do të vërshojë derisa askush të mos e pranojë atë.",
-    },
+    hadith: {},
     context:
       "Zbritja e Isait është një pikë e fortë e besimit sunit; ai sundon sipas Sheriatit të Muhamedit ﷺ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kur të humbet besimi, prit Kiametin. U pyet: Si do të humbet? Ai tha: Kur u jepet autoriteti atyre që nuk e meritojnë atë.",
-    },
+    hadith: {},
     context:
       "Një shenjë e vogël e njohur - humbja e besueshmërisë. Përqendrohuni në përgatitjen, jo në panik.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allahu nuk e largon diturinë duke e rrëmbyer atë, por duke marrë dijetarët, derisa të mos mbetet asnjë dhe njerëzit të marrin injorantët si prijës, të cilët japin vendime pa dituri, kështu që devijojnë dhe i humbin të tjerët.",
-    },
+    hadith: {},
     context:
       "'Humbje e njohurive' nënkupton humbjen e studiuesve të shëndoshë dhe praktikës së jetuar – jo mungesë informacioni.",
   },
   {
-    hadith: {
-      excerpt: "Pastërtia është gjysma e besimit.",
-    },
+    hadith: {},
     context: "Veprat e besimit e rëndojnë peshoren.",
   },
   {
-    hadith: {
-      excerpt: "Fjala e mirë është sadaka.",
-    },
+    hadith: {},
     context: "E mira e gjuhës sjell shpërblim të madh.",
   },
   {
-    hadith: {
-      excerpt: "Allahu e do butësinë.",
-    },
+    hadith: {},
     context: "Praktikoni butësinë çdo ditë.",
   },
 ];
 
 export const LAST_DAY_VERSES_SQ: DeepPartial<LastDayVerseEntry>[] = [
   {
-    excerpt:
-      "Çdo shpirt do ta shijojë vdekjen dhe do t'ju jepet kompensimi i plotë vetëm në Ditën e Kijametit. Pra, kushdo që tërhiqet nga zjarri dhe futet në Xhenet, ka pasur sukses, dhe jeta e kësaj bote është vetëm kënaqësi e mashtrimit.",
     context:
       "Vdekja është universale dhe kjo jetë është e përkohshme; shlyerja e vërtetë dhe përfundimtare e llogarive vjen vetëm në Ditën e Fundit.",
     tafsirSummary:
       "Ajeti ripërcakton suksesin: jo pasurinë apo statusin këtu, por shpëtimin nga zjarri dhe pranimin në Xhenet atje.",
   },
   {
-    excerpt:
-      "Atë Ditë, njerëzit do të nisen në grupe të veçanta për t'u treguar veprat e tyre. Pra, kushdo që bën të mirën sa një atom do ta shohë atë, dhe kushdo që bën të keqen sa një grimcë do ta shohë atë.",
     context:
       "Drejtësia e përsosur dhe e plotë - vepra më e vogël, e mirë apo e keqe, regjistrohet dhe i kthehet kryerësit.",
     tafsirSummary:
       "Asgjë nuk është shumë e vogël për t'u numëruar. Ky varg është një paralajmërim i përjetshëm kundër largimit të mëkateve 'të vogla' dhe një inkurajim i përjetshëm drejt veprave të mira 'të vogla'.",
   },
   {
-    excerpt:
-      "Dhe Ne e vendosim peshoren e drejtësisë për Ditën e Kijametit, kështu që askujt nuk i bëhet padrejtësi. Edhe sikur të jetë sa një kokërr sinapi, Ne do ta nxjerrim atë dhe mjafton që Ne të llogarisim.",
     context: "Mizani (Shkalla) është reale dhe drejtësia e saj është absolute.",
     tafsirSummary:
       "Askush në atë Ditë nuk ndreqet nga pesha e një kokrre sinapi; Kontabiliteti i Allahut është i patëmetë.",
   },
   {
-    excerpt:
-      "Sa i përket atij që peshon i rëndë, ai do të jetë në një jetë të këndshme. Por, sa i përket atij që ka peshoret e lehta, streha e tij do të jetë një humnerë.",
     context: "Rezultati përfundimtar varet nga pesha e veprave të drejta të dikujt në peshore.",
     tafsirSummary:
       "Pesha vjen nga sinqeriteti, jo nga vëllimi i madh - një dhikër i thjeshtë i thënë thjesht mund të peshojë më shumë se malet e aktivitetit të dukshëm.",
   },
   {
-    excerpt:
-      "Dhe nxitoni në faljen e Zotit tuaj dhe një Xhenet të gjerë sa qiejt dhe toka, i përgatitur për të devotshmit.",
     context:
       "Një urdhër i drejtpërdrejtë për të vrapuar drejt së mirës dhe drejt faljes para takimit me Allahun.",
     tafsirSummary:
       "Xheneti është i madh përtej imagjinatës, dhe rruga drejt tij është të nxitosh - të mos e shtysh pendimin dhe veprat e mira.",
   },
   {
-    excerpt: "Atë ditë, fytyrat do të shkëlqejnë dhe do të shikojnë kah Zoti i tyre.",
     context:
       "Shpërblimi më i madh i Xhenetit nuk është ndonjë kopsht apo lumë, por shikimi i Fytyrës së Allahut.",
     tafsirSummary:
       "Ehli Suneti pohojnë se besimtarët do ta shohin Zotin e tyre në botën tjetër, në një mënyrë që i përshtatet madhështisë së Tij dhe pa ngjashmëri me krijesën - kurorën e çdo lumturie.",
   },
   {
-    excerpt:
-      "E për ata që nuk besuan Zotin e tyre është dënimi i Xhehenemit dhe i mjerë është përfundimi.",
     context:
       "Ferri është një pasojë e vërtetë dhe e drejtë - një vendbanim i vërtetë, jo një simbol.",
     tafsirSummary:
       "Paralajmërimi është një mëshirë që synon të kthejë një person mbrapa derisa ka ende kohë; ajo është gjithmonë e çiftuar në Kuran me derën e hapur të pendimit.",
   },
   {
-    excerpt:
-      "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet. Vërtet, Ai është Falës, Mëshirues.",
     context:
       "Sado i madh të jetë mëkati, dera e pendimit të sinqertë mbetet e hapur deri në vdekje.",
     tafsirSummary:
       "Dëshpërimi nga mëshira e Allahut është vetë prej shejtanit; besimtari balancon frikën nga zjarri me shpresën e pathyeshme në faljen e Allahut.",
   },
   {
-    excerpt:
-      "Dhe se kijameti po vjen - nuk ka dyshim për këtë - dhe se Allahu do t'i ringjallë ata që janë në varre.",
     context: "Ringjallja është e sigurt, edhe pse koha e tij është e fshehur.",
     tafsirSummary:
       "Siguria për Orën, e shoqëruar me pasigurinë për kohën e saj, është pikërisht ajo që ankoron përgjegjësinë morale në të tashmen.",
   },
   {
-    excerpt:
-      "Kush është ai që mund të ndërmjetësojë tek Ai përveçse me lejen e Tij? Ai e di atë që është para tyre dhe çfarë do të ndodhë pas tyre, dhe ata nuk përfshijnë asgjë nga dituria e Tij, përveç asaj që Ai dëshiron.",
     context: "Ndërmjetësimi (shefa'ah) është real, por kurrë i pavarur nga leja e Allahut.",
     tafsirSummary:
       'Ky kusht i vetëm - "përveç me lejen e Tij" - është ajo që e ndan ndërmjetësimin e vërtetë nga çdo prishje e tij dhe ndalon thirrjen e të vdekurve në këtë jetë.',
   },
   {
-    excerpt:
-      "Dhe mos mendo se Allahu është i pavetëdijshëm për atë që bëjnë zullumqarët. Ai i vonon ato vetëm për një ditë kur sytë do të shikojnë të tmerruar.",
     context: "Ngushëllim për të shtypurin - vonesa e dukshme e drejtësisë nuk është mungesa e saj.",
     tafsirSummary:
       "Asnjë padrejtësi nuk harrohet nga Allahu; keqbërësit vetëm i jepet afat deri në një ditë kur asgjë nuk do të anashkalohet.",
   },
   {
-    excerpt:
-      "Dhe nuk ka asnjë prej jush përveç se ai do të vijë tek ajo. Kjo është mbi Zotin tuaj një dekret i pashmangshëm. Pastaj Ne do t'i shpëtojmë ata që e përkujtuan Allahun dhe do t'i lëmë zullumqarët në të të gjunjëzuar.",
     context:
       "Kalimi mbi Sirat është universal; ardhja e sigurt është dhënë nga mëshira dhe takvaja e Allahut.",
     tafsirSummary:
       "Të gjithë vijnë në vendkalim; ndryshimi është se kush shpëtohet dhe kush bie - i vendosur nga besimi dhe veprat e dërguara përpara.",
   },
   {
-    excerpt:
-      "Të pyesin për kijametin: kur vjen ai? Thuaj: Dija e saj është vetëm te Zoti im. Askush nuk do ta zbulojë kohën e vet përveç Tij. Nuk do t'ju vijë veçse papritur.",
     context: "Koha e saktë e di vetëm Allahun – përgatitja ka rëndësi, parashikimi është i kotë.",
     tafsirSummary:
       "Edhe Profetit ﷺ nuk iu dha data; çdo pretendim njerëzor për një vit ose një numërim mbrapsht bie në kundërshtim me këtë varg.",
   },
   {
-    excerpt:
-      "Ndërsa atij që i jepet libri i tij në dorën e djathtë, ai do të thotë: Ja, lexo librin tim! Isha i sigurt se do të takohesha me llogarinë time. Kështu ai do të jetë në një jetë të këndshme.",
     context: "Mënyra e marrjes së librit - djathtas ose majtas - është vetë vendimi i parë.",
     tafsirSummary:
       "Gëzimi i të suksesshmëve është gëzimi i sigurisë i shpërblyer: ata jetuan duke pritur llogarinë dhe ai vjen si lehtësim, jo ​​tronditje.",

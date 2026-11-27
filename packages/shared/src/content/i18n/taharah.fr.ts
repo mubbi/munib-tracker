@@ -15,22 +15,8 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "La purification en Islam a deux dimensions. L’extérieur est une propreté tangible : laver, enlever la saleté, rester propre. L’intérieur est l’humilité, la pleine conscience et la disponibilité du cœur que le lavage est censé éveiller. Le Prophète ﷺ a lié les deux lorsqu'il a appelé la purification « la moitié de la foi », associant la propreté physique à la purification de l'âme du péché.",
       "Ce module parcourt tout le sujet dans l'ordre : l'eau avec laquelle vous purifiez, le wudu (ablutions mineures), le ghusl (le bain rituel complet), le tayammum (purification à sec lorsque l'eau ne peut pas être utilisée), la najasah (élimination de la saleté physique), et les cas particuliers et concessions. Apprenez-le une fois et la prière devient quelque chose dans lequel vous pouvez entrer avec confiance plutôt qu'avec le doute.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, lorsque vous vous levez pour prier, lavez-vous le visage et les avant-bras jusqu'aux coudes, essuyez-vous la tête et lavez-vous les pieds jusqu'aux chevilles.",
-      },
-      {
-        excerpt:
-          "En effet, Allah aime ceux qui se repentent constamment et aime ceux qui se purifient.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La clé de la prière est la purification ; son début est le takbir et sa fin est le taslim. (Ali ; aussi Jami' at-Tirmidhi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Considérez la purification comme une préparation à la rencontre avec Allah, et non comme une routine précipitée.",
       "Étudiez un sujet taharah chaque jour jusqu'à ce que l'ensemble du flux semble naturel.",
@@ -45,15 +31,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Le Prophète ﷺ a élevé la purification au rang d'un trait déterminant du croyant, l'appelant « la moitié de la foi ». Une purification régulière discipline une personne, la maintient dans un état quasi constant de préparation au culte et – l’enseigne le hadith – lave littéralement les péchés mineurs avec l’eau.",
       "Parce qu'elle protège la prière, la taharah protège également le croyant du péché de prier invalidement par insouciance. Bien connaître ses règles est donc un acte de protection de l’une des plus grandes actions de l’Islam.",
     ],
-    hadith: [
-      {
-        excerpt: "La purification est la moitié de la foi. (Abou Malik al-Ash'ari)",
-      },
-      {
-        excerpt:
-          "Allah n'accepte pas une prière sans purification, ni aumône pour ce qui est volé. (Ibn 'Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Avant chaque prière, confirmez votre état de pureté avant de commencer.",
       "Gardez une liste de contrôle mentale simple : corps, vêtements, lieu et wudu.",
@@ -68,12 +46,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "L'impureté rituelle majeure (hadath akbar, également appelée janabah) résulte de l'intimité, des décharges sexuelles et de la fin des menstruations ou des saignements postnatals. Il est complété par le ghusl, le bain rituel complet du corps, remplacé par le tayammum lorsque l'eau n'est pas disponible ou est nocive.",
       "La saleté physique (najasah) – comme l’urine, les excréments ou le sang qui coule – est une autre affaire : elle doit être physiquement retirée du corps, des vêtements et du lieu de prière, quel que soit votre état rituel. Les quatre écoles sunnites s'accordent sur ces trois catégories, ne différant que sur certains détails sur ce qui annule la pureté ou sur les traces qui sont excusées.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et si vous êtes en état de janabah, purifiez-vous. Mais si vous êtes malade ou en voyage… et que vous ne trouvez pas d’eau, alors faites le tayammum avec de la terre propre.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Identifiez d’abord votre état (mineur, majeur ou sale), puis appliquez la bonne méthode.",
       "En cas de doute sur les détails, suivez systématiquement un enseignant qualifié d’une école reconnue.",
@@ -88,17 +61,8 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Les juristes classent l'eau en détail (pure et purifiante, pure mais non purifiante et impure), mais la règle pratique pour la vie quotidienne est simple : l'eau reste propre au wudu et au ghusl à moins qu'une najasah ne l'ait clairement modifiée. En cas de véritable doute quant à une alternative propre disponible, utilisez l’alternative.",
       "L'Islam enseigne la minutie sans extravagance. Le Prophète ﷺ s'est lavé complètement mais a utilisé remarquablement peu d'eau - environ un mudd (deux poignées en coupe) pour le wudu et un sa' (environ quatre) pour un ghusl complet. Le gaspillage de l’eau est déconseillé même lorsqu’elle est abondante, car la modération fait elle-même partie de l’étiquette du culte.",
     ],
-    quran: [
-      {
-        excerpt: "Et Nous faisons descendre du ciel de l'eau pure.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ avait l'habitude d'effectuer le wudu avec une boue d'eau et un ghusl avec un sa' jusqu'à cinq boues. (Anas ; aussi Sahih Muslim 325 – la sunna de la modération)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Utilisez suffisamment d’eau pour bien vous laver, mais fermez le robinet et évitez les excès.",
       "Si une source d’eau semble ou sent altérée par la saleté, recherchez la source clairement propre la plus proche.",
@@ -114,12 +78,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Il est requis avant chaque salah - à moins que vous restiez dans un état valide suite à une prière précédente - et, selon la majorité des savants, avant d'effectuer le tawaf autour de la Ka'bah et avant de toucher le texte physique (mushaf) du Qur'an.",
       "Le Wudu est un acte d’adoration à part entière, et pas seulement un préliminaire. Le Prophète ﷺ a averti que « Allah n'accepte la prière d'aucun d'entre vous qui interrompt son wudu jusqu'à ce qu'il accomplisse à nouveau son wudu » - donc la garder, c'est garder la prière elle-même.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah n'accepte pas la prière de l'un d'entre vous qui interrompt son wudu jusqu'à ce qu'il accomplisse son wudu. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -128,14 +87,9 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
     body: [
       "Certaines conditions (shurut) doivent être remplies pour que le wudu soit pris en compte. La personne doit être un musulman sain d’esprit, ayant l’intention de se purifier pour le culte (niyyah). Certaines écoles classent l’intention comme un pilier de l’acte et d’autres comme une condition, mais toutes conviennent qu’elle est requise pour la récompense et, pour la plupart, pour la validité.",
       "L'eau utilisée doit être pure et purifiante. Il doit donc atteindre la peau : tout ce qui forme une barrière imperméable sur un membre (peinture épaisse, vernis à ongles, cire, colle) doit d'abord être retiré, sinon le lavage en dessous n'est pas valide. La saleté ordinaire ou les taches de henné qui ne bloquent pas l'eau ne posent pas de problème.",
-      "Les écoles Shafi'i et Hanbali exigent également que les lavages soient effectués dans l'ordre coranique et sans une longue interruption (muwalat) permettant aux membres de sécher. Les positions Hanafi et Maliki sur la séquence et la continuité strictes sont plus indulgentes dans certaines situations. Suivez la méthode d'une école pour plus de cohérence.",
+      "Les écoles Shafi'i et Hanbali exigent également que les lavages soient effectués dans l'ordre coranique (tartib), et les écoles Maliki et Hanbali qu'ils s'enchaînent sans longue interruption laissant sécher les membres (muwalat). L'école Hanafi considère les deux comme sunna. Suivez la méthode d'une seule école par souci de cohérence.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lavez-vous le visage et les avant-bras jusqu'aux coudes, essuyez-vous la tête et lavez-vous les pieds jusqu'aux chevilles.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Retirez le vernis à ongles, les anneaux qui retiennent l’eau et tout ce qui scelle la peau avant le wudu.",
       "Effectuez le wudu calmement en un seul flux afin qu'aucun membre ne soit oublié ou laissé sécher.",
@@ -146,15 +100,10 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
     summary: "Les piliers coraniques (faraid) sans lesquels le wudu n'est pas valide.",
     body: [
       "Les actes obligatoires du wudu (son faraid) sont les parties nommées par Allah dans le verset : se laver tout le visage ; laver les deux bras jusqu'aux coudes inclus ; s'essuyer la tête; et laver les deux pieds jusqu'aux chevilles comprises. Si vous manquez l'un de ces éléments, le wudu sera incomplet.",
-      "À cela, les écoles ajoutent d’autres obligations issues de la Sunna et du raisonnement juridique. L'intention est obligatoire dans la plupart des écoles (les Hanafis la classent comme une sunna fortement soulignée pour éliminer les impuretés mineures). L'ordre (tartib) et la continuité (muwalat) sont obligatoires pour les Shafi'is et les Hanbalis. Les Malikis ajoutent le frottement des membres (dalk) comme obligation.",
+      "À cela, les écoles ajoutent d’autres obligations issues de la Sunna et du raisonnement juridique. L'intention est obligatoire dans la plupart des écoles (les Hanafis la classent comme une sunna fortement recommandée pour lever l'impureté mineure). L'ordre (tartib) est obligatoire pour les Shafi'is et les Hanbalis, et la continuité (muwalat) pour les Malikis et les Hanbalis. Les Malikis ajoutent le frottement des membres (dalk) comme obligation.",
       "Tout le reste – se rincer la bouche et le nez, se laver les mains d'abord, se laver trois fois – est recommandé (sunnah) plutôt qu'obligatoire. Connaître la différence signifie que vous pouvez savoir quand un wudu est simplement imparfait ou réellement invalide.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lavez-vous le visage et les avant-bras jusqu'aux coudes, essuyez-vous la tête et lavez-vous les pieds jusqu'aux chevilles.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "La liste exacte des faraid (par exemple si l'intention, l'ordre et le frottement sont obligatoires) diffère selon les quatre écoles. Apprenez et appliquez systématiquement une école fiable.",
   },
@@ -166,12 +115,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Les actes de la sunna établis comprennent : dire « Bismillah » au début ; se laver les mains trois fois avant de commencer ; se rincer la bouche (madmadah) et le nez (istinshaq) ; passer ses doigts mouillés dans une barbe épaisse et entre les doigts et les orteils (takhlil) ; en commençant chaque paire de membres par la droite ; et répéter chaque lavage jusqu'à trois fois.",
       "Deux sunnah méritent une mention particulière : utiliser au préalable le miswak (siwak) — que le Prophète ﷺ a presque rendu obligatoire — et réciter le témoignage de foi après avoir terminé, ce qui ouvre les huit portes du Paradis à celui qui le récite.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui accomplit bien ses ablutions et dit ensuite : « J'atteste qu'il n'y a de dieu qu'Allah… et que Mohammed est Son esclave et Son Messager », les huit portes du Paradis lui sont ouvertes. ('Umar ibn al-Khattab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Pratiquez la séquence complète de la sunna jusqu'à ce qu'elle devienne votre routine naturelle.",
       "Récitez la shahadah post-wudu à chaque fois.",
@@ -226,12 +170,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
         tip: "Une sunna courte mais largement récompensée.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "'Outhman a lavé chaque membre trois fois comme il avait vu le Prophète ﷺ le faire, puis a dit : quiconque accomplit son wudu de cette manière et prie deux rak'ahs avec une pleine concentration, ses péchés passés sont pardonnés. (Humran, de 'Uthman)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -242,12 +181,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Il est important de savoir que la « dua détaillée pour chaque membre » (une supplication spécifique lors du lavage des mains, du visage, des bras, etc.) qui circule dans certains livrets n'est pas établie avec une solide authenticité de la part du Prophète ﷺ. Les érudits conseillent de ne pas les attribuer à lui comme sunna, alors qu'il n'y a aucun mal au souvenir général d'Allah pendant les ablutions.",
       "Le cœur du problème est la présence : lavez-vous avec conscience que les péchés de chaque membre disparaissent et terminez par la shahadah qui reconnecte l'acte à son objectif : la foi en Allah seul.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui accomplit bien ses ablutions et récite ensuite le témoignage de foi, les huit portes du Paradis lui sont ouvertes pour qu'il puisse y entrer par celle qu'il souhaite. ('Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Mémorisez la shahadah post-wudu si vous ne l’avez pas déjà fait.",
       "Évitez de réciter des formules non vérifiées par membre comme s'il s'agissait d'une sunna établie.",
@@ -262,12 +196,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "D'autres questions sont soumises à des différences respectueuses entre les écoles : le contact direct avec les parties intimes et le contact peau à peau avec un non-mahram du sexe opposé sont invalides dans certaines écoles mais pas dans d'autres, sur la base de lectures différentes des mêmes textes.",
       "Un principe directeur vital vous protège de l’anxiété constante (waswas) : la certitude n’est pas supprimée par le doute. Si vous avez fait du wudu et que vous n'êtes simplement pas sûr de l'avoir rompu, vous êtes toujours considéré comme ayant fait du wudu jusqu'à ce que vous soyez certain qu'une annulation s'est produite. Le Prophète ﷺ a dit à un homme troublé par ce sentiment de ne pas quitter sa prière « jusqu'à ce qu'il entende un son ou trouve une odeur ».",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Il ne doit pas quitter (sa prière) jusqu'à ce qu'il entende un son ou trouve une odeur. (Abbad ibn Tamim, de son oncle)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Le fait de toucher le sexe opposé ou les parties intimes d'une personne interrompt le wudu diffère selon les écoles. Suivez un enseignant local qualifié et la méthode d'une école.",
   },
@@ -280,12 +209,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Le Prophète ﷺ a vu un jour des gens dont les talons étaient laissés secs car l'eau ne les avait pas atteint, et a averti sèchement : « Malheur aux talons à cause du Feu ! Les talons, les chevilles et les coins du visage sont les endroits les plus souvent négligés.",
       "L’erreur inverse est l’excès : se laver bien plus de trois fois, ou utiliser l’eau de manière inutile, ce qui contredit la sunna de la modération. D’autres tombent dans le waswas (doute obsessionnel), répétant sans cesse leurs ablutions – c’est aussi une erreur, car la certitude n’est pas renversée par la suspicion.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Malheur aux talons du Feu ! — a dit quand il a vu des talons laissés secs pendant le wudu. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ralentissez et confirmez consciemment la couverture complète de chaque membre lavé, en particulier les talons et les coudes.",
       "Utilisez de l'eau modérée; ne laissez pas le doute obsessionnel vous pousser à des répétitions inutiles.",
@@ -300,12 +224,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "C'est aussi un honneur distinctif dans la prochaine vie. Le Jour de la Résurrection, le Prophète ﷺ reconnaîtra ses disciples à l'éclat de leurs visages, de leurs mains et de leurs pieds provenant des traces du wudu – une lumière unique à cette oumma, appelée al-ghurr al-muhajjalun.",
       "En raison de ces vertus, rester en état de wudu est une habitude recommandée : le renouveler à chaque prière, et dormir pendant le wudu, font partie des routines protectrices du croyant.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ma Oumma sera appelée le Jour de la Résurrection avec des visages, des mains et des pieds brillants grâce aux traces du wudu. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Renouvelez le wudu pour chaque fenêtre de prière lorsque vous le pouvez.",
       "Faites du sommeil pendant le wudu une sunna nocturne.",
@@ -320,11 +239,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Son essence est que l’eau atteint toutes les parties extérieures du corps — aucune zone sèche ne peut subsister, y compris les racines des cheveux, les plis cutanés, derrière les oreilles, le nombril et entre les orteils. Le rinçage de la bouche et du nez est inclus dans le ghusl par de nombreux savants.",
       "Un seul ghusl effectué avec l'intention de lever la janabah élimine également les impuretés mineures, de sorte qu'une personne qui a terminé le ghusl peut prier sans wudu séparé (bien qu'effectuer le wudu dans le ghusl soit la sunna).",
     ],
-    quran: [
-      {
-        excerpt: "Et si vous êtes en état de janabah, purifiez-vous.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -335,16 +250,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "D'autres ghusls sont recommandés (mustahabb) plutôt qu'obligatoires : le ghusl du vendredi avant Jumu'ah, qui est si fortement recommandé que le Prophète ﷺ l'a appelé « un devoir pour toute personne ayant atteint la puberté » ; le ghusl pour les deux Eids ; et le ghusl de l'ihram avant le Hajj ou la Umrah.",
       "Un nouveau musulman est invité à accomplir le ghusl dès son entrée dans l’Islam – ce qui est considéré comme obligatoire par certains érudits et fortement recommandé par d’autres.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsqu'un homme s'assoit entre les quatre membres de sa femme et a des relations sexuelles avec elle, le ghusl devient obligatoire. (Abou Hourayra ; également Sahih Muslim 348)",
-      },
-      {
-        excerpt:
-          "Le Ghusl du vendredi est un devoir pour toute personne ayant atteint l'âge de la puberté. (Abu Sa'id al-Khudri ; également Sahih Muslim 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Que les ghusls du vendredi et des convertis soient obligatoires ou fortement recommandés diffère selon l'école et les circonstances.",
     appLinks: [{}],
@@ -387,12 +293,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
         tip: "Les femmes n’ont pas besoin de défaire leurs tresses, à condition que l’eau atteigne le cuir chevelu.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ, lorsqu'il se baignait depuis Janabah, se lavait les mains, effectuait ses ablutions comme pour la prière, passait ses doigts dans ses cheveux, puis versait de l'eau sur sa tête trois fois et sur le reste de son corps. ('Aïcha)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Erreurs courantes de Ghusl",
@@ -403,12 +304,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "La deuxième erreur courante consiste à laisser des endroits secs. L'obligation est que l'eau touche tout le corps extérieur, donc négliger les racines du cuir chevelu, les oreilles, le nombril, le bas du dos ou entre les orteils laisse le ghusl incomplet. Frottez l'eau sur ces zones pour être sûr.",
       "Pour les cheveux : une femme aux cheveux tressés n’est pas tenue de défaire les tresses, tant que l’eau atteint les racines du cuir chevelu – le Prophète ﷺ a dit à Umm Salamah qu’il suffit d’en verser trois poignées sur la tête. Les cheveux d'un homme, étant généralement lâches, doivent être travaillés pour que l'eau atteigne les racines.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Il vous suffit de verser trois poignées d’eau sur votre tête, puis de verser de l’eau sur vous-même et vous êtes purifié – vous n’avez pas besoin de défaire vos tresses. (Oum Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Dites l'intention avant le premier versement, afin que le lavage compte comme un ghusl.",
       "Frottez de l'eau sur les zones facilement manquées ; en cas de doute, relavez une section plutôt que de finir dans le doute.",
@@ -423,18 +319,8 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Le Tayammum est un cadeau pour cette oumma en particulier : le Prophète ﷺ a dit : « La terre a été faite pour moi un lieu de prière et un moyen de purification », l'inscrivant parmi les privilèges particuliers qui lui ont été accordés et non aux prophètes précédents. Il incarne un principe central de la religion : l’obligation demeure, mais les difficultés sont levées.",
       "Il s’agit d’une mesure temporaire : une fois que l’eau devient disponible et utilisable, l’épuration ordinaire à l’eau reprend. Une personne peut avoir besoin de renouveler le tayammum pour chaque prière selon certaines écoles.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…et vous ne trouvez pas d’eau, alors faites le tayammum avec de la terre propre et essuyez-vous le visage et les mains avec.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La terre a été faite pour moi un lieu de prière et un moyen de purification. (Jabir — parmi les cinq choses données uniquement au Prophète ﷺ)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Quand le Tayammum est autorisé",
@@ -445,12 +331,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Troisièmement, lorsque le peu d'eau disponible est nécessaire pour une nécessité plus urgente – comme boire, pour préserver la vie, qu'elle soit la sienne, celle d'autrui ou celle d'un animal. Dans chaque cas, la charia place la préservation de la vie et de la santé au-dessus de la méthode privilégiée de purification.",
       "Les juristes diffèrent sur les seuils les plus fins – jusqu’où il faut chercher de l’eau, jusqu’où la peur du mal est suffisante – mais ils sont unanimes sur la miséricorde sous-jacente : le culte n’est jamais abandonné, mais simplement rendu plus facile.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rapporté dans les chapitres du tayammum : la concession de purifier avec de la terre propre en l'absence d'eau utilisable.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Recherchez raisonnablement de l’eau avant de recourir au tayammum.",
       "Si un médecin conseille de garder une plaie ou une maladie au sec, agissez en conséquence et effectuez le tayammum.",
@@ -486,12 +367,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
         tip: "Suivez systématiquement la méthode d'une école (poignets ou avant-bras).",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ frappa la terre avec ses paumes, puis essuya son visage et ses mains – enseignant à 'Ammar que cela suffisait. ('Ammar ibn Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Qu’est-ce qui brise le Tayammum ?",
@@ -516,12 +392,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "L'élimination se fait à l'eau là où la saleté est tangible, en lavant jusqu'à disparition de la substance et de sa trace. L'Islam traite également les sources de najasah au sérieux : le Prophète ﷺ a averti qu'une grande partie du châtiment de la tombe vient de la négligence avec l'urine - d'être éclaboussée par celle-ci et de ne pas la nettoyer correctement.",
       "Les écoles diffèrent sur la classification de certaines substances (par exemple, si de petites quantités de certains liquides sont excusées) et sur les traces qui sont tolérées. Le principe applicable dans la vie quotidienne : nettoyer soigneusement et ne pas créer de doute sur la pureté là où il n'y a aucune trace de saleté.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ est passé devant deux tombes et a déclaré que leurs occupants étaient punis – l'une pour avoir répandu des calomnies et l'autre pour ne pas s'être protégé de son urine. (Ibn 'Abbas ; également Sahih Muslim 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Nettoyer les vêtements des impuretés",
@@ -531,12 +402,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Si, après un effort sincère et minutieux, il reste une légère tache de couleur ou une légère odeur qui ne disparaît pas, la majorité des savants excusent ce qui est véritablement difficile à enlever : l'obligation est d'enlever la substance, et non de garantir une teinture impeccable.",
       "Certains cas ont leurs propres détails bien connus, comme l'urine d'un petit garçon allaité (aspergée plutôt que entièrement lavée, selon une concession rapportée) - alors renseignez-vous sur les règles pratiques de votre école pour les situations auxquelles vous êtes réellement confrontés.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Concernant le sang menstruel sur un vêtement : grattez-le, puis frottez-le avec de l'eau, puis lavez-le et priez dedans. (Asma bint Abi Bakr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Gardez au moins un vêtement propre réservé à la prière.",
       "Si de la saleté touche vos vêtements loin de chez vous, rincez ce que vous pouvez et changez-les lorsque cela est possible.",
@@ -550,12 +416,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Au-delà de l'élimination des saletés, l'Islam encourage une hygiène de base naturelle (fitrah) qui maintient le corps propre et prêt pour le culte : couper les ongles, enlever les poils des aisselles et du pubis, etc., de manière régulière.",
       "Ces pratiques ne sont pas simplement des subtilités culturelles : elles font partie de la dignité et de la propreté avec lesquelles un croyant se présente devant Allah dans la prière.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ avait l'habitude de se nettoyer avec de l'eau après s'être soulagé. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Terminez toujours l’istinja avant le wudu après être allé aux toilettes.",
       "Emportez des mouchoirs et, si possible, de l'eau lorsque vous voyagez.",
@@ -570,12 +431,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "La règle dominante est la certitude. La terre a généralement été conçue comme un lieu de prière, donc une surface est présumée propre à moins que vous n'ayez de réelles preuves de saleté. Si vous savez qu'une impureté est présente, retirez-la ou déplacez-vous vers un endroit propre ; si vous imaginez simplement qu'il pourrait être là, ignorez le murmure et continuez.",
       "Cet équilibre protège le culte de deux extrêmes : prier négligemment sur un sol manifestement sale et être paralysé par des soupçons infondés sur chaque surface.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsqu'un Bédouin urinait dans la mosquée, le Prophète ﷺ ordonna de verser un seau d'eau dessus. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Regardez par-dessus votre tapis et le sol avant de salah.",
       "Sans véritable preuve de saleté, rejetez les craintes sans fondement et priez.",
@@ -590,12 +446,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Le jeûne est différent : les jeûnes manqués pendant le Ramadan en raison des menstruations sont rattrapés plus tard, tandis que les prières sont simplement levées. Lorsque le saignement cesse et qu’un signe de pureté apparaît, la femme accomplit le ghusl et reprend la prière et le jeûne.",
       "Les durées minimales et maximales exactes du hayd et du nifas, ainsi que la façon de lire les signes limites de pureté, sont des questions sur lesquelles les écoles diffèrent en détail. Les femmes bénéficient de l’apprentissage des règles pratiques d’une école fiable avec un enseignant qualifié.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsqu'on lui a demandé pourquoi une femme en période de règles rattrape le jeûne mais pas les prières, Aïcha a répondu : on nous a ordonné de rattraper les jeûnes et non de rattraper les prières. (Mu'adhah, de 'Aishah ; également Sahih Muslim 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -625,16 +476,7 @@ export const TAHARAH_TOPICS_FR: DeepPartial<TaharahTopic>[] = [
       "Pour les décisions appliquées, les manuels classiques de fiqh des quatre écoles sunnites donnent des positions détaillées – et leurs différences sont une partie légitime de la tradition, et non un défaut. Utilisez ce module pour un aperçu structuré, puis approfondissez votre étude avec un professeur qualifié et les textes primaires.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt:
-          "Les chapitres complets sur le wudu, le ghusl, le tayammum et le hayd qui ouvrent la collection.",
-      },
-      {
-        excerpt:
-          "Le Livre de Purification - rapports authentiques sur les décisions, l'étiquette et les principes de la taharah.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Suivez un programme fiable pour éviter toute confusion due à des décisions dispersées.",
       "Revisitez ces sujets périodiquement jusqu’à ce que la confiance pratique soit stable.",

@@ -16,9 +16,10 @@
       "infoPlist": {
         "UIBackgroundModes": ["remote-notification", "audio"],
         "NSSupportsLiveActivities": true,
+        "LSApplicationQueriesSchemes": ["whatsapp"],
         "NSFaceIDUsageDescription": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
-        "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar.",
-        "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
+        "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar or photograph your masjid timetable. Photos stay on your device.",
+        "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar or import your masjid timetable. Photos stay on your device.",
         "NSUserNotificationsUsageDescription": "Munib Tracker sends prayer reminders, dhikr alerts, and official announcements when you enable notifications."
       }
     },
@@ -30,7 +31,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false,
+      "predictiveBackGestureEnabled": true,
       "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"],
       "intentFilters": [
         {
@@ -41,6 +42,16 @@
               "scheme": "https",
               "host": "my.munibtracker.app",
               "pathPrefix": "/oauth/apple"
+            },
+            {
+              "scheme": "https",
+              "host": "my.munibtracker.app",
+              "pathPrefix": "/circle/join"
+            },
+            {
+              "scheme": "https",
+              "host": "my.munibtracker.app",
+              "pathPrefix": "/kids/link"
             }
           ],
           "category": ["BROWSABLE", "DEFAULT"]
@@ -54,9 +65,9 @@
       "favicon": "./assets/images/favicon.png",
       "name": "Munib Tracker",
       "shortName": "Munib Tracker",
-      "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
-      "themeColor": "#152921",
-      "backgroundColor": "#152921"
+      "description": "Track Your Journey Back to Allah. A free, offline-first companion for Salah, Zikr, Qaza, Qur'an, hadith, and daily worship.",
+      "themeColor": "#F5F0E6",
+      "backgroundColor": "#F5F0E6"
     },
     "plugins": [
       [
@@ -87,8 +98,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
-          "cameraPermission": "Munib Tracker uses the camera so you can attach photos to custom adhkar."
+          "photosPermission": "Munib Tracker uses your photo library so you can attach images to custom adhkar or import your masjid timetable. Photos stay on your device.",
+          "cameraPermission": "Munib Tracker uses the camera so you can attach photos to custom adhkar or photograph your masjid timetable. Photos stay on your device."
         }
       ],
       "expo-document-picker",
@@ -97,6 +108,13 @@
         "expo-local-authentication",
         {
           "faceIDPermission": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled."
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
+          "configureAndroidBackup": true
         }
       ],
       [
@@ -110,14 +128,20 @@
         {
           "icon": "./assets/images/icon.png",
           "color": "#059669",
-          "sounds": ["./assets/audio/adhan/adhan.mp3"],
+          "sounds": [
+            "./assets/audio/adhan/notification/adhan_default.wav",
+            "./assets/audio/adhan/notification/adhan_mecca_fajr.wav",
+            "./assets/audio/adhan/notification/adhan_medina.wav",
+            "./assets/audio/adhan/notification/adhan_mishary.wav",
+            "./assets/audio/adhan/notification/adhan_makkah_muezzin.wav"
+          ],
           "mode": "production"
         }
       ],
       [
         "expo-audio",
         {
-          "microphonePermission": "Munib Tracker uses the microphone to follow your Qur'an recitation and to dictate custom adhkar. Audio stays on your device.",
+          "microphonePermission": "Munib Tracker uses the microphone to follow your Qur'an recitation, to count your tasbeeh hands-free, and to dictate custom adhkar. Audio stays on your device.",
           "recordAudioAndroid": true,
           "enableBackgroundPlayback": true
         }
@@ -125,12 +149,13 @@
       [
         "expo-speech-recognition",
         {
-          "microphonePermission": "Munib Tracker uses the microphone to follow your Qur'an recitation and to dictate custom adhkar. Audio stays on your device.",
+          "microphonePermission": "Munib Tracker uses the microphone to follow your Qur'an recitation, to count your tasbeeh hands-free, and to dictate custom adhkar. Audio stays on your device.",
           "speechRecognitionPermission": "Munib Tracker uses speech recognition so you can dictate custom adhkar."
         }
       ],
       "./plugins/with-android-build-hygiene.js",
       "./plugins/with-android-tab-drawables.js",
+      "./plugins/with-android-resource-keep.js",
       "./plugins/withAndroidReleaseSigning.cjs",
       [
         "expo-build-properties",

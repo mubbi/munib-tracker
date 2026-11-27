@@ -13,6 +13,8 @@ const mockModule = {
     defaultContext: "ctx",
     calibrationJson: '{"t":0.5}' as string | null,
   })),
+  prepareTake: jest.fn(async (_heads: string[]) => "accelerator"),
+  diagnose: jest.fn(async () => "TajweedDiagnosis(sdkVersion: 4.0.3)" as string | null),
   startTake: jest.fn(async (_heads: string[], _ms: number) => undefined),
   finishTake: jest.fn(async () => ({
     heads: [{ name: "madd", frameMs: 20, frames: 1, classes: 2, values: [0.1, 0.9] }],
@@ -73,7 +75,58 @@ describe("pronunciation client (native)", () => {
     await client.configure();
     await client.configure();
     expect(mockModule.configure).toHaveBeenCalledTimes(1);
-    expect(mockModule.configure).toHaveBeenCalledWith("ios-key");
+    expect(mockModule.configure).toHaveBeenCalledWith("ios-key", null);
+  });
+
+  it("passes the app's sharing-sheet colours to the SDK when configuring", async () => {
+    const client = createPronunciationClient();
+    client.setSharingTheme({
+      accent: "#0F766E",
+      background: "#FFFFFF",
+      text: "#111111",
+      secondaryText: "#666666",
+      dark: false,
+    });
+    await client.configure();
+    expect(mockModule.configure).toHaveBeenCalledWith("ios-key", {
+      accent: "#0F766E",
+      background: "#FFFFFF",
+      text: "#111111",
+      secondaryText: "#666666",
+      dark: "false",
+    });
+  });
+
+  it("prepareTake warms the SDK for the drill's heads and never throws", async () => {
+    const client = createPronunciationClient();
+    await client.prepareTake(["attr_qalqalah", "log_probs"]);
+    expect(mockModule.prepareTake).toHaveBeenCalledWith(["attr_qalqalah", "log_probs"]);
+    mockModule.prepareTake.mockRejectedValueOnce(
+      Object.assign(new Error("busy"), { code: "session_open" }),
+    );
+    await expect(client.prepareTake(["log_probs"])).resolves.toBeUndefined();
+  });
+
+  it("diagnose is null before configure, then the SDK's own report", async () => {
+    const client = createPronunciationClient();
+    expect(await client.diagnose()).toBeNull();
+    await client.configure();
+    expect(await client.diagnose()).toBe("TajweedDiagnosis(sdkVersion: 4.0.3)");
+    mockModule.diagnose.mockRejectedValueOnce(new Error("x"));
+    expect(await client.diagnose()).toBeNull();
+  });
+
+  it("keeps SDK 4's errorCause.needs from the bridge's message tokens", async () => {
+    const client = createPronunciationClient();
+    mockModule.prefetch.mockRejectedValueOnce(
+      Object.assign(new Error("[needs=lease stage=lease reason=network] no answer"), {
+        code: "needs_connection",
+      }),
+    );
+    await expect(client.prefetch(jest.fn())).rejects.toMatchObject({
+      code: "needs_connection",
+      needs: "lease",
+    });
   });
 
   it.each([

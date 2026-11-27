@@ -1,11 +1,13 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   trackCtaClick,
   trackFileDownload,
   trackOutboundClick,
   trackSelectContent,
+  trackWebDemoLaunch,
 } from "@/lib/analytics";
+import { renderWithIntl } from "@/test-support/intl";
 import { TrackedLink } from "./tracked-link";
 
 vi.mock("@/lib/analytics");
@@ -16,7 +18,7 @@ type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K>
 type LinkProps = DistributiveOmit<Props, "children">;
 
 function setup(props: LinkProps) {
-  render(<TrackedLink {...({ ...props, children: "Go" } as Props)} />);
+  renderWithIntl(<TrackedLink {...({ ...props, children: "Go" } as Props)} />);
   return screen.getByRole("link", { name: "Go" });
 }
 
@@ -61,6 +63,16 @@ describe("TrackedLink", () => {
           placement: "press",
         }),
     ],
+    [
+      "web_demo",
+      {
+        track: "web_demo",
+        href: "https://my.munibtracker.app/zakat",
+        placement: "feature_hero",
+        feature: "zakat-calculator",
+      },
+      () => expect(trackWebDemoLaunch).toHaveBeenCalledWith("feature_hero", "zakat-calculator"),
+    ],
   ])("fires the %s event on click", (_name, props, assertTracked) => {
     fireEvent.click(setup(props));
     assertTracked();
@@ -68,7 +80,7 @@ describe("TrackedLink", () => {
 
   it("renders internal links without a target", () => {
     const link = setup({ track: "cta", href: "/features", cta: "get_app", placement: "hero" });
-    expect(link).toHaveAttribute("href", "/features");
+    expect(link).toHaveAttribute("href", "/en/features");
     expect(link).not.toHaveAttribute("target");
   });
 
@@ -106,5 +118,32 @@ describe("TrackedLink", () => {
     expect(link).toHaveAttribute("href", "https://my.munibtracker.app");
     expect(link).not.toHaveAttribute("target");
     expect(link).not.toHaveAttribute("download");
+  });
+
+  it("opens the web app in a new tab with safe rel", () => {
+    const link = setup({
+      track: "web_demo",
+      href: "https://my.munibtracker.app",
+      placement: "hero",
+    });
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("passes an accessible name through to the anchor", () => {
+    renderWithIntl(
+      <TrackedLink
+        track="outbound"
+        href="https://example.com"
+        linkText="Ex"
+        aria-label="Author site"
+      >
+        <svg />
+      </TrackedLink>,
+    );
+    expect(screen.getByRole("link", { name: "Author site" })).toHaveAttribute(
+      "href",
+      "https://example.com",
+    );
   });
 });

@@ -5,9 +5,9 @@ import {
   ScriptureReadingFilters,
   ScriptureReadingToolbar,
 } from "@/components/content/scripture-reading-filters";
-import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { setReadingDisplayState } from "@/test-support/settings";
 
 const mockFullscreen = { supported: false, active: false, toggle: jest.fn(async () => undefined) };
 
@@ -30,7 +30,7 @@ function checked(label: string): boolean | undefined {
 
 async function resetVisibility() {
   await act(async () => {
-    readingTextVisibilityStore.setState({ showTransliteration: true, showTranslation: true });
+    setReadingDisplayState({ showTransliteration: true, showTranslation: true });
   });
 }
 

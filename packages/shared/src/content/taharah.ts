@@ -9,7 +9,7 @@ export { TAHARAH_CHECKLIST } from "./taharah-checklist";
  * (sunnah.com). Where the four Sunni schools differ, the difference is noted
  * respectfully rather than presented as a single ruling. Bump version on change.
  */
-export const TAHARAH_CONTENT_VERSION = 3;
+export const TAHARAH_CONTENT_VERSION = 4;
 
 export const TAHARAH_SECTION_ORDER = [
   "intro",
@@ -185,6 +185,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
   },
   {
     id: "wudu-conditions",
+    differenceIds: ["wudu.intention", "wudu.tartib", "wudu.muwalat"],
     section: "wudu",
     title: "Conditions for Valid Wudu",
     summary: "Intention, pure water, and unobstructed skin — the prerequisites of a sound wudu.",
@@ -192,7 +193,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
     body: [
       "Certain conditions (shurut) must be in place for wudu to count. The person must be a Muslim of sound mind, intending purification for worship (niyyah). Some schools classify intention as a pillar of the act and others as a condition, but all agree it is required for the reward and, for most, for validity.",
       "The water used must be pure and purifying. Crucially, it must actually reach the skin — so anything forming a waterproof barrier over a limb (thick paint, nail polish, wax, glue) must be removed first, or the wash beneath it is not valid. Ordinary dirt or henna stain that does not block water is not a problem.",
-      "The Shafi'i and Hanbali schools also require that the washes be done in the Qur'anic order and without a long interruption (muwalat) that lets limbs dry. The Hanafi and Maliki positions on strict sequence and continuity are more lenient in some situations. Follow one school's method for consistency.",
+      "The Shafi'i and Hanbali schools also require that the washes be done in the Qur'anic order (tartib), and the Maliki and Hanbali schools that they follow one another without a long interruption (muwalat) that lets limbs dry. The Hanafi school counts both as sunnah. Follow one school's method for consistency.",
     ],
     quran: [
       {
@@ -210,13 +211,14 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
   },
   {
     id: "wudu-obligatory",
+    differenceIds: ["wudu.intention", "wudu.tartib", "wudu.muwalat", "wudu.dalk"],
     section: "wudu",
     title: "Obligatory Acts of Wudu",
     summary: "The Qur'anic pillars (faraid) without which wudu is invalid.",
     importance: "obligatory",
     body: [
       "The obligatory acts of wudu (its faraid) are the parts Allah named in the verse: washing the whole face; washing both arms up to and including the elbows; wiping the head; and washing both feet up to and including the ankles. Miss any of these and the wudu is incomplete.",
-      "To these, the schools add further obligations from the Sunnah and juristic reasoning. Intention is obligatory in most schools (the Hanafis classify it as a strongly emphasised sunnah for lifting minor impurity). Order (tartib) and continuity (muwalat) are obligatory for the Shafi'is and Hanbalis. The Malikis add rubbing the limbs (dalk) as an obligation.",
+      "To these, the schools add further obligations from the Sunnah and juristic reasoning. Intention is obligatory in most schools (the Hanafis classify it as a strongly emphasised sunnah for lifting minor impurity). Order (tartib) is obligatory for the Shafi'is and Hanbalis, and continuity (muwalat) for the Malikis and Hanbalis. The Malikis add rubbing the limbs (dalk) as an obligation.",
       "Everything beyond these — rinsing the mouth and nose, washing the hands first, washing three times — is recommended (sunnah) rather than obligatory. Knowing the difference means you can tell when a wudu is merely imperfect versus actually invalid.",
     ],
     quran: [
@@ -356,6 +358,7 @@ export const TAHARAH_TOPICS: TaharahTopic[] = [
   },
   {
     id: "wudu-breakers",
+    differenceIds: ["wudu.touchOppositeSex", "wudu.touchPrivateParts"],
     section: "wudu",
     title: "What Breaks Wudu?",
     summary: "The nullifiers of wudu — and the rule of certainty when in doubt.",

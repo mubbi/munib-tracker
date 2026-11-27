@@ -1,0 +1,26 @@
+{
+  "footer": "Salah · Zikr · Qaza · Qur'an · Learn",
+  "home": {
+    "title": "Salah, Qaza, Zikr and the Qur'an in one calm app"
+  },
+  "feature": {
+    "eyebrow": "Feature",
+    "alt": "{appName} feature"
+  },
+  "compare": {
+    "eyebrow": "Comparison",
+    "eyebrowRoundup": "App roundup",
+    "fallbackTitle": "Compare Islamic apps",
+    "alt": "{appName} app comparison"
+  },
+  "audience": {
+    "eyebrow": "Who it's for",
+    "alt": "{appName}"
+  },
+  "guide": {
+    "eyebrow": "Guide · {category}",
+    "fallbackCategory": "Resources",
+    "fallbackTitle": "{appName} guides",
+    "alt": "{appName} guide"
+  }
+}

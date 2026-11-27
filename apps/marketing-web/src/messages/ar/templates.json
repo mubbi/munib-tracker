@@ -1,0 +1,134 @@
+{
+  "crumbs": {
+    "home": "الرئيسية",
+    "features": "الميزات",
+    "compare": "مقارنة",
+    "audiences": "لمن هذا التطبيق",
+    "resources": "المصادر",
+    "guides": "الأدلة"
+  },
+  "breadcrumbLabel": "مسار التنقل",
+  "faqEyebrow": "الأسئلة الشائعة",
+  "learnMore": "اعرف المزيد",
+  "loading": "جارٍ التحميل…",
+  "dates": {
+    "updated": "حُدِّث في <time>{date}</time>",
+    "lastVerified": "آخر تحقّق في <time>{date}</time>"
+  },
+  "cardMeta": {
+    "feature": "ميزة",
+    "guide": "دليل",
+    "comparison": "مقارنة",
+    "compare": "مقارنة"
+  },
+  "featureGroups": {
+    "track": "تابع عبادتك",
+    "quran": "القرآن والحديث",
+    "everyday": "أدوات يومية",
+    "life": "العائلة والحياة"
+  },
+  "notes": {
+    "info": "نصيحة",
+    "scholar": "اسأل عالمًا",
+    "app": "في {appName}"
+  },
+  "evidence": {
+    "quran": "القرآن",
+    "hadith": "الحديث"
+  },
+  "downloadCta": {
+    "noAds": "بلا إعلانات",
+    "noAccount": "بلا حساب للاستخدام الشخصي",
+    "offline": "يعمل دون اتصال",
+    "noSubscriptions": "بلا اشتراكات"
+  },
+  "feature": {
+    "howItWorksEyebrow": "خطوة بخطوة",
+    "benefitsEyebrow": "الفوائد",
+    "benefitsTitle": "ما الذي ستجنيه منها",
+    "screenshotsEyebrow": "في التطبيق",
+    "screenshotsTitle": "شاهدها في {appName}",
+    "examplesEyebrow": "عمليًا",
+    "faqTitle": "{feature}: أسئلة شائعة",
+    "relatedEyebrow": "واصل الاستكشاف",
+    "relatedTitle": "ميزات وأدلة ذات صلة",
+    "summaryFooter": "مجاني · بلا إعلانات · في التطبيق"
+  },
+  "compare": {
+    "verdictEyebrow": "إجابة سريعة",
+    "verdictTitle": "أيّهما تختار؟",
+    "tableEyebrow": "جنبًا إلى جنب",
+    "tableTitle": "مقارنة الميزات",
+    "tableIntro": "رُوجعت مقابل المواقع الرسمية وصفحات التطبيقات في App Store وGoogle Play الأمريكيين. «غير مُتحقَّق منه» يعني أننا لم نستطع تأكيد الميزة من مصدر رسمي، لا أنها غير موجودة.",
+    "tableIntroWithPlanned": "رُوجعت مقابل المواقع الرسمية وصفحات التطبيقات في App Store وGoogle Play الأمريكيين. «غير مُتحقَّق منه» يعني أننا لم نستطع تأكيد الميزة من مصدر رسمي، لا أنها غير موجودة. وتشير «قريبًا» إلى ميزات {appName} المدرجة في خطتنا والتي لم تصل إلى التطبيق بعد.",
+    "inventoryEyebrow": "قائمة الميزات الكاملة",
+    "inventoryTitle": "كل ما في {appName}",
+    "inventoryIntro": "كل ميزات {appName} البالغة {shipped}، مجمّعة حسب المجال. كلها مجانية وبلا إعلانات.",
+    "inventoryIntroWithPlanned": "{shipped} ميزة في التطبيق اليوم، إضافة إلى {planned} في خطتنا موسومة بـ«قريبًا». ميزات الخطة ليست في التطبيق بعد، لذا لا تُحتسب أبدًا متاحةً في الجدول أعلاه.",
+    "strengthsEyebrow": "نقاط القوة",
+    "strengthsTitle": "ما يُحسنه كل تطبيق",
+    "bestFor": "الأنسب لـ:",
+    "sourcesEyebrow": "المصادر",
+    "sourcesTitle": "من أين جاءت هذه المعلومات",
+    "sourcesNote": "الأسعار هي أسعار App Store الأمريكي وقد تختلف في بلدك. الميزات والأسعار تتغيّر؛ يُرجى مراجعة الصفحات الرسمية. آخر تحقّق في <time>{date}</time>.",
+    "faqTitle": "أسئلة يطرحها الناس",
+    "relatedEyebrow": "واصل الاستكشاف",
+    "relatedTitle": "صفحات ذات صلة",
+    "allComparisons": "كل المقارنات",
+    "allComparisonsDescription": "كل مقارنات التطبيقات في مكان واحد.",
+    "ctaTitle": "جرّب {appName} وقرّر بنفسك",
+    "ctaText": "إنه مجاني بلا إعلانات ولا حساب، فلن تخسر شيئًا إن جرّبته إلى جانب التطبيق الذي تستخدمه الآن.",
+    "glanceEyebrow": "في التطبيق",
+    "glanceTitle": "{appName} بنظرة سريعة",
+    "glance": {
+      "home": "الرئيسية: مواقيت صلاة اليوم وهدف اليوم.",
+      "tracker": "متتبّع الصلاة على Android.",
+      "quran": "القرآن: مواصلة القراءة والبحث والختمة.",
+      "zikr": "الأذكار لكل وقت من اليوم، على Android."
+    }
+  },
+  "comparisonTable": {
+    "status": {
+      "yes": "متاحة",
+      "no": "غير متاحة",
+      "partial": "متاحة جزئيًا",
+      "unverified": "غير مُتحقَّق منه",
+      "planned": "قريبًا"
+    },
+    "caption": "{title}: مقارنة الميزات، آخر تحقّق في {date}",
+    "featureColumn": "الميزة",
+    "empty": "—"
+  },
+  "inventory": {
+    "comingSoon": "قريبًا"
+  },
+  "audience": {
+    "helpsEyebrow": "كيف يساعدك {appName}",
+    "helpsTitle": "أدوات تناسب حيث أنت",
+    "learningLibrary": "افتح مكتبة التعلّم",
+    "planEyebrow": "البداية",
+    "goodToKnow": "من المفيد أن تعرف",
+    "faqTitle": "أسئلة شائعة",
+    "guidesEyebrow": "الأدلة",
+    "guidesTitle": "قراءات مفيدة"
+  },
+  "article": {
+    "readingTime": "{minutes, plural, zero {قراءة في أقل من دقيقة} one {قراءة في دقيقة واحدة} two {قراءة في دقيقتين} few {قراءة في # دقائق} many {قراءة في # دقيقة} other {قراءة في # دقيقة}}",
+    "byline": "بقلم <link>{appName}</link>",
+    "takeaways": "أبرز النقاط",
+    "tieInTitle": "جرّبها: {feature}",
+    "tieInText": "{text} [تعرّف على {feature}]({href}).",
+    "faqTitle": "الأسئلة الشائعة",
+    "sourcesTitle": "المصادر",
+    "disclaimer": "هذا الدليل تعليمي، أعدّه {appName} من المصادر المذكورة أعلاه، وليس فتوى. للأسئلة المتعلقة بحالتك الخاصة، يُرجى سؤال عالم مؤهّل. وجدت خطأً؟ <link>أخبرنا</link>.",
+    "onThisPage": "في هذه الصفحة",
+    "keepReading": "تابع القراءة"
+  },
+  "tryIt": {
+    "button": "جرّبها مجانًا في المتصفح",
+    "hint": "تفتح تطبيق الويب، دون تنزيل أو حساب.",
+    "orApp": "أو نزّل التطبيق على هاتفك:",
+    "appOnly": "تحتاج هذه الميزة إلى تطبيق iPhone أو Android.",
+    "link": "جرّبها في المتصفح"
+  }
+}

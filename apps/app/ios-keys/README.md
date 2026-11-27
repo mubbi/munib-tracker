@@ -32,6 +32,8 @@ pnpm release:app:tvos
 
 Output: `apps/app/ios/app-store-export/MunibTracker.ipa` (scheme name may vary); tvOS → `apps/app/ios/app-store-export-tvos/*.ipa`. tvOS uses manual signing with a `TVOS_APP_STORE` profile (override with `TVOS_PROVISIONING_PROFILE`) — see [`docs/TV.md`](../../../docs/TV.md).
 
+**After enabling an App ID capability** (e.g. Family Controls (Distribution)) Apple invalidates every App Store profile for that bundle id. The phone export (automatic signing) has to regenerate the Xcode-managed profile; an API key without cloud-managed distribution certificate access cannot, so `pnpm release:app:ios` retries the export once with the Apple ID signed in to Xcode (Settings › Accounts). The tvOS profile is manual — regenerate it in the developer portal (or recreate it with the same name) and install it before `pnpm release:app:tvos`.
+
 ## Upload to App Store Connect / TestFlight
 
 Uses Xcode’s `altool` with `munib_build_api_AuthKey_<KEY_ID>.p8`.

@@ -2,7 +2,7 @@ import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
-import { Brand, withAlpha } from "@/constants/theme";
+import { Brand, withAlpha, ZIndex } from "@/constants/theme";
 import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
 import i18n from "@/i18n";
 import { useTheme } from "@/providers/theme-provider";
@@ -88,7 +88,7 @@ export function AnimatedIcon() {
       <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(DURATION)}>
         <Image
           style={styles.image}
-          source={require("@/assets/images/munib-logo.png")}
+          source={require("@/assets/images/munib-logo-gold.png")}
           contentFit="contain"
           cachePolicy="memory"
           transition={0}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: "100%",
-    zIndex: 1000,
+    zIndex: ZIndex.overlay,
     position: "absolute",
     top: 128 / 2 + 138,
   },
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1000,
+    zIndex: ZIndex.overlay,
   },
   splashImage: {
     width: 280,

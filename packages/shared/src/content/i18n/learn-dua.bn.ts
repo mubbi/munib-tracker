@@ -15,19 +15,8 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       "মুমিন সুখ-দুঃখে, প্রকাশ্য-গোপনে দোয়া করে, বিশ্বাসে যে আল্লাহ প্রতিটি ডাক শোনেন এবং sincere-কে খali হাতে ফেরান না। তিনি এত নিকট যে বলেন, 'আমি ডাকার সাড়া দিই যখন কেউ আমাকে ডাকে।'",
       "কবুলিয়ত তিন রূপে, নবী ﷺ শিখিয়েছেন: চাওয়া দেওয়া; রেখে আখিরাতে সমপরিমাণ বা বেশি thawab; সমপরিমাণ ক্ষতি ঠেকানো। তাই sincere দোয়া কখনও সম্পূর্ণ বাতিল নয় — কখনও সবচেয়ে বড় রহমত অদৃশ্য উত্তরেই থাকে।",
     ],
-    quran: [
-      { excerpt: "আর তোমার রব বলেন, 'তোমরা আমাকে ডাক, আমি তোমাদের ডাকে সাড়া দেব।'" },
-      {
-        excerpt:
-          "আর যখন আমার বান্দারা তোমাদের কাছে আমার সম্পর্কে জিজ্ঞেস করে, তবে (বল) আমি নিকট। আমি ডাকার সাড়া দিই যখন কেউ আমাকে ডাকে।",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "দোয়াই ইবাদত। — তারপর তিনি ﷺ পাঠ করেছেন, 'আর তোমার রব বলেন, তোমরা আমাকে ডাক, আমি তোমাদের ডাকে সাড়া দেব।' (Nu'man ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "দোয়া অন্বেষণ" }],
   },
   {
@@ -38,15 +27,7 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       "তিন মনোভাব: বিনয়, তিনি পারেন ও দেবেন এই ইয়াকীন, হুসনুয-যান। কিবলামুখী, হাত তুলুন, বরকতময় সময়, দুনিয়া-আখিরাত চান। গুরুত্বপূর্ণ চাওয়া পুনরাবৃত্তি করুন; শেষও হামদ-দরূদ দিয়ে।",
       "সবচেয়ে গুরুত্ব: তাড়াহুড়ো করবেন না। 'আমি বারবার দোয়া করেছি কিন্তু কবুল হয়নি' বলে হাল ছাড়লে কবুল বন্ধ — নবী ﷺ সতর্ক করেছেন। চাওয়ায় অটল থাকা নিজেই ইবাদত; আল্লাহ তাঁর দরজায় knock করা বান্দাকে ভালোবাসেন।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "বান্দার দোয়া কবুল থাকে যতক্ষণ তাড়াহুড়ো করে না বলে, 'আমি দোয়া করেছি কিন্তু কবুল হয়নি।' (Abu Hurairah)",
-      },
-      {
-        excerpt: "তোমাদের কেউ দোয়া করলে রবের হামদ-সানা দিয়ে শুরু, দরূদ, তারপর চাও। (Fadalah bin Ubaid)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "প্রতিটি দোয়া Alhamdulillah ও দরূদ দিয়ে শুরু করুন।",
       "প্রয়োজন অনুযায়ী নাম দিয়ে চান (যেমন Ya Razzaq, Ya Ghafur)।",
@@ -62,14 +43,7 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       "হালাল রিয্ক গুরুত্বপূর্ণ চাবি। musafir 'Ya Rabb' ডাকলেও 'খাওয়া হারাম, পান হারাম, পোশাক হারাম, লালন-পালন হারাম — কীভাবে কবুল?' — আয়ের হifazat, তাওবা, পাপ/সম্পর্ক ছিন্নকারী চাওয়া এড়ান — বাধা সরায়।",
       "তবু কবুল আল্লাহর রহমত; লেনদেন নয়। মুমিন সর্বোত্তম চেষ্টা ও তাওয়াক্কুল; দেরি হলে হাল ছাড়েন না। দুর্বলতা-পুরানো গunaহ দোয়া বন্ধ করার কারণ নয় — রহমানের দিকে ফেরার কারণ।",
     ],
-    hadith: [
-      {
-        excerpt: "…খাওয়া হারাম, পান হারাম, পোশাক হারাম, লালন হারাম — কীভাবে কবুল? (Abu Hurairah)",
-      },
-      {
-        excerpt: "দোয়া কবুল যতক্ষণ পাপ বা সম্পর্ক ছিন্নকারী চাওয়া না করে। (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "আয়-ব্যয়ের হালালতা যাচাই করুন — সরাসরি দোয়ায় প্রভাব।",
       "দীর্ঘ দোয়ার আগে istighfar ও sincere তাওবা।",
@@ -84,14 +58,7 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       "উল্লেখযোগ্য: রাতের শেষ তৃতীয়াংশ; সালাতে সিজদা; আযান-ইকামতের মাঝে; রোজা, বিশেষত iftar; বৃষ্টি; জুমার সূর্যাস্তের ক্ষণ — এক মুহূর্তে প্রত্যাখ্যাত হয় না।",
       "স্থান: আরাফায় হজ্জ, হaram, musafir-এর দোয়া, পিতা-মাতার দোয়া, mazlum-এর দোয়া।",
     ],
-    hadith: [
-      {
-        excerpt: "প্রতি রাত শেষ তৃতীয়াংশে রব dunia-র আসমানে নামেন: কে চায় আমি দেব? (Abu Hurairah)",
-      },
-      {
-        excerpt: "বান্দার রবের নিকটতম সিজদায় — সেখানে বেশি দোয়া। (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "নামাজের স্মরণ" }, { label: "দৈনিক যিকির" }],
   },
   {
@@ -105,14 +72,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyidul Istighfar",
         when: "প্রতিদিন সকাল-সন্ধ্যায় একবার",
-        translation:
-          "হে আল্লাহ, তুমি আমার রব, তোমার ছাড়া ইলাহ নেই। তুমি আমাকে সৃষ্টি করেছ, আমি তোমার বান্দা; যথাসাধ্য প্রতিশ্রুতি ধরে আছি। যা করেছি তার অনিষ্ট থেকে তোমার কাছে আশ্রয়। তোমার নেয়ামত স্বীকার, গunaহ স্বীকার — ক্ষমা কর, কেউ ক্ষমা করে না তুমি ছাড়া।",
         reference: "Sahih al-Bukhari 6306",
       },
       {
         title: "Hasbiyallahu la ilaha illa Huwa",
         when: "প্রতিদিন সকাল-সন্ধ্যায় সাতবার",
-        translation: "আল্লাহই আমার জন্য যথেষ্ট, তাঁ ছাড়া ইলাহ নেই; তাঁর উপর tawakkul, তিনি মহান Arsh-এর রব।",
         reference: "Qur'an 9:129; Sunan Abi Dawud 5081",
       },
     ],
@@ -129,19 +93,16 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "জাগার দোয়া",
         when: "জাগার সাথে সাথে",
-        translation: "সমস্ত প্রশংসা আল্লাহর, যিনি আমাদের মৃত্যুর পর জীবিত করেছেন; তাঁর কাছেই উত্থান।",
         reference: "Sahih al-Bukhari 6312",
       },
       {
         title: "ঘুমের দোয়া",
         when: "শোয়ার সময়",
-        translation: "তোমার নামে হে আল্লাহ, আমি মরি ও জীবিত হই।",
         reference: "Sahih al-Bukhari 6324",
       },
       {
         title: "Ayat al-Kursi",
         when: "ঘুমের আগে",
-        translation: "আল্লাহ, তাঁ ছাড়া ইলাহ নেই, চিরঞ্জীব, সর্বসংরক্ষক… (কুরআন ২:২৫৫ পূর্ণ)",
         reference: "Sahih al-Bukhari 2311",
       },
     ],
@@ -157,13 +118,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "ঘর থেকে বের",
         when: "বের হওয়ার সময়",
-        translation: "আল্লাহর নামে, আল্লাহর উপর tawakkul; শক্তি-সামর্থ্য শুধু আল্লাহর।",
         reference: "Sunan Abi Dawud 5095; Tirmidhi 3426",
       },
       {
         title: "মসজিদে প্রবেশ",
         when: "ডান পায়ে",
-        translation: "হে আল্লাহ, আমার জন্য তোমার রহমতের দরজা খুলে দাও।",
         reference: "Sahih Muslim 713",
       },
     ],
@@ -179,13 +138,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "খাওয়ার আগে",
         when: "শুরুতে",
-        translation: "আল্লাহর নামে।",
         reference: "Sahih al-Bukhari 5376; Tirmidhi 1858",
       },
       {
         title: "খাওয়ার পর",
         when: "শেষে",
-        translation: "সমস্ত প্রশংসা আল্লাহর, যিনে খাবার দিয়েছেন ও আমার শক্তি ছাড়াই রিয্ক দিয়েছেন।",
         reference: "Tirmidhi 3458 — পূর্বের গunaহ ক্ষমা",
       },
     ],
@@ -201,13 +158,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "ওজুর পর",
         when: "ওজু শেষে",
-        translation: "সাক্ষ্য দিচ্ছি: আল্লাহ ছাড়া ইলাহ নেই, Muhammad ﷺ তাঁর বান্দা ও রাসূল।",
         reference: "Sahih Muslim 234",
       },
       {
         title: "salam-এর আগে",
         when: "শেষ tashahhud",
-        translation: "হে আল্লাহ, জাহান্নাম, কবরের আযাব, দুনিয়া-মৃত্যুর ফিতনা, দাজ্জালের ফিতনা থেকে আশ্রয় চাই।",
         reference: "Sahih al-Bukhari 1377; Sahih Muslim 588",
       },
     ],
@@ -223,16 +178,10 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "আযানের পর",
         when: "আযান শেষে",
-        translation:
-          "হে আল্লাহ, এই পূর্ণ আহ্বান ও প্রতিষ্ঠিত সালাতের রব, Muhammad-কে al-Wasilah ও al-Fadilah দাও, ও প্রতিশ্রুত মর্যাদায় উঠাও।",
         reference: "Sahih al-Bukhari 614",
       },
     ],
-    hadith: [
-      {
-        excerpt: "আযান-ইকামতের মাঝের দোয়া প্রত্যাখ্যাত হয় না। (Anas; Tirmidhi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "আযান ও সালাত দোয়া" }, { label: "যিকির গ্রন্থ" }],
   },
   {
@@ -246,13 +195,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "উদ্বেগ-দুঃখের দোয়া",
         when: "চিন্তা, দুঃখ",
-        translation: "হে আল্লাহ, দুশ্চিন্তা-দুঃখ, দুর্বলতা-অলসতা, কৃপণতা-কাপুরুষ, ঋণের চাপ, মানুষের চাপ থেকে আশ্রয় চাই।",
         reference: "Sahih al-Bukhari 6369",
       },
       {
         title: "Hasbunallah",
         when: "ভয় বা চাপ",
-        translation: "আল্লাহই আমাদের জন্য যথেষ্ট, তিনি উত্তম অভিভাবক।",
         reference: "Qur'an 3:173",
       },
     ],
@@ -268,8 +215,6 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "সুস্থতার দোয়া",
         when: "রোগ বা রোগীর জন্য",
-        translation:
-          "হে আল্লাহ, মানুষের রব, রোগ দূর কর ও সুস্থতা দাও — তুমি Shafi; তোমার সুস্থতা ছাড়া নেই — এমন সুস্থতা যাতে রোগ না থাকে।",
         reference: "Sahih al-Bukhari 5743; Sahih Muslim 2191",
       },
     ],
@@ -285,13 +230,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "নিয়মিত তাওবা",
         when: "দিনে বারবার",
-        translation: "আমি আল্লাহর ক্ষমা চাই ও তাঁর কাছে তাওবা করি।",
         reference: "Sahih al-Bukhari 6307",
       },
       {
         title: "দৃঢ় হৃদয়",
         when: "বিচলনের ভয়",
-        translation: "হে হৃদয় পরিবর্তনকারী, আমার হৃদয় দীনে দৃঢ় রাখ।",
         reference: "Tirmidhi 2140",
       },
     ],
@@ -305,13 +248,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "সফরের দোয়া",
         when: "যানবাহনে",
-        translation: "পবিত্র যিনি এটিকে আমাদের বশীভূত করেছেন; আমরা তাঁর কাছে ফিরে যাব।",
         reference: "Qur'an 43:13–14; Sahih Muslim 1342",
       },
       {
         title: "বৃষ্টির দোয়া",
         when: "বৃষ্টি শুরু",
-        translation: "হে আল্লাহ, এটিকে উপকারী বৃষ্টি কর।",
         reference: "Sahih al-Bukhari 1032",
       },
     ],
@@ -323,16 +264,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
     body: [
       "রিয্ক শুধু আল্লাহর; unta বাঁধুন (কাজ), তারপর Razzaq-এর কাছে হালাল, barakah, ঋণমুক্তি, অন্যের উপর নির্ভর নয়। কুরআন: স্ত্রী-সন্তান 'চোখের শীতলতা,' iman-সালাত-মহব্বতে পরিবার।",
     ],
-    quran: [
-      {
-        excerpt: "হে আমাদের রব, আমাদের স্ত্রী-সন্তানকে চোখের শীতলতা দাও, এবং মুত্তাকীদের imam কর।",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "হালাল রিয্ক",
         when: "সকাল, সালাতের পর, আর্থিক কষ্ট",
-        translation: "হে আল্লাহ, তোমার হালাল দিয়ে হারামের প্রয়োজন না রাখ; তোমার fadl দিয়ে অন্যের প্রয়োজন না রাখ।",
         reference: "Tirmidhi 3563",
       },
     ],
@@ -348,14 +284,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "দুই dunia-তে কল্যাণ",
         when: "সাধারণ — নবী ﷺ সবচেয়ে বেশি",
-        translation: "হে আমাদের রব, dunia ও আখিরাতে কল্যাণ দাও, জাহান্নামের আযাব থেকে রক্ষা কর।",
         reference: "Qur'an 2:201; Bukhari 6389",
       },
       {
         title: "ইমানে দৃঢ়তা",
         when: "বিচ্যুতির ভয়",
-        translation:
-          "হে আমাদের রব, hidayah-এর পর হৃদয় বক্র করো না; তোমার পক্ষ থেকে রহমত দাও — তুমি Wahhab।",
         reference: "Qur'an 3:8",
       },
     ],
@@ -371,7 +304,6 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "চার বিষয়",
         when: "দৈনিক",
-        translation: "হে আল্লাহ, hidayah, taqwa, purity, contentment চাই।",
         reference: "Sahih Muslim 2721",
       },
     ],
@@ -387,13 +319,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "প্রিয় ও গunaহমোচক",
         when: "দিনে ১০০×",
-        translation: "আল্লাহ পবিত্র, সমস্ত প্রশংসা তাঁর।",
         reference: "Sahih al-Bukhari 6405; Sahih Muslim 2691",
       },
       {
         title: "দুই ভারী বাক্য",
         when: "যেকোনো সময়",
-        translation: "আল্লাহ পবিত্র ও প্রশংসিত; আল্লাহ মহান পবিত্র।",
         reference: "Sahih al-Bukhari 6406; Sahih Muslim 2694",
       },
     ],
@@ -403,17 +333,11 @@ export const LEARN_DUA_TOPICS_BN: DeepPartial<LearnDuaTopic>[] = [
     title: "দরূদ শরীফ",
     summary: "দরূদ রহমতের উৎস।",
     body: ["কুরআনে আদেশ — এক দরূদে দশ দরূদ (নবী ﷺ)। Ibrahimiyyah — প্রতি সালাতে ও দিনে।"],
-    quran: [
-      {
-        excerpt: "নিশ্চয় আল্লাহ ও ফেরেশতারা নবীর প্রতি দরূদ পাঠ করেন; হে মুমিনগণ, তোমরাও দরূদ ও সম্মান জানাও।",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "দরূদ ইbrahimiyyah",
         when: "তাশাহহুদ ও দিনে",
-        translation:
-          "হে আল্লাহ, Muhammad ও তাঁর পরিবারের উপর দরূদ পাঠ কর, যেমন Ibrahim-এর উপর; তুমি Hamid, Majid। Muhammad-এর উপর barakah, যেমন Ibrahim-এর উপর।",
         reference: "Sahih al-Bukhari 3370; Sahih Muslim 406",
       },
     ],

@@ -7,6 +7,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Query,
   Req,
@@ -113,7 +114,7 @@ export class ContentReportsController {
   getById(
     @Headers("authorization") authorization: string | undefined,
     @Req() req: Request,
-    @Param("id") id: string,
+    @Param("id", ParseUUIDPipe) id: string,
   ): Promise<ContentReportDetailDto> {
     return this.contentReportsService.getById(resolveAccessToken(req, authorization), id);
   }

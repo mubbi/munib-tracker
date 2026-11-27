@@ -20,7 +20,7 @@ const recited = (overrides: Partial<PracticeSummary> = {}) =>
 
 async function renderSummary({
   summary = recited(),
-  secondary = action("Practise again"),
+  secondary = action("Practice again"),
   progress = null,
 }: {
   summary?: PracticeSummary;
@@ -93,8 +93,8 @@ describe("PracticeSessionSummary", () => {
     const { onOpenAyah } = await renderSummary({
       summary: recited({ matched: 5, confirmedMismatch: 2, weakAyahs: [3] }),
     });
-    expect(screen.getByText("Ayahs to practise again")).toBeTruthy();
-    await fireEvent.press(screen.getByLabelText("Practise ayah 3 again"));
+    expect(screen.getByText("Ayahs to practice again")).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText("Practice ayah 3 again"));
     expect(onOpenAyah).toHaveBeenCalledWith(3);
   });
 
@@ -110,7 +110,7 @@ describe("PracticeSessionSummary", () => {
         ...overrides,
       }),
     });
-    expect(screen.queryByText("Ayahs to practise again")).toBeNull();
+    expect(screen.queryByText("Ayahs to practice again")).toBeNull();
   });
 
   it("shows revision sitting progress", async () => {
@@ -123,7 +123,7 @@ describe("PracticeSessionSummary", () => {
     const { primary, secondary, onHear } = await renderSummary();
     await fireEvent.press(screen.getByText("Done"));
     await fireEvent.press(screen.getByText("Hear this ayah"));
-    await fireEvent.press(screen.getByText("Practise again"));
+    await fireEvent.press(screen.getByText("Practice again"));
     expect(primary.onPress).toHaveBeenCalled();
     expect(onHear).toHaveBeenCalled();
     expect(secondary?.onPress).toHaveBeenCalled();
@@ -131,6 +131,6 @@ describe("PracticeSessionSummary", () => {
 
   it("omits the secondary action when there is none", async () => {
     await renderSummary({ secondary: null });
-    expect(screen.queryByText("Practise again")).toBeNull();
+    expect(screen.queryByText("Practice again")).toBeNull();
   });
 });

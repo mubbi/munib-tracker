@@ -1,31 +1,21 @@
-import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import * as Linking from "expo-linking";
 import { useEffect } from "react";
-import {
-  invokeOpenReviewFunnel,
-  parseReviewReactivationTriggerId,
-} from "@/features/reviews/lib/reviewPromptBridge";
+import { invokeOpenWriteReview } from "@/features/reviews/lib/reviewPromptBridge";
 
-function handleReviewDeepLink(url: string): void {
+/** `<scheme>://open-review` — e.g. from an email or the site: opens the store's write-review page. */
+export function isReviewDeepLink(url: string): boolean {
   const parsed = Linking.parse(url);
-  const path = parsed.path?.replace(/^\//, "") ?? "";
-  if (path !== "open-review") return;
-  const triggerId =
-    parseReviewReactivationTriggerId(parsed.queryParams?.triggerId) ??
-    APP_FEEDBACK_TRIGGER_IDS.manual;
-  invokeOpenReviewFunnel(triggerId);
+  return (parsed.path?.replace(/^\//, "") ?? "") === "open-review";
 }
 
-/** Registers munib-tracker://open-review deep links. */
+/** Registers munib-tracker://open-review deep links (explicit user intent → store page). */
 export function ReviewDeepLinkBridge(): null {
   useEffect(() => {
-    const onUrl = ({ url }: { url: string }) => {
-      handleReviewDeepLink(url);
+    const handle = (url: string | null) => {
+      if (url && isReviewDeepLink(url)) invokeOpenWriteReview();
     };
-    const sub = Linking.addEventListener("url", onUrl);
-    void Linking.getInitialURL().then((url) => {
-      if (url) handleReviewDeepLink(url);
-    });
+    const sub = Linking.addEventListener("url", ({ url }) => handle(url));
+    void Linking.getInitialURL().then(handle);
     return () => sub.remove();
   }, []);
 

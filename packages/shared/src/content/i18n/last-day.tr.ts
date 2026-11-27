@@ -24,16 +24,7 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Burada her şeyi iki ilke yönetir. Birincisi: bu olayların gerçekliği kesindir ve akîde meselesidir; dirilişi veya hesabı inkâr etmek, dinin kendisini inkâr etmektir. İkincisi: Kıyamet'in tam vaktini yalnız Allah bilir — hiçbir âlim, takvim veya hesap bunu öngöremez, ve her tarih iddiası yanlıştır. Peygamber ﷺ ashabına hiçbir zaman geri sayım vermedi; onlara bir yaşama biçimi verdi. Öyleyse Ahiret Günü'nü öğrenmenin amacı tahmin değil hazırlıktır: kalbi yumuşatmak, önceliği doğrultmak ve belirlenen an gelmeden hayra koşmak.",
       "Kaynaklar üzerine bir not: popüler 'kıyamet alâmetleri' anlatıları zayıf, hatta uydurma rivayetlerle doludur. Bu modül yalnızca sahih olanı içerir; samimi Ehl-i Sünnet âlimlerinin gerçekten ayrıldığı yerlerde — örneğin bazı büyük alâmetlerin sırası gibi — bu ayrılık bir ayrılık olarak sunulur, ne örtbas edilir ne de abartılır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yer kendine has bir sarsıntıyla sarsıldığı, yeryüzü ağırlıklarını dışarı çıkardığı ve insan 'Ona ne oluyor?' dediği zaman — işte o gün yer, Rabbinin ona vahyetmesiyle kendi haberlerini anlatacaktır. O gün insanlar, amelleri kendilerine gösterilsin diye bölük bölük çıkacaklardır. Kim zerre miktarı hayır işlemişse onu görecek, kim de zerre miktarı şer işlemişse onu görecektir.",
-      },
-      {
-        excerpt:
-          "O, kullarından dilediğine emrinden olan ruhu (vahyi) indirir ki, buluşma gününe karşı uyarsın — o gün onlar ortaya çıkarlar, onlardan hiçbir şey Allah'a gizli kalmaz. Bugün mülk kimindir? Tek ve kahhar olan Allah'ındır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Ahiret Zaman Çizelgesi" }, { label: "Akîde Öğren" }],
   },
   {
@@ -45,22 +36,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Bu iman ayrıca kalbin iki temel dürtüsünü — korku ve umudu — dengeler ve disipline eder. Uyarılar gerçektir, bu yüzden mümin ne kibirlenir ne de gaflete düşer; yine de Allah'ın rahmeti geniştir ve tevbe kapısı ölüme dek açıktır, bu yüzden mümin asla umutsuzluğa kapılmaz. Korku ile umut arasında yaşayan bir kalp, yılmadan çabalamaya devam eden bir kalptir.",
       "Pratikte, Ahiret Günü güçsüze onur, güçlüye ise ölçülülük kazandırır. Mazluma, Allah'ın hiçbir haksızlığı unutmadığını söyler; güçlüye ise hesap gününde hiçbir servetin, makamın ya da nüfuzun onu koruyamayacağını söyler. Bu yüzden ona iman, özel bir teselli değil, bu dünyada adaletin, sabrın ve dürüstlüğün kaynağıdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yüzlerinizi doğuya veya batıya çevirmeniz iyilik (birr) değildir. Asıl iyi olan; Allah'a, Ahiret Gününe, meleklere, Kitab'a ve peygamberlere iman eden, malını sevmesine rağmen akrabaya, yetimlere, yoksullara, yolda kalmışlara ve isteyenlere veren kimsedir.",
-      },
-      {
-        excerpt:
-          "Allah'ı, zalimlerin yaptıklarından habersiz sanma. O, onları ancak gözlerin dehşetle donup kalacağı bir gün için erteliyor.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İman; Allah'a, meleklerine, kitaplarına, peygamberlerine, Ahiret Gününe iman etmen, kadere — hayrına ve şerrine — iman etmendir. — Cebrail hadisinden, o din öğretmeye geldiğinde.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Her gün niyetini tazele: amellerim Allah için ve O'nunla karşılaşacağım gün içindir.",
       "Bir haksızlık seni üzdüğünde ve hiçbir dünyevi mahkeme cevap vermediğinde, onu Ahiret Gününün mahkemesine havale et.",
@@ -78,25 +55,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Peygamber ﷺ ölümü sıkça hatırlamayı öğretti — 'Lezzetleri yok edeni, yani ölümü, çokça anın' (Câmiu't-Tirmizî 2307, hasen) — bu bizi karamsarlaştırmak için değil, uyanık tutmak içindir. Ölümü hatırlamak, bu dünyanın hükmünü zayıflatır, kinleri eritir ve gerçekte neyin önemli olduğunu yeniden düzenler. Ruhun çıkışına dair yalnızca zayıf rivayetlerde geçen ayrıntıları bir kenara bırakmak daha isabetlidir; sahih malzeme, haşyet ve hazırlık için yeterlidir.",
       "Ölüm ayrıca amel defterini de kapatır — üç istisna dışında. Peygamber ﷺ, kişi öldüğünde amellerinin üçü hariç kesileceğini bildirdi: sadaka-i câriye, kendisinden faydalanılmaya devam eden ilim ve kendisine dua eden salih evlat (Sahih Müslim 1631). Bu son derece pratiktir: hayattayken inşa ettiğin, öğrettiğin ve yetiştirdiğin şeyler, sen göçtükten çok sonra bile senin adına kazanmaya devam edebilir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Her nefis ölümü tadacaktır. Ecirleriniz ancak Kıyamet Günü eksiksiz verilecektir. Kim ateşten uzaklaştırılıp Cennete konursa, gerçekten kurtulmuştur. Dünya hayatı, aldatıcı bir metadan başka bir şey değildir.",
-      },
-      {
-        excerpt:
-          "De ki: Size vekil kılınan Ölüm Meleği canınızı alacak; sonra Rabbinize döndürüleceksiniz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsan öldüğünde ameli kesilir, ancak üç şey müstesna: sadaka-i câriye, kendisinden faydalanılan ilim ya da kendisine dua eden salih evlat.",
-      },
-      {
-        excerpt: "Lezzetleri yok edeni çokça anın — yani ölümü.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "İstiğfarı artır ve namazını vaktinde kıl — özellikle sağlıklı ve meşgulken, yalnız hastalandığında değil.",
       "Ertelediğin belli bir şey varsa bugün tevbe et; yarına bahse girme.",
@@ -113,26 +73,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Ardından kabirde nimet ya da azap gelir; bu, sahih nasslarda sabittir: 'Kabir ya Cennet bahçelerinden bir bahçe ya da Cehennem çukurlarından bir çukurdur' (Câmiu't-Tirmizî 2460, hasen sahih). Kur'an, Firavun kavminin Kıyamet gelmeden önce bile 'sabah akşam' ateşe sunulduğuna işaret eder (Kur'an 40:46). Ehl-i Sünnet, kabir azabı ve nimetinin gerçekliğini kabul eder, fakat tam mahiyetini gaybe ait olduğu ve dirilerin idrakine girmediği için Allah'a havale eder.",
       "Kabir sorgusunun ve kabirdeki nimet ya da azabın gerçek olduğu konusunda ittifak vardır; âlimler ince noktalarda tartışır — bedene mi, ruha mı yoksa her ikisine mi dokunduğu, ve olağan bir kabri olmayanlara nasıl ulaştığı gibi — ama bu sorular asıl noktadan dikkati dağıtmaz. Berzah en büyük teşviktir: kabri, topraktaki bir çukurdan kişinin kendi amellerinin aynasına dönüştürür ve önden gönderdiğin şeyin orada seni karşılayacağını açıkça gösterir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nihayet onlardan birine ölüm geldiğinde der ki: Rabbim, beni geri döndür; belki terk ettiğim yerde salih bir amel işlerim. Hayır! Bu, sadece onun söylediği bir sözdür; ve onların arkasında, tekrar diriltilecekleri güne kadar bir berzah vardır.",
-      },
-      {
-        excerpt:
-          "Ateş — sabah akşam ona sunulurlar. Kıyamet koptuğu gün de: Firavun ailesini azabın en şiddetlisine sokun, denilecektir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kabir ya Cennet bahçelerinden bir bahçe ya da Cehennem çukurlarından bir çukurdur.",
-      },
-      {
-        excerpt:
-          "Ölü defnedildiğinde iki melek gelip ona Rabbini, dinini ve peygamberini sorar. Mümin kesin bir inançla cevap verir ve kabri genişletilip aydınlatılır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Yanlış anlama: Kabir azabı, dayanaksız bir halk inancıdır. Düzeltme: Sorgunun ve kabirdeki nimet ya da azabın gerçekliği sahih hadislerde sabittir ve Kur'an'da buna işaret edilir; bu, Ehl-i Sünnet akîdesinin yerleşik bir noktasıdır.",
       "Yanlış anlama: Meleklerin tam görünüşü ve adları üzerinde tartışmalıyız. Düzeltme: Münker ve Nekir isimlendirmesi hasen bir rivayette geçer; asıl inanç, sorgunun kendisidir. Ona doğrulukla cevap vermeye hazırlanmak, ayrıntılarını tartışmaktan çok daha önemlidir.",
@@ -153,22 +95,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Büyük alâmetler için temel metin, Huzeyfe bin Üseyd'in hadisidir; Peygamber ﷺ burada on alâmet saymıştır: duman (ed-Duhân), Deccâl, yerin canlısı (Dâbbetü'l-Arz), güneşin battığı yerden (batıdan) doğması, İsa bin Meryem'in (aleyhisselam) inişi, Ye'cûc ve Me'cûc, ve üç büyük yer çöküşü — biri doğuda, biri batıda, biri Arap Yarımadası'nda — ve son olarak insanları toplanma yerlerine süren bir ateş (Sahih Müslim 2901). Mehdî ve Deccâl başka sahih rivayetlerde de geçer ve bunlar İsa'nın (aleyhisselam) inişinden önce yerleştirilir.",
       "Dürüst ilmî tutum şudur: her alâmet sabit olsa da, tam sırası nasslarda tamamen belirlenmemiştir ve güvenilir Ehl-i Sünnet âlimleri bu kesin sıra üzerinde ayrılırlar. Bu ayrılık, geleneğin normal bir parçasıdır ve tartışma sebebi değildir. Bütün bunlara peygamberî cevap, korku salmak veya güncel olaylar üzerine sonu gelmeyen tahminler değil, imanı artırmak, tevbe etmek ve faydalı amel işlemektir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sana Kıyamet'i, ne zaman gelip çatacağını sorarlar. De ki: Onun bilgisi ancak Rabbimin katındadır. Onun vaktini O'ndan başkası açığa çıkaramaz. O, göklere ve yere ağır basmıştır. O size ancak ansızın gelecektir.",
-      },
-      {
-        excerpt:
-          "Onlar Kıyamet'in kendilerine ansızın gelmesinden başka bir şey mi bekliyorlar? Onun bazı alâmetleri şimdiden gelmiştir. Fakat kendilerine geldiğinde, öğüt almaları onlara ne fayda verecek?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ondan önce şu on alâmeti görmedikçe Kıyamet kopmayacaktır: duman, Deccâl, dâbbe, güneşin batıdan doğması, İsa bin Meryem'in inişi, Ye'cûc ve Me'cûc, üç yer çöküşü — biri doğuda, biri batıda, biri Arap Yarımadası'nda — ve bunların sonuncusu, insanları toplanma yerlerine süren bir ateş.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Küçük alâmetler" }, { label: "Büyük alâmetler" }],
   },
   {
@@ -180,20 +108,7 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Diğerleri arasında zamanın akışının genel olarak hızlanması, depremlerin ve öldürmenin artması, ve ilmin kalkması sayılır. İlim konusunda Peygamber ﷺ mekanizmayı açıkça belirtti: 'İlim kalkmadıkça, depremler artmadıkça, zaman hızla geçmedikçe, fitneler ortaya çıkmadıkça ve öldürme artmadıkça Kıyamet kopmayacaktır' (Sahih Buhârî 1036). Ve ilmin nasıl gittiğini şöyle açıkladı: 'Allah ilmi insanlardan çekip almaz; âlimleri alarak kaldırır, ta ki hiç âlim kalmaz ve insanlar cahilleri önder edinirler; onlara sorulur, onlar da ilimsiz fetva verirler; böylece hem kendileri sapar hem de başkalarını saptırırlar' (Sahih Buhârî 100). Öyleyse 'ilmin kalkması', bilgi eksikliği değildir — bir çağ bilgiye boğulmuş olabilir — asıl olan, hakiki âlimlerin ve yaşanan uygulamanın ortadan kalkmasıdır.",
       "Burada önemli bir disiplin: belirli bir modern olayın falanca hadisin gerçekleşmesi 'olduğunu' ilan etmek, yorumsal (ictihadî) bir şeydir, kesin değil. Gökdelen yarışları ya da artan suç oranları Peygamberin ﷺ sözlerini yankılıyor olabilir, ama vahyi manşetlere kesin bir güvenle yapıştırmak, dikkatli âlimlerin yolu değildir. Her küçük alâmete doğru cevap içseldir: onu, Allah'a dönme, dini öğrenip yaşama, emanet ve doğruluğa sımsıkı sarılma çağrısı olarak oku — kaygı ya da gösteri malzemesi olarak değil.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Emanet zayi edildiğinde Kıyamet'i bekle. Soruldu: Ey Allah'ın Resulü, o nasıl zayi olur? Buyurdu ki: Yetki ehil olmayana verildiğinde Kıyamet'i bekle.",
-      },
-      {
-        excerpt:
-          "Kıyamet alâmetlerinden biri: cariyenin efendisini doğurması, ve yalınayak, çıplak, yoksul çobanların yüksek binalar yapmakta yarıştığını görmendir. — Cebrail hadisinden.",
-      },
-      {
-        excerpt:
-          "Allah ilmi çekip almaz; âlimleri alarak kaldırır, ta ki hiç âlim kalmaz ve insanlar cahilleri önder edinirler; onlar da ilimsiz fetva verirler; böylece hem sapar hem de saptırırlar.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Belirli küçük alâmetleri belli bir güncel olaya uygulamak yorumsaldır, kesin değildir. Bu modül, hangi modern olguların bunları kesin olarak gerçekleştirdiğini iddia etmeden sahih hadisleri sunar.",
     actions: [
@@ -212,20 +127,7 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Ardından İsa bin Meryem (aleyhisselam) inecektir — bu, Ehl-i Sünnet akîdesinin sağlam bir noktasıdır. Peygamber ﷺ şöyle buyurmuştur: 'Canım elinde olana yemin ederim ki, Meryem oğlu aranıza adil bir hakim olarak inecek; haçı kıracak, domuzu öldürecek, cizyeyi kaldıracak ve mal öylesine bollaşacak ki onu kabul eden bulunmayacak' (Sahih Buhârî 3448). O, Muhammed'in ﷺ bir takipçisi olarak iner, ümmetin imamının arkasında namaz kılar (Sahih Buhârî 3439), Deccâl'i öldürür ve Muhammed'in ﷺ şeriatına göre hükmeder. Sonra Ye'cûc ve Me'cûc salıverilir, ve geri kalan alâmetler insanları toplayan ateşe kadar ortaya çıkmaya devam eder.",
       "İki dürüstlük noktası. Birincisi: âlimler on alâmet hadisindeki her alâmetin gerçekliğinde birleşirler ama tam sırasında ayrılırlar, ve bu ayrılık meşru ve eskidir. İkincisi: duman ve dâbbe, bu sahih hadisin bizzat bir parçasıdır; onları ayrı ayrı ayrıntılandıran bazı diğer rivayetlerin gücü değişkenlik gösterir, bu yüzden bu modül inancı zayıf eklemeler yerine güçlü on alâmet rivayetine dayandırır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Şu on alâmeti görmedikçe Kıyamet kopmayacaktır: duman, Deccâl, dâbbe, güneşin batıdan doğması, İsa bin Meryem'in inişi, Ye'cûc ve Me'cûc, ve üç yer çöküşü — biri doğuda, biri batıda, biri Arap Yarımadası'nda — ve bunların sonuncusu insanları toplanma yerlerine süren bir ateş.",
-      },
-      {
-        excerpt:
-          "Canım elinde olana yemin ederim ki, Meryem oğlu aranıza adil bir hakim olarak inecek. Haçı kıracak, domuzu öldürecek ve cizyeyi kaldıracak, ve mal öylesine çoğalacak ki onu kabul eden bulunmayacak.",
-      },
-      {
-        excerpt:
-          "Dünyanın sadece bir günü kalsa bile Allah o günü uzatır, ta ki onda ailemden bir adamı (Mehdî'yi) çıkarır; o, yeryüzü zulüm ve haksızlıkla dolduğu gibi onu adaletle doldurur.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Büyük alâmetlerin gerçekliği sabittir, ama tam sırası ve vakti konusunda âlimler arasında tam bir görüş birliği yoktur. Tarih belirlemekten ve herhangi bir güncel kişiyi Mehdî, Deccâl ya da İsa (a.s.) olarak nitelemekten kaçının.",
     appLinks: [{ label: "Akîde — Kıyamet alâmetleri" }],
@@ -239,21 +141,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "İki üfleyiş vardır ve Kur'an bunları birbirinden ayırır. Birincisinde 'Sûr'a üflenir de Allah'ın diledikleri müstesna, göklerde ve yerde kim varsa hepsi ölüverir' (Kur'an 39:68) — yaratılış düzenini sona erdiren dehşet ve ölüm üfleyişi. Ardından ikincisi gelir: 'Sonra ona bir daha üflenir, bir de bakarsın onlar ayakta bakınıp duruyorlar' (aynı âyetin devamı) — bütün yaratılışın ölülerden kalktığı diriliş üfleyişi.",
       "Birçok âlim, aynı âyetten ve destekleyici rivayetlerden yola çıkarak bir istisnadan söz eder — düşürülmeyen o 'Allah'ın diledikleri' — ve iki üfleyiş arasında bir aradan söz eder, gerçi bunun süresi ve ayrıntıları farklı güçteki rivayetlere dayanır ve Allah'a havale edilir. Kesin olan, üfleyişlerin çiftidir: bir son, ardından bir kalkış. Buna 'Yevmü't-Tenâd' (uyarı günü) denir (Kur'an 50:20), çünkü bu son çağrıdır, hazırlık için artık zaman kalmadığında yükselir — ve tam da bu yüzden bu çağrıya şimdi cevap verilmelidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sûr'a üflenir de Allah'ın diledikleri müstesna, göklerde ve yerde kim varsa hepsi ölüverir. Sonra ona bir daha üflenir, bir de bakarsın onlar ayakta bakınıp duruyorlar.",
-      },
-      {
-        excerpt: "Sûr'a üflenir. İşte bu, uyarı günüdür.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sûr'u taşıyan, onu ağzına dayamış ve alnını eğmiş, üflemek için emri beklerken ben nasıl rahat olabilirim? Ashap bundan endişelendi, o da onlara şöyle demelerini söyledi: Allah bize yeter, O ne güzel vekildir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Diriliş",
@@ -263,26 +152,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Diriliş evrenseldir — ilkinden sonuncusuna, her ulustan her insan diriltilir. Peygamber ﷺ insanların hangi hâlde kalkacağını şöyle tasvir etmiştir: 'İnsanlar yalınayak, çıplak ve sünnetsiz olarak toplanacaktır.' Aişe telaşla erkeklerin ve kadınların birbirine bakıp bakmayacağını sorduğunda, o gün meselenin bundan çok daha ciddi olacağını, kimsenin buna aldırmayacağını söylemiştir (Sahih Buhârî 6527). Ayrıca şöyle buyurmuştur: 'Yalınayak, çıplak ve sünnetsiz olarak toplanacaksınız — ve Kıyamet Günü ilk giydirilecek kişi İbrahim (aleyhisselam) olacaktır' (Sahih Buhârî 3349).",
       "Bu inancın amacı gösteri değil, dayattığı sorumluluktur. Allah'a dönüş kesin olduğundan, hiçbir amel gerçekten özel değildir ve hiçbir ölüm gerçekten bir kaçış değildir. 'Kıyamet mutlaka gelecektir, onda hiç şüphe yoktur; ve Allah kabirlerde olanları diriltecektir' (Kur'an 22:7). Bedensel dirilişe iman, bu hayatın ahlaki ağırlığını geçici değil gerçek kılan şeydir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O, bize bir örnek getirir ve kendi yaratılışını unutur; 'Çürümüş haldeyken kemikleri kim diriltecek?' der. De ki: Onları ilk defa yaratan diriltecektir. O, her yaratmayı hakkıyla bilir.",
-      },
-      {
-        excerpt:
-          "Ve Kıyamet mutlaka gelecektir, onda hiç şüphe yoktur; ve Allah kabirlerde olanları diriltecektir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yalınayak, çıplak ve sünnetsiz olarak toplanacaksınız. Sonra şu âyeti okudu: İlk yaratılışa başladığımız gibi, onu yeniden yaparız. Ve Kıyamet Günü ilk giydirilecek kişi İbrahim olacaktır.",
-      },
-      {
-        excerpt:
-          "İnsanlar yalınayak, çıplak ve sünnetsiz olarak toplanacaktır. Aişe dedi ki: Erkekler ve kadınlar birbirlerine bakacaklar mı? Buyurdu ki: İş bundan çok daha ciddi olacaktır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Mahşer (Toplanma)",
@@ -292,21 +163,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "O duruşun şartları ağırdır. Peygamber ﷺ şöyle buyurmuştur: 'Kıyamet Günü güneş insanlara öylesine yaklaştırılır ki bir mil mesafede olur, ve insanlar amellerine göre kendi terlerine gömülürler — kimi ayak bileklerine, kimi dizlerine, kimi beline kadar, ve kimini de ter gem gibi kuşatır' (Sahih Müslim 2864). Yine de aynı rivayetler, amellere göre dağıtılan bir rahmeti anlatır: Peygamberin ﷺ adını verdiği bir topluluk, O'nun gölgesinden başka gölge olmadığı bir günde Allah'ın Arşının gölgesinde gölgelenecektir — bunlar arasında adil bir yönetici, ibadet içinde büyümüş bir genç ve sol elinin sağ elinin verdiğinden haberi olmayacak kadar gizlice sadaka veren biri vardır.",
       "Bekleyiş uzundur — Kur'an 'ölçüsü elli bin yıl olan bir gün'den söz eder (Kur'an 70:4) — ama uzunluğu herkes için aynı değildir. Sahih rivayetler, bunun mümin için iki namaz arasındaki süre kadar kısa hafifletileceğini, başkalarına ise ağır bastığını söyler. Öyleyse Mahşer, bir hayatın özel defterinin aleni gerçeğe dönüştüğü yerdir: aynı güneş, aynı düzlük, ve tamamen farklı deneyimler — bunların tümü, her kişinin önden ne gönderdiğinden kaynaklanır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O gün yer başka bir yerle değiştirilir, gökler de; ve onlar, tek ve kahhar olan Allah'ın huzuruna çıkarlar.",
-      },
-      {
-        excerpt: "Melekler ve Ruh, ölçüsü elli bin yıl olan bir günde O'na yükselirler.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kıyamet Günü güneş insanlara yaklaştırılır, ta ki yaklaşık bir mil mesafede olur, ve insanlar amellerine göre kendi terlerine gömülürler — kimi ayak bileklerine, kimi dizlerine, kimi beline kadar, ve kimini de ter gem gibi kuşatır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Şefaat",
@@ -317,25 +175,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Başka sahih türler de vardır: bazı müminlerin hesapsız Cennete girmesini sağlayan şefaat; dereceleri yükselten şefaat; ve hepsinden öte, müminler arasındaki büyük günahkârlar için şefaat — böylece insanlar Peygamberin ﷺ, diğer peygamberlerin, meleklerin, müminlerin ve nihayet merhametlilerin en merhametlisi olan Allah'ın rahmetinin şefaatiyle ateşten çıkarılır. Peygamberler, şehitler, salihler ve hatta küçük yaşta ölen çocuklar da izinle şefaat edebilir, gerçi tek tek rivayetlerin gücü değişkenlik gösterir.",
       "Temel bir uyarı: Ahiretteki şefaat, ölülere ya da gaiplere şimdi yardım için seslenmeyi asla meşru kılmaz. Bir peygamberi ya da veliyi kabirde çağırmak, ondan sıkıntıyı gidermesini ya da ihtiyacı karşılamasını istemek, ibadeti Allah'tan başkasına yöneltmektir — bu şirktir ve burada anlatılan, Allah'ın dilediğine o gün bahşettiği bir lütuf olan şefaatin tam tersidir. Bu, bu hayatta iman ve tevbe ihtiyacının da yerini tutmaz; bu, tevhid üzere yaşayıp ölenlere Allah'ın rahmetidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O'nun izni olmadan katında kim şefaat edebilir? O, onların önlerindekini ve arkalarındakini bilir; O'nun ilminden, dilediği kadarından başka hiçbir şeyi kavrayamazlar.",
-      },
-      {
-        excerpt: "Ve O'nun katında şefaat, ancak izin verdiği kimseye fayda verir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsanlar bana gelecek, ben de Allah'ın huzurunda secdeye kapanacağım; o zaman şöyle denilecek: Ey Muhammed, başını kaldır; iste sana verilecek, şefaat et şefaatin kabul edilecek.",
-      },
-      {
-        excerpt:
-          "İnsanlar Âdem'e gidecek, sonra İbrahim'e, sonra Musa'ya, sonra İsa'ya, ve her biri özür dileyecek, ta ki Muhammed'e ﷺ gelirler, ve ona en büyük şefaat verilecektir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Yanlış anlama: Şefaat dilemek, Peygamberin ﷺ ya da salihlerin ibadet edilmesi anlamına gelir. Düzeltme: İbadet yalnızca Allah'a aittir; Ahiret Gününde şefaat, Allah'ın kendi izniyle bahşettiği bir rahmettir ve bu hayatta ölülere seslenmeyi meşru kılmaz.",
     ],
@@ -348,22 +189,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Bu defterlerden hiçbir şey eksik kalmaz — en küçük fiil bile, hatta amele dönüşen geçici bir düşünce bile. Zalimler bunun eksiksizliği karşısında şaşkına dönecektir: 'Vay hâlimize! Bu nasıl bir kitaptır ki küçük büyük hiçbir şey bırakmadan hepsini saymış! diyecekler. Ve yaptıklarını karşılarında bulacaklar; Rabbin kimseye zulmetmez' (Kur'an 18:49). Allah'ın rahmetiyle, iyi niyetler ve terk edilen günahlar da müminin lehine yazılır.",
       "Dil ve organlar sayfaları doldurduğundan, onları korumak defteri korumaktır. Peygamber ﷺ kurtuluş için dili merkeze koymuştur: 'Kim bana iki çenesi arasındaki ile iki bacağı arasındakini garanti ederse, ben de ona Cenneti garanti ederim' (Sahih Buhârî 6474) — yani konuşmasını ve iffetini koruyan kimse. Bugün defterine ne eklediğini sorarak yapılan günlük dürüst bir öz muhasebe alışkanlığı, bir müminin sürdürebileceği en uyarıcı ve faydalı alışkanlıklardan biridir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ve amel defteri ortaya konulur; suçluları içindekinden korkarken görürsün. 'Vay hâlimize! Bu nasıl bir kitaptır ki küçük büyük hiçbir şey bırakmadan hepsini saymış!' derler. Ve yaptıklarını karşılarında bulacaklar; Rabbin kimseye zulmetmez.",
-      },
-      {
-        excerpt:
-          "Kime kitabı sağ eline verilirse, 'Alın, kitabımı okuyun! Ben zaten hesabımla karşılaşacağımı biliyordum' der. İşte o, hoş bir hayat içindedir. Kime de kitabı sol eline verilirse, 'Keşke kitabım bana verilmeseydi' der.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim bana iki çenesi arasındaki ile iki bacağı arasındakini garanti ederse, ben de ona Cenneti garanti ederim — yani dilini ve iffetini.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Dilini neredeyse her şeyden çok koru — hayra ya da şerre defteri dolduran şeylerin çoğu ondan geçer.",
       "Uyumadan önce günü gözden geçir: kitabında görmek isteyeceğin ve korkacağın şeyleri sor.",
@@ -378,26 +205,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Bir kefeyi ağırlaştıran şey, salt fiillerin sayısı değil, Allah katındaki ağırlıklarıdır — ve bu ağırlık ihlastan gelir. Peygamber ﷺ, kolay ama muazzam olan amellere işaret etmiştir: 'Dilde hafif, terazide ağır, Rahman'a sevimli iki kelime: Sübhanallahi ve bihamdihi, Sübhanallahil-Azîm' (Sahih Buhârî 6406). Ayrıca şöyle buyurmuştur: 'Kıyamet Günü müminin terazisinde güzel ahlaktan daha ağır bir şey yoktur' (Câmiu't-Tirmizî 2002, sahih). Öyleyse ihlasla tekrarlanan basit bir zikir, ya da sabırlı bir güzel davranış, gösterişli amel dağlarından daha ağır basabilir.",
       "Bunun tersi ise boş amellerin tehlikesidir. İnsanlara gösteriş için yapılan işler (riya) ya da nifakla bozulan ameller, terazide ağırlıksız çıkabilir — görünüşte büyük, özde boş. Bu yüzden ihlas, birçok erdemden biri değil, diğer her ameli ağırlaştıran şeyin ta kendisidir. Ders şudur: günü küçük, samimi, istikrarlı ameller etrafında kur, ve görünen amellerin arkasındaki niyeti arındır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kıyamet Günü için adalet terazilerini kurarız, öyle ki hiçbir nefse en ufak bir haksızlık yapılmaz. Bir hardal tanesi ağırlığında bile olsa onu getiririz; hesap görücü olarak biz yeteriz.",
-      },
-      {
-        excerpt:
-          "Tartıları ağır gelenler, hoş bir hayat içindedir. Tartıları hafif gelenlerin ise anaları (sığınağı) Hâviye'dir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dilde hafif, terazide ağır, Rahman'a sevimli iki kelime: Sübhanallahi ve bihamdihi, Sübhanallahil-Azîm.",
-      },
-      {
-        excerpt:
-          "Kıyamet Günü müminin terazisinde güzel ahlaktan daha ağır bir şey yoktur. Şüphesiz güzel ahlaklı kimse, onunla oruçlunun ve namaz kılanın derecesine ulaşır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{ label: "Tesbih" }, { label: "Zikirler" }],
   },
   {
@@ -409,22 +218,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Allah'ın bağışlaması bile bir çırpıda silmediği bir borç türü vardır: başkalarının hakları (hukûku'l-ibâd). Peygamber ﷺ sordu: 'Müflisin kim olduğunu biliyor musunuz?' Dediler ki: Parası olmayan kimsedir. Buyurdu ki: 'Benim ümmetimin müflisi, Kıyamet Günü namaz, oruç ve sadakayla gelen, ama şuna sövmüş, buna iftira atmış, birinin malını almış, bir başkasının kanını dökmüş olan kimsedir — bu yüzden iyilikleri onlara verilir, ve iyilikleri bitince günahları ona yüklenir, ve ateşe atılır' (Sahih Müslim 2581). İbadet zulmü iptal etmez; onu ancak zulmü gidermek iptal eder.",
       "Pratik sonuç acil ve nettir: ödenmemiş borçlar, çalınan mal, iftira ve bozulmuş emanetler bu hayatta düzeltilmelidir — Allah'a tevbe ve insanlara tazminat ve özürle — çünkü şimdi para ve alçakgönüllülük parasıyla ödemek, o zaman iyilikler parasıyla ödemekten çok daha ucuzdur. Ve bütün bunlarda, Allah'ın adaleti kusursuzdur ve rahmeti, samimiyetle çabalayıp tevbe eden herkesi kuşatır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kime kitabı sağ eline verilirse, kolay bir hesapla sorguya çekilir ve ailesine sevinçle döner. Ama kime kitabı arkasından verilirse, yok oluşu çağırır ve alevli bir ateşe girer.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim hesaba çekilirse mahvolur. Aişe dedi ki: Allah, 'kolay bir hesapla sorguya çekilecek' demiyor mu? Buyurdu ki: O, yalnızca amellerin arz edilmesidir; ama kim hesapta sıkıca sorgulanırsa mahvolur.",
-      },
-      {
-        excerpt:
-          "Müflisin kim olduğunu biliyor musunuz? O, Kıyamet Günü namaz, oruç ve sadakayla gelen, ama başkalarına sövmüş, iftira atmış ve zulmetmiş olandır — bu yüzden iyilikleri onlara verilir, bittiğinde günahları ona yüklenir ve ateşe atılır.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Belirlenen gün gelmeden borçlarını öde ve haksızca aldığın her şeyi, ne kadar küçük olursa olsun, geri ver.",
       "Söz, mal ya da onurda haksızlık ettiğin herkesi bul ve özür dile — şimdi tazmin etmek, o zaman tazmin etmekten çok daha ucuzdur.",
@@ -440,16 +235,7 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Peygamber ﷺ orada takipçilerini bizzat karşılayacaktır: 'Havuza sizden önce ben ulaşacağım, ve içinizden bana gelecek olanları gözleyeceğim' (Sahih Müslim 2292). Ümmetini abdest izlerinden, yüzlerindeki, ellerindeki ve ayaklarındaki ışıktan tanıyacaktır. Ona ulaşmak sonsuza dek doyurulmaktır; sağlam anlayışa göre bu, Allah'ın Peygamberine ﷺ Cennette verdiği nehir olan Kevser'den beslenir.",
       "Yine de bazı kişiler Havuz'dan geri çevrilecektir. Peygamber ﷺ, kendisine bazı kişiler hakkında 'Bunlar senden değil; senden sonra dini değiştirdiler' denileceğini ya da onun ardından topuklarının üzerinde geri döndüklerini anlatmıştır. Âlimler bu konuda dikkatlidir: bu, hadiste zikredilen belirli kategorilere işaret eder — irtidat ve açık hidayetten sonra dinde ağır, kasıtlı bidat gibi — ve bu, kesinlikle sıradan Müslümanların birbirlerine bu suçlamayı yöneltmesi için bir izin değildir. Havuz'a giden güvenli yol, Sünnet'e sarılmak, abdesti ve namazı korumak ve müminlerin birliğini muhafaza etmektir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Havuzum bir aylık mesafe genişliğindedir. Suyu sütten daha beyaz, kokusu miskten daha güzel, ve bardakları gökyüzünün yıldızları kadar sayısızdır. Ondan içen bir daha asla susamaz.",
-      },
-      {
-        excerpt:
-          "Havuza sizden önce ben ulaşacağım, ve içinizden bana gelecek olanları gözleyeceğim. Bazı kişiler benden uzaklaştırılacak, ben de diyeceğim ki: Rabbim, ashabım! Denilecek ki: Senden sonra ne yenilikler çıkardıklarını bilmiyorsun.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Havuz'dan geri çevrilenlerle ilgili rivayetler, hadiste zikredilen belirli kategorilere, özellikle irtidat ve dinde ağır bidate işaret eder. Bu, Müslümanların birbirini sapkınlıkla suçlaması için bir izin değildir.",
   },
@@ -462,18 +248,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Sırat'taki ışık ve hız, bu hayatta kazanılır. Vaktinde kılınan namaz, düzenli verilen sadaka, muamelelerde dürüstlük ve güzel ahlak, kişinin geçtiği ayak basacağı yer ve ışığın ta kendisi hâline gelir. Peygamber ﷺ orada müminler için şefaat edecektir, ve birinin öbür tarafa ulaşması tamamen Allah'ın rahmetiyledir.",
       "Diğer gayb konuları gibi, akıllıca olan yol, vahyin belirttiğinin ötesinde köprünün fiziksel boyutları hakkında — ne kadar ince, ne kadar keskin, ne kadar uzun — spekülasyon yapmak değil, tüm dikkati geçişi hafifleten amellere vermektir. Tasavvur edemediğin şey için bile hazırlanabilirsin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sizden ona uğramayacak hiç kimse yoktur. Bu, Rabbin üzerinde kesinleşmiş bir hükümdür. Sonra Allah'a karşı gelmekten sakınanları kurtarırız, zalimleri ise orada diz üstü çökmüş bırakırız.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Köprü Cehennemin üzerine konur, ve ilk geçen ben olacağım. İnsanlar amellerine göre onun üzerinden geçer — şimşek gibi, rüzgâr gibi, kuşlar gibi, koşan bir adam gibi — ben ise 'Rabbim, kurtar, kurtar' derken. Kimi kurtulur, kimi yaralanarak bırakılır, kimi de ateşe düşer.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Beş vakit namazı vaktinde kıl — namaz, köprüden geçirten ışıktır.",
       "Az da olsa düzenli olarak sadaka ver.",
@@ -489,21 +265,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Tüm nimetlerinin en büyüğü hiçbir bahçe ya da nehir değil, Allah'ın rızası ve O'nun Yüzünü görmektir. 'O gün bazı yüzler ışıl ışıl parlar, Rablerine bakarlar' (Kur'an 75:22-23) — Ehl-i Sünnet bunu, müminlerin Ahirette Allah'ı, O'nun azametine yakışır bir şekilde ve yaratılmışlara hiç benzemeden görmesi olarak anlar; bu, Cennetin en yüce nimetidir. Allah şöyle vaat eder: 'İyilik edenlere en güzel karşılık ve daha fazlası vardır' (Kur'an 10:26) — ve bu 'daha fazlası', sahih hadislerde O'nun şerefli Yüzünü görmek olarak açıklanır.",
       "Cennete girmek Allah'ın rahmetiyledir; bu, iman ve salih amellerle kucaklanır — ikisi asla birbirine zıt değildir: rahmet sebeptir, ameller ise onun işareti ve Allah'ın ona bağladığı vasıtadır. Ahiret Günü, Cennet ehli için hiç solmayan ve hiç bitmeyen bir nimetle sona erer. Bu modül, Cennet'in ele alınışını kasten kısa tutar; kapılarını, derecelerini, oraya götüren amelleri ve onun için yapılan duaları derinlemesine ele alan tam 'Cennet Yolculuğu' rehberi mevcuttur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbinizin bağışlamasına ve göklerle yer kadar geniş, takva sahipleri için hazırlanmış Cennete koşun.",
-      },
-      {
-        excerpt: "O gün bazı yüzler ışıl ışıl parlar, Rablerine bakarlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah buyurur: Salih kullarım için hiçbir gözün görmediği, hiçbir kulağın işitmediği ve hiçbir insan kalbinin hayal bile edemediği şeyler hazırladım.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Cennet Yolculuğu" }, { label: "Akîde — Cennet" }],
   },
   {
@@ -514,15 +277,7 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Bu uyarıların amacı gizli bir rahmettir. Kibri kırmak, hakkı sürekli reddetmeyi durdurmak ve çok geç olmadan kişiyi geri döndürmek için vardırlar. Bu yüzden Kur'an'daki uyarılar neredeyse her zaman açık bir tevbe kapısıyla eşleştirilir — ateşi tasvir etmenin amacı tam olarak insanların mümkün olduğunca ondan kaçınmasıdır. Azabı adildir: kimse ona ancak açık hidayete karşı kendi ısrarlı seçimiyle girer, ve Allah kimseye zulmetmez.",
       "Günah yüklü müminler için sağlam Ehl-i Sünnet inancı, korku ile umut arasında bir dengedir: bir günahkâr Allah'ın dilemesine tabidir — ya bağışlar, ya da ateşte arındırır ve sonra, daha önce anlatılan şefaat ve rahmetle, zerre kadar imanı olan herkesi oradan çıkarır. Bu modül Cehennemi kasten kısa ve dengeli tutar. Uyarılarının, büyük günahların ve engin tevbe ve rahmet kapılarının daha kapsamlı incelemesi 'Cehennemi Anlamak' modülünde ve ilgili akîde konularında bulunur — daima umutla, asla umutsuzlukla değil.",
     ],
-    quran: [
-      {
-        excerpt: "Rablerini inkâr edenler için Cehennem azabı vardır; ne kötü bir varış yeridir.",
-      },
-      {
-        excerpt:
-          "De ki: Ey kendi aleyhlerine aşırı giden kullarım! Allah'ın rahmetinden ümidinizi kesmeyin. Şüphesiz Allah bütün günahları bağışlar. Şüphesiz O, çok bağışlayan, çok merhamet edendir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Cehennemi Anlamak" }, { label: "Akîde — Cehennem" }],
   },
   {
@@ -534,12 +289,7 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Âlimler sayının kendisi üzerinde tartışır: kimi yetmiş binin gerçek olduğunu söyler, kimi ek rivayetlerle bunun çok daha fazlasına çıktığını söyler, ve kimi de bunun belirli bir sayı yerine Allah'ın lütfunun sayılamaz bolluğuna işaret ettiğini düşünür. Anlaştıkları temel gerçek şudur: Allah'ın rahmeti, insanın hesap kitabından beklediğinden çok daha fazladır, ve nihai kurtuluş bu rahmettendir.",
       "Bu bir umut makamıdır, tembellik için bir gedik değildir. Müminin Allah'a gerçek bir tevekkülüne ve batıl inançtan uzaklaşmaya teşvik eder, ibadetteki çaba ise devam eder. Kimse buna amelleri terk ederek ulaşmaz; insan buna, muskalar ve korkular yerine Allah'a bağlı bir kalp, ihlas ve tevekkülle çekilir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ümmetimden yetmiş bin kişi hesapsız Cennete girecektir: bunlar, başkalarından rukye istemeyen, uğursuzluğa inanmayan, dağlamayla tedavi olmayan ve Rablerine tevekkül edenlerdir.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Âlimler, 'hesapsız' ifadesinin belirli bir yetmiş bini mi yoksa çok daha fazla, sayılamaz bir sayıyı mı kastettiği konusunda ayrılırlar. Hepsi, nihai kurtuluşun Allah'ın rahmetiyle olduğu ve bunun amelleri terk etmek için değil umut için bir sebep olduğu konusunda hemfikirdir.",
   },
@@ -553,24 +303,8 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       "Peygamberin ﷺ doğrudan Cennete bağladığı iki şeyi koru — dil ve iffet (Sahih Buhârî 6474) — çünkü dramatik günahlardan daha çok, sessizce defteri dolduran ya da boşaltan şeyler bunlardır. Ve mümkün olduğunca insanların haklarını yerine getir: borçları öde, alınanı geri ver, zarar için özür dile ve her muamelede adil ol, öyle ki asla zulmettiğin kişilerin taleplerinin namazlarını yiyip bitirdiği o 'müflis' olarak varmayasın.",
       "Her şey, Sahih Buhârî'nin ilk hadisinde belirtilen tek bir niyete dayanır: 'Ameller ancak niyetlere göredir.' Munib'in izleyicilerini bir yarışma skoru olarak değil, bu alışkanlıklar — namaz, Kur'an, zikir, sadaka, tevbe — için nazik bir destek olarak kullan; bunların her biri sessizce günü Allah'la buluşmaya doğru yönlendirir. Asıl amaç budur: şimdiden, O'nun huzurunda gerçekten duracağını bekleyen biri gibi yaşamak.",
     ],
-    quran: [
-      {
-        excerpt: "Ben cinleri ve insanları, ancak bana ibadet etsinler diye yarattım.",
-      },
-      {
-        excerpt:
-          "Ey iman edenler, Allah'a samimi bir tevbeyle dönün. Umulur ki Rabbiniz kötülüklerinizi sizden giderir ve sizi, altından ırmaklar akan bahçelere sokar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ameller ancak niyetlere göredir, ve her insana ancak niyet ettiği vardır.",
-      },
-      {
-        excerpt:
-          "Kim bana iki çenesi arasındaki ile iki bacağı arasındakini — yani dilini ve iffetini — garanti ederse, ben de ona Cenneti garanti ederim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Beş vakit farz namazı vaktinde kıl.",
       "Her gün Kur'an oku ya da dinle — birkaç âyet bile olsa.",
@@ -603,75 +337,41 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
       {
         title: "Güzel ahlak",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
       {
         title: "İki hafif söz",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
       {
         title: "Elhamdülillah mîzanı doldurur",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
       {
         title: "Şehadet kartı",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
       {
         title: "En faziletli zikir",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
       {
         title: "Dört sevgili söz",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
       {
         title: "Yüz defa Subhanallah",
         summary: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
-        hadith: {
-          excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-        },
+        hadith: {},
       },
     ],
-    quran: [
-      {
-        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
-      },
-      {
-        excerpt: "Allah kıyamet günü adalet terazilerini kuracaktır.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-      },
-      {
-        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-      },
-      {
-        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-      },
-      {
-        excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}, {}],
     misconceptions: [
       "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
       "Allah’ın rahmetinden ümit kesmeyin; tövbe kapısı ölüme kadar açıktır.",
@@ -704,246 +404,168 @@ export const LAST_DAY_TOPICS_TR: DeepPartial<LastDayTopic>[] = [
 
 export const LAST_DAY_HADITH_TR: DeepPartial<LastDayHadithEntry>[] = [
   {
-    hadith: { excerpt: "Lezzetleri yok edeni çokça anın — yani ölümü." },
+    hadith: {},
     context:
       "Ölümü düzenli olarak hatırlamak kalbi yumuşatır, kinleri eritir ve umutsuzluk yaratmadan öncelikleri düzeltir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Sizden biriniz ancak Allah hakkında hüsn-i zan besleyerek — Rabbinin rahmeti hakkında iyi düşünerek — ölsün.",
-    },
+    hadith: {},
     context:
       "Güzel bir son (hüsn-i hâtime), gerçek iman, tevbe ve Allah'tan iyi beklenti yoluyla umulur.",
   },
   {
-    hadith: {
-      excerpt: "Kabir ya Cennet bahçelerinden bir bahçe ya da Cehennem çukurlarından bir çukurdur.",
-    },
+    hadith: {},
     context:
       "Berzah, Allah'ın hikmetiyle kabirde nimet ya da azabı içerir — kabir, kişinin kendi amellerinin aynasıdır.",
   },
   {
-    hadith: {
-      excerpt: "Ölü defnedildiğinde iki melek gelip ona Rabbini, dinini ve peygamberini sorar.",
-    },
+    hadith: {},
     context:
       "Kabir sorgusu sahih rivayetlerde sabittir; bu rivayette iki meleğin adı Münker ve Nekir olarak geçer.",
   },
   {
-    hadith: {
-      excerpt:
-        "İnsan öldüğünde ameli kesilir, ancak üç şey müstesna: sadaka-i câriye, kendisinden faydalanılan ilim ya da kendisine dua eden salih evlat.",
-    },
+    hadith: {},
     context: "Ölene fayda vermeye devam eden şey — sahih hadislerde sabittir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Yalınayak, çıplak ve sünnetsiz olarak toplanacaksınız — ve Kıyamet Günü ilk giydirilecek kişi İbrahim olacaktır.",
-    },
+    hadith: {},
     context: "Toplanma gününde alçakgönüllülük; Allah dilediğine, dilediği şekilde ikram eder.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kıyamet Günü güneş insanlara yaklaştırılır, ta ki yaklaşık bir mil mesafede olur, ve insanlar amellerine göre kendi terlerine gömülürler.",
-    },
+    hadith: {},
     context: "Mahşer'in şartları — sahih rivayetlerde şiddeti amellere göre değişir.",
   },
   {
-    hadith: {
-      excerpt:
-        "İnsanlar bana gelecek, ben de Allah'ın huzurunda secdeye kapanacağım; o zaman denilecek: Başını kaldır; iste sana verilecek, şefaat et şefaatin kabul edilecek.",
-    },
+    hadith: {},
     context: "En büyük şefaat — yalnızca Peygambere ﷺ özgü olan Şefaat-i Uzmâ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kim hesaba çekilirse mahvolur. Aişe sordu: Allah, 'kolay bir hesapla sorguya çekilecek' demiyor mu? Buyurdu ki: O, yalnızca amellerin arz edilmesidir; ama kim hesapta sıkıca sorgulanırsa mahvolur.",
-    },
+    hadith: {},
     context:
       "'Kolay hesap' bir rahmettir — amellerin gösterilmesi ve bağışlanması, tek tek sorgulanmak değil.",
   },
   {
-    hadith: {
-      excerpt:
-        "Ümmetimin müflisi, namaz, oruç ve sadakayla gelen, ama başkalarına sövmüş, iftira atmış ve zulmetmiş olandır — bu yüzden iyilikleri onlara verilir, ve günahları ona yüklenir.",
-    },
+    hadith: {},
     context:
       "Başkalarının hakları (hukûku'l-ibâd), ibadetle öylece iptal olmaz; o gün ödenmeli ya da tazmin edilmelidir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Ümmetimden yetmiş bin kişi hesapsız Cennete girecektir: başkalarından rukye istemeyen, uğursuzluğa inanmayan, dağlamayla tedavi olmayan ve Rablerine tevekkül edenler.",
-    },
+    hadith: {},
     context:
       "Âlimler bu sayının gerçek mi yoksa Allah'ın rahmetinin çok daha büyük, sayılamaz bolluğuna mı işaret ettiği konusunda ayrılırlar.",
   },
   {
-    hadith: {
-      excerpt:
-        "Havuzum bir aylık mesafe genişliğindedir. Suyu sütten daha beyaz, kokusu miskten daha güzel, ve bardakları gökyüzünün yıldızları kadar sayısızdır. Ondan içen bir daha asla susamaz.",
-    },
+    hadith: {},
     context: "Havuz — susuzluk gününde Peygamber Muhammed'in ﷺ ümmeti için bir rahmet.",
   },
   {
-    hadith: {
-      excerpt:
-        "Köprü Cehennemin üzerine konur. İnsanlar amellerine göre onun üzerinden geçer — şimşek gibi, rüzgâr gibi, kuşlar gibi, koşan bir adam gibi — ve kimi yaralanarak kurtulur, kimi de düşer.",
-    },
+    hadith: {},
     context: "Geçiş hızı iman ve amelleri yansıtır; Allah'ın rahmeti geniştir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Şu on alâmeti görmedikçe Kıyamet kopmayacaktır: duman, Deccâl, dâbbe, güneşin batıdan doğması, İsa bin Meryem'in inişi, Ye'cûc ve Me'cûc, üç yer çöküşü ve insanları toplanma yerlerine süren bir ateş.",
-    },
+    hadith: {},
     context:
       "On büyük alâmet, Huzeyfe bin Üseyd'den. Âlimler her alâmeti kabul eder ama tam sırası üzerinde ayrılırlar.",
   },
   {
-    hadith: {
-      excerpt:
-        "Canım elinde olana yemin ederim ki, Meryem oğlu aranıza adil bir hakim olarak inecek; haçı kıracak, domuzu öldürecek, cizyeyi kaldıracak ve mal öylesine bollaşacak ki onu kabul eden bulunmayacak.",
-    },
+    hadith: {},
     context:
       "İsa'nın (a.s.) inişi, Ehl-i Sünnet akîdesinin sağlam bir noktasıdır; o, Muhammed'in ﷺ şeriatına göre hükmeder.",
   },
   {
-    hadith: {
-      excerpt:
-        "Emanet zayi edildiğinde Kıyamet'i bekle. Soruldu: O nasıl zayi olur? Buyurdu ki: Yetki ehil olmayana verildiğinde.",
-    },
+    hadith: {},
     context: "Bilinen bir küçük alâmet — emanetin kalkması. Panik yerine hazırlığa odaklan.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah ilmi çekip almaz; âlimleri alarak kaldırır, ta ki hiç âlim kalmaz ve insanlar cahilleri önder edinirler; onlar ilimsiz fetva verir, böylece hem sapar hem de saptırırlar.",
-    },
+    hadith: {},
     context:
       "'İlmin kalkması' hakiki âlimlerin ve yaşanan uygulamanın ortadan kalkması demektir — bilgi eksikliği değil.",
   },
   {
-    hadith: {
-      excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-    },
+    hadith: {},
     context: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
   },
   {
-    hadith: {
-      excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-    },
+    hadith: {},
     context: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
   },
   {
-    hadith: {
-      excerpt: "Dilde hafif, mîzanda ağır iki söz.",
-    },
+    hadith: {},
     context: "Kur’an ve sünnet delillerine sarılın, bugün tövbe edin.",
   },
 ];
 
 export const LAST_DAY_VERSES_TR: DeepPartial<LastDayVerseEntry>[] = [
   {
-    excerpt:
-      "Her nefis ölümü tadacaktır, ve ecirleriniz ancak Kıyamet Günü eksiksiz verilecektir. Kim ateşten uzaklaştırılıp Cennete konursa, gerçekten kurtulmuştur, ve dünya hayatı aldatıcı bir metadan başka bir şey değildir.",
     context:
       "Ölüm evrenseldir ve bu hayat geçicidir; hesabın gerçek ve nihai kararı ancak Ahiret Gününde verilir.",
     tafsirSummary:
       "Bu âyet başarıyı yeniden tanımlar: burada mal ya da makam değil, orada ateşten kurtuluş ve Cennete giriş.",
   },
   {
-    excerpt:
-      "O gün insanlar, amelleri kendilerine gösterilsin diye bölük bölük çıkacaklardır. Kim zerre miktarı hayır işlemişse onu görecek, kim de zerre miktarı şer işlemişse onu görecektir.",
     context:
       "Kusursuz ve eksiksiz adalet — en küçük fiil bile, hayır ya da şer, yazılır ve failine döndürülür.",
     tafsirSummary:
       "Hiçbir şey sayılmayacak kadar küçük değildir. Bu âyet, 'ufak' günahları hafife almaya karşı ve 'küçük' iyi amellere ömür boyu teşviktir.",
   },
   {
-    excerpt:
-      "Kıyamet Günü için adalet terazilerini kurarız, öyle ki hiçbir nefse en ufak bir haksızlık yapılmaz. Bir hardal tanesi ağırlığında bile olsa onu getiririz; hesap görücü olarak biz yeteriz.",
     context: "Mizan (terazi) gerçektir ve adaleti mutlaktır.",
     tafsirSummary:
       "O gün kimseye bir hardal tanesi kadar bile eksiklik yapılmaz; Allah'ın hesabı kusursuzdur.",
   },
   {
-    excerpt:
-      "Tartıları ağır gelenler, hoş bir hayat içindedir. Tartıları hafif gelenlerin ise anaları (sığınağı) Hâviye'dir.",
     context: "Nihai sonuç, terazideki salih amellerin ağırlığına bağlıdır.",
     tafsirSummary:
       "Ağırlık ihlastan gelir, salt hacimden değil — samimiyetle söylenmiş basit bir zikir, gösterişli amel dağlarından ağır basabilir.",
   },
   {
-    excerpt:
-      "Rabbinizin bağışlamasına ve göklerle yer kadar geniş, takva sahipleri için hazırlanmış Cennete koşun.",
     context: "Allah'la buluşmadan önce hayra ve bağışlanmaya koşmak için doğrudan bir emir.",
     tafsirSummary:
       "Cennet, tasavvurun çok ötesinde geniştir, ve ona giden yol acele etmektir — tevbeyi ve iyi amelleri ertelemek değil.",
   },
   {
-    excerpt: "O gün bazı yüzler ışıl ışıl parlar, Rablerine bakarlar.",
     context:
       "Cennetin en büyük mükâfatı hiçbir bahçe ya da nehir değil, Allah'ın Yüzünü görmektir.",
     tafsirSummary:
       "Ehl-i Sünnet, müminlerin Ahirette Rablerini, O'nun azametine yakışır bir şekilde ve yaratılmışlara benzemeden görecekleri konusunda hemfikirdir — bu, tüm nimetlerin tacıdır.",
   },
   {
-    excerpt: "Rablerini inkâr edenler için Cehennem azabı vardır; ne kötü bir varış yeridir.",
     context: "Cehennem, gerçek ve adil bir sonuçtur — simge değil, hakiki bir yurt.",
     tafsirSummary:
       "Bu uyarı, insanı vaktinde geri döndürmeyi amaçlayan bir rahmettir; Kur'an'da her zaman açık bir tevbe kapısıyla eşleştirilir.",
   },
   {
-    excerpt:
-      "De ki: Ey kendi aleyhlerine aşırı giden kullarım! Allah'ın rahmetinden ümidinizi kesmeyin. Şüphesiz Allah bütün günahları bağışlar. Şüphesiz O, çok bağışlayan, çok merhamet edendir.",
     context: "Günah ne kadar büyük olursa olsun, samimi tevbe kapısı ölüme dek açık kalır.",
     tafsirSummary:
       "Allah'ın rahmetinden umut kesmek şeytandandır; mümin, ateş korkusunu Allah'ın bağışlamasına olan kırılmaz umutla dengeler.",
   },
   {
-    excerpt:
-      "Ve Kıyamet mutlaka gelecektir, onda hiç şüphe yoktur; ve Allah kabirlerde olanları diriltecektir.",
     context: "Diriliş kesindir, gerçi vakti gizlidir.",
     tafsirSummary:
       "Kıyamet'in kesinliğiyle vaktinin bilinmezliğinin bir arada olması, ahlaki sorumluluğu şimdiki zamanda sağlam tutan şeyin ta kendisidir.",
   },
   {
-    excerpt:
-      "O'nun izni olmadan katında kim şefaat edebilir? O, onların önlerindekini ve arkalarındakini bilir; O'nun ilminden, dilediği kadarından başka hiçbir şeyi kavrayamazlar.",
     context: "Şefaat gerçektir ama Allah'ın izninden asla bağımsız değildir.",
     tafsirSummary:
       "İşte bu tek şart — 'O'nun izni olmadan' — hakiki şefaati her türlü bozulmasından ayırır ve bu hayatta ölülere seslenmeyi yasaklar.",
   },
   {
-    excerpt:
-      "Allah'ı, zalimlerin yaptıklarından habersiz sanma. O, onları ancak gözlerin dehşetle donup kalacağı bir gün için erteliyor.",
     context: "Mazlumlar için teselli — adaletin görünürdeki gecikmesi, onun yokluğu değildir.",
     tafsirSummary:
       "Hiçbir zulüm Allah tarafından unutulmaz; zalime yalnızca hiçbir şeyin göz ardı edilmeyeceği o güne kadar mühlet verilir.",
   },
   {
-    excerpt:
-      "Sizden ona uğramayacak hiç kimse yoktur. Bu, Rabbin üzerinde kesinleşmiş bir hükümdür. Sonra Allah'a karşı gelmekten sakınanları kurtarırız, zalimleri ise orada diz üstü çökmüş bırakırız.",
     context:
       "Sırat'tan geçiş herkes içindir; güvenle varmak Allah'ın rahmeti ve takvasıyla bahşedilir.",
     tafsirSummary:
       "Herkes geçişe gelir; fark, kimin kurtulduğu ve kimin düştüğüdür — bu, önden gönderilen iman ve amellerle belirlenir.",
   },
   {
-    excerpt:
-      "Sana Kıyamet'i, ne zaman gelip çatacağını sorarlar. De ki: Onun bilgisi ancak Rabbimin katındadır. Onun vaktini O'ndan başkası açığa çıkaramaz. O size ancak ansızın gelecektir.",
     context: "Tam vakit yalnız Allah'ın katındadır — hazırlık önemlidir, tahmin faydasızdır.",
     tafsirSummary:
       "Peygambere ﷺ bile tarih verilmedi; bir yıl ya da geri sayım için her insani iddia bu âyete aykırıdır.",
   },
   {
-    excerpt:
-      "Kime kitabı sağ eline verilirse, 'Alın, kitabımı okuyun! Ben zaten hesabımla karşılaşacağımı biliyordum' der. İşte o, hoş bir hayat içindedir.",
     context: "Kitabını alış şekli — sağ elde ya da sol elde — zaten ilk hükümdür.",
     tafsirSummary:
       "Başarılının sevinci, ödüllendirilen kesinliğin sevincidir: hesabı bekleyerek yaşadılar, ve o şok değil ferahlama olarak geldi.",

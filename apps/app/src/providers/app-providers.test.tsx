@@ -77,6 +77,9 @@ jest.mock("@/stores/continue-store", () => ({
   },
 }));
 
+const mockBot = { value: false };
+jest.mock("@/lib/seo/is-indexing-bot", () => ({ isIndexingBot: () => mockBot.value }));
+
 jest.mock("@/stores/preferences-store", () => ({
   preferencesStore: {
     getState: () => ({
@@ -107,6 +110,7 @@ describe("AppProviders", () => {
     mockPrefs.isReady = true;
     mockPrefs.hasCompletedOnboarding = true;
     mockPrefs.listeners.clear();
+    mockBot.value = false;
     appStateHandler = undefined;
     getLocalDateStringMock.mockReturnValue("2026-07-03");
     jest.spyOn(AppState, "addEventListener").mockImplementation((_event, handler) => {
@@ -173,6 +177,27 @@ describe("AppProviders", () => {
 
     await unmount();
     expect(removeAppState).toHaveBeenCalled();
+  });
+
+  it("warms the stores for web crawlers that skip onboarding", async () => {
+    // AppStack shows the app to indexing bots without onboarding; screens that wait
+    // for `isReady` (Tracker, Home) would otherwise render skeletons forever.
+    mockPrefs.hasCompletedOnboarding = false;
+    mockBot.value = true;
+    const { Platform } = require("react-native") as typeof import("react-native");
+    const originalOs = Platform.OS;
+    Object.defineProperty(Platform, "OS", { configurable: true, get: () => "web" });
+    try {
+      const { unmount } = await render(
+        <AppProviders>
+          <Text>ready</Text>
+        </AppProviders>,
+      );
+      expect(mockStores.trackerLoad).toHaveBeenCalled();
+      await unmount();
+    } finally {
+      Object.defineProperty(Platform, "OS", { configurable: true, get: () => originalOs });
+    }
   });
 
   it("does not warm home stores before preferences hydrate", async () => {

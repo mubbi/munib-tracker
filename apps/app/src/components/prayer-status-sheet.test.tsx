@@ -1,10 +1,13 @@
+import type { UserPreferences } from "@munib-tracker/shared/types";
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
+import { PreferencesRepository } from "@/db";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { triggerHaptic } from "@/lib/haptics";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
@@ -28,7 +31,7 @@ const renderSheet = async (props: Partial<Props> = {}) => {
   return { ...handlers, ...view };
 };
 
-const option = (status: string) => screen.getByRole("button", { name: status });
+const option = (status: string) => screen.getByRole("radio", { name: status });
 
 beforeEach(() => {
   resetExpoRouterMock();
@@ -40,44 +43,68 @@ describe("PrayerStatusSheet status options", () => {
     await renderSheet();
 
     expect(["Completed", "Missed", "Delayed", "Qaza"].map(option)).toHaveLength(4);
-    expect(screen.getByText("How did this prayer go today?")).toBeTruthy();
+    expect(screen.getByText("How did this Salah go today?")).toBeTruthy();
   });
 
-  it("offers only completed or missed for sunnah prayers", async () => {
+  it("offers only completed or missed for Sunnah prayers", async () => {
     await renderSheet({ prayerId: "duha", prayerLabel: "Duha" });
 
-    expect(screen.queryByRole("button", { name: "Delayed" })).toBeNull();
-    expect(screen.queryByText("Read after-salah adhkar")).toBeNull();
+    expect(screen.queryByRole("radio", { name: "Delayed" })).toBeNull();
+    expect(screen.queryByText("Read after-Salah adhkar")).toBeNull();
   });
 
-  it("marks the current status as selected", async () => {
+  it("is a radio group with the current status checked", async () => {
     await renderSheet({ currentStatus: "delayed" });
 
-    expect(option("Delayed").props.accessibilityState).toEqual({ selected: true });
+    expect(screen.getByLabelText("Status for Fajr").props.accessibilityRole).toBe("radiogroup");
+    expect(option("Delayed").props.accessibilityState).toEqual({ checked: true });
+    expect(option("Completed").props.accessibilityState).toEqual({ checked: false });
   });
 
   it.each([
     ["Completed", "completed", "success"],
     ["Delayed", "delayed", "selection"],
-  ])("selecting %s saves %s with a %s haptic and closes", async (label, status, haptic) => {
+  ])("selecting %s saves %s with a %s haptic and stays open", async (label, status, haptic) => {
     const { onSelect, onClose } = await renderSheet();
 
     await fireEvent.press(option(label));
 
     expect(onSelect).toHaveBeenCalledWith(status);
     expect(triggerHaptic).toHaveBeenCalledWith(haptic);
-    expect(onClose).toHaveBeenCalled();
+    expect(onClose).not.toHaveBeenCalled();
+    expect(screen.getByTestId("sheet")).toBeTruthy();
   });
 
-  it("clears the current status when it is picked again", async () => {
+  it("keeps the congregation toggle live after a status, then Done closes", async () => {
+    const onToggleJama = jest.fn();
+    const { onSelect, onClose } = await renderSheet({ onToggleJama });
+
+    await fireEvent.press(option("Completed"));
+    await fireEvent.press(screen.getByRole("switch", { name: "Prayed in congregation" }));
+    await fireEvent.press(screen.getByText("Done"));
+
+    expect(onSelect).toHaveBeenCalledWith("completed");
+    expect(onToggleJama).toHaveBeenCalledWith(true);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("re-pressing the checked status does nothing; Clear status resets it", async () => {
     const { onSelect } = await renderSheet({ currentStatus: "missed" });
 
     await fireEvent.press(option("Missed"));
+    expect(onSelect).not.toHaveBeenCalled();
 
+    await fireEvent.press(screen.getByText("Clear status"));
     expect(onSelect).toHaveBeenCalledWith("pending");
   });
 
-  it("marks a missed sunnah directly without the qaza prompt", async () => {
+  it("hides Clear status while the Salah is not marked", async () => {
+    await renderSheet();
+
+    expect(screen.queryByText("Clear status")).toBeNull();
+  });
+
+  it("marks a missed Sunnah directly without the Qaza prompt", async () => {
     const { onSelect } = await renderSheet({ prayerId: "duha", prayerLabel: "Duha" });
 
     await fireEvent.press(option("Missed"));
@@ -87,18 +114,55 @@ describe("PrayerStatusSheet status options", () => {
   });
 });
 
-describe("PrayerStatusSheet qaza prompt", () => {
-  it("asks whether a missed obligatory prayer should add to qaza", async () => {
+/** Store + repository (providers may re-read the repository on mount). */
+async function seedPrefs(patch: Partial<UserPreferences>) {
+  await PreferencesRepository.update(patch);
+  await setPreferences(patch);
+}
+
+describe("PrayerStatusSheet Witr Qaza (madhhab retrofit)", () => {
+  afterEach(resetPreferences);
+
+  it.each([
+    ["hanafi", true],
+    ["shafii", false],
+    ["maliki", false],
+    ["hanbali", false],
+  ] as const)(
+    "%s: offers the Witr Qaza prompt only when accrual is on (%s)",
+    async (madhhab, asks) => {
+      await seedPrefs({ madhhab, witrQaza: undefined });
+      const { onSelect } = await renderSheet({ prayerId: "witr", prayerLabel: "Witr" });
+      await fireEvent.press(option("Missed"));
+      if (asks) {
+        expect(screen.getByText("Add one to your Qaza count for Witr?")).toBeTruthy();
+        expect(onSelect).not.toHaveBeenCalled();
+      } else {
+        expect(onSelect).toHaveBeenCalledWith("missed");
+      }
+    },
+  );
+
+  it("an explicit opt-in brings the prompt back for other schools", async () => {
+    await seedPrefs({ madhhab: "shafii", witrQaza: true });
+    await renderSheet({ prayerId: "witr", prayerLabel: "Witr" });
+    await fireEvent.press(option("Missed"));
+    expect(screen.getByText("Add one to your Qaza count for Witr?")).toBeTruthy();
+  });
+});
+
+describe("PrayerStatusSheet Qaza prompt", () => {
+  it("asks whether a missed obligatory prayer should add to Qaza", async () => {
     const { onSelect } = await renderSheet();
 
     await fireEvent.press(option("Missed"));
 
-    expect(screen.getByText("Add one to your qaza count for Fajr?")).toBeTruthy();
+    expect(screen.getByText("Add one to your Qaza count for Fajr?")).toBeTruthy();
     expect(onSelect).not.toHaveBeenCalled();
   });
 
   it.each([
-    ["Yes, add to qaza", true],
+    ["Yes, add to Qaza", true],
     ["No, skip", false],
   ])("%s records the status with addToQaza=%s", async (answer, addToQaza) => {
     const { onSelect, onClose } = await renderSheet();
@@ -107,17 +171,19 @@ describe("PrayerStatusSheet qaza prompt", () => {
     await fireEvent.press(screen.getByText(answer));
 
     expect(onSelect).toHaveBeenCalledWith("qaza", { addToQaza });
-    expect(onClose).toHaveBeenCalled();
+    // Back on the status sheet so the details can still be set.
+    expect(onClose).not.toHaveBeenCalled();
+    expect(screen.getByText("How did this Salah go today?")).toBeTruthy();
   });
 
   it("dismissing the prompt returns to the status options", async () => {
     const { onSelect } = await renderSheet();
     await fireEvent.press(option("Missed"));
 
-    await fireEvent.press(screen.getByTestId("sheet-close"));
+    await fireEvent.press(screen.getAllByTestId("sheet-close")[0]);
 
     expect(onSelect).not.toHaveBeenCalled();
-    expect(screen.getByText("How did this prayer go today?")).toBeTruthy();
+    expect(screen.getByText("How did this Salah go today?")).toBeTruthy();
   });
 
   it("resets the prompt when the sheet is hidden", async () => {
@@ -138,7 +204,7 @@ describe("PrayerStatusSheet qaza prompt", () => {
     await rerender(ui(false));
     await rerender(ui(true));
 
-    expect(screen.getByText("How did this prayer go today?")).toBeTruthy();
+    expect(screen.getByText("How did this Salah go today?")).toBeTruthy();
   });
 });
 
@@ -150,7 +216,9 @@ describe("PrayerStatusSheet extras", () => {
     const onToggleJama = jest.fn();
     await renderSheet({ isJama, onToggleJama });
 
-    await fireEvent.press(screen.getByRole("button", { name: "Prayed in congregation" }));
+    const toggle = screen.getByRole("switch", { name: "Prayed in congregation" });
+    expect(toggle.props.accessibilityState).toMatchObject({ checked: isJama });
+    await fireEvent.press(toggle);
 
     expect(onToggleJama).toHaveBeenCalledWith(next);
   });
@@ -178,10 +246,10 @@ describe("PrayerStatusSheet extras", () => {
     expect(screen.getByText("“Prayed late”")).toBeTruthy();
   });
 
-  it("links to after-salah adhkar for obligatory prayers", async () => {
+  it("links to after-Salah adhkar for obligatory prayers", async () => {
     const { onClose } = await renderSheet();
 
-    await fireEvent.press(screen.getByText("Read after-salah adhkar"));
+    await fireEvent.press(screen.getByText("Read after-Salah adhkar"));
 
     expect(mockRouter.push).toHaveBeenCalledWith(afterSalahAdhkarRoute("fajr"));
     expect(onClose).toHaveBeenCalled();
@@ -198,5 +266,30 @@ describe("PrayerStatusSheet on TV", () => {
     await renderSheet({ currentStatus, isJama: true, onToggleJama: jest.fn() });
 
     expect(option(label).props.hasTVPreferredFocus).toBe(true);
+  });
+
+  it("shows the caller's Missed / Qaza Undo in the sheet while it is available (B-04)", async () => {
+    const undo = jest.fn(() => true);
+    const view = await renderSheet({
+      currentStatus: "missed",
+      undo: { undoAvailable: false, undo },
+    });
+    expect(screen.queryByRole("button", { name: "Undo" })).toBeNull();
+
+    await view.rerender(
+      <PrayerStatusSheet
+        visible
+        prayerId="fajr"
+        prayerLabel="Fajr"
+        currentStatus="missed"
+        onSelect={jest.fn()}
+        onSaveNotes={jest.fn()}
+        onClose={jest.fn()}
+        undo={{ undoAvailable: true, undo }}
+      />,
+    );
+    await fireEvent.press(screen.getByRole("button", { name: "Undo" }));
+
+    expect(undo).toHaveBeenCalledTimes(1);
   });
 });

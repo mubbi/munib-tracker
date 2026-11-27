@@ -4,12 +4,21 @@
 
 const cache = new Map<string, string>();
 const failed = new Set<string>();
+// Natural w/h per path, recorded at preload (the magnifier lens centres with it).
+const aspects = new Map<string, number>();
 
 async function fetchAsDataUrl(path: string): Promise<string | null> {
   try {
     const resp = await fetch(path);
     if (!resp.ok) return null;
     const blob = await resp.blob();
+    try {
+      const bmp = await createImageBitmap(blob);
+      if (bmp.height > 0) aspects.set(path, bmp.width / bmp.height);
+      bmp.close();
+    } catch {
+      // Not decodable as a bitmap (e.g. SVG) — callers fall back to a default aspect.
+    }
     return await new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result as string);
@@ -57,4 +66,9 @@ export function didFail(path: string | undefined): boolean {
   if (!path) return false;
   if (path.startsWith("data:")) return false;
   return failed.has(path);
+}
+
+/** Natural aspect (w/h) of a preloaded image, if known. */
+export function imgAspect(path: string | undefined): number | undefined {
+  return path ? aspects.get(path) : undefined;
 }

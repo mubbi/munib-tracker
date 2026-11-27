@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "Content Sources & Credits — Qur'an, Hadith and Adhkar Data",
+    "description": "The open datasets behind {appName}'s Qur'an text, translations, tafsir, hadith, adhkar, duas and audio, with the licence and attribution for each."
+  },
+  "eyebrow": "Credits",
+  "title": "Open data & attributions",
+  "intro": "{appName} is built on the generosity of open-source data projects and classical Islamic texts. We are grateful to every project listed below. The same attributions appear in Settings → Credits & data sources inside the app.",
+  "sourceCode": {
+    "heading": "Project source code",
+    "body": "The {appName} codebase is free to use, modify, and redistribute for personal and educational purposes under a non-commercial license, with required credit and a link to this site. Details: <openSource>Open source</openSource>. People who contribute code and reviews are listed on <contributors>Contributors</contributors>."
+  },
+  "bundled": {
+    "heading": "Bundled with the app"
+  },
+  "runtime": {
+    "heading": "Downloaded or streamed on demand"
+  },
+  "services": {
+    "heading": "Calculations & enrichment"
+  },
+  "authenticity": {
+    "heading": "Authenticity note",
+    "body": "We strive for accuracy in all religious content. If you notice an error, please report it through the app or our <contact>contact form</contact> so we can correct it promptly. Calculators and estimates are aids, not fatwas — consult a qualified scholar for rulings specific to your situation."
+  }
+}

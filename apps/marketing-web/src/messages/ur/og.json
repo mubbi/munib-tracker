@@ -1,0 +1,26 @@
+{
+  "footer": "نماز · ذکر · قضا · قرآن · سیکھیں",
+  "home": {
+    "title": "نماز، قضا، ذکر اور قرآن ایک پُرسکون ایپ میں"
+  },
+  "feature": {
+    "eyebrow": "خصوصیت",
+    "alt": "{appName} کی خصوصیت"
+  },
+  "compare": {
+    "eyebrow": "موازنہ",
+    "eyebrowRoundup": "ایپس کا جائزہ",
+    "fallbackTitle": "اسلامی ایپس کا موازنہ",
+    "alt": "{appName} ایپ کا موازنہ"
+  },
+  "audience": {
+    "eyebrow": "کن کے لیے",
+    "alt": "{appName}"
+  },
+  "guide": {
+    "eyebrow": "رہنما · {category}",
+    "fallbackCategory": "وسائل",
+    "fallbackTitle": "{appName} کے رہنما مضامین",
+    "alt": "{appName} رہنما"
+  }
+}

@@ -385,4 +385,17 @@ config.server.enhanceMiddleware = (middleware) => {
   };
 };
 
+// Release bundles (reactnative.dev/docs/performance → "Using console.* statements"):
+// strip console.log/info/debug/trace from app code AND node_modules. Terser only
+// runs when minifying (store/EAS/local release builds + `expo export`), so dev and
+// Jest logging are untouched. `pure_funcs` drops a call only when its result is
+// unused and keeps side-effecting arguments; warn/error stay for Sentry + diagnostics.
+config.transformer.minifierConfig = {
+  ...config.transformer.minifierConfig,
+  compress: {
+    ...config.transformer.minifierConfig?.compress,
+    pure_funcs: ["console.log", "console.info", "console.debug", "console.trace"],
+  },
+};
+
 module.exports = config;

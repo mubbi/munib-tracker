@@ -12,34 +12,39 @@ import {
 import { QuranAyahRangeCards } from "@/components/quran/quran-ayah-range-cards";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { SegmentedProgress } from "@/components/ui/progress-bar";
+import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { ZikrHadithContext } from "@/components/zikr/zikr-hadith-context";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { resolveAfterSalahPrayer } from "@/lib/adhkar-session";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
-import { isZikrItemDone } from "@/lib/zikr-count-key";
+import { getZikrCountFromMap, isZikrItemDone, zikrTarget } from "@/lib/zikr-count-key";
 import { zikrQuranHref, zikrQuranRanges } from "@/lib/zikr-quran";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { useTrackerActions, useZikrCount } from "@/stores/tracker-store";
 
 /** Pre-render a static HTML page for every bundled zikr at web export time. */
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
@@ -69,26 +74,43 @@ export default function ZikrDetailScreen() {
   // Short ayah spans stay here with Qur'an cards + recitation audio.
   const quranRanges = zikrQuranRanges(zikrId);
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     if (quranHref) return;
     let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    ensureZikrCorpus().then(
+      () => {
+        if (active) setCorpusReady(true);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, [quranHref]);
+  }, [quranHref, attempt]);
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
-  const { setZikrCount } = useTrackerActions();
   const item = !quranHref && corpusReady && zikrId ? getZikrById(zikrId) : undefined;
+  const { currentAfterSalah, date: adhkarDate } = useAdhkarClock();
+  const day = useAdhkarDayCounts(adhkarDate);
+  // After-salah counts always belong to one salah — opened without one (search,
+  // favorites, continue), log against the current salah rather than a stray key.
   const afterSalahPrayer =
-    item?.categoryId === "after_prayer" && prayerParam && isAfterSalahPrayer(prayerParam)
-      ? prayerParam
+    item?.categoryId === "after_prayer"
+      ? resolveAfterSalahPrayer(
+          item,
+          prayerParam && isAfterSalahPrayer(prayerParam) ? prayerParam : undefined,
+          currentAfterSalah,
+        )
       : undefined;
-  const count = useZikrCount(item?.id ?? "", afterSalahPrayer);
+  const count = item ? getZikrCountFromMap(day.counts, item.id, afterSalahPrayer) : 0;
   const shareCard = useShareContentCard();
+  const undoToast = useUndoToast();
 
   useEffect(() => {
     if (item) recordContinueActivity(buildZikrActivity(item));
@@ -99,7 +121,14 @@ export default function ZikrDetailScreen() {
   }
 
   if (!corpusReady) {
-    return null;
+    return (
+      <TasbeehLoadingScreen
+        title={t("zikr.title")}
+        onBack={() => goBackOrReplace(router, "/")}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
   }
 
   if (!item) {
@@ -121,7 +150,7 @@ export default function ZikrDetailScreen() {
   }
 
   const isFavorite = favoriteIds.includes(item.id);
-  const target = item.targetCount ?? 0;
+  const target = zikrTarget(item, afterSalahPrayer);
   // Single-recitation adhkar don't need the counter — mark complete on this screen.
   const isSingleRecitation = target === 1;
   const isDone = isZikrItemDone(count, target);
@@ -148,17 +177,57 @@ export default function ZikrDetailScreen() {
   ];
 
   const progressCard =
-    target > 0 ? (
-      <Card key="progress" padding="three">
+    target > 1 ? (
+      <Card key="progress">
         <View style={styles.progressHeader}>
-          <ThemedText type="smallBold">{t("zikr.today")}</ThemedText>
+          <ThemedText type="smallBold">
+            {afterSalahPrayer
+              ? t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${afterSalahPrayer}`) })
+              : t("zikr.today")}
+          </ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {Math.min(count, target)} / {target}
           </ThemedText>
         </View>
-        <SegmentedProgress total={target} completed={Math.min(count, target)} />
+        {target <= 40 ? (
+          <SegmentedProgress
+            accessibilityLabel={t("a11yProgress.zikrToday")}
+            total={target}
+            completed={Math.min(count, target)}
+          />
+        ) : (
+          <ProgressBar
+            value={Math.min(count, target) / target}
+            accessibilityLabel={t("a11yProgress.zikrToday")}
+            height={6}
+          />
+        )}
       </Card>
     ) : null;
+
+  const openSession = () =>
+    router.push({
+      pathname: "/zikr/session/[category]",
+      params: {
+        category: item.categoryId,
+        start: item.id,
+        ...(afterSalahPrayer ? { prayer: afterSalahPrayer } : {}),
+      },
+    });
+
+  // Clearing a finished count is reversible: clear now, offer Undo (same as the session).
+  const writeDayCount = (next: number) => {
+    const previous = count;
+    if (next === 0 && previous > 0) {
+      void undoToast.run({
+        do: () => day.setCount(item.id, 0, target, afterSalahPrayer),
+        undo: () => day.setCount(item.id, previous, target, afterSalahPrayer),
+        messageKey: "zikr.markedNotDone",
+      });
+      return;
+    }
+    void day.setCount(item.id, next, target, afterSalahPrayer);
+  };
 
   const actionButtons = (
     <View key="actions" style={styles.actions}>
@@ -176,30 +245,34 @@ export default function ZikrDetailScreen() {
             isDone ? tTv(t, "zikr.undoDoneHint", "zikr.undoDoneHintTv") : undefined
           }
           onPress={() => {
-            const next = isDone ? 0 : 1;
-            void setZikrCount(
-              item.id,
-              next,
-              target,
-              afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
-            );
+            writeDayCount(isDone ? 0 : 1);
             if (!isDone) trackReviewInteraction("mark_zikr");
           }}
         />
       ) : (
-        <Button
-          label={t("zikr.openInTasbeeh")}
-          icon={TASBEEH_ICON}
-          fullWidth
-          onPress={() =>
-            router.push({
-              pathname: "/tasbeeh/[zikrId]",
-              params: afterSalahPrayer
-                ? { zikrId: item.id, prayer: afterSalahPrayer }
-                : { zikrId: item.id },
-            })
-          }
-        />
+        <>
+          <Button
+            label={isDone ? t("zikrSession.reviewSet") : t("zikrSession.countHere")}
+            icon={{ ios: "hand.tap.fill", android: "touch_app", web: "touch_app" }}
+            fullWidth
+            onPress={openSession}
+          />
+          <Button
+            label={isDone ? t("zikrSession.markNotDone") : t("zikrSession.markComplete")}
+            variant="secondary"
+            icon={
+              isDone
+                ? { ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }
+                : { ios: "checkmark.circle", android: "task_alt", web: "task_alt" }
+            }
+            fullWidth
+            accessibilityHint={isDone ? undefined : t("zikrSession.markCompleteHint")}
+            onPress={() => {
+              writeDayCount(isDone ? 0 : target);
+              if (!isDone) trackReviewInteraction("mark_zikr");
+            }}
+          />
+        </>
       )}
       <View style={styles.actionRow}>
         <Button
@@ -207,8 +280,8 @@ export default function ZikrDetailScreen() {
           variant="secondary"
           icon={
             isFavorite
-              ? { ios: "star.fill", android: "star", web: "star" }
-              : { ios: "star", android: "star_border", web: "star_border" }
+              ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+              : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
           }
           onPress={() => toggleFavorite(item.id)}
           style={styles.flex}
@@ -242,7 +315,7 @@ export default function ZikrDetailScreen() {
         <>
           <QuranAyahRangeCards ranges={quranRanges} sourceHref={sourceHref} shareCard={shareCard} />
           {item.virtues ? (
-            <Card padding="three">
+            <Card>
               <ThemedText type="small" themeColor="mutedForeground">
                 {item.virtues}
               </ThemedText>
@@ -276,6 +349,7 @@ export default function ZikrDetailScreen() {
       {/* Wide web / tablets: progress + actions move into the aside beside the text. */}
       {showSideFilters ? null : progressCard}
       {showSideFilters ? null : actionButtons}
+      <ZikrHadithContext key="why" item={item} showVirtue={false} />
     </Stagger>
   );
 
@@ -286,6 +360,8 @@ export default function ZikrDetailScreen() {
       onBack={() => goBackOrReplace(router, "/")}
       maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       {shareCard.SnapshotHost}
       <Seo
         path={`/zikr/detail/${item.id}`}

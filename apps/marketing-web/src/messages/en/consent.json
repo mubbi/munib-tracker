@@ -1,0 +1,36 @@
+{
+  "dialogLabel": "Cookie consent",
+  "summary": {
+    "title": "Help us improve, privately",
+    "body": "Allow Google Analytics so we can see, in overall numbers, which pages help people most. <link>How we use it</link>"
+  },
+  "details": {
+    "title": "Cookie settings",
+    "body": "Essential cookies keep the site working. Analytics are optional and stay off until you allow them. <link>Privacy Policy</link>"
+  },
+  "managePreferences": "Choose what to allow",
+  "essentialOnly": "Essential only",
+  "acceptAll": "Allow analytics",
+  "saveChoices": "Save choices",
+  "close": "Close",
+  "back": "Back",
+  "alwaysOn": "Always on",
+  "state": "{on, select, true {On} other {Off}}",
+  "switchLabel": "{item} {on, select, true {On} other {Off}}",
+  "openPreferences": "Cookie preferences",
+  "items": {
+    "essential": {
+      "title": "Essential",
+      "description": "Needed for the site to work, such as security and remembering this choice."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "description": "Page statistics through Google Analytics, so we know which pages help. Never used for ads or ad profiles."
+    }
+  },
+  "promises": {
+    "noAds": "No ads",
+    "noProfiling": "No profiling",
+    "neverSold": "Never sold"
+  }
+}

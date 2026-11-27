@@ -1,26 +1,20 @@
-import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentLoading } from "@/components/learn-content-loading";
-import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { LearnTopicArticle } from "@/components/learn-guide";
+import { ReciteAlongCard } from "@/components/quran/recite-along-card";
+import { ReciteAlongInlineScope } from "@/components/quran/recite-along-inline";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { QuranGuideTopicContent } from "@/components/quran-guide/topic-content";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { EmptyState } from "@/components/ui/empty-state";
-import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureQuranGuideContent,
   getQuranGuideTopic,
   getQuranGuideTopics,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { learnQuranTopicPassages } from "@/lib/recite-along/guides";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -28,76 +22,41 @@ export function generateStaticParams(): Array<{ topic: string }> {
 }
 
 export default function LearnQuranTopicScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(
-    ensureQuranGuideContent,
-    isQuranGuideContentReady,
-  );
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureQuranGuideContent, isQuranGuideContentReady);
   const topic = getQuranGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_quran", topic, "/learn-quran");
   useEnsureQuranGuideProgressLoaded();
-  const { maxContentWidth } = useLearnWideLayout();
-
-  const detailPath = topic ? `/learn-quran/${topic.id}` : "/learn-quran";
-  const crumbs = topic
-    ? [
-        { name: t("tabs.home"), path: "/" },
-        { name: t("learnQuran.title"), path: "/learn-quran" },
-        { name: topic.title, path: detailPath },
-      ]
-    : undefined;
+  const recitePassages = topic ? learnQuranTopicPassages(topic) : [];
 
   return (
-    <ScreenLayout
-      readingProgress
-      eyebrow={t("learnQuran.eyebrow")}
-      title={topic?.title ?? t("learnQuran.title")}
-      subtitle={topic?.summary ?? ""}
-      onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
-      maxContentWidth={maxContentWidth}
-    >
-      <Seo
-        path={detailPath}
-        title={topic?.title}
-        description={topic?.summary}
-        type={topic ? "article" : undefined}
-        index={!!topic}
-        breadcrumbs={crumbs}
-        jsonLd={
-          topic
-            ? [
-                articleSchema({
-                  path: detailPath,
-                  headline: topic.title,
-                  description: topic.summary ?? "",
-                  breadcrumbs: crumbs,
-                }),
-              ]
-            : undefined
-        }
-      />
-      {!contentReady ? (
-        <LearnContentLoading />
-      ) : !topic ? (
-        <EmptyState
-          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
-          title={t("learnQuran.notFound")}
-          actionLabel={t("learnQuran.title")}
-          onAction={() => router.replace("/learn-quran" as Href)}
-        />
-      ) : (
-        <LearnSplitLayout aside={<QuranGuideTopicAside currentId={topic.id} />}>
-          <Stagger>
-            <LearnReadingChrome surface="learn_quran">
-              <QuranGuideTopicContent topic={topic} />
-            </LearnReadingChrome>
-            <JannahDisclaimer textKey="learnQuran.disclaimer" contentRef={reportRef} />
-          </Stagger>
-        </LearnSplitLayout>
+    <LearnTopicArticle
+      ns="learnQuran"
+      basePath="/learn-quran"
+      topic={topic}
+      ready={contentReady}
+      error={contentError}
+      onRetry={retryContent}
+      surface="learn_quran"
+      contentRef={reportRef}
+      aside={(tpc) => <QuranGuideTopicAside currentId={tpc.id} />}
+      afterContent={() => (
+        // D68: recite the topic's ayahs with the on-device listener (hidden on TV).
+        <ReciteAlongCard passages={recitePassages} title={t("reciteAlong.topicTitle")} />
       )}
-    </ScreenLayout>
+    >
+      {(tpc) => (
+        // The card after the article already offers these ayahs — no inline buttons too.
+        <ReciteAlongInlineScope enabled={recitePassages.length === 0}>
+          <QuranGuideTopicContent topic={tpc} />
+        </ReciteAlongInlineScope>
+      )}
+    </LearnTopicArticle>
   );
 }
 

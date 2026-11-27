@@ -1,13 +1,15 @@
 import type { AuthSessionResponseDto } from "@munib-tracker/api-client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { createTvPairing, pollTvPairing, type TvPairingCreateResponse } from "@/api/endpoints";
 import { BrandQrCode } from "@/components/share/brand-qr-code";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Radius, Spacing } from "@/constants/theme";
+import { Callout } from "@/components/ui/callout";
+import { Skeleton, SkeletonGroup } from "@/components/ui/skeleton";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -107,7 +109,16 @@ export function TvQrLoginPanel({ onSession, preferredFocus }: TvQrLoginPanelProp
         {t("tv.qrHint")}
       </ThemedText>
 
-      {busy && !pairing ? <ActivityIndicator color={colors.accent} style={styles.spinner} /> : null}
+      {busy && !pairing ? (
+        // QR-sized placeholder while the pairing code is created (P8-04).
+        <SkeletonGroup style={styles.spinner}>
+          <Skeleton
+            width={isTV() ? TV_QR_SIZE : 200}
+            height={isTV() ? TV_QR_SIZE : 200}
+            radius={Radius.md}
+          />
+        </SkeletonGroup>
+      ) : null}
 
       {pairing ? (
         <>
@@ -125,11 +136,7 @@ export function TvQrLoginPanel({ onSession, preferredFocus }: TvQrLoginPanelProp
         </>
       ) : null}
 
-      {error ? (
-        <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
-          {error}
-        </ThemedText>
-      ) : null}
+      {error ? <Callout tone="danger">{error}</Callout> : null}
 
       <Button
         label={pairing ? t("tv.qrRefresh") : t("tv.qrRetry")}
@@ -137,7 +144,7 @@ export function TvQrLoginPanel({ onSession, preferredFocus }: TvQrLoginPanelProp
         fullWidth
         preferredFocus={preferredFocus && !pairing}
         onPress={() => void startPairing()}
-        disabled={busy}
+        loading={busy}
       />
     </View>
   );
@@ -151,7 +158,7 @@ const styles = StyleSheet.create({
     padding: Spacing.four,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   panelTv: {
     gap: Spacing.two,

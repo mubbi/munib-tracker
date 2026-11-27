@@ -16,7 +16,7 @@ describe("AdhanStylePicker", () => {
     expect(screen.getByLabelText("Mecca — Fajr").props.accessibilityState).toEqual({
       selected: true,
     });
-    expect(screen.getByLabelText("Classic adhan").props.accessibilityState).toEqual({
+    expect(screen.getByLabelText("Classic Adhan").props.accessibilityState).toEqual({
       selected: false,
     });
   });
@@ -29,7 +29,7 @@ describe("AdhanStylePicker", () => {
 
   it("ignores re-selecting the current style", async () => {
     const onChange = await renderPicker();
-    await fireEvent.press(screen.getByLabelText("Classic adhan"));
+    await fireEvent.press(screen.getByLabelText("Classic Adhan"));
     expect(onChange).not.toHaveBeenCalled();
   });
 

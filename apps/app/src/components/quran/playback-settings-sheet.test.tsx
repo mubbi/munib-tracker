@@ -75,12 +75,18 @@ describe("PlaybackSettingsSheet", () => {
 
   it.each([
     ["From ayah", "6", { start: 5, end: 6 }],
-    ["To ayah", "99", { start: 2, end: 7 }],
+    ["To ayah", "7", { start: 2, end: 7 }],
     ["To ayah", "1", { start: 1, end: 2 }],
-  ])("edits %p to %p, clamping and ordering the range", async (field, text, range) => {
+  ])("edits %p to %p, ordering the range", async (field, text, range) => {
     const { props } = await renderSheet({ repeatMode: "range" });
     await fireEvent.changeText(screen.getByLabelText(field), text);
     expect(props.onRepeatRangeChange).toHaveBeenLastCalledWith(range);
+  });
+
+  it("never clamps an out-of-range ayah: it is not applied (B-03)", async () => {
+    const { props } = await renderSheet({ repeatMode: "range" });
+    await fireEvent.changeText(screen.getByLabelText("To ayah"), "99");
+    expect(props.onRepeatRangeChange).not.toHaveBeenCalled();
   });
 
   it("ignores non-numeric range input", async () => {

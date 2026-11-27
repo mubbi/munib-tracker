@@ -1,69 +1,44 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  getReviewPromptRuntime,
   recordReviewErrorMarker,
-  registerReviewEngagement,
   trackReviewInteraction,
 } from "@/features/reviews/lib/reviewEngagementBridge";
-import type { ReviewPromptRuntime } from "@/features/reviews/lib/reviewGating";
+import {
+  loadReviewGating,
+  resetReviewGatingCache,
+  updateReviewGating,
+} from "@/features/reviews/lib/reviewGatingStore";
 
-const RUNTIME: ReviewPromptRuntime = {
-  isSyncing: true,
-  prayersLogged: 9,
-  currentStreak: 4,
-  achievementsUnlocked: 1,
-  hasCompletedOnboarding: true,
-};
-
-function setup() {
-  const handlers = {
-    trackInteraction: jest.fn(),
-    recordError: jest.fn(),
-    getRuntime: jest.fn(() => RUNTIME),
-  };
-  registerReviewEngagement(handlers);
-  return handlers;
-}
+/** Waits for queued store updates to finish. */
+const drain = () => updateReviewGating((s) => s);
 
 describe("reviewEngagementBridge", () => {
-  afterEach(() => {
-    registerReviewEngagement(null);
+  beforeEach(async () => {
+    await AsyncStorage.clear();
+    resetReviewGatingCache();
   });
 
-  describe("without handlers", () => {
-    it.each([
-      ["trackReviewInteraction", () => trackReviewInteraction("mark_prayer")],
-      ["recordReviewErrorMarker", () => recordReviewErrorMarker()],
-    ])("%s is a no-op", (_name, call) => {
-      expect(call).not.toThrow();
-    });
-
-    it("returns an empty runtime", () => {
-      expect(getReviewPromptRuntime()).toEqual({
-        isSyncing: false,
-        prayersLogged: 0,
-        currentStreak: 0,
-        achievementsUnlocked: 0,
-        hasCompletedOnboarding: false,
-      });
-    });
+  it("counts an interaction kind once per session", async () => {
+    trackReviewInteraction("mark_prayer");
+    trackReviewInteraction("mark_prayer");
+    trackReviewInteraction("view_statistics");
+    await drain();
+    expect((await loadReviewGating()).meaningfulInteractionCount).toBe(2);
   });
 
-  describe("with handlers", () => {
-    it("forwards interactions", () => {
-      const handlers = setup();
-      trackReviewInteraction("mark_zikr");
-      expect(handlers.trackInteraction).toHaveBeenCalledWith("mark_zikr");
-    });
+  it("records a crash by default", async () => {
+    recordReviewErrorMarker();
+    await drain();
+    const state = await loadReviewGating();
+    expect(state.lastErrorAt).not.toBeNull();
+    expect(state.sessionErrorAt).not.toBeNull();
+  });
 
-    it("forwards error markers", () => {
-      const handlers = setup();
-      recordReviewErrorMarker();
-      expect(handlers.recordError).toHaveBeenCalledTimes(1);
-    });
-
-    it("returns the registered runtime", () => {
-      setup();
-      expect(getReviewPromptRuntime()).toBe(RUNTIME);
-    });
+  it("records a session-only error", async () => {
+    recordReviewErrorMarker("session");
+    await drain();
+    const state = await loadReviewGating();
+    expect(state.lastErrorAt).toBeNull();
+    expect(state.sessionErrorAt).not.toBeNull();
   });
 });

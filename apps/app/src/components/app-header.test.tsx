@@ -1,5 +1,5 @@
 import { fireEvent, screen } from "@testing-library/react-native";
-import { I18nManager } from "react-native";
+import { I18nManager, Text } from "react-native";
 
 import { AppHeader } from "@/components/app-header";
 import { Spacing } from "@/constants/theme";
@@ -53,10 +53,25 @@ describe("AppHeader", () => {
     const onNotificationsPress = jest.fn();
     await renderHeader({ onNotificationsPress, notificationCount: 3 });
 
-    await fireEvent.press(bell());
+    // The visual badge is hidden from assistive tech; the count lives in the bell's label.
+    const unreadBell = screen.getByLabelText("Notifications, 3 new");
+    await fireEvent.press(unreadBell);
 
-    expect(screen.getByText("3")).toBeTruthy();
+    expect(screen.getByText("3", { includeHiddenElements: true })).toBeTruthy();
     expect(onNotificationsPress).toHaveBeenCalled();
+  });
+
+  it("limits long titles and subtitles to two lines", async () => {
+    await renderHeader({ subtitle: "A long subtitle" });
+
+    expect(screen.getByText("Tracker").props.numberOfLines).toBe(2);
+    expect(screen.getByText("A long subtitle").props.numberOfLines).toBe(2);
+  });
+
+  it("renders trailing actions after the title", async () => {
+    await renderHeader({ trailing: <Text>Share</Text> });
+
+    expect(screen.getByText("Share")).toBeTruthy();
   });
 
   it("caps the row to the content column", async () => {

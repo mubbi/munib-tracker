@@ -22,37 +22,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Një besimtar duhet të mbajë së bashku dy të vërteta. Së pari, Parajsa është reale, e afërt dhe ia vlen çdo përpjekje – Kurani na thotë të 'garojmë' drejt tij (Kur'an 3:133). Së dyti, askush nuk e fiton Xhenetin vetëm me vepra; Hyrja është përfundimisht nga mëshira e Allahut, me besimin e sinqertë dhe veprat e mira që janë mjetet që Ai ka zgjedhur të pranojë. Ky ekuilibër e mban gjallë shpresën pa rritur arrogancën: ne përpiqemi maksimalisht, pastaj hedhim veten mbi mëshirën e Tij.",
       "Praktikisht, lëreni realitetin e Xhenetit të formojë zgjedhjet tuaja të përditshme. Kur adhurimi ndihet i rëndë ose një tundim ndihet i fortë, mbani mend se çfarë pret dhe çfarë është në rrezik. Kërkoni shpesh Allahun për Parajsën, punoni për të vazhdimisht në mënyra të vogla të qëndrueshme dhe lëreni dëshirën për të të zbutur zemrën në këtë jetë kalimtare.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Vraponi drejt faljes së Zotit tuaj dhe Xhenetit, gjerësia e të cilit është e qiejve dhe e tokës, e përgatitur për të devotshmit.",
-      },
-      {
-        excerpt:
-          "Allahu u ka premtuar besimtareve dhe besimtareve Xhennete, nëpër të cilat rrjedhin lumenj, ku do të qëndrojnë përgjithmonë, dhe vendbanime të këndshme në Xhennete të përhershme, por kënaqësia e Allahut është më e madhe.",
-      },
-      {
-        excerpt:
-          "Asnjë njeri nuk e di se çfarë u është fshehur rehatisë si shpërblim për atë që kanë bërë.",
-      },
-      {
-        excerpt: "Aty do të kenë çfarë të dëshirojnë, e tek Ne ka edhe më shumë.",
-      },
-      {
-        excerpt:
-          "Ata që besuan dhe bënë vepra të mira, për ta janë kopshtet e strehimit si mikëpritje.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu tha: Unë kam përgatitur për robërit e Mi të mirë atë që nuk e ka parë syri, veshi nuk e ka ngjizur dhe asnjë zemër nuk e ka ngjizur.",
-      },
-      {
-        excerpt:
-          "Allahu i Lartësuar ka thënë: Unë kam përgatitur për robërit e Mi të mirë atë që as syri nuk e ka parë, as veshi nuk e ka dëgjuar dhe as zemra e njeriut nuk e ka parë.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Radhitet në Xhenet",
@@ -64,29 +35,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Mençuria në këtë është e bukur. Nëse do ta dinim vendosjen tonë të saktë, disa do të bëheshin të vetëkënaqur dhe të tjerët do të dëshpëroheshin. Në vend të kësaj, ne jemi mësuar të mbajmë sytë nga Allahu, të vazhdojmë të përpiqemi dhe të vazhdojmë të shpresojmë. Besimtari konkurron në të mirë - 'për këtë le të konkurrojnë konkurrentët' - ndërsa vlerësimin përfundimtar ia lë Më të Drejtit.",
       "Pra, në vend që të synoni në një nivel të numëruar, synoni më të lartën dhe lëreni Allahun t'ju vendosë ku të dojë. Pejgamberi ﷺ i mësoi sahabët që të mos kënaqeshin me një kërkesë modeste, por të kërkonin në mënyrë specifike El-Firdews, pikërisht majën e Xhenetit.",
     ],
-    quran: [
-      {
-        excerpt: "Për të gjithë do të ketë gradë sipas asaj që ata bënë.",
-      },
-      {
-        excerpt:
-          "Shih se si Ne i kemi favorizuar disa prej tyre ndaj të tjerëve - dhe bota tjetër është më e madhe në shkallë dhe më e madhe në dallim.",
-      },
-      {
-        excerpt:
-          "Kushdo që i bindet Allahut dhe të Dërguarit, ata do të jenë me ata që Allahu u ka dhënë mirësi: profetët, të sinqertët, dëshmorët dhe të mirët. Sa shokë të shkëlqyer që janë!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Xheneti ka njëqind nivele të cilat Allahu i ka përgatitur për ata që luftojnë në rrugën e Tij. Distanca ndërmjet dy niveleve është si distanca midis qiejve dhe tokës. Pra, kur të kërkoni Allahun, kërkoni prej Tij El-Firdewsin, sepse ai është pjesa më e mirë dhe më e lartë e Xhenetit.",
-      },
-      {
-        excerpt:
-          "Kur të luteni Allahun, kërkoni prej Tij Firdewsin, sepse ai është pjesa më e lartë e Xhenetit dhe mesi i Xhenetit dhe prej tij rrjedhin lumenjtë e Xhenetit dhe mbi të është Arshi i Mëshiruesit.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -99,16 +49,7 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Megjithatë dhurata përfundimtare dhe vendimtare është gjithmonë mëshira e Allahut. Në të njëjtën frymë që synojmë për më të lartën, kujtojmë fjalët e vetë Profetit ﷺ: askush nuk hyn në Xhenet vetëm me veprat e tij – madje as vetë Profeti a.s. – përveç se Allahu e mbështjell atë me mëshirën e Tij. Ky është ekuilibri i përsosur që arrin besimtari: shpresa dhe ambicia e lartë nga njëra anë, përulësia e sinqertë nga ana tjetër.",
       "Pra, bëje El-Firdewsin pjesë të rregullt të lutjes tënde – në sexhde, në të tretën e fundit të natës dhe para gjumit – ndërkohë që në heshtje bëni më të mirën tuaj çdo ditë dhe mbështeteni tërësisht në mëshirën e Zotit tuaj për pjesën tjetër.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kur të luteni Allahun, kërkoni prej Tij Firdewsin, sepse ai është pjesa më e lartë e Xhenetit dhe mesi i Xhenetit dhe prej tij rrjedhin lumenjtë e Xhenetit dhe mbi të është Arshi i Mëshiruesit.",
-      },
-      {
-        excerpt:
-          "Askush prej jush nuk do të hyjë në Xhenet vetëm me veprat e tij. Ata thanë: As ti o i Dërguar i Allahut? Ai tha: As mua, përveç nëse Allahu më mbulon me mëshirë prej Tij.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kërkoni Allahun për El-Firdews në duanë tuaj, veçanërisht në suxhud dhe para gjumit.",
       "Përsosni atë që ju është obliguar, pastaj shtojeni adhurimin vullnetar.",
@@ -126,20 +67,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Të ashtuquajturat mëkate 'më të vogla' kanë rëndësi gjithashtu dhe nuk duhet të merren kurrë lehtë. Përgojimi, gënjeshtra, arroganca, prishja e lidhjeve familjare dhe shkujdesja gërryen ngadalë zemrën dhe karakterin. Profeti ﷺ paralajmëroi se mëkatet e vogla të grumbulluara mund të shkatërrojnë një person ashtu si shkopinjtë e vegjël të mbledhur së bashku mund të gatuajnë një vakt të plotë. Secili prej tyre ka nevojë për kthimin e vet tek Allahu.",
       "E mira është shpresa në veprim: kurrë mos lejoni që madhësia e një mëkati t'ju bindë se pendimi është i kotë. Kthehuni tek Allahu në momentin që rrëshqitni, ndiqni një vepër të keqe me një të mirë për ta fshirë atë dhe mbajeni derën e istighfarit të hapur çdo ditë. Mëshira e tij është gjithmonë më e madhe se gabimi juaj.",
     ],
-    quran: [
-      {
-        excerpt: "Vërtet, Allahu nuk ia fal shoqërinë Atij, por më pak se kaq ia fal kujt të dojë.",
-      },
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Besëlidhja mes nesh dhe atyre është namazi; kush e braktis atë ka bërë kufër.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Listat e mëkateve të mëdha në fikh ndryshojnë sipas dijetarëve dhe vendimet për individët u përkasin njerëzve të kualifikuar. Ky është një kujtesë e përgjithshme për t'u penduar - jo një vendim personal. Konsultohuni me një studiues të besueshëm për situatën tuaj.",
@@ -154,16 +83,7 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Përtej individëve të përmendur, tekstet përshkruajnë kategori të dhëna lajme të gëzuara: të sinqertët dhe durimtarët, ata që vdesin si martirë të vërtetë në rrugën e Allahut sipas ligjit Islami, dhe ata fjalët e fundit të të cilëve në këtë jetë janë dëshmia e besimit, la ilahe illlah. Çdo përshkrim tregon për një realitet të brendshëm - sinqeritet, sakrificë ose një zemër e lidhur me Allahun në frymën e fundit - jo thjesht një etiketë e jashtme.",
       "Mësimi për ne nuk është të ndihemi të sigurt nga shoqërimi, as të pretendojmë këto grada për vete, por të frymëzohemi. Shembulli i tyre le të na tërheqë lart: ta duam atë që ata donin, të përpiqen ashtu siç u përpoqën dhe ta kthejnë atë admirim në dua dhe veprim, duke i kërkuar Allahut mbi të gjitha Husn al-Khatimah - një fund të mirë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ebu Bekri është në Xhenet, Omeri është në Xhenet, Uthmani është në Xhenet, Aliu është në Xhenet, Talha është në Xhenet, Zubejri është në Xhenet, Abd al-Rahman ibn Avf është në Xhenet, Sa'di është në Xhenet, Sa'id ibn Zejd është në Xhenet, dhe Ebu Ibn Zejdi është në Xhenet, dhe Ebu Ibn Zejdi është në Xhenet.",
-      },
-      {
-        excerpt:
-          'Fjalët e fundit të kujtdo që janë "Nuk ka Zot tjetër përveç Allahut" do të hyjë në Xhenet.',
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Lajmet e gëzuara në Hadith u referohen atyre që janë përmendur ose kategorive të përshkruara. Ato nuk zëvendësojnë nevojën për besimin, veprat dhe një fund të mirë. Allahu e di më së miri.",
   },
@@ -177,22 +97,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia e themelimit të teuhidit është se liron zemrën. Personi që adhuron vetëm Allahun është i çliruar nga frika e krijimit, nga ndjekja e miratimit të të gjithëve dhe nga lodhja e shërbimit të shumë zotërinjve. Jeta e tij fiton një drejtim të vetëm e të qartë: të kënaqë Atë që e ka krijuar.",
       "Praktikisht, mësoni besimin e saktë nga dijetarët e besueshëm, pastroni adhurimin tuaj nga shirku dhe hipokrizia dhe kontrolloni qëllimin tuaj para se të veproni. Ky hap i parë nuk është fakultativ ose i avancuar - aty fillon çdo rrugë drejt Parajsës.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ty dhe atyre që ishin para teje të është shpallur: “Nëse i bëni shok Allahut, veprat tuaja do të dështojnë dhe me siguri do të jeni prej të humburve.",
-      },
-      {
-        excerpt:
-          "Ata nuk u urdhëruan veçse të adhuronin Allahun, duke qenë të sinqertë ndaj Tij në fe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Veprimet janë vetëm nga qëllimet, dhe çdo person do të ketë vetëm atë që ka synuar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Mësoni bazat e teuhidit nga dijetarët e besueshëm.",
       "Përtërijeni qëllimin tuaj përpara akteve të adhurimit.",
@@ -209,25 +115,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia më e thellë e namazit është transformimi. Namazi, i bërë siç duhet, e frenon njeriun nga paturpësia dhe keqbërja; është një rivendosje e përsëritur që e tërheq zemrën prapa tek Allahu gjatë një dite të ngarkuar. Mungesa e namazit pa arsyetim të vlefshëm është pra një çështje e rëndë që kërkon pendim të sinqertë dhe kompensim të tyre (kada). Nafli dhe ravatibi - namazet e rregullta sunet para dhe pas atyre të detyrueshme - shtojnë më shumë dritë dhe ngrenë gradën.",
       "Praktikisht: mbrojini pesë namazet ditore në kohën e tyre si përparësinë tuaj absolute, plotësoni ato që keni humbur dhe shtoni namazet sunet që mund t'i mbani. Nëse lutja juaj përmirësohet, çdo gjë tjetër në adhurimin tuaj ka tendencë të përmirësohet me të.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Me të vërtetë të suksesshëm janë besimtarët - ata që janë të përulur në lutjen e tyre.",
-      },
-      {
-        excerpt: "Përveç atyre që falen - atyre që janë të vazhdueshëm në namazin e tyre.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Gjëja e parë për të cilën robi do të përgjigjet në Ditën e Kijametit është namazi i tij. Nëse është e shëndoshë, ai ia ka dalë; nëse është me të meta, ai ka dështuar dhe ka humbur.",
-      },
-      {
-        excerpt:
-          "Nëse do të kishte një lumë në derën e njërit prej jush në të cilin ai lahej pesë herë në ditë, a do të mbetej mbi të ndonjë papastërti? Ata thanë: Jo. Ai tha: Kjo është ngjashmëria e pesë namazeve – me to Allahu i fshin mëkatet.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ruaji pesë namazet ditore në kohën e tyre.",
       "Falni namazet e humbura (kaza) me sinqeritet.",
@@ -245,22 +134,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Mençuria është e thellë: mëkati nuk duhet të jetë fundi i historisë së një personi. 'Allahu do t'i zëvendësojë veprat e tyre të këqija me të mira' (Kur'an 25:70) - pendimi i sinqertë mund ta shndërrojë një histori dështimi në një sukses, dhe mund ta kthejë një rënie në një fillim të ri që e afron një person më afër Allahut se më parë. Dëshpërimi pas mëkatit është në vetvete një kurth i shejtanit; shpresa në mëshirën e Allahut është përgjigja e besimtarit.",
       "Praktikisht: mos e shtyni pendimin për asnjë ditë - kthehuni në momentin që rrëshqitni. Ndiqni çdo vepër të keqe me një vepër të mirë për ta fshirë atë dhe mbajeni istighfarin të rrjedhë në gjuhën tuaj gjatë gjithë ditës, ashtu siç Profeti ﷺ kërkoi falje shumë herë në ditë pavarësisht se ishte falur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, kthehuni tek Allahu me një pendim të sinqertë, se ndoshta Zoti juaj do t'jua largojë të këqijat dhe do t'ju shpjerë në Xhennete, nëpër të cilat rrjedhin lumenj.",
-      },
-      {
-        excerpt:
-          "Me përjashtim të atyre që pendohen, besojnë dhe bëjnë vepra të mira, atyre All-llahu ua zëvendëson të këqijat me të mira, e Allahu është falës dhe mëshirues.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu është më i kënaqur me pendimin e robit të Tij se një prej jush, i cili pasi humbi devenë e tij në një tokë djerrë, befas e gjen përsëri.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Pendohuni menjëherë kur mëkatoni - mos e shtyni.",
       "Pasoje mëkatin me një vepër të mirë për ta fshirë atë.",
@@ -278,21 +153,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Megjithatë, qëllimi më i thellë nuk është recitimi për hir të tij, por transformimi. Allahu na urdhëron të 'lexojmë Kur'anin me lexim të matur' (Kur'an 73:4) pikërisht në mënyrë që kuptimet të zhyten dhe të riformësojnë mënyrën se si mendojmë, ndjejmë dhe sillemi. Kur'ani u dërgua për t'u jetuar, jo thjesht për të recituar; sahabët do të mësonin dhjetë ajete dhe nuk do të vazhdonin derisa t'i kuptonin dhe të vepronin sipas tyre.",
       "Praktikisht: lexoni një pjesë çdo ditë, qoftë edhe vetëm disa vargje, por lexojini ato me reflektim. Mësoni përmendësh sure të reja ose mbani atë që tashmë dini, dhe - më e rëndësishmja - veproni sipas asaj që mësoni përpara se të nxitoni përpara për të mësuar më shumë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata që lexojnë Librin e Allahut, falin namazin dhe japin nga ajo që Ne kemi dhënë, ata shpresojnë në një tregti që nuk do të humbasë, që Ai t'u japë shpërblimin e plotë dhe t'ua shtojë nga dhuntia e Tij.",
-      },
-      {
-        excerpt: "Dhe lexo Kuranin me lexim të matur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "I thuhet shokut të Kur'anit: Lexo dhe ngjitu dhe lexoje siç lexoje dikur në botë, sepse grada jote do të jetë në ajetin e fundit që lexon.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Lexoni çdo ditë - edhe disa vargje me reflektim.",
       "Mësoni përmendësh sure të reja ose mbani atë që dini.",
@@ -310,22 +172,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia e dhikrit është se ai e mban të gjallë marrëdhënien me Allahun ndërmjet akteve formale të adhurimit. Një gjuhë që është e lagur nga kujtesa dhe, më e rëndësishmja, një zemër që kujton Allahun në zgjedhjet e saj të përditshme – duke ndaluar para zemërimit, para blerjes, përpara një vendimi – është qëllimi i vërtetë. Dhikri nuk ka për qëllim të qëndrojë në buzë; ka për qëllim të drejtojë jetën.",
       "Praktikisht: bëjeni zakonin e përditshëm edhkarin e mëngjesit dhe të mbrëmjes, mbani një pjesë të thjeshtë të tesbihut, istighfarit ose salavateve të rrjedhin gjatë momenteve të kota dhe kujtoni Allahun veçanërisht para gjumit dhe pas zgjimit. Konsistenca në pak është më e mirë se shpërthimet e shumë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata që besuan dhe zemrat e të cilëve qetësohen me përmendjen e Allahut, me të vërtetë me përmendjen e Allahut qetësohen zemrat.",
-      },
-      {
-        excerpt:
-          "O ju që besuat, përmendeni Allahun me shumë përmendje dhe madhëroni Atë në mëngjes dhe në mbrëmje.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dy fjalë janë të lehta në gjuhë, të rënda në peshore dhe të dashura tek i Gjithëmëshirshmi: SubhanAllahi ue bihamdihi, SubhanAllahil-Azim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Plotësoni adhkarin në mëngjes dhe në mbrëmje çdo ditë.",
       "Përdorni një banak tesbih për istigfar ose salavat.",
@@ -343,22 +191,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia e bamirësisë është se ajo vepron tek dhuruesi po aq sa edhe marrësi. Ai liron kontrollin e lakmisë në zemër, ndërton dhembshurinë, forcon lidhjet e komunitetit dhe u kujton të pasurve se ata janë të besuar, jo pronarë të vërtetë. Dhe Islami e zgjeron përkufizimin e bamirësisë, kështu që askush nuk përjashtohet: Profeti ﷺ mësoi se një buzëqeshje për vëllain tënd, një fjalë e dobishme, madje edhe heqja e një objekti të dëmshëm nga rruga janë të gjitha forma sadakaje.",
       "Praktikisht: nëse jeni përgjegjës për zekatin, llogarisni dhe paguani me saktësi; jepni disa sadaka të rregullta, sado të vogla, në mënyrë që dhënia të bëhet zakon dhe jo ngjarje; dhe kërkoni një xharije sadakaje të qëndrueshme – sponsorizimi i një studenti, financimi i një pusi ose mbështetja e një xhamie – që vazhdon t'ju shpërblejë shumë kohë pasi të jeni larguar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Shembulli i atyre që e shpenzojnë pasurinë e tyre në rrugën e Allahut është si një kokërr që dalin shtatë kallinj, në çdo kalli njëqind kokrra. Dhe Allahu ia shumëzon kujt të dojë.",
-      },
-      {
-        excerpt:
-          "Shpenzoni nga ajo që ju kemi dhënë, para se t'i vijë vdekja njërit prej jush, e ai të thotë: O Zoti im, sikur të më vonoje pak, që të jap lëmoshë dhe të jem prej të mirëve.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kur njeriu vdes, veprat e tij përfundojnë, përveç tri: bamirësisë së vazhdueshme, diturisë së dobishme ose një fëmije të drejtë që lutet për të.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Llogaritni dhe paguani zekatin nëse jeni të detyruar.",
       "Jepni bamirësi të rregullt, qoftë edhe të vogla.",
@@ -376,25 +210,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia është se Islami nuk është vetëm një marrëdhënie private ndërmjet një personi dhe Allahut; ai ka për qëllim të vërshojë në mënyrën se si dikush i trajton të gjithë rreth tij. Një adhurues, namazi i të cilit nuk i zbut punët e tij, e ka humbur çështjen, ndërsa karakteri i mirë është davet në vetvete, duke i tërhequr njerëzit drejt besimit përmes shembullit të gjallë. Kjo është arsyeja pse tekstet çiftëzojnë adhurimin e Allahut me përsosmërinë ndaj krijimit të Tij vazhdimisht dhe përsëri.",
       "Praktikisht: punoni me një tipar në të njëjtën kohë - mbajeni gjuhën kur provokoheni, falni ata që ju bëjnë keq, rregulloni një marrëdhënie që keni lënë të prishet dhe mbani premtimet tuaja edhe kur ju kushtojnë. Një reflektim i shkurtër ditor pas namazit se si i trajtuat njerëzit atë ditë është një mënyrë e thjeshtë për t'u rritur në mënyrë të qëndrueshme.",
     ],
-    quran: [
-      {
-        excerpt: "Dhe vërtet, ju jeni me një karakter të madh dhe fisnik.",
-      },
-      {
-        excerpt:
-          "Ata që shpenzojnë në lehtësi dhe vështirësi, të cilët e frenojnë zemërimin e tyre dhe i falin njerëzit, e Allahu i do bamirësit.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Asgjë nuk është më e rëndë në peshoren e një besimtari në Ditën e Kijametit sesa karakteri i mirë. Vërtet, Allahu nuk i pëlqen njeriun e turpshëm dhe të vrazhdë.",
-      },
-      {
-        excerpt:
-          "Besimtarët më të plotë në besim janë ata që kanë karakter më të mirë dhe më të mirët prej jush janë ata që janë më të mirët me gratë e tyre.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Praktikoni durimin kur provokoheni.",
       "Falni të tjerët dhe rregulloni marrëdhëniet e prishura.",
@@ -410,72 +227,52 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       {
         title: "Vërtetësia",
         summary: "Të jesh i sinqertë në fjalë dhe vepër.",
-        quran: {
-          excerpt: "Jini me të vërtetët.",
-        },
+        quran: {},
       },
       {
         title: "Durimi",
         summary: "Qëndrueshmëri në sprova.",
-        quran: {
-          excerpt: "Allahu është me të duruarit.",
-        },
+        quran: {},
       },
       {
         title: "Kontrolli i zemërimit",
         summary: "Ta përmbash veten kur zemërohesh.",
-        hadith: {
-          excerpt: "I fortë është ai që e kontrollon veten në zemërim.",
-        },
+        hadith: {},
       },
       {
         title: "Falja",
         summary: "Falja e gabimeve të njerëzve.",
-        quran: {
-          excerpt: "Le të falin dhe të kapërcejnë.",
-        },
+        quran: {},
       },
       {
         title: "Përulësia",
         summary: "Të mos e shohësh veten mbi të tjerët.",
-        hadith: {
-          excerpt: "Kush përkulet për Allahun, Allahu e ngre.",
-        },
+        hadith: {},
       },
       {
         title: "Besueshmëria",
         summary: "Ruajtja e asaj që të besohet.",
-        quran: {
-          excerpt: "Ata ruajnë amanetet dhe premtimet e tyre.",
-        },
+        quran: {},
       },
       {
         title: "Prindërit",
         summary: "Respekt dhe mirësi ndaj tyre.",
-        quran: {
-          excerpt: "Mos u thuaj as «uf».",
-        },
+        quran: {},
       },
       {
         title: "Fjala e mirë",
         summary: "Thuaj mirë ose hesht.",
-        hadith: {
-          excerpt: "Le të thotë fjalë të mirë ose të heshtë.",
-        },
+        hadith: {},
       },
       {
         title: "Buzëqeshja",
         summary: "Fytyrë e hapur ndaj vëllait.",
-        hadith: {
-          excerpt: "Buzëqeshja ndaj vëllait është sadaka.",
-        },
+        hadith: {},
       },
       {
         title: "Drejtësia",
         summary: "Të gjykosh me drejtësi.",
-        quran: {
-          excerpt: "Jini të drejtë; kjo është më afër devotshmërisë.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -515,25 +312,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia është se veprimi pa dituri është i verbër dhe dituria pa veprim është e pafrytshme. Njohuria e saktë e mbron një person nga risitë dhe devijimet, e thellon sinqeritetin dhe i jep atij aftësinë për të përfituar nga të tjerët në vend që të përfitojë thjesht nga vetja. Dijetarët e Islamit gjithmonë kanë tërhequr vërejtjen kundër dy rreziqeve: të vepruarit me injorancë dhe të diturit pa vepruar.",
       "Praktikisht: angazhohuni që të mësoni rregullisht diçka të dobishme - një varg, një Hadith, një rregull që ju nevojitet për adhurimin tuaj të përditshëm. Filloni me gjërat thelbësore të besimit, lutjes, pastrimit dhe ndalesave kryesore, pastaj thellohuni gradualisht. Ndani atë që mësoni me përulësi dhe zbatojeni gjithmonë për veten tuaj së pari.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Thuaj: A janë të barabartë ata që dinë me ata që nuk dinë? Vetëm ata që kuptojnë marrin parasysh.",
-      },
-      {
-        excerpt: "Dhe thuaj: Zoti im, më shto diturinë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që merr një rrugë në kërkim të diturisë, Allahu do t'ia lehtësojë rrugën për në Xhenet.",
-      },
-      {
-        excerpt:
-          "Kur njeriu vdes, veprat e tij përfundojnë, përveç tri: bamirësisë së vazhdueshme, diturisë së dobishme ose një fëmije të drejtë që lutet për të.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Mësoni diçka të dobishme çdo javë.",
       "Ndani njohuritë pa arrogancë.",
@@ -551,18 +331,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia është se nefli e mban besimin të gjallë dhe të rritet. Detyrimet ruajnë vijën bazë, por aktet vullnetare janë aty ku shtrihet zemra, ku adhurimi privat që askush nuk e sheh ndërton sinqeritetin dhe ku njeriu stërvit veten për sprovat më të vështira të jetës. Është gjithashtu një mëshirë që këto veprime janë fakultative - Allahu hap shumë dyer në mënyrë që çdo person të mund të ecë nëpër ato që i përshtaten.",
       "Praktikisht, çelësi është qëndrueshmëria, jo intensiteti. Profeti ﷺ mësoi se veprat më të dashura tek Allahu janë ato më të qëndrueshme, qoftë edhe të vogla. Zgjidhni disa veprime vullnetare që mund t'i mbani vërtet – dy rekate tehaxhud, një agjërim në javë, një pjesë të caktuar të Kuranit – në vend të një shpërthimi ambicioz që digjet brenda disa ditësh.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Anët e tyre i braktisin shtretërit e tyre, ndërsa e lusin Zotin e tyre me frikë dhe shpresë dhe shpenzojnë nga ajo që Ne u kemi dhënë. Askush nuk e di se çfarë ngushëllimi është fshehur për ta si shpërblim për atë që kanë bërë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Robi Im nuk më afrohet me diçka më të dashur për Mua sesa ajo që ia kam bërë obligim. Dhe robi Im vazhdon të më afrohet Mua përmes veprave vullnetare derisa Unë ta dua atë.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Falni tehaxhudin edhe nëse janë vetëm dy rekate.",
       "Ditë të agjëruara vullnetare kur të jetë e mundur.",
@@ -580,22 +350,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Mençuria këtu riformulon vuajtjen tërësisht. Gjykimet nuk janë automatikisht dënime; për një besimtar që përgjigjet mirë, ato mund të jenë pastrim që fshin mëkatet dhe lartësim që ngre gradën. Pejgamberi ﷺ mësoi se asnjë lodhje, sëmundje, shqetësim apo edhe gjemba nuk i bie muslimanit pa i fshirë Allahu disa nga mëkatet e tij nëpërmjet saj. Kjo i kthen momentet më të vështira të jetës në mundësi dhe jo në humbje të pastër.",
       "Praktikisht: kur të godet fatkeqësia, përgjigjuni me fjalët që ka mësuar Allahu - 'Inna lillahi ue inna ilayhi raji'un' (Vërtet ne jemi të Allahut dhe tek Ai kthehemi) - dhe mbajeni gjuhën tuaj nga ankesa që refuzon vendimin e Tij. Në kohë të mira, numëroni bekimet tuaja me zë të lartë dhe falënderoni Allahun për të paktën disa prej tyre çdo ditë; emërtimi i tyre e mban zemrën të butë dhe mirënjohëse.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Përgëzoji durimtarët, të cilët kur godet fatkeqësia thonë: "Ne jemi të Allahut dhe me të vërtetë tek Ai do të kthehemi". Mbi ta ka begati dhe mëshirë nga Zoti i tyre dhe janë ata që janë në rrugë të drejtë.',
-      },
-      {
-        excerpt:
-          "Nëse jeni mirënjohës, me siguri do t'ju shtoj; por nëse mohoni, dënimi Im është i rëndë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "E mrekullueshme është çështja e besimtarit, sepse të gjitha punët e tij janë të mira. Nëse vjen lehtësimi, ai është mirënjohës dhe kjo është mirë për të; e nëse vjen vështirësia ai bën durim dhe kjo është e mirë për të. Kjo nuk është për askënd përveç besimtarit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Thuaj 'inna lillahi ue inna ilayhi raji'un' kur të sprovohet.",
       "Falënderoni Allahun me zë të lartë për tre bekime në ditë.",
@@ -612,21 +368,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia e lidhjes së një shpërblimi kaq të madh me udhëzimin e të tjerëve është se ai e bën çdo besimtar burim të së mirës së vazhdueshme. Ai gjithashtu mbron besimin e vetë thirrësit: të ftosh të tjerët në lutje, ndershmëri dhe adhurim do të thotë të kujtohesh që të mbahesh fort pas tyre. Dhe e lidh bashkësinë së bashku në kujdesin reciprok dhe jo me neglizhencë reciproke.",
       "Praktikisht, filloni afër shtëpisë. Përmirësoni dhe mësoni familjen tuaj - një bashkëshort, një fëmijë, një vëlla apo vëlla - pasi ata janë përgjegjësia juaj e parë dhe më e qëndrueshme. Ndani njohuritë e dobishme me dashamirësi, ndihmoni dikë të mësojë të lutet ose të lexojë Kur'an dhe mbani mend se një jetë me karakter të mirë dhe adhurim të qëndrueshëm është shpesh da'wahu më bindës nga të gjitha.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Fto në rrugën e Zotit tënd me urtësi dhe këshillë të mirë dhe diskuto me ta në mënyrën më të mirë.",
-      },
-      {
-        excerpt:
-          "E kush flet më mirë se ai që fton tek Allahu, bën vepra të mira dhe thotë: “Vërtet, unë jam prej muslimanëve.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kush e udhëzon dikë në mirësi, do të ketë një shpërblim si ai që e bën atë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ndani njohuritë e dobishme me mirësinë.",
       "Ndihmo dikë të mësojë të falet ose të lexojë Kur'an.",
@@ -643,26 +386,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Urtësia e këtyre veprave është se ato e zgjasin llogarinë e një personi përtej jetëgjatësisë së tij. Vitet aktive të një besimtari janë të shkurtra, por një pus që ai ka hapur ose një fëmijë që ai e ka rritur mirë mund t'i japë atij shpërblim për shekuj. Kështu, Islami inkurajon vizionin afatgjatë: të mendoni jo vetëm për namazin e sotëm, por se çfarë të mira do të rrjedhin ende nga ju pasi të jeni larguar.",
       "Praktikisht: nëse jeni në gjendje, planifikoni seriozisht për Haxhin ose Umren në vend që ta shtyni pafundësisht. Hidhni përpjekje të vërteta në besimin dhe karakterin e familjes suaj, pasi ato janë trashëgimia juaj më e qëndrueshme. Dhe identifikoni të paktën një projekt bamirësie të qëndrueshme për të mbështetur - njohuri, ujë, strehim ose një jetim - në mënyrë që veprat tuaja të mira të vazhdojnë pas vdekjes.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe Haxhi në Shtëpi është një detyrë që i detyrohet Allahut nga ata njerëz që janë në gjendje të gjejnë rrugën drejt tij.",
-      },
-      {
-        excerpt:
-          "Dhe shpalli njerëzve Haxhin; ata do të vijnë te ju në këmbë dhe me çdo deve të dobët nga çdo vend i largët, që të mund të dëshmojnë përfitime për veten e tyre.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që e kryen haxhin për hir të Allahut dhe nuk bën turp apo shkelje, kthehet pa mëkat, si ditën kur e lindi nëna e tij.",
-      },
-      {
-        excerpt:
-          "Kur njeriu vdes, veprat e tij përfundojnë, përveç tri: bamirësisë së vazhdueshme, diturisë së dobishme ose një fëmije të drejtë që lutet për të.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Planifiko Haxhin ose Umren nëse ke mundësi.",
       "Investoni në besimin dhe karakterin e familjes suaj.",
@@ -680,26 +405,8 @@ export const JANNAH_TOPICS_SQ: DeepPartial<JannahTopic>[] = [
       "Kjo është arsyeja pse besimtari i ekuilibruar jeton midis shpresës dhe frikës, si një zog që fluturon me dy krahë. Ai i frikësohet drejtësisë së Allahut aq sa të mos bëhet kurrë i vetëkënaqur apo i pamatur me mëkatin, dhe ai shpreson në mëshirën e Allahut aq sa të mos dëshpërohet, pavarësisht sa larg ka humbur. Animi tërësisht drejt frikës ngjall dëshpërim; animi tërësisht drejt shpresës ngjall arrogancë. Emrat e Allahut - Er-Rahman (Më i Mëshirshmi), Er-Rahim (Më i Mëshirshmi), Al-Ghafoor (Më falës) - ankorojnë krahun e shpresës.",
       "Pra, le të jetë kjo frymë në të cilën mbylleni çdo ditë: kërkoni Allahun për Firdewsin, bëni më të mirën tuaj të ndershme, pendohuni për të metat tuaja dhe pastaj dorëzojeni gradën tuaj të fundit tek Më i Drejti dhe Më i Mëshirshmi – duke besuar se Ai që mbajti nëntëdhjetë e nëntë pjesë të mëshirës për atë Ditë, nuk do ta largojë një rob që erdhi tek Ai duke u përpjekur dhe duke shpresuar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe mëshira Ime përfshin çdo gjë. Kështu që unë do ta caktoj atë për ata që janë të devotshëm dhe japin zekatin dhe ata që besojnë në ajetet Tona.",
-      },
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Askush prej jush nuk do të hyjë në Xhenet vetëm me veprat e tij. Ata thanë: As ti o i Dërguar i Allahut? Ai tha: As mua, përveç nëse Allahu më mbështjell me mëshirën e Tij.",
-      },
-      {
-        excerpt:
-          "Allahu ka njëqind pjesë të mëshirës. Ai zbriti një pjesë mes xhinëve, njerëzve, kafshëve dhe insekteve, me të cilat ata janë të mëshirshëm ndaj njëri-tjetrit; dhe Ai mbajti me Vete nëntëdhjetë e nëntë pjesë, me të cilat do t'i mëshirojë robërit e Tij në Ditën e Kijametit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Balanconi frikën ndaj Allahut me shpresën në mëshirën e Tij.",
       "Kurrë mos u dëshpëroni pas mëkatit - pendohuni dhe vazhdoni të përpiqeni.",
@@ -713,105 +420,48 @@ export const JANNAH_GATES_SQ: DeepPartial<JannahGate>[] = [
   {
     name: "Porta e Namazit",
     deedSummary: "Për ata që ruanin dhe falnin pesë namazet ditore.",
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që shpenzon një palë diçka në rrugë të Allahut do të thirret nga dyert e Xhenetit. Kushdo që ishte nga njerëzit e namazit do të thirret nga porta e namazit.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Porta e Bamirësisë",
     deedSummary: "Për ata që dhanë sadaka sinqerisht për hir të Allahut.",
-    hadith: [
-      {
-        excerpt: "Kushdo që ishte nga njerëzit e bamirësisë do të thirret nga Porta e Bamirësisë.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Porta e Er-Rajjanit",
     deedSummary: "E rezervuar për ata që agjëruan - një portë vetëm ata hyjnë.",
-    hadith: [
-      {
-        excerpt:
-          "Në Xhenet është një portë e quajtur Er-Rajjan, nga e cila do të hyjnë vetëm agjëruesit në Ditën e Kijametit. Kur të ketë hyrë i fundit prej tyre, do të mbyllet.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Porta e Xhihadit",
     deedSummary: "Për ata që luftuan në rrugën e Allahut me sinqeritet.",
-    hadith: [
-      {
-        excerpt: "Kushdo që ishte nga njerëzit e xhihadit do të thirret nga porta e xhihadit.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Shpërblimi i haxhit",
     deedSummary: "Për ata që e kryen Haxhin thjesht, duke u kthyer pa mëkat.",
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që e kryen haxhin për hir të Allahut dhe nuk bën turp apo shkelje, kthehet pa mëkat, si ditën kur e lindi nëna e tij.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Thirret nga çdo portë",
     deedSummary: "Disa, si Ebu Bekri, do të thirren të hyjnë nga të gjitha portat.",
-    hadith: [
-      {
-        excerpt:
-          "Ebu Bekri pyeti: A do të thirret dikush nga të gjitha këto porta? Ai tha: Po, dhe shpresoj të jesh një prej tyre.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_SQ: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Vraponi drejt faljes nga Zoti juaj dhe një kopshti sa qiejt dhe toka, i përgatitur për të devotshmit.",
-  },
-  {
-    excerpt:
-      "Xhennete nëpër të cilat rrjedhin lumenj dhe vendbanime të këndshme në kopshte të vendbanimeve të përhershme, por kënaqësia e Allahut është më e madhe.",
-  },
-  {
-    excerpt: "Kopshtet e strehimit si mikpritje për ata që besojnë dhe bëjnë vepra të mira.",
-  },
-  {
-    excerpt: "Askush nuk e di se çfarë rehatie fshihet për ta si shpërblim për atë që kanë bërë.",
-  },
-  {
-    excerpt: "Aty do të kenë çfarë të dëshirojnë, e tek Ne ka edhe më shumë.",
-  },
-  {
-    excerpt: "Për të gjithë do të ketë gradë sipas asaj që ata bënë.",
-  },
-  {
-    excerpt: "Ata janë gradat tek Allahu, dhe Allahu sheh atë që bëjnë ata.",
-  },
-  {
-    excerpt:
-      "Zoti ynë, na jep të mira në këtë botë dhe të mira në botën tjetër dhe na ruaj nga dënimi i zjarrit.",
-  },
-  {
-    excerpt:
-      "Mos e humbni shpresën nga mëshira e Allahut - me të vërtetë Allahu i fal të gjitha mëkatet.",
-  },
-  {
-    excerpt: "Robërit e Mi – nuk do të ketë frikë për ju sot, as nuk do të pikëlloheni.",
-  },
-  {
-    excerpt: "Dhe pararendësit, pararendësit - ata janë ata që u afruan.",
-  },
-  {
-    excerpt:
-      "Pra, Allahu do t'i mbrojë ata nga e keqja e asaj dite dhe do t'u japë shkëlqim dhe lumturi.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_SQ: DeepPartial<JannahDuaEntry>[] = [

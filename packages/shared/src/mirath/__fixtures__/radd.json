@@ -1,0 +1,605 @@
+{
+  "group": "radd",
+  "description": "Radd: a surplus with no residuary returns to the fixed-share heirs except the spouses (D6: on in all four schools by default).",
+  "fixtures": [
+    {
+      "id": "radd-mother-daughter",
+      "title": "Mother and daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/4",
+            "daughter": "3/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-two-daughters",
+      "title": "Two daughters take everything",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-daughter-sons-daughter",
+      "title": "Daughter and son's daughter (3:1)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "sons_daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "3/4",
+            "sons_daughter": "1/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "hadith",
+          "ref": "bukhari:6736",
+          "grade": "sahih"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-grandmother-maternal-sister",
+      "title": "Grandmother and maternal sister (1:1)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "maternal_grandmother": 1,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "maternal_grandmother": "1/2",
+            "maternal_sister": "1/2"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-mother-maternal-brothers",
+      "title": "Mother and two maternal brothers (1:2)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "mother": 1,
+          "maternal_brother": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "mother": "1/3",
+            "maternal_brother": "2/3"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-husband-daughter",
+      "title": "Husband keeps his quarter; the rest returns to the daughter",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "daughter": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/4",
+            "daughter": "3/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-wife-daughter-mother",
+      "title": "Wife keeps her eighth; daughter and mother share the rest 3:1",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "daughter": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/8",
+            "daughter": "21/32",
+            "mother": "7/32"
+          },
+          "radd": true,
+          "tashih": 32
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-husband-mother",
+      "title": "Husband and mother",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1,
+          "mother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2",
+            "mother": "1/2"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-wife-two-full-sisters",
+      "title": "Wife and two full sisters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "full_sister": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "full_sister": "3/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-wife-mother-maternal-sister",
+      "title": "Wife, mother, maternal sister (2:1 after the wife)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "mother": 1,
+          "maternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4",
+            "mother": "1/2",
+            "maternal_sister": "1/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-full-and-paternal-sister",
+      "title": "Full sister and paternal sister (3:1)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "full_sister": 1,
+          "paternal_sister": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "full_sister": "3/4",
+            "paternal_sister": "1/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-daughter-grandmother",
+      "title": "Daughter and maternal grandmother (3:1)",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1,
+          "maternal_grandmother": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "3/4",
+            "maternal_grandmother": "1/4"
+          },
+          "radd": true
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-wife-two-daughters",
+      "title": "Wife and two daughters",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 1,
+          "daughter": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/8",
+            "daughter": "7/8"
+          },
+          "radd": true,
+          "tashih": 16
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "radd-off-treasury",
+      "title": "Radd turned off (classical Shafi'i/Maliki): the surplus goes to the treasury",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "daughter": 1
+        },
+        "params": {
+          "raddEnabled": false
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "daughter": "1/2"
+          },
+          "unallocated": "1/2"
+        }
+      },
+      "sources": [
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "book",
+          "work": "rahbiyyah",
+          "chapter": "Bab al-Ta'sib"
+        },
+        {
+          "kind": "book",
+          "work": "khalil",
+          "chapter": "Bab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "spouse-only-husband",
+      "title": "Only a husband: the rest is not assigned in v1",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "female"
+        },
+        "heirs": {
+          "husband": 1
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "husband": "1/2"
+          },
+          "unallocated": "1/2"
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Dhawi al-Arham"
+        }
+      ],
+      "note": "Distant kindred (dhawu al-arham) take the rest; with none, scholars differ (return to the spouse vs the treasury).",
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "spouse-only-wives",
+      "title": "Only two wives",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {
+          "wife": 2
+        }
+      },
+      "expected": {
+        "all": {
+          "shares": {
+            "wife": "1/4"
+          },
+          "unallocated": "3/4",
+          "tashih": 8
+        }
+      },
+      "sources": [
+        {
+          "kind": "quran",
+          "ref": "4:12"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab al-Radd"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Dhawi al-Arham"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    },
+    {
+      "id": "no-heirs-dhawu-al-arham",
+      "title": "No heir from the list: distant kindred / consult a scholar",
+      "basis": "rule",
+      "input": {
+        "deceased": {
+          "gender": "male"
+        },
+        "heirs": {}
+      },
+      "expected": {
+        "all": {
+          "outcome": "dhawu_al_arham",
+          "shares": {}
+        }
+      },
+      "sources": [
+        {
+          "kind": "hadith",
+          "ref": "tirmidhi:2104",
+          "grade": "sahih"
+        },
+        {
+          "kind": "book",
+          "work": "sirajiyyah",
+          "chapter": "Bab Dhawi al-Arham"
+        },
+        {
+          "kind": "book",
+          "work": "mughni",
+          "chapter": "Kitab al-Fara'id"
+        }
+      ],
+      "verifiedBy": "ai-review",
+      "verifiedAt": "2026-11-23"
+    }
+  ]
+}

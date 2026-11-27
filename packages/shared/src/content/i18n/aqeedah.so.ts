@@ -15,22 +15,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Aqidah ma aha mawduuc siminaar aan la taaban karin; waa xididka ay ka soo baxaan dhammaan cibaadada iyo dabeecadda. Qofku waxa uu aaminsan yahay in Alle yahay, sababta loo abuuray iyo meesha uu u socdo si deggan ayaa u xukunta sida uu u tukado, sida uu ula dhaqmo dadka kale, iyo sida uu ula kulmo dhib iyo dhimasho.",
       "Caqiidada saxda ah waxay ilaalisaa qalbiga isku dheeli tiran ee udhaxeeya cibaadada waaweyn - jacaylka iyo cabsida, rajooyinka iyo cabsida, isku hallaynta iyo dadaalka, mahadnaqa iyo toobada - si aanu mu'minku uga quusan naxariista Eebe ama aanu u dareemin ammaan la xisaabtankiisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Xaqnimadu waa in qofku rumeeyo Allaah, maalinta qiyaamaha, malaa’igta, kitaabka iyo nabiyada…",
-      },
-      {
-        excerpt:
-          "Kuwa xaqa rumeeyow rumeeya Eebe, Rasuulkiisa, Kitaabkii uu ku soo dejiyey Rasuulkiisa, iyo Kitaabkii uu horay u soo dejiyey.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imaanku waa in la rumeeyo Eebbe, malaa’igtiisa, kutubtiisa, rusushiisa, maalinta aakhiro, iyo in la rumeeyo xukunka Eebbe khayrkiisa iyo khadhaadhkiisaba. (Xadiis Jibriil, waxaa wariyey Cumar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -42,12 +28,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Ahl al-Sunnah dhexdeeda waxaa jira mad-habta fiqiga oo la aqoonsan yahay - oo ay ugu horreeyaan Athari, Ashcari, iyo Maturidi - kuwaas oo si buuxda ugu heshiiyey waxyaabaha lagama maarmaanka u ah iimaanka iyagoo ku kala duwan hababka farsamada qaarkood ee lagu muujinayo arrimaha qaarkood, gaar ahaan sifaadka rabaaniga ah. Aasaaska ay wadaagaan waa mid keliya oo sugan: Alle kalinimadiisa, runnimada waxyigiisa, iyo xisaabtanka dhabta ah ee aakhiro.",
       "Haddaba caqiidada waxa ugu wanaagsan in loo barto sida rumaysadka nool: qodob kasta oo caqiidada ka mid ahi waxa uu ku xidhaa hab cibaado, hab dhaqan, iyo il raaxo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxayna dheheen kuwii ku adkaaday cilmiga waan rumaynay. Dhammaantood waxay ka yimaadeen xagga Rabbigeenna.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Culumo lagu kalsoonaan karo ka baro iyo qoraallada aasaasiga ah, ee ha ka baranin doodaha baraha bulshada.",
       "Caqiido kasta oo aad barato, weydii: sidee ayay tani u beddeshaa sida aan u caabudo oo aan u noolaado?",
@@ -62,18 +43,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Caqiidada saxda ah sidoo kale waa waxa mu'minka ku sita nolosha oo dhan: waxay baraysaa samir ku kalsoonaanta xukunka Eebe marka lagu jiro dhibaatada, mahadnaqa shucuurta ducada, iyo xasilloonida hubaal la'aanta iyo dhimashada. Qofka qadarka iyo aakhiraba si dhab ah u aaminsan ma burburo marka la imtixaano.",
       "Ugu dambayntii, caqiidada suuban waxay baraysaa Adab — dhaqanka suuban — is khilaafsan: ku adkaysashada aasaaska cad iyadoo xushmad iyo dhawris ku muujinayso arrimaha sare ee ay culimada daacadda ahi ku kala aragti duwanaayeen. Aqoonta caqiidada waa inay kordhisaa khushuuc iyo naxariista, waligeedna kibir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eebana wuxuu ku sugaa kuwa xaqa rumeeyey hadal sugan nolosha adduun iyo aakhiraba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "U xiiso waxa ku anfacaya, ka warso Allaah, hana noqonin mid tabar daran... (Abuu Hureyrah)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Lixda Qodob Ee Iimaanka",
@@ -83,12 +54,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Lixdu waa: rumaynta Alle; Malaa'igtiisa; kutubtiisa soo dajiyay; in rasuuladiisa; maalinta aakhiro; iyo qadarka Ilaahay (qadriga) khayrkiisa iyo qadhaadhkiisa. In la diido mid iyaga ka mid ah waa in laga baxo iimaanka runta ah, waayo waa dhar keliya.",
       "Waxay kaloo si qoto dheer isugu xiran yihiin. Rumayn Kutubta iyo Rasuulku waxay u horseedaa Cilmiga Maalinta Aakhiro iyo Xisaabta. Rumaynta maalinta aakhiro waxay miisaan u yeelataa camal kasta; Rumaynta qadrigana waxa ay baraysaa in Alle la talo saaro iyo khushuucda xikmaddiisa ka horraysa. Barashada sida ay u kala horreeyaan waxay dhistaa aragti adduunyo oo cad oo dheellitiran.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "... Inaad rumaysataan Eebe, Malaa'igtiisa, Kutubtiisa, Rusushiisa, Maalinta Dambe, iyo inaad rumaysataan xukunka, Wanaaggiisa iyo khadhaadhkiisa. (Xadiis Jibriil)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -101,15 +67,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Ahlu Sunna waxay caddeeyeen magacyada iyo sifaadka sareeyo ee Eebbe nafsaddiisa u caddeeyay, Rasuulkiisuna ﷺ u caddeeyay, si ku habboon haybaddiisa – iyaga oo aan la ekayn makhluuqaadkiisa (Tamthiil) oo aan inkirin ama faaruqin sifooyinkiisa macnaha ah (Taatil). Aayadda hanuunintu waa: ‘La mid isaga ma jiro, waana maqle arka’ (42:11) — oo labaduba beenin isu ekaanshaha, kuna caddaysay maqalkiisa iyo arkigiisa.",
       "In Eebe lagu garto Magacyadiisa – Eebaha Naxariista, wax walba og, noolaha, Boqorka, Dambi dhaafka — waa cunnada qalbiga: mar kasta oo aad taqaanid isaga, ayaa aad jeceshahay, oo aad ka cabsanaysaa, una noqonaysaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaad dhahdaa waa Eebaha kalida ah… waxna ma dhalin, mana dhalan, wax la mid ahna ma jiro.",
-      },
-      {
-        excerpt: "Eebbana waxaa u sugnaaday magacyo wanaagsan, ee ku barya iyaga.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -121,16 +79,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Si loo rumaysto iyaga waa in la rumaysto in dunida aan la arki karin ay tahay mid dhab ah oo nagu wareegsan. Malaa’igtu waxyi way soo bandhigtaa, wayna ilaalisaa dadka, wayna qortaa hadal kasta iyo camal kasta, waxayna nafta ka qaadaa marka ay dhintaan, waxayna ku maamulaan arrimaha dhulka iyo samooyinka, idanka Eebbe, sidaas darteed mu’minka ma aha kaligiis iyo la’aanteed.",
       "Dhowr ayaa lagu magacaabay qoraallada oo leh door gaar ah: Jibriil, malaa'igtii waxyiga; Mikaa’iil oo loo igmaday roob iyo arsaaqo; Israafiil, kan dubbatu; Malak al-Mawt, malaa'igtii geerida; iyo culimadii sharafta lahayd (Kiraman Katibin) oo qof walba camalkiisa qora. Munkar iyo Naakir oo qabriga su’aalo ku weydiinaya marxuumka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Korkeeda waxaa ah Malaa'ig adag oo daran oon Eebe ku caasinayn wuxuu faray oo falay waxa la faray.",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa ruuxii Col u ah Jibriil waa kan ku soo dejiyey Qalbigiinna idanka Eebe.",
-      },
-    ],
+    quran: [{}, {}],
     actions: ["La noolow wacyiga in malaa'igaha wax duuba aysan waligood seegin eray ama fal."],
   },
   {
@@ -142,15 +91,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Qur'aanku wuxuu leeyahay darajo gaar ah. Waa waxyigii ugu dambeeyay, oo la soo diray isagoo xaqiijinaya wixii ka horreeyey iyo sifo lagu kala saaro” (5:48) - taasoo la micno ah inuu xukumo oo saxo, maadaama kutubtii hore aanay ku sii nagaan xaaladdoodii asalka ahayd ee waa la beddelay (tahrif) oo lumay qarniyaal badan.",
       "Kutubta oo dhan si gaar ah ayuu Qur'aanka uga dhawray fasaadka: 'Waxaan soo dajinay Quraanka, annaguna waxaan nahay ilaaliye' (15:9). Rumaynta kutubta waxa ay la macno tahay in la xurmeeyo waxyiga, in qur’aanka lagu akhriyo oo la milicsado, lana hogaansamo hanuunkiisa nolosha.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaana kugu soo Dejinay Kitaabka si Xaq ah, isagoo u Rumayn wixii ka Horreeyey oo Kitaabka ah iyo Muujintiisa.",
-      },
-      {
-        excerpt: "Annagaa soo dajinay Quraanka, annagaana wakiil u ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -162,15 +103,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Nebiyadu waa kuwa ugu khayrka badan khalqiga run ahaan iyo aaminnimo, Allena ka dhawray inay ka been sheegaan farriinta iyo dembiga waaweyn - haddana waxay ku sii ahaadaan bani-aadmi, oo aan ilaahi ahayn, oo aan weligood la caabudin. Shan ka mid ah ayaa lagu tilmaamay inay yihiin rasuuladii 'xakamaysan' (ulu al-cazm): Nuux, Ibraahim, Muuse, Ciise, iyo Muxammad ﷺ.",
       "Muxammad ﷺ waa shaabadda Nabiyada (Khat an-nabiyyin): Nabi kama iman isaga dabadiisa, farriintiisuna waa mid caalami ah - oo loo soo diray dhammaan aadanaha ilaa maalinta qiyaame. Rumaynta isaga waxaa ka mid ah in isaga la jeclaado, oo la addeeco amarradiisa, la rumaysto warbixintiisa, iyo in loo caabudo oo keliya sidii uu wax u baray.",
     ],
-    quran: [
-      {
-        excerpt: "... Ma kala saarno mid ka mid ah Rasuulkiisa…",
-      },
-      {
-        excerpt:
-          "Muxammad ma aha aabbaha mid ka mid ah raggiinna, laakiin waa Rasuulkii Eebe iyo shaabadda Nabiyada.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -182,12 +115,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Caqiidadani waxay siinaysaa miisaanka akhlaaqda daqiiqad kasta. Maxaa yeelay Eebbe wuxuu arkaa waxa qarsoon, wuxuuna qoraa camalka ugu yar, wax khayr ahna lama khasaariyo, xumaantana lama illoobo: ‘Ruuxii falta atom miisaankiisa khayr ah wuu arkayaa, ruuxii sameeyana wax atom ah oo xumaan ah wuu arki.",
       "Ahlu Sunna waxay si dhab ah u xaqiijiyaan xaqiiqooyinkaas oo dhan, iyagoo si dhab ah u rumaysan sida loo soo wariyey, iyagoo qiraya in culimadu ku kala duwan yihiin tafsiirrada qaar ka mid ah tafaasiisha qadhaadh ee dhacdooyinka iyo calamadaha gaarka ah. Ujeedada caqiidadu maaha mala-awaal ee waa diyaargarow.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Haddaba ruuxii sameeya wax atom ah oo wanaag ah wuu arki doonaa, ruuxii sameeyana wax xun wuu arki doonaa.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -200,20 +128,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Ahlul-Sunnah waxay kala wadaan laba khalad oo kala ah: Diidmada go'aanka (sida haddii ay dhacdodu ka baxsanayso aqoonta iyo dardaaranka Alle), iyo dilid (iyaga oo isticmaalaya wareegtada si ay u baabi'iyaan mas'uuliyadda aadanaha iyo cudur daar dembiga). Mu'minku si fiican buu u wanaajiyaa, dabadeed wuxuu u wakiishay natiijada Eebe.",
       "Dhab ahaantii, qadrigu waa isha ugu weyn ee nabadda: ka dib markaad hawshaada qabato, waxaad ku nasanaysaa inaad ogaatid in wax kasta oo ku soo gaadha uusan waligiis ku seegi karin, wax kasta oo ku seegaanna aysan marnaba ku soo gaadhi karin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Haddii ay wax kugu dhacaan, ha odhan 'haddaan saas yeeli lahaa', ee waxaad tidhaahdaa 'Ilaahay baa qaddaray, wuxuu doonana wuu falay' - waayo 'hadday uun' albaabbada u furayso Shaydaanka. (Abuu Hureyrah)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Wax walbana waxaan ku abuurray qadar (Qaddar).",
-      },
-      {
-        excerpt: "Eebana ma badalo xaalka qoom intay ka badalaan waxa naftooda ku sugan.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Fikrad khaldan: Haddii wax walba la xukumo, dadaalku waa macno darro. Sixitaan: Islaamku wuxuu amray dadaalka, qorsheynta, salaadda, iyo towbada - qaadashada dariiqa lafteeda waa qayb ka mid ah xukunka.",
       "Fikirka qaldan: Qadr macnihiisu waa Allaah ayaa dambigeyga eedda leh. Sixitaan: Addoonka ayaa doorta oo la xisaabtama; wareegtada marna marmarsiiyo uma noqonayso caasinimada.",
@@ -234,14 +150,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Qaab-dhismeedkan saddexda qaybood ka kooban waa qalab wax lagu baro, ee ma aha isha qaybinta; Ujeeddadeedu waa in lagu caawiyo qofka mu'minka ah inuu ilaaliyo daacadnimada oo uu aqoonsado halka midnimadu wax u dhimi karto. Dhammaanteed waxaa lagu soo qaatay ducada furitaanka ee qof kasta oo Muslim ah ducadiisa: 'Adiga kaliya ayaanu caabudaynaa, adiga keligaa ayaana gargaar waydiisanaynaa.'",
       "Aragti muhim ah: qirashada in Alle uu yahay abuuraha (rububiyah) kuma filna kaligeed. In badan oo nebiyada beeniyey ayaa haddana qirey in Eebbe abuuray samooyinka iyo dhulka – waxa ay diideen waa in ay caabudaan isaga oo keliya (uluhiyyah). Tawxiidka dhabta ah waxa lagu caddeeyaa cibaadada, ma aha oo kaliya in la rumaysto asalka.",
     ],
-    quran: [
-      {
-        excerpt: "Adiga uun baannu ku caabudaynaa, adiga keliya ayaana gargaar waydiisanaynaa.",
-      },
-      {
-        excerpt: "Eebe Ilaah kale ma jiro isaga mooyee. Waxaana u sugnaaday magacyo fiican.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Fikirka qaldan: Tawxiid waa hal jumlad oo kaliya. Sixitaan: Waa rumaynta qalbiga, odhaah carrabka ah, iyo xaqiiqo lagu noolaado cibaadada.",
       "Fikirka khaldan: Rumaynta Eebbe waa abuuraha waa tawxiidka oo dhan. Sixitaan: Xataa gaalo badan ayaa cadaysay in - imtixaamku waa caabudid Alle kaligii.",
@@ -257,20 +166,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Shirkiga yar (al-shirk al-asghar) kama saarayo Islaamka laakiin aad ayuu khatar u yahay wuxuuna burin karaa abaalka camalka. Qaabkeeda ugu cad waa riya - oofinta cibaadada si ay dadku u arkaan looguna ammaano - taas oo Nebigu ﷺ ku tilmaamay wax uu uga baqi jiray bulshadiisa. In lagu dhaarto Alle ka sokow si uu u sarraysiiyo ayaa halkan ku dhacda.",
       "Ahlu Sunna waxay ka digtoonaadaan luqadda iyo xukunka: guud ahaan in laga digtoonaado shirkiga waa lama huraan waana caddahay, laakiin in qof gaar ah lagu sheego inuu yahay mushrik ama gaal (takfiir) waa arrin culus oo u baahan aqoon, daliil sugan iyo in cudur daar laga saaro - waxaa iska leh culimo aqoon leh, ee maaha mid u gaar ah dadka caadiga ah ama doodaha internetka.",
     ],
-    quran: [
-      {
-        excerpt: "Eebana ma dhaafo la wadaajinta, wuxuuse ka dhaafaa waxa ka yar cidduu doono.",
-      },
-      {
-        excerpt: "Wiilkaygiiyow, ha la wadaajinin Eebbe. Illeen ururku waa dulmi weyn (zulm).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Waxa aan idiinka baqayo waa shirki yar. Markii la weydiiyay waxa ay tahay, wuxuu yiri ﷺ: is tusi (riya). (Maxamuud ibnu Labiid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Fikirka khaldan: Simbiriirixasho kasta oo carrabku waa shirki weyn. Sixitaan: Culimadu way kala soocaan weyn iyo kuwa yar waxayna si taxadar leh u xukmiyaan kiis kasta iyagoo wata caddayn.",
       "Fikirka qaldan: Ka digista shirkigu waxay u baahan tahay qallafsanaan xagga dadka. Sixitaan: Habka nebiyadu waxa ay ku lammaaniyaan caddaynta runta iyo naxariista iyo waxbaridda dulqaadka.",
@@ -284,17 +181,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Sababtoo ah abaalgudku waxay ku xidhan yihiin ula kac, camal yar oo aamusan oo si daacad ah loogu sameeyo Allaah wuxuu ka miisaan badnaan karaa camal fagaare ah oo sumcad lagu sameeyo. Isla ficilka dibadda ah - bixinta sadaqo, tukashada, waxbaridda - waxay noqon kartaa cibaadada ama faaruqnimada iyadoo ku xiran qalbiga ka dambeeya.",
       "Daacadnimada hal mar lama gaaro balse si joogto ah ayaa loo cusboonaysiiyaa, sababtoo ah naftu waxay u nugul tahay inay raadiso dareenka. Haddaba mu’miniintu waxay ku celceliyaan inay niyadooda daahiriyaan waxayna Eebbe ka baryayaan inuu ka ilaaliyo shirkiga riyada ee qarsoon iyo is-khiyaanaynta.",
     ],
-    quran: [
-      {
-        excerpt: "lamana faray inay Eebe caabudaan mooyee, iyagoo u kali yeeli Diinta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ficilku waa niyo, qof kastana wuxuu heli doonaa oo keliya wixii uu damacsanaa. (Cumar bin Al-Khattaab)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -306,15 +194,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Ahlu Sunna waxa ay barayaan in kuwani ay isu dheelli tiraan, sida shimbir duuleysa oo laba baal iyo madax leh. Jacaylka iyo rajada bilaa cabsida ah waxay u dhaadhacaysaa taxadar la'aan iyo qaadashada naxariista Eebe mid la mid ah; baqdin la'aan rajo la'aan waxay ku dhici kartaa quus. Quraanku wuxuu ku daray: 'U barya cabsi iyo rajo.'",
       "Isku-dheelitirkani maaha kaliya dareen; waxay u muuqataa ficil ahaan - ilaalinta salaadda, u degdegista towbad keenka, u adeegida dadka kale, xakamaynta cadhada, iyo ku adkaysiga dhibka jacaylka jacaylka uu u qabo kii xukumay.",
     ],
-    quran: [
-      {
-        excerpt: "... Laakin kuwa rumeeyey waxaa ka xoog badan jacaylka Alle.",
-      },
-      {
-        excerpt:
-          "... una barya cabsi iyo rajo. Naxariista Eebe way u dhawdahay kuwa samafalayaasha ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -326,21 +206,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Martiqaadka Eebbe waa deeqsinimo: ‘Waxaad dhahdaa addoomadeyda ku xad gudbay naftooda ha ka quusanina naxariista Eebbe. Eebbana wuu dhaafaa dambiyada oo dhan. Albaabka towbada (tawbah) wuu furan yahay ilaa qorraxdu ka soo baxdo galbeedka ama qofka geeridiisu soo dhawaato.",
       "Toobadkeenida daacadda ah waxay leedahay shuruudo cad: ka tagista dembiga isla markiiba, dareento qoomamo dhab ah, iyo si adag u xallinta weligeedba - iyo, halka dembigu ku lug leeyahay xuquuqda qof kale, soo celinta xuquuqdaas ama raadinta cafiskooda. Marka kuwaas la kulmo, jawaabta Eebbe ma aha aqbalid oo keliya ee waa farxad: Wuxuu aad ugu farxaa towbada addoonkiisa, marka loo eego nin ka soo kabanaya buurtii luntay iyo sahaydii uu ku helay meel cidlo ah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaad dhahdaa: Addoomadayda ku xad gudbay Naftooda, ha ka quusanina naxariista Eebe. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
-      },
-      {
-        excerpt: "Kuwa xaqa rumeeyow u noqda Eebbe towbadkeen toos ah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alle ayaa uga farxiya toobada addoonkiisa nin ka lunsan buurtiisa, oo cuntadiisa iyo cabbitaankiisa sita, dhul abaar ah - haddana helo. (Ibnu Mascuud)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -351,18 +218,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Gelida Jannada ugu dambaynta waa naxariista Eebbe - qof camalkiisu keligiis ma kasban karo nicmo weligeed ah - hase yeeshee iimaanka dhabta ah iyo ficilka xaqa ah ayaa ah macnaha Eebbe magacaabay oo aqbalay. Labadu iskuma hayaan: naxariistu waa sababta, iimaanka iyo camalkuna waa jidkii uu u furay.",
       "Rumaynta Jannada waxay dib u qaabaysaa sida uu qofku hadda u nool yahay: waxay ku kordhisaa samirka dhibka, deeqsinimada iyo ku adkaysiga cibaadada, sababtoo ah mu'minku waxa uu ka ganacsanayaa adduunyo waagaya oo uu u helo guri waara. Qur'aanku waxa uu inagu baaqayaa in aynu u tartanno.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Una degdega dambidhaafka Eebihiin iyo Janno ballaadhkeedu yahay sida Samooyinka iyo Dhulka oo loo darbay kuwa dhawrsada.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Eebbe wuxuu yidhi: waxaan u darbay addoommadayda suubban, wax aanay ishu arag, dhegtuna aanay maqlin, qalbi bani-aadmina aanu u malayn. (Abuu Hureyrah; sidoo kale Saxiix Muslim 2824)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -374,15 +231,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Digniintu waxay u adeegtaa ujeedo naxariis leh: waxay u jiraan inay dadka ka ilaaliyaan natiijada ay ku sifeeyaan - si loo hubiyo kibirka, dulmiga, iyo joogtada, og diidmada runta, iyo in la dhaqaajiyo kuwa halmaansan inay toobad keenaan inta albaabku furan yahay.",
       "Ahlu Sunna waxay isku hayaan digniinta iyo naxariista. Hanjabaadu waa dhab iyo dhabba, haddana naxariista Eebe way ku wayntahay ciddii u soo noqota, dadka towxiidka ah, dambiilayaasha gala naarta kuma waari doonaan halkaas weligood ee ugu dambaynta waxaa soo bixin doona naxariista Eebbe iyo shafeeco uu idmo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa xaqa rumeeyow ka dhawrsada naftiina iyo ehelkiinna naar lagu shido dad iyo dhagax.",
-      },
-      {
-        excerpt: "... Ha ka quusanina naxariista Eebe. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -394,16 +243,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Dhimashada iyo sarakicidda waxaa u dhexeeya Barzakh - nolosha dhexe ee qabriga, oo leh su'aalo weydiintiisa iyo fududaynteeda ama dhibkeeda. markaasaa suurkii la afuufo, khalqiga oo dhanna waa la sara kiciyaa, waxaana lagu soo kulmin Eebe agtiisa si loo xisaabiyo.",
       "Caqiidadani waa ta nolosha bini aadamka siisa akhlaaqdeeda culus: qiyaamaha la'aanteed, daalimkii si raaxo leh u dhinta iyo kan dulman ee dhinta isagoo gardaran ayaa isku mid ah. Iyada oo laga jawaabayo khalad kasta, wanaag kastana lagu abaal mariyo, taasoo macneheedu yahay samirka iyo caddaaladda.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wuxuu yidhi, Yaa nooleeya lafaha iyagoo qudhunsan? Waxaad dhahdaa, 'Wuxuu noolayn kuwii iyaga abuuray markii ugu horreysay.",
-      },
-      {
-        excerpt:
-          "021-048 Saacadduna way iman Shaki la'aan, Eebana wuu soo bixin kuwa Qubuuraha ku sugan.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Maalinta qiyaame",
@@ -414,11 +254,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Maalintaas nasab, maal, dabaqad, dhalasho iyo darajo adduun midna cidna uma anfacdo; Kaliya iimaan dhab ah iyo camal suuban, oo Eebbe aqbalay, ayaa anfici doona. Diiwaanada waa la qaybiyaa, camalka waa la miisaamaa, xitaa gafafka dadka dhexdooda ayaa lagu xalliyaa iyada oo la wareejinayo wanaagga iyo xumaanta.",
       "Hubintan waxaa loola jeedaa in la beddelo dabeecadda hadda: waxay ugu yeertaa mu'miniinta daacadnimada, kalsoonida, ilaalinta xuquuqda dadka kale, hagaajinta khaladaadka iyo soo celinta wixii lagu lahaa ka hor maalinta deynta lagu bixinayo ficil halkii lacag.",
     ],
-    quran: [
-      {
-        excerpt: "Waxaana u yeellay miisaanka Caddaaladda Maalinta Qiyaame, lamana dulmiyo nafna.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -430,16 +266,7 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Siraadku waa buundada ku fidsan Jahannamada oo ay tahay in dhammaan ay dhaafaan. Qur’aanku wuxuu leeyahay, “Cid idinka mid ah ma jiro oon ka gudbi doonin, markaas waxaan korinaynaa kuwa Eebbe dhawrsada. Dadku waxay u tallaabaan siday camalkoodu u kala horreeyaan--qaar waxay u dheereeyaan iftiinka ama dabaysha, qaarna way halgamayaan, qaarna way siibataan - naxariista iyo caddaaladda Eebbe awgeed.",
       "Xaqiiqooyinkan looma sheego in ay cabsi la'aan, laakiin in ay kobciyaan si dhab ah: oo ku saabsan miisaanka camalka yar yar, oo ku saabsan daacadnimada cibaadada, iyo ku saabsan ixtiraamka xuquuqda dadka kale, mar haddii dhammaan la miisaami doono.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ruuxii Miisaankiisu cuslaado wuxuu gali nolol fiican; Laakiin kii miisaankiisu fududaado, magangalkiisu wuxuu ahaan doonaa yaamays.",
-      },
-      {
-        excerpt:
-          "Cid idinka mid ah oo idinka mid ah ma jiro isaga mooyee…. Markaasaan korinaynaa kuwa dhawrsada.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -450,21 +277,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Laakiin ninna uma duceeyo amarkiisa. shafeeco kasta oo ansax ah waxay ku dhacdaa idankiisa ka dib, waxaana kaliya ee u shafeeco ah cidda Eebbe ka raalli yahay: 'waa kuma kan u shafeeco Eebe idmo mooyee?' Tani waxay ilaalinaysaa gobannimada buuxda ee Eebe ee ku wajahan natiijada.",
       "Culimadu waxay qeexayaan dhowr nooc oo shafeeco ah oo la xaqiijiyay - xisaabtu inay bilaabato, dadka inay Jannada galaan, rumaystayaasha dembiilayaasha ah in la dhaafo ama laga saaro naarta - iyagoo isku raacay in xukunka ugu dambeeya uu had iyo jeer kaligiis yahay Alle.",
     ],
-    quran: [
-      {
-        excerpt: "Waa kuma kan u shafeeco Eebe idankiisa mooyee.",
-      },
-      {
-        excerpt:
-          "Maalintaas shafeeco waxba ma anfacdo ruux Eebaha Raxmaan ah u idmo oo uu ka raalli noqdo hadalkiisa mooyee.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dadku way ii iman doonaan, oo anigu Sayidkayga ayaan u sujuudi doonaa; markaas ayaa la odhan doonaa: Madaxaaga kor u qaad, waydiina waa lagu siinayaa, shafeeco oo shafeecadaada waa la aqbalayaa. (Abuu Saciid - shafeecada weyn)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Fikirka qaldan: shafeecadu waxa ay meesha ka saartaa baahida loo qabo towbad keenka. Sixitaan: Waxay ku timaadaa idanka Alle oo kaliya mana aha shati lagu sii jiro dembiga.",
       "Fikrad khaldan: Mid ayaa laga yaabaa inuu ugu yeedho nebiyada ama kuwa xaqa ah hadda si ay u shafeecaan. Sixitaan: Cibaadada iyo baryada Allaah kaliya ayaa iska leh; shafeeco aakhiro waxay ku sugnaatay qadarkiisa, lana doonayey raalli-gelintiisa.",
@@ -481,22 +295,8 @@ export const AQEDAH_TOPICS_SO: DeepPartial<AqeedahTopic>[] = [
       "Tobanka calaamadood ee waaweyn waxa lagu wada magacaabay xadiiskii Nebiga ﷺ: waxaa ka mid ah soo bixidda Dajjal, soo dagidkii Nabi Ciise (ina Maryam), soo bixiddii Yacjuuj iyo Maajuuj, saddex dhul go’ay, qiiq, cadceed ka soo baxday oo galbeed ka soo baxday, iyo dab dadka u kaxeeya kulankoodii ugu dambeeyay.",
       "Culimadu mararka qaar waxay ku kala aragti duwan yihiin sida ay u kala horreeyaan calaamadaha qaar, laakiin waxay isku raacsan yihiin laba arrimood: inay saacadda qiyaame iman waa hubaal, waqtigeeda saxda ahna ma oga cid aan Alle ahayn, xataa Nabigu ﷺ ma garanayo markuu Jibriil weydiiyey. Jawaabta nebiyada ee calamadaha sidaas darteed waa mid wax ku ool ah, ma aha mala-awaal: kordhi iimaanka, towbad keenka, cadaalada, iyo camalka faa'iidada leh ee aan dhammaadka lahayn.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxayna ku waydiin Saacadda (Qiyaame) goorma. Waxaad dhahdaa cilmigeedu waa uun Eebahay agtiisa.",
-      },
-      {
-        excerpt:
-          "Miyey sugi inay Qiyaamadu si kado ah ugu timaaddo mooyee. Calaamadihiisu mar hore ayay yimaaddeen.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Saacaddu ma iman doonto ilaa aad aragto toban calaamo oo kala ah: qiiqa, Dajjal, Bahalka, Qorraxda oo galbeed ka soo baxda, soo degidda Nabi Ciise, Yacjuuj iyo Maajuuj, iyo saddex dhul go'ay... (Xudhayfah bin Usayd)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Fikrad khaldan: Dhacdo kasta oo adduunka ugu weyni waa hubaal calaamad kama dambays ah. Sixitaan: Sheegashooyinka noocaan ah waxay u baahan yihiin caddayn dhab ah iyo taxadar cilmiyeed, ma aha dareen dareen leh.",
       "Fikirka qaldan: Ogaanshaha calaamadaha waxay noo ogolaanaysaa inaan taariikhda ku qorno Saacadda. Sixitaan: Waqtiga saxda ah eebbe ayaa og; Calaamaduhu waxay noogu yeedhaan si aan u diyaargarowno, ma aha inay saadaaliyaan.",

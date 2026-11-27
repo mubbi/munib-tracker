@@ -24,7 +24,11 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 export default function LastDayReferencesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const references = getLastDayReferences();
   const wide = useLearnHubLayout();
   // Wide web / tablets: references flow into 2–3 columns.
@@ -39,11 +43,11 @@ export default function LastDayReferencesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/references" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="info">{t("lastDay.referencesIntro")}</JannahCallout>
 
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("lastDay.referencesListTitle")}
               icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
@@ -72,7 +76,7 @@ export default function LastDayReferencesScreen() {
 const styles = StyleSheet.create({
   list: { marginTop: Spacing.three },
   item: { gap: Spacing.one },
-  note: { lineHeight: 18 },
+  note: {},
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

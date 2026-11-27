@@ -1,15 +1,15 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { StoreBadges } from "@/components/store-badges";
-import { Button } from "@/components/ui/button";
+import { TrackedButton } from "@/components/tracked-button";
 import { Magnetic } from "@/components/ui/interactive";
 import { Reveal } from "@/components/ui/motion";
-import { trackCtaClick } from "@/lib/analytics";
+import type { CtaPlacement, DownloadPlacement } from "@/lib/analytics";
 import { SITE_PATHS } from "@/lib/site";
 
 /** Closing call-to-action — the last chapter of the Day Arc journey. */
-export function CtaBand() {
+export function CtaBand({ placement = "cta" }: { placement?: CtaPlacement & DownloadPlacement }) {
+  const t = useTranslations("cta");
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       {/* Warm dawn glow returning on the horizon — the journey begins again */}
@@ -29,41 +29,45 @@ export function CtaBand() {
       <div className="relative mx-auto max-w-3xl px-6 text-center md:px-8">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#ecca7d] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
-            Begin today
+            {t("eyebrow")}
           </p>
           <h2 className="hero-text-shadow mt-4 text-balance font-sans text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            Start your journey{" "}
-            <span className="bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none]">
-              back to Allah
-            </span>
+            {t.rich("title", {
+              accent: (chunks) => (
+                <span className="bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none]">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h2>
           <p className="hero-text-shadow-soft mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">
-            Small, steady steps matter more than perfection. Track today, learn something new, and
-            continue as a guest — or sign in to sync across devices.
+            {t("body")}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Magnetic>
-              <Button
+              <TrackedButton
                 href={SITE_PATHS.download}
                 variant="gold"
                 size="lg"
-                onClick={() => trackCtaClick("get_app", "cta")}
+                cta="get_app"
+                placement={placement}
               >
-                Get the app
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+                {t("getApp")}
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
+              </TrackedButton>
             </Magnetic>
-            <Button
+            <TrackedButton
               href={SITE_PATHS.features}
               variant="glass"
               size="lg"
-              onClick={() => trackCtaClick("explore_features", "cta")}
+              cta="explore_features"
+              placement={placement}
             >
-              Explore features
-            </Button>
+              {t("exploreFeatures")}
+            </TrackedButton>
           </div>
           <div className="mt-10 flex justify-center">
-            <StoreBadges className="justify-center" placement="cta" />
+            <StoreBadges className="justify-center" placement={placement} />
           </div>
         </Reveal>
       </div>

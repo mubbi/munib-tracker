@@ -3,6 +3,7 @@ import { act, render, renderHook, waitFor } from "@testing-library/react-native"
 import type { ReactNode } from "react";
 
 import type { StoredSession } from "@/auth/session-store";
+import { __resetTrackingChangesForTests, markTrackingChanged } from "@/lib/sync/tracking-changes";
 import { AuthProvider, useAuth } from "@/providers/auth-provider";
 import { captureAppStateListener } from "@/test-support/app-state";
 import {
@@ -76,6 +77,17 @@ jest.mock("@/lib/report-oss-content-download-failure", () => ({
   flushPendingOssContentFailures: jest.fn(),
 }));
 jest.mock("@/sync/sync-engine", () => ({ runSync: jest.fn() }));
+jest.mock("@/lib/notifications/register-push-token", () => ({
+  unregisterPushTokenWithApi: jest.fn(async () => undefined),
+  unsubscribeWebPushSubscription: jest.fn(async () => undefined),
+}));
+jest.mock("@/lib/surface-push/register", () => ({
+  deleteSurfacePushRegistration: jest.fn(async () => undefined),
+}));
+jest.mock("@/lib/in-app-notifications/storage", () => ({
+  ...jest.requireActual("@/lib/in-app-notifications/storage"),
+  removeServerInAppNotifications: jest.fn(async () => undefined),
+}));
 
 const api = jest.requireMock("@/api/endpoints") as Record<string, jest.Mock>;
 const { SessionStore, SessionPersistError } = jest.requireMock("@/auth/session-store") as {
@@ -83,6 +95,12 @@ const { SessionStore, SessionPersistError } = jest.requireMock("@/auth/session-s
   SessionPersistError: new () => Error;
 };
 const { runSync } = jest.requireMock("@/sync/sync-engine") as { runSync: jest.Mock };
+const { unregisterPushTokenWithApi } = jest.requireMock(
+  "@/lib/notifications/register-push-token",
+) as { unregisterPushTokenWithApi: jest.Mock };
+const { removeServerInAppNotifications } = jest.requireMock(
+  "@/lib/in-app-notifications/storage",
+) as { removeServerInAppNotifications: jest.Mock };
 const { recordReviewErrorMarker } = jest.requireMock(
   "@/features/reviews/lib/reviewEngagementBridge",
 ) as { recordReviewErrorMarker: jest.Mock };
@@ -164,6 +182,7 @@ beforeEach(() => {
   jest.clearAllMocks();
   Object.assign(mockState, { session: null, refresher: null, online: true, reloading: false });
   appState = captureAppStateListener();
+  __resetTrackingChangesForTests();
   api.requestGuestSession.mockResolvedValue(guestDto("access-guest"));
   api.getCurrentUser.mockResolvedValue(profile);
   api.refreshSession.mockImplementation(async (token: string) =>
@@ -385,6 +404,23 @@ describe("signOut", () => {
     expect(result.current).toMatchObject({ isGuest: true, user: null });
   });
 
+  it("unregisters this device's push token before the session is revoked", async () => {
+    const { result } = await setup({ stored: user });
+    unregisterPushTokenWithApi.mockClear();
+    await perform(() => result.current.signOut());
+    expect(unregisterPushTokenWithApi).toHaveBeenCalledWith(user.accessToken);
+    expect(unregisterPushTokenWithApi.mock.invocationCallOrder[0]).toBeLessThan(
+      api.logout.mock.invocationCallOrder[0] ?? 0,
+    );
+  });
+
+  it("drops the signed-out account's server inbox rows from this device", async () => {
+    const { result } = await setup({ stored: user });
+    removeServerInAppNotifications.mockClear();
+    await perform(() => result.current.signOut());
+    expect(removeServerInAppNotifications).toHaveBeenCalledTimes(1);
+  });
+
   it("ignores an overlapping sign-out", async () => {
     const { result } = await setup({ stored: user });
     await perform(() => Promise.all([result.current.signOut(), result.current.signOut()]));
@@ -479,6 +515,61 @@ describe("background sync triggers", () => {
     await rerender({});
     await flush();
     expect(runSync).toHaveBeenCalledWith(user);
+  });
+});
+
+describe("tracking change sync (zikr counts …)", () => {
+  /** Records a local tracking edit, as the tracker store does after a zikr write. */
+  async function recordZikr() {
+    await act(async () => markTrackingChanged());
+  }
+
+  it("pushes a recorded change after a short quiet period for a signed-in user", async () => {
+    await setup({ stored: user });
+    expect(runSync).toHaveBeenCalledTimes(1); // boot sync
+    jest.useFakeTimers();
+    try {
+      await recordZikr();
+      await recordZikr(); // a burst of taps …
+      await act(async () => {
+        jest.advanceTimersByTime(3_000);
+      });
+      expect(runSync).toHaveBeenCalledTimes(1); // … still debouncing
+      await act(async () => {
+        jest.advanceTimersByTime(1_500);
+      });
+    } finally {
+      jest.useRealTimers();
+    }
+    await flush();
+    expect(runSync).toHaveBeenCalledTimes(2); // … becomes one sync
+    expect(runSync).toHaveBeenLastCalledWith(user);
+  });
+
+  it("flushes unsynced changes when the app goes to the background", async () => {
+    await setup({ stored: user });
+    await recordZikr();
+    await act(async () => appState.emit("background"));
+    await flush();
+    expect(runSync).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not sync again on background when a sync already covered the change", async () => {
+    const { result } = await setup({ stored: user });
+    await recordZikr();
+    await perform(() => result.current.syncNow());
+    expect(runSync).toHaveBeenCalledTimes(2);
+    await act(async () => appState.emit("background"));
+    await flush();
+    expect(runSync).toHaveBeenCalledTimes(2);
+  });
+
+  it("never pushes tracking changes for guests", async () => {
+    await setup({ stored: guest });
+    await recordZikr();
+    await act(async () => appState.emit("background"));
+    await flush();
+    expect(runSync).not.toHaveBeenCalled();
   });
 });
 
@@ -736,5 +827,106 @@ describe("resetAppData", () => {
     pending.resolve();
     await perform(() => sync);
     expect(api.resetAppData).not.toHaveBeenCalled();
+  });
+});
+
+describe("ensureSession (guest retry)", () => {
+  async function foreground() {
+    await act(async () => appState.emit("active"));
+    await flush();
+  }
+
+  it("reports a network error when the boot guest request fails while online", async () => {
+    const { result } = await setup({ guestFails: true });
+    expect(result.current).toMatchObject({ sessionStatus: "error", sessionError: "network" });
+  });
+
+  it("reports offline when the boot guest request fails without a connection", async () => {
+    mockState.online = false;
+    const { result } = await setup({ guestFails: true });
+    expect(result.current.sessionError).toBe("offline");
+  });
+
+  it("reports a server error for an API failure", async () => {
+    api.requestGuestSession.mockRejectedValueOnce(new ApiError("boom", 503));
+    const { result } = await setup();
+    expect(result.current.sessionError).toBe("server");
+  });
+
+  it("retries on foreground once the backoff has elapsed", async () => {
+    const now = jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    const { result } = await setup({ guestFails: true });
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(1);
+
+    // Inside the first backoff step: no request.
+    now.mockReturnValue(1_000_000 + 5_000);
+    await foreground();
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(1);
+    expect(result.current.sessionStatus).toBe("error");
+
+    now.mockReturnValue(1_000_000 + 20_000);
+    await foreground();
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2);
+    expect(result.current).toMatchObject({
+      isGuest: true,
+      sessionStatus: "idle",
+      sessionError: null,
+    });
+  });
+
+  it("retries when connectivity returns", async () => {
+    mockState.online = false;
+    const { result, rerender } = await setup({ guestFails: true });
+    mockState.online = true;
+    await rerender({});
+    await flush();
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2);
+    expect(result.current.isGuest).toBe(true);
+  });
+
+  it("Try again (force) skips the backoff and creates the session", async () => {
+    jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    const { result } = await setup({ guestFails: true });
+    const ok = await perform(() => result.current.ensureSession({ force: true }));
+    expect(ok).toBe(true);
+    expect(result.current.isGuest).toBe(true);
+  });
+
+  it("is single-flight", async () => {
+    const { result } = await setup({ guestFails: true });
+    const pending = deferred<ReturnType<typeof guestDto>>();
+    api.requestGuestSession.mockReturnValueOnce(pending.promise);
+    let first!: Promise<boolean>;
+    let second!: Promise<boolean>;
+    await act(async () => {
+      first = result.current.ensureSession({ force: true });
+      second = result.current.ensureSession({ force: true });
+    });
+    expect(result.current.sessionStatus).toBe("connecting");
+    await act(async () => pending.resolve(guestDto("access-guest")));
+    await expect(first).resolves.toBe(true);
+    await expect(second).resolves.toBe(true);
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2); // boot + one retry
+  });
+
+  it("respects a 429 even for Try again until the cooldown passes", async () => {
+    const now = jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    api.requestGuestSession.mockRejectedValueOnce(new ApiError("Too many", 429));
+    const { result } = await setup();
+    expect(result.current.sessionError).toBe("rateLimited");
+
+    now.mockReturnValue(1_000_000 + 60_000);
+    expect(await perform(() => result.current.ensureSession({ force: true }))).toBe(false);
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(1);
+
+    now.mockReturnValue(1_000_000 + 11 * 60_000);
+    expect(await perform(() => result.current.ensureSession({ force: true }))).toBe(true);
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2);
+  });
+
+  it("resolves true without a request when a session already exists", async () => {
+    const { result } = await setup({ stored: guest });
+    expect(await perform(() => result.current.ensureSession())).toBe(true);
+    expect(api.requestGuestSession).not.toHaveBeenCalled();
   });
 });

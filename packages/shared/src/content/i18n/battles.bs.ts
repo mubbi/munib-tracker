@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       "Kur'an je fiksirao trajnu granicu oko ove dozvole: \"Bori se na Allahovom putu protiv onih koji se bore protiv tebe, ali ne prijestupi\" (Kur'an 2:190). Borbe su bile vezane za agresiju na zajednicu i nikada nisu prelazile granice pravde.",
       "Ove kampanje su istorija: dogodile su se u specifičnom arapskom kontekstu plemenskog ratovanja, prekršenih ugovora i opsade iz sedmog veka. Opća islamska učenja o miru, pravdi, milosti i dobrosusjedstvu su okvir; pojedinosti ovih bitaka moraju se čitati unutar tog okvira, a ne slagati u slogane istrgnute iz njega.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dozvoljava se onima koji se bore jer im je učinjena nepravda - a Allah im je zaista u stanju da ih pobijedi - onima koji su bez prava protjerani iz svojih domova, samo zato što su rekli: Naš Gospodar je Allah. Da Allah nije otjerao neke ljude pomoću drugih, manastiri, crkve, sinagoge i džamije - u kojima se Allahovo ime mnogo spominje - bi sigurno bili srušeni.",
-      },
-      {
-        excerpt:
-          "Borite se na Allahovom putu protiv onih koji se bore protiv vas, ali ne prestupite. Zaista, Allah ne voli prestupnike.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       "Kršenja ugovora ostala su odlučujuća do kraja. Upravo su Kurejšijevi saveznici koji su napali saveznike muslimana, Banu Khuza'ah, poništili Hudejbijski sporazum i doveli - što je izvanredno - do gotovo beskrvnog otvaranja Mekke, a ne do masakra.",
       "U svemu ovome, ciljevi su bili dosljedni: odbraniti život i vjeru, zaštititi ugrožene i uspostaviti dovoljno sigurnosti da se tevhid može prakticirati bez progona. Cilj nikada nije bio beskonačna ekspanzija zbog samog sebe, a izvori bilježe da je Poslanik, sallallahu alejhi ve sellem, preferirao primirje i sporazum kad god je neprijatelj bio sklon miru.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Naređeno mi je da se borim sa ljudima sve dok oni ne posvjedoče da nema drugog boga osim Allaha i da je Muhammed Allahov poslanik, vršiti namaz i davati zekat. Ako to učine, njihovi životi i imovina su zaštićeni od mene osim po pravu islama, a njihov račun je kod Allaha. — Klasični učenjaci čitaju "narod" kao specifične idolopoklonike u Arabiji koji su tada vodili rat protiv islama nakon što je poruka stigla do njih; to je izjava o tim neprijateljskim borcima, a ne dozvola za napad na mirne nemuslimane ili prisiljavanje na vjerovanje, što Kur\'an 2:256 potpuno zabranjuje.',
-      },
-    ],
-    quran: [
-      {
-        excerpt: "U religiji nema prisile. Pravi kurs je postao različit od greške.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Gornji hadis se često citira bez svoje postavke. Klasični učenjaci su ga smjestili unutar specifičnih neprijateljstava tog vremena i uz kur'ansku zabranu prisile u vjeri (2:256) i granicu da se bori samo protiv onih koji se bore protiv vas (2:190).",
     appLinks: [{}],
@@ -72,30 +54,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       "Imovina i sama zemlja su zaštićeni. Opšte smjernice zabranjivale su bezobzirnu sječu voćaka, spaljivanje usjeva i klanje stoke izvan potrebe. Zarobljenike je trebalo hraniti onako kako su zarobljenici jeli i odijevali kako su se sami oblačili; Kur'an hvali one koji hrane zarobljenike iz ljubavi prema Allahu (76:8), a mnogi su oslobođeni otkupninom, razmjenom ili jednostavnom milošću - neki u Bedru u zamjenu za učenje muslimana da čitaju.",
       "Ovo su normativna učenja religije. Pojedini muslimani kroz historiju koji su ih kršili kršili su Islam, a ne definirali ga – baš kao što kršenja od strane sljedbenika bilo koje vjere ne prepisuju ono što ta vjera nalaže.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Borite se na Allahovom putu protiv onih koji se bore protiv vas, ali ne prestupite.",
-      },
-      {
-        excerpt:
-          "A ako oni budu skloni miru, onda mu se i ti skloni i osloni se na Allaha. Zaista, On je onaj koji čuje, koji zna.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Omer je prenio da je žena pronađena ubijena u jednoj od ekspedicija Allahovog Poslanika, sallallahu alejhi ve sellem, pa je zabranio ubijanje žena i djece.",
-      },
-      {
-        excerpt:
-          "Kada je Poslanik, sallallahu alejhi ve sellem, imenovao komandanta nad vojskom, zapovjedio mu je: Bori se u ime Allaha... ne pronevjeri plijen, ne krši svoj zavjet, ne sakati i ne ubijaj dijete. Kada sretnete neprijatelja, prvo ga pozovite u Islam; ako odbiju, ponudi im mir; samo ako odbiju oboje, onda se bore.",
-      },
-      {
-        excerpt:
-          "Nemojte ubiti oronulog starca, ni malo dijete, ni ženu. — Neki lanci ove tačne formulacije ocijenjeni su kao slabi, ali presuda koju ona navodi potvrđena je gore navedenim sahih predanjem i konsenzusom pravnika.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Jasno pravite razliku između onoga što Islam zapovijeda i onoga što je bilo koja vojska u historiji zapravo radila.",
       "Pročitajte ovaj odjeljak o etici prije bilo kakvog narativa o bitki - historija bez svojih vladajućih principa izaziva nesporazume.",
@@ -141,26 +101,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
         "Neki zarobljenici su oslobođeni u zamjenu za podučavanje pismenosti djeci Medine.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kada ste tražili pomoć od svog Gospodara i On vam je odgovorio: Ja ću vas učvrstiti sa hiljadu meleka, koji slijede jedan za drugim.",
-      },
-      {
-        excerpt:
-          "Već je postojao znak za vas u dvije vojske koje su se srele - jedna koja se borila na Allahovom putu, a druga protiv nevjernika.",
-      },
-      {
-        excerpt:
-          "Vi ih niste ubili, ali ih je ubio Allah. I niste bacili kada ste bacili, nego je Allah bacio.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Omer je prenio da je na dan Bedra Poslanik, sallallahu alejhi ve sellem, pogledao neprijatelja od hiljadu, dok je njegovih ashaba bilo nešto više od tri stotine, a zatim se okrenuo kibli, ispružio ruke i zamolio svog Gospodara: O Allahu, ispuni ono što si mi obećao. O Allahu, ako ova grupa vjernika bude uništena, Ti nećeš biti obožavan na Zemlji. Molio je sve dok mu ogrtač nije pao s ramena, a Ebu Bekr ga je vratio i rekao: Dosta je, o Allahov Poslaniče, Allah će ispuniti ono što ti je obećao.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -195,22 +137,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kušnje oplemenjuju vjernike; neuspeh koji je naišao na pokajanje i postojanost vodi ka rastu.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah je zasigurno ispunio svoje obećanje vama kada ste ih ubijali uz Njegovu dozvolu - sve dok niste izgubili hrabrost, prepirali se oko naredbe i niste poslušali nakon što vam je pokazao ono što volite.",
-      },
-      {
-        excerpt:
-          "Zato nemojte slabiti i ne tugovati, jer ćete biti superiorni ako ste pravi vjernici.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, je imenovao Abdullaha ibn Džubejra nad pedeset strijelaca na dan Uhuda i rekao: Držite svoj položaj; čak i ako vidiš da nas otimaju ptice, ne ostavljaj ga dok ja ne pošaljem po tebe — pa čak i ako vidiš da ih pobjeđujemo, ne odlazi dok ja ne pošaljem po tebe. Kada je neprijatelj bio razbijen i strijelci su vidjeli plijen, rekli su: plijen! i napustili su svoje mjesto - pa je nas sedamdeset ubijeno.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -246,22 +174,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Držite se čvrsto pod opsadom i povjerite rezultat Allahu, koji može vratiti vojsku vjetrom.",
     },
-    quran: [
-      {
-        excerpt:
-          "O vjernici, sjetite se blagodati Allahove prema vama kada su vam došle vojske i Mi smo na njih poslali vjetar i vojske koje niste vidjeli... Tu su vjernici bili iskušeni i potreseni od jakog potresa.",
-      },
-      {
-        excerpt:
-          "A kada su vjernici vidjeli Konfederate, rekli su: To je ono što su nam Allah i Njegov Poslanik obećali - i to ih je samo povećalo u vjeri i pokornosti.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, molio je Konfederate na dan el-Ahzaba, govoreći: O Allahu, objavitelju Knjige, Brzi u obračunu - porazi Konfederate. O Allahu, porazi ih i potresi ih.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -293,22 +207,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kršenje saveza o uzajamnoj zaštiti u trenutku zajedničke opasnosti spada među najteže izdaje.",
     },
-    quran: [
-      {
-        excerpt:
-          "I spustio je one od Naroda Svetog pisma koji su ih podržavali iz njihovih tvrđava i bacio teror u njihova srca - stranku koju ste ubili i stranku koju ste zarobili. I učinio je da naslijedite njihovu zemlju i njihove domove.",
-      },
-      {
-        excerpt:
-          "Allah vam ne brani od onih koji se ne bore protiv vas zbog vjere i koji vas ne protjeruju iz vaših domova - da budete pravedni prema njima i da se prema njima ponašate pravedno. Zaista, Allah voli one koji postupaju pravedno.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kada je Banu Qurayzah pristao da prihvati presudu Sa'da ibn Muaza, Poslanik, sallallahu alejhi ve sellem, je poslao po njega. On je došao, a Poslanik, sallallahu alejhi ve sellem, je rekao: Zauzmite se za svog poglavara. Sa'd je presudio da njihovi borci budu ubijeni, a njihove žene i djeca zarobljeni. Poslanik, sallallahu alejhi ve sellem, je rekao: Vi ste presudili Allahovom presudom — ili je rekao, presudom kralja.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Ovo je bila kazna za konkretan čin ratne izdaje od strane boraca, ocjenjivan od strane arbitra kojeg je pleme odabralo. To nije presuda protiv bilo kojeg naroda zbog njihove vjere i nije model za odnose sa Jevrejima ili bilo kojom vjerskom zajednicom, prema kojima Islam nalaže da se postupa s pravdom i dobrotom (Kur'an 60:8). Neki kasniji naučnici doveli su u pitanje detalje o prenošenim brojevima.",
   },
@@ -341,22 +241,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Vjerujte Allahu i Njegovom Poslaniku kada je mudrost odluke skrivena - strpljenje može biti najistinska pobjeda.",
     },
-    quran: [
-      {
-        excerpt:
-          "Zaista, Mi smo vam dali očiglednu pobjedu, da vam Allah oprosti ono što je prethodilo vašem grijehu i ono što će uslijediti, da upotpuni svoju naklonost prema vama i uputi vas na pravi put.",
-      },
-      {
-        excerpt:
-          "Zaista je Allah bio zadovoljan vjernicima kada su ti se zakleli na vjernost pod drvetom, i znao je šta je u njihovim srcima, pa je spustio mir na njih i nagradio ih neminovnim osvajanjem.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Džabir ibn Abdullah je rekao: Na dan al-Hudejbije bilo nas je četrnaest stotina. Zakleli smo se na vjernost Poslaniku, sallallahu alejhi ve sellem, ispod drveta, a on je bio najbolji od ljudi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -388,12 +274,7 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Upornost kroz dugotrajne teškoće, spojena sa iskrenošću, donosi Allahovu pomoć.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Na dan Hajbera Poslanik, sallallahu alejhi ve sellem, je rekao: „Sutra ću dati ovu zastavu čovjeku koji voli Allaha i Njegovog Poslanika, i koga vole Allah i Njegov Poslanik, i kroz čije ruke će Allah dati pobjedu. Sutradan je pozvao Alija, koji je imao bolne oči; pljunuo mu je u oči i molio se za njega, a Ali se izliječio kao da nikada nije bio bolestan, i dobio je zastavu.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -458,16 +339,7 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Cilj je bilo vodstvo, a ne osveta - moć je stvorena da služi poruci, a ne sebi.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kada dođe Allahova pobjeda i osvajanje, i kada vidite ljude kako u mnoštvu ulaze u Allahovu vjeru, tada se uzvisite hvalom svoga Gospodara i tražite od Njega oprost. Zaista, On uvijek Prihvata pokajanje.",
-      },
-      {
-        excerpt:
-          "Rekao je: Danas nemate krivicu. Neka ti Allah oprosti, a On je najmilostiviji od milostivih. — riječi poslanika Jusufa da je Poslanik, sallallahu alejhi ve sellem, odjeknuo Kurejšijama na dan osvajanja.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -501,18 +373,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Nikada se ne oslanjajte na brojke ili nedavni uspjeh; pobjeda i spokoj dolaze samo od Allaha.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah vam je već dao pobjedu u mnogim krajevima - i na dan Hunejna, kada vam je vaš veliki broj bio zadovoljan, ali vam ništa nije koristilo, i Zemlja se, uprkos svom prostranstvu, zatvorila za vas, a vi ste se vratili u povlačenju. Zatim je Allah spustio svoj mir na Svoga Poslanika i na vjernike.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Al-Bara ibn Aziba su pitali da li su pobjegli na dan Hunejna. Rekao je: Ali Allahov Poslanik, sallallahu alejhi ve sellem, nije pobjegao. Ljudi su se vratili, a Poslanik, sallallahu alejhi ve sellem, je bio na svojoj bijeloj mazgi, i govorio je: Ja sam Poslanik, to nije laž; Ja sam sin Abd al-Muttaliba.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -547,22 +409,8 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Žrtvovanje bez vidljive nagrade i istinitost pod kušnjom su među najvišim testovima vjere.",
     },
-    quran: [
-      {
-        excerpt:
-          "Oni koji su ostali radovali su se što su ostali iza Allahovog Poslanika i nisu voljeli da se bore svojim imecima i svojim životima na Allahovom putu, pa su govorili: Ne izlazite po vrućini. Reci: Džehennemska vatra je jača u vrućini, samo kad bi mogli razumjeti.",
-      },
-      {
-        excerpt:
-          "I oprostio je trojici koja su ostavljena, sve dok se zemlja, ogromna kakva je bila, nije zatvorila za njih, i njihove vlastite duše se zatvorile u njih, i oni su bili sigurni da nema utočišta od Allaha osim u Njega. Zatim im se obratio u milosti da bi se mogli pokajati.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Malik je ispričao kako je ostao sa Tabuka bez opravdanja i nije htio lagati o tome; Poslanik, sallallahu alejhi ve sellem, naredio je vjernicima da ne razgovaraju s njim i njegovom dvojicom drugova pedeset noći, sve dok im zemlja ne postane tijesna - tada je došlo otkrivenje njihovog oprosta, i to je bio jedan od najsretnijih dana u njegovom životu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -620,20 +468,7 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
       "Vjerodostojnost hadisa o ekspedicijama mora se provjeriti prije nego što se na njih osloni. Naracije u nastavku su izvučene iz Sahih zbirki i tiču ​​se ponašanja i duha ovih kampanja; svaka nosi svoju ocjenu.",
       "Za naracije vezane za određeni angažman, pogledajte sopstvenu temu te bitke. Koristite Munibov pretraživač hadisa da pročitate pune lance i ocjenjivanje u kontekstu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ne zeli da se sretnes s neprijateljem, i zamoli Allaha za sigurnost. Ali kada ih sretnete, budite strpljivi i znajte da je raj pod sjenom mačeva.",
-      },
-      {
-        excerpt:
-          "Poslanik, sallallahu alejhi ve sellem, je rekao: Rat je prevara. — Naučnici ovo objašnjavaju kao dozvolu za taktičke strategije u borbi (finte, iznenađenje, pogrešno usmjerenje), nikada kao dozvolu za kršenje sporazuma ili izdaju zaštićene strane.",
-      },
-      {
-        excerpt:
-          "Kada je imenovao komandanta, Poslanik, sallallahu alejhi ve sellem, mu je zadužio da se boji Allaha, da poziva neprijatelja u Islam prije borbe, da ne krši zavjet, da ne sakati i ne ubija dijete.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -655,67 +490,43 @@ export const BATTLES_TOPICS_BS: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_BS: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Dozvoljava se onima koji se bore jer im je učinjena nepravda... Da Allah nije kontrolirao jedan skup ljudi drugim, manastiri, crkve, sinagoge i džamije bi bili uništeni.",
     context: "Prva opšta dozvola za borbu — nakon godina nenaoružanog progona u Mekki.",
   },
   {
-    excerpt:
-      "Borite se na Allahovom putu protiv onih koji se bore protiv vas, ali ne prestupite. Zaista, Allah ne voli prestupnike.",
     context: "Temeljna granica: samo odbrana, sa strogom zabranom prekoračenja granica.",
   },
   {
-    excerpt:
-      "Kada ste zamolili svog Gospodara za pomoć, On je odgovorio: Ja ću vas učvrstiti sa hiljadu meleka, red po red.",
     context: "Otkriveno u vezi sa Badrom — božanskom pomoći brojnim vjernicima.",
   },
   {
-    excerpt:
-      "Za vas je već bio znak u dvije vojske koje su se srele - jedna koja se bori na Allahovom putu i druga od nevjernika, vidjevši ih očima dvostruko od njih.",
     context: "Allah je učinio da se muslimani čine veći neprijatelju na Bedru, ojačavajući srca.",
   },
   {
-    excerpt:
-      "Allah je sigurno ispunio svoje obećanje vama kada ste ih ubijali po Njegovoj dozvoli, sve dok niste izgubili hrabrost i počeli raspravljati o naredbi i prekršili se nakon što vam je pokazao ono što volite.",
     context: "Obrađuje neposlušnost strijelaca i prekretnicu na Uhudu.",
   },
   {
-    excerpt:
-      "O vjernici, sjetite se Allahove blagodati prema vama kada su vam došle vojske i Mi smo na njih poslali vjetar i vojske koje niste vidjeli.",
     context: "Sura al-Ahzab o opsadi Konfederacije i božanskoj pomoći.",
   },
   {
-    excerpt:
-      "I spustio je one od Naroda Svetog pisma koji su ih podržavali iz njihovih tvrđava i bacio teror u njihova srca - stranku koju ste ubili i stranku koju ste zarobili. I učinio je da naslijedite njihovu zemlju i njihove domove.",
     context:
       "Sura al-Ahzab o Banu Kurejzi, koji je prekršio savez tokom opsade - ograničena epizoda ratne izdaje, a ne presuda protiv vjere.",
   },
   {
-    excerpt:
-      "Zaista, Mi smo vam dali očiglednu pobjedu, da vam Allah oprosti ono što je prethodilo vašem grijehu i ono što će uslijediti, da upotpuni svoju naklonost prema vama i uputi vas na pravi put.",
     context:
       "Otkriveno po povratku iz Hudejbije - navodeći kao očitu pobjedu ono što su drugovi prvo osjetili kao gorak kompromis.",
   },
   {
-    excerpt:
-      "Zaista je Allah bio zadovoljan vjernicima kada su ti se zakleli na vjernost pod drvetom, i znao je šta je u njihovim srcima, pa je spustio mir na njih i nagradio ih neminovnim osvajanjem.",
     context:
       "Zakletva Ridwana — oko 1.400 drugova se zaklelo pod bagremovim drvetom da neće bježati, i Allah je izjavio da je zadovoljan njima.",
   },
   {
-    excerpt:
-      "Kada dođe Allahova pobjeda i osvajanje, i kada vidite ljude kako u mnoštvu ulaze u Allahovu vjeru, tada se uzvisite hvalom svoga Gospodara i tražite od Njega oprost. Zaista, On uvijek Prihvata pokajanje.",
     context:
       "Sura an-Nasr o otvaranju Mekke — osvajanje krunisano ne trijumfom, već pohvalama, traženjem oprosta i ulaskom mnoštva u vjeru.",
   },
   {
-    excerpt:
-      "Allah vam je već dao pobjedu u mnogim krajevima... Zatim je Allah spustio svoj mir na Svoga Poslanika i na vjernike.",
     context: "Allah podsjeća vjernike da je pobjeda Njegov dar, a ne rezultat hvalisanja brojem.",
   },
   {
-    excerpt:
-      "Oni koji su ostali bili su sretni što su ostali iza Allahovog Poslanika i nisu voljeli da se bore sa svojim bogatstvom i životima na Allahovom putu.",
     context: "Sura at-Tawbah se obraća onima koji su se izvinili od teškog tabučkog marša.",
   },
 ];

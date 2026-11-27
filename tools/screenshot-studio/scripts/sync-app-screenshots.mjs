@@ -8,13 +8,9 @@
 // Run from tools/screenshot-studio:  node scripts/sync-app-screenshots.mjs
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { readSpec, repoRoot, studioRoot } from "./paths.mjs";
 
-const studioRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const repoRoot = path.resolve(studioRoot, "..", "..");
-const spec = JSON.parse(
-  fs.readFileSync(path.join(repoRoot, "packages", "store-screenshots", "spec.json"), "utf8"),
-);
+const spec = readSpec();
 const capturesRoot = path.join(repoRoot, spec.storeAssetsRoot, "captures");
 const destRoot = path.join(studioRoot, "public", "screenshots", "app");
 
@@ -56,6 +52,33 @@ for (const platform of PLATFORMS) {
 }
 const expected = PLATFORMS.length * LOCALES.length * FILES.length;
 console.log(`Copied ${copied}/${expected} ${STUDIO_THEME} captures into ${destRoot}`);
+
+// ---------- Native Android tablet captures (landscape tablet decks) ----------
+// `CAPTURE_TARGET=android-tablet pnpm screenshots:android` writes 2560×1600 PNGs
+// to captures-native/android-tablet/ only (no studio aliases), so read them from
+// there. The 7"/10" landscape slides use them; portrait keeps the phone screens.
+{
+  const tabletSrc = path.join(repoRoot, spec.storeAssetsRoot, "captures-native", "android-tablet");
+  let tabletCopied = 0;
+  const tabletMissing = [];
+  for (const locale of LOCALES) {
+    for (const name of FILES) {
+      const src = path.join(tabletSrc, locale, STUDIO_THEME, `${name}.png`);
+      if (!fs.existsSync(src) || fs.statSync(src).size === 0) {
+        tabletMissing.push(`${locale}/${STUDIO_THEME}/${name}.png`);
+        continue;
+      }
+      const dest = path.join(destRoot, "android-tablet", locale);
+      fs.mkdirSync(dest, { recursive: true });
+      fs.copyFileSync(src, path.join(dest, `${name}.jpg`));
+      tabletCopied += 1;
+    }
+  }
+  console.log(
+    `android-tablet: copied ${tabletCopied}/${LOCALES.length * FILES.length}` +
+      (tabletMissing.length ? ` (missing: ${tabletMissing.join(", ")})` : ""),
+  );
+}
 
 // ---------- Watch / TV surfaces (optional) ----------
 // Native `pnpm screenshots:watch|tvos|android-tv` write store-ready PNGs; the

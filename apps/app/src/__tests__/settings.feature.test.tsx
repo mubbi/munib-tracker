@@ -3,6 +3,11 @@ import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 import AppearanceScreen from "@/app/settings/appearance";
 import { renderWithProviders } from "@/test-support/render";
 
+jest.mock(
+  "@/providers/audio-player-provider",
+  () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
+);
+
 /** Theme prefs hydrate from AsyncStorage before swatches paint. */
 async function waitForAppearanceScreen() {
   await waitFor(
@@ -22,7 +27,9 @@ describe("Settings screen feature", () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText(/accent: teal/i)).toBeTruthy();
+        expect(screen.getByLabelText("Teal").props.accessibilityState).toEqual(
+          expect.objectContaining({ selected: true }),
+        );
       },
       { timeout: 10_000 },
     );
@@ -32,11 +39,13 @@ describe("Settings screen feature", () => {
     await renderWithProviders(<AppearanceScreen />);
     await waitForAppearanceScreen();
 
-    await fireEvent.press(screen.getByText("Dark"));
+    await fireEvent.press(screen.getByRole("radio", { name: "Dark" }));
 
     await waitFor(
       () => {
-        expect(screen.getByText(/Current mode: dark/i)).toBeTruthy();
+        expect(screen.getByRole("radio", { name: "Dark" }).props.accessibilityState).toEqual(
+          expect.objectContaining({ selected: true }),
+        );
       },
       { timeout: 10_000 },
     );

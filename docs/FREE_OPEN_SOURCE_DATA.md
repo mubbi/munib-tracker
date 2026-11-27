@@ -2,7 +2,7 @@
 
 Reference for authentic Qur'an, Hadith, Duas, Adhkar, translations, and audio from free / open-source datasets accepted by the majority of the Muslim ummah.
 
-Pipeline ops: [`DATA_INGESTION.md`](./DATA_INGESTION.md). Open gaps: [`BACKLOG.md`](./BACKLOG.md#content-pipeline) · data-blocked features in [`BACKLOG.md`](./BACKLOG.md).
+This doc is the _what and why_ (sources, licences, delivery policy). Pipeline how-to: [`DATA_INGESTION.md`](./DATA_INGESTION.md). Open gaps: [`BACKLOG.md`](./BACKLOG.md#content-pipeline) · data-blocked features in [`BACKLOG.md`](./BACKLOG.md).
 
 Verify licenses again before shipping — terms change.
 
@@ -183,9 +183,9 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 | **BetimShala/mburoja-api**                    | Hisnul Muslim chapters + invocations API                                                       | Open     | ◻︎ Alternative API form.                                                                 |
 | **ahegazy/muslimKit azkar JSON**              | Azkar with `zekr`, `repeat`, `bless`(source)                                                   | Open     | ✅ Includes repeat-count → maps to your `targetCount`.                                  |
 
-**Status:** **Shipped** — full Hisnul Muslim corpus (**270** duas + expanded adhkar/duroods) lives in
+**Status:** **Shipped** — full Hisnul Muslim corpus (**293** dua entries + expanded adhkar/duroods) lives in
 `packages/shared/src/content/` via `build-adhkar.mjs`. Locale meaning coverage varies (e.g. Bengali
-~158/270 by Arabic prefix match); English/Arabic corpus is complete — do not re-bundle it.
+~158 entries by Arabic prefix match, last measured against 270); English/Arabic corpus is complete — do not re-bundle it.
 
 ---
 
@@ -242,9 +242,14 @@ Never bundled, never committed: downloaded on request into the device (native do
 | `zipformer_a0w_ep1_a05.int8.onnx`                                                                             | github.com/yazinsai/tilawa `zipformer-a0w-ep1-a0.5` | 69.2 MB           | **NPL-1.2** (non-commercial, share-alike) | Recommended listener                   |
 | `zipformer_quran.json` (phoneme corpus)                                                                       | tilawa `v0.3.0`                                     | 5.5 MB            | **NPL-1.2**                               | Word list + alignment for the listener |
 | `fastconformer_full_mixed.onnx` + `vocab.json`, `quran_ctc_tokens.json`, `quran.json`, `export_metadata.json` | tilawa `v0.2.0`                                     | 88.3 MB + 15.4 MB | NVIDIA CC-BY-4.0 / MIT                    | Alternate listener (follow-along only) |
-| TajweedFormer V4                                                                                              | Quran Lab CDN via its SDK (key required)            | ~56.5 MB          | **NPL-1.2**                               | Optional pronunciation drill           |
+| TajweedFormer V4                                                                                              | Quran Lab via SDK 4 only (key; protected model)     | ~56 MB            | **NPL-1.3**                               | Optional pronunciation drill           |
 
-NPL-1.2 means practice can never be charged for, paywalled, or shown with ads while these models ship.
+NPL-1.2 / NPL-1.3 mean practice can never be charged for, paywalled, or shown with ads while these models ship.
+TajweedFormer SDK 4 (D66): the model is encrypted per install and opens only inside Quran Lab's SDK/Core under a
+lease; nothing is self-hosted. SDK 4 always sends anonymous analytics + error reports and asks learners itself about
+sharing recordings — disclosed on the consent sheet, Credits and the privacy policy. SDK 3.x stops receiving the
+model on 2027-01-15. FastConformer is NVIDIA `stt_ar_fastconformer_hybrid_large_pcd_v1.0` (CC-BY-4.0), modified
+(exported to ONNX by Tilawa) — credit names the model and the change.
 
 ### 9.3 Transliteration audio — **no separate dataset needed**
 
@@ -295,6 +300,10 @@ Implementation: `apps/app/src/lib/salah-how-to-pray-audio.ts`.
 
 → Realistic scope: attach audio to the **curated highlight sets** (40 Nawawi), not the entire 50k
 corpus. Don't promise per-hadith audio for the full Kutub al-Sittah — it doesn't exist openly.
+
+**Outcome (2026-11-24):** no recording source, including the Archive uploads above, passed the
+licence review (D12 / D19), so **hadith audio (NF-3.23) does not ship**. Search log:
+[`proofs/hadith-audio.md`](./proofs/hadith-audio.md).
 
 ### 9.7 Prayer times & Qibla (calculated, not audio data)
 
@@ -399,7 +408,7 @@ Ship a **"Data Sources & Credits"** screen listing every dataset + license + lin
   (`apps/app/src/lib/static-json-fetch.ts`).
 - **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
   fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
-- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (**270**) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated). Bengali meaning coverage ~158/270 (prefix match).
+- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (**293** entries) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated). Bengali meaning coverage ~158 entries (prefix match, last measured against 270).
 - **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources +
   service credits (prayer times, weather).
 - **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,

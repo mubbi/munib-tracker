@@ -14,6 +14,7 @@ import {
   getExpoPushToken,
   registerExpoPushTokenWithApi,
   registerWebPushSubscriptionWithApi,
+  unregisterPushTokenWithApi,
   unsubscribeWebPushSubscription,
 } from "./register-push-token";
 
@@ -23,8 +24,10 @@ jest.mock(
 );
 
 const mockUpsertPushToken = jest.fn(async () => undefined);
+const mockRemovePushToken = jest.fn(async () => undefined);
 jest.mock("@/lib/notifications-api", () => ({
   upsertPushToken: (...args: unknown[]) => mockUpsertPushToken(...(args as [])),
+  removePushToken: (...args: unknown[]) => mockRemovePushToken(...(args as [])),
 }));
 
 jest.mock(
@@ -51,6 +54,7 @@ function makeServiceWorker(existing: unknown = null, json: object = SUBSCRIPTION
 beforeEach(() => {
   resetSwitchableNotificationsPlatformMock();
   mockUpsertPushToken.mockClear();
+  mockRemovePushToken.mockReset().mockResolvedValue(undefined);
   mockApiFetch.mockReset().mockResolvedValue({ publicKey: "BPublicKey_-" });
   jest.spyOn(SessionStore, "getDeviceId").mockResolvedValue("device-1");
   jest.spyOn(SessionStore, "get").mockResolvedValue(buildStoredSession());
@@ -70,6 +74,20 @@ describe("Expo push token (native)", () => {
   it("treats registration as best effort when the token cannot be read", async () => {
     await expect(registerExpoPushTokenWithApi("access")).resolves.toBeUndefined();
     expect(mockUpsertPushToken).not.toHaveBeenCalled();
+  });
+});
+
+describe("unregisterPushTokenWithApi (sign-out)", () => {
+  it("removes this install's token from the signing-out account", async () => {
+    await unregisterPushTokenWithApi("access");
+    expect(mockRemovePushToken).toHaveBeenCalledWith("access", { deviceId: "device-1" });
+  });
+
+  it("is best effort: no token, or a failing server, never throws", async () => {
+    await unregisterPushTokenWithApi(undefined);
+    expect(mockRemovePushToken).not.toHaveBeenCalled();
+    mockRemovePushToken.mockRejectedValueOnce(new Error("offline"));
+    await expect(unregisterPushTokenWithApi("access")).resolves.toBeUndefined();
   });
 });
 

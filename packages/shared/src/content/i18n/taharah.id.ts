@@ -15,22 +15,8 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Bersuci dalam Islam memiliki dua sisi. Sisi lahiriah adalah kebersihan yang nyata — mencuci, menghilangkan kotoran, dan menjaga kebersihan. Sisi batiniah adalah kerendahan hati, kehadiran hati, dan kesiapan jiwa yang hendak dibangkitkan oleh pembasuhan itu. Nabi ﷺ menyatukan keduanya ketika beliau menyebut bersuci sebagai 'separuh keimanan', menggandengkan kebersihan fisik dengan penyucian jiwa dari dosa.",
       "Modul ini membahas seluruh topik secara berurutan: air yang digunakan untuk bersuci, wudu (bersuci kecil), mandi wajib/ghusl (mandi besar sesuai syariat), tayamum (bersuci kering ketika air tidak dapat digunakan), najis (menghilangkan kotoran fisik), serta kondisi khusus dan keringanannya. Pelajari sekali dengan tuntas, dan salat pun menjadi sesuatu yang kau jalani dengan mantap, bukan dengan ragu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, apabila kamu hendak melaksanakan salat, maka basuhlah wajahmu dan tanganmu sampai ke siku, usaplah kepalamu, dan (basuhlah) kakimu sampai ke kedua mata kaki.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Allah menyukai orang-orang yang bertobat dan menyukai orang-orang yang menyucikan diri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kunci salat adalah bersuci, pembukanya adalah takbir, dan penutupnya adalah salam. (Ali; juga Jami' at-Tirmidzi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Jadikan bersuci sebagai persiapan menghadap Allah, bukan rutinitas yang dikerjakan terburu-buru.",
       "Pelajari satu topik taharah setiap hari sampai seluruh rangkaiannya terasa alami.",
@@ -45,15 +31,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Nabi ﷺ mengangkat bersuci menjadi ciri khas seorang mukmin, menyebutnya 'separuh keimanan'. Kebiasaan bersuci yang tertib melatih disiplin seseorang, menjaganya hampir selalu siap untuk beribadah, dan — sebagaimana diajarkan hadis — benar-benar menggugurkan dosa-dosa kecil bersama air yang mengalir.",
       "Karena ia menjaga salat, taharah juga menjaga seorang mukmin dari dosa mengerjakan salat yang tidak sah akibat kelalaian. Mempelajari hukum-hukumnya dengan baik karenanya adalah bentuk menjaga salah satu amal terbesar dalam Islam.",
     ],
-    hadith: [
-      {
-        excerpt: "Bersuci adalah separuh dari keimanan. (Abu Malik al-Asy'ari)",
-      },
-      {
-        excerpt:
-          "Allah tidak menerima salat tanpa bersuci, dan tidak menerima sedekah dari harta hasil khianat. (Ibnu Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Sebelum setiap salat, pastikan dahulu keadaan sucimu sebelum memulai.",
       "Ingat daftar sederhana ini: badan, pakaian, tempat, dan wudu.",
@@ -68,12 +46,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Hadas besar (hadas akbar, disebut juga janabah) muncul dari hubungan suami istri, keluarnya air mani, dan berakhirnya masa haid atau nifas. Ia disucikan dengan mandi wajib (ghusl), yaitu mandi seluruh tubuh sesuai syariat — dengan tayamum kembali menjadi penggantinya ketika air tidak tersedia atau membahayakan.",
       "Kotoran fisik (najis) — seperti air kencing, kotoran manusia, atau darah yang mengalir — adalah perkara yang berbeda: ia harus dihilangkan secara fisik dari badan, pakaian, dan tempat salat, terlepas dari keadaan hadasmu. Keempat mazhab Sunni sepakat atas ketiga kategori ini, dan hanya berbeda pendapat pada sebagian rincian tentang apa yang membatalkan kesucian atau jumlah sisa yang dimaafkan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan jika kamu dalam keadaan junub, maka sucikanlah dirimu. Namun jika kamu sakit atau dalam perjalanan… dan tidak menemukan air, maka bertayamumlah dengan tanah yang bersih.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Kenali dahulu keadaanmu (hadas kecil, hadas besar, atau najis), lalu terapkan cara yang tepat.",
       "Bila ragu pada rinciannya, ikuti secara konsisten satu guru yang berkompeten dari mazhab yang diakui.",
@@ -89,17 +62,8 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Para ulama fikih mengklasifikasikan air secara rinci (suci dan menyucikan, suci tetapi tidak menyucikan, serta najis), tetapi kaidah praktis untuk kehidupan sehari-hari sederhana saja: air tetap layak untuk wudu dan mandi wajib selama tidak jelas-jelas berubah karena najis. Bila timbul keraguan yang nyata sementara ada alternatif air bersih, gunakan alternatif tersebut.",
       "Islam mengajarkan kesempurnaan tanpa berlebihan. Nabi ﷺ mencuci dengan tuntas namun menggunakan air yang sangat sedikit — sekitar satu mud (dua cakupan telapak tangan) untuk wudu dan satu sha' (kira-kira empat kali lipatnya) untuk mandi wajib penuh. Memboroskan air tetap tidak dianjurkan bahkan ketika air melimpah, karena kesederhanaan itu sendiri termasuk adab ibadah.",
     ],
-    quran: [
-      {
-        excerpt: "Dan Kami turunkan dari langit air yang suci.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ biasa berwudu dengan satu mud air dan mandi wajib dengan satu sha' hingga lima mud air. (Anas; juga Sahih Muslim 325 — sunnah kesederhanaan)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Gunakan air secukupnya untuk mencuci dengan tuntas, tetapi kecilkan keran dan hindari pemborosan.",
       "Jika suatu sumber air tampak atau berbau berubah karena najis, carilah sumber lain yang jelas bersih terdekat.",
@@ -117,12 +81,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Wudu diwajibkan sebelum setiap salat — kecuali kau masih dalam keadaan suci dari salat sebelumnya — dan menurut mayoritas ulama, juga sebelum melakukan tawaf di sekeliling Ka'bah dan sebelum menyentuh mushaf Al-Qur'an.",
       "Wudu adalah ibadah tersendiri, bukan sekadar pendahuluan. Nabi ﷺ memperingatkan bahwa 'Allah tidak menerima salat salah seorang dari kalian yang batal wudunya sampai ia berwudu kembali' — sehingga menjaga wudu berarti menjaga salat itu sendiri.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah tidak menerima salat seseorang yang batal wudunya sampai ia berwudu. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Wudu dalam panduan Salah" }],
   },
   {
@@ -131,14 +90,9 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
     body: [
       "Beberapa syarat harus terpenuhi agar wudu dianggap sah. Orang yang berwudu harus seorang muslim yang berakal sehat, dengan niat bersuci untuk beribadah. Sebagian mazhab menggolongkan niat sebagai rukun perbuatan ini dan sebagian lain sebagai syarat, tetapi semua sepakat bahwa niat diperlukan untuk mendapatkan pahala, dan menurut mayoritas, juga untuk keabsahannya.",
       "Air yang digunakan harus suci dan menyucikan. Yang terpenting, air itu harus benar-benar mencapai kulit — sehingga apa pun yang membentuk lapisan kedap air pada suatu anggota tubuh (cat tebal, cat kuku, lilin, lem) harus dihilangkan terlebih dahulu, jika tidak, basuhan di baliknya tidak sah. Kotoran biasa atau noda pacar yang tidak menghalangi air bukanlah masalah.",
-      "Mazhab Syafi'i dan Hambali juga mewajibkan agar basuhan dilakukan sesuai urutan Al-Qur'an dan tanpa jeda panjang (muwalat) yang membuat anggota tubuh mengering. Pendapat mazhab Hanafi dan Maliki tentang urutan dan kesinambungan yang ketat ini lebih longgar dalam sebagian keadaan. Ikuti satu metode mazhab secara konsisten.",
+      "Mazhab Syafi'i dan Hambali juga mewajibkan agar basuhan dilakukan sesuai urutan dalam Al-Qur'an (tartib), sedangkan mazhab Maliki dan Hambali mewajibkan agar basuhan dilakukan berturut-turut tanpa jeda panjang yang membuat anggota tubuh mengering (muwalat). Mazhab Hanafi menganggap keduanya sunnah. Ikuti satu metode mazhab secara konsisten.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Basuhlah wajahmu dan tanganmu sampai ke siku, usaplah kepalamu, dan basuhlah kakimu sampai ke kedua mata kaki.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hilangkan cat kuku, cincin yang menahan air, dan apa pun yang menutup kulit sebelum berwudu.",
       "Lakukan wudu dengan tenang dalam satu rangkaian agar tidak ada anggota tubuh yang terlewat atau sempat mengering.",
@@ -149,15 +103,10 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
     summary: "Rukun yang disebutkan Al-Qur'an, tanpanya wudu tidak sah.",
     body: [
       "Rukun-rukun wudu adalah bagian-bagian yang disebutkan Allah dalam ayat: membasuh seluruh wajah; membasuh kedua lengan sampai dan termasuk siku; mengusap kepala; serta membasuh kedua kaki sampai dan termasuk mata kaki. Bila salah satu terlewat, wudu tidak sempurna.",
-      "Selain itu, mazhab-mazhab menambahkan kewajiban lain berdasarkan sunnah dan ijtihad. Niat wajib menurut kebanyakan mazhab (mazhab Hanafi menggolongkannya sebagai sunnah yang sangat ditekankan untuk menghilangkan hadas kecil). Urutan (tartib) dan kesinambungan (muwalat) wajib menurut mazhab Syafi'i dan Hambali. Mazhab Maliki menambahkan menggosok anggota tubuh (dalk) sebagai kewajiban.",
+      "Selain itu, mazhab-mazhab menambahkan kewajiban lain berdasarkan sunnah dan ijtihad. Niat wajib menurut kebanyakan mazhab (mazhab Hanafi menggolongkannya sebagai sunnah yang sangat ditekankan untuk menghilangkan hadas kecil). Urutan (tartib) wajib menurut mazhab Syafi'i dan Hambali, sedangkan kesinambungan (muwalat) wajib menurut mazhab Maliki dan Hambali. Mazhab Maliki menambahkan menggosok anggota tubuh (dalk) sebagai kewajiban.",
       "Segala sesuatu di luar ini — berkumur dan memasukkan air ke hidung, membasuh tangan lebih dulu, membasuh tiga kali — adalah sunnah, bukan wajib. Mengetahui perbedaannya membuatmu dapat membedakan kapan wudu sekadar kurang sempurna dan kapan benar-benar tidak sah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Basuhlah wajahmu dan tanganmu sampai ke siku, usaplah kepalamu, dan basuhlah kakimu sampai ke kedua mata kaki.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Daftar pasti rukun wudu (misalnya apakah niat, urutan, dan menggosok termasuk wajib) berbeda di antara keempat mazhab. Pelajari dan amalkan satu mazhab yang terpercaya secara konsisten.",
   },
@@ -169,12 +118,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Amalan sunnah yang telah mapan meliputi: mengucapkan 'Bismillah' di awal; membasuh kedua tangan tiga kali sebelum memulai; berkumur (madhmadhah) dan memasukkan air ke hidung (istinsyaq); menyela-nyela jenggot yang lebat dan sela-sela jari tangan serta kaki (takhlil) dengan jari basah; memulai setiap pasang anggota tubuh dengan yang kanan; dan mengulang setiap basuhan hingga tiga kali.",
       "Dua sunnah patut mendapat perhatian khusus: menggunakan siwak sebelum berwudu — yang hampir diwajibkan oleh Nabi ﷺ — dan membaca syahadat setelah selesai, yang membuka kedelapan pintu surga bagi orang yang mengucapkannya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa berwudu dengan sempurna, lalu mengucapkan 'Aku bersaksi bahwa tiada tuhan selain Allah… dan bahwa Muhammad adalah hamba dan utusan-Nya,' maka kedelapan pintu surga dibukakan baginya. (Umar bin Khattab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Amalkan rangkaian sunnah secara lengkap sampai menjadi kebiasaan alami bagimu.",
       "Bacalah syahadat setelah wudu setiap kali.",
@@ -232,12 +176,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
         tip: "Sunnah yang singkat namun sangat besar pahalanya.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Utsman membasuh setiap anggota tubuh tiga kali sebagaimana ia melihat Nabi ﷺ melakukannya, lalu berkata: barang siapa berwudu seperti ini lalu salat dua rakaat dengan penuh kekhusyukan, dosa-dosanya yang lalu diampuni. (Humran, dari Utsman)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Wudu dalam panduan Salah" }, { label: "Doa wudu" }],
   },
   {
@@ -248,12 +187,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Penting untuk diketahui bahwa 'doa setiap anggota tubuh' secara rinci (doa khusus saat membasuh tangan, wajah, lengan, dan seterusnya) yang beredar di sebagian buku kecil, tidak memiliki dasar sahih dari Nabi ﷺ. Para ulama menyarankan untuk tidak menisbahkannya kepada beliau sebagai sunnah, meski tidak ada larangan berzikir secara umum kepada Allah selama berwudu.",
       "Inti persoalannya adalah kehadiran hati: berwudulah dengan kesadaran bahwa dosa setiap anggota tubuh sedang berguguran, dan tutuplah dengan syahadat yang menghubungkan kembali amalan ini dengan tujuannya — keimanan kepada Allah semata.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa berwudu dengan sempurna lalu membaca syahadat, kedelapan pintu surga dibukakan baginya untuk masuk dari pintu mana pun yang ia kehendaki. (Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Hafalkan syahadat setelah wudu jika belum hafal.",
       "Hindari membaca doa per-anggota-tubuh yang tidak terbukti sahih seolah-olah itu sunnah yang mapan.",
@@ -268,12 +202,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Perkara lain menjadi ranah perbedaan pendapat yang saling menghormati antar mazhab: menyentuh langsung kemaluan, dan bersentuhan kulit dengan lawan jenis yang bukan mahram, dianggap membatalkan di sebagian mazhab tetapi tidak di mazhab lain, berdasarkan pembacaan yang berbeda atas teks yang sama.",
       "Sebuah kaidah pokok melindungimu dari kecemasan (waswas) yang terus-menerus: keyakinan tidak hilang oleh keraguan. Jika kau yakin sudah berwudu dan hanya ragu apakah wudu itu batal, kau tetap dianggap dalam keadaan berwudu sampai kau yakin ada hal yang membatalkannya. Nabi ﷺ pernah berpesan kepada seseorang yang terganggu oleh perasaan ini agar tidak meninggalkan salatnya 'sampai ia mendengar suara atau mencium bau.'",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Janganlah ia meninggalkan (salatnya) sampai ia mendengar suara atau mencium bau. (Abbad bin Tamim, dari pamannya)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Apakah menyentuh lawan jenis atau kemaluan sendiri membatalkan wudu berbeda-beda menurut mazhab. Ikuti guru setempat yang berkompeten dan satu metode mazhab.",
   },
@@ -286,12 +215,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Nabi ﷺ pernah melihat orang-orang yang tumitnya masih kering karena air tidak mencapainya, lalu bersabda dengan tegas, 'Celakalah tumit-tumit itu dari api neraka!' Tumit, mata kaki, dan tepi wajah adalah bagian yang paling sering terlewat.",
       "Kesalahan sebaliknya adalah berlebihan: membasuh jauh lebih dari tiga kali, atau memboroskan air, yang bertentangan dengan sunnah kesederhanaan. Sebagian orang terjerumus dalam waswas, mengulang wudu berkali-kali — ini pun kesalahan, karena keyakinan tidak digugurkan oleh kecurigaan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celakalah tumit-tumit itu dari api neraka! — diucapkan ketika beliau melihat tumit yang masih kering saat berwudu. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Perlambat gerakan dan pastikan secara sadar seluruh bagian anggota yang dibasuh telah tercapai, terutama tumit dan siku.",
       "Gunakan air secukupnya; jangan biarkan waswas mendorongmu mengulang tanpa perlu.",
@@ -306,12 +230,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Wudu juga merupakan kehormatan yang membedakan di akhirat kelak. Pada hari kiamat, Nabi ﷺ akan mengenali para pengikutnya dari cahaya di wajah, tangan, dan kaki mereka bekas wudu — cahaya yang khusus dimiliki umat ini, disebut al-ghurr al-muhajjalun.",
       "Karena keutamaan-keutamaan ini, menjaga diri tetap dalam keadaan berwudu adalah kebiasaan yang dianjurkan: memperbaruinya untuk setiap salat, dan tidur dalam keadaan berwudu, termasuk kebiasaan yang menjaga seorang mukmin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umatku akan dipanggil pada hari kiamat dengan wajah, tangan, dan kaki yang bercahaya bekas wudu. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Perbarui wudu untuk setiap waktu salat bila memungkinkan.",
       "Jadikan tidur dalam keadaan berwudu sebagai sunnah setiap malam.",
@@ -328,11 +247,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Intinya adalah air harus mencapai setiap bagian tubuh bagian luar — tidak boleh ada bagian kering yang tersisa, termasuk akar rambut, lipatan kulit, belakang telinga, pusar, dan sela-sela jari kaki. Berkumur dan memasukkan air ke hidung termasuk dalam ghusl menurut banyak ulama.",
       "Satu kali mandi wajib yang dilakukan dengan niat menghilangkan janabah juga menghilangkan hadas kecil, sehingga orang yang telah menyelesaikan ghusl dapat langsung salat tanpa wudu terpisah (meskipun berwudu di dalam ghusl adalah sunnah).",
     ],
-    quran: [
-      {
-        excerpt: "Dan jika kamu dalam keadaan junub, maka sucikanlah dirimu.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Ringkasan persiapan salat" }],
   },
   {
@@ -343,16 +258,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Mandi lainnya bersifat mustahab (dianjurkan), bukan wajib: mandi Jumat sebelum salat Jumat, yang sangat ditekankan hingga Nabi ﷺ menyebutnya 'kewajiban bagi setiap orang yang telah balig'; mandi untuk kedua hari raya; dan mandi ihram sebelum haji atau umrah.",
       "Seorang mualaf diperintahkan untuk mandi ketika masuk Islam — sebagian ulama menilainya wajib dan sebagian lain menilainya sangat dianjurkan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila seorang laki-laki duduk di antara empat anggota tubuh istrinya lalu bersetubuh dengannya, maka mandi wajib menjadi keharusan. (Abu Hurairah; juga Sahih Muslim 348)",
-      },
-      {
-        excerpt:
-          "Mandi pada hari Jumat wajib bagi setiap orang yang telah balig. (Abu Sa'id al-Khudri; juga Sahih Muslim 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Apakah mandi Jumat dan mandi masuk Islam bersifat wajib atau sangat dianjurkan berbeda menurut mazhab dan keadaan.",
     appLinks: [{ label: "Panduan Haid" }],
@@ -395,12 +301,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
         tip: "Wanita tidak perlu melepas kepangan rambutnya, selama air mencapai kulit kepala.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ, ketika mandi junub, membasuh kedua tangannya, berwudu sebagaimana untuk salat, menyela-nyela rambutnya dengan jari, lalu menuangkan air ke kepalanya tiga kali dan ke seluruh tubuhnya. (Aisyah)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Kesalahan Umum dalam Mandi Wajib",
@@ -411,12 +312,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Kesalahan umum kedua adalah meninggalkan bagian yang kering. Kewajibannya adalah air harus menyentuh seluruh bagian luar tubuh, sehingga mengabaikan akar rambut kepala, telinga, pusar, punggung bagian bawah, atau sela-sela jari kaki membuat mandi wajib tidak sempurna. Gosokkan air ke bagian-bagian ini agar yakin.",
       "Mengenai rambut: wanita yang rambutnya dikepang tidak wajib melepas kepangan, selama air mencapai akar kulit kepala — Nabi ﷺ memberitahu Ummu Salamah bahwa menuangkan tiga cakupan tangan ke kepala sudah cukup. Rambut laki-laki, yang biasanya terurai, perlu disela-sela agar air mencapai akarnya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Cukup bagimu menuangkan tiga cakupan tangan air ke kepalamu, lalu tuangkan air ke seluruh tubuhmu, maka engkau telah suci — engkau tidak perlu melepas kepanganmu. (Ummu Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ucapkan niat sebelum tuangan air yang pertama, agar basuhan itu terhitung sebagai mandi wajib.",
       "Gosokkan air ke bagian-bagian yang mudah terlewat; bila ragu, basuh ulang suatu bagian daripada menyelesaikannya dalam keraguan.",
@@ -432,18 +328,8 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Tayamum adalah anugerah khusus bagi umat ini: Nabi ﷺ bersabda, 'Bumi telah dijadikan bagiku sebagai tempat salat dan sarana bersuci,' menyebutnya sebagai salah satu keistimewaan khusus yang diberikan kepada beliau dan tidak diberikan kepada nabi-nabi sebelumnya. Ini mencerminkan prinsip utama agama ini — kewajiban tetap ada, tetapi kesulitannya diringankan.",
       "Ini adalah keringanan sementara: begitu air tersedia dan dapat digunakan, bersuci dengan air kembali berlaku. Seseorang mungkin perlu memperbarui tayamum untuk setiap salat menurut sebagian mazhab.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…dan kamu tidak menemukan air, maka bertayamumlah dengan tanah yang bersih dan usaplah wajah dan tanganmu dengannya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bumi telah dijadikan bagiku sebagai tempat salat dan sarana bersuci. (Jabir — salah satu dari lima keistimewaan yang diberikan khusus kepada Nabi ﷺ)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kapan Tayamum Diperbolehkan",
@@ -454,12 +340,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Ketiga, ketika sedikit air yang tersedia dibutuhkan untuk keperluan yang lebih mendesak — seperti minum, demi menjaga nyawa, baik nyawanya sendiri, orang lain, maupun hewan. Dalam setiap keadaan, syariat mengutamakan penjagaan nyawa dan kesehatan di atas cara bersuci yang lebih utama.",
       "Para ulama fikih berbeda pendapat mengenai batasan-batasan yang lebih rinci — seberapa jauh seseorang harus mencari air, seberapa besar kekhawatiran akan bahaya yang cukup — tetapi mereka sepakat atas rahmat yang mendasarinya: ibadah tidak pernah digugurkan, hanya dimudahkan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Disebutkan dalam bab-bab tayamum: keringanan untuk bersuci dengan tanah bersih ketika tidak ada air yang dapat digunakan.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Carilah air secara wajar sebelum menggunakan tayamum.",
       "Jika dokter menyarankan agar luka atau penyakit tetap kering, ikuti saran itu dan lakukan tayamum.",
@@ -486,12 +367,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
         tip: "Ikuti satu metode mazhab (pergelangan tangan atau lengan bawah) secara konsisten.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ menepukkan telapak tangannya ke tanah, lalu mengusap wajah dan kedua tangannya — mengajarkan kepada Ammar bahwa ini sudah cukup. (Ammar bin Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Apa yang Membatalkan Tayamum?",
@@ -519,12 +395,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Penghilangannya dilakukan dengan air di tempat kotoran itu nyata, dengan mencuci sampai zat dan bekasnya hilang. Islam juga menanggapi serius sumber-sumber najis: Nabi ﷺ memperingatkan bahwa sebagian besar siksa kubur berasal dari kelalaian terhadap air kencing — terkena percikannya dan tidak membersihkan diri dengan benar.",
       "Mazhab-mazhab berbeda pendapat dalam mengklasifikasikan sebagian zat (misalnya, apakah sejumlah kecil cairan tertentu dimaafkan) dan mengenai berapa banyak sisa yang ditoleransi. Prinsip praktis untuk kehidupan sehari-hari: bersihkan dengan tuntas, dan jangan menciptakan keraguan tentang kesucian di mana tidak ada bukti adanya najis.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ melewati dua kuburan dan bersabda bahwa penghuninya sedang disiksa — satu karena menyebarkan fitnah, dan yang lain karena tidak menjaga diri dari air kencingnya. (Ibnu Abbas; juga Sahih Muslim 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Membersihkan Pakaian dari Najis",
@@ -534,12 +405,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Jika, setelah usaha yang sungguh-sungguh dan tuntas, masih tersisa noda warna samar atau bau ringan yang tidak dapat hilang, mayoritas ulama memaafkan hal yang memang sulit dihilangkan — kewajibannya adalah menghilangkan zatnya, bukan menjamin warna yang benar-benar bersih tanpa noda.",
       "Sebagian keadaan memiliki rincian tersendiri yang telah dikenal, seperti air kencing bayi laki-laki yang masih menyusu (cukup dipercikkan, bukan dicuci penuh, menurut sebuah keringanan yang diriwayatkan) — maka pelajarilah hukum praktis mazhabmu untuk keadaan yang benar-benar kau hadapi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mengenai darah haid pada pakaian: keriklah, lalu gosok dengan air, lalu cuci, dan salatlah dengan mengenakannya. (Asma binti Abu Bakar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sediakan setidaknya satu setel pakaian bersih khusus untuk salat.",
       "Jika najis mengenai pakaianmu saat di luar rumah, bilas bagian yang bisa dan gantilah begitu ada kesempatan.",
@@ -553,11 +419,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Selain menghilangkan najis, Islam juga mendorong tingkat kebersihan alami dasar (fitrah) yang menjaga badan tetap bersih dan siap untuk beribadah: memotong kuku secara teratur, mencukur bulu ketiak dan kemaluan, dan hal-hal semacamnya.",
       "Kebiasaan-kebiasaan ini bukan sekadar tata krama budaya — ia adalah bagian dari martabat dan kebersihan seorang mukmin ketika menghadap Allah dalam salat.",
     ],
-    hadith: [
-      {
-        excerpt: "Nabi ﷺ biasa membersihkan diri dengan air setelah buang air. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Selalu selesaikan istinja sebelum berwudu setelah buang air.",
       "Bawa tisu, dan bila memungkinkan, sediakan air ketika bepergian.",
@@ -572,12 +434,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Kaidah pokoknya adalah keyakinan. Bumi pada dasarnya dijadikan tempat salat, sehingga suatu permukaan dianggap suci kecuali kau memiliki bukti nyata adanya najis. Jika kau tahu ada najis, hilangkan atau pindahlah ke tempat yang bersih; jika kau hanya membayangkan mungkin ada najis, abaikan bisikan itu dan lanjutkan.",
       "Keseimbangan ini menjaga ibadah dari dua sisi ekstrem: salat dengan sembarangan di tanah yang jelas kotor, dan menjadi lumpuh oleh kecurigaan tanpa dasar terhadap setiap permukaan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika seorang badui kencing di masjid, Nabi ﷺ memerintahkan agar seember air disiramkan ke tempat itu. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Periksa sekilas sajadah dan lantaimu sebelum salat.",
       "Tanpa bukti nyata adanya najis, abaikan kekhawatiran yang tidak berdasar dan lanjutkan salat.",
@@ -593,12 +450,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Puasa berbeda: puasa yang terlewat di bulan Ramadan karena haid diqada kemudian, sementara salatnya cukup digugurkan begitu saja. Ketika darah berhenti dan tanda kesucian muncul, wanita itu mandi wajib dan melanjutkan kembali salat serta puasanya.",
       "Batas minimal dan maksimal masa haid dan nifas, serta cara membaca tanda-tanda kesucian yang ambigu, adalah perkara-perkara yang berbeda rinciannya antar mazhab. Para wanita akan lebih terbantu dengan mempelajari hukum praktis dari satu mazhab yang terpercaya bersama seorang guru yang berkompeten.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika ditanya mengapa wanita haid mengqada puasa tetapi tidak mengqada salat, Aisyah berkata: kami diperintahkan mengqada puasa dan tidak diperintahkan mengqada salat. (Mu'adzah, dari Aisyah; juga Sahih Muslim 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Modul Haid" }],
   },
   {
@@ -628,15 +480,7 @@ export const TAHARAH_TOPICS_ID: DeepPartial<TaharahTopic>[] = [
       "Dalam sunnah, sumber utamanya adalah Kitab-Kitab Bersuci (Kitab at-Taharah / al-Wudu / al-Ghusl / al-Haid) yang membuka Sahih al-Bukhari dan Sahih Muslim, diikuti oleh bab-bab yang sama dalam keempat kitab Sunan (Abu Dawud, at-Tirmidzi, an-Nasa'i, Ibnu Majah), yang menghimpun hukum-hukum yang lebih rinci beserta penilaian derajatnya.",
       "Untuk hukum-hukum praktis, kitab-kitab fikih klasik dari keempat mazhab Sunni memberikan pendapat yang rinci — dan perbedaan di antara mereka adalah bagian yang sah dari tradisi ini, bukan sebuah cacat. Gunakan modul ini sebagai gambaran umum yang terstruktur, lalu perdalam kajianmu bersama seorang guru yang berkompeten dan teks-teks aslinya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bab-bab komprehensif tentang wudu, mandi wajib, tayamum, dan haid yang membuka kitab ini.",
-      },
-      {
-        excerpt: "Kitab Bersuci — riwayat sahih tentang hukum, adab, dan prinsip taharah.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ikuti satu kurikulum terpercaya untuk menghindari kebingungan akibat hukum yang berserakan.",
       "Ulangi topik-topik ini secara berkala sampai keyakinan praktismu benar-benar mantap.",

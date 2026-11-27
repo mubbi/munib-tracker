@@ -7,16 +7,30 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import type { Ref } from "react";
+import { type Ref, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, useWindowDimensions, View, type ViewInstance } from "react-native";
-import { MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import {
+  BorderWidth,
+  MaxContentWidth,
+  Opacity,
+  Radius,
+  Shadows,
+  Spacing,
+  withAlpha,
+} from "@/constants/theme";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { SIDE_RAIL_BREAKPOINT } from "@/hooks/use-web-tab-layout";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { ThemedText } from "./themed-text";
 import { GlassSurface } from "./ui/glass-surface";
+import {
+  WEB_TAB_BAR_MIN_PADDING_BOTTOM,
+  WEB_TAB_BAR_PADDING_TOP,
+  WEB_TAB_ICON_SIZE,
+  WEB_TAB_MIN_HEIGHT,
+} from "./web/web-tab-bar-metrics";
 
 type TabConfig = {
   name: string;
@@ -59,40 +73,38 @@ export default function AppTabs() {
   const { t } = useTranslation();
   const isWide = width >= SIDE_RAIL_BREAKPOINT;
 
-  const triggers = (variant: TabVariant) =>
-    tabs.map((tab) => (
-      <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-        <TabButton icon={tab.icon} label={t(tab.labelKey)} variant={variant} />
-      </TabTrigger>
-    ));
+  // `TabTrigger asChild` hands each button the resolved `href` (so it renders
+  // as a real `<a href>`) and an `onPress` that lets modifier / middle clicks
+  // fall through to the browser — the same contract as expo-router `Link`.
+  const triggers = tabs.map((tab) => (
+    <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
+      <TabButton icon={tab.icon} label={t(tab.labelKey)} />
+    </TabTrigger>
+  ));
 
-  // Wide viewports (tablet / desktop web): rail beside the content column.
-  // TabList/TabSlot stay DIRECT children of Tabs — required for expo-router
-  // to discover the triggers.
-  // The visible rail is the global WebGlobalRail beside the root stack (so it
-  // persists on non-tab pages too); the TabList stays mounted but hidden so
-  // expo-router still discovers the tab triggers.
+  // Wide viewports (tablet / desktop web): the visible navigation is the global
+  // WebGlobalRail beside the root stack (so it persists on non-tab pages too).
+  // TabList/TabSlot stay DIRECT children of Tabs — the TabList is mounted but
+  // hidden so expo-router still discovers the tab triggers.
   if (isWide) {
     return (
       <Tabs style={[styles.wideRoot, { backgroundColor: colors.background }]}>
-        <TabList style={styles.hiddenTabList}>{triggers("rail")}</TabList>
+        <TabList style={styles.hiddenTabList}>{triggers}</TabList>
         <TabSlot style={styles.wideSlot} />
       </Tabs>
     );
   }
 
-  // Narrow viewports: keep the floating bottom tab bar.
+  // Narrow viewports: the floating bottom navigation bar.
   return (
     <Tabs>
       <TabSlot style={styles.narrowSlot} />
       <TabList asChild>
-        <BottomTabBar>{triggers("bar")}</BottomTabBar>
+        <BottomTabBar>{triggers}</BottomTabBar>
       </TabList>
     </Tabs>
   );
 }
-
-type TabVariant = "bar" | "rail";
 
 /**
  * expo-router types the slot ref as `RefAttributes<View>` (a component, not an
@@ -103,57 +115,54 @@ type TabButtonProps = Omit<TabTriggerSlotProps, "ref"> & {
   ref?: Ref<ViewInstance>;
   label: string;
   icon: TabConfig["icon"];
-  variant?: TabVariant;
 };
 
-export function TabButton({
-  label,
-  icon,
-  isFocused,
-  variant = "bar",
-  onPress,
-  ref,
-  ...props
-}: TabButtonProps) {
+/**
+ * One bottom-navigation destination (Material navigation bar): a pill indicator
+ * around the icon over a 12px label, ≥ 48px tall. Primary navigation, so it is
+ * a link (`aria-current="page"` when active), not an ARIA tab.
+ */
+export function TabButton({ label, icon, isFocused, onPress, ref, ...props }: TabButtonProps) {
   const { colors, tokens } = useThemeTokens();
-  const tint = isFocused ? colors.accent : colors.mutedForeground;
-  const isRail = variant === "rail";
+  const [hovered, setHovered] = useState(false);
+  const selected = Boolean(isFocused);
 
   const handlePress: TabButtonProps["onPress"] = (event) => {
     blurActiveElement();
     onPress?.(event);
   };
 
+  const indicatorColor = selected ? tokens.accentSoft : hovered ? tokens.hover : "transparent";
+
   return (
     <Pressable
       {...props}
       ref={ref}
-      accessibilityRole="tab"
-      accessibilityState={{ selected: isFocused }}
+      role="link"
+      accessibilityRole="link"
+      aria-current={selected ? "page" : undefined}
       onPress={handlePress}
-      style={({ pressed }) => [
-        isRail ? styles.railButton : styles.tabButton,
-        pressed && styles.pressed,
-      ]}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
+      style={({ pressed }) => [styles.tabButton, pressed && styles.pressed]}
     >
-      <View
-        style={[
-          isRail ? styles.railInner : styles.tabInner,
-          isFocused && { backgroundColor: tokens.accentSoft },
-        ]}
-      >
-        <SymbolView name={icon} size={isRail ? 22 : 20} tintColor={tint} />
-        <ThemedText
-          type="small"
-          style={{
-            color: tint,
-            fontWeight: isFocused ? "700" : "500",
-            fontSize: isRail ? 15 : 12,
-          }}
-        >
-          {label}
-        </ThemedText>
+      <View style={[styles.indicator, { backgroundColor: indicatorColor }]}>
+        <SymbolView
+          name={icon}
+          size={WEB_TAB_ICON_SIZE}
+          tintColor={selected ? tokens.accentOnSoft : colors.mutedForeground}
+        />
       </View>
+      <ThemedText
+        type="caption"
+        weight={selected ? "bold" : "medium"}
+        numberOfLines={1}
+        // Chrome label in a fixed bar: scale with text size like a button, then stop.
+        maxFontSizeMultiplier={1.3}
+        style={[styles.label, { color: selected ? colors.accentText : colors.mutedForeground }]}
+      >
+        {label}
+      </ThemedText>
     </Pressable>
   );
 }
@@ -161,14 +170,17 @@ export function TabButton({
 export function BottomTabBar(props: TabListProps) {
   const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
 
   return (
     <View
       {...props}
+      role="navigation"
+      accessibilityLabel={t("webShell.primaryNavigation")}
       style={[
         styles.tabBarContainer,
         {
-          paddingBottom: Math.max(insets.bottom, Spacing.two),
+          paddingBottom: Math.max(insets.bottom, WEB_TAB_BAR_MIN_PADDING_BOTTOM),
           borderTopColor: tokens.hairline,
           ...Shadows.lg,
         },
@@ -206,30 +218,18 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
   },
-  railButton: {
-    width: "100%",
-  },
-  railInner: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
   tabBarContainer: {
     position: "absolute",
     bottom: 0,
     width: "100%",
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     alignItems: "center",
-    paddingTop: Spacing.two,
-    paddingHorizontal: Spacing.three,
+    paddingTop: WEB_TAB_BAR_PADDING_TOP,
+    paddingHorizontal: Spacing.two,
   },
   tabBarInner: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "space-around",
     width: "100%",
     maxWidth: MaxContentWidth,
@@ -237,20 +237,28 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     flex: 1,
+    minWidth: 0,
+    minHeight: WEB_TAB_MIN_HEIGHT,
     alignItems: "center",
     justifyContent: "center",
+    gap: Spacing.half,
+    paddingVertical: Spacing.half,
+    paddingHorizontal: Spacing.one,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
-  tabInner: {
-    flexDirection: "row",
+  indicator: {
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.two,
+    paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },
+  label: {
+    textAlign: "center",
+  },
   pressed: {
-    opacity: 0.75,
+    opacity: Opacity.pressed,
   },
 });

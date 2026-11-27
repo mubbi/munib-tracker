@@ -32,30 +32,8 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Karatun Alkur'ani shi kansa ibada ne, ba wai karanta bayanai kawai ba. Annabi SAW ya koyar da cewa duk harafi daya da aka karanta yana samun kyakkyawan aiki, kuma kowane aikin alheri yana ninka akalla sau goma - don haka ko mafari ya fitar da layi daya ya riga ya tara lada. A ranar kiyama Alkur'ani zai zo a matsayin mai ceto, yana roko a madadin wadanda suka yi tarayya da shi a rayuwar duniya. Wanda ya karanta ta da kyau yana cikin tawagar mala’iku ma’abota daraja, marubuta, kuma wanda ya yi tuntuɓe a kansa, yana ƙoƙari ya koyi, yana samun lada ninki biyu na ƙoƙarin.",
       "Yana taimakawa wajen bayyana abin da ba Kur'ani ba. Kur'ani kalmomin Allah ne na zahiri a cikin Larabci, ba su canzawa tun wahayi. Hadisin – zantukan Annabi ﷺ, da ayyukansa, da yardarsa na shiru – sun rabu: suna bayani da bayyana Alqur’ani amma faxin Manzon Allah Sallallahu Alaihi Wasallama ne, waxanda ake tsare da su ta hanyar sarqoqin riwayoyi da aka ambata, kuma malamai suka sanya su a matsayin sahihi (ingantacce), hasan (mai kyau), ko da’if (rauni). Dukansu wahayi ne kuma duka biyun suna daurewa, amma Alkur'ani ne kawai ake karantawa a matsayin ibada a cikin addu'a, kuma Alkur'ani ne kawai maganar Allah mai banmamaki, maras cikawa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Watan Ramadan da aka saukar da Alkur’ani a cikinsa a matsayin shiriya ga ‘yan Adam…",
-      },
-      {
-        excerpt:
-          "Ka ce: “Da mutane da aljanu sun taru domin su zo da misalin wannan Alkur’ani, ba za su…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya karanta harafi daga littafin Allah yana da hasanah, kuma hasanah ana ninka shi da goma.",
-      },
-      {
-        excerpt:
-          "Ka karanta Alkur'ani, domin zai zo ne a matsayin mai ceto ga sahabbansa ranar kiyama.",
-      },
-      {
-        excerpt:
-          "Wanda ya kware a cikin Alkur’ani yana tare da ma’abota ilimi na kwarai, kuma wanda ya karanta shi da kyar, yana takure a kansa, yana da lada ninki biyu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Saita ƙayyadaddun lokaci na rana don Kur'ani - ko da minti biyar da aka mayar da hankali yana gina baraka da daidaito.",
       "Karanta aƙalla layi ɗaya mai ma'ana: karanta Larabci, sannan karanta fassarar a hankali.",
@@ -74,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Tsare nassi ya fara ne tun a zamanin Annabi ﷺ kansa. Sahabbai sun haddace wahayi kamar yadda ya zo, kuma marubuta suka rubuta shi a kan takarda, dabino, kashi, da dutse a karkashin kulawar Annabi SAW kai tsaye. Bayan malaman hadisai da dama sun yi shahada a yakin Yamama, Abubakar ya umurci Zayd bn Thabit da ya tattara rubutaccen Alkur'ani a cikin tarin suhuf guda daya. Bayan haka, yayin da daular ke yaduwa da yarukan yare daban-daban, Usman ya sa aka yi kwafi masu inganci a yaren Kuraishawa aka aika zuwa manyan garuruwa, ya daidaita rubutu guda daya ga al’umma baki daya.",
       "Allah da kansa ya lamunce kariyar Alkur'ani: \"Hakika mun saukar da tunatarwa, kuma lalle ne mu, masu kiyaye shi.\" Wannan alkawari ya cika ta hanyar tsare-tsare guda uku - haddar taro a kowane tsara, da rubutaccen sako a rubuce, da kuma sarkar karantarwa ga dalibi da ba ta karye ba ga Annabi SAW. Ga mai bi wannan alamar tauhidi ce; ga mai tarihin tarihi tabbatacciya ce: Kur'ani da ake karantawa a yau shi ne nassin da aka saukar ƙarni goma sha huɗu da suka gabata.",
     ],
-    quran: [
-      {
-        excerpt: "Lalle Mũ, Mun saukar da tunãtarwa, kuma lalle Mũ, Mãsu tsare shi ne.",
-      },
-      {
-        excerpt: "Ka yi karatu da sunan Ubangijinka, wanda ya yi…",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -93,12 +64,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Domin karantarwa mai iya sarrafa alqur'ani kuma an raba shi zuwa kashi 30 daidai gwargwado ana kiransa juz (jam'i ajza'), kuma kowace juz zuwa rabi biyu ana kiransa hizb, yana bada hizbi 60 gaba daya. Wannan shi ne abin da ya sanya Khatm na Ramadan - kammala Alkur'ani a cikin wata guda - ya zama dabi'a: juz'i daya a rana yana gama littafin a cikin kwanaki talatin, rabin juz sau biyu kullum ya fi sauki. A cikin kowace surah an lissafta ayoyi (ayoyi) don haka kowane nassi za a iya kawo shi daidai da surah: aya; Madaidaicin kidayar Madina ita ce ayoyi 6,236, tare da qananan bambance-bambancen rubuce-rubuce kan yadda aka lissafta ’yan iyakoki – nassin da kansa ya yi daidai.",
       "Fahimtar wannan tsarin yana juya maƙasudin niyya zuwa ƙaƙƙarfan shiri. Kuna iya ƙaddamar da ƙayyadaddun rabo na yau da kullun, manufa Juz Amma (banshi na ƙarshe, na talatin, cike da gajerun surori) don haddace, ku bi jigo ɗaya kamar haƙuri a cikin surori da yawa, ko tsara cikakken karatu a kusa da Ramadan. Tsari shine ginshiƙan da ke sa dangantaka ta rayuwa da Alƙur'ani ta kasance mai dacewa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…Littafi ne daki-daki, ayoyinsa daki-daki, Alkur'ani ne na Larabci ga mutane wadanda suke sani.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -126,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Ba kwa buƙatar sarrafa komai lokaci guda. Ana koyon ainihin ka'idojin: hukunce-hukuncen azahar sakinah da taween (izhar, idgham, iqlab, ikhfa), hukunce-hukuncen meem sakinah, nau'ikan madd (elongation), qalqalah (hasken billa kan wasu haruffa), ghunnah (haskar hanci), da wakafi (inda da yadda ake tsayawa). Kowannensu yana da fayyace ma'anarsa, misalan yau da kullum, da kuma wani abu da za a yi aiki da shi, kuma wannan cibiya ta bi ta su daya bayan daya.",
       "Tsayayyen ƙa'idar babban yatsa: koyi tajweed da kunne daga ƙwararren malami, ba daga littattafai ko apps kaɗai ba. Karanta wa wanda zai iya jin kurakuranka ya gyara su - haka ake koyar da tajwidi a ko da yaushe, kuma ita ce kawai amintacciyar hanya zuwa ga daidaito na hakika kuma, a ƙarshe, ijazah (shararriyar sarkar karantarwa).",
     ],
-    hadith: [
-      {
-        excerpt: "Mafifitanku su ne wadanda suka koyi Alkur'ani kuma suka karantar da shi.",
-      },
-      {
-        excerpt:
-          "Wanda ya kware a cikin Alkur’ani yana tare da ma’abota ilimi na kwarai, kuma wanda ya karanta shi da kyar, yana takure a kansa, yana da lada ninki biyu.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -167,12 +125,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Ba ka fassara Kur'ani kalma da kalma ta wannan hanya - wato aikin tafsiri da tafsiri - amma ka fara gane sunayen Allah, da umarni, alkawuran, da gargaɗin da suke raye, a lokacin karantawa. Fara da kalmomin da suka fi bayyana kuma suna ɗauke da mafi girman nauyi: Allah, Rabb (Ubangiji), rahmah (rahmah), iman (imani), sabar (haƙuri), takawa (ji tsoron Allah), duniya (duniya), da akhirah (Lahira). Daga saitin anga, faɗaɗa waje kaɗan kaɗan.",
       "Yi amfani da tazarar maimaitawa maimakon murkushewa. Koyan sabbin kalmomi guda biyar a mako da yin bitar dukkansu a kullum zai kai ka a cikin shekara guda fiye da haddace hamsin a zama daya ka manta da su. Allah ya yi alkawari cewa an sauƙaƙa da kur'ani a cikin zuciyarsa - ku kusanci ƙamus ɗinsa a hankali kuma za ku ji wannan sauƙi da idon basira.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma lalle ne, haƙĩƙa, Mun sauƙaƙe Alƙur'ãni dõmin tunãwa, to, shin, akwai mai tunãni?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -211,11 +164,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Yi la'akari da tsarin da ke gudana ta cikin su. Annabawa sun kira mutanensu zuwa ga bautar Allah Shi kadai; an yi musu ba’a, ana adawa da su, sau da yawa ana kore su; sun yi hakuri da cikakken tawakkali ga Allah (tawakkul); Kuma a karshe wa'adin Allah ya kasance. Lokacin da kuka karanta wahalhalun da suka sha, ku sami ƙarfi daga yadda suka amsa - ba tare da taɓa tunanin matsayinku ya yi daidai da nasu ba. Abin nufi shi ne a shayar da tsayin daka da amana, ba wai a kwatanta matsayi ba.",
       "Kur'ani da kansa ya ware labari guda daya: Suratu Yusuf, wadda Allah ya kira 'mafi kyawun kissoshi'. Ba kamar yadda aka saba ba, daga farko har karshe a cikin sura daya, don haka karanta ta a zaune daya a matsayin tafiya mai dorewa - cin amana, hakuri ta hanyar bauta da zaman kurkuku, daga karshe kuma gafara da haduwa - sannan ka kalli yadda shirin Allah ya wakana a bayan shekaru na bala'i da ya bayyana.",
     ],
-    quran: [
-      {
-        excerpt: "A cikin labaransu hakika darasi ne ga masu fahimta…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -228,11 +177,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Za ku kuma ji labarin 'mu'ujiza na kimiyya' - ayoyi da suka shafi matakan amfrayo, fadada sararin samaniya, da makamantansu. Kula da waɗannan da kulawa. Tafsirin na gargajiya sau da yawa suna fahimtar irin waɗannan ayoyin ta hanyoyi daban-daban da masu neman gafara na zamani, kuma tilastawa Kur'ani ya dace da kowace hasashen kimiyya da ke canzawa zai iya komawa baya idan ka'idoji sun canza. Bambance tsantsa tsakanin kafaffen fassarar da zato na zamani.",
       "Hakanan masana sun kawo annabce-annabce na tarihi - nasarar da Romawa suka annabta, da bude Makka cikin lumana - kuma sun cancanci yin nazari, amma ta hanyar tafsiri da seerah, ba faifan bidiyo masu ban sha'awa ba. Mafi qarfi ga Alqur'ani a koda yaushe shi ne tauhidi, da sauye-sauyen dabi'un mutane, da harshe da kiyayewarsa da ba su misaltuwa.",
     ],
-    quran: [
-      {
-        excerpt: "Sai ku zo da sura kwatankwacinsa... idan kun kasance masu gaskiya.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Guji da'awar mu'ujiza ta kimiyya da aka wuce gona da iri wacce ke kunyatar da dawah idan aka bincika. Jagoranci da tauhidi da kyawawan halaye da hujjojin Kur'ani na harshe da tarihi.",
   },
@@ -245,16 +190,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Hanyar da ta dace: yi amfani da tazarar maimaitawa, manne wa mai karantawa guda ɗaya don haka waƙar da kanta ta ba da alamar ƙwaƙwalwar ajiyar ku, karanta daga ƙwaƙwalwar ajiya a kowace rana maimakon karantawa kawai, kuma malami ya saurara kuma ya yi alama kurakurai - kurakurai ba za ku iya jin kanku ba. Munib's hifz tracker records yana ci gaba har zuwa aya guda ɗaya don haka koyaushe ku san abin da ya kamata don bita.",
       "Zaɓi tsarin da ya dace da matakin ku. Mafari: haddace Juz Amma kashi na karshe mai cike da gajerun surori. Matsakaici: ƙara surori goma da ake yawan karantawa kamar al-Mulk, Ya-Sin, da al-Kahf. Na ci gaba: kammala cikakken juz tare da ingantaccen bita ga duk abin da ke gabansa. Da tafiyar Hafiz: dukkan mus'haf, wanda ya haddace tare da ƙwararren malami kuma, a zahiri, sanadi - tabbataccen silsilar isar da sako zuwa ga Annabi ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sai a ce wa ma'abocin Alkur'ani: Ka yi karatu ka hau kamar yadda ka saba karantawa a duniya, don darajarka tana a ayar karshe da ka karanta.",
-      },
-      {
-        excerpt:
-          "Misalin ma’abocin Alkur’ani shi ne na ma’abucin rakumi: idan ya kula da shi sai ya ajiye shi, idan kuma ya bari ya tafi ya rasa.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -275,16 +211,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur ba irin tafsiri ba. Tafsiri shi ne bayanin malamai kan abin da aya ke nufi; tadabbur ita ce kebantacciyar amsawa ga wannan ma'anar da zarar kun fahimce ta. Biyu suna aiki tare: da farko kuna koyon ma'anar sauti daga tafsiri, sannan ku zauna tare da shi kuma ku tambayi yadda yake magana da ku. Tambayoyi uku masu taimako - Menene Allah ke koya mani a nan? Ta yaya wannan zai canza abin da nake yi a yau? Wace dabi'a ce zan gina ko karya saboda ita?",
       "Iyaka mai ƙarfi guda ɗaya tana kiyaye tadabbur lafiya: yi tunani a kan abin da aya ke nema a gare ku, amma kada ku ƙirƙiri sabbin ma'anoni ga nassin da kansa. Bari ingantacciyar tafsiri ya saita iyakokin tawili, kuma ku ajiye tunaninku a matsayinsu - jarida mai zaman kanta, kamar ta Munib, ta dace don ɗaukar abin da aya ta zuga ku da komawa zuwa gare ta daga baya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Shin, ba su yin tunãni a cikin Alƙur'ãni, kõ kuwa a kan zukãtansu akwai ƙullallu?",
-      },
-      {
-        excerpt:
-          "Shin, ba su tunãni a kan Alƙur'ãni? Kuma dã yã kasance daga wanin Allah, dã sun sami sãɓã wa jũna a cikinsa.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -295,12 +222,7 @@ export const QURAN_GUIDE_TOPICS_HA: DeepPartial<QuranGuideTopic>[] = [
       "Wannan shine abin da waɗannan ƙalubale suke yi. Kowannensu yana danganta wata aya ta musamman da xabi’a guda xaya, mai iya yiwuwa a yau: kiyaye harshenka da magana mai kyau, bayar da sadaka mai natsuwa, runtse idonka daga abin da aka haramta, barin baqin ciki da ka xauka. Aya ɗaya, mataki ɗaya - ƙarami isa a zahiri yi, ainihin isa ya canza ku.",
       "Yi alamar ƙalubalen ya cika kawai lokacin da kuka yi da gaske. Ba a nuna ma'anar bin diddigin - wanda zai karya manufar - amma gaskiya ga Allah, wanda yake ganin abin da wasu ba sa so. Da shigewar lokaci, aya da aya, haka ne karatun yake juyawa ya zama hali.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Shin, kunã umurni da ãdalci, kuma ku manta da kanku, alhãli kuwa kuna karatun Littãfi?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -437,14 +359,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Hanyar Shaidan ita ce raɗaɗi mai tsayi, ba tilastawa ba - fahimtar shawarwarinsa rabin tsayin daka ne.",
       "Kimar ɗan adam tana da alaƙa da ilimi da komawa ga Allah, ba don zama marasa zunubi ba - amsa ga kuskure ne ke bayyana mu.",
     ],
-    quran: [
-      {
-        excerpt: "Halittar Adamu da Sujadar Mala'iku.",
-      },
-      {
-        excerpt: "Jarabawa, faduwa, da tuba.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Jannah, sai kasa",
   },
   {
@@ -463,14 +378,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Dagewa da yin kira zuwa ga Allah, ko da a kan izgili da kullum, shi kansa ibada ce.",
       "Ceton Allah yana zuwa a lokacin ƙayyadaddun lokaci - mai bi yana gina 'jirgin' biyayya kafin rigyawa, yana dogara ga alkawari.",
     ],
-    quran: [
-      {
-        excerpt: "Labarin Nuhu daki-daki.",
-      },
-      {
-        excerpt: "Roƙon Nuhu ga mutanensa.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Mesopotamiya na dā (ƙididdigar masana)",
   },
   {
@@ -488,14 +396,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Tawakkali ga Allah ba ya nufin wucewa: Hajar ta gudu ta yi bincike, sai Zamzam ta zo - kokari da tawakkul suna aiki tare.",
       "Ayyukan ibada na gaskiya suna kara bayyana a cikin tsararraki; ayyukan Hajji da darajar Ka'aba sun samo asali ne daga biyayyar Ibrahim.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim, Ismail, da sadaukarwa.",
-      },
-      {
-        excerpt: "Alkawari da gado.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Iraq, Levant, Makkah",
   },
   {
@@ -514,11 +415,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Shirin Allah sau da yawa yana ɓoye bayan shekaru na bala'i na bayyananne - rijiyar, bauta, da kurkuku duk matakai ne zuwa ga darajar Yusufu.",
       "Ƙarfafa suna nuna ƙarfinsu ta hanyar gafara: a lokacin ƙarfin ikonsa, Yusufu ya gafarta wa waɗanda suka zalunce shi.",
     ],
-    quran: [
-      {
-        excerpt: "Mafi kyawun labarun - an fada a cikin sura ɗaya.",
-      },
-    ],
+    quran: [{}],
     location: "Kan'ana, Misira",
   },
   {
@@ -536,14 +433,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Shaida abubuwan al'ajabi da kansa ba ya haifar da bangaskiya - shiriya baiwa ce da Allah ke bayarwa ga masu tawali'u, ba mai taurin kai ba.",
       "Kuma Allah ne Yake tsĩrar da waɗanda aka zalunta, kuma Ya kãmã mãsu girman kai, gwargwadon ƙarfinsu.",
     ],
-    quran: [
-      {
-        excerpt: "Musa a Tur da gaban Fir'auna.",
-      },
-      {
-        excerpt: "Haihuwa da tarbiyya.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Misira, Sinai",
   },
   {
@@ -562,14 +452,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Annabawa bayin Allah ne masu daraja, waɗanda ba za a taɓa bauta musu ba - Kur'ani ya kiyaye ainihin matsayin Isa daga wuce gona da iri.",
       "Tsaftar Maryama da hakuri da rikon amana sun sanya ta zama abin koyi ga dukkan muminai, mata da maza.",
     ],
-    quran: [
-      {
-        excerpt: "Maganar haihuwa da jariri.",
-      },
-      {
-        excerpt: "Ba a kashe shi ba kuma ba a gicciye ba; tashe",
-      },
-    ],
+    quran: [{}, {}],
     location: "Falasdinu",
   },
   {
@@ -587,14 +470,7 @@ export const QURAN_GUIDE_STORIES_HA: DeepPartial<QuranGuideStory>[] = [
       "Mai kira zuwa ga Allah yanã iyar da manzanci da ikhlasi da haƙuri kuma yana barin ãƙiba ga Allah, shiriya a gare Shi take.",
       "Fitintinu tafarkin annabawa ne; jurewa wahala saboda Allah, kamar yadda ya yi, shi ne alamar imani na gaskiya.",
     ],
-    quran: [
-      {
-        excerpt: "Ba Mu aike ka ba face domin rahama ga talikai.",
-      },
-      {
-        excerpt: "Masu jin ƙai a tsakãninsu, mãsu ƙarfi a kan kãfirai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -610,18 +486,8 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Annabi SAW ya koyar da cewa imani yana da rassa sama da saba'in, tun daga manya-manya - shaidawa babu abin bautawa da gaskiya sai Allah - har zuwa kawar da cutarwa daga hanya, yana nuna cewa ko da kananan ayyuka na kwarai na daga cikin imani.",
       "Imani na gaskiya al'amari ne na zuciya a gaban harshe: sanin Allah da gaske, da sonsa fiye da kowa, da tsoron bacin ransa, da tawakkali gareshi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Manzo ya yi imani da abin da aka saukar zuwa gare shi daga Ubangijinsa, haka kuma muminai…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bangaskiya tana da rassa sama da saba'in; mafi daukaka shi ne cewa: \"Babu abin bautawa da gaskiya sai Allah,\" kuma mafi ƙasƙanci shine kawar da wani abu mai cutarwa daga hanya - kuma tawali'u wani reshe ne na imani.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Sabunta Shahada a yau tare da cikakkiyar kulawa ga abin da ake nufi, ba a matsayin jumlar yau da kullun ba.",
       "Koyi daya daga cikin sunayen Allah, ku fahimce shi, kuma ku yi kira da shi a cikin addu'o'in ku.",
@@ -637,17 +503,8 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Ba kamar sauran farillai da aka saukar a bayan qasa ba, an wajabta yin Sallah ga al’ummah a lokacin hawan Annabi Sallallahu Alaihi Wasallama (al-Isra wal-Mi’raj) a matsayin wata kyauta ta musamman da kuma hanyar da muminai ke hawa zuwa ga Allah.",
       "Domin ana maimaituwa sau biyar a kowace rana, sallah ita ce tsayuwar lafiyar da ke raya imani tsakanin ibada daya da ta gaba.",
     ],
-    quran: [
-      {
-        excerpt: "Lallai sallah tana haramta alfasha da zalunci, kuma ambaton Allah ya fi girma.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Farkon ayyukan bawa da za a yi masa hukunci ranar kiyama ita ce sallarsa; idan yana da kyau ya yi nasara, idan kuma ta nakasa ya gaza ya yi hasara.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Yi Sallah daya a yau a hankali, kana fahimtar kalmomin fatiha yayin da kake karanta su.",
       "Bude Jagoran Koyi na Munib don karfafa bangare guda na addu'ar ku.",
@@ -663,12 +520,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Umurni yana girma a cikin tsufa, lokacin da iyaye suka fi bukatar haƙuri: ku kula da su kamar yadda suke kula da ku a dā, kuma ku sassauta musu fikafikan tawali'u saboda rahama.",
       "Ibada ba ta ƙarewa a mutuwa - ci gaba da yin addu'a ga iyaye, ba da sadaka a madadinsu, da girmama abokansu da alkawuran ayyukan aminci ne masu gudana.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ubangijinku Ya hukunta kada ku bauta wa kowa face Shi, kuma ku kyautata wa mahaifa…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Kira ko saƙon iyaye tare da kalmomi masu kyau a yau.",
       "Ku yiwa iyayenku addu'a da sunan.",
@@ -683,12 +535,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Allah yana bayyana kansa cewa yana 'tare da masu haƙuri,' kuma yana yi wa masu haƙuri alkawarin ladansu ba tare da ƙididdigewa ba - girmamawar da kusan babu wani siffa.",
       "Annabawa sun kasance mafi tsananin jarrabawar mutane, kuma Kur'ani ya tsaya tsayin daka - Ayyub na rashin lafiya, Yakub cikin bakin ciki, Yusuf ta hanyar cin amana da kurkuku - a matsayin abin koyi da za a yi koyi da shi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya ku wadanda suka yi imani ku nemi taimako da hakuri da addu'a. Lalle ne Allah Yanã tãre da mãsu haƙuri.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Idan fushi ya tashi a yau, ka dakata, ka shaƙa, ka ce 'Inna lillahi wa inna ilayhi raji'un' kafin ka amsa.",
       "Juya lokaci guda na wahala a wannan makon zuwa raka'a biyu na sallah maimakon korafi.",
@@ -703,12 +550,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Sadaka ba kudi kadai ba ne. Annabi SAW ya koyar da cewa ko haduwa da dan uwanka da fuskar murmushi sadaka ce, don haka babu wanda ya fi karfin bayarwa.",
       "Ba da kyauta yana tsarkake dukiya da mai bayarwa, da sassauta rikon kwadayi da gina tausayi - shi ya sa ita kanta kalmar zakka tana nufin tsarkakewa da girma.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Misãlin waɗanda suke ciyarwa a cikin hanyar Allah, kamar ƙwãya ce wadda ta tsirar da ƙwaya bakwai.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ba da wani abu a yau - kuɗi, lokacinku, ko kalmar kirki ta gaske - ko da ƙarami da gaibu.",
       "Ku duba wajibcin zakka a Munib sannan ku lura lokacin da za a biya na gaba.",
@@ -723,12 +565,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Ƙofar rahama tana da faɗi da ban mamaki: Allah yana cewa hatta waɗanda suka zalunci kansu da yawa kada su yanke kauna, domin yana gafarta zunubai ga wanda ya tuba na gaskiya.",
       "Tuba ba a keɓe shi don manyan zunubai ko lokuta masu ban mamaki - istighfar (neman gafara) a tsawon yini yana kiyaye zuciya da taushi da tsabta.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Kace 'Astaghfirullah' sau 100 a yau, ma'ana, kuma ka ji nauyin dagawa.",
       "Ka ambata ɗabi'a ɗaya da ka sani ba ta son Allah kuma ka ɗauki matakin farko na kankare don barin ta.",
@@ -744,12 +581,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Kur'ani ya kwadaitar da muminai da su yi gasa da gaugawa zuwa ga gafara da Aljanna 'fadi kamar sammai da kasa' - ana nufin a bi ta ne da gaske, ba wai kawai ake fata ba.",
       "Mafi girman sakamako ba shine gonaki ko koguna ba, face ganin fuskar Allah - farin ciki na ƙarshe da aka yi wa 'yan Aljanna alkawari.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma ku yi gaggawa zuwa ga gafara daga Ubangijinku, da Aljanna mai faɗin sammai da ƙasa…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -761,12 +593,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Wanda Alkur’ani ya kebanta da cewa ba ya gafartawa idan mutum ya mutu a kansa shirka ne – shirka da Allah; kõme fãce dõmin Ya gãfarta wa wanda Yake so.",
       "Allah yana yin gargaɗi domin ya mayar da mutane zuwa gare shi, ba domin ya murkushe wanda ya tuba ba - kowane gargaɗi yana haɗe a cikin Alƙur'ani da gayyata ta dawowa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne, Allah bã Ya gãfarta yin shirka da Shi, kuma amma Yanã gãfarta abin da bai kai haka ba ga wanda Yake so.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bayan kowace sallah yau ka roki Allah da gaske ya kare ka daga wuta.",
       "Ka sabunta tauhidi: ka yi tunani a kan bauta wa Allah Shi kaɗai, tabbataccen kariya daga Jahannama.",
@@ -781,12 +608,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "An yi wa zalunci (dhulm) gargaɗi mai tsanani a kan; Annabi ﷺ ya koyar da cewa zalunci zai bayyana a matsayin duhu ga wanda ya yi zalunci a ranar kiyama.",
       "Adalci ba ga alƙalai da masu mulki kaɗai ba ne, yana rayuwa cikin gaskiya, adalci, kiyaye maganarka, da ba kowane mutum hakkinsa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku kasance masu adalci, kuma ku zama masu shaida ga Allah, ko da a kanku ne ko a kanku ko iyaye da dangi.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ba wa wani haƙƙinsa a yau - albashi mai kyau, amsa ta gaskiya, ko bashi da kuke bin su.",
       "Ɗauki lokaci ɗaya inda son zuciya ke jarabtar ku da rashin adalci, kuma ku zaɓi adalci maimakon.",
@@ -801,11 +623,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Ilimi mai fa'ida ana nufin a yi aiki da shi kuma a isar da shi; Annabi SAW ya koyar da cewa malamai magada annabawa ne, ba dukiya ba ne suke gadon ilimi.",
       "Neman ilimi mai tsarki ibada ce, kuma Kur'ani ya bambanta a fili tsakanin wadanda suka sani da wadanda ba su sani ba - ' shin daidai suke?'",
     ],
-    quran: [
-      {
-        excerpt: 'Kuma ka ce: "Ya Ubangijina! Ka ƙãra mini ilmi."',
-      },
-    ],
+    quran: [{}],
     actions: [
       "Koyi sabon abu ɗaya daga cikin Kur'ani a yau - aya, kalma, ko hukunci - kuma ku koya wa wani.",
       "Ka haddace addu'ar 'Rabbi zidni ilma' ka fade ta kafin ka yi karatu.",
@@ -820,11 +638,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Muhammadu s.a.w shi ne hatimin Annabawa, kuma manzon karshe, kuma musulmi dole ne ya yi imani da dukkan annabawan da suka gabace shi – Nuhu, Ibrahim, Musa, Isa, da sauran su – ba tare da nuna bambanci a tsakaninsu ba.",
       "Annabawa mutane ne kuma bayin Allah, ba na Ubangiji ba; Alkur'ani yana girmama su amma ya tabbatar da su a bangaren halitta, ba a taba bautawa tare da mahalicci ba.",
     ],
-    quran: [
-      {
-        excerpt: "A cikin labaransu darasi ne ga masu fahimtar…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -836,12 +650,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Kur'ani ya rike Maryam, mahaifiyar Isa, a matsayin abin koyi ga dukan muminai, kuma yana girmama iyaye mata sosai har sanannen koyarwa ya sanya Aljanna a ƙafafunsu.",
       "Dukkan jinsin biyu sun samo asali ne daga asali guda - 'sun halicce ku daga rai ɗaya' - suna kafa mutuntaka da mutunci ɗaya daga ayar farko ta suratun Nisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku bi Ubangijinku da taƙawa, Wanda Ya halitta ku daga rai guda, kuma Ya halitta daga gare shi, ma'auranta…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ka girmama mace a rayuwarka a yau - uwa, mata, 'yar'uwa, ko 'yar - tare da takamaiman hakki ko alheri da ake bin ta.",
     ],
@@ -855,11 +664,7 @@ export const QURAN_GUIDE_THEMES_HA: DeepPartial<QuranGuideTheme>[] = [
       "Hikimar tarbiyyar da aka maimaita akai-akai tana ba da shawara ga saduwa da yara a matakinsu - yin wasa da su a farkon shekarun farko, sannan koya da horar da su a hankali, sannan abota da su yayin da suke girma.",
       "Tarbiyar adali jarin jari ne da ya wuce wannan rayuwar: zuriyar adali da ke yi wa iyaye addu’a ya ci gaba da amfanar su tun bayan mutuwa.",
     ],
-    quran: [
-      {
-        excerpt: "Ya ku wadanda suka yi imani, ku tsare kanku da iyalanku daga wuta.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Koyar da yaro gajeriyar aya ɗaya ko hanya mai kyau a yau, cikin haƙuri da ƙarfafawa.",
       "Ku yi wa ‘ya’yanku addu’a (ko ‘ya’yan da ke hannunku) da sunan su zama masu gaskiya da soyuwa ga Allah.",
@@ -985,17 +790,13 @@ export const QURAN_GUIDE_VOCABULARY_HA: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Allah ɗaya na gaskiya—sunan da ya dace ya ƙunshi dukan kyawawan sunaye.",
     frequency: "2,700+ abubuwan da suka faru",
     example: "Bismillah - Da sunan Allah",
-    quranRef: {
-      excerpt: "Da sunan Allah, Mai rahama, Mai jin kai.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Ubangiji, Jagora, Mai dorewa - wanda ya halitta, ya mallaka, rayarwa, da mulki.",
     frequency: "Sau da yawa",
     example: "Rabbana - Our Lord",
-    quranRef: {
-      excerpt: "Dukkan godiya ta tabbata ga Allah Ubangijin talikai.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Rahama, Tausayi, Tausayi daga Allah da cikin halittu.",
@@ -1041,9 +842,7 @@ export const QURAN_GUIDE_VOCABULARY_HA: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Haske - shiriya, wahayi, da hasken zuciya.",
     frequency: "Yawaita",
     example: "Allah ne Hasken sammai da ƙasa",
-    quranRef: {
-      excerpt: "Allah shine Hasken sammai da ƙasa…",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1264,8 +1063,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_HA: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Ya ku wadanda suka yi imani ku nemi taimako da hakuri da addu'a. Lalle ne Allah Yanã tãre da mãsu haƙuri.",
     context:
       "Daga Suratul Baqarah, ta sauka a Madina. Allah ya sanya maɓuɓɓugan ƙarfi guda biyu ga mumini yana fuskantar wahala - haƙuri mai haƙuri da mai da hankali ga addu'a - kuma ya yi alkawarin haɗin kai na musamman ga waɗanda suka yi tsayin daka.",
     reflection:
@@ -1274,7 +1071,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] 
       "Kuyi sallah daya a yau ba tare da gaggawa ba, kuma a cikin sujudar ku ku roki Allah da sunan Allah ya baku hakuri akan takamaiman jarabawar da kuke ciki.",
   },
   {
-    translation: "Rahamata ta kewaye dukkan komai.",
     context:
       "Daga Suratul A'araf, wanda aka yi magana a cikin mahallin Musa da mutanensa. Allah Ya siffanta rahamarSa da cewa ta kunshi dukkan komai - rahama ce mai girman gaske da ta gabace ta kuma ta fi karfin azabarSa, wadda aka kebe ga wadanda suka dage da zalunci.",
     reflection:
@@ -1283,7 +1079,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] 
       "Zabi mutum guda daya da kake fushi, ka gafarta musu da gaske a cikin zuciyarka a yau, sannan ka yi gajeren addu'a don neman Allah ya shiryar da su kuma ya gafarta musu.",
   },
   {
-    translation: "Idan kun gode, tabbas zan ƙara muku.",
     context:
       "Daga suratu Ibrahim, daga cikin ambaton Musa zuwa ga Bani Isra’ila. Allah yana danganta karuwarsa kai tsaye zuwa godiya – godiya ga wata ni’ima ita ce kadai abin da ke sa ta girma, alhali rashin godiya yana kiran hasarar ta.",
     reflection:
@@ -1292,7 +1087,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] 
       "Kafin ka kwana a daren nan sai ka ce Alhamdulillahi da babbar murya don neman ni'ima guda uku, ka sanya sunan kowannensu don haka sai godiya ta kasance mai hankali, ba ta atomatik ba.",
   },
   {
-    translation: "Kuma ku yi wa mutane magana mai kyau.",
     context:
       "Daga Suratul Isra. A cikin shiriya kan yadda muminai za su ɗauki kansu, Allah ya yi umarni da mu yi magana da mutane - dukan mutane - ta hanya mafi kyau, tun da munanan kalmomi ɗaya ne daga cikin kofofin da Shaidan ke shuka rarrabuwa.",
     reflection:
@@ -1301,7 +1095,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] 
       "Ƙarfafawa ko godiya ga mutum ɗaya a yau ba tare da wani ɓoyayyiyar zargi ba, kuma ka riƙe wani mugun magana guda ɗaya da aka jarabce ka ka yi.",
   },
   {
-    translation: "Wanda ya dõgara ga Allah, to, Ma'ishinsa.",
     context:
       "Daga cikin suratu at-Talaq, an saita daga cikin hukunce-hukuncen saki da tanadi - daidai inda mutane suka fi damuwa da kud'i. A nan ne Allah Ya yi alkawarin cewa duk wanda ya ji tsoronSa zai azurta shi daga inda ba su zato ba, kuma wanda ya dogara gare Shi zai wadatar da shi.",
     reflection:
@@ -1310,7 +1103,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] 
       "Ɗauki mataki ɗaya wanda ke damun ka, ka yi sallah raka'a biyu na istikhara ko kuma ka yi addu'a a kai, sannan ka dogara ga Allah.",
   },
   {
-    translation: "Ya Ubangiji Ka Kara mini ilimi.",
     context:
       "Daga Suratul Ta-Ha. Wannan shi ne kawai abin da Allah ya umurci Annabi ﷺ da ya nemi ilimi - wanda ke nuna yadda ilimi yake da matukar fa'ida da kuma cewa babu wanda ya koyi da ya gama nemansa.",
     reflection:
@@ -1319,8 +1111,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_HA: DeepPartial<QuranGuideDailyLesson>[] 
       "Ka haddace wannan gajeriyar addu'a, 'Rabbi zidni ilma,' kuma ka kasance da al'adar yin ta bayan fajir kafin ka fara ranarka.",
   },
   {
-    translation:
-      "Misãlin waɗanda suke ciyar da dũkiyõyinsu a cikin tafarkin Allah, kamar shĩ ne wanda ya tsirar da ƙwai bakwai.",
     context:
       "Daga Suratul Baqarah. Allah ya zana hoton yadda sadaka take girma: iri guda daya ta fito da zangarniya bakwai, kowacce tana dauke da ƙwaya dari - komowar ɗari bakwai, kuma yana ƙara yawa ga wanda ya so. Dukiyar da aka bayar dominsa ba ta taba yin asara da gaske.",
     reflection:

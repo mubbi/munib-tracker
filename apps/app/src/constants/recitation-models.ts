@@ -17,10 +17,14 @@ import data from "./recitation-models.json";
  * Where the files come from:
  * - iOS / Android download straight from the GitHub release.
  * - The web cannot: GitHub release assets send no CORS headers, so a browser
- *   `fetch` is blocked. `webHosted` engines are downloaded and checksum-verified at
- *   web build time and served from this app's own origin under
- *   {@link WEB_MODEL_BASE}. NPL-1.2 allows that non-commercial redistribution with
- *   the licence text alongside (`NPL-1.2.txt` ships in the same folder).
+ *   `fetch` is blocked. Zipformer (`webHosted`, no `webUrl`) is downloaded and
+ *   checksum-verified at web build time and served from this app's own origin
+ *   under {@link WEB_MODEL_BASE}. NPL-1.2 allows that non-commercial
+ *   redistribution with the licence text alongside (`NPL-1.2.txt`).
+ * - FastConformer on the web (D18): no self-hosting and no CDN of our own — each
+ *   file carries a `webUrl` on the public CC-BY-4.0 Hugging Face mirror
+ *   `acibZ/tilawa-quran-onnx`, pinned to commit 0cd79471… (CORS `*`). The
+ *   mirror's bytes were checked against these same SHA-256 values (2026-11-23).
  *
  * Licences: Zipformer weights and the phoneme corpus are NPL-1.2 (non-commercial,
  * share-alike — practice must stay free, with no ads and no paywall). FastConformer
@@ -28,7 +32,18 @@ import data from "./recitation-models.json";
  */
 
 export const TILAWA_CORE_VERSION: string = data.tilawaCoreVersion;
+/**
+ * `onnxruntime-web` version the web listener loads. Must equal the installed
+ * package: `scripts/copy-ort-wasm.mjs` refuses to build otherwise and
+ * `recitation-models.test.ts` checks it too.
+ */
 export const ORT_WEB_VERSION: string = data.ortWebVersion;
+
+/**
+ * Same-origin folder of the ORT web runtime, versioned because `/ort/*` is served
+ * as immutable (vercel.json) — a new runtime must never share a URL with the old.
+ */
+export const ORT_WEB_BASE = `/ort/${ORT_WEB_VERSION}/`;
 
 /** The release host the privacy card names for native downloads (§10 Privacy). */
 export const RECITATION_MODEL_HOST = "github.com/yazinsai/tilawa";
@@ -40,6 +55,11 @@ export type RecitationModelFile = {
   /** Stored file name under `recitation-models/` (native) or the cache key (web). */
   fileName: string;
   url: string;
+  /**
+   * Browser source for a file this app does not self-host (D18): a public,
+   * CORS-enabled mirror pinned to an immutable commit. Absent → same-origin copy.
+   */
+  webUrl?: string;
   bytes: number;
   sha256: string;
   md5: string;
@@ -80,6 +100,19 @@ export const RECITATION_MODELS: Record<EngineId, RecitationModelSpec> = {
 export function webModelUrl(engine: EngineId, file: RecitationModelFile): string {
   return `${WEB_MODEL_BASE}${engine}/${file.sha256.slice(0, 12)}/${file.fileName}`;
 }
+
+/**
+ * Where the browser downloads a listener file: the pinned public mirror when the
+ * file has one (D18 — FastConformer, from the CC-BY-4.0 Hugging Face mirror
+ * `acibZ/tilawa-quran-onnx` at an immutable commit), else the same-origin copy.
+ * Either way the bytes are SHA-256-checked against this pin before use.
+ */
+export function webSourceUrl(engine: EngineId, file: RecitationModelFile): string {
+  return file.webUrl ?? webModelUrl(engine, file);
+}
+
+/** Public mirror credited for the web FastConformer files (D18). */
+export const FASTCONFORMER_WEB_MIRROR = "huggingface.co/acibZ/tilawa-quran-onnx";
 
 /** Total download size of an engine, in bytes. */
 export function engineDownloadBytes(engine: EngineId): number {

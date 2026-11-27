@@ -1,0 +1,48 @@
+{
+  "alt": {
+    "home": "{appName} home screen with today's Salah times, the Hijri date, a countdown to Fajr, and Today's Goal checklist.",
+    "home-light": "{appName} home screen in the light theme with Salah times and Today's Goal.",
+    "tracker": "Tracker screen showing 2 of 5 obligatory Salah logged, a 2-day streak, and progress rings for optional Salah, Witr, Adhkar, Qaza and Khatm.",
+    "tracker-light": "Tracker screen in the light theme with today's Salah progress ring and streak.",
+    "qaza": "Qaza screen showing 25 remaining and 62 made up, a progress bar, an estimated finish date, and shortcuts to the calculator, planner, fasting and history.",
+    "zikr": "Zikr screen with favorites, adhkar search, My adhkar, and categories such as Morning Adhkar and Evening Adhkar with progress counts.",
+    "zikr-light": "Zikr screen in the light theme with adhkar categories and favorites.",
+    "tasbeeh": "Tasbeeh counter with 33, 99, 100, unlimited and custom targets, a large tap circle, and undo and reset buttons.",
+    "quran": "Qur'an screen with a continue-reading card for Al-Baqarah, shortcuts to search, pages, juz, learn and khatm, and the surah list.",
+    "quran-light": "Qur'an surah list in the light theme with a continue-reading card.",
+    "qibla": "Qibla screen with a compass dial, the Kaaba marker, the Qibla bearing in degrees and the distance to Makkah.",
+    "names": "The 99 Names of Allah screen with Arabic names, transliterations and meanings.",
+    "offline-data": "Offline data settings listing cached Qur'an translations, mushaf fonts, hadith collections, audio recitations and location lookups, each with a delete button.",
+    "watch-schedule": "Apple Watch app showing a Tasbeeh shortcut and the next Salah, Asr, with its time.",
+    "wear-salah-tile": "Wear OS tile showing the next Salah.",
+    "wear-tasbeeh-tile": "Wear OS Tasbeeh tile.",
+    "tv-home": "{appName} on Apple TV: side navigation, excused-day options for hayd, illness and travel, achievements, and a continue-reading card."
+  },
+  "captureAlt": "{appName} on {device}: {scene}",
+  "devices": {
+    "iphone": "iPhone",
+    "android": "Android phone",
+    "ipad": "iPad",
+    "android-tablet": "Android tablet",
+    "tv": "TV",
+    "apple-tv": "Apple TV",
+    "watch": "Apple Watch",
+    "wear": "Wear OS watch"
+  },
+  "scenes": {
+    "home": "home screen with today's Salah times and checklist",
+    "tracker": "Salah tracker",
+    "qaza": "Qaza planner",
+    "zikr": "daily adhkar",
+    "tasbeeh": "tasbeeh counter",
+    "quran": "Qur'an reader",
+    "qibla": "Qibla compass",
+    "names": "the 99 Names of Allah",
+    "library": "library",
+    "settings": "settings",
+    "schedule": "today's Salah schedule",
+    "salah-tile": "next Salah tile",
+    "tasbeeh-tile": "tasbeeh tile",
+    "next-salah": "next Salah"
+  }
+}

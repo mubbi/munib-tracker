@@ -8,644 +8,506 @@ import type { DeepPartial } from "./localize";
 export const TAHARAH_CHECKLIST_BN: DeepPartial<TaharahChecklistItem>[] = [
   {
     title: "ফজরের আগে ওজু",
-    hint: "সম্ভব হলে দিন পবিত্র অবস্থায় শুরু করুন।",
+    hint: "সম্ভব হলে দিনটি পবিত্র অবস্থায় শুরু করুন।",
   },
   {
-    title: "সিওয়াক / দাঁত মাজা",
-    hint: "ওজু ও সালাতের আগে সুন্নাহ।",
+    title: "মিসওয়াক / দাঁত মাজা",
+    hint: "ওজুর আগে ও নামাজের আগে একটি সুন্নাহ।",
   },
   {
-    title: "নাপাক ছাড়া সালাতের পোশাক",
-    hint: "সালাতের আগে দৃশ্যমান নাজাসat দেখে নিন।",
+    title: "নাজাসাতমুক্ত নামাজের পোশাক",
+    hint: "নামাজের আগে দৃশ্যমান অপবিত্রতা আছে কি না দেখে নিন।",
   },
   {
-    title: "পবিত্র সালাতের স্থান",
-    hint: "সালাতের জায়গা থেকে সব নাজাসat সরান।",
+    title: "পরিচ্ছন্ন নামাজের স্থান",
+    hint: "যেখানে নামাজ পড়বেন সেখান থেকে অপবিত্র যেকোনো কিছু সরিয়ে ফেলুন।",
   },
   {
-    title: "ওজু ভঙ্গের পর পুনরায় ওজু",
-    hint: "বায়ু, ঘুম, প্রস্রাব — কী কী ওজু ভঙ্গ করে জানুন।",
+    title: "ওজু ভঙ্গের পর নতুন করে ওজু",
+    hint: "বায়ু, ঘুম, টয়লেট — জেনে রাখুন কী কী ওজু ভঙ্গ করে।",
   },
   {
-    title: "প্রয়োজনে গোসল",
-    hint: "বড় হাদাস, হaid বা nifas শেষে।",
+    title: "প্রয়োজন হলে গোসল",
+    hint: "বড় অপবিত্রতার পর, হায়েজ শেষ হলে বা নিফাসের রক্তস্রাব শেষ হলে।",
   },
 ];
 
 export const TAHARAH_TOPICS_BN: DeepPartial<TaharahTopic>[] = [
+  // ── Intro ────────────────────────────────────────────────────────────────
   {
-    title: "তাহারatের ভূমিকা",
-    summary: "তাহারat সালাতের দ্বার এবং মুমিনের ঈমানের অর্ধেক।",
+    title: "তাহারাতের পরিচিতি",
+    summary: "পবিত্রতা নামাজের প্রবেশদ্বার এবং মুমিনের ঈমানের অর্ধেক।",
     body: [
-      "তাহারat (طهارة) মানে পবিত্রতা — শরীর, পোশাক ও সালাতের স্থান হাদাস ও নাজাসat থেকে মুক্ত করা, যাতে মুসলিম আল্লাহর সামনে তাঁর পছন্দের অবস্থায় দাঁড়াতে পারেন। ইবাদat শিক্ষার প্রথম বিষয়; এর ছাড়া সালাত সহi নয়: নবী ﷺ বলেছেন, 'সালাতের চাবি পবিত্রতা।'",
-      "ইসলামে পবিত্রতার দুই দিক। বাহ্যিক: ধোয়া, কলুষ দূর, পরিচ্ছন্নতা। অন্তরিক: বিনয়, হৃদয়ের উপস্থিতি, ওজু-ঘোষণার আত্মিক প্রস্তুতি। নবী ﷺ 'ঈমানের অর্ধেক' বলে দুটো এক করেছেন — শারীরিক পরিচ্ছন্নতা ও পাপ থেকে আত্মa's পরিশuddhi।",
-      "এই মডিউলে ক্রমে: পবিত্রতার পানি, ওজু, গোসল, তায়ামুম, নাজাসat দূর, বিশেষ অবস্থা ও রেহাই। একবার ভালো শিখলে সালাত দৃঢ়ভাবে পড়া যায়, সন্দেহে নয়।",
+      "তাহারাত (طهارة) অর্থ পবিত্রতা — শরীর, পোশাক ও নামাজের স্থানকে শরয়ি ও বাহ্যিক অপবিত্রতা থেকে মুক্ত করা, যাতে একজন মুসলিম আল্লাহর সামনে এমন অবস্থায় দাঁড়াতে পারেন যা তিনি কবুল করেন। ইবাদত শিখতে গিয়ে এটিই সর্বপ্রথম শেখার বিষয়, কারণ এটি ছাড়া কোনো নামাজই সহিহ হয় না: নবী ﷺ বলেছেন, 'নামাজের চাবি হলো পবিত্রতা।'",
+      "ইসলামে পবিত্রতার দুটি দিক আছে। বাহ্যিক দিকটি হলো দৃশ্যমান পরিচ্ছন্নতা — ধোয়া, ময়লা দূর করা, পরিষ্কার থাকা। অভ্যন্তরীণ দিকটি হলো বিনয়, সচেতনতা ও হৃদয়ের প্রস্তুতি, যা জাগিয়ে তোলাই এই ধোয়ার উদ্দেশ্য। নবী ﷺ পবিত্রতাকে 'ঈমানের অর্ধেক' বলে এ দুটিকে একসূত্রে বেঁধেছেন — শারীরিক পরিচ্ছন্নতার সাথে গুনাহ থেকে আত্মার পবিত্রতাকে যুক্ত করেছেন।",
+      "এই মডিউলটি পুরো বিষয়টি ধারাবাহিকভাবে তুলে ধরে: যে পানি দিয়ে পবিত্রতা অর্জন করবেন, ওজু (ছোট পবিত্রতা), গোসল (পূর্ণ শরয়ি গোসল), তায়াম্মুম (পানি ব্যবহার করা না গেলে শুকনো পবিত্রতা), নাজাসাত (বাহ্যিক ময়লা দূর করা), এবং বিশেষ অবস্থা ও ছাড়সমূহ। একবার ভালোভাবে শিখে নিলে সন্দেহ নয়, বরং আত্মবিশ্বাস নিয়ে নামাজে দাঁড়াতে পারবেন।",
     ],
-    quran: [
-      {
-        excerpt: "হে মুমিনগণ, সালাতে দাঁড়াতে চাইলে মুখ ও হাত কনুই পর্যন্ত ধো, মাথা মাসহ কর, ও পা গোড়ালি পর্যন্ত ধো।",
-      },
-      {
-        excerpt: "নিশ্চয় আল্লাহ তাওবাকারী ও পবিত্রতা অবলম্বনকারীদের ভালোবাসেন।",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "সালাতের চাবি পবিত্রতা, খোলা তাকবীর, শেষ সালাম। (Ali; Jami' at-Tirmidhi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
-      "পবিত্রতাকে আল্লাহর সামনে যাওয়ার প্রস্তুতি করুন, তাড়াহুড়োর রুটিন নয়।",
-      "প্রতিদিন একটি তাহারat বিষয় শিখুন যতক্ষণ পুরো ধারা স্বাভাবিক না হয়।",
+      "পবিত্রতাকে তাড়াহুড়োর রুটিন নয়, বরং আল্লাহর সাক্ষাতের প্রস্তুতি হিসেবে গ্রহণ করুন।",
+      "পুরো ধারাটি স্বাভাবিক না হওয়া পর্যন্ত প্রতিদিন তাহারাতের একটি বিষয় অধ্যয়ন করুন।",
     ],
-    appLinks: [{ label: "সালাত শেখার কেন্দ্র" }],
+    appLinks: [{ label: "নামাজ শিক্ষা কেন্দ্র" }],
   },
   {
     title: "পবিত্রতার গুরুত্ব",
-    summary: "পবিত্রতা সালাতের absolute শর্ত ও মুমিনের চিহ্ন।",
+    summary: "পবিত্রতা নামাজের অপরিহার্য শর্ত এবং মুমিনের পরিচয়-চিহ্ন।",
     body: [
-      "পবিত্রতা বিকল্প নয় — সালাতের শর্ত। হাদাসে থাকা ব্যক্তির সালাত আল্লাহ গ্রহণ করেন না যতক্ষণ না পবিত্র হয়। তাই ভুল ওজু/গোসলে পড়া সালাত, যতই খুশু হোক, পুনরায় করতে হয়।",
-      "নবী ﷺ পবিত্রতাকে 'ঈমানের অর্ধেক' বলেছেন। নিয়মিত পবিত্রতা শৃঙ্খলা, ইবাদat-প্রস্তুতি, ও প্রবাহিত পানির সাথে ছোট গunaহ মুছে যায় — হাদীসের শিক্ষা।",
-      "সালাত রক্ষা করে তাহারat; অবহেলায় অসহi সালাতের পাপ থেকেও রক্ষা। এর বিধান ভালো শেখা ইসলামের বৃহত্তম আমল রক্ষার উপায়।",
+      "পবিত্রতা অনেকগুলো বিকল্পের একটি নয় — এটি নামাজ সহিহ হওয়ার শর্ত। শরয়ি অপবিত্র অবস্থায় থাকা ব্যক্তির নামাজ আল্লাহ কবুল করেন না, যতক্ষণ না সে পবিত্র হয়। এ কারণেই সহিহ ওজু বা গোসল ছাড়া আদায় করা নামাজ, তা যত আন্তরিকই হোক, পুনরায় পড়তে হয়।",
+      "নবী ﷺ পবিত্রতাকে মুমিনের একটি মৌলিক বৈশিষ্ট্যে উন্নীত করেছেন এবং একে 'ঈমানের অর্ধেক' বলেছেন। নিয়মিত পবিত্রতা মানুষকে শৃঙ্খলাবদ্ধ করে, তাকে প্রায় সর্বদা ইবাদতের জন্য প্রস্তুত রাখে, এবং — হাদিসের শিক্ষা অনুযায়ী — পানির সাথে সাথে ছোট ছোট গুনাহ সত্যিই ধুয়ে নিয়ে যায়।",
+      "যেহেতু তাহারাত নামাজকে রক্ষা করে, তাই এটি মুমিনকে অবহেলাবশত বাতিল নামাজ পড়ার গুনাহ থেকেও রক্ষা করে। অতএব এর বিধানগুলো ভালোভাবে শেখা মানে ইসলামের অন্যতম শ্রেষ্ঠ আমলকে সুরক্ষিত রাখা।",
     ],
-    hadith: [
-      {
-        excerpt: "পবিত্রতা ঈমানের অর্ধেক। (Abu Malik al-Ash'ari)",
-      },
-      {
-        excerpt: "আল্লাহ পবিত্রতা ছাড়া সালাত ও খিয়ানat-সম্পদের sadaqah গ্রহণ করেন না। (Ibn Umar)",
-      },
+    hadith: [{}, {}],
+    actions: [
+      "প্রতিটি নামাজের আগে, শুরু করার পূর্বেই নিজের পবিত্র অবস্থা নিশ্চিত করুন।",
+      "মনে মনে একটি সহজ তালিকা রাখুন: শরীর, পোশাক, স্থান ও ওজু।",
     ],
-    actions: ["প্রতিটি সালাতের আগে পবিত্রতা নিশ্চিত করুন।", "সহজ তালিকা: শরীর, পোশাক, স্থান, ওজু।"],
   },
   {
-    title: "পবিত্রতার প্রকার",
-    summary: "তিন অবস্থা: ছোট হাদাস, বড় হাদাস, শারীরিক নাজাসat।",
+    title: "পবিত্রতার প্রকারভেদ",
+    summary: "তিনটি অবস্থা জানতে হবে: ছোট অপবিত্রতা, বড় অপবিত্রতা এবং বাহ্যিক নাজাসাত।",
     body: [
-      "শরীয়at তিন বিষয় আলাদা করে; প্রতিটির সমাধান আলাদা। কোন অবস্থায় আছেন তা জানলেই সঠিক পদ্ধতি বেছে নিতে পারবেন।",
-      "ছোট হাদাস (hadas asghar): প্রস্রাব, বায়ু, গভীর ঘুম — ওজু দিয়ে, পানি না থাকলে তায়ামুম।",
-      "বড় হাদাস (hadas akbar/janabah): স্বামী-স্ত্রী, মনি নির্গম, হaid/nifas শেষ — গোসল; পানি না থাকলে/বিপদ হলে তায়ামুম।",
-      "নাজাসat (মূত্র, মল, প্রবাহিত রক্ত): আলাদা — শরীর, পোশাক, সালাতের স্থান থেকে physically সরাতে হয়, হাদাস নির্বিশেষে। চার Sunni mazhab তিন শ্রেণিতে একমত; কিছু বিস্তারিতে ভিন্ন।",
+      "ইসলামি শরিয়াহ তিনটি বিষয়ের মধ্যে পার্থক্য করে, যেগুলো থেকে আপনাকে পবিত্র হতে হতে পারে, এবং প্রতিটির প্রতিকার আলাদা। আপনি কোন অবস্থায় আছেন তা জানাই সঠিক পদ্ধতি বেছে নেওয়ার চাবিকাঠি।",
+      "ছোট শরয়ি অপবিত্রতা (হাদাসে আসগার) সাধারণ ঘটনা থেকে হয়, যেমন টয়লেট ব্যবহার, বায়ু নির্গত হওয়া বা গভীর ঘুম। ওজুর মাধ্যমে, অথবা পানি ব্যবহার করা না গেলে তায়াম্মুমের মাধ্যমে তা দূর হয়।",
+      "বড় শরয়ি অপবিত্রতা (হাদাসে আকবার, যাকে জানাবাতও বলা হয়) হয় স্বামী-স্ত্রীর মিলন, যৌন তরল নির্গমন এবং হায়েজ বা নিফাস শেষ হওয়ার কারণে। পূর্ণ শরীরের শরয়ি গোসলের মাধ্যমে তা দূর হয় — পানি না পাওয়া গেলে বা ক্ষতিকর হলে এখানেও তায়াম্মুম তার স্থলাভিষিক্ত হয়।",
+      "বাহ্যিক ময়লা (নাজাসাত) — যেমন প্রস্রাব, মল বা প্রবাহিত রক্ত — একটি আলাদা বিষয়: আপনার শরয়ি অবস্থা যা-ই হোক, শরীর, পোশাক ও নামাজের স্থান থেকে তা বাস্তবে সরিয়ে ফেলতে হবে। চার সুন্নি মাযহাব এই তিন শ্রেণির ব্যাপারে একমত; পার্থক্য শুধু কিছু খুঁটিনাটিতে — কোন বিষয় পবিত্রতা ভঙ্গ করে, বা কতটুকু সামান্য চিহ্ন ক্ষমাযোগ্য।",
     ],
-    quran: [
-      {
-        excerpt: "জনুব থাকলে পবিত্র হও; অসুস্থ/সফরে… পানি না পেলে পবিত্র মাটিতে তায়ামুম কর।",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "অবস্থা চিনুন (ছোট/বড় হাদাস বা নাজাসat), তারপর সঠিক পদ্ধতি।",
-      "বিস্তারিতে সন্দেহ হলে এক বিশ্বস্ত mazhab-এর alim অনুসরণ করুন।",
+      "প্রথমে নিজের অবস্থা চিহ্নিত করুন (ছোট অপবিত্রতা, বড় অপবিত্রতা, নাকি ময়লা), তারপর সঠিক পদ্ধতি প্রয়োগ করুন।",
+      "খুঁটিনাটি নিয়ে সংশয় থাকলে স্বীকৃত কোনো মাযহাবের একজন যোগ্য শিক্ষককে ধারাবাহিকভাবে অনুসরণ করুন।",
     ],
   },
+
+  // ── Water ────────────────────────────────────────────────────────────────
   {
     title: "ইসলামে পানি",
-    summary: "পবিত্র পানি প্রধান উপকরণ — যথেষ্ট ব্যবহার, অপচয় নয়।",
+    summary: "পবিত্র পানি প্রধান পবিত্রকারী — ভালোভাবে ব্যবহার করুন, কিন্তু কখনো অপচয় নয়।",
     body: [
-      "পবিত্রতার মূল উপকরণ পানি। আল্লাহ বৃষ্টিকে 'পবিত্র' (তাহুর) বলেছেন — পবিত্রতা ও ইবাদat-উপযোগী। প্রাকৃতিক পরিষ্কার পানি — বৃষ্টি, নদী, সমুদ্র, ঝরনা, কূপ, কল — নাজাসat মিশে রঙ/গন্ধ/স্বাদ না বদলালে পবিত্র।",
-      "Ulama বিস্তারিত শ্রেণি দেন, কিন্তু দৈনন্দিন নিয়ম সহজ: নাজাসatে স্পষ্ট পরিবর্তন না হলে ওজু-গোসলের পানি ঠিক। সন্দেহে পরিষ্কার বিকল্প থাকলে সেটি ব্যবহার করুন।",
-      "ইসলাম পরিপূর্ণতা শেখায়, অতিরিক্ততা নয়। নবী ﷺ কম পানিতে পূর্ণ ধোয়া — ওজু ~১ mud, গোসল ~১ sha'; প্রচুর পানিতেও অপচয় নিষিদ্ধ; সাদগী ইবাদatের আদব।",
+      "পবিত্রতা অর্জনের মূল মাধ্যম হলো পানি। আল্লাহ বৃষ্টিকে 'পবিত্র' (তাহুর) হিসেবে বর্ষিত বলে বর্ণনা করেছেন — যা পরিষ্কারও করতে পারে এবং ইবাদতের জন্যও ব্যবহার করা যায়। প্রাকৃতিকভাবে পরিষ্কার যেকোনো পানি — বৃষ্টি, নদী, সমুদ্র, ঝরনা, কূপ বা কলের পানি — পবিত্রকারী, যতক্ষণ না কোনো নাজাসাত মিশে এর রং, স্বাদ বা গন্ধ পরিবর্তন করে দেয়।",
+      "ফকিহগণ পানিকে বিস্তারিতভাবে শ্রেণিবদ্ধ করেছেন (পবিত্র ও পবিত্রকারী, পবিত্র কিন্তু পবিত্রকারী নয়, এবং অপবিত্র), তবে দৈনন্দিন জীবনের জন্য ব্যবহারিক নিয়মটি সহজ: কোনো নাজাসাত স্পষ্টভাবে পানিকে পরিবর্তিত না করলে তা ওজু ও গোসলের উপযোগী থাকে। প্রকৃত সন্দেহ হলে এবং পরিষ্কার বিকল্প হাতের কাছে থাকলে, বিকল্পটি ব্যবহার করুন।",
+      "ইসলাম অপচয় ছাড়া পরিপূর্ণতা শেখায়। নবী ﷺ পুরোপুরি ধুতেন, তবু আশ্চর্য রকম কম পানি ব্যবহার করতেন — ওজুর জন্য প্রায় এক মুদ (দুই অঞ্জলি) এবং পূর্ণ গোসলের জন্য এক সা' (মোটামুটি চার মুদ)। পানি প্রচুর থাকলেও অপচয় নিরুৎসাহিত, কারণ মিতাচার নিজেই ইবাদতের আদবের অংশ।",
     ],
-    quran: [{ excerpt: "আকাশ থেকে আমরা পবিত্র পানি বর্ষণ করি।" }],
-    hadith: [
-      {
-        excerpt: "নবী ﷺ ~১ mud-এ ওজু, ~১ sha' (৫ mud পর্যন্ত) গোসল করতেন। (Anas; Sahih Muslim 325)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
-      "যথেষ্ট পানি দিয়ে পূর্ণ ধোয়া, কিন্তু নল কম রাখুন, অপচয় এড়ান।",
-      "নাজাসatে রঙ/গন্ধ বদলালে নিকটতম পরিষ্কার উৎস খুঁজুন।",
+      "ভালোভাবে ধোয়ার মতো যথেষ্ট পানি ব্যবহার করুন, তবে কল কমিয়ে দিন এবং অতিরিক্ত এড়িয়ে চলুন।",
+      "কোনো পানির উৎস দেখতে বা গন্ধে ময়লার কারণে পরিবর্তিত মনে হলে, নিকটতম স্পষ্টভাবে পরিষ্কার উৎস খুঁজুন।",
     ],
     disclaimer:
-      "'ঝরনায়ও পানি অপচয় করো না' (Ibn Majah 425) অনেক alim দুর্বল; সাদগীর sunnah mud/sha' হাদীসে প্রতিষ্ঠিত।",
+      "বহুল উদ্ধৃত 'প্রবহমান নদীর তীরেও পানি অপচয় করো না' বর্ণনাটিকে (ইবনে মাজাহ 425) অধিকাংশ আলেম দুর্বল (জয়িফ) গণ্য করেন; বরং মিতাচারের সুন্নাহ উপরের মুদ/সা' হাদিস দ্বারা প্রমাণিত।",
+  },
+
+  // ── Wudu ─────────────────────────────────────────────────────────────────
+  {
+    title: "ওজু কী?",
+    summary: "ইবাদতের আগে ছোট অপবিত্রতা দূর করার শরয়ি পবিত্রতা।",
+    body: [
+      "ওজু (وضوء) হলো নির্দিষ্ট অঙ্গগুলো নির্দিষ্ট ক্রমে শরয়ি পদ্ধতিতে ধোয়া, যা ছোট শরয়ি অপবিত্রতা দূর করে। এর চারটি ফরজ ধোয়ার কথা সরাসরি কুরআনে (5:6) উল্লেখ আছে: মুখমণ্ডল, কনুই পর্যন্ত দুই হাত, মাথা মাসেহ করা, এবং টাখনু পর্যন্ত দুই পা।",
+      "প্রতিটি নামাজের আগে এটি আবশ্যক — যদি না আপনি আগের নামাজের সহিহ ওজু অবস্থায় থাকেন — এবং অধিকাংশ আলেমের মতে কাবা তাওয়াফ করার আগে এবং কুরআনের লিখিত কপি (মুসহাফ) স্পর্শ করার আগেও।",
+      "ওজু শুধু একটি প্রাথমিক প্রস্তুতি নয়, বরং নিজেই একটি ইবাদত। নবী ﷺ সতর্ক করেছেন, 'তোমাদের কেউ ওজু ভঙ্গ করলে, আবার ওজু না করা পর্যন্ত আল্লাহ তার নামাজ কবুল করেন না' — তাই ওজু রক্ষা করা মানে নামাজকেই রক্ষা করা।",
+    ],
+    hadith: [{}],
+    appLinks: [{ label: "নামাজ গাইডে ওজু" }],
   },
   {
-    title: "Apa Itu Wudu?",
-    summary: "Bersuci ritual yang menghilangkan hadas kecil sebelum beribadah.",
+    title: "সহিহ ওজুর শর্তসমূহ",
+    summary: "নিয়ত, পবিত্র পানি এবং বাধাহীন ত্বক — সঠিক ওজুর পূর্বশর্ত।",
     body: [
-      "Wudu (وضوء) adalah pembasuhan anggota tubuh tertentu, dengan urutan tertentu, sesuai syariat, yang menghilangkan hadas kecil. Empat basuhan wajibnya disebutkan langsung dalam Al-Qur'an (5:6): wajah, kedua lengan sampai siku, mengusap kepala, dan kedua kaki sampai mata kaki.",
-      "Wudu diwajibkan sebelum setiap salat — kecuali kau masih dalam keadaan suci dari salat sebelumnya — dan menurut mayoritas ulama, juga sebelum melakukan tawaf di sekeliling Ka'bah dan sebelum menyentuh mushaf Al-Qur'an.",
-      "Wudu adalah ibadah tersendiri, bukan sekadar pendahuluan. Nabi ﷺ memperingatkan bahwa 'Allah tidak menerima salat salah seorang dari kalian yang batal wudunya sampai ia berwudu kembali' — sehingga menjaga wudu berarti menjaga salat itu sendiri.",
+      "ওজু গণ্য হওয়ার জন্য কিছু শর্ত (শুরুত) পূরণ হতে হবে। ব্যক্তিকে সুস্থ বুদ্ধিসম্পন্ন মুসলিম হতে হবে, যিনি ইবাদতের জন্য পবিত্রতার নিয়ত করেন। কোনো কোনো মাযহাব নিয়তকে এই কাজের রুকন (স্তম্ভ) এবং অন্যরা শর্ত হিসেবে গণ্য করে, তবে সবাই একমত যে সওয়াবের জন্য নিয়ত আবশ্যক, এবং অধিকাংশের মতে ওজু সহিহ হওয়ার জন্যও।",
+      "ব্যবহৃত পানি অবশ্যই পবিত্র ও পবিত্রকারী হতে হবে। সবচেয়ে গুরুত্বপূর্ণ হলো, পানি বাস্তবে ত্বকে পৌঁছাতে হবে — তাই কোনো অঙ্গের ওপর পানিরোধী আবরণ সৃষ্টি করে এমন কিছু (পুরু রং, নেইল পলিশ, মোম, আঠা) আগে সরিয়ে ফেলতে হবে, নইলে এর নিচের ধোয়া সহিহ হবে না। সাধারণ ময়লা বা মেহেদির রং, যা পানি আটকায় না, তাতে কোনো সমস্যা নেই।",
+      "শাফেয়ি ও হাম্বলি মাযহাব আরও শর্ত করে যে ধোয়াগুলো কুরআনে বর্ণিত ক্রম অনুযায়ী হতে হবে (তারতিব), আর মালিকি ও হাম্বলি মাযহাব শর্ত করে যে সেগুলো এমন দীর্ঘ বিরতি ছাড়া একটির পর একটি হতে হবে যাতে অঙ্গ শুকিয়ে যায় (মুওয়ালাত)। হানাফি মাযহাব দুটিকেই সুন্নাহ গণ্য করে। ধারাবাহিকতার জন্য একটি মাযহাবের পদ্ধতি অনুসরণ করুন।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah tidak menerima salat seseorang yang batal wudunya sampai ia berwudu. (Abu Hurairah)",
-      },
-    ],
-    appLinks: [{}],
-  },
-  {
-    title: "Syarat Sahnya Wudu",
-    summary: "Niat, air suci, dan kulit yang tidak terhalang — prasyarat wudu yang sah.",
-    body: [
-      "Beberapa syarat harus terpenuhi agar wudu dianggap sah. Orang yang berwudu harus seorang muslim yang berakal sehat, dengan niat bersuci untuk beribadah. Sebagian mazhab menggolongkan niat sebagai rukun perbuatan ini dan sebagian lain sebagai syarat, tetapi semua sepakat bahwa niat diperlukan untuk mendapatkan pahala, dan menurut mayoritas, juga untuk keabsahannya.",
-      "Air yang digunakan harus suci dan menyucikan. Yang terpenting, air itu harus benar-benar mencapai kulit — sehingga apa pun yang membentuk lapisan kedap air pada suatu anggota tubuh (cat tebal, cat kuku, lilin, lem) harus dihilangkan terlebih dahulu, jika tidak, basuhan di baliknya tidak sah. Kotoran biasa atau noda pacar yang tidak menghalangi air bukanlah masalah.",
-      "Mazhab Syafi'i dan Hambali juga mewajibkan agar basuhan dilakukan sesuai urutan Al-Qur'an dan tanpa jeda panjang (muwalat) yang membuat anggota tubuh mengering. Pendapat mazhab Hanafi dan Maliki tentang urutan dan kesinambungan yang ketat ini lebih longgar dalam sebagian keadaan. Ikuti satu metode mazhab secara konsisten.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Basuhlah wajahmu dan tanganmu sampai ke siku, usaplah kepalamu, dan basuhlah kakimu sampai ke kedua mata kaki.",
-      },
-    ],
+    quran: [{}],
     actions: [
-      "Hilangkan cat kuku, cincin yang menahan air, dan apa pun yang menutup kulit sebelum berwudu.",
-      "Lakukan wudu dengan tenang dalam satu rangkaian agar tidak ada anggota tubuh yang terlewat atau sempat mengering.",
+      "ওজুর আগে নেইল পলিশ, পানি আটকে রাখে এমন আংটি এবং ত্বক ঢেকে রাখে এমন যেকোনো কিছু সরিয়ে ফেলুন।",
+      "শান্তভাবে একটানা ওজু করুন, যাতে কোনো অঙ্গ বাদ না পড়ে বা শুকিয়ে না যায়।",
     ],
   },
   {
-    title: "Rukun-Rukun Wudu",
-    summary: "Rukun yang disebutkan Al-Qur'an, tanpanya wudu tidak sah.",
+    title: "ওজুর ফরজসমূহ",
+    summary: "কুরআনে বর্ণিত স্তম্ভসমূহ (ফারায়েজ), যা ছাড়া ওজু বাতিল।",
     body: [
-      "Rukun-rukun wudu adalah bagian-bagian yang disebutkan Allah dalam ayat: membasuh seluruh wajah; membasuh kedua lengan sampai dan termasuk siku; mengusap kepala; serta membasuh kedua kaki sampai dan termasuk mata kaki. Bila salah satu terlewat, wudu tidak sempurna.",
-      "Selain itu, mazhab-mazhab menambahkan kewajiban lain berdasarkan sunnah dan ijtihad. Niat wajib menurut kebanyakan mazhab (mazhab Hanafi menggolongkannya sebagai sunnah yang sangat ditekankan untuk menghilangkan hadas kecil). Urutan (tartib) dan kesinambungan (muwalat) wajib menurut mazhab Syafi'i dan Hambali. Mazhab Maliki menambahkan menggosok anggota tubuh (dalk) sebagai kewajiban.",
-      "Segala sesuatu di luar ini — berkumur dan memasukkan air ke hidung, membasuh tangan lebih dulu, membasuh tiga kali — adalah sunnah, bukan wajib. Mengetahui perbedaannya membuatmu dapat membedakan kapan wudu sekadar kurang sempurna dan kapan benar-benar tidak sah.",
+      "ওজুর ফরজসমূহ (ফারায়েজ) হলো সেই অংশগুলো যা আল্লাহ আয়াতে উল্লেখ করেছেন: পুরো মুখমণ্ডল ধোয়া; কনুইসহ দুই হাত ধোয়া; মাথা মাসেহ করা; এবং টাখনুসহ দুই পা ধোয়া। এর কোনোটি বাদ পড়লে ওজু অসম্পূর্ণ থাকে।",
+      "এগুলোর সাথে মাযহাবগুলো সুন্নাহ ও ফিকহি যুক্তির ভিত্তিতে আরও কিছু ফরজ যোগ করে। অধিকাংশ মাযহাবে নিয়ত ফরজ (হানাফিরা ছোট অপবিত্রতা দূর করার ক্ষেত্রে একে সুন্নতে মুয়াক্কাদা গণ্য করেন)। ক্রম (তারতিব) শাফেয়ি ও হাম্বলিদের মতে ফরজ, আর ধারাবাহিকতা (মুওয়ালাত) মালিকি ও হাম্বলিদের মতে। মালিকিরা অঙ্গ ঘষাকেও (দালক) ফরজ হিসেবে যোগ করেন।",
+      "এর বাইরে সবকিছু — কুলি করা ও নাকে পানি দেওয়া, প্রথমে হাত ধোয়া, তিনবার করে ধোয়া — ফরজ নয়, বরং মুস্তাহাব (সুন্নাহ)। এই পার্থক্য জানলে বুঝতে পারবেন কখন ওজু কেবল অপূর্ণাঙ্গ আর কখন সত্যিই বাতিল।",
     ],
-    quran: [
-      {
-        excerpt:
-          "Basuhlah wajahmu dan tanganmu sampai ke siku, usaplah kepalamu, dan basuhlah kakimu sampai ke kedua mata kaki.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
-      "Daftar pasti rukun wudu (misalnya apakah niat, urutan, dan menggosok termasuk wajib) berbeda di antara keempat mazhab. Pelajari dan amalkan satu mazhab yang terpercaya secara konsisten.",
+      "ফরজের সঠিক তালিকা (যেমন নিয়ত, ক্রম ও ঘষা ফরজ কি না) চার মাযহাবে ভিন্ন। একটি নির্ভরযোগ্য মাযহাব শিখুন এবং ধারাবাহিকভাবে তা অনুসরণ করুন।",
   },
   {
-    title: "Sunnah-Sunnah Wudu",
-    summary: "Amalan yang dianjurkan, yang menyempurnakan wudu dan melipatgandakan pahalanya.",
+    title: "ওজুর সুন্নাহসমূহ",
+    summary: "যে মুস্তাহাব কাজগুলো ওজুকে পরিপূর্ণ করে এবং এর সওয়াব বহুগুণ বাড়ায়।",
     body: [
-      "Di sekitar inti kewajiban, Nabi ﷺ mengamalkan banyak amalan sunnah yang menyempurnakan dan memperindah wudu. Meninggalkan salah satunya tidak membatalkan wudu, tetapi mengamalkannya mendatangkan pahala tambahan dan lebih sempurna mengikuti teladan beliau.",
-      "Amalan sunnah yang telah mapan meliputi: mengucapkan 'Bismillah' di awal; membasuh kedua tangan tiga kali sebelum memulai; berkumur (madhmadhah) dan memasukkan air ke hidung (istinsyaq); menyela-nyela jenggot yang lebat dan sela-sela jari tangan serta kaki (takhlil) dengan jari basah; memulai setiap pasang anggota tubuh dengan yang kanan; dan mengulang setiap basuhan hingga tiga kali.",
-      "Dua sunnah patut mendapat perhatian khusus: menggunakan siwak sebelum berwudu — yang hampir diwajibkan oleh Nabi ﷺ — dan membaca syahadat setelah selesai, yang membuka kedelapan pintu surga bagi orang yang mengucapkannya.",
+      "ফরজ মূল অংশের চারপাশে নবী ﷺ অনেক মুস্তাহাব কাজ (সুনান) পালন করতেন, যা ওজুকে পূর্ণ ও সুন্দর করে। এর কোনোটি ছেড়ে দিলে ওজু বাতিল হয় না, তবে এগুলো পালন করলে অতিরিক্ত সওয়াব পাওয়া যায় এবং তাঁর আদর্শ আরও পূর্ণভাবে অনুসরণ করা হয়।",
+      "প্রতিষ্ঠিত সুন্নাহ কাজগুলোর মধ্যে রয়েছে: শুরুতে 'বিসমিল্লাহ' বলা; শুরু করার আগে দুই হাত তিনবার ধোয়া; কুলি করা (মাদমাদা) ও নাকে পানি দেওয়া (ইস্তিনশাক); ঘন দাড়ির ভেতরে এবং হাত ও পায়ের আঙুলের ফাঁকে ভেজা আঙুল চালানো (তাখলিল); প্রতিটি জোড়া অঙ্গে ডান দিক থেকে শুরু করা; এবং প্রতিটি ধোয়া তিনবার পর্যন্ত করা।",
+      "দুটি সুন্নাহ বিশেষভাবে উল্লেখযোগ্য: আগে মিসওয়াক ব্যবহার করা — যা নবী ﷺ প্রায় আবশ্যক করে দিয়েছিলেন — এবং শেষ করার পর কালিমায়ে শাহাদাত পাঠ করা, যা পাঠকারীর জন্য জান্নাতের আটটি দরজা খুলে দেয়।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa berwudu dengan sempurna, lalu mengucapkan 'Aku bersaksi bahwa tiada tuhan selain Allah… dan bahwa Muhammad adalah hamba dan utusan-Nya,' maka kedelapan pintu surga dibukakan baginya. (Umar bin Khattab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Amalkan rangkaian sunnah secara lengkap sampai menjadi kebiasaan alami bagimu.",
-      "Bacalah syahadat setelah wudu setiap kali.",
+      "পূর্ণ সুন্নাহ ধারাটি অনুশীলন করুন, যতক্ষণ না তা আপনার স্বাভাবিক অভ্যাসে পরিণত হয়।",
+      "প্রতিবার ওজুর পর শাহাদাত পাঠ করুন।",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "ওজুর পরের দোয়া" }],
   },
   {
-    title: "Wudu Langkah demi Langkah",
-    summary: "Rangkaian lengkap sesuai tuntunan Nabi, dari niat hingga doa penutup.",
+    title: "ধাপে ধাপে ওজু",
+    summary: "নিয়ত থেকে শেষ দোয়া পর্যন্ত নবীজির পূর্ণ পদ্ধতি।",
     body: [
-      "Nabi ﷺ mengajarkan wudu sebagai rangkaian yang mengalir, memadukan kewajiban dengan amalan sunnah. Inilah cara yang dicontohkan oleh Utsman bin Affan kepada orang-orang, seraya berkata bahwa ia melihat Nabi ﷺ berwudu persis seperti ini — dan barang siapa berbuat serupa lalu salat dua rakaat dengan penuh kekhusyukan, dosa-dosanya yang lalu akan diampuni.",
-      "Lakukan setiap langkah dengan tenang, pastikan air mencapai setiap bagian yang diwajibkan. Anggota tubuh yang dibasuh (wajah, lengan, kaki) dicuci; kepala hanya diusap.",
+      "নবী ﷺ ওজুকে একটি প্রবহমান ধারা হিসেবে শিখিয়েছেন, যাতে ফরজ ও সুন্নাহ কাজগুলো একসাথে গাঁথা। এটিই সেই পদ্ধতি যা উসমান ইবনে আফফান লোকদের দেখিয়েছিলেন, এবং পরে বলেছিলেন যে তিনি নবী ﷺ-কে ঠিক এভাবেই ওজু করতে দেখেছেন — আর যে ব্যক্তি এভাবে ওজু করে পূর্ণ মনোযোগের সাথে দুই রাকাত নামাজ পড়ে, তার আগের গুনাহ মাফ করে দেওয়া হয়।",
+      "প্রতিটি ধাপ ধীরে-সুস্থে করুন এবং নিশ্চিত করুন যে প্রতিটি আবশ্যক স্থানে পানি পৌঁছেছে। ধোয়ার অঙ্গগুলো (মুখমণ্ডল, হাত, পা) ধোয়া হয়; মাথা কেবল মাসেহ করা হয়।",
     ],
     steps: [
       {
-        title: "Niatkan bersuci dan ucapkan Bismillah",
-        body: "Tetapkan niat berwudu dalam hati dan mulailah dengan menyebut nama Allah.",
-        tip: "Niat itu urusan hati — tidak perlu diucapkan dengan lafaz tertentu.",
+        title: "পবিত্রতার নিয়ত করুন এবং বিসমিল্লাহ বলুন",
+        body: "অন্তরে ওজুর নিয়ত স্থির করুন এবং আল্লাহর নামে শুরু করুন।",
+        tip: "নিয়ত অন্তরের বিষয় — মুখে কোনো নির্দিষ্ট বাক্য বলা আবশ্যক নয়।",
       },
       {
-        title: "Basuh kedua tangan tiga kali",
-        body: "Basuh sampai pergelangan tangan, alirkan air di sela-sela jari.",
+        title: "দুই হাত তিনবার ধুয়ে নিন",
+        body: "কবজি পর্যন্ত ধুয়ে নিন, আঙুলের ফাঁকে পানি পৌঁছান।",
       },
       {
-        title: "Berkumur tiga kali",
-        body: "Ambil air ke dalam mulut, putar, lalu keluarkan.",
+        title: "তিনবার কুলি করুন",
+        body: "মুখে পানি নিন, নাড়াচাড়া করুন, তারপর ফেলে দিন।",
       },
       {
-        title: "Masukkan air ke hidung tiga kali",
-        body: "Hirup air perlahan ke dalam lubang hidung lalu hembuskan keluar.",
+        title: "তিনবার নাকে পানি দিন",
+        body: "আলতোভাবে নাকের ছিদ্রে পানি টেনে নিন, তারপর ঝেড়ে ফেলুন।",
       },
       {
-        title: "Basuh wajah tiga kali (fardu)",
-        body: "Dari batas tumbuhnya rambut hingga bawah dagu, dan dari telinga ke telinga.",
+        title: "মুখমণ্ডল তিনবার ধুয়ে নিন (ফরজ)",
+        body: "কপালের চুলের গোড়া থেকে থুতনির নিচ পর্যন্ত এবং এক কান থেকে অন্য কান পর্যন্ত।",
       },
       {
-        title: "Basuh lengan kanan, lalu lengan kiri (fardu)",
-        body: "Masing-masing dari ujung jari hingga dan termasuk siku, hingga tiga kali.",
+        title: "প্রথমে ডান হাত, তারপর বাম হাত ধুয়ে নিন (ফরজ)",
+        body: "প্রতিটি আঙুলের ডগা থেকে কনুইসহ, তিনবার পর্যন্ত।",
       },
       {
-        title: "Usap kepala sekali (fardu)",
-        body: "Dengan tangan basah, usap dari depan ke belakang lalu kembali, kemudian usap kedua telinga dengan kebasahan yang sama.",
+        title: "একবার মাথা মাসেহ করুন (ফরজ)",
+        body: "ভেজা হাতে সামনে থেকে পেছনে মাসেহ করে আবার সামনে ফিরিয়ে আনুন, তারপর একই আর্দ্রতা দিয়ে কান মাসেহ করুন।",
       },
       {
-        title: "Basuh kaki kanan, lalu kaki kiri (fardu)",
-        body: "Masing-masing hingga dan termasuk mata kaki, selipkan jari di sela-sela jari kaki.",
-        tip: "Perhatikan tumit dan mata kaki — bagian yang paling sering terlewat.",
+        title: "প্রথমে ডান পা, তারপর বাম পা ধুয়ে নিন (ফরজ)",
+        body: "প্রতিটি টাখনুসহ, পায়ের আঙুলের ফাঁকে আঙুল চালিয়ে।",
+        tip: "গোড়ালি ও টাখনুর দিকে খেয়াল রাখুন — এগুলোই সবচেয়ে বেশি বাদ পড়ে।",
       },
       {
-        title: "Baca doa penutup",
-        body: "Ucapkan syahadat agar pintu-pintu surga terbuka.",
-        tip: "Sunnah yang singkat namun sangat besar pahalanya.",
+        title: "শেষের দোয়া পাঠ করুন",
+        body: "জান্নাতের দরজা খুলে দিতে কালিমায়ে শাহাদাত পাঠ করুন।",
+        tip: "সংক্ষিপ্ত, কিন্তু বিপুল সওয়াবের একটি সুন্নাহ।",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Utsman membasuh setiap anggota tubuh tiga kali sebagaimana ia melihat Nabi ﷺ melakukannya, lalu berkata: barang siapa berwudu seperti ini lalu salat dua rakaat dengan penuh kekhusyukan, dosa-dosanya yang lalu diampuni. (Humran, dari Utsman)",
-      },
-    ],
-    appLinks: [{}, {}],
+    hadith: [{}],
+    appLinks: [{ label: "নামাজ গাইডে ওজু" }, { label: "ওজুর দোয়া" }],
   },
   {
-    title: "Doa-Doa Seputar Wudu",
-    summary: "Doa sebelum dan sesudah wudu yang diriwayatkan secara sahih.",
+    title: "ওজু-সংক্রান্ত দোয়া",
+    summary: "ওজুর আগে ও পরে সহিহভাবে বর্ণিত দোয়াসমূহ।",
     body: [
-      "Zikir yang paling kuat riwayatnya seputar wudu ada dua: mengucapkan 'Bismillah' di awal, dan syahadat setelah selesai. Pada syahadat penutup ini, ada tambahan sahih yang memohon kepada Allah: 'Jadikanlah aku termasuk orang-orang yang bertobat dan jadikanlah aku termasuk orang-orang yang menyucikan diri.'",
-      "Penting untuk diketahui bahwa 'doa setiap anggota tubuh' secara rinci (doa khusus saat membasuh tangan, wajah, lengan, dan seterusnya) yang beredar di sebagian buku kecil, tidak memiliki dasar sahih dari Nabi ﷺ. Para ulama menyarankan untuk tidak menisbahkannya kepada beliau sebagai sunnah, meski tidak ada larangan berzikir secara umum kepada Allah selama berwudu.",
-      "Inti persoalannya adalah kehadiran hati: berwudulah dengan kesadaran bahwa dosa setiap anggota tubuh sedang berguguran, dan tutuplah dengan syahadat yang menghubungkan kembali amalan ini dengan tujuannya — keimanan kepada Allah semata.",
+      "ওজুকে ঘিরে সবচেয়ে শক্তিশালী সূত্রে বর্ণিত জিকির দুটি: শুরুতে 'বিসমিল্লাহ' বলা, এবং শেষ করার পর কালিমায়ে শাহাদাত পাঠ করা। শেষের শাহাদাতের সাথে একটি সহিহ সংযোজনে আল্লাহর কাছে প্রার্থনা করা হয়: 'আমাকে তওবাকারীদের অন্তর্ভুক্ত করুন এবং আমাকে পবিত্রতা অর্জনকারীদের অন্তর্ভুক্ত করুন।'",
+      "জেনে রাখা জরুরি যে কিছু পুস্তিকায় প্রচলিত বিস্তারিত 'প্রতিটি অঙ্গের দোয়া' (হাত, মুখমণ্ডল, বাহু ইত্যাদি ধোয়ার সময় নির্দিষ্ট দোয়া) নবী ﷺ থেকে বিশুদ্ধ সূত্রে প্রমাণিত নয়। আলেমগণ এগুলোকে সুন্নাহ হিসেবে তাঁর প্রতি সম্পৃক্ত না করার পরামর্শ দেন; তবে ওজুর সময় সাধারণভাবে আল্লাহর জিকির করায় কোনো সমস্যা নেই।",
+      "মূল বিষয় হলো হৃদয়ের উপস্থিতি: এই সচেতনতা নিয়ে ধুয়ে নিন যে প্রতিটি অঙ্গের গুনাহ ঝরে যাচ্ছে, এবং শাহাদাত দিয়ে শেষ করুন, যা এই আমলকে তার উদ্দেশ্যের সাথে আবার যুক্ত করে — একমাত্র আল্লাহর প্রতি ঈমান।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa berwudu dengan sempurna lalu membaca syahadat, kedelapan pintu surga dibukakan baginya untuk masuk dari pintu mana pun yang ia kehendaki. (Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Hafalkan syahadat setelah wudu jika belum hafal.",
-      "Hindari membaca doa per-anggota-tubuh yang tidak terbukti sahih seolah-olah itu sunnah yang mapan.",
+      "ওজুর পরের শাহাদাত মুখস্থ না থাকলে মুখস্থ করে নিন।",
+      "অপ্রমাণিত অঙ্গভিত্তিক দোয়াগুলোকে প্রতিষ্ঠিত সুন্নাহ মনে করে পাঠ করা থেকে বিরত থাকুন।",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "নামাজের দোয়া" }, { label: "ওজুর দোয়া শিখুন" }],
   },
   {
-    title: "Apa yang Membatalkan Wudu?",
-    summary: "Hal-hal yang membatalkan wudu — dan kaidah keyakinan ketika ragu.",
+    title: "কী কী ওজু ভঙ্গ করে?",
+    summary: "ওজু ভঙ্গের কারণসমূহ — এবং সন্দেহের সময় নিশ্চয়তার নীতি।",
     body: [
-      "Menurut kesepakatan ulama, wudu batal oleh apa saja yang keluar dari dua jalan kemaluan — air kencing, kotoran, angin, atau keluarnya cairan lain — juga oleh tidur nyenyak yang menghilangkan kesadaran, dan oleh hilangnya kesadaran karena pingsan atau mabuk.",
-      "Perkara lain menjadi ranah perbedaan pendapat yang saling menghormati antar mazhab: menyentuh langsung kemaluan, dan bersentuhan kulit dengan lawan jenis yang bukan mahram, dianggap membatalkan di sebagian mazhab tetapi tidak di mazhab lain, berdasarkan pembacaan yang berbeda atas teks yang sama.",
-      "Sebuah kaidah pokok melindungimu dari kecemasan (waswas) yang terus-menerus: keyakinan tidak hilang oleh keraguan. Jika kau yakin sudah berwudu dan hanya ragu apakah wudu itu batal, kau tetap dianggap dalam keadaan berwudu sampai kau yakin ada hal yang membatalkannya. Nabi ﷺ pernah berpesan kepada seseorang yang terganggu oleh perasaan ini agar tidak meninggalkan salatnya 'sampai ia mendengar suara atau mencium bau.'",
+      "আলেমদের ঐকমত্যে, দুই রাস্তা (সামনের ও পেছনের পথ) দিয়ে যা কিছু বের হয় — প্রস্রাব, মল, বায়ু বা অন্য কোনো নিঃসরণ — তা ওজু ভঙ্গ করে; তেমনি এমন গভীর ঘুম যা সচেতনতা লোপ করে, এবং বেহুঁশ হওয়া বা নেশাগ্রস্ত হওয়ার কারণে চেতনা হারানোও ওজু ভঙ্গ করে।",
+      "অন্য কিছু বিষয়ে মাযহাবগুলোর মধ্যে সম্মানজনক মতপার্থক্য রয়েছে: সরাসরি লজ্জাস্থান স্পর্শ করা এবং বিপরীত লিঙ্গের গায়রে মাহরামের সাথে ত্বকের সরাসরি স্পর্শ — একই দলিলের ভিন্ন ভিন্ন ব্যাখ্যার ভিত্তিতে কোনো কোনো মাযহাবে এগুলো ওজু ভঙ্গকারী, অন্যগুলোতে নয়।",
+      "একটি গুরুত্বপূর্ণ মূলনীতি আপনাকে অবিরাম দুশ্চিন্তা (ওয়াসওয়াসা) থেকে রক্ষা করে: সন্দেহের কারণে নিশ্চয়তা দূর হয় না। আপনার ওজু ছিল এবং আপনি শুধু নিশ্চিত নন যে তা ভেঙেছে কি না — তাহলে ওজু ভঙ্গকারী কিছু ঘটেছে বলে নিশ্চিত না হওয়া পর্যন্ত আপনি ওজু অবস্থায়ই আছেন বলে গণ্য হবেন। এই অনুভূতিতে বিচলিত এক ব্যক্তিকে নবী ﷺ বলেছিলেন, সে যেন নামাজ ছেড়ে না দেয় 'যতক্ষণ না কোনো শব্দ শোনে বা গন্ধ পায়।'",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Janganlah ia meninggalkan (salatnya) sampai ia mendengar suara atau mencium bau. (Abbad bin Tamim, dari pamannya)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
-      "Apakah menyentuh lawan jenis atau kemaluan sendiri membatalkan wudu berbeda-beda menurut mazhab. Ikuti guru setempat yang berkompeten dan satu metode mazhab.",
+      "বিপরীত লিঙ্গকে বা নিজের লজ্জাস্থান স্পর্শ করলে ওজু ভাঙে কি না, তা মাযহাবভেদে ভিন্ন। একজন যোগ্য স্থানীয় শিক্ষক এবং একটি মাযহাবের পদ্ধতি অনুসরণ করুন।",
   },
   {
-    title: "Kesalahan Umum dalam Wudu",
-    summary:
-      "Kesalahan yang sering terjadi, yang mengurangi pahala — atau membatalkan wudu sepenuhnya.",
+    title: "ওজুর সাধারণ ভুলসমূহ",
+    summary: "যে ঘন ঘন ভুলগুলো সওয়াব কমিয়ে দেয় — অথবা ওজুকে পুরোপুরি বাতিল করে দেয়।",
     body: [
-      "Sebagian besar kekurangan dalam wudu berasal dari terburu-buru. Terlalu tergesa hingga air tidak mencapai seluruh bagian anggota tubuh — bagian kering di tumit, mata kaki, siku, atau sela-sela jari — dapat membuat wudu tidak sah, karena basuhan yang diwajibkan Al-Qur'an belum sempurna di sana.",
-      "Nabi ﷺ pernah melihat orang-orang yang tumitnya masih kering karena air tidak mencapainya, lalu bersabda dengan tegas, 'Celakalah tumit-tumit itu dari api neraka!' Tumit, mata kaki, dan tepi wajah adalah bagian yang paling sering terlewat.",
-      "Kesalahan sebaliknya adalah berlebihan: membasuh jauh lebih dari tiga kali, atau memboroskan air, yang bertentangan dengan sunnah kesederhanaan. Sebagian orang terjerumus dalam waswas, mengulang wudu berkali-kali — ini pun kesalahan, karena keyakinan tidak digugurkan oleh kecurigaan.",
+      "ওজুর অধিকাংশ ত্রুটি আসে তাড়াহুড়ো থেকে। এত দ্রুত করা যে পুরো অঙ্গে পানি পৌঁছায় না — গোড়ালি, টাখনু, কনুই বা হাত-পায়ের আঙুলের ফাঁকে শুকনো জায়গা থেকে যায় — এতে ওজু বাতিল হয়ে যেতে পারে, কারণ সেখানে কুরআনে নির্দেশিত ধোয়া সম্পূর্ণ হয়নি।",
+      "নবী ﷺ একবার কিছু লোককে দেখলেন যাদের গোড়ালি শুকনো রয়ে গেছে, কারণ সেখানে পানি পৌঁছায়নি; তখন তিনি কঠোরভাবে সতর্ক করলেন, 'গোড়ালিগুলোর জন্য জাহান্নামের আগুনের দুর্ভোগ!' গোড়ালি, টাখনু ও মুখমণ্ডলের কিনারাগুলোই সবচেয়ে বেশি অবহেলিত হয়।",
+      "বিপরীত ভুলটি হলো বাড়াবাড়ি: তিনবারের অনেক বেশি ধোয়া, বা অপচয় করে পানি ব্যবহার করা, যা মিতাচারের সুন্নাহর পরিপন্থী। আবার কেউ কেউ ওয়াসওয়াসায় (অস্বাভাবিক সন্দেহে) পড়ে বারবার ওজু করেন — এটিও ভুল, কারণ শুধু সন্দেহের কারণে নিশ্চয়তা বাতিল হয় না।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celakalah tumit-tumit itu dari api neraka! — diucapkan ketika beliau melihat tumit yang masih kering saat berwudu. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Perlambat gerakan dan pastikan secara sadar seluruh bagian anggota yang dibasuh telah tercapai, terutama tumit dan siku.",
-      "Gunakan air secukupnya; jangan biarkan waswas mendorongmu mengulang tanpa perlu.",
+      "ধীর হোন এবং সচেতনভাবে নিশ্চিত করুন যে প্রতিটি ধোয়ার অঙ্গ পুরোপুরি ভিজেছে, বিশেষ করে গোড়ালি ও কনুই।",
+      "পরিমিত পানি ব্যবহার করুন; অস্বাভাবিক সন্দেহ যেন আপনাকে অপ্রয়োজনীয় পুনরাবৃত্তির দিকে ঠেলে না দেয়।",
     ],
   },
   {
-    title: "Keutamaan Wudu",
-    summary:
-      "Wudu menghapus dosa, mengangkat derajat, dan akan membuat kaum mukmin bercahaya di hari kiamat.",
+    title: "ওজুর ফজিলত",
+    summary: "ওজু গুনাহ মুছে দেয়, মর্যাদা বাড়ায় এবং কিয়ামতের দিন মুমিনদের উজ্জ্বল করে তুলবে।",
     body: [
-      "Wudu adalah pembasuhan dosa yang berulang-ulang. Nabi ﷺ mengajarkan bahwa ketika seorang mukmin membasuh setiap anggota tubuhnya, perbuatan salah yang dilakukan oleh anggota tubuh itu berguguran bersama air — dari mata, dari tangan, dari kaki — hingga orang itu keluar dalam keadaan bersih dari dosa. Maka salat yang didahului wudu adalah salat yang didahului ampunan yang segar.",
-      "Wudu juga merupakan kehormatan yang membedakan di akhirat kelak. Pada hari kiamat, Nabi ﷺ akan mengenali para pengikutnya dari cahaya di wajah, tangan, dan kaki mereka bekas wudu — cahaya yang khusus dimiliki umat ini, disebut al-ghurr al-muhajjalun.",
-      "Karena keutamaan-keutamaan ini, menjaga diri tetap dalam keadaan berwudu adalah kebiasaan yang dianjurkan: memperbaruinya untuk setiap salat, dan tidur dalam keadaan berwudu, termasuk kebiasaan yang menjaga seorang mukmin.",
+      "ওজু হলো বারবার গুনাহ ধুয়ে ফেলা। নবী ﷺ শিখিয়েছেন যে মুমিন যখন প্রতিটি অঙ্গ ধোয়, তখন সেই অঙ্গ দিয়ে করা ভুল কাজগুলো পানির সাথে ঝরে যায় — চোখের, হাতের, পায়ের — যতক্ষণ না সে গুনাহ থেকে পরিচ্ছন্ন হয়ে বের হয়। তাই ওজুর পরে পড়া প্রতিটি নামাজের আগে থাকে এক নতুন ক্ষমা।",
+      "পরকালেও এটি এক বিশেষ মর্যাদার চিহ্ন। কিয়ামতের দিন নবী ﷺ তাঁর উম্মতকে চিনবেন ওজুর চিহ্ন থেকে তাদের মুখমণ্ডল, হাত ও পায়ের উজ্জ্বলতা দেখে — এই উম্মতের জন্য বিশেষ এক নূর, যাকে বলা হয় আল-গুররুল মুহাজ্জালুন।",
+      "এসব ফজিলতের কারণে সর্বদা ওজু অবস্থায় থাকা একটি মুস্তাহাব অভ্যাস: প্রতিটি নামাজের জন্য নতুন করে ওজু করা এবং ওজু অবস্থায় ঘুমানো মুমিনের সুরক্ষামূলক অভ্যাসগুলোর অন্তর্ভুক্ত।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umatku akan dipanggil pada hari kiamat dengan wajah, tangan, dan kaki yang bercahaya bekas wudu. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Perbarui wudu untuk setiap waktu salat bila memungkinkan.",
-      "Jadikan tidur dalam keadaan berwudu sebagai sunnah setiap malam.",
+      "যেখানে সম্ভব, প্রতিটি নামাজের ওয়াক্তে নতুন করে ওজু করুন।",
+      "ওজু অবস্থায় ঘুমানোকে প্রতি রাতের সুন্নাহ বানিয়ে নিন।",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "আপনার নামাজ ট্র্যাক করুন" }],
+  },
+
+  // ── Ghusl ────────────────────────────────────────────────────────────────
+  {
+    title: "গোসল কী?",
+    summary: "পূর্ণ শরীরের শরয়ি গোসল, যা বড় অপবিত্রতা (জানাবাত) দূর করে।",
+    body: [
+      "গোসল (غسل) হলো নিয়তসহ পুরো শরীর শরয়ি পদ্ধতিতে ধোয়া, যাতে বড় শরয়ি অপবিত্রতা (জানাবাত) দূর হয়। ওজু যেখানে ছোট অপবিত্রতা দূর করে, গোসল সেখানে সেই বড় অবস্থাটি দূর করে, যা স্বামী-স্ত্রীর মিলন, যৌন তরল নির্গমন এবং হায়েজ বা নিফাস শেষ হওয়ার পর সৃষ্টি হয়।",
+      "এর মূল কথা হলো শরীরের বাইরের প্রতিটি অংশে পানি পৌঁছাতে হবে — কোনো শুকনো জায়গা থাকতে পারবে না, চুলের গোড়া, চামড়ার ভাঁজ, কানের পেছন, নাভি এবং পায়ের আঙুলের ফাঁকসহ। অনেক আলেমের মতে কুলি করা ও নাকে পানি দেওয়াও গোসলের অন্তর্ভুক্ত।",
+      "জানাবাত দূর করার নিয়তে একবার গোসল করলে ছোট অপবিত্রতাও দূর হয়ে যায়, তাই গোসল সম্পন্নকারী ব্যক্তি আলাদা ওজু ছাড়াই নামাজ পড়তে পারেন (যদিও গোসলের মধ্যে ওজু করাই সুন্নাহ)।",
+    ],
+    quran: [{}],
+    appLinks: [{ label: "নামাজের প্রস্তুতির সারসংক্ষেপ" }],
   },
   {
-    title: "Apa Itu Mandi Wajib (Ghusl)?",
-    summary: "Mandi seluruh tubuh sesuai syariat yang menghilangkan hadas besar (janabah).",
+    title: "কখন গোসল আবশ্যক",
+    summary: "যেসব অবস্থায় পূর্ণ শরয়ি গোসল ফরজ বা মুস্তাহাব হয়।",
     body: [
-      "Mandi wajib/ghusl (غسل) adalah pembasuhan seluruh tubuh sesuai syariat, disertai niat, untuk menghilangkan hadas besar (janabah). Jika wudu mengatasi hadas kecil, ghusl mengatasi keadaan yang lebih besar yang muncul setelah hubungan suami istri, keluarnya air mani, dan berakhirnya masa haid atau nifas.",
-      "Intinya adalah air harus mencapai setiap bagian tubuh bagian luar — tidak boleh ada bagian kering yang tersisa, termasuk akar rambut, lipatan kulit, belakang telinga, pusar, dan sela-sela jari kaki. Berkumur dan memasukkan air ke hidung termasuk dalam ghusl menurut banyak ulama.",
-      "Satu kali mandi wajib yang dilakukan dengan niat menghilangkan janabah juga menghilangkan hadas kecil, sehingga orang yang telah menyelesaikan ghusl dapat langsung salat tanpa wudu terpisah (meskipun berwudu di dalam ghusl adalah sunnah).",
+      "কয়েকটি নির্দিষ্ট ক্ষেত্রে গোসল ফরজ হয়: উত্তেজনার সাথে যৌন তরল নির্গত হওয়া (জাগ্রত অবস্থায় হোক বা স্বপ্নদোষের মাধ্যমে); বীর্যপাত ছাড়াও স্বয়ং সহবাস — নবী ﷺ বলেছেন, দুটি অঙ্গ মিলিত হলেই গোসল আবশ্যক হয়; এবং হায়েজ বা নিফাস শেষ হওয়া। মৃত্যুর ক্ষেত্রেও মৃত ব্যক্তিকে গোসল দেওয়া জীবিতদের ওপর ফরজ হয়।",
+      "অন্য কিছু গোসল ফরজ নয়, বরং মুস্তাহাব: জুমার নামাজের আগে শুক্রবারের গোসল, যার প্রতি এত জোর দেওয়া হয়েছে যে নবী ﷺ একে 'প্রত্যেক প্রাপ্তবয়স্কের ওপর কর্তব্য' বলেছেন; দুই ঈদের গোসল; এবং হজ বা উমরার আগে ইহরামের গোসল।",
+      "নতুন মুসলিমকে ইসলাম গ্রহণের সময় গোসল করার নির্দেশ দেওয়া হয় — কোনো কোনো আলেম একে ফরজ এবং অন্যরা অত্যন্ত মুস্তাহাব গণ্য করেন।",
     ],
-    quran: [
-      {
-        excerpt: "Dan jika kamu dalam keadaan junub, maka sucikanlah dirimu.",
-      },
-    ],
-    appLinks: [{}],
+    hadith: [{}, {}],
+    disclaimer: "শুক্রবারের গোসল এবং নওমুসলিমের গোসল ফরজ নাকি অত্যন্ত মুস্তাহাব, তা মাযহাব ও পরিস্থিতিভেদে ভিন্ন।",
+    appLinks: [{ label: "হায়েজ (ঋতুস্রাব) গাইড" }],
   },
   {
-    title: "Kapan Mandi Wajib Diwajibkan",
-    summary: "Keadaan-keadaan yang mewajibkan atau menganjurkan mandi seluruh tubuh.",
+    title: "ধাপে ধাপে গোসল",
+    summary: "নবীজির পদ্ধতি — ন্যূনতম ফরজ এবং পূর্ণ সুন্নাহ।",
     body: [
-      "Mandi wajib menjadi fardu dalam beberapa keadaan tertentu: keluarnya air mani disertai syahwat (baik dalam keadaan terjaga maupun melalui mimpi basah); hubungan suami istri itu sendiri, sekalipun tanpa keluarnya air mani — Nabi ﷺ bersabda bahwa begitu keduanya bertemu, mandi wajib menjadi keharusan; serta berakhirnya haid atau nifas. Kematian juga mewajibkan pihak yang masih hidup untuk memandikan jenazah.",
-      "Mandi lainnya bersifat mustahab (dianjurkan), bukan wajib: mandi Jumat sebelum salat Jumat, yang sangat ditekankan hingga Nabi ﷺ menyebutnya 'kewajiban bagi setiap orang yang telah balig'; mandi untuk kedua hari raya; dan mandi ihram sebelum haji atau umrah.",
-      "Seorang mualaf diperintahkan untuk mandi ketika masuk Islam — sebagian ulama menilainya wajib dan sebagian lain menilainya sangat dianjurkan.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila seorang laki-laki duduk di antara empat anggota tubuh istrinya lalu bersetubuh dengannya, maka mandi wajib menjadi keharusan. (Abu Hurairah; juga Sahih Muslim 348)",
-      },
-      {
-        excerpt:
-          "Mandi pada hari Jumat wajib bagi setiap orang yang telah balig. (Abu Sa'id al-Khudri; juga Sahih Muslim 846)",
-      },
-    ],
-    disclaimer:
-      "Apakah mandi Jumat dan mandi masuk Islam bersifat wajib atau sangat dianjurkan berbeda menurut mazhab dan keadaan.",
-    appLinks: [{}],
-  },
-  {
-    title: "Mandi Wajib Langkah demi Langkah",
-    summary: "Cara sesuai tuntunan Nabi — kewajiban minimal ditambah sunnah lengkap.",
-    body: [
-      "Aisyah menggambarkan tata cara mandi Nabi ﷺ secara rinci, dan dari sanalah para ulama menyimpulkan baik mandi minimal yang sah maupun tata cara sunnah yang lebih lengkap. Yang minimal hanyalah: niat ditambah air yang mencapai seluruh tubuh (disertai berkumur dan memasukkan air ke hidung menurut banyak ulama). Tata cara lengkap di bawah ini adalah cara Nabi ﷺ sendiri melakukannya.",
-      "Lakukan dengan tenang, gosokkan air ke kulit agar tidak ada bagian yang tertinggal kering.",
+      "আয়েশা নবী ﷺ-এর গোসলের বিস্তারিত বর্ণনা দিয়েছেন, এবং তা থেকে আলেমগণ ন্যূনতম সহিহ গোসল ও পূর্ণাঙ্গ সুন্নাহ পদ্ধতি — দুটিই নির্ণয় করেছেন। ন্যূনতমটি সহজ: নিয়ত এবং পুরো শরীরে পানি পৌঁছানো (অনেকের মতে কুলি করা ও নাকে পানি দেওয়াসহ)। নিচের পূর্ণ পদ্ধতিটি হলো যেভাবে নবী ﷺ নিজে গোসল করতেন।",
+      "ধীরে-সুস্থে করুন, ত্বকের ওপর পানি ঘষে দিন যাতে কোনো জায়গা শুকনো না থাকে।",
     ],
     steps: [
       {
-        title: "Niatkan dalam hati",
-        body: "Niatkan dalam hati untuk menghilangkan hadas besar (janabah).",
+        title: "নিয়ত করুন",
+        body: "অন্তরে বড় শরয়ি অপবিত্রতা (জানাবাত) দূর করার নিয়ত করুন।",
       },
       {
-        title: "Ucapkan Bismillah dan basuh kedua tangan",
-        body: "Mulailah dengan menyebut nama Allah dan basuh kedua tangan.",
+        title: "বিসমিল্লাহ বলুন এবং হাত ধুয়ে নিন",
+        body: "আল্লাহর নামে শুরু করুন এবং দুই হাত ধুয়ে নিন।",
       },
       {
-        title: "Basuh kemaluan",
-        body: "Hilangkan segala najis dari kemaluan dengan tangan kiri.",
+        title: "লজ্জাস্থান ধুয়ে নিন",
+        body: "বাম হাত দিয়ে লজ্জাস্থান থেকে যেকোনো নাপাকি দূর করুন।",
       },
       {
-        title: "Lakukan wudu secara lengkap",
-        body: "Berwudulah sebagaimana untuk salat. Kau boleh menunda membasuh kaki sampai akhir jika berdiri di atas air yang tergenang.",
+        title: "পূর্ণ ওজু করুন",
+        body: "নামাজের ওজুর মতো ওজু করুন। জমে থাকা পানিতে দাঁড়িয়ে থাকলে পা ধোয়া শেষ পর্যন্ত পিছিয়ে দিতে পারেন।",
       },
       {
-        title: "Tuangkan air ke kepala tiga kali",
-        body: "Alirkan air hingga ke kulit kepala dan akar rambut.",
+        title: "মাথায় তিনবার পানি ঢালুন",
+        body: "মাথার ত্বক ও চুলের গোড়া পর্যন্ত পানি পৌঁছে দিন।",
       },
       {
-        title: "Basuh sisi kanan, lalu sisi kiri",
-        body: "Tuangkan dan gosokkan air ke seluruh tubuh, mulai dari sisi kanan.",
+        title: "প্রথমে ডান পাশ, তারপর বাম পাশ ধুয়ে নিন",
+        body: "ডান দিক থেকে শুরু করে পুরো শরীরে পানি ঢালুন ও ঘষুন।",
       },
       {
-        title: "Pastikan seluruh tubuh tercakup",
-        body: "Jangan tinggalkan bagian yang kering — ketiak, pusar, belakang lutut dan telinga, serta sela-sela jari kaki.",
-        tip: "Wanita tidak perlu melepas kepangan rambutnya, selama air mencapai kulit kepala.",
+        title: "সম্পূর্ণ শরীরে পানি পৌঁছানো নিশ্চিত করুন",
+        body: "কোনো জায়গা শুকনো রাখবেন না — বগল, নাভি, হাঁটু ও কানের পেছন, এবং পায়ের আঙুলের ফাঁক।",
+        tip: "মহিলাদের বেণি খোলার প্রয়োজন নেই, যদি মাথার ত্বকে পানি পৌঁছায়।",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ, ketika mandi junub, membasuh kedua tangannya, berwudu sebagaimana untuk salat, menyela-nyela rambutnya dengan jari, lalu menuangkan air ke kepalanya tiga kali dan ke seluruh tubuhnya. (Aisyah)",
-      },
-    ],
+    hadith: [{}],
   },
   {
-    title: "Kesalahan Umum dalam Mandi Wajib",
-    summary:
-      "Hindari bagian yang kering, niat yang terlewat, dan menganggap mandi biasa sebagai mandi wajib.",
+    title: "গোসলের সাধারণ ভুলসমূহ",
+    summary: "শুকনো জায়গা রেখে দেওয়া, নিয়ত বাদ পড়া এবং সাধারণ শাওয়ারকে শরয়ি গোসল মনে করা থেকে বিরত থাকুন।",
     body: [
-      "Kesalahan paling mendasar adalah menganggap mandi biasa sebagai mandi wajib. Mandi wajib memerlukan niat untuk menghilangkan hadas besar; tanpanya, seberapa lama pun kau mandi, keadaan hadas itu tidak hilang. Niatkan sebelum kau memulai.",
-      "Kesalahan umum kedua adalah meninggalkan bagian yang kering. Kewajibannya adalah air harus menyentuh seluruh bagian luar tubuh, sehingga mengabaikan akar rambut kepala, telinga, pusar, punggung bagian bawah, atau sela-sela jari kaki membuat mandi wajib tidak sempurna. Gosokkan air ke bagian-bagian ini agar yakin.",
-      "Mengenai rambut: wanita yang rambutnya dikepang tidak wajib melepas kepangan, selama air mencapai akar kulit kepala — Nabi ﷺ memberitahu Ummu Salamah bahwa menuangkan tiga cakupan tangan ke kepala sudah cukup. Rambut laki-laki, yang biasanya terurai, perlu disela-sela agar air mencapai akarnya.",
+      "সবচেয়ে মৌলিক ভুল হলো সাধারণ শাওয়ারকে শরয়ি গোসল মনে করা। শরয়ি গোসলের জন্য বড় অপবিত্রতা দূর করার নিয়ত আবশ্যক; নিয়ত ছাড়া যত দীর্ঘ সময়ই ধোয়া হোক, অপবিত্র অবস্থা দূর হয় না। শুরু করার আগে নিয়ত করে নিন।",
+      "দ্বিতীয় সাধারণ ভুল হলো শুকনো জায়গা রেখে দেওয়া। ফরজ হলো শরীরের পুরো বাইরের অংশে পানি লাগা, তাই মাথার চুলের গোড়া, কান, নাভি, পিঠের নিচের অংশ বা পায়ের আঙুলের ফাঁক অবহেলা করলে গোসল অসম্পূর্ণ থাকে। নিশ্চিত হতে এসব জায়গায় পানি ঘষে দিন।",
+      "চুলের বিষয়ে: বেণি করা চুলের অধিকারী নারীর বেণি খোলা আবশ্যক নয়, যতক্ষণ মাথার ত্বকের গোড়ায় পানি পৌঁছায় — নবী ﷺ উম্মে সালামাকে বলেছিলেন যে মাথায় তিন অঞ্জলি পানি ঢালাই যথেষ্ট। পুরুষের চুল সাধারণত খোলা থাকে, তাই আঙুল চালিয়ে গোড়া পর্যন্ত পানি পৌঁছাতে হবে।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Cukup bagimu menuangkan tiga cakupan tangan air ke kepalamu, lalu tuangkan air ke seluruh tubuhmu, maka engkau telah suci — engkau tidak perlu melepas kepanganmu. (Ummu Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Ucapkan niat sebelum tuangan air yang pertama, agar basuhan itu terhitung sebagai mandi wajib.",
-      "Gosokkan air ke bagian-bagian yang mudah terlewat; bila ragu, basuh ulang suatu bagian daripada menyelesaikannya dalam keraguan.",
+      "প্রথমবার পানি ঢালার আগেই নিয়ত করুন, যাতে এই ধোয়া শরয়ি গোসল হিসেবে গণ্য হয়।",
+      "সহজে বাদ পড়ে এমন জায়গায় পানি ঘষে দিন; অনিশ্চিত হলে সন্দেহ নিয়ে শেষ না করে বরং সেই অংশটি আবার ধুয়ে নিন।",
     ],
   },
+
+  // ── Tayammum ─────────────────────────────────────────────────────────────
   {
-    title: "Apa Itu Tayamum?",
-    summary: "Bersuci kering dengan tanah bersih, ketika air tidak dapat digunakan.",
+    title: "তায়াম্মুম কী?",
+    summary: "পানি ব্যবহার করা না গেলে পবিত্র মাটি দিয়ে শুকনো পবিত্রতা।",
     body: [
-      "Tayamum (تيمم) adalah pengganti wudu atau mandi wajib yang penuh rahmat, ketika air benar-benar tidak tersedia atau tidak dapat digunakan. Alih-alih membasuh, seseorang menepukkan telapak tangan ke tanah yang bersih lalu mengusap wajah dan kedua tangan — dan ini sepenuhnya menggantikan bersuci dengan air, sehingga salat menjadi sah.",
-      "Tayamum adalah anugerah khusus bagi umat ini: Nabi ﷺ bersabda, 'Bumi telah dijadikan bagiku sebagai tempat salat dan sarana bersuci,' menyebutnya sebagai salah satu keistimewaan khusus yang diberikan kepada beliau dan tidak diberikan kepada nabi-nabi sebelumnya. Ini mencerminkan prinsip utama agama ini — kewajiban tetap ada, tetapi kesulitannya diringankan.",
-      "Ini adalah keringanan sementara: begitu air tersedia dan dapat digunakan, bersuci dengan air kembali berlaku. Seseorang mungkin perlu memperbarui tayamum untuk setiap salat menurut sebagian mazhab.",
+      "তায়াম্মুম (تيمم) হলো ওজু বা গোসলের রহমতপূর্ণ বিকল্প, যখন পানি সত্যিই পাওয়া যায় না বা ব্যবহার করা যায় না। ধোয়ার পরিবর্তে দুই হাতের তালু পবিত্র মাটিতে মেরে মুখমণ্ডল ও হাত মাসেহ করা হয় — এবং এটি পুরোপুরি পানি দিয়ে পবিত্রতার স্থলাভিষিক্ত হয়, ফলে নামাজ সহিহ হয়।",
+      "তায়াম্মুম বিশেষভাবে এই উম্মতের জন্য একটি উপহার: নবী ﷺ বলেছেন, 'আমার জন্য পৃথিবীকে নামাজের স্থান ও পবিত্রতার মাধ্যম বানানো হয়েছে,' এবং একে সেই বিশেষ সুবিধাগুলোর মধ্যে গণ্য করেছেন যা তাঁকে দেওয়া হয়েছে কিন্তু পূর্ববর্তী নবীদের দেওয়া হয়নি। এটি দ্বীনের একটি কেন্দ্রীয় নীতিকে ধারণ করে — দায়িত্ব বহাল থাকে, কিন্তু কষ্ট তুলে নেওয়া হয়।",
+      "এটি একটি সাময়িক ব্যবস্থা: পানি পাওয়া গেলে ও ব্যবহারযোগ্য হলে আবার পানি দিয়ে স্বাভাবিক পবিত্রতা শুরু হয়। কোনো কোনো মাযহাব অনুযায়ী প্রতিটি নামাজের জন্য নতুন করে তায়াম্মুম করতে হতে পারে।",
     ],
-    quran: [
-      {
-        excerpt:
-          "…dan kamu tidak menemukan air, maka bertayamumlah dengan tanah yang bersih dan usaplah wajah dan tanganmu dengannya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bumi telah dijadikan bagiku sebagai tempat salat dan sarana bersuci. (Jabir — salah satu dari lima keistimewaan yang diberikan khusus kepada Nabi ﷺ)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
-    title: "Kapan Tayamum Diperbolehkan",
-    summary:
-      "Diperbolehkan ketika air tidak ada, membahayakan, atau sangat dibutuhkan untuk bertahan hidup.",
+    title: "কখন তায়াম্মুম জায়েজ",
+    summary: "পানি না থাকলে, ক্ষতিকর হলে বা জীবন রক্ষার জন্য জরুরি প্রয়োজন হলে জায়েজ।",
     body: [
-      "Tayamum diperbolehkan dalam tiga keadaan besar. Pertama, ketika tidak ditemukan air setelah pencarian yang wajar — musafir di padang pasir, atau siapa pun yang benar-benar tidak dapat mengaksesnya. Kedua, ketika menggunakan air akan menimbulkan bahaya: bagi orang sakit yang lukanya atau penyakitnya akan memburuk, atau dalam cuaca yang sangat dingin tanpa cara untuk menghangatkan air dan ada risiko bahaya yang nyata.",
-      "Ketiga, ketika sedikit air yang tersedia dibutuhkan untuk keperluan yang lebih mendesak — seperti minum, demi menjaga nyawa, baik nyawanya sendiri, orang lain, maupun hewan. Dalam setiap keadaan, syariat mengutamakan penjagaan nyawa dan kesehatan di atas cara bersuci yang lebih utama.",
-      "Para ulama fikih berbeda pendapat mengenai batasan-batasan yang lebih rinci — seberapa jauh seseorang harus mencari air, seberapa besar kekhawatiran akan bahaya yang cukup — tetapi mereka sepakat atas rahmat yang mendasarinya: ibadah tidak pernah digugurkan, hanya dimudahkan.",
+      "তায়াম্মুম তিনটি মোটা দাগের অবস্থায় জায়েজ। প্রথমত, যুক্তিসংগত খোঁজাখুঁজির পরও যখন পানি পাওয়া যায় না — মরুভূমির মুসাফির, বা যে কেউ যার পানির সত্যিকার নাগাল নেই। দ্বিতীয়ত, যখন পানি ব্যবহার করলে ক্ষতি হবে: অসুস্থ ব্যক্তির জন্য, যার ক্ষত বা রোগ আরও খারাপ হবে, অথবা প্রচণ্ড ঠান্ডায় যখন পানি গরম করার উপায় নেই এবং প্রকৃত ক্ষতির আশঙ্কা আছে।",
+      "তৃতীয়ত, যখন হাতের সামান্য পানি আরও জরুরি প্রয়োজনে লাগবে — যেমন পান করা, জীবন রক্ষার জন্য, তা নিজের হোক, অন্যের হোক বা কোনো প্রাণীর। প্রতিটি ক্ষেত্রে শরিয়াহ পবিত্রতার উত্তম পদ্ধতির চেয়ে জীবন ও স্বাস্থ্য রক্ষাকে অগ্রাধিকার দেয়।",
+      "সূক্ষ্ম সীমারেখা নিয়ে ফকিহদের মধ্যে মতপার্থক্য আছে — পানির জন্য কতদূর খুঁজতে হবে, ক্ষতির কতটুকু আশঙ্কা যথেষ্ট — কিন্তু মূল রহমতের ব্যাপারে তাঁরা একমত: ইবাদত কখনো বাদ দেওয়া হয় না, শুধু সহজ করা হয়।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Disebutkan dalam bab-bab tayamum: keringanan untuk bersuci dengan tanah bersih ketika tidak ada air yang dapat digunakan.",
-      },
-    ],
+    hadith: [{}],
     actions: [
-      "Carilah air secara wajar sebelum menggunakan tayamum.",
-      "Jika dokter menyarankan agar luka atau penyakit tetap kering, ikuti saran itu dan lakukan tayamum.",
+      "তায়াম্মুমের আশ্রয় নেওয়ার আগে যুক্তিসংগতভাবে পানি খুঁজুন।",
+      "ডাক্তার কোনো ক্ষত বা রোগ শুকনো রাখার পরামর্শ দিলে সেই অনুযায়ী তায়াম্মুম করুন।",
     ],
   },
   {
-    title: "Tayamum Langkah demi Langkah",
-    summary: "Rangkaian singkat dan sederhana untuk bersuci kering yang sah.",
+    title: "ধাপে ধাপে তায়াম্মুম",
+    summary: "সহিহ শুকনো পবিত্রতার জন্য ছোট ও সহজ ধারা।",
     body: [
-      "Tayamum sengaja dibuat singkat — mencerminkan tujuannya sebagai keringanan dalam kesulitan. Ia dilakukan dengan permukaan tanah alami yang bersih: tanah, pasir, batu, atau debu. Intinya, dari contoh langsung yang diperagakan Nabi ﷺ kepada Ammar bin Yasir, adalah satu kali tepukan telapak tangan pada tanah bersih, lalu mengusap wajah dan kedua tangan.",
-      "Ini sengaja dibuat lebih ringan daripada wudu, jadi jangan menambah-nambahkan rincian yang rumit.",
+      "তায়াম্মুম ইচ্ছাকৃতভাবেই সংক্ষিপ্ত — কষ্টের সময়ের ছাড় হিসেবে এর উদ্দেশ্যের প্রতিফলন। এটি করা হয় পবিত্র, প্রাকৃতিক মাটির উপরিভাগ দিয়ে: মাটি, বালু, পাথর বা ধুলা। আম্মার ইবনে ইয়াসিরকে নবী ﷺ নিজে যেভাবে দেখিয়েছিলেন, তার সারকথা হলো পবিত্র মাটিতে হাতের তালু দিয়ে একবার মারা, তারপর মুখমণ্ডল ও হাত মাসেহ করা।",
+      "এটি পরিকল্পিতভাবেই ওজুর চেয়ে হালকা, তাই এতে জটিলতা যোগ করবেন না।",
     ],
     steps: [
       {
-        title: "Niatkan dalam hati",
-        body: "Niatkan untuk menghilangkan hadas demi beribadah.",
+        title: "নিয়ত করুন",
+        body: "ইবাদতের উদ্দেশ্যে শরয়ি অপবিত্রতা দূর করার নিয়ত করুন।",
+      },
+      { title: "বিসমিল্লাহ বলুন", body: "আল্লাহর নামে শুরু করুন।" },
+      {
+        title: "দুই হাতের তালু দিয়ে একবার পবিত্র মাটিতে মারুন",
+        body: "পরিষ্কার, ধুলাযুক্ত, প্রাকৃতিক উপরিভাগে আলতোভাবে তালু রাখুন।",
       },
       {
-        title: "Ucapkan Bismillah",
-        body: "Mulailah dengan menyebut nama Allah.",
+        title: "মুখমণ্ডল মাসেহ করুন",
+        body: "দুই হাত দিয়ে একবার পুরো মুখমণ্ডল মাসেহ করুন।",
       },
       {
-        title: "Tepukkan kedua telapak tangan sekali ke tanah bersih",
-        body: "Letakkan telapak tangan dengan ringan pada permukaan alami yang bersih dan berdebu.",
-      },
-      {
-        title: "Usap wajah",
-        body: "Usap seluruh wajah sekali dengan kedua tangan.",
-      },
-      {
-        title: "Usap kedua tangan",
-        body: "Usap punggung kedua tangan — sampai pergelangan tangan menurut kebanyakan ulama.",
-        tip: "Ikuti satu metode mazhab (pergelangan tangan atau lengan bawah) secara konsisten.",
+        title: "হাত মাসেহ করুন",
+        body: "হাতের পিঠ মাসেহ করুন — অধিকাংশ আলেমের মতে কবজি পর্যন্ত।",
+        tip: "একটি মাযহাবের পদ্ধতি (কবজি পর্যন্ত নাকি কনুই পর্যন্ত) ধারাবাহিকভাবে অনুসরণ করুন।",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ menepukkan telapak tangannya ke tanah, lalu mengusap wajah dan kedua tangannya — mengajarkan kepada Ammar bahwa ini sudah cukup. (Ammar bin Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
-    title: "Apa yang Membatalkan Tayamum?",
-    summary:
-      "Dibatalkan oleh hal-hal yang biasa membatalkan wudu — dan oleh kembalinya air yang dapat digunakan.",
+    title: "কী কী তায়াম্মুম ভঙ্গ করে?",
+    summary: "ওজু ভঙ্গের সাধারণ কারণগুলো দ্বারা — এবং ব্যবহারযোগ্য পানি পাওয়া গেলে তায়াম্মুম ভেঙে যায়।",
     body: [
-      "Tayamum yang dilakukan sebagai pengganti wudu batal oleh segala hal yang membatalkan wudu: buang air, kentut, tidur nyenyak, dan sebagainya. Tayamum sebagai pengganti mandi wajib juga batal oleh apa saja yang menyebabkan hadas besar.",
-      "Secara khusus, tayamum juga berakhir ketika penyebabnya hilang — yaitu diperolehnya akses pada air yang dapat digunakan. Begitu air ditemukan dan dapat digunakan, keringanan itu gugur dan seseorang kembali kepada wudu atau mandi wajib.",
-      "Sebuah keringanan praktis: jika kau telah salat dengan sah menggunakan tayamum dan baru menemukan air setelahnya, mayoritas ulama berpendapat bahwa salat yang telah selesai itu tidak perlu diulang — salat itu telah dilakukan dengan benar sesuai hukum yang berlaku pada saat itu. Namun jika air muncul sebelum salat, kau harus menggunakannya.",
+      "ওজুর পরিবর্তে করা তায়াম্মুম ওজু ভঙ্গকারী সবকিছু দ্বারা ভেঙে যায়: প্রস্রাব-পায়খানা, বায়ু নির্গত হওয়া, গভীর ঘুম ইত্যাদি। গোসলের পরিবর্তে করা তায়াম্মুম এর সাথে বড় অপবিত্রতা সৃষ্টিকারী যেকোনো কিছু দ্বারাও ভেঙে যায়।",
+      "তায়াম্মুমের একটি বিশেষত্ব হলো, এর কারণ দূর হলেও তা শেষ হয়ে যায় — অর্থাৎ ব্যবহারযোগ্য পানির নাগাল পাওয়া গেলে। পানি পাওয়া গেলে এবং তা ব্যবহার করা সম্ভব হলে ছাড়টি আর থাকে না, এবং আবার ওজু বা গোসলে ফিরে যেতে হয়।",
+      "রহমতের একটি ব্যবহারিক দিক: আপনি যদি তায়াম্মুম করে সহিহভাবে নামাজ পড়ে থাকেন এবং কেবল পরে পানি পান, তাহলে অধিকাংশ আলেমের মতে আদায়কৃত নামাজটি পুনরায় পড়তে হবে না — তখন যে বিধান প্রযোজ্য ছিল সে অনুযায়ী তা সঠিকভাবেই আদায় হয়েছে। কিন্তু নামাজের আগেই পানি পাওয়া গেলে, তা ব্যবহার করতেই হবে।",
     ],
     actions: [
-      "Periksa kembali ketersediaan air di awal setiap waktu salat.",
-      "Begitu air dapat digunakan, segera kembali bersuci dengan air tanpa menunda.",
+      "প্রতিটি নামাজের ওয়াক্তের শুরুতে আবার দেখে নিন পানি পাওয়া যায় কি না।",
+      "পানি ব্যবহার করা সম্ভব হলেই দেরি না করে পানি দিয়ে পবিত্রতায় ফিরে যান।",
     ],
     disclaimer:
-      "Sebagian rincian — seperti apakah salat diulang setelah air ditemukan masih dalam waktunya — berbeda menurut mazhab.",
+      "কিছু খুঁটিনাটি — যেমন নামাজের ওয়াক্তের মধ্যেই পানি পাওয়া গেলে নামাজ পুনরায় পড়তে হবে কি না — মাযহাবভেদে ভিন্ন।",
+  },
+
+  // ── Najasah ──────────────────────────────────────────────────────────────
+  {
+    title: "অপবিত্রতা (নাজাসাত)",
+    summary: "বাহ্যিক ময়লা, যা শরীর, পোশাক ও নামাজের স্থান থেকে দূর করতে হবে।",
+    body: [
+      "নাজাসাত (نجاسة) হলো দৃশ্যমান শরয়ি ময়লা, যা হাদাসের শরয়ি অবস্থা থেকে ভিন্ন। ঐকমত্যপূর্ণ স্পষ্ট উদাহরণের মধ্যে রয়েছে মানুষের প্রস্রাব ও মল, প্রবাহিত রক্ত, শূকরের মাংস ও নিঃসরণ, এবং কুকুরের লালা (যার জন্য নির্দিষ্ট পদ্ধতিতে ধোয়া প্রয়োজন)। শরীর, পরিহিত পোশাক এবং নামাজের স্থান থেকে নাজাসাত দূর করা নামাজ সহিহ হওয়ার শর্ত।",
+      "ময়লা দৃশ্যমান হলে তা পানি দিয়ে দূর করতে হয়, যতক্ষণ না বস্তুটি ও এর চিহ্ন চলে যায়। ইসলাম নাজাসাতের উৎসগুলোকেও গুরুত্বের সাথে দেখে: নবী ﷺ সতর্ক করেছেন যে কবরের আজাবের বড় একটি অংশ প্রস্রাবের ব্যাপারে অসাবধানতা থেকে আসে — এর ছিটা লাগা এবং ঠিকমতো পরিষ্কার না করা।",
+      "কিছু বস্তুর শ্রেণিবিন্যাস (যেমন নির্দিষ্ট কিছু তরলের সামান্য পরিমাণ ক্ষমাযোগ্য কি না) এবং কতটুকু সামান্য চিহ্ন সহনীয় — এসব নিয়ে মাযহাবগুলোর মধ্যে মতভেদ আছে। দৈনন্দিন জীবনের কার্যকর নীতি: ভালোভাবে পরিষ্কার করুন, এবং যেখানে ময়লার কোনো প্রমাণ নেই সেখানে পবিত্রতা নিয়ে অযথা সন্দেহ তৈরি করবেন না।",
+    ],
+    hadith: [{}],
   },
   {
-    title: "Najis (Najasah)",
-    summary: "Kotoran fisik yang harus dihilangkan dari badan, pakaian, dan tempat salat.",
+    title: "পোশাক থেকে নাজাসাত পরিষ্কার করা",
+    summary: "পোশাক কীভাবে ধুলে তা পরে নামাজ সহিহ হবে।",
     body: [
-      "Najis (نجاسة) adalah kotoran ritual yang nyata secara fisik, berbeda dari keadaan hadas. Contoh-contoh yang disepakati jelas mencakup air kencing dan kotoran manusia, darah yang mengalir, daging dan cairan babi, serta air liur anjing (yang memerlukan cara pembasuhan khusus). Menghilangkan najis dari badan, pakaian yang dikenakan, dan tempat salat adalah syarat sahnya salat.",
-      "Penghilangannya dilakukan dengan air di tempat kotoran itu nyata, dengan mencuci sampai zat dan bekasnya hilang. Islam juga menanggapi serius sumber-sumber najis: Nabi ﷺ memperingatkan bahwa sebagian besar siksa kubur berasal dari kelalaian terhadap air kencing — terkena percikannya dan tidak membersihkan diri dengan benar.",
-      "Mazhab-mazhab berbeda pendapat dalam mengklasifikasikan sebagian zat (misalnya, apakah sejumlah kecil cairan tertentu dimaafkan) dan mengenai berapa banyak sisa yang ditoleransi. Prinsip praktis untuk kehidupan sehari-hari: bersihkan dengan tuntas, dan jangan menciptakan keraguan tentang kesucian di mana tidak ada bukti adanya najis.",
+      "পোশাকে নাজাসাত লাগলে, আক্রান্ত অংশটি পানি দিয়ে ধুয়ে নিন, যতক্ষণ না বস্তুটি নিজে এবং এর দৃশ্যমান চিহ্ন দূর হয়। হায়েজের রক্ত লাগা কাপড়ের ব্যাপারে নবী ﷺ এক নারীকে নির্দেশ দিয়েছিলেন তা খুঁটে তুলতে, তারপর পানি দিয়ে ঘষতে, তারপর ধুয়ে নিতে এবং সেটি পরে নামাজ পড়তে।",
+      "আন্তরিক ও পূর্ণ চেষ্টার পরও যদি হালকা রঙের দাগ বা সামান্য গন্ধ থেকে যায় যা উঠছে না, তাহলে যা দূর করা সত্যিই কঠিন, অধিকাংশ আলেম তা ক্ষমাযোগ্য গণ্য করেন — দায়িত্ব হলো বস্তুটি দূর করা, দাগহীন রং নিশ্চিত করা নয়।",
+      "কিছু ক্ষেত্রের নিজস্ব সুপরিচিত খুঁটিনাটি আছে, যেমন বুকের দুধ পানকারী ছেলে শিশুর প্রস্রাব (একটি বর্ণিত ছাড় অনুযায়ী পুরোপুরি না ধুয়ে পানি ছিটিয়ে দেওয়া হয়) — তাই বাস্তবে আপনি যে পরিস্থিতির মুখোমুখি হন, সেগুলোর জন্য নিজের মাযহাবের ব্যবহারিক বিধান শিখে নিন।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ melewati dua kuburan dan bersabda bahwa penghuninya sedang disiksa — satu karena menyebarkan fitnah, dan yang lain karena tidak menjaga diri dari air kencingnya. (Ibnu Abbas; juga Sahih Muslim 292)",
-      },
+    hadith: [{}],
+    actions: [
+      "নামাজের জন্য অন্তত এক সেট পরিষ্কার পোশাক আলাদা করে রাখুন।",
+      "বাইরে থাকাকালে পোশাকে ময়লা লাগলে যতটুকু সম্ভব ধুয়ে নিন এবং সুযোগ হলে পোশাক বদলে নিন।",
     ],
   },
   {
-    title: "Membersihkan Pakaian dari Najis",
-    summary: "Cara mencuci pakaian agar salat dengan mengenakannya menjadi sah.",
+    title: "শরীর পরিষ্কার করা",
+    summary: "শরীর থেকে ময়লা দূর করা, এবং ইস্তিঞ্জা ও পরিচ্ছন্নতার আদব।",
     body: [
-      "Ketika najis mengenai pakaian, cucilah bagian yang terkena dengan air sampai zat itu sendiri dan bekas yang tampak hilang. Nabi ﷺ mengajarkan seorang wanita yang pakaiannya terkena darah haid untuk mengeriknya, lalu menggosoknya dengan air, lalu mencucinya, dan salat dengan mengenakannya.",
-      "Jika, setelah usaha yang sungguh-sungguh dan tuntas, masih tersisa noda warna samar atau bau ringan yang tidak dapat hilang, mayoritas ulama memaafkan hal yang memang sulit dihilangkan — kewajibannya adalah menghilangkan zatnya, bukan menjamin warna yang benar-benar bersih tanpa noda.",
-      "Sebagian keadaan memiliki rincian tersendiri yang telah dikenal, seperti air kencing bayi laki-laki yang masih menyusu (cukup dipercikkan, bukan dicuci penuh, menurut sebuah keringanan yang diriwayatkan) — maka pelajarilah hukum praktis mazhabmu untuk keadaan yang benar-benar kau hadapi.",
+      "নামাজের আগে সাধ্যমতো শরীরের ময়লা ধুয়ে ফেলতে হবে। সবচেয়ে বেশি ঘটে টয়লেট ব্যবহারের পর নিজেকে পরিষ্কার করার ক্ষেত্রে — ইস্তিঞ্জা — যা পানি দিয়ে, অথবা উপযুক্ত শুকনো বস্তু দিয়ে করা হয়, যতক্ষণ না জায়গাটি পরিষ্কার হয়। নবী ﷺ প্রাকৃতিক প্রয়োজন সারার পর যত্নের সাথে পরিষ্কার হওয়া শিখিয়েছেন এবং এর জন্য ডান হাত ব্যবহার করতে নিষেধ করেছেন।",
+      "ময়লা দূর করার বাইরেও ইসলাম স্বাভাবিক পরিচ্ছন্নতার (ফিতরাত) একটি মৌলিক মান বজায় রাখতে উৎসাহিত করে, যা শরীরকে পরিষ্কার ও ইবাদতের জন্য প্রস্তুত রাখে: নিয়মিত নখ কাটা, বগল ও নাভির নিচের লোম পরিষ্কার করা ইত্যাদি।",
+      "এই অভ্যাসগুলো নিছক সাংস্কৃতিক সৌজন্য নয় — এগুলো সেই মর্যাদা ও পরিচ্ছন্নতার অংশ, যা নিয়ে একজন মুমিন নামাজে আল্লাহর সামনে উপস্থিত হয়।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mengenai darah haid pada pakaian: keriklah, lalu gosok dengan air, lalu cuci, dan salatlah dengan mengenakannya. (Asma binti Abu Bakar)",
-      },
+    hadith: [{}],
+    actions: [
+      "টয়লেট ব্যবহারের পর ওজুর আগে সবসময় ইস্তিঞ্জা সম্পন্ন করুন।",
+      "সফরে টিস্যু সাথে রাখুন এবং সম্ভব হলে পানির ব্যবস্থাও রাখুন।",
+    ],
+  },
+  {
+    title: "নামাজের স্থান পরিষ্কার করা",
+    summary: "নামাজের জায়গা জ্ঞাত ময়লা থেকে মুক্ত হতে হবে — ভিত্তিহীন সন্দেহ ছাড়াই।",
+    body: [
+      "নামাজের স্থান জ্ঞাত নাজাসাত থেকে মুক্ত হতে হবে। নবী ﷺ এটি জীবন্তভাবে শিখিয়েছেন: যখন এক বেদুইন মসজিদের এক কোণে প্রস্রাব করল, তিনি সাহাবিদের তাকে কঠোরভাবে ধমক দিতে নিষেধ করলেন, তাকে শেষ করতে দিলেন, তারপর জায়গাটিতে এক বালতি পানি ঢেলে দিতে নির্দেশ দিলেন — পরিচ্ছন্নতা ও কোমলতা দুটোই শিক্ষা দিলেন।",
+      "মূলনীতি হলো নিশ্চয়তা। সাধারণভাবে পৃথিবীকে নামাজের স্থান বানানো হয়েছে, তাই ময়লার প্রকৃত প্রমাণ না থাকলে কোনো উপরিভাগকে পবিত্র ধরে নেওয়া হয়। যদি জানেন যে অপবিত্রতা আছে, তা দূর করুন বা পরিষ্কার জায়গায় সরে যান; আর যদি শুধু কল্পনা করেন যে থাকতে পারে, তাহলে সেই কুমন্ত্রণা উপেক্ষা করে এগিয়ে যান।",
+      "এই ভারসাম্য ইবাদতকে দুই প্রান্তিকতা থেকে রক্ষা করে: স্পষ্টভাবে নোংরা মাটিতে অসাবধানে নামাজ পড়া, এবং প্রতিটি উপরিভাগ নিয়ে ভিত্তিহীন সন্দেহে অচল হয়ে পড়া।",
+    ],
+    hadith: [{}],
+    actions: [
+      "নামাজের আগে জায়নামাজ ও মেঝেতে একবার চোখ বুলিয়ে নিন।",
+      "ময়লার প্রকৃত প্রমাণ না থাকলে ভিত্তিহীন সংশয় ঝেড়ে ফেলে নামাজ পড়ুন।",
+    ],
+  },
+
+  // ── Exceptions ───────────────────────────────────────────────────────────
+  {
+    title: "হায়েজ ও পবিত্রতা",
+    summary: "হায়েজ ও নিফাসের পবিত্রতা-সংক্রান্ত নিজস্ব বিধান আছে।",
+    body: [
+      "হায়েজ (ঋতুস্রাব) ও নিফাস (প্রসব-পরবর্তী রক্তস্রাব) চলাকালে নারী নামাজ পড়েন না, এবং — দ্বীনের এক রহমত হিসেবে — সেই সময়ে বাদ পড়া নামাজ পরে কাজা করতে হয় না। এটি একটি মীমাংসিত বিষয়: আয়েশাকে যখন জিজ্ঞেস করা হলো হায়েজগ্রস্ত নারী কেন রোজা কাজা করে কিন্তু নামাজ নয়, তিনি নিশ্চিত করলেন যে তাদের এমনটিই নির্দেশ দেওয়া হয়েছিল।",
+      "রোজার বিধান ভিন্ন: হায়েজের কারণে রমজানে বাদ পড়া রোজা পরে কাজা করতে হয়, অথচ নামাজ একেবারেই মাফ। রক্ত বন্ধ হয়ে পবিত্রতার লক্ষণ দেখা দিলে নারী গোসল করে আবার নামাজ ও রোজা শুরু করেন।",
+      "হায়েজ ও নিফাসের সর্বনিম্ন ও সর্বোচ্চ মেয়াদ, এবং পবিত্রতার অস্পষ্ট লক্ষণগুলো কীভাবে বুঝতে হবে — এসব বিষয়ে মাযহাবগুলোর খুঁটিনাটিতে মতভেদ আছে। নারীরা একজন যোগ্য শিক্ষকের কাছে একটি নির্ভরযোগ্য মাযহাবের ব্যবহারিক বিধান শিখলে উপকৃত হবেন।",
+    ],
+    hadith: [{}],
+    appLinks: [{ label: "হায়েজ (ঋতুস্রাব) মডিউল" }],
+  },
+  {
+    title: "প্রায়শ জিজ্ঞাসিত প্রশ্ন",
+    summary: "পবিত্রতা-সংক্রান্ত সবচেয়ে সাধারণ উদ্বেগ ও সন্দেহের সংক্ষিপ্ত উত্তর।",
+    body: [
+      "সন্দেহ কি আমার ওজু ভঙ্গ করে? না। আপনার ওজু ছিল এবং আপনি শুধু নিশ্চিত নন যে তা ভেঙেছে কি না — তাহলে ওজু ভঙ্গকারী কিছু ঘটেছে বলে নিশ্চিত না হওয়া পর্যন্ত আপনার ওজু বহাল থাকবে। সন্দেহের ওপর নিশ্চয়তাকে প্রাধান্য দেওয়া নবীজির একটি নীতি, যা আপনাকে অস্বাভাবিক সন্দেহ (ওয়াসওয়াসা) থেকে রক্ষা করে।",
+      "প্লাস্টার, ব্যান্ডেজ ও ক্ষতের কী হবে? এর জন্য ছাড় আছে। যেখানে ঢাকা অঙ্গ ধোয়া ক্ষতিকর, সেখানে আপনি তার পরিবর্তে পট্টির ওপর মাসেহ করতে পারেন (মাসহ আলাল জাবিরা), আর যেখানে পৌঁছানো যায় না, তা তায়াম্মুম দিয়ে পূরণ হয় — খুঁটিনাটি মাযহাব ও পরিস্থিতিভেদে ভিন্ন।",
+      "আমি যদি একেবারেই পানি ব্যবহার করতে না পারি? পানি ব্যবহারের সামর্থ্য ফিরে না আসা পর্যন্ত পবিত্র মাটি দিয়ে তায়াম্মুম পুরোপুরি সহিহ থাকে।",
+      "দীর্ঘস্থায়ী অবস্থার কী হবে — অবিরাম রক্তস্রাব (ইস্তিহাযা) বা প্রস্রাব ধরে রাখতে না পারা? এমন ব্যক্তিকে স্থায়ী ওজরগ্রস্ত (মাজুর) হিসেবে গণ্য করা হয়: তিনি নিজেকে পরিষ্কার করে প্রতিটি নামাজের ওয়াক্তের জন্য ওজু করবেন, তারপর নিঃসরণ চলতে থাকলেও নামাজ পড়বেন, এবং এতে সেই নামাজ বাতিল হবে না।",
     ],
     actions: [
-      "Sediakan setidaknya satu setel pakaian bersih khusus untuk salat.",
-      "Jika najis mengenai pakaianmu saat di luar rumah, bilas bagian yang bisa dan gantilah begitu ada kesempatan.",
+      "অবিরাম সন্দেহকে আপনার ইবাদতের পথে বাধা হতে দেবেন না — সন্দেহ নয়, নিশ্চয়তা অনুসরণ করুন।",
+      "দীর্ঘস্থায়ী অবস্থা বা জটিল বিষয়ের জন্য একজন যোগ্য আলেমের কাছ থেকে ব্যক্তিগত বিধান জেনে নিন।",
     ],
-  },
-  {
-    title: "Membersihkan Badan",
-    summary: "Menghilangkan najis dari badan, serta adab istinja dan kebersihan diri.",
-    body: [
-      "Najis pada badan harus dicuci sebelum salat, sesuai kemampuan. Kasus yang paling sering terjadi adalah membersihkan diri setelah buang air — istinja — yang dilakukan dengan air, atau dengan benda kering yang sesuai, sampai bagian itu bersih. Nabi ﷺ mengajarkan pembersihan yang cermat setelah buang air dan melarang penggunaan tangan kanan untuk itu.",
-      "Selain menghilangkan najis, Islam juga mendorong tingkat kebersihan alami dasar (fitrah) yang menjaga badan tetap bersih dan siap untuk beribadah: memotong kuku secara teratur, mencukur bulu ketiak dan kemaluan, dan hal-hal semacamnya.",
-      "Kebiasaan-kebiasaan ini bukan sekadar tata krama budaya — ia adalah bagian dari martabat dan kebersihan seorang mukmin ketika menghadap Allah dalam salat.",
-    ],
-    hadith: [
-      {
-        excerpt: "Nabi ﷺ biasa membersihkan diri dengan air setelah buang air. (Anas)",
-      },
-    ],
-    actions: [
-      "Selalu selesaikan istinja sebelum berwudu setelah buang air.",
-      "Bawa tisu, dan bila memungkinkan, sediakan air ketika bepergian.",
-    ],
-  },
-  {
-    title: "Membersihkan Tempat Salat",
-    summary:
-      "Tempat salat harus bebas dari najis yang diketahui — tanpa keraguan yang tidak berdasar.",
-    body: [
-      "Tempat salat harus bebas dari najis yang diketahui. Nabi ﷺ mengajarkan hal ini dengan sangat jelas: ketika seorang badui kencing di sudut masjid, beliau mencegah para sahabat menegurnya dengan kasar, membiarkannya menyelesaikan hajatnya, lalu memerintahkan agar seember air disiramkan pada tempat itu — mengajarkan kebersihan sekaligus kelembutan.",
-      "Kaidah pokoknya adalah keyakinan. Bumi pada dasarnya dijadikan tempat salat, sehingga suatu permukaan dianggap suci kecuali kau memiliki bukti nyata adanya najis. Jika kau tahu ada najis, hilangkan atau pindahlah ke tempat yang bersih; jika kau hanya membayangkan mungkin ada najis, abaikan bisikan itu dan lanjutkan.",
-      "Keseimbangan ini menjaga ibadah dari dua sisi ekstrem: salat dengan sembarangan di tanah yang jelas kotor, dan menjadi lumpuh oleh kecurigaan tanpa dasar terhadap setiap permukaan.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika seorang badui kencing di masjid, Nabi ﷺ memerintahkan agar seember air disiramkan ke tempat itu. (Abu Hurairah)",
-      },
-    ],
-    actions: [
-      "Periksa sekilas sajadah dan lantaimu sebelum salat.",
-      "Tanpa bukti nyata adanya najis, abaikan kekhawatiran yang tidak berdasar dan lanjutkan salat.",
-    ],
-  },
-  {
-    title: "Haid dan Kesucian",
-    summary: "Haid dan nifas memiliki hukum bersuci tersendiri.",
-    body: [
-      "Selama haid dan nifas, seorang wanita tidak melaksanakan salat, dan — sebagai rahmat dari agama ini — salat yang terlewat pada masa itu tidak perlu diqada kemudian. Ini sudah ditetapkan: ketika Aisyah ditanya mengapa wanita haid mengqada puasanya tetapi tidak mengqada salatnya, ia menegaskan bahwa memang begitulah yang diperintahkan kepada mereka.",
-      "Puasa berbeda: puasa yang terlewat di bulan Ramadan karena haid diqada kemudian, sementara salatnya cukup digugurkan begitu saja. Ketika darah berhenti dan tanda kesucian muncul, wanita itu mandi wajib dan melanjutkan kembali salat serta puasanya.",
-      "Batas minimal dan maksimal masa haid dan nifas, serta cara membaca tanda-tanda kesucian yang ambigu, adalah perkara-perkara yang berbeda rinciannya antar mazhab. Para wanita akan lebih terbantu dengan mempelajari hukum praktis dari satu mazhab yang terpercaya bersama seorang guru yang berkompeten.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika ditanya mengapa wanita haid mengqada puasa tetapi tidak mengqada salat, Aisyah berkata: kami diperintahkan mengqada puasa dan tidak diperintahkan mengqada salat. (Mu'adzah, dari Aisyah; juga Sahih Muslim 335)",
-      },
-    ],
-    appLinks: [{}],
-  },
-  {
-    title: "Pertanyaan yang Sering Diajukan",
-    summary: "Jawaban singkat untuk keraguan dan kekhawatiran seputar bersuci yang paling umum.",
-    body: [
-      "Apakah keraguan membatalkan wuduku? Tidak. Jika kau yakin telah berwudu dan hanya ragu apakah wudu itu batal, wudumu tetap sah sampai kau yakin ada hal yang membatalkannya. Bertindak berdasarkan keyakinan, bukan kecurigaan, adalah prinsip Nabi yang melindungimu dari waswas.",
-      "Bagaimana dengan gips, perban, dan luka? Ada keringanan untuk itu. Ketika mencuci anggota tubuh yang tertutup akan membahayakan, kau boleh mengusap balutannya sebagai gantinya, dan tayamum menutupi bagian yang tidak dapat dijangkau — rinciannya berbeda menurut mazhab dan keadaan.",
-      "Bagaimana jika aku sama sekali tidak bisa menggunakan air? Tayamum dengan tanah bersih tetap sepenuhnya sah sampai kemampuan menggunakan air kembali.",
-      "Bagaimana dengan kondisi kronis — pendarahan terus-menerus (istihadah) atau inkontinensia? Orang tersebut diperlakukan sebagai orang yang memiliki uzur tetap: ia membersihkan diri dan berwudu untuk setiap waktu salat, lalu tetap salat meskipun cairan itu terus keluar, dan hal itu tidak membatalkan salatnya.",
-    ],
-    actions: [
-      "Jangan biarkan keraguan yang terus-menerus menghalangi ibadahmu — ikuti keyakinan, bukan kecurigaan.",
-      "Untuk kondisi kronis atau kasus yang rumit, mintalah fatwa pribadi dari seorang ulama yang berkompeten.",
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "নামাজ গাইড" }, { label: "পবিত্রতা ও নারী" }],
     disclaimer:
-      "Jawaban tanya-jawab ini adalah ringkasan edukatif, bukan fatwa pribadi. Kasus yang rumit atau kronis sebaiknya ditinjau bersama ulama setempat.",
+      "এই প্রশ্নোত্তরগুলো শিক্ষামূলক সারসংক্ষেপ, ব্যক্তিগত ফতোয়া নয়। জটিল বা দীর্ঘস্থায়ী বিষয়গুলো একজন স্থানীয় আলেমের সাথে পর্যালোচনা করা উচিত।",
   },
+
+  // ── Reference ────────────────────────────────────────────────────────────
   {
-    title: "Referensi dan Kajian Lanjutan",
-    summary: "Ayat-ayat Al-Qur'an dan bab-bab hadis pokok tentang bersuci.",
+    title: "তথ্যসূত্র ও আরও অধ্যয়ন",
+    summary: "পবিত্রতা বিষয়ে মূল কুরআনি আয়াত ও হাদিসের অধ্যায়সমূহ।",
     body: [
-      "Teks Al-Qur'an pokok tentang bersuci adalah ayat wudu, Surah Al-Ma'idah 5:6, yang menjelaskan wudu, mandi wajib, dan tayamum sekaligus; di sampingnya, 2:222 ('Allah menyukai orang-orang yang menyucikan diri') dan ayat-ayat tentang kesucian air (25:48) menjadi landasan topik ini.",
-      "Dalam sunnah, sumber utamanya adalah Kitab-Kitab Bersuci (Kitab at-Taharah / al-Wudu / al-Ghusl / al-Haid) yang membuka Sahih al-Bukhari dan Sahih Muslim, diikuti oleh bab-bab yang sama dalam keempat kitab Sunan (Abu Dawud, at-Tirmidzi, an-Nasa'i, Ibnu Majah), yang menghimpun hukum-hukum yang lebih rinci beserta penilaian derajatnya.",
-      "Untuk hukum-hukum praktis, kitab-kitab fikih klasik dari keempat mazhab Sunni memberikan pendapat yang rinci — dan perbedaan di antara mereka adalah bagian yang sah dari tradisi ini, bukan sebuah cacat. Gunakan modul ini sebagai gambaran umum yang terstruktur, lalu perdalam kajianmu bersama seorang guru yang berkompeten dan teks-teks aslinya.",
+      "পবিত্রতার মৌলিক কুরআনি দলিল হলো ওজুর আয়াত, সূরা আল-মায়িদা 5:6, যা ওজু, গোসল ও তায়াম্মুম একসাথে বর্ণনা করে; এর পাশাপাশি 2:222 ('আল্লাহ পবিত্রতা অর্জনকারীদের ভালোবাসেন') এবং পানির পবিত্রতা-সংক্রান্ত আয়াতগুলো (25:48) এই বিষয়ের ভিত্তি।",
+      "সুন্নাহর ক্ষেত্রে প্রধান উৎস হলো পবিত্রতার অধ্যায়গুলো (কিতাবুত তাহারাহ / আল-উজু / আল-গুসল / আল-হায়েজ), যা দিয়ে সহিহ বুখারি ও সহিহ মুসলিম শুরু হয়েছে; এরপর চার সুনান গ্রন্থের (আবু দাউদ, তিরমিজি, নাসায়ি, ইবনে মাজাহ) একই অধ্যায়গুলো, যেগুলো সূক্ষ্মতর বিধানসমূহ মানের মূল্যায়নসহ সংকলন করেছে।",
+      "ব্যবহারিক বিধানের জন্য চার সুন্নি মাযহাবের ক্লাসিক ফিকহ গ্রন্থগুলো বিস্তারিত মতামত তুলে ধরে — এবং তাদের মতপার্থক্য এই ঐতিহ্যের একটি বৈধ অংশ, কোনো ত্রুটি নয়। কাঠামোবদ্ধ সারসংক্ষেপের জন্য এই মডিউল ব্যবহার করুন, তারপর একজন যোগ্য শিক্ষক ও মূল গ্রন্থগুলোর সাহায্যে অধ্যয়ন আরও গভীর করুন।",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bab-bab komprehensif tentang wudu, mandi wajib, tayamum, dan haid yang membuka kitab ini.",
-      },
-      {
-        excerpt: "Kitab Bersuci — riwayat sahih tentang hukum, adab, dan prinsip taharah.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
-      "Ikuti satu kurikulum terpercaya untuk menghindari kebingungan akibat hukum yang berserakan.",
-      "Ulangi topik-topik ini secara berkala sampai keyakinan praktismu benar-benar mantap.",
+      "বিক্ষিপ্ত বিধানের বিভ্রান্তি এড়াতে একটি বিশ্বস্ত পাঠ্যক্রম অনুসরণ করুন।",
+      "ব্যবহারিক আত্মবিশ্বাস দৃঢ় না হওয়া পর্যন্ত মাঝে মাঝে এই বিষয়গুলো আবার পড়ুন।",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "নামাজ শিক্ষার পথ" }, { label: "নামাজের দোয়া" }],
   },
 ];

@@ -1,4 +1,8 @@
-import { setTokenRefresher, WEB_COOKIE_SESSION_TOKEN } from "@munib-tracker/api-client";
+import {
+  getApiBaseUrl,
+  setTokenRefresher,
+  WEB_COOKIE_SESSION_TOKEN,
+} from "@munib-tracker/api-client";
 import { renderHook, waitFor } from "@testing-library/react-native";
 
 import { deferred } from "@/test-support/async";
@@ -15,6 +19,7 @@ import { usePlatform } from "@/test-support/platform";
 import {
   downloadAuthedFile,
   fetchAuthedBlob,
+  isApiOrigin,
   isRemoteUri,
   loadAuthedMedia,
   useAuthedMediaUri,
@@ -28,6 +33,8 @@ jest.mock(
 let uriCounter = 0;
 /** A fresh remote URI per test (the module caches resolved URIs for the session). */
 const remote = () => `https://api.example/user-media/${++uriCounter}/content`;
+/** A private attachment on the configured API host (the only host a refresh may target). */
+const apiMedia = () => `${getApiBaseUrl()}/user-media/${++uriCounter}/content`;
 
 const blobResponse = (status = 200) => ({
   ...fakeResponse("bytes", { status }),
@@ -50,6 +57,16 @@ describe("isRemoteUri", () => {
   });
 });
 
+describe("isApiOrigin", () => {
+  it("matches only the configured API origin", () => {
+    expect(isApiOrigin(`${getApiBaseUrl()}/user-media/1/content`)).toBe(true);
+    expect(isApiOrigin("https://evil.example/user-media/1/content")).toBe(false);
+    const lookalike = getApiBaseUrl().replace(/^(https?:\/\/[^/]+).*$/, "$1.evil.example/x");
+    expect(isApiOrigin(lookalike)).toBe(false);
+    expect(isApiOrigin("file:///a.png")).toBe(false);
+  });
+});
+
 describe("downloadAuthedFile (native)", () => {
   it("returns the local URI on success", async () => {
     expect(
@@ -63,10 +80,22 @@ describe("downloadAuthedFile (native)", () => {
   it("refreshes the session once on 401 and retries with the new Bearer", async () => {
     setTokenRefresher(async () => "fresh");
     mockDownloadToUri.mockResolvedValueOnce({ uri: "file:///cache/a", status: 401 });
-    await downloadAuthedFile("https://x", "file:///cache/a");
-    expect(mockDownloadToUri).toHaveBeenLastCalledWith("https://x", "file:///cache/a", {
+    const uri = apiMedia();
+    await downloadAuthedFile(uri, "file:///cache/a");
+    expect(mockDownloadToUri).toHaveBeenLastCalledWith(uri, "file:///cache/a", {
       Authorization: "Bearer fresh",
     });
+  });
+
+  it("never mints a token for a 401 from another host", async () => {
+    const refresher = jest.fn(async () => "fresh");
+    setTokenRefresher(refresher);
+    mockDownloadToUri.mockResolvedValueOnce({ uri: "file:///cache/a", status: 401 });
+    await expect(downloadAuthedFile("https://evil.example/x", "file:///cache/a")).rejects.toThrow(
+      "(401)",
+    );
+    expect(refresher).not.toHaveBeenCalled();
+    expect(mockDownloadToUri).toHaveBeenCalledTimes(1);
   });
 
   it("deletes the partial file and rejects when still unauthorized", async () => {
@@ -155,7 +184,7 @@ describe("on web", () => {
   it("retries once with the same headers for cookie sessions", async () => {
     setTokenRefresher(async () => WEB_COOKIE_SESSION_TOKEN);
     const fetchMock = mockFetch(blobResponse(401) as never, blobResponse() as never);
-    await fetchAuthedBlob("https://x", { "x-extra": "1" });
+    await fetchAuthedBlob(apiMedia(), { "x-extra": "1" });
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock.mock.calls[1][1].headers).not.toHaveProperty("Authorization");
   });

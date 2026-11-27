@@ -1,7 +1,10 @@
 import { QuranCacheRepository } from "@/db";
+import { DB_KEYS } from "@/db/keys";
 import * as ossReport from "@/lib/report-oss-content-download-failure";
 import { clearStaticJsonCache } from "@/lib/static-json-fetch";
 import { fakeResponse, mockFetch, mockFetchByUrl } from "@/test-support/fetch";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
+import { storedKeysUnder } from "@/test-support/storage";
 
 import {
   ayahMapFromSpa5kPayload,
@@ -136,5 +139,25 @@ describe("fetchTafsirAyah", () => {
   it("has no single-ayah fallback for fawaz editions", async () => {
     mockFetch(fakeResponse({ chapter: [{ verse: 1, text: "واحد" }] }));
     await expect(fetchTafsirAyah(FAWAZ, 9, 2)).resolves.toBeNull();
+  });
+});
+
+describe("fetchTafsirSurah — cacheQuranEditionsLocally (B1)", () => {
+  afterEach(resetPreferences);
+
+  it("persists the tafsir surah by default", async () => {
+    mockFetch(fakeResponse({ ayahs: [{ ayah: 1, text: "Kept" }] }));
+    await fetchTafsirSurah(SPA5K, 6);
+    expect(await storedKeysUnder(DB_KEYS.quranEditionCache)).toHaveLength(1);
+  });
+
+  it("keeps the tafsir surah for the session only when the toggle is off", async () => {
+    await setPreferences({ cacheQuranEditionsLocally: false });
+    mockFetch(fakeResponse({ ayahs: [{ ayah: 1, text: "Session only" }] }));
+    await expect(fetchTafsirSurah(SPA5K, 7)).resolves.toEqual({ "1": "Session only" });
+    expect(await storedKeysUnder(DB_KEYS.quranEditionCache)).toEqual([]);
+    await expect(QuranCacheRepository.get(`tafsir:${SPA5K}`, 7)).resolves.toEqual({
+      "1": "Session only",
+    });
   });
 });

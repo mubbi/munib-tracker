@@ -35,6 +35,8 @@ interface SadaqahState extends SadaqahData {
   clearGoal: () => Promise<void>;
   addEntry: (amount: number, note?: string) => Promise<void>;
   removeEntry: (id: string) => Promise<void>;
+  /** Undo of a removal: re-insert the exact entry (same id, amount, `at`, note). */
+  restoreEntry: (entry: SadaqahLogEntry) => Promise<void>;
   clearLog: () => Promise<void>;
 }
 
@@ -117,6 +119,17 @@ export const sadaqahStore = createStore<SadaqahState>((set, get) => ({
     await persist({ goal: get().goal, log });
   },
 
+  async restoreEntry(entry) {
+    const current = get().log;
+    if (current.some((e) => e.id === entry.id)) return;
+    // The log is newest-first by `at`: put the entry back where it was, not on top.
+    const log = [...current, { ...entry }]
+      .sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0))
+      .slice(0, MAX_LOG);
+    set({ log });
+    await persist({ goal: get().goal, log });
+  },
+
   async clearLog() {
     set({ log: [] });
     await persist({ goal: get().goal, log: [] });
@@ -146,6 +159,7 @@ const actions = {
   clearGoal: () => sadaqahStore.getState().clearGoal(),
   addEntry: (amount: number, note?: string) => sadaqahStore.getState().addEntry(amount, note),
   removeEntry: (id: string) => sadaqahStore.getState().removeEntry(id),
+  restoreEntry: (entry: SadaqahLogEntry) => sadaqahStore.getState().restoreEntry(entry),
   clearLog: () => sadaqahStore.getState().clearLog(),
 } as const;
 

@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -7,32 +6,34 @@ import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { Spacing } from "@/constants/theme";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { DUA_CORPUS } from "@/lib/content-loaders";
+import { formatDuaHeading } from "@/lib/dua-browse";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { resolveTranslationField } from "@/lib/translation-locale";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
   useFavoriteDuaIds,
 } from "@/stores/dua-favorites-store";
+import { usePreferences } from "@/stores/preferences-store";
 
 export default function DuaFavoritesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const prefs = usePreferences();
   useEnsureDuaFavoritesLoaded();
   const order = useFavoriteDuaIds();
-  const { setOrder, toggle } = useDuaFavoritesActions();
-  const [duaItems, setDuaItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    void loadDuaItems().then((items) => {
-      setDuaItems(items);
-      setCorpusReady(true);
-    });
-  }, []);
+  const { setOrder, toggle, restore } = useDuaFavoritesActions();
+  const undoToast = useUndoToast();
+  const { items: duaItems, ready: corpusReady } = useContentCorpus(DUA_CORPUS);
 
   const items = order
     .map((id) => duaItems.find((item) => item.id === id))
@@ -56,18 +57,22 @@ export default function DuaFavoritesScreen() {
       subtitle={t("dua.favSubtitle")}
       onBack={() => goBackOrReplace(router, "/")}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} preferredFocus />
       <Seo path="/dua/favorites" />
       {order.length === 0 ? (
         <EmptyState
-          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("dua.favoritesEmpty")}
           description={tTv(t, "zikr.favEmptyDesc", "zikr.favEmptyDescTv")}
           actionLabel={t("dua.title")}
           onAction={() => router.replace("/dua")}
         />
-      ) : !corpusReady ? null : items.length === 0 ? (
+      ) : !corpusReady ? (
+        <SkeletonPlaceholder preset="rows" accessibilityLabel={t("dua.loading")} />
+      ) : items.length === 0 ? (
         <EmptyState
-          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("dua.favoritesEmpty")}
           description={tTv(t, "zikr.favEmptyDesc", "zikr.favEmptyDescTv")}
           actionLabel={t("dua.title")}
@@ -76,20 +81,28 @@ export default function DuaFavoritesScreen() {
       ) : (
         // Wide web / tablets: a reorderable list reads best as one capped column
         // (move up / down keeps a linear order). TV keeps the full width.
-        <Card padding="three" style={isTV() ? undefined : styles.listCard}>
+        <Card style={isTV() ? undefined : styles.listCard}>
           <View style={styles.list}>
             {items.map((item, index) => (
               <FavoritesOrderRow
                 key={item.id}
                 index={index}
                 total={items.length}
-                title={item.title}
-                subtitle={item.transliteration ?? item.translation}
+                title={formatDuaHeading(item.title)}
+                subtitle={item.transliteration ?? resolveTranslationField(item, prefs)}
                 onPress={() =>
                   router.push({ pathname: "/dua/detail/[id]", params: { id: item.id } })
                 }
                 onMove={(direction) => move(index, direction)}
-                onRemove={() => toggle(item.id)}
+                onRemove={() => {
+                  // Undo puts it back at its place in the user's order (B-30).
+                  const position = order.indexOf(item.id);
+                  void undoToast.run({
+                    do: () => toggle(item.id),
+                    undo: () => restore(item.id, position),
+                    messageKey: "dua.removedToast",
+                  });
+                }}
                 removeAccessibilityLabel={t("dua.unfavorite")}
               />
             ))}

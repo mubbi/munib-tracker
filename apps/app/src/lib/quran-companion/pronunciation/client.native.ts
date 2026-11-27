@@ -7,15 +7,17 @@ import {
   type PronunciationClient,
   QuranLabError,
   quranLabKeyFor,
+  type SharingThemeColors,
   type TakeResult,
-  toQuranLabCode,
+  toQuranLabError,
 } from "./types";
 
 /**
  * iOS / Android: the `munib-tajweedformer` Expo module wrapping Quran Lab's
- * Kotlin and Swift SDKs. Analytics are off; the module never asks for or hosts
- * the SDK's recitation-sharing sheet. The SDK needs Android 8.0 (API 26) and
- * iOS 15 — older devices report `runtime_unsupported`.
+ * Kotlin and Swift SDKs 4.x (D66). SDK 4 keeps anonymous analytics + error
+ * reports on and presents its own sharing ask; the module never calls
+ * `sharing.ask()` but themes that sheet in the app's colours. The SDK needs
+ * Android 8.0 (API 26) and iOS 15 — older devices report `runtime_unsupported`.
  */
 
 type NativeModule = NonNullable<typeof NativeTajweedformer>;
@@ -30,7 +32,7 @@ function call<T>(fn: (m: NativeModule) => Promise<T>): Promise<T> {
   const m = NativeTajweedformer;
   if (!m) return Promise.reject(new QuranLabError("runtime_unsupported"));
   return fn(m).catch((error: unknown) => {
-    throw new QuranLabError(toQuranLabCode(error), (error as Error)?.message);
+    throw toQuranLabError(error);
   });
 }
 
@@ -40,6 +42,7 @@ export function createPronunciationClient(): PronunciationClient {
   const available = !isTV() && NativeTajweedformer != null && key != null && osSupported();
   let configured = false;
   let heardSpeech = false;
+  let theme: SharingThemeColors | null = null;
   let subscriptions: { remove: () => void }[] = [];
 
   const clearSubs = () => {
@@ -50,13 +53,18 @@ export function createPronunciationClient(): PronunciationClient {
   const ensure = async () => {
     if (!available || !key) throw new QuranLabError(key ? "runtime_unsupported" : "not_configured");
     if (!configured) {
-      await call((m) => m.configure(key));
+      await call((m) =>
+        m.configure(key, theme ? { ...theme, dark: theme.dark ? "true" : "false" } : null),
+      );
       configured = true;
     }
   };
 
   return {
     available,
+    setSharingTheme(next) {
+      theme = next;
+    },
     configure: ensure,
 
     async prefetch(onProgress) {
@@ -87,6 +95,25 @@ export function createPronunciationClient(): PronunciationClient {
         defaultContext: info.defaultContext,
         calibration,
       };
+    },
+
+    async prepareTake(heads) {
+      if (!available) return;
+      try {
+        await ensure();
+        await call((m) => m.prepareTake(heads));
+      } catch {
+        // Warm-up only: the take itself reports any real failure.
+      }
+    },
+
+    async diagnose() {
+      if (!available || !configured || !NativeTajweedformer) return null;
+      try {
+        return await NativeTajweedformer.diagnose();
+      } catch {
+        return null;
+      }
     },
 
     async startTake(heads, onSpeech, onEnded) {

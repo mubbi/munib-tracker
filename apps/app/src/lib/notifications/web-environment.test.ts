@@ -47,6 +47,7 @@ describe("on native", () => {
       isIos: false,
       isInstalledPwa: false,
       needsSafariForInstall: false,
+      installMethod: "none",
       blockingReason: null,
     });
   });
@@ -149,12 +150,13 @@ describe("on web", () => {
     }
   });
 
-  it("asks iPhone Chrome users to install from Safari", () => {
+  it("asks iPhone Chrome users to install from Chrome's own Share menu (iOS 16.4+)", () => {
     const restore = installBrowser({ userAgent: IPHONE_CHROME_UA, platform: "iPhone" });
     try {
       expect(getWebNotificationGuidance()).toMatchObject({
         isIos: true,
-        needsSafariForInstall: true,
+        needsSafariForInstall: false,
+        installMethod: "ios_browser_share",
         blockingReason: "ios_requires_pwa",
       });
     } finally {

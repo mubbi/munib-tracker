@@ -128,3 +128,64 @@ describe("captureAppException", () => {
     expect(sentry.captureException).toHaveBeenCalledWith(error, { tags: { area: "test" } });
   });
 });
+
+describe("credential scrubbing", () => {
+  type Options = {
+    beforeBreadcrumb: (b: Record<string, unknown>) => Record<string, unknown> | null;
+    beforeSend: (e: Record<string, unknown>) => Record<string, unknown> | null;
+  };
+
+  function initOptions(): Options {
+    const { initSentry, sentry } = setup();
+    initSentry();
+    return sentry.init.mock.calls[0][0] as Options;
+  }
+
+  it("filters OAuth codes, kids link tokens and TV pairing codes from URLs", () => {
+    const { scrubSensitiveUrl } = setup();
+    expect(scrubSensitiveUrl("/oauth2redirect?code=4/abc&state=xyz&lang=en")).toBe(
+      "/oauth2redirect?code=[Filtered]&state=[Filtered]&lang=en",
+    );
+    expect(scrubSensitiveUrl("https://my.munibtracker.app/kids/link?token=mtl_secret")).toBe(
+      "https://my.munibtracker.app/kids/link?token=[Filtered]",
+    );
+    expect(scrubSensitiveUrl("https://api.x/api/v1/auth/tv/pairing/AB12CD")).toBe(
+      "https://api.x/api/v1/auth/tv/pairing/[Filtered]",
+    );
+    expect(scrubSensitiveUrl("/circles?tab=feed")).toBe("/circles?tab=feed");
+  });
+
+  it("scrubs navigation and fetch breadcrumbs", () => {
+    const { beforeBreadcrumb } = initOptions();
+    expect(
+      beforeBreadcrumb({
+        category: "navigation",
+        message: "/oauth/apple?code=c1",
+        data: { from: "/", to: "/tv-pair?code=AB12", params: { token: "mtl_x" }, status: 200 },
+      }),
+    ).toEqual({
+      category: "navigation",
+      message: "/oauth/apple?code=[Filtered]",
+      data: {
+        from: "/",
+        to: "/tv-pair?code=[Filtered]",
+        params: { token: "[Filtered]" },
+        status: 200,
+      },
+    });
+  });
+
+  it("scrubs the request URL of error events", () => {
+    const { beforeSend } = initOptions();
+    expect(
+      beforeSend({
+        request: { url: "https://my.munibtracker.app/?code=x", query_string: "code=x" },
+      }),
+    ).toEqual({
+      request: {
+        url: "https://my.munibtracker.app/?code=[Filtered]",
+        query_string: "code=[Filtered]",
+      },
+    });
+  });
+});

@@ -13,7 +13,8 @@ export type NotificationCategory =
   | "qaza"
   | "milestone"
   | "system"
-  | "announcement";
+  | "announcement"
+  | "circle";
 
 export type NotificationVisualSpec = {
   icon: SymbolName;
@@ -41,7 +42,46 @@ const DAILY_REMINDER_ICONS = {
     android: "brightness_3",
     web: "brightness_3",
   } satisfies SymbolName,
+  /** NF-3.2 voluntary fasting (`fastIntent:<date>`, `fastSeasonal:<date>`, `suhoor:<date>`). */
+  fastIntent: {
+    ios: "moon.haze.fill",
+    android: "nights_stay",
+    web: "nights_stay",
+  } satisfies SymbolName,
+  fastSeasonal: {
+    ios: "moon.haze.fill",
+    android: "nights_stay",
+    web: "nights_stay",
+  } satisfies SymbolName,
+  suhoor: {
+    ios: "sunrise.fill",
+    android: "wb_twilight",
+    web: "wb_twilight",
+  } satisfies SymbolName,
   dailyContent: {
+    ios: "sparkles",
+    android: "auto_awesome",
+    web: "auto_awesome",
+  } satisfies SymbolName,
+  /** NF-3.6 nightly muhasabah (`muhasabah:<date>`). */
+  muhasabah: {
+    ios: "moon.stars.fill",
+    android: "nights_stay",
+    web: "nights_stay",
+  } satisfies SymbolName,
+  /** NF-3.7 family-ties digest + parent nudge (`familyTies:<date>`, `familyTiesParent:<date>`). */
+  familyTies: {
+    ios: "person.2.fill",
+    android: "group",
+    web: "group",
+  } satisfies SymbolName,
+  familyTiesParent: {
+    ios: "person.2.fill",
+    android: "group",
+    web: "group",
+  } satisfies SymbolName,
+  /** NF-3.14 weekly coach (`coach:<date>`). */
+  coach: {
     ios: "sparkles",
     android: "auto_awesome",
     web: "auto_awesome",
@@ -119,6 +159,13 @@ export function resolveNotificationVisual(input: {
     return {
       icon: { ios: "megaphone.fill", android: "campaign", web: "campaign" },
       category: "announcement",
+    };
+  }
+
+  if (input.kind === "circle") {
+    return {
+      icon: { ios: "person.3.fill", android: "groups", web: "groups" },
+      category: "circle",
     };
   }
 

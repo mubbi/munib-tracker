@@ -30,10 +30,11 @@ const renderButton = (props: Partial<Props> = {}) =>
 const button = () => screen.getByRole("button", { name: /Fajr/ });
 
 describe("PrayerInfoButton", () => {
-  it("renders an icon button by default", async () => {
+  it("renders an icon button by default, floored at the 44pt target", async () => {
+    // IconButton floors `hitTarget` at Control.minTouch (P3-03 / design-system.md § Touch targets).
     await renderButton({ hitTarget: 36 });
 
-    expect(flattenStyle(button().props.style).width).toBe(36);
+    expect(flattenStyle(button().props.style).width).toBe(44);
     expect(screen.queryByText("Learn more")).toBeNull();
   });
 
@@ -73,6 +74,7 @@ describe("PrayerInfoButton on TV", () => {
   it("renders a chip-sized link", async () => {
     await renderButton({ showLabel: true, tintColor: "#123456" });
 
-    expect(flattenStyle(screen.getByText("Learn more").props.style).color).toBe("#123456");
+    // The hue tints the glyph only; the label text must not take a low-contrast category colour.
+    expect(flattenStyle(screen.getByText("Learn more").props.style).color).not.toBe("#123456");
   });
 });

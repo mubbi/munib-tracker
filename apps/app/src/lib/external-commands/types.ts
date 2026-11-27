@@ -31,7 +31,9 @@ export type CommandFailureReason =
   | "already_done"
   | "none_pending"
   | "invalid_prayer"
-  | "invalid_date";
+  | "invalid_date"
+  /** A named Salah whose Adhan has not begun yet today. */
+  | "not_started";
 
 export type CommandResult =
   | { ok: true; prayerId: ObligatoryPrayer; alreadyCompleted?: boolean }

@@ -1,12 +1,13 @@
 import type { TajweedRuleId, TajweedSegment } from "@munib-tracker/shared/types";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, type TextStyle, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { getTajweedRule, type TajweedRuleDef } from "@/constants/tajweed";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
+import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { withArabicJoiningZwj } from "@/lib/arabic-text-join";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -21,22 +22,6 @@ type TajweedTextProps = {
   fontSize: number;
   style?: TextStyle;
 };
-
-/** Desktop web with a fine pointer — use hover; otherwise tap. */
-function useFinePointerHover(): boolean {
-  const [fine, setFine] = useState(false);
-  useEffect(() => {
-    if (Platform.OS !== "web" || typeof window === "undefined" || !window.matchMedia) {
-      return;
-    }
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const sync = () => setFine(mq.matches);
-    sync();
-    mq.addEventListener?.("change", sync);
-    return () => mq.removeEventListener?.("change", sync);
-  }, []);
-  return fine;
-}
 
 function formatRuleTooltip(rule: TajweedRuleDef, t: (key: string) => string): string {
   return `${t(rule.labelKey)} — ${t(rule.hintKey)}`;
@@ -84,7 +69,11 @@ export const TajweedText = memo(function TajweedText({
   );
 
   if (!segments?.length) {
-    return <Text style={baseStyle}>{fallback}</Text>;
+    return (
+      <Text style={baseStyle} accessibilityLanguage="ar">
+        {fallback}
+      </Text>
+    );
   }
 
   // Nested/colored spans break Arabic cursive joining on Android Fabric and RN
@@ -117,7 +106,11 @@ export const TajweedText = memo(function TajweedText({
         </View>
       ) : null}
 
-      <Text style={baseStyle} onPress={fineHover ? undefined : clearTooltip}>
+      <Text
+        style={baseStyle}
+        accessibilityLanguage="ar"
+        onPress={fineHover ? undefined : clearTooltip}
+      >
         {/* Segments are ordered runs from markup; index is required for duplicate text. */}
         {segments.map((segment, index) => {
           const rule = getTajweedRule(segment.rule);
@@ -176,17 +169,17 @@ const styles = StyleSheet.create({
   },
   tooltip: {
     position: "absolute",
-    left: Spacing.two,
-    right: Spacing.two,
+    start: Spacing.two,
+    end: Spacing.two,
     bottom: "100%",
-    marginBottom: Spacing.one + 2,
+    marginBottom: Spacing.oneHalf,
     alignSelf: "center",
     maxWidth: "100%",
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     zIndex: 20,
     // Do not intercept hover — keeps the letter under the cursor active.
     pointerEvents: "none",

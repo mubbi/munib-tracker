@@ -36,6 +36,23 @@ struct WidgetSnapshotPayload: Decodable {
     let done: String?
     let remaining: String?
     let tasbeehUnlimited: String?
+    let afterSalahAdhkar: String?
+    // Apple Watch / Wear OS companion labels (optional: older snapshots lack them).
+    let today: String?
+    let overview: String?
+    let cancel: String?
+    let markConfirm: String?
+    let sentToPhone: String?
+    let willSync: String?
+    let allDone: String?
+    let notYet: String?
+    let staleData: String?
+    let freeCount: String?
+    let tapToCount: String?
+    let sequenceDone: String?
+    /// Watch Undo after a mark (optional; the watch falls back to English).
+    let undo: String?
+    let markedUndoHint: String?
   }
 
   struct ScheduleRow: Decodable {
@@ -44,6 +61,22 @@ struct WidgetSnapshotPayload: Decodable {
     let time: String
     let status: String?
     let statusLabel: String?
+    /// Adhan instant (epoch ms); nil / 0 on snapshots written before the watch contract.
+    let atMs: Double?
+  }
+
+  struct ZikrStep: Decodable {
+    let zikrId: String?
+    let title: String?
+    let arabic: String?
+    let transliteration: String?
+    let target: Int?
+  }
+
+  struct AfterSalahTasbeehSection: Decodable {
+    let title: String?
+    let deepLink: String?
+    let steps: [ZikrStep]?
   }
 
   struct NextPrayerSection: Decodable {
@@ -62,6 +95,8 @@ struct WidgetSnapshotPayload: Decodable {
     let remainingLabel: String?
     let minutesUntil: Int?
     let targetTimeMs: Double?
+    let currentPrayerId: String?
+    let currentPrayerAtMs: Double?
     let displayDate: String?
     let location: String?
     let followingName: String?
@@ -230,6 +265,8 @@ struct WidgetSnapshotPayload: Decodable {
 
   let version: Int?
   let updatedAt: String?
+  /// Phone-local day (yyyy-MM-dd) the schedule was built for.
+  let date: String?
   let updatedAgoLabel: String?
   let locationDenied: Bool?
   let locale: String?
@@ -248,6 +285,7 @@ struct WidgetSnapshotPayload: Decodable {
   let qibla: QiblaSection?
   let tasbeeh: TasbeehSection?
   let friday: FridaySection?
+  let afterSalahTasbeeh: AfterSalahTasbeehSection?
 }
 
 enum WidgetSnapshotStore {
@@ -265,7 +303,7 @@ enum WidgetSnapshotStore {
   /// Face-gallery / first-install placeholder when App Group has no snapshot yet.
   static func placeholder() -> WidgetSnapshotPayload {
     let json = """
-    {"version":1,"locale":"en","isRtl":false,"locationDenied":false,"theme":{"isDark":false,"primary":"#059669","cardBackground":"#FFFDF9","textPrimary":"#152921","textSecondary":"#4A6157","border":"#D2C7B1","success":"#059669","warning":"#D97706"},"nextPrayer":{"title":"Next Salah","deepLink":"munib-tracker://","lockScreenLine":"Asr","lockScreenDetail":"in 42 min","prayerId":"asr","prayerName":"Asr","prayerTime":"4:18 PM","countdownLabel":"in 42 min","minutesUntil":42},"schedule":{"title":"Today's schedule","summary":"3 of 5","deepLink":"munib-tracker://tracker","lockScreenLine":"Asr","lockScreenDetail":"4:18 PM","rows":[{"id":"fajr","name":"Fajr","time":"5:12 AM","status":"completed"},{"id":"dhuhr","name":"Dhuhr","time":"12:34 PM","status":"completed"},{"id":"asr","name":"Asr","time":"4:18 PM","status":"active"},{"id":"maghrib","name":"Maghrib","time":"7:01 PM","status":"pending"},{"id":"isha","name":"Isha","time":"8:22 PM","status":"pending"}]},"progress":{"title":"Today's progress","deepLink":"munib-tracker://tracker","lockScreenLine":"3/5","lockScreenDetail":"3 of 5","progressLabel":"3/5","progressPercent":60,"completed":3,"total":5},"streak":{"title":"Salah streak","summary":"12 days","deepLink":"munib-tracker://statistics","lockScreenLine":"12 days","streakDays":12,"streakLabel":"12"},"qaza":{"title":"Qaza","summary":"15 remaining","deepLink":"munib-tracker://qaza","lockScreenLine":"15 remaining","remaining":15,"remainingLabel":"15 remaining","todayDone":1,"todayTarget":3,"todayLabel":"1 / 3 today","progressPercent":33},"ramadan":{"title":"Suhoor & Iftar","summary":"Suhoor & Iftar","deepLink":"munib-tracker://ramadan","suhoorLabel":"Suhoor ends","suhoorTime":"5:12 AM","iftarLabel":"Iftar","iftarTime":"7:01 PM","countdownLabel":"Iftar in 2h","minutesUntil":120},"khatm":{"title":"Khatm plan","summary":"12 of 20 today","deepLink":"munib-tracker://quran/khatm","hasPlan":true,"progressLabel":"34%","progressPercent":34,"todayLabel":"12 of 20 today","paceLabel":"On track"},"dailyHadith":{"title":"Daily hadith","reference":"Nawawi 1","meaning":"Actions are but by intention.","deepLink":"munib-tracker://hadith/daily"},"hijriDate":{"title":"Islamic date","hijriDate":"25 Muharram 1448","gregorianDate":"July 20, 2026","weekday":"Monday","deepLink":"munib-tracker://calendar"},"qibla":{"title":"Qibla","bearingLabel":"292°","bearingDegrees":292,"location":"Karachi","deepLink":"munib-tracker://qibla"},"tasbeeh":{"title":"Tasbeeh","deepLink":"munib-tracker://tasbeeh/free","hasActivity":true,"dhikrTitle":"Durood Shareef","count":20,"target":100,"countLabel":"20 / 100","progressPercent":20},"friday":{"title":"Jumu'ah","deepLink":"munib-tracker://tracker?focus=friday","lockScreenDetail":"3/6 done","isFriday":true,"completed":3,"total":6,"progressPercent":50,"daysUntil":0}}
+    {"version":1,"locale":"en","isRtl":false,"locationDenied":false,"theme":{"isDark":false,"primary":"#2E7D32","cardBackground":"#FFFDF9","textPrimary":"#152921","textSecondary":"#4A6157","border":"#D2C7B1","success":"#2E9E6B","warning":"#D9A343"},"nextPrayer":{"title":"Next Salah","deepLink":"munib-tracker://","lockScreenLine":"Asr","lockScreenDetail":"in 42 min","prayerId":"asr","prayerName":"Asr","prayerTime":"4:18 PM","countdownLabel":"in 42 min","minutesUntil":42},"schedule":{"title":"Today's schedule","summary":"3 of 5","deepLink":"munib-tracker://tracker","lockScreenLine":"Asr","lockScreenDetail":"4:18 PM","rows":[{"id":"fajr","name":"Fajr","time":"5:12 AM","status":"completed"},{"id":"dhuhr","name":"Dhuhr","time":"12:34 PM","status":"completed"},{"id":"asr","name":"Asr","time":"4:18 PM","status":"active"},{"id":"maghrib","name":"Maghrib","time":"7:01 PM","status":"pending"},{"id":"isha","name":"Isha","time":"8:22 PM","status":"pending"}]},"progress":{"title":"Today's progress","deepLink":"munib-tracker://tracker","lockScreenLine":"3/5","lockScreenDetail":"3 of 5","progressLabel":"3/5","progressPercent":60,"completed":3,"total":5},"streak":{"title":"Salah streak","summary":"12 days","deepLink":"munib-tracker://statistics","lockScreenLine":"12 days","streakDays":12,"streakLabel":"12"},"qaza":{"title":"Qaza","summary":"15 remaining","deepLink":"munib-tracker://qaza","lockScreenLine":"15 remaining","remaining":15,"remainingLabel":"15 remaining","todayDone":1,"todayTarget":3,"todayLabel":"1 / 3 today","progressPercent":33},"ramadan":{"title":"Suhoor & Iftar","summary":"Suhoor & Iftar","deepLink":"munib-tracker://ramadan","suhoorLabel":"Suhoor ends","suhoorTime":"5:12 AM","iftarLabel":"Iftar","iftarTime":"7:01 PM","countdownLabel":"Iftar in 2h","minutesUntil":120},"khatm":{"title":"Khatm plan","summary":"12 of 20 today","deepLink":"munib-tracker://quran/khatm","hasPlan":true,"progressLabel":"34%","progressPercent":34,"todayLabel":"12 of 20 today","paceLabel":"On track"},"dailyHadith":{"title":"Daily hadith","reference":"Nawawi 1","meaning":"Actions are but by intention.","deepLink":"munib-tracker://hadith/daily"},"hijriDate":{"title":"Islamic date","hijriDate":"25 Muharram 1448","gregorianDate":"July 20, 2026","weekday":"Monday","deepLink":"munib-tracker://calendar"},"qibla":{"title":"Qibla","bearingLabel":"292°","bearingDegrees":292,"location":"Karachi","deepLink":"munib-tracker://qibla"},"tasbeeh":{"title":"Tasbeeh","deepLink":"munib-tracker://tasbeeh/free","hasActivity":true,"dhikrTitle":"Durood Shareef","count":20,"target":100,"countLabel":"20 / 100","progressPercent":20},"friday":{"title":"Jumu'ah","deepLink":"munib-tracker://tracker?focus=friday","lockScreenDetail":"3/6 done","isFriday":true,"completed":3,"total":6,"progressPercent":50,"daysUntil":0}}
     """
     let data = Data(json.utf8)
     return (try? JSONDecoder().decode(WidgetSnapshotPayload.self, from: data))
@@ -333,15 +371,15 @@ enum WidgetReloadSchedule {
 }
 
 enum WidgetPalette {
-  /// Contrast-tuned palettes (mirrors JS `widgetTokens.ts` → `packages/theme` resolve-theme).
-  private static let lightCard = Color(red: 1.0, green: 0.992, blue: 0.976) // #FFFDF9
-  private static let lightText = Color(red: 0.082, green: 0.161, blue: 0.129) // #152921
-  private static let lightSecondary = Color(red: 0.290, green: 0.380, blue: 0.341) // #4A6157
-  private static let lightBorder = Color(red: 0.824, green: 0.780, blue: 0.694) // #D2C7B1
-  private static let darkCard = Color(red: 0.118, green: 0.220, blue: 0.188) // #1E3830
-  private static let darkText = Color(red: 0.933, green: 0.894, blue: 0.824) // #EEE4D2
-  private static let darkSecondary = Color(red: 0.635, green: 0.741, blue: 0.690) // #A2BDB0
-  private static let darkBorder = Color(red: 0.239, green: 0.373, blue: 0.325) // #3D5F53
+  /// Contrast-tuned palettes — generated in `MunibTokens.generated.swift` (mirrors JS `widgetTokens.ts`).
+  private static let lightCard = MunibTokens.lightCard
+  private static let lightText = MunibTokens.lightText
+  private static let lightSecondary = MunibTokens.lightTextSecondary
+  private static let lightBorder = MunibTokens.lightBorder
+  private static let darkCard = MunibTokens.darkCard
+  private static let darkText = MunibTokens.darkText
+  private static let darkSecondary = MunibTokens.darkTextSecondary
+  private static let darkBorder = MunibTokens.darkBorder
 
   static func color(_ hex: String?, fallback: Color) -> Color {
     guard let hex, hex.hasPrefix("#"), hex.count >= 7 else { return fallback }

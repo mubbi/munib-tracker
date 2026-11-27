@@ -1,54 +1,46 @@
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import { type ListRenderItem, StyleSheet, View } from "react-native";
+import { DuaListRow } from "@/components/dua/dua-list-row";
+import { type DuaOccasionChip, DuaOccasionChips } from "@/components/dua/dua-occasion-chips";
+import { useDuaSaveToggle } from "@/components/dua/use-dua-save-toggle";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
-import { ListIndexBadge } from "@/components/ui/list-index-badge";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { useResponsiveColumns } from "@/components/ui/responsive-grid";
+import { ResponsiveGrid, useResponsiveColumns } from "@/components/ui/responsive-grid";
+import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
-import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
-import { TvLayout } from "@/constants/tv-layout";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { CategoryStickyBar, useStickyListHeader } from "@/components/zikr/category-sticky-bar";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { DUA_CORPUS } from "@/lib/content-loaders";
+import {
+  DUA_CATEGORY_IDS,
+  type DuaSection,
+  duaCategoryGroup,
+  filterDuasByTopic,
+  groupDuasByOccasion,
+  isDuaCategoryId,
+  isDuaTopicId,
+  shortOccasionLabel,
+} from "@/lib/dua-browse";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { useChevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import {
-  useDuaFavoritesActions,
-  useEnsureDuaFavoritesLoaded,
-  useFavoriteDuaIds,
-} from "@/stores/dua-favorites-store";
-
-const VALID: DuaCategoryId[] = [
-  "morning_evening",
-  "sleep",
-  "prayer",
-  "forgiveness",
-  "distress",
-  "protection",
-  "quranic",
-  "food",
-  "home",
-  "travel",
-  "family",
-  "illness",
-  "weather",
-  "hajj",
-  "purification",
-  "social",
-];
+import { resolveTranslationField } from "@/lib/translation-locale";
+import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
+import { usePreferences } from "@/stores/preferences-store";
 
 /** Expo Router may pass dynamic segments as `string | string[]` on deep links. */
 function paramValue(value: string | string[] | undefined): string | undefined {
@@ -58,88 +50,109 @@ function paramValue(value: string | string[] | undefined): string | undefined {
 
 /** Pre-render a static HTML page for each fixed dua category at web export time. */
 export function generateStaticParams(): Array<{ category: string }> {
-  return VALID.map((category) => ({ category }));
+  return DUA_CATEGORY_IDS.map((category) => ({ category }));
 }
 
 export default function DuaCategoryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const tv = isTV();
-  // Wide web / tablets: duas flow into 2-3 columns (FlatList stays virtualized).
+  // Wide web / tablets: duas inside each occasion flow into 2-3 columns.
   const autoColumns = useResponsiveColumns({ max: 3 });
   const columns = tv ? 1 : autoColumns;
+  const prefs = usePreferences();
   useEnsureDuaFavoritesLoaded();
   const favoriteIds = useFavoriteDuaIds();
-  const { toggle } = useDuaFavoritesActions();
-  const params = useLocalSearchParams<{ category: string | string[] }>();
+  const favoriteSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
+  // Un-save offers Undo and restores the saved position (P8-07, B-30).
+  const { toggleSaved: toggle, undoToast } = useDuaSaveToggle();
+  const params = useLocalSearchParams<{ category: string | string[]; topic?: string | string[] }>();
   const categoryParam = paramValue(params.category);
-  const isKnownCategory = VALID.includes(categoryParam as DuaCategoryId);
-  const categoryId = (isKnownCategory ? categoryParam : "morning_evening") as DuaCategoryId;
-  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    let active = true;
-    void loadDuaItems().then((items) => {
-      if (!active) return;
-      setDuaItems(items);
-      setCorpusReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const isKnownCategory = isDuaCategoryId(categoryParam);
+  const categoryId: DuaCategoryId = isKnownCategory ? categoryParam : "morning_evening";
+  // `?topic=` narrows the category to a curated slice (e.g. Family ties →
+  // duas for the deceased); "Show all" drops it.
+  const topicParam = paramValue(params.topic);
+  const topic = isDuaTopicId(topicParam) ? topicParam : null;
+  const hue = useCategoryHue(duaCategoryGroup(categoryId).hue);
+  const { items: duaItems, ready: corpusReady } = useContentCorpus(DUA_CORPUS);
   const items = useMemo(
-    () => duaItems.filter((item) => item.categoryId === categoryId),
-    [categoryId, duaItems],
+    () =>
+      topic
+        ? filterDuasByTopic(duaItems, topic)
+        : duaItems.filter((item) => item.categoryId === categoryId),
+    [categoryId, duaItems, topic],
   );
-  const { colors, tokens } = useThemeTokens();
+  const sections = useMemo(() => groupDuasByOccasion(items), [items]);
   const [query, setQuery] = useState("");
+  const [occasion, setOccasion] = useState<string | null>(null);
   const searching = query.trim().length > 0;
 
   const duaIndex = useMemo(() => createDuaSearch(items), [items]);
-  const indexById = useMemo(
-    () => new Map(items.map((item, position) => [item.id, position + 1])),
-    [items],
+  const results = useMemo(
+    () => (searching ? duaIndex.search(query) : []),
+    [duaIndex, query, searching],
   );
-  const filtered = useMemo(
-    () => (searching ? duaIndex.search(query) : items),
-    [duaIndex, items, query, searching],
+
+  const chips = useMemo<DuaOccasionChip[]>(
+    () =>
+      sections
+        .filter((section) => section.title != null)
+        .map((section) => ({
+          key: section.key,
+          label: shortOccasionLabel(section.title ?? ""),
+          count: section.items.length,
+        })),
+    [sections],
   );
+
+  // Searching shows one flat result section; otherwise the occasion sections
+  // (narrowed to the selected chip).
+  const visibleSections = useMemo<DuaSection[]>(() => {
+    if (searching)
+      return results.length > 0 ? [{ key: "results", title: null, items: results }] : [];
+    if (occasion == null) return sections;
+    return sections.filter((section) => section.key === occasion);
+  }, [occasion, results, searching, sections]);
+
   // TV: the first dua row takes initial D-pad focus (not the search field).
   // Pinned once so search changes never yank focus back into the list.
   const tvFirstFocusId = useRef<string | null>(null);
-  if (tv && tvFirstFocusId.current == null && !searching && filtered[0]) {
-    tvFirstFocusId.current = filtered[0].id;
+  if (tv && tvFirstFocusId.current == null && sections[0]?.items[0]) {
+    tvFirstFocusId.current = sections[0].items[0].id;
   }
 
-  // Stable, id-taking handlers so memoized rows keep their prop identity and
-  // only the toggled row re-renders on a favorite change.
   const onOpen = useCallback(
     (id: string) => router.push({ pathname: "/dua/detail/[id]", params: { id } }),
     [router],
   );
-
-  const keyExtractor = useCallback((item: DuaItem) => item.id, []);
-
-  const renderItem = useCallback<ListRenderItem<DuaItem>>(
-    ({ item }) => {
-      const row = (
-        <DuaRow
-          item={item}
-          index={indexById.get(item.id)}
-          isFavorite={favoriteIds.includes(item.id)}
-          onToggleFavorite={toggle}
-          onOpen={onOpen}
-        />
-      );
-      return columns > 1 ? (
-        <View style={[styles.gridCell, { width: `${100 / columns}%` as const }]}>{row}</View>
-      ) : (
-        row
-      );
-    },
-    [columns, favoriteIds, indexById, toggle, onOpen],
+  const translationOf = useCallback(
+    (item: DuaItem) => resolveTranslationField(item, prefs),
+    [prefs],
   );
+
+  const renderSection = useCallback(
+    (section: DuaSection) => (
+      <OccasionSection
+        section={section}
+        columns={columns}
+        favoriteSet={favoriteSet}
+        translationOf={translationOf}
+        onToggleFavorite={toggle}
+        onOpen={onOpen}
+        tvFirstFocusId={tvFirstFocusId.current}
+        accent={hue.icon}
+      />
+    ),
+    [columns, favoriteSet, hue.icon, onOpen, toggle, translationOf],
+  );
+  const renderItem = useCallback<ListRenderItem<DuaSection>>(
+    ({ item }) => renderSection(item),
+    [renderSection],
+  );
+  const keyExtractor = useCallback((section: DuaSection) => section.key, []);
+  const contentBottomInset = useContentBottomInset();
+  const sticky = useStickyListHeader();
 
   const categoryName = t(`duaCat.${categoryId}`);
   const categoryDescription = `${categoryName} — authentic supplications with Arabic, transliteration, and meaning.`;
@@ -148,23 +161,6 @@ export default function DuaCategoryScreen() {
     { name: t("dua.title"), path: "/dua" },
     { name: categoryName, path: `/dua/${categoryId}` },
   ];
-
-  const searchField = (
-    <TextInput
-      value={query}
-      onChangeText={setQuery}
-      placeholder={t("dua.searchInCategory")}
-      placeholderTextColor={colors.mutedForeground}
-      accessibilityLabel={t("dua.searchInCategory")}
-      style={[
-        styles.input,
-        tv && styles.inputTv,
-        columns > 1 && styles.inputWide,
-        tokens.inputSurface,
-        { color: colors.foreground },
-      ]}
-    />
-  );
 
   const empty =
     searching && corpusReady ? (
@@ -175,22 +171,70 @@ export default function DuaCategoryScreen() {
       />
     ) : null;
 
+  const occasionChips =
+    !searching && chips.length > 1 ? (
+      <DuaOccasionChips
+        chips={chips}
+        selected={occasion}
+        onSelect={setOccasion}
+        totalCount={items.length}
+      />
+    ) : null;
+
+  // One stable SearchField element (never a component re-created per render), so
+  // typing never remounts it or drops focus.
+  const controls = (
+    <View style={styles.controls}>
+      {topic ? (
+        <View style={styles.topicRow}>
+          <ThemedText type="small" themeColor="mutedForeground" style={styles.topicNote}>
+            {t("dua.topic.showing", { category: categoryName })}
+          </ThemedText>
+          <Button
+            label={t("dua.topic.showAll")}
+            variant="secondary"
+            size="sm"
+            onPress={() => {
+              setOccasion(null);
+              router.setParams({ topic: undefined });
+            }}
+          />
+        </View>
+      ) : null}
+      <SearchField
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t("dua.searchInCategory")}
+        style={columns > 1 ? styles.searchWide : undefined}
+      />
+      {occasionChips}
+    </View>
+  );
+
+  const listHeader = (
+    <View onLayout={sticky.onHeaderLayout} style={styles.listHeader} testID="dua-list-header">
+      {controls}
+    </View>
+  );
+
   return (
     <ScreenLayout
-      eyebrow={t("dua.categoryEyebrow")}
-      title={t(`duaCat.${categoryId}`)}
+      eyebrow={topic ? categoryName : t("dua.categoryEyebrow")}
+      title={topic ? t(`dua.topic.${topic}`) : categoryName}
       subtitle={
         !corpusReady
           ? undefined
           : searching
-            ? t("dua.searchResultCount", { count: filtered.length })
+            ? t("dua.searchResultCount", { count: results.length })
             : t("dua.supplicationsCount", { count: items.length })
       }
-      onBack={() => goBackOrReplace(router, "/")}
-      // TV: ScreenLayout ScrollView + mapped rows — nested FlatList flex hosts
+      onBack={() => goBackOrReplace(router, "/dua")}
+      // TV: ScreenLayout ScrollView + mapped sections — nested FlatList flex hosts
       // still collapse to zero height on Leanback even with minHeight:0 chains.
       scrollable={tv}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo
         path={`/dua/${categoryId}`}
         title={categoryName}
@@ -206,211 +250,163 @@ export default function DuaCategoryScreen() {
           }),
         ]}
       />
-      {/* The Card supplies the list chrome. No Stagger wrapper: its item view has
-          no flex, which would break the FlatList's height chain on phone. */}
-      <Card padding="three" style={tv ? undefined : styles.listCard}>
-        {searchField}
-        {tv ? (
+      {tv ? (
+        <Card>
+          {controls}
           <View style={styles.tvList}>
-            {filtered.length === 0
+            {visibleSections.length === 0
               ? empty
-              : filtered.map((item, index) => (
-                  <View key={item.id}>
-                    {index > 0 ? <ListSeparator /> : null}
-                    <DuaRow
-                      item={item}
-                      index={indexById.get(item.id)}
-                      isFavorite={favoriteIds.includes(item.id)}
-                      onToggleFavorite={toggle}
-                      onOpen={onOpen}
-                      preferredFocus={item.id === tvFirstFocusId.current}
-                    />
-                  </View>
+              : visibleSections.map((section) => (
+                  <View key={section.key}>{renderSection(section)}</View>
                 ))}
           </View>
-        ) : (
-          <View style={styles.listHost}>
-            <TvFlatList
-              // numColumns cannot change on the fly — remount when the column count changes.
-              key={`cols-${columns}`}
-              numColumns={columns}
-              columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
-              style={styles.flatList}
-              data={filtered}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
-              ItemSeparatorComponent={ListSeparator}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-              initialNumToRender={12}
-              maxToRenderPerBatch={8}
-              windowSize={7}
-              ListEmptyComponent={empty ?? undefined}
-            />
-          </View>
-        )}
-      </Card>
+        </Card>
+      ) : (
+        // Full-height list: search + occasion chips scroll away with the duas
+        // (ListHeaderComponent); a compact bar pins once they are gone.
+        <View style={styles.listHost}>
+          <TvFlatList
+            testID="dua-category-list"
+            style={styles.flatList}
+            contentContainerStyle={{ paddingBottom: contentBottomInset + Spacing.three }}
+            data={visibleSections}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            ListHeaderComponent={listHeader}
+            ItemSeparatorComponent={SectionSeparator}
+            onScroll={sticky.onScroll}
+            scrollEventThrottle={32}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            initialNumToRender={4}
+            maxToRenderPerBatch={4}
+            windowSize={7}
+            ListEmptyComponent={empty ?? undefined}
+          />
+          <CategoryStickyBar
+            visible={sticky.stuck}
+            query={query}
+            onChangeQuery={setQuery}
+            placeholder={t("dua.searchInCategory")}
+          >
+            {occasionChips ?? (
+              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                {topic ? t(`dua.topic.${topic}`) : categoryName}
+              </ThemedText>
+            )}
+          </CategoryStickyBar>
+        </View>
+      )}
     </ScreenLayout>
   );
 }
 
-/** Spacer matching the previous `gap: Spacing.two` between rows. */
-function ListSeparator() {
-  return <View style={styles.separator} />;
+function SectionSeparator() {
+  return <View style={styles.sectionSeparator} />;
 }
 
-const CHEVRON_SIZE = 14;
-const FAVORITE_SIZE = 18;
-const FAVORITE_HIT = 44;
-const ROW_GAP = Spacing.two;
-
-const DuaRow = memo(function DuaRow({
-  item,
-  index,
-  isFavorite,
+function OccasionSection({
+  section,
+  columns,
+  favoriteSet,
+  translationOf,
   onToggleFavorite,
   onOpen,
-  preferredFocus,
+  tvFirstFocusId,
+  accent,
 }: {
-  item: DuaItem;
-  index?: number;
-  isFavorite: boolean;
+  section: DuaSection;
+  columns: number;
+  favoriteSet: ReadonlySet<string>;
+  translationOf: (item: DuaItem) => string;
   onToggleFavorite: (id: string) => void;
   onOpen: (id: string) => void;
-  /** TV: initial D-pad focus. No-op on phone/web. */
-  preferredFocus?: boolean;
+  tvFirstFocusId: string | null;
+  /** Category hue for the header accent bar (scannability between occasions). */
+  accent: string;
 }) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const chevronForwardIcon = useChevronForward();
-  const tv = isTV();
-
-  const handleToggleFavorite = useCallback(
-    () => onToggleFavorite(item.id),
-    [onToggleFavorite, item.id],
-  );
-  const handleOpen = useCallback(() => onOpen(item.id), [onOpen, item.id]);
-
+  const { tokens } = useThemeTokens();
+  const titled = section.title != null;
+  // Phones: a rail only — a full frame inside the list card nested three
+  // paddings deep and squeezed the reading column to ~170px.
+  const compact = columns === 1 && !isTV();
   return (
-    // The favorite toggle is a sibling overlay, not nested inside the row's
-    // Pressable — nesting a <button> inside another <button> is invalid HTML on
-    // web (matches the ZikrRow pattern).
-    //
-    // TV: the star sits *beside* the row (flex sibling), not over it — a D-pad
-    // focus search can't move "right" into a control inside the row's bounds.
-    <View style={[styles.rowWrap, tv ? styles.rowWrapTv : styles.fill]}>
-      <PressableScale
-        haptic="light"
-        accessibilityRole="button"
-        accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
-        onPress={handleOpen}
-        {...(tv && preferredFocus ? { hasTVPreferredFocus: true } : {})}
-        style={[
-          styles.rowHeader,
-          tv ? styles.rowHeaderTv : styles.fill,
-          { backgroundColor: colors.muted, borderColor: tokens.hairline },
-        ]}
-      >
-        {index != null ? <ListIndexBadge index={index} /> : null}
-        <View style={styles.body}>
-          <ThemedText type="small" numberOfLines={2}>
-            {item.title}
+    // A multi-dua occasion carries a hue rail down its whole height (framed on
+    // wide screens), so its rows can't be mistaken for the one-off duas that
+    // follow unframed. A header-only bar left that boundary ambiguous.
+    <View
+      style={[
+        styles.section,
+        titled &&
+          (compact
+            ? [styles.groupRail, { borderStartColor: accent }]
+            : [styles.group, { borderColor: tokens.hairline, borderStartColor: accent }]),
+      ]}
+    >
+      {titled ? (
+        <View style={styles.sectionHeader} accessibilityRole="header">
+          <ThemedText type="smallBold" style={styles.sectionTitle}>
+            {section.title}
           </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-            {item.transliteration ?? item.translation}
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {section.items.length}
           </ThemedText>
         </View>
-        {tv ? null : <View style={styles.favoriteSlot} />}
-        <SymbolView
-          name={chevronForwardIcon}
-          size={CHEVRON_SIZE}
-          tintColor={colors.mutedForeground}
-        />
-      </PressableScale>
-
-      <IconButton
-        name={
-          isFavorite
-            ? { ios: "star.fill", android: "star", web: "star" }
-            : { ios: "star", android: "star_border", web: "star_border" }
-        }
-        size={FAVORITE_SIZE}
-        tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
-        accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
-        accessibilityState={{ selected: isFavorite }}
-        haptic="selection"
-        onPress={handleToggleFavorite}
-        hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
-        background={tv ? colors.muted : undefined}
-        style={tv ? undefined : styles.favoriteButton}
-      />
+      ) : null}
+      <ResponsiveGrid columns={columns} gap={Spacing.two}>
+        {section.items.map((item, index) => (
+          <DuaListRow
+            key={item.id}
+            item={item}
+            variant={titled ? "passage" : "titled"}
+            index={titled ? index + 1 : undefined}
+            translation={translationOf(item)}
+            isFavorite={favoriteSet.has(item.id)}
+            onToggleFavorite={onToggleFavorite}
+            onOpen={onOpen}
+            preferredFocus={item.id === tvFirstFocusId}
+          />
+        ))}
+      </ResponsiveGrid>
     </View>
   );
-});
+}
 
 const styles = StyleSheet.create({
-  listCard: { flex: 1, minHeight: 0 },
   /** Bounded host so FlatList flex:1 resolves against a real viewport height. */
   listHost: { flex: 1, minHeight: 0 },
   flatList: { flex: 1 },
-  tvList: { gap: 0 },
-  input: {
-    borderRadius: Radius.md,
+  tvList: { gap: Spacing.four },
+  controls: { gap: Spacing.three, marginBottom: Spacing.three },
+  listHeader: { paddingBottom: Spacing.one },
+  topicRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  topicNote: { flexShrink: 1 },
+  searchWide: { maxWidth: 640 },
+  section: { gap: Spacing.two },
+  group: {
+    padding: Spacing.two,
+    paddingTop: Spacing.three,
+    borderWidth: BorderWidth.thin,
+    borderStartWidth: 4,
+    borderRadius: Radius.lg,
     borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    marginBottom: Spacing.three,
-    fontSize: 15,
   },
-  inputTv: {
-    minHeight: TvLayout.minFocusTarget,
-    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
-    paddingHorizontal: Spacing.four,
-  },
-  separator: { height: Spacing.two },
-  inputWide: { maxWidth: 640 },
-  gridRow: { marginHorizontal: -Spacing.one },
-  gridCell: { paddingHorizontal: Spacing.one },
-  rowWrap: {
-    position: "relative",
-  },
-  /** Equal-height cells when rows sit side by side in a multi-column grid. */
-  fill: { flexGrow: 1 },
-  rowWrapTv: {
+  groupRail: { borderStartWidth: 3, paddingStart: Spacing.two },
+  sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
+    paddingHorizontal: Spacing.one,
   },
-  rowHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: ROW_GAP,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
-  // Horizontal padding stays put — the favorite button's absolute `end` offset
-  // below is computed against it. Only height/vertical padding grow for TV.
-  rowHeaderTv: {
-    flex: 1,
-    minWidth: 0,
-    minHeight: TvLayout.minFocusTarget,
-    paddingVertical: Spacing.four,
-    borderRadius: Radius.lg,
-  },
-  body: { flex: 1, gap: 2 },
-  favoriteSlot: { width: FAVORITE_SIZE, height: FAVORITE_SIZE },
-  favoriteButton: {
-    position: "absolute",
-    // Center over the row: PressableScale keeps the glyph on an inner view that
-    // does not stretch when top/bottom are set, so pin to mid-height instead.
-    top: "50%",
-    marginTop: -(FAVORITE_HIT / 2),
-    // Center the 44pt target over the reserved slot (slot sits just start-ward of the
-    // chevron): slot end edge + half the slot, minus half the tap target.
-    end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - FAVORITE_HIT / 2,
-  },
+  sectionTitle: { flex: 1 },
+  sectionSeparator: { height: Spacing.four },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

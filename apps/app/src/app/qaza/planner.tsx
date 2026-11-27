@@ -13,31 +13,40 @@ import {
   sumQazaScheduleTargets,
 } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { QazaDailyTargets } from "@/components/qaza-daily-targets";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { triggerHaptic } from "@/lib/haptics";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { formatQazaDailyTime, formatQazaDuration } from "@/lib/qaza-duration";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import {
+  trackerStore,
   useQazaCounters,
   useQazaSchedule,
   useQazaSummary,
   useTrackerActions,
+  useTrackerLoadError,
+  useTrackerReady,
 } from "@/stores/tracker-store";
 
 function sustainabilityPalette(
@@ -64,19 +73,31 @@ export default function QazaPlannerScreen() {
   const schedule = useQazaSchedule();
   const counters = useQazaCounters();
   const { setQazaSchedule } = useTrackerActions();
+  const ready = useTrackerReady();
+  const loadError = useTrackerLoadError();
+  const undoToast = useUndoToast();
+  const [confirmPreset, setConfirmPreset] = useState<number | null>(null);
   const today = getLocalDateString();
   const { width } = useWindowDimensions();
   /** Desktop / wide web: plan editing on the start side, pace summary + guidance aside. */
   const twoPane = !isTV() && width >= 1200;
 
+  /** Applies a preset with an Undo toast that restores the previous daily targets. */
   const applyPreset = (perPrayer: number) => {
-    void setQazaSchedule({ targets: buildUniformQazaTargets(counters, perPrayer) });
+    const before = schedule;
+    triggerHaptic("selection");
+    void undoToast.run({
+      do: () => setQazaSchedule({ targets: buildUniformQazaTargets(counters, perPrayer) }),
+      undo: () => setQazaSchedule(before),
+      messageKey: "qazaPlan.toastPresetApplied",
+    });
   };
 
   const dailyTotal = useMemo(() => sumQazaScheduleTargets(schedule), [schedule]);
   const dailyMinutes = estimateQazaDailyMinutes(dailyTotal);
   const sustainability = classifyQazaSustainability(dailyTotal);
   const selectedPreset = matchQazaPlanPreset(schedule.targets, counters);
+  const hasCustomPlan = selectedPreset === "custom" && dailyTotal > 0;
   const eta = computeQazaEta(summary.remaining, dailyTotal, today);
 
   const activePrayers = useMemo(
@@ -93,19 +114,22 @@ export default function QazaPlannerScreen() {
 
   const consistencyCard = (
     <Card
-      padding="three"
       style={{
         backgroundColor: tokens.accentSoft,
         borderColor: colors.accent,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
       }}
     >
       <ThemedText type="smallBold" style={{ color: colors.accentText }}>
         {t("qazaPlan.consistencyTitle")}
       </ThemedText>
-      <ThemedText type="small" themeColor="foreground" style={styles.hadithText}>
-        {t("qazaPlan.consistencyHadith")}
-      </ThemedText>
+      <ScriptureMeaning english={t("qazaPlan.consistencyHadith")}>
+        {(text) => (
+          <ThemedText type="small" themeColor="foreground" style={styles.hadithText}>
+            {text}
+          </ThemedText>
+        )}
+      </ScriptureMeaning>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("qazaPlan.consistencySource")}
       </ThemedText>
@@ -116,7 +140,7 @@ export default function QazaPlannerScreen() {
   );
 
   const etaCard = (
-    <Card>
+    <Card padding="four">
       <View style={styles.etaRow}>
         <View style={styles.etaStat}>
           <ThemedText type="header">{dailyTotal}</ThemedText>
@@ -167,7 +191,7 @@ export default function QazaPlannerScreen() {
       </ThemedText>
 
       {sustainability === "intensive" ? (
-        <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
+        <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
           {t("qazaPlan.intensiveWarning")}
         </ThemedText>
       ) : null}
@@ -183,7 +207,7 @@ export default function QazaPlannerScreen() {
   );
 
   const attachCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("qazaPlan.attachTitle")}
         icon={{ ios: "link", android: "link", web: "link" }}
@@ -195,7 +219,7 @@ export default function QazaPlannerScreen() {
   );
 
   const fiqhCard = (
-    <Card padding="three">
+    <Card>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("qazaPlan.fiqhNote")}
       </ThemedText>
@@ -204,7 +228,7 @@ export default function QazaPlannerScreen() {
 
   const presetsCard =
     summary.remaining > 0 ? (
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("qazaPlan.presetsTitle")}
           icon={{ ios: "leaf.fill", android: "eco", web: "eco" }}
@@ -212,7 +236,11 @@ export default function QazaPlannerScreen() {
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.suggestHint}>
           {t("qazaPlan.presetsHint")}
         </ThemedText>
-        <View style={styles.presetList}>
+        <View
+          style={styles.presetList}
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t("qazaPlan.presetsTitle")}
+        >
           {QAZA_PLAN_PRESETS.map((preset) => {
             const presetDailyTotal = preset.perPrayer * debtPrayerCount;
             const isSelected = selectedPreset === preset.id;
@@ -224,7 +252,9 @@ export default function QazaPlannerScreen() {
                 dailyTotal={presetDailyTotal}
                 recommended={preset.recommended}
                 selected={isSelected}
-                onPress={() => applyPreset(preset.perPrayer)}
+                onPress={() =>
+                  hasCustomPlan ? setConfirmPreset(preset.perPrayer) : applyPreset(preset.perPrayer)
+                }
               />
             );
           })}
@@ -255,6 +285,8 @@ export default function QazaPlannerScreen() {
       subtitle={t("qazaPlan.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo
         path="/qaza/planner"
         breadcrumbs={[
@@ -276,28 +308,47 @@ export default function QazaPlannerScreen() {
           }),
         ]}
       />
-      <Stagger>
-        {twoPane ? (
-          <View style={styles.split}>
-            <View style={styles.primary}>
-              {presetsCard}
-              <QazaDailyTargets />
+      <ContentState
+        status={ready ? "ready" : loadError ? "error" : "loading"}
+        onRetry={() => void trackerStore.getState().load()}
+        skeleton="card"
+        skeletonCount={3}
+        loadingLabel={t("uiFeedback.loading")}
+      >
+        <Stagger>
+          {twoPane ? (
+            <View style={styles.split}>
+              <View style={styles.primary}>
+                {presetsCard}
+                <QazaDailyTargets />
+              </View>
+              <View style={styles.aside}>
+                {etaCard}
+                {consistencyCard}
+                {attachCard}
+                {fiqhCard}
+              </View>
             </View>
-            <View style={styles.aside}>
-              {etaCard}
-              {consistencyCard}
-              {attachCard}
-              {fiqhCard}
-            </View>
-          </View>
-        ) : null}
-        {twoPane ? null : consistencyCard}
-        {twoPane ? null : etaCard}
-        {twoPane ? null : presetsCard}
-        {twoPane ? null : attachCard}
-        {twoPane ? null : <QazaDailyTargets />}
-        {twoPane ? null : fiqhCard}
-      </Stagger>
+          ) : null}
+          {twoPane ? null : consistencyCard}
+          {twoPane ? null : etaCard}
+          {twoPane ? null : presetsCard}
+          {twoPane ? null : attachCard}
+          {twoPane ? null : <QazaDailyTargets />}
+          {twoPane ? null : fiqhCard}
+        </Stagger>
+      </ContentState>
+
+      <ConfirmDialog
+        visible={confirmPreset != null}
+        title={t("qazaPlan.confirmPresetTitle")}
+        message={t("qazaPlan.confirmPresetMsg", { perPrayer: confirmPreset ?? 0 })}
+        confirmLabel={t("qazaPlan.confirmPresetAction")}
+        onConfirm={() => {
+          if (confirmPreset != null) applyPreset(confirmPreset);
+        }}
+        onClose={() => setConfirmPreset(null)}
+      />
     </ScreenLayout>
   );
 }
@@ -323,9 +374,9 @@ function PresetRow({
 
   return (
     <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityState={{ selected }}
+      haptic={false}
+      accessibilityRole="radio"
+      accessibilityState={{ checked: selected }}
       onPress={onPress}
       // TV: land on the active preset first so Select re-confirms / D-pad compares.
       {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
@@ -433,7 +484,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    padding: Spacing.two + 2,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },

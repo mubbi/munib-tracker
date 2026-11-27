@@ -20,6 +20,8 @@ export const APP_WIDGET_NAMES = [
   "QiblaBearingWidget",
   "TasbeehGlanceWidget",
   "JumuahWidget",
+  "AdhkarWidget",
+  "IslamicEventsWidget",
 ] as const;
 
 export type AppWidgetName = (typeof APP_WIDGET_NAMES)[number];
@@ -38,6 +40,8 @@ export const ANDROID_WIDGET_DEFAULT_DP: Record<AppWidgetName, { width: number; h
   QiblaBearingWidget: { width: 110, height: 110 },
   TasbeehGlanceWidget: { width: 110, height: 110 },
   JumuahWidget: { width: 250, height: 110 },
+  AdhkarWidget: { width: 250, height: 110 },
+  IslamicEventsWidget: { width: 250, height: 110 },
 };
 
 export function isAppWidgetName(value: string): value is AppWidgetName {
@@ -109,6 +113,14 @@ const WIDGET_DISPLAY_NAME_KEYS: Record<
   JumuahWidget: {
     labelKey: "widgets.gallery.friday.label",
     descriptionKey: "widgets.gallery.friday.description",
+  },
+  AdhkarWidget: {
+    labelKey: "widgets.gallery.adhkar.label",
+    descriptionKey: "widgets.gallery.adhkar.description",
+  },
+  IslamicEventsWidget: {
+    labelKey: "widgets.gallery.events.label",
+    descriptionKey: "widgets.gallery.events.description",
   },
 };
 

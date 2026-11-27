@@ -88,38 +88,38 @@ export const PROPHETS_GENEALOGY_NODES_AZ: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Şis (Set)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Klassik İslam ənənəsi (və bir neçə peyğəmbərin geniş yayılmış nəsil xülasəsi) Şisi Adəmin oğlu və ilk nəsillərdə bir halqa kimi adlandırır. Şis ilə Nuh arasındakı ara adlar əsasən İsrailiyyatdır və möhkəm bağlantılar kimi çəkilmir.",
   },
   {
-    name: "Idris",
+    name: "İdris",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Qurani-Kərim İdrisi uca məqama qaldırılmış doğru sözlü bir peyğəmbər kimi adlandırır. Klassik siyahılar onu çox vaxt Adəmlə Nuh arasında yerləşdirir (bəzən Xanoxla eyniləşdirirlər), lakin Quran onun atasının adını çəkmir — heç bir valideyn bağlantısı çəkilmir.",
   },
   {
-    name: "Imran",
+    name: "İmran",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Allah İmran ailəsini aləmlərdən üstün seçdi. Məryəm İmranın qızıdır. (Bu İmran Məryəmin atasıdır — burada Musa/Harun üçün ata bağlantısı kimi istifadə olunmur.)",
   },
   {
-    name: "Adnan",
+    name: "Ədnan",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "İslam ənənəsinə görə, Məhəmməd ﷺ Ədnanın nəslindəndir, Ədnan isə İsmayılın nəslindəndir — lakin ərəb nəsəbşünaslıq ənənəsi razılaşır ki, Ədnandan İsmayıla qədər adları məlum olan nəsil zənciri itib. Ədnan ədnani ərəblərinin klassik olaraq qəbul edilmiş başçısıdır; İsmayıla heç bir valideyn bağlantısı çəkilmir.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Haşim ibn Əbdmənaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Haşim Bəni Haşimin adını verən şəxs və Peyğəmbərin ﷺ klassik əcdadıdır. Ədnandan Haşimə qədər tam başçılar siyahısı (Fihr, Mudar, …) sirədə qeyd olunub, lakin burada peyğəmbər olmayan ara qəbilə nəsilləri kimi buraxılır. Bu xəritədə Haşim yaxın Haşimi xəttinin başında durur.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Əbdülmüttəlib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Klassik sirəyə görə, Əbdülmüttəlib (Şeybə) Peyğəmbərin ﷺ ata tərəfdən babası və Haşimin oğludur.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdullah ibn Əbdülmüttəlib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Klassik sirəyə görə, Abdullah Peyğəmbər Məhəmmədin ﷺ atası və Əbdülmüttəlibin oğludur.",
   },
 ];

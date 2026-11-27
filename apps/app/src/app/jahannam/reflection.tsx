@@ -19,6 +19,8 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -35,35 +37,51 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
   const router = useRouter();
   const { colors, tokens } = useThemeTokens();
+  const rose = useCategoryHue("rose");
   const chevronForwardIcon = useChevronForward();
 
-  return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={entry.question}
-      onPress={() => {
-        if (entry.appLink) router.push(entry.appLink.route as never);
-      }}
-      style={[styles.row, styles.rowFill, { backgroundColor: colors.muted }]}
-    >
+  const appLink = entry.appLink;
+  const body = (
+    <>
       <IconWell
         icon={{ ios: "questionmark.circle.fill", android: "help", web: "help" }}
-        tint={tokens.status.warning.color}
+        tint={rose.icon}
+        background={rose.soft}
         well={40}
         size={18}
       />
       <View style={styles.copy}>
         <LearnProseText>{entry.question}</LearnProseText>
-        {entry.appLink ? (
-          <ThemedText type="caption" style={{ color: colors.accent }}>
-            {entry.appLink.label}
+        {appLink ? (
+          <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
+            {appLink.label}
           </ThemedText>
         ) : null}
       </View>
-      {entry.appLink ? (
+      {appLink ? (
         <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
       ) : null}
+    </>
+  );
+
+  // A prompt without a link is reading, not a control (no dead button, G-40);
+  // TV still gets a D-pad stop through TvReadableBlock.
+  if (!appLink) {
+    return (
+      <TvReadableBlock>
+        <View style={[styles.row, styles.rowFill, { backgroundColor: colors.muted }]}>{body}</View>
+      </TvReadableBlock>
+    );
+  }
+  return (
+    <PressableScale
+      haptic="light"
+      accessibilityRole="link"
+      accessibilityLabel={`${entry.question}. ${appLink.label}`}
+      onPress={() => router.push(appLink.route as never)}
+      style={[styles.row, styles.rowFill, { backgroundColor: colors.muted }]}
+    >
+      {body}
     </PressableScale>
   );
 }
@@ -71,7 +89,11 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
 export default function JahannamReflectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const reflections = getJahannamReflections();
   const wide = useLearnHubLayout();
   // Wide web / tablets: reflection prompts flow into 2 columns.
@@ -86,13 +108,13 @@ export default function JahannamReflectionScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/reflection" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
             <JannahCallout tone="accent">
               {tTv(t, "jahannam.reflectionLead", "jahannam.reflectionLeadTv")}
             </JannahCallout>
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("jahannam.reflectionListTitle")}
                 icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}

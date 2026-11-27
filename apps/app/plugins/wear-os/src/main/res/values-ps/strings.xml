@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">راتلونکی لمونځ</string>
+  <string name="wear_today">د نن مهالویش</string>
+  <string name="wear_tasbeeh">تسبیح</string>
+  <string name="wear_progress">د نن پرمختګ</string>
+  <string name="wear_open_phone">د همغږۍ لپاره په خپل تلیفون کې Munib Tracker پرانیزئ</string>
+  <string name="wear_connect_phone">د لمانځه وختونو لیدلو لپاره خپل تلیفون وصل کړئ</string>
+  <string name="wear_install_phone">د لمانځه وختونو لیدلو لپاره په خپل تلیفون کې Munib Tracker نصب کړئ</string>
+  <string name="wear_tasbeeh_standalone">تسبیح پرته له تلیفونه هم ستاسو په ساعت کې کار کوي</string>
+  <string name="wear_tasbeeh_of_target">له %1$d نه</string>
+  <string name="wear_tasbeeh_unlimited">نامحدود</string>
+  <string name="wear_tasbeeh_options">اختیارونه</string>
+  <string name="wear_tasbeeh_undo">وروستی بېرته کړئ</string>
+  <string name="wear_tasbeeh_target">هدف</string>
+  <string name="wear_tasbeeh_mode">حالت</string>
+  <string name="wear_tasbeeh_free">آزاده شمېرنه</string>
+  <string name="wear_tasbeeh_after_salah">د لمانځه وروسته</string>
+  <string name="wear_tasbeeh_reset">بیا تنظیم</string>
+  <string name="wear_tasbeeh_reset_confirm">شمېرنه 0 ته بیا تنظیم شي؟</string>
+  <string name="wear_tasbeeh_start_again">بیا پیل کړئ</string>
+  <string name="wear_tasbeeh_all_done">تسبیح بشپړ شو</string>
+  <string name="wear_tasbeeh_step">ګام %1$d له %2$d</string>
+  <string name="wear_tasbeeh_target_reached">هدف ته ورسېد</string>
+  <string name="wear_tasbeeh_tap_to_count">د شمېرلو لپاره ټک وهئ</string>
+  <string name="wear_tasbeeh_a11y">د تسبیح شمېرونکی، %1$d له %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">د تسبیح شمېرونکی، %1$d</string>
+  <string name="wear_tasbeeh_count_one">یو وشمېرئ</string>
+  <string name="wear_open">پرانیزئ</string>
+  <string name="wear_open_app">Munib Tracker پرانیزئ</string>
+  <string name="wear_mark_confirm">دا لمونځ ادا شوی ثبت کړئ؟</string>
+  <string name="wear_confirm">تایید</string>
+  <string name="wear_marked">ثبت شو ✓</string>
+  <string name="wear_mark_sent">ستاسو تلیفون ته ولېږل شو</string>
+  <string name="wear_mark_will_sync">کله چې ستاسو تلیفون نږدې وي همغږي به شي</string>
+</resources>

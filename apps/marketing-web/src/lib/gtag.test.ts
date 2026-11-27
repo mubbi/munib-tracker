@@ -54,6 +54,14 @@ describe("gtag", () => {
       process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = "  G-ABC123  ";
       expect(getGaMeasurementId()).toBe("G-ABC123");
     });
+
+    it.each(["G-1'});alert(1);//", "UA-12345-1", "G-", "G-ABC 123", "</script>"])(
+      "rejects a malformed measurement id %j",
+      (value) => {
+        process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = value;
+        expect(getGaMeasurementId()).toBeNull();
+      },
+    );
   });
 
   describe("isGoogleAnalyticsConfigured", () => {

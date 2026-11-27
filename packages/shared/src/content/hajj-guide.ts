@@ -339,6 +339,7 @@ export const HAJJ_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "umrah-tawaf",
+    differenceIds: ["tawaf.wudu"],
     section: "umrah",
     title: "Tawaf of the Ka'bah",
     summary: "Seven circuits anticlockwise, starting at the Black Stone.",
@@ -397,6 +398,7 @@ export const HAJJ_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "umrah-halq",
+    differenceIds: ["umrah.taqsir"],
     section: "umrah",
     title: "Halq or taqsir — completing Umrah",
     summary: "Men shave or trim; women trim a fingertip's length — then ihram lifts.",
@@ -529,6 +531,7 @@ export const HAJJ_GUIDE_TOPICS: LearnGuideTopic[] = [
   },
   {
     id: "arkan-wajibat",
+    differenceIds: ["tawaf.wudu"],
     section: "rulings",
     title: "Pillars and obligations",
     summary: "What invalidates Hajj if missed, and what is made up with a sacrifice.",

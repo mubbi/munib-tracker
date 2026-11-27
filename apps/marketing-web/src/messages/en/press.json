@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "Press Kit — Logos, Brand Colours & Media Resources",
+    "description": "Download {appName} logos and brand colours, read a short description of the app, and find contact details for articles and reviews about it."
+  },
+  "eyebrow": "Press",
+  "title": "Press kit",
+  "intro": "Media resources for {appName} — the offline-first Muslim worship companion.",
+  "boilerplate": {
+    "heading": "Boilerplate",
+    "body": "<strong>{appName}</strong> — {tagline} Available on iOS, Android, and web. Free for personal and educational use with no ads. The project is source-available on GitHub under the {license} (non-commercial; attribution required). Features include Salah tracking with a focus lock, a Qaza calculator and planner, adhkar and tasbeeh, the offline Qur'an with on-device recitation practice, a hadith library, a Masjid finder, family and kids mode, group khatm, widgets and watch companions, 24 languages, and optional sync, plus a learning library and step-by-step worship guides."
+  },
+  "colors": {
+    "heading": "App brand colours",
+    "names": {
+      "heroFrom": "Hero green (from)",
+      "heroTo": "Hero green (to)",
+      "emerald": "Brand emerald",
+      "forest": "Forest accent",
+      "gold": "Hero gold",
+      "cream": "Cream background",
+      "text": "Deep forest text"
+    }
+  },
+  "typography": {
+    "heading": "Typography",
+    "items": {
+      "app": "App display & UI: Spline Sans · App headlines: Lora (serif accent)",
+      "website": "Website: Plus Jakarta Sans (headings) and Inter (body)",
+      "arabic": "Arabic content in-app: Amiri, Scheherazade New, Noto Naskh Arabic, QPC Hafs (user-selectable)"
+    }
+  },
+  "logo": {
+    "heading": "Logo",
+    "iconAlt": "{appName} app icon",
+    "icon512Alt": "{appName} icon 512px",
+    "iconCaption": "App icon (PNG)",
+    "download512": "Download 512×512",
+    "usage": "Use the official Munib app icon with sufficient contrast. Do not stretch, rotate, or recolor the mark. Minimum clear space: one-quarter of the icon width on all sides."
+  },
+  "screenshots": {
+    "heading": "Screenshots",
+    "body": "Screenshots of the app appear on each <features>feature page</features>. For full-resolution files, use the <contact>contact form</contact> with your publication name and deadline.",
+    "gallery": "Every image below is a real capture of {appName} on that device, in this page's language where the app has it. Download any of them for your coverage.",
+    "download": "Download",
+    "downloadLabel": "Download the {device} screenshot"
+  },
+  "links": {
+    "heading": "Links",
+    "website": "Website: <link>{url}</link>",
+    "openSource": "Open source: <link>{url}</link>",
+    "github": "GitHub: <link>{url}</link>",
+    "app": "App: <appStoreLink>{appStore}</appStoreLink> · <googlePlayLink>{googlePlay}</googlePlayLink> · <webAppLink>Web app</webAppLink>"
+  },
+  "pressContact": {
+    "heading": "Press contact",
+    "body": "For interviews, review units, or partnership inquiries, use our <contact>contact form</contact> and mention that your message is a press enquiry."
+  }
+}

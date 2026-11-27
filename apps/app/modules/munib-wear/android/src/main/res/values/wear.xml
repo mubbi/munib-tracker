@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The watch app looks for this capability (CapabilityClient) to tell "phone app not
+     installed" apart from "not synced yet". Kept from resource shrinking. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+  tools:keep="@array/android_wear_capabilities">
+  <string-array name="android_wear_capabilities" translatable="false">
+    <item>munib_phone_app</item>
+  </string-array>
+</resources>

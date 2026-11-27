@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Salaadda iyo ka-qaybgalka Alle dartii ugu dadaal, ee ha u yeelin bandhig bulsho.",
       "Caawinta baahiyaha dhabta ah ee qoyska marka aad si xushmad leh u samayn karto.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ruuxii ka qayb gala Janaasada intuu ka Tukanayo Salaadda Janaasada wuxuu leeyahay Hal Qiraad, Ruuxii taga inta la aasayana wuxuu leeyahay Labo Qirood mid walbana wuxuu la mid yahay Buur wayn.",
-      },
-      {
-        excerpt:
-          "Qofkii u raaca aaska qofka muslimka ah iimaan iyo ajar doon, oo ku sugnaada inta salaadda laga tukanayo oo laga dhammeeyo xabaalku, wuxuu la soo noqonayaa laba qiraad...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "dhaqid iyo xiniinyo",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Xijaabka ha ahaado mid fudud oo nadiif ah - maro cad ayaa ah tusaalaha nebiyada.",
       "Iska ilaali inaad sawirto ama soo bandhigto jidhka adigoon u baahnayn.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ku dhaq saddex jeer, ama shan ama ka badan, haddii aad taas u aragto in loo baahdo, biyo iyo sidr, oo ku rid kaafuur ama kafurka ugu dambeeya.",
-      },
-      {
-        excerpt:
-          "Rasuulku ﷺ waxa lagu dahaadhay saddex maro oo cad cad oo Yemeni ah; Shaadh iyo cimaamad midna kuma jirin.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Marka la xidho indhaha marxuumka",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Indhaha si tartiib ah u xidh oo samee ducada saxda ah.",
       "Xusuusi qoyska inay ku hadlaan wanaag.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Markii ay indhihii Abu Salamah qabteen ayuu Nabigu (scw) xidhay oo yidhi marka nafta la qabto araggu wuu raacayaa, kadibna reerkii baray inay ku hadlaan wanaag uun.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Sida loo Tukado Jannada",
@@ -83,15 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "afar takbiir imaamka la jooga dheh.",
       "Duco daacad ah u samee marxuumka takbiirta ku haboon ka dib.",
     ],
-    hadith: [
-      {
-        excerpt: "Nabigu ﷺ ayaa ku Tukaday Salaad Janaasada Negus oo uu yidhi Afar Takbiir.",
-      },
-      {
-        excerpt:
-          "Ibnu Cabbaas ayaa ku tukaday salaad janaaso, wuxuuna akhriyay Faatixada isagoo sheegay inay ka timid sunnada.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ducadii Salaada Janaasada (Dadwayne)",
@@ -154,16 +123,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Marka la geliyo marxuumka qabriga, duco sax ah ayaa lagu xafidaa Hisnul Muslim. Xabaasha ka dib, Nebigu ﷺ wuxuu istaagi jiray qabriga oo uu odhan jiray: 'Dambi dhaaf u weydiiso walaalkaa, oo weyddiiso in loo saro, waayo hadda waa la waydiinayaa' (Sunan Abii Daawuud 3221 - oo ay saxiixeen culimo badan oo dambe oo uu ka mid yahay Albaani).",
       "Dhismooyin qurxin leh oo qabuuraha korkooda laga dhiso, lagu dhejiyo si loo qurxiyo, ama qoraal dhiirigeliya buunbuuninta ayaa looga digayaa warbixinnada dhabta ah. Ka dhig calaamadda mid fudud halka sharciga iyo dhaqanka deegaanku ogol yahay aqoonsiga.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "ku degdego aaska, hadday xaq tahay, wanaag baad u dedejisaa; Haddii kalese, xumaanta qoortiinnaad iska saaraysaan.",
-      },
-      {
-        excerpt:
-          "Walaalkaa cafis weydiiso oo ka bari in uu u samro, waayo hadda waa la is weydiinayaa.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ka dib markii la aasay marxuumka",
@@ -188,19 +148,14 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Ku salaamo dadka qubuuraha deggan erayada dhabta ah.",
       "Ka fiirso geerida oo soo cusboonaysii camalka xaqa ah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Asalaamu Calaykum Waraxmatullaahi Wabarakaatuh. Waan ku soo biiri doonnaa, haddii Alle idmo. Annaga iyo idinkaba waxaan Allah uga baryaynaa wanaag.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Xusuusin iyo khaladaad caadi ah",
     summary:
       "Iska ilaali baroorta, dib u dhigista bandhigga, iyo caadooyinka aan sal iyo raadka lahayn.",
     body: [
-      "Rasuulku ﷺ wuxuu reebay in loo baroorto meydka iyadoo la ogolyahay murugada oohinta. Cabdullaahi ibnu Cumar waxa laga wariyey in Sacad ibnu Cubadah uu ku ooyay janaasada, nabiguna ﷺ wuxuu sharaxay in aanu Eebe ciqaabin jeexjeexa isha ama murugada qalbiga, balse uu u cadaabo midaas – wuxuuna u tilmaamay carabkiisa (Saxiix Al-Bukhaari 1304).",
+      "Rasuulku ﷺ wuxuu reebay in loo baroorto meydka iyadoo la ogolyahay murugada oohinta. Cabdullaahi ibnu Cumar waxa laga wariyey in markii Sacad ibnu Cubadah uu xanuunsaday, nabigu ﷺ uu booqday oo uu ooyay, wuxuuna sharaxay in aanu Eebe ciqaabin jeexjeexa isha ama murugada qalbiga, balse uu u cadaabo midaas – wuxuuna u tilmaamay carabkiisa (Saxiix Al-Bukhaari 1304).",
       "Ha ku daahin aasitaanka shirarka sharafta leh, hana ku bixin si qurux badan gogosha iyo diyaafadda adoo dayacayn masaakiinta. Ha akhrin hana ku celcelin wax cusub oo loo nisbeeyo aaska iyada oo aan sal dhab ahayn. Tacsi, duco deggan, iyo caawinta qoyska waa tubta sunnada ah.",
       "ka qayb galka haweenka ee salaada iyo aaska waxa loola dhaqmaa si dhib yar dhamaan dugsiyada iyo waayaha; raac hanuunin maxalli ah oo la aamini karo oo ixtiraamaya naxariista iyo xadka nebiyada labadaba.",
     ],
@@ -211,12 +166,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Dedeji aas sharaf leh.",
       "Ka caawi qoyska cuntada iyo arrimaha adiga oo aan culays ku saarin xad-dhaaf.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Eebbana uma cadaabo ilmada isha iyo murugada qalbiga toona, balse wuu ciqaabaa ama wuu u naxariisanayaa arrinkaas- oo carrabkiisa u tilmaamay.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -233,12 +183,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Baro isku xigxiga afar-takbiir ka hor intaadan u baahnayn.",
       "Xafid Faatixa, salawaad, iyo ugu yaraan hal duco janaazo.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ibnu Cabbaas wuxuu tukaday salaad janaazo oo akhriyay Faatixa isagoo sheegay inay ka timid sunnada.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Ducooyinka ragga, dumarka, iyo carruurta",
@@ -273,16 +218,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Ha maydhin shahiid goobta dagaalka oo ka soo horjeeda tilmaanta culimada.",
       "Weydii guddiga janaazada kiisaska dhicista ama ilmo dhintay.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nebigu ﷺ wuxuu amray in shahiidiintii Uhud lagu aaso dhiiggooda, mana la maydhin.",
-      },
-      {
-        excerpt:
-          "Salaadda janaazada ayaa lagu tukadaa dhicista, waalidiintana waxaa loogu duceeyaa magfirad iyo naxariis.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Janazah maqnaansho",
@@ -298,15 +234,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Tukada maxalli ah mar kasta oo jidhku joogo.",
       "Weydii ka hor intaadan abaabulin Janazah maqnaansho dhacdo dadweyne ahaan.",
     ],
-    hadith: [
-      {
-        excerpt: "Nebigu ﷺ wuxuu u tukaday salaadda janaazada Negus oo yidhi afar takbiir.",
-      },
-      {
-        excerpt:
-          "Rasulkii Alle ﷺ wuxuu Saxaabada saf u dhigay oo u tukaday Negus, isagoo afar takbiir leh.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Sariirta dhimashada — ereyada ugu dambeeya",
@@ -320,15 +248,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Si tartiib ah ugu xusuusi qofka dhimanaya shahaadada.",
       "Qolka ka dhig mid deggan oo ku mashquulsan hadal wanaagsan.",
     ],
-    hadith: [
-      {
-        excerpt: "Ku xusuusiya kuwa dhimanaya ee idiin ah inay dhaahaan: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Qofkii ereyadiisa ugu dambeeya yihiin 'Ma jiro mid xaq u leh in la caabudo oo aan Alle ahayn' wuxuu galayaa Jannada.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Ducooyinka rajada nolosha" }, { label: "Xidhida indhaha" }],
   },
   {
@@ -344,12 +264,7 @@ export const JANAZAH_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
       "Ka caawi cunto iyo hawlo halkii aad ka sugi lahayd xaflad.",
       "Sii wad duco deggan iyo sadaqo marxuumka.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ma jiro muslim oo masiibo ku dhacdo oo yidhaahda ereyada la amray ee Alle loogu noqdo oo weydiisto beddelka ka wanaagsan, laakiin Alle wuxuu u beddelayaa wax ka wanaagsan.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Yoolalka sadaqada" }],
   },
 ];

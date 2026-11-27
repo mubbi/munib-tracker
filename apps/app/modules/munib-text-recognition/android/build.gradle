@@ -1,0 +1,27 @@
+// NF-3.12 timetable OCR (D3 — on-device only). expo-module-gradle-plugin supplies
+// compileSdk / minSdk / targetSdk, Kotlin and expo-modules-core.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.munibtextrecognition'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.munibtextrecognition"
+  defaultConfig {
+    versionCode 1
+    versionName "1.0.0"
+  }
+  lint {
+    abortOnError false
+  }
+}
+
+dependencies {
+  // ML Kit Text Recognition v2, Latin script, BUNDLED model (ships in the APK:
+  // no Play Services model download, no network). ML Kit has no Arabic-script
+  // model, so Eastern-Arabic digits may be missed — the review grid covers that.
+  implementation "com.google.mlkit:text-recognition:16.0.1"
+}

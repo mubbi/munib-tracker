@@ -31,6 +31,8 @@ export type OrtNamespace = {
         feeds: Record<string, unknown>,
       ): Promise<Record<string, { data: unknown; dims: readonly number[] }>>;
       outputNames: readonly string[];
+      /** Graph input names (both runtimes expose them; used to pick the warm-up feed). */
+      inputNames?: readonly string[];
       release?: () => Promise<void>;
     }>;
   };

@@ -4,6 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  AccessibilityInfo,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
@@ -21,7 +22,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
@@ -70,10 +71,16 @@ export default function TourScreen() {
   const isLast = index === tour.steps.length - 1;
   const progress = (index + 1) / tour.steps.length;
 
+  /** Skip / Done: the tour has been seen and won't offer itself again. */
   const finish = useCallback(async () => {
     await markSeen(tour.id);
     goBackOrReplace(router, "/");
   }, [markSeen, router, tour.id]);
+
+  /** Back (G-90): leave without marking the tour seen — it can still offer itself. */
+  const leave = useCallback(() => {
+    goBackOrReplace(router, "/");
+  }, [router]);
 
   const goThere = useCallback(async () => {
     if (!step?.route) return;
@@ -103,6 +110,21 @@ export default function TourScreen() {
     },
     [index, pageWidth, tour.steps.length],
   );
+
+  // P9-05: a new step is spoken ("Step 2 of 5, Track every Salah") — the pager
+  // moves content without moving screen-reader focus.
+  const announcedRef = useRef(index);
+  useEffect(() => {
+    if (announcedRef.current === index) return;
+    announcedRef.current = index;
+    const current = tour.steps[index];
+    if (!current) return;
+    AccessibilityInfo.announceForAccessibility(
+      `${t("tour.stepLabel", { current: index + 1, total: tour.steps.length })}, ${t(
+        `tour.steps.${current.id}.title`,
+      )}`,
+    );
+  }, [index, t, tour.steps]);
 
   // Web: Left/Right arrows page the tour (mouse users can't swipe). Direction
   // follows reading order; never hijack keys while typing in a field.
@@ -143,7 +165,7 @@ export default function TourScreen() {
             accessibilityLabel={t("common.goBack")}
             onPress={() => {
               triggerHaptic("light");
-              void finish();
+              leave();
             }}
             haptic={false}
             name={chevronBack()}
@@ -156,30 +178,44 @@ export default function TourScreen() {
 
         <View style={styles.toolbarCenter}>
           <ThemedText type="smallBold">{t(tourTitleKey)}</ThemedText>
-          <Pill
-            compact
-            label={t("tour.stepCounter", { current: index + 1, total: tour.steps.length })}
-          />
+          <View
+            accessible
+            accessibilityLabel={t("tour.stepLabel", {
+              current: index + 1,
+              total: tour.steps.length,
+            })}
+          >
+            <Pill
+              compact
+              label={t("tour.stepCounter", { current: index + 1, total: tour.steps.length })}
+            />
+          </View>
         </View>
 
-        <PressableScale
-          accessibilityRole="button"
-          accessibilityLabel={t("common.skip")}
-          hitSlop={8}
-          onPress={() => {
-            triggerHaptic("light");
-            void finish();
-          }}
-          style={[styles.skipButton, tv && styles.skipButtonTv]}
-        >
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {t("common.skip")}
-          </ThemedText>
-        </PressableScale>
+        {isLast && !tv ? (
+          // The last step's "Done" already finishes the tour — Skip would repeat it.
+          <View style={styles.iconButtonSpacer} />
+        ) : (
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={t("common.skip")}
+            hitSlop={8}
+            onPress={() => {
+              triggerHaptic("light");
+              void finish();
+            }}
+            style={[styles.skipButton, tv && styles.skipButtonTv]}
+          >
+            <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+              {t("common.skip")}
+            </ThemedText>
+          </PressableScale>
+        )}
       </View>
 
       <ProgressBar
         value={progress}
+        accessibilityLabel={t("a11yProgress.tour")}
         height={3}
         style={[
           styles.progressTrack,
@@ -211,23 +247,23 @@ export default function TourScreen() {
                 key={s.id}
                 style={[styles.slide, { width: pageWidth, paddingHorizontal: padX }]}
               >
-                <TourSlide step={s} tv={tv} split={split} />
+                <TvScrollView
+                  style={styles.slideScroll}
+                  contentContainerStyle={styles.slideScrollContent}
+                  // TV: no overflow scrolling on the D-pad; the landscape slide fits.
+                  scrollEnabled={!tv}
+                  showsVerticalScrollIndicator={false}
+                  bounces={false}
+                >
+                  <TourSlide step={s} tv={tv} split={split} />
+                </TvScrollView>
               </View>
             ))}
           </TvScrollView>
         ) : null}
       </View>
 
-      <TourPagination
-        steps={tour.steps}
-        index={index}
-        tv={tv}
-        onSelect={goToStep}
-        accessibilityLabel={t("tour.stepCounter", {
-          current: index + 1,
-          total: tour.steps.length,
-        })}
-      />
+      <TourPagination steps={tour.steps} index={index} />
 
       <View
         style={[
@@ -354,60 +390,30 @@ function TourSlide({
   );
 }
 
-function TourPagination({
-  steps,
-  index,
-  onSelect,
-  accessibilityLabel,
-  tv = false,
-}: {
-  steps: FeatureTourStep[];
-  index: number;
-  tv?: boolean;
-  onSelect: (nextIndex: number) => void;
-  accessibilityLabel: string;
-}) {
-  const { t } = useTranslation();
+/**
+ * Decorative page dots (F-50 / G-89): progress is announced by the step pill
+ * and the progress bar above, and Next / Back move between steps — the dots are
+ * not targets and are hidden from assistive tech.
+ */
+function TourPagination({ steps, index }: { steps: FeatureTourStep[]; index: number }) {
   const { colors, tokens } = useThemeTokens();
-
   return (
     <View
       style={styles.pagination}
-      accessibilityRole="progressbar"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityValue={{ min: 1, max: steps.length, now: index + 1 }}
+      accessible={false}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
     >
       {steps.map((s, i) => {
         const active = i === index;
-        if (tv) {
-          // 8dp dots are not usable D-pad targets — show progress only on TV.
-          return (
-            <View
-              key={s.id}
-              style={[
-                styles.pageDot,
-                {
-                  width: active ? tvDp(28) : tvDp(8),
-                  height: tvDp(8),
-                  backgroundColor: active ? colors.accent : tokens.track,
-                },
-              ]}
-            />
-          );
-        }
         return (
-          <PressableScale
+          <View
             key={s.id}
-            accessibilityRole="button"
-            accessibilityLabel={t(`tour.steps.${s.id}.title`)}
-            accessibilityState={{ selected: active }}
-            onPress={() => onSelect(i)}
-            haptic="light"
-            scaleTo={0.9}
             style={[
               styles.pageDot,
               {
-                width: active ? 28 : 8,
+                width: active ? tvDp(28) : tvDp(8),
+                height: tvDp(8),
                 backgroundColor: active ? colors.accent : tokens.track,
               },
             ]}
@@ -436,7 +442,7 @@ const styles = StyleSheet.create({
   toolbarCenter: {
     flex: 1,
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   iconButton: {
     width: ICON_BUTTON,
@@ -521,6 +527,14 @@ const styles = StyleSheet.create({
   carousel: {
     flex: 1,
   },
+  slideScroll: {
+    flex: 1,
+  },
+  /** Centred when it fits; scrolls at large text sizes instead of clipping. */
+  slideScrollContent: {
+    flexGrow: 1,
+    justifyContent: "center",
+  },
   slide: {
     flex: 1,
     justifyContent: "center",
@@ -549,7 +563,7 @@ const styles = StyleSheet.create({
     opacity: 0.55,
   },
   iconWell: {
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   slideTitle: {
     textAlign: "center",
@@ -558,13 +572,12 @@ const styles = StyleSheet.create({
   slideBody: {
     textAlign: "center",
     maxWidth: 340,
-    lineHeight: 24,
   },
   pagination: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingVertical: Spacing.three,
   },
   pageDot: {
@@ -581,7 +594,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.one,
-    minHeight: 36,
+    minHeight: 44,
   },
   footerActions: {
     flexDirection: "row",

@@ -37,6 +37,11 @@ export interface LocationState {
    * replaces the stored location (clearing any manual selection).
    */
   requestDeviceLocation: () => Promise<void>;
+  /**
+   * Adds the ISO country code to a location saved before codes were stored
+   * (one background reverse geocode; never blocks, never changes the label).
+   */
+  backfillCountryCode: () => Promise<void>;
   /** Persists a city the user picked from search; GPS won't overwrite it. */
   setManualLocation: (place: LocationSearchResult) => Promise<void>;
   setMethod: (method: CalculationMethodKey) => Promise<void>;
@@ -45,6 +50,47 @@ export interface LocationState {
   setHighLatitudeRule: (rule: HighLatitudeRuleKey) => Promise<void>;
   /** Per-prayer manual minute offset (NF-2.20); 0 clears the offset. */
   setPrayerAdjustment: (prayerId: PrayerSlotId, minutes: number) => Promise<void>;
+}
+
+/** The device fix in flight, so a second caller awaits it instead of returning early. */
+let inflightFix: Promise<void> | null = null;
+
+/**
+ * Gets a device fix and stores it. `silent` (background refresh): when no fix
+ * arrives in time but a previous device fix is saved, keep it and stay `ready`
+ * instead of surfacing an error — slow desktop browsers and indoor GPS time out
+ * routinely, and the saved city is still the best answer. A silent fix never
+ * replaces a city the user picked by hand while it was in flight.
+ */
+function fetchDeviceLocation({ silent }: { silent: boolean }): Promise<void> {
+  if (inflightFix) return inflightFix;
+  if (locationStore.getState().status === "loading") return Promise.resolve();
+  inflightFix = runDeviceFix(silent).finally(() => {
+    inflightFix = null;
+  });
+  return inflightFix;
+}
+
+async function runDeviceFix(silent: boolean): Promise<void> {
+  const { getState, setState } = locationStore;
+  const previous = getState().location;
+  setState({ status: "loading" });
+  const result = await getDeviceLocation(previous);
+  if (silent && getState().location.source === "manual") {
+    setState({ status: "ready" });
+    return;
+  }
+  if (result.status === "granted") {
+    const location = await LocationRepository.update(result.location);
+    setState({ location, status: "ready" });
+    return;
+  }
+  const keepSaved =
+    silent &&
+    result.status === "error" &&
+    result.reason === "timeout" &&
+    getState().location.source === "device";
+  setState({ status: keepSaved ? "ready" : result.status });
 }
 
 export const locationStore = createStore<LocationState>((set, get) => ({
@@ -58,6 +104,7 @@ export const locationStore = createStore<LocationState>((set, get) => ({
     await initDatabase();
     const location = await LocationRepository.get();
     set({ location, isReady: true, status: "ready" });
+    void get().backfillCountryCode();
     // Silent GPS refresh only — never prompt at boot / during onboarding.
     void get().refresh();
   },
@@ -74,19 +121,27 @@ export const locationStore = createStore<LocationState>((set, get) => ({
       if (get().status !== "ready") set({ status: "ready" });
       return;
     }
-    await get().requestDeviceLocation();
+    await fetchDeviceLocation({ silent: true });
   },
 
   async requestDeviceLocation() {
-    if (get().status === "loading") return;
-    set({ status: "loading" });
-    const result = await getDeviceLocation(get().location);
-    if (result.status !== "granted") {
-      set({ status: result.status });
-      return;
+    await fetchDeviceLocation({ silent: false });
+  },
+
+  async backfillCountryCode() {
+    const before = get().location;
+    if (before.source === "default" || before.countryCode) return;
+    try {
+      const { countryCode } = await resolvePlaceFromCoordinates(before.latitude, before.longitude);
+      const now = get().location;
+      // Skip if nothing was found or the user moved in the meantime.
+      if (!countryCode || now.countryCode) return;
+      if (now.latitude !== before.latitude || now.longitude !== before.longitude) return;
+      const location = await LocationRepository.update({ countryCode });
+      set({ location });
+    } catch {
+      // Best-effort: the suggestion simply stays hidden.
     }
-    const location = await LocationRepository.update(result.location);
-    set({ location, status: "ready" });
   },
 
   async setManualLocation(place) {
@@ -97,6 +152,7 @@ export const locationStore = createStore<LocationState>((set, get) => ({
       longitude: place.longitude,
       city: place.name,
       country: place.country,
+      countryCode: place.countryCode,
       label: place.label,
       source: "manual",
       updatedAt: new Date().toISOString(),
@@ -108,13 +164,19 @@ export const locationStore = createStore<LocationState>((set, get) => ({
     const resolved = await resolvePlaceFromCoordinates(place.latitude, place.longitude);
     const city = resolved.city ?? place.name;
     const country = resolved.country ?? place.country;
+    const countryCode = place.countryCode ?? resolved.countryCode;
     const label = resolved.city || resolved.country ? resolved.label : place.label;
 
-    if (city === optimistic.city && country === optimistic.country && label === optimistic.label) {
+    if (
+      city === optimistic.city &&
+      country === optimistic.country &&
+      countryCode === optimistic.countryCode &&
+      label === optimistic.label
+    ) {
       return;
     }
 
-    const location = await LocationRepository.update({ city, country, label });
+    const location = await LocationRepository.update({ city, country, countryCode, label });
     set({ location });
   },
 
@@ -172,6 +234,7 @@ const locationActions = {
     locationStore.getState().refresh(...args),
   requestDeviceLocation: (...args: Parameters<LocationState["requestDeviceLocation"]>) =>
     locationStore.getState().requestDeviceLocation(...args),
+  backfillCountryCode: () => locationStore.getState().backfillCountryCode(),
   setManualLocation: (...args: Parameters<LocationState["setManualLocation"]>) =>
     locationStore.getState().setManualLocation(...args),
   setMethod: (...args: Parameters<LocationState["setMethod"]>) =>

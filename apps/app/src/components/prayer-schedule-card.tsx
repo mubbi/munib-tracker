@@ -2,14 +2,16 @@ import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { DefaultLocationBanner } from "@/components/default-location-banner";
 import { PrayerInfoButton } from "@/components/prayer-info-button";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, IconSize, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import type { ScheduleItem } from "@/hooks/use-home-hero";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -212,7 +214,7 @@ function ScheduleCollapseBar({
 
       {!expanded ? (
         <View style={[styles.collapseAction, { backgroundColor: colors.accent }]}>
-          <ThemedText type="caption" style={{ color: colors.accentForeground, fontWeight: "600" }}>
+          <ThemedText weight="semibold" type="caption" style={{ color: colors.accentForeground }}>
             {t("common.show")}
           </ThemedText>
           <SymbolView
@@ -277,16 +279,21 @@ function ScheduleTimelineRow({
 
       <View
         accessibilityRole="text"
-        accessibilityLabel={t(
-          isCurrent
-            ? "hero.prayerItemActive"
-            : isNext
-              ? "home.scheduleNextA11y"
-              : "hero.prayerItem",
-          isNext
-            ? { name: item.name, time: item.time, countdown: nextIn ?? "" }
-            : { name: item.name, time: item.time },
-        )}
+        accessibilityLabel={[
+          t(
+            isCurrent
+              ? "hero.prayerItemActive"
+              : isNext
+                ? "home.scheduleNextA11y"
+                : "hero.prayerItem",
+            isNext
+              ? { name: item.name, time: item.time, countdown: nextIn ?? "" }
+              : { name: item.name, time: item.time },
+          ),
+          item.preferred && item.status !== "past" ? item.preferred : null,
+        ]
+          .filter(Boolean)
+          .join(". ")}
         style={[
           styles.row,
           compact ? styles.rowCompact : null,
@@ -338,11 +345,16 @@ function ScheduleTimelineRow({
               {t("home.scheduleFlexibleHint")}
             </ThemedText>
           ) : null}
+          {item.preferred && item.status !== "past" ? (
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+              {item.preferred}
+            </ThemedText>
+          ) : null}
         </View>
 
         <View style={styles.timeCol}>
           {isNext && nextIn ? (
-            <ThemedText type="caption" style={{ color: colors.accent }}>
+            <ThemedText type="caption" style={{ color: colors.accentText }}>
               {nextIn}
             </ThemedText>
           ) : null}
@@ -490,6 +502,87 @@ function ScheduleFlexibleBlock({
   );
 }
 
+export type ScheduleContextHeaderProps = {
+  /** Gregorian (primary) date line, e.g. "Monday 6 July". */
+  dateLabel: string;
+  /** Optional Hijri (secondary) line. */
+  secondaryDateLabel?: string;
+  /** Location the times are computed for. */
+  locationLabel: string;
+  /** Times use the seeded default city (no real location yet). */
+  isDefaultLocation: boolean;
+  onChangeLocation: () => void;
+};
+
+/**
+ * Schedule context (P5-06 / B-28): which date and place the times are for,
+ * with a "Change" link, plus a warning pill + callout while the times still use
+ * the default city.
+ */
+export function ScheduleContextHeader({
+  dateLabel,
+  secondaryDateLabel,
+  locationLabel,
+  isDefaultLocation,
+  onChangeLocation,
+}: ScheduleContextHeaderProps) {
+  const { t } = useTranslation();
+  const { colors } = useThemeTokens();
+
+  return (
+    <View style={styles.context}>
+      <Card>
+        <View style={styles.contextRow}>
+          <SymbolView
+            name={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
+            size={IconSize.md}
+            tintColor={colors.mutedForeground}
+          />
+          <View style={styles.contextCopy}>
+            <ThemedText type="smallBold">{dateLabel}</ThemedText>
+            {secondaryDateLabel ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {secondaryDateLabel}
+              </ThemedText>
+            ) : null}
+          </View>
+        </View>
+        <View style={[styles.contextRow, styles.contextRowSpaced]}>
+          <SymbolView
+            name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+            size={IconSize.md}
+            tintColor={colors.mutedForeground}
+          />
+          <View style={styles.contextCopy}>
+            <ThemedText type="smallBold">{locationLabel}</ThemedText>
+            {isDefaultLocation ? (
+              <Pill
+                label={t("location.defaultCityPill")}
+                tone="warning"
+                compact
+                icon={{
+                  ios: "exclamationmark.triangle.fill",
+                  android: "warning",
+                  web: "warning",
+                }}
+                style={styles.contextPill}
+              />
+            ) : null}
+          </View>
+          <Button
+            variant="ghost"
+            size="md"
+            label={t("location.changeLocation")}
+            accessibilityHint={t("location.changeLocationHint")}
+            onPress={onChangeLocation}
+          />
+        </View>
+      </Card>
+      {isDefaultLocation ? <DefaultLocationBanner /> : null}
+    </View>
+  );
+}
+
 export function PrayerScheduleCard({
   schedule,
   nextIn,
@@ -521,7 +614,7 @@ export function PrayerScheduleCard({
   );
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <View style={styles.headerTitle}>
@@ -589,6 +682,26 @@ export function PrayerScheduleCard({
 }
 
 const styles = StyleSheet.create({
+  context: {
+    gap: Spacing.three,
+    marginBottom: Spacing.four,
+  },
+  contextRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  contextRowSpaced: {
+    marginTop: Spacing.two,
+  },
+  contextCopy: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.half,
+  },
+  contextPill: {
+    alignSelf: "flex-start",
+  },
   header: {
     gap: Spacing.three,
     marginBottom: Spacing.two,
@@ -614,7 +727,7 @@ const styles = StyleSheet.create({
   legendItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   legendDot: {
     width: 8,
@@ -646,7 +759,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -656,7 +769,7 @@ const styles = StyleSheet.create({
   collapseBarTv: {
     minHeight: TvLayout.minFocusTarget,
     paddingHorizontal: Spacing.three,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   collapseIconWrap: {
     width: 28,
@@ -674,7 +787,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.half,
-    paddingVertical: Spacing.half + 1,
+    paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
@@ -687,16 +800,16 @@ const styles = StyleSheet.create({
     width: 12,
     alignItems: "center",
     alignSelf: "stretch",
-    paddingTop: 14,
+    paddingTop: Spacing.three,
   },
   railCompact: {
-    paddingTop: 12,
+    paddingTop: Spacing.twoHalf,
   },
   railDot: {
     width: 8,
     height: 8,
     borderRadius: Radius.pill,
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
   railDotCompact: {
     width: 7,
@@ -714,18 +827,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   rowCompact: {
     paddingVertical: Spacing.one,
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   rowEmphasized: {
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
   },
   rowBody: {
     flex: 1,
@@ -736,11 +849,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   statePill: {
     paddingVertical: Spacing.half,
-    paddingHorizontal: Spacing.one + 2,
+    paddingHorizontal: Spacing.oneHalf,
   },
   timeCol: {
     alignItems: "flex-end",

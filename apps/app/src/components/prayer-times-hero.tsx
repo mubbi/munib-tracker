@@ -2,7 +2,14 @@ import type { WeatherEffectKind } from "@munib-tracker/shared/types";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { I18nManager, Platform, StyleSheet, View } from "react-native";
+import {
+  I18nManager,
+  Platform,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type ViewStyle,
+} from "react-native";
 import {
   Easing,
   interpolate,
@@ -16,11 +23,19 @@ import { MoonPhaseIcon } from "@/components/moon-phase";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { SkyGradientLayer } from "@/components/sky-gradient-layer";
 import { ThemedText } from "@/components/themed-text";
-import { GlassControl, hasLiquidGlass } from "@/components/ui/glass-surface";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { HeroWeatherEffects } from "@/components/weather/hero-weather-effects";
 import { Durations } from "@/constants/motion";
-import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
+import {
+  BorderWidth,
+  Brand,
+  HeroSky,
+  IconSize,
+  Radius,
+  Spacing,
+  withAlpha,
+} from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import type { DualCalendarDates } from "@/lib/calendar-format";
@@ -48,6 +63,8 @@ type PrayerTimesHeroProps = {
   currentTime: string;
   /** Pre-localized countdown line, e.g. "Maghrib is 27 min away". */
   countdown: string;
+  /** Pre-localized home-masjid iqamah line (NF-3.11), e.g. "Dhuhr iqamah in 25 min"; null hides it. */
+  iqamahCountdown?: string | null;
   prayers: PrayerTime[];
   /** Index of the prayer whose window is currently running (the highlighted card). */
   activeIndex: number;
@@ -77,6 +94,17 @@ type PrayerTimesHeroProps = {
   /** Re-request / refresh the stored location (fires on tapping the location row). */
   onLocationPress?: () => void;
   /**
+   * P5-04: index of the prayer cell that marks today's running Salah (the
+   * active fard, or Fajr during the sunrise window). With `onMarkPress` it
+   * becomes a button that opens the status sheet in place.
+   */
+  markIndex?: number;
+  /** Localized current status of the markable Salah (e.g. "Pending"). */
+  markStatusLabel?: string;
+  /** Whether the markable Salah is already logged as prayed. */
+  markCompleted?: boolean;
+  onMarkPress?: () => void;
+  /**
    * `banner` (default): full-bleed sky with rounded bottom corners that the
    * below-fold cards tuck into (phones / TV). `card`: fully rounded tile for the
    * wide-screen home dashboard, where the hero sits beside the schedule aside.
@@ -91,15 +119,31 @@ type PrayerTimesHeroProps = {
  */
 const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
 
+/** Text scale at which the prayer strip wraps to rows instead of shrinking names (B-19). */
+const LARGE_TEXT_SCALE = 1.3;
 /**
- * Live prayer card: smoked glass rather than an accent tint. A tint goes muddy
- * wherever the mosque silhouette shows through it; a neutral dark veil keeps the
- * card (and its text contrast) consistent on every sky, with the accent carried
- * by the border and icon.
+ * Narrowest strip slot (dp at 1× text) that keeps names and times on one line. Below
+ * it the strip wraps like large text does. The dashboard card (iPad / desktop home
+ * column) needs more: its six ~57dp slots broke "Maghrib" and "17:37" mid-word.
  */
-const ACTIVE_PRAYER_SURFACE = "rgba(6, 18, 26, 0.34)";
-/** Date chip: just enough backing to read over the sun and to look tappable. */
-const DATE_CHIP_SURFACE = "rgba(6, 18, 26, 0.22)";
+const MIN_PRAYER_SLOT_DP = { banner: 56, card: 64 } as const;
+const PRAYER_ROW_GAP = Spacing.one;
+const PRAYERS_PER_WRAPPED_ROW = 3;
+
+/**
+ * Strip cell indices per row: one row, or rows of three when wrapped. Explicit rows
+ * instead of `flexWrap` + a percentage basis, which resolved as `auto` in the hero
+ * and squeezed every cell onto one line.
+ */
+export function prayerRowIndices(count: number, wrap: boolean): number[][] {
+  const indices = Array.from({ length: count }, (_, i) => i);
+  if (!wrap) return count > 0 ? [indices] : [];
+  const rows: number[][] = [];
+  for (let i = 0; i < count; i += PRAYERS_PER_WRAPPED_ROW) {
+    rows.push(indices.slice(i, i + PRAYERS_PER_WRAPPED_ROW));
+  }
+  return rows;
+}
 
 /** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
 const STARS = [
@@ -140,10 +184,6 @@ function overcastStrength(effects: WeatherEffectKind[]): number {
   return 0;
 }
 
-/** Cool slate laid over the sky under heavy cloud. */
-const OVERCAST_TINT = "#3C4856";
-/** Sun disc core — a warm white that stays brighter than every sky glow. */
-const SUN_CORE = "#FFF6DC";
 /** TV: half-width (% of hero) of the band the centred date chip covers, plus the disc radius. */
 const TV_DATE_CHIP_HALF_SPAN_PCT = 26;
 /** Widest the prayer row + timeline grow on tablets / desktop before centring. */
@@ -162,6 +202,7 @@ export function PrayerTimesHero({
   displayDates,
   currentTime,
   countdown,
+  iqamahCountdown = null,
   prayers,
   activeIndex,
   topInset,
@@ -179,9 +220,24 @@ export function PrayerTimesHero({
   onSearchPress,
   onNotificationsPress,
   onLocationPress,
+  markIndex = -1,
+  markStatusLabel,
+  markCompleted = false,
+  onMarkPress,
   variant = "banner",
 }: PrayerTimesHeroProps) {
   const { t } = useTranslation();
+  const { fontScale } = useWindowDimensions();
+  // Large Dynamic Type: wrap the strip to rows (names keep their size) instead
+  // of shrinking text toward 9pt.
+  const largeText = fontScale >= LARGE_TEXT_SCALE;
+  const [prayerRowWidth, setPrayerRowWidth] = useState(0);
+  // Too narrow for one row of full-size names / times (e.g. the iPad home column).
+  const narrowStrip =
+    prayerRowWidth > 0 &&
+    prayers.length > 0 &&
+    prayerRowWidth / prayers.length < MIN_PRAYER_SLOT_DP[variant] * Math.max(1, fontScale);
+  const wrapPrayers = largeText || narrowStrip;
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
@@ -247,6 +303,110 @@ export function PrayerTimesHero({
     ],
   }));
 
+  const renderPrayerCell = (prayer: PrayerTime, index: number) => {
+    const active = index === activeIndex;
+    const markable = index === markIndex && onMarkPress != null;
+    // Inactive names/times use a high-alpha cream (not the low-contrast
+    // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
+    const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
+    const cellStyle = [
+      styles.prayerItem,
+      active && {
+        backgroundColor: HeroSky.activePrayerSurface,
+        borderColor: withAlpha(toHex(sky.accent), 0.7),
+      },
+    ];
+    const content = (
+      <>
+        <ThemedText
+          type="caption"
+          style={[
+            styles.softShadow,
+            styles.prayerLabel,
+            tv ? styles.prayerLabelTv : null,
+            { color: textColor },
+          ]}
+        >
+          {prayer.name}
+        </ThemedText>
+        <SymbolView
+          name={prayer.icon}
+          size={tv ? 26 : 19}
+          tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
+        />
+        <ThemedText
+          type="caption"
+          weight="bold"
+          style={[
+            styles.softShadow,
+            styles.prayerTime,
+            tv ? styles.prayerTimeTv : null,
+            // The upcoming prayer's time picks up the accent, tying it to
+            // the countdown line above without competing with the live card.
+            { color: index === nextIndex ? sky.accent : textColor },
+          ]}
+        >
+          {prayer.time}
+        </ThemedText>
+        {markable ? (
+          // Status glyph: says the cell is the place to log this Salah.
+          <SymbolView
+            name={
+              markCompleted
+                ? {
+                    ios: "checkmark.circle.fill",
+                    android: "check_circle",
+                    web: "check_circle",
+                  }
+                : {
+                    ios: "circle",
+                    android: "radio_button_unchecked",
+                    web: "radio_button_unchecked",
+                  }
+            }
+            size={tv ? IconSize.lg : IconSize.md}
+            tintColor={markCompleted ? sky.accent : Brand.heroText}
+          />
+        ) : null}
+      </>
+    );
+    if (markable) {
+      return (
+        <PressableScale
+          key={prayer.name}
+          onPress={onMarkPress}
+          haptic="light"
+          scaleTo={0.96}
+          accessibilityRole="button"
+          accessibilityLabel={t("hero.markA11y", {
+            name: prayer.name,
+            time: prayer.time,
+            status: markStatusLabel ?? "",
+          })}
+          accessibilityHint={t("hero.markHint")}
+          testID="hero-mark-cell"
+          style={[cellStyle, !active && { borderColor: Brand.onHeroStrongSurface }]}
+        >
+          {content}
+        </PressableScale>
+      );
+    }
+    return (
+      <View
+        key={prayer.name}
+        accessible
+        accessibilityRole="text"
+        accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
+          name: prayer.name,
+          time: prayer.time,
+        })}
+        style={cellStyle}
+      >
+        {content}
+      </View>
+    );
+  };
+
   return (
     <>
       <View
@@ -258,6 +418,9 @@ export function PrayerTimesHero({
             paddingTop: tv ? TvLayout.contentPaddingY : topInset + Spacing.two,
             backgroundColor: sky.bottom,
           },
+          // Web: the theme focus ring (accent) disappears on the sky — use the
+          // brand gold inside the hero region.
+          Platform.OS === "web" ? HERO_FOCUS_RING : null,
         ]}
       >
         {/* Base vertical gradient sky — slow drift for a live-wallpaper feel. */}
@@ -321,7 +484,7 @@ export function PrayerTimesHero({
                 marginTop: -bodySize / 2,
                 boxShadow: `0px 0px ${bodySize}px ${bodySize / 4}px ${withAlpha(toHex(sky.glow), 0.55)}`,
               },
-              celestial.body === "sun" ? { backgroundColor: SUN_CORE } : null,
+              celestial.body === "sun" ? { backgroundColor: HeroSky.sunCore } : null,
             ]}
           >
             {celestial.body === "moon" ? (
@@ -334,7 +497,10 @@ export function PrayerTimesHero({
           <View
             style={[
               styles.fill,
-              { backgroundColor: withAlpha(OVERCAST_TINT, overcast), pointerEvents: "none" },
+              {
+                backgroundColor: withAlpha(HeroSky.overcastTint, overcast),
+                pointerEvents: "none",
+              },
             ]}
           />
         ) : null}
@@ -342,15 +508,7 @@ export function PrayerTimesHero({
         <MosqueSilhouette color={sky.silhouette} opacity={0.38} scale={1.2} />
         {/* Readability scrim: darkens the top (location) and bottom (prayer row)
           for legible text on any sky, while leaving the mid glow mostly clear. */}
-        <View
-          style={[
-            styles.fill,
-            styles.scrimLayer,
-            gradientBackground(
-              "linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.06) 24%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.52) 100%)",
-            ),
-          ]}
-        />
+        <View style={[styles.fill, styles.scrimLayer, gradientBackground(HeroSky.scrim)]} />
         <HeroWeatherEffects effects={skyEffects} enabled={weatherEffectsEnabled} />
 
         {/* Top bar: location + actions. */}
@@ -418,16 +576,29 @@ export function PrayerTimesHero({
               <SymbolView name={chevronForward} size={tv ? 14 : 11} tintColor={Brand.heroText} />
             </PressableScale>
             <View style={styles.actions}>
-              <HeroIconButton
-                icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-                label={t("common.search")}
+              <IconButton
+                name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+                accessibilityLabel={t("common.search")}
                 onPress={onSearchPress}
+                haptic="light"
+                size={tv ? IconSize.xl : IconSize.lg - 2}
+                tintColor={Brand.heroText}
+                background={Brand.onHeroMutedSurface}
+                glass
+                wellRadius={Radius.md}
               />
-              <HeroIconButton
-                icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-                label={t("common.notifications")}
+              <IconButton
+                name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+                accessibilityLabel={t("common.notifications")}
                 onPress={onNotificationsPress}
-                badgeCount={notificationCount}
+                haptic="light"
+                size={tv ? IconSize.xl : IconSize.lg - 2}
+                tintColor={Brand.heroText}
+                background={Brand.onHeroMutedSurface}
+                glass
+                wellRadius={Radius.md}
+                badge={notificationCount}
+                badgeBorderColor={sky.top}
               />
             </View>
           </View>
@@ -484,7 +655,11 @@ export function PrayerTimesHero({
             <View
               accessible
               accessibilityLiveRegion="polite"
-              accessibilityLabel={t("hero.clockLabel", { time: currentTime, countdown })}
+              accessibilityLabel={
+                iqamahCountdown
+                  ? `${t("hero.clockLabel", { time: currentTime, countdown })}. ${iqamahCountdown}`
+                  : t("hero.clockLabel", { time: currentTime, countdown })
+              }
               style={styles.clockGroup}
             >
               <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
@@ -500,6 +675,18 @@ export function PrayerTimesHero({
               >
                 {countdown}
               </ThemedText>
+              {iqamahCountdown ? (
+                <ThemedText
+                  style={[
+                    styles.iqamahLine,
+                    tv ? styles.iqamahLineTv : null,
+                    styles.softShadow,
+                    { color: Brand.heroText },
+                  ]}
+                >
+                  {iqamahCountdown}
+                </ThemedText>
+              ) : null}
             </View>
           </View>
 
@@ -512,67 +699,22 @@ export function PrayerTimesHero({
               accent={sky.accent}
               large={tv}
             />
-            <View style={styles.prayerRow}>
-              {prayers.map((prayer, index) => {
-                const active = index === activeIndex;
-                // Inactive names/times use a high-alpha cream (not the low-contrast
-                // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
-                const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
-                return (
-                  <View
-                    key={prayer.name}
-                    accessible
-                    accessibilityRole="text"
-                    accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
-                      name: prayer.name,
-                      time: prayer.time,
-                    })}
-                    style={[
-                      styles.prayerItem,
-                      active && {
-                        backgroundColor: ACTIVE_PRAYER_SURFACE,
-                        borderColor: withAlpha(toHex(sky.accent), 0.7),
-                      },
-                    ]}
-                  >
-                    <ThemedText
-                      type="caption"
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.8}
-                      style={[
-                        styles.softShadow,
-                        styles.prayerLabel,
-                        tv ? styles.prayerLabelTv : null,
-                        { color: textColor },
-                      ]}
-                    >
-                      {prayer.name}
-                    </ThemedText>
-                    <SymbolView
-                      name={prayer.icon}
-                      size={tv ? 26 : 19}
-                      tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
-                    />
-                    <ThemedText
-                      type="caption"
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.75}
-                      style={[
-                        styles.softShadow,
-                        styles.prayerTime,
-                        tv ? styles.prayerTimeTv : null,
-                        // The upcoming prayer's time picks up the accent, tying it to
-                        // the countdown line above without competing with the live card.
-                        { color: index === nextIndex ? sky.accent : textColor, fontWeight: "700" },
-                      ]}
-                    >
-                      {prayer.time}
-                    </ThemedText>
-                  </View>
-                );
-              })}
+            <View
+              style={styles.prayerRows}
+              onLayout={(event) => setPrayerRowWidth(event.nativeEvent.layout.width)}
+            >
+              {prayerRowIndices(prayers.length, wrapPrayers).map((indices) => (
+                <View key={indices[0]} style={styles.prayerRow}>
+                  {indices.map((index) => renderPrayerCell(prayers[index], index))}
+                  {/* Keep a short last row's cells the same width as the rows above. */}
+                  {wrapPrayers
+                    ? Array.from(
+                        { length: PRAYERS_PER_WRAPPED_ROW - indices.length },
+                        (_, slot) => `spacer-${indices.length + slot}`,
+                      ).map((id) => <View key={id} style={styles.prayerItemSpacer} />)
+                    : null}
+                </View>
+              ))}
             </View>
           </View>
         </View>
@@ -623,7 +765,7 @@ function DayTimeline({
             flex: 1 - p,
             height: line,
             borderRadius: line,
-            backgroundColor: TIMELINE_TRACK,
+            backgroundColor: HeroSky.timelineTrack,
           }}
         />
       </View>
@@ -635,7 +777,7 @@ function DayTimeline({
                 width: tick,
                 height: tick,
                 borderRadius: tick / 2,
-                backgroundColor: (index + 0.5) / count <= p ? accent : TIMELINE_TICK,
+                backgroundColor: (index + 0.5) / count <= p ? accent : HeroSky.timelineTick,
               }}
             />
           </View>
@@ -650,7 +792,7 @@ function DayTimeline({
             borderRadius: dot / 2,
             marginHorizontal: -dot / 2,
             backgroundColor: accent,
-            borderWidth: 2,
+            borderWidth: BorderWidth.thick,
             borderColor: Brand.heroText,
             boxShadow: `0px 0px ${dot}px ${withAlpha(toHex(accent), 0.75)}`,
           }}
@@ -661,59 +803,13 @@ function DayTimeline({
   );
 }
 
-/** Unfilled part of the day timeline — bright enough to read on the noon sky. */
-const TIMELINE_TRACK = "rgba(255, 255, 255, 0.26)";
-const TIMELINE_TICK = "rgba(255, 255, 255, 0.6)";
-
-function HeroIconButton({
-  icon,
-  label,
-  onPress,
-  badgeCount = 0,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  onPress?: () => void;
-  badgeCount?: number;
-}) {
-  const tv = isTV();
-  return (
-    // Floating chrome over the hero art — a natural home for Liquid Glass on
-    // iOS 26+; elsewhere it keeps the translucent on-hero surface.
-    // Non-interactive: these buttons push routes; the Liquid Glass press lens
-    // would FluidSpring-animate on the same main-thread turn as the stack push.
-    <GlassControl radius={Radius.md} colorScheme="dark" interactive={false}>
-      <PressableScale
-        accessibilityRole="button"
-        accessibilityLabel={label}
-        onPress={onPress}
-        haptic="light"
-        scaleTo={0.9}
-        style={[
-          styles.iconButton,
-          tv ? styles.iconButtonTv : null,
-          !hasLiquidGlass && { backgroundColor: Brand.onHeroMutedSurface },
-        ]}
-      >
-        <View style={styles.iconButtonGlyph}>
-          <SymbolView name={icon} size={tv ? 24 : 18} tintColor={Brand.heroText} />
-        </View>
-        {badgeCount > 0 ? (
-          <View style={styles.badge}>
-            <ThemedText type="caption" style={styles.badgeText}>
-              {badgeCount > 9 ? "9+" : String(badgeCount)}
-            </ThemedText>
-          </View>
-        ) : null}
-      </PressableScale>
-    </GlassControl>
-  );
-}
-
 /** Strips an alpha suffix from an 8-digit hex so `withAlpha` gets a clean 6-digit base. */
 function toHex(color: string): string {
   return color.length === 9 && color.startsWith("#") ? color.slice(0, 7) : color;
 }
+
+/** Web-only CSS custom property: the hero's focus ring uses the brand gold. */
+const HERO_FOCUS_RING = { "--munib-focus": Brand.heroAccent } as unknown as ViewStyle;
 
 const styles = StyleSheet.create({
   hero: {
@@ -750,7 +846,7 @@ const styles = StyleSheet.create({
   },
   star: {
     position: "absolute",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: HeroSky.star,
   },
   topBar: {
     flexDirection: "row",
@@ -762,7 +858,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     flexShrink: 1,
     minWidth: 0,
   },
@@ -788,40 +884,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-  },
-  iconButton: {
-    width: 42,
-    height: 42,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  iconButtonTv: {
-    width: TvLayout.chipMinHeight + Spacing.two,
-    height: TvLayout.chipMinHeight + Spacing.two,
-  },
-  iconButtonGlyph: {
-    ...StyleSheet.absoluteFill,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  badge: {
-    position: "absolute",
-    top: 4,
-    right: 4,
-    minWidth: 16,
-    height: 16,
-    borderRadius: 8,
-    paddingHorizontal: 3,
-    backgroundColor: StatusPalette.danger,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  badgeText: {
-    fontSize: 9,
-    lineHeight: 11,
-    color: Brand.heroText,
   },
   clockBlock: {
     alignItems: "center",
@@ -861,7 +923,7 @@ const styles = StyleSheet.create({
   timelineColumn: {
     flex: 1,
     alignItems: "center",
-    paddingHorizontal: 2,
+    paddingHorizontal: Spacing.half,
   },
   dateRow: {
     flexDirection: "row",
@@ -869,23 +931,23 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     maxWidth: "100%",
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderColor: Brand.onHeroStrongSurface,
-    backgroundColor: DATE_CHIP_SURFACE,
+    backgroundColor: HeroSky.dateChipSurface,
   },
   dateRowTv: {
     minHeight: TvLayout.chipMinHeight,
     paddingHorizontal: Spacing.three,
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     borderRadius: Radius.md,
   },
   dateLines: {
     flexShrink: 1,
     alignItems: "center",
-    gap: 2,
+    gap: Spacing.half,
   },
   dateChevron: {
     alignSelf: "stretch",
@@ -918,9 +980,9 @@ const styles = StyleSheet.create({
     // `textShadow` shorthand on web (avoids the deprecated `textShadow*` props);
     // native still uses the longhand props, which remain the supported form.
     ...Platform.select({
-      web: { textShadow: "0px 1px 12px rgba(0, 0, 0, 0.42)" },
+      web: { textShadow: `0px 1px 12px ${HeroSky.clockShadow}` },
       default: {
-        textShadowColor: "rgba(0, 0, 0, 0.42)",
+        textShadowColor: HeroSky.clockShadow,
         textShadowOffset: { width: 0, height: 1 },
         textShadowRadius: 12,
       },
@@ -935,12 +997,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 30,
   },
+  iqamahLine: {
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: "500",
+    opacity: 0.92,
+  },
+  iqamahLineTv: {
+    fontSize: 20,
+    lineHeight: 26,
+  },
   /** Soft dark shadow that lifts light text off any sky. */
   softShadow: {
     ...Platform.select({
-      web: { textShadow: "0px 1px 5px rgba(0, 0, 0, 0.45)" },
+      web: { textShadow: `0px 1px 5px ${HeroSky.textShadow}` },
       default: {
-        textShadowColor: "rgba(0, 0, 0, 0.45)",
+        textShadowColor: HeroSky.textShadow,
         textShadowOffset: { width: 0, height: 1 },
         textShadowRadius: 5,
       },
@@ -949,20 +1021,28 @@ const styles = StyleSheet.create({
   prayerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: Spacing.one,
+    gap: PRAYER_ROW_GAP,
+  },
+  /** Wrapped strip (large text B-19, narrow dashboard card): rows of three. */
+  prayerRows: {
+    gap: Spacing.two,
+  },
+  /** Fills a short last wrapped row so its cells match the rows above. */
+  prayerItemSpacer: {
+    flex: 1,
   },
   prayerItem: {
     flex: 1,
     alignItems: "center",
-    gap: Spacing.one + 1,
+    gap: Spacing.oneHalf,
     paddingVertical: Spacing.two,
-    paddingHorizontal: 2,
+    paddingHorizontal: Spacing.half,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderColor: "transparent",
-    // Let flex children shrink below content width so long times (e.g. "12:39 PM")
-    // can scale instead of wrapping onto a second line.
+    // Long names / times (e.g. "12:39 PM") wrap inside the cell instead of
+    // shrinking (no `adjustsFontSizeToFit` on UI text).
     minWidth: 0,
   },
   prayerLabel: {

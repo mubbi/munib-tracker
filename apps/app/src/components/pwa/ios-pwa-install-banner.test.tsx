@@ -8,6 +8,7 @@ import { renderWithTheme } from "@/test-support/render";
 
 let mockShow = true;
 let mockNeedsSafari = false;
+let mockViaBrowserShare = false;
 
 jest.mock(
   "@/providers/toast-provider",
@@ -16,6 +17,7 @@ jest.mock(
 jest.mock("@/lib/pwa/ios-install", () => ({
   shouldShowIosPwaInstallBanner: () => mockShow,
   getIosPwaInstallNeedsSafari: () => mockNeedsSafari,
+  getIosPwaInstallViaBrowserShare: () => mockViaBrowserShare,
 }));
 
 const TITLE = "Install the web app first";
@@ -32,6 +34,7 @@ describe("IosPwaInstallBanner", () => {
   beforeEach(async () => {
     mockShow = true;
     mockNeedsSafari = false;
+    mockViaBrowserShare = false;
     resetToastMock();
     writeText.mockReset();
     await AsyncStorage.clear();
@@ -56,6 +59,14 @@ describe("IosPwaInstallBanner", () => {
       await renderBanner();
       expect(screen.getByText(TITLE)).toBeTruthy();
       expect(screen.getByText(/In Safari: Share/)).toBeTruthy();
+      expect(screen.queryByText("Copy link for Safari")).toBeNull();
+    });
+
+    it("shows in-browser Share steps for iOS Chrome / Edge / Firefox", async () => {
+      mockViaBrowserShare = true;
+      await renderBanner();
+      expect(screen.getByText(/In this browser: Share/)).toBeTruthy();
+      expect(screen.queryByText(/In Safari: Share/)).toBeNull();
       expect(screen.queryByText("Copy link for Safari")).toBeNull();
     });
 

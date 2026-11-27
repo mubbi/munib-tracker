@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
 import {
   createFuzzyIndex,
@@ -78,5 +78,24 @@ describe("createFuzzyIndex", () => {
     const index = createFuzzyIndex(rows, [{ key: "name", weight: 1, get: (row) => row.name }]);
     expect(index.search("ajr", 1)).toHaveLength(1);
     expect(index.count("ajr")).toBeGreaterThanOrEqual(1);
+  });
+});
+
+describe("createFuzzyIndex laziness", () => {
+  it("reads no fields until the first real query", () => {
+    const get = jest.fn((item: { title: string }) => item.title);
+    const index = createFuzzyIndex(
+      [{ title: "Morning adhkar" }, { title: "Evening adhkar" }],
+      [{ key: "title", weight: 1, get }],
+    );
+    expect(get).not.toHaveBeenCalled();
+    expect(index.search("a")).toEqual([]);
+    expect(index.count("")).toBe(0);
+    expect(get).not.toHaveBeenCalled();
+
+    expect(index.search("morning").map((item) => item.title)).toEqual(["Morning adhkar"]);
+    expect(index.count("adhkar")).toBe(2);
+    // Built once, then reused.
+    expect(get).toHaveBeenCalledTimes(2);
   });
 });

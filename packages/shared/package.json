@@ -8,6 +8,7 @@
     "./types": "./src/types/index.ts",
     "./types/content-report": "./src/types/content-report.ts",
     "./types/fidyah": "./src/types/fidyah.ts",
+    "./types/quran-notes": "./src/types/quran-notes.ts",
     "./types/oss-content-download-failure": "./src/types/oss-content-download-failure.ts",
     "./constants": "./src/constants/index.ts",
     "./constants/quran": "./src/constants/quran.ts",
@@ -16,6 +17,10 @@
     "./constants/user-media-mime": "./src/constants/user-media-mime.ts",
     "./admin-broadcasts": "./src/admin-broadcasts.ts",
     "./validators": "./src/validators/index.ts",
+    "./validators/hijri-adjustment": "./src/validators/hijri-adjustment.ts",
+    "./validators/fiqh-preferences": "./src/validators/fiqh-preferences.ts",
+    "./validators/reading-overrides": "./src/validators/reading-overrides.ts",
+    "./validators/private-sync": "./src/validators/private-sync.ts",
     "./utils": "./src/utils/index.ts",
     "./utils/normalize-redis-url": "./src/utils/normalize-redis-url.ts",
     "./content": "./src/content/index.ts",
@@ -24,8 +29,18 @@
     "./content-i18n/*": "./src/content/i18n/*.ts",
     "./i18n": "./src/i18n/index.ts",
     "./achievements": "./src/achievements/index.ts",
+    "./circles": "./src/circles/index.ts",
+    "./circles/push": "./src/circles/push.ts",
+    "./circles/nearby": "./src/circles/nearby.ts",
+    "./fiqh": "./src/fiqh/index.ts",
+    "./fiqh/core": "./src/fiqh/core.ts",
+    "./mirath": "./src/mirath/index.ts",
+    "./masjid": "./src/masjid/index.ts",
+    "./masjid/osm": "./src/masjid/osm.ts",
+    "./timetable-parser": "./src/utils/timetable-parser/index.ts",
     "./reviews": "./src/reviews/index.ts",
-    "./reviews/dedupe.js": "./src/reviews/dedupe.ts"
+    "./reviews/dedupe.js": "./src/reviews/dedupe.ts",
+    "./reviews/triggers.js": "./src/reviews/triggers.ts"
   },
   "scripts": {
     "lint": "biome check .",
@@ -38,10 +53,10 @@
     "@munib-tracker/typescript-config": "workspace:*",
     "@munib-tracker/vitest-config": "workspace:*",
     "@types/node": "^24",
-    "@vitest/coverage-v8": "^5.1.0",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "@vitest/coverage-v8": "^5.1.1",
     "tsx": "^4.23.15",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "vitest": "^5.1.0",
-    "@typescript/native": "npm:typescript@^7.0.2"
+    "vitest": "^5.1.1"
   }
 }

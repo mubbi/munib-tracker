@@ -87,8 +87,10 @@ apps/app/src/config/seo-routes-locale/.*extract.json
 # and the ONNX Runtime web files are copied from node_modules at build time.
 *.onnx
 apps/app/public/ort/
-apps/app/public/tajweedformer/
 apps/app/public/recitation-models/
 
 # Local API uploads (dev disk storage when Cloudinary is unset; e2e tests write here too)
 apps/api/uploads/
+
+# Local signed Android release bundles (pnpm release:app:* copies, named <device>-<versionCode>-<versionName>.aab)
+/*.aab

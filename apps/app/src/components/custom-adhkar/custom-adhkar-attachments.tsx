@@ -2,12 +2,13 @@ import { USER_MEDIA_MAX_PER_ENTITY } from "@munib-tracker/shared/constants";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Linking, Platform, StyleSheet, View } from "react-native";
+import { Linking, Platform, StyleSheet, View } from "react-native";
 import { AttachmentThumb } from "@/components/attachments/attachment-thumb";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { AttachmentSourceSheet } from "@/components/custom-adhkar/attachment-source-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -18,6 +19,7 @@ import {
 import { attachmentPickErrorFromUnknown } from "@/lib/attachments/attachment-mime";
 import { attachmentPickFailureFromOutcome } from "@/lib/attachments/map-attachment-pick-outcome";
 import { isTV } from "@/lib/platform/is-tv";
+import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
 import { useToast } from "@/providers/toast-provider";
 
 export type DraftAdhkarAttachment = {
@@ -44,34 +46,23 @@ export function CustomAdhkarAttachments({
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
   const [sourceOpen, setSourceOpen] = useState(false);
+  // Permission prompt (ConfirmDialog — `Alert.alert` is a no-op on web).
+  const [permissionPrompt, setPermissionPrompt] = useState<{
+    canAskAgain: boolean;
+    source: AttachmentPickSource;
+  } | null>(null);
   const tv = isTV();
 
   const promptPermission = (canAskAgain: boolean, source: AttachmentPickSource) => {
-    if (canAskAgain) {
-      Alert.alert(
-        t("customAdhkar.attachments.permissionTitle"),
-        t("customAdhkar.attachments.permissionBody"),
-        [
-          { text: t("common.cancel"), style: "cancel" },
-          {
-            text: t("customAdhkar.attachments.allowAccess"),
-            onPress: () => void runPick(source),
-          },
-        ],
-      );
-      return;
-    }
-    Alert.alert(
-      t("customAdhkar.attachments.permissionTitle"),
-      t("customAdhkar.attachments.permissionSettingsBody"),
-      [
-        { text: t("common.cancel"), style: "cancel" },
-        {
-          text: t("notif.openSettings"),
-          onPress: () => void Linking.openSettings(),
-        },
-      ],
-    );
+    setPermissionPrompt({ canAskAgain, source });
+  };
+
+  const confirmPermission = () => {
+    if (!permissionPrompt) return;
+    const { canAskAgain, source } = permissionPrompt;
+    // The system picker cannot present while the dialog is still dismissing.
+    if (canAskAgain) runAfterSheetDismiss(() => void runPick(source));
+    else void Linking.openSettings();
   };
 
   const showPickError = (code: string) => {
@@ -148,6 +139,23 @@ export function CustomAdhkarAttachments({
 
   return (
     <View style={styles.wrap}>
+      <ConfirmDialog
+        visible={permissionPrompt != null}
+        title={t("customAdhkar.attachments.permissionTitle")}
+        message={
+          permissionPrompt?.canAskAgain === false
+            ? t("customAdhkar.attachments.permissionSettingsBody")
+            : t("customAdhkar.attachments.permissionBody")
+        }
+        confirmLabel={
+          permissionPrompt?.canAskAgain === false
+            ? t("notif.openSettings")
+            : t("customAdhkar.attachments.allowAccess")
+        }
+        cancelLabel={t("common.cancel")}
+        onConfirm={confirmPermission}
+        onClose={() => setPermissionPrompt(null)}
+      />
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("customAdhkar.attachments.label")}
       </ThemedText>
@@ -284,7 +292,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     overflow: "hidden",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   removeBadge: {
     position: "absolute",

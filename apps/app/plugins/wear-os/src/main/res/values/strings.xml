@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tile / complication picker labels (the system shows these before any phone sync), plus the
+     watch's own copy (tasbeeh counter, Mark delivery). Where the phone snapshot's `strings`
+     carry the same label (app locale), the snapshot wins; these are the fallback.
+     Keep every values-<locale> folder (all 24 app locales; Indonesian is values-in) in step
+     with this file — plugins/withWearOs.test.js enforces the same key set. -->
+<resources>
+  <string name="wear_next_salah">Next Salah</string>
+  <string name="wear_today">Today\'s schedule</string>
+  <string name="wear_tasbeeh">Tasbeeh</string>
+  <string name="wear_progress">Today\'s progress</string>
+  <string name="wear_open_phone">Open Munib Tracker on your phone to sync</string>
+  <string name="wear_connect_phone">Connect your phone to see Salah times</string>
+  <string name="wear_install_phone">Install Munib Tracker on your phone to see Salah times</string>
+  <string name="wear_tasbeeh_standalone">Tasbeeh works on your watch without the phone</string>
+  <!-- Tasbeeh counter (Compose) -->
+  <string name="wear_tasbeeh_of_target">of %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Unlimited</string>
+  <string name="wear_tasbeeh_options">Options</string>
+  <string name="wear_tasbeeh_undo">Undo last</string>
+  <string name="wear_tasbeeh_target">Target</string>
+  <string name="wear_tasbeeh_mode">Mode</string>
+  <string name="wear_tasbeeh_free">Free count</string>
+  <string name="wear_tasbeeh_after_salah">After Salah</string>
+  <string name="wear_tasbeeh_reset">Reset</string>
+  <string name="wear_tasbeeh_reset_confirm">Reset the count to 0?</string>
+  <string name="wear_tasbeeh_start_again">Start again</string>
+  <string name="wear_tasbeeh_all_done">Tasbeeh complete</string>
+  <string name="wear_tasbeeh_step">Step %1$d of %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Target reached</string>
+  <string name="wear_tasbeeh_tap_to_count">Tap to count</string>
+  <string name="wear_tasbeeh_a11y">Tasbeeh counter, %1$d of %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Tasbeeh counter, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Count one</string>
+  <!-- Tiles: actions and Mark delivery -->
+  <string name="wear_open">Open</string>
+  <string name="wear_open_app">Open Munib Tracker</string>
+  <string name="wear_mark_confirm">Mark as prayed?</string>
+  <string name="wear_confirm">Confirm</string>
+  <string name="wear_marked">Marked ✓</string>
+  <string name="wear_mark_sent">Sent to your phone</string>
+  <string name="wear_mark_will_sync">Will sync when your phone is nearby</string>
+</resources>

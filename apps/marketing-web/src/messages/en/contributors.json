@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "title": "Contributors — The People Building {appName}",
+    "description": "Meet the people who build and improve {appName} on GitHub, and see how you can help with code, translations, documentation or content corrections."
+  },
+  "eyebrow": "Community",
+  "title": "Contributors",
+  "intro": "{appName} is built in the open. Every commit, review, translation, and content correction helps Muslims track their journey back to Allah — thank you.",
+  "github": {
+    "heading": "GitHub contributors",
+    "sourceApi": "Avatars below come from the public GitHub contributors API (bots excluded).",
+    "sourceFallback": "Live GitHub data is temporarily unavailable — showing the project maintainer until the next refresh.",
+    "history": "Full history lives on the <graph>contributors graph</graph>.",
+    "contributions": "{count, plural, one {# contribution} other {# contributions}}"
+  },
+  "contribute": {
+    "heading": "Contribute",
+    "body": "We welcome non-commercial contributions — bug fixes, docs, translations, and careful content corrections. Please read our contributing guide on GitHub before opening a PR. License terms, attribution, and what you may (and may not) do are summarized on <openSource>Open source</openSource>. Redistributions must credit {appName} and link back to <home>munibtracker.app</home>.",
+    "viewOnGitHub": "View on GitHub",
+    "licenseTerms": "License & terms",
+    "contributingGuide": "Contributing guide",
+    "contentSources": "Content sources"
+  }
+}

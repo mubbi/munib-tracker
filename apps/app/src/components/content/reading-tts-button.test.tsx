@@ -1,19 +1,23 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
-import { Alert } from "react-native";
 
 import { ReadingTtsButton } from "@/components/content/reading-tts-button";
 import { mockAudioPlayer, resetAudioPlayerMock } from "@/test-support/mocks/audio-player-provider";
+import { mockToast } from "@/test-support/mocks/toast-provider";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 
 const mockResolveTarget = jest.fn();
 const mockIsTtsAvailable = jest.fn(async () => true);
 const mockResolveVoice = jest.fn(async (_lang: string, voiceId?: string) => voiceId);
-const mockUpdatePrefs = jest.fn(async (_p: unknown) => undefined);
+const mockSetTtsVoice = jest.fn(async (_lang: string, _voiceId?: string) => undefined);
 
 jest.mock(
   "@/providers/audio-player-provider",
   () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
+);
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
 );
 jest.mock("@/lib/tts", () => ({
   ...jest.requireActual("@/lib/tts"),
@@ -21,10 +25,10 @@ jest.mock("@/lib/tts", () => ({
   isTtsAvailable: () => mockIsTtsAvailable(),
   resolveTtsVoice: (lang: string, voiceId?: string) => mockResolveVoice(lang, voiceId),
 }));
-jest.mock("@/stores/quran-store", () => ({
-  ...jest.requireActual("@/stores/quran-store"),
-  useQuranPrefs: () => ({ ttsVoiceByLang: { "ar-SA": "old-voice" } }),
-  useQuranActions: () => ({ updatePrefs: mockUpdatePrefs }),
+// Device voices are read and written through the settings layer (B4, §4.5.4).
+jest.mock("@/lib/settings/tts-voice", () => ({
+  useTtsVoice: (lang: string) => ({ "ar-SA": "old-voice" })[lang],
+  setTtsVoice: (lang: string, voiceId?: string) => mockSetTtsVoice(lang, voiceId),
 }));
 jest.mock("@/components/tts-voice-sheet", () => {
   const { Pressable, Text, View } = require("react-native");
@@ -82,7 +86,7 @@ describe("ReadingTtsButton", () => {
     mockResolveTarget.mockReset();
     mockResolveTarget.mockResolvedValue({ text: "بِسْمِ اللَّهِ", lang: "ar-SA" });
     mockIsTtsAvailable.mockResolvedValue(true);
-    mockUpdatePrefs.mockClear();
+    mockSetTtsVoice.mockClear();
   });
 
   it("renders nothing without any text", async () => {
@@ -115,7 +119,7 @@ describe("ReadingTtsButton", () => {
     await openSheet();
     await fireEvent.press(screen.getByLabelText("pick-voice"));
     await settle();
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: { "ar-SA": "v1" } });
+    expect(mockSetTtsVoice).toHaveBeenCalledWith("ar-SA", "v1");
     expect(mockAudioPlayer.play).toHaveBeenCalledWith(
       [expect.objectContaining({ id: "dua-1:tts:0", title: "Morning dua" })],
       0,
@@ -128,7 +132,7 @@ describe("ReadingTtsButton", () => {
     await openSheet();
     await fireEvent.press(screen.getByLabelText("pick-default"));
     await settle();
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: {} });
+    expect(mockSetTtsVoice).toHaveBeenCalledWith("ar-SA", undefined);
     expect(mockAudioPlayer.play).toHaveBeenCalledWith(
       [expect.objectContaining({ title: "Listen" })],
       0,
@@ -145,15 +149,13 @@ describe("ReadingTtsButton", () => {
     expect(mockAudioPlayer.play).not.toHaveBeenCalled();
   });
 
-  it("alerts when text-to-speech is unavailable", async () => {
-    const alert = jest.spyOn(Alert, "alert").mockImplementation(() => {});
+  it("shows a toast when text-to-speech is unavailable", async () => {
     mockIsTtsAvailable.mockResolvedValue(false);
     await renderButton();
     await openSheet();
     await fireEvent.press(screen.getByLabelText("pick-voice"));
     await settle();
-    expect(alert).toHaveBeenCalledWith("Listening unavailable", expect.any(String));
-    alert.mockRestore();
+    expect(mockToast.info).toHaveBeenCalledWith("Listening unavailable", expect.any(String));
   });
 
   it("stops its own active queue", async () => {

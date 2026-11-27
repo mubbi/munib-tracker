@@ -17,6 +17,7 @@ import {
   listDirectory,
 } from "@/lib/native-file-store";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
+import { staticJsonMirrorUrls } from "@/lib/static-json-fetch";
 
 const QCF_SOURCE_PROVIDER = "nuqayah/qpc-fonts";
 
@@ -103,6 +104,75 @@ function localPathFor(page: number): string {
   return `${qcfFontCacheDir()}${fileName}`;
 }
 
+/**
+ * jsDelivr occasionally drops a request (cold MISS on a large repo, connection
+ * resets while several page fonts warm at once). Each source gets a quick
+ * retry, then GitHub raw serves the same file at the same ref.
+ */
+const QCF_RETRY_DELAYS_MS = [0, 600] as const;
+
+function qcfFontSources(remoteUri: string): string[] {
+  return [remoteUri, ...staticJsonMirrorUrls(remoteUri)];
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** A transient failure worth retrying on the same host (vs. 403/404 → try the mirror). */
+function retryableStatus(status: number): boolean {
+  return status === 429 || status >= 500;
+}
+
+/**
+ * Fetches a QCF font with retries and the GitHub raw mirror. Resolves with the
+ * first OK response, else the last non-OK one; throws the last network error
+ * when no source answered at all.
+ */
+async function fetchQcfFont(remoteUri: string): Promise<Response> {
+  let lastResponse: Response | undefined;
+  let lastError: unknown;
+  for (const url of qcfFontSources(remoteUri)) {
+    for (const delay of QCF_RETRY_DELAYS_MS) {
+      if (delay > 0) await wait(delay);
+      try {
+        const response = await fetch(url, { mode: "cors", credentials: "omit" });
+        if (response.ok) return response;
+        lastResponse = response;
+        if (!retryableStatus(response.status)) break;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+  }
+  if (lastResponse) return lastResponse;
+  throw lastError ?? new Error(`QCF font unavailable: ${remoteUri}`);
+}
+
+/** Native twin of {@link fetchQcfFont}: download into `localUri`, retrying + mirror. */
+async function downloadQcfFont(
+  remoteUri: string,
+  localUri: string,
+): Promise<{ uri: string; status: number }> {
+  let last: { uri: string; status: number } | undefined;
+  let lastError: unknown;
+  for (const url of qcfFontSources(remoteUri)) {
+    for (const delay of QCF_RETRY_DELAYS_MS) {
+      if (delay > 0) await wait(delay);
+      try {
+        const result = await downloadToUri(url, localUri);
+        if (result.status >= 200 && result.status < 300) return result;
+        last = result;
+        if (!retryableStatus(result.status)) break;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+  }
+  if (last) return last;
+  throw lastError ?? new Error(`QCF font unavailable: ${remoteUri}`);
+}
+
 function webCacheAvailable(): boolean {
   return (
     Platform.OS === "web" &&
@@ -130,7 +200,7 @@ async function resolveWebCachedQcfFontUri(page: number): Promise<string> {
       if (cached && cached.type === "opaque") cached = undefined;
 
       if (!cached) {
-        const net = await fetch(remoteUri, { mode: "cors", credentials: "omit" });
+        const net = await fetchQcfFont(remoteUri);
         if (!net.ok) {
           reportQcfFontFailure({
             page,
@@ -202,7 +272,7 @@ export async function resolveCachedQcfFontUri(page: number): Promise<string> {
   const task = (async () => {
     try {
       ensureDirectory(qcfFontCacheDir());
-      const result = await downloadToUri(remoteUri, localUri);
+      const result = await downloadQcfFont(remoteUri, localUri);
       if (result.status < 200 || result.status >= 300) {
         reportQcfFontFailure({
           page,
@@ -246,7 +316,7 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
         let cached = (await cache.match(remoteUri, { ignoreVary: true })) ?? undefined;
         if (cached && cached.type === "opaque") cached = undefined;
         if (!cached) {
-          const net = await fetch(remoteUri, { mode: "cors", credentials: "omit" });
+          const net = await fetchQcfFont(remoteUri);
           if (!net.ok) {
             reportQcfFontFailure({
               sourceUrl: remoteUri,
@@ -304,7 +374,7 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
   bsmlUriInflight = (async () => {
     try {
       ensureDirectory(qcfFontCacheDir());
-      const result = await downloadToUri(remoteUri, localUri);
+      const result = await downloadQcfFont(remoteUri, localUri);
       if (result.status < 200 || result.status >= 300) {
         reportQcfFontFailure({
           sourceUrl: remoteUri,
@@ -341,15 +411,14 @@ async function registerQcfFontFamily(family: string, uri: string): Promise<void>
     typeof document !== "undefined" &&
     !webRegisteredFamilies.has(family)
   ) {
-    try {
-      const face = new FontFace(family, `url("${uri}")`);
-      const loaded = await face.load();
-      document.fonts.add(loaded);
-      webRegisteredFamilies.add(family);
-      return;
-    } catch (error) {
-      console.warn("[mushaf] FontFace registration failed, falling back to expo-font", error);
-    }
+    // No expo-font fallback here: if FontFace could not load these bytes,
+    // expo-font can't either, and it could still resolve — the page would then
+    // be marked ready and paint QCF code points as empty boxes.
+    const face = new FontFace(family, `url("${uri}")`);
+    const loaded = await face.load();
+    document.fonts.add(loaded);
+    webRegisteredFamilies.add(family);
+    return;
   }
   await Font.loadAsync({ [family]: uri });
   if (Platform.OS === "web") webRegisteredFamilies.add(family);

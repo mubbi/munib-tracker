@@ -107,7 +107,7 @@ export default function ZakatTopicScreen() {
           }
         >
           <Stagger>
-            <LearnReadingChrome surface="jannah">
+            <LearnReadingChrome surface="finance">
               <ZakatTopicContent topicId={topicId as ZakatGuideSectionKey} />
             </LearnReadingChrome>
             <JannahDisclaimer textKey="zakat.disclaimer" contentRef={reportRef} />

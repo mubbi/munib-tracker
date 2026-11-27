@@ -14,16 +14,7 @@ export const FRIDAY_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Adhurimi i saj mbart gjithashtu një premtim të vazhdueshëm faljeje. Ebu Hurejra transmeton se Profeti ﷺ ka thënë: 'Kush lahet (gusul) ditën e premte, pastaj vjen në namazin e xhumasë, dëgjon dhe rri në heshtje ndërsa imami mban hutben, atij i falen mëkatet mes atij xhumaje dhe xhumasë tjetër, plus tri ditë të tjera' (Sahih Muslimi 857).",
       "Këto vlera janë një thirrje për t'u përgatitur herët, për të dëgjuar me kujdes dhe për ta trajtuar të premten si një rifreskim shpirtëror javor — jo thjesht si një ditë pushimi nga puna.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dita më e mirë ku lind dielli është e premtja; në të u krijua Ademi, në të ai hyri në Xhenet, në të ai u nxor prej tij, dhe Ora e Fundit nuk do të ndodhë veçse në ditën e premte.",
-      },
-      {
-        excerpt:
-          "Kush lahet (gusul) ditën e premte, pastaj vjen në namazin e xhumasë, dëgjon dhe rri në heshtje ndërsa imami mban hutben, atij i falen mëkatet mes atij xhumaje dhe xhumasë tjetër, plus tri ditë të tjera.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Vendosni qëllim që në mëngjesin e premte: gusul, rrobat më të mira dhe ardhje herët.",
       "Trajtojeni hutben si adhurim — heshtja dhe vëmendja janë pjesë e shpërblimit.",
@@ -39,27 +30,8 @@ export const FRIDAY_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Neglizhimi i tij është një paralajmërim i rëndë: Ebu el-Xhad transmeton se kush lë tri namaze xhumaje nga neglizhenca, Allahu ia vulon zemrën (Sunen en-Nesaiu 1369). Gjatë hutbes, të flasësh pa nevojë e humb shpërblimin — Ebu Hurejra transmeton se nëse i thua shokut tënd 'Hesht' ndërsa imami po flet, ti vetë ke folur kot (Sahih Buhariu 934).",
       "Pas xhumasë rekomandohet të falen katër rekate: Ebu Hurejra transmeton se Profeti ﷺ ka thënë, 'Kur ndonjëri prej jush të falë namazin e xhumasë, le të falë pas tij katër (rekate)' (Sahih Muslimi 881).",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat! Kur bëhet thirrja për namaz ditën e premte, nxitoni për ta përmendur Allahun dhe lëreni tregtinë. Kjo është më e mirë për ju, nëse do ta dinit. E kur namazi të mbarojë, shpërndahuni në tokë dhe kërkoni mirësinë e Allahut...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namazi i xhumasë me xhemat është detyrim për çdo mysliman, me përjashtim të katër personave: skllavit, gruas, fëmijës ose të sëmurit.",
-      },
-      { excerpt: "Kush lë tri namaze xhumaje nga neglizhenca, Allahu ia vulon zemrën." },
-      {
-        excerpt:
-          "Nëse i thua shokut tënd 'Hesht' ditën e premte ndërsa imami po flet, ti vetë ke folur kot (lagv).",
-      },
-      {
-        excerpt:
-          "Kur ndonjëri prej jush të falë namazin e xhumasë, le të falë pas tij katër (rekate).",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Planifikoni udhëtimin tuaj që të arrini në xhami para se të fillojë hutbeja.",
       "Vendosni telefonat në heshtje dhe shmangni bisedat gjatë hutbes.",
@@ -77,21 +49,7 @@ export const FRIDAY_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Përveç gusulit, Profeti ﷺ inkurajoi që të duket sa më mirë. Selman el-Farisi transmeton se Profeti ﷺ ka thënë: 'Kush lahet ditën e premte, pastrohet sa më shumë që mundet, pastaj përdor vaj flokësh ose parfum, pastaj del, dhe nuk shtyhet mes dy personave për t'u ulur në vendin e vet, dëgjon imamin derisa të mbarojë, pastaj fal namazin e caktuar për të — atij i falen mëkatet mes atij xhumaje dhe xhumasë tjetër' (Sahih Buhariu 883).",
       "Ardhja herët e shumëfishon shpërblimin. Ebu Hurejra transmeton se kush shkon në orën e parë është si ai që sakrifikon një deve, pastaj një lopë, pastaj një dash, pastaj një pulë, pastaj një vezë — dhe kur del imami, engjëjt mbyllin regjistrimet e tyre dhe dëgjojnë përkujtimin (Sahih Buhariu 881).",
     ],
-    hadith: [
-      { excerpt: "Gusuli ditën e premte është detyrim për çdo person që ka arritur pubertetin." },
-      {
-        excerpt:
-          "Gusuli ditën e premte është detyrim për çdo burrë mysliman që ka arritur pubertetin.",
-      },
-      {
-        excerpt:
-          "Kush lahet ditën e premte, pastrohet sa më shumë që mundet, pastaj përdor vaj flokësh ose parfum, pastaj del, dhe nuk shtyhet mes dy personave për t'u ulur në vendin e vet, dëgjon imamin derisa të mbarojë, pastaj fal namazin e caktuar për të — atij i falen mëkatet mes atij xhumaje dhe xhumasë tjetër.",
-      },
-      {
-        excerpt:
-          "Kush lahet ditën e premte, pastaj shkon herët, si ai që sakrifikon një deve... pastaj një lopë... pastaj një dash... pastaj një pulë... pastaj një vezë. Kur del imami, engjëjt vijnë për të dëgjuar përkujtimin.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Bëni gusul në mëngjesin e premte (ose para se të shkoni në xhami).",
       "Vishni rrobat më të mira dhe më të pastra, dhe nëse mundeni, përdorni një parfum të lehtë.",
@@ -109,22 +67,8 @@ export const FRIDAY_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Krahas kësaj, dhjetë ajetet e para të sures el-Kehf janë mbrojtje nga fitneja e Dexhallit. Ebu Derda transmeton se Profeti ﷺ ka thënë: 'Kush mëson përmendësh dhjetë ajetet e para të sures el-Kehf, do të mbrohet nga Dexhalli' (Sahih Muslimi 809).",
       "Gjeni kohë mes mbrëmjes së enjte dhe perëndimit të diellit të premten për të lexuar suren — edhe nëse nuk mund të përfundoni gjithë pjesën, nisni nga ajetet e para dhe kthehuni sa më shumë herë që mundeni.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I gjithë lëvdimi i takon Allahut, i cili ia zbriti robit të Tij Librin dhe nuk vendosi në të asnjë shtrembërim... A mendoni se banorët e shpellës dhe të mbishkrimit ishin ndër shenjat Tona më të mahnitshme?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kush lexon suren el-Kehf ditën e premte, drita do t'i shndritë mes dy të premteve. (E vlerësuar sahih nga Shejh el-Albani)",
-      },
-      {
-        excerpt:
-          "Kush mëson përmendësh dhjetë ajetet e para të sures el-Kehf, do të mbrohet nga Dexhalli.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Hapni suren el-Kehf ditën e premte dhe lexoni me vëmendje sa më shumë që mundeni.",
       "Mësoni përmendësh ose përsëritni dhjetë ajetet e para si mbrojtje nga Dexhalli.",
@@ -140,12 +84,7 @@ export const FRIDAY_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "E premtja është caktuar për salavate të shpeshta. Evs ibn Evs transmeton se Profeti ﷺ ka thënë: 'Ndër ditët tuaja më të mira është e premtja; pra në atë ditë shpeshtoni salavatet për mua, sepse salavatet tuaja do të më paraqiten mua.' Ata thanë: 'O i Dërguar i Allahut, si do të na paraqiten salavatet kur ti të jesh bërë tokë?' Ai tha: 'Allahu ia ka ndaluar tokës të hajë trupat e profetëve' (Sunen Ebu Davudi 1047).",
       "Çdo formulë e vërtetuar e salavateve është e pranueshme — qofshin ato që mësohen në namaz ose forma më të gjata nga suneti. E rëndësishme është shpeshtimi dhe sinqeriteti ditën e premte, jo një numër fiks.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ndër ditët tuaja më të mira është e premtja; pra në atë ditë shpeshtoni salavatet për mua, sepse salavatet tuaja do të më paraqiten mua.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Vendosni një qëllim personal salavatesh për ditën e premte — edhe një numër i vogël por i vazhdueshëm.",
       "Nëse doni një formulë të gatshme, përdorni koleksionin e salavateve në aplikacion.",
@@ -160,20 +99,7 @@ export const FRIDAY_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Dijetarët nuk pajtohen se kur saktësisht është kjo orë. Një pikëpamje e fortë e vendos në pjesën e fundit të pasdites së premte pas ikindisë: Xhabir ibn Abdullah transmeton se Profeti ﷺ ka thënë: 'E premtja ka dymbëdhjetë orë, dhe në të ka një orë, nëse një rob mysliman kërkon nga Allahu ndonjë gjë, Ai do t'ia jap — pra kërkojeni në orën e fundit pas ikindisë' (Sunen Ebu Davudi 1048).",
       "Cilëndo pikëpamje që ndiqni, mbushni ditën e premte — sidomos pjesën e fundit të pasdites — me lutje të sinqertë, istigfar dhe salavate, me besim në premtimin e Allahut për t'iu përgjigjur.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ditën e premte ka një orë, nëse një rob mysliman qëndron në të dhe kërkon nga Allahu ndonjë gjë, Ai do t'ia jap — dhe tregoi me dorë se ajo është e shkurtër.",
-      },
-      {
-        excerpt:
-          "Ditën e premte ka një orë, nëse një mysliman është në namaz dhe kërkon nga Allahu ndonjë gjë, Ai do t'ia jap.",
-      },
-      {
-        excerpt:
-          "E premtja ka dymbëdhjetë orë, dhe në të ka një orë, nëse një rob mysliman kërkon nga Allahu ndonjë gjë, Ai do t'ia jap — pra kërkojeni në orën e fundit pas ikindisë.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Pas ikindisë ditën e premte, uluni me një listë të shkurtër lutjesh dhe kërkoni me sinqeritet.",
       "Kombinoni lutjen me salavate — të dyja inkurajohen veçanërisht këtë ditë.",

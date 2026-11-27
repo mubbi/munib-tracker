@@ -1,4 +1,8 @@
-import { RUNTIME_DATA_CREDITS, SERVICE_DATA_CREDITS } from "@munib-tracker/shared/constants";
+import {
+  BUNDLED_DATA_CREDITS,
+  RUNTIME_DATA_CREDITS,
+  SERVICE_DATA_CREDITS,
+} from "@munib-tracker/shared/constants";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import * as WebBrowser from "expo-web-browser";
@@ -14,9 +18,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -31,6 +36,8 @@ interface CreditRow {
   attribution: string;
   sourceUrl: string;
   note?: string;
+  /** Verbatim licence notice the source requires (e.g. Quranic Arabic Corpus). */
+  notice?: string;
 }
 
 const RUNTIME_SOURCES: CreditRow[] = RUNTIME_DATA_CREDITS.map((c) => ({
@@ -39,6 +46,7 @@ const RUNTIME_SOURCES: CreditRow[] = RUNTIME_DATA_CREDITS.map((c) => ({
   attribution: c.attribution,
   sourceUrl: c.url,
   note: c.note,
+  notice: c.notice,
 }));
 
 const SERVICE_SOURCES: CreditRow[] = SERVICE_DATA_CREDITS.map((c) => ({
@@ -57,13 +65,27 @@ export default function CreditsScreen() {
   /** TV has no in-app browser — show the source as a QR to open on a phone. */
   const [qrRow, setQrRow] = useState<CreditRow | null>(null);
 
-  const bundledRows: CreditRow[] = manifest.datasets.map((d) => ({
-    name: d.id,
-    license: d.license,
-    attribution: d.attribution,
-    sourceUrl: d.sourceUrl,
-    note: "note" in d ? (d as { note?: string }).note : undefined,
-  }));
+  // Remote datasets in the manifest (fetched on demand) are credited under runtime sources.
+  const bundledRows: CreditRow[] = manifest.datasets
+    .filter((d) => d.kind !== "remote")
+    .map((d) => ({
+      name: d.id,
+      license: d.license,
+      attribution: d.attribution,
+      sourceUrl: d.sourceUrl,
+      note: "note" in d ? (d as { note?: string }).note : undefined,
+    }));
+  // Bundled assets outside the build-data manifest (e.g. CC0 tasbeeh click sounds, NF-3.19).
+  for (const credit of BUNDLED_DATA_CREDITS) {
+    if (manifest.datasets.some((d) => d.id === credit.id)) continue;
+    bundledRows.push({
+      name: credit.name,
+      license: credit.license,
+      attribution: credit.attribution,
+      sourceUrl: credit.url,
+      note: credit.note,
+    });
+  }
 
   const openRow = (row: CreditRow) => {
     if (tv) {
@@ -87,12 +109,18 @@ export default function CreditsScreen() {
         <ThemedText type="caption" themeColor="mutedForeground">
           {row.attribution}
         </ThemedText>
-        <ThemedText type="caption" style={{ color: colors.accent }}>
+        <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
           {row.license}
         </ThemedText>
         {row.note ? (
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.note}>
             {row.note}
+          </ThemedText>
+        ) : null}
+        {row.notice ? (
+          // Licence text stays in its original English, verbatim, as the terms require.
+          <ThemedText type="caption" themeColor="mutedForeground" selectable style={styles.notice}>
+            {row.notice}
           </ThemedText>
         ) : null}
       </View>
@@ -146,9 +174,18 @@ export default function CreditsScreen() {
         ]}
       />
       <Stagger>
-        <Card padding="three">{renderList(bundledRows)}</Card>
-        <Card padding="three">{renderList(RUNTIME_SOURCES)}</Card>
-        <Card padding="three">{renderList(SERVICE_SOURCES)}</Card>
+        <Card>
+          <SectionHeader title={t("credits.bundledTitle")} subtitle={t("credits.bundledDesc")} />
+          <View style={styles.sectionBody}>{renderList(bundledRows)}</View>
+        </Card>
+        <Card>
+          <SectionHeader title={t("credits.runtimeTitle")} subtitle={t("credits.runtimeDesc")} />
+          <View style={styles.sectionBody}>{renderList(RUNTIME_SOURCES)}</View>
+        </Card>
+        <Card>
+          <SectionHeader title={t("credits.servicesTitle")} subtitle={t("credits.servicesDesc")} />
+          <View style={styles.sectionBody}>{renderList(SERVICE_SOURCES)}</View>
+        </Card>
         <View style={[styles.footer, { borderColor: tokens.hairline }]}>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.footerText}>
             {t("credits.openSource")}
@@ -157,7 +194,11 @@ export default function CreditsScreen() {
       </Stagger>
 
       {tv ? (
-        <Sheet visible={qrRow != null} onClose={() => setQrRow(null)}>
+        <Sheet
+          accessibilityLabel={qrRow?.name ?? ""}
+          visible={qrRow != null}
+          onClose={() => setQrRow(null)}
+        >
           {qrRow ? (
             <View style={styles.qrSheet}>
               <ThemedText type="subtitle">{qrRow.name}</ThemedText>
@@ -187,6 +228,7 @@ export default function CreditsScreen() {
 }
 
 const styles = StyleSheet.create({
+  sectionBody: { marginTop: Spacing.three },
   list: { gap: Spacing.two },
   row: {
     flexDirection: "row",
@@ -196,7 +238,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  rowBody: { flex: 1, gap: 2 },
+  rowBody: { flex: 1, gap: Spacing.half },
   /** Grid cells stretch per row — fill so neighbouring tiles align. */
   rowFill: { flexGrow: 1 },
   /** TV: two-column grid so the long source list uses the landscape width. */
@@ -205,8 +247,9 @@ const styles = StyleSheet.create({
   qrSheet: { alignItems: "center", gap: Spacing.three },
   qrHint: { textAlign: "center" },
   note: { fontStyle: "italic" },
+  notice: { lineHeight: 15, writingDirection: "ltr" },
   footer: {
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     paddingTop: Spacing.three,
     alignItems: "center",
   },

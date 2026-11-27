@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 
 import { TafsirAyahSheet } from "@/components/quran/tafsir-ayah-sheet";
 import { renderWithTheme } from "@/test-support/render";
@@ -28,7 +28,6 @@ async function renderSheet(overrides: Partial<Props> = {}) {
 describe("TafsirAyahSheet", () => {
   it("shows the ayah reference, edition and author", async () => {
     await renderSheet();
-    expect(screen.getByText("Tafsir")).toBeTruthy();
     expect(screen.getByText("2:255")).toBeTruthy();
     expect(screen.getByText("Ibn Kathir")).toBeTruthy();
     expect(screen.getByText("Hafiz Ibn Kathir")).toBeTruthy();
@@ -54,8 +53,21 @@ describe("TafsirAyahSheet", () => {
     );
   });
 
+  it("announces the loading state through a skeleton group", async () => {
+    await renderSheet({ loading: true });
+    expect(screen.getByLabelText("Loading tafsir…")).toBeTruthy();
+    expect(screen.queryByText("The Throne verse.")).toBeNull();
+  });
+
+  it("offers Try again on a failed tafsir load (C-02)", async () => {
+    const onRetry = jest.fn();
+    await renderSheet({ offline: true, onRetry });
+    expect(screen.getByText(/Connect to download this tafsir/)).toBeTruthy();
+    fireEvent.press(screen.getByRole("button", { name: "Try again" }));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+
   it.each([
-    ["loading", { loading: true }, "Loading tafsir…"],
     ["offline", { offline: true }, /Connect to download this tafsir/],
     ["empty", { text: "   " }, /No tafsir is available for this ayah/],
     ["missing", { text: undefined as unknown as string }, /No tafsir is available for this ayah/],

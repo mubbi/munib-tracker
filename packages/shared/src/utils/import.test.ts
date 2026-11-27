@@ -97,8 +97,20 @@ describe("parsePrayerImport", () => {
     expect(result.rows).toEqual([]);
     expect(result.dateRange).toBeNull();
     expect(result.errors).toEqual([
-      { row: 1, message: 'Invalid date ""', raw: ",," },
-      { row: 2, message: 'Invalid date ""', raw: ",," },
+      {
+        row: 1,
+        code: "invalid_date",
+        params: { value: "" },
+        message: 'Invalid date ""',
+        raw: ",,",
+      },
+      {
+        row: 2,
+        code: "invalid_date",
+        params: { value: "" },
+        message: 'Invalid date ""',
+        raw: ",,",
+      },
     ]);
   });
 
@@ -113,7 +125,13 @@ describe("parsePrayerImport", () => {
 
   it("rejects pending status", () => {
     expect(parsePrayerImport("2026-07-01,fajr,pending", TODAY).errors).toEqual([
-      { row: 1, message: 'Unknown status "pending"', raw: "2026-07-01,fajr,pending" },
+      {
+        row: 1,
+        code: "unknown_status",
+        params: { value: "pending" },
+        message: 'Unknown status "pending"',
+        raw: "2026-07-01,fajr,pending",
+      },
     ]);
   });
 
@@ -149,6 +167,30 @@ describe("parsePrayerImport", () => {
       "2026-07-01:maghrib",
       "2026-07-02:isha",
     ]);
+  });
+
+  it("returns a translatable { code, params } for each of the five failure kinds (F-03)", () => {
+    expect(parsePrayerImport("{not json", TODAY).errors[0]).toEqual(
+      expect.objectContaining({ row: 0, code: "invalid_json" }),
+    );
+    const result = parsePrayerImport(
+      [
+        "2026-02-30,fajr,completed",
+        "2999-01-01,fajr,completed",
+        "2026-07-01,tahajjud,completed",
+        "2026-07-01,fajr,pending",
+        "2026-07-01,fajr,completed",
+      ].join("\n"),
+      TODAY,
+    );
+    expect(result.errors.map(({ row, code, params }) => ({ row, code, params }))).toEqual([
+      { row: 1, code: "invalid_date", params: { value: "2026-02-30" } },
+      { row: 2, code: "future_date", params: { value: "2999-01-01" } },
+      { row: 3, code: "unknown_prayer", params: { value: "tahajjud" } },
+      { row: 4, code: "unknown_status", params: { value: "pending" } },
+    ]);
+    // Accepted rows are unchanged by the error-code change.
+    expect(result.rows).toEqual([{ date: "2026-07-01", prayerId: "fajr", status: "completed" }]);
   });
 
   it("defaults today to the current UTC day", () => {

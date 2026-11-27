@@ -27,7 +27,6 @@ jest.mock(
   () => require("@/test-support/mocks/use-window-dimensions").useWindowDimensionsMock,
 );
 // Imported transitively (reading typography → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/lib/platform/hinge", () => ({ useHingePosture: jest.fn(() => null) }));
 
 // The first render warms the theme + i18n graph, which is slow on a busy machine.
@@ -53,7 +52,7 @@ async function renderCounter(overrides: Partial<Props> = {}) {
   return { props, view };
 }
 
-const countButtons = () => screen.getAllByRole("button", { name: "Count" });
+const countButtons = () => screen.getAllByRole("button", { name: /^(Tasbeeh counter|Count one)$/ });
 
 /** Opens a confirm dialog via `trigger`, then presses the dialog's confirm button. */
 async function confirmVia(trigger: string, confirm = trigger) {
@@ -110,24 +109,30 @@ describe("TasbeehCounter", () => {
     expect(screen.getByRole("button", { name: "Undo" })).toBeDisabled();
   });
 
-  it.each([
-    {
-      trigger: "Undo",
-      title: "Undo last count?",
-      message: "This will subtract one from your current count.",
-    },
-    { trigger: "Reset", title: "Reset counter?", message: "Your count of 5 will be cleared." },
-  ])("asks before $trigger", async ({ trigger, title, message }) => {
+  it("asks before Reset", async () => {
     await renderCounter({ count: 5 });
-    await fireEvent.press(screen.getByRole("button", { name: trigger }));
-    expect(screen.getByText(title)).toBeTruthy();
-    expect(screen.getByText(message)).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Reset" }));
+    expect(screen.getByText("Reset counter?")).toBeTruthy();
+    expect(screen.getByText("Your count of 5 will be cleared.")).toBeTruthy();
   });
 
-  it("decrements after confirming undo", async () => {
+  it("undoes instantly with a light haptic and no dialog", async () => {
     const { props } = await renderCounter({ count: 5 });
-    await confirmVia("Undo");
+    await fireEvent.press(screen.getByRole("button", { name: "Undo" }));
     expect(props.onDecrement).toHaveBeenCalledTimes(1);
+    expect(triggerHaptic).toHaveBeenCalledWith("light");
+    expect(screen.queryByText("Undo last count?")).toBeNull();
+  });
+
+  it("exposes the count as an accessibility value with its target", async () => {
+    await renderCounter({ count: 12 });
+    const stage = screen.getAllByRole("button", { name: "Tasbeeh counter" })[0];
+    expect(stage.props.accessibilityValue).toMatchObject({ now: 12, text: "12 of 33" });
+  });
+
+  it("hides the completion banner for step flows", async () => {
+    await renderCounter({ count: 33, hideCompletion: true } as never);
+    expect(screen.queryByText("MashaAllah — target reached")).toBeNull();
   });
 
   it("resets with a medium haptic after confirming reset", async () => {

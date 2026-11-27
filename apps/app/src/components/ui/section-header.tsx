@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
@@ -38,7 +38,7 @@ export function SectionHeader({
       <View style={styles.titleRow}>
         {icon ? (
           <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-            <AppIcon icon={icon} size={14} tintColor={colors.accent} />
+            <AppIcon icon={icon} size={IconSize.sm} tintColor={tokens.accentOnSoft} />
           </View>
         ) : null}
         <View style={styles.titleBlock}>
@@ -67,7 +67,7 @@ export function SectionHeader({
         >
           <View style={styles.actionRow}>
             {actionIcon ? (
-              <SymbolView name={actionIcon} size={14} tintColor={colors.accentText} />
+              <SymbolView name={actionIcon} size={IconSize.sm} tintColor={colors.accentText} />
             ) : null}
             <ThemedText type="smallBold" style={{ color: colors.accentText }}>
               {actionLabel}
@@ -99,12 +99,11 @@ const styles = StyleSheet.create({
   titleBlock: {
     flex: 1,
     minWidth: 0,
-    gap: 2,
+    gap: Spacing.half,
   },
   title: {
     flexShrink: 1,
     alignSelf: "stretch",
-    textTransform: "capitalize",
   },
   subtitle: {
     flexShrink: 1,
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
   },
   action: {
     flexShrink: 0,
-    minHeight: tvDp(44),
+    minHeight: Control.md,
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,

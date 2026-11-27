@@ -15,15 +15,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "Sheekooyinkooda Qur'aanku maaha taariikh fog oo keliya; waa casharo wax ku ool ah oo loogu talagalay caqiidada, dulqaadka, nolosha qoyska, hogaaminta, iyo toobad keenka.",
       "Rumaynta nebiyada oo dhan waa qayb ka mid ah iimaanka. Muslimiintu dhammaantood way ixtiraamaan, ka fogaadaan buunbuuninta, raacaan dhambaalka ugu dambeeya ee uu keenay Muxammad ﷺ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rasuullo iyagoo ah kuwa bishaaraysan oo u dige si aan dadku xujo ugu yeelan Eebe ka dib rasuullada.",
-      },
-      {
-        excerpt: "Waxaan u Dirray Ummad kasta Rasuul Caabuda Eebe kana Dhawrsada.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +26,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "Nebiyadu maaha kuwo rabbaani ah oo aan weligood la caabudin. Waa kuwa ugu khayrka badan khalqiga xagga addeecidda, akhlaaqda iyo aaminaadda, iyagoo ka hadhsan addoommadii Alle.",
       "Ujeedadoodu waa hal asaas oo ah in Alle keligii caabudo. Faahfaahinta sharci ee gaarka ahi way ku kala duwanaan kartaa bulshooyinka dhexdooda xikmada Alle.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rasuuladoodii waxay ku dhaheen annagu waxaan nahay rag idinla mid ah, Eebana wuxuu u fadilaa cidduu doono oo addoomadiisa ka mid ah.",
-      },
-      {
-        excerpt:
-          "Ma aan dirin hortaa Rasuul waxaan u waxyoonay mooyee Ilaah kale ma jiro aniga mooyee ee i caabuda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +37,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "Qur'aanku wuxuu isticmaalaa labada erey si sharaf leh, Muslimiintuna waxay rumaysteen dhammaan nebiyada iyo rususha iyagoon cidna diidin.",
       "Qeexitaannada saxda ah ee farsamada waxay ku kala duwanaan karaan odhaah-cilmiyeedka, laakiin casharka la taaban karo waa mid joogto ah: ku hel waxyi si is-hoosaysiin iyo raac hanuunka Alle.",
     ],
-    quran: [
-      {
-        excerpt: "Isagaa la doortay, wuxuuna ahaa rasuul iyo nabi.",
-      },
-      {
-        excerpt: "Ma kala saarno mid ka mid ah Rasuulkiisa.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Tafaasiisha erey-bixinta waxa loo soo bandhigay si ballaadhan oo dhexdhexaad ah oo cilmi-nafsi ah; la tasho macalimiin aqoon sare leh si aad u heshid kala-soocida fiqiga sare.",
     appLinks: [{}],
@@ -101,26 +77,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Towbaddiisu waa tawbah ugu horreeya ee Qur'aanka",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Xusuuso) markuu Eebahaa ku yidhi Malaa'igta waxaan ka yeeli Dhulka Xukun isdhaaf ah...Markaasuu ka Aqbalay Nabi Aadam xagga Eebihiis kalimooyin wuuna ka Toobad aqbalay.",
-      },
-      {
-        excerpt:
-          "Waxayna dheheen Eebow waan dulminay nafteena, haddaadan noo dambi dhaafin oodan noo naxariisan waxaan noqonaynaa kuwa khasaaray.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maalinta qiyaame waxay u iman doonaan dadku Aadam, waxayna ku odhan waxaad tahay aabbaha dadka; Eebahaa agtiisa noo shafeeco.",
-      },
-      {
-        excerpt:
-          "Aadam iyo Muuse ayaa ku dooday. Muuse wuxuu yidhi: Adigu waxaad tahay kii Eebbe gacantiisa ku abuuray. Aadam wuxuu yidhi: Ma waxaad igu eedaynaysaa arrin Eebbe ii qoray ka hor intuusan i abuurin? Markaa buu Aadan Muuse kaga adkaaday dooddii.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -144,16 +102,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Lagu sifeeyey in uu Allah kor u qaaday meel sare",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "kuna sheeg kitaabka Idiris. Illeen wuxuu ahaa nin run sheeg ah oo nabi ah. Waxaana koryeelay meel sare.",
-      },
-      {
-        excerpt:
-          "iyo Ismaaciil, Idiris iyo Dul-kifli, dhammaan waxay ahaayeen kuwa samra. Waxaana Galinay Naxariistanada. Waxayna ahaayeen kuwa dhawrsada.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -190,22 +139,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Sheekadiisu waxay ku soo aroortay suurado badan oo ay ku jirto mid isaga loogu magac daray",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Waxaana loo waxyooday (Nabi) Nuux inaan Qoomkaaga midna rumayn kuwii rumeeyey mooyee, ee ha ka welwelin waxay falayeen.",
-      },
-      {
-        excerpt:
-          "Wuxuu yidhi: Eebow anigu waxaan u yeedhay habeen iyo maalin qoomkayga, martiqaadkaygiise uma siyaadinin waxaan carar ahayn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dadku waxay u iman doonaan Nuux, waxayna ku odhan: Nuuxow waxaad tahay kii ugu horreeyey ee u soo diray dadka dhulka, wuxuuna Eebbe kuugu magacaabay addoon shukriya; noo shafeeco.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -241,16 +176,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Sheekada Caad waxay ku soo noqnoqonaysaa Qur'aanka oo dhan si ay digniin ugu noqoto bulshooyinka dambe",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Caadna waxaan u diray walaalkood Huud. Wuxuu yidhi: Qoomkayow Alle caabuda; Eebe mooyee ilaah kale ma lihid. Miyaydnaan isaga ka cabsanayn?",
-      },
-      {
-        excerpt:
-          "Markay arkeen Daruur ku soo fool leh Dooxooyinkooda waxay dheheen kani waa Darruur roob noo keeneysa. Saas ma aha ee waa waxaad ka samraysaan, waxaana ku sugan dabayl cadaab daran.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -285,16 +211,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Thamuud waxa ay caan ku ahaayeen in ay buuraha ku xardhaan guryo aad u fiican"],
     },
-    quran: [
-      {
-        excerpt:
-          "Tani waa hashii Eebe calaamo idinkaa ah ee ka taga ha ku cunaan dhulka Eebbe hana ku taabanina xumaan ooy idin qabto cadaab daran.",
-      },
-      {
-        excerpt:
-          "Reer Thamuud waxay beeniyeen Xad-gudubkoodii Dartiis, markii la soo diray kuwii ugu liitay...Markaasuu ku Halaagay Eebahood Dambigooda Dartiis, wuuna simay.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -335,22 +252,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Aabbihii nebiyada ee Ismaaciil iyo Isxaaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Xusuuso) markuu Ibraahiim ku imtixaamay Eebihiis amarro oo uu fuliyay. Wuxuu yidhi:- Illeen waxaan kaa dhigayaa hogaamiye dadka.",
-      },
-      {
-        excerpt:
-          "Waxaan ku nidhi: Naaroow qabow iyo ammaan u ahow Ibraahim korkiisa. Waxayna damceen dhib, waxaana ka yeellay kuwa khasaaray.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Waxaa lagu soo ururin doonaa adigoo caga- cad oo qaawan oo buuryoqab ah. Qofka ugu horreeya ee labisan doono maalinta qiyaame waa Ibraahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -383,16 +286,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ibraahiim qaraabo ahaa oo isaga la tahriibay oo Sodom loo diray"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ma waxaad u dhawaanaysaan niman adduunyo ah ood ka tagaysaan wuxuu Eebbe idiin abuuray oo lammaanayaal ah. Saas ma aha ee waxaad tihiin qoom xadgudbay.",
-      },
-      {
-        excerpt:
-          "markuu yimid amarkannagii waxaan ka yeellay hoosteeda magaalooyinka waaweyn, waxaana ku soo daadinnay korkooda dhagaxyo dhoobo ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -429,16 +323,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Awoowe ee qabiilooyinka Carabta iyo line nebiyada final",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "kuna sheeg kitaabka Ismaaciil. Eebbana waa rumeeyey ballankii, wuxuuna ahaa rasuul iyo nabi. Ehelkiisana wuxuu faray salaadda iyo sakada, wuxuuna ahaa mid Eebbe ka raalli noqday.",
-      },
-      {
-        excerpt:
-          "markuu Nabi Ibraahiimna kor u qaaday Asaaskii Baytka iyo Ismaaciil waxay dheheen Eebow naga aqbal kannaga. 021-047 Adigu waxaad tahay Maqle wax og.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -469,16 +354,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxaa lagu magacaabay Ibraahim iyo Yacquub oo ah qoys la doortay",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Naagtiisiina way taagnayd, wayna qososhay. Markaasaan ugu bishaaraynay (Nabi) Isxaaq, Isxaaq dabadiisna Yacquub.",
-      },
-      {
-        excerpt:
-          "Xusuuso addoomadanada Ibraahim, Isxaaq, iyo Yacquub, kuwii xoogga badnaa. Annagaa ku doorannay si gaar ah, waana xuska guriga.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -512,16 +388,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sidoo kale loo yaqaan Israa'iil", "Aabihii Yuusuf iyo Reer Banii Israa'iil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuu yidhi: Saas ma aha, naftiinnu wax bay idin sasabisay. Markaa dulqaadku waxa ugu habboon. Mindhaa Eebbe wuu ii wada keeni doonaa dhammaantood.",
-      },
-      {
-        excerpt:
-          "Waxayna dheheen waan caabudaynaa Eebahaa iyo Ilaahii Aabayaashiin Ibraahiim, Ismaaciil, Isxaaq, waana Ilaah kaliya, isagaana u hogaansamay.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -558,18 +425,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Suuratu Yuusuf oo dhan, oo loogu magac daray sheekadii ugu fiicnayd, waxay udub dhexaad u tahay noloshiisa",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuu yiri:- maanta wax eed ah idinkuma dhacayso. Allaah ha ku cafiyo; waana kan ugu naxariista badan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Akhyaarta, ibnu gob, ina gob, ibnu gob: Yuusuf bin Yacquub, bin Isxaaq, bin Ibraahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -599,16 +456,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waxaa loo yaqaanaa xoojinta miisaanka iyo cabbirrada"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dadkaygoow Alle caabuda; Eebe mooyee ilaah kale ma lihid. Oofiya miisaanka iyo miisaanka dadkana ha ka duwinina dhulka, hana fasaadinina.",
-      },
-      {
-        excerpt:
-          "Guushayduna ma aha ee waa xagga Allaah. Isagaan talo saartay, xaggiisaana u noqon.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -643,16 +491,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waxaa lagu soo qaatay dhaqanka Islaamka oo dhan inuu yahay tusaalaha sabirka"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ayuubna markuu u Dhawaaqay Eebihiis: Waxaa I Taabtay Dhib, Adiguna waxaad Tahay Naxariis badane.",
-      },
-      {
-        excerpt:
-          "Waxaan ka helnay samir iyo Addoon wanaagsan. Dhab ahaan, wuxuu ahaa mid si isdaba joog ah u soo laabanaya Eebbe.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -677,16 +516,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxaa lagu tiriyaa nabiyada liiska muslimiinta caadiga ah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "iyo Ismaaciil, Idiris iyo Dul-kifli, dhammaan waxay ahaayeen kuwa samra. Waxaana Galinay Naxariistanada. Waxayna ahaayeen kuwa dhawrsada.",
-      },
-      {
-        excerpt:
-          "Xusuuso Ismaaciil, Al-Yasaa', iyo Dul-kifli, dhammaantoodna waxay ka mid yihiin kuwa muuqda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -728,22 +558,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxaa la oran jiray Kalimullaah - waa kii Alle si toos ah ula hadlay",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "anna waan idin doortay ee maqla waxa la soo dejiyey. Runtii, anigu waxaan ahay Allaah. Aniga mooyee ilaah kale ma jiro ee i caabud oo ooga salaadda xuskayga.",
-      },
-      {
-        excerpt:
-          "Waxaana u Waxyoonay (Nabi) Muuse Hooyadiis Nuuji, haddaad ka Cabsatana ku Tuur Wabiga, hana Cabsan hana Murugoon. Annagaa idiin soo celinaynaa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Malaggii geerida ayaa loo soo diray Muuse. Markuu u yimid ayuu Nabi Muuse wax ku dhuftay, Eebbana wuu u soo celiyey oo ka door biday inuu geeriyoonayo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -777,16 +593,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Walaalkii ka weynaa Muuse", "Quraanku ku amaanay aftahannimadiisa"],
     },
-    quran: [
-      {
-        excerpt:
-          "Oo ii magacaw wasiir reerkayga ah - Haaruun walaalkay. Isaga ku kordhi xooggayga oo ha la qaybsado hawshayda.",
-      },
-      {
-        excerpt:
-          "Wuxuu yidhi: Ina Hooyaday dadkii waa iga xoog bateen oo waxay doonayeen inay i dilaan ee yeyna igu farxin cadawgu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -827,22 +634,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waa laga adkaaday Jaluut (Jaalaad) isagoo dhallinyaro ah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Daawuudoow waxaan kaa yeellay mid Dhulka u hadha, ee ku kala xukun dadka si Xaq ah hana raacin Xumaanta, waxayna kaa dhumin Jidka Eebe.",
-      },
-      {
-        excerpt:
-          "Waxaana u sakhirray (ka sakhirray) Buuraha inay la tasbiixsadaan Nabi Daawuud iyo Shimbirahaba... waxaana barraynay gacma-gaabkiinna (Iskaashatada) si uu cadawgiinna idiinka ilaaliyo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ducada ugu badan ee Alle lagu baryo waa ducada Daawuud, soonka Alle loogu jecel yahayna waa soonka Daawuud: wuxuu soomi jiray maalin, maalinta xigtana wuu afuray.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -881,16 +674,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waxaa ka mid ah boqorrada sida buuxda loogu sifeeyay Qur'aanka"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuu dhoola caddeeyey, isagoo ku maaweelinaya hadalkeeda, wuxuuna yidhi: Eebow i waafaji inaan ku shukriyo Nicmadaada aad igu Nicmaysay aniga iyo Waalidkayba, iyo inaan falo wanaag aad raalli ka tahay.",
-      },
-      {
-        excerpt:
-          "Nabi Suleymaanna waxaan u Sakhirray Dabaysha oo Socod Bil ah, Galabkeedana Socod Bil ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -918,16 +702,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Oo lagu magacaabay kuwa xaqa ah dhexdooda", "Ka horyimid cibaadadii sanamkii Bacal"],
     },
-    quran: [
-      {
-        excerpt:
-          "Markuu ku yidhi qoomkiisii ​​miyaydaan Eebe ka cabsanayn. Ma waxaad u yeedha Bacal ood ka tagtaan kan abuuraha wanaagsan?",
-      },
-      {
-        excerpt:
-          "iyo Zakariye, Yaxye, Ciise, Ilyaas, Dhammaanna waxay ka mid ahaayeen kuwa Suuban.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -953,15 +728,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Oo si toos ah loogu magacaabay Qur'aanka Kariimka oo ka mid ah kuwa ugu wanaagsan oo la doortay",
       ],
     },
-    quran: [
-      {
-        excerpt: "iyo Ismaaciil, Al-Yasac, Yuunus, Luud, dhammaan waxaan ka fadilnay Caalamka.",
-      },
-      {
-        excerpt:
-          "Xusuuso Ismaaciil, Al-Yasaa', iyo Dul-kifli, dhammaantoodna waxay ka mid yihiin kuwa muuqda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1000,22 +767,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sidoo kale Qur’aanka waxaa loogu yeeraa Dhun-Nuun (ninkii kalluunka)."],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuuna u Dhawaaqay Mugdiyada Dhexdooda isagoo leh: Adigu Ilaah kale ma jiro. adaa leh. Anigu waxaan ka mid ahaa daalimiinta.",
-      },
-      {
-        excerpt:
-          "Miyayna jirin magaalo rumaysay oo iimaankeedu u anfacay qoom Yuunus mooyee. Markay Rumeeyeen waxaan ka Faydnay Cadaabkii Dullida.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ducadii Dhun-Nuun markuu Eebbe uga baryay caloosha kalluunka waxay ahayd: La ilaha illa Anta, subxaanaka, inni kuntu minaz-zalimin. Ma jiro qof muslim ah oo ku barya wax kasta oo aan ahayn in Eebbe u jawaabo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1052,16 +805,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["ilaaliyaha Maryam", "Aabbihii Yahya, oo dhalashadiisu ka jawaabtay ducadiisii"],
     },
-    quran: [
-      {
-        excerpt:
-          "Halkaas ayuu Zakariye kaga baryey Eebihiis isagoo leh: Eebow iga sii agtaada farac wanaagsan. illeen adaa maqle baryada.",
-      },
-      {
-        excerpt:
-          "Wuxuu yidhi: Eebow lafahaygii way daciifeen, madaxaygana waxaa ka buuxsamay cad, weligayna kuma aanan faraxsanayn baryadayda Eebow.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1097,16 +841,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Oo nabad lagu sharfay dhalashadii, dhimashadii, iyo sarakicidda",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Yaxye, kitaabka u qaado si adag. Waxaana Siinay Xigmad isagoo Yar iyo Xigmad iyo naxariis agtanada ah iyo Daahir, wuxuuna ahaa mid Dhawrsan.",
-      },
-      {
-        excerpt:
-          "Eebe wuxuu kuugu bishaarayn Yaxye isagoo u rumayn kalimada Eebe ee sharafta iyo karaamada leh, iyo nabi kuwa suubban ka mid ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1148,22 +883,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxay soo noqon doontaa ka hor maalinta aakhiro rumaynta Sunniga",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Ciise) wuxuu yidhi: Eebahay waa Eebahay iyo Eebihiin ee caabuda. Taasi waa jid toosan.",
-      },
-      {
-        excerpt:
-          "Mana ay dilaan, iskutallaabtana kuma ay qodbin; Laakiin waxaa la isu tusay iyaga... saas ma aha ee Eebe korkiisa u sara kiciyey.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Anigu waxaan ahay kan ugu dhow dadka oo dhan Ciise ina Maryam. Nebiyadu waa walaalo hooyooyin kala duwan, laakiin diintoodu waa mid, nabi na dhexdeenna ma jirin.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1203,21 +924,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Shaabadda Nabiyada", "Tusaalaha ugu wanaagsan (uswah hasanah) ee mu'miniinta"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muxammad ma aha aabbaha mid ka mid ah raggiinna, laakiin waa Rasuulkii Eebe iyo shaabadda Nabiyada.",
-      },
-      {
-        excerpt: "Kuuma aannaan dirin naxariista Caalamka mooyee.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tusaalahayga iyo tusaalaha nabiyadii iga horreeyey waa nin dhistay guri si qurux badan oo dhammaystiran u dhisan, marka laga reebo hal meel oo leben ah. Anigu waxaan ahay lebenkaas, oo waxaan ahay shaabadda nebiyada.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1228,14 +936,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "Noloshoodu waxay sidoo kale muujisaa sabar diidmo ah, oo ay la tashadaan Allaah inta lagu jiro hubanti la'aanta, iyo rabitaanka inay dib u habeyn ku sameeyaan bulshada si caqli iyo geesinimo leh.",
       "Barashada iyaga waxay dhistaa adkeysi: rumaystayaasha waxay bartaan inay si degdeg ah u towbad keenaan, u hoggaansamaan si anshax leh, oo ay ku sii jiraan mabda'a xitaa marka runta aan la jeclayn.",
     ],
-    quran: [
-      {
-        excerpt: "Sheekadoodu waxay cashar ugu tahay dadka wax fahma.",
-      },
-      {
-        excerpt: "Waana kuwa Alle hanuuniyay ee raac hanuunkooda.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Xulo hal cashar nebiyad usbuuc kasta oo si ula kac ah u isticmaal.",
       "Dib u milicso salaada ka dib meesha aad uga baahan tahay samir badan ama toobad.",
@@ -1252,16 +953,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "Mucjisooyinku maaha awoodo madax-bannaan oo nebiyadu leeyihiin; waxay ku dhacaan idamkii Eebe inay u hiiliyaan waxyiga iyo inay cadeeyaan.",
       "Qur'aanku wuxuu muujinayaa in qaar weli la diiday in kasta oo calaamooyinku jiraan, caddaynta hanuunku waxay ku xiran tahay daacadnimo iyo is dhiibid, ee maaha in la daawado oo keliya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhab ahaan yaan ugu dirray Rasuuladanadii xujooyin, waxaana ku soo dejinay korkooda Kitaab iyo miisaan.",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa aayaadku waa Eebe agtiisa...miyayna ku filnayn inaan idiin soo dejinno Kitaabka oo lagu akhriyo.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1273,16 +965,7 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "In kasta oo habayntu kala duwan tahay, haddana baaqgoodu waa mid: tawxiid, xaqnimo, xisaabtan, iyo naxariis xagga towbad keenka.",
       "Qaybtani waxa ay ku salaysnaanaysaa Qur'aanka kariimka ah oo waxa ay sii koobaysaa tafaasiisha taariikheed ee labaad haddii aan lagu taageerin caddayn sugan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhab ahaan yaan ugu Dirray Hortaa Rasuullo. waxaa ka mid ah kuwaan kugu qisaasinnay, waxaana kamid ah kuwo aanaan ku qaraabin.",
-      },
-      {
-        excerpt:
-          "Waxaan rumaynay Eebe iyo waxa la soo dejiyey... iyo wixii laga siiyey Muuse, Ciise iyo Nabiyada xagga Eebahood ka ahaaday.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1293,16 +976,8 @@ export const PROPHETS_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       "Ka fogow wararka dareenka leh ama daciifka ah ee ka hor imaanaya mabaadi'da Qur'aanka ama sharafta nabiga. Sheeko kasta oo caan ah ma laha caddayn cad.",
       "Isticmaal taariikh nololeedka nebiyada si aad u habayso cibaadadaada iyo dabeecadaada, ma aha oo kaliya inaad ururiso xaqiiqooyinka taariikhiga ah.",
     ],
-    quran: [
-      {
-        excerpt: "Kuwa maqla hadalka oo raaca waxa ugu fiican, kuwaasu waa kuwa Eebe hanuuniyey.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Qofkii mara waddo cilmi raadis ah, Eebbe wuxuu u fududeeyaa jidka Jannada.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Si toos ah u akhri hal sheeko oo nebi ah toddobaad kasta oo ka mid ah Quraanka.",
       "Ku hayso qoraallada casharrada la taaban karo, ma aha oo kaliya xaqiiqooyinka wakhtiga.",
@@ -1350,26 +1025,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Towbaddiisu waa tawbah ugu horreeya ee Qur'aanka",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Xusuuso) markuu Eebahaa ku yidhi Malaa'igta waxaan ka yeeli Dhulka Xukun isdhaaf ah...Markaasuu ka Aqbalay Nabi Aadam xagga Eebihiis kalimooyin wuuna ka Toobad aqbalay.",
-      },
-      {
-        excerpt:
-          "Waxayna dheheen Eebow waan dulminay nafteena, haddaadan noo dambi dhaafin oodan noo naxariisan waxaan noqonaynaa kuwa khasaaray.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maalinta qiyaame waxay u iman doonaan dadku Aadam, waxayna ku odhan waxaad tahay aabbaha dadka; Eebahaa agtiisa noo shafeeco.",
-      },
-      {
-        excerpt:
-          "Aadam iyo Muuse ayaa ku dooday. Muuse wuxuu yidhi: Adigu waxaad tahay kii Eebbe gacantiisa ku abuuray. Aadam wuxuu yidhi: Ma waxaad igu eedaynaysaa arrin Eebbe ii qoray ka hor intuusan i abuurin? Markaa buu Aadan Muuse kaga adkaaday dooddii.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1393,16 +1050,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Lagu sifeeyey in uu Allah kor u qaaday meel sare",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "kuna sheeg kitaabka Idiris. Illeen wuxuu ahaa nin run sheeg ah oo nabi ah. Waxaana koryeelay meel sare.",
-      },
-      {
-        excerpt:
-          "iyo Ismaaciil, Idiris iyo Dul-kifli, dhammaan waxay ahaayeen kuwa samra. Waxaana Galinay Naxariistanada. Waxayna ahaayeen kuwa dhawrsada.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1439,22 +1087,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Sheekadiisu waxay ku soo aroortay suurado badan oo ay ku jirto mid isaga loogu magac daray",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Waxaana loo waxyooday (Nabi) Nuux inaan Qoomkaaga midna rumayn kuwii rumeeyey mooyee, ee ha ka welwelin waxay falayeen.",
-      },
-      {
-        excerpt:
-          "Wuxuu yidhi: Eebow anigu waxaan u yeedhay habeen iyo maalin qoomkayga, martiqaadkaygiise uma siyaadinin waxaan carar ahayn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dadku waxay u iman doonaan Nuux, waxayna ku odhan: Nuuxow waxaad tahay kii ugu horreeyey ee u soo diray dadka dhulka, wuxuuna Eebbe kuugu magacaabay addoon shukriya; noo shafeeco.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -1490,16 +1124,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Sheekada Caad waxay ku soo noqnoqonaysaa Qur'aanka oo dhan si ay digniin ugu noqoto bulshooyinka dambe",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Caadna waxaan u diray walaalkood Huud. Wuxuu yidhi: Qoomkayow Alle caabuda; Eebe mooyee ilaah kale ma lihid. Miyaydnaan isaga ka cabsanayn?",
-      },
-      {
-        excerpt:
-          "Markay arkeen Daruur ku soo fool leh Dooxooyinkooda waxay dheheen kani waa Darruur roob noo keeneysa. Saas ma aha ee waa waxaad ka samraysaan, waxaana ku sugan dabayl cadaab daran.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1534,16 +1159,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Thamuud waxa ay caan ku ahaayeen in ay buuraha ku xardhaan guryo aad u fiican"],
     },
-    quran: [
-      {
-        excerpt:
-          "Tani waa hashii Eebe calaamo idinkaa ah ee ka taga ha ku cunaan dhulka Eebbe hana ku taabanina xumaan ooy idin qabto cadaab daran.",
-      },
-      {
-        excerpt:
-          "Reer Thamuud waxay beeniyeen Xad-gudubkoodii Dartiis, markii la soo diray kuwii ugu liitay...Markaasuu ku Halaagay Eebahood Dambigooda Dartiis, wuuna simay.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1584,22 +1200,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Aabbihii nebiyada ee Ismaaciil iyo Isxaaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Xusuuso) markuu Ibraahiim ku imtixaamay Eebihiis amarro oo uu fuliyay. Wuxuu yidhi:- Illeen waxaan kaa dhigayaa hogaamiye dadka.",
-      },
-      {
-        excerpt:
-          "Waxaan ku nidhi: Naaroow qabow iyo ammaan u ahow Ibraahim korkiisa. Waxayna damceen dhib, waxaana ka yeellay kuwa khasaaray.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Waxaa lagu soo ururin doonaa adigoo caga- cad oo qaawan oo buuryoqab ah. Qofka ugu horreeya ee labisan doono maalinta qiyaame waa Ibraahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1632,16 +1234,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ibraahiim qaraabo ahaa oo isaga la tahriibay oo Sodom loo diray"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ma waxaad u dhawaanaysaan niman adduunyo ah ood ka tagaysaan wuxuu Eebbe idiin abuuray oo lammaanayaal ah. Saas ma aha ee waxaad tihiin qoom xadgudbay.",
-      },
-      {
-        excerpt:
-          "markuu yimid amarkannagii waxaan ka yeellay hoosteeda magaalooyinka waaweyn, waxaana ku soo daadinnay korkooda dhagaxyo dhoobo ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1678,16 +1271,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Awoowe ee qabiilooyinka Carabta iyo line nebiyada final",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "kuna sheeg kitaabka Ismaaciil. Eebbana waa rumeeyey ballankii, wuxuuna ahaa rasuul iyo nabi. Ehelkiisana wuxuu faray salaadda iyo sakada, wuxuuna ahaa mid Eebbe ka raalli noqday.",
-      },
-      {
-        excerpt:
-          "markuu Nabi Ibraahiimna kor u qaaday Asaaskii Baytka iyo Ismaaciil waxay dheheen Eebow naga aqbal kannaga. 021-047 Adigu waxaad tahay Maqle wax og.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1718,16 +1302,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxaa lagu magacaabay Ibraahim iyo Yacquub oo ah qoys la doortay",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Naagtiisiina way taagnayd, wayna qososhay. Markaasaan ugu bishaaraynay (Nabi) Isxaaq, Isxaaq dabadiisna Yacquub.",
-      },
-      {
-        excerpt:
-          "Xusuuso addoomadanada Ibraahim, Isxaaq, iyo Yacquub, kuwii xoogga badnaa. Annagaa ku doorannay si gaar ah, waana xuska guriga.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1761,16 +1336,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sidoo kale loo yaqaan Israa'iil", "Aabihii Yuusuf iyo Reer Banii Israa'iil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuu yidhi: Saas ma aha, naftiinnu wax bay idin sasabisay. Markaa dulqaadku waxa ugu habboon. Mindhaa Eebbe wuu ii wada keeni doonaa dhammaantood.",
-      },
-      {
-        excerpt:
-          "Waxayna dheheen waan caabudaynaa Eebahaa iyo Ilaahii Aabayaashiin Ibraahiim, Ismaaciil, Isxaaq, waana Ilaah kaliya, isagaana u hogaansamay.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1807,18 +1373,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Suuratu Yuusuf oo dhan, oo loogu magac daray sheekadii ugu fiicnayd, waxay udub dhexaad u tahay noloshiisa",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuu yiri:- maanta wax eed ah idinkuma dhacayso. Allaah ha ku cafiyo; waana kan ugu naxariista badan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Akhyaarta, ibnu gob, ina gob, ibnu gob: Yuusuf bin Yacquub, bin Isxaaq, bin Ibraahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -1848,16 +1404,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waxaa loo yaqaanaa xoojinta miisaanka iyo cabbirrada"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dadkaygoow Alle caabuda; Eebe mooyee ilaah kale ma lihid. Oofiya miisaanka iyo miisaanka dadkana ha ka duwinina dhulka, hana fasaadinina.",
-      },
-      {
-        excerpt:
-          "Guushayduna ma aha ee waa xagga Allaah. Isagaan talo saartay, xaggiisaana u noqon.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1892,16 +1439,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waxaa lagu soo qaatay dhaqanka Islaamka oo dhan inuu yahay tusaalaha sabirka"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ayuubna markuu u Dhawaaqay Eebihiis: Waxaa I Taabtay Dhib, Adiguna waxaad Tahay Naxariis badane.",
-      },
-      {
-        excerpt:
-          "Waxaan ka helnay samir iyo Addoon wanaagsan. Dhab ahaan, wuxuu ahaa mid si isdaba joog ah u soo laabanaya Eebbe.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1926,16 +1464,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxaa lagu tiriyaa nabiyada liiska muslimiinta caadiga ah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "iyo Ismaaciil, Idiris iyo Dul-kifli, dhammaan waxay ahaayeen kuwa samra. Waxaana Galinay Naxariistanada. Waxayna ahaayeen kuwa dhawrsada.",
-      },
-      {
-        excerpt:
-          "Xusuuso Ismaaciil, Al-Yasaa', iyo Dul-kifli, dhammaantoodna waxay ka mid yihiin kuwa muuqda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1977,22 +1506,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxaa la oran jiray Kalimullaah - waa kii Alle si toos ah ula hadlay",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "anna waan idin doortay ee maqla waxa la soo dejiyey. Runtii, anigu waxaan ahay Allaah. Aniga mooyee ilaah kale ma jiro ee i caabud oo ooga salaadda xuskayga.",
-      },
-      {
-        excerpt:
-          "Waxaana u Waxyoonay (Nabi) Muuse Hooyadiis Nuuji, haddaad ka Cabsatana ku Tuur Wabiga, hana Cabsan hana Murugoon. Annagaa idiin soo celinaynaa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Malaggii geerida ayaa loo soo diray Muuse. Markuu u yimid ayuu Nabi Muuse wax ku dhuftay, Eebbana wuu u soo celiyey oo ka door biday inuu geeriyoonayo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2026,16 +1541,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Walaalkii ka weynaa Muuse", "Quraanku ku amaanay aftahannimadiisa"],
     },
-    quran: [
-      {
-        excerpt:
-          "Oo ii magacaw wasiir reerkayga ah - Haaruun walaalkay. Isaga ku kordhi xooggayga oo ha la qaybsado hawshayda.",
-      },
-      {
-        excerpt:
-          "Wuxuu yidhi: Ina Hooyaday dadkii waa iga xoog bateen oo waxay doonayeen inay i dilaan ee yeyna igu farxin cadawgu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2076,22 +1582,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waa laga adkaaday Jaluut (Jaalaad) isagoo dhallinyaro ah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Daawuudoow waxaan kaa yeellay mid Dhulka u hadha, ee ku kala xukun dadka si Xaq ah hana raacin Xumaanta, waxayna kaa dhumin Jidka Eebe.",
-      },
-      {
-        excerpt:
-          "Waxaana u sakhirray (ka sakhirray) Buuraha inay la tasbiixsadaan Nabi Daawuud iyo Shimbirahaba... waxaana barraynay gacma-gaabkiinna (Iskaashatada) si uu cadawgiinna idiinka ilaaliyo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ducada ugu badan ee Alle lagu baryo waa ducada Daawuud, soonka Alle loogu jecel yahayna waa soonka Daawuud: wuxuu soomi jiray maalin, maalinta xigtana wuu afuray.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -2130,16 +1622,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waxaa ka mid ah boqorrada sida buuxda loogu sifeeyay Qur'aanka"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuu dhoola caddeeyey, isagoo ku maaweelinaya hadalkeeda, wuxuuna yidhi: Eebow i waafaji inaan ku shukriyo Nicmadaada aad igu Nicmaysay aniga iyo Waalidkayba, iyo inaan falo wanaag aad raalli ka tahay.",
-      },
-      {
-        excerpt:
-          "Nabi Suleymaanna waxaan u Sakhirray Dabaysha oo Socod Bil ah, Galabkeedana Socod Bil ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2167,16 +1650,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Oo lagu magacaabay kuwa xaqa ah dhexdooda", "Ka horyimid cibaadadii sanamkii Bacal"],
     },
-    quran: [
-      {
-        excerpt:
-          "Markuu ku yidhi qoomkiisii ​​miyaydaan Eebe ka cabsanayn. Ma waxaad u yeedha Bacal ood ka tagtaan kan abuuraha wanaagsan?",
-      },
-      {
-        excerpt:
-          "iyo Zakariye, Yaxye, Ciise, Ilyaas, Dhammaanna waxay ka mid ahaayeen kuwa Suuban.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2202,15 +1676,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Oo si toos ah loogu magacaabay Qur'aanka Kariimka oo ka mid ah kuwa ugu wanaagsan oo la doortay",
       ],
     },
-    quran: [
-      {
-        excerpt: "iyo Ismaaciil, Al-Yasac, Yuunus, Luud, dhammaan waxaan ka fadilnay Caalamka.",
-      },
-      {
-        excerpt:
-          "Xusuuso Ismaaciil, Al-Yasaa', iyo Dul-kifli, dhammaantoodna waxay ka mid yihiin kuwa muuqda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2249,22 +1715,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sidoo kale Qur’aanka waxaa loogu yeeraa Dhun-Nuun (ninkii kalluunka)."],
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuuna u Dhawaaqay Mugdiyada Dhexdooda isagoo leh: Adigu Ilaah kale ma jiro. adaa leh. Anigu waxaan ka mid ahaa daalimiinta.",
-      },
-      {
-        excerpt:
-          "Miyayna jirin magaalo rumaysay oo iimaankeedu u anfacay qoom Yuunus mooyee. Markay Rumeeyeen waxaan ka Faydnay Cadaabkii Dullida.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ducadii Dhun-Nuun markuu Eebbe uga baryay caloosha kalluunka waxay ahayd: La ilaha illa Anta, subxaanaka, inni kuntu minaz-zalimin. Ma jiro qof muslim ah oo ku barya wax kasta oo aan ahayn in Eebbe u jawaabo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2301,16 +1753,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["ilaaliyaha Maryam", "Aabbihii Yahya, oo dhalashadiisu ka jawaabtay ducadiisii"],
     },
-    quran: [
-      {
-        excerpt:
-          "Halkaas ayuu Zakariye kaga baryey Eebihiis isagoo leh: Eebow iga sii agtaada farac wanaagsan. illeen adaa maqle baryada.",
-      },
-      {
-        excerpt:
-          "Wuxuu yidhi: Eebow lafahaygii way daciifeen, madaxaygana waxaa ka buuxsamay cad, weligayna kuma aanan faraxsanayn baryadayda Eebow.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2346,16 +1789,7 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Oo nabad lagu sharfay dhalashadii, dhimashadii, iyo sarakicidda",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Yaxye, kitaabka u qaado si adag. Waxaana Siinay Xigmad isagoo Yar iyo Xigmad iyo naxariis agtanada ah iyo Daahir, wuxuuna ahaa mid Dhawrsan.",
-      },
-      {
-        excerpt:
-          "Eebe wuxuu kuugu bishaarayn Yaxye isagoo u rumayn kalimada Eebe ee sharafta iyo karaamada leh, iyo nabi kuwa suubban ka mid ah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2397,22 +1831,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
         "Waxay soo noqon doontaa ka hor maalinta aakhiro rumaynta Sunniga",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Ciise) wuxuu yidhi: Eebahay waa Eebahay iyo Eebihiin ee caabuda. Taasi waa jid toosan.",
-      },
-      {
-        excerpt:
-          "Mana ay dilaan, iskutallaabtana kuma ay qodbin; Laakiin waxaa la isu tusay iyaga... saas ma aha ee Eebe korkiisa u sara kiciyey.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Anigu waxaan ahay kan ugu dhow dadka oo dhan Ciise ina Maryam. Nebiyadu waa walaalo hooyooyin kala duwan, laakiin diintoodu waa mid, nabi na dhexdeenna ma jirin.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2452,21 +1872,8 @@ export const PROPHETS_BIO_TOPICS_SO: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Shaabadda Nabiyada", "Tusaalaha ugu wanaagsan (uswah hasanah) ee mu'miniinta"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muxammad ma aha aabbaha mid ka mid ah raggiinna, laakiin waa Rasuulkii Eebe iyo shaabadda Nabiyada.",
-      },
-      {
-        excerpt: "Kuuma aannaan dirin naxariista Caalamka mooyee.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tusaalahayga iyo tusaalaha nabiyadii iga horreeyey waa nin dhistay guri si qurux badan oo dhammaystiran u dhisan, marka laga reebo hal meel oo leben ah. Anigu waxaan ahay lebenkaas, oo waxaan ahay shaabadda nebiyada.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

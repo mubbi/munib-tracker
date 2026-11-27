@@ -1,0 +1,3 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- NF-3.12: on-device text recognition only. No permissions: the image comes from expo-image-picker. -->
+</manifest>

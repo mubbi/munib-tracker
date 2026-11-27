@@ -12,6 +12,8 @@ import {
   JannahTakeaway,
 } from "@/components/jannah/primitives";
 import { LearnGrid } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
+import { usePassageLabel } from "@/components/quran/recite-along-label";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -20,6 +22,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { learnDuaPhrasePassage } from "@/lib/recite-along/learn-dua";
 import {
   useLearnDuaProgressActions,
   useLearnDuaTopicCompleted,
@@ -41,6 +44,7 @@ export function LearnDuaTopicContent({ topic }: { topic: LearnDuaTopic }) {
   const { tokens } = useThemeTokens();
   const completed = useLearnDuaTopicCompleted(topic.id);
   const { toggleTopic } = useLearnDuaProgressActions();
+  const passageLabel = usePassageLabel();
 
   return (
     <View style={styles.stack}>
@@ -56,34 +60,47 @@ export function LearnDuaTopicContent({ topic }: { topic: LearnDuaTopic }) {
       <JannahTakeaway text={topic.summary} />
       <JannahBody paragraphs={topic.body} />
 
-      {topic.phrases?.map((phrase) => (
-        <View key={phrase.id} style={styles.phraseStack}>
-          <JannahDuaBlock
-            title={`${phrase.title} — ${phrase.when}`}
-            arabic={phrase.arabic}
-            transliteration={phrase.transliteration}
-            translation={phrase.translation}
-            reference={phrase.reference}
-          />
-          {phrase.variants?.map((variant, index) => (
+      {topic.phrases?.map((phrase) => {
+        // D68: a dua in Qur'anic words → recite the cited ayah(s) along.
+        const recitePassage = learnDuaPhrasePassage(topic.id, phrase.id);
+        return (
+          <View key={phrase.id} style={styles.phraseStack}>
             <JannahDuaBlock
-              key={`${phrase.id}-variant-${variant.reference ?? index}`}
-              title={t("zikr.alternateWording")}
-              arabic={variant.arabic}
-              transliteration={variant.transliteration}
-              translation={variant.translation ?? phrase.translation}
-              reference={variant.reference}
+              title={`${phrase.title} — ${phrase.when}`}
+              arabic={phrase.arabic}
+              transliteration={phrase.transliteration}
+              translation={phrase.translation}
+              reference={phrase.reference}
             />
-          ))}
-        </View>
-      ))}
+            {phrase.variants?.map((variant, index) => (
+              <JannahDuaBlock
+                key={`${phrase.id}-variant-${variant.reference ?? index}`}
+                title={t("zikr.alternateWording")}
+                arabic={variant.arabic}
+                transliteration={variant.transliteration}
+                translation={variant.translation ?? phrase.translation}
+                reference={variant.reference}
+              />
+            ))}
+            {recitePassage ? (
+              <ReciteAlongButton
+                passage={recitePassage}
+                label={t("reciteAlong.withPassage", { passage: passageLabel(recitePassage) })}
+                variant="ghost"
+                size="sm"
+                style={styles.recite}
+              />
+            ) : null}
+          </View>
+        );
+      })}
 
       {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("learnDua.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -126,6 +143,7 @@ export function LearnDuaTopicContent({ topic }: { topic: LearnDuaTopic }) {
 const styles = StyleSheet.create({
   stack: { gap: Spacing.four },
   phraseStack: { gap: Spacing.three },
+  recite: { alignSelf: "flex-start" },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

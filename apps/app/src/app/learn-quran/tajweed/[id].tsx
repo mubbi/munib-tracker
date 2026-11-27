@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { JannahBody, JannahDisclaimer, JannahTakeaway } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import {
   QuranExamplePlayButton,
   QuranGuideClipPlayButton,
@@ -22,10 +23,9 @@ import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { useTajweedDrillAvailable } from "@/hooks/use-recite-along-available";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { isPracticeAvailable } from "@/lib/quran-companion/availability";
-import { LESSON_DRILL_HEAD } from "@/lib/quran-companion/pronunciation/judge";
 import {
   ensureQuranGuideContent,
   getQuranGuideTajweedLesson,
@@ -34,10 +34,6 @@ import {
 } from "@/lib/quran-guide";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
-import {
-  useEnsurePronunciationLoaded,
-  usePronunciationState,
-} from "@/stores/quran-pronunciation-store";
 
 export function generateStaticParams(): Array<{ id: string }> {
   return getQuranGuideTajweedLessons().map((item) => ({ id: item.id }));
@@ -68,14 +64,17 @@ export default function LearnQuranTajweedDetailScreen() {
   // Phase 6: a pronunciation drill only for sounds the loaded calibration validates.
   // Before the listener is set up the heads are unknown, so the button shows and the
   // drill screen explains; once known, unreliable sounds get no button.
-  useEnsurePronunciationLoaded();
-  const pronunciation = usePronunciationState();
-  const drillHead = lesson ? LESSON_DRILL_HEAD[lesson.id] : undefined;
-  const showDrill =
-    !!drillHead &&
-    isPracticeAvailable() &&
-    pronunciation.status !== "unavailable" &&
-    (pronunciation.cached == null || pronunciation.cached.reliable.includes(drillHead));
+  const showDrill = useTajweedDrillAvailable(lesson?.id);
+  // D68: a lesson with no drill to offer (no drill head, or one this listener can't
+  // judge reliably) gets a plain recite-along on its practice ayah instead.
+  const practicePassage =
+    lesson?.practiceAudio && !showDrill
+      ? {
+          surah: lesson.practiceAudio.surah,
+          ayahStart: lesson.practiceAudio.ayah,
+          ayahEnd: lesson.practiceAudio.ayah,
+        }
+      : null;
 
   const detailPath = lesson ? `/learn-quran/tajweed/${lesson.id}` : "/learn-quran/tajweed";
   const crumbs = lesson
@@ -131,7 +130,7 @@ export default function LearnQuranTajweedDetailScreen() {
             <LearnReadingChrome surface="learn_quran">
               <JannahTakeaway text={lesson.summary} />
               <JannahBody paragraphs={lesson.explanation} />
-              <Card padding="three">
+              <Card>
                 <SectionHeader
                   title={t("learnQuran.examplesTitle")}
                   icon={{ ios: "textformat.abc", android: "abc", web: "abc" }}
@@ -151,7 +150,7 @@ export default function LearnQuranTajweedDetailScreen() {
                 </View>
               </Card>
               {lesson.practice ? (
-                <Card padding="three">
+                <Card>
                   <SectionHeader
                     title={t("learnQuran.practiceTitle")}
                     icon={{
@@ -190,6 +189,13 @@ export default function LearnQuranTajweedDetailScreen() {
                           params: { id: lesson.id },
                         })
                       }
+                      style={styles.drillButton}
+                    />
+                  ) : null}
+                  {practicePassage ? (
+                    <ReciteAlongButton
+                      passage={practicePassage}
+                      size="sm"
                       style={styles.drillButton}
                     />
                   ) : null}

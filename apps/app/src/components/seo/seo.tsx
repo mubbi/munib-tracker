@@ -21,6 +21,7 @@ import {
 } from "@/config/seo";
 import { normalizePath } from "@/config/seo-routes";
 import { ensureSeoLocale, getRouteSeoForLocale } from "@/config/seo-routes-locale";
+import { entryLocaleForPath } from "@/lib/locale-path";
 import { type BreadcrumbEntry, breadcrumbSchema } from "@/lib/seo/structured-data";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -114,7 +115,10 @@ function SeoWeb(props: SeoProps) {
   const rawTitle = props.title ?? registry?.title;
   const title = formatTitle(rawTitle, { isHome });
   const description = props.description ?? registry?.description ?? SEO_APP.description;
-  const locale = props.locale ?? SEO_DEFAULT_LOCALE;
+  // The URL's own locale: a `/{locale}/…` entry page keeps its localized
+  // canonical / og:locale (the boot script strips the prefix before the router
+  // runs, so `pathname` alone would re-point every localized page at English).
+  const locale = props.locale ?? entryLocaleForPath(resolvedPath) ?? SEO_DEFAULT_LOCALE;
   const canonical = canonicalUrl(resolvedPath, locale);
 
   const index = props.index ?? registry?.index ?? true;
@@ -149,6 +153,19 @@ function SeoWeb(props: SeoProps) {
     else if (props.jsonLd) blocks.push(props.jsonLd);
     return blocks;
   }, [props.breadcrumbs, props.jsonLd]);
+
+  // Build-time JSON-LD (scripts/inject-seo-head.mjs, `data-seo-static`) is not
+  // Helmet-managed, so hydration keeps it for crawlers. Drop a block once this
+  // screen emits the same @type itself, and all of them after in-app navigation
+  // to another page (they describe the entry URL only).
+  const clientJsonLdTypes = jsonLdBlocks.map((block) => String(block["@type"] ?? "")).join("|");
+  useEffect(() => {
+    if (!isActiveRoute) return;
+    removeStaticJsonLd(
+      new Set(clientJsonLdTypes ? clientJsonLdTypes.split("|") : []),
+      initialDocumentPath != null && resolvedPath !== initialDocumentPath,
+    );
+  }, [isActiveRoute, clientJsonLdTypes, resolvedPath]);
 
   const ogLocale = OG_LOCALE_BY_LOCALE[locale];
   const alternateLocales = SEO_LOCALES.filter((l) => l !== locale);
@@ -215,16 +232,47 @@ function SeoWeb(props: SeoProps) {
       {SEO_TWITTER.site ? <meta name="twitter:site" content={SEO_TWITTER.site} /> : null}
       {SEO_TWITTER.creator ? <meta name="twitter:creator" content={SEO_TWITTER.creator} /> : null}
 
-      {/* Structured data */}
+      {/* Structured data. The JSON goes in as the script's text child: the
+          vendored react-helmet-async only reads a <script>'s content from its
+          children (`innerHTML`) and silently DROPS a script that has neither
+          children nor `src` — `dangerouslySetInnerHTML` emitted nothing, and
+          Helmet then also removed the build-time JSON-LD from the page. */}
       {jsonLdBlocks.map((block, i) => (
-        <script
-          // biome-ignore lint/suspicious/noArrayIndexKey: static, never-reordered JSON-LD list
-          key={`ld-${i}`}
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be an inline script
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
-        />
+        // biome-ignore lint/suspicious/noArrayIndexKey: static, never-reordered JSON-LD list
+        <script key={`ld-${i}`} type="application/ld+json">
+          {serializeJsonLd(block)}
+        </script>
       ))}
     </Head>
   );
+}
+
+/** Build-time JSON-LD blocks baked into the static HTML by `inject-seo-head.mjs`. */
+const STATIC_JSON_LD_SELECTOR = 'script[type="application/ld+json"][data-seo-static]';
+
+/**
+ * Pathname the document was loaded at (after the locale boot script stripped any
+ * `/{locale}` prefix) — the page the static JSON-LD describes.
+ */
+const initialDocumentPath =
+  typeof window !== "undefined" && window.location ? normalizePath(window.location.pathname) : null;
+
+/** Removes build-time JSON-LD whose @type is in `types`, or all of it when `all`. */
+export function removeStaticJsonLd(types: ReadonlySet<string>, all: boolean): void {
+  if (typeof document === "undefined") return;
+  if (!all && types.size === 0) return;
+  for (const node of Array.from(document.querySelectorAll(STATIC_JSON_LD_SELECTOR))) {
+    let type = "";
+    try {
+      type = String((JSON.parse(node.textContent ?? "{}") as { "@type"?: unknown })["@type"] ?? "");
+    } catch {
+      // Malformed block — treat as untyped (removed only with `all`).
+    }
+    if (all || types.has(type)) node.remove();
+  }
+}
+
+/** JSON for an inline `<script>`: `<` escaped so a value can never close the tag. */
+export function serializeJsonLd(block: Record<string, unknown>): string {
+  return JSON.stringify(block).replace(/</g, "\\u003c");
 }

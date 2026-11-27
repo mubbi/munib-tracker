@@ -3,6 +3,7 @@ import * as learnDuaOccasions from "@munib-tracker/shared/content/learn-dua-occa
 import type { LearnDuaOccasion, LearnDuaSection, LearnDuaTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
+import { groupBySection } from "@/lib/sectioned-guide";
 
 /**
  * English corpus is statically imported with the `/learn-dua` route chunk.
@@ -28,15 +29,7 @@ export function getLearnDuaTopic(id: string | undefined): LearnDuaTopic | undefi
 }
 
 export function getLearnDuaTopicsBySection(): Record<LearnDuaSection, LearnDuaTopic[]> {
-  const grouped = Object.fromEntries(
-    corpus.LEARN_DUA_SECTION_ORDER.map((section) => [section, [] as LearnDuaTopic[]]),
-  ) as Record<LearnDuaSection, LearnDuaTopic[]>;
-
-  for (const topic of getLearnDuaTopics()) {
-    const bucket = grouped[topic.section];
-    if (bucket) bucket.push(topic);
-  }
-  return grouped;
+  return groupBySection(getLearnDuaTopics(), corpus.LEARN_DUA_SECTION_ORDER);
 }
 
 export function getLearnDuaOccasions(): LearnDuaOccasion[] {

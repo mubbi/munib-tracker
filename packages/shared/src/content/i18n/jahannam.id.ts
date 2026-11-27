@@ -30,20 +30,7 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Satu titik penenang yang menjadi inti akidah Ahlus Sunnah mengalir di seluruh modul ini: mereka yang wafat dalam keadaan beriman hanya kepada Allah, sekalipun terbebani dosa, tidak akan kekal selamanya di dalam Api. Dengan rahmat Allah dan syafaat yang Dia izinkan, orang-orang mukmin yang berdosa pada akhirnya akan dikeluarkan; hanya mereka yang wafat menolak keimanan yang tetap tinggal. Maka mempelajari Jahannam, bagi seorang mukmin, pada akhirnya adalah mempelajari bagaimana mencapai rahmat.",
       "Modul ini menyajikan apa yang dinyatakan secara jelas oleh nas, mencatat secara jujur di mana para ulama berbeda pendapat, hanya mengutip dalil yang sahih, dan senantiasa mengarahkanmu pada tobat, amal saleh, dan tawakal kepada Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Takutlah kepada Api yang disediakan bagi orang-orang kafir — dan taatlah kepada Allah dan Rasul-Nya agar kamu diberi rahmat.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang telah melampaui batas terhadap diri mereka sendiri, janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa.",
-      },
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, bertobatlah kepada Allah dengan tobat yang tulus — semoga Rabb kalian menghapus keburukan-keburukan kalian dan memasukkan kalian ke dalam taman-taman surga.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{ label: "Harapan pada Rahmat Allah" }, { label: "Perjalanan Menuju Jannah" }],
   },
   {
@@ -51,31 +38,13 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
     summary: "Keadilan ilahi, pertanggungjawaban, dan konsekuensi dari kebebasan memilih.",
     body: [
       "Jahannam ada sebagai perwujudan keadilan Allah yang sempurna ('adl). Sebuah alam semesta di mana orang zalim dan yang dizalimi, yang ikhlas dan yang berkhianat, semuanya berakhir sama, tidaklah adil. Karena Allah Maha Adil secara sempurna, maka mesti ada perhitungan akhir di mana setiap keburukan dijawab dan setiap kebaikan dihargai.",
-      "Inti dari semua ini adalah bahwa Allah tidak menzalimi siapa pun. Setiap jiwa yang masuk ke dalam Api masuk karena pilihan-pilihannya sendiri yang sudah mantap dan tidak ditobati — bukan karena keputusan sewenang-wenang. Al-Qur'an sangat tegas: 'Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri' (4:40). Tidak ada yang dihukum atas apa yang tidak dilakukannya, atau melebihi apa yang pantas.",
+      "Inti dari semua ini adalah bahwa Allah tidak menzalimi siapa pun. Setiap jiwa yang masuk ke dalam Api masuk karena pilihan-pilihannya sendiri yang sudah mantap dan tidak ditobati — bukan karena keputusan sewenang-wenang. Al-Qur'an sangat tegas: 'Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri' (10:44). Tidak ada yang dihukum atas apa yang tidak dilakukannya, atau melebihi apa yang pantas.",
       "Manusia tidak dibiarkan dalam kegelapan. Allah memberi mereka akal, mengutus para rasul, dan menurunkan petunjuk yang jelas, lalu memuliakan mereka dengan kebebasan sejati untuk menerima atau menolaknya: 'Siapa yang ingin, berimanlah; dan siapa yang ingin, ingkarlah' (18:29). Bersikeras dalam menolak kebenaran, dalam kezaliman, atau dalam dosa besar tanpa tobat membawa konsekuensi di akhirat, justru karena pilihan itu benar-benar milik diri sendiri.",
       "Namun bahkan di sini rahmat mengelilingi keadilan. Allah memperingatkan sebelum menghukum, menunda perhitungan untuk memberi ruang kembali, mengampuni dengan cepat ketika dimohon, dan membalas satu kebaikan berkali-kali lipat sementara mencatat satu keburukan hanya sebagai satu. Keadilan-Nya tidak pernah terpisah dari rahmat-Nya.",
       "Karena itu, merenungkan mengapa Jahannam ada seharusnya meningkatkan takwa (kesadaran akan Allah) dan memperdalam rasa syukur atas setiap hari kehidupan yang masih menjadi kesempatan untuk bertobat. Tujuannya adalah membuat hati serius sekaligus penuh harap — bukan melumpuhkannya dengan keputusasaan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri.",
-      },
-      {
-        excerpt:
-          "Dia tidak ditanya tentang apa yang Dia lakukan, tetapi merekalah yang akan ditanya.",
-      },
-      {
-        excerpt:
-          "Siapa yang ingin, berimanlah; dan siapa yang ingin, ingkarlah. Sesungguhnya Kami telah menyediakan Api bagi orang-orang zalim.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak seorang pun di antara kalian yang masuk surga semata-mata karena amalnya. Para sahabat bertanya: Tidak juga engkau, wahai Rasulullah? Beliau bersabda: Tidak juga aku, kecuali jika Allah menyelimutiku dengan rahmat-Nya.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Pelajari Akidah — keadilan ilahi" }],
   },
   {
@@ -88,16 +57,7 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Melihat seluruh jalan ini juga membingkai ulang pemahaman kita tentang Api. Ia adalah salah satu tujuan yang mungkin di akhir perjalanan yang sedang ditempuh setiap jiwa — yang berarti pilihan-pilihan hari ini bukanlah sesuatu yang abstrak. Semuanya adalah langkah-langkah di jalan itu, dan masih menjadi milik kita untuk diarahkan.",
       "Mengetahui urutan ini membantu seorang mukmin bersiap, bukan sekadar takut: hidup dengan mengingat kematian (dzikrul maut) secara sehat, memperbaiki kesalahan sebelum dibawa ke Pengumpulan, dan mengisi catatan amal saleh selagi pintu untuk beramal masih terbuka. Kematian menutup pintu itu; tidak ada lagi yang bisa ditambahkan setelahnya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kemudian sesungguhnya kamu pasti mati setelah itu. Kemudian sesungguhnya kamu akan dibangkitkan pada Hari Kiamat.",
-      },
-      {
-        excerpt:
-          "Adapun orang yang berat timbangannya, dia akan berada dalam kehidupan yang menyenangkan. Adapun orang yang ringan timbangannya, tempat kembalinya adalah jurang yang dalam.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Pelajari setiap tahap di Pelajari Akidah dan hubungkan keimanan dengan pilihan sehari-hari.",
       "Perbanyak mengingat kematian (dzikrul maut) tanpa mengabaikan harapan pada rahmat.",
@@ -122,10 +82,7 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Perlu ada catatan kehati-hatian di sini. Sebagian penulis belakangan menyajikan setiap nama sebagai 'tingkatan' neraka yang terpisah dan berjenjang, kadang dengan diagram rinci. Itu adalah tafsiran keilmuan, bukan daftar eksplisit yang dinyatakan dalam Al-Qur'an atau hadis yang disepakati. Sikap yang seimbang adalah mempelajari makna yang benar-benar diberikan oleh nas, dan menghindari menyajikan peta spekulatif sebagai kepastian.",
       "Tujuan mempelajari nama-nama ini bukan untuk memuaskan rasa penasaran, melainkan untuk melembutkan hati dan menggerakkannya menuju rahmat yang terus-menerus ditunjukkan oleh modul ini. Jelajahi kumpulan lengkap nama-nama untuk kemunculan dalam Al-Qur'an, konteks, dan ringkasan tafsir setiap nama.",
     ],
-    quran: [
-      { excerpt: "Cukuplah Jahannam sebagai tempat kembali." },
-      { excerpt: "Dia pasti akan dilemparkan ke dalam al-Hutamah — Api yang meremukkan." },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Jelajahi semua nama" }],
   },
   {
@@ -139,19 +96,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Namun, ada dua hal yang pasti. Pertama, bahwa kezaliman (dzulm), syirik, dan dosa besar yang terus-menerus tanpa tobat membawa peringatan yang berat. Kedua — dan ini tidak boleh pernah dilupakan — bahwa rahmat dan ampunan Allah tetap terbuka hingga saat kematian bagi siapa pun yang kembali kepada-Nya dengan tulus. Inti mempelajari tingkatan-tingkatan ini adalah untuk memilih jalan yang lebih ringan selagi pilihan itu masih ada.",
       "Secara praktis, ini berarti memperlakukan daftar rinci 'tujuh tingkatan' atau skema serupa sebagai pendapat keilmuan, bukan ajaran yang mutlak, dan tetap memusatkan perhatian pada apa yang benar-benar melindungi: keimanan, tobat, dan amal saleh.",
     ],
-    quran: [
-      { excerpt: "Bagi semuanya ada derajat sesuai dengan apa yang mereka kerjakan." },
-      {
-        excerpt:
-          "Sesungguhnya orang-orang munafik berada di dasar Api yang paling bawah, dan kamu tidak akan mendapati penolong bagi mereka.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Orang yang paling ringan siksaannya di antara penghuni Api adalah seseorang yang di bawah kedua telapak kakinya diletakkan dua bara api yang membuat otaknya mendidih.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Diagram tingkatan neraka yang ditemukan di sebagian buku mencerminkan tafsiran keilmuan, bukan kesepakatan bulat.",
   },
@@ -164,12 +110,7 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Penting untuk mencatat di mana kepastian berakhir. Sebagian karya belakangan mengaitkan setiap pintu tertentu dengan dosa atau kelompok tertentu. Kaitan-kaitan khusus ini tidak ditetapkan secara seragam dalam sumber-sumber paling awal, sehingga lebih baik disajikan sebagai pandangan ulama perorangan, bukan sebagai penjelasan kenabian.",
       "Sama seperti tingkatan, pelajaran dari pintu-pintu ini bukanlah soal arsitektur melainkan moral: ada banyak pintu yang menuju ke Api, dan jalan untuk selamat dari semuanya sama — keimanan yang tulus, menjauhi dosa besar, dan segera bertobat ketika tergelincir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya Jahannam adalah tempat yang dijanjikan bagi mereka semua. Ia memiliki tujuh pintu; setiap pintu mempunyai bagian yang ditentukan.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Pintu-pintu secara rinci" }],
   },
   {
@@ -182,26 +123,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Ada adab dalam membaca bagian-bagian seperti ini. Ia didekati dengan kerendahan hati, rasa takut kepada Allah, dan dorongan segera untuk bertobat serta memohon perlindungan — bukan dengan ketertarikan yang tidak sehat, dan tidak pernah dengan keputusasaan, karena seluruh tujuan peringatan ini adalah bahwa kita masih memiliki waktu untuk menghindarinya.",
       "Mungkin tema paling berat dalam gambaran-gambaran ini adalah penyesalan. 'Seandainya dahulu aku…' akan diucapkan ketika waktu untuk beramal telah berlalu. Rahmat dari mendengar tentang penyesalan itu sekarang adalah bahwa kita bisa bertindak atas 'seandainya' itu hari ini, selagi masih bisa mengubah akhir kita.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Di hadapannya ada Jahannam, dan dia akan diberi minum air yang kotor. Dia akan menenggaknya namun hampir tidak bisa menelannya.",
-      },
-      {
-        excerpt:
-          "Pakaian dari api akan dipotongkan untuk mereka, dan air mendidih akan disiramkan ke atas kepala mereka.",
-      },
-      {
-        excerpt:
-          "Pada hari itu Jahannam akan didatangkan — pada hari itu manusia akan ingat, namun apa gunanya ingatan itu baginya?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Apimu ini adalah satu dari tujuh puluh bagian Api Jahannam. Dikatakan: Wahai Rasulullah, api ini saja sudah cukup. Beliau bersabda: Ia dilebihkan enam puluh sembilan bagian di atasnya, setiap bagian sepanas apimu ini.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Perlindungan dari Jahannam" }],
   },
   {
@@ -213,17 +136,7 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Karena itu, Islam tidak mengizinkan kita menyatakan nasib akhir seseorang tertentu — mengatakan 'orang ini di dalam Api' — kecuali dalam kasus-kasus langka di mana Allah atau Rasul-Nya ﷺ secara eksplisit menyatakannya dalam wahyu yang sahih. Menghakimi hati dan akhir seseorang hanyalah milik Allah semata; tugas kita adalah perhitungan diri kita sendiri.",
       "Maka cara yang benar membaca setiap peringatan adalah mengarahkannya ke dalam diri: bukan 'siapa yang digambarkan ini?' melainkan 'apakah ada dari ini yang menggambarkan diriku, dan apa yang akan kuubah hari ini?' Siapa pun dirimu, undangan untuk kembali kepada Allah terbuka sekarang juga — dan besok tidak dijanjikan bagi siapa pun.",
     ],
-    quran: [
-      { excerpt: "Orang-orang munafik akan berada di dasar Api yang paling bawah." },
-      {
-        excerpt:
-          "Siapa yang berbuat dosa lalu dosanya melingkupinya — mereka itulah penghuni Api, kekal di dalamnya.",
-      },
-      {
-        excerpt:
-          "Janganlah kamu mengira Allah lengah dari apa yang diperbuat orang-orang zalim. Dia hanya menunda mereka hingga suatu hari ketika mata terbelalak.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{ label: "Dosa-dosa besar" }],
   },
   {
@@ -236,26 +149,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Dan inilah cakrawala yang menaungi semuanya: dengan satu-satunya pengecualian wafat dalam keadaan syirik, setiap dosa — besar maupun kecil — berada di bawah ampunan Allah jika Dia berkehendak. 'Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki' (4:48). Tidak seorang mukmin pun boleh menyimpulkan bahwa dosa-dosa besarnya menempatkannya di luar jangkauan rahmat.",
       "Setiap topik dosa besar dalam modul ini memberikan definisinya, dalilnya, mengapa itu berat, dan jalan konkret untuk tobat serta menjauhinya — selalu berakhir pada pintu terbuka yang sama.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Jika kamu menjauhi dosa-dosa besar yang dilarang bagimu, Kami akan menghapus dosa-dosa kecilmu dan memasukkanmu ke tempat yang mulia.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Mereka yang menjauhi dosa-dosa besar dan perbuatan keji, kecuali kesalahan-kesalahan kecil — sesungguhnya Rabbmu Maha Luas ampunan-Nya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dosa-dosa besar yang paling besar adalah: mempersekutukan Allah, membunuh jiwa, durhaka kepada orang tua, dan memberikan kesaksian palsu.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Jelajahi dosa-dosa besar" }, { label: "Tobat" }],
   },
   {
@@ -267,19 +162,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Yang membuat dosa-dosa ini begitu berbahaya justru karena betapa mudah dan menjadi kebiasaannya. Orang-orang tergelincir ke dalamnya dalam percakapan sehari-hari tanpa berpikir dua kali, itulah sebabnya Nabi ﷺ mengaitkan keimanan itu sendiri dengan menjaga lisan: 'Siapa yang beriman kepada Allah dan Hari Akhir, hendaklah dia berkata baik atau diam.' Jeda sederhana sebelum berbicara adalah ibadah yang sesungguhnya.",
       "Tobat dari dosa lisan mengikuti syarat-syarat umum — berhenti, menyesal, bertekad tidak mengulangi — dengan tambahan dimensi ketika hak orang lain terlibat. Ketika membersihkan nama baik mereka atau memohon maaf kepada mereka dapat dilakukan tanpa menimbulkan kerugian yang lebih besar, itu bagian dari tobat; ketika memberitahu mereka justru memperdalam luka, para ulama menyarankan untuk sebaliknya berbicara baik tentang mereka, membela mereka saat tidak hadir, dan mendoakan ampunan bagi mereka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Janganlah kalian saling menggunjing satu sama lain. Adakah salah seorang di antara kalian yang suka memakan daging saudaranya yang telah mati?",
-      },
-      { excerpt: "Celakalah bagi setiap pengumpat lagi pencela." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang beriman kepada Allah dan Hari Akhir, hendaklah dia berkata baik atau diam.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Sebelum berbicara, tanyakan: apakah ini benar? apakah ini perlu? apakah ini baik?",
       "Jika kamu pernah menggunjing seseorang, doakan dia dan mintalah maaf bila memungkinkan.",
@@ -299,22 +183,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Ini mengajarkan pelajaran penting tentang tobat: kembali kepada Allah adalah wajib, tetapi ketika hak seseorang telah dilanggar, itu saja tidak cukup. Tuntutan orang yang dizalimi tetap ada sampai dilunasi atau dimaafkan. Maka di sini tobat memiliki syarat keempat selain berhenti, menyesal, dan bertekad — yaitu mengembalikan apa yang wajib dikembalikan.",
       "Secara praktis ini berarti mengembalikan apa yang diambil atau nilainya, melunasi utang bahkan dengan cicilan kecil sekalipun, memulihkan nama baik yang telah dirusak, dan melangkah menuju perdamaian dengan kerabat yang hubungannya telah diputus. Ada rahmat dalam hal ini juga: setiap langkah penggantian adalah kebaikan tersendiri, dan Allah memberi kemudahan bagi hati yang tulus yang berusaha memperbaiki apa yang telah dirusaknya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Jika kamu tidak berhenti dari riba, maka ketahuilah adanya perang dari Allah dan Rasul-Nya.",
-      },
-      {
-        excerpt:
-          "Mereka yang mengingkari perjanjian Allah dan memutuskan apa yang diperintahkan untuk disambung.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tahukah kalian siapa orang yang bangkrut? Dia yang datang dengan salat, puasa, dan sedekah, namun telah mencaci, memfitnah, memakan harta secara batil, dan menumpahkan darah — maka kebaikannya diberikan kepada orang lain.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Buat daftar orang-orang yang pernah kamu zalimi dan ambil satu langkah perbaikan minggu ini.",
       "Lunasi utang yang tertunda sedikit demi sedikit jika itu yang bisa kamu lakukan.",
@@ -330,19 +200,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Perbedaan ini sangat penting untuk cara kita memperlakukan topik ini. Tanda-tanda amal diberikan sebagai cermin untuk diri sendiri, bukan sebagai label untuk ditempelkan pada orang lain. Nabi ﷺ dan para sahabatnya sendiri takut akan nifak dalam diri mereka sendiri, justru karena hati itu tersembunyi dan dapat berubah.",
       "Maka respons yang sehat adalah bersifat introspektif: memeriksa kejujuran, penepatan janji, dan amanah diri sendiri, serta memohon keikhlasan (ikhlas) kepada Allah. Apa yang ada di dalam diri seseorang hanya Allah yang mengetahui, dan menuduh individu tertentu bermunafik adalah kezaliman berat tersendiri terhadap mereka.",
     ],
-    quran: [
-      { excerpt: "Orang-orang munafik akan berada di dasar Api yang paling bawah." },
-      {
-        excerpt:
-          "Apabila orang-orang munafik datang kepadamu, mereka berkata: Kami bersaksi bahwa engkau benar-benar Rasul Allah — dan Allah mengetahui bahwa mereka itu sungguh pendusta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tanda orang munafik ada tiga: apabila berbicara dia berdusta, apabila berjanji dia mengingkari, dan apabila diberi amanah dia berkhianat.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Jangan menuduh individu tertentu bermunafik. Nas-nas ini memperingatkan seluruh umat; penyucian diri dimulai dari diri sendiri.",
   },
@@ -356,16 +215,7 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Bagaimana seorang mukmin menyikapi semua ini adalah hal yang sebenarnya penting. Tujuannya sama sekali bukan untuk terpaku pada gambaran rinci atau menenggelamkan hati; melainkan untuk menerima peringatan itu, bertobat dari apa yang berlaku, lalu mengalihkan tenaga pada amal-amal yang benar-benar melindungi. Inilah sebabnya modul ini memberi lebih banyak ruang pada perlindungan, tobat, dan rahmat daripada pada hukuman itu sendiri.",
       "Singkatnya, pelajaran yang benar dari setiap hukuman yang disebutkan adalah sebuah pertanyaan, bukan ketakutan: 'Apakah aku sedang melakukan ini — dan jika ya, bagaimana aku berhenti dan memperbaikinya?' Jika dijawab dengan jujur hari ini, peringatan itu sudah menunaikan tugas rahmatnya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mereka yang menuduh wanita-wanita yang suci berzina dan tidak mendatangkan empat saksi — cambuklah mereka delapan puluh kali.",
-      },
-      {
-        excerpt:
-          "Mereka yang menimbun emas dan perak dan tidak menginfakkannya di jalan Allah — kabarkanlah kepada mereka siksaan yang pedih.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Perlindungan dari Jahannam" }, { label: "Harapan pada Rahmat" }],
   },
   {
@@ -378,22 +228,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Perhatikan keseimbangan yang dibangun oleh syariat. Sarana-sarana perlindungan jauh lebih banyak, lebih ditekankan, dan lebih mudah diraih daripada sebab-sebab kebinasaan — dan ini sendiri adalah tanda rahmat Allah. Selamat jauh lebih mudah daripada binasa.",
       "Bagian ini sengaja dibuat paling besar dalam modul ini, karena Islam sendiri menimbang perkara ini demikian: peringatan selalu diiringi harapan, dan tidak pernah terlepas dari amal nyata yang bisa dimulai seseorang hari ini juga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mereka yang berkata: Wahai Rabb kami, sesungguhnya kami telah beriman, maka ampunilah dosa-dosa kami dan lindungilah kami dari azab Api.",
-      },
-      {
-        excerpt:
-          "Wahai Rabb kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab Api.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang memohon surga kepada Allah tiga kali, surga berkata: Ya Allah, masukkanlah dia ke dalam surga. Dan siapa yang memohon perlindungan dari Api tiga kali, Api berkata: Ya Allah, lindungilah dia dari Api.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Hafalkan doa perlindungan dari Jahannam sebelum salam dalam salat.",
       "Dirikan lima salat wajib tepat waktu — salah satu perisai yang paling kuat.",
@@ -417,26 +253,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Ini juga berlaku bagi mereka yang telah berulang kali jatuh dan berulang kali bertobat. Selama setiap kali kembali itu tulus, Allah terus menerima; keputusasaan berasal dari setan, bukan dari agama. Satu-satunya hal yang harus dipastikan sebelum kematian adalah syirik, karena seseorang yang wafat dalam keadaan itu wafat tanpa keimanan yang diperlukan untuk tobat — justru karena itulah kembali sepenuhnya hanya kepada Allah adalah tobat yang paling mendesak.",
       "Pelajaran praktisnya sederhana: bertobatlah sekarang, bertobatlah berulang kali, dan jangan pernah biarkan besarnya suatu dosa, atau banyaknya keterpurukan di masa lalu, menjadi alasan untuk tidak kembali. Undangan itu selalu terbuka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa. Dialah Yang Maha Pengampun, Maha Penyayang.",
-      },
-      {
-        excerpt:
-          "Kecuali mereka yang bertobat, beriman, dan beramal saleh — Allah akan mengganti keburukan-keburukan mereka dengan kebaikan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang yang menemukan kembali tunggangannya yang hilang di tanah yang tandus.",
-      },
-      {
-        excerpt:
-          "Allah membentangkan tangan-Nya di malam hari untuk menerima tobat pelaku dosa di siang hari, dan membentangkan tangan-Nya di siang hari untuk menerima tobat pelaku dosa di malam hari, hingga matahari terbit dari barat.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ucapkan 'Astaghfirullah' sepanjang hari — bukan hanya setelah kesalahan besar, jadikan itu kebiasaan tetap.",
       "Pelajari Sayyidul Istighfar dan bacalah pagi serta petang.",
@@ -458,26 +276,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Sementara itu, rahmat tertanam dalam kehidupan sehari-hari: kebaikan-kebaikan menghapus keburukan-keburukan (11:114), dan ibadah kecil yang konsisten — satu salat yang ditegakkan tepat waktu, satu sedekah yang diam-diam, satu saat kesabaran yang ditahan karena Allah — terus-menerus menarik seseorang lebih dekat kepada-Nya dan menjauh dari kerugian. Konsistensi lebih penting daripada intensitas.",
       "Maka biarlah ini menjadi rangkuman studimu: ambillah peringatan dengan serius, tetapi biarkan harapan tetap lebih tinggi daripada rasa takut. Kenalilah bahayanya, pilihlah jalan rahmat, dan tempuhlah — selangkah demi selangkah — setiap hari hingga kamu berjumpa dengan Allah.",
     ],
-    quran: [
-      { excerpt: "Rahmat-Ku meliputi segala sesuatu." },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang telah melampaui batas terhadap diri mereka sendiri, janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya kebaikan-kebaikan menghapus keburukan-keburukan. Itu adalah peringatan bagi orang-orang yang mengingat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah akan berfirman: Para malaikat telah memberi syafaat, para nabi telah memberi syafaat, dan orang-orang beriman telah memberi syafaat, dan kini tidak ada yang tersisa selain Yang Maha Penyayang di antara para penyayang. Lalu Dia akan mengambil segenggam dari Api dan mengeluarkan orang-orang yang belum pernah berbuat kebaikan sama sekali.",
-      },
-      {
-        excerpt: "Siapa yang di hatinya terdapat iman seberat biji sawi akan dikeluarkan dari Api.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Akhiri setiap hari dengan istighfar dan rasa syukur atas setiap nikmat.",
       "Hubungkan modul ini dengan Perjalanan Menuju Jannah — peringatan dan harapan berjalan beriringan.",
@@ -532,34 +332,8 @@ export const JAHANNAM_CORE_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
         summary: "Jangan berputus asa dari rahmat Allah; pintu tobat terbuka hingga kematian.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-      },
-      {
-        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-      },
-      {
-        excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-      },
-      {
-        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-      },
-      {
-        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-      },
-      {
-        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-      },
-      {
-        excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Lakukan amal dengan ikhlas karena Allah.",
       "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
@@ -593,22 +367,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Bentuk-bentuknya: Para ulama membedakan syirik besar — menyembah berhala, orang mati, orang saleh, atau makhluk; memohon kepada selain Allah atas sesuatu yang hanya Dia yang dapat memberikannya; dan menujukan kurban atau nazar kepada selain-Nya — yang mengeluarkan seseorang dari Islam tanpa tobat. Selain itu ada syirik kecil dan tersembunyi, seperti riya dalam ibadah, bersumpah dengan selain Allah, atau bergantung pada ramalan dan jimat, yang merupakan dosa berat namun tidak dengan sendirinya mengeluarkan seseorang dari agama.",
       "Jalan untuk menjauhinya: Pelajarilah tauhid, sembahlah hanya Allah, dan jagalah serta perkuat keikhlasan niat agar amal ditujukan hanya untuk-Nya, bukan untuk dilihat orang. Siapa yang telah terjerumus dalam syirik bertobat dengan meninggalkannya secara tulus dan kembali hanya menyembah Allah — dan pintu kembali itu tetap terbuka sepanjang hidupnya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Wahai anakku, janganlah kamu mempersekutukan Allah. Sesungguhnya syirik adalah kezaliman yang besar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dosa-dosa besar yang paling besar adalah: mempersekutukan Allah, membunuh jiwa, durhaka kepada orang tua, dan memberikan kesaksian palsu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Pelajari Akidah dan tauhid melalui 99 Nama Allah.",
       "Murnikan niat dalam ibadah — mohonlah keikhlasan kepada Allah setiap hari.",
@@ -624,22 +384,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Pelanggaran ganda: Pembunuhan sekaligus merupakan dosa terhadap Allah, yang haknya atas kehormatan jiwa telah dilanggar, dan dosa terhadap sesama manusia — korban dan keluarga yang ditinggalkannya. Inilah sebabnya tobatnya sering kali lebih berat daripada kebanyakan dosa lain: kembali kepada Allah adalah wajib, tetapi hak-hak orang yang dizalimi juga tetap ada, dan di mana hukum negara atau hukum Islam menetapkan diyat atau konsekuensi lain, itu harus dipenuhi melalui cara yang sesuai dan ulama yang berwenang.",
       "Jalan untuk menjauhinya: Anggaplah setiap jiwa mulia, redakan kemarahan dan permusuhan sebelum memuncak, dan selesaikan perselisihan dengan kesabaran dan keadilan, bukan dengan kekerasan. Bahkan kejahatan terbesar terhadap sesama manusia ini pun tidak berada di luar jangkauan rahmat Allah bagi siapa yang bertobat dengan tulus, memenuhi hak-hak terkait semampu mungkin, dan tidak pernah kembali ke jalan itu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Siapa yang membunuh satu jiwa bukan karena orang itu membunuh jiwa lain atau berbuat kerusakan di bumi — seolah-olah dia telah membunuh seluruh manusia.",
-      },
-      {
-        excerpt:
-          "Siapa yang membunuh seorang mukmin dengan sengaja — balasannya adalah Jahannam, kekal di dalamnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dosa-dosa besar yang paling besar adalah: mempersekutukan Allah, membunuh jiwa, durhaka kepada orang tua, dan memberikan kesaksian palsu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Hargailah setiap jiwa; selesaikan perselisihan dengan kesabaran dan keadilan."],
     appLinks: [{ label: "Mengabaikan hak orang lain" }],
   },
@@ -652,16 +398,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Hikmah di balik pembatasan: Alih-alih membiarkan orang bergulat dengan hasrat pada puncaknya, Islam mengelilingi mereka dengan perlindungan lebih awal — menundukkan pandangan, menjaga rasa malu dalam berpakaian dan berperilaku, menghindari berdua-duaan dengan yang bukan mahram, dan mendorong pernikahan sebagai jalan yang sah dan terhormat untuk memenuhi kebutuhan ini. Membangun batasan-batasan ini lebih dini jauh lebih mudah daripada berjuang di tepi jurang.",
       "Jalan kembali: Bagi siapa pun yang telah jatuh, jalannya adalah tobat yang tulus — meninggalkan dosa sepenuhnya, menyesalinya, bertekad tidak mengulanginya, dan menutupi masa lalu, bukan menyebarluaskannya. Zina adalah dosa besar, tetapi ia termasuk dosa-dosa yang Allah ampuni bagi siapa yang kembali kepada-Nya; tidak ada tempat untuk berputus asa, dan awal yang baru selalu tersedia.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Janganlah kalian mendekati zina. Sesungguhnya ia adalah perbuatan keji dan jalan yang sangat buruk.",
-      },
-      {
-        excerpt:
-          "Dan mereka yang tidak berzina… kecuali mereka yang bertobat, beriman, dan beramal saleh — Allah akan mengganti keburukan-keburukan mereka dengan kebaikan.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Jagalah pandangan mata dan penggunaan media sosial.",
       "Jika belum menikah, berdoalah untuk mendapatkan pasangan yang saleh atau salehah.",
@@ -677,13 +414,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Hikmah dan rahmat: Larangan ini mengarahkan orang pada perdagangan yang nyata, risiko bersama, dan sedekah, serta melindungi yang lemah dari terlilit beban utang. Rahmat Allah hadir di sini juga: ketika perintah ini turun, Dia tidak menuntut agar riba yang telah diambil sebelumnya dikembalikan, melainkan hanya meminta orang-orang beriman meninggalkan sisanya — 'bagimu adalah pokok hartamu' (2:279) — kemudahan bagi mereka yang berbalik darinya.",
       "Jalan untuk menjauhinya: Tinjau kembali produk-produk berbasis riba dalam keuanganmu, carilah alternatif yang halal, dan konsultasikan dengan ulama yang kompeten untuk kasus-kasus sulit yang nyata seperti KPR di negara non-Muslim. Meninggalkan riba mungkin menuntut keputusan finansial yang sulit, tetapi keselamatan jiwa lebih besar daripada keuntungan sesaat mana pun — dan Allah menjanjikan rezeki dari arah yang tidak disangka-sangka bagi siapa yang bertakwa kepada-Nya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, bertakwalah kepada Allah dan tinggalkan sisa riba jika kamu benar-benar beriman. Jika kamu tidak melakukannya, maka ketahuilah adanya perang dari Allah dan Rasul-Nya. Dan jika kamu bertobat, maka bagimu adalah pokok hartamu — kamu tidak menzalimi dan tidak pula dizalimi.",
-      },
-      { excerpt: "Allah memusnahkan riba dan menyuburkan sedekah." },
-    ],
+    quran: [{}, {}],
     actions: [
       "Tinjau kembali produk-produk berbasis riba dalam keuanganmu.",
       "Konsultasikan KPR dan pinjaman dengan ulama yang kompeten.",
@@ -699,19 +430,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Kaitannya dengan lisan: Kesaksian palsu adalah mata pisau paling tajam dari dosa-dosa lisan yang lebih luas. Karena mengucapkan kata-kata itu murah, dosa ini bisa dilakukan dengan sangat mudah dan berbahaya — sebuah tanda tangan, sebuah pembesar-besaran, sebuah diamnya yang mudah — namun bobotnya sangat berat pada Hari Kiamat, ketika anggota tubuh dan lisan manusia sendiri akan bersaksi atas kebenaran melawan mereka.",
       "Jalan untuk menjauhinya: Berpegang teguhlah pada kebenaran sekalipun mahal harganya atau bertentangan dengan kepentinganmu sendiri, jangan pernah memberikan kesaksianmu untuk sebuah dusta, dan bersuaralah dengan kesaksian yang adil ketika dibutuhkan. Siapa yang telah memberikan kesaksian palsu bertobat dengan menarik kembali dusta itu bila memungkinkan, berusaha memperbaiki kerugian dan memulihkan hak orang yang dizalimi, dan kembali kepada Allah dengan penyesalan yang tulus.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan mereka yang tidak memberikan kesaksian palsu, dan apabila melewati perbuatan sia-sia, mereka berlalu dengan penuh kehormatan.",
-      },
-      { excerpt: "Maka jauhilah kotoran berhala-berhala dan jauhilah perkataan dusta." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maukah kuberitahu kalian dosa-dosa besar yang paling besar? Mempersekutukan Allah, durhaka kepada orang tua — dan memberikan kesaksian palsu, dan memberikan kesaksian palsu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Dosa-dosa lisan" }],
   },
   {
@@ -724,18 +444,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Ritual-ritual terkait: Peringatan yang sama meluas hingga perdukunan (kahanah), menganggap astrologi sebagai pengetahuan pasti tentang yang gaib, serta jimat dan mantra yang mengandung syirik. Pengetahuan tentang masa depan yang tersembunyi hanya milik Allah, dan bersandar kepada mereka yang mengklaimnya melemahkan tauhid dari akarnya.",
       "Jalan untuk menjauhinya: Bagi siapa yang terjerumus dalam ritual-ritual ini, tobat berarti meninggalkannya sepenuhnya, memusnahkan benda-benda terlarang apa pun, memutus hubungan dengan mereka yang mempraktikkannya, dan memperbarui tauhid serta tawakal yang murni hanya kepada Allah. Perlindungan ada dalam keimanan, dzikir harian, dan memohon perlindungan kepada Allah — dan ampunan-Nya terbuka bagi siapa pun yang benar-benar kembali.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan mereka mengikuti apa yang dibacakan setan-setan pada masa kerajaan Sulaiman… dan mereka mempelajari apa yang membahayakan mereka dan tidak memberi manfaat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang mendatangi seorang dukun dan membenarkan perkataannya, maka dia telah mengingkari apa yang diturunkan kepada Muhammad ﷺ.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{ label: "Akidah — tauhid" }],
   },
   {
@@ -747,16 +457,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Apa yang termasuk di dalamnya: Bukan hanya pencurian terang-terangan, tetapi juga bentuk-bentuk yang lebih halus — mencampur harta anak yatim dengan harta sendiri hingga batasnya kabur, menunda pengembalian hartanya ketika dia telah dewasa, atau menginvestasikan atau membelanjakannya tanpa hak. Allah memerintahkan sebaliknya: 'Berikanlah kepada anak-anak yatim harta mereka, dan janganlah kamu menukar yang buruk dengan yang baik' (4:2).",
       "Jalan untuk menjauhinya: Jagalah harta anak yatim dengan cermat, pisahkan dan catat dengan teliti, serahkan sepenuhnya begitu mereka dewasa, dan — bagi yang pernah lalai — bertobatlah dengan mengembalikan apa yang wajib dikembalikan berikut tambahan yang sah, serta memohon maaf kepada mereka yang dizalimi. Pada hari ketika harta atau garis keturunan tidak berguna kecuali hati yang bersih, mengembalikan amanah semacam itu adalah kebaikan yang sangat berharga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mereka yang memakan harta anak yatim secara tidak sah — sesungguhnya hanya memenuhi perut mereka dengan api.",
-      },
-      {
-        excerpt:
-          "Berikanlah kepada anak-anak yatim harta mereka, dan janganlah kamu menukar yang buruk dengan yang baik, dan janganlah kamu memakan harta mereka bersama harta kalian.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Mengabaikan hak orang lain" }],
   },
   {
@@ -768,22 +469,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Satu keseimbangan penting: Ketaatan tidak berarti menaati orang tua dalam kemaksiatan kepada Allah — tidak ada ketaatan kepada makhluk dalam kemaksiatan kepada Sang Pencipta. Namun ketika penolakan diperlukan, itu dilakukan dengan lemah lembut, hormat, dan tetap berbuat baik secara berkelanjutan. Al-Qur'an bahkan melarang kata sekecil 'ah' sekalipun karena kesal: 'janganlah kamu mengatakan kepada keduanya perkataan ah' (17:23).",
       "Jalan kembali: Rahmatnya di sini adalah bahwa orang tua sering kali masih dapat dijangkau. Bagi yang telah lalai, tobatnya sebagian besar bersifat praktis — mulai kembali berbuat baik, memohon maaf kepada mereka, melayani mereka, dan mendoakan mereka, terutama selagi mereka masih hidup. Dan jika ayah atau ibu telah wafat, ketaatan tetap berlanjut melalui doa untuk mereka, sedekah atas nama mereka, dan menghormati kerabat serta sahabat mereka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbmu telah menetapkan agar kamu tidak menyembah selain Dia, dan berbuat baiklah kepada kedua orang tua. Janganlah kamu mengatakan kepada keduanya perkataan 'ah' dan janganlah kamu membentak mereka, tetapi ucapkanlah kepada mereka perkataan yang mulia.",
-      },
-      {
-        excerpt:
-          "Sembahlah Allah dan janganlah kamu mempersekutukan-Nya dengan sesuatu apa pun, dan berbuat baiklah kepada kedua orang tua.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maukah kuberitahu kalian dosa-dosa besar yang paling besar? Mempersekutukan Allah, dan durhaka kepada orang tua.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Hubungi atau kunjungi orang tuamu minggu ini dengan perkataan yang penuh kebaikan."],
     appLinks: [{ label: "Mengabaikan hak orang lain" }],
   },
@@ -797,12 +484,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Bentuk-bentuk modernnya: Mencuri tidak terbatas pada membobol sebuah rumah. Ini mencakup mengambil dari majikan, kecurangan dalam bisnis, menahan upah pekerja, pembajakan digital, plagiarisme, dan memanfaatkan sesuatu yang bukan haknya secara sah. Apa yang tersembunyi dari manusia tidak pernah tersembunyi dari Allah, yang melihat setiap pengambilan yang tersembunyi.",
       "Jalan kembali: Karena ini melibatkan hak seseorang, tobat menuntut lebih dari sekadar penyesalan di hadapan Allah. Barang yang dicuri itu sendiri, atau nilainya, harus dikembalikan kepada pemiliknya yang berhak, dan maaf harus dimohon bila memungkinkan; jika pemiliknya tidak ditemukan, para ulama menyarankan agar jumlah itu disedekahkan atas namanya. Dengan cara ini terpenuhi, pencurian pun sepenuhnya diampuni oleh Dzat yang mencintai hamba yang kembali.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Adapun pencuri laki-laki dan perempuan, potonglah tangan keduanya sebagai balasan atas apa yang telah mereka perbuat — sebuah hukuman dari Allah.",
-      },
-    ],
+    quran: [{}],
     actions: ["Kembalikan barang curian atau nilainya; mohonlah maaf kepada orang yang dizalimi."],
     appLinks: [{ label: "Tobat" }],
   },
@@ -815,17 +497,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_ID: DeepPartial<JahannamTopic>[] = [
       "Hikmah di balik pengharamannya: Allah tidak mengharamkan khamr dalam satu pukulan mendadak, melainkan mengharamkannya secara bertahap, dengan lembut membebaskan masyarakat awal dari kebiasaan yang sudah mengakar dalam. Sifat bertahap ini sendiri adalah pelajaran rahmat — dan teladan harapan bagi siapa pun yang berjuang meninggalkannya hari ini.",
       "Jalan kembali, dengan penuh kasih sayang: Mereka yang kecanduan tidak boleh dihina, melainkan harus dibantu. Tobat berarti bertekad meninggalkan zat itu, menyingkirkannya beserta pemicu-pemicunya dari kehidupan, mencari bantuan dan pengobatan tanpa rasa malu, dan mengisi kekosongan itu dengan pergaulan yang baik, dzikir, dan ibadah. Pintu Allah terbuka, dan setiap langkah tulus menjauh dari kecanduan adalah langkah yang Dia sambut.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, sesungguhnya khamr, judi, berhala, dan anak panah undian adalah kekejian dari perbuatan setan — maka jauhilah itu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Setiap yang memabukkan adalah khamr, dan setiap khamr adalah haram.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Carilah bantuan bila diperlukan; gantikan kebiasaan itu dengan dzikir dan pergaulan yang baik.",
     ],
@@ -838,10 +511,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Jahannam",
     transliteration: "Jahannam",
     meaning: "Api — nama yang paling sering disebut Al-Qur'an untuk neraka.",
-    quran: {
-      excerpt:
-        "Takutlah kepada Api yang bahan bakarnya adalah manusia dan batu, yang disediakan bagi orang-orang kafir.",
-    },
+    quran: {},
     context:
       "Muncul di seluruh Al-Qur'an sebagai tempat siksaan bagi mereka yang mengingkari keimanan dan bersikeras dalam keburukan.",
     tafsirNote:
@@ -853,10 +523,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Jahim",
     transliteration: "Jahim",
     meaning: "Api yang berkobar — panas yang hebat dan menyala.",
-    quran: {
-      excerpt:
-        "Kamu dan apa yang kamu sembah selain Allah adalah bahan bakar Jahannam — kamu akan memasukinya.",
-    },
+    quran: {},
     context: "Menggambarkan hebatnya api yang disediakan bagi mereka yang menyekutukan Allah.",
     tafsirNote:
       "Al-Thabari mengaitkan Jahim dengan api yang berkobar dan menyala yang tidak menyisakan apa pun.",
@@ -865,9 +532,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Saqar",
     transliteration: "Saqar",
     meaning: "Yang menghanguskan atau tidak menyisakan apa pun — panas yang hebat.",
-    quran: {
-      excerpt: "Aku akan memasukkannya ke dalam Saqar. Dan tahukah kamu apa itu Saqar?",
-    },
+    quran: {},
     context: "Disebutkan dalam Surah Al-Muddatstsir tentang seseorang yang berpaling dari wahyu.",
     tafsirNote:
       "Tafsir klasik menggambarkan Saqar sebagai satu tingkatan neraka yang membakar dengan hebat; perinciannya berbeda-beda di antara ulama.",
@@ -878,9 +543,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Sa'ir",
     transliteration: "Sa'ir",
     meaning: "Yang berkobar — api yang menyala.",
-    quran: {
-      excerpt: "Mereka akan berada di dalam Sa'ir — api yang berkobar.",
-    },
+    quran: {},
     context: "Peringatan bagi mereka yang memakan harta anak yatim secara tidak sah.",
     tafsirNote:
       "Akar katanya membawa makna menyalakan dan membakar — menekankan api yang aktif dan menghanguskan.",
@@ -889,10 +552,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Al-Hutamah",
     transliteration: "Al-Hutamah",
     meaning: "Yang meremukkan — yang menghancurkan dan meremukkan menjadi berkeping-keping.",
-    quran: {
-      excerpt:
-        "Dia pasti akan dilemparkan ke dalam al-Hutamah. Dan tahukah kamu apa itu al-Hutamah?",
-    },
+    quran: {},
     context:
       "Hukuman bagi orang yang menggunjing dan mengumpulkan harta, mengira itu akan membuatnya hidup kekal.",
     tafsirNote:
@@ -902,9 +562,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Al-Hawiyah",
     transliteration: "Al-Hawiyah",
     meaning: "Jurang atau lubang — jatuh yang dalam.",
-    quran: {
-      excerpt: "Dan adapun orang yang ringan timbangannya — tempat kembalinya adalah al-Hawiyah.",
-    },
+    quran: {},
     context: "Tujuan bagi mereka yang kebaikannya sangat ringan pada Hari Kiamat.",
     tafsirNote:
       "Digambarkan sebagai jurang yang dalam di dalam Api; al-Thabari mengutip pendapat tentang kedalaman dan keparahannya.",
@@ -915,9 +573,7 @@ export const JAHANNAM_NAMES_ID: DeepPartial<JahannamNameEntry>[] = [
     name: "Laza",
     transliteration: "Laza",
     meaning: "Nyala api — api yang berkobar.",
-    quran: {
-      excerpt: "Sekali-kali tidak! Sesungguhnya itu adalah nyala api Allah yang bergejolak.",
-    },
+    quran: {},
     context: "Surah Al-Ma'arij — peringatan bagi mereka yang mengingkari Hari Kiamat.",
     tafsirNote:
       "Terkait dengan nyala yang mengelupas dan membakar — Laza menekankan kobaran yang aktif.",
@@ -970,124 +626,83 @@ export const JAHANNAM_GATES_ID: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_ID: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Takutlah kepada Api yang disediakan bagi orang-orang kafir.",
     context: "Ditujukan kepada orang-orang beriman — rasa takut sebagai pendorong ketaatan.",
     tafsirSummary:
       "Ibnu Katsir: seruan kepada takwa yang dipasangkan dengan ketaatan kepada Rasul.",
   },
   {
-    excerpt: "Janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa.",
     context: "Diturunkan untuk menenangkan mereka yang khawatir dosa mereka terlalu besar.",
     tafsirSummary: "Ayat harapan yang mendasar — rahmat begitu luas bagi mereka yang kembali.",
   },
   {
-    excerpt:
-      "Bertobatlah kepada Allah dengan tobat yang tulus — semoga Rabbmu menghapus keburukan-keburukanmu.",
     context: "Perintah kepada orang-orang beriman setelah panduan tentang keluarga dan akhlak.",
     tafsirSummary:
       "Taubatan nasuha — tobat murni yang tidak diikuti kembalinya seseorang kepada dosa.",
   },
   {
-    excerpt: "Bagi semuanya ada derajat sesuai dengan apa yang mereka kerjakan.",
     context: "Keadilan ilahi — pahala dan siksaan sepadan dengan amal.",
     tafsirSummary: "Derajat ini berlaku baik untuk surga maupun neraka.",
   },
   {
-    excerpt:
-      "Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri.",
     context: "Penegasan bahwa keputusan ilahi sepenuhnya adil.",
   },
   {
-    excerpt:
-      "Wahai Rabb kami, berilah kami kebaikan di kedua alam dan lindungilah kami dari azab Api.",
     context: "Doa mereka yang menggabungkan kebaikan dunia dan akhirat.",
     tafsirSummary: "Doa kenabian yang diajarkan dalam Al-Qur'an — keseimbangan dunia dan akhirat.",
   },
   {
-    excerpt: "Jahannam memiliki tujuh pintu; setiap pintu mempunyai bagian yang ditentukan.",
-    context: "Disebutkan dalam konteks perdebatan Nabi Ibrahim 'alaihis salam dengan kaumnya.",
+    context: "Disebutkan setelah bagian ketika Iblis bersumpah akan menyesatkan manusia.",
     tafsirSummary: "Penyebutan eksplisit tujuh pintu — perincian pembagiannya adalah hikmah ilahi.",
   },
   {
-    excerpt:
-      "Kecuali mereka yang bertobat, beriman, dan beramal saleh — Allah akan mengganti keburukan dengan kebaikan.",
     context: "Pengecualian setelah daftar dosa-dosa berat.",
     tafsirSummary: "Harapan bagi mereka yang bertobat — amal dapat diganti dengan rahmat.",
   },
   {
-    excerpt:
-      "Bagi mereka yang mengingkari Rabb mereka adalah azab Jahannam — seburuk-buruk tempat kembali.",
     context: "Surah Al-Mulk — pengingat akan yang gaib.",
   },
   {
-    excerpt: "Sesungguhnya kebaikan-kebaikan menghapus keburukan-keburukan.",
     context: "Perintah menegakkan salat di kedua ujung hari.",
     tafsirSummary: "Dorongan bahwa ibadah yang konsisten menghapus kesalahan masa lalu.",
   },
   {
-    excerpt: "Wahai Rabb kami, ampunilah dosa-dosa kami dan lindungilah kami dari azab Api.",
     context: "Gambaran tentang orang-orang yang bertakwa (muttaqin).",
   },
   {
-    excerpt: "Dan adapun orang yang ringan timbangannya — tempat kembalinya adalah al-Hawiyah.",
     context: "Surah Al-Qari'ah — penimbangan amal.",
   },
 ];
 
 export const JAHANNAM_HADITH_ID: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Siapa yang memohon surga kepada Allah tiga kali, surga berkata: Ya Allah, masukkanlah dia ke dalam surga. Dan siapa yang memohon perlindungan dari Api tiga kali, Api berkata: Ya Allah, lindungilah dia dari Api.",
-    },
+    hadith: {},
     context:
       "Dorongan untuk secara rutin berdoa memohon perlindungan dari Jahannam dan memohon Jannah.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang yang menemukan kembali tunggangannya yang hilang di tanah yang tandus.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Tidak seorang pun di antara kalian masuk surga semata-mata karena amalnya — aku pun tidak, kecuali jika Allah menyelimutiku dengan rahmat-Nya.",
-    },
+    hadith: {},
     context: "Keseimbangan: berusahalah dalam amal namun bertawakallah pada rahmat.",
   },
   {
-    hadith: {
-      excerpt:
-        "Apimu ini adalah satu dari tujuh puluh bagian Api Jahannam, setiap bagian sepanas apimu ini.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Perjanjian antara kami dan mereka adalah salat; siapa yang meninggalkannya, dia telah kafir.",
-    },
+    hadith: {},
     context: "Keseriusan mengabaikan salat — salah satu peringatan terberat.",
   },
   {
-    hadith: {
-      excerpt:
-        "Orang yang bangkrut adalah dia yang datang dengan salat, puasa, dan sedekah — namun dia telah mencaci, memfitnah, memakan harta secara batil, dan menumpahkan darah.",
-    },
+    hadith: {},
     context:
       "Hak-hak sesama manusia dapat dilunasi pada Hari Kiamat sebelum amal-amal lain diperhitungkan.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah membentangkan tangan-Nya di malam hari untuk menerima tobat pelaku dosa di siang hari, dan membentangkan tangan-Nya di siang hari untuk menerima tobat pelaku dosa di malam hari.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Siapa yang beriman kepada Allah dan Hari Akhir, hendaklah dia berkata baik atau diam.",
-    },
+    hadith: {},
     context: "Menjaga lisan — muhasabah harian.",
   },
 ];
@@ -1161,7 +776,4 @@ export const JAHANNAM_DUAS_ID: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_ID: { translation: string } = {
-  translation:
-    "Ya Allah, aku berlindung kepada-Mu dari azab Jahannam, dari azab kubur, dari fitnah kehidupan dan kematian, serta dari keburukan fitnah Al-Masih Ad-Dajjal.",
-};
+export const JAHANNAM_REFUGE_DUA_ID: { translation?: string } = {};

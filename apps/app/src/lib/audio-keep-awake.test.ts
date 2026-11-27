@@ -1,7 +1,12 @@
 import { act, renderHook, waitFor } from "@testing-library/react-native";
 import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 
-import { AUDIO_KEEP_AWAKE_TAG, setAudioKeepAwake, useAudioKeepAwake } from "@/lib/audio-keep-awake";
+import {
+  AUDIO_KEEP_AWAKE_TAG,
+  setAudioKeepAwake,
+  setTaggedKeepAwake,
+  useAudioKeepAwake,
+} from "@/lib/audio-keep-awake";
 import { usePlatform, usePlatformSwitch } from "@/test-support/platform";
 
 jest.mock("expo-keep-awake", () => ({
@@ -11,6 +16,31 @@ jest.mock("expo-keep-awake", () => ({
 
 const activateMock = activateKeepAwakeAsync as jest.MockedFunction<typeof activateKeepAwakeAsync>;
 const deactivateMock = deactivateKeepAwake as jest.MockedFunction<typeof deactivateKeepAwake>;
+
+describe("setTaggedKeepAwake", () => {
+  const onPlatform = usePlatformSwitch();
+
+  beforeEach(() => {
+    activateMock.mockReset().mockResolvedValue(undefined);
+    deactivateMock.mockReset().mockResolvedValue(undefined);
+  });
+
+  it("holds and releases the wake lock under the feature's own tag", async () => {
+    onPlatform({ OS: "android" });
+    await setTaggedKeepAwake("quran-pronunciation", true);
+    await setTaggedKeepAwake("quran-pronunciation", false);
+    expect(activateMock).toHaveBeenCalledWith("quran-pronunciation");
+    expect(deactivateMock).toHaveBeenCalledWith("quran-pronunciation");
+  });
+
+  it("is a no-op on web and TV", async () => {
+    onPlatform({ OS: "web" });
+    await setTaggedKeepAwake("tasbeeh-voice", true);
+    onPlatform({ OS: "android", isTV: true });
+    await setTaggedKeepAwake("tasbeeh-voice", true);
+    expect(activateMock).not.toHaveBeenCalled();
+  });
+});
 
 describe("setAudioKeepAwake", () => {
   const onPlatform = usePlatformSwitch();

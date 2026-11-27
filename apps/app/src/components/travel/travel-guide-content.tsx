@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { ConfirmDialog } from "@/components/confirm-dialog";
+import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { LearnTwoPane, useLearnHubLayout } from "@/components/jannah/hub-layout";
 import {
   JannahHadithEvidence,
@@ -23,15 +23,17 @@ import {
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
+import { TravelModeSheet } from "@/components/travel/travel-mode-sheet";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { screenDifferences } from "@/lib/fiqh/screen-differences";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
 const SECTION_ICONS: Record<TravelSectionKey, SymbolViewProps["name"]> = {
@@ -109,18 +111,22 @@ export function TravelGuideContent() {
   const takeaway = <JannahTakeaway text={t("travel.takeaway")} />;
 
   const sectionCards = TRAVEL_SECTIONS.map((sectionKey) => (
-    <Card key={sectionKey} padding="three">
+    <Card key={sectionKey}>
       <SectionHeader title={t(`travel.${sectionKey}.title`)} icon={SECTION_ICONS[sectionKey]} />
       <TvReadableBlock>
         <LearnProseText themeColor="mutedForeground" style={styles.body}>
           {t(`travel.${sectionKey}.body`)}
         </LearnProseText>
       </TvReadableBlock>
+      {/* NF-3.0a: the section's per-school notes (registered in SCREEN_DIFFERENCES). */}
+      {screenDifferences(`/travel#${sectionKey}`).map((id) => (
+        <MadhhabNote key={id} id={id} />
+      ))}
     </Card>
   ));
 
   const rakatsCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("travel.rakatsTitle")}
         icon={{
@@ -153,7 +159,7 @@ export function TravelGuideContent() {
               type="small"
               style={[
                 styles.colNum,
-                row.travel < row.resident ? { color: colors.accent } : undefined,
+                row.travel < row.resident ? { color: colors.accentText } : undefined,
               ]}
             >
               {row.travel}
@@ -168,7 +174,7 @@ export function TravelGuideContent() {
   );
 
   const obligationsCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("travel.obligationsTitle")}
         icon={{
@@ -182,7 +188,7 @@ export function TravelGuideContent() {
           <TvReadableBlock key={step}>
             <View style={styles.stepRow}>
               <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                   {index + 1}
                 </ThemedText>
               </View>
@@ -197,7 +203,7 @@ export function TravelGuideContent() {
   );
 
   const duasLinkCard = (
-    <Card padding="three">
+    <Card>
       <NavRow
         icon={{
           ios: "hands.sparkles.fill",
@@ -263,13 +269,8 @@ export function TravelGuideContent() {
         </Stagger>
       )}
 
-      <ConfirmDialog
+      <TravelModeSheet
         visible={confirmOpen}
-        title={t("tracker.excusedConfirmTitle")}
-        message={t("tracker.excusedConfirmMsg", {
-          reason: t("tracker.excusedReason.travel"),
-        })}
-        confirmLabel={t("tracker.excusedConfirmAction")}
         onConfirm={handleMarkExcused}
         onClose={() => setConfirmOpen(false)}
       />
@@ -287,8 +288,8 @@ const styles = StyleSheet.create({
   tableRow: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: Spacing.two + 2,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingVertical: Spacing.twoHalf,
+    borderTopWidth: BorderWidth.hairline,
   },
   colName: { flex: 1 },
   colNum: { width: tvDp(72), textAlign: "center" },
@@ -311,5 +312,5 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  disclaimerText: { flex: 1, lineHeight: 18 },
+  disclaimerText: { flex: 1 },
 });

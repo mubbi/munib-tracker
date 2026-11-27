@@ -51,6 +51,19 @@ describe("assertOAuthReturnUrlAllowed", () => {
     ["a blank return URL", DEV, "  ", "returnUrl is required"],
     ["an unparseable URL", DEV, "not-a-url", "Invalid return URL"],
     ["http in production", PROD, "http://localhost/login", "Invalid return URL"],
+    // No https entry to pin the origin: any https URL would be an open redirect.
+    [
+      "https in production without an allowlist",
+      PROD,
+      "https://evil.example/",
+      "Invalid return URL",
+    ],
+    [
+      "production with only custom-scheme entries",
+      { ...PROD, OAUTH_REDIRECT_URI_ALLOWLIST: "munibtracker://oauth" },
+      "https://evil.example/",
+      "Invalid return URL",
+    ],
     [
       "an origin not on the allowlist",
       appleAllowlist,
@@ -68,7 +81,12 @@ describe("assertOAuthReturnUrlAllowed", () => {
   });
 
   it.each<[string, Env, string]>([
-    ["https in production without an allowlist", PROD, "https://app.example/login"],
+    ["https in development without an allowlist", DEV, "https://app.example/login"],
+    [
+      "https in production on an allowlisted origin",
+      { ...PROD, ...appleAllowlist },
+      "https://app.example/login",
+    ],
     [
       "an origin matching an https allowlist entry",
       appleAllowlist,

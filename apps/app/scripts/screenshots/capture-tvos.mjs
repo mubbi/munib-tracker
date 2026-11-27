@@ -26,7 +26,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { APP_ROOT, DEFAULT_LOCALE, DEFAULT_THEME } from "./lib/config.mjs";
+import { APP_ID, APP_ROOT, DEFAULT_LOCALE, DEFAULT_THEME } from "./lib/config.mjs";
+import { approveIosUrlSchemes } from "./lib/inject-storage-ios.mjs";
 import { log, sleep, warn } from "./lib/shell.mjs";
 import {
   assertCaptureAllowed,
@@ -40,6 +41,9 @@ import {
 } from "./lib/tv-capture.mjs";
 import { filterTvScenes, TV_STORE_SIZE } from "./lib/tv-scenes.mjs";
 import { validateTvStructure } from "./lib/validate-core.mjs";
+
+/** Cold-start settle per scene (override with TV_COLD_START_MS). */
+const TV_COLD_START_MS = Number(process.env.TV_COLD_START_MS || 16_000);
 
 function parseSceneFilter() {
   const raw = (process.env.SCENES ?? "all").trim();
@@ -131,10 +135,18 @@ async function main() {
   }
   log(`UDID: ${udid}`);
 
+  // tvOS asks "Open in Munib Tracker?" for every `simctl openurl` unless the scheme is
+  // pre-approved — and its LaunchServices only reads the approval plist at boot, so
+  // approve first, then (re)boot. Without this every capture is the system prompt.
+  approveIosUrlSchemes(udid, APP_ID.ios);
   if (process.env.SKIP_SIMULATOR !== "1") {
     const { run } = await import("./lib/shell.mjs");
+    run("xcrun", ["simctl", "shutdown", udid], { allowFail: true });
     run("xcrun", ["simctl", "boot", udid], { allowFail: true });
+    run("xcrun", ["simctl", "bootstatus", udid], { allowFail: true });
     await sleep(3_000);
+  } else {
+    warn("SKIP_SIMULATOR=1 — URL scheme approval only applies after the Apple TV sim reboots.");
   }
 
   void resolvePhoneSimulatorUdid;
@@ -143,8 +155,9 @@ async function main() {
     for (const theme of themes) {
       for (const scene of scenes) {
         openTvDeepLinkIos(scene, udid);
-        // Cold-start needs longer than warm navigation for Expo Router to settle.
-        await sleep(Math.max(scene.settleMs ?? 2_000, 5_000));
+        // Each scene is a cold start (openTvDeepLinkIos terminates first); a Release
+        // tvOS build is still on the splash at ~10s, so wait for the bundle to settle.
+        await sleep(Math.max(scene.settleMs ?? 2_000, TV_COLD_START_MS));
         const nativeDir = path.join(tvNativeOutputRoot("tvos"), locale, theme);
         const nativePath = path.join(nativeDir, `${scene.id}.png`);
         captureAppleTvScreenshot({ udid, outPath: nativePath });

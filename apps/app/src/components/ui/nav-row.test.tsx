@@ -1,8 +1,17 @@
 import { fireEvent, screen } from "@testing-library/react-native";
+import { Text } from "react-native";
 
 import { NavRow } from "@/components/ui/nav-row";
+import { type ThemeTokens, useThemeTokens } from "@/hooks/use-theme-tokens";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
+
+let seen: ThemeTokens;
+function Probe() {
+  seen = useThemeTokens().tokens;
+  return null;
+}
 
 const ICON = { ios: "book.fill", android: "menu_book", web: "menu_book" } as const;
 
@@ -55,5 +64,46 @@ describe("NavRow on TV", () => {
     await renderRow({ preferredFocus });
 
     expect(screen.getByRole("button").props.hasTVPreferredFocus).toBe(expected);
+  });
+});
+
+describe("NavRow tokens", () => {
+  it("completed trailing text uses status.success.onSoft", async () => {
+    await renderWithTheme(
+      <>
+        <Probe />
+        <NavRow icon={ICON} label="Row" badge="Done" completed onPress={jest.fn()} />
+      </>,
+    );
+    expect(flattenStyle(screen.getByText("Done").props.style).color).toBe(
+      seen.status.success.onSoft,
+    );
+  });
+
+  it("danger tone colours the title with status.danger.text", async () => {
+    await renderWithTheme(
+      <>
+        <Probe />
+        <NavRow
+          icon={ICON}
+          label="Sign out"
+          tone="danger"
+          subtitle="Ends session"
+          onPress={jest.fn()}
+        />
+      </>,
+    );
+    expect(flattenStyle(screen.getByText("Sign out").props.style).color).toBe(
+      seen.status.danger.text,
+    );
+    expect(screen.getByText("Ends session")).toBeTruthy();
+    expect(screen.getByLabelText("Sign out, Ends session")).toBeTruthy();
+  });
+
+  it("renders custom trailing content", async () => {
+    await renderWithTheme(
+      <NavRow icon={ICON} label="Language" trailing={<Text>English</Text>} onPress={jest.fn()} />,
+    );
+    expect(screen.getByText("English")).toBeTruthy();
   });
 });

@@ -110,7 +110,8 @@ describe("resolveCachedQcfFontUri (native)", () => {
   });
 
   it.each([404, 100])("reports HTTP %i and falls back to the remote URL", async (status) => {
-    mockDownloadToUri.mockResolvedValueOnce({ status, uri: "ignored" });
+    // Non-retryable: one try on jsDelivr, one on the GitHub raw mirror.
+    mockDownloadToUri.mockResolvedValue({ status, uri: "ignored" });
     await expect(resolveCachedQcfFontUri(7)).resolves.toBe(pageUrl(7));
     expect(report).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -129,11 +130,26 @@ describe("resolveCachedQcfFontUri (native)", () => {
     [new Error("offline"), "offline"],
     ["boom", "boom"],
   ])("reports a thrown download error (%p)", async (error, message) => {
-    mockDownloadToUri.mockRejectedValueOnce(error);
+    mockDownloadToUri.mockRejectedValue(error);
     await expect(resolveCachedQcfFontUri(9)).resolves.toBe(pageUrl(9));
     expect(report).toHaveBeenCalledWith(
       expect.objectContaining({ errorCode: "download_failed", errorMessage: message }),
     );
+  });
+});
+
+describe("QCF download retries (native)", () => {
+  it("retries a dropped download, then uses the GitHub raw mirror", async () => {
+    mockDownloadToUri
+      .mockRejectedValueOnce(new Error("reset"))
+      .mockResolvedValueOnce({ status: 503, uri: "ignored" });
+    await expect(resolveCachedQcfFontUri(11)).resolves.toBe(localPage(11));
+    expect(downloadedUrls()).toEqual([
+      pageUrl(11),
+      pageUrl(11),
+      "https://raw.githubusercontent.com/nuqayah/qpc-fonts/master/mushaf-v2/QCF2011.ttf",
+    ]);
+    expect(report).not.toHaveBeenCalled();
   });
 });
 
@@ -231,7 +247,7 @@ describe("loadQcfBsmlFont (native)", () => {
   });
 
   it("reports a non-2xx download and registers the remote URL", async () => {
-    mockDownloadToUri.mockResolvedValueOnce({ status: 500, uri: "ignored" });
+    mockDownloadToUri.mockResolvedValue({ status: 500, uri: "ignored" });
     await loadQcfBsmlFont();
     expect(font.loadAsync).toHaveBeenCalledWith({ QCF2_BSML: BSML_URL });
     expect(report).toHaveBeenCalledWith(
@@ -243,7 +259,7 @@ describe("loadQcfBsmlFont (native)", () => {
     [new Error("eio"), "eio"],
     ["eio", "eio"],
   ])("reports a thrown download error (%p)", async (error, message) => {
-    mockDownloadToUri.mockRejectedValueOnce(error);
+    mockDownloadToUri.mockRejectedValue(error);
     await loadQcfBsmlFont();
     expect(report).toHaveBeenCalledWith(
       expect.objectContaining({ contentKey: "qcf_font:bsml", errorMessage: message }),
@@ -528,15 +544,13 @@ describe("on web with Cache Storage", () => {
       }
     });
 
-    it("falls back to expo-font with a warning when FontFace fails", async () => {
+    it("fails the page (no expo-font fallback) when FontFace can't load the bytes", async () => {
       const face = installFontFace({ fail: true });
       try {
-        await loadQcfPageFont(13);
-        expect(warn).toHaveBeenCalledWith(
-          "[mushaf] FontFace registration failed, falling back to expo-font",
-          expect.any(Error),
-        );
-        expect(font.loadAsync).toHaveBeenCalledWith({ QCF2_13: "blob:fake-1" });
+        await expect(loadQcfPageFont(13)).rejects.toBeTruthy();
+        // expo-font could resolve on the same broken bytes and paint empty boxes.
+        expect(font.loadAsync).not.toHaveBeenCalled();
+        expect(isQcfPageFontLoaded(13)).toBe(false);
       } finally {
         face.restore();
       }

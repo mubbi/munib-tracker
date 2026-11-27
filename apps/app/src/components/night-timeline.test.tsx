@@ -53,4 +53,11 @@ describe("NightTimeline", () => {
 
     expect(nowMarkers()).toHaveLength(0);
   });
+
+  it("speaks every boundary as one label (the bar is decorative)", async () => {
+    await renderTimeline();
+
+    const node = screen.getByLabelText(/18h.*0h.*2h.*6h/);
+    expect(node.props.accessibilityLabel).toContain("18h");
+  });
 });

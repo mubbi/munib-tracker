@@ -2,21 +2,22 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { SeasonalArt } from "@/components/seasonal/seasonal-art";
 import { ThemedText } from "@/components/themed-text";
+import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { gradientBackground } from "@/lib/gradient";
 import { isTV } from "@/lib/platform/is-tv";
-import { useChevronForward } from "@/lib/rtl";
+import { useArrowForward, useIsRTL } from "@/lib/rtl";
 import {
-  currentSeasonalTheme,
+  type ActiveSeasonalBanner,
   type SeasonalThemeId,
   seasonalBannerHref,
 } from "@/lib/seasonal-themes";
-import { useLocation } from "@/stores/location-store";
 
 const SEASON_ICONS: Record<SeasonalThemeId, SymbolViewProps["name"]> = {
   newYear: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
@@ -30,62 +31,103 @@ const SEASON_ICONS: Record<SeasonalThemeId, SymbolViewProps["name"]> = {
   eidAdha: { ios: "gift.fill", android: "redeem", web: "redeem" },
 };
 
+const CLOSE = { ios: "xmark", android: "close", web: "close" } as const;
+
 /**
- * Seasonal home banner — shown automatically from the Hijri calendar. Uses the
- * stored location timezone; does not alter accent colours.
+ * Copy on the banner sits on an always-dark seasonal gradient (in light and dark
+ * mode alike), so it uses the brand hero ink rather than the page's text tokens.
  */
-export function SeasonalThemeBanner() {
+const INK = Brand.heroText;
+const INK_SOFT = withAlpha(Brand.heroText, 0.84);
+/** Fine print: ≥ 4.5:1 on every season's mid stop (was 0.45 — too faint). */
+const INK_FAINT = withAlpha(Brand.heroText, 0.68);
+
+type SeasonalThemeBannerProps = {
+  banner: ActiveSeasonalBanner;
+  /** "Hide for this season" — omitted on TV (Customize home turns banners off). */
+  onDismiss?: () => void;
+};
+
+/**
+ * Seasonal home banner (NF-2.23) — chosen from the Hijri calendar by
+ * `useSeasonalBanner`. Hierarchy: eyebrow → title → one-line why → explicit CTA
+ * naming the destination → date disclaimer. A start-side scrim keeps the copy
+ * legible over the art; the art mirrors with the layout in RTL. Does not alter
+ * accent colours.
+ */
+export function SeasonalThemeBanner({ banner, onDismiss }: SeasonalThemeBannerProps) {
   const router = useRouter();
   const { t } = useTranslation();
-  const location = useLocation();
-  const chevronForward = useChevronForward();
-  const season = currentSeasonalTheme(new Date(), location.timeZone);
-
-  if (!season) return null;
-
-  const { visual } = season;
+  const arrowForward = useArrowForward();
+  const rtl = useIsRTL();
   const tv = isTV();
+  const { season } = banner;
+  const { visual } = season;
+  const title = t(`seasonalTheme.${season.id}BannerTitle`);
+  const description = t(`seasonalTheme.${season.id}BannerDesc`);
+  const cta = t(season.ctaKey);
+  const canDismiss = onDismiss != null && !tv;
+
   const body = (
     <>
       <SeasonalArt id={season.id} visual={visual} />
+      {/* Start-side scrim: the copy column never competes with the artwork. */}
+      <View
+        pointerEvents="none"
+        style={[
+          StyleSheet.absoluteFill,
+          gradientBackground(
+            `linear-gradient(to ${rtl ? "left" : "right"}, ${withAlpha(visual.gradientBottom, 0.72)} 0%, ${withAlpha(visual.gradientBottom, 0.4)} 55%, ${withAlpha(visual.gradientBottom, 0)} 82%)`,
+          ),
+        ]}
+      />
 
-      <View style={styles.content}>
-        <View style={styles.copy}>
-          <View style={styles.eyebrowRow}>
-            <View style={[styles.iconWell, { backgroundColor: withAlpha(visual.accent, 0.2) }]}>
-              <SymbolView name={SEASON_ICONS[season.id]} size={14} tintColor={visual.accent} />
-            </View>
-            <Pill
-              label={t(`seasonalTheme.${season.id}Eyebrow`)}
-              compact
-              color={visual.accent}
-              background={withAlpha(visual.accent, 0.16)}
-            />
+      <View style={[styles.content, canDismiss ? styles.contentWithClose : null]}>
+        <View style={styles.eyebrowRow}>
+          <View style={[styles.iconWell, { backgroundColor: withAlpha(visual.accent, 0.2) }]}>
+            <SymbolView name={SEASON_ICONS[season.id]} size={14} tintColor={visual.accent} />
           </View>
-          <ThemedText type="subtitle" style={styles.title}>
-            {t(`seasonalTheme.${season.id}BannerTitle`)}
-          </ThemedText>
-          <ThemedText type="caption" style={styles.subtitle} numberOfLines={3}>
-            {t(`seasonalTheme.${season.id}BannerDesc`)}
-          </ThemedText>
-          <ThemedText type="caption" style={[styles.disclaimer, tv ? styles.disclaimerTv : null]}>
-            {t("seasonalTheme.dateDisclaimer")}
-          </ThemedText>
+          <Pill
+            label={t(`seasonalTheme.${season.id}Eyebrow`)}
+            compact
+            color={visual.accent}
+            background={withAlpha(visual.accent, 0.16)}
+          />
         </View>
-        <SymbolView name={chevronForward} size={16} tintColor={withAlpha("#FFFFFF", 0.7)} />
+        <ThemedText type="subtitle" style={styles.title}>
+          {title}
+        </ThemedText>
+        <ThemedText
+          type="caption"
+          style={[styles.subtitle, tv ? styles.subtitleTv : null]}
+          numberOfLines={tv ? undefined : 3}
+        >
+          {description}
+        </ThemedText>
+        <View style={styles.ctaRow}>
+          <ThemedText type="smallBold" style={{ color: visual.accent }}>
+            {cta}
+          </ThemedText>
+          <SymbolView name={arrowForward} size={14} tintColor={visual.accent} />
+        </View>
+        <ThemedText type="caption" style={[styles.disclaimer, tv ? styles.disclaimerTv : null]}>
+          {t("seasonalTheme.dateDisclaimer")}
+        </ThemedText>
       </View>
     </>
   );
 
-  return (
+  const press = (
     <PressableScale
       onPress={() => router.push(seasonalBannerHref(season))}
       haptic="light"
       scaleTo={0.98}
       accessibilityRole="button"
-      accessibilityLabel={t(`seasonalTheme.${season.id}BannerTitle`)}
+      accessibilityLabel={`${title}. ${description}`}
+      accessibilityHint={cta}
       style={[
         styles.banner,
+        { borderColor: withAlpha(visual.accent, 0.22) },
         gradientBackground(
           `linear-gradient(135deg, ${visual.gradientTop} 0%, ${visual.gradientMid} 52%, ${visual.gradientBottom} 100%)`,
         ),
@@ -96,6 +138,26 @@ export function SeasonalThemeBanner() {
       {tv ? <View style={styles.clipTv}>{body}</View> : body}
     </PressableScale>
   );
+
+  if (!canDismiss) return press;
+
+  // The close control is a sibling (never nested inside the banner's button) so
+  // screen readers and web keyboards reach it as its own target.
+  return (
+    <View>
+      {press}
+      <IconButton
+        name={CLOSE}
+        size={14}
+        tintColor={INK_SOFT}
+        background={withAlpha(visual.gradientBottom, 0.55)}
+        wellRadius={Radius.pill}
+        accessibilityLabel={t("seasonalTheme.dismiss")}
+        onPress={onDismiss}
+        style={styles.close}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -103,33 +165,29 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     overflow: "hidden",
-    minHeight: 124,
+    minHeight: 132,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: withAlpha("#FFFFFF", 0.12),
   },
   clipTv: {
     flexGrow: 1,
-    minHeight: 124,
+    minHeight: tvDp(132),
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     overflow: "hidden",
   },
   content: {
-    flexDirection: "row",
-    alignItems: "center",
     padding: Spacing.four,
-    paddingEnd: Spacing.three,
-    gap: Spacing.two,
-    maxWidth: "64%",
-  },
-  copy: {
-    flex: 1,
     gap: Spacing.one,
+    // The art lives on the end side; keep the copy in the start ~two-thirds.
+    maxWidth: "68%",
+  },
+  contentWithClose: {
+    paddingEnd: Spacing.two,
   },
   eyebrowRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     marginBottom: 2,
   },
   iconWell: {
@@ -141,21 +199,36 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    color: "#F5F0E6",
+    color: INK,
   },
   subtitle: {
-    color: withAlpha("#F5F0E6", 0.78),
+    color: INK_SOFT,
     lineHeight: 18,
   },
+  subtitleTv: {
+    fontSize: TvLayout.bodyFontSize - 2,
+    lineHeight: TvLayout.bodyFontSize + 4,
+  },
+  ctaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    marginTop: Spacing.one,
+  },
   disclaimer: {
-    color: withAlpha("#F5F0E6", 0.45),
-    fontSize: 10,
-    lineHeight: 14,
+    color: INK_FAINT,
+    fontSize: 11,
+    lineHeight: 15,
     marginTop: 2,
   },
-  /** 10pt fine print is unreadable at 3m on Android TV. */
+  /** 11pt fine print is unreadable at 3m on Android TV. */
   disclaimerTv: {
     fontSize: 13,
     lineHeight: 18,
+  },
+  close: {
+    position: "absolute",
+    top: Spacing.one,
+    end: Spacing.one,
   },
 });

@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       "Mömin asanlıqda da, çətinlikdə də, ucadan və gizlində dua edər ki, Allah hər çağırışı eşidir və səmimi olanı əliboş döndərməz. O, o qədər yaxındır ki, “Dəvətçinin çağırışına Məni çağırdığı zaman cavab verirəm” deyir.",
       "Cavab Peyğəmbərin (sallallahu aleyhi və səlləm) öyrətdiyi üç formadan birini alır: Allah soruşulanı verir; ya da onu saxlayar və axirət üçün ona bərabər və ya daha çox mükafat qoyar. ya da ona bərabər olan bir zərəri dəf edər. Beləliklə, heç bir səmimi dua heç vaxt cavabsız qalmır - bəzən ən böyük mərhəmət bizim görmədiyimiz cavabdır.",
     ],
-    quran: [
-      {
-        excerpt: "Rəbbiniz buyurur: “Mənə dua edin. Mən sizə cavab verəcəyəm”.",
-      },
-      {
-        excerpt:
-          "Bəndələrim səndən Mənim barəmdə soruşduqda, həqiqətən, Mən yaxınam. Mənə dua edənin çağırışına cavab verirəm.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua ibadətdir. – sonra o, (sallallahu aleyhi və səlləm) oxudu: “Rəbbin dedi: “Mənə dua et! Mən sizə cavab verəcəyəm”. (ən-Numan ibn Bəşir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       "Allahı üç batini xüsusiyyətlə çağırın: təvazökarlıq, Onun qadir və cavab verəcəyinə əminlik və Onun barəsində xoş fikirdə olmaq (hüsnül-zənn). Bacardığınız yerdə qibləyə üz tutun, əllərinizi qaldırın, mübarək vaxtları seçin və həm dünya, həm də axirət işlərini istəyin. Mühüm xahişləri təkrarlamaq və başladığınız kimi bitirmək tövsiyə olunur - həmd və salavat.",
       "Hər şeydən əvvəl tələsməyin. Peyğəmbər (sallallahu aleyhi və səlləm) xəbərdarlıq etmişdir ki, insan ümidini kəsib: “Zəng etdim, zəng etdim, amma cavab verilmədi” deməsi və sonra onu tərk etməsi şərtilə dua qəbul olunur. İstəməkdə israrlı olmağın özü ibadətdir və Allah qapısını döyən bəndəsini sevir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nökərin duası tələsik deyil, “dua etdim, amma qəbul olunmadı” dediyi müddətcə qəbul olunmağa davam edir. (Əbu Hureyrə)",
-      },
-      {
-        excerpt:
-          "Sizlərdən biriniz namaz qılarkən Rəbbinə həmd və şükür etməklə başlasın, sonra Peyğəmbərə salavat göndərsin, sonra istədiyini diləsin. (Fədalə ibn Ubeyd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Hər duanı Əlhəmdulillah və Peyğəmbərə salavat ilə açın.",
       "Ehtiyacınıza ən uyğun olan adlarla Allahdan (məsələn, ruzi üçün Ya Rəzzaq, bağışlanma üçün Ya Qafur) dua edin.",
@@ -65,16 +43,7 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       "Halal ruzi güclü açardır. Peyğəmbər (s) əllərini göyə qaldıraraq “Ya Rəbbim, ya Rəbbim” deyə fəryad edən bir müsafiri vəsf edir ki, “Onun yeməyi haram, içməsi haram, paltarı haram və haramdan qidalanır, ona necə cavab vermək olar?” Gəliri qorumaq, günahdan tövbə etmək, heç bir günah istəməmək, qohumluq əlaqələrini kəsmək dua ilə onun qəbulu arasındakı maneələri aradan qaldırar.",
       "Buna baxmayaraq, qəbul, nəticədə Allahın rəhmətidir, nəzarət etdiyimiz bir alış-veriş deyil. Buna görə də mömin bütün səylərini - səmimiyyəti, halal yaşayışı, tövbəni - təvazökar təvəkküllə birləşdirər və cavab gecikərsə, heç vaxt ümidini kəsməz. Zəiflik və keçmiş günahlar soruşmağı dayandırmaq üçün səbəb deyil; Onlar Rəhmana dönmək üçün daha çox səbəbdir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…onun yeməyi haramdır, içkisi haramdır, paltarı haramdır, haramdan qidalanır – ona necə cavab vermək olar? (Əbu Hureyrə)",
-      },
-      {
-        excerpt:
-          "Bəndənin duası o qədər qəbul olunur ki, günah bir şey istəməsin və qohumluq əlaqələrinin kəsilməsini istəməsin. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Gəlir və xərcləmələrinizi halallıq üçün nəzərdən keçirin - bu birbaşa duanıza təsir edir.",
       "Uzun duanı istiğfar və səmimi tövbə ilə qabaqlayın.",
@@ -89,16 +58,7 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       "Ən güclüləri bunlardır: gecənin son üçdə bir hissəsi, Allah (əziyyətinə yaraşan şəkildə) ən aşağı səmaya enib: “Kim Məndən istəyər ki, ona verim?” deyə çağırdığı zaman; namazda səcdə, Allaha ən yaxın məqam; azanla iqamə arasındakı an; insan oruc tutarkən, xüsusən də iftar vaxtı; yağış zamanı; və günəş batmazdan əvvəl cümə gününün son saatı, orada duanın rədd edilmədiyi bir saat var.",
       "Mübarək yerlərə və hallara həcc zamanı Ərəfədə ayaq üstə durmaq, hərəmlərdə olmaq, müsafirin, valideynin övladı və zülmə məruz qalanın duası daxildir. Davamlı bir yalvarış ömrü üçün bunları sabit lövbər kimi istifadə edin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rəbbimiz hər gecə gecənin son üçdə birində ən aşağı səmaya enir və deyir: Məni çağıran kimdir ki, ona cavab verim? Məndən kim istəyir ki, ona verim? (Əbu Hureyrə)",
-      },
-      {
-        excerpt:
-          "Bir qulun Rəbbinə ən yaxını səcdə halında olar, ona görə də orada çoxlu dua et. (Əbu Hureyrə)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -112,14 +72,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Seyid əl-İstiğfar (bağışlanma diləyənlərin başçısı)",
         when: "Hər səhər və axşam bir dəfə",
-        translation:
-          "İlahi, Sən mənim Rəbbimsən. Səndən başqa tanrı yoxdur. Məni Sən yaratdın və mən Sənin qulunam və bacardığım qədər Sənin əhdinə və əhdinə sadiqəm. Etdiyim pislikdən Sənə sığınıram. Mən Sənin mənə olan nemətini etiraf edirəm və günahımı etiraf edirəm, məni bağışla, çünki günahları Səndən başqa heç kəs bağışlamaz.",
       },
       {
         title: "Həsbiyəllahu lə ilahə illə huva",
         when: "Hər səhər və axşam yeddi dəfə",
-        translation:
-          "Allah mənə kifayətdir. Ondan başqa tanrı yoxdur. Mən Ona təvəkkül edirəm və O, Böyük Ərşin Rəbbidir.",
       },
     ],
     appLinks: [{}, {}],
@@ -135,19 +91,14 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Oyanarkən dua",
         when: "Dərhal oyanan kimi",
-        translation:
-          "Bizi öldürdükdən sonra dirildən Allaha həmd olsun və dirilmək də Ona məxsusdur.",
       },
       {
         title: "Yatmazdan qabaq dua",
         when: "Yatmaq üçün uzanarkən",
-        translation: "Sənin adınla, ey Allah, mən ölürəm və yaşayıram.",
       },
       {
         title: "Ayət əl-Kursi yatmazdan əvvəl",
         when: "Yatmadan əvvəl",
-        translation:
-          "Allah – Ondan başqa heç bir tanrı yoxdur, diridir, hər şeyə ruzi verəndir. Onu nə yuxululuq, nə də yuxu tutar. Göylərdə və yerdə nə varsa, Onundur. Onun izni olmadan Onun yanında kim şəfaət edə bilər? O, onların önlərində və arxalarında olanı bilir. Onun ərşi göyləri və yeri əhatə edir və onları qoruyub saxlamaq Onu yormaz. O, ən ucadır, əzəmətlidir.",
       },
     ],
     appLinks: [{}, {}],
@@ -163,13 +114,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Evdən çıxarkən dua",
         when: "Evdən bayıra çıxanda",
-        translation:
-          "Allahın adı ilə; Mən Allaha təvəkkül edirəm. Allahdan başqa heç bir qüdrət və qüdrət yoxdur.",
       },
       {
         title: "Məscidə girən dua",
         when: "Girərkən, sağ ayaqla içəri girmək",
-        translation: "İlahi, rəhmət qapılarını üzümə aç.",
       },
     ],
     appLinks: [{}, {}],
@@ -185,13 +133,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Yeməkdən əvvəl",
         when: "Yeməyin əvvəlində",
-        translation: "Allahın adı ilə.",
       },
       {
         title: "Yeməkdən sonra",
         when: "Yeməyi bitirərkən",
-        translation:
-          "Həmd olsun Allaha ki, bunu mənə yedizdirən və heç bir qüvvəm və qüdrətim olmadan onu mənə ruziləndirən.",
       },
     ],
     appLinks: [{}],
@@ -207,14 +152,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dəstəmazdan sonra",
         when: "Dəstəmaz aldıqdan dərhal sonra",
-        translation:
-          "Şəhadət verirəm ki, Allahdan başqa ilah yoxdur, şəriki yoxdur və şəhadət edirəm ki, Məhəmməd Onun qulu və Rəsuludur.",
       },
       {
         title: "Namazda salamdan əvvəl",
         when: "Son təşəhhüddə, namazı bitirməzdən əvvəl",
-        translation:
-          "Allahım, cəhənnəm əzabından, qəbir əzabından, həyat və ölümün fitnəsindən və yalançı Məsihin (Dəccalın) fitnəsinin şərindən Sənə sığınıram.",
       },
     ],
     appLinks: [{}, {}],
@@ -230,16 +171,9 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Azandan sonra dua",
         when: "Azan bitdikdə",
-        translation:
-          "Ey bu mükəmməl çağırışın və sabit namazın Rəbbi olan Allahım, Muhəmmədül-Vəsilə və Fadiləni nəsib et və onu vəd etdiyin həmd məqamına yüksəlt.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Azanla iqamə arasında edilən dua rədd edilməz. (Ənəs ibn Malik; həmçinin ət-Tirmizi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -253,13 +187,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Narahatlıq və kədər üçün dua",
         when: "Kədər, narahatlıq və ya hədsiz kədər içində",
-        translation:
-          "İlahi, narahatçılıq və qəm-qüssədən, acizlik və tənbəllikdən, xəsislik və qorxaqlıqdan, borc yükündən və başqalarının üstünə düşməkdən Sənə sığınıram.",
       },
       {
         title: "Allah bizə kifayətdir",
         when: "Qorxduqda və ya əsəbləşdikdə",
-        translation: "Allah bizə kifayətdir və O, ən yaxşı vəkildir.",
       },
     ],
     appLinks: [{}, {}],
@@ -275,8 +206,6 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Şəfa üçün dua",
         when: "Xəstə olanda və ya xəstə olan biri üçün dua edərkən",
-        translation:
-          "Ey insanların Rəbbi olan Allah, dərdi aradan qaldır və şəfa ver. Sən şəfa verənsən! Səndən başqa əlac yoxdur – heç bir xəstəlik qoymayan bir dərman.",
       },
     ],
     appLinks: [{}, {}],
@@ -292,12 +221,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Tez-tez tövbə etmək",
         when: "Gün ərzində təkrar-təkrar",
-        translation: "Mən Allahdan bağışlanma diləyirəm və Ona tövbə edirəm.",
       },
       {
         title: "Möhkəm ürək üçün dua",
         when: "Azğınlıqdan və ya tərəddüddən qorxduqda",
-        translation: "Ey qəlbləri döndərən, qəlbimi öz dinində sabit et.",
       },
     ],
     appLinks: [{}, {}],
@@ -313,13 +240,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Səfərə çıxarkən dua",
         when: "Nəqliyyatınızı qurarkən və yola salınarkən",
-        translation:
-          "Biz özümüz bunu edə bilmədiyimiz halda, bunu bizə tabe edən Allah pakdır. Həqiqətən, biz Rəbbimizin hüzuruna qayıdacağıq.",
       },
       {
         title: "Yağış yağanda dua",
         when: "Yağışın əvvəlində",
-        translation: "Allahım, onu faydalı leysan et.",
       },
     ],
     appLinks: [{}, {}],
@@ -331,18 +255,11 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       "Ruzi ancaq Allahdandır. mömin dəvəsini - işləyib qazanaraq - bağlayır, sonra isə ruzi verəndən halal ruzi, qazandıqlarının bərəkətini, borcdan azad olmasını və başqalarına möhtac olmaqdan azad olmasını istəyir. Həzrət Peyğəmbər (s) məhz bunu tələb edən gözəl bir dua öyrətdi.",
       "Ev üçün Qur'anın özü salehlərin duasını öyrədir: “gözlərə rahatlıq” olan həyat yoldaşları və övladlar bəxş etmək, iman, dua və mərhəmətlə birləşmiş ailəyə rəhbərlik etmək.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey Rəbbimiz, bizə zövcələrimizdən və övladlarımızdan gözümüzə nur bəxş et və bizi müttəqilərə rəhbər et.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Qanuni təminat üçün dua",
         when: "Səhərlər, namazdan sonra və maddi sıxıntıda",
-        translation:
-          "İlahi, haram etdiyin halal etdiyinlə mənə kifayət et və Öz lütfünlə məni zəngin et ki, Səndən başqasına ehtiyacım olmasın.",
       },
     ],
     appLinks: [{}],
@@ -358,14 +275,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Hər iki dünyada xeyir",
         when: "Ümumi, çox məqsədli dua - Peyğəmbərin (sallallahu aleyhi və səlləm) ən çox etdiyi dua",
-        translation:
-          "Ey Rəbbimiz, bizə dünyada da, axirətdə də yaxşılıq ver və bizi cəhənnəm əzabından qoru!",
       },
       {
         title: "İmanda sabitlik",
         when: "Yayılmadan qorxduqda və ya hidayət olunduqdan sonra",
-        translation:
-          "Ey Rəbbimiz, bizi doğru yola yönəltdikdən sonra qəlblərimizi azdırma və bizə Öz tərəfindən mərhəmət bəxş et. Həqiqətən, Sən bəxş edənsən.",
       },
     ],
     appLinks: [{}, {}],
@@ -381,7 +294,6 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dördün hərtərəfli duası",
         when: "Ümumi gündəlik dua",
-        translation: "İlahi, Səndən hidayət, təqva, iffət və kifayətlənmək istəyirəm.",
       },
     ],
     appLinks: [{}],
@@ -397,12 +309,10 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sevimli və günahları silən sözlər",
         when: "Gün ərzində; 100 dəfə günahları silir",
-        translation: "Allah pakdır, həmd Ona məxsusdur.",
       },
       {
         title: "Tərəzidə ağır olan iki söz",
         when: "İstənilən vaxt",
-        translation: "Allah pakdır, həmd Ona məxsusdur. Böyük Allaha həmd olsun.",
       },
     ],
     appLinks: [{}],
@@ -414,18 +324,11 @@ export const LEARN_DUA_TOPICS_AZ: DeepPartial<LearnDuaTopic>[] = [
       "Peyğəmbərə salavat göndərmək Quranda Allah tərəfindən buyurulur: “Həqiqətən, Allah və Onun mələkləri Peyğəmbərə salavat göndərirlər; Ey iman gətirənlər, ona salavat və salam göndərin” – və başqa heç bir dua belə zəmanətli qaytarılmır: Peyğəmbər (sallallahu aleyhi və səlləm) buyurmuşdur ki, kim ona bir salavat göndərərsə, Allah ona on salavat göndərər.",
       "Tez-tez salavat oxumaq rəhmət gətirir, dərəcələri yüksəldir, günahları silir və insanı Qiyamət günü Peyğəmbərə (s) ən yaxınlaşdırır. Aşağıdakı tam İbrahim forması - səhabələrindən ona necə salavat göndəriləcəyini soruşduqda öyrətdiyi forma - hər duanın təşəhhüdlərində oxunur və gün ərzində dildə saxlamaq üçün əladır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Allah və Onun mələkləri Peyğəmbərə salavat göndərirlər. Ey iman gətirənlər, ona salavat və salam göndərin.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Tam Salavat İbrahimiyyə",
         when: "Namazın təşəhhüdündə və gün boyu",
-        translation:
-          "İlahi, İbrahimə və İbrahimin ailəsinə bərəkət verdiyin kimi, Muhəmməd və Muhəmmədin ailəsinə salavat göndər. Həqiqətən, Sən tərifəlayiqsən, izzətlisən! İlahi! Həqiqətən, Sən tərifəlayiqsən, izzətlisən!",
       },
     ],
     appLinks: [{}],

@@ -29,24 +29,52 @@ describe("ZikrRow", () => {
 
   it("shows the target count and category without progress", async () => {
     await renderRow({ categoryLabel: "Morning" });
-    expect(screen.getByLabelText("Bismillah")).toBeTruthy();
+    expect(screen.getByLabelText("Bismillah, Repeat ×3")).toBeTruthy();
     expect(screen.getByText("×3")).toBeTruthy();
     expect(screen.getByText("Morning")).toBeTruthy();
   });
 
-  it("omits badges when there is nothing to show", async () => {
+  it("treats a missing target as a single recitation", async () => {
     await renderRow({ item: buildZikrItem({ targetCount: 0, transliteration: "" }) });
     expect(screen.queryByText("×3")).toBeNull();
+    expect(screen.getByText("Once")).toBeTruthy();
   });
 
   it.each([
-    [false, "Favorite"],
-    [true, "Remove favorite"],
+    [false, "Save"],
+    [true, "Remove from saved"],
   ])("toggles favorite (isFavorite=%s)", async (isFavorite, label) => {
     const onToggleFavorite = jest.fn();
     await renderRow({ isFavorite, onToggleFavorite });
     await fireEvent.press(screen.getByLabelText(label));
     expect(onToggleFavorite).toHaveBeenCalledWith("morning-bismillah");
+  });
+
+  it("opens the detail from the info icon while the row itself opens the session", async () => {
+    const onInfo = jest.fn();
+    const onPress = await renderRow({ onInfo });
+    await fireEvent.press(screen.getByLabelText("Zikr details: Bismillah"));
+    expect(onInfo).toHaveBeenCalledWith("morning-bismillah");
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it("offers Play only when given and keeps it a sibling of the row (no nested buttons)", async () => {
+    const onPlay = jest.fn();
+    const onPress = await renderRow({ onPlay });
+    await fireEvent.press(screen.getByLabelText("Play recitation: Bismillah"));
+    expect(onPlay).toHaveBeenCalledWith("morning-bismillah");
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it("shows Pause while the row's recitation plays", async () => {
+    await renderRow({ onPlay: jest.fn(), playing: true });
+    expect(screen.getByLabelText("Pause recitation: Bismillah")).toBeTruthy();
+  });
+
+  it("puts Done at the trailing edge instead of the badge row", async () => {
+    await renderRow({ completed: true });
+    expect(screen.getByText("Done")).toBeTruthy();
+    expect(screen.queryByText("×3")).toBeNull();
   });
 
   describe("on TV", () => {
@@ -55,7 +83,7 @@ describe("ZikrRow", () => {
     it("puts the favorite beside the row", async () => {
       const onToggleFavorite = jest.fn();
       await renderRow({ onToggleFavorite, preferredFocus: true });
-      await fireEvent.press(screen.getByLabelText("Favorite"));
+      await fireEvent.press(screen.getByLabelText("Save"));
       expect(onToggleFavorite).toHaveBeenCalled();
     });
   });

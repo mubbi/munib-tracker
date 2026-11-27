@@ -88,38 +88,38 @@ export const PROPHETS_GENEALOGY_NODES_SW: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Shithi (Sethi)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Mapokeo ya kitamaduni ya Kiislamu (na muhtasari wa kawaida wa nasaba ya manabii kadhaa) yanamtaja Shithi kuwa mwana wa Adam na kiungo katika vizazi vya mwanzo. Majina ya kati baina ya Shithi na Nuh kwa kiasi kikubwa ni Isra'iliyyat na hayachorwi kama viungo thabiti.",
   },
   {
     name: "Idris",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Qur'ani inamtaja Idris kuwa nabii mkweli aliyeinuliwa daraja ya juu. Orodha za kitamaduni mara nyingi humweka kati ya Adam na Nuh (wakati mwingine akitambulishwa kuwa Henoko), lakini Qur'ani haimtaji baba yake — hakuna kiungo cha mzazi kinachochorwa.",
   },
   {
-    name: "Imran",
+    name: "Imrani",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Mwenyezi Mungu aliichagua familia ya Imrani juu ya walimwengu. Maryam ni binti wa Imrani. (Imrani huyu ni baba wa Maryam — hatumiwi hapa kama kiungo cha baba kwa Musa/Harun.)",
   },
   {
     name: "Adnan",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Mapokeo ya Kiislamu yanashikilia kwamba Muhammad ﷺ anatokana na Adnan, na kwamba Adnan anatokana na Ismail — lakini mapokeo ya nasaba ya Kiarabu yanakubaliana kwamba majina ya nasaba kutoka Adnan kurudi hadi Ismail yamepotea. Adnan anasimama kama kichwa cha kitamaduni kinachokubalika cha Waarabu wa Kiadnani; hakuna kiungo cha mzazi kuelekea Ismail kinachochorwa.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Hashim bin Abdu Manaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Hashim ndiye ambaye ukoo wa Bani Hashim umeitwa kwa jina lake, na ni babu wa kitamaduni wa Mtume ﷺ. Orodha kamili ya wakuu kutoka Adnan hadi Hashim (Fihr, Mudar, …) imeandikwa katika sira lakini imerukwa hapa kwa kuwa ni vizazi vya kati vya kikabila — si manabii. Hashim anaongoza mstari wa karibu wa Kihashimi katika ramani hii.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdul-Muttalib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Abdul-Muttalib (Shaybah) ni babu mzaa baba wa Mtume ﷺ na mwana wa Hashim katika sira ya kitamaduni.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdullah bin Abdul-Muttalib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Abdullah ni baba wa Mtume Muhammad ﷺ na mwana wa Abdul-Muttalib katika sira ya kitamaduni.",
   },
 ];

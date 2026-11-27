@@ -28,11 +28,24 @@ struct PrayerActivityRecord: Record {
   @Field var title: String = ""
   @Field var deepLink: String = ""
   @Field var isDark: Bool = false
-  @Field var primary: String = "#059669"
+  @Field var primary: String = "#2E7D32"
   @Field var background: String = "#F5F0E6"
-  @Field var cardBackground: String = "#FFFCF7"
+  @Field var cardBackground: String = "#FFFDF9"
   @Field var textPrimary: String = "#152921"
-  @Field var textSecondary: String = "#5C7268"
+  @Field var textSecondary: String = "#4A6157"
+  @Field var daySalah: [DaySalahRecord]? = nil
+  @Field var staleLabel: String? = nil
+  @Field var confirmationLabel: String? = nil
+  @Field var markedActionLabel: String? = nil
+  @Field var markedActionDeepLink: String? = nil
+  @Field var markedProgressLabel: String? = nil
+  @Field var markedProgressPercent: Double? = nil
+}
+
+/// One obligatory Salah in the Live Activity status row (`daySalah`).
+struct DaySalahRecord: Record {
+  @Field var id: String = ""
+  @Field var done: Bool = false
 }
 
 @available(iOS 16.2, *)
@@ -66,14 +79,56 @@ private extension PrayerActivityAttributes.ContentState {
       background: record.background,
       cardBackground: record.cardBackground,
       textPrimary: record.textPrimary,
-      textSecondary: record.textSecondary
+      textSecondary: record.textSecondary,
+      daySalah: record.daySalah?.map {
+        PrayerActivityAttributes.DaySalah(id: $0.id, done: $0.done)
+      },
+      staleLabel: record.staleLabel,
+      confirmationLabel: record.confirmationLabel,
+      markedActionLabel: record.markedActionLabel,
+      markedActionDeepLink: record.markedActionDeepLink,
+      markedProgressLabel: record.markedProgressLabel,
+      markedProgressPercent: record.markedProgressPercent
     )
+  }
+}
+
+/// Optimistic refresh for the Live Activity's Mark Salah button.
+///
+/// `MarkSalahLiveActivityIntent` (`targets/munib-tracker-widgets/_shared/`) is a
+/// `LiveActivityIntent`, so ActivityKit runs it in the app process — here — even
+/// when the app is suspended or not running. The intent queues the mark for JS,
+/// then calls this to flip the activity to its precomputed after-Salah state at
+/// once (`ContentState.markedState()`), instead of waiting for the app to open.
+/// The next JS sync (`syncLiveActivity`) replaces it with the authoritative state.
+@available(iOS 16.2, *)
+public enum PrayerLiveActivityMarkFeedback {
+  @MainActor
+  public static func applyMarked() async {
+    for running in Activity<PrayerActivityAttributes>.activities {
+      let current = running.content
+      guard let marked = current.state.markedState() else { continue }
+      await running.update(
+        ActivityContent(
+          state: marked,
+          staleDate: current.staleDate,
+          relevanceScore: current.relevanceScore
+        )
+      )
+    }
   }
 }
 
 /// Owns the single next-prayer Live Activity: start, refresh, and end. Also
 /// reconnects to an activity that outlived an app relaunch.
+///
+/// Main-actor isolated (D64): the Expo module calls arrive on the module queue and
+/// the ActivityKit observers run in `Task`s, so every read/write of the cached
+/// activity, the observer-task dictionaries and the JS callbacks is serialized on
+/// the main actor. Module code reaches it through `await` (async functions) or
+/// `MainActor.assumeIsolated` after a main-queue hop (listener hooks).
 @available(iOS 16.2, *)
+@MainActor
 final class PrayerActivityController {
   static let shared = PrayerActivityController()
 
@@ -94,11 +149,19 @@ final class PrayerActivityController {
     liveActivity != nil
   }
 
+  /// Synchronous `isRunning` for the JS `Function` (runs on the JS thread, where a
+  /// main-actor hop could deadlock). Reads only ActivityKit's own list, never the
+  /// main-actor cache: `activity` is always one of `activities` unless the system
+  /// already removed it, so the answer matches `isRunning`.
+  nonisolated static var hasRunningActivity: Bool {
+    !Activity<PrayerActivityAttributes>.activities.isEmpty
+  }
+
   func start(state: PrayerActivityAttributes.ContentState) -> String? {
     guard ActivityAuthorizationInfo().areActivitiesEnabled else { return nil }
     // Replace any stale activity so we never stack duplicates.
     if let running = liveActivity {
-      Task { await running.end(nil, dismissalPolicy: .immediate) }
+      Task { @MainActor in await running.end(nil, dismissalPolicy: .immediate) }
       activity = nil
     }
     let content = ActivityContent(state: state, staleDate: contentStaleDate(for: state))
@@ -156,7 +219,7 @@ final class PrayerActivityController {
   private func observe(_ observed: Activity<PrayerActivityAttributes>) {
     let activityId = observed.id
     if pushTokenTasks[activityId] == nil {
-      pushTokenTasks[activityId] = Task { [weak self] in
+      pushTokenTasks[activityId] = Task { @MainActor [weak self] in
         for await tokenData in observed.pushTokenUpdates {
           guard !Task.isCancelled else { return }
           let token = tokenData.map { String(format: "%02x", $0) }.joined()
@@ -171,7 +234,7 @@ final class PrayerActivityController {
     }
 
     if stateTasks[activityId] == nil {
-      stateTasks[activityId] = Task { [weak self] in
+      stateTasks[activityId] = Task { @MainActor [weak self] in
         for await state in observed.activityStateUpdates {
           guard !Task.isCancelled else { return }
           let value: String
@@ -207,14 +270,25 @@ public class MunibLiveActivityModule: Module {
     guard Self.observedEvents.contains(event) else { return }
     let wasIdle = listenedEvents.isEmpty
     listenedEvents.insert(event)
-    if wasIdle { startObservingActivities() }
+    if wasIdle { onMainActor { $0.startObservingActivities() } }
   }
 
   public override func didStopListening(event: String) {
     guard listenedEvents.remove(event) != nil, listenedEvents.isEmpty else { return }
-    stopObservingActivities()
+    onMainActor { $0.stopObservingActivities() }
   }
 
+  /// Hop to the main actor for controller access from the synchronous listener
+  /// hooks. `DispatchQueue.main.async` keeps start/stop in call order (FIFO), which
+  /// an unstructured `Task { @MainActor in }` does not guarantee.
+  private func onMainActor(_ work: @escaping @MainActor (MunibLiveActivityModule) -> Void) {
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      MainActor.assumeIsolated { work(self) }
+    }
+  }
+
+  @MainActor
   private func startObservingActivities() {
     if #available(iOS 16.2, *) {
       let controller = PrayerActivityController.shared
@@ -235,6 +309,7 @@ public class MunibLiveActivityModule: Module {
     }
   }
 
+  @MainActor
   private func stopObservingActivities() {
     if #available(iOS 16.2, *) {
       PrayerActivityController.shared.onPushToken = nil
@@ -255,7 +330,7 @@ public class MunibLiveActivityModule: Module {
 
     Function("isRunning") { () -> Bool in
       if #available(iOS 16.2, *) {
-        return PrayerActivityController.shared.isRunning
+        return PrayerActivityController.hasRunningActivity
       }
       return false
     }
@@ -263,7 +338,7 @@ public class MunibLiveActivityModule: Module {
     AsyncFunction("start") { (record: PrayerActivityRecord) -> String? in
       if #available(iOS 16.2, *) {
         let state = PrayerActivityAttributes.ContentState(record: record)
-        return PrayerActivityController.shared.start(state: state)
+        return await MainActor.run { PrayerActivityController.shared.start(state: state) }
       }
       return nil
     }

@@ -1,7 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
+import { RetryCard } from "@/components/ui/retry-card";
 import { Sheet } from "@/components/ui/sheet";
+import { Skeleton, SkeletonGroup } from "@/components/ui/skeleton";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -16,7 +18,10 @@ type TafsirAyahSheetProps = {
   text: string | null | undefined;
   direction: "ltr" | "rtl";
   loading: boolean;
+  /** The tafsir download failed (offline or a CDN error) and nothing is cached. */
   offline: boolean;
+  /** Re-runs the tafsir download — shown as "Try again" on a failed load (C-02). */
+  onRetry?: () => void;
 };
 
 export function TafsirAyahSheet({
@@ -30,6 +35,7 @@ export function TafsirAyahSheet({
   direction,
   loading,
   offline,
+  onRetry,
 }: TafsirAyahSheetProps) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
@@ -37,9 +43,15 @@ export function TafsirAyahSheet({
   const empty = !loading && !offline && trimmed.length === 0;
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      scrollable={false}
+      solid
+      title={t("quran.tafsir")}
+    >
       <View style={styles.header}>
-        <ThemedText type="subtitle">{t("quran.tafsir")}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quran.ayahRef", { surah, ayah })}
         </ThemedText>
@@ -59,16 +71,20 @@ export function TafsirAyahSheet({
         showsVerticalScrollIndicator
       >
         {loading ? (
-          <View style={styles.center}>
-            <ActivityIndicator size="small" color={colors.accent} />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("quran.tafsirLoading")}
-            </ThemedText>
-          </View>
+          <SkeletonGroup accessibilityLabel={t("quran.tafsirLoading")} style={styles.skeleton}>
+            <Skeleton height={14} />
+            <Skeleton height={14} />
+            <Skeleton height={14} width="85%" />
+            <Skeleton height={14} width="60%" />
+          </SkeletonGroup>
         ) : offline ? (
-          <ThemedText type="default" themeColor="mutedForeground" style={styles.message}>
-            {t("quran.tafsirOffline")}
-          </ThemedText>
+          onRetry ? (
+            <RetryCard message={t("quran.tafsirOffline")} offline onRetry={onRetry} />
+          ) : (
+            <ThemedText type="default" themeColor="mutedForeground" style={styles.message}>
+              {t("quran.tafsirOffline")}
+            </ThemedText>
+          )
         ) : empty ? (
           <ThemedText type="default" themeColor="mutedForeground" style={styles.message}>
             {t("quran.tafsirEmpty")}
@@ -101,10 +117,9 @@ const styles = StyleSheet.create({
   bodyContent: {
     paddingBottom: Spacing.four,
   },
-  center: {
-    alignItems: "center",
+  skeleton: {
     gap: Spacing.two,
-    paddingVertical: Spacing.six,
+    paddingVertical: Spacing.four,
   },
   message: {
     lineHeight: 22,

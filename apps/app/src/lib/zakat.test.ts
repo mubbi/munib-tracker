@@ -1,4 +1,7 @@
+import { MADHHAB_RULES } from "@munib-tracker/shared/fiqh";
+
 import {
+  basisMetalFor,
   camelZakatDue,
   cattleZakatDue,
   computeAgricultureDue,
@@ -9,6 +12,7 @@ import {
   livestockCashEstimate,
   lowerNisab,
   metalValue,
+  nisabFor,
   nisabFromGoldPrice,
   nisabFromSilverPrice,
   pricePerUnitFromGramPrice,
@@ -16,6 +20,8 @@ import {
   silverFineGrams,
   silverValueFromWeight,
   toGrams,
+  type ZakatFiqhOptions,
+  zakatCombineFor,
 } from "@/lib/zakat";
 
 describe("computeZakat", () => {
@@ -205,5 +211,141 @@ describe("agriculture and nisab helpers", () => {
   it("defaults the purity ratio to fine metal", () => {
     expect(pricePerUnitFromGramPrice(10, "gram")).toBe(10);
     expect(pricePerUnitFromGramPrice(-10, "gram")).toBe(0);
+  });
+});
+
+describe("nisabFor (NF-3.0a)", () => {
+  it.each([
+    ["lower", 8000, 600, 600],
+    ["lower", 500, 600, 500],
+    ["gold", 8000, 600, 8000],
+    ["silver", 8000, 600, 600],
+    ["gold", 0, 600, 600],
+    ["silver", 8000, 0, 8000],
+    ["lower", 0, 0, 0],
+    ["gold", 0, 0, 0],
+  ] as const)("%s basis with gold %p / silver %p → %p", (basis, gold, silver, expected) => {
+    expect(nisabFor(basis, gold, silver)).toBe(expected);
+  });
+
+  it("measures cash as the metal of the basis", () => {
+    expect(basisMetalFor("gold", 8000, 600)).toBe("gold");
+    expect(basisMetalFor("silver", 8000, 600)).toBe("silver");
+    expect(basisMetalFor("lower", 8000, 600)).toBe("silver");
+    expect(basisMetalFor("lower", 500, 600)).toBe("gold");
+    expect(basisMetalFor("lower", 8000, 0)).toBe("gold");
+  });
+
+  it("maps each school's zakat rules to a combining method", () => {
+    expect(zakatCombineFor(MADHHAB_RULES.hanafi.zakat)).toBe("value");
+    expect(zakatCombineFor(MADHHAB_RULES.shafii.zakat)).toBe("separate");
+    expect(zakatCombineFor(MADHHAB_RULES.maliki.zakat)).toBe("parts");
+    expect(zakatCombineFor(MADHHAB_RULES.hanbali.zakat)).toBe("parts");
+    expect(zakatCombineFor(null)).toBe("value");
+  });
+});
+
+describe("computeZakat with school rules (NF-3.0a)", () => {
+  const GOLD_NISAB = 8000;
+  const SILVER_NISAB = 600;
+  const optionsFor = (school: keyof typeof MADHHAB_RULES): ZakatFiqhOptions => {
+    const z = MADHHAB_RULES[school].zakat;
+    return {
+      combine: zakatCombineFor(z),
+      basis: z.nisabBasis,
+      goldNisab: GOLD_NISAB,
+      silverNisab: SILVER_NISAB,
+      includePersonalJewellery: z.personalJewelleryZakatable,
+    };
+  };
+  const nisabOf = (o: ZakatFiqhOptions) => nisabFor(o.basis, o.goldNisab, o.silverNisab);
+
+  it("Hanafi: lower nisab, jewellery counted, everything pooled by value", () => {
+    const o = optionsFor("hanafi");
+    const r = computeZakat({ cash: 400, personalJewellery: 400 }, nisabOf(o), undefined, o);
+    expect(nisabOf(o)).toBe(SILVER_NISAB);
+    expect(r.netWealth).toBe(800);
+    expect(r.meetsNisab).toBe(true);
+    expect(r.wealthDue).toBe(20);
+    expect(r.assessment).toMatchObject({ combine: "value", jewelleryCounted: true });
+  });
+
+  it("Shafi'i: gold basis, jewellery excluded, metals not combined", () => {
+    const o = optionsFor("shafii");
+    expect(o.basis).toBe("gold");
+    expect(MADHHAB_RULES.shafii.zakat.nisabBasisContested).toBe(true);
+    // Silver 500 < 600 and gold 7000 < 8000: neither alone reaches its nisab.
+    const r = computeZakat(
+      { gold: 7000, silver: 500, personalJewellery: 5000 },
+      nisabOf(o),
+      undefined,
+      o,
+    );
+    expect(r.netWealth).toBe(7500);
+    expect(r.meetsNisab).toBe(false);
+    expect(r.wealthDue).toBe(0);
+    expect(r.assessment?.jewelleryCounted).toBe(false);
+    expect(r.assessment?.jewelleryValue).toBe(5000);
+  });
+
+  it("Shafi'i: cash pools with gold; silver reaching its own nisab is due on its own", () => {
+    const o = optionsFor("shafii");
+    const r = computeZakat({ cash: 1000, gold: 7000, silver: 700 }, nisabOf(o), undefined, o);
+    expect(r.assessment?.pools).toEqual([
+      { pool: "basis", value: 8000, nisab: 8000, meets: true, due: 200 },
+      { pool: "silver", value: 700, nisab: 600, meets: true, due: 17.5 },
+    ]);
+    expect(r.wealthDue).toBe(217.5);
+  });
+
+  it("separate: deductions come off cash, then the basis metal, then the other metal", () => {
+    const o = optionsFor("shafii");
+    const r = computeZakat(
+      { cash: 100, gold: 8500, silver: 700, debts: 600 },
+      nisabOf(o),
+      undefined,
+      o,
+    );
+    expect(r.assessment?.pools.map((p) => [p.pool, p.value])).toEqual([
+      ["basis", 8000],
+      ["silver", 700],
+    ]);
+    const bigDebt = computeZakat({ gold: 100, silver: 700, debts: 300 }, nisabOf(o), undefined, o);
+    expect(bigDebt.assessment?.pools.map((p) => p.value)).toEqual([0, 500]);
+  });
+
+  it("Maliki / Hanbali: combined by parts of each nisab, jewellery excluded", () => {
+    for (const school of ["maliki", "hanbali"] as const) {
+      const o = optionsFor(school);
+      // ½ gold nisab + ½ silver nisab = one full nisab.
+      const r = computeZakat(
+        { gold: 4000, silver: 300, personalJewellery: 9000 },
+        nisabOf(o),
+        undefined,
+        o,
+      );
+      expect(r.assessment?.nisabShare).toBeCloseTo(1);
+      expect(r.meetsNisab).toBe(true);
+      expect(r.wealthDue).toBe(107.5);
+      const short = computeZakat({ gold: 3000, silver: 300 }, nisabOf(o), undefined, o);
+      expect(short.meetsNisab).toBe(false);
+    }
+  });
+
+  it("parts and value differ on the same holdings", () => {
+    const base = { goldNisab: GOLD_NISAB, silverNisab: SILVER_NISAB, basis: "gold" as const };
+    // 700 gold is a small share of the gold nisab; by value it beats the silver nisab.
+    const assets = { gold: 700 };
+    expect(computeZakat(assets, 600, undefined, { ...base, combine: "value" }).meetsNisab).toBe(
+      true,
+    );
+    expect(
+      computeZakat(assets, GOLD_NISAB, undefined, { ...base, combine: "parts" }).meetsNisab,
+    ).toBe(false);
+  });
+
+  it("without fiqh options pools personal jewellery like before", () => {
+    expect(computeZakat({ personalJewellery: 1000 }, 500).wealthDue).toBe(25);
+    expect(computeZakat({ personalJewellery: 1000 }, 500).assessment).toBeUndefined();
   });
 });

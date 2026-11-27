@@ -13,8 +13,8 @@ export type AccountTypeFilter = (typeof ACCOUNT_TYPES)[number];
 export const DATE_PRESETS = ["7d", "30d", "90d", "365d", "custom"] as const;
 export type DatePreset = (typeof DATE_PRESETS)[number];
 
-/** Ratings accepted by the low-star feedback API (1–3) plus display-range completeness. */
-export const APP_FEEDBACK_RATINGS = [1, 2, 3] as const;
+/** Ratings accepted by the app-feedback API (1–5, Settings → Send feedback). */
+export const APP_FEEDBACK_RATINGS = [1, 2, 3, 4, 5] as const;
 
 /** Matches `@munib-tracker/shared/reviews` APP_FEEDBACK_TRIGGER_IDS. */
 export const APP_FEEDBACK_TRIGGERS = [

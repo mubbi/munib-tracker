@@ -10,6 +10,7 @@ import {
   resolveAppLink,
 } from "@/lib/app-links";
 import { QUICK_ACTION_ROUTES } from "@/lib/quick-actions";
+import { SETTINGS_ROUTE_PATHS } from "@/lib/settings/routes";
 
 describe("normalizeAppPath", () => {
   it("adds a leading slash and strips trailing slashes", () => {
@@ -82,7 +83,6 @@ describe("appLink builders", () => {
   it("builds special action bridges", () => {
     expect(appLink.markCurrent().path).toBe("/mark-current");
     expect(appLink.openReview().path).toBe("/open-review");
-    expect(appLink.openReview("manual").path).toBe("/open-review?triggerId=manual");
   });
 });
 
@@ -92,6 +92,28 @@ describe("DEEP_LINK_PATHS catalog", () => {
       .map((route) => normalizeAppPath(String(route)))
       .filter((path) => !DEEP_LINK_PATHS.includes(path));
     expect(missing).toEqual([]);
+  });
+
+  it("includes every wave-3 hub and its sub-screens", () => {
+    expect(DEEP_LINK_PATHS).toEqual(
+      expect.arrayContaining([
+        "/debts",
+        "/wasiyyah",
+        "/wasiyyah/edit",
+        "/fasting",
+        "/habits",
+        "/muhasabah",
+        "/family-ties",
+        "/rawatib",
+        "/dhul-hijjah",
+        "/dhul-hijjah/udhiyah",
+        "/quran/notes",
+      ]),
+    );
+  });
+
+  it("builds a madhhab difference link", () => {
+    expect(appLink.fiqhDifference("witr-status").path).toBe("/fiqh/witr-status");
   });
 
   it("includes special action bridges", () => {
@@ -155,6 +177,11 @@ describe("every static appLink builder", () => {
     "calendarDate",
     "tour",
     "openReview",
+    "settingsGroup",
+    "setting",
+    "fiqhDifference",
+    "circleJoin",
+    "kidsLink",
   ]);
   const staticBuilders = Object.entries(appLink).filter(([name]) => !PARAMETERISED.has(name));
 
@@ -162,6 +189,14 @@ describe("every static appLink builder", () => {
     const urls = (build as () => ReturnType<typeof resolveAppLink>)();
     expect(DEEP_LINK_PATHS).toContain(urls.path);
     expect(urls).toEqual(resolveAppLink(urls.path));
+  });
+});
+
+describe("circle deep links (NF-3.16, D36)", () => {
+  it("builds the invite and child-device links", () => {
+    expect(appLink.circleJoin("abcde-fgh23").path).toBe("/circle/join/ABCDEFGH23");
+    expect(appLink.circleJoin("ABCDEFGH23").httpsUrl).toMatch(/\/circle\/join\/ABCDEFGH23$/);
+    expect(appLink.kidsLink("mtl_abc").path).toBe("/kids/link?token=mtl_abc");
   });
 });
 
@@ -229,5 +264,31 @@ describe("APP_HTTPS_ORIGIN", () => {
       const mod = require("@/lib/app-links") as typeof import("@/lib/app-links");
       expect(mod.APP_HTTPS_ORIGIN).toBe("https://my.munibtracker.app");
     });
+  });
+});
+
+describe("settings deep links (NF-3.0b, B7)", () => {
+  it("advertises every settings route from the registry routes", () => {
+    for (const path of SETTINGS_ROUTE_PATHS) expect(DEEP_LINK_PATHS).toContain(path);
+  });
+
+  it("includes the routes B7 found missing", () => {
+    for (const path of [
+      "/settings/time-format",
+      "/settings/default-calendar",
+      "/settings/bedtime",
+      "/settings/weather",
+      "/settings/import",
+      "/settings/my-reports",
+    ]) {
+      expect(DEEP_LINK_PATHS).toContain(path);
+    }
+  });
+
+  it("builds group and focused-setting links", () => {
+    expect(appLink.settingsGroup("quran").path).toBe("/settings/quran");
+    expect(appLink.setting("language.timeFormat").path).toBe(
+      "/settings/language?focus=language.timeFormat",
+    );
   });
 });

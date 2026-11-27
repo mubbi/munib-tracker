@@ -26,20 +26,7 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Sünni inancının mərkəzi bir rahatlıq nöqtəsi bütün bu moduldan keçir: tək Allaha iman gətirərək ölənlər, günah yükü altında olsalar belə, əbədi olaraq Cəhənnəmdə qalmayacaqlar. Günahkar möminlər Allahın rəhməti və icazə verdiyi şəfaətlə nəticədə çıxarılır; yalnız imanı inkar edərək ölənlər qalır. Beləliklə, Cahannamın öyrənilməsi mömin üçün son nəticədə mərhəmətə necə çatmağın öyrənilməsidir.",
       "Bu modul mətnlərin açıq-aydın ifadə etdiklərini təqdim edir, alimlərin ixtilaf etdikləri yerləri səmimi şəkildə qeyd edir, yalnız mötəbər dəlillərə istinad edir və sizi ardıcıl olaraq tövbəyə, yaxşı əməllərə və Allaha təvəkkülə yönəldir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kafirlər üçün hazırlanmış oddan qorxun, Allaha və Peyğəmbərə itaət edin ki, bəlkə rəhm olunasınız.",
-      },
-      {
-        excerpt:
-          "De: “Ey Mənim özlərinə zülm edən qullarım, Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar.",
-      },
-      {
-        excerpt:
-          "Ey iman gətirənlər, Allaha səmimi tövbə ilə tövbə edin ki, Rəbbiniz günahlarınızı sizdən sovuşdurub Cənnət bağlarına daxil etsin.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -47,30 +34,13 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
     summary: "İlahi ədalət, məsuliyyət və azad seçimin nəticələri.",
     body: [
       "Cəhənnəm Allahın kamil ədalətinin (ədl) təcəllisi olaraq mövcuddur. Zalımla məzlumun, ixlaslı ilə xainin eyni sonla qarşılaşdığı bir kainat ədalətli olmazdı. Allah ədalətli olduğu üçün hər bir səhvə cavab verildiyi və hər bir yaxşılığa layiq görüldüyü bir son haqq-hesab olmalıdır.",
-      "Əsas odur ki, Allah heç kəsə zülm etməz. Cəhənnəmə daxil olan hər bir nəfs ona öz qərarlı, tövbə etməmiş seçimləri ilə daxil olur - heç vaxt özbaşına bir hökmlə deyil. Quranda vurğulanır: “Allah insanlara əsla zülm etməz, lakin insanlar özlərinə zülm edərlər” (4:40). Heç kim nə etmədiyinə görə, nə də layiq olduğundan artıq cəzalandırılmır.",
+      "Əsas odur ki, Allah heç kəsə zülm etməz. Cəhənnəmə daxil olan hər bir nəfs ona öz qərarlı, tövbə etməmiş seçimləri ilə daxil olur - heç vaxt özbaşına bir hökmlə deyil. Quranda vurğulanır: “Allah insanlara əsla zülm etməz, lakin insanlar özlərinə zülm edərlər” (10:44). Heç kim nə etmədiyinə görə, nə də layiq olduğundan artıq cəzalandırılmır.",
       "İnsan qaranlıqda qalmadı. Allah onlara ağıl verdi, elçilər göndərdi, açıq-aydın hidayət nazil etdi, sonra onu qəbul etmək və ya rədd etməkdə onlara həqiqi hürriyyət verdi: “Kim istəyirsə, iman gətirsin. Kim istəsə, kafir olsun!” (18:29). Tövbə etmədən haqqı inkar etməkdə, zülm etməkdə və ya böyük günahda israr etmək, axirətdə nəticələrinə səbəb olur, çünki seçim həqiqətən insanın öz ixtiyarındadır.",
       "Hələ burada da mərhəmət ədaləti çərçivəyə salır. Allah mühakimə etməzdən əvvəl xəbərdar edir, hesabı geri qaytarmaq üçün gecikdirir, istənildikdə bağışlayar və tək bir günahı bir kimi yazarkən, bir yaxşılığı dəfələrlə çox mükafatlandırar. Onun ədaləti heç vaxt mərhəmətindən ayrı deyil.",
       "Cəhənnəmin niyə mövcud olduğu üzərində düşünmək, təqvanı (Allah şüurunu) artırmalı və həyatın hələ də tövbə etmək şansı olan hər günü üçün şükürü dərinləşdirməlidir. Ürəyi bir anda ciddi və ümidli etmək üçün nəzərdə tutulub - heç vaxt onu ümidsizliklə iflic etməmək.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Allah insanlara əsla zülm etməz, lakin insanlar özlərinə zülm edərlər.",
-      },
-      {
-        excerpt: "O, etdiyi əməllərdən sorğu-sual olunmaz, lakin onlar sorğu-sual olunacaqlar.",
-      },
-      {
-        excerpt:
-          "Kim istəsə, iman gətirsin. Kim istəsə, kafir olsun. Biz zalımlar üçün od hazırlamışıq.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizlərdən heç biriniz tək öz əməli ilə Cənnətə daxil olmaz. Dedilər: Sən də deyilsən, ya Rəsulallah? O dedi: “Allah məni Öz rəhmətinə bürümədikcə, mən də.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -82,16 +52,7 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bütün yolu görmək Atəşi də yenidən əhatə edir. Bu, hər bir ruhun artıq səyahət etdiyi bir səyahətin sonunda mümkün bir yerdir - bu o deməkdir ki, bu günün seçimləri mücərrəd deyil. Onlar o yolun addımlarıdır və hələ də istiqamətləndirmək bizimdir.",
       "Bu ardıcıllığı bilmək möminə qorxudan daha çox hazırlaşmağa kömək edir: ölümü sağlam zikr etməklə (zikrül-mövt) yaşamaq, məclisə daşınmazdan əvvəl səhvləri düzəltmək və əməlin qapısı hələ açıq ikən yaxşılıqların hesabını doldurmaq. Ölüm o qapını bağlayır; ondan sonra heç nə əlavə etmək olmaz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, bundan sonra siz öləcəksiniz. Sonra siz Qiyamət günü dirildiləcəksiniz.",
-      },
-      {
-        excerpt:
-          "Kimin tərəzisi ağır olarsa, o, xoş həyatda olar. Tərəzisi yüngül olanın sığınacağı yer uçurum olacaqdır.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Aqeedah öyrənməyin hər bir mərhələsini öyrənin və imanı gündəlik seçimlərlə əlaqələndirin.",
       "Rəhmət ümidini əsirgəmədən ölümü (zikrül-məvti) zikr et.",
@@ -109,14 +70,7 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       'It is worth a word of caution here. Bəzi sonrakı yazıçılar hər bir adı Cəhənnəmin fərqli, sıralanmış "səviyyəsi" kimi təqdim edirlər, bəzən ətraflı diaqramlarla. Bu, Quranda və ya razılaşdırılmış hədislərdə qeyd olunan açıq bir yoxlama siyahısı deyil, elmi şərhdir. Balanslaşdırılmış yanaşma mətnlərin əslində verdiyi mənaları öyrənmək və spekulyativ xəritələri əminlik kimi təqdim etməkdən çəkinməkdir.',
       "Adları öyrənməkdə məqsəd marağı təmin etmək deyil, ürəyi yumşaltmaq və onu bu modulun işarə etdiyi mərhəmətə doğru hərəkət etdirməkdir. Hər bir adın Qur'an hadisəsi, konteksti və təfsir xülasəsi üçün tam adlar toplusuna baxın.",
     ],
-    quran: [
-      {
-        excerpt: "Cəhənnəm istirahət yeri olaraq kifayətdir - Cəhənnəm.",
-      },
-      {
-        excerpt: "O, Hutəmə - sarsıdıcı atəşə atılacaqdır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -129,21 +83,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Ancaq iki şey əmindir. Birincisi, o zülm (zülm), şirk və tövbə etmədən davam edən böyük günah ciddi xəbərdarlıqdır. İkincisi – və heç vaxt unudulmamalıdır ki, Allahın hüzuruna səmimiyyətlə qayıdan hər kəs üçün ölüm anına qədər Allahın rəhməti və bağışlaması açıqdır. Dərəcələr haqqında öyrənməyin məqsədi seçim qalarkən daha yüngül yolu seçməkdir.",
       "Praktiki olaraq bu, “yeddi səviyyə” və ya oxşar sxemlərin təfərrüatlı siyahılarını sabit doktrina deyil, elmi rəy kimi nəzərdən keçirmək və əslində qoruyan şeylərə diqqət yetirmək deməkdir: iman, tövbə və saleh əməllər.",
     ],
-    quran: [
-      {
-        excerpt: "Hər kəsin etdiklərinə görə dərəcələri vardır.",
-      },
-      {
-        excerpt:
-          "Həqiqətən, münafiqlər cəhənnəm odunun ən aşağı qatında olacaqlar və sən onlara heç vaxt köməkçi tapa bilməzsən.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cəhənnəm əhlinin ən az cəzası ayaqlarının altına iki köz qoyulmuş, beyni qaynayan adamdır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Bəzi kitablarda tapılan Cəhənnəm səviyyələrinin diaqramları yekdil razılığı deyil, elmi şərhi əks etdirir.",
   },
@@ -156,12 +97,7 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Əminliyin harada bitdiyini qeyd etmək vacibdir. Bəzi sonrakı əsərlər hər bir xüsusi qapını müəyyən bir günaha və ya qrupa təyin edir. Bu xüsusi tapşırıqlar ilkin mənbələrdə vahid şəkildə təsbit edilməmişdir, ona görə də onlar ən yaxşı şəkildə peyğəmbərlik kimi deyil, ayrı-ayrı alimlərin fikirləri kimi təqdim olunur.",
       "Səviyyələrdə olduğu kimi, darvazaların dərsi memarlıq deyil, əxlaqdır: Cəhənnəmə aparan çoxlu qapılar var və onların hamısından qorunmağın yolu eynidir - səmimi iman, böyük günahdan çəkinmək və sürüşəndə ​​tez tövbə etmək.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Cəhənnəm onların hamısı üçün vəd edilmiş yerdir. Onun yeddi qapısı var; Hər bir qapı üçün bir hissə var.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -175,24 +111,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Belə hissələri oxumağın bir etiketi (ədəb) var. Onlara təvazökarlıqla, Allah qorxusu ilə və dərhal tövbə edib sığınmaq üçün bir təkanla yanaşırlar - nə xəstə bir məftunluqla, nə də heç vaxt ümidsizliklə, çünki xəbərdarlığın bütün məqsədi ondan qaçmaq üçün hələ vaxtımızın olmasıdır.",
       "Bu təsvirlərdə bəlkə də ən ağır mövzu peşmançılıqdır. Fəaliyyət vaxtı artıq bağlandıqda 'Kaş ki...' deyiləcək. İndi bu peşmançılığı eşitməyin mərhəməti odur ki, biz bu gün \"əgər\" hərəkət edə bilərik, halbuki o hələ də sonumuzu dəyişə bilər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Onun önündə Cəhənnəm vardır və ona murdar su içiriləcəkdir. O, udacaq, amma çətinliklə udacaq.",
-      },
-      {
-        excerpt: "Onlar üçün oddan paltarlar kəsiləcək və başlarına qaynar su töküləcək.",
-      },
-      {
-        excerpt: "O gün Cəhənnəm dirildiləcək, o gün insan xatırlayacaq.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sənin atəşin cəhənnəm odunun yetmiş hissəsinin bir hissəsidir. Dedilər: Ya Rəsulullah, bu atəş kifayət edərdi. Buyurdu: Ona altmış doqquz hissənin gücü ondan daha çox verilmişdir, hər bir hissəsi onun istisi kimidir.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -204,19 +124,7 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bu səbəbdən, İslam dini, Allah və ya Rəsulunun səhih vəhydə açıq şəkildə bildirdiyi nadir hallar istisna olmaqla, hər hansı bir konkret şəxsin son taleyini bəyan etməyə – “bu adam cəhənnəmdədir” deməyimizə icazə vermir. Qəlbləri və sonları hökm etmək ancaq Allaha məxsusdur. bizim vəzifəmiz öz hesabımızdır.",
       "Beləliklə, hər xəbərdarlığı oxumağın düzgün yolu onu içəri çevirməkdir: 'bu kimi təsvir edir?' lakin 'bunlardan hər hansı biri məni təsvir edirmi və mən bu gün nəyi dəyişəcəyəm?' Kim olursan ol, Allaha qayıtmaq dəvəti indi açıqdır və sabah heç kimə vəd edilməmişdir.",
     ],
-    quran: [
-      {
-        excerpt: "Münafiqlər Cəhənnəmin ən aşağı qatında olacaqlar.",
-      },
-      {
-        excerpt:
-          "Kim günah qazanarsa və ona qərq olarsa, onlar əbədi qalacaqları Cəhənnəm əhlidirlər.",
-      },
-      {
-        excerpt:
-          "Allahın zalımların etdiklərindən xəbərsiz olduğunu sanma. O, onları ancaq gözlərin baxacağı günə qədər gecikdirir.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -229,26 +137,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Və bütün bunların üzərində üfüq budur: şirk üstündə ölmək istisna olmaqla, böyük və ya kiçik hər bir günah, istəsə, Allahın bağışlanması altına düşür. “Həqiqətən, Allah Ona şərik qoşmağı bağışlamaz, lakin ondan daha az günahı istədiyi kimsə üçün bağışlayar” (4:48). Heç bir mömin, böyük günahlarının onları mərhəmətdən üstün tutduğu qənaətinə gəlməməlidir.",
       "Bu moduldakı hər bir böyük günah mövzusu öz tərifini, sübutunu, nə üçün ağır olduğunu və tövbə və qaçmağın konkret yolunu verir - həmişə eyni açıq qapıda bitir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Əgər sizə qadağan olunmuş böyük günahlardan çəkinsəniz, kiçik günahlarınızı sizdən uzaqlaşdırar və sizi uca bir girişə daxil edərik.",
-      },
-      {
-        excerpt:
-          "Həqiqətən, Allah Özünə şərik qoşmağı bağışlamaz, lakin ondan daha az günahı istədiyi kimsə üçün bağışlayar.",
-      },
-      {
-        excerpt:
-          "O kəslər ki, böyük günahlardan və çirkin işlərdən çəkinər, ancaq kiçik günahlardan çəkinərlər. Həqiqətən, sənin Rəbbinin bağışlaması genişdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Böyük günahların ən böyüyü: Allaha şərik qoşmaq, can öldürmək, ata-anaya asi olmaq, yalandan şahidlik etməkdir.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -260,20 +150,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bu günahları bu qədər təhlükəli edən məhz onların nə qədər asan və adi olmasıdır. İnsanlar heç fikirləşmədən adi söhbətlərdə onların içinə girirlər, buna görə də Peyğəmbər (sallallahu aleyhi və səlləm) imanı qoruyan sözə bağladı: “Kim Allaha və axirət gününə inanırsa, ya yaxşı danışsın, ya da sussun”. Danışmazdan əvvəl sadə bir pauza əsl ibadətdir.",
       "Dilin günahından tövbə etmək adi şərtlərə uyğundur - dayanmaq, peşman olmaq, geri qayıtmamaq qərarına gəlmək - başqa bir insanın haqqına əlavə bir ölçü ilə. Onların adlarını təmizləmək və ya onlardan əfv istəmək daha böyük zərər vermədən həyata keçirilə bilərsə, bu, tövbənin bir hissəsidir; Onları xəbərdar etmək yalnız zərəri daha da artıracaqsa, alimlər onlar haqqında yaxşı danışmağı, onların yoxluğunda onları müdafiə etməyi və onların bağışlanması üçün dua etməyi məsləhət görürlər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bir-birinizin qeybətini etməyin. Sizlərdən biriniz ölmüş qardaşının ətini yemək istəyərmi?",
-      },
-      {
-        excerpt: "Vay halına hər istehza edən və istehza edən!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim Allaha və axirət gününə inanırsa, ya xeyir danışsın, ya da sussun.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Danışmazdan əvvəl soruşun: doğrudurmu? Lazımdırmı? Bu mehribandır?",
       "Əgər kiminsə qeybətini etsəniz, onun üçün dua edin və imkan daxilində ondan bağışlanma diləyin.",
@@ -289,20 +167,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bu, tövbə ilə bağlı mühüm bir dərs verir: Allaha üz tutmaq lazımdır, lakin insan hüququ pozulduqda, bu, öz-özünə kifayət etmir. Zülmə məruz qalan şəxsin iddiası həll olunana və ya bağışlanana qədər qalır. Beləliklə, burada tövbənin dayandırmaq, peşman olmaq və həll etməkdən başqa dördüncü şərti var - borcunu qaytarmaq.",
       "Praktikada bu, alınanı və ya onun dəyərini geri vermək, borcları hətta tədricən ödəmək, zədələnmiş reputasiyanı bərpa etmək və kəsilmiş qohumlarla barışmaq üçün əl uzatmaq deməkdir. Bunda da bir mərhəmət var: əvəzin hər bir addımının özü bir xeyirdir və Allah sındırdığını düzəltmək üçün yola çıxan səmimi qəlbi asanlaşdırır.",
     ],
-    quran: [
-      {
-        excerpt: "Əgər ribadan əl çəkməsəniz, Allahdan və Onun Elçisindən müharibə xəbərini alın.",
-      },
-      {
-        excerpt: "Allahın əhd-peymanını pozanlar və Onun əmr etdiyini kəsənlər birləşdilər.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Müflis olanın kim olduğunu bilirsinizmi? O kəs ki, namaz, oruc və zəkatla gəlib, amma təhqir edib, böhtan atıb, haram mal yeyib, qan töksə, onun yaxşı əməlləri başqalarına verilir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Haqsızlıq etdiyiniz hər kəsi siyahıya alın və bu həftə təmirə doğru addım atın.",
       "Ödəməmiş borcları hətta kiçik hissələrlə ödəyin, əgər idarə edə bilərsiniz.",
@@ -318,21 +184,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bu fərq bizim mövzudan necə istifadə etdiyimiz üçün çox vacibdir. Davranış əlamətləri başqalarına yapışdırmaq üçün etiket kimi deyil, özünə güzgü kimi verilir. Həzrət Peyğəmbər (s) və onun səhabələri özlərində ikiüzlülükdən qorxurdular, çünki qəlb gizlidir və dəyişə bilir.",
       "Deməli, sağlam cavab batinidir: öz dürüstlüyünü, vədə vəfasını, etibarını yoxlamaq və Allahdan ixlas istəmək. İnsanın içində olanları ancaq Allah bilir və müəyyən şəxsləri nifaqla ittiham etmək onlara qarşı böyük bir günahdır.",
     ],
-    quran: [
-      {
-        excerpt: "Münafiqlər Cəhənnəmin ən aşağı qatında olacaqlar.",
-      },
-      {
-        excerpt:
-          "Münafiqlər sənin yanına gəldikləri zaman: “Şəhadət veririk ki, sən Allahın elçisisən, Allah onların yalançı olduqlarını bilir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Münafiqin əlaməti üçdür: danışanda yalan danışar, söz verdikdə vəfa edər, əmanət veriləndə xəyanət edər.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Şəxsləri nifaqda ittiham etməyin. Mətnlər cəmiyyəti xəbərdar edir; təmizlənmə özündən başlayır.",
   },
@@ -345,15 +198,7 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Möminin bütün bunlarla necə məşğul olduğu önəmlidir. Məqsəd heç vaxt qrafik detallar üzərində dayanmaq və ya ürəyin batmasına imkan vermək deyil; bu, xəbərdarlığı qəbul etmək, tətbiq olunan hər şeydən tövbə etmək və sonra enerjini həqiqətən qoruyan əməllərə yönəltməkdir. Buna görə də bu modul qəsdən cəzadan daha çox müdafiə, tövbə və mərhəmətə yer verir.",
       "Bir sözlə, qeyd olunan hər hansı cəzadan düzgün çıxış qorxu deyil, sualdır: 'Mən bunu edirəmmi və əgər belədirsə, onu necə dayandırıb düzəldə bilərəm?' Bu gün vicdanla cavablandırılan xəbərdarlıq artıq öz mərhəmətli işini görüb.",
     ],
-    quran: [
-      {
-        excerpt: "İffətli qadınları ittiham edib dörd şahid gətirməyənlərə səksən şallaq vurun.",
-      },
-      {
-        excerpt:
-          "Qızıl-gümüş yığıb Allah yolunda sərf etməyənləri ağrılı-acılı bir əzabla müjdələ.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -366,22 +211,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Şəriətin vurduğu tarazlığa diqqət yetirin. Qorunma vasitələri məhvə səbəb olan səbəblərdən daha çox, daha çox vurğulanmış və daha əlçatandır - və bunun özü də Allahın rəhmət nişanəsidir. İtirməkdən xilas olmaq daha asandır.",
       "Bu bölmə qəsdən modulun ən böyüyüdür, çünki İslamın özü məsələni belə qiymətləndirir: xəbərdarlıq həmişə ümidlə birləşdirilir və heç vaxt konkret fəaliyyətdən ayrılmadan insan bu gün başlaya bilər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O kəslər ki: “Ey Rəbbimiz, biz iman gətirdik, günahlarımızı bağışla və bizi Cəhənnəm əzabından qoru!”",
-      },
-      {
-        excerpt:
-          "Ey Rəbbimiz, bizə dünyada da, axirətdə də yaxşılıq ver və bizi Cəhənnəm əzabından qoru!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allahdan üç dəfə Cənnəti diləsə, Cənnət buyurur: İlahi, onu Cənnətə daxil et. Kim üç dəfə Cəhənnəmdən sığınarsa, Cəhənnəm deyir: İlahi, onu Cəhənnəmdən qoru.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Namazda salamdan əvvəl Cəhənnəmdən sığınmaq duasını əzbərləyin.",
       "Beş vaxt namazı vaxtında qıl - ən güclü qalxanlardan.",
@@ -399,26 +230,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bu, hətta dəfələrlə yıxılıb tövbə edənə də aiddir. Dönüş hər dəfə səmimi olduğu müddətcə Allah qəbul edər; ümidsizlik şeytandandır, dindən deyil. Ölümdən əvvəl həll edilməli olan bir şey şirkdir, çünki ölümlə vəfat edən insan tövbənin tələb etdiyi iman olmadan ölür - məhz buna görə də bütünlüklə yalnız Allaha yönəlmək ən təcili dönüşdür.",
       "Praktik çıxış sadədir: indi tövbə edin, tez-tez tövbə edin və heç vaxt günahın ölçüsünə və ya keçmişin sayına görə geri qayıtmağınız barədə mübahisə etməyin. Dəvət həmişə açıqdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar. O, Bağışlayandır, Rəhmlidir.",
-      },
-      {
-        excerpt:
-          "Tövbə edib iman gətirib yaxşı işlər görənlərdən başqa, Allah onların pisliklərini yaxşılıqla əvəz edər.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah Öz bəndəsinin tövbəsini sizlərdən biriniz itmiş dağını boş bir yerdə tapandan daha çox sevindirir.",
-      },
-      {
-        excerpt:
-          "Allah gecə öz əlini gündüzün günahkarının tövbəsini qəbul etmək üçün, gündüz isə gecənin günahkarının tövbəsini qəbul etmək üçün günəş qərbindən çıxana qədər uzadır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Gün ərzində Əstəğfirullah deyin - yalnız böyük sürüşmələrdən sonra deyil, ardıcıllığı hədəfləyin.",
       "Seyyid əl-İstiqfarı öyrən və səhər-axşam oxu.",
@@ -435,28 +248,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Bu arada, mərhəmət gündəlik həyatda qurulur: yaxşı əməllər pisləri silir (11:114), kiçik, ardıcıl ibadət - vaxtında qılınan bir namaz, bir sakit sədəqə, Allah rizası üçün edilən bir anlıq səbir - insanı davamlı olaraq Ona yaxınlaşdırır və zərərdən uzaqlaşdırır. Ardıcıllıq intensivlikdən daha vacibdir.",
       "Beləliklə, tədqiqatınızın nəticəsi budur: xəbərdarlığı ciddi qəbul edin, amma ümid qorxudan daha güclü olsun. Təhlükəni bilin, mərhəmət yolunu seçin və Allahla görüşənə qədər hər gün addım-addım get.",
     ],
-    quran: [
-      {
-        excerpt: "Mənim rəhmətim hər şeyi əhatə edir.",
-      },
-      {
-        excerpt:
-          "De: “Ey Mənim özlərinə zülm edən qullarım, Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar.",
-      },
-      {
-        excerpt:
-          "Həqiqətən, yaxşı əməllər pislikləri aradan qaldırar. Bu, xatırlayanlar üçün bir öyüd-nəsihətdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah buyuracaq: Mələklər şəfaət etmişlər, peyğəmbərlər şəfaət etmişlər, möminlər də şəfaət etmişlər və Rəhmanların Rəhmindən başqa heç kəs qalar. O, Cəhənnəmdən bir ovuc götürəcək və heç bir yaxşılıq etməyən insanları çıxaracaq.",
-      },
-      {
-        excerpt: "Qəlbində xardal dənəsi ağırlığında iman olan kəs Cəhənnəmdən çıxarılar.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Hər günü istiğfar və hər nemətə şükürlə bitir.",
       "Bu modulu Cənnətə Səyahət ilə birləşdirin - xəbərdarlıq və birlikdə ümid edin.",
@@ -507,34 +300,8 @@ export const JAHANNAM_CORE_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
         summary: "Başqalarının haqqı üçün savabları əlindən alınan kəs.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Allahın rəhmətindən ümid kəsməyin; tövbə qapısı ölümə qədər açıqdır.",
-      },
-      {
-        excerpt: "Şirkdən tövbəsiz ölmək istisna olmaqla, Allah istədiyini bağışlayar.",
-      },
-      {
-        excerpt: "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
-      },
-      {
-        excerpt: "İnsanların haqqını tapdalayan kəs yaxşı əməllərini zərərçəkənlərə verə bilər.",
-      },
-      {
-        excerpt: "Şirk",
-      },
-      {
-        excerpt: "Haqqsız öldürmək",
-      },
-      {
-        excerpt: "Başqalarının haqqı üçün savabları əlindən alınan kəs.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Peyğəmbər ﷺ yeddi məhv edən günahdan çəkinməyi əmr etmişdir.",
       "İnsanların haqqını tapdalayan kəs yaxşı əməllərini zərərçəkənlərə verə bilər.",
@@ -567,22 +334,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Onun formaları: alimlər böyük şirki ayırırlar - bütlərə, ölülərə, övliyalara və ya yaradılmışlara ibadət etmək; yalnız Onun verə biləcəyi şeylər üçün Allahdan başqasına dua etmək; və qurban kəsmək və ya nəzir etmək Ondan başqasına yönəldilir. İbadətdə (riyada) özünü göstərmək, Allahdan qeyrisinə and içmək, əlamət və cazibəyə arxalanmaq kimi kiçik və gizli şirk də vardır ki, bu da böyük günahdır, lakin öz-özünə dindən çıxarmaz.",
       "Ondan uzaq olan yol: tövhidi öyrənməklə, yalnız Allaha ibadət etməklə və niyyəti pak etməklə qoruyun və möhkəmləndirin ki, əməllər insanların gözü üçün deyil, Onun üçün olsun. Kim şirkə düşmüşdürsə, onu səmimi qəlbdən tərk edərək, yalnız Allaha ibadətə qayıtmaqla tövbə edər və bu dönüş qapısı sağ olduğu müddətcə açıq qalır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Allah Özünə şərik qoşmağı bağışlamaz, lakin ondan daha az günahı istədiyi kimsə üçün bağışlayar.",
-      },
-      {
-        excerpt:
-          "Ey oğlum, Allaha heç bir şeyi şərik qoşma. Həqiqətən də, birləşmək böyük zülmdür.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Böyük günahların ən böyüyü: Allaha şərik qoşmaq, can öldürmək, ata-anaya asi olmaq, yalandan şahidlik etməkdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Əqidə və Allahın 99 adını öyrənərək tövhidi öyrənin.",
       "İbadətdə niyyətləri təmizləyin - hər gün Allahdan səmimiyyət istəyin.",
@@ -598,21 +351,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "İkiqat haqsızlıq: adam öldürmək eyni zamanda həyatın müqəddəsliyi üzərində haqqı tapdalanan Allaha qarşı günahdır, həm də insanlara – qurbana və onların qoyub getdiyi insanlara qarşı günahdır. Məhz buna görə də onun tövbəsi əksəriyyətdən daha ağırdır: Allaha üz tutmaq lazımdır, lakin zülmə məruz qalanın haqqı da dayanır və ölkə qanunları və ya İslam şəriətinin qan pulu (diyah) və ya digər nəticələri nəzərdə tutduğu yerdə, bunlar lazımi kanallar və ixtisaslı alimlər vasitəsilə qarşılanmalıdır.",
       "Ondan uzaqlaşan yol: hər həyatı müqəddəs tutun, qəzəb və düşmənçiliyi sərtləşmədən aradan qaldırın və mübahisələri zorakılıqla deyil, səbir və ədalətlə həll edin. İnsanlara qarşı edilən bu ən böyük cinayət belə, səmimi şəkildə tövbə edən, haqqını bacardığı qədər yerinə yetirən və bir daha belə bir yola qayıtmayan üçün Allahın rəhmətindən kənar deyildir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kim bir cana və ya yer üzündə fitnə-fəsad törətməkdən başqa, bir canı öldürərsə, bütün insanları öldürmüş kimidir.",
-      },
-      {
-        excerpt: "Kim bir mömini qəsdən öldürərsə, onun cəzası içində əbədi qalacağı Cəhənnəmdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Böyük günahların ən böyüyü: Allaha şərik qoşmaq, can öldürmək, ata-anaya asi olmaq, yalandan şahidlik etməkdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Hər həyata dəyər verin; mübahisələri səbir və ədalətlə həll edin."],
     appLinks: [{}],
   },
@@ -625,15 +365,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Maneələrdəki hikmət: İslam insanları ehtirasla zirvədə mübarizə aparmağa buraxmaqdansa, onları daha əvvəlki müdafiələrlə əhatə edir - baxışları aşağı salmaq, geyim və davranışda təvazökarlıq, əks cinslə təcriddən çəkinmək və bu ehtiyaclar üçün nikahı qanuni, şərəfli kanal kimi təşviq etmək. Bu sərhədləri əvvəlcədən qurmaq kənarda müqavimət göstərməkdən daha asandır.",
       "Geriyə yol: yıxılan hər kəs üçün çıxış yolu səmimi tövbədir - günahı tamamilə tərk etmək, peşman olmaq, bir daha qayıtmayacağına qərar vermək və keçmişini ictimailəşdirməkdənsə, ört-basdır etməkdir. Zina böyük günahlardandır, lakin bu, Allahın tövbə edənin bağışladığı günahlardan biridir. ümidsizliyə yer yoxdur və yeni başlanğıc həmişə mövcuddur.",
     ],
-    quran: [
-      {
-        excerpt: "Qanunsuz cinsi əlaqəyə yaxınlaşmayın. Həqiqətən, bu, əxlaqsız və pis bir yoldur.",
-      },
-      {
-        excerpt:
-          "Tövbə edib iman gətirən və yaxşı işlər görənlərdən başqa, haram cinsi yaxınlıq etməyənlərin isə Allah onların pisliklərini yaxşılıqla əvəz edər.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Gözləri və sosial media istehlakını qoruyun.",
       "Əgər evli deyilsə, saleh həyat yoldaşı üçün dua edin.",
@@ -649,15 +381,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Hikmət və mərhəmət: qadağa insanları real ticarətə, ortaq riskə və xeyriyyəçiliyə yönləndirir və zəifləri borcun əzilməsindən qoruyur. Baxmayaraq ki, burada da Allahın rəhməti var: Əmr gəldikdə, keçmiş faizlərin geri qaytarılmasını tələb etmədi, sadəcə olaraq, möminlərə qalanı tərk etmələrini söylədi - “əsas sizindir” (2:279) - ondan üz döndərənlər üçün bir asanlıqdır.",
       "Ondan uzaq olan yol: faizə əsaslanan məhsullar üçün maliyyənizi yoxlayın, halal alternativlər axtarın və qeyri-müsəlman ölkələrində ipoteka kimi həqiqətən çətin işlərdə ixtisaslı alimlərlə məsləhətləşin. Ribadan çıxmaq çətin maliyyə seçimləri demək ola bilər, lakin ruhun təhlükəsizliyi hər hansı müvəqqəti qazancdan üstündür - və Allah Ondan qorxanı gözləmədiyi yerdən təmin edəcəyini vəd edir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, əgər möminsinizsə, Allahdan qorxun və ribadan qalanı tərk edin. Əgər bunu etməsəniz, Allah və Onun Elçisindən bir müharibə xəbəri alın. Əgər tövbə etsən, sənin əsas borcun ola bilər - nə sən zülm edirsən, nə də sənə zülm edirlər.",
-      },
-      {
-        excerpt: "Allah faizi yox edər, sədəqələri artırar.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Faiz əsaslı məhsullar üçün maliyyə auditi.",
       "İpoteka və borclar üçün ixtisaslı alimlə məsləhətləşin.",
@@ -673,21 +397,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Onun dillə əlaqəsi: yalan şəhadət nitqin daha geniş günahlarının ən kəskin kənarıdır. Sözlər ucuz olduğu üçün, bu günahın altına düşmək çox təhlükəlidir - imza, mübaliğə, rahat sükut - və buna baxmayaraq, insanların üzvlərinin və dilinin onlara qarşı doğru şəhadət verəcəyi Qiyamət günündə onun ağırlığı çox böyükdür.",
       "Ondan uzaqlaşan yol: baha başa gələn və ya öz mənafeyinə zidd olsa belə, haqqa sarıl, yalana söz verməkdən boyun qaçır, lazım gəldikdə ədalətli şəhadətlə danış. Yalançı şahidlik edən şəxs, mümkün olduğu qədər yalandan əl çəkərək, zülmə məruz qalanın zərərini aradan qaldırmağa və haqqını bərpa etməyə çalışaraq və səmimi peşmançılıqla Allaha üz tutaraq tövbə edər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O kəslər ki, yalana şəhadət verməzlər və pis sözə yaxınlaşdıqda ləyaqətlə keçərlər.",
-      },
-      {
-        excerpt: "Ona görə də bütlərin murdarlığından çəkinin və yalan danışmaqdan çəkinin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizə böyük günahların ən böyüyü barədə xəbər verimmi? Allaha şərik qoşmaq, ata-anaya asi olmaq, yalançı şahidlik etmək və yalandan şahidlik etmək.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -699,18 +410,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Əlaqədar əməllər: eyni xəbərdarlıq fal baxmağa, astrologiyaya qeyb haqqında müəyyən bilik kimi yanaşmağa və şirk daşıyan amulet və cazibələrə aiddir. Gizli gələcəyə dair elmin yalnız Allaha məxsus olduğunu iddia etmək, onu iddia edənlərə müraciət etmək isə tövhidi kökündən sarsıdar.",
       "Ondan uzaqlaşmanın yolu: Bu əməllərə qapılan şəxs üçün tövbə onları tamamilə tərk etmək, haram olan hər şeyi məhv etmək, onlarla məşğul olanlarla əlaqəni kəsmək, səmimi tövhidi təzələmək və yalnız Allaha təvəkkül etmək deməkdir. Himayə imanda, gündəlik zikrdə və Allaha sığınmaqdadır və Onun bağışlaması hər kəsə açıqdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Süleymanın padşahlığı dövründə şeytanların oxuduqlarına tabe oldular... Onlara zərər verəni də, faydası olmayanı da öyrənirlər.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim falçının yanına gəlib onun dediklərinə inanarsa, Məhəmmədə nazil olanı inkar etmişdir.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -722,15 +423,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Buraya nə daxildir: təkcə açıq-aşkar oğurluq deyil, daha incə formalar - xətti bulandırmaq üçün yetimin əmlakını öz mülkü ilə qarışdırmaq, yetim yetkinlik yaşına çatdıqdan sonra onun qaytarılmasını gecikdirmək və ya haqsız yerə investisiya qoymaq və ya xərcləmək. Allah bunun əksini buyurur: “Yetimlərin mallarını verin, pisi yaxşıya dəyişməyin” (4:2).",
       "Ondan uzaqlaşan yol: yetimlərin malını diqqətlə qoruyun, onları ayrı-ayrılıqda və hesaba alın, həddi-büluğa çatdıqda tam şəkildə təhvil verin və əskik olan kəs üçün borcunu artırıb qaytararaq tövbə edin və zülmə məruz qalanların bağışlanmasını diləyin. Sağlam qəlbdən başqa heç bir sərvətin və nəslin kömək etməyəcəyi gündə belə bir əmanəti bərpa etməyin özü dəyərli bir əməldir.",
     ],
-    quran: [
-      {
-        excerpt: "Yetimlərin malını haqsız yerə yeyənlər qarınlarını ancaq od yeyərlər.",
-      },
-      {
-        excerpt:
-          "Yetimlərin mallarını verin, pisi yaxşıya dəyişməyin və mallarınızla onların mallarını yeməyin.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -742,21 +435,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Əhəmiyyətli bir tarazlıq: nəzakətlilik Allaha asi olaraq ata-anaya itaət etmək demək deyil - heç bir məxluq Yaradana qarşı günahda itaət olunmaz. Ancaq imtina etməli olduğu yerdə belə, mülayimliklə, hörmətlə və davamlı xeyirxahlıqla edilir. Qur'an ən kiçik qəzəbli kəlməni belə qadağan edir: “Onlara uf demə” (17:23).",
       "Qayıdış yolu: burada mərhəmət odur ki, valideynlər adətən hələ də əlçatandırlar. Natamam olan bir şəxs üçün tövbə daha çox əməli işdir - xeyirxahlığı davam etdirin, onlardan bağışlanma diləyin, onlara xidmət edin və xüsusilə sağ ikən onlar üçün dua edin. Valideynlərdən biri vəfat edibsə, onlar üçün dua etmək, onların adından sədəqə vermək, rəfiqələrinə və dostlarına hörmət etmək kimi əməllər davam edir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rəbbin yalnız Ona ibadət etməyi və ata-ana ilə yaxşı rəftar etməyi əmr etmişdir. Onlara “uf” demə, onları dəf etmə, onlara gözəl söz söylə.",
-      },
-      {
-        excerpt: "Allaha ibadət edin, Ona heç bir şeyi şərik qoşmayın və ata-anaya yaxşılıq edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizə böyük günahların ən böyüyü barədə xəbər verimmi? Allaha şərik qoşmaq, ata-anaya asi olmaq.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Bu həftə valideynlərə xoş sözlə zəng edin və ya ziyarət edin."],
     appLinks: [{}],
   },
@@ -770,12 +450,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Onun müasir üzləri: oğurluq təkcə evə girməklə məhdudlaşmır. Buraya işəgötürəndən pul almaq, biznesdə fırıldaqçılıq, işçilərin əmək haqlarını tutmaq, rəqəmsal piratçılıq, plagiatlıq və qanuni olaraq özünə məxsus olmayan şeylərdən faydalanmaq daxildir. İnsanlardan gizli qalan, hər bir şəxsi almağı görən Allahdan heç vaxt gizli qalmaz.",
       "Qayıdış yolu: insan haqqı olduğu üçün tövbə Allah qarşısında peşmançılıqdan daha çox tələb edir. Oğurlanmış əşyanın özünü və ya dəyərini qanuni sahibinə qaytarmalı və mümkün olduqda onlardan əfv istəməlidir; sahibi tapılmasa, alimlər həmin məbləği onların adından sədəqə verməyi məsləhət görürlər. Bu şəkildə boşalmış, hətta oğurluq da geri dönən bəndəsini sevən tərəfindən tamamilə bağışlanar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Oğru kişi və qadının əllərini Allahdan çəkindirmək üçün qazandıqlarının əvəzini kəsin.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Oğurlanmış əşyaları və ya onların dəyərini qaytarın; zülm edənlərdən bağışlanma dilə.",
     ],
@@ -790,17 +465,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_AZ: DeepPartial<JahannamTopic>[] = [
       "Haram olmasının hikməti: Allah xəmri bircə dəfə də olsa qadağan etmədi, onu mərhələ-mərhələ haram etdi, ilk camaatı köklü vərdişdən yumşaq bir şəkildə çıxardı. Bu tədricilik özü mərhəmət dərsidir və bu gün onu tərk etməkdə çətinlik çəkən hər kəs üçün bir ümid modelidir.",
       "Qayıdış yolu, şəfqətlə: aludəçilikdə tutulanlara xor baxılmalı deyil, dəstəklənməlidir. Tövbə, maddəni tərk etməyə qərar vermək, onu və onun tətikləyicilərini həyatından çıxarmaq, utanmadan kömək və müalicə istəmək, boşluğu gözəl ünsiyyət, zikr və ibadətlə doldurmaq deməkdir. Allahın qapısı açıqdır və sərxoşedicilərdən uzaqlaşan hər səmimi addım Onun qəbul etdiyi bir addımdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, şübhəsiz ki, şərab, qumar, bütlər və fal oxları şeytanın işindən murdardır, onlardan çəkinin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Hər sərxoşedici xəmrdir, hər xəmr haramdır.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: ["Lazım gələrsə kömək axtarın; vərdişi zikr və yaxşı dostluqla əvəz edin."],
     appLinks: [{}],
   },
@@ -810,9 +476,7 @@ export const JAHANNAM_NAMES_AZ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Cahannam",
     meaning: "Od — Quranda Cəhənnəmin ən çox yayılmış adı.",
-    quran: {
-      excerpt: "Yanacağı insanlar və daşlar olan, kafirlər üçün hazırlanmış oddan qorxun.",
-    },
+    quran: {},
     context:
       "Bütün Quranda imanı inkar edən və zülm etməkdə israr edənlər üçün cəza yurdu kimi istifadə edilmişdir.",
     tafsirNote:
@@ -823,19 +487,14 @@ export const JAHANNAM_NAMES_AZ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Cahim",
     meaning: "Yanan atəş - şiddətli, şiddətli istilik.",
-    quran: {
-      excerpt:
-        "Siz və Allahdan başqa ibadət etdikləriniz cəhənnəmin yanacağısınız və ora daxil olacaqsınız.",
-    },
+    quran: {},
     context: "Allaha şərik qoşanları gözləyən Cəhənnəmin şiddətini təsvir edir.",
     tafsirNote: "Əl-Təbəri cəhimi heç bir şeyi əsirgəməyən alovlu, alovlu odla əlaqələndirir.",
   },
   {
     name: "Saqar",
     meaning: "Yanan və ya heç nə buraxmayan - şiddətli istilik.",
-    quran: {
-      excerpt: "Mən onu Səqərə aparacağam. Sən nə bilirsən ki, Səqar nədir?",
-    },
+    quran: {},
     context: "Müddəssir surəsində vəhydən üz döndərən şəxs haqqında qeyd edilmişdir.",
     tafsirNote:
       "Klassik təfsir Səqarı şiddətlə yanan Cəhənnəmin səviyyəsi kimi təsvir edir; təfərrüatlar alimlər arasında dəyişir.",
@@ -845,18 +504,14 @@ export const JAHANNAM_NAMES_AZ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Sair",
     meaning: "Yanan - alovlanan od.",
-    quran: {
-      excerpt: "Onlar Sairdə – alovlu Cəhənnəmdə olacaqlar.",
-    },
+    quran: {},
     context: "Yetim malını haqsız yerə yeyənlərə xəbərdarlıq.",
     tafsirNote: "Kök yanan və alışqanlığı çatdırır - aktiv, istehlak edən yanğını vurğulayır.",
   },
   {
     name: "Hutamə",
     meaning: "Kırıcı - qıran və əzən.",
-    quran: {
-      excerpt: "O, Hutamə atılacaq. Sən nə bilirsən ki, Hutəmə nədir?",
-    },
+    quran: {},
     context: "Qeybət edən və mal-dövlət yığan kəsin cəzası, onu ölümsüz edəcək.",
     tafsirNote:
       "İbn Kəsir Hutəmənin Allah tərəfindən yandırılan odunu əzdiyini və yandırdığını izah edir.",
@@ -864,9 +519,7 @@ export const JAHANNAM_NAMES_AZ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Həviyyə",
     meaning: "Uçurum və ya çuxur - dərin bir düşmə.",
-    quran: {
-      excerpt: "Tərəzisi yüngül olanın sığınacağı Həviyyədir.",
-    },
+    quran: {},
     context: "Yaxşılıqları çox yüngül olanların Qiyamət günü gedəcəyi yer.",
     tafsirNote:
       "Odda dərin bir çuxur olaraq təsvir edilir; ət-Təbəri onun dərinliyi və şiddəti haqqında fikirləri qeyd edir.",
@@ -876,9 +529,7 @@ export const JAHANNAM_NAMES_AZ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Lazaa",
     meaning: "Alov - alovlu alov.",
-    quran: {
-      excerpt: "Heç bir halda! O, Allahın alovudur.",
-    },
+    quran: {},
     context: "“Məaric” surəsi – Qiyaməti inkar edənləri xəbərdar edir.",
     tafsirNote: "Sönən və yanan alova bağlıdır - Lazaa aktiv alovu vurğulayır.",
   },
@@ -920,115 +571,80 @@ export const JAHANNAM_GATES_AZ: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_AZ: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Kafirlər üçün hazırlanmış oddan qorxun.",
     context: "Möminlərə xitabən - qorxu itaət üçün motivasiya kimi.",
     tafsirSummary: "İbn Kəsir: Peyğəmbərə itaətlə birləşdirilən təqva çağırışı.",
   },
   {
-    excerpt: "Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar.",
     context: "Günahlarından qorxanların təsəllisi çox böyük idi.",
     tafsirSummary: "Ümidin təməl daşı ayəsi - mərhəmət geri dönənlər üçün genişdir.",
   },
   {
-    excerpt: "Allaha səmimi tövbə ilə tövbə edin ki, Rəbbiniz günahlarınızı aradan qaldırar.",
     context: "Ailə və rəftarla bağlı hidayətdən sonra möminlərə əmr et.",
     tafsirSummary: "Nəsuh tövbəsi - günaha qayıtmadan səmimi tövbə.",
   },
   {
-    excerpt: "Hər kəsin etdiklərinə görə dərəcələri vardır.",
     context: "İlahi ədalət - əməllərə nisbətdə mükafat və cəza.",
     tafsirSummary: "Dərəcələr həm Cənnətə, həm də Cəhənnəmə aiddir.",
   },
   {
-    excerpt: "Allah insanlara əsla zülm etməz, lakin insanlar özlərinə zülm edərlər.",
     context: "İlahi hökmün tamamilə ədalətli olduğuna əminlik.",
   },
   {
-    excerpt: "Ey Rəbbimiz, bizə hər iki dünyada xeyir ver və bizi Cəhənnəm əzabından qoru!",
     context: "Dünya və axirət xeyirini birləşdirənlərin duası.",
     tafsirSummary: "Quranda öyrədilən peyğəmbərlik duası - dünya və axirət tarazlığı.",
   },
   {
-    excerpt: "Cəhənnəmin yeddi qapısı var; Hər bir qapı üçün bir hissə var.",
-    context: "İbrahimin öz qövmü ilə müzakirəsi kontekstində xitab etdi.",
+    context: "İblisin insanları azdıracağına and içdiyi hissədən sonra gəlir.",
     tafsirSummary:
       "Yeddi qapının açıq-aydın qeyd edilməsi - tapşırığın təfərrüatları ilahi hikmətdir.",
   },
   {
-    excerpt:
-      "Tövbə edib iman gətirib yaxşı işlər görənlərdən başqa, Allah pisliyi yaxşılıqla əvəz edər.",
     context: "Böyük günahları sıraladıqdan sonra istisna.",
     tafsirSummary: "Tövbə edənə ümid - əməllər mərhəmətlə dəyişdirilə bilər.",
   },
   {
-    excerpt: "Rəbbini inkar edənləri Cəhənnəm əzabı gözləyir – necə də pis yerdir.",
     context: "əl-Mülk surəsi — qeybi xatırladan.",
   },
   {
-    excerpt: "Həqiqətən, yaxşı əməllər pislikləri aradan qaldırar.",
     context: "Günün hər iki başında namaz qılmağı əmr et.",
     tafsirSummary: "Davamlı ibadətin keçmiş sürüşmələrini sildiyinə dair təşviq.",
   },
   {
-    excerpt: "Ey Rəbbimiz, günahlarımızı bağışla və bizi Cəhənnəm əzabından qoru!",
     context: "Müttəqin (Allahdan qorxan) təsviri.",
   },
   {
-    excerpt: "Tərəzisi yüngül olanın sığınacağı Həviyyədir.",
     context: "Qariə surəsi — əməllərin tərəzisi.",
   },
 ];
 
 export const JAHANNAM_HADITH_AZ: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Kim Allahdan üç dəfə Cənnəti diləsə, Cənnət buyurur: İlahi, onu Cənnətə daxil et. Kim üç dəfə Cəhənnəmdən sığınarsa, Cəhənnəm deyir: İlahi, onu Cəhənnəmdən qoru.",
-    },
+    hadith: {},
     context: "Cənnət üçün mütəmadi olaraq dua etməyə və Cəhənnəmdən sığınmağa təşviq etmək.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah Öz bəndəsinin tövbəsini sizlərdən biriniz itmiş dağını boş bir yerdə tapandan daha çox sevindirir.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Allah məni rəhmətinə bürümədikcə heç biriniz, hətta mən də öz əməli ilə Cənnətə girə bilməzsiniz.",
-    },
+    hadith: {},
     context: "Müvazinət: əməldə səy göstər, amma mərhəmətə arxalan.",
   },
   {
-    hadith: {
-      excerpt:
-        "Sənin atəşin cəhənnəm odunun yetmiş hissəsinin bir hissəsidir, hər bir hissəsi onun hərarəti kimidir.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Bizimlə onların arasında olan əhd namazdır. kim onu ​​tərk edərsə, kafir olmuşdur.",
-    },
+    hadith: {},
     context: "Namazı tərk etmənin şiddəti - ən ağır xəbərdarlıqlardan biridir.",
   },
   {
-    hadith: {
-      excerpt:
-        "İflas namazı, orucu və sədəqəsi ilə gəlir, amma təhqir edir, böhtan atır, haram mal yeyir, qan tökür.",
-    },
+    hadith: {},
     context: "İnsanların haqqları Qiyamət günü əməllər qarşısında həll oluna bilər.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah gecə əlini gündüzün günahkarının tövbəsini qəbul etmək üçün, gündüz isə gecənin günahkarının tövbəsini qəbul etmək üçün uzatır.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Kim Allaha və axirət gününə inanırsa, ya xeyir danışsın, ya da sussun.",
-    },
+    hadith: {},
     context: "Dili qorumaq - gündəlik məsuliyyət.",
   },
 ];
@@ -1092,7 +708,4 @@ export const JAHANNAM_DUAS_AZ: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_AZ: { translation: string } = {
-  translation:
-    "Allahım, cəhənnəm əzabından, qəbir əzabından, həyatın və ölümün fitnəsindən və yalançı Məsihin şər fitnəsindən Sənə sığınıram.",
-};
+export const JAHANNAM_REFUGE_DUA_AZ: { translation?: string } = {};

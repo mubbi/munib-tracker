@@ -2,137 +2,110 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // tk overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Kadyr gijesi näme?",
+    summary: "Kadyr (takdyr) gijesi — müň aýdan haýyrly gije.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Laýlatul-Kadr — Kadyr (takdyr) gijesi ýa-da Gudrat gijesi — Gurhanyň Pygambere ﷺ inip başlan gijesidir. Allah oňa tutuş bir süre bagyşlaýar we ol süre şeýle başlanýar: “Indeed, We sent the Qur'an down during the Night of Decree” (iňlisçe manysy) (Gurhan 97:1). Onuň gymmaty birnäçe aýatdan soň iň aýdyň sözler bilen beýan edilýär: “The Night of Decree is better than a thousand months” (iňlisçe manysy) (Gurhan 97:3) — şu ýeke gijede edilen ybadat segsen üç ýyldan hem köp wagtyň dowamynda edilen ybadatdan agyr gelýär.",
+      "Süre bu gijäni has-da suratlandyrýar: perişdeler we Ruh (Jebraýyl) onda Rabbysynyň rugsady bilen her bir iş üçin inýärler we ol gije “peace until the emergence of dawn” (iňlisçe manysy) (Gurhan 97:4–5). Bu çäksiz rehimiň, asudalygyň we ylahy takdyryň gijesidir — Pygamber ﷺ sahabalaryny bu gijäni üns bermän geçirmän, ony işjeň gözlemäge çagyrdy.",
+      "Şonuň üçin Ramazanyň soňky on gijesiniň ruhy agramy şeýle uly: olaryň arasynda bir ýerde adamyň ömründäki islendik gijeden gymmatly bir gije bar. Onuň aç-açan mälim edilmezliginiň hikmeti şudur: möminler diňe bir gijeden başga gijelerde gowşamagyň ýerine, soňky on gijäniň hemmesinde tagalla etsinler.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Namazda durmagyň sogaby",
+    summary: "Bu gijede yhlas bilen edilen ybadat geçmiş günäleri öçürýär.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Pygamber ﷺ bu gijä adatdan daşary bir wadany baglady: “Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven” (iňlisçe manysy) (Buhary 1901). Bu ýerde iki şert bar — iman (bu ybadatyň Allahyň söýýän we bellän zadydygyna çyn ýürekden ynanmak) we ihtisap (görkezmek ýa-da öwülmek üçin däl-de, diňe Allahyň sogabyny gözlemek).",
+      "Bu bagyşlanma diňe şol ýerde bolan islendik adam üçin öz-özünden berilmeýär; ol yhlasly, umytly ýürek bilen ybadat edýän adam üçindir. Şonuň üçin soňky on gije adatça goşmaça gijeki namaz (kyýam), Gurhan we zikir bilen doldurylýar — sogap söwda bolany üçin däl-de, yhlasly we dowamly tagallanyň özi hadysda beýan edilýän iman we ihtisap bolany üçin.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Her ybadat gijesinden öň niýetiňizi täzeläň — Allah üçin, Onuň sogabyna umyt baglap.",
+      "Soňky on gijede, hatda birnäçe rekagat bolsa-da, gijeki namaz (kyýamul-leýl) okaň.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Ony haçan gözlemeli",
+    summary: "Ramazanyň soňky on gijesiniň täk gijeleri — bir kesgitli sene däl.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Pygamber ﷺ şeýle buýurdy: “Search for the Night of Qadr in the odd nights of the last ten days of Ramadan” (iňlisçe manysy) (Buhary 2017); bu hadys Aýşeden rowaýat edilýär. Adaty 30 günlük Ramazanda täk gijeler adatça 21-nji, 23-nji, 25-nji, 27-nji we 29-njy gijeler hasaplanýar. Beýleki sahyh rowaýatlar muny soňky on gijäniň hemmesine giňeldýär, Pygamber ﷺ özi hem bu gijäniň takyk senesiniň özüne görkezilendigini, soňra bolsa ýadyndan çykarylandygyny aýtdy — ymmat bir gijede däl-de, bu gijeleriň hemmesinde tagalla etsin diýip.",
+      "Köp alymlaryň we jemgyýetleriň iň ähtimal hasaplaýan gijesi 27-nji gijedir (alamatlary we sahabalaryň habarlarynyň ýygylygyny ölçeýän beýleki rowaýatlara esaslanyp), ýöne bu tekstlerde anyk kesgitlenen aýratyn sene däl-de, hadyslardan çykarylan alymlaryň netijesidir. Ol dürli ýyllarda we dürli sebitlerde başga gijä düşüp biler, sebäbi Ramazanyň başlanýan senesiniň özi hem aýyň görülmegine görä tapawutlanýar.",
+      "Käbirleri her ýyl bir çap edilen seneni anyk kesgitlenen ýaly yglan edýärler, halk arasyndaky “alamatlaryň” (aýratyn asuda gije, düýşler, belli bir ýagtylyk) sanawlary bolsa internetde giňden ýaýraýar. Olaryň hiç biriniň güýçli hadys esasy ýok, şonuň üçin bu gollanma olary gaýtalamaýar. Ygtybarly, tekste esaslanan çemeleşme ýönekeý: ähli täk gijelerde — iň gowusy, soňky on gijäniň hemmesinde — ybadaty artdyrmak, şeýdip ol haýsy gije bolsa-da, siz şol gijede ybadat bilen meşgul bolarsyňyz.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Bu gollanma gijäni kesgitlemek üçin ýeke-täk kesgitli senenama senesini ýa-da halk arasyndaky “alamatlary” goldamaýar — diňe hadyslaryň aýdýanyny: ony Ramazanyň soňky on gijesiniň täk gijelerinde gözläň.",
   },
   {
-    title: "Tutsaňyz näme diýmeli",
-    summary: "Aýşa Peýgamber ﷺ-den takyk näme diýmelidigini sorady.",
+    title: "Ony tapsaňyz näme diýmeli",
+    summary: "Aýşe Pygamberden ﷺ takyk näme diýmelidigini sorady.",
     body: [
-      "Aýşa (Allah onuň ruhundan razylar) Peýgamber ﷺ-den sorady: 'Allahyň elçisi, Kadir gijesiniň haýsy gije bolandygyny bilsem, onda näme diýmeli?' Ol ﷺ oňa aşakda görkezilen gysga bagyşlyk dogasyny öwretdi (Tirmidhi 3513, at-Tirmidhi tarapyndan hasan sahih derejesinde).",
-      "Bu doga gysga, ýatda saklamak aňsat we bilerekli dünýälik haýyşlar ýerine bagyşlyk barada — bu gijeden iň uly gazanç Allahyň bagyşy bolup durýar. Soňky on gijede, namazda, sajda wagtynda we olaryň arasynda köp gaýtalaň; bir çak edilen gije üçin saklamak ýerine.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Men diýdim: Allahyň elçisi, Kadir gijesiniň haýsy gije bolandygyny bilsem, onda näme diýmeli? Ol ﷺ diýdi: Diňe — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Allahym, Sen bagyşlaýan we bagyşlygy söýýärsiň, meni bagyşla).",
-      },
+      "Aýşe (Allah ondan razy bolsun) Pygamberden ﷺ sorady: “O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?” (iňlisçe manysy). Pygamber ﷺ oňa aşakda görkezilen gysga bagyşlanma dogasyny öwretdi (Tirmizi 3513, at-Tirmizi tarapyndan hasan sahyh diýlip bahalandyrylan).",
+      "Bu doga gysga, ýat tutmak aňsat we bilkastlaýyn dünýä islegleri barada däl-de, bagyşlanma barada — bu gijeden iň uly gazanjyň Allahyň ötünjidigini ýatladýar. Ony çaklanan ýeke gije üçin saklamagyň ýerine, soňky on gijäniň dowamynda namazda, sejdede we olaryň arasynda köp gaýtalaň.",
     ],
     actions: [
-      "Ýokarda görkezilen bagyşlyk dogasyny ýatda saklaň.",
-      "Ony soňky on gijede, aýratynlyk bilen tok gijelerinde, köp gaýtalaň.",
+      "Ýokarda görkezilen bagyşlanma dogasyny ýat tutuň.",
+      "Ony soňky on gijede, esasan hem täk gijelerde, köp gaýtalaň.",
+    ],
+    appLinks: [{ label: "Bu dogany açmak" }],
+  },
+  {
+    title: "Gijäni nähili geçirmeli",
+    summary: "Gijeki namaz, Gurhan, zikir, doga we sadaka.",
+    body: [
+      "Kadyr gijesi üçin yhlasly ybadatdan başga hökmany ýeke-täk “dessur” ýok, şonuň üçin Sünnet eýýäm bellenen amallary güýçlendirýär: meýletin gijeki namazda durmak (kyýamul-leýl / terawih), Gurhany okamak we onuň üstünde oýlanmak, zikri we ystygfary gaýtalamak hem-de doga etmek — esasan hem Pygamberiň ﷺ Aýşä öwreden dogasyny. Köp sahabalar we soňky alymlar hem Pygamberiň ﷺ sahylygynyň Ramazanda iň ýokary derejä ýetişine eýerip, bu gijelerde sadakany artdyrypdyrlar.",
+      "Eger diňe az zat edip bilýän bolsaňyz, hiç zat etmezlikden az-da bolsa yzygiderli ediň: hatda gysga kyýam, Gurhandan birnäçe sahypa we yhlas bilen gaýtalanan bagyşlanma dogasy hadysda beýan edilýän “iman we ihtisaby” ýerine ýetirýär. Işden rugsat alyp ýa-da ýalňyzlygyny artdyryp bilýänler Pygamberiň ﷺ öz amalyna eýerip, soňky on gijede itikaf (metjitde ybadat üçin ýalňyz oturmak) hem edip bilerler.",
+    ],
+    actions: [
+      "Soňky on gijede goşmaça gijeki namaz (kyýam/terawih) okaň.",
+      "Her gije Gurhanyň bir bölegini okaň we üstünde oýlanyň.",
+      "Ystygfary, zikri we bagyşlanma dogasyny artdyryň.",
+      "Bu gijelerde az-da bolsa sadaka beriň.",
+    ],
+    appLinks: [
+      { label: "Gurhan okalgyjy" },
+      { label: "Ertirki we agşamky zikirler" },
+      { label: "Namaz yzarlaýjy" },
+      { label: "Zekat we sadaka" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Soňky on gijede itikaf",
+    summary: "Metjitde ybadat üçin ýalňyz oturmak — Ramazanyň ahyrynda Pygamberiň ﷺ amaly.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Itikaf — belli bir döwür üçin adaty dünýä meşgalalaryndan aýrylyp, ybadat üçin metjitde galmakdyr. Pygamber ﷺ Ramazanyň soňky on gijesinde yzygiderli itikaf edýärdi we adaty işler üçin metjitden çykmagyň ýerine, Kadyr gijesini üns jemlenen ybadat bilen gözleýärdi (Sahyh Buhary 2026).",
+      "Klassyky öwreniş soňky on gijäniň doly itikafyny mümkinçiligi bolan adam üçin müekked sünnet hasaplaýar. Ony näme bozýandygy, aýallaryň ony metjitdäki ýörite bellenen ýerde edip bilýändigi ýa-da ýokdugy we iş ýa-da maşgala borçlarynyň oňa nähili täsir edýändigi baradaky jikme-jiklikler mezhebe görä tapawutlanýar — bu gollanma diňe amaly we onuň maksadyny görkezýär: Kadyr gijesini öz içine almagy iň ähtimal bolan gijelerde dowamly Gurhan, namaz we doga.",
+      "Eger metjitde doly ýalňyz oturmak mümkin bolmasa, aradaky tapawudy azaldyň: terawihden soň has uzak galyň, öýde gijäniň has asuda wagtlaryny kyýam we Gurhan üçin bölüň we şol sagatlary gereksiz ünsüňi sowujy zatlardan goraň. Sogap diňe itikafyň resmi adyna däl, eýsem yhlasly ybadata baglydyr.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Eger metjidiňizde itikaf guralýan bolsa, ýazylyş we olaryň eýerýän düzgünleri barada ir soraň.",
+      "Gijelemek mümkin bolmasa-da, soňky on gijede Gurhan we kyýam üçin metjitde bolýan wagtyňyzy uzaldyň.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "Itikafyň jikme-jik fykh şertleri bar (niýet, metjitden çykmak, är-aýal ýakynlygy, aýallar üçin tertip). Başlamazdan öň ökde ýerli alym ýa-da metjidiňiz bilen anyklaň.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Soňky on gijede maşgala bilen ybadat",
+    summary: "Kesgitli seneniň yzyndan kowalaman, çagalary we maşgala agzalaryny hem goşuň.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Soňky on gije diňe ýeke özi oýa durup bilýänler üçin däl, tutuş maşgala üçin mümkinçilikdir. Çagalara Kadyr gijesiniň manysyny ýönekeý sözler bilen öwrediň — Allahyň bir gijäni müň aýdan haýyrly edendigini — we olary gysga, ýerine ýetirip boljak amallara çagyryň: Gurhandan birnäçe sahypa, güýçleri ýetýänçä terawihe goşulmak, bagyşlanma dogasyny gaýtalamak we az mukdarda sadaka bermek.",
+      "Äheňi mylaýym saklaň. Maksat ýeke çaklanan senenama senesi üçin hemmäni ýadatmak däl-de, täk gijelerde yhlasly tagalla etmekdir. Gysga maşgala zikrine kimiň ýolbaşçylyk etjegini nobata goýuň, agşam namazyndan öň umumy niýet ediň we ybadatyň bir gijelik joşgundan soň ýykylmagyň ýerine dowamly bolmagy üçin ýeterlik uky alyň.",
+      "Hossarlyk ýa-da iş çäklendirmeleri bolanlar hem säher naharyny taýýarlap, başgalary metjitde namaz okamak üçin boşadyp ýa-da başgalar namazda durka doga edip, bu gijä şärik bolýarlar — her bir yhlasly goşant gijäni bilelikde gözlemäge goşulýar.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Goşmaça Gurhan we namaz üçin haýsy täk gijeleri ileri tutjakdygyňyzy maşgala bolup ylalaşyň.",
+      "Bagyşlanma dogasyny bilelikde ýat tutuň we ony agşam namazyndan soň hem-de ýatmazdan öň gaýtalaň.",
+      "Çagalara soňky on gijede az-kem sadaka bermäge mümkinçilik beriň.",
     ],
+    appLinks: [{ label: "Hisnul-Muslim dogalary" }, { label: "Gurhan okalgyjy" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Ýönekeý we yhlasly bolsun",
+    summary: "Kesgitli seneleri we halk alamatlaryny goýuň; gijeler boýunça ybadata üns beriň.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Tekstleriň kesgitleýän zatlaryndan aşa geçýändigi sebäpli, iki giňden ýaýran endikden gaça durmak gerek. Birinjisi, bir çap edilen seneni hökman Kadyr gijesi hasaplamak — hadyslar ony bilkastlaýyn bir senenama güni däl-de, birnäçe täk gijäniň arasynda goýýar we bu aýyň görülmegine hem-de ýere görä üýtgeýär. Ikinjisi, gijäniň gelendiginiň subutnamasy hökmünde halk arasyndaky “alamatlaryň” (belli bir düýş, adatdan daşary asuda gije, haýwanlaryň geň hereketleri) yzyndan kowalamak — olar güýçli hadyslar bilen tassyklanmaýar we gijäniň talap edýän hakyky ybadatyndan ünsi sowup biler.",
+      "Amaly netije ýönekeý: soňky on gijäniň dowamynda ybadatyňyzy yzygiderli artdyryň, bagyşlanma dogasyny köp aýdyň we çaklanan sene däl-de, Allahyň rehimi üns merkezinde bolsun. Eger gijäni bilip tapyp bilmeseňiz-de, gijeleriň dowamyndaky yhlasly tagallanyň özi bol sogap bilen sylaglanýar.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Bu Gurhandan we sahyh hadyslardan esasy akymdaky sünni öwredişini jemleýän umumy bilim beriji mazmundyr. Bu pätwa däl. Itikaf, kaza namazlary ýa-da siziň aýratyn ýagdaýyňyz baradaky hökümler üçin ökde ýerli alym bilen maslahatlaşyň.",
   },
 ];

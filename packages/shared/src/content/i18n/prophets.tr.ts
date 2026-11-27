@@ -21,16 +21,7 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Kur'an'daki kıssaları yalnızca uzak bir tarih değildir; iman, sabır, aile hayatı, liderlik ve tövbe konusunda uygulanabilir derslerdir.",
       "Bütün peygamberlere iman etmek imanın bir parçasıdır. Müslümanlar hepsine saygı gösterir, aşırılıktan kaçınır ve Muhammed sallallahu aleyhi ve sellemin getirdiği son mesaja tabi olur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Müjdeleyici ve uyarıcı olarak gönderilen elçiler, ta ki elçilerden sonra insanların Allah'a karşı bir bahaneleri kalmasın.",
-      },
-      {
-        excerpt:
-          "Andolsun, biz her ümmete, 'Allah'a kulluk edin, tağuttan kaçının' diye bir elçi gönderdik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Peygamberler zaman çizelgesini keşfet" },
       { label: "Muhammed sallallahu aleyhi ve sellemin siretini oku" },
@@ -44,16 +35,7 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Peygamberler ilah değildir ve asla ibadet edilmezler. İtaatte, ahlakta ve güvenilirlikte yaratılmışların en hayırlısıdırlar, ama yine de Allah'ın kullarıdır.",
       "Görevleri temelde birdir: yalnız Allah'a kulluk. Allah'ın hikmetiyle, toplumlar arasında belirli şeriat hükümleri farklılık gösterebilirdi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Elçileri onlara dedi ki: Biz de ancak sizin gibi birer insanız, fakat Allah kullarından dilediğine lütufta bulunur.",
-      },
-      {
-        excerpt:
-          "Senden önce gönderdiğimiz her elçiye, 'Benden başka ilah yoktur, öyleyse bana kulluk edin' diye vahyettik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Enbiya Suresi'ni oku" },
       { label: "Peygamberler zaman çizelgesini keşfet" },
@@ -67,10 +49,7 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Kur'an her iki terimi de saygıyla kullanır ve Müslümanlar hiçbirini inkâr etmeden tüm nebilere ve resullere iman eder.",
       "Kesin teknik tanımlar âlimlerin ifade tarzına göre değişebilir, ama pratik ders değişmez: vahyi tevazuyla kabul et ve Allah'ın hidayetine tabi ol.",
     ],
-    quran: [
-      { excerpt: "O seçilmiş biriydi; hem resul hem de nebiydi." },
-      { excerpt: "O'nun elçilerinden hiçbirini birbirinden ayırt etmeyiz." },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Terminoloji ayrıntıları geniş, mezhep gözetmeyen bir bakış açısıyla sunulmuştur; ileri düzey akaid sınıflandırmaları için yetkin hocalara danışın.",
     appLinks: [{ label: "Meryem Suresi'ni oku" }],
@@ -84,13 +63,7 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Hayatları ayrıca, reddedilme karşısında sabrı, belirsizlik anlarında Allah'a güveni ve hikmet ile cesaretle toplumu ıslah etme isteğini de gösterir.",
       "Onları incelemek dayanıklılık kazandırır: mü'minler hızlı tövbe etmeyi, ahlaklı liderlik yapmayı ve hak sevilmese bile ilkeli kalmayı öğrenir.",
     ],
-    quran: [
-      { excerpt: "Andolsun, onların kıssalarında akıl sahipleri için bir ibret vardır." },
-      {
-        excerpt:
-          "İşte onlar, Allah'ın hidayet ettiği kimselerdir; öyleyse sen de onların yoluna uy.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Her hafta bir peygamber dersi seç ve onu bilinçli şekilde uygula.",
       "Namazdan sonra, daha fazla sabra veya tövbeye ihtiyacın olan yerleri düşün.",
@@ -109,16 +82,7 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Mucizeler peygamberlerin kendi başına sahip olduğu güçler değildir; vahyi desteklemek ve delili ortaya koymak için Allah'ın dilemesiyle gerçekleşir.",
       "Kur'an, bazılarının delillere rağmen yine de inkâr ettiğini gösterir; bu da hidayetin yalnızca gösteriye değil, samimiyete ve teslimiyete bağlı olduğunu kanıtlar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Andolsun, elçilerimizi apaçık delillerle gönderdik ve onlarla birlikte Kitab'ı ve mizanı indirdik.",
-      },
-      {
-        excerpt:
-          "De ki: Deliller ancak Allah katındadır… Sana okunmakta olan Kitab'ı indirmemiz onlara yetmedi mi?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Kasas Suresi'ni oku (Musa'nın mucizeleri)" },
       { label: "Meryem Suresi'ni oku (İsa'nın mucizeleri)" },
@@ -133,16 +97,7 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Ortamlar farklı olsa da çağrıları birdir: tevhid, salih amel, hesap verilebilirlik ve tövbe yoluyla rahmet.",
       "Bu bölüm Kur'an merkezli kalır ve güvenilir bir delil olmadıkça ikincil tarihi ayrıntıları kısa tutar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Andolsun, senden önce elçiler gönderdik; onlardan sana kıssalarını anlattıklarımız da var, anlatmadıklarımız da var.",
-      },
-      {
-        excerpt:
-          "Allah'a ve bize indirilene iman ettik… ve Musa'ya, İsa'ya ve peygamberlere Rablerinden verilene de.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Peygamberler zaman çizelgesini keşfet" },
       { label: "Kur'an okuyucusuna göz at" },
@@ -156,18 +111,8 @@ export const PROPHETS_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       "Kur'ani ilkelere veya nübüvvet makamına aykırı sansasyonel ya da zayıf rivayetlerden kaçın. Meşhur her kıssanın senedi sağlam değildir.",
       "Peygamberlerin sirelerini yalnızca tarihi bilgi toplamak için değil, kendi ibadet ve ahlakını ıslah etmek için kullan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sözü dinleyip onun en güzeline tabi olanlar var ya, işte onlar Allah'ın hidayet ettiği kimselerdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim ilim öğrenmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Her hafta bir peygamberin kıssasını doğrudan Kur'an'dan oku.",
       "Sadece zaman çizelgesi bilgilerini değil, pratik dersleri de not al.",
@@ -218,26 +163,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Âdem ilk insan ve ilk peygamberdir", "Onun tövbesi Kur'an'daki ilk tövbe örneğidir"],
     },
-    quran: [
-      {
-        excerpt:
-          "Hani Rabbin meleklere demişti ki: Ben yeryüzünde bir halife yaratacağım… Sonra Âdem Rabbinden birtakım kelimeler aldı, Allah da onun tövbesini kabul etti.",
-      },
-      {
-        excerpt:
-          "Dediler ki: Rabbimiz! Biz kendimize zulmettik; eğer bizi bağışlamaz ve bize merhamet etmezsen mutlaka hüsrana uğrayanlardan oluruz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kıyamet günü insanlar Âdem'e gelip: Sen insanlığın babasısın; bizim için Rabbine şefaat et, diyecekler.",
-      },
-      {
-        excerpt:
-          "Âdem ile Musa tartıştılar. Musa dedi ki: Sen, Allah'ın kendi eliyle yarattığı kişisin. Âdem dedi ki: Beni yaratılmamdan önce Allah'ın benim için takdir ettiği bir konuda mı kınıyorsun? Böylece Âdem tartışmada Musa'ya galip geldi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [
       { label: "Bakara Suresi bölümlerini oku" },
       { label: "Peygamberler zaman çizelgesini gör" },
@@ -265,16 +192,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "Allah tarafından yüce bir makama yükseltildiği bildirilir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kitap'ta İdris'i de an. Şüphesiz o doğru sözlü bir kimse, bir peygamberdi. Ve onu yüce bir makama yükselttik.",
-      },
-      {
-        excerpt:
-          "İsmail, İdris ve Zülkifl de — hepsi sabredenlerdendi. Onları rahmetimize kattık; şüphesiz onlar salihlerdendi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Meryem Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // nuh
@@ -312,22 +230,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "Kıssası, biri kendi adını taşıyan olmak üzere birçok surede geçer",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Nuh'a şöyle vahyedildi: Kavminden, daha önce iman etmiş olanlardan başkası asla iman etmeyecek; artık onların yaptıklarına üzülme.",
-      },
-      {
-        excerpt:
-          "Dedi ki: Rabbim! Ben kavmimi gece gündüz davet ettim, fakat davetim onların ancak kaçışını artırdı.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsanlar Nuh'a gelip: Ey Nuh! Sen yeryüzü halkına gönderilen ilk elçisin ve Allah seni şükreden bir kul diye adlandırdı; bizim için şefaat et, diyecekler.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Nuh Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // hud
@@ -362,16 +266,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Âd'ın kıssası, sonraki topluluklara uyarı olarak Kur'an'da tekrar tekrar geçer"],
     },
-    quran: [
-      {
-        excerpt:
-          "Âd kavmine kardeşleri Hud'u gönderdik. Dedi ki: Ey kavmim! Allah'a kulluk edin; sizin O'ndan başka ilahınız yoktur. Sakınmaz mısınız?",
-      },
-      {
-        excerpt:
-          "Onu vadilerine doğru gelen bir bulut olarak görünce dediler ki: Bu bize yağmur getirecek bir buluttur! Hayır, o sizin acele istediğiniz şeydir: içinde acı bir azap bulunan bir rüzgâr.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Ahkaf Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // salih
@@ -407,16 +302,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Semud, dağlarda görkemli evler oymasıyla tanınırdı"],
     },
-    quran: [
-      {
-        excerpt:
-          "Bu, Allah'ın dişi devesidir, sizin için bir mucizedir; bırakın onu Allah'ın toprağında otlasın ve ona kötülükle dokunmayın, yoksa sizi acı bir azap yakalar.",
-      },
-      {
-        excerpt:
-          "Semud, azgınlığı yüzünden yalanladı; içlerinden en bedbaht olanı ayağa kalktığında… Rableri günahları sebebiyle üzerlerine helâk indirdi ve onları yerle bir etti.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Şems Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // ibrahim
@@ -458,22 +344,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "İsmail ve İshak aracılığıyla peygamberlerin atası",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Hani İbrahim'i Rabbi birtakım emirlerle sınamış, o da onları yerine getirmişti. Buyurdu ki: Seni insanlara önder kılacağım.",
-      },
-      {
-        excerpt:
-          "Dedik ki: Ey ateş! İbrahim'e karşı serin ve esenlik ol. Ona kötülük yapmak istediler, ama biz onları en büyük hüsrana uğrattık.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yalınayak, çıplak ve sünnetsiz olarak haşrolunacaksınız. Kıyamet günü ilk giydirilecek kişi İbrahim olacaktır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Bakara Suresi'ni oku" },
       { label: "Siret'ten öğren" },
@@ -512,16 +384,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İbrahim'in kendisiyle göç eden ve Sodom'a gönderilen bir akrabası"],
     },
-    quran: [
-      {
-        excerpt:
-          "Siz âlemler içinde erkeklere mi gidiyorsunuz ve Rabbinizin sizin için yarattığı eşlerinizi mi bırakıyorsunuz? Hayır, siz sınırı aşan bir kavimsiniz.",
-      },
-      {
-        excerpt:
-          "Emrimiz gelince, o şehirlerin üstünü altına getirdik ve üzerlerine istif edilmiş sert kil taşları yağdırdık.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Şuara Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // ismail
@@ -563,16 +426,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "Arap kabilelerinin ve son peygamberlik silsilesinin atası",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kitap'ta İsmail'i de an. Şüphesiz o sözüne sadıktı ve bir resul, bir nebiydi. Ailesine namazı ve zekâtı emrederdi ve Rabbinin katında hoşnutluğa layıktı.",
-      },
-      {
-        excerpt:
-          "İbrahim ve İsmail, Beyt'in temellerini yükseltirken (dua ettiler): Rabbimiz! Bunu bizden kabul et. Şüphesiz Sen işitensin, bilensin.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Meryem Suresi'ni oku" },
       { label: "Siret'ten öğren" },
@@ -605,15 +459,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Yakub'un babası", "İbrahim ve Yakub ile birlikte seçkin bir aile olarak anılır"],
     },
-    quran: [
-      {
-        excerpt: "Eşi ayaktaydı, güldü. Ona İshak'ı, İshak'ın ardından da Yakub'u müjdeledik.",
-      },
-      {
-        excerpt:
-          "Kuvvet ve basiret sahibi kullarımız İbrahim'i, İshak'ı ve Yakub'u an. Şüphesiz onları özel bir özellikle — ahiret yurdunu anmakla — seçtik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Hud Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // yaqub
@@ -648,16 +494,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İsrail olarak da anılır", "Yusuf'un ve Beni İsrail oymaklarının babası"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dedi ki: Hayır, nefisleriniz sizi bir işe sürüklemiş. Artık bana düşen güzel bir sabırdır. Umulur ki Allah onların hepsini bana getirir.",
-      },
-      {
-        excerpt:
-          "Dediler ki: Senin ilahına ve ataların İbrahim'in, İsmail'in ve İshak'ın ilahına kulluk edeceğiz — tek bir ilaha, ve biz O'na teslim olanlarız.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Yusuf Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // yusuf
@@ -695,18 +532,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "En güzel kıssa olarak adlandırılan Yusuf Suresi'nin tamamı onun hayatı etrafında döner",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dedi ki: Bugün size kınama yoktur. Allah sizi bağışlasın; O merhamet edenlerin en merhametlisidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Şerefli, şereflinin oğlu, şereflinin oğlu, şereflinin oğlu: Yusuf, Yakub'un oğlu, İshak'ın oğlu, İbrahim'in oğlu.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{ label: "Yusuf Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // shuayb
@@ -737,15 +564,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Adil ölçü ve tartıya verdiği önemle tanınır"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey kavmim! Allah'a kulluk edin; sizin O'ndan başka ilahınız yoktur. Ölçüyü ve tartıyı tam yapın, insanların eşyasını eksik vermeyin ve yeryüzünde bozgunculuk yapmayın.",
-      },
-      {
-        excerpt: "Başarım ancak Allah iledir. O'na güvendim ve O'na yönelirim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Hud Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // ayyub
@@ -777,16 +596,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İslami gelenek boyunca sabrın örneği olarak anılır"],
     },
-    quran: [
-      {
-        excerpt:
-          "Eyyub da, Rabbine seslendiğinde: Gerçekten bana zarar dokundu, Sen ise merhamet edenlerin en merhametlisisin.",
-      },
-      {
-        excerpt:
-          "Gerçekten biz onu sabreden bir kul bulduk, ne güzel kuldu! Şüphesiz o, Allah'a çokça yönelen biriydi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Enbiya Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // dhul-kifl
@@ -811,15 +621,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "Yaygın Müslüman listelerinde peygamberler arasında sayılır",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "İsmail, İdris ve Zülkifl de — hepsi sabredenlerdendi. Onları rahmetimize kattık; şüphesiz onlar salihlerdendi.",
-      },
-      {
-        excerpt: "İsmail'i, Elyesa'yı ve Zülkifl'i an; hepsi seçkinlerdendir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Enbiya Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // musa
@@ -861,22 +663,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "Kelimullah olarak anılır — Allah'ın doğrudan konuştuğu kişi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Seni seçtim, öyleyse vahyedilene kulak ver. Şüphesiz ben Allah'ım. Benden başka ilah yoktur, öyleyse bana kulluk et ve beni anmak için namazı kıl.",
-      },
-      {
-        excerpt:
-          "Musa'nın annesine şöyle ilham ettik: Onu emzir, onun için korktuğunda onu nehre bırak, korkma ve üzülme. Şüphesiz biz onu sana geri vereceğiz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ölüm meleği Musa'ya gönderildi. Ona geldiğinde Musa ona bir tokat vurdu, Allah da onun gözünü geri verdi ve Musa'ya ölüm zamanı konusunda bir seçim hakkı tanıdı.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Taha Suresi'ni oku" },
       { label: "Kasas Suresi'ni oku" },
@@ -915,16 +703,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Musa'nın büyük kardeşi", "Kur'an'da güzel konuşmasıyla övülür"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ailemden bana bir vezir tayin et — kardeşim Harun'u. Onunla gücümü artır ve onu görevime ortak et.",
-      },
-      {
-        excerpt:
-          "Dedi ki: Ey anamın oğlu! Kavim beni güçsüz gördü ve neredeyse beni öldürüyorlardı; öyleyse düşmanları bana güldürme.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Taha Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // dawud
@@ -963,22 +742,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Zebur'un (Mezmurlar) sahibi", "Gençliğinde Calut'u (Golyat) yendi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey Davud! Seni yeryüzünde halife kıldık, öyleyse insanlar arasında hakla hükmet ve arzuya uyma, yoksa seni Allah'ın yolundan saptırır.",
-      },
-      {
-        excerpt:
-          "Dağları ve kuşları Davud ile birlikte tesbih etmeleri için boyun eğdirdik… Ona, sizi düşmanınızdan korumak için zırh yapma sanatını öğrettik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah katında en sevilen namaz Davud'un namazıdır ve Allah katında en sevilen oruç Davud'un orucudur: bir gün oruç tutar, ertesi gün iftar ederdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Sad Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // sulayman
@@ -1017,16 +782,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kur'an'da en ayrıntılı anlatılan peygamber-krallardan biri"],
     },
-    quran: [
-      {
-        excerpt:
-          "Onun sözüne gülümseyerek güldü ve dedi ki: Rabbim! Bana ve ana babama bahşettiğin nimetine şükretmemi ve razı olacağın salih bir amel işlememi sağla.",
-      },
-      {
-        excerpt:
-          "Süleyman'a rüzgârı boyun eğdirdik — sabahki gidişi bir aylık, akşamki gidişi de bir aylık mesafeydi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Neml Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // ilyas
@@ -1055,15 +811,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Salihler arasında adı geçer", "Put Ba'l'e tapınmayla yüzleşti"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kavmine dediğinde: Sakınmaz mısınız? Ba'l'e mi taparsınız ve yaratıcıların en iyisini bırakır mısınız?",
-      },
-      {
-        excerpt: "Zekeriya, Yahya, İsa ve İlyas da — hepsi salihlerdendi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Saffat Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // al-yasa
@@ -1088,14 +836,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kur'an'da doğrudan seçkinler ve seçilmişler arasında adı geçer"],
     },
-    quran: [
-      {
-        excerpt: "İsmail, Elyesa, Yunus ve Lut da — hepsini âlemler üzerine üstün kıldık.",
-      },
-      {
-        excerpt: "İsmail'i, Elyesa'yı ve Zülkifl'i an; hepsi seçkinlerdendir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "En'am Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // yunus
@@ -1134,22 +875,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kur'an'da Zünnun (balık sahibi) olarak da anılır"],
     },
-    quran: [
-      {
-        excerpt:
-          "Karanlıklar içinde seslendi: Senden başka ilah yoktur; Sen yücesin. Şüphesiz ben zalimlerden oldum.",
-      },
-      {
-        excerpt:
-          "Yunus'un kavmi dışında, iman edip de imanı kendisine fayda vermiş bir şehir halkı olmadı. Onlar iman edince, dünya hayatındaki rezillik azabını üzerlerinden kaldırdık.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Zünnun'un balığın karnındayken Allah'a ettiği dua şuydu: Lâ ilâhe illâ ente sübhâneke innî küntü minez-zâlimîn. Hangi Müslüman bununla bir şey için dua ederse Allah mutlaka duasını kabul eder.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Enbiya Suresi'ni oku" },
       { label: "Yunus Suresi'ni oku" },
@@ -1189,16 +916,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Meryem'in vasisi", "Doğumu duasının cevabı olan Yahya'nın babası"],
     },
-    quran: [
-      {
-        excerpt:
-          "İşte orada Zekeriya Rabbine dua etti, dedi ki: Rabbim! Bana kendi katından tertemiz bir soy bahşet. Şüphesiz Sen duayı işitensin.",
-      },
-      {
-        excerpt:
-          "Dedi ki: Rabbim! Kemiklerim gevşedi ve baş, ihtiyarlıktan tutuştu, alev alev ağardı; ve Rabbim! Sana dua etmekle hiç mahrum kalmadım.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Âl-i İmran Suresi'ni oku" },
       { label: "Meryem Suresi'ni oku" },
@@ -1236,16 +954,7 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
         "Doğumda, ölümde ve kıyamette esenlikle onurlandırıldı",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ey Yahya! Kitab'a sımsıkı sarıl. Ona daha çocukken hikmet verdik, kendi katımızdan bir şefkat ve temizlik de; o Allah'tan sakınan biriydi.",
-      },
-      {
-        excerpt:
-          "Allah seni, Allah'tan bir kelimeyi doğrulayan, seçkin, iffetli ve salihlerden bir peygamber olan Yahya ile müjdeler.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Meryem Suresi'ni oku" }, { label: "Peygamberler zaman çizelgesini gör" }],
   },
   // isa
@@ -1285,22 +994,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["İncil verildi", "Sünni akaidde kıyametten önce geri dönecek"],
     },
-    quran: [
-      {
-        excerpt:
-          "(İsa dedi ki): Şüphesiz Allah benim Rabbim ve sizin Rabbinizdir, öyleyse O'na kulluk edin. İşte doğru yol budur.",
-      },
-      {
-        excerpt:
-          "Onu ne öldürdüler ne de çarmıha gerdiler; fakat onlara öyle gösterildi… bilakis Allah onu kendine yükseltti.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ben, insanlar içinde Meryem oğlu İsa'ya en yakın olanım. Peygamberler baba bir kardeşlerdir (babaları bir, anneleri farklı), dinleri birdir ve aramızda hiçbir peygamber yoktu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Âl-i İmran Suresi'ni oku" },
       { label: "Nisa Suresi'ni oku" },
@@ -1343,21 +1038,8 @@ export const PROPHETS_BIO_TOPICS_TR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Peygamberlerin sonuncusu", "Mü'minler için en güzel örnek (üsve-i hasene)"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammed, sizin erkeklerinizden hiçbirinin babası değildir; ancak o, Allah'ın Resulü ve peygamberlerin sonuncusudur.",
-      },
-      {
-        excerpt: "Seni ancak âlemlere rahmet olarak gönderdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Benim ve benden önceki peygamberlerin örneği, bir adamın bir ev inşa edip onu güzelleştirmesi ve mükemmelleştirmesi gibidir, yalnızca bir tuğlanın yeri hariç. İşte ben o tuğlayım ve ben peygamberlerin sonuncusuyum.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Siret'ten öğren" },
       { label: "Ahzab Suresi'ni oku" },

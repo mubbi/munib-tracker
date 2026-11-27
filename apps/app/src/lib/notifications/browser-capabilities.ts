@@ -17,6 +17,28 @@ export type WebPwaTier =
   | "ios_webkit_installed"
   | "limited_web";
 
+/**
+ * How a browser installs the web app, per the vendors' docs:
+ * - `prompt` — Chromium (Chrome, Edge, Brave, Samsung Internet, Opera) fires
+ *   `beforeinstallprompt`; the in-app Install button opens the browser dialog.
+ * - `ios_safari_share` — iPhone/iPad Safari: Share → Add to Home Screen.
+ * - `ios_browser_share` — iOS/iPadOS 16.4+ Chrome, Edge, Firefox: the same
+ *   Share → Add to Home Screen, from inside that browser (WebKit blog #13878).
+ * - `ios_open_in_safari` — any other iOS browser / in-app web view (or iOS < 16.4).
+ * - `mac_add_to_dock` — Safari 17+ on macOS: File → Add to Dock.
+ * - `browser_menu` — non-Chromium Android browsers (Firefox): menu → Install /
+ *   Add to Home screen (no install event).
+ * - `none` — already installed, or no install path (desktop Firefox, old Safari).
+ */
+export type WebPwaInstallMethod =
+  | "prompt"
+  | "ios_safari_share"
+  | "ios_browser_share"
+  | "ios_open_in_safari"
+  | "mac_add_to_dock"
+  | "browser_menu"
+  | "none";
+
 export type WebRuntimeFeatures = {
   secureContext: boolean;
   serviceWorker: boolean;
@@ -42,8 +64,10 @@ export type WebPwaBrowserMatrix = {
   isChromium: boolean;
   isLimitedBrowser: boolean;
   isInstalledPwa: boolean;
-  /** iOS WebKit third-party browser (Chrome/Firefox): install must happen from Safari. */
+  /** iOS WebKit browser that can't Add to Home Screen itself: install must happen from Safari. */
   needsSafariForInstall: boolean;
+  /** How this browser installs the PWA (drives the install + notification banners). */
+  installMethod: WebPwaInstallMethod;
 };
 
 type NavigatorUserAgentDataHint = {
@@ -96,7 +120,9 @@ export function detectWebRuntimeFeatures(): WebRuntimeFeatures {
 function getBowserParser(): Bowser.Parser.Parser | null {
   if (!isWebSession()) return null;
   const nav = navigator as NavigatorWithHints;
-  return Bowser.getParser(navigator.userAgent, nav.userAgentData);
+  // Bowser throws without a UA string (stripped-down web views / embedded shells).
+  if (typeof nav.userAgent !== "string") return null;
+  return Bowser.getParser(nav.userAgent, nav.userAgentData);
 }
 
 export function parseWebBrowserIdentity(parser: Bowser.Parser.Parser): WebBrowserIdentity {
@@ -153,6 +179,9 @@ function isDesktopPlatform(parser: Bowser.Parser.Parser): boolean {
 /** Chromium-class browsers on Android/desktop (full PWA + notification tier). */
 function isChromiumBrowser(parser: Bowser.Parser.Parser): boolean {
   if (isIosOs(parser)) return false;
+  // Any Blink-engine browser (Samsung Internet, Vivaldi, Yandex, …) has the
+  // Chromium install prompt + Web Push, whatever its brand name.
+  if (parser.getEngineName()?.toLowerCase() === "blink") return true;
   return (
     parser.satisfies({
       chrome: ">0",
@@ -190,6 +219,49 @@ function resolveTier(
   return "limited_web";
 }
 
+/** `"16.4.1"` ≥ major.minor (unknown versions are treated as too old). */
+function versionAtLeast(version: string | undefined, major: number, minor = 0): boolean {
+  if (!version) return false;
+  const [maj = Number.NaN, min = 0] = version.split(".").map((part) => Number.parseInt(part, 10));
+  if (Number.isNaN(maj)) return false;
+  return maj > major || (maj === major && (Number.isNaN(min) ? 0 : min) >= minor);
+}
+
+/** iOS browsers with their own Share → Add to Home Screen (iOS 16.4+). */
+const IOS_SHARE_INSTALL_BROWSERS = new Set(["chrome", "microsoft edge", "firefox"]);
+
+/** Real iOS Safari UA tokens (absent from in-app web views). */
+const IOS_SAFARI_TOKENS = /Version\/[\d.]+.*Safari\//;
+
+function resolveInstallMethod(
+  parser: Bowser.Parser.Parser,
+  isIosWebKit: boolean,
+  isInstalledPwa: boolean,
+): WebPwaInstallMethod {
+  if (isInstalledPwa) return "none";
+  const browserName = parser.getBrowserName(true);
+  if (isIosWebKit) {
+    // In-app web views (Facebook, Instagram, …) also parse as "Safari" but lack
+    // Safari's `Version/x … Safari/y` tokens — and have no Add to Home Screen.
+    if (browserName === "safari" && IOS_SAFARI_TOKENS.test(parser.getUA())) {
+      return "ios_safari_share";
+    }
+    if (
+      IOS_SHARE_INSTALL_BROWSERS.has(browserName) &&
+      versionAtLeast(parser.getOSVersion(), 16, 4)
+    ) {
+      return "ios_browser_share";
+    }
+    return "ios_open_in_safari";
+  }
+  if (isChromiumBrowser(parser)) return "prompt";
+  if (browserName === "safari" && parser.getOSName(true) === "macos") {
+    return versionAtLeast(parser.getBrowserVersion(), 17) ? "mac_add_to_dock" : "none";
+  }
+  if (isAndroidOs(parser)) return "browser_menu";
+  return "none";
+}
+
 function buildMatrix(
   parser: Bowser.Parser.Parser,
   runtime: WebRuntimeFeatures,
@@ -197,8 +269,8 @@ function buildMatrix(
   const browser = parseWebBrowserIdentity(parser);
   const isIosWebKit = isIosWebKitEnvironment(parser);
   const isInstalledPwa = runtime.standalonePwa;
-  const needsSafariForInstall =
-    isIosWebKit && !isInstalledPwa && parser.getBrowserName(true) !== "safari";
+  const installMethod = resolveInstallMethod(parser, isIosWebKit, isInstalledPwa);
+  const needsSafariForInstall = installMethod === "ios_open_in_safari";
 
   return {
     tier: resolveTier(parser, isInstalledPwa, isIosWebKit),
@@ -211,6 +283,7 @@ function buildMatrix(
     isLimitedBrowser: detectLimitedBrowser(parser),
     isInstalledPwa,
     needsSafariForInstall,
+    installMethod,
   };
 }
 
@@ -251,10 +324,17 @@ export function isIosWebKitBrowserTab(): boolean {
 }
 
 /**
- * iOS WebKit third-party browser (Chrome/Firefox/Edge) in a tab: Add to Home
- * Screen must be done from Safari. Desktop/Android browsers always return false.
+ * iOS WebKit browser tab that can't Add to Home Screen itself (in-app web views,
+ * other shells, or iOS < 16.4): install must be done from Safari. iOS 16.4+
+ * Chrome / Edge / Firefox install from their own Share menu, and desktop /
+ * Android browsers always return false.
  */
 export function isIosThirdPartyBrowserShell(): boolean {
   const matrix = detectWebPwaBrowserMatrix();
   return matrix?.needsSafariForInstall ?? false;
+}
+
+/** How the current browser installs the PWA (`none` off the web / when installed). */
+export function getWebPwaInstallMethod(): WebPwaInstallMethod {
+  return detectWebPwaBrowserMatrix()?.installMethod ?? "none";
 }

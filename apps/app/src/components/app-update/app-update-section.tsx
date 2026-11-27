@@ -6,7 +6,7 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebPlatform, performAppUpdate } from "@/lib/app/app-update-actions";
@@ -44,7 +44,7 @@ export function AppUpdateSection() {
       });
 
   return (
-    <Card variant="outline" padding="three" style={[styles.card, { borderColor: `${accent}55` }]}>
+    <Card variant="outline" style={[styles.card, { borderColor: `${accent}55` }]}>
       <SectionHeader
         title={t("settings.appUpdate")}
         icon={{ ios: "arrow.down.circle.fill", android: "download", web: "download" }}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   iconWrap: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: Radius.sm,
     alignItems: "center",
     justifyContent: "center",
   },

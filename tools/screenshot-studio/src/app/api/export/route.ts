@@ -1,6 +1,8 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { flattenPngAlpha } from "@/lib/png-rgb";
+import { rejectCrossSiteWrite } from "@/lib/same-origin-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +13,8 @@ const EXPORT_DIR = path.join(process.cwd(), "exports");
 const SAFE_PATH = /^[A-Za-z0-9][A-Za-z0-9_\-./]*\.png$/;
 
 export async function POST(req: Request) {
+  const rejected = rejectCrossSiteWrite(req);
+  if (rejected) return rejected;
   let body: { path?: string; dataUrl?: string };
   try {
     body = (await req.json()) as { path?: string; dataUrl?: string };
@@ -25,7 +29,8 @@ export async function POST(req: Request) {
   if (!m) {
     return NextResponse.json({ ok: false, error: "Expected PNG data URL" }, { status: 400 });
   }
-  const bytes = Buffer.from(m[1], "base64");
+  // Store slots reject alpha channels — write opaque RGB PNGs.
+  const bytes = flattenPngAlpha(Buffer.from(m[1], "base64"));
   const abs = path.resolve(EXPORT_DIR, rel);
   if (!abs.startsWith(EXPORT_DIR + path.sep)) {
     return NextResponse.json({ ok: false, error: "Bad path" }, { status: 400 });

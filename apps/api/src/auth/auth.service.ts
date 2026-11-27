@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomBytes, randomUUID } from "node:crypto";
 import {
   BadRequestException,
   ForbiddenException,
@@ -10,7 +10,8 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DataSource, In, Repository } from "typeorm";
+import { DataSource, type EntityManager, In, Repository } from "typeorm";
+import { purgeUserCircleData } from "../circles/circle-lifecycle";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
@@ -20,8 +21,12 @@ import {
   ContentReportEntity,
   DeletedAccountEntity,
   InAppNotificationEntity,
+  LiveActivityPushJobEntity,
+  LiveActivityPushTokenEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
+  SurfacePushJobEntity,
+  SurfacePushRegistrationEntity,
   SyncRecordEntity,
   UserEntity,
   UserMediaEntity,
@@ -29,6 +34,7 @@ import {
 import { buildTombstoneEmail, isTombstoneValue } from "./account-tombstone";
 import {
   isAuthDeleteAccountRateLimited,
+  isAuthGuestCreateRateLimited,
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
@@ -63,6 +69,58 @@ import {
 
 /** Client-supplied device ids must be high-entropy; reject empty / trivial values. */
 const MIN_DEVICE_ID_LENGTH = 16;
+
+/** Refresh tokens minted before at-rest hashing were bare `randomUUID()` values. */
+const LEGACY_REFRESH_TOKEN_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** 256-bit opaque refresh secret handed to the client (never stored as-is). */
+export function mintRefreshToken(): string {
+  return randomBytes(32).toString("base64url");
+}
+
+/**
+ * At-rest form of a refresh token: SHA-256 hex (64 chars, fits the existing
+ * `varchar(64)` column). A database read (backup, admin console, SQL bug) then
+ * no longer yields usable refresh secrets.
+ */
+export function hashRefreshToken(token: string): string {
+  return createHash("sha256").update(token, "utf8").digest("hex");
+}
+
+/**
+ * Stored values that may match a presented refresh token: its hash, plus - only
+ * for UUID-shaped tokens issued before hashing - the legacy plaintext row. A
+ * stored 64-hex hash never matches the UUID shape, so presenting a leaked hash
+ * as a token cannot satisfy the legacy branch.
+ */
+export function refreshTokenLookupValues(token: string): string[] {
+  const values = [hashRefreshToken(token)];
+  if (LEGACY_REFRESH_TOKEN_RE.test(token)) values.push(token);
+  return values;
+}
+
+/**
+ * Deletes every server-side push surface bound to `userId`: ActivityKit tokens
+ * (encrypted APNs tokens) and Expo / Web Push surface registrations, each with
+ * its scheduled jobs. Jobs are deleted explicitly rather than relying on the FK
+ * cascade so the purge is complete on every driver.
+ */
+export async function purgeUserPushSurfaces(manager: EntityManager, userId: string): Promise<void> {
+  const activityTokenIds = (
+    await manager.find(LiveActivityPushTokenEntity, { where: { userId }, select: { id: true } })
+  ).map((row) => row.id);
+  if (activityTokenIds.length) {
+    await manager.delete(LiveActivityPushJobEntity, { activityTokenId: In(activityTokenIds) });
+    await manager.delete(LiveActivityPushTokenEntity, { id: In(activityTokenIds) });
+  }
+  const registrationIds = (
+    await manager.find(SurfacePushRegistrationEntity, { where: { userId }, select: { id: true } })
+  ).map((row) => row.id);
+  if (registrationIds.length) {
+    await manager.delete(SurfacePushJobEntity, { registrationId: In(registrationIds) });
+    await manager.delete(SurfacePushRegistrationEntity, { id: In(registrationIds) });
+  }
+}
 
 @Injectable()
 export class AuthService {
@@ -102,6 +160,12 @@ export class AuthService {
       if (existingUser) {
         return this.issueSession(existingUser);
       }
+    }
+
+    // New accounts are also capped per IP so rotating random deviceIds (each a
+    // fresh `device:` bucket above) cannot mint unlimited accounts.
+    if (await isAuthGuestCreateRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many guest session requests", HttpStatus.TOO_MANY_REQUESTS);
     }
 
     // Always server-mint the user id — never use client deviceId as primary key.
@@ -228,7 +292,12 @@ export class AuthService {
   async linkGuestAccount(
     accessToken: string,
     dto: LinkAccountDto,
+    clientIp = "unknown",
   ): Promise<AuthSessionResponseDto> {
+    // Same budget as sign-in: each call is an outbound provider exchange.
+    if (await isAuthOAuthRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many OAuth attempts", HttpStatus.TOO_MANY_REQUESTS);
+    }
     const { user } = await this.getSessionByAccessToken(accessToken);
 
     if (user.accountType !== "guest") {
@@ -274,8 +343,10 @@ export class AuthService {
       throw new HttpException("Too many refresh attempts", HttpStatus.TOO_MANY_REQUESTS);
     }
     const now = new Date();
-    const nextToken = randomUUID();
+    const nextToken = mintRefreshToken();
+    const nextTokenHash = hashRefreshToken(nextToken);
     const nextExpiry = this.refreshExpiry();
+    const presented = refreshTokenLookupValues(refreshToken);
 
     // Atomically claim-and-rotate: a single conditional UPDATE guarded on the
     // presented token still being valid. Two concurrent requests with the same
@@ -284,8 +355,8 @@ export class AuthService {
     const result = await this.sessionsRepository
       .createQueryBuilder()
       .update(AuthSessionEntity)
-      .set({ refreshToken: nextToken, refreshExpiresAt: nextExpiry })
-      .where("refreshToken = :refreshToken", { refreshToken })
+      .set({ refreshToken: nextTokenHash, refreshExpiresAt: nextExpiry })
+      .where("refreshToken IN (:...presented)", { presented })
       .andWhere("refreshExpiresAt > :now", { now })
       .execute();
 
@@ -293,12 +364,12 @@ export class AuthService {
       // Either an unknown/rotated-out token (replay) or an expired one. In both
       // cases the presented secret is dead; if a matching-but-expired session
       // lingers, delete it so a stale row can't be probed again.
-      await this.sessionsRepository.delete({ refreshToken });
+      await this.sessionsRepository.delete({ refreshToken: In(presented) });
       throw new UnauthorizedException("Invalid or expired refresh token");
     }
 
     const session = await this.sessionsRepository.findOne({
-      where: { refreshToken: nextToken },
+      where: { refreshToken: nextTokenHash },
       relations: { user: true },
     });
     if (!session?.user) {
@@ -306,7 +377,7 @@ export class AuthService {
     }
 
     const access = this.tokenService.signAccessToken(session.user.id, session.id);
-    return this.toSessionResponse(session, session.user, access);
+    return this.toSessionResponse(session.user, access, nextToken);
   }
 
   async getCurrentUser(accessToken: string): Promise<AuthUserResponseDto> {
@@ -317,6 +388,16 @@ export class AuthService {
   async revokeSession(accessToken: string): Promise<void> {
     const { session } = await this.getSessionByAccessToken(accessToken);
     await this.sessionsRepository.delete({ id: session.id });
+  }
+
+  /**
+   * Best-effort logout by refresh token (web cookie sessions whose access cookie
+   * already expired). Unknown / rotated-out tokens are a silent no-op.
+   */
+  async revokeSessionByRefreshToken(refreshToken: string): Promise<void> {
+    const token = refreshToken.trim();
+    if (!token) return;
+    await this.sessionsRepository.delete({ refreshToken: In(refreshTokenLookupValues(token)) });
   }
 
   /**
@@ -391,9 +472,20 @@ export class AuthService {
       await manager.delete(OssContentDownloadFailureEntity, { userId });
       await manager.delete(InAppNotificationEntity, { userId });
       await manager.delete(PushTokenEntity, { userId });
+      // Live Activity (APNs) tokens + Android/Web surface-push registrations and
+      // their scheduled jobs. The `users` row is kept (tombstoned), so the FK
+      // cascades never fire — without this the device kept receiving phase pushes
+      // after the account was closed (the client's own DELETE runs after the
+      // session is already revoked and fails).
+      await purgeUserPushSurfaces(manager, userId);
+      // Circles: hand over / dissolve owned circles, transfer consented child
+      // profiles to a co-parent with consent pending (D34) or delete them, and
+      // remove memberships, signals, nudges and invites (docs/CIRCLES.md).
+      await purgeUserCircleData(manager, userId);
       await manager.delete(AuthSessionEntity, { userId });
 
-      const tombstoneEmail = buildTombstoneEmail(user.email ?? null, userId);
+      // Erase the email (no personal data is kept on the closed row).
+      const tombstoneEmail = buildTombstoneEmail();
       await manager.update(
         UserEntity,
         { id: userId },
@@ -528,18 +620,20 @@ export class AuthService {
   }
 
   private async issueSession(user: UserEntity): Promise<AuthSessionResponseDto> {
+    const refreshToken = mintRefreshToken();
     const session = await this.sessionsRepository.save(
       this.sessionsRepository.create({
         id: randomUUID(),
         userId: user.id,
         user,
-        refreshToken: randomUUID(),
+        // Only the hash is persisted; the plaintext goes to the client once.
+        refreshToken: hashRefreshToken(refreshToken),
         refreshExpiresAt: this.refreshExpiry(),
       }),
     );
 
     const access = this.tokenService.signAccessToken(user.id, session.id);
-    return this.toSessionResponse(session, user, access);
+    return this.toSessionResponse(user, access, refreshToken);
   }
 
   private async getSessionByAccessToken(accessToken: string) {
@@ -567,14 +661,14 @@ export class AuthService {
   }
 
   private toSessionResponse(
-    session: AuthSessionEntity,
     user: UserEntity,
     access: { token: string; expiresIn: number },
+    refreshToken: string,
   ): AuthSessionResponseDto {
     return {
       accessToken: access.token,
       accessTokenExpiresIn: access.expiresIn,
-      refreshToken: session.refreshToken,
+      refreshToken,
       accountType: user.accountType,
       userId: user.id,
       provider: user.provider as AuthProvider | undefined,

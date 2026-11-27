@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Keyingi namoz</string>
+  <string name="wear_today">Bugungi jadval</string>
+  <string name="wear_tasbeeh">Tasbeh</string>
+  <string name="wear_progress">Bugungi yutuq</string>
+  <string name="wear_open_phone">Sinxronlash uchun telefoningizda Munib Tracker\'ni oching</string>
+  <string name="wear_connect_phone">Namoz vaqtlarini ko\'rish uchun telefoningizni ulang</string>
+  <string name="wear_install_phone">Namoz vaqtlarini ko\'rish uchun telefoningizga Munib Tracker\'ni o\'rnating</string>
+  <string name="wear_tasbeeh_standalone">Tasbeh telefonsiz ham soatingizda ishlaydi</string>
+  <string name="wear_tasbeeh_of_target">%1$d dan</string>
+  <string name="wear_tasbeeh_unlimited">Cheksiz</string>
+  <string name="wear_tasbeeh_options">Sozlamalar</string>
+  <string name="wear_tasbeeh_undo">Oxirgisini bekor qilish</string>
+  <string name="wear_tasbeeh_target">Maqsad</string>
+  <string name="wear_tasbeeh_mode">Rejim</string>
+  <string name="wear_tasbeeh_free">Erkin sanash</string>
+  <string name="wear_tasbeeh_after_salah">Namozdan keyin</string>
+  <string name="wear_tasbeeh_reset">Qayta tiklash</string>
+  <string name="wear_tasbeeh_reset_confirm">Sanash 0 ga qaytarilsinmi?</string>
+  <string name="wear_tasbeeh_start_again">Qaytadan boshlash</string>
+  <string name="wear_tasbeeh_all_done">Tasbeh tugadi</string>
+  <string name="wear_tasbeeh_step">%1$d / %2$d qadam</string>
+  <string name="wear_tasbeeh_target_reached">Maqsadga erishildi</string>
+  <string name="wear_tasbeeh_tap_to_count">Sanash uchun bosing</string>
+  <string name="wear_tasbeeh_a11y">Tasbeh hisoblagichi, %1$d / %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Tasbeh hisoblagichi, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Bittani sanash</string>
+  <string name="wear_open">Ochish</string>
+  <string name="wear_open_app">Munib Tracker\'ni ochish</string>
+  <string name="wear_mark_confirm">Bu namozni o\'qilgan deb belgilaysizmi?</string>
+  <string name="wear_confirm">Tasdiqlash</string>
+  <string name="wear_marked">Belgilandi ✓</string>
+  <string name="wear_mark_sent">Telefoningizga yuborildi</string>
+  <string name="wear_mark_will_sync">Telefoningiz yaqin bo\'lganda sinxronlanadi</string>
+</resources>

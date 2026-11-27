@@ -1,3 +1,4 @@
+import "server-only";
 import { adminBroadcastsTable } from "@munib-tracker/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { getDb } from "@/lib/db";

@@ -2,137 +2,112 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // tg overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
+// Qur'an quotes in prose use the Ayati Tajik translation; hadith quotes stay in English (no tg dataset).
 export const LAYLAT_AL_QADR_TOPICS_TG: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Шаби Қадр чист?",
+    summary: "Шаби тақдир — беҳтар аз ҳазор моҳ.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Шаби Қадр (Лайлатул-Қадр), яъне шаби тақдир (ё шаби қудрат), шабест, ки дар он нузули Қуръон ба Паёмбар ﷺ оғоз ёфт. Аллоҳ ба он як сураи комил бахшидааст, ки чунин оғоз мешавад: «Мо дар шаби қадраш нозил кардем! (Қуръонро)» (Қуръон 97:1). Арзиши он чанд оят баъдтар бо равшантарин суханон баён шудааст: «Шаби қадр беҳтар аз ҳазор моҳ аст» (Қуръон 97:3) — ибодат дар ҳамин як шаб аз ибодате, ки дар тӯли беш аз ҳаштоду се сол паҳн шуда бошад, бартар аст.",
+      "Сура ин шабро боз тасвир мекунад: фариштагон ва Рӯҳ (Ҷабраил) дар он бо изни Парвардигорашон бо ҳар фармон фуруд меоянд ва он «то тулӯъи бомдод ҳама салому эминӣ аст» (Қуръон 97:4–5). Ин шаби раҳмати бепоён, оромӣ ва тақдири илоҳист — шабе, ки Паёмбар ﷺ саҳобагонашро ташвиқ мекард, ки фаъолона ҷустуҷӯяш кунанд, на ин ки бепарво аз он бигзаранд.",
+      "Аз ҳамин сабаб даҳ шаби охири Рамазон чунин вазни маънавӣ доранд: дар миёни онҳо шабест, ки аз ҳар шаби дигари умри инсон қиматтар аст. Ҳикмати ошкоро нагуфтани он дар он аст, ки мӯъминон дар ҳар яке аз даҳ шаби охир кӯшиш кунанд, на ин ки ҳамаро ҷуз як шаб бо ғафлат гузаронанд.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Савоби қиём дар намоз",
+    summary: "Ибодати самимона дар ин шаб гуноҳҳои гузаштаро мепӯшонад.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Паёмбар ﷺ ба ин шаб ваъдаи фавқулоддае пайваст: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (маънои англисӣ) (Бухорӣ 1901). Ба он ду шарт гузошта шудааст — имон (бовари самимӣ ба он ки ин ибодатро Аллоҳ дӯст медорад ва машрӯъ кардааст) ва эҳтисоб (умеди танҳо савоби Аллоҳ, на барои нишон додан ё таъриф шунидан).",
+      "Ин омурзиш барои ҳар касе, ки танҳо ҳозир бошад, худ ба худ нест; он барои касест, ки бо дили самимӣ ва умедвор ибодат мекунад. Аз ин рӯ даҳ шаби охир одатан бо намози иловагии шаб (қиём), Қуръон ва зикр пур мешаванд — на аз он сабаб, ки савоб як муомилаи тиҷоратист, балки аз он сабаб, ки худи кӯшиши самимона ва пайваста ҳамон чизест, ки ҳадис онро имон ва эҳтисоб меномад.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Пеш аз ҳар шаби ибодат ниятатонро нав кунед — барои розигии Аллоҳ ва бо умеди савоби Ӯ.",
+      "Дар даҳ шаби охир қиёмуллайл гузоред, ҳарчанд чанд ракаат бошад ҳам.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Онро кай бояд ҷуст",
+    summary: "Шабҳои тоқи даҳаи охири Рамазон — на як санаи муайян.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Паёмбар ﷺ фармуд: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (маънои англисӣ) (Бухорӣ 2017), ки аз Оиша ривоят шудааст. Дар Рамазони муқаррарии 30-рӯза шабҳои тоқ одатан шабҳои 21, 23, 25, 27 ва 29 ҳисоб мешаванд. Ривоятҳои дигари саҳеҳ инро ба тамоми даҳ шаби охир васеъ мекунанд ва худи Паёмбар ﷺ фармудааст, ки санаи дақиқи он шаб ба ӯ нишон дода шуд ва сипас аз ёдаш бурда шуд — то уммат дар ҳамаи ин шабҳо кӯшиш кунад, на танҳо дар як шаб.",
+      "Шаби 27-умро бисёре аз уламо ва ҷамоаҳо эҳтимолтарин мешуморанд (бар асоси ривоятҳои дигар, ки нишонаҳо ва басомади хабарҳои саҳобагонро баррасӣ мекунанд), аммо ин хулосаи илмист аз ҳадисҳо, на санаи алоҳидаи қатъие, ки дар матнҳо бо яқин зикр шуда бошад. Он метавонад дар солҳои гуногун ва дар минтақаҳои гуногун ба шаби дигар рост ояд, зеро худи оғози Рамазон аз рӯи дидани ҳилол фарқ мекунад.",
+      "Баъзеҳо ҳар сол як санаи чопиро тавре нашр мекунанд, ки гӯё он бо яқин муқаррар шуда бошад, ва рӯйхатҳои мардумии «нишонаҳо» (шаби ғайриоддӣ ором, хобҳо, нури махсус) дар интернет васеъ паҳн мешаванд. Ҳеҷ кадоми онҳо асоси қавии ҳадисӣ надорад, аз ин рӯ ин дастур онҳоро такрор намекунад. Роҳи боэътимод ва бар матн асосёфта оддӣ аст: ибодатро дар ҳамаи шабҳои тоқ — ва беҳтараш дар тамоми даҳ шаби охир — зиёд кунед, то он шаб ҳар кадоме бошад, шумо дар он машғули ибодат бошед.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Ин дастур ягон санаи муайяни тақвимӣ ё ягон «нишонаи» мардумиро барои шинохтани ин шаб тасдиқ намекунад — танҳо он чиро, ки ҳадисҳо мегӯянд: онро дар шабҳои тоқи даҳ шаби охири Рамазон ҷӯед.",
   },
   {
-    title: "Агар онро ёфтаед чӣ гӯед",
-    summary: "Оиша аз Пайғамбар ﷺ пурсид, ки дақиқан чӣ гӯяд.",
+    title: "Агар онро дарёбед, чӣ гӯед",
+    summary: "Оиша аз Паёмбар ﷺ пурсид, ки дақиқан чӣ бояд гуфт.",
     body: [
-      "Оиша (аллоҳ аз ӯ розӣ бошад) аз Пайғамбар ﷺ пурсид: «Эй Расули Аллоҳ, агар донам, кадом шаб шаби Қадр аст, дар он чӣ гӯям?» Ӯ ﷺ дуои кӯтоҳи омурзишро, ки дар поён нишон дода шудааст, омӯзонд (Термизи 3513, ки ат-Термизи онро хасан сахих арзёб кардааст).",
-      "Ин дуо кӯтоҳ, барои ҳифз осон аст ва қасдан дар бораи омурзиш аст, на дархостҳои дунёвӣ — ёдрас, ки бузургтарин дастовард аз ин шаб омурзиши Аллоҳ аст. Онро дар да шаби охир зиёд такрор кунед, дар намоз, дар саҷда ва байни онҳо, ба ҷои он ки барои як шаби тахминшуда нигоҳ доред.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ман гуфтам: Эй Расули Аллоҳ, агар донам, кадом шаб шаби Қадр аст, дар он чӣ гӯям? Ӯ ﷺ гуфт: Гӯед — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Эй Аллоҳ, Ту омурзандаӣ ва омурзишро дӯст медорӣ, маро биомурз).",
-      },
+      "Оиша (Аллоҳ аз ӯ розӣ бод) аз Паёмбар ﷺ пурсид: 'O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?' (маънои англисӣ). Ӯ ба вай дуои кӯтоҳи омурзишро, ки дар поён нишон дода шудааст, омӯхт (Тирмизӣ 3513, ки ат-Тирмизӣ онро ҳасан саҳеҳ арзёбӣ кардааст).",
+      "Ин дуо кӯтоҳ ва барои аз ёд кардан осон аст ва қасдан дар бораи омурзиш аст, на дархостҳои дунёвӣ — ёдоварие, ки бузургтарин дастовард аз ин шаб афву бахшиши Аллоҳ аст. Онро дар тӯли даҳ шаби охир бисёр такрор кунед — дар намоз, дар саҷда ва дар байни онҳо — на ин ки онро барои як шаби тахминӣ нигоҳ доред.",
     ],
     actions: [
-      "Дуои омурзиши дар боло нишон дода шударо аз ёд кунед.",
-      "Онро дар да шаби охир, хусусан дар шабҳои тоқ, зиёд такрор кунед.",
+      "Дуои омурзишро, ки дар боло нишон дода шудааст, аз ёд кунед.",
+      "Онро дар даҳ шаби охир, хусусан дар шабҳои тоқ, бисёр такрор кунед.",
+    ],
+    appLinks: [{ label: "Ин дуоро кушоед" }],
+  },
+  {
+    title: "Шабро чӣ гуна бояд гузаронд",
+    summary: "Намози шаб, Қуръон, зикр ва дуо, ва садақа.",
+    body: [
+      "Барои Шаби Қадр ғайр аз ибодати самимона ягон «маросими» ҳатмии алоҳида вуҷуд надорад, бинобар ин Суннат танҳо амалҳои аллакай машрӯъро шиддат мебахшад: истодан дар намози нафлии шаб (қиёмуллайл / таровеҳ), тиловат ва тафаккур дар Қуръон, такрори зикр ва истиғфор ва дуо кардан — хусусан дуое, ки Паёмбар ﷺ ба Оиша омӯхт. Бисёре аз саҳобагон ва уламои баъдӣ низ дар ин шабҳо садақаро зиёд мекарданд, мувофиқи он ки саховати худи Паёмбар ﷺ дар Рамазон ба авҷи худ мерасид.",
+      "Агар танҳо каме карда тавонед, ҳамон камро пайваста анҷом диҳед, на ин ки тамоман ҳеҷ кор накунед: ҳатто қиёми кӯтоҳ, чанд саҳифа Қуръон ва дуои омурзиш, ки самимона такрор шавад, ҳамон «имон ва эҳтисоб»-еро, ки ҳадис тасвир мекунад, адо мекунанд. Онҳое, ки метавонанд аз кор рухсатӣ гиранд ё хилвати худро зиёд кунанд, метавонанд дар даҳ шаби охир, ба пайравӣ аз амали худи Паёмбар ﷺ, эътикоф (хилват дар масҷид) низ кунанд.",
+    ],
+    actions: [
+      "Дар даҳ шаби охир намози иловагии шаб (қиём/таровеҳ) гузоред.",
+      "Ҳар шаб қисме аз Қуръонро тиловат кунед ва дар он тафаккур намоед.",
+      "Истиғфор, зикр ва дуои омурзишро зиёд кунед.",
+      "Дар ин шабҳо, ҳарчанд кам бошад ҳам, садақа диҳед.",
+    ],
+    appLinks: [
+      { label: "Қуръонхон" },
+      { label: "Азкори субҳу шом" },
+      { label: "Пайгирии намоз" },
+      { label: "Закот ва садақа" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Эътикоф дар даҳ шаби охир",
+    summary: "Хилват дар масҷид — амали Паёмбар ﷺ дар охири Рамазон.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Эътикоф — ин мондан дар масҷид барои ибодат ва бурида шудан аз машғулиятҳои муқаррарии дунявӣ барои муддати муайян аст. Паёмбар ﷺ мунтазам дар даҳ шаби охири Рамазон эътикоф мекард ва Шаби Қадрро бо ибодати мутамарказ меҷуст, на ин ки барои корҳои оддӣ аз масҷид берун равад (Саҳеҳи Бухорӣ 2026).",
+      "Таълимоти классикӣ эътикофи комили даҳ шаби охирро барои касе, ки қодир аст, суннати муаккада медонад. Ҷузъиёти он, ки чӣ онро мешиканад, оё занон метавонанд онро дар ҷои махсуси масҷид адо кунанд ва вазифаҳои корӣ ё оилавӣ бо он чӣ гуна мувофиқ мешаванд, аз рӯи мазҳабҳо фарқ мекунанд — ин дастур танҳо худи амал ва ҳадафи онро муқаррар мекунад: Қуръон, намоз ва дуои пайваста дар шабҳое, ки эҳтимоли Шаби Қадр дар онҳо бештар аст.",
+      "Агар хилвати комил дар масҷид имконпазир набошад, фосиларо кам кунед: баъд аз таровеҳ бештар бимонед, гӯшаҳои оромтари шабро дар хона барои қиём ва Қуръон ҷудо кунед ва он соатҳоро аз парешониҳои нолозим ҳифз намоед. Савоб ба ибодати самимона вобаста аст, на танҳо ба унвони расмии эътикоф.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Агар масҷиди шумо эътикоф пешниҳод кунад, барвақт дар бораи сабти ном ва қоидаҳое, ки онҳо риоя мекунанд, бипурсед.",
+      "Агар шаб монда натавонед, ба ҳар ҳол дар даҳ шаби охир ҳузури худро барои Қуръон ва қиём дарозтар кунед.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "Эътикоф шартҳои муфассали фиқҳӣ дорад (ният, баромадан аз масҷид, наздикии ҳамсарон, тартиботи занон). Пеш аз оғоз бо олими соҳибсалоҳияти маҳаллӣ ё масҷиди худ маслиҳат кунед.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Ибодат бо оила дар даҳ шаби охир",
+    summary: "Кӯдакон ва аҳли хонаро бидуни дунболи санаи муайян гаштан шарик кунед.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Даҳ шаби охир фурсатест барои тамоми хонавода, на танҳо барои онҳое, ки танҳо бедор монда метавонанд. Ба кӯдакон маънои Шаби Қадрро бо суханони содда омӯзед — ки Аллоҳ як шабро беҳтар аз ҳазор моҳ гардонидааст — ва онҳоро ба амалҳои кӯтоҳ ва иҷрошаванда даъват кунед: чанд саҳифа Қуръон, ҳамроҳ шудан ба таровеҳ то ҷое ки тавонанд, такрори дуои омурзиш ва додани андаке садақа.",
+      "Оҳангро нарм нигоҳ доред. Ҳадаф кӯшиши самимона дар шабҳои тоқ аст, на хаста кардани ҳама барои як санаи тахминии тақвимӣ. Навбат ба навбат ҳар кас зикри кӯтоҳи оилавиро роҳбарӣ кунад, пеш аз шом нияти муштарак гузоред ва хобро он қадар ҳифз кунед, ки ибодат пойдор бимонад, на ин ки як шаби пуршиддат ва сипас фурӯпошӣ бошад.",
+      "Онҳое, ки ба нигоҳубини дигарон ё кор маҳдуданд, низ дар ин шаб шариканд — бо тайёр кардани саҳарӣ, озод кардани дигарон барои намоз дар масҷид ё дуо кардан ҳангоме ки дигарон дар қиёманд — ҳар саҳми самимона дар ҷустуҷӯи муштараки ин шаб ҳисоб меравад.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Ҳамчун оила мувофиқа кунед, ки кадом шабҳои тоқро барои Қуръон ва намози иловагӣ афзалият медиҳед.",
+      "Дуои омурзишро якҷоя аз ёд кунед ва онро баъд аз шом ва пеш аз хоб такрор кунед.",
+      "Бигзоред кӯдакон дар даҳ шаби охир андаке садақа диҳанд.",
     ],
+    appLinks: [{ label: "Дуоҳои Ҳиснул Муслим" }, { label: "Қуръонхон" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Онро содда ва самимона нигоҳ доред",
+    summary:
+      "Аз санаҳои муайян ва нишонаҳои мардумӣ даст кашед; ба ибодат дар ҳамаи шабҳо тамаркуз кунед.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Аз ду амали маъмул бояд худдорӣ кард, зеро онҳо аз он чи матнҳо муқаррар мекунанд, фаротар мераванд. Аввал, як санаи чопиро бо яқин Шаби Қадр донистан — ҳадисҳо қасдан онро дар миёни чанд шаби тоқ гузоштаанд, на дар як рӯзи тақвимӣ, ва ин аз рӯи дидани ҳилол ва макон фарқ мекунад. Дуюм, дунболи «нишонаҳои» мардумӣ (хоби махсус, шаби ғайриоддӣ ором, рафтори аҷиби ҳайвонот) гаштан ҳамчун далели фаро расидани ин шаб — инҳо бо ҳадисҳои қавӣ тасдиқ нашудаанд ва метавонанд аз ибодати воқеие, ки ин шаб талаб мекунад, парешон созанд.",
+      "Хулосаи амалӣ содда аст: ибодататонро дар тӯли даҳ шаби охир пайваста зиёд кунед, дуои омурзишро бисёр гӯед ва бигзоред раҳмати Аллоҳ — на санаи тахминӣ — дар маркази таваҷҷуҳ бошад. Агар он шабро огоҳона дарнаёбед ҳам, худи кӯшиши самимона дар ҳамаи шабҳо савоби фаровон дорад.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Ин мундариҷаи умумии таълимист, ки таълимоти маъмули аҳли суннатро аз Қуръон ва ҳадисҳои саҳеҳ хулоса мекунад. Ин фатво нест. Барои аҳком дар бораи эътикоф, намозҳои қазо ё ҳолати мушаххаси худ ба олими соҳибсалоҳияти маҳаллӣ муроҷиат кунед.",
   },
 ];

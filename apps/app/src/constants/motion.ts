@@ -5,6 +5,10 @@
  * entrances are gentle and unhurried, and ambient loops breathe slowly. This is a
  * reflective, spiritual app — motion should feel serene and trustworthy, never
  * playful or gamey. Centralising these keeps every screen animating in one voice.
+ *
+ * Rules: **no new durations** — round raw 140/160/220/240/280/320ms values to
+ * `Durations.fast` or `Durations.base`. Default timing easing only (no custom
+ * curves); nothing bounces except `Springs.pop` on a completion.
  */
 
 /** Physical spring presets consumed by `withSpring`. */
@@ -15,6 +19,8 @@ export const Springs = {
   gentle: { mass: 1, damping: 24, stiffness: 170 },
   /** A touch of life for moments of accomplishment (check-offs, selections). */
   pop: { mass: 0.7, damping: 13, stiffness: 230 },
+  /** Bottom-sheet slide-in and drag settle. */
+  sheet: { damping: 20, stiffness: 300 },
 } as const;
 
 /** Timing durations (ms) for non-spring transitions and ambient loops. */

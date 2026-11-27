@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Njihove priče u Kur'anu nisu samo daleka historija; oni su praktične lekcije za vjerovanje, strpljenje, porodični život, vodstvo i pokajanje.",
       "Vjerovanje u sve poslanike je dio imana. Muslimani ih sve poštuju, izbjegavaju preuveličavanje i slijede završnu poruku koju je donio Muhammed, sallallahu alejhi ve sellem.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Poslanici kao donosioci dobrih vijesti i opomena kako ljudi ne bi imali argument protiv Allaha nakon poslanika.",
-      },
-      {
-        excerpt:
-          "Mi smo svakako poslali u svaki narod poslanika: Obožavajte Allaha i izbjegavajte lažne bogove.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Proroci nisu božanski i nikada ih se ne obožava. Oni su najbolji od stvorenja u poslušnosti, karakteru i pouzdanosti, dok ostaju Allahovi robovi.",
       "Njihova misija je jedna u osnovi: obožavati samo Allaha. Određeni pravni detalji mogu se razlikovati od zajednice prema Allahovoj mudrosti.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Njihovi poslanici im rekoše: "Mi smo samo ljudi poput vas, ali Allah daje milost kome hoće među robovima Svojim."',
-      },
-      {
-        excerpt:
-          "Mi prije tebe nismo poslali nijednog poslanika osim što smo mu objavili: Nema drugog božanstva osim Mene, zato Mi se klanjajte.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Kur'an koristi oba izraza sa čašću, a muslimani vjeruju u sve poslanike i poslanike, a da nijednog ne odbacuju.",
       "Tačne tehničke definicije mogu varirati ovisno o znanstvenim frazama, ali praktična lekcija je konzistentna: primite objavu sa poniznošću i slijedite Allahovu uputu.",
     ],
-    quran: [
-      {
-        excerpt: "Bio je izabran, bio je glasnik i prorok.",
-      },
-      {
-        excerpt: "Mi ne pravimo razliku između bilo kojeg od Njegovih poslanika.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Detalji terminologije su predstavljeni na širok, neutralan za naučnike; konsultujte kvalifikovane nastavnike za napredne teološke klasifikacije.",
     appLinks: [{}],
@@ -74,14 +49,7 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Njihovi životi također pokazuju sabr pod odbacivanjem, povjerenje u Allaha tokom neizvjesnosti i spremnost da reformišu društvo mudrošću i hrabrošću.",
       "Njihovo proučavanje gradi otpornost: vjernici uče da se brzo pokaju, vode etički i ostaju principijelni čak i kada istina nije popularna.",
     ],
-    quran: [
-      {
-        excerpt: "U njihovim pričama je lekcija za ljude koji razumiju.",
-      },
-      {
-        excerpt: "Oni su oni koje je Allah uputio, pa slijedite njihovu uputu.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Odaberite jednu proročku lekciju svake sedmice i primijenite je namjerno.",
       "Razmišljajte nakon namaza gdje vam je potrebno više strpljenja ili pokajanja.",
@@ -97,15 +65,7 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Čuda nisu nezavisne moći proroka; dešavaju se Allahovom voljom da podrže objavu i utvrde dokaze.",
       "Kur'an pokazuje da su neki i dalje odbačeni uprkos znakovima, dok dokazuje da uputa zavisi od iskrenosti i pokornosti, a ne samo od spektakla.",
     ],
-    quran: [
-      {
-        excerpt: "Poslali smo Naše poslanike sa jasnim dokazima i s njima spustili Knjigu i Vagu.",
-      },
-      {
-        excerpt:
-          "Reci: Znaci su samo kod Allaha... Zar im nije dovoljno što smo vam objavili Knjigu koja im se čita?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -116,16 +76,7 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Iako se postavke razlikuju, njihov poziv je jedan: tevhid, ispravnost, odgovornost i milost kroz pokajanje.",
       "Ovaj modul ostaje utemeljen na Kur'anu i drži sekundarne istorijske detalje kratkim osim ako nije potkrijepljen pouzdanim dokazima.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Već smo poslali glasnike prije vas; među njima su i oni koje smo vam u vezi, a među njima su i oni koje vam nismo u vezi.",
-      },
-      {
-        excerpt:
-          "Vjerujemo u Allaha i ono što je objavljeno... i ono što je dato Musau, Isau i poslanicima od njihovog Gospodara.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -136,16 +87,8 @@ export const PROPHETS_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       "Izbjegavajte senzacionalne ili slabe izvještaje koji su u suprotnosti s kur'anskim principima ili proročkim dostojanstvom. Nema svaka popularna priča čvrste dokaze.",
       "Koristite proročke biografije da reformišete svoje obožavanje i karakter, a ne samo da prikupite istorijske činjenice.",
     ],
-    quran: [
-      {
-        excerpt: "Oni koji slušaju govor i slijede ono najbolje od njega - njih je Allah uputio.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ko krene putem tražeći znanje, Allah mu olakšava put u Džennet.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Čitajte jednu prorokovu priču sedmično direktno iz Kur'ana.",
       "Vodite bilješke o praktičnim lekcijama, a ne samo o činjenicama s vremenskog okvira.",
@@ -192,26 +135,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Njegovo pokajanje je prvi model tevbe u Kur'anu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "I [spomenite] kada je vaš Gospodar rekao melekima: Ja ću na Zemlji učiniti uzastopnu vlast... Tada je Adam primio riječi od svog Gospodara, i On je prihvatio njegovo pokajanje.",
-      },
-      {
-        excerpt:
-          'Rekoše: "Gospodaru naš, sami sebi smo nepravdu učinili, i ako nam ne oprostiš i ne smiluješ nam se, sigurno ćemo biti među gubitnicima."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Na Sudnjem danu ljudi će doći Adamu i reći: Ti si otac ljudi; zauzmi se za nas kod svog Gospodara.",
-      },
-      {
-        excerpt:
-          'Adam i Musa su se svađali. Musa reče: Ti si onaj koga je Allah stvorio svojom rukom. Adam je rekao: "Da li me kriviš za stvar koju mi ​​je Allah odredio prije nego što me je stvorio?" Dakle, Adam je prevagnuo nad Musom u raspravi.',
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -235,16 +160,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Opisano kao da ga je Allah uzdigao na visoku poziciju",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "I spomenuti u Knjizi Idrisa. Zaista, on je bio čovjek istine i prorok. I Mi smo ga uzdigli na visoku stanicu.",
-      },
-      {
-        excerpt:
-          "I Ismail i Idris i Dhul-Kifl - svi su bili od pacijenta. I Mi smo ih primili u Svoju milost; zaista, oni su bili od pravednika.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -281,22 +197,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Njegova priča se pojavljuje u mnogim surama, uključujući i onu nazvanu po njemu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "I Nuhu je otkriveno da niko od tvog naroda neće vjerovati osim onih koji su već povjerovali, zato se nemoj uznemiravati onim što su radili.",
-      },
-      {
-        excerpt:
-          'Rekao je: "Gospodaru moj, ja sam, zaista, pozivao svoj narod noću i danju, ali ga je moj poziv povećao samo u bijegu.',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ljudi će doći Nuhu i reći: O Nuh, ti si prvi od poslanika ljudi na Zemlji, a Allah te je imenovao zahvalnim robom; zauzmite se za nas.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -331,16 +233,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Priča o Adu se ponavlja u Kur'anu kao upozorenje kasnijim zajednicama"],
     },
-    quran: [
-      {
-        excerpt:
-          "A u Ad [Mi smo poslali] njihovog brata Huda. Rekao je: O narode moj, obožavajte Allaha; ti nemaš drugog božanstva osim Njega. Zar ga se nećeš bojati?",
-      },
-      {
-        excerpt:
-          "Pa kada su to vidjeli kao oblak koji se približava njihovim dolinama, rekli su: Ovo je oblak koji nam donosi kišu! Umjesto toga, to je ono zbog čega ste bili nestrpljivi: vjetar u njemu bolna kazna.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -374,16 +267,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Thamud je bio poznat po rezbarenju složenih domova u planinama"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ovo je Allahova deva kao znak za vas, zato je ostavite da jede u Allahovoj zemlji i ne dirajte je na zlo, da vas ne zadesi bolna kazna.",
-      },
-      {
-        excerpt:
-          "Semud je poricao zbog njihovog prijestupa, kada je najjadniji od njih poslat... Tako je njihov Gospodar obrušio na njih uništenje zbog njihovog grijeha i sravnio ih.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -424,22 +308,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Praotac proroka preko Ismaila i Ishaka",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "I [spomeni] kada je Ibrahima iskušao njegov Gospodar sa naredbama i on ih je ispunio. Rekao je: Zaista, učiniću te vođom za narod.",
-      },
-      {
-        excerpt:
-          "Rekli smo: O vatra, budi hladnoća i sigurnost Ibrahimu. I oni su mu naudili, ali Mi smo ih učinili najvećim gubitnicima.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bićete okupljeni bosi, goli i neobrezani. Prvi koji će biti obučen na Kijametskom danu biće Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -474,16 +344,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ibrahimov rođak koji je migrirao s njim i poslan u Sodomu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Da li prilazite muškarcima među svjetovima i ostavljate li ono što je vaš Gospodar stvorio za vas? Naprotiv, vi ste prestupnik.",
-      },
-      {
-        excerpt:
-          "Dakle, kada je stigla Naša naredba, Mi smo najviše dijelove gradova učinili najnižim i kišu na njih obrušili kamenjem od slojevite tvrde gline.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -521,16 +382,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Praotac arapskih plemena i konačna proročka linija",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "I spomenuti u Knjizi Ismaila. Zaista, bio je vjeran svom obećanju, i bio je glasnik i prorok. Svojoj porodici je zapovijedao namaz i zekat, i bio je zadovoljan svome Gospodaru.",
-      },
-      {
-        excerpt:
-          "I kada je Ibrahim podizao temelje Kuće i Ismaila, [oni su se molili]: Gospodaru naš, primi ovo od nas. Zaista, Vi ste Slušajući, Znajući.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -555,16 +407,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ya'qubov otac", "Imenovan pored Ibrahima i Ya'quba kao izabrana porodica"],
     },
-    quran: [
-      {
-        excerpt:
-          "A njegova žena je stajala i smijala se. Zatim smo joj dali dobre vijesti o Ishaku i, nakon Ishaka, o Ya'kubu.",
-      },
-      {
-        excerpt:
-          "I sjetite se robova Naših Ibrahima, Ishaka i Ja'kuba, onih od snage i vizije. Zaista, odabrali smo ih zbog ekskluzivnog kvaliteta: sjećanja na Dom.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -598,16 +441,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Također se zove Izrael", "Otac Jusufa i plemena Bani Isra'il"],
     },
-    quran: [
-      {
-        excerpt:
-          "On je rekao: Nego, vaše duše su vas namamile na nešto. Dakle, strpljenje je najprikladnije. Možda će mi ih Allah sve zajedno dovesti.",
-      },
-      {
-        excerpt:
-          "Oni su rekli: Obožavaćemo tvog Boga i Boga tvojih očeva, Ibrahima, Ismaila i Ishaka - jednog Boga, i Njemu se pokoravamo.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -644,18 +478,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Cijela sura Jusuf, koja se naziva najboljom pričom, usredotočena je na njegov život",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Rekao je: "Danas neće biti nikakve krivice na vama." Neka ti Allah oprosti; i On je najmilostiviji od milostivih.',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Plemeniti, sin plemenitog, sin plemenitog, sin plemenitog: Jusuf, sin Ja'kuba, sin Ishaka, sina Ibrahimovog.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -689,15 +513,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Poznat po tome što naglašava samo težine i mjere"],
     },
-    quran: [
-      {
-        excerpt:
-          "O narode moj, obožavajte Allaha; ti nemaš drugog božanstva osim Njega. Dajte punu mjeru i težinu i ne oduzimajte ljudima pravo i ne izazivajte pokvarenost na zemlji.",
-      },
-      {
-        excerpt: "I moj uspjeh nije samo preko Allaha. Na Njega sam se pouzdao, i Njemu se vraćam.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -732,16 +548,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Citiran u cijeloj islamskoj tradiciji kao model sabra"],
     },
-    quran: [
-      {
-        excerpt:
-          "A Ejub, kada je pozvao svog Gospodara: Zaista, nevolja me je dotakla, a Ti si najmilostiviji od milostivih.",
-      },
-      {
-        excerpt:
-          "Zaista, našli smo ga strpljivim, odličnim slugom. Zaista, on se stalno vraćao Allahu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -765,15 +572,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Ubraja se među proroke na glavnim muslimanskim listama",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "I Ismail i Idris i Dhul-Kifl - svi su bili od pacijenta. I Mi smo ih primili u Svoju milost; zaista, oni su bili od pravednika.",
-      },
-      {
-        excerpt: "I zapamtite Ismaila, Al-Yasa'a i Dhul-Kifla, i svi su među istaknutim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -814,22 +613,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Zove se Kalimullah - onaj kome se Allah direktno obratio",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "A ja sam tebe izabrao, pa slušaj šta se otkriva. Zaista, ja sam Allah. Nema drugog božanstva osim Mene, zato Me obožavajte i uspostavite molitvu za Moj spomen.",
-      },
-      {
-        excerpt:
-          "I Mi smo nadahnuli majku Musaovu: Dojite ga, ali kada se bojite za njega, bacite ga u rijeku i ne boj se i ne tuguj. Zaista, Mi ćemo vam ga vratiti.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Anđeo smrti poslan je Musi. Kada mu je došao, Musa ga je udario, a Allah mu je vratio oko i dao mu izbor u pogledu vremena njegove smrti.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -862,16 +647,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Stariji brat Musa", "Hvaljen u Kur'anu zbog svoje elokvencije"],
     },
-    quran: [
-      {
-        excerpt:
-          "I odredi mi ministra iz moje porodice — Haruna, mog brata. Povećaj kroz njega moju snagu i pusti ga da podijeli moj zadatak.",
-      },
-      {
-        excerpt:
-          "Rekao je: Sine moje majke, zaista me je narod savladao i hteli su da me ubiju, pa neka se neprijatelji ne raduju nada mnom.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -909,22 +685,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Primalac zabura (psalma)", "Pobijedio je Jaluta (Golijata) kao mladić"],
     },
-    quran: [
-      {
-        excerpt:
-          "O Davude, Mi smo te zaista učinili nasljednikom na Zemlji, zato sudi ljudima u istini i ne slijedi želju, jer će te ona skrenuti s Allahovog puta.",
-      },
-      {
-        excerpt:
-          "I Mi smo podvrgli planine da ih veličamo sa Davudom, a i ptice... I naučili smo ga da oblikuje oklope da vas zaštiti od neprijatelja vašeg.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Najomiljenija molitva Allahu je Davudov namaz, a najomiljeniji post Allahu je Davudov post: on bi postio jedan dan, a drugi bi prekinuo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -963,16 +725,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Među najpotpunije opisanim kraljevima prorocima u Kur'anu"],
     },
-    quran: [
-      {
-        excerpt:
-          'Nasmiješio se, zabavljajući se njenim govorom, i rekao: "Gospodaru moj, omogući mi da budem zahvalan za Tvoju naklonost koju si dao meni i mojim roditeljima, i da činim pravednost koju Ti odobravaš."',
-      },
-      {
-        excerpt:
-          "A Sulejmanu [Mi smo podvrgli] vjetar - njegov jutarnji tok put od mjesec dana, a njegov popodnevni tok put od mjesec dana.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -998,15 +751,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imenovani među pravednicima", "Suočio se sa obožavanjem idola Ba'la"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kada je rekao svom narodu: Zar se nećete bojati Allaha? Da li pozivate Ba'la i ostavljate najbolje kreatore?",
-      },
-      {
-        excerpt: "I Zakarija i Jahja i Isa i Iljas - i svi su bili od pravednih.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1029,14 +774,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Naveden direktno u Kur'anu među istaknutim i odabranim"],
     },
-    quran: [
-      {
-        excerpt: "I Ismail i Al-Yasa' i Junus i Lut — i sve što smo Mi preferirali nad svjetovima.",
-      },
-      {
-        excerpt: "I zapamtite Ismaila, Al-Yasa'a i Dhul-Kifla, i svi su među istaknutim.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1074,22 +812,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["U Kur'anu se naziva i Dhun-Nun (čovjek od ribe)."],
     },
-    quran: [
-      {
-        excerpt:
-          "I povika u tamama: Nema božanstva osim Tebe; slava Tebi. Zaista, bio sam među prestupnicima.",
-      },
-      {
-        excerpt:
-          "Zar onda nije postojao grad koji je vjerovao tako da mu je njegova vjera koristila osim naroda Yunusa? Kada su povjerovali, Mi smo od njih uklonili kaznu sramote.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dova Dhun-Nuna kada je pozvao Allaha iz trbuha ribe bila je: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Nijedan musliman se time ne moli ni za šta osim da mu Allah odgovori.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1124,16 +848,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Čuvar Maryam", "Otac Yahya, čije je rođenje odgovorilo na njegovu molitvu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Tamo je Zakarija pozvao svog Gospodara govoreći: Gospodaru moj, daj mi od Sebe dobro potomstvo. Zaista, Ti si Onaj koji čuje molbu.",
-      },
-      {
-        excerpt:
-          'Rekao je: "Gospodaru moj, moje kosti su oslabile, a glava se napunila bijelim, i nikada nisam bio nesretan u svojoj molitvi Tebi, Gospodaru moj.',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1165,16 +880,7 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Počašćen mirom pri rođenju, smrti i uskrsnuću",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "O Yahya, prihvati Sveto pismo odlučno. I Mi smo mu dali mudrost dok je još bio dijete, i nježnost od Nas i čistoću, i on je bio svjestan Allaha.",
-      },
-      {
-        excerpt:
-          "Allah vam daje dobre vijesti o Jahiji, potvrđujući Allahovu riječ - časnu, suzdržanu i poslaniku među pravednima.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1216,22 +922,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
         "Vratit će se prije posljednjeg dana u sunitskom vjerovanju",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "[Isa je rekao]: Zaista, Allah je moj i vaš Gospodar, zato Mu se klanjajte. To je pravi put.",
-      },
-      {
-        excerpt:
-          "I nisu ga ubili, niti su ga razapeli; ali im se tako činilo... Umjesto toga, Allah ga je uzdigao k Sebi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ja sam najbliži od svih ljudi Isau, sinu Merjeminu. Proroci su braća različitih majki, ali njihova vjera je jedna, i nije bilo proroka između nas.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1269,21 +961,8 @@ export const PROPHETS_BIO_TOPICS_BS: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Pečat proroka", "Najbolji primjer (uswah hasanah) za vjernike"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhamed nije otac nijednog od vaših ljudi, ali je Allahov Poslanik i pečat poslanika.",
-      },
-      {
-        excerpt: "A Mi vas nismo poslali osim kao milost svjetovima.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Moj primjer i primjer proroka prije mene je primjer čovjeka koji je lijepo i potpuno izgradio kuću, osim mjesta od jedne cigle. Ja sam ta cigla, i ja sam pečat proroka.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

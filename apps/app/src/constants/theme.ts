@@ -1,4 +1,4 @@
-import { Platform, type ViewStyle } from "react-native";
+import { Platform, StyleSheet, type ViewStyle } from "react-native";
 
 import { tvDp } from "./tv-density";
 
@@ -10,7 +10,12 @@ export type ThemeColor =
   | "mutedForeground"
   | "accent"
   | "card"
-  | "cardForeground";
+  | "cardForeground"
+  /** AA accent tone for text/icons on background or card (never raw `accent` as text). */
+  | "accentText"
+  | "cardBorder"
+  | "input"
+  | "inputBorder";
 
 export const Fonts = Platform.select({
   ios: {
@@ -36,11 +41,17 @@ export const Fonts = Platform.select({
 /**
  * Spacing scale (dp). On Apple TV (1920×1080pt layout) every step is doubled via
  * {@link tvDp} so tvOS matches Android TV's physical size; identity elsewhere.
+ * `Spacing.x ± n` arithmetic is banned — the literal part skips `tvDp`; use
+ * `oneHalf` / `twoHalf` instead.
  */
 export const Spacing = {
   half: tvDp(2),
   one: tvDp(4),
+  /** Replaces `Spacing.one + 2` / `Spacing.half + 4`. */
+  oneHalf: tvDp(6),
   two: tvDp(8),
+  /** Replaces `Spacing.two + 2`. */
+  twoHalf: tvDp(10),
   three: tvDp(16),
   four: tvDp(24),
   five: tvDp(32),
@@ -49,11 +60,101 @@ export const Spacing = {
 
 /** Corner radii scale (squircle-friendly via `borderCurve: "continuous"`). */
 export const Radius = {
+  /** Progress tracks, small badges, checkbox, skeleton lines, sheet grabber. */
+  xs: tvDp(6),
   sm: tvDp(10),
   md: tvDp(14),
   lg: tvDp(20),
   xl: tvDp(28),
   pill: 999,
+} as const;
+
+/** Border widths. The TV focus ring keeps its own `TvLayout.focusRingWidth`. */
+export const BorderWidth = {
+  /** Dividers, secondary-button outline (one physical pixel — never TV-scaled). */
+  hairline: StyleSheet.hairlineWidth,
+  /** Card, field, ghost button, chip. */
+  thin: tvDp(1),
+  /** Selected / emphasis outline (literal 1.5 resolves here or to `thin`). */
+  thick: tvDp(2),
+} as const;
+
+/**
+ * Control heights (dp, `tvDp`-scaled). On TV, focusables use
+ * `TvLayout.minFocusTarget` / `TvLayout.chipMinHeight` instead.
+ */
+export const Control = {
+  /** `Button sm`, dense toolbars — never a screen's primary action. */
+  sm: tvDp(36),
+  /** `Button md`, `IconButton`, `SwitchRow`, `SegmentedControl`, `Stepper md`. */
+  md: tvDp(44),
+  /** `Button lg` — full-width primary CTA. */
+  lg: tvDp(52),
+  /** `NavRow`, settings rows. */
+  row: tvDp(52),
+  /** `TextField`, `SearchField`. */
+  field: tvDp(50),
+  /**
+   * Minimum hit area — 48dp Android, 44pt iOS / web. Deliberately **unscaled**:
+   * it is a platform HIG floor, not a layout size. Reach it with `hitSlop` on
+   * native and with real size on web (`hitSlop` is ignored there).
+   */
+  minTouch: Platform.OS === "android" ? 48 : 44,
+} as const;
+
+/**
+ * Icon sizes — **raw dp, NOT `tvDp`**. The `expo-symbols` TV shim already
+ * multiplies every `SymbolView` `size` by `TV_DENSITY`; wrapping again would
+ * double-scale. Wells, images and SVGs that are not `SymbolView` use
+ * `tvDp(IconSize.x)`. On TV, use one step up (`md` → `lg`).
+ */
+export const IconSize = {
+  /** Inline with caption, chevrons in pills. */
+  xs: 12,
+  /** `Button sm`, chips. */
+  sm: 14,
+  /** `Button md`, row chevrons. */
+  md: 16,
+  /** Row leading icons, tab bar. */
+  lg: 20,
+  /** Icon buttons, headers. */
+  xl: 24,
+  /** Empty state, feature wells. */
+  hero: 28,
+} as const;
+
+/** Stacking order — the only z-index values screens may use. */
+export const ZIndex = {
+  base: 0,
+  raised: 1,
+  sticky: 10,
+  header: 20,
+  overlay: 1000,
+  modal: 2000,
+  toast: 3000,
+  /** Blocking gates (PIN lock, forced update) — above toasts. */
+  gate: 4000,
+} as const;
+
+/**
+ * Interaction opacities. Never use opacity to de-emphasise text — use
+ * `mutedForeground`.
+ */
+export const Opacity = {
+  disabled: 0.5,
+  pressed: 0.88,
+} as const;
+
+/** Window-width breakpoints (px) — names for the layout literals; values unchanged. */
+export const Breakpoints = {
+  /** Side rail replaces bottom tabs. */
+  tablet: 768,
+  /** Two-pane list–detail where supported. */
+  listDetail: 900,
+  /** Content cap 1120; multi-column grids. */
+  wide: 1024,
+  /** Content cap 1320. */
+  xwide: 1600,
 } as const;
 
 export const BottomTabInset = Platform.select({ ios: 84, android: 72, web: 72 }) ?? 72;
@@ -75,6 +176,36 @@ export const Brand = {
   heroAccent: "#E4CE9E",
   onHeroMutedSurface: "rgba(255, 255, 255, 0.08)",
   onHeroStrongSurface: "rgba(255, 255, 255, 0.14)",
+} as const;
+
+/**
+ * Every raw colour the Home hero paints over its sky, in one place (P5-04 / B-18).
+ * Constant across themes — the hero is always a sky scene. Keep new hero colours
+ * here, never inline in the component.
+ */
+export const HeroSky = {
+  /**
+   * Live prayer card: smoked glass rather than an accent tint. A tint goes muddy
+   * wherever the mosque silhouette shows through it; a neutral dark veil keeps
+   * the card (and its text contrast) consistent on every sky, with the accent
+   * carried by the border and icon.
+   */
+  activePrayerSurface: "rgba(6, 18, 26, 0.34)",
+  /** Date chip: just enough backing to read over the sun and to look tappable. */
+  dateChipSurface: "rgba(6, 18, 26, 0.22)",
+  /** Cool slate laid over the sky under heavy cloud. */
+  overcastTint: "#3C4856",
+  /** Sun disc core — a warm white that stays brighter than every sky glow. */
+  sunCore: "#FFF6DC",
+  star: "#FFFFFF",
+  /** Unfilled part of the day timeline — bright enough to read on the noon sky. */
+  timelineTrack: "rgba(255, 255, 255, 0.26)",
+  timelineTick: "rgba(255, 255, 255, 0.6)",
+  /** Readability scrim: top (location) and bottom (prayer row) darkening. */
+  scrim:
+    "linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.06) 24%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.52) 100%)",
+  textShadow: "rgba(0, 0, 0, 0.45)",
+  clockShadow: "rgba(0, 0, 0, 0.42)",
 } as const;
 
 /**
@@ -107,6 +238,64 @@ export const StatusPalette = {
 } as const;
 
 export type StatusKey = keyof typeof StatusPalette;
+
+/**
+ * Destructive-button fill + label (`tokens.status.danger.fill` / `.onFill`). The
+ * raw danger hue is 3.67:1 under white, so destructive actions get a deeper
+ * (light) / lighter (dark) fill that clears 4.5:1 with its label.
+ */
+export const DangerFillPalette = {
+  fillLight: "#B8432F",
+  onFillLight: "#FFFFFF",
+  fillDark: "#E57A68",
+  onFillDark: "#152921",
+} as const;
+
+/** Precious-metal hues (zakat nisab indicators). Fills and icons only — never text. */
+export const Metal = {
+  gold: "#D4A017",
+  silver: "#A8B0B8",
+} as const;
+
+/**
+ * Qibla compass instrument art (astrolabe brass, the Kaaba and its gold band).
+ * Scene data like bead materials — deliberately CONSTANT across accents and
+ * schemes, because a brass instrument or the Kaaba never takes the UI accent.
+ * Fills, strokes and the engraving ink on brass only — never body text.
+ */
+export const QiblaInstrument = {
+  brassLight: "#EFD58F",
+  brass: "#C9A24A",
+  brassDeep: "#8A6420",
+  engraving: "#3A2A0C",
+  kaaba: "#17171A",
+  kiswahBand: "#D4AF37",
+} as const;
+
+/**
+ * Festive confetti hues for completion bursts (`PartyPopper`) — gold, green,
+ * sky and sun. Deliberately CONSTANT across accents and schemes (they are
+ * small, short-lived particles on top of any surface). Consumed via
+ * `useThemeTokens().celebration`.
+ */
+export const CelebrationPalette = ["#D4AF37", "#4CAF7D", "#5AA9E6", "#F2C94C"] as const;
+
+/**
+ * Calm browse-section hues (dua groups, …) that sit beside the brand green and
+ * mushaf gold. Fills, icon wells and icons only — run text through
+ * `accentOnSurface` first. The fourth group hue is the user's accent.
+ */
+export const CategoryHues = {
+  dawn: "#C9923A",
+  sky: "#4C8FD9",
+  rose: "#C46A7A",
+  // NF-3.21: the app keeps ONE palette of soft hues — ayah highlights use these too.
+  sage: "#5E9E72",
+  violet: "#8E6CC8",
+} as const;
+
+/** Browse-section hue keys (`accent` follows the user's chosen accent). */
+export type CategoryHueKey = "accent" | keyof typeof CategoryHues;
 
 /**
  * Layered elevation presets using the cross-platform `boxShadow` shorthand

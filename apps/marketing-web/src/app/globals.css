@@ -4,9 +4,6 @@
 @source "../components/**/*.{ts,tsx}";
 @source "../../../../packages/theme/src/**/*.{ts,tsx}";
 
-/* Class-based dark mode (a togglable `.dark`, not just prefers-color-scheme) */
-@custom-variant dark (&:where(.dark, .dark *));
-
 /*
  * Munib Tracker — premium marketing design system.
  *
@@ -61,6 +58,7 @@
   --color-hero-glow: #1f9c78;
 
   /* Typography */
+  /* Arabic-script stacks are set per locale on <html> (LOCALE_FONT_STYLE in app/fonts.ts). */
   --font-sans: var(--font-inter);
   --font-display: var(--font-jakarta);
   --font-quran: var(--font-amiri-quran), "Amiri Quran", "Noto Naskh Arabic", serif;
@@ -85,27 +83,15 @@
   --animate-spin-slow: spin 26s linear infinite;
 }
 
-.dark {
-  --color-background: #060a09;
-  --color-surface: #0c1412;
-  --color-card: #101917;
-  --color-card-foreground: #eaf2ee;
-  --color-foreground: #eaf2ee;
-  --color-muted: #93a79d;
-  --color-muted-surface: #131e1a;
-  --color-border: #1d2723;
-  --color-brand: #34d399;
-  --color-brand-strong: #10b981;
-  --color-brand-soft: #0c2b22;
-  color-scheme: dark;
-}
-
 :root {
   color-scheme: dark;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
 html {
+  /* The body is transparent over the fixed Day Arc sky; give the root the
+   * same deep night colour so overscroll and contrast checkers see it. */
+  background-color: #07141f;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
@@ -137,19 +123,67 @@ h4 {
 
 .skip-link {
   position: absolute;
-  left: -9999px;
+  inset-inline-start: -9999px;
   top: 0;
   z-index: 100;
   padding: 0.75rem 1.25rem;
   background: var(--color-card);
   color: var(--color-foreground);
   font-weight: 600;
-  border-radius: 0 0 var(--radius-card) 0;
+  border-end-end-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
 }
 
 .skip-link:focus {
-  left: 0;
+  inset-inline-start: 0;
+}
+
+/* ── Arabic-script locales (ar, ur) ───────────────────────────────────────
+ * Font stacks are set per locale on <html> (`LOCALE_FONT_STYLE` in
+ * app/fonts.ts): Latin keeps Inter/Jakarta, Arabic script uses IBM Plex Sans
+ * Arabic (ar) or Noto Naskh Arabic + Noto Nastaliq Urdu headings (ur).
+ * Unlayered, so these win over Tailwind's tracking-* / leading-* utilities. */
+/* Letter-spacing breaks the joins of cursive Arabic script. */
+html:is([lang="ar"], [lang="ur"]) * {
+  letter-spacing: normal;
+}
+
+/* Arabic: Plex has tall ascenders/descenders — open the Latin-tight leading. */
+html[lang="ar"] body {
+  line-height: 1.75;
+}
+
+html[lang="ar"] :is(h1, h2, h3, h4, .font-display) {
+  line-height: 1.35;
+}
+
+/* Urdu: Nastaliq descends diagonally and stacks tall — it needs generous
+ * leading or lines collide; Naskh body text likewise reads best airy. */
+html[lang="ur"] body {
+  line-height: 1.95;
+}
+
+/* Display type (h1/h2 and .font-display) in Nastaliq — even where a heading
+ * opts into font-sans (the hero) — with room for its diagonal descent. */
+html[lang="ur"] :is(h1, h2, .font-display) {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.85;
+  padding-block: 0.1em;
+}
+
+/* Nastaliq is wide and tall: cap the hero headline so its gold line stays
+ * clear of the phone column on desktop. */
+@media (min-width: 64rem) {
+  html[lang="ur"] #hero-heading {
+    font-size: 3.6rem;
+  }
+}
+
+/* Smaller headings stay in Naskh: Nastaliq loses legibility below ~20px. */
+html[lang="ur"] :is(h3, h4) {
+  font-family: var(--font-sans);
+  line-height: 1.6;
 }
 
 /* ── Utilities ────────────────────────────────────────────────────────── */
@@ -529,6 +563,58 @@ html.is-scrolling .animate-float-slow {
 
 .reveal-up {
   animation: reveal-up 0.6s ease-out both;
+}
+
+/* ── Motion without JavaScript (components/ui/motion.tsx, hero-motion.tsx) ──
+ * Content is never hidden waiting for script: the hero rises on first paint
+ * (transform only, so text counts for FCP/LCP at once), and sections reveal
+ * with scroll-driven animations where the browser supports them — elsewhere
+ * they are simply shown. */
+@keyframes hero-rise {
+  from {
+    transform: translateY(18px);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--hero-i, 0) * 90ms + 50ms);
+}
+
+@keyframes hero-device-in {
+  from {
+    transform: translateY(16px) scale(0.98);
+  }
+}
+
+.hero-device-in {
+  animation: hero-device-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: scroll-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+@keyframes consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.consent-in {
+  animation: consent-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* ── Reduced motion ───────────────────────────────────────────────────── */

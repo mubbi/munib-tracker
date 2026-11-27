@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Share, StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ToggleRow } from "@/components/settings/settings-rows";
@@ -21,12 +21,14 @@ import {
 } from "@/stores/quran-pronunciation-store";
 
 import { PronunciationConsentSheet } from "./pronunciation-consent-sheet";
+import { useQuranLabSharingTheme } from "./use-quran-lab-sharing-theme";
 
 /**
  * Phase 6 settings: the pronunciation listener's state, delete, and the
  * learner's recitation-sharing switch with "Delete what I shared". The app never
- * offers sharing itself; the switch exists because Quran Lab's SDK may (web).
- * Hidden when the SDK is unavailable (TV, no key, old OS).
+ * offers sharing itself; SDK 4 asks every learner on its own sheet (D66), so the
+ * switch shows whenever Quran Lab has sharing on. Hidden when the SDK is
+ * unavailable (TV, no key, old OS).
  */
 export function PronunciationSettingsCard() {
   const { t } = useTranslation();
@@ -35,6 +37,7 @@ export function PronunciationSettingsCard() {
   useEnsureCompanionPrefsLoaded();
   useEnsurePronunciationLoaded();
   const state = usePronunciationState();
+  useQuranLabSharingTheme();
   const [consentOpen, setConsentOpen] = useState(false);
   const [pending, setPending] = useState<"delete" | "deleteShared" | null>(null);
 
@@ -54,12 +57,12 @@ export function PronunciationSettingsCard() {
       case "ready":
         return t("quranCompanion.pronunciation.ready", { version: state.cached?.version ?? "" });
       default:
-        return t(pronunciationErrorKey(state.error));
+        return t(pronunciationErrorKey(state.error, state.errorNeeds));
     }
   })();
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.pronunciation.title")}
         icon={{ ios: "waveform.badge.mic", android: "record_voice_over", web: "record_voice_over" }}
@@ -67,7 +70,10 @@ export function PronunciationSettingsCard() {
       <View style={styles.rows}>
         <ThemedText type="small">{statusLine}</ThemedText>
         {state.status === "downloading" && state.bytesTotal > 0 ? (
-          <ProgressBar value={state.bytesDone / state.bytesTotal} />
+          <ProgressBar
+            value={state.bytesDone / state.bytesTotal}
+            accessibilityLabel={t("a11yProgress.modelDownload")}
+          />
         ) : null}
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quranCompanion.pronunciation.explainer")}
@@ -83,6 +89,22 @@ export function PronunciationSettingsCard() {
             <Button
               label={t("quranCompanion.listener.download")}
               onPress={() => void quranPronunciationStore.getState().download()}
+            />
+          ) : null}
+          {state.status === "ready" || state.status === "failed" ? (
+            <Button
+              label={t("quranCompanion.pronunciation.shareDiagnostics")}
+              variant="ghost"
+              onPress={() => {
+                void quranPronunciationStore
+                  .getState()
+                  .diagnose()
+                  .then(async (report) => {
+                    if (report) await Share.share({ message: report });
+                    else toast.error(t("quranCompanion.pronunciation.sharingFailed"));
+                  })
+                  .catch(() => toast.error(t("quranCompanion.pronunciation.sharingFailed")));
+              }}
             />
           ) : null}
           {state.status === "ready" ? (
@@ -171,14 +193,23 @@ export function PronunciationSettingsCard() {
   );
 }
 
-/** QuranLabErrorCode → full i18n key. */
-export function pronunciationErrorKey(code: string | null): string {
+/** QuranLabErrorCode (+ SDK 4 `errorCause.needs`) → full i18n key. */
+export function pronunciationErrorKey(code: string | null, needs: string | null = null): string {
   switch (code) {
     case "needs_connection":
-      return "quranCompanion.pronunciation.error.noConnection";
+      return needs === "lease"
+        ? "quranCompanion.pronunciation.error.needsRenewal"
+        : "quranCompanion.pronunciation.error.noConnection";
+    case "download_failed":
+      return "quranCompanion.pronunciation.error.busy";
     case "invalid_key":
-    case "server_rejected":
       return "quranCompanion.pronunciation.error.paused";
+    case "server_rejected":
+      return "quranCompanion.pronunciation.error.deviceRefused";
+    case "sdk_too_old":
+      return "quranCompanion.pronunciation.error.updateApp";
+    case "session_open":
+      return "quranCompanion.pronunciation.error.inUse";
     case "storage_full":
       return "quranCompanion.pronunciation.error.noSpace";
     case "model_unavailable":

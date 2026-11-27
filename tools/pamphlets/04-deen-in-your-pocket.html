@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Munib — Concept 04 · Deen in Your Pocket (Modern Muslim Lifestyle)</title>
+<title>Munib — Concept 04 · Deen in Your Pocket (Feature Sheet)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Amiri:wght@400;700&display=block" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=block" rel="stylesheet" />
 <link rel="stylesheet" href="base.css" />
 <style>
   .page {
@@ -18,91 +18,78 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 492px;
+    height: 440px;
     background: linear-gradient(150deg, #059669 0%, #047857 58%, #065f46 100%);
-    border-radius: 0 0 40px 40px;
-    padding: 15mm 15mm 0;
-    color: #fff;
+    border-radius: 0 0 36px 36px;
+    padding: var(--safe) var(--safe) 0;
+    color: #ffffff;
   }
   .masthead {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand img {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-  }
-  .brand .name {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-  }
   .brand-ar {
-    font-size: 20px;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-top: 6px;
     color: var(--gold-pale);
   }
 
   h1 {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
-    font-size: 62px;
+    font-size: 58px;
     line-height: 1.02;
     letter-spacing: -0.025em;
-    margin-top: 34px;
-    max-width: 420px;
+    margin-top: 30px;
+    max-width: 440px;
   }
   h1 .gold {
     color: var(--gold-pale);
   }
   .hero-sub {
-    margin-top: 16px;
-    font-size: 13px;
-    line-height: 1.65;
+    margin-top: 14px;
+    font-size: var(--fs-lead);
+    line-height: 1.5;
     color: #d3f4e6;
-    max-width: 330px;
+    max-width: 420px;
   }
 
   .chips {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 22px;
-    max-width: 400px;
+    margin-top: 18px;
+    max-width: 470px;
   }
   .chip {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 700;
-    font-size: 9.5px;
-    letter-spacing: 0.14em;
+    font-size: var(--fs-min);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 7px 13px;
+    padding: 6px 12px;
     border-radius: 999px;
-    border: 1.4px solid rgba(255, 255, 255, 0.55);
-    color: #fff;
+    border: 1.4px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;
   }
   .chip.solid {
     background: var(--gold);
     border-color: var(--gold);
-    color: #152921;
+    color: var(--ink);
   }
 
   .phone {
     position: absolute;
-    top: 196px;
-    right: 46px;
-    width: 252px;
-    border-radius: 32px;
+    top: 96px;
+    right: calc(var(--safe) + 8px);
+    width: 170px;
+    border-radius: 28px;
     border: 6px solid #0b1f19;
     overflow: hidden;
     background: #0b1f19;
-    box-shadow: 0 30px 60px rgba(4, 32, 24, 0.45);
+    box-shadow: 0 26px 50px rgba(4, 32, 24, 0.42);
     transform: rotate(2.5deg);
     z-index: 3;
   }
@@ -111,60 +98,28 @@
     width: 100%;
   }
 
-  .sticker {
+  .groups {
     position: absolute;
-    top: 148px;
-    right: 268px;
-    width: 92px;
-    height: 92px;
-    border-radius: 50%;
-    background: var(--gold);
-    color: #152921;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 800;
-    transform: rotate(-10deg);
-    box-shadow: 0 10px 22px rgba(4, 32, 24, 0.25);
-    z-index: 4;
-    text-align: center;
-    line-height: 1.15;
-  }
-  .sticker .big {
-    font-size: 19px;
-  }
-  .sticker .small {
-    font-size: 8px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-
-  .cards {
-    position: absolute;
-    top: 534px;
-    left: 15mm;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
+    top: 470px;
+    left: var(--safe);
+    right: var(--safe);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 12px;
   }
   .card {
     background: #ffffff;
     border: 1px solid #e3eae6;
-    border-radius: 18px;
-    padding: 16px 18px;
-    box-shadow: 0 4px 14px rgba(8, 19, 15, 0.05);
+    border-radius: 16px;
+    padding: 11px 15px 11px;
   }
   .card .k {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
-    font-size: 15px;
+    font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
   }
   .card .k .dot {
     width: 9px;
@@ -172,82 +127,86 @@
     border-radius: 3px;
     background: var(--emerald);
   }
-  .card:nth-child(2) .k .dot { background: var(--gold); }
-  .card:nth-child(3) .k .dot { background: #047857; }
-  .card p {
-    margin-top: 6px;
-    font-size: 10.5px;
-    line-height: 1.65;
-    color: #55685f;
+  .card:nth-child(even) .k .dot {
+    background: var(--gold);
+  }
+  .card ul {
+    list-style: none;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .card li {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    padding-left: 11px;
+    position: relative;
+  }
+  .card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--emerald);
+  }
+  .card li b {
+    color: var(--ink);
+    font-weight: 600;
   }
 
-  .side-note {
+  .devices-row {
     position: absolute;
-    top: 810px;
-    right: 15mm;
-    width: 236px;
-    text-align: center;
+    top: 856px;
+    left: var(--safe);
+    right: var(--safe);
+    color: var(--ink-soft);
   }
-  .side-note .ar-line {
-    font-size: 30px;
-    color: var(--emerald);
-  }
-  .side-note .en-line {
-    font-size: 9.5px;
-    color: #55685f;
-    margin-top: 6px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    font-weight: 600;
+  .devices-row .devices .lbl {
+    color: var(--ink);
   }
 
   .cta-band {
     position: absolute;
-    left: 15mm;
-    right: 15mm;
-    bottom: 13mm;
+    left: var(--safe);
+    right: var(--safe);
+    bottom: var(--safe);
     background: var(--ink);
     color: var(--cream);
-    border-radius: 22px;
-    padding: 20px 24px;
+    border-radius: 20px;
+    padding: 14px 18px 14px 22px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
   }
   .cta-band .words h2 {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 800;
-    font-size: 27px;
-    letter-spacing: -0.015em;
-    line-height: 1.12;
+    font-size: 22px;
+    line-height: 1.15;
   }
-  .cta-band .words h2 .g { color: var(--gold); }
-  .cta-band .words p {
-    margin-top: 8px;
-    font-size: 10px;
-    color: #a9bfb1;
+  .cta-band .words h2 .g {
+    color: var(--gold);
+  }
+  .cta-band .words .ar-tag {
+    margin-top: 4px;
+    font-size: 17px;
     line-height: 1.6;
+    color: var(--gold-pale);
+    font-weight: 500;
+    text-align: left;
+  }
+  .cta-band .words p {
+    margin-top: 4px;
+    color: var(--dark-muted);
     max-width: 300px;
   }
   .cta-band .words .url {
-    margin-top: 8px;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 11.5px;
+    margin-top: 6px;
     color: var(--gold);
-  }
-  .cta-band .qrs {
-    display: flex;
-    gap: 14px;
-  }
-  .cta-band .qr-tile img {
-    width: 76px;
-    height: 76px;
-  }
-  .cta-band .qr-tile .qr-label {
-    font-size: 8.5px;
-    color: var(--cream);
   }
 </style>
 </head>
@@ -255,64 +214,102 @@
 <div class="page">
   <div class="hero-panel">
     <div class="masthead">
-      <div class="brand">
+      <div class="lockup">
         <img src="assets/logo.png" alt="Munib logo" />
         <span class="name">Munib Tracker</span>
       </div>
-      <div class="brand-ar ar">مُنيب</div>
+      <div class="brand-ar ar-brand" lang="ar">مُنيب</div>
     </div>
     <h1>Your whole deen.<br /><span class="gold">One app.</span></h1>
-    <p class="hero-sub">Salah, qaza, zikr, Qur’an, prayer times &amp; qibla — designed like the apps you already love.</p>
+    <p class="hero-sub">Salah, Qaza, Zikr, the Qur’an, hadith, duas and cited lessons — offline-first, private, and free.</p>
     <div class="chips">
       <span class="chip solid">Free</span>
       <span class="chip">No ads</span>
-      <span class="chip">Works offline</span>
-      <span class="chip">23 languages</span>
-      <span class="chip">Light &amp; dark</span>
-      <span class="chip">iOS · Android · Web</span>
+      <span class="chip">No account needed</span>
+      <span class="chip">24 languages</span>
     </div>
   </div>
 
-  <div class="sticker">
-    <span class="big">0 ads</span>
-    <span class="small">privacy<br />first</span>
-  </div>
-  <div class="phone"><img src="assets/shot-home-dark.png" alt="Munib home screen" /></div>
+  <div class="phone"><img src="assets/shot-home-dark.png" alt="Munib Tracker home screen" /></div>
 
-  <div class="cards">
+  <div class="groups">
     <div class="card">
       <div class="k"><span class="dot"></span>Track</div>
-      <p>Five daily prayers, witr &amp; sunnah, streaks, and a qaza planner that clears missed prayers at your own pace.</p>
+      <ul>
+        <li>Five daily Salah, Witr, Sunnah and Rawatib</li>
+        <li>Qaza counters with a daily-pace plan</li>
+        <li>Times, qibla, Masjid finder, focus lock</li>
+      </ul>
     </div>
     <div class="card">
-      <div class="k"><span class="dot"></span>Remember</div>
-      <p>Tasbeeh counter, 54 authentic adhkar for morning, evening, and salah — plus favorites and gentle reminders.</p>
+      <div class="k"><span class="dot"></span>Read</div>
+      <ul>
+        <li>The full Qur’an offline, 604-page mushaf</li>
+        <li>Word-by-word, tajweed, 25 translations</li>
+        <li>Hadith: Nawawi’s 40, Riyad as-Salihin &amp; more</li>
+      </ul>
     </div>
     <div class="card">
-      <div class="k"><span class="dot"></span>Grow</div>
-      <p>Daily goals, stats and achievements, offline Qur’an with translations, and 350+ cited lessons to learn your deen.</p>
+      <div class="k"><span class="dot"></span>Supplicate</div>
+      <ul>
+        <li>60 adhkar with sources, guided sessions</li>
+        <li>293 duas, 9 duroods and the 99 Names</li>
+        <li>Tasbeeh in 8 designs; hands-free counts pauses</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k"><span class="dot"></span>Learn</div>
+      <ul>
+        <li>350+ cited lessons and worship guides</li>
+        <li>On-device recitation practice, no scores</li>
+        <li>Pronunciation check marks skipped or unclear words</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k"><span class="dot"></span>Family &amp; community</div>
+      <ul>
+        <li>Kids mode for under-13s, parent-managed</li>
+        <li>Accountability partner sees only “done”</li>
+        <li>Group khatm by juz, hizb or surah</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k"><span class="dot"></span>Privacy</div>
+      <ul>
+        <li>No ads, no subscriptions, no account</li>
+        <li>Recitation audio never leaves your device</li>
+        <li>Encrypted vault, opt-in encrypted sync</li>
+      </ul>
     </div>
   </div>
 
-  <div class="side-note">
-    <div class="ar-line ar">دينك، في جيبك</div>
-    <div class="en-line">Your deen, in your pocket</div>
+  <div class="devices-row">
+    <div class="devices">
+      <span class="lbl">Works on</span><span>iPhone &amp; iPad</span><span>Android</span><span>Web app</span><span>Apple Watch</span><span>Wear OS</span><span>Apple TV</span><span>Android TV</span>
+    </div>
   </div>
 
   <div class="cta-band">
     <div class="words">
-      <h2>Track. Remember. <span class="g">Improve.</span></h2>
-      <p>Scan to download Munib Tracker — free on the App Store and Google Play. No account required.</p>
+      <h2>Track your journey <span class="g">back to Allah.</span></h2>
+      <div class="ar-tag ar-brand" lang="ar" dir="rtl">تتبع رحلتك إلى الله.</div>
+      <p>Scan to download — free on the App Store and Google Play, or use it on the web.</p>
       <div class="url">munibtracker.app</div>
     </div>
-    <div class="qrs">
-      <div class="qr-tile">
-        <div class="qr-box"><img src="qr/appstore-ink.svg" width="76" height="76" alt="App Store QR" /></div>
-        <div class="qr-label">App Store</div>
+    <div class="get">
+      <div class="get-item">
+        <div class="qr"><img src="qr/appstore-ink.svg" alt="QR code: Munib Tracker on the App Store" /></div>
+        <span class="badge">
+          <img class="mark" src="assets/badge-apple.svg" width="22" height="22" alt="" />
+          <span class="b-text"><span class="b-small">Download on the</span><span class="b-big">App Store</span></span>
+        </span>
       </div>
-      <div class="qr-tile">
-        <div class="qr-box"><img src="qr/play-ink.svg" width="76" height="76" alt="Google Play QR" /></div>
-        <div class="qr-label">Google Play</div>
+      <div class="get-item">
+        <div class="qr"><img src="qr/play-ink.svg" alt="QR code: Munib Tracker on Google Play" /></div>
+        <span class="badge">
+          <img class="mark" src="assets/badge-google-play.svg" width="20" height="20" alt="" />
+          <span class="b-text"><span class="b-small">GET IT ON</span><span class="b-big">Google Play</span></span>
+        </span>
       </div>
     </div>
   </div>

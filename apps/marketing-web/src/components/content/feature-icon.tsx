@@ -1,0 +1,68 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Baby,
+  BarChart3,
+  BookMarked,
+  BookOpen,
+  Brain,
+  CalendarCheck,
+  CalendarDays,
+  CircleDot,
+  Compass,
+  Footprints,
+  GraduationCap,
+  Hand,
+  HandCoins,
+  HandHeart,
+  Landmark,
+  ListChecks,
+  Mic,
+  Moon,
+  MoonStar,
+  Navigation,
+  NotebookPen,
+  RotateCcw,
+  Scale,
+  ScrollText,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  Watch,
+} from "lucide-react";
+import type { FeatureIconKey } from "@/content/types";
+
+export const FEATURE_ICON: Record<FeatureIconKey, LucideIcon> = {
+  salah: ListChecks,
+  qaza: RotateCcw,
+  zikr: Hand,
+  quran: BookOpen,
+  practice: Mic,
+  learn: GraduationCap,
+  habits: CalendarCheck,
+  progress: BarChart3,
+  times: Compass,
+  devices: Watch,
+  masjid: Landmark,
+  focus: ShieldCheck,
+  family: Users,
+  will: ScrollText,
+  hadith: BookMarked,
+  madhhab: Scale,
+  fasting: MoonStar,
+  umrah: Footprints,
+  reflection: NotebookPen,
+  tasbeeh: CircleDot,
+  dua: HandHeart,
+  names: Sparkles,
+  zakat: HandCoins,
+  qibla: Navigation,
+  calendar: CalendarDays,
+  ramadan: Moon,
+  hifz: Brain,
+  kids: Baby,
+};
+
+export function FeatureIcon({ icon, className }: { icon: FeatureIconKey; className?: string }) {
+  const Icon = FEATURE_ICON[icon];
+  return <Icon aria-hidden className={className ?? "size-5"} />;
+}

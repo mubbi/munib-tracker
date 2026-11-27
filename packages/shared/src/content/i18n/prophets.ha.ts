@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Labarunsu a cikin Kur'ani ba tarihi ne mai nisa kawai ba; darasi ne masu amfani na imani, hakuri, rayuwar iyali, jagoranci, da tuba.",
       "Imani da dukkan annabawa bangare ne na imani. Musulmai suna girmama su baki daya, su guji wuce gona da iri, kuma su bi sakon karshe da Muhammadu SAW ya zo da shi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Manzanni mãsu bãyar da bushãra kuma mãsu gargaɗi dõmin kada wata hujja ta kasance ga mutãne a kan Allah bãyan Manzanni.",
-      },
-      {
-        excerpt:
-          'Kuma lalle ne, haƙĩƙa, Mun aika a cikin kõwace al\'umma da Manzo: "Ku bauta wa Allah, kuma ku nĩsanci abubuwan shirki."',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Annabawa ba allahntaka ba ne kuma ba a bauta musu. Sune mafificin halitta wajen xa'a, da xa'a, da rikon amana, tare da sauran bayin Allah.",
       "Aikinsu guda daya ne a asasi: bauta wa Allah Shi kadai. Takaitattun bayanan shari'a na iya bambanta a cikin al'ummomi da hikimar Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Manzanninsu suka ce musu: "Ba mu zama ba fãce maza ne misãlanku, kuma amma Allah Yana yin falala a kan wanda Yake so daga cikin bãyinSa."',
-      },
-      {
-        excerpt:
-          'Kuma ba Mu aika wani Manzo ba a gabãninka, fãce dai Mun yi wahayi zuwa gare shi cewa: "Bãbu abin bautãwa fãce Ni, sai ku bauta Mini."',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Kur'ani ya yi amfani da kalmomi guda biyu tare da girmamawa, kuma Musulmai sun yi imani da dukkan annabawa da manzanni ba tare da kin kowa ba.",
       "Daidaitaccen ma'anar fasaha na iya bambanta ta hanyar jimla na ilimi, amma darasin aiki ya yi daidai: karbi wahayi da tawali'u kuma a bi shiriyar Allah.",
     ],
-    quran: [
-      {
-        excerpt: "An zabe shi, kuma ya kasance manzo kuma annabi.",
-      },
-      {
-        excerpt: "Ba Mu rarrabewa a tsakanin daya daga manzanninSa.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "An gabatar da cikakkun bayanai na ƙamus ta hanya mai faɗi, na ilimi ba tare da tsangwama ba; tuntuɓi ƙwararrun malamai don ci-gaban ilimin tauhidi.",
     appLinks: [{}],
@@ -100,25 +75,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Tubansa ita ce tafarki Alqur'ani na farko na tawbah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma (ka ambaci) a lõkacin da Ubangijinka Ya ce wa malã\'iku: "Lalle ne Nĩ, in sanya wani dalĩli a cikin ƙasa madaidaici... Sai Ãdam ya karɓi kalmõmi daga Ubangijinsa, kuma Ya karɓi tũbarsa."',
-      },
-      {
-        excerpt: 'Suka ce: "Ya Ubangijinmu!',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Kuma a Rãnar ¡iyãma mutãne zã su je wa Adama, su ce: "Kai ne uban mutãne; Ka yi mana ceto a wurin Ubangijinka.',
-      },
-      {
-        excerpt:
-          "Adamu da Musa suka yi gardama. Musa ya ce: Kai ne wanda Allah ya halitta da hannunsa. Adamu ya ce: Shin kuna zargina da wani al'amari da Allah ya rubuta a gare ni kafin ya halicce ni? Don haka Adamu ya yi galaba a kan Musa a jayayya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -143,16 +101,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Wanda aka siffanta da cewa Allah ya daga darajarsa",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma ka ambaci Idris a cikin Littafi. Lalle shi, ya kasance mai gaskiya kuma Annabi. Kuma Muka ɗaukaka shi zuwa ga matsayi maɗaukaki.",
-      },
-      {
-        excerpt:
-          "Da Isma'ila da Idrisu da Zul-kifli dukkansu suna daga masu hakuri. Kuma Muka shigar da su a cikin rahamarMu. Lalle sũ, sun kasance daga sãlihai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -190,22 +139,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Labarinsa ya zo a cikin surori da yawa, ciki har da wanda aka sanya masa suna",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma aka yi wahayi zuwa ga Nũhu cewa: "Lalle ne kõwa daga mutãnenka bã zai yi ĩmãni ba fãce waɗanda suka yi ĩmãni, sabõda haka kada abin da suka kasance sunã aikatãwa ya ɓãta maka rai."',
-      },
-      {
-        excerpt:
-          'Ya ce: "Ya Ubangijĩna! Lalle ne nã kiran mutãnena dare da yini, kuma amma kirana bai ƙãra musu kõme ba fãce gudu."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sai mutane su zo wajen Nuhu su ce: Ya Nuhu, kai ne farkon manzanni zuwa ga mutanen kasa, kuma Allah ya sanya maka sunan bawa mai godiya; yi mana roko.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -240,16 +175,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Labarin Ad ya sake faruwa a cikin Alkur'ani don gargadi ga al'ummomi na gaba"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma zuwa ga Ãdãwa (Mun aika) ɗan´uwansu Hũdu. Ya ce: Ya ku mutanena ku bauta wa Allah; Ba ku da wani abin bautãwa waninSa. Ashe, bã zã ku ji tsõronSa ba?",
-      },
-      {
-        excerpt:
-          'To, a lõkacin da suka gan shi, kamar girgije yana gabãta kwarurukansu, suka ce: "Wannan girgije ne, Yanã zo mana da ruwa." Ã\'a, shĩ ne abin da kuka yi haƙuri sabõda shi, iska ce a cikinta, azãba mai raɗaɗi.',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -284,16 +210,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An san Samudawa da sassaƙa gidaje a cikin tsaunuka"],
     },
-    quran: [
-      {
-        excerpt:
-          "Waccan rãƙumar Allah ce aya a gare ku, sabõda haka ku bar ta ta ci a cikin ƙasar Allah, kuma kada ku shãfe ta da wata cũta, har azãba mai raɗaɗi ta same ku.",
-      },
-      {
-        excerpt:
-          "Samũdãwa sun ƙaryata, sabõda zãluncinsu, a lõkacin da aka aiko mafi shaƙãwa daga gare su... Sai Ubangijinsu Ya halakar da su sabõda zunubinsu, kuma Ya daidaita su.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -334,22 +251,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Kakan annabawa ta hanyar Ismail da Ishaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma (ka ambaci) a lõkacin da Ubangijinsa Ya jarrabe shi da umurni, sai ya cika su. Ya ce: "Lalle ne ni, Mai sanya ka shugaba ga mutãne."',
-      },
-      {
-        excerpt:
-          "Muka ce: Ya wuta, ki kasance sanyi da aminci ga Ibrahim. Kuma suka yi nufin cũta a gare shi, sai Muka sanya su mafi hasãra.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Za a tattara ku ba takalmi, tsirara, marasa kaciya. Wanda za a fara tufatar da shi ranar kiyama shi ne Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -379,16 +282,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Wani dangin Ibrahim wanda ya yi hijira tare da shi aka aika zuwa Saduma"],
     },
-    quran: [
-      {
-        excerpt:
-          "Shin, kunã je wa mazaje daga tãlikai, kuma kunã barin abin da Ubangijinku Ya halitta muku, ku zama mata? Ã'a, ku mutãne ne azzalumai.",
-      },
-      {
-        excerpt:
-          "To, a lõkacin da umurninMu ya je, Muka sanya mafi ƙasƙantawar alƙaryu, kuma Muka yi ruwan duwãtsu na lãka mai kauri a kansu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -426,16 +320,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Kakan kabilar Larabawa da layin annabci na ƙarshe",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma ka ambaci Isma'il a cikin Littafi. Lalle ne shi, ya kasance mai gaskiya ga alkawarinsa, kuma ya kasance manzo kuma Annabi. Kuma ya kasance yana umurtar iyalansa da salla da zakka, kuma ya kasance mai yarda da Ubangijinsa.",
-      },
-      {
-        excerpt:
-          "Kuma a lõkacin da Ibrãhĩm yake ɗaukaka harsãshin gini ga Ɗãki da Ismã'ĩla, (sun ce): \"Yã Ubangijinmu! Lalle ne Kai, Kai ne Mai ji, Masani.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -463,16 +348,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Baban Yakubu", "Sunansa tare da Ibrahim da Yakubu a matsayin zaɓaɓɓen iyali"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ita kuwa matarsa ​​tana tsaye tana dariya. Sa'an nan Muka yi mata bushãra da Is'hãƙa, kuma a bãyan Is'hãƙa, Yãƙũba.",
-      },
-      {
-        excerpt:
-          "Kuma ka ambaci bãyinMu Ibrahim da Is'hãƙa da Ya'aƙũba, ma'abũta ƙarfi da gani. Kuma lalle ne, haƙĩƙa, Mun zãɓe su da wani abu keɓantacce: ambaton Gida.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -506,16 +382,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ana kuma kiransa Isra'ila", "Baban Yusuf da kabilar Bani Isra'ila"],
     },
-    quran: [
-      {
-        excerpt:
-          'Ya ce: "Ã\'a, rãyukanku sun fitine ku zuwa ga wani abu." Don haka hakuri ya fi dacewa. Tsammãnin Allah Ya zo mini da su gabã ɗaya.',
-      },
-      {
-        excerpt:
-          "Suka ce: \"Za mu bauta wa Abin bautawarka, kuma Abin bautawar ubanninka Ibrãhĩm da Ismã'ĩla da Is'hãƙa, abin bautãwa guda ne, kuma a gare Shi mãsu sallamãwa ne.\"",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -552,18 +419,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Dukan suratu Yusuf, wadda ake kira mafi kyawun labarai, ta dogara ne akan rayuwarsa",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Ya ce: "Babu laifi a kanku a yau." Allah Ya gafarta muku; Kuma Shĩ ne Mafi rahamar mãsu rahama.',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maɗaukaki ɗan mai daraja ɗan sarki ɗan sarki Yusuf ɗan Yaƙub ɗan Ishaq ɗan Ibrahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -597,16 +454,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An san shi don jaddada ma'auni da ma'auni kawai"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya ku mutanena, ku bauta wa Allah; Ba ku da wani abin bautãwa waninSa. Ku cika mũdu da sikẽli kuma kada ku hana mutãne hakkinsu, kuma kada ku yi ɓarna a cikin ƙasa.",
-      },
-      {
-        excerpt:
-          "Kuma nasarata ba ta kasance ba face ta Allah. A gare Shi na dõgara, kuma zuwa gare Shi nake komawa.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -638,16 +486,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An kawo shi a cikin al'adar Musulunci a matsayin abin koyi na sabar"],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma Ayyub, a lokacin da ya kirayi Ubangijinsa: "Lalle ne, cũta ta shãfe ni, kuma Kai ne Mafi rahamar mãsu rahama."',
-      },
-      {
-        excerpt:
-          "Lalle Mũ, Mun sãme shi mai haƙuri, madalla da bãwa. Lalle shĩ, yã kasance mai mayar da al'amari ga Allah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -672,16 +511,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "An ƙidaya cikin annabawa a cikin jerin sunayen musulmi na yau da kullun",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Da Isma'ila da Idrisu da Zul-kifli dukkansu suna daga masu hakuri. Kuma Muka shigar da su a cikin rahamarMu. Lalle sũ, sun kasance daga sãlihai.",
-      },
-      {
-        excerpt:
-          "Kuma ka ambaci Ismaila da Al-Yasa'a da Zulkifli, kuma dukkansu suna daga fitattu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -723,22 +553,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Ana ce masa Kalimullah - wanda Allah ya yi magana da shi kai tsaye",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma Nã zãɓe ku, sai ku saurara ga abin da ake yin wahayi. Lallai ni ne Allah. Bãbu abin bautãwa fãce Ni, sabõda haka ku bauta Mini, kuma ku tsayar da salla dõmin ambatoNa.",
-      },
-      {
-        excerpt:
-          "Kuma Muka yi wahayi zuwa ga uwar Mũsã cẽwa ki shãyar da shi, sa'an nan idan kã ji tsõro a kansa, to, ki jẽfa shi a cikin kõgi, kuma kada ki ji tsõro, kuma kada ki yi baƙin ciki. Lalle Mũ, Mãsu mayar da shi zuwa gare ku ne.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "An aika mala'ikan mutuwa zuwa ga Musa. Da ya zo masa, sai Musa ya buge shi, sai Allah ya mayar masa da idonsa, kuma Ya ba shi zabi dangane da lokacin mutuwarsa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -771,15 +587,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Babban yayan Musa", "Yabo a cikin Alkur'ani saboda balaga"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma ka naɗa mini waziri daga iyalina - Haruna, ɗan'uwana. Ka ƙãra ta wurinsa ƙarfina kuma bari ya raba aikina.",
-      },
-      {
-        excerpt: "Ya ce: “Dan uwata!",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -818,22 +626,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Mai karɓar Zabur (Zabura)", "Ya ci Jalut (Goliath) yana matashi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya Dãwuda, lalle ne Mũ, Mun sanya ka magada a cikin ƙasa, sabõda haka ka yi hukunci a tsakãnin mutãne da gaskiya, kuma kada ka bi son zuciya, kamar yadda zai ɓatar da kai daga tafarkin Allah.",
-      },
-      {
-        excerpt:
-          "Kuma Muka hõre duwãtsu tãre da Dãwũda, da tsuntsãye, kuma... Kuma Muka sanar da shi halittar sulke, dõmin Ya tsare ku daga maƙiyinku.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi soyuwar addu'a ga Allah ita ce addu'ar Dawud, kuma mafi soyuwar azumi a wurin Allah shi ne azumin Dawud: ya kan yi azumi wata rana ya yi buda baki a gobe.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -872,16 +666,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Daga cikin mafi cikakken siffanta sarakunan annabawa a cikin Kur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya yi murmushi, yana jin dadin maganarta, ya ce: “Ya Ubangiji Ka ba ni ikon gode wa ni’imarKa wadda Ka yi mini ni’ima da iyayena, da aikata aikin kwarai wanda Ka yarda da shi.",
-      },
-      {
-        excerpt:
-          "Kuma ga Sulaimãnu (Mun hõre) iska, tafiyarta ta sãfiya wata guda, kuma tafiyar wata guda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -909,15 +694,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sunansa cikin salihai", "Ya fuskanci bautar gunki Ba'al"],
     },
-    quran: [
-      {
-        excerpt:
-          'A lõkacin da ya ce wa mutãnensa: "Shin, bã zã ku yi taƙawa ba?" Shin kuna kira ga Ba\'al, kuma kuna barin mafi kyawun masu halitta?',
-      },
-      {
-        excerpt: "Da Zakariyya da Yahaya da Isa da Ilyas, kuma dukansu suna daga salihai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -941,16 +718,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sunansa kai tsaye a cikin Alkur'ani a cikin fitattu kuma zababbu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Da Isma'ila da Al-Yasa' da Yunusa da Luɗu, kuma dukansu Mun fĩfĩta a kan tãlikai.",
-      },
-      {
-        excerpt:
-          "Kuma ka ambaci Ismaila da Al-Yasa'a da Zulkifli, kuma dukkansu suna daga fitattu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -988,22 +756,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kuma ana kiransa Dhun-Nun (mutumin kifi) a cikin Alkur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma ya yi kira a cikin duffai: "Bãbu abin bautãwa fãce Kai." Tsarki ya tabbata a gare Ka. Lalle ne nĩ, na kasance daga azzãlumai.',
-      },
-      {
-        excerpt:
-          "Shin, kuma bãbu wata alƙarya da ta yi ĩmãni sabõda haka ĩmãninta ya amfãne shi fãce mutãne Yunusa? A lõkacin da suka yi ĩmãni, Muka kuranye azãbar wulãkanci daga gare su.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Addu'ar Dhun-Nun a lokacin da ya yi kira ga Allah daga cikin cikin kifin ita ce: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Babu wani musulmi da ya tava roqon wani abu da shi face Allah ya karva masa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1038,16 +792,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waliyin Maryam", "Uban Yahaya, wanda haihuwarsa ta amsa addu'arsa"],
     },
-    quran: [
-      {
-        excerpt:
-          "A nan ne Zakariyya ya kira Ubangijinsa, ya ce: “Ya Ubangiji! Lalle Kai, Kai ne Mai jin addu'a.",
-      },
-      {
-        excerpt:
-          'Ya ce: "Ya Ubangijina, lalle ne ƙasusuwana sun yi rauni, kuma kaina ya cika da fari, kuma ban kasance mai baƙin ciki a cikin addu\'ata zuwa gare Ka ba, Ya Ubangijina."',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1080,16 +825,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "An girmama shi da salama a lokacin haihuwa, mutuwa, da tashin matattu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya Yahaya, ka ɗauki Littafi da azama. Kuma Muka ba shi hikima, tun yana yaro, da tausayi daga gare Mu, da tsarki, kuma ya kasance mai takawa ga Allah.",
-      },
-      {
-        excerpt:
-          "Allah Ya yi muku bushara da Yahaya, yana mai gaskatãwa ga kalma daga Allah, maɗaukaki, mai kauracewa, Annabi daga salihai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1128,22 +864,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An ba da Injila (Linjila)", "Zai dawo gabanin kiyama da akidar Ahlus-Sunnah"],
     },
-    quran: [
-      {
-        excerpt:
-          '(Isa) ya ce: "Lalle ne, Allah ne Ubangijina kuma Ubangijinku, sai ku bauta Masa." Wannan ita ce hanya madaidaiciya.',
-      },
-      {
-        excerpt:
-          "Kuma ba su kashe shi ba, kuma ba su gicciye shi ba; Sai aka bayyana a gare su kamar haka... Ã'a, Allah Ya ɗaukaka shi zuwa gare Shi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nine mafi kusanci da Isa dan maryam. Annabawa 'yan uwan ​​uwa ne daban-daban, amma addininsu daya ne, babu wani annabi a tsakaninmu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1181,21 +903,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Hatimin annabawa", "Mafi kyawun misali (uswah hasanah) ga muminai"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammadu bai kasance uban kõwa ba daga mazajenku, kuma amma shĩ Manzon Allah ne kuma cikon annabãwa.",
-      },
-      {
-        excerpt: "Kuma ba Mu aike ka ba face domin rahama ga talikai.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Misali na da kuma misalin annabawan da suka gabace ni, shi ne na wani mutum wanda ya gina gida mai kyau da tsafta, sai dai wurin bulo daya. Ni ne tubalin, kuma ni ne hatimin annabawa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1206,14 +915,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Rayuwarsu kuma tana nuna sabar a cikin ƙin yarda, dogara ga Allah a lokacin rashin tabbas, da son gyara al'umma cikin hikima da jajircewa.",
       "Nazarin su yana ƙarfafa juriya: masu bi suna koyi tuba da sauri, jagoranci bisa ɗabi'a, kuma su kasance masu ƙa'ida koda lokacin da gaskiya ba ta da farin jini.",
     ],
-    quran: [
-      {
-        excerpt: "A cikin labaransu akwai darasi ga masu hankali.",
-      },
-      {
-        excerpt: "Waɗannan ne waɗanda Allah Ya shiryar, saboda haka ka bi shiriyarsu.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Ɗauki darasin annabci ɗaya kowane mako kuma a yi amfani da shi da gangan.",
       "Kayi tunani bayan sallah akan inda kake bukatar karin hakuri ko tuba.",
@@ -1229,16 +931,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Mu'ujizozi ba ikon annabawa bane masu zaman kansu; suna faruwa ne da yardar Allah don tallafawa wahayi da kafa hujja.",
       "Kur'ani ya nuna cewa har yanzu wasu sun ƙi duk da alamu, tabbatar da shiriya ya dogara da ikhlasi da biyayya, ba wai kallo kaɗai ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma lalle ne haƙĩƙa Mun aika ManzanninMu da hujjõji bayyanannu, kuma Muka saukar da Littãfi da sikẽli da su.",
-      },
-      {
-        excerpt:
-          'Ka ce: "Abin sani kawai, ãyõyi a wurin Allah suke... Shin bai ishe su ba Mu saukar da Littãfi a kanku ana karanta su?"',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1249,16 +942,7 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Ko da yake saituna sun bambanta, kiransu ɗaya ne: tauhidi, adalci, hisabi, da rahama ta hanyar tuba.",
       "Wannan tsarin yana tsayawa akan Kur'ani kuma yana adana bayanan tarihi na biyu a taƙaice sai dai in an sami ingantaccen hujja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne Mun aika Manzanni a gabãninka. daga cikinsu akwai wanda Muka lãbãri zuwa gare ka, kuma daga cikinsu akwai wanda ba Mu ƙirƙira maka ba.",
-      },
-      {
-        excerpt:
-          "Mun yi imani da Allah da abin da aka saukar... da abin da aka bai wa Musa da Isa da annabawa daga Ubangijinsu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1269,18 +953,8 @@ export const PROPHETS_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       "Ka guji rahotanni masu ban sha'awa ko rauni waɗanda suka ci karo da ka'idodin Kur'ani ko darajar annabci. Ba kowane sanannen labari ne ke da tabbataccen shaida ba.",
       "Yi amfani da tarihin rayuwar annabci don gyara ibada da halayen ku, ba kawai don tattara bayanan tarihi ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waɗanda suke sauraren magana, kuma suka bi mafi kyawunta, waɗannan ne Allah Ya shiryar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya bi tafarki yana neman ilimi, Allah yana saukaka masa hanyar shiga Aljannah.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Karanta labarin Annabi ɗaya kowane mako kai tsaye daga Kur'ani.",
       "Ajiye bayanin kula akan darussa masu amfani, ba kawai bayanan lokaci ba.",
@@ -1327,25 +1001,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Tubansa ita ce tafarki Alqur'ani na farko na tawbah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma (ka ambaci) a lõkacin da Ubangijinka Ya ce wa malã\'iku: "Lalle ne Nĩ, in sanya wani dalĩli a cikin ƙasa madaidaici... Sai Ãdam ya karɓi kalmõmi daga Ubangijinsa, kuma Ya karɓi tũbarsa."',
-      },
-      {
-        excerpt: 'Suka ce: "Ya Ubangijinmu!',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Kuma a Rãnar ¡iyãma mutãne zã su je wa Adama, su ce: "Kai ne uban mutãne; Ka yi mana ceto a wurin Ubangijinka.',
-      },
-      {
-        excerpt:
-          "Adamu da Musa suka yi gardama. Musa ya ce: Kai ne wanda Allah ya halitta da hannunsa. Adamu ya ce: Shin kuna zargina da wani al'amari da Allah ya rubuta a gare ni kafin ya halicce ni? Don haka Adamu ya yi galaba a kan Musa a jayayya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1370,16 +1027,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Wanda aka siffanta da cewa Allah ya daga darajarsa",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma ka ambaci Idris a cikin Littafi. Lalle shi, ya kasance mai gaskiya kuma Annabi. Kuma Muka ɗaukaka shi zuwa ga matsayi maɗaukaki.",
-      },
-      {
-        excerpt:
-          "Da Isma'ila da Idrisu da Zul-kifli dukkansu suna daga masu hakuri. Kuma Muka shigar da su a cikin rahamarMu. Lalle sũ, sun kasance daga sãlihai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1417,22 +1065,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Labarinsa ya zo a cikin surori da yawa, ciki har da wanda aka sanya masa suna",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma aka yi wahayi zuwa ga Nũhu cewa: "Lalle ne kõwa daga mutãnenka bã zai yi ĩmãni ba fãce waɗanda suka yi ĩmãni, sabõda haka kada abin da suka kasance sunã aikatãwa ya ɓãta maka rai."',
-      },
-      {
-        excerpt:
-          'Ya ce: "Ya Ubangijĩna! Lalle ne nã kiran mutãnena dare da yini, kuma amma kirana bai ƙãra musu kõme ba fãce gudu."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sai mutane su zo wajen Nuhu su ce: Ya Nuhu, kai ne farkon manzanni zuwa ga mutanen kasa, kuma Allah ya sanya maka sunan bawa mai godiya; yi mana roko.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -1467,16 +1101,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Labarin Ad ya sake faruwa a cikin Alkur'ani don gargadi ga al'ummomi na gaba"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma zuwa ga Ãdãwa (Mun aika) ɗan´uwansu Hũdu. Ya ce: Ya ku mutanena ku bauta wa Allah; Ba ku da wani abin bautãwa waninSa. Ashe, bã zã ku ji tsõronSa ba?",
-      },
-      {
-        excerpt:
-          'To, a lõkacin da suka gan shi, kamar girgije yana gabãta kwarurukansu, suka ce: "Wannan girgije ne, Yanã zo mana da ruwa." Ã\'a, shĩ ne abin da kuka yi haƙuri sabõda shi, iska ce a cikinta, azãba mai raɗaɗi.',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1511,16 +1136,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An san Samudawa da sassaƙa gidaje a cikin tsaunuka"],
     },
-    quran: [
-      {
-        excerpt:
-          "Waccan rãƙumar Allah ce aya a gare ku, sabõda haka ku bar ta ta ci a cikin ƙasar Allah, kuma kada ku shãfe ta da wata cũta, har azãba mai raɗaɗi ta same ku.",
-      },
-      {
-        excerpt:
-          "Samũdãwa sun ƙaryata, sabõda zãluncinsu, a lõkacin da aka aiko mafi shaƙãwa daga gare su... Sai Ubangijinsu Ya halakar da su sabõda zunubinsu, kuma Ya daidaita su.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1561,22 +1177,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Kakan annabawa ta hanyar Ismail da Ishaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma (ka ambaci) a lõkacin da Ubangijinsa Ya jarrabe shi da umurni, sai ya cika su. Ya ce: "Lalle ne ni, Mai sanya ka shugaba ga mutãne."',
-      },
-      {
-        excerpt:
-          "Muka ce: Ya wuta, ki kasance sanyi da aminci ga Ibrahim. Kuma suka yi nufin cũta a gare shi, sai Muka sanya su mafi hasãra.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Za a tattara ku ba takalmi, tsirara, marasa kaciya. Wanda za a fara tufatar da shi ranar kiyama shi ne Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1606,16 +1208,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Wani dangin Ibrahim wanda ya yi hijira tare da shi aka aika zuwa Saduma"],
     },
-    quran: [
-      {
-        excerpt:
-          "Shin, kunã je wa mazaje daga tãlikai, kuma kunã barin abin da Ubangijinku Ya halitta muku, ku zama mata? Ã'a, ku mutãne ne azzalumai.",
-      },
-      {
-        excerpt:
-          "To, a lõkacin da umurninMu ya je, Muka sanya mafi ƙasƙantawar alƙaryu, kuma Muka yi ruwan duwãtsu na lãka mai kauri a kansu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1653,16 +1246,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Kakan kabilar Larabawa da layin annabci na ƙarshe",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma ka ambaci Isma'il a cikin Littafi. Lalle ne shi, ya kasance mai gaskiya ga alkawarinsa, kuma ya kasance manzo kuma Annabi. Kuma ya kasance yana umurtar iyalansa da salla da zakka, kuma ya kasance mai yarda da Ubangijinsa.",
-      },
-      {
-        excerpt:
-          "Kuma a lõkacin da Ibrãhĩm yake ɗaukaka harsãshin gini ga Ɗãki da Ismã'ĩla, (sun ce): \"Yã Ubangijinmu! Lalle ne Kai, Kai ne Mai ji, Masani.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1690,16 +1274,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Baban Yakubu", "Sunansa tare da Ibrahim da Yakubu a matsayin zaɓaɓɓen iyali"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ita kuwa matarsa ​​tana tsaye tana dariya. Sa'an nan Muka yi mata bushãra da Is'hãƙa, kuma a bãyan Is'hãƙa, Yãƙũba.",
-      },
-      {
-        excerpt:
-          "Kuma ka ambaci bãyinMu Ibrahim da Is'hãƙa da Ya'aƙũba, ma'abũta ƙarfi da gani. Kuma lalle ne, haƙĩƙa, Mun zãɓe su da wani abu keɓantacce: ambaton Gida.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1733,16 +1308,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ana kuma kiransa Isra'ila", "Baban Yusuf da kabilar Bani Isra'ila"],
     },
-    quran: [
-      {
-        excerpt:
-          'Ya ce: "Ã\'a, rãyukanku sun fitine ku zuwa ga wani abu." Don haka hakuri ya fi dacewa. Tsammãnin Allah Ya zo mini da su gabã ɗaya.',
-      },
-      {
-        excerpt:
-          "Suka ce: \"Za mu bauta wa Abin bautawarka, kuma Abin bautawar ubanninka Ibrãhĩm da Ismã'ĩla da Is'hãƙa, abin bautãwa guda ne, kuma a gare Shi mãsu sallamãwa ne.\"",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1779,18 +1345,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Dukan suratu Yusuf, wadda ake kira mafi kyawun labarai, ta dogara ne akan rayuwarsa",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'Ya ce: "Babu laifi a kanku a yau." Allah Ya gafarta muku; Kuma Shĩ ne Mafi rahamar mãsu rahama.',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maɗaukaki ɗan mai daraja ɗan sarki ɗan sarki Yusuf ɗan Yaƙub ɗan Ishaq ɗan Ibrahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -1824,16 +1380,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An san shi don jaddada ma'auni da ma'auni kawai"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya ku mutanena, ku bauta wa Allah; Ba ku da wani abin bautãwa waninSa. Ku cika mũdu da sikẽli kuma kada ku hana mutãne hakkinsu, kuma kada ku yi ɓarna a cikin ƙasa.",
-      },
-      {
-        excerpt:
-          "Kuma nasarata ba ta kasance ba face ta Allah. A gare Shi na dõgara, kuma zuwa gare Shi nake komawa.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1865,16 +1412,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An kawo shi a cikin al'adar Musulunci a matsayin abin koyi na sabar"],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma Ayyub, a lokacin da ya kirayi Ubangijinsa: "Lalle ne, cũta ta shãfe ni, kuma Kai ne Mafi rahamar mãsu rahama."',
-      },
-      {
-        excerpt:
-          "Lalle Mũ, Mun sãme shi mai haƙuri, madalla da bãwa. Lalle shĩ, yã kasance mai mayar da al'amari ga Allah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1899,16 +1437,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "An ƙidaya cikin annabawa a cikin jerin sunayen musulmi na yau da kullun",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Da Isma'ila da Idrisu da Zul-kifli dukkansu suna daga masu hakuri. Kuma Muka shigar da su a cikin rahamarMu. Lalle sũ, sun kasance daga sãlihai.",
-      },
-      {
-        excerpt:
-          "Kuma ka ambaci Ismaila da Al-Yasa'a da Zulkifli, kuma dukkansu suna daga fitattu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1950,22 +1479,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "Ana ce masa Kalimullah - wanda Allah ya yi magana da shi kai tsaye",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma Nã zãɓe ku, sai ku saurara ga abin da ake yin wahayi. Lallai ni ne Allah. Bãbu abin bautãwa fãce Ni, sabõda haka ku bauta Mini, kuma ku tsayar da salla dõmin ambatoNa.",
-      },
-      {
-        excerpt:
-          "Kuma Muka yi wahayi zuwa ga uwar Mũsã cẽwa ki shãyar da shi, sa'an nan idan kã ji tsõro a kansa, to, ki jẽfa shi a cikin kõgi, kuma kada ki ji tsõro, kuma kada ki yi baƙin ciki. Lalle Mũ, Mãsu mayar da shi zuwa gare ku ne.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "An aika mala'ikan mutuwa zuwa ga Musa. Da ya zo masa, sai Musa ya buge shi, sai Allah ya mayar masa da idonsa, kuma Ya ba shi zabi dangane da lokacin mutuwarsa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1998,15 +1513,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Babban yayan Musa", "Yabo a cikin Alkur'ani saboda balaga"],
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma ka naɗa mini waziri daga iyalina - Haruna, ɗan'uwana. Ka ƙãra ta wurinsa ƙarfina kuma bari ya raba aikina.",
-      },
-      {
-        excerpt: "Ya ce: “Dan uwata!",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2045,22 +1552,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Mai karɓar Zabur (Zabura)", "Ya ci Jalut (Goliath) yana matashi"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya Dãwuda, lalle ne Mũ, Mun sanya ka magada a cikin ƙasa, sabõda haka ka yi hukunci a tsakãnin mutãne da gaskiya, kuma kada ka bi son zuciya, kamar yadda zai ɓatar da kai daga tafarkin Allah.",
-      },
-      {
-        excerpt:
-          "Kuma Muka hõre duwãtsu tãre da Dãwũda, da tsuntsãye, kuma... Kuma Muka sanar da shi halittar sulke, dõmin Ya tsare ku daga maƙiyinku.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mafi soyuwar addu'a ga Allah ita ce addu'ar Dawud, kuma mafi soyuwar azumi a wurin Allah shi ne azumin Dawud: ya kan yi azumi wata rana ya yi buda baki a gobe.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -2099,16 +1592,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Daga cikin mafi cikakken siffanta sarakunan annabawa a cikin Kur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya yi murmushi, yana jin dadin maganarta, ya ce: “Ya Ubangiji Ka ba ni ikon gode wa ni’imarKa wadda Ka yi mini ni’ima da iyayena, da aikata aikin kwarai wanda Ka yarda da shi.",
-      },
-      {
-        excerpt:
-          "Kuma ga Sulaimãnu (Mun hõre) iska, tafiyarta ta sãfiya wata guda, kuma tafiyar wata guda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2136,15 +1620,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sunansa cikin salihai", "Ya fuskanci bautar gunki Ba'al"],
     },
-    quran: [
-      {
-        excerpt:
-          'A lõkacin da ya ce wa mutãnensa: "Shin, bã zã ku yi taƙawa ba?" Shin kuna kira ga Ba\'al, kuma kuna barin mafi kyawun masu halitta?',
-      },
-      {
-        excerpt: "Da Zakariyya da Yahaya da Isa da Ilyas, kuma dukansu suna daga salihai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2168,16 +1644,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sunansa kai tsaye a cikin Alkur'ani a cikin fitattu kuma zababbu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Da Isma'ila da Al-Yasa' da Yunusa da Luɗu, kuma dukansu Mun fĩfĩta a kan tãlikai.",
-      },
-      {
-        excerpt:
-          "Kuma ka ambaci Ismaila da Al-Yasa'a da Zulkifli, kuma dukkansu suna daga fitattu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2215,22 +1682,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kuma ana kiransa Dhun-Nun (mutumin kifi) a cikin Alkur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          'Kuma ya yi kira a cikin duffai: "Bãbu abin bautãwa fãce Kai." Tsarki ya tabbata a gare Ka. Lalle ne nĩ, na kasance daga azzãlumai.',
-      },
-      {
-        excerpt:
-          "Shin, kuma bãbu wata alƙarya da ta yi ĩmãni sabõda haka ĩmãninta ya amfãne shi fãce mutãne Yunusa? A lõkacin da suka yi ĩmãni, Muka kuranye azãbar wulãkanci daga gare su.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Addu'ar Dhun-Nun a lokacin da ya yi kira ga Allah daga cikin cikin kifin ita ce: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Babu wani musulmi da ya tava roqon wani abu da shi face Allah ya karva masa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2265,16 +1718,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Waliyin Maryam", "Uban Yahaya, wanda haihuwarsa ta amsa addu'arsa"],
     },
-    quran: [
-      {
-        excerpt:
-          "A nan ne Zakariyya ya kira Ubangijinsa, ya ce: “Ya Ubangiji! Lalle Kai, Kai ne Mai jin addu'a.",
-      },
-      {
-        excerpt:
-          'Ya ce: "Ya Ubangijina, lalle ne ƙasusuwana sun yi rauni, kuma kaina ya cika da fari, kuma ban kasance mai baƙin ciki a cikin addu\'ata zuwa gare Ka ba, Ya Ubangijina."',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2307,16 +1751,7 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
         "An girmama shi da salama a lokacin haihuwa, mutuwa, da tashin matattu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ya Yahaya, ka ɗauki Littafi da azama. Kuma Muka ba shi hikima, tun yana yaro, da tausayi daga gare Mu, da tsarki, kuma ya kasance mai takawa ga Allah.",
-      },
-      {
-        excerpt:
-          "Allah Ya yi muku bushara da Yahaya, yana mai gaskatãwa ga kalma daga Allah, maɗaukaki, mai kauracewa, Annabi daga salihai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2355,22 +1790,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["An ba da Injila (Linjila)", "Zai dawo gabanin kiyama da akidar Ahlus-Sunnah"],
     },
-    quran: [
-      {
-        excerpt:
-          '(Isa) ya ce: "Lalle ne, Allah ne Ubangijina kuma Ubangijinku, sai ku bauta Masa." Wannan ita ce hanya madaidaiciya.',
-      },
-      {
-        excerpt:
-          "Kuma ba su kashe shi ba, kuma ba su gicciye shi ba; Sai aka bayyana a gare su kamar haka... Ã'a, Allah Ya ɗaukaka shi zuwa gare Shi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nine mafi kusanci da Isa dan maryam. Annabawa 'yan uwan ​​uwa ne daban-daban, amma addininsu daya ne, babu wani annabi a tsakaninmu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2408,21 +1829,8 @@ export const PROPHETS_BIO_TOPICS_HA: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Hatimin annabawa", "Mafi kyawun misali (uswah hasanah) ga muminai"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammadu bai kasance uban kõwa ba daga mazajenku, kuma amma shĩ Manzon Allah ne kuma cikon annabãwa.",
-      },
-      {
-        excerpt: "Kuma ba Mu aike ka ba face domin rahama ga talikai.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Misali na da kuma misalin annabawan da suka gabace ni, shi ne na wani mutum wanda ya gina gida mai kyau da tsafta, sai dai wurin bulo daya. Ni ne tubalin, kuma ni ne hatimin annabawa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

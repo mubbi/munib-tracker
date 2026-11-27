@@ -1,0 +1,25 @@
+// NF-3.25 nearby join (BLE advertise + scan). expo-module-gradle-plugin supplies
+// compileSdk / minSdk / targetSdk, Kotlin and expo-modules-core.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.munibnearby'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.munibnearby"
+  defaultConfig {
+    versionCode 1
+    versionName "1.0.0"
+  }
+  lint {
+    abortOnError false
+  }
+}
+
+dependencies {
+  // ContextCompat (runtime permission checks) + LocationManagerCompat (Android <= 11 scan precondition).
+  implementation "androidx.core:core-ktx:1.19.1"
+}

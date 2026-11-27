@@ -9,7 +9,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 const CATEGORY_TONE: Record<MizanDeedCategory, "accent" | "success" | "info" | "warning"> = {
@@ -57,7 +57,7 @@ export function BalancePansBlock({ deeds }: { deeds: MizanDeedItem[] }) {
 
       <JannahCallout tone="accent">{t("lastDay.mizan.noLeaderboard")}</JannahCallout>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("lastDay.mizan.deedsTitle")}
           icon={{ ios: "scalemass.fill", android: "balance", web: "balance" }}
@@ -122,14 +122,13 @@ const styles = StyleSheet.create({
   },
   caption: {
     textAlign: "center",
-    lineHeight: 18,
     maxWidth: 320,
   },
   list: { gap: Spacing.two, marginTop: Spacing.three },
   deedCard: {
     padding: Spacing.three,
     borderRadius: Radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderStartWidth: 3,
     borderCurve: "continuous",
     gap: Spacing.two,
@@ -144,5 +143,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 28,
   },
-  summary: { lineHeight: 20 },
+  summary: {},
 });

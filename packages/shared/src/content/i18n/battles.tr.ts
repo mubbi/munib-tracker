@@ -27,16 +27,7 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       "Kur'an bu iznin etrafına kalıcı bir sınır koydu: \"Sizinle savaşanlarla Allah yolunda savaşın, fakat aşırı gitmeyin\" (Kur'an 2:190). Savaşmak, topluluğa yönelik saldırganlığa bağlıydı ve asla adaletin sınırlarını aşmamalıydı.",
       "Bu seferler tarihtir: yedinci yüzyıl Arabistan'ının kabile savaşları, bozulan antlaşmalar ve kuşatmalarla dolu belirli bir bağlamında yaşandı. Barış, adalet, merhamet ve iyi komşuluk üzerine genel İslami öğretiler çerçevedir; bu savaşların ayrıntıları o çerçeve içinde okunmalı, ondan koparılıp sloganlara indirgenmemelidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Permission is given to those who fight because they have been wronged — and Allah is indeed able to give them victory — those who have been driven from their homes without right, only because they said: Our Lord is Allah. Had Allah not repelled some people by means of others, monasteries, churches, synagogues, and mosques — in which the name of Allah is much mentioned — would surely have been demolished.",
-      },
-      {
-        excerpt:
-          "Fight in the way of Allah those who fight you, but do not transgress. Indeed, Allah does not like transgressors.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Siret zaman çizelgesi" }, { label: "Savaşlar zaman çizelgesi" }],
   },
   {
@@ -49,18 +40,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       "Antlaşma ihlalleri sona kadar belirleyici olmaya devam etti. Kureyş'in müttefiklerinin, Müslümanların müttefiki Huzâa'ya saldırması, Hudeybiye Antlaşması'nı geçersiz kıldı ve — dikkat çekici biçimde — bir katliam yerine Mekke'nin neredeyse kansız fethine yol açtı.",
       "Bütün bunlar boyunca amaçlar tutarlıydı: canı ve dini savunmak, güçsüzleri korumak ve tevhidin zulüm görmeden yaşanabileceği kadar güvenlik kurmak. Amaç asla kendi başına sonu gelmez bir yayılma olmadı ve kaynaklar, düşman barışa meylettiğinde Peygamber'in ﷺ ateşkes ve antlaşmayı tercih ettiğini kaydeder.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'I have been ordered to fight the people until they testify that there is no god but Allah and that Muhammad is the Messenger of Allah, establish prayer, and give zakah. If they do so, their lives and property are protected from me except by the right of Islam, and their reckoning is with Allah. — Classical scholars read "the people" as the specific idolaters of Arabia then waging war on Islam after the message had reached them; it is a statement about those hostile combatants, not a licence to attack peaceful non-Muslims or to compel belief, which Qur\'an 2:256 forbids outright.',
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "There is no compulsion in religion. The right course has become distinct from error.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Yukarıdaki hadis çoğu zaman bağlamından koparılarak aktarılır. Klasik alimler bunu döneminin özel düşmanlık ortamı içine yerleştirmiş ve dinde zorlamayı yasaklayan Kur'ani hükümle (2:256) ve savaşmanın yalnızca seninle savaşanlara karşı olduğu sınırıyla (2:190) birlikte okumuşlardır.",
     appLinks: [{ label: "Savaş ahlakı" }],
@@ -77,29 +58,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       "Mülkiyet ve toprağın kendisi de korunur. Genel talimat, meyve ağaçlarının gereksiz kesilmesini, ekinlerin yakılmasını ve hayvanların ihtiyaç fazlası kesilmesini yasaklamıştır. Esirler, esir alanların yediği gibi doyurulur ve giyindiği gibi giydirilirdi; Kur'an, Allah sevgisiyle esiri doyuranları över (76:8) ve birçoğu fidye, takas ya da sade bir merhametle serbest bırakıldı — bazıları Bedir'de Müslümanlara okuma yazma öğretme karşılığında.",
       "Bunlar dinin standart öğretileridir. Tarihte bunları ihlal eden bireysel Müslümanlar, İslam'ı tanımlamıyor, ona aykırı davranıyorlardı — tıpkı herhangi bir inancın mensuplarının ihlallerinin o inancın emirlerini değiştirmemesi gibi.",
     ],
-    quran: [
-      {
-        excerpt: "Fight in the way of Allah those who fight you, but do not transgress.",
-      },
-      {
-        excerpt:
-          "And if they incline to peace, then incline to it also, and rely upon Allah. Indeed, it is He who is the Hearing, the Knowing.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Umar reported that a woman was found slain in one of the expeditions of the Messenger of Allah ﷺ, so he forbade the killing of women and children.",
-      },
-      {
-        excerpt:
-          "When the Prophet ﷺ appointed a commander over an army he charged him: Fight in the name of Allah… do not embezzle the spoils, do not break your pledge, do not mutilate, and do not kill a child. When you meet the enemy, first invite them to Islam; if they refuse, offer them peace; only if they refuse both, then fight.",
-      },
-      {
-        excerpt:
-          "Do not kill a decrepit old man, nor a young child, nor a woman. — Some chains of this exact wording are graded weak, but the ruling it states is confirmed by the sahih narration above and by the consensus of the jurists.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "İslam'ın ne emrettiği ile tarihte herhangi bir ordunun gerçekte ne yaptığı arasında net bir ayrım yap.",
       "Herhangi bir savaş anlatısından önce bu ahlak bölümünü oku — yönlendirici ilkeleri olmayan tarih yanlış anlaşılmaya davetiye çıkarır.",
@@ -147,26 +107,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
         "Bazı esirler, Medine çocuklarına okuma yazma öğretme karşılığında serbest bırakıldı.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "When you were asking help of your Lord and He answered you: I will reinforce you with a thousand angels, following one another.",
-      },
-      {
-        excerpt:
-          "There was already a sign for you in the two armies that met — one fighting in the cause of Allah and another of disbelievers.",
-      },
-      {
-        excerpt:
-          "You did not kill them, but it was Allah who killed them. And you threw not when you threw, but it was Allah who threw.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Umar reported that on the day of Badr the Prophet ﷺ looked at the enemy of a thousand while his own companions were a little over three hundred, then turned to the qibla, stretched out his hands, and implored his Lord: O Allah, fulfil what You promised me. O Allah, if this band of believers is destroyed, You will not be worshipped on earth. He kept imploring until his cloak fell from his shoulders, and Abu Bakr replaced it and said: Enough, O Prophet of Allah — Allah will fulfil what He promised you.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Bedir üzerine Kur'an ayetleri" }, { label: "Önemli sahabiler" }],
   },
   {
@@ -201,22 +143,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Sınavlar mü'minleri arındırır; tövbe ve sebatla karşılanan sekte gelişime yol açar.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah had certainly fulfilled His promise to you when you were killing them by His permission — until you lost courage, disputed over the order, and disobeyed after He had shown you that which you love.",
-      },
-      {
-        excerpt:
-          "So do not weaken and do not grieve, for you will be superior if you are true believers.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ appointed Abdullah ibn Jubayr over the fifty archers on the day of Uhud and said: Hold your position; even if you see us being snatched away by birds, do not leave it until I send for you — and even if you see us defeat them, do not leave until I send for you. When the enemy was routed and the archers saw the spoils, they said, The booty! and left their post — so seventy of us were killed.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Liderlik dersleri" }, { label: "Önemli sahabiler" }],
   },
   {
@@ -255,22 +183,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kuşatma altında dayan ve sonucu, bir orduyu bir rüzgârla geri çevirebilen Allah'a bırak.",
     },
-    quran: [
-      {
-        excerpt:
-          "O you who believe, remember the favour of Allah upon you when armies came to you and We sent against them a wind and armies you did not see… There the believers were tested and shaken with a severe shaking.",
-      },
-      {
-        excerpt:
-          "And when the believers saw the Confederates, they said: This is what Allah and His Messenger promised us — and it only increased them in faith and submission.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ supplicated against the Confederates on the day of al-Ahzab, saying: O Allah, Revealer of the Book, Swift in reckoning — defeat the Confederates. O Allah, defeat them and shake them.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Selman el-Farisi" }],
   },
   {
@@ -303,22 +217,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ortak bir tehlike anında karşılıklı koruma sözleşmesini bozmak en ağır ihanetler arasındadır.",
     },
-    quran: [
-      {
-        excerpt:
-          "And He brought down those of the People of the Scripture who supported them from their fortresses and cast terror into their hearts — a party you killed, and a party you took captive. And He caused you to inherit their land and their homes.",
-      },
-      {
-        excerpt:
-          "Allah does not forbid you from those who do not fight you because of religion and do not expel you from your homes — from being righteous toward them and acting justly toward them. Indeed, Allah loves those who act justly.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "When Banu Qurayzah agreed to accept the judgement of Sa'd ibn Mu'adh, the Prophet ﷺ sent for him. He came, and the Prophet ﷺ said: Stand for your chief. Sa'd judged that their fighting men be killed and their women and children taken captive. The Prophet ﷺ said: You have judged by the judgement of Allah — or he said, by the judgement of the King.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Bu, savaşçıların işlediği belirli bir savaş zamanı ihanetinin cezasıydı ve kabilenin kendi seçtiği bir hakem tarafından yargılandı. Bu, herhangi bir halka dinleri yüzünden verilmiş bir hüküm değildir ve İslam'ın adalet ve iyilikle davranılmasını emrettiği Yahudilerle ya da herhangi bir dini toplulukla ilişkiler için bir model değildir (Kur'an 60:8). Bazı sonraki alimler aktarılan rakamların ayrıntılarını sorgulamıştır.",
   },
@@ -352,22 +252,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Bir kararın hikmeti gizliyken Allah'a ve Elçisi'ne güven — sabır en gerçek zafer olabilir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Indeed, We have given you a manifest victory, that Allah may forgive you what preceded of your sin and what will follow, complete His favour upon you, and guide you to a straight path.",
-      },
-      {
-        excerpt:
-          "Certainly was Allah pleased with the believers when they pledged allegiance to you under the tree, and He knew what was in their hearts, so He sent down tranquillity upon them and rewarded them with an imminent conquest.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir ibn Abdullah said: On the day of al-Hudaybiyyah we were fourteen hundred. We pledged allegiance to the Prophet ﷺ under the tree, and he was the best of people.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Ders: zaferden önce sabır" }, { label: "Kur'an ayetleri" }],
   },
   {
@@ -400,12 +286,7 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Uzayan zorluk karşısında sebat, samimiyetle birleşince Allah'ın yardımını getirir.",
     },
-    hadith: [
-      {
-        excerpt:
-          "On the day of Khaybar the Prophet ﷺ said: Tomorrow I will give this banner to a man who loves Allah and His Messenger, and whom Allah and His Messenger love, and through whose hands Allah will grant victory. The next day he called for Ali, who had sore eyes; he spat in his eyes and prayed for him, and Ali was cured as though he had never been ill, and he was given the banner.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Ali bin Ebu Talib" }],
   },
   {
@@ -470,16 +351,7 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Amaç rehberlikti, intikam değil — güç, nefsin değil mesajın hizmetine sokulur.",
     },
-    quran: [
-      {
-        excerpt:
-          "When the victory of Allah has come and the conquest, and you see the people entering the religion of Allah in multitudes, then exalt with praise of your Lord and ask His forgiveness. Indeed, He is ever Accepting of repentance.",
-      },
-      {
-        excerpt:
-          "He said: No blame upon you today. May Allah forgive you, and He is the most merciful of the merciful. — the words of Prophet Yusuf that the Prophet ﷺ echoed to the Quraysh on the day of the conquest.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Ders: zaferden sonra merhamet" }],
   },
   {
@@ -512,18 +384,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Asla sayıya ya da yakın başarıya dayanma; zafer ve sükûnet yalnızca Allah'tan gelir.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allah has already given you victory in many regions — and on the day of Hunayn, when your great numbers pleased you but availed you nothing, and the earth, for all its vastness, closed in on you, and you turned back in retreat. Then Allah sent down His tranquillity upon His Messenger and upon the believers.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Al-Bara ibn Azib was asked whether they had fled on the day of Hunayn. He said: But the Messenger of Allah ﷺ did not flee. The people turned back, and the Prophet ﷺ was on his white mule, and he was saying: I am the Prophet, this is no lie; I am the son of Abd al-Muttalib.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{ label: "Ders: güçte alçakgönüllülük" }],
   },
   {
@@ -557,22 +419,8 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Görünür bir ödül olmadan fedakârlık ve sınavda doğruluk, imanın en yüksek sınavları arasındadır.",
     },
-    quran: [
-      {
-        excerpt:
-          "Those who remained behind rejoiced in their staying behind the Messenger of Allah and disliked to strive with their wealth and their lives in the cause of Allah, and said: Do not go forth in the heat. Say: The fire of Hell is more intense in heat, if only they could understand.",
-      },
-      {
-        excerpt:
-          "And He forgave the three who were left behind, until the earth, vast as it was, closed in on them, and their own souls closed in on them, and they were certain there is no refuge from Allah except in Him. Then He turned to them in mercy that they might repent.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Malik related how he stayed behind from Tabuk without excuse and would not lie about it; the Prophet ﷺ ordered the believers not to speak to him and his two companions for fifty nights, until the earth became narrow for them — then the revelation of their forgiveness came, and it was among the happiest days of his life.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Ders: fedakârlık ve samimiyet" }],
   },
 
@@ -638,20 +486,7 @@ export const BATTLES_TOPICS_TR: DeepPartial<BattlesTopic>[] = [
       "Seferler hakkındaki hadislere güvenmeden önce sağlamlıkları kontrol edilmelidir. Aşağıdaki rivayetler sahih koleksiyonlardan alınmıştır ve bu seferlerin davranışı ve ruhuyla ilgilidir; her biri kendi derecesini taşır.",
       "Belirli bir savaşla ilgili rivayetler için o savaşın kendi konusuna bakın. Bağlam içinde tam senetleri ve derecelendirmeyi okumak için Munib'in hadis tarayıcısını kullanın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Do not wish to meet the enemy, and ask Allah for safety. But when you meet them, be patient, and know that Paradise lies under the shade of the swords.",
-      },
-      {
-        excerpt:
-          "The Prophet ﷺ said: War is deceit. — Scholars explain this as permission for tactical stratagem in battle (feints, surprise, misdirection), never as licence to break a treaty or betray a protected party.",
-      },
-      {
-        excerpt:
-          "When appointing a commander the Prophet ﷺ charged him to fear Allah, to invite the enemy to Islam before fighting, not to break a pledge, not to mutilate, and not to kill a child.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{ label: "Hadislere göz at" }],
   },
   {
@@ -696,69 +531,45 @@ export const BATTLES_AFTER_PROPHET_TR: DeepPartial<{
 
 export const BATTLES_VERSES_TR: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Permission is given to those who fight because they have been wronged… Had Allah not checked one set of people by means of another, monasteries, churches, synagogues, and mosques would have been destroyed.",
     context: "Savaşa ilk genel izin — Mekke'de yıllarca süren silahsız zulmün ardından.",
   },
   {
-    excerpt:
-      "Fight in the way of Allah those who fight you, but do not transgress. Indeed, Allah does not like transgressors.",
     context: "Temel sınır: yalnızca savunma ve sınırları aşmanın kesin yasağı.",
   },
   {
-    excerpt:
-      "When you asked your Lord for help, He answered: I will reinforce you with a thousand angels, rank upon rank.",
     context: "Bedir hakkında indi — sayıca az mü'minlere ilahi yardım.",
   },
   {
-    excerpt:
-      "There has already been for you a sign in the two armies that met — one fighting in the way of Allah and another of disbelievers, seeing them twice their number with their eyes.",
     context:
       "Allah, Bedir'de Müslümanları düşmanın gözünde daha büyük gösterdi ve kalpleri güçlendirdi.",
   },
   {
-    excerpt:
-      "Allah had certainly fulfilled His promise to you when you were killing them by His permission, until you lost courage and fell to disputing about the order and disobeyed after He had shown you that which you love.",
     context: "Okçuların itaatsizliğini ve Uhud'daki dönüm noktasını ele alır.",
   },
   {
-    excerpt:
-      "O you who believe, remember the favour of Allah upon you when armies came to you and We sent against them a wind and armies you did not see.",
     context: "Ahzâb Suresi, Müttefikler kuşatması ve ilahi yardım hakkında.",
   },
   {
-    excerpt:
-      "And He brought down those of the People of the Scripture who supported them from their fortresses and cast terror into their hearts — a party you killed, and a party you took captive. And He caused you to inherit their land and their homes.",
     context:
       "Ahzâb Suresi, kuşatma sırasında sözleşmeyi bozan Benî Kurayza hakkında — bir dine karşı hüküm değil, sınırlı bir savaş zamanı ihaneti vakası.",
   },
   {
-    excerpt:
-      "Indeed, We have given you a manifest victory, that Allah may forgive you what preceded of your sin and what will follow, complete His favour upon you, and guide you to a straight path.",
     context:
       "Hudeybiye'den dönüşte indi — sahabenin önce acı bir uzlaşma olarak hissettiğini apaçık bir zafer olarak adlandırır.",
   },
   {
-    excerpt:
-      "Certainly was Allah pleased with the believers when they pledged allegiance to you under the tree, and He knew what was in their hearts, so He sent down tranquillity upon them and rewarded them with an imminent conquest.",
     context:
       "Rıdvan Biatı — yaklaşık 1400 sahabi bir akasya ağacının altında kaçmamaya biat etti ve Allah onlardan razı olduğunu bildirdi.",
   },
   {
-    excerpt:
-      "When the victory of Allah has come and the conquest, and you see the people entering the religion of Allah in multitudes, then exalt with praise of your Lord and ask His forgiveness. Indeed, He is ever Accepting of repentance.",
     context:
       "Mekke'nin açılışı üzerine Nasr Suresi — övünçle değil, hamd, bağışlanma dileme ve dine akın akın giren kalabalıklarla taçlanan bir zafer.",
   },
   {
-    excerpt:
-      "Allah has already given you victory in many regions… Then Allah sent down His tranquillity upon His Messenger and upon the believers.",
     context:
       "Allah, mü'minlere zaferin kendisinden bir bağış olduğunu, sayıca övünmenin sonucu olmadığını hatırlatır.",
   },
   {
-    excerpt:
-      "Those who remained behind rejoiced in their staying behind the Messenger of Allah and disliked to strive with their wealth and their lives in the cause of Allah.",
     context: "Tevbe Suresi, Tebük'ün zorlu yürüyüşünden kendilerini muaf tutanlara seslenir.",
   },
 ];

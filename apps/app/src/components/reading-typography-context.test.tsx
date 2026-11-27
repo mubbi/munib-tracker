@@ -1,4 +1,5 @@
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { act, fireEvent, renderHook, screen } from "@testing-library/react-native";
 import type { ReactNode } from "react";
 
@@ -13,12 +14,14 @@ import {
   useReadingTypography,
 } from "@/components/reading-typography-context";
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
+import { DB_KEYS } from "@/db/keys";
+import { withKeyLock } from "@/db/store";
 import { DEFAULT_ARABIC_SIZE, DEFAULT_TRANSLATION_SIZE } from "@/lib/reading-typography";
-import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { lastProps } from "@/test-support/mock-calls";
 import { usePlatform } from "@/test-support/platform";
 import { setPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
+import { setReadingDisplayState } from "@/test-support/settings";
 import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/components/learn-tts-context", () => ({
@@ -51,13 +54,17 @@ const withSurface =
     );
 
 afterEach(async () => {
+  // Let an in-flight preferences write (a visibility toggle) land before resetting:
+  // queue behind the repository's key lock, then let the store apply the result.
+  await act(async () => {
+    await withKeyLock(DB_KEYS.userPreferences, async () => {});
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    // A later store hydration must not resurrect a toggle persisted by a previous test.
+    await AsyncStorage.clear();
+  });
   await setPreferences();
   jest.mocked(useLearnTts).mockReturnValue(null);
-  readingTextVisibilityStore.setState({
-    showTransliteration: true,
-    showTranslation: true,
-    isReady: true,
-  });
+  setReadingDisplayState({ showTransliteration: true, showTranslation: true });
 });
 
 describe("useReadingTypography", () => {

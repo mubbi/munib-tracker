@@ -36,27 +36,27 @@ const renderSheet = async (props: Partial<Props> = {}) => {
 const search = (query: string) =>
   fireEvent.changeText(screen.getByPlaceholderText("Search languages…"), query);
 
-/** The pressable row (role=button) that contains a language's name. */
+/** The pressable row (role=radio, single choice) that contains a language's name. */
 const row = (name: string) => {
   let node = screen.getByText(name).parent;
-  while (node && node.props.accessibilityRole !== "button") node = node.parent;
+  while (node && node.props.accessibilityRole !== "radio") node = node.parent;
   return defined(node, `the "${name}" row`);
 };
 
 afterEach(resetMockWindowSize);
 
 describe("LanguagePickerSheet", () => {
-  it("titles the sheet with every language", async () => {
+  it("counts every language", async () => {
     await renderSheet();
 
-    expect(screen.getByText(`Choose a language (${TOTAL} of ${TOTAL})`)).toBeTruthy();
+    expect(screen.getByText(`${TOTAL} of ${TOTAL} languages`)).toBeTruthy();
   });
 
   it("marks the current language as selected", async () => {
     await renderSheet();
     await search("english");
 
-    expect(row(ENGLISH.name).props.accessibilityState).toEqual({ selected: true });
+    expect(row(ENGLISH.name).props.accessibilityState).toEqual({ checked: true });
   });
 
   it("filters languages and counts the matches", async () => {
@@ -65,7 +65,7 @@ describe("LanguagePickerSheet", () => {
     await search("arab");
 
     expect(screen.getByText(ARABIC.name)).toBeTruthy();
-    expect(screen.getByText(`Choose a language (1 of ${TOTAL})`)).toBeTruthy();
+    expect(screen.getByText(`1 of ${TOTAL} languages`)).toBeTruthy();
   });
 
   it("explains when nothing matches", async () => {
@@ -74,6 +74,10 @@ describe("LanguagePickerSheet", () => {
     await search("zzzz");
 
     expect(screen.getByText("No languages match your search.")).toBeTruthy();
+    // The empty state offers the way out (P8-05): its action clears the query.
+    const clears = screen.getAllByRole("button", { name: "Clear search" });
+    await fireEvent.press(defined(clears.at(-1), "the empty-state clear action"));
+    expect(screen.getByText(`${TOTAL} of ${TOTAL} languages`)).toBeTruthy();
   });
 
   it("clears the search", async () => {
@@ -82,7 +86,7 @@ describe("LanguagePickerSheet", () => {
 
     await fireEvent.press(screen.getByLabelText("Clear search"));
 
-    expect(screen.getByText(`Choose a language (${TOTAL} of ${TOTAL})`)).toBeTruthy();
+    expect(screen.getByText(`${TOTAL} of ${TOTAL} languages`)).toBeTruthy();
   });
 
   it("selects a language and closes", async () => {
@@ -119,7 +123,7 @@ describe("LanguagePickerSheet", () => {
     setMockWindowSize(1024);
     await renderSheet();
 
-    expect(screen.getByText(`Choose a language (${TOTAL} of ${TOTAL})`)).toBeTruthy();
+    expect(screen.getByText(`${TOTAL} of ${TOTAL} languages`)).toBeTruthy();
   });
 });
 

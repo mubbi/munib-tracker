@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import {
   GestureDetector,
   usePanGesture,
@@ -17,7 +17,8 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Spacing } from "@/constants/theme";
+import { Sheet } from "@/components/ui/sheet";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
@@ -29,6 +30,7 @@ import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, useChevronBack, useChevronForward } from "@/lib/rtl";
 import { userMediaContentUrl } from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
+import { DarkThemeScope } from "@/providers/theme-provider";
 import { useToast } from "@/providers/toast-provider";
 import type { CustomAdhkarImage } from "@/stores/custom-adhkar-store";
 
@@ -78,9 +80,12 @@ function ZoomableImage({
   headers,
   width,
   height,
+  label,
 }: {
   uri: string;
   headers?: Record<string, string>;
+  /** Text alternative for the attachment (its file name). */
+  label: string;
   width: number;
   height: number;
 }) {
@@ -187,6 +192,8 @@ function ZoomableImage({
               transition={{ duration: 180, skipOnCacheHit: "all" }}
               onLoad={() => setReady(true)}
               onError={() => setReady(true)}
+              accessible
+              accessibilityLabel={label}
               accessibilityIgnoresInvertColors
             />
           )}
@@ -204,7 +211,7 @@ export function CustomAdhkarImageGallery({
   compact?: boolean;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { session } = useAuth();
   const toast = useToast();
   const chevronBack = useChevronBack();
@@ -301,105 +308,99 @@ export function CustomAdhkarImageGallery({
         ))}
       </View>
 
-      <Modal
-        visible={active !== null}
-        transparent
-        animationType="fade"
-        onRequestClose={closeViewer}
-        statusBarTranslucent
-      >
-        <View style={styles.viewerBackdrop}>
-          <View style={styles.viewerTop}>
-            <ThemedText type="caption" style={styles.viewerCounter}>
-              {viewerIndex !== null
-                ? t("customAdhkar.attachments.counter", {
-                    current: viewerIndex + 1,
-                    total: resolved.length,
-                  })
-                : ""}
-            </ThemedText>
-            <IconButton
-              name={{ ios: "xmark", android: "close", web: "close" }}
-              size={20}
-              tintColor="#FFFFFF"
-              accessibilityLabel={t("common.close")}
-              onPress={closeViewer}
-            />
+      {/* Media viewer on the shared fullscreen sheet: modal a11y, Escape / Back, z-order. */}
+      <DarkThemeScope>
+        <Sheet
+          visible={active !== null}
+          variant="fullscreen"
+          onClose={closeViewer}
+          title={
+            viewerIndex !== null
+              ? t("customAdhkar.attachments.counter", {
+                  current: viewerIndex + 1,
+                  total: resolved.length,
+                })
+              : undefined
+          }
+          showCloseButton
+          contentStyle={{ backgroundColor: tokens.scrimStrong }}
+        >
+          <View style={styles.viewerBackdrop}>
+            {active ? (
+              <View style={[styles.viewerStage, { height: stageHeight }]}>
+                {activeIsPdf && tv ? (
+                  // TV: no WebView (pdf.js) and no external opener — explain instead
+                  // of rendering the empty WebView stub.
+                  <ThemedText type="small" style={styles.viewerTvNote}>
+                    {tTv(
+                      t,
+                      "customAdhkar.attachments.tvUnavailable",
+                      "customAdhkar.attachments.pdfTvUnavailable",
+                    )}
+                  </ThemedText>
+                ) : activeIsPdf ? (
+                  <PdfPreview
+                    key={active.key}
+                    uri={active.uri}
+                    fileName={active.filename}
+                    headers={active.headers}
+                    style={{ width: windowWidth - Spacing.four * 2, height: stageHeight }}
+                    onOpenExternally={() => void openPdfExternally(active)}
+                  />
+                ) : (
+                  <ZoomableImage
+                    key={active.key}
+                    uri={active.uri}
+                    headers={active.headers}
+                    label={active.filename}
+                    width={windowWidth}
+                    height={stageHeight}
+                  />
+                )}
+              </View>
+            ) : null}
+
+            {/* TV: pinch / pan / double-tap and PDF zoom don't exist on a remote. */}
+            {tv ? null : (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.viewerHint}>
+                {activeIsPdf
+                  ? t("customAdhkar.attachments.pdfHint")
+                  : t("customAdhkar.attachments.zoomHint")}
+              </ThemedText>
+            )}
+
+            {resolved.length > 1 ? (
+              <View style={styles.viewerNav}>
+                <IconButton
+                  name={chevronBack}
+                  size={22}
+                  tintColor={tokens.onScrim}
+                  accessibilityLabel={t("customAdhkar.attachments.previous")}
+                  onPress={showPrev}
+                  disabled={viewerIndex === 0}
+                />
+                <IconButton
+                  name={chevronForward}
+                  size={22}
+                  tintColor={tokens.onScrim}
+                  accessibilityLabel={t("customAdhkar.attachments.next")}
+                  onPress={showNext}
+                  disabled={viewerIndex === resolved.length - 1}
+                />
+              </View>
+            ) : null}
+
+            {active && activeIsPdf && !tv ? (
+              <View style={styles.pdfActions}>
+                <Button
+                  label={t("customAdhkar.attachments.openPdf")}
+                  onPress={() => void openPdfExternally(active)}
+                />
+              </View>
+            ) : null}
           </View>
-
-          {active ? (
-            <View style={[styles.viewerStage, { height: stageHeight }]}>
-              {activeIsPdf && tv ? (
-                // TV: no WebView (pdf.js) and no external opener — explain instead
-                // of rendering the empty WebView stub.
-                <ThemedText type="small" style={[styles.viewerCounter, styles.viewerTvNote]}>
-                  {tTv(
-                    t,
-                    "customAdhkar.attachments.tvUnavailable",
-                    "customAdhkar.attachments.pdfTvUnavailable",
-                  )}
-                </ThemedText>
-              ) : activeIsPdf ? (
-                <PdfPreview
-                  key={active.key}
-                  uri={active.uri}
-                  fileName={active.filename}
-                  headers={active.headers}
-                  style={{ width: windowWidth - Spacing.four * 2, height: stageHeight }}
-                  onOpenExternally={() => void openPdfExternally(active)}
-                />
-              ) : (
-                <ZoomableImage
-                  key={active.key}
-                  uri={active.uri}
-                  headers={active.headers}
-                  width={windowWidth}
-                  height={stageHeight}
-                />
-              )}
-            </View>
-          ) : null}
-
-          {/* TV: pinch / pan / double-tap and PDF zoom don't exist on a remote. */}
-          {tv ? null : (
-            <ThemedText type="caption" style={styles.viewerHint}>
-              {activeIsPdf
-                ? t("customAdhkar.attachments.pdfHint")
-                : t("customAdhkar.attachments.zoomHint")}
-            </ThemedText>
-          )}
-
-          {resolved.length > 1 ? (
-            <View style={styles.viewerNav}>
-              <IconButton
-                name={chevronBack}
-                size={22}
-                tintColor="#FFFFFF"
-                accessibilityLabel={t("customAdhkar.attachments.previous")}
-                onPress={showPrev}
-                disabled={viewerIndex === 0}
-              />
-              <IconButton
-                name={chevronForward}
-                size={22}
-                tintColor="#FFFFFF"
-                accessibilityLabel={t("customAdhkar.attachments.next")}
-                onPress={showNext}
-                disabled={viewerIndex === resolved.length - 1}
-              />
-            </View>
-          ) : null}
-
-          {active && activeIsPdf && !tv ? (
-            <View style={styles.pdfActions}>
-              <Button
-                label={t("customAdhkar.attachments.openPdf")}
-                onPress={() => void openPdfExternally(active)}
-              />
-            </View>
-          ) : null}
-        </View>
-      </Modal>
+        </Sheet>
+      </DarkThemeScope>
     </>
   );
 }
@@ -411,25 +412,16 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   thumb: {
-    borderRadius: 12,
+    borderRadius: Radius.sm,
     borderCurve: "continuous",
     overflow: "hidden",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   viewerBackdrop: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.92)",
     justifyContent: "space-between",
-    paddingTop: Spacing.five,
-    paddingBottom: Spacing.four,
+    paddingBottom: Spacing.two,
   },
-  viewerTop: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: Spacing.three,
-  },
-  viewerCounter: { color: "#FFFFFF" },
   viewerStage: {
     flex: 1,
     alignItems: "center",
@@ -441,7 +433,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.five,
   },
   viewerHint: {
-    color: "rgba(255,255,255,0.72)",
     textAlign: "center",
     paddingHorizontal: Spacing.four,
   },

@@ -1,11 +1,11 @@
-import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AppState, Platform } from "react-native";
+import { AppState } from "react-native";
 
 import { RECITATION_MODELS } from "@/constants/recitation-models";
 import { quranComRecitationId } from "@/constants/tajweed";
 import { useAyahWordSegments } from "@/hooks/use-quran";
+import { setTaggedKeepAwake } from "@/lib/audio-keep-awake";
 import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
 import { singleAyahTrack } from "@/lib/quran-audio";
@@ -36,6 +36,7 @@ import type {
   SessionMode,
 } from "@/lib/quran-companion/types";
 import { activeWordIndexAt } from "@/lib/quran-word-timing";
+import { claimMicrophone, releaseMicrophone } from "@/lib/speech/mic-owner";
 import { useAudioPlayerContext, useAudioProgressContext } from "@/providers/audio-player-provider";
 import { useStore } from "@/stores/create-store";
 import { quranCompanionPrefsStore, useCompanionPrefs } from "@/stores/quran-companion-prefs-store";
@@ -302,9 +303,19 @@ export function usePracticeSession(input: {
   }, [ayahState, displayMode, hidden, setHidden]);
 
   // ── Mic + take lifecycle ──────────────────────────────────────────────────
-  const [mic, setMic] = useState<MicState>("idle");
+  // Mic-owner preemption (another feature started listening): end the take like a
+  // call would. Stable identity for the whole screen; the latest stopTake via ref.
+  const stopTakeRef = useRef<(reason: "interrupted") => Promise<void>>(async () => {});
+  const onMicPreempted = useCallback(() => stopTakeRef.current("interrupted"), []);
+  const [mic, setMicState] = useState<MicState>("idle");
   const micRef = useRef<MicState>("idle");
-  micRef.current = mic;
+  // The ref moves synchronously so awaits in toggleMic / stopTake see the latest state.
+  const setMic = useCallback((next: MicState) => {
+    micRef.current = next;
+    setMicState(next);
+  }, []);
+  /** Read through a function: TS would keep `micRef.current` narrowed across awaits. */
+  const isMicStarting = useCallback(() => micRef.current === "starting", []);
   const [micPermission, setMicPermission] = useState<MicPermission | null>(null);
   const [settledAyahs, setSettledAyahs] = useState<Set<number>>(new Set());
   const visitedRef = useRef<Set<number>>(new Set([passage.ayahStart]));
@@ -329,6 +340,7 @@ export function usePracticeSession(input: {
       if (event.type === "failed") {
         // Keep the text up; one caption; Reveal keeps working (§9.2).
         setEngineError(event.code);
+        releaseMicrophone(onMicPreempted);
         void captureRef.current?.stop();
         void restorePlaybackMode();
         setMic("idle");
@@ -348,13 +360,14 @@ export function usePracticeSession(input: {
       }
       apply((s) => reduceSession(s, event));
     });
-  }, [apply, engineStatus]);
+  }, [apply, engineStatus, onMicPreempted, setMic]);
 
   const stopTake = useCallback(
     async (reason: "user" | "background" | "interrupted" | "leave") => {
       const state = micRef.current;
       if (state !== "listening" && state !== "starting") return;
       setMic("settling");
+      releaseMicrophone(onMicPreempted);
       try {
         await captureRef.current?.stop();
       } catch {
@@ -377,8 +390,9 @@ export function usePracticeSession(input: {
       }
       setMic("idle");
     },
-    [displayMode],
+    [displayMode, onMicPreempted, setMic],
   );
+  stopTakeRef.current = stopTake;
 
   const toggleMic = useCallback(async () => {
     if (micRef.current === "listening" || micRef.current === "starting") {
@@ -396,6 +410,7 @@ export function usePracticeSession(input: {
     setMic("starting");
     // Hearing the reference and the take never overlap (§7.6).
     audio.stop();
+    await claimMicrophone("quran-practice", onMicPreempted);
     await enterRecordMode();
     takeAyahRef.current = ayah;
     setSettledAyahs((prev) => {
@@ -413,6 +428,12 @@ export function usePracticeSession(input: {
           if (status.interrupted) void stopTake("interrupted");
         },
       );
+      if (!isMicStarting()) {
+        // Stopped while starting (background, a call, another listener): close the mic.
+        releaseMicrophone(onMicPreempted);
+        await capture.stop().catch(() => {});
+        return;
+      }
       engineRanRef.current = true;
       setMic("listening");
     } catch (error) {
@@ -421,11 +442,23 @@ export function usePracticeSession(input: {
         setMicPermission("denied");
       reportPracticeError(error, code, "take-start");
       takeAyahRef.current = null;
+      releaseMicrophone(onMicPreempted);
       await capture.stop().catch(() => {});
       await restorePlaybackMode();
       setMic("idle");
     }
-  }, [apply, audio, ayah, displayMode, engineStatus, passage.surah, stopTake]);
+  }, [
+    apply,
+    audio,
+    ayah,
+    displayMode,
+    engineStatus,
+    isMicStarting,
+    onMicPreempted,
+    passage.surah,
+    setMic,
+    stopTake,
+  ]);
 
   // Auto-finish: once the engine has reached the ayah's last word (nothing left
   // "upcoming"), end the take after a short tail so the person is never left
@@ -454,10 +487,10 @@ export function usePracticeSession(input: {
   // Keep the screen awake while this route is focused (own tag, released on blur).
   useFocusEffect(
     useCallback(() => {
-      if (!prefs.keepAwake || Platform.OS === "web" || isTV()) return;
-      void activateKeepAwakeAsync(PRACTICE_KEEP_AWAKE_TAG).catch(() => {});
+      if (!prefs.keepAwake) return;
+      void setTaggedKeepAwake(PRACTICE_KEEP_AWAKE_TAG, true);
       return () => {
-        void deactivateKeepAwake(PRACTICE_KEEP_AWAKE_TAG);
+        void setTaggedKeepAwake(PRACTICE_KEEP_AWAKE_TAG, false);
       };
     }, [prefs.keepAwake]),
   );
@@ -468,6 +501,7 @@ export function usePracticeSession(input: {
       const capture = captureRef.current;
       const engine = engineRef.current;
       engineRef.current = null;
+      releaseMicrophone(onMicPreempted);
       // Best-effort teardown: a failing step must neither skip the others nor
       // escape as an unhandled rejection from this fire-and-forget cleanup.
       void (async () => {
@@ -481,7 +515,7 @@ export function usePracticeSession(input: {
         }
       })();
     };
-  }, []);
+  }, [onMicPreempted]);
 
   // ── Hear (reference recitation) ───────────────────────────────────────────
   const recitationId = quranComRecitationId(quranPrefs.preferredReciterDir);

@@ -16,8 +16,6 @@ interface CompanionPrefsState {
   isReady: boolean;
   load: () => Promise<void>;
   update: (patch: Partial<QuranCompanionPrefs>) => Promise<void>;
-  /** First launch only: copy the reader's translation/transliteration toggles. */
-  seedReadingToggles: (showTranslation: boolean, showTransliteration: boolean) => Promise<void>;
 }
 
 export const quranCompanionPrefsStore = createStore<CompanionPrefsState>((set, get) => ({
@@ -33,11 +31,6 @@ export const quranCompanionPrefsStore = createStore<CompanionPrefsState>((set, g
     set({ prefs: { ...get().prefs, ...patch } });
     const prefs = await QuranCompanionPrefsRepository.update(patch);
     set({ prefs });
-  },
-
-  async seedReadingToggles(showTranslation, showTransliteration) {
-    if (get().prefs.readingTogglesSeeded) return;
-    await get().update({ showTranslation, showTransliteration, readingTogglesSeeded: true });
   },
 }));
 
@@ -60,8 +53,6 @@ export function useCompanionPrefsReady(): boolean {
 const actions = {
   update: (patch: Partial<QuranCompanionPrefs>) =>
     quranCompanionPrefsStore.getState().update(patch),
-  seedReadingToggles: (t: boolean, tr: boolean) =>
-    quranCompanionPrefsStore.getState().seedReadingToggles(t, tr),
 } as const;
 
 export function useCompanionPrefsActions() {

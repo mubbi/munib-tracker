@@ -1,0 +1,16 @@
+{
+  "skipToContent": "مرکزی مواد پر جائیں",
+  "prayers": {
+    "fajr": "فجر",
+    "dhuhr": "ظہر",
+    "asr": "عصر",
+    "maghrib": "مغرب",
+    "isha": "عشاء"
+  },
+  "dayArc": {
+    "prayerArc": "روزانہ نمازوں کی قوس",
+    "starFlare": "ستارے کی چمک",
+    "crescent": "ہلال",
+    "mosqueSkyline": "شام کے وقت پُرسکون پانی کے اوپر مسجد"
+  }
+}

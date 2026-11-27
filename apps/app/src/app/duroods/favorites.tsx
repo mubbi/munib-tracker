@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type FlatList,
@@ -24,24 +24,28 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuroodItems } from "@/lib/content-loaders";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { DUROOD_CORPUS, type loadDuroodItems } from "@/lib/content-loaders";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import {
   useDuroodFavoritesActions,
   useEnsureDuroodFavoritesLoaded,
   useFavoriteDuroodIds,
 } from "@/stores/durood-favorites-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 type DuroodItem = Awaited<ReturnType<typeof loadDuroodItems>>[number];
 
@@ -55,21 +59,26 @@ export default function DuroodFavoritesScreen() {
   const showSideFilters = isListDetail && !tv;
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
-  const { toggle } = useDuroodFavoritesActions();
-  const visibility = useReadingTextVisibility();
-  const [duroodItems, setDuroodItems] = useState<DuroodItem[]>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
+  const { toggle, restore } = useDuroodFavoritesActions();
+  const undoToast = useUndoToast();
+  // Undo puts the durood back where it was in the saved order (B-30).
+  const unsave = useCallback(
+    (id: string) => {
+      const position = favoriteIds.indexOf(id);
+      void undoToast.run({
+        do: () => toggle(id),
+        undo: () => restore(id, position),
+        messageKey: "duroods.removedToast",
+      });
+    },
+    [favoriteIds, restore, toggle, undoToast],
+  );
+  const visibility = useReadingDisplay();
+  const { items: duroodItems, ready: corpusReady } = useContentCorpus(DUROOD_CORPUS);
   const listRef = useRef<FlatList<DuroodItem>>(null);
   const [toolbarVisible, setToolbarVisible] = useState(false);
   const headerCardHeightRef = useRef(0);
   const readingProgress = useSharedValue(0);
-
-  useEffect(() => {
-    void loadDuroodItems().then((items) => {
-      setDuroodItems(items);
-      setCorpusReady(true);
-    });
-  }, []);
 
   const byId = useMemo(() => new Map(duroodItems.map((item) => [item.id, item])), [duroodItems]);
   const items = favoriteIds
@@ -109,12 +118,12 @@ export default function DuroodFavoritesScreen() {
           item={item}
           sourceHref="/duroods"
           isFavorite
-          onToggleFavorite={() => toggle(item.id)}
+          onToggleFavorite={() => unsave(item.id)}
         />
         <Button
           label={t("duroods.openInTasbeeh")}
           icon={TASBEEH_ICON}
-          fullWidth
+          variant="secondary"
           onPress={() =>
             router.push({
               pathname: "/tasbeeh/durood/[id]",
@@ -124,13 +133,13 @@ export default function DuroodFavoritesScreen() {
         />
       </View>
     ),
-    [router, t, toggle],
+    [router, t, unsave],
   );
 
   const empty =
     favoriteIds.length === 0 || (corpusReady && items.length === 0) ? (
       <EmptyState
-        icon={{ ios: "star", android: "star_border", web: "star_border" }}
+        icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
         title={t("duroods.favEmptyTitle")}
         description={tTv(t, "duroods.favEmptyDesc", "duroods.favEmptyDescTv")}
         actionLabel={t("duroods.title")}
@@ -139,6 +148,7 @@ export default function DuroodFavoritesScreen() {
     ) : null;
 
   const hasItems = corpusReady && items.length > 0;
+  const loadingSaved = !corpusReady && favoriteIds.length > 0;
 
   return (
     <ScreenLayout
@@ -146,7 +156,9 @@ export default function DuroodFavoritesScreen() {
       title={t("duroods.favorites")}
       subtitle={t("duroods.favSubtitle")}
       onBack={() => goBackOrReplace(router, "/duroods")}
-      scrollable={!hasItems}
+      // TV: page scroller hosts the list — a flex-bound FlatList collapses to ~1dp on
+      // Leanback (same as dua/zikr categories), leaving only the header visible.
+      scrollable={!hasItems || tv}
       maxContentWidth={hasItems && showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
       headerAccessory={
         hasItems && !showSideFilters ? (
@@ -158,8 +170,12 @@ export default function DuroodFavoritesScreen() {
         ) : undefined
       }
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} preferredFocus />
       <Seo path="/duroods/favorites" />
-      {empty && !hasItems ? (
+      {loadingSaved ? (
+        <SkeletonPlaceholder preset="card" accessibilityLabel={t("duroods.loading")} />
+      ) : empty && !hasItems ? (
         empty
       ) : hasItems ? (
         <View

@@ -1,6 +1,5 @@
 import type { NameOfAllah } from "@munib-tracker/shared/types";
-import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -12,7 +11,6 @@ import {
   type NativeSyntheticEvent,
   ScrollView,
   StyleSheet,
-  TextInput,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -22,23 +20,29 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { SearchField } from "@/components/ui/search-field";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
-import { loadNamesOfAllah } from "@/lib/content-loaders";
+import { NAMES_CORPUS } from "@/lib/content-loaders";
 import { buildNamesActivity } from "@/lib/continue-activity";
 import { cueStartSec, isNamesCompleteTrack } from "@/lib/names-complete-cues";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -57,8 +61,6 @@ import {
 } from "@/stores/name-favorites-store";
 
 const NAMES_HREF = "/names-of-allah";
-/** Approximate row height (card + column gap) for scroll recovery in the 2-column grid. */
-const NAME_ROW_HEIGHT = 196;
 /** Play-all header card + search + bottom margin. */
 const NAMES_LIST_HEADER_HEIGHT = 272;
 /** TV: landscape 10-foot grid — three cards per row instead of the phone pair. */
@@ -76,11 +78,11 @@ type Name = NameOfAllah;
 export default function NamesOfAllahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const tv = isTV();
   const { width: windowWidth } = useWindowDimensions();
   // Wide web / tablets (never TV): dense grid + a detail panel for the selected name.
-  const wide = !tv && windowWidth >= 768;
+  const wide = !tv && windowWidth >= Breakpoints.tablet;
   const showPanel = !tv && windowWidth >= NAME_PANEL_BREAKPOINT;
   const [gridWidth, setGridWidth] = useState(0);
   const columns = useMemo(() => {
@@ -94,21 +96,44 @@ export default function NamesOfAllahScreen() {
     setGridWidth((prev) => (Math.abs(prev - next) < 4 ? prev : next));
   }, []);
   const listHeaderHeight = showPanel ? 0 : NAMES_LIST_HEADER_HEIGHT;
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  // `?name=<id>` (saved names) opens that name: selected in the wide panel, scrolled to otherwise.
+  const { name: nameParam } = useLocalSearchParams<{ name?: string }>();
+  const [selectedId, setSelectedId] = useState<string | null>(
+    typeof nameParam === "string" ? nameParam : null,
+  );
   const contentBottomInset = useContentBottomInset();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Name>>(null);
   useEnsureNameFavoritesLoaded();
   const favoriteIds = useFavoriteNameIds();
-  const { toggle } = useNameFavoritesActions();
+  const { toggle: toggleStored, restore } = useNameFavoritesActions();
+  const undoToast = useUndoToast();
+  // Saving toggles directly; un-saving offers Undo (never silent).
+  const toggle = useCallback(
+    (id: string) => {
+      if (!favoriteIdsRef.current.has(id)) {
+        void toggleStored(id);
+        return;
+      }
+      // Undo restores the saved position (B-30), not the end of the list.
+      const position = favoriteOrderRef.current.indexOf(id);
+      void undoToast.run({
+        do: () => toggleStored(id),
+        undo: () => restore(id, position),
+        messageKey: "names.removedToast",
+      });
+    },
+    [restore, toggleStored, undoToast],
+  );
   const favoriteSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
+  const favoriteIdsRef = useRef(favoriteSet);
+  favoriteIdsRef.current = favoriteSet;
+  const favoriteOrderRef = useRef(favoriteIds);
+  favoriteOrderRef.current = favoriteIds;
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const [query, setQuery] = useState("");
-  const [allNames, setAllNames] = useState<Name[]>([]);
-  useEffect(() => {
-    void loadNamesOfAllah().then(setAllNames);
-  }, []);
+  const { items: allNames, ready: corpusReady } = useContentCorpus(NAMES_CORPUS);
   const index = useMemo(() => createNameSearch(allNames), [allNames]);
   const names = query.trim() ? index.search(query) : allNames;
   const numberById = useMemo(
@@ -144,17 +169,15 @@ export default function NamesOfAllahScreen() {
     listHeaderHeight,
   });
 
-  const getItemLayout = useCallback(
-    (_: ArrayLike<Name> | null | undefined, i: number) => {
-      const row = Math.floor(i / columns);
-      return {
-        length: NAME_ROW_HEIGHT,
-        offset: listHeaderHeight + row * NAME_ROW_HEIGHT,
-        index: i,
-      };
-    },
-    [columns, listHeaderHeight],
-  );
+  const openedParamRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (typeof nameParam !== "string" || openedParamRef.current === nameParam) return;
+    const position = names.findIndex((n) => n.id === nameParam);
+    if (position < 0) return;
+    openedParamRef.current = nameParam;
+    setSelectedId(nameParam);
+    listRef.current?.scrollToIndex({ index: position, animated: false, viewOffset: Spacing.two });
+  }, [nameParam, names]);
 
   const playFrom = useCallback(
     (name: Name) => {
@@ -220,12 +243,12 @@ export default function NamesOfAllahScreen() {
           title={t("names.favorites")}
           viewLabel={t("names.favorites")}
           count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
-          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+          rowIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
           onPress={() => router.push("/names-of-allah/favorites")}
         />
 
-        <Card padding="three" style={styles.headerCard}>
+        <Card style={styles.headerCard}>
           <View style={styles.playActions}>
             <Button
               label={t("names.playAll")}
@@ -242,39 +265,15 @@ export default function NamesOfAllahScreen() {
               style={styles.flex}
             />
           </View>
-          <View style={[styles.searchBox, tokens.inputSurface]}>
-            <SymbolView
-              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              size={17}
-              tintColor={colors.mutedForeground}
-            />
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder={t("names.searchPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("names.searchPlaceholder")}
-              autoCorrect={false}
-              returnKeyType="search"
-              style={[styles.input, { color: colors.foreground }]}
-            />
-          </View>
+          <SearchField
+            value={query}
+            onChangeText={setQuery}
+            placeholder={t("names.searchPlaceholder")}
+          />
         </Card>
       </View>
     ),
-    [
-      audio,
-      colors.foreground,
-      colors.mutedForeground,
-      favoriteIds.length,
-      playFrom,
-      allNames,
-      query,
-      router,
-      showPanel,
-      t,
-      tokens.inputSurface,
-    ],
+    [audio, favoriteIds.length, playFrom, allNames, query, router, showPanel, t],
   );
 
   const keyExtractor = useCallback((name: Name) => name.id, []);
@@ -372,7 +371,6 @@ export default function NamesOfAllahScreen() {
       numColumns={columns}
       columnWrapperStyle={styles.columnWrapper}
       ListHeaderComponent={showPanel ? undefined : header}
-      getItemLayout={tv ? undefined : getItemLayout}
       onScroll={onScroll}
       scrollEventThrottle={16}
       onScrollToIndexFailed={onScrollToIndexFailed}
@@ -383,14 +381,29 @@ export default function NamesOfAllahScreen() {
       maxToRenderPerBatch={wide ? 12 : 4}
       windowSize={5}
       updateCellsBatchingPeriod={100}
-      // Stale getItemLayout + taller TV rows + clipping → blank viewport.
+      // No fixed item layout (it drifts with large text); taller TV rows + clipping → blank viewport.
       removeClippedSubviews={!tv}
+      ListEmptyComponent={
+        corpusReady ? (
+          <EmptyState
+            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            title={t("names.noResults")}
+            description={t("names.noResultsDesc")}
+            actionLabel={t("names.clearSearch")}
+            onAction={() => setQuery("")}
+          />
+        ) : (
+          <SkeletonPlaceholder preset="tiles" count={6} accessibilityLabel={t("names.loading")} />
+        )
+      }
     />
   );
 
   return (
     <ScreenLayout
-      scrollable={false}
+      // TV: page scroller hosts the list — a flex-bound FlatList collapses to ~1dp on
+      // Leanback (same as dua/zikr categories), leaving only the header visible.
+      scrollable={tv}
       eyebrow={t("names.eyebrow")}
       title={t("names.title")}
       subtitle={t("names.subtitle", { count: allNames.length })}
@@ -403,6 +416,8 @@ export default function NamesOfAllahScreen() {
         />
       }
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       {SnapshotHost}
       <Seo
         path="/names-of-allah"
@@ -527,7 +542,16 @@ const NameRow = memo(function NameRow({
             {number}
           </ThemedText>
         </View>
-        <ThemedText type="arabic" style={styles.arabic}>
+        {/* One line, scaled down if the column is narrow (iPad list + detail): wrapping
+            split a single name mid-word ("القدّو / س"). */}
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.6}
+          style={styles.arabic}
+        >
           {name.arabic}
         </ThemedText>
       </View>
@@ -547,13 +571,12 @@ const NameRow = memo(function NameRow({
   return (
     <View style={styles.cell}>
       <Card
-        padding="three"
         style={[
           styles.card,
           !tv && styles.cardPhone,
           isPlaying || isSelected
-            ? { borderColor: colors.accent, borderWidth: 1 }
-            : { borderColor: tokens.hairline, borderWidth: 1 },
+            ? { borderColor: colors.accent, borderWidth: BorderWidth.thin }
+            : { borderColor: tokens.hairline, borderWidth: BorderWidth.thin },
           isSelected && !isPlaying ? { backgroundColor: tokens.accentSoft } : null,
         ]}
       >
@@ -580,7 +603,7 @@ const NameRow = memo(function NameRow({
               label={isPlaying && isAudioPlaying ? t("common.pause") : t("common.play")}
               iconSize={tv ? 24 : 18}
               tintColor={colors.accent}
-              labelColor={colors.accent}
+              labelColor={colors.accentText}
               background={tokens.accentSoft}
               accessibilityLabel={isPlaying && isAudioPlaying ? t("names.pause") : t("names.play")}
               accessibilityState={{ selected: isPlaying }}
@@ -594,15 +617,16 @@ const NameRow = memo(function NameRow({
             <IconButton
               name={
                 isFavorite
-                  ? { ios: "star.fill", android: "star", web: "star" }
-                  : { ios: "star", android: "star_border", web: "star_border" }
+                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
               }
               size={tv ? 20 : 16}
-              tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+              tintColor={isFavorite ? colors.accentText : colors.mutedForeground}
               background={tokens.accentSoft}
-              hitTarget={tv ? TvLayout.minFocusTargetDp : 40}
-              accessibilityLabel={isFavorite ? t("names.unfavorite") : t("names.favorite")}
+              hitTarget={tv ? TvLayout.minFocusTargetDp : 44}
+              accessibilityLabel={isFavorite ? t("common.saved") : t("common.save")}
               accessibilityState={{ selected: isFavorite }}
+              haptic="selection"
               onPress={handleToggleFavorite}
             />
             {/* No share sheet on TV (phone-only capability). */}
@@ -612,7 +636,7 @@ const NameRow = memo(function NameRow({
                 size={16}
                 tintColor={colors.mutedForeground}
                 background={tokens.accentSoft}
-                hitTarget={40}
+                hitTarget={44}
                 accessibilityLabel={
                   isGesturePending(name.id) ? t("share.tapToShare") : t("names.share")
                 }
@@ -668,7 +692,7 @@ function NameDetailPanel({
   return (
     <Card
       padding="four"
-      style={[styles.panelCard, { borderColor: tokens.hairline, borderWidth: 1 }]}
+      style={[styles.panelCard, { borderColor: tokens.hairline, borderWidth: BorderWidth.thin }]}
     >
       <View style={styles.panelTop}>
         <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
@@ -701,7 +725,7 @@ function NameDetailPanel({
           />
         </View>
       </View>
-      <ThemedText type="arabic" style={styles.panelArabic}>
+      <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.panelArabic}>
         {name.arabic}
       </ThemedText>
       <ThemedText type="subtitle" style={[styles.panelCenter, { color: colors.accentText }]}>
@@ -721,12 +745,12 @@ function NameDetailPanel({
         ) : null}
         <View style={styles.playActions}>
           <Button
-            label={isFavorite ? t("names.unfavorite") : t("names.favorite")}
+            label={isFavorite ? t("common.saved") : t("common.save")}
             variant="secondary"
             icon={
               isFavorite
-                ? { ios: "star.fill", android: "star", web: "star" }
-                : { ios: "star", android: "star_border", web: "star_border" }
+                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
             }
             onPress={onToggleFavorite}
             style={styles.flex}
@@ -757,7 +781,7 @@ const styles = StyleSheet.create({
   wideGridSolo: { flex: 1, width: "100%", minHeight: 0 },
   panel: {
     width: NAME_PANEL_WIDTH,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderStartWidth: BorderWidth.hairline,
     minHeight: 0,
   },
   panelScroll: { flex: 1 },
@@ -785,19 +809,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   flex: { flex: 1 },
-  searchBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  input: {
-    flex: 1,
-    paddingVertical: Spacing.two + 2,
-    fontSize: 15,
-  },
   card: {
     flex: 1,
     minWidth: 0,

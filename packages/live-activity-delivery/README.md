@@ -29,13 +29,13 @@ future Fly.io (or similar) worker.
 3. Cron (always keep) → `POST /live-activities/internal/dispatch-due`
 4. Both paths call into this package for claim + APNs
 
-## Future Fly worker
+## Fly worker (not planned, D60)
 
-When cron/QStash cannot drain prayer-time spikes in time:
+QStash + cron is the locked delivery path (D60). For reference only, a standalone worker would:
 
 1. Implement `LiveActivityJobStore` against Supabase (same tables)
 2. `ApnsLiveActivityClient.fromEnv(process.env)` + matching encryption key
 3. Loop `dispatchDueLiveActivityJobs({ store, apns, encryptionKey })`
 
 No Redis/BullMQ required for the DB-poll path. Nest registration stays on Vercel.
-Details and cutover steps: [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md#future-flyio-worker-when-required).
+Details and cutover steps: [`docs/LIVE_ACTIVITY_PUSH.md`](../../docs/LIVE_ACTIVITY_PUSH.md#not-planned-flyio-worker-d60).

@@ -247,6 +247,15 @@ function ensureCovers(table: SightingTable, jdn: number): boolean {
 
 function tableFor(obs: SightingObserver, aroundJdn: number): SightingTable | null {
   if (!sightingAvailable(obs.latitude)) return null;
+  // Outside the Umm al-Qura range there is nothing to label: answer null but
+  // keep the cached table. Dropping it here made the next in-range day rebuild
+  // every month from scratch (seconds of ephemeris work per table edge).
+  if (
+    !inUmalquraJDNRange(aroundJdn - RANGE_MARGIN_DAYS) ||
+    !inUmalquraJDNRange(aroundJdn + RANGE_MARGIN_DAYS)
+  ) {
+    return null;
+  }
   try {
     if (!cache || cache.key !== observerKey(obs)) {
       cache = buildTable(obs, aroundJdn);

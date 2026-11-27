@@ -19,9 +19,10 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
+import { useStickyHeaderOffset } from "@/components/screen-layout";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
-import { useWebGlobalRail } from "@/hooks/use-large-screen-layout";
+import { Breakpoints, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { useGlobalRail } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -35,7 +36,7 @@ export const HUB_ASIDE_WIDTH = 340;
 /** Minimum content column at which a side column is laid out beside the main one. */
 const TWO_PANE_MIN_CONTENT = 960;
 const PANE_GAP = Spacing.four;
-/** Sticky aside offset on web — settles beneath the floating AppHeader. */
+/** Sticky aside offset on web before the floating header is measured. */
 const STICKY_TOP = 88;
 
 export type LearnHubLayout = {
@@ -61,10 +62,10 @@ export type LearnHubLayout = {
  */
 export function useLearnHubLayout(asideWidth: number = HUB_ASIDE_WIDTH): LearnHubLayout {
   const { width } = useWindowDimensions();
-  const rail = useWebGlobalRail();
+  const rail = useGlobalRail();
   const tv = isTV();
   return useMemo(() => {
-    if (tv || width < 768) {
+    if (tv || width < Breakpoints.tablet) {
       // Phones and TV: zero widths so every derived column count / threshold
       // falls back to the original single-column layout.
       return {
@@ -125,17 +126,20 @@ export function LearnTwoPane({
 }) {
   const { height } = useWindowDimensions();
   const [asideHeight, setAsideHeight] = useState(0);
+  // Settle beneath the floating header — including a scroll-revealed toolbar
+  // (e.g. the zakat filters) — not under it.
+  const stickyTop = useStickyHeaderOffset(STICKY_TOP);
   // A taller-than-viewport sticky aside would hide its lower half until the
   // page ends — only pin it while it fits.
   const sticky =
-    Platform.OS === "web" && asideHeight > 0 && asideHeight <= height - STICKY_TOP - Spacing.four;
+    Platform.OS === "web" && asideHeight > 0 && asideHeight <= height - stickyTop - Spacing.four;
   return (
     <View style={styles.paneRow}>
       <View style={[styles.paneMain, { gap }]}>{main}</View>
       <View
         {...(Platform.OS === "web" ? { role: "complementary" as const } : {})}
         onLayout={(event) => setAsideHeight(event.nativeEvent.layout.height)}
-        style={[styles.paneAside, { width: asideWidth, gap }, sticky ? webSticky : null]}
+        style={[styles.paneAside, { width: asideWidth, gap }, sticky ? webSticky(stickyTop) : null]}
       >
         {aside}
       </View>
@@ -202,7 +206,7 @@ export function LearnTile({ tiled, children }: { tiled: boolean; children: React
 }
 
 // `position: sticky` is valid CSS on react-native-web but missing from RN's types.
-const webSticky = { position: "sticky", top: STICKY_TOP } as unknown as ViewStyle;
+const webSticky = (top: number) => ({ position: "sticky", top }) as unknown as ViewStyle;
 
 const styles = StyleSheet.create({
   paneRow: {

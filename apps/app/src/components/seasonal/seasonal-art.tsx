@@ -1,4 +1,8 @@
+import type { ReactElement } from "react";
+import { Platform, StyleSheet, View } from "react-native";
+
 import { withAlpha } from "@/constants/theme";
+import { useIsRTL } from "@/lib/rtl";
 import type { SeasonalThemeId, SeasonalVisualPalette } from "@/lib/seasonal-themes";
 import { ArafahArt } from "./arafah-art";
 import { AshuraArt } from "./ashura-art";
@@ -15,7 +19,23 @@ type SeasonalArtProps = {
   visual: SeasonalVisualPalette;
 };
 
-export function SeasonalArt({ id, visual }: SeasonalArtProps) {
+/**
+ * Seasonal banner artwork, drawn on the end side of the banner. Native mirrors
+ * the art's physical `left`/`right` offsets with the RTL layout; web keeps
+ * them physical, so the art is flipped there to stay clear of the copy.
+ */
+export function SeasonalArt(props: SeasonalArtProps) {
+  const mirrorOnWeb = useIsRTL() && Platform.OS === "web";
+  const art = <SeasonalArtBody {...props} />;
+  if (!mirrorOnWeb) return art;
+  return (
+    <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.mirror]}>
+      {art}
+    </View>
+  );
+}
+
+function SeasonalArtBody({ id, visual }: SeasonalArtProps): ReactElement {
   const glow = withAlpha(visual.glow, 0.5);
   const softGlow = withAlpha(visual.glow, 0.45);
   const band = withAlpha(visual.glow, 0.75);
@@ -56,3 +76,7 @@ export function SeasonalArt({ id, visual }: SeasonalArtProps) {
       );
   }
 }
+
+const styles = StyleSheet.create({
+  mirror: { transform: [{ scaleX: -1 }] },
+});

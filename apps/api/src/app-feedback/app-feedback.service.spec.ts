@@ -9,7 +9,7 @@ import { resetAppFeedbackRateLimits } from "./app-feedback-rate-limit";
 const samplePayload = {
   rating: 2,
   message: "Prayer reminders could be clearer.",
-  source: "in_app_review",
+  source: "settings_feedback",
   triggerId: "perfect_day",
   appVersion: "1.0.0",
   platform: "ios" as const,
@@ -43,11 +43,11 @@ describe("AppFeedbackService", () => {
     ).resolves.toBeUndefined();
   });
 
-  it("rejects ratings outside 1–3", async () => {
+  it("rejects ratings outside 1–5", async () => {
     const guest = await authService.createGuestSession({});
 
     await expect(
-      appFeedbackService.submit(guest.accessToken, { ...samplePayload, rating: 4 }),
+      appFeedbackService.submit(guest.accessToken, { ...samplePayload, rating: 6 }),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
 });

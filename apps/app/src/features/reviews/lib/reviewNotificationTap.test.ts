@@ -1,62 +1,55 @@
 import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import {
-  maybeOpenReviewFunnelFromInAppNotification,
-  maybeOpenReviewFunnelFromNotificationData,
+  isLegacyReviewNotification,
+  noteWeeklyReportOpened,
 } from "@/features/reviews/lib/reviewNotificationTap";
-import { registerReviewPromptOpener } from "@/features/reviews/lib/reviewPromptBridge";
+import {
+  clearPendingReviewTrigger,
+  flushReviewTriggerForRoute,
+  registerReviewTriggerFlush,
+} from "@/features/reviews/lib/reviewTriggerBus";
 
+const NOW = Date.parse("2026-11-25T12:00:00.000Z");
 const HOUR_MS = 60 * 60 * 1000;
-const hoursAgo = (hours: number) => new Date(Date.now() - hours * HOUR_MS).toISOString();
+const hoursAgo = (hours: number) => new Date(NOW - hours * HOUR_MS).toISOString();
 
-const opener = jest.fn();
-
-beforeEach(() => {
-  opener.mockReset();
-  registerReviewPromptOpener(opener);
-});
-
-afterEach(() => {
-  registerReviewPromptOpener(null);
-});
-
-describe("maybeOpenReviewFunnelFromNotificationData", () => {
+describe("isLegacyReviewNotification", () => {
   it.each([
-    ["no payload", undefined],
-    ["another notification type", { type: "prayer" }],
-  ])("ignores %s", (_label, data) => {
-    expect(maybeOpenReviewFunnelFromNotificationData(data)).toBe(false);
-    expect(opener).not.toHaveBeenCalled();
-  });
-
-  it.each([
-    [
-      "the payload trigger id",
-      APP_FEEDBACK_TRIGGER_IDS.perfect_day,
-      APP_FEEDBACK_TRIGGER_IDS.perfect_day,
-    ],
-    ["the manual trigger for unknown ids", "x", APP_FEEDBACK_TRIGGER_IDS.manual],
-  ])("opens the funnel with %s", (_label, triggerId, expected) => {
-    expect(
-      maybeOpenReviewFunnelFromNotificationData({ type: "review_reactivation", triggerId }),
-    ).toBe(true);
-    expect(opener).toHaveBeenCalledWith(expected);
+    [undefined, false],
+    [{ type: "prayer" }, false],
+    [{ type: "review_reactivation", triggerId: "perfect_day" }, true],
+  ])("%j → %s", (data, expected) => {
+    expect(isLegacyReviewNotification(data)).toBe(expected);
   });
 });
 
-describe("maybeOpenReviewFunnelFromInAppNotification", () => {
+describe("noteWeeklyReportOpened", () => {
+  const flush = jest.fn();
+
+  beforeEach(() => {
+    flush.mockReset();
+    clearPendingReviewTrigger();
+    registerReviewTriggerFlush(flush);
+  });
+
+  afterEach(() => registerReviewTriggerFlush(null));
+
+  it("queues weekly_report for Home when a fresh report is opened", () => {
+    expect(noteWeeklyReportOpened("system", "weekly-2026-11-25", hoursAgo(2), NOW)).toBe(true);
+    flushReviewTriggerForRoute("tracker", NOW);
+    expect(flush).not.toHaveBeenCalled();
+    flushReviewTriggerForRoute("home", NOW);
+    expect(flush).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
+  });
+
   it.each([
-    ["a non-system kind", "broadcast", "weekly-1", hoursAgo(1)],
-    ["a non-weekly id", "system", "other-1", hoursAgo(1)],
-    ["a stale weekly report", "system", "weekly-1", hoursAgo(48)],
+    ["another kind", "reminder", "weekly-2026-11-25", hoursAgo(1)],
+    ["another system row", "system", "update-1", hoursAgo(1)],
+    ["a stale report", "system", "weekly-2026-11-18", hoursAgo(25)],
+    ["a bad date", "system", "weekly-2026-11-25", "nope"],
   ])("ignores %s", (_label, kind, id, createdAt) => {
-    expect(maybeOpenReviewFunnelFromInAppNotification(kind, id, createdAt)).toBe(false);
-    expect(opener).not.toHaveBeenCalled();
-  });
-
-  it("opens the weekly-report funnel for a fresh weekly report", () => {
-    expect(maybeOpenReviewFunnelFromInAppNotification("system", "weekly-1", hoursAgo(1))).toBe(
-      true,
-    );
-    expect(opener).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
+    expect(noteWeeklyReportOpened(kind, id, createdAt, NOW)).toBe(false);
+    flushReviewTriggerForRoute("home", NOW);
+    expect(flush).not.toHaveBeenCalled();
   });
 });

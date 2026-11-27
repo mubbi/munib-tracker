@@ -1,5 +1,5 @@
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
-import { isSunnahPrayer } from "@munib-tracker/shared/validators";
+import { isRawatibPrayer, isSunnahPrayer } from "@munib-tracker/shared/validators";
 import type { ThemeColors } from "@munib-tracker/theme/types";
 import type { SymbolViewProps } from "expo-symbols";
 
@@ -39,8 +39,13 @@ export const PRAYER_STATUS_ORDER: PrayerStatus[] = ["completed", "missed", "dela
  */
 export const SUNNAH_PRAYER_STATUS_ORDER: PrayerStatus[] = ["completed", "missed"];
 
+/** Rawatib (NF-3.1): `completed` only; clearing returns to `pending`. */
+export const RAWATIB_STATUS_ORDER: PrayerStatus[] = ["completed"];
+
 /** Statuses a user can pick for the given salah. */
 export function selectablePrayerStatuses(prayerId: PrayerId): PrayerStatus[] {
+  // Rawatib (NF-3.1) are only ever prayed or not — "not prayed" is no log at all.
+  if (isRawatibPrayer(prayerId)) return RAWATIB_STATUS_ORDER;
   return isSunnahPrayer(prayerId) ? SUNNAH_PRAYER_STATUS_ORDER : PRAYER_STATUS_ORDER;
 }
 
@@ -89,6 +94,20 @@ export const PRAYER_JAMA_ICON: SymbolName = {
   web: "groups",
 };
 
+/** Prayed-at-the-masjid indicator on completed fard rows and in the status sheet (NF-3.11). */
+export const PRAYER_MASJID_ICON: SymbolName = {
+  ios: "building.columns.fill",
+  android: "mosque",
+  web: "mosque",
+};
+
+/** Jam' (combined with the paired fard) indicator — NF-3.0a. Not a direction glyph (no RTL flip). */
+export const PRAYER_COMBINED_ICON: SymbolName = {
+  ios: "arrow.triangle.merge",
+  android: "merge",
+  web: "merge",
+};
+
 export const PRAYER_ICONS: Record<PrayerId, SymbolName> = {
   fajr: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
   dhuhr: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
@@ -105,6 +124,16 @@ export const PRAYER_ICONS: Record<PrayerId, SymbolName> = {
     android: "volunteer_activism",
     web: "volunteer_activism",
   },
+  // NF-3.1 rawatib share their fard's icon.
+  fajr_before: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
+  dhuhr_before: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
+  dhuhr_after: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
+  dhuhr_after_extra: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
+  asr_before: { ios: "cloud.sun.fill", android: "wb_cloudy", web: "wb_cloudy" },
+  maghrib_before: { ios: "sunset.fill", android: "wb_twilight", web: "wb_twilight" },
+  maghrib_after: { ios: "sunset.fill", android: "wb_twilight", web: "wb_twilight" },
+  isha_before: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
+  isha_after: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
 };
 
 /** Approximate times used only for non-scheduling UI hints. Reminders use computed adhan times. */

@@ -24,11 +24,8 @@ export function buildUserPreferences(overrides: Partial<UserPreferences> = {}): 
     notificationPrefs: buildNotificationPreferences(),
     prayerAlerts: {},
     fontPrefs: {
-      global: {},
       arabic: {},
       translation: {},
-      transliteration: {},
-      titles: {},
     },
     favoriteZikrIds: [],
     favoriteZikrOrder: [],

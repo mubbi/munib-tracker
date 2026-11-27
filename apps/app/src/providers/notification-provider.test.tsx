@@ -218,6 +218,52 @@ describe("rescheduling", () => {
     );
   });
 
+  it("re-arms reminders in the foreground when an excused period starts or ends (H4)", async () => {
+    const view = await setup();
+    // A fresh element each time so React re-renders (the mock stores don't notify).
+    const tree = () => (
+      <NotificationProvider>
+        <Text>child</Text>
+      </NotificationProvider>
+    );
+    jest.clearAllMocks();
+
+    await view.rerender(tree());
+    expect(rescheduleAll).not.toHaveBeenCalled();
+
+    mockPreferences.setState({
+      prefs: { ...mockPreferences.getState().prefs, activeExcusedReason: "hayd" } as never,
+    });
+    await view.rerender(tree());
+    expect(rescheduleAll).toHaveBeenCalledTimes(1);
+    expect(rescheduleAll).toHaveBeenLastCalledWith(
+      expect.objectContaining({ activeExcusedReason: "hayd" }),
+      mockLocation.getState().location,
+    );
+
+    mockPreferences.setState({
+      prefs: { ...mockPreferences.getState().prefs, activeExcusedReason: null } as never,
+    });
+    await view.rerender(tree());
+    expect(rescheduleAll).toHaveBeenCalledTimes(2);
+  });
+
+  it("arms the web in-tab reminders at launch and on foreground (no OS scheduler)", async () => {
+    // Regression: web reminders were only armed after a settings write.
+    mockEnv.localSupported = false;
+    mockEnv.web = true;
+    signIn();
+    await setup();
+    expect(configureNotifications).not.toHaveBeenCalled();
+    expect(rescheduleAll).toHaveBeenCalledTimes(1);
+
+    jest.clearAllMocks();
+    await act(async () => appState.emit("active"));
+    expect(rescheduleAll).toHaveBeenCalledTimes(1);
+    // Native push registration stays native-only.
+    expect(registerExpoPushTokenWithApi).not.toHaveBeenCalled();
+  });
+
   it.each([
     ["onboarding is incomplete", () => setOnboarded(false)],
     ["prefs are loading", () => mockPreferences.setState({ isReady: false })],

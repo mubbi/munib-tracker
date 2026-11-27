@@ -1,5 +1,7 @@
+import type { FiqhDifferenceId } from "../fiqh/differences";
 import type { JannahAppLink, JannahHadithRef, JannahImportance, JannahQuranRef } from "./jannah";
 import type { QazaPrayer } from "./prayer";
+import type { MadhhabId } from "./preferences";
 
 /** Learning journey phase — mirrors how a person actually learns salah. */
 export type SalahGuideJourney =
@@ -47,6 +49,8 @@ export interface SalahGuideTopic {
   actions?: string[];
   appLinks?: JannahAppLink[];
   disclaimer?: string;
+  /** NF-3.0a: structured fiqh differences rendered as `<MadhhabNote>`s under the prose. */
+  differenceIds?: readonly FiqhDifferenceId[];
 }
 
 /** A phrase recited in salah with translation and deeper meaning. */
@@ -65,8 +69,15 @@ export interface SalahGuidePhrase {
 export interface PrayerRakatSummary {
   prayerId: QazaPrayer;
   fard: number;
+  /** Sunnah mu'akkadah (the rawatib) before / after the fard. */
   sunnahBefore: number;
   sunnahAfter: number;
+  /**
+   * Recommended but not emphasised (ghayr mu'akkadah) — the rawatib hub's optional
+   * extras, at their default rakahs (`RAWATIB_RAKAH_OPTIONS`). Never part of the 12 / 10.
+   */
+  optionalBefore: number;
+  optionalAfter: number;
   /** Extra note, e.g. Witr being wajib for Hanafis. */
   note?: string;
 }
@@ -80,4 +91,11 @@ export interface SalahGuideQuizQuestion {
   /** Index into options for scored types; omitted for reflection. */
   correctIndex?: number;
   explanation: string;
+  /**
+   * NF-3.0a: set when the correct answer depends on the school. Such questions
+   * are skipped in "all views" mode, and shown only to the schools in
+   * `answerSchools` (those for which `correctIndex` is right).
+   */
+  differenceId?: FiqhDifferenceId;
+  answerSchools?: readonly MadhhabId[];
 }

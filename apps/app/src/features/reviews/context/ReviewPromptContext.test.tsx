@@ -1,35 +1,47 @@
-import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
-import { act, fireEvent, render, renderHook, screen } from "@testing-library/react-native";
-import { Pressable, Text } from "react-native";
+import {
+  APP_FEEDBACK_TRIGGER_IDS,
+  REVIEW_PROMPT_SETTLE_MS,
+  REVIEW_SESSION_IDLE_MINUTES,
+} from "@munib-tracker/shared/reviews";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { AppState, Pressable, Text } from "react-native";
 import {
   ReviewPromptProvider,
   useReviewPrompt,
 } from "@/features/reviews/context/ReviewPromptContext";
 import {
-  invokeOpenReviewFunnel,
-  type ReviewFunnelTriggerId,
-} from "@/features/reviews/lib/reviewPromptBridge";
-import { EMPTY_REVIEW_GATING, type ReviewGatingState } from "@/features/reviews/lib/reviewStorage";
+  loadReviewGating,
+  resetReviewGatingCache,
+  updateReviewGating,
+} from "@/features/reviews/lib/reviewGatingStore";
+import { invokeOpenWriteReview } from "@/features/reviews/lib/reviewPromptBridge";
 import {
   clearPendingReviewTrigger,
+  emitReviewTrigger,
   flushReviewTriggerForRoute,
 } from "@/features/reviews/lib/reviewTriggerBus";
 import { captureAppStateListener } from "@/test-support/app-state";
-import { deferred } from "@/test-support/async";
 import { mockToast, resetToastMock } from "@/test-support/mocks/toast-provider";
 
 jest.unmock("@/features/reviews/context/ReviewPromptContext");
 
 const mockEnv = {
-  stored: null as ReviewGatingState | null,
-  writes: [] as ReviewGatingState[],
-  readGating: null as (() => Promise<ReviewGatingState>) | null,
-  persistedTrigger: null as string | null,
   blocked: false,
   online: true,
-  manualAllowed: true,
-  autoAllowed: true,
+  gateAllowed: true,
+  storeAvailable: true,
+  requestOk: true,
+  writeReviewOk: true,
+  canWriteReview: true,
 };
+const mockStore = {
+  request: jest.fn(async () => mockEnv.requestOk),
+  openWriteReview: jest.fn(async (_options?: unknown) => mockEnv.writeReviewOk),
+};
+const mockGate = jest.fn((..._args: unknown[]) =>
+  mockEnv.gateAllowed ? { allowed: true } : { allowed: false, reason: "min_sessions" },
+);
 const mockSubmit = jest.fn(async (_params: unknown) => undefined);
 
 jest.mock(
@@ -37,343 +49,344 @@ jest.mock(
   () => require("@/test-support/mocks/toast-provider").toastProviderMock,
 );
 
-jest.mock("@/features/reviews/lib/reviewStorage", () => {
-  const actual = jest.requireActual("@/features/reviews/lib/reviewStorage");
-  return {
-    ...actual,
-    readReviewGating: () =>
-      mockEnv.readGating?.() ??
-      Promise.resolve({ ...(mockEnv.stored ?? actual.EMPTY_REVIEW_GATING) }),
-    writeReviewGating: async (state: ReviewGatingState) => {
-      mockEnv.stored = state;
-      mockEnv.writes.push(state);
-    },
-  };
-});
-
-jest.mock("@/features/reviews/lib/reviewPendingTrigger", () => ({
-  dequeuePersistedReviewTrigger: async () => mockEnv.persistedTrigger,
-}));
-
-jest.mock("@/features/reviews/lib/reviewGating", () => ({
-  ...jest.requireActual("@/features/reviews/lib/reviewGating"),
-  canShowManualReviewPrompt: () => ({ allowed: mockEnv.manualAllowed }),
-  canShowReviewPrompt: () => ({ allowed: mockEnv.autoAllowed }),
-  isManualReviewPromptAvailable: (state: unknown, options: { loaded: boolean; blocked: boolean }) =>
-    options.loaded && !options.blocked && state != null && mockEnv.manualAllowed,
-}));
-
 jest.mock("@/features/reviews/hooks/useReviewPromptBlocked", () => ({
   useReviewPromptBlocked: () => mockEnv.blocked,
 }));
 
-jest.mock("@/features/reviews/hooks/useIsOnline", () => ({
+jest.mock("@/hooks/use-is-online", () => ({
   useIsOnline: () => mockEnv.online,
+}));
+
+jest.mock("@/features/reviews/lib/reviewGating", () => ({
+  ...jest.requireActual("@/features/reviews/lib/reviewGating"),
+  canRequestAutomaticReview: (...args: unknown[]) => mockGate(...args),
+}));
+
+jest.mock("@/lib/platform/storeReview", () => ({
+  canOpenStoreWriteReview: () => mockEnv.canWriteReview,
+  isStoreReviewAvailable: async () => mockEnv.storeAvailable,
+  requestNativeStoreReview: () => mockStore.request(),
+  openStoreWriteReview: (options?: unknown) => mockStore.openWriteReview(options),
+}));
+
+jest.mock("@/lib/achievements-persistence", () => ({
+  readPersistedAchievementIds: async () => ["first-salah"],
+}));
+
+jest.mock("@/lib/app/resolve-app-version", () => ({
+  resolveAppVersion: () => "2.4.0",
+}));
+
+jest.mock("@/stores/preferences-store", () => ({
+  usePreferences: () => ({ hasCompletedOnboarding: true }),
+  usePreferencesReady: () => true,
+}));
+
+jest.mock("@/stores/tracker-store", () => ({ trackerStore: {} }));
+jest.mock("@/stores/create-store", () => ({
+  useStore: (_store: unknown, select: (s: unknown) => unknown) =>
+    select({ achievementStats: { prayersCompleted: 12, streak: 4 } }),
 }));
 
 jest.mock("@/features/reviews/lib/submitAppFeedback", () => ({
   submitReviewFeedback: (params: unknown) => mockSubmit(params),
 }));
 
-/** Sheet stand-in that exposes its props as text and its callbacks as buttons. */
-jest.mock("@/features/reviews/components/ReviewPromptSheet", () => {
+/** Sheet stand-in that exposes its props as text and submit as a button. */
+jest.mock("@/features/reviews/components/AppFeedbackSheet", () => {
   const { Pressable: P, Text: T, View } = require("react-native");
   return {
-    ReviewPromptSheet: (props: {
+    AppFeedbackSheet: (props: {
       visible: boolean;
       onClose: () => void;
-      onDismissed: () => void;
-      onStoreReviewRequested: () => void;
-      onFeedbackSent: (rating: number, message: string) => Promise<void>;
-      feedbackOffline: boolean;
-      feedbackError: string | null;
+      onSubmit: (rating: number, message: string) => Promise<void>;
+      offline: boolean;
+      error: string | null;
     }) => (
       <View>
         <T testID="sheet-visible">{String(props.visible)}</T>
-        <T testID="sheet-offline">{String(props.feedbackOffline)}</T>
-        <T testID="sheet-error">{props.feedbackError ?? ""}</T>
+        <T testID="sheet-offline">{String(props.offline)}</T>
+        <T testID="sheet-error">{props.error ?? ""}</T>
         <P
-          testID="sheet-dismiss"
+          testID="sheet-submit"
           onPress={() => {
-            props.onDismissed();
-            props.onClose();
+            props.onSubmit(5, "msg").then(props.onClose, () => {});
           }}
         />
-        <P testID="sheet-store" onPress={props.onStoreReviewRequested} />
-        <P
-          testID="sheet-feedback"
-          onPress={() => {
-            props.onFeedbackSent(2, "msg").then(props.onClose, () => {});
-          }}
-        />
+        <P testID="sheet-close" onPress={props.onClose} />
       </View>
     ),
   };
 });
 
 function Consumer() {
-  const { canRateApp, maybePromptReview } = useReviewPrompt();
+  const { canWriteReview, openWriteReview, openFeedback } = useReviewPrompt();
   return (
     <>
-      <Text testID="can-rate">{String(canRateApp)}</Text>
-      <Pressable testID="prompt" onPress={maybePromptReview} />
+      <Text testID="can-write">{String(canWriteReview)}</Text>
+      <Pressable testID="rate" onPress={() => void openWriteReview()} />
+      <Pressable testID="feedback" onPress={openFeedback} />
     </>
   );
 }
 
-const tree = () => (
-  <ReviewPromptProvider>
-    <Consumer />
-  </ReviewPromptProvider>
-);
-
 async function settle() {
   await act(async () => {
-    for (let i = 0; i < 6; i += 1) await Promise.resolve();
+    for (let i = 0; i < 10; i += 1) await Promise.resolve();
   });
 }
 
-/** Renders the provider with `env` overrides and waits for the gating state to load. */
 async function setup(env: Partial<typeof mockEnv> = {}) {
   Object.assign(mockEnv, env);
   const appState = captureAppStateListener();
-  const utils = await render(tree());
+  const utils = await render(
+    <ReviewPromptProvider>
+      <Consumer />
+    </ReviewPromptProvider>,
+  );
   await settle();
   return { ...utils, appState };
 }
 
-async function pressAndSettle(testID: string) {
+async function press(testID: string) {
   await fireEvent.press(screen.getByTestId(testID));
   await settle();
 }
 
-async function openFunnel(triggerId: ReviewFunnelTriggerId) {
+/** Emits a value moment, flushes it on the tracker and runs the settle delay. */
+async function valueMoment(advanceMs = REVIEW_PROMPT_SETTLE_MS) {
   await act(async () => {
-    invokeOpenReviewFunnel(triggerId);
+    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.perfect_day, { deferRoute: "tracker" });
+    flushReviewTriggerForRoute("tracker");
+  });
+  await act(async () => {
+    jest.advanceTimersByTime(advanceMs);
   });
   await settle();
 }
 
 const textOf = (testID: string) => screen.getByTestId(testID).props.children;
+const originalCurrentState = AppState.currentState;
 
 describe("ReviewPromptProvider", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    jest.useFakeTimers();
     Object.assign(mockEnv, {
-      stored: null,
-      writes: [],
-      readGating: null,
-      persistedTrigger: null,
       blocked: false,
       online: true,
-      manualAllowed: true,
-      autoAllowed: true,
+      gateAllowed: true,
+      storeAvailable: true,
+      requestOk: true,
+      writeReviewOk: true,
+      canWriteReview: true,
     });
+    await AsyncStorage.clear();
+    resetReviewGatingCache();
     resetToastMock();
+    mockStore.request.mockClear();
+    mockStore.openWriteReview.mockClear();
+    mockGate.mockClear();
     mockSubmit.mockReset().mockResolvedValue(undefined);
     clearPendingReviewTrigger();
+    // The RN jest preset mocks `currentState`; the provider reads it as the real string.
+    Object.defineProperty(AppState, "currentState", {
+      value: "active",
+      configurable: true,
+      writable: true,
+    });
   });
 
   afterEach(() => {
+    Object.defineProperty(AppState, "currentState", {
+      value: originalCurrentState,
+      configurable: true,
+      writable: true,
+    });
+    jest.useRealTimers();
     jest.restoreAllMocks();
   });
 
-  describe("loading", () => {
+  describe("sessions", () => {
     it("records a new session on mount", async () => {
       await setup();
-      expect(mockEnv.writes[0]?.sessionCount).toBe(1);
+      expect((await loadReviewGating()).sessionCount).toBe(1);
     });
 
-    it.each([
-      ["allowed", true, "true"],
-      ["refused", false, "false"],
-    ])("exposes canRateApp when the manual gate is %s", async (_label, manualAllowed, expected) => {
-      await setup({ manualAllowed });
-      expect(textOf("can-rate")).toBe(expected);
-    });
-
-    it("reports canRateApp false while blocked", async () => {
-      await setup({ blocked: true });
-      expect(textOf("can-rate")).toBe("false");
-    });
-
-    it.each([
-      [true, "false"],
-      [false, "true"],
-    ])("passes feedbackOffline when online=%s", async (online, expected) => {
-      await setup({ online });
-      expect(textOf("sheet-offline")).toBe(expected);
-    });
-
-    it("ignores prompts until the gating state has loaded", async () => {
-      await setup({ readGating: () => new Promise(() => {}) });
-      await pressAndSettle("prompt");
-      expect(textOf("sheet-visible")).toBe("false");
-    });
-
-    it("drops a gating state that loads after unmount", async () => {
-      const gating = deferred<ReviewGatingState>();
-      const { unmount } = await setup({ readGating: () => gating.promise });
-      await unmount();
-      await act(async () => {
-        gating.resolve({ ...EMPTY_REVIEW_GATING });
-        await Promise.resolve();
-      });
-      expect(mockEnv.writes).toHaveLength(0);
+    it("starts a new session when the app returns after the idle window", async () => {
+      const { appState } = await setup();
+      const idleMs = REVIEW_SESSION_IDLE_MINUTES * 60 * 1000;
+      await updateReviewGating((s) => ({
+        ...s,
+        lastForegroundAt: new Date(Date.now() - idleMs - 1000).toISOString(),
+      }));
+      await act(async () => appState.emit("active"));
+      await settle();
+      expect((await loadReviewGating()).sessionCount).toBe(2);
     });
   });
 
-  describe("opening the funnel", () => {
-    it("opens the manual prompt", async () => {
+  describe("automatic OS review", () => {
+    it("requests the OS sheet after the settle delay and records it", async () => {
       await setup();
-      await pressAndSettle("prompt");
-      expect(textOf("sheet-visible")).toBe("true");
-    });
-
-    it("persists the prompt as shown", async () => {
-      await setup();
-      await pressAndSettle("prompt");
-      expect(mockEnv.stored).toMatchObject({
-        promptCountLifetime: 1,
-        lastSessionValueAt: expect.any(String),
-      });
-    });
-
-    it.each([
-      [
-        "the manual gate refuses a manual prompt",
-        { manualAllowed: false },
-        APP_FEEDBACK_TRIGGER_IDS.manual,
-      ],
-      [
-        "the automatic gate refuses an automatic trigger",
-        { autoAllowed: false },
-        APP_FEEDBACK_TRIGGER_IDS.streak_milestone,
-      ],
-    ] as const)("stays closed when %s", async (_label, env, triggerId) => {
-      await setup(env);
-      await openFunnel(triggerId);
-      expect(textOf("sheet-visible")).toBe("false");
-    });
-
-    it("opens a persisted trigger on its deferred route", async () => {
-      await setup({ persistedTrigger: APP_FEEDBACK_TRIGGER_IDS.perfect_day });
+      await valueMoment(REVIEW_PROMPT_SETTLE_MS - 1);
+      expect(mockStore.request).not.toHaveBeenCalled();
       await act(async () => {
-        flushReviewTriggerForRoute("tracker");
+        jest.advanceTimersByTime(1);
       });
       await settle();
-      expect(textOf("sheet-visible")).toBe("true");
+      expect(mockStore.request).toHaveBeenCalledTimes(1);
+      const state = await loadReviewGating();
+      expect(state.promptCountLifetime).toBe(1);
+      expect(state.lastPromptedVersion).toBe("2.4.0");
     });
 
-    it("holds a trigger while blocked", async () => {
-      await setup({ blocked: true });
-      await pressAndSettle("prompt");
-      expect(textOf("sheet-visible")).toBe("false");
-    });
-
-    it("opens a held trigger once unblocked", async () => {
-      const { rerender } = await setup({ blocked: true });
-      await pressAndSettle("prompt");
-      mockEnv.blocked = false;
-      await rerender(tree());
-      await settle();
-      expect(textOf("sheet-visible")).toBe("true");
-    });
-  });
-
-  describe("sheet outcomes", () => {
-    it("records a dismissal and closes", async () => {
+    it("passes live usage to the gate", async () => {
       await setup();
-      await pressAndSettle("prompt");
-      await pressAndSettle("sheet-dismiss");
-      expect(textOf("sheet-visible")).toBe("false");
-      expect(mockEnv.stored?.dismissStreak).toBe(1);
-    });
-
-    it("records a store review request", async () => {
-      await setup();
-      await pressAndSettle("sheet-store");
-      expect(mockEnv.stored?.lastStoreReviewRequestAt).toEqual(expect.any(String));
-    });
-
-    it("thanks the user after a store review request", async () => {
-      await setup();
-      await pressAndSettle("sheet-store");
-      expect(mockToast.success).toHaveBeenCalledWith("Thank you!", "Your support means a lot.");
-    });
-
-    it("submits feedback with the active trigger and locale", async () => {
-      await setup();
-      await openFunnel(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
-      await pressAndSettle("sheet-feedback");
-      expect(mockSubmit).toHaveBeenCalledWith({
-        rating: 2,
-        message: "msg",
-        triggerId: APP_FEEDBACK_TRIGGER_IDS.weekly_report,
-        locale: "en",
-      });
-    });
-
-    it("records sent feedback and thanks the user", async () => {
-      await setup();
-      await pressAndSettle("sheet-feedback");
-      expect(mockEnv.stored?.lastFeedbackSentAt).toEqual(expect.any(String));
-      expect(mockToast.success).toHaveBeenCalledWith(
-        "Feedback received",
-        "We'll use your notes to improve Munib Tracker.",
+      await valueMoment();
+      expect(mockGate).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          prayersLogged: 12,
+          currentStreak: 4,
+          achievementsUnlocked: 1,
+          hasCompletedOnboarding: true,
+          appVersion: "2.4.0",
+        }),
       );
     });
 
-    it("surfaces a feedback submission error", async () => {
-      mockSubmit.mockRejectedValue(new Error("offline"));
+    it("never shows a custom sheet first", async () => {
       await setup();
-      await pressAndSettle("sheet-feedback");
-      expect(textOf("sheet-error")).toBe("Could not send feedback. Please try again.");
+      await valueMoment();
+      expect(textOf("sheet-visible")).toBe("false");
     });
 
-    it.each(["sheet-dismiss", "sheet-store", "sheet-feedback"])(
-      "does not persist %s before gating has loaded",
-      async (testID) => {
-        await setup({ readGating: () => new Promise(() => {}) });
-        await pressAndSettle(testID);
-        expect(mockEnv.writes).toHaveLength(0);
-        expect(mockToast.success).not.toHaveBeenCalled();
-      },
-    );
-  });
+    it.each<[string, Partial<typeof mockEnv>]>([
+      ["the gate refuses", { gateAllowed: false }],
+      ["the OS review API is unavailable", { storeAvailable: false }],
+    ])("does nothing when %s", async (_label, env) => {
+      await setup(env);
+      await valueMoment();
+      expect(mockStore.request).not.toHaveBeenCalled();
+      expect((await loadReviewGating()).promptCountLifetime).toBe(0);
+    });
 
-  describe("app foreground", () => {
-    it("records a foreground when the app becomes active", async () => {
+    it("does not count a request the OS rejected", async () => {
+      await setup({ requestOk: false });
+      await valueMoment();
+      expect(mockStore.request).toHaveBeenCalledTimes(1);
+      expect((await loadReviewGating()).promptCountLifetime).toBe(0);
+    });
+
+    it("cancels when the app leaves the foreground during the delay", async () => {
       const { appState } = await setup();
-      const before = mockEnv.writes.length;
       await act(async () => {
-        appState.emit("active");
+        emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.perfect_day);
+        flushReviewTriggerForRoute("tracker");
+      });
+      await act(async () => appState.emit("background"));
+      await act(async () => {
+        jest.advanceTimersByTime(REVIEW_PROMPT_SETTLE_MS);
       });
       await settle();
-      expect(mockEnv.writes).toHaveLength(before + 1);
+      expect(mockStore.request).not.toHaveBeenCalled();
     });
 
-    it("ignores non-active transitions", async () => {
-      const { appState } = await setup();
-      const before = mockEnv.writes.length;
+    it("keeps a blocked moment for the next focus instead of showing on unblock", async () => {
+      const { rerender } = await setup({ blocked: true });
+      await valueMoment();
+      expect(mockStore.request).not.toHaveBeenCalled();
+
+      mockEnv.blocked = false;
+      await rerender(
+        <ReviewPromptProvider>
+          <Consumer />
+        </ReviewPromptProvider>,
+      );
       await act(async () => {
-        appState.emit("background");
+        jest.advanceTimersByTime(REVIEW_PROMPT_SETTLE_MS);
       });
-      expect(mockEnv.writes).toHaveLength(before);
+      await settle();
+      expect(mockStore.request).not.toHaveBeenCalled();
+
+      await act(async () => flushReviewTriggerForRoute("tracker"));
+      await act(async () => {
+        jest.advanceTimersByTime(REVIEW_PROMPT_SETTLE_MS);
+      });
+      await settle();
+      expect(mockStore.request).toHaveBeenCalledTimes(1);
     });
 
-    it("unsubscribes on unmount", async () => {
-      const { appState, unmount } = await setup();
-      await unmount();
-      const subscription = appState.spy.mock.results[0]?.value as { remove: jest.Mock };
-      expect(subscription.remove).toHaveBeenCalled();
+    it("holds off while the feedback sheet is open", async () => {
+      await setup();
+      await press("feedback");
+      await valueMoment();
+      expect(mockStore.request).not.toHaveBeenCalled();
     });
   });
 
-  it("throws outside the provider", async () => {
-    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
-    await expect(renderHook(() => useReviewPrompt())).rejects.toThrow(
-      "useReviewPrompt must be used within ReviewPromptProvider",
-    );
-    spy.mockRestore();
+  describe("Rate (write a review)", () => {
+    it.each([true, false])("exposes canWriteReview = %s", async (canWriteReview) => {
+      await setup({ canWriteReview });
+      expect(textOf("can-write")).toBe(String(canWriteReview));
+    });
+
+    it("opens the store page with the UI locale and never the OS sheet", async () => {
+      await setup();
+      await press("rate");
+      expect(mockStore.openWriteReview).toHaveBeenCalledWith({ locale: "en" });
+      expect(mockStore.request).not.toHaveBeenCalled();
+      expect((await loadReviewGating()).lastWriteReviewOpenedAt).not.toBeNull();
+    });
+
+    it("tells the person when the store can't open", async () => {
+      await setup({ writeReviewOk: false });
+      await press("rate");
+      expect(mockToast.error).toHaveBeenCalledTimes(1);
+      expect((await loadReviewGating()).lastWriteReviewOpenedAt).toBeNull();
+    });
+
+    it("serves the open-review deep link", async () => {
+      await setup();
+      await act(async () => {
+        expect(invokeOpenWriteReview()).toBe(true);
+      });
+      await settle();
+      expect(mockStore.openWriteReview).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("Send feedback", () => {
+    it("opens the sheet with the connectivity state", async () => {
+      await setup({ online: false });
+      await press("feedback");
+      expect(textOf("sheet-visible")).toBe("true");
+      expect(textOf("sheet-offline")).toBe("true");
+    });
+
+    it("submits as manual feedback, thanks the person and closes", async () => {
+      await setup();
+      await press("feedback");
+      await press("sheet-submit");
+      expect(mockSubmit).toHaveBeenCalledWith({
+        rating: 5,
+        message: "msg",
+        triggerId: APP_FEEDBACK_TRIGGER_IDS.manual,
+        locale: "en",
+      });
+      expect(mockToast.success).toHaveBeenCalledTimes(1);
+      expect(textOf("sheet-visible")).toBe("false");
+      expect((await loadReviewGating()).lastFeedbackSentAt).not.toBeNull();
+    });
+
+    it("shows an error and stays open when sending fails", async () => {
+      mockSubmit.mockRejectedValue(new Error("offline"));
+      await setup();
+      await press("feedback");
+      await press("sheet-submit");
+      expect(textOf("sheet-error")).not.toBe("");
+      expect(textOf("sheet-visible")).toBe("true");
+      expect(mockToast.success).not.toHaveBeenCalled();
+    });
   });
 });

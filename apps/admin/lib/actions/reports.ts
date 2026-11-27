@@ -1,4 +1,8 @@
-"use server";
+// Plain server-only helpers, NOT a "use server" module: every export trusts the
+// caller-supplied ActionContext, so exposing them as server actions would let a
+// client POST forge its own role. Call them from inline actions after
+// getActionContext().
+import "server-only";
 
 import { userMediaTable } from "@munib-tracker/db/schema";
 import {

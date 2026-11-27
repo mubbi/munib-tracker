@@ -20,8 +20,11 @@ describe("PronunciationConsentSheet", () => {
   it("explains the download, activation and on-device processing", async () => {
     await renderSheet();
     expect(screen.getByText("Before you set it up")).toBeTruthy();
-    expect(screen.getByText(/about 57 MB from Quran Lab/)).toBeTruthy();
-    expect(screen.getByText(/contacts Quran Lab once to activate it/)).toBeTruthy();
+    expect(screen.getByText(/about 56 MB from Quran Lab/)).toBeTruthy();
+    expect(screen.getByText(/first setup needs a connection/)).toBeTruthy();
+    // D66: SDK 4's always-on anonymous analytics and its own sharing ask are disclosed.
+    expect(screen.getByText(/always sends anonymous daily counts/)).toBeTruthy();
+    expect(screen.getByText(/at most three times/)).toBeTruthy();
     expect(screen.getByText("Your recitation is processed on this device.")).toBeTruthy();
   });
 

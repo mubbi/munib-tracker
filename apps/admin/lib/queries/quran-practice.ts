@@ -1,3 +1,4 @@
+import "server-only";
 import { syncRecordsTable } from "@munib-tracker/db/schema";
 import { and, eq, isNull, sql } from "drizzle-orm";
 import { getDb } from "../db";

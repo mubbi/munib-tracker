@@ -32,23 +32,3 @@ export function IslamicPatternBackdrop({ className }: { className?: string }) {
     />
   );
 }
-
-/** A single positioned glow orb. */
-export function Glow({
-  className,
-  color = "brand",
-}: {
-  className?: string;
-  color?: "brand" | "gold";
-}) {
-  return (
-    <div
-      aria-hidden
-      className={cn(
-        "pointer-events-none absolute rounded-full blur-[120px]",
-        color === "gold" ? "bg-gold/20" : "bg-brand/25",
-        className,
-      )}
-    />
-  );
-}

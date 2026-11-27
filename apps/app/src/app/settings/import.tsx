@@ -1,20 +1,25 @@
-import type { ParsedPrayerImport } from "@munib-tracker/shared/utils";
-import { getLocalDateString, parsePrayerImport } from "@munib-tracker/shared/utils";
+import type { ImportError, ParsedPrayerImport } from "@munib-tracker/shared/utils";
+import {
+  getLocalDateString,
+  IMPORT_PRAYER_VALUES,
+  IMPORT_STATUS_VALUES,
+  parsePrayerImport,
+} from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
+import { StyleSheet, View } from "react-native";
 import { ToggleRow } from "@/components/settings/settings-rows";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { TextField } from "@/components/ui/text-field";
+import { Fonts, Radius, Spacing } from "@/constants/theme";
 import { createId, PrayerRepository, QazaRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -26,33 +31,57 @@ import { trackerStore } from "@/stores/tracker-store";
 /** How many per-row errors to show in the preview before collapsing the rest. */
 const MAX_ERRORS_SHOWN = 8;
 
+/** Machine-format sample under "Format details" (data, not copy — not translated). */
+const FORMAT_SAMPLE = [
+  "date,prayerId,status",
+  "2026-06-01,fajr,completed",
+  "2026-06-01,dhuhr,missed",
+].join("\n");
+
+/**
+ * F-03: the parser returns `{ code, params }`; the user sees a translated,
+ * actionable sentence — never the parser's English `message`.
+ */
+function useImportErrorText() {
+  const { t } = useTranslation();
+  return (error: ImportError): string => {
+    const value = error.params?.value ?? "";
+    const reason =
+      error.code !== "invalid_json" && value === ""
+        ? t("import.error.empty")
+        : t(`import.error.${error.code}`, {
+            value,
+            // Accepted values are typed as-is (not translated): passed in, not in the catalogs.
+            allowed: (error.code === "unknown_status"
+              ? IMPORT_STATUS_VALUES
+              : IMPORT_PRAYER_VALUES
+            ).join(", "),
+          });
+    return error.row > 0 ? t("import.errorLine", { row: error.row, message: reason }) : reason;
+  };
+}
+
 export default function ImportScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const toast = useToast();
+  const errorText = useImportErrorText();
 
   const [text, setText] = useState("");
   const [preview, setPreview] = useState<ParsedPrayerImport | null>(null);
   const [alsoQaza, setAlsoQaza] = useState(false);
   const [importing, setImporting] = useState(false);
 
+  // No route-level empty state on TV (§4.5.10): bounce to the group.
   if (isTV()) {
     return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
+      <SettingsDetailScreen
+        parent="data"
+        path="/settings/import"
         title={t("import.title")}
-        onBack={() => goBackOrReplace(router, "/settings")}
-      >
-        <Seo path="/settings/import" />
-        <EmptyState
-          icon={{ ios: "tv", android: "tv", web: "tv" }}
-          title={t("common.tvUnavailableTitle")}
-          description={t("common.tvUnavailableBody")}
-        />
-      </ScreenLayout>
+        available={false}
+      />
     );
   }
 
@@ -83,7 +112,7 @@ export default function ImportScreen() {
       toast.success(t("import.done", { count: preview.rows.length }));
       setText("");
       setPreview(null);
-      goBackOrReplace(router, "/settings");
+      goBackOrReplace(router, "/settings/data");
     } catch {
       toast.error(t("import.failed"));
     } finally {
@@ -95,33 +124,51 @@ export default function ImportScreen() {
   const extraErrors = Math.max(0, (preview?.errors.length ?? 0) - MAX_ERRORS_SHOWN);
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="data"
+      path="/settings/import"
       title={t("import.title")}
       subtitle={t("import.subtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
     >
-      <Seo path="/settings/import" />
       <Stagger>
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("import.pasteTitle")}
             icon={{ ios: "doc.on.clipboard", android: "content_paste", web: "content_paste" }}
           />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("import.formatHint")}
+          <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
+            {t("import.hint")}
           </ThemedText>
-          <TextInput
+          <View style={styles.details}>
+            <CollapsibleSection title={t("import.formatDetails")}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("import.formatHint")}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sampleLabel}>
+                {t("import.formatSample")}
+              </ThemedText>
+              <View style={[styles.sample, { backgroundColor: colors.muted }]}>
+                <ThemedText type="caption" selectable style={styles.sampleText}>
+                  {FORMAT_SAMPLE}
+                </ThemedText>
+              </View>
+            </CollapsibleSection>
+          </View>
+          <TextField
+            label={t("import.fieldLabel")}
             value={text}
-            onChangeText={setText}
+            onChangeText={(next) => {
+              setText(next);
+              // A new paste invalidates the old preview.
+              if (preview) setPreview(null);
+            }}
             placeholder={t("import.placeholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("import.pasteTitle")}
             multiline
+            minLines={6}
             autoCapitalize="none"
             autoCorrect={false}
-            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
+            spellCheck={false}
+            style={styles.field}
           />
           <Button
             label={t("import.preview")}
@@ -134,7 +181,7 @@ export default function ImportScreen() {
         </Card>
 
         {preview ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("import.previewTitle")}
               icon={{ ios: "list.bullet.rectangle", android: "fact_check", web: "fact_check" }}
@@ -142,15 +189,6 @@ export default function ImportScreen() {
             <View style={styles.summary}>
               <ThemedText type="small">
                 {t("import.summaryValid", { count: preview.rows.length })}
-              </ThemedText>
-              <ThemedText
-                type="small"
-                style={{
-                  color:
-                    preview.errors.length > 0 ? tokens.status.danger.color : colors.mutedForeground,
-                }}
-              >
-                {t("import.summaryErrors", { count: preview.errors.length })}
               </ThemedText>
               {preview.duplicates > 0 ? (
                 <ThemedText type="caption" themeColor="mutedForeground">
@@ -168,22 +206,24 @@ export default function ImportScreen() {
             </View>
 
             {shownErrors.length > 0 ? (
-              <View style={[styles.errorBox, { backgroundColor: tokens.status.danger.soft }]}>
-                {shownErrors.map((error) => (
-                  <ThemedText
-                    key={`${error.row}-${error.message}`}
-                    type="caption"
-                    style={{ color: tokens.status.danger.color }}
-                  >
-                    {t("import.errorLine", { row: error.row, message: error.message })}
-                  </ThemedText>
-                ))}
-                {extraErrors > 0 ? (
-                  <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
-                    {t("import.moreErrors", { count: extraErrors })}
-                  </ThemedText>
-                ) : null}
-              </View>
+              <Callout
+                tone="danger"
+                title={t("import.summaryErrors", { count: preview.errors.length })}
+                style={styles.errors}
+              >
+                <View style={styles.errorLines}>
+                  {shownErrors.map((error) => (
+                    <ThemedText key={`${error.row}-${error.code}`} type="small">
+                      {errorText(error)}
+                    </ThemedText>
+                  ))}
+                  {extraErrors > 0 ? (
+                    <ThemedText type="small" themeColor="mutedForeground">
+                      {t("import.moreErrors", { count: extraErrors })}
+                    </ThemedText>
+                  ) : null}
+                </View>
+              </Callout>
             ) : null}
 
             {preview.rows.length > 0 ? (
@@ -203,13 +243,9 @@ export default function ImportScreen() {
                   </ThemedText>
                 ) : null}
                 <Button
-                  label={
-                    importing
-                      ? t("import.importing")
-                      : t("import.commit", { count: preview.rows.length })
-                  }
+                  label={t("import.commit", { count: preview.rows.length })}
                   fullWidth
-                  disabled={importing}
+                  loading={importing}
                   onPress={() => void onImport()}
                   style={styles.action}
                 />
@@ -218,31 +254,26 @@ export default function ImportScreen() {
           </Card>
         ) : null}
       </Stagger>
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.two },
-  input: {
-    marginTop: Spacing.three,
-    minHeight: 140,
+  details: { marginTop: Spacing.two },
+  sampleLabel: { marginTop: Spacing.two },
+  sample: {
+    marginTop: Spacing.one,
+    padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: Spacing.three,
-    fontSize: 14,
-    textAlignVertical: "top",
   },
+  sampleText: { fontFamily: Fonts?.mono },
+  field: { marginTop: Spacing.three },
   action: { marginTop: Spacing.three },
-  summary: { marginTop: Spacing.three, gap: 2 },
-  errorBox: {
-    marginTop: Spacing.three,
-    gap: 2,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
+  summary: { marginTop: Spacing.three, gap: Spacing.half },
+  errors: { marginTop: Spacing.three },
+  errorLines: { gap: Spacing.half },
   qazaToggle: { marginTop: Spacing.three },
   disclaimer: { marginTop: Spacing.two },
 });

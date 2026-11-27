@@ -1,21 +1,23 @@
 import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import { useEffect, useRef } from "react";
-import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
-import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
+import { emitReviewTrigger } from "@/features/reviews/lib/reviewTriggerBus";
+import { useTrackerReady } from "@/stores/tracker-store";
 
-/** Emits perfect_day when the obligatory ring crosses to 100%. */
+/**
+ * Emits perfect_day when the obligatory ring crosses to 100% while the person
+ * is using the app — never for a day that was already complete when the
+ * tracker loaded.
+ */
 export function useReviewPerfectDayTrigger(isComplete: boolean): void {
-  const { emitReviewTrigger } = useReviewPrompt();
+  const ready = useTrackerReady();
   const prevRef = useRef<boolean | null>(null);
-  const firedRef = useRef(false);
 
   useEffect(() => {
+    if (!ready) return;
     const prev = prevRef.current;
-    if (!firedRef.current && prev === false && isComplete) {
-      firedRef.current = true;
-      emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.perfect_day, { deferRoute: "tracker" });
-      void maybeDeliverReviewReactivation(APP_FEEDBACK_TRIGGER_IDS.perfect_day);
-    }
     prevRef.current = isComplete;
-  }, [isComplete, emitReviewTrigger]);
+    if (prev === false && isComplete) {
+      emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.perfect_day, { deferRoute: "tracker" });
+    }
+  }, [ready, isComplete]);
 }

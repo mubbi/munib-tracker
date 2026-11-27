@@ -7,6 +7,7 @@ import {
 import {
   BadRequestException,
   ForbiddenException,
+  HttpException,
   NotFoundException,
   ServiceUnavailableException,
   UnauthorizedException,
@@ -40,7 +41,7 @@ vi.mock("@munib-tracker/surface-push-delivery", async (importOriginal) => {
 const MINUTE = 60_000;
 const DISPATCH_RESULT = { claimed: 1, delivered: 1, failed: 0 };
 const WEB_PUSH_SUBSCRIPTION = {
-  endpoint: "https://push.example/sub",
+  endpoint: "https://fcm.googleapis.com/fcm/send/sub",
   expirationTime: null,
   keys: { p256dh: "p256", auth: "auth" },
 };
@@ -145,11 +146,33 @@ describe("SurfacePushService", () => {
         },
         "Invalid Web Push subscription",
       ],
+      ...(
+        [
+          ["a private-network", "https://10.0.0.5/push"],
+          ["a cloud-metadata", "https://169.254.169.254/latest/meta-data"],
+          ["an unknown-host", "https://attacker.example/collect"],
+          ["a look-alike-host", "https://fcm.googleapis.com.attacker.example/x"],
+          ["a non-default-port", "https://fcm.googleapis.com:8443/fcm/send/x"],
+        ] as const
+      ).map(([label, endpoint]): [string, Partial<UpsertSurfacePushDto>, string] => [
+        `${label} Web Push endpoint (SSRF)`,
+        { channel: "web_push", target: JSON.stringify({ ...WEB_PUSH_SUBSCRIPTION, endpoint }) },
+        "Invalid Web Push subscription",
+      ]),
     ])("rejects %s", async (_label, overrides, message) => {
       const { upsert } = await setup();
       const rejection = upsert(overrides);
       await expect(rejection).rejects.toBeInstanceOf(BadRequestException);
       await expect(rejection).rejects.toThrow(message);
+    });
+
+    it("rate-limits registrations per account", async () => {
+      const { upsert } = await setup();
+      for (let i = 0; i < 30; i += 1) await upsert();
+
+      const rejection = upsert();
+      await expect(rejection).rejects.toBeInstanceOf(HttpException);
+      await expect(rejection).rejects.toMatchObject({ status: 429 });
     });
 
     it("stores the trimmed Expo token with session metadata", async () => {

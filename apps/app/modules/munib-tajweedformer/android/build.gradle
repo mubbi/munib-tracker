@@ -35,6 +35,9 @@ android {
 dependencies {
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
   // Pinned: the Kotlin SDK and the iOS SDK share one engine and one error catalogue.
-  // 3.1.5 is the latest Android artifact on Maven Central (the npm JS package is 3.1.6).
-  implementation "ai.quranlab:tajweedformer:3.1.5"
+  // SDK 4 (D66): the model is protected and runs in the closed Quran Lab Core
+  // (`libqlcore.so` — never post-process or strip it beyond Android's defaults).
+  // Owner action: add the Play app-signing AND upload-key SHA-256 certificates on the
+  // Android key's page at sdk.quranlab.ai, or installs are not hardware-verified.
+  implementation "ai.quranlab:tajweedformer:4.0.3"
 }

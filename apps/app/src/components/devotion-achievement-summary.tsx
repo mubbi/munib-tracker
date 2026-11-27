@@ -52,7 +52,7 @@ export function DevotionAchievementSummary({
           </ThemedText>
           <ThemedText
             type="subtitle"
-            style={[styles.achievementBadgeLevel, { color: tokens.status.warning.color }]}
+            style={[styles.achievementBadgeLevel, { color: tokens.status.warning.onSoft }]}
           >
             {formatCount(devotion.level)}
           </ThemedText>
@@ -89,7 +89,12 @@ export function DevotionAchievementSummary({
       </View>
 
       <View style={styles.achievementProgress}>
-        <ProgressBar value={devotion.progress} height={6} color={tokens.status.warning.color} />
+        <ProgressBar
+          value={devotion.progress}
+          accessibilityLabel={t("a11yProgress.devotionLevel")}
+          height={6}
+          color={tokens.status.warning.color}
+        />
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("home.devotionProgress", {
             current: formatCount(devotionLevelProgress),
@@ -128,19 +133,19 @@ const styles = StyleSheet.create({
   },
   achievementCopy: {
     flex: 1,
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   achievementTitleRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   achievementPills: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   achievementProgress: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
 });

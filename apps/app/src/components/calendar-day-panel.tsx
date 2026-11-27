@@ -3,6 +3,7 @@ import type {
   AppLocale,
   CalendarMode,
   ExcusedReason,
+  PrayerCombineMode,
   PrayerId,
   PrayerStatus,
 } from "@munib-tracker/shared/types";
@@ -21,6 +22,7 @@ import { PrayerRepository, ZikrRepository } from "@/db";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
+import { combinedFromLog, type PrayerCombined } from "@/lib/prayer-combining";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -33,6 +35,8 @@ export function useCalendarDayRecords(date: string) {
   const [status, setStatus] = useState<Record<string, PrayerStatus>>({});
   const [notes, setNotes] = useState<Record<string, string | undefined>>({});
   const [jama, setJama] = useState<Record<string, boolean>>({});
+  const [atMasjid, setAtMasjid] = useState<Record<string, boolean>>({});
+  const [combined, setCombined] = useState<Record<string, PrayerCombined>>({});
   const [excusedReason, setExcusedReason] = useState<ExcusedReason | null>(null);
   const [zikrCounts, setZikrCounts] = useState<Record<string, number>>({});
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
@@ -53,11 +57,16 @@ export function useCalendarDayRecords(date: string) {
     const nextStatus: Record<string, PrayerStatus> = {};
     const nextNotes: Record<string, string | undefined> = {};
     const nextJama: Record<string, boolean> = {};
+    const nextAtMasjid: Record<string, boolean> = {};
+    const nextCombined: Record<string, PrayerCombined> = {};
     let nextExcused: ExcusedReason | null = null;
     for (const log of logs) {
       nextStatus[log.prayerId] = log.status;
       if (log.notes) nextNotes[log.prayerId] = log.notes;
       if (log.isJama) nextJama[log.prayerId] = true;
+      if (log.atMasjid) nextAtMasjid[log.prayerId] = true;
+      const flag = combinedFromLog(log);
+      if (flag) nextCombined[log.prayerId] = flag;
       if (log.isExcused) nextExcused = log.excusedReason ?? "sick";
     }
     const nextZikrCounts: Record<string, number> = {};
@@ -67,6 +76,8 @@ export function useCalendarDayRecords(date: string) {
     setStatus(nextStatus);
     setNotes(nextNotes);
     setJama(nextJama);
+    setAtMasjid(nextAtMasjid);
+    setCombined(nextCombined);
     setExcusedReason(nextExcused);
     setZikrCounts(nextZikrCounts);
     setActivity(aggregateByDate(allLogs));
@@ -100,6 +111,16 @@ export function useCalendarDayRecords(date: string) {
     await reload();
   };
 
+  const applyAtMasjid = async (prayerId: PrayerId, masjidId: string | null) => {
+    await trackerStore.getState().setPrayerAtMasjidOnDate(date, prayerId, masjidId);
+    await reload();
+  };
+
+  const applyCombined = async (prayerId: PrayerId, mode: PrayerCombineMode | null) => {
+    await trackerStore.getState().setPrayerCombinedOnDate(date, prayerId, mode);
+    await reload();
+  };
+
   const applyExcused = async (reason: ExcusedReason | null) => {
     await trackerStore.getState().setDayExcusedOnDate(date, reason);
     await reload();
@@ -111,6 +132,8 @@ export function useCalendarDayRecords(date: string) {
     status,
     notes,
     jama,
+    atMasjid,
+    combined,
     excusedReason,
     zikrCounts,
     activity,
@@ -119,6 +142,8 @@ export function useCalendarDayRecords(date: string) {
     applyStatus,
     applyNotes,
     applyJama,
+    applyAtMasjid,
+    applyCombined,
     applyExcused,
   };
 }
@@ -147,6 +172,10 @@ export function CalendarDayStatusSheet({
       currentNotes={records.notes[sheetPrayer]}
       isJama={records.jama[sheetPrayer] ?? false}
       onToggleJama={(next) => records.applyJama(sheetPrayer, next)}
+      combined={records.combined[sheetPrayer] ?? null}
+      onSetCombined={(mode) => records.applyCombined(sheetPrayer, mode)}
+      atMasjid={records.atMasjid[sheetPrayer] ?? false}
+      onToggleAtMasjid={(masjidId) => records.applyAtMasjid(sheetPrayer, masjidId)}
       onSelect={(next, options) => records.applyStatus(sheetPrayer, next, options)}
       onSaveNotes={(text) => records.applyNotes(sheetPrayer, text)}
       onClose={onClose}
@@ -197,7 +226,7 @@ export function CalendarDayPanel({
 
   return (
     <View style={styles.root}>
-      <Card padding="three" style={styles.header}>
+      <Card style={styles.header}>
         <ThemedText type="caption" themeColor="mutedForeground">
           {isToday ? t("calDay.today") : t("calDay.history")}
         </ThemedText>
@@ -227,6 +256,8 @@ export function CalendarDayPanel({
           status={records.status}
           notes={records.notes}
           jama={records.jama}
+          atMasjid={records.atMasjid}
+          combined={records.combined}
           zikrCounts={records.zikrCounts}
           excusedReason={records.excusedReason}
           prayerTimes={prayerTimes}

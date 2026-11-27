@@ -33,10 +33,25 @@ describe("localizeContent", () => {
     });
   });
 
-  it("merges nested objects (e.g. quran excerpts) without touching numbers", () => {
-    const base = { quran: [{ surah: 2, ayahFrom: 177, excerpt: "Righteousness…" }] };
-    const merged = localizeContent(base, { quran: [{ excerpt: "نیکی…" }] });
-    expect(merged).toEqual({ quran: [{ surah: 2, ayahFrom: 177, excerpt: "نیکی…" }] });
+  it("merges nested objects (e.g. quran refs) without touching numbers", () => {
+    const base = { quran: [{ surah: 2, ayahFrom: 177, label: "Qur'an 2:177" }] };
+    const merged = localizeContent(base, { quran: [{ label: "قرآن ۲:۱۷۷" }] });
+    expect(merged).toEqual({ quran: [{ surah: 2, ayahFrom: 177, label: "قرآن ۲:۱۷۷" }] });
+  });
+
+  it("never takes scripture meaning text (excerpt / translation) from an overlay — D45", () => {
+    const base = {
+      quran: [{ surah: 2, ayahFrom: 177, excerpt: "Righteousness…" }],
+      steps: [{ title: "Takbir", translation: "Allah is the Greatest." }],
+    };
+    const merged = localizeContent(base, {
+      quran: [{ excerpt: "نیکی…" }],
+      steps: [{ title: "تکبیر", translation: "اللہ سب سے بڑا ہے۔" }],
+    });
+    expect(merged).toEqual({
+      quran: [{ surah: 2, ayahFrom: 177, excerpt: "Righteousness…" }],
+      steps: [{ title: "تکبیر", translation: "Allah is the Greatest." }],
+    });
   });
 
   it("does not mutate the English base", () => {

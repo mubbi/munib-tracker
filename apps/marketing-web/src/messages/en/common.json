@@ -1,0 +1,16 @@
+{
+  "skipToContent": "Skip to main content",
+  "prayers": {
+    "fajr": "Fajr",
+    "dhuhr": "Dhuhr",
+    "asr": "Asr",
+    "maghrib": "Maghrib",
+    "isha": "Isha"
+  },
+  "dayArc": {
+    "prayerArc": "Daily prayer arc",
+    "starFlare": "Star flare",
+    "crescent": "Crescent",
+    "mosqueSkyline": "Mosque over still water at dusk"
+  }
+}

@@ -15,3 +15,15 @@
 *.md text eol=lf
 *.json text eol=lf
 *.jsonc text eol=lf
+*.mts text eol=lf
+*.cts text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.webmanifest text eol=lf
+
+# Byte-compared by drift / hash tests (generator output, fixture hashes) — a CRLF
+# checkout on Windows would fail them.
+*.swift text eol=lf
+*.kt text eol=lf
+*.xcstrings text eol=lf
+apps/app/src/lib/quran-morphology/__fixtures__/*.txt text eol=lf

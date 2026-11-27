@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Salah seterusnya</string>
+  <string name="wear_today">Jadual hari ini</string>
+  <string name="wear_tasbeeh">Tasbih</string>
+  <string name="wear_progress">Kemajuan hari ini</string>
+  <string name="wear_open_phone">Buka Munib Tracker pada telefon anda untuk menyegerak</string>
+  <string name="wear_connect_phone">Sambungkan telefon anda untuk melihat waktu Salah</string>
+  <string name="wear_install_phone">Pasang Munib Tracker pada telefon anda untuk melihat waktu Salah</string>
+  <string name="wear_tasbeeh_standalone">Tasbih berfungsi pada jam tangan anda tanpa telefon</string>
+  <string name="wear_tasbeeh_of_target">daripada %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Tanpa had</string>
+  <string name="wear_tasbeeh_options">Pilihan</string>
+  <string name="wear_tasbeeh_undo">Buat asal yang terakhir</string>
+  <string name="wear_tasbeeh_target">Sasaran</string>
+  <string name="wear_tasbeeh_mode">Mod</string>
+  <string name="wear_tasbeeh_free">Kiraan bebas</string>
+  <string name="wear_tasbeeh_after_salah">Selepas Salah</string>
+  <string name="wear_tasbeeh_reset">Set semula</string>
+  <string name="wear_tasbeeh_reset_confirm">Set semula kiraan kepada 0?</string>
+  <string name="wear_tasbeeh_start_again">Mula semula</string>
+  <string name="wear_tasbeeh_all_done">Tasbih selesai</string>
+  <string name="wear_tasbeeh_step">Langkah %1$d daripada %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Sasaran dicapai</string>
+  <string name="wear_tasbeeh_tap_to_count">Ketik untuk mengira</string>
+  <string name="wear_tasbeeh_a11y">Pembilang tasbih, %1$d daripada %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Pembilang tasbih, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Kira satu</string>
+  <string name="wear_open">Buka</string>
+  <string name="wear_open_app">Buka Munib Tracker</string>
+  <string name="wear_mark_confirm">Tandakan Salah ini sudah ditunaikan?</string>
+  <string name="wear_confirm">Sahkan</string>
+  <string name="wear_marked">Ditandakan ✓</string>
+  <string name="wear_mark_sent">Dihantar ke telefon anda</string>
+  <string name="wear_mark_will_sync">Akan disegerakkan apabila telefon anda berdekatan</string>
+</resources>

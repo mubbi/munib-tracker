@@ -30,17 +30,20 @@ const SESSION = buildSession();
 const USER = buildAuthUser();
 const APPLE_PROFILE = { providerAccountId: "apple-1", email: "a@b.c" };
 const CODE_DTO = { code: "c", redirectUri: "https://app.example/cb", codeVerifier: "v" };
-const APPLE_SESSION_COOKIE = JSON.stringify({
+const APPLE_SESSION = {
   codeVerifier: "verifier",
   redirectUri: "https://api.example/cb",
   returnUrl: "https://app.example/login?x=1",
-});
+};
+const APPLE_SESSION_COOKIE = sealAuthCookieValue(JSON.stringify(APPLE_SESSION));
+const JSON_REQUEST = { headers: { "content-type": "application/json; charset=utf-8" } };
 
 function setup(env: Partial<EnvironmentVariables> = {}) {
   const authService = {
     completeOAuthFromProfile: vi.fn().mockResolvedValue(SESSION),
     completeOAuth: vi.fn().mockResolvedValue(SESSION),
     getCurrentUser: vi.fn().mockResolvedValue(USER),
+    revokeSessionByRefreshToken: vi.fn().mockResolvedValue(undefined),
   };
   const oauthProvider = { exchange: vi.fn().mockResolvedValue({ ...APPLE_PROFILE }) };
   const service = new AuthOAuthService(
@@ -51,8 +54,8 @@ function setup(env: Partial<EnvironmentVariables> = {}) {
   return { service, authService, oauthProvider, res: buildResponse() };
 }
 
-function appleCallbackRequest(body: Record<string, unknown>) {
-  return buildRequest({ body, cookies: { [APPLE_OAUTH_SESSION_COOKIE]: APPLE_SESSION_COOKIE } });
+function appleCallbackRequest(body: Record<string, unknown>, cookie = APPLE_SESSION_COOKIE) {
+  return buildRequest({ body, cookies: { [APPLE_OAUTH_SESSION_COOKIE]: cookie } });
 }
 
 describe("AuthOAuthService", () => {
@@ -76,6 +79,14 @@ describe("AuthOAuthService", () => {
       await expect(service.issueSessionResponse(req, res, SESSION, USER)).resolves.toEqual({
         user: USER,
       });
+    });
+
+    it("forces cookies when the refresh credential came from the cookie", async () => {
+      const { service, res } = setup();
+      await expect(
+        service.issueSessionResponse(buildRequest(), res, SESSION, USER, true),
+      ).resolves.toEqual({ user: USER });
+      expect(res.cookie).toHaveBeenCalledTimes(2);
     });
 
     it("writes sealed refresh and access cookies for web clients", async () => {
@@ -104,13 +115,13 @@ describe("AuthOAuthService", () => {
 
     it.each<[string, RequestOverrides, string]>([
       [
-        "first x-forwarded-for hop",
+        "nearest proxy hop (a spoofed first hop is ignored)",
         { headers: { "x-forwarded-for": " 9.9.9.9 , 10.0.0.1" } },
-        "9.9.9.9",
+        "10.0.0.1",
       ],
-      ["blank first hop", { headers: { "x-forwarded-for": ",10.0.0.1" } }, "unknown"],
-      ["array header", { headers: { "x-forwarded-for": ["8.8.8.8, 10.0.0.1"] } }, "8.8.8.8"],
-      ["array header with blank hop", { headers: { "x-forwarded-for": [" ,x"] } }, "unknown"],
+      ["single edge hop", { headers: { "x-forwarded-for": ",10.0.0.1" } }, "10.0.0.1"],
+      ["array header", { headers: { "x-forwarded-for": ["8.8.8.8, 10.0.0.2"] } }, "10.0.0.2"],
+      ["blank-only array header", { headers: { "x-forwarded-for": [" , "] } }, "unknown"],
       ["socket ip", { headers: { "x-forwarded-for": "   " }, ip: " 7.7.7.7 " }, "7.7.7.7"],
       ["blank socket ip", { headers: { "x-forwarded-for": [] as string[] }, ip: "  " }, "unknown"],
       ["no ip at all", {}, "unknown"],
@@ -225,26 +236,50 @@ describe("AuthOAuthService", () => {
   describe("startAppleOauthSession", () => {
     it("stores a trimmed PKCE session cookie", () => {
       const { service, res } = setup();
-      service.startAppleOauthSession(buildRequest(), res, {
+      service.startAppleOauthSession(buildRequest(JSON_REQUEST), res, {
         codeVerifier: " v ",
         redirectUri: " https://api.example/cb ",
         returnUrl: " https://app.example/login ",
       });
       expect(res.cookie).toHaveBeenCalledWith(
         APPLE_OAUTH_SESSION_COOKIE,
+        expect.any(String),
+        expect.any(Object),
+      );
+      const [, sealed] = res.cookie.mock.calls[0] as [string, string];
+      expect(openAuthCookieValue(sealed)).toBe(
         JSON.stringify({
           codeVerifier: "v",
           redirectUri: "https://api.example/cb",
           returnUrl: "https://app.example/login",
         }),
-        expect.any(Object),
       );
+    });
+
+    it.each([
+      ["a cross-site HTML form (urlencoded)", "application/x-www-form-urlencoded"],
+      ["text/plain", "text/plain"],
+      ["no content type", undefined],
+    ])("refuses %s so another site cannot plant the PKCE cookie", (_label, contentType) => {
+      const { service, res } = setup();
+      expect(() =>
+        service.startAppleOauthSession(
+          buildRequest({ headers: { "content-type": contentType } }),
+          res,
+          {
+            codeVerifier: "attacker",
+            redirectUri: "https://api.example/cb",
+            returnUrl: "https://app.example/login",
+          },
+        ),
+      ).toThrow("Content-Type must be application/json");
+      expect(res.cookie).not.toHaveBeenCalled();
     });
 
     it("rejects a return URL outside the allowlist", () => {
       const { service, res } = setup({ OAUTH_REDIRECT_URI_ALLOWLIST: "https://app.example/cb" });
       expect(() =>
-        service.startAppleOauthSession(buildRequest(), res, {
+        service.startAppleOauthSession(buildRequest(JSON_REQUEST), res, {
           codeVerifier: "v",
           redirectUri: "https://app.example/cb",
           returnUrl: "https://evil.example/login",
@@ -263,6 +298,39 @@ describe("AuthOAuthService", () => {
       await expect(service.completeAppleOauthCallback(buildRequest({ body }), res)).rejects.toThrow(
         "Missing authorization code",
       );
+    });
+
+    it("is rate limited", async () => {
+      const { service, oauthProvider, res } = setup();
+      vi.mocked(isAuthOAuthRateLimited).mockResolvedValueOnce(true);
+      await expect(
+        service.completeAppleOauthCallback(appleCallbackRequest({ code: "c" }), res),
+      ).rejects.toMatchObject({ status: 429 });
+      expect(oauthProvider.exchange).not.toHaveBeenCalled();
+    });
+
+    it("rejects an unsealed (planted) session cookie", async () => {
+      const { service, res } = setup();
+      await expect(
+        service.completeAppleOauthCallback(
+          appleCallbackRequest({ code: "c" }, JSON.stringify(APPLE_SESSION)),
+          res,
+        ),
+      ).rejects.toThrow("Apple sign-in session expired");
+    });
+
+    it("re-validates the return URL before redirecting", async () => {
+      const { service, oauthProvider, res } = setup({
+        OAUTH_REDIRECT_URI_ALLOWLIST: "https://api.example/cb,https://app.example/login",
+      });
+      const cookie = sealAuthCookieValue(
+        JSON.stringify({ ...APPLE_SESSION, returnUrl: "https://evil.example/" }),
+      );
+      await expect(
+        service.completeAppleOauthCallback(appleCallbackRequest({ code: "c" }, cookie), res),
+      ).rejects.toThrow("Invalid return URL");
+      expect(oauthProvider.exchange).not.toHaveBeenCalled();
+      expect(res.redirect).not.toHaveBeenCalled();
     });
 
     it("rejects a missing PKCE session cookie", async () => {
@@ -320,6 +388,34 @@ describe("AuthOAuthService", () => {
     it("reads the bearer header", () => {
       const { service } = setup();
       expect(service.resolveAccessToken(buildRequest(), "Bearer abc")).toBe("abc");
+    });
+  });
+
+  describe("refresh cookie helpers", () => {
+    const cookieReq = () =>
+      buildRequest({ cookies: { [REFRESH_TOKEN_COOKIE]: sealAuthCookieValue("rt") } });
+
+    it("detects a sealed refresh cookie", () => {
+      const { service } = setup();
+      expect(service.usesRefreshCookie(cookieReq())).toBe(true);
+      expect(service.usesRefreshCookie(buildRequest())).toBe(false);
+      expect(
+        service.usesRefreshCookie(buildRequest({ cookies: { [REFRESH_TOKEN_COOKIE]: "forged" } })),
+      ).toBe(false);
+    });
+
+    it("revokes the cookie's session on logout", async () => {
+      const { service, authService } = setup();
+      await service.revokeCookieRefreshSession(cookieReq());
+      expect(authService.revokeSessionByRefreshToken).toHaveBeenCalledWith("rt");
+    });
+
+    it("skips revocation without a cookie and swallows revoke failures", async () => {
+      const { service, authService } = setup();
+      await service.revokeCookieRefreshSession(buildRequest());
+      expect(authService.revokeSessionByRefreshToken).not.toHaveBeenCalled();
+      authService.revokeSessionByRefreshToken.mockRejectedValueOnce(new Error("db down"));
+      await expect(service.revokeCookieRefreshSession(cookieReq())).resolves.toBeUndefined();
     });
   });
 

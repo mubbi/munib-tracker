@@ -4,6 +4,7 @@ import * as jahannamMajorSins from "@munib-tracker/shared/content/jahannam-major
 import type { JahannamSection, JahannamTopic } from "@munib-tracker/shared/types";
 import { localizeList, localizeObject } from "@/lib/content-i18n";
 import { overlayList, overlayObject } from "@/lib/content-overlay-registry";
+import { groupBySection, moveAfter } from "@/lib/sectioned-guide";
 
 /**
  * English corpus is statically imported with the `/jahannam` route chunk.
@@ -37,26 +38,9 @@ export function getJahannamTopic(id: string | undefined): JahannamTopic | undefi
 }
 
 export function getJahannamTopicsBySection(): Record<JahannamSection, JahannamTopic[]> {
-  const map = Object.fromEntries(
-    corpus.JAHANNAM_SECTION_ORDER.map((section) => [section, [] as JahannamTopic[]]),
-  ) as Record<JahannamSection, JahannamTopic[]>;
-  for (const topic of getJahannamTopics()) {
-    const bucket = map[topic.section];
-    if (bucket) bucket.push(topic);
-  }
-
+  const map = groupBySection(getJahannamTopics(), corpus.JAHANNAM_SECTION_ORDER);
   // Keep the seven mūbiqāt lesson next to the kabāʾir overview in Warnings.
-  const warnings = map.warnings;
-  if (warnings?.length) {
-    const destructiveIdx = warnings.findIndex((t) => t.id === "destructive-sins");
-    const majorIdx = warnings.findIndex((t) => t.id === "major-sins");
-    if (destructiveIdx >= 0 && majorIdx >= 0 && destructiveIdx !== majorIdx + 1) {
-      const [destructive] = warnings.splice(destructiveIdx, 1);
-      const insertAt = warnings.findIndex((t) => t.id === "major-sins") + 1;
-      warnings.splice(insertAt, 0, destructive);
-    }
-  }
-
+  moveAfter(map.warnings, "destructive-sins", "major-sins");
   return map;
 }
 

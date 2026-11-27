@@ -91,38 +91,38 @@ export const PROPHETS_GENEALOGY_NODES_SQ: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Shiti (Seti)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Tradita klasike islame (dhe përmbledhja e zakonshme e prejardhjes së disa profetëve) e përmend Shitin si një bir të Ademit dhe një hallkë të brezave të hershëm. Emrat e ndërmjetëm midis Shitit dhe Nuhut janë kryesisht israilijate dhe nuk vizatohen si lidhje të sigurta.",
   },
   {
-    name: "Idris",
+    name: "Idrisi",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Kur'ani e përmend Idrisin si një profet të sinqertë që u ngrit në një shkallë të lartë. Listat klasike shpesh e vendosin midis Ademit dhe Nuhut (ndonjëherë e njësojnë me Enokun), por Kur'ani nuk e përmend emrin e babait të tij — prandaj nuk vizatohet asnjë lidhje me prindin.",
   },
   {
-    name: "Imran",
+    name: "Imrani",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Allahu e zgjodhi familjen e Imranit mbi botët. Merjemja është e bija e Imranit. (Ky Imran është babai i Merjemes — këtu nuk përdoret si lidhje atërore për Musain dhe Harunin.)",
   },
   {
-    name: "Adnan",
+    name: "Adnani",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Tradita islame pohon se Muhamedi ﷺ rrjedh nga Adnani dhe se Adnani rrjedh nga Ismaili — por tradita gjenealogjike arabe pajtohet se vargu i emërtuar i brezave nga Adnani deri te Ismaili ka humbur. Adnani mbetet stërgjyshi klasik i pranuar i arabëve adnanitë; nuk vizatohet asnjë lidhje me Ismailin si prind.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Hashim ibn Abdu Menaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Hashimi është ai prej të cilit mori emrin fisi Benu Hashim dhe një paraardhës klasik i Profetit ﷺ. Lista e plotë e prijësve nga Adnani te Hashimi (Fihri, Mudari, …) është shënuar në sira, por këtu anashkalohet si breza të ndërmjetëm fisnorë — jo profetë. Hashimi kryeson boshtin e afërt hashimit në këtë hartë.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdulmutalibi",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Abdulmutalibi (Shejbe) është gjyshi nga babai i Profetit ﷺ dhe i biri i Hashimit sipas sirës klasike.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdullah ibn Abdulmutalib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Abdullahu është babai i Profetit Muhamed ﷺ dhe i biri i Abdulmutalibit sipas sirës klasike.",
   },
 ];

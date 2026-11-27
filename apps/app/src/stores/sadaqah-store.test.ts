@@ -42,6 +42,27 @@ const stored = () =>
     log: [],
   });
 
+describe("restoreEntry", () => {
+  it("re-inserts the exact entry at its original position and persists it", async () => {
+    const newest = entry({ id: "c", at: "2026-07-05T09:00:00.000Z" });
+    const older = entry({ id: "b", at: "2026-07-03T09:00:00.000Z", note: "mosque" });
+    const oldest = entry({ id: "a", at: "2026-07-01T09:00:00.000Z" });
+    sadaqahStore.setState({ log: [newest, older, oldest], isReady: true });
+    await state().removeEntry("b");
+    expect(state().log.map((e) => e.id)).toEqual(["c", "a"]);
+    await state().restoreEntry(older);
+    expect(state().log).toEqual([newest, older, oldest]);
+    expect((await stored()).log).toEqual([newest, older, oldest]);
+  });
+
+  it("is idempotent for an id that is already present", async () => {
+    const a = entry();
+    sadaqahStore.setState({ log: [a], isReady: true });
+    await state().restoreEntry(a);
+    expect(state().log).toHaveLength(1);
+  });
+});
+
 describe("load", () => {
   it("keeps a valid goal and well-formed log entries", async () => {
     await writeJSON(DB_KEYS.sadaqahGoals, {

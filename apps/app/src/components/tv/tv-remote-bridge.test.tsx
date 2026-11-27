@@ -3,7 +3,11 @@ import { AppState, BackHandler } from "react-native";
 
 import { TvRemoteBridge } from "@/components/tv/tv-remote-bridge";
 import type { TvHwEvent } from "@/hooks/use-tv-event-handler";
-import { registerTvRailBackHandler, setTvRailExpanded } from "@/lib/tv/tv-rail-back";
+import {
+  registerTvRailBackHandler,
+  setTvOnHomeTab,
+  setTvRailExpanded,
+} from "@/lib/tv/tv-rail-back";
 import {
   mockRouter,
   mockRouterCanDismiss,
@@ -57,6 +61,7 @@ describe("TvRemoteBridge", () => {
     backHandler = null;
     appStateHandler = null;
     setTvRailExpanded(false);
+    setTvOnHomeTab(true);
     registerTvRailBackHandler(null);
     jest.spyOn(BackHandler, "addEventListener").mockImplementation((_event, handler) => {
       backHandler = handler as () => boolean;
@@ -122,9 +127,20 @@ describe("TvRemoteBridge", () => {
       expect(mockSetMenuKey).toHaveBeenLastCalledWith(true);
     });
 
-    it("releases the Menu key when the rail is expanded at a tab root", async () => {
+    it("releases the Menu key when the rail is expanded on the Home tab", async () => {
       await renderBridge();
       await act(async () => setTvRailExpanded(true));
+      expect(mockSetMenuKey).toHaveBeenLastCalledWith(false);
+    });
+
+    it("keeps the Menu key while the rail is open on another tab (Back goes Home first)", async () => {
+      await renderBridge();
+      await act(async () => {
+        setTvOnHomeTab(false);
+        setTvRailExpanded(true);
+      });
+      expect(mockSetMenuKey).toHaveBeenLastCalledWith(true);
+      await act(async () => setTvOnHomeTab(true));
       expect(mockSetMenuKey).toHaveBeenLastCalledWith(false);
     });
 

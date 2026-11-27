@@ -1,0 +1,20 @@
+// NF-2.23b seasonal app icons (activity-alias switcher). expo-module-gradle-plugin
+// supplies compileSdk / minSdk / targetSdk, Kotlin and expo-modules-core.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.munibappicon'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.munibappicon"
+  defaultConfig {
+    versionCode 1
+    versionName "1.0.0"
+  }
+  lint {
+    abortOnError false
+  }
+}

@@ -425,6 +425,15 @@ describe("formatDuration", () => {
   ])("%p minutes → %s", (minutes, expected) => {
     expect(formatDuration(minutes)).toBe(expected);
   });
+
+  it("localizes the units through the duration.* catalog keys", () => {
+    const ar = require("@/i18n/ar.json").duration as Record<string, string>;
+    const t = (key: string, _fallback: string, opts: Record<string, unknown>) =>
+      ar[key.replace("duration.", "")].replace(/\{\{(\w+)\}\}/g, (_, v) => String(opts[v]));
+    expect(formatDuration(27, t)).toBe("27 د");
+    expect(formatDuration(60, t)).toBe("1 س");
+    expect(formatDuration(95, t)).toBe("1 س 35 د");
+  });
 });
 
 describe("windowProgress", () => {

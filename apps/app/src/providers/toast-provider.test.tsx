@@ -1,17 +1,26 @@
 import { act, fireEvent, renderHook, screen } from "@testing-library/react-native";
 import type { ReactNode } from "react";
-import { PanResponder, type PanResponderCallbacks, StyleSheet } from "react-native";
+import {
+  AccessibilityInfo,
+  PanResponder,
+  type PanResponderCallbacks,
+  StyleSheet,
+} from "react-native";
 import * as Reanimated from "react-native-reanimated";
 
+import { Control, ZIndex } from "@/constants/theme";
 import { triggerHaptic } from "@/lib/haptics";
 import {
+  TOAST_ACTION_DURATION_MS,
   type ToastContextValue,
   ToastHost,
   ToastProvider,
   useToast,
 } from "@/providers/toast-provider";
+import { pressableProps } from "@/test-support/fiber";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme, ThemeWrapper } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/lib/haptics", () => ({ triggerHaptic: jest.fn() }));
 
@@ -39,8 +48,13 @@ async function setup() {
   const show = async (fn: (toast: ToastContextValue) => void) => {
     await act(async () => fn(result.current));
   };
-  return { show };
+  return { show, api: () => result.current };
 }
+
+const advance = (ms: number) =>
+  act(async () => {
+    jest.advanceTimersByTime(ms);
+  });
 
 /** Invokes a PanResponder callback captured from the most recent toast card. */
 function pan(name: keyof PanResponderCallbacks, gesture: Gesture = {}) {
@@ -51,7 +65,7 @@ function pan(name: keyof PanResponderCallbacks, gesture: Gesture = {}) {
 
 function hostTop(): number | undefined {
   const host = screen.container.queryAll(
-    (node) => StyleSheet.flatten(node.props.style)?.zIndex === 10002,
+    (node) => StyleSheet.flatten(node.props.style)?.zIndex === ZIndex.toast,
   )[0];
   return StyleSheet.flatten(host?.props.style)?.top;
 }
@@ -59,6 +73,8 @@ function hostTop(): number | undefined {
 beforeEach(() => {
   jest.useFakeTimers();
   jest.mocked(triggerHaptic).mockClear();
+  // RN's jest setup ships AccessibilityInfo as shared jest.fn()s — reset per test.
+  jest.mocked(AccessibilityInfo.announceForAccessibility).mockClear();
   panConfigs = [];
   const create = PanResponder.create.bind(PanResponder);
   jest.spyOn(PanResponder, "create").mockImplementation((config) => {
@@ -84,12 +100,12 @@ describe("useToast", () => {
 describe("ToastHost", () => {
   it("renders nothing outside ToastProvider", async () => {
     await renderWithTheme(<ToastHost />);
-    expect(screen.queryByText("✕")).toBeNull();
+    expect(screen.queryByLabelText("Dismiss")).toBeNull();
   });
 
   it("renders nothing while there are no toasts", async () => {
     await setup();
-    expect(screen.queryByText("✕")).toBeNull();
+    expect(screen.queryByLabelText("Dismiss")).toBeNull();
   });
 
   it.each([
@@ -122,7 +138,7 @@ describe("ToastHost", () => {
 
     expect(screen.queryByText("one")).toBeNull();
     expect(screen.getByText("four")).toBeTruthy();
-    expect(screen.getAllByText("✕")).toHaveLength(3);
+    expect(screen.getAllByLabelText("Dismiss")).toHaveLength(3);
   });
 
   it("auto-dismisses after the toast duration", async () => {
@@ -248,6 +264,35 @@ describe("toast swipe gesture", () => {
   });
 });
 
+describe("toast action", () => {
+  it("shows an accessible action that runs once, dismisses the toast and lasts longer", async () => {
+    const onPress = jest.fn();
+    const { show } = await setup();
+    await show((toast) =>
+      toast.show("Logged", { type: "success", action: { label: "Undo", onPress } }),
+    );
+
+    // Still visible after the normal duration: there is time to reach the action.
+    await act(async () => {
+      jest.advanceTimersByTime(TOAST_DURATION_MS + 100);
+    });
+    expect(screen.getByRole("button", { name: "Undo" })).toBeTruthy();
+
+    await fireEvent.press(screen.getByRole("button", { name: "Undo" }));
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText("Logged")).toBeNull();
+  });
+
+  it("auto-dismisses an action toast after the longer duration", async () => {
+    const { show } = await setup();
+    await show((toast) => toast.show("Logged", { action: { label: "Undo", onPress: jest.fn() } }));
+    await act(async () => {
+      jest.advanceTimersByTime(TOAST_ACTION_DURATION_MS + 100);
+    });
+    expect(screen.queryByText("Logged")).toBeNull();
+  });
+});
+
 describe("ToastProvider unmount", () => {
   it("clears pending dismiss timers", async () => {
     const { show } = await setup();
@@ -259,5 +304,155 @@ describe("ToastProvider unmount", () => {
     });
 
     expect(clear).toHaveBeenCalled();
+  });
+});
+
+describe("toast accessibility", () => {
+  it("announces title and subtitle to VoiceOver / TalkBack", async () => {
+    const announce = jest.spyOn(AccessibilityInfo, "announceForAccessibility");
+    const { show } = await setup();
+
+    await show((toast) => toast.success("Note saved", "Synced to your account"));
+
+    expect(announce).toHaveBeenCalledWith("Note saved. Synced to your account");
+  });
+
+  it("speaks each native toast exactly once (announce only, no live region)", async () => {
+    const announce = jest.spyOn(AccessibilityInfo, "announceForAccessibility");
+    announce.mockClear();
+    const { show } = await setup();
+    await show((toast) => toast.info("Saved"));
+    await show((toast) => toast.error("Couldn't save"));
+
+    // A live region on top of the explicit announcement makes TalkBack read twice.
+    const regions = screen.container
+      .queryAll((node) => node.props.accessibilityLiveRegion != null)
+      .map((node) => node.props.accessibilityLiveRegion);
+    expect(regions.every((r) => r === "none")).toBe(true);
+    expect(announce.mock.calls.map(([text]) => text)).toEqual(["Saved", "Couldn't save"]);
+  });
+
+  it("gives the dismiss control a button role and a 44pt target", async () => {
+    const { show } = await setup();
+    await show((toast) => toast.info("Saved"));
+
+    const dismiss = screen.getByRole("button", { name: "Dismiss" });
+    const style = flattenStyle(
+      pressableProps<{ style: (state: { pressed: boolean }) => object }>(dismiss).style({
+        pressed: false,
+      }),
+    );
+    expect(style.minWidth).toBeGreaterThanOrEqual(Control.minTouch);
+    expect(style.minHeight).toBeGreaterThanOrEqual(Control.minTouch);
+  });
+
+  it("keeps error toasts until they are dismissed", async () => {
+    const { show } = await setup();
+    await show((toast) => toast.error("Couldn't sync"));
+
+    await advance(TOAST_ACTION_DURATION_MS * 3);
+
+    expect(screen.getByText("Couldn't sync")).toBeTruthy();
+  });
+
+  it("does not auto-dismiss an action toast while a screen reader is on", async () => {
+    jest.spyOn(AccessibilityInfo, "isScreenReaderEnabled").mockResolvedValueOnce(true);
+    const { show } = await setup();
+    await act(async () => {});
+
+    await show((toast) =>
+      toast.show("Marked Fajr", { action: { label: "Undo", onPress: jest.fn() } }),
+    );
+    await advance(TOAST_ACTION_DURATION_MS * 3);
+
+    expect(screen.getByRole("button", { name: "Undo" })).toBeTruthy();
+  });
+});
+
+describe("toast lifecycle", () => {
+  it("returns an id that dismiss() accepts, calling onDismiss once", async () => {
+    const onDismiss = jest.fn();
+    const { show, api } = await setup();
+    let id = "";
+    await show((toast) => {
+      id = toast.show("Removed", { onDismiss });
+    });
+
+    await act(async () => api().dismiss(id));
+    await act(async () => api().dismiss(id));
+
+    expect(screen.queryByText("Removed")).toBeNull();
+    expect(onDismiss).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onDismiss when the toast times out or is pushed out", async () => {
+    const timedOut = jest.fn();
+    const pushedOut = jest.fn();
+    const { show } = await setup();
+    await show((toast) => toast.show("first", { onDismiss: pushedOut }));
+    await show((toast) => {
+      for (const title of ["two", "three", "four"]) toast.info(title);
+    });
+    expect(pushedOut).toHaveBeenCalledTimes(1);
+
+    await show((toast) => toast.show("later", { onDismiss: timedOut }));
+    await advance(TOAST_DURATION_MS);
+    expect(timedOut).toHaveBeenCalledTimes(1);
+  });
+
+  describe("on TV", () => {
+    usePlatform({ isTV: true });
+
+    it("drops the action (toasts take no D-pad focus) but still shows the toast", async () => {
+      const { show } = await setup();
+      await show((toast) =>
+        toast.show("Marked", { action: { label: "Undo", onPress: jest.fn() } }),
+      );
+
+      expect(screen.getByText("Marked")).toBeTruthy();
+      expect(screen.queryByRole("button", { name: "Undo" })).toBeNull();
+    });
+  });
+});
+
+describe("toast on web", () => {
+  usePlatform({ OS: "web" });
+
+  it("writes messages into live regions mounted before the first toast", async () => {
+    const { show } = await setup();
+    expect(screen.container.queryAll((n) => n.props.role === "status")).toHaveLength(1);
+
+    await show((toast) => toast.success("Saved"));
+    const status = screen.container.queryAll((n) => n.props.role === "status");
+    expect(String(status[0]?.props.children)).toContain("Saved");
+
+    await show((toast) => toast.error("Couldn't save"));
+    const alert = screen.container.queryAll(
+      (n) => n.props.role === "alert" && n.props["aria-live"] === "assertive",
+    );
+    expect(String(alert[0]?.props.children)).toContain("Couldn't save");
+  });
+
+  it("does not announce through the native API", async () => {
+    const announce = jest.spyOn(AccessibilityInfo, "announceForAccessibility");
+    const { show } = await setup();
+    await show((toast) => toast.info("Saved"));
+    expect(announce).not.toHaveBeenCalled();
+  });
+
+  it("pauses the auto-dismiss while focus is inside the toast", async () => {
+    const { show } = await setup();
+    await show((toast) => toast.info("Hold on"));
+    const card = screen.container.queryAll(
+      (n) => typeof n.props.onFocus === "function" && typeof n.props.onBlur === "function",
+    )[0];
+
+    await act(async () => card?.props.onFocus());
+    await advance(TOAST_DURATION_MS * 2);
+    expect(screen.getByLabelText("Dismiss")).toBeTruthy();
+
+    await act(async () => card?.props.onBlur());
+    await advance(TOAST_DURATION_MS);
+    expect(screen.queryByLabelText("Dismiss")).toBeNull();
   });
 });

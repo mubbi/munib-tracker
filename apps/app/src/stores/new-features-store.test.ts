@@ -3,7 +3,7 @@ import { renderHook, waitFor } from "@testing-library/react-native";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
-import type { NewFeaturesSeenMap } from "@/lib/new-features";
+import { NEW_FEATURES, type NewFeaturesSeenMap } from "@/lib/new-features";
 
 import {
   newFeaturesStore,
@@ -39,6 +39,16 @@ afterEach(() => {
   });
 });
 
+/** Every registered feature seen at `firstSeenAt` and already introduced to home, except `except`. */
+function allSeen(firstSeenAt: string, except?: string): NewFeaturesSeenMap {
+  return Object.fromEntries(
+    NEW_FEATURES.filter((f) => f.id !== except).map((f) => [
+      f.id,
+      { firstSeenAt, homeIntroduced: true },
+    ]),
+  );
+}
+
 const storedSeen = () => readJSON<NewFeaturesSeenMap>(DB_KEYS.newFeaturesSeen, {});
 
 describe("load", () => {
@@ -52,6 +62,8 @@ describe("load", () => {
 
   it("adds a new tile after its anchor in a customised home grid", async () => {
     const update = setupPrefs({ ready: true, order: ["zikr", "quran", "dua"] });
+    // Isolate Qur'an practice: every other anchored feature was introduced earlier.
+    await writeJSON(DB_KEYS.newFeaturesSeen, allSeen(RECENT, "quranPractice"));
     await newFeaturesStore.getState().load();
     expect(update).toHaveBeenCalledWith({
       quickActionOrder: ["zikr", "quran", "quranPractice", "dua"],
@@ -68,9 +80,7 @@ describe("load", () => {
 
   it("does not rewrite storage when nothing changed", async () => {
     setupPrefs({ ready: true });
-    await writeJSON(DB_KEYS.newFeaturesSeen, {
-      quranPractice: { firstSeenAt: STALE, homeIntroduced: true },
-    });
+    await writeJSON(DB_KEYS.newFeaturesSeen, allSeen(STALE));
     const setItem = AsyncStorage.setItem as jest.Mock;
     setItem.mockClear();
     await newFeaturesStore.getState().load();
@@ -111,7 +121,7 @@ describe("hooks", () => {
   it("drop the badge once the window has passed", async () => {
     newFeaturesStore.setState({
       isReady: true,
-      seen: { quranPractice: { firstSeenAt: STALE, homeIntroduced: true } },
+      seen: allSeen(STALE),
     });
     const { result } = await setup(true);
     expect(result.current.size).toBe(0);

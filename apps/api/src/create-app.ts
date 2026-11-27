@@ -14,6 +14,8 @@ import helmet from "helmet";
 import { DataSource } from "typeorm";
 import { AppModule } from "./app.module";
 import { AppOpenApiModule } from "./app.openapi.module";
+import { trustProxyHops } from "./common/client-ip";
+import { SafeExceptionFilter } from "./common/safe-exception.filter";
 import { type EnvironmentVariables, NodeEnvironment } from "./config/env.schema";
 import { parseCorsOrigins } from "./config/env.validation";
 import { assertPostgresUtf8Encoding } from "./database/postgres-connection";
@@ -93,6 +95,16 @@ export async function createApp(
     }
   }
 
+  // Client IP for per-IP rate limits (`common/client-ip.ts`). Production runs
+  // behind exactly one trusted proxy hop — Vercel's edge, which overwrites
+  // `X-Forwarded-For` with the real client address — so `req.ip` is resolved
+  // from that one hop and a client-forged first XFF value is ignored.
+  // `TRUST_PROXY_HOPS` overrides for other hosts; local dev trusts no proxy.
+  const proxyHops = trustProxyHops();
+  if (proxyHops > 0) {
+    app.set("trust proxy", proxyHops);
+  }
+
   // CORP default is `same-origin`, which blocks Expo web (`my.*` / :8081) from
   // embedding authenticated `/user-media/*/content` images served from the API
   // host (`api.*` / :3001). Auth still gates bytes; SameSite cookies are not
@@ -134,6 +146,9 @@ export async function createApp(
       },
     }),
   );
+  // Logs only error class + method + route template + status — never request
+  // or user values (no raw URL, body, IP or driver message).
+  app.useGlobalFilters(new SafeExceptionFilter());
 
   if (process.env.EXPORT_OPENAPI === "true" || enableSwagger) {
     const swaggerConfig = new DocumentBuilder()

@@ -5,7 +5,7 @@ import { Platform, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatBytes } from "@/lib/cache-manager";
 import { PRACTICE_ERROR_COPY } from "@/lib/quran-companion/error-codes";
@@ -112,7 +112,11 @@ export function ListenerStatusStrip({
         ) : null}
       </View>
       {downloading ? (
-        <ProgressBar value={downloadPercent(listener) / 100} color={colors.accent} />
+        <ProgressBar
+          value={downloadPercent(listener) / 100}
+          accessibilityLabel={t("a11yProgress.modelDownload")}
+          color={colors.accent}
+        />
       ) : null}
     </View>
   );
@@ -124,8 +128,8 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  flex: { flex: 1, minWidth: 0, gap: 2 },
+  flex: { flex: 1, minWidth: 0, gap: Spacing.half },
 });

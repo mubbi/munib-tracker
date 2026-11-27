@@ -7,7 +7,7 @@ import { renderWithTheme } from "@/test-support/render";
 
 type Props = Parameters<typeof VerifyPinModal>[0];
 
-const WRONG_PIN = "Wrong PIN — please try again.";
+const WRONG_PIN = "Wrong PIN. Try again.";
 
 async function renderModal(props: Partial<Props> = {}) {
   const onClose = jest.fn();
@@ -49,7 +49,7 @@ describe("VerifyPinModal", () => {
     expect(screen.getByText("Verify it")).toBeTruthy();
   });
 
-  it("verifies the entered PIN, honouring backspace", async () => {
+  it("verifies the entered PIN, honoring backspace", async () => {
     const { onVerify } = await renderModal();
     await pressPinDigits("12345");
     await pressPinBackspace();
@@ -94,6 +94,20 @@ describe("VerifyPinModal", () => {
     const { onClose } = await renderModal();
     await fireEvent.press(screen.getByLabelText("Close"));
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("is a modal surface named by its title", async () => {
+    await renderModal({ title: "Turn off app lock" });
+    const modal = screen.getByLabelText("Turn off app lock", { exact: true });
+    expect(modal.props.accessibilityViewIsModal).toBe(true);
+  });
+
+  it("announces how many digits are entered (the dots are decorative)", async () => {
+    await renderModal();
+    await pressPinDigits("12");
+    expect(screen.getByTestId("pin-digits-entered").props.accessibilityLabel).toBe(
+      "2 of 6 digits entered",
+    );
   });
 
   it("closes on a hardware back request", async () => {
