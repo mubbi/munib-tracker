@@ -92,7 +92,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "أَفَلَا يَتَدَبَّرُونَ ٱلۡقُرۡءَانَ أَمۡ عَلَىٰ قُلُوبٍ أَقۡفَالُهَآ",
       reference: "سورة محمد 47:24",
-      href: "https://quran.com/47/24",
+      href: "https://my.munibtracker.app/quran/47?ayah=24",
     },
     {
       type: "p",
@@ -146,7 +146,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6464؛ صحيح مسلم 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
     },
     {
       type: "p",
@@ -154,9 +154,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة محمد 47:24 — Quran.com", url: "https://quran.com/47/24" },
-    { label: "صحيح البخاري 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "صحيح مسلم 783 — Sunnah.com", url: "https://sunnah.com/muslim:783" },
+    {
+      label: "سورة محمد 47:24 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/47?ayah=24",
+    },
+    {
+      label: "صحيح البخاري 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "صحيح مسلم 783 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1829",
+    },
   ],
   faqs: [
     {

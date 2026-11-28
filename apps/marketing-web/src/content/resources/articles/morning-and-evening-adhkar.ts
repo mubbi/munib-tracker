@@ -45,7 +45,7 @@ export const article: Article = {
       arabic: "وَسَبِّحُوهُ بُكۡرَةٗ وَأَصِيلًا",
       translation: "And exalt Him morning and afternoon.",
       reference: "Qur'an 33:42",
-      href: "https://quran.com/33/42",
+      href: "https://my.munibtracker.app/quran/33?ayah=42",
       note: "Translation: Saheeh International",
     },
     {
@@ -55,7 +55,7 @@ export const article: Article = {
       translation:
         "So be patient, [O Muḥammad], over what they say and exalt [Allāh] with praise of your Lord before the rising of the sun and before its setting,",
       reference: "Qur'an 50:39",
-      href: "https://quran.com/50/39",
+      href: "https://my.munibtracker.app/quran/50?ayah=39",
       note: "Translation: Saheeh International",
     },
     {
@@ -85,7 +85,7 @@ export const article: Article = {
       translation:
         "Narrated Anas ibn Malik: The Prophet (ﷺ) said: That I sit in the company of the people who remember Allah the Exalted from morning prayer till the sun rises is dearer to me than that I emancipate four slaves from the children of Isma`il, and that I sit with the people who remember Allah from afternoon prayer till the sun sets is dearer to me than that I emancipate four slaves.",
       reference: "Sunan Abi Dawud 3667",
-      href: "https://sunnah.com/abudawud:3667",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=3667",
       note: "Grade on Sunnah.com: Hasan (Al-Albani)",
     },
     {
@@ -116,7 +116,7 @@ export const article: Article = {
       translation:
         'Narrated Shaddad bin Aus: The Prophet (ﷺ) said "The most superior way of asking for forgiveness from Allah is: O Allah, You are my Lord, there is none worthy of worship except You. You have created me, and I am Your servant, and I am faithful to Your covenant and promise as much as I can. I seek refuge in You from the evil of what I have done. I acknowledge Your blessings upon me, and I admit my sins. So forgive me, for none forgives sins except You. (Allahumma anta Rabbi la ilaha illa anta, Khalaqtani wa ana `Abduka, wa ana `ala `ahdika wa wa`dika mastata`tu, A`udhu bika min Sharri ma sana`tu, abu\'u Laka bini`matika `alaiya, wa abu\'u laka bidhanbi faghfir lee fa innahu la yaghfiru adhdhunuba illa anta) " The Prophet (ﷺ) added. "If somebody recites it during the day with firm faith in it, and dies on the same day before the evening, he will be from the people of Paradise; and if somebody recites it at night with firm faith in it, and dies before the morning, he will be from the people of Paradise."',
       reference: "Sahih al-Bukhari 6306",
-      href: "https://sunnah.com/bukhari:6306",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6306",
     },
     { type: "h3", text: "2. Bismillahil-ladhi la yadurru… (three times)" },
     {
@@ -130,7 +130,7 @@ export const article: Article = {
       translation:
         'Narrated Uthman ibn Affan: Aban ibn Uthman said: I heard Uthman ibn Affan (his father) say: I heard the Messenger of Allah (ﷺ) say: If anyone says three times: "In the name of Allah, when Whose name is mentioned nothing on Earth or in Heaven can cause harm, and He is the Hearer, the Knower" he will not suffer sudden affliction till the morning, and if anyone says this in the morning, he will not suffer sudden affliction till the evening. Aban was afflicted by some paralysis and when a man who heard the tradition began to look at him, he said to him: Why are you looking at me? I swear by Allah, I did not tell a lie about Uthman, nor did Uthman tell a lie about the Prophet (ﷺ), but that day when I was afflicted by it, I became angry and forgot to say them.',
       reference: "Sunan Abi Dawud 5088; Jami' at-Tirmidhi 3388",
-      href: "https://sunnah.com/abudawud:5088",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=5088",
       note: "Grades on Sunnah.com: Abi Dawud 5088 — Sahih (Al-Albani); Tirmidhi 3388 — Hasan (Darussalam)",
     },
     { type: "h3", text: "3. SubhanAllahi wa bihamdihi (100 times)" },
@@ -145,7 +145,7 @@ export const article: Article = {
       translation:
         'Abu Huraira reported Allah\'s Messenger (ﷺ) as saying: He who recites in the morning and in the evening (these words):" Exalted is Allah (He is free from imperfection)and all praise is due to Him" one hundred times, he would not bring on the Day of Resurrection anything excellent than this except one who utters these words or utters more than these words.',
       reference: "Sahih Muslim 2692",
-      href: "https://sunnah.com/muslim:2692",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6843",
     },
     { type: "h3", text: "4. Ayat al-Kursi" },
     {
@@ -160,12 +160,12 @@ export const article: Article = {
       translation:
         "Allāh - there is no deity except Him, the Ever-Living, the Self-Sustaining. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursī extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
       reference: "Qur'an 2:255",
-      href: "https://quran.com/2/255",
+      href: "https://my.munibtracker.app/quran/2?ayah=255",
       note: "Translation: Saheeh International",
     },
     {
       type: "p",
-      text: "Other well-known Adhkar of the morning and evening include the Dua that begins “We have entered upon evening and so, too, the whole Kingdom of Allah has entered upon evening,” which asks Allah for the good of the night and seeks refuge from its evil. The same narration records that the Prophet ﷺ said it in a morning form as well ([Sahih Muslim 2723](https://sunnah.com/muslim:2723b)). Once the first four feel familiar, it is a natural next step.",
+      text: "Other well-known Adhkar of the morning and evening include the Dua that begins “We have entered upon evening and so, too, the whole Kingdom of Allah has entered upon evening,” which asks Allah for the good of the night and seeks refuge from its evil. The same narration records that the Prophet ﷺ said it in a morning form as well ([Sahih Muslim 2723](https://my.munibtracker.app/hadith/muslim?q=6908)). Once the first four feel familiar, it is a natural next step.",
     },
     { type: "h2", text: "How to fit them into your day" },
     {
@@ -223,30 +223,54 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 33:42 — Quran.com (Saheeh International)", url: "https://quran.com/33/42" },
-    { label: "Qur'an 50:39 — Quran.com (Saheeh International)", url: "https://quran.com/50/39" },
-    { label: "Qur'an 2:255 — Quran.com (Saheeh International)", url: "https://quran.com/2/255" },
     {
-      label: "Sunan Abi Dawud 3667 — Sunnah.com (Hasan, Al-Albani)",
-      url: "https://sunnah.com/abudawud:3667",
-    },
-    { label: "Sahih al-Bukhari 6306 — Sunnah.com", url: "https://sunnah.com/bukhari:6306" },
-    {
-      label: "Sunan Abi Dawud 5088 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:5088",
+      label: "Qur'an 33:42 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/33?ayah=42",
     },
     {
-      label: "Jami' at-Tirmidhi 3388 — Sunnah.com (Hasan, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:3388",
+      label: "Qur'an 50:39 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/50?ayah=39",
     },
-    { label: "Sahih Muslim 2692 — Sunnah.com", url: "https://sunnah.com/muslim:2692" },
-    { label: "Sahih Muslim 2723 — Sunnah.com", url: "https://sunnah.com/muslim:2723b" },
-    { label: "Sahih al-Bukhari 5010 — Sunnah.com", url: "https://sunnah.com/bukhari:5010" },
     {
-      label: "Hisn al-Muslim 75 (Ayat al-Kursi, morning and evening) — Sunnah.com",
-      url: "https://sunnah.com/hisn:75",
+      label: "Qur'an 2:255 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=255",
     },
-    { label: "Hisn al-Muslim (full collection) — Sunnah.com", url: "https://sunnah.com/hisn" },
+    {
+      label: "Sunan Abi Dawud 3667 — Munib Tracker (Hasan, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3667",
+    },
+    {
+      label: "Sahih al-Bukhari 6306 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6306",
+    },
+    {
+      label: "Sunan Abi Dawud 5088 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=5088",
+    },
+    {
+      label: "Jami' at-Tirmidhi 3388 — Munib Tracker (Hasan, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3388",
+    },
+    {
+      label: "Sahih Muslim 2692 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6843",
+    },
+    {
+      label: "Sahih Muslim 2723 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6908",
+    },
+    {
+      label: "Sahih al-Bukhari 5010 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5010",
+    },
+    {
+      label: "Hisn al-Muslim 75 (Ayat al-Kursi, morning and evening) — Munib Tracker",
+      url: "https://my.munibtracker.app/dua/detail/hisn-75",
+    },
+    {
+      label: "Hisn al-Muslim (full collection) — Munib Tracker",
+      url: "https://my.munibtracker.app/dua",
+    },
   ],
   faqs: [
     {

@@ -46,7 +46,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "الْعُمْرَةُ إِلَى الْعُمْرَةِ كَفَّارَةٌ لِمَا بَيْنَهُمَا، وَالْحَجُّ الْمَبْرُورُ لَيْسَ لَهُ جَزَاءٌ إِلاَّ الْجَنَّةُ",
       reference: "صحيح البخاري 1773",
-      href: "https://sunnah.com/bukhari:1773",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1773",
       note: "عن أبي هريرة رضي الله عنه",
     },
     {
@@ -121,7 +121,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لاَ شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لاَ شَرِيكَ لَكَ",
       reference: "صحيح البخاري 1549",
-      href: "https://sunnah.com/bukhari:1549",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1549",
       note: "عن عبد الله بن عمر رضي الله عنهما",
     },
     {
@@ -156,7 +156,7 @@ export const article: Article = {
       arabic:
         "إِنَّ ٱلصَّفَا وَٱلۡمَرۡوَةَ مِن شَعَآئِرِ ٱللَّهِۖ فَمَنۡ حَجَّ ٱلۡبَيۡتَ أَوِ ٱعۡتَمَرَ فَلَا جُنَاحَ عَلَيۡهِ أَن يَطَّوَّفَ بِهِمَاۚ وَمَن تَطَوَّعَ خَيۡرٗا فَإِنَّ ٱللَّهَ شَاكِرٌ عَلِيمٌ",
       reference: "سورة البقرة 2:158",
-      href: "https://quran.com/2/158",
+      href: "https://my.munibtracker.app/quran/2?ayah=158",
     },
     {
       type: "p",
@@ -177,7 +177,7 @@ export const article: Article = {
       arabic:
         'اللَّهُمَّ ارْحَمِ الْمُحَلِّقِينَ ". قَالُوا وَالْمُقَصِّرِينَ يَا رَسُولَ اللَّهِ قَالَ " اللَّهُمَّ ارْحَمِ الْمُحَلِّقِينَ ". قَالُوا وَالْمُقَصِّرِينَ يَا رَسُولَ اللَّهِ قَالَ " وَالْمُقَصِّرِينَ',
       reference: "صحيح البخاري 1727",
-      href: "https://sunnah.com/bukhari:1727",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1727",
       note: "عن عبد الله بن عمر رضي الله عنهما",
     },
     {
@@ -232,18 +232,42 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 1773 — Sunnah.com", url: "https://sunnah.com/bukhari:1773" },
-    { label: "صحيح البخاري 1549 — Sunnah.com", url: "https://sunnah.com/bukhari:1549" },
-    { label: "صحيح البخاري 1727 — Sunnah.com", url: "https://sunnah.com/bukhari:1727" },
-    { label: "صحيح البخاري 1524 — Sunnah.com", url: "https://sunnah.com/bukhari:1524" },
-    { label: "صحيح البخاري 305 — Sunnah.com", url: "https://sunnah.com/bukhari:305" },
-    { label: "سنن أبي داود 1739 — Sunnah.com", url: "https://sunnah.com/abudawud:1739" },
     {
-      label: "سورة البقرة 2:158 — Quran.com",
-      url: "https://quran.com/2/158",
+      label: "صحيح البخاري 1773 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1773",
     },
-    { label: "سورة البقرة 2:125 — Quran.com", url: "https://quran.com/2/125" },
-    { label: "سورة البقرة 2:201 — Quran.com", url: "https://quran.com/2/201" },
+    {
+      label: "صحيح البخاري 1549 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1549",
+    },
+    {
+      label: "صحيح البخاري 1727 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1727",
+    },
+    {
+      label: "صحيح البخاري 1524 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1524",
+    },
+    {
+      label: "صحيح البخاري 305 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=305",
+    },
+    {
+      label: "سنن أبي داود 1739 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1739",
+    },
+    {
+      label: "سورة البقرة 2:158 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=158",
+    },
+    {
+      label: "سورة البقرة 2:125 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=125",
+    },
+    {
+      label: "سورة البقرة 2:201 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=201",
+    },
     {
       label: "hadith-api (fawazahmed0)، قاعدة بيانات الحديث المفتوحة المأخوذ منها نص الحديث",
       url: "https://github.com/fawazahmed0/hadith-api",

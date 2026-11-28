@@ -37,7 +37,7 @@ export const article: Article = {
       translation:
         "And We have certainly made the Qur’ān easy for remembrance, so is there any who will remember?",
       reference: "Qur'an 54:17",
-      href: "https://quran.com/54/17",
+      href: "https://my.munibtracker.app/quran/54?ayah=17",
       note: "Translation: Saheeh International",
     },
     {
@@ -148,7 +148,7 @@ export const article: Article = {
       translation:
         "Commit yourself to the Qur'an, for by Him in whose Hand is my soul, it is surely more prone to break away than a camel in its bind.",
       reference: "Sahih al-Bukhari 5033; Sahih Muslim 791",
-      href: "https://sunnah.com/bukhari:5033",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5033",
     },
     {
       type: "p",
@@ -169,9 +169,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 54:17 (Saheeh International) — Quran.com", url: "https://quran.com/54/17" },
-    { label: "Sahih al-Bukhari 5033 — Sunnah.com", url: "https://sunnah.com/bukhari:5033" },
-    { label: "Sahih Muslim 791 — Sunnah.com", url: "https://sunnah.com/muslim:791" },
+    {
+      label: "Qur'an 54:17 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/54?ayah=17",
+    },
+    {
+      label: "Sahih al-Bukhari 5033 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5033",
+    },
+    {
+      label: "Sahih Muslim 791 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1844",
+    },
   ],
   faqs: [
     {

@@ -42,11 +42,11 @@ export const article: Article = {
       kind: "quran",
       arabic: "مَن جَآءَ بِٱلۡحَسَنَةِ فَلَهُۥ عَشۡرُ أَمۡثَالِهَاۖ وَمَن جَآءَ بِٱلسَّيِّئَةِ فَلَا يُجۡزَىٰٓ إِلَّا مِثۡلَهَا وَهُمۡ لَا يُظۡلَمُونَ",
       reference: "سورة الأنعام 6:160",
-      href: "https://quran.com/6/160",
+      href: "https://my.munibtracker.app/quran/6?ayah=160",
     },
     {
       type: "p",
-      text: "وقد طبّق النبي ﷺ هذا الأصل على الصيام حين أوصى عبد الله بن عمرو بصيام ثلاثة أيام من كل شهر: فالحسنة بعشر أمثالها، وذلك مثل صيام الدهر ([صحيح البخاري 1976](https://sunnah.com/bukhari:1976)). وصيام التطوع يُبقي الجسد والعزيمة على مِران بين رمضان ورمضان، ولهذا يرد ذكره في دليل [كيف تستعد لرمضان](/resources/ramadan-fasting/how-to-prepare-for-ramadan).",
+      text: "وقد طبّق النبي ﷺ هذا الأصل على الصيام حين أوصى عبد الله بن عمرو بصيام ثلاثة أيام من كل شهر: فالحسنة بعشر أمثالها، وذلك مثل صيام الدهر ([صحيح البخاري 1976](https://my.munibtracker.app/hadith/bukhari?q=1976)). وصيام التطوع يُبقي الجسد والعزيمة على مِران بين رمضان ورمضان، ولهذا يرد ذكره في دليل [كيف تستعد لرمضان](/resources/ramadan-fasting/how-to-prepare-for-ramadan).",
     },
     { type: "h2", text: "الأيام المستحب صيامها في نظرة واحدة" },
     {
@@ -79,12 +79,12 @@ export const article: Article = {
       kind: "hadith",
       arabic: "تُعْرَضُ الأَعْمَالُ يَوْمَ الاِثْنَيْنِ وَالْخَمِيسِ فَأُحِبُّ أَنْ يُعْرَضَ عَمَلِي وَأَنَا صَائِمٌ",
       reference: "جامع الترمذي 747",
-      href: "https://sunnah.com/tirmidhi:747",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=747",
       note: "درجته في Sunnah.com: حسن (دار السلام)",
     },
     {
       type: "p",
-      text: "ولما سُئل عن صوم يوم الاثنين ذكر أيضًا أنه يوم وُلد فيه ويوم أُنزل عليه فيه ([صحيح مسلم 1162](https://sunnah.com/muslim:1162b)).",
+      text: "ولما سُئل عن صوم يوم الاثنين ذكر أيضًا أنه يوم وُلد فيه ويوم أُنزل عليه فيه ([صحيح مسلم 1162](https://my.munibtracker.app/hadith/muslim?q=2747)).",
     },
     {
       type: "p",
@@ -96,7 +96,7 @@ export const article: Article = {
       arabic:
         "صِيَامُ ثَلاَثَةِ أَيَّامٍ مِنْ كُلِّ شَهْرٍ صِيَامُ الدَّهْرِ وَأَيَّامُ الْبِيضِ صَبِيحَةَ ثَلاَثَ عَشْرَةَ وَأَرْبَعَ عَشْرَةَ وَخَمْسَ عَشْرَةَ",
       reference: "سنن النسائي 2420",
-      href: "https://sunnah.com/nasai:2420",
+      href: "https://my.munibtracker.app/hadith/nasai?q=2420",
       note: "درجته في Sunnah.com: صحيح (دار السلام)",
     },
     {
@@ -113,7 +113,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ صَامَ رَمَضَانَ ثُمَّ أَتْبَعَهُ سِتًّا مِنْ شَوَّالٍ كَانَ كَصِيَامِ الدَّهْرِ",
       reference: "صحيح مسلم 1164",
-      href: "https://sunnah.com/muslim:1164a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2758",
     },
     {
       type: "note",
@@ -123,7 +123,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "**عرفة وعاشوراء.** في حديث أبي قتادة الطويل قال النبي ﷺ إنه يحتسب على الله أن يكفّر صيام يوم عرفة السنة التي قبله والسنة التي بعده، وأن يكفّر صيام يوم عاشوراء السنة التي قبله ([صحيح مسلم 1162](https://sunnah.com/muslim:1162a)). وقال أيضًا إنه إن بقي إلى العام القابل ليصومنّ التاسع ([صحيح مسلم 1134](https://sunnah.com/muslim:1134b))، فلذلك يصوم كثيرون التاسع مع العاشر. وصيام عرفة لغير الحاج: فلم يكن النبي ﷺ صائمًا حين وقف بعرفة ([صحيح البخاري 1988](https://sunnah.com/bukhari:1988)).",
+      text: "**عرفة وعاشوراء.** في حديث أبي قتادة الطويل قال النبي ﷺ إنه يحتسب على الله أن يكفّر صيام يوم عرفة السنة التي قبله والسنة التي بعده، وأن يكفّر صيام يوم عاشوراء السنة التي قبله ([صحيح مسلم 1162](https://my.munibtracker.app/hadith/muslim?q=2746)). وقال أيضًا إنه إن بقي إلى العام القابل ليصومنّ التاسع ([صحيح مسلم 1134](https://my.munibtracker.app/hadith/muslim?q=2667))، فلذلك يصوم كثيرون التاسع مع العاشر. وصيام عرفة لغير الحاج: فلم يكن النبي ﷺ صائمًا حين وقف بعرفة ([صحيح البخاري 1988](https://my.munibtracker.app/hadith/bukhari?q=1988)).",
     },
     {
       type: "p",
@@ -134,27 +134,27 @@ export const article: Article = {
       kind: "hadith",
       arabic: "أَفْضَلُ الصِّيَامِ بَعْدَ رَمَضَانَ شَهْرُ اللَّهِ الْمُحَرَّمُ وَأَفْضَلُ الصَّلاَةِ بَعْدَ الْفَرِيضَةِ صَلاَةُ اللَّيْلِ",
       reference: "صحيح مسلم 1163",
-      href: "https://sunnah.com/muslim:1163a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2755",
     },
     {
       type: "p",
-      text: "وأما شعبان، فقد ذكرت عائشة أنها لم ترَ النبي ﷺ أكثر صيامًا في شهر، غير رمضان، منه في شعبان ([صحيح البخاري 1969](https://sunnah.com/bukhari:1969)).",
+      text: "وأما شعبان، فقد ذكرت عائشة أنها لم ترَ النبي ﷺ أكثر صيامًا في شهر، غير رمضان، منه في شعبان ([صحيح البخاري 1969](https://my.munibtracker.app/hadith/bukhari?q=1969)).",
     },
     {
       type: "p",
-      text: "**الأيام الأولى من ذي الحجة.** أخبر النبي ﷺ أنه ما من عمل أفضل من العمل في أيام العشر الأولى من ذي الحجة ([صحيح البخاري 969](https://sunnah.com/bukhari:969))، والصيام من هذا العمل. وفي سنن أبي داود (2437، صحّحه الألباني كما في Sunnah.com) أنه كان يصوم تسع ذي الحجة، وقالت عائشة إنها ما رأته صائمًا في العشر قط (صحيح مسلم 1176). وللعلماء في الجمع بين الروايتين أقوال. واليوم العاشر عيد لا يجوز صيامه.",
+      text: "**الأيام الأولى من ذي الحجة.** أخبر النبي ﷺ أنه ما من عمل أفضل من العمل في أيام العشر الأولى من ذي الحجة ([صحيح البخاري 969](https://my.munibtracker.app/hadith/bukhari?q=969))، والصيام من هذا العمل. وفي سنن أبي داود (2437، صحّحه الألباني كما في Sunnah.com) أنه كان يصوم تسع ذي الحجة، وقالت عائشة إنها ما رأته صائمًا في العشر قط (صحيح مسلم 1176). وللعلماء في الجمع بين الروايتين أقوال. واليوم العاشر عيد لا يجوز صيامه.",
     },
     { type: "h2", text: "الأيام التي لا يجوز صيامها أو يُكره" },
     {
       type: "p",
-      text: "معرفة متى لا تصوم مهمة كمعرفة متى تصوم. وقد اتفقت المذاهب الأربعة على مجموعتين من الأيام: العيدان، وقد نهى النبي ﷺ عن صيامهما ([صحيح البخاري 1990](https://sunnah.com/bukhari:1990))، والأيام الثلاثة التي تلي عيد الأضحى:",
+      text: "معرفة متى لا تصوم مهمة كمعرفة متى تصوم. وقد اتفقت المذاهب الأربعة على مجموعتين من الأيام: العيدان، وقد نهى النبي ﷺ عن صيامهما ([صحيح البخاري 1990](https://my.munibtracker.app/hadith/bukhari?q=1990))، والأيام الثلاثة التي تلي عيد الأضحى:",
     },
     {
       type: "evidence",
       kind: "hadith",
       arabic: "أَيَّامُ التَّشْرِيقِ أَيَّامُ أَكْلٍ وَشُرْبٍ",
       reference: "صحيح مسلم 1141",
-      href: "https://sunnah.com/muslim:1141a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2677",
     },
     {
       type: "p",
@@ -175,7 +175,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "لاَ يَصُومَنَّ أَحَدُكُمْ يَوْمَ الْجُمُعَةِ، إِلاَّ يَوْمًا قَبْلَهُ أَوْ بَعْدَهُ",
       reference: "صحيح البخاري 1985",
-      href: "https://sunnah.com/bukhari:1985",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1985",
     },
     {
       type: "note",
@@ -186,7 +186,7 @@ export const article: Article = {
     { type: "h2", text: "كيف تبني عادة صيام تدوم" },
     {
       type: "p",
-      text: "لما سُئل النبي ﷺ عن أحب الأعمال إلى الله قال: أدومها وإن قلّ ([صحيح البخاري 6465](https://sunnah.com/bukhari:6465)). وهذا هو المقياس الصحيح لصيام التطوع أيضًا.",
+      text: "لما سُئل النبي ﷺ عن أحب الأعمال إلى الله قال: أدومها وإن قلّ ([صحيح البخاري 6465](https://my.munibtracker.app/hadith/bukhari?q=6465)). وهذا هو المقياس الصحيح لصيام التطوع أيضًا.",
     },
     {
       type: "steps",
@@ -225,40 +225,94 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة الأنعام 6:160 — Quran.com", url: "https://quran.com/6/160" },
-    { label: "صحيح البخاري 1976 — Sunnah.com", url: "https://sunnah.com/bukhari:1976" },
     {
-      label: "جامع الترمذي 747 — Sunnah.com (حسن، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:747",
-    },
-    { label: "صحيح مسلم 1162 (أبو قتادة) — Sunnah.com", url: "https://sunnah.com/muslim:1162a" },
-    { label: "صحيح مسلم 1162 (يوم الاثنين) — Sunnah.com", url: "https://sunnah.com/muslim:1162b" },
-    {
-      label: "سنن النسائي 2420 — Sunnah.com (صحيح، دار السلام)",
-      url: "https://sunnah.com/nasai:2420",
+      label: "سورة الأنعام 6:160 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/6?ayah=160",
     },
     {
-      label: "جامع الترمذي 761 — Sunnah.com (حسن، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:761",
+      label: "صحيح البخاري 1976 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1976",
     },
-    { label: "صحيح مسلم 1164 — Sunnah.com", url: "https://sunnah.com/muslim:1164a" },
-    { label: "صحيح البخاري 1950 — Sunnah.com", url: "https://sunnah.com/bukhari:1950" },
-    { label: "صحيح مسلم 1134 — Sunnah.com", url: "https://sunnah.com/muslim:1134b" },
-    { label: "صحيح البخاري 1988 — Sunnah.com", url: "https://sunnah.com/bukhari:1988" },
-    { label: "صحيح مسلم 1163 — Sunnah.com", url: "https://sunnah.com/muslim:1163a" },
-    { label: "صحيح البخاري 1969 — Sunnah.com", url: "https://sunnah.com/bukhari:1969" },
-    { label: "صحيح البخاري 969 — Sunnah.com", url: "https://sunnah.com/bukhari:969" },
     {
-      label: "سنن أبي داود 2437 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:2437",
+      label: "جامع الترمذي 747 — Munib Tracker (حسن، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=747",
     },
-    { label: "صحيح مسلم 1176 — Sunnah.com", url: "https://sunnah.com/muslim:1176a" },
-    { label: "صحيح البخاري 1990 — Sunnah.com", url: "https://sunnah.com/bukhari:1990" },
-    { label: "صحيح مسلم 1141 — Sunnah.com", url: "https://sunnah.com/muslim:1141a" },
-    { label: "صحيح البخاري 1914 — Sunnah.com", url: "https://sunnah.com/bukhari:1914" },
-    { label: "صحيح البخاري 1985 — Sunnah.com", url: "https://sunnah.com/bukhari:1985" },
-    { label: "صحيح مسلم 1144 — Sunnah.com", url: "https://sunnah.com/muslim:1144b" },
-    { label: "صحيح البخاري 6465 — Sunnah.com", url: "https://sunnah.com/bukhari:6465" },
+    {
+      label: "صحيح مسلم 1162 (أبو قتادة) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2746",
+    },
+    {
+      label: "صحيح مسلم 1162 (يوم الاثنين) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2747",
+    },
+    {
+      label: "سنن النسائي 2420 — Munib Tracker (صحيح، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/nasai?q=2420",
+    },
+    {
+      label: "جامع الترمذي 761 — Munib Tracker (حسن، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=761",
+    },
+    {
+      label: "صحيح مسلم 1164 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2758",
+    },
+    {
+      label: "صحيح البخاري 1950 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1950",
+    },
+    {
+      label: "صحيح مسلم 1134 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2667",
+    },
+    {
+      label: "صحيح البخاري 1988 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1988",
+    },
+    {
+      label: "صحيح مسلم 1163 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2755",
+    },
+    {
+      label: "صحيح البخاري 1969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1969",
+    },
+    {
+      label: "صحيح البخاري 969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=969",
+    },
+    {
+      label: "سنن أبي داود 2437 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=2437",
+    },
+    {
+      label: "صحيح مسلم 1176 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2789",
+    },
+    {
+      label: "صحيح البخاري 1990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1990",
+    },
+    {
+      label: "صحيح مسلم 1141 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2677",
+    },
+    {
+      label: "صحيح البخاري 1914 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1914",
+    },
+    {
+      label: "صحيح البخاري 1985 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1985",
+    },
+    {
+      label: "صحيح مسلم 1144 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2684",
+    },
+    {
+      label: "صحيح البخاري 6465 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6465",
+    },
   ],
   faqs: [
     {

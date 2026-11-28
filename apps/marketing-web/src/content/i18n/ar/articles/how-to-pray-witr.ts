@@ -41,7 +41,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "اجْعَلُوا آخِرَ صَلاَتِكُمْ بِاللَّيْلِ وِتْرًا",
       reference: "صحيح البخاري 998",
-      href: "https://sunnah.com/bukhari:998",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=998",
     },
     {
       type: "p",
@@ -51,7 +51,7 @@ export const article: Article = {
       type: "note",
       tone: "scholar",
       title: "هل الوتر واجبة أم سنة؟",
-      text: "الوتر عند الحنفية واجبة: دون الفرض وفوق السنة. ويستدل المذهب بحديث «الْوِتْرُ حَقٌّ عَلَى كُلِّ مُسْلِمٍ» ([سنن أبي داود 1422](https://sunnah.com/abudawud:1422)). وهي عند الشافعية والمالكية والحنابلة سنة مؤكدة، ويستدلون بحديث الرجل الذي سأل: هل عليّ غير الصلوات الخمس؟ فقيل له: «لاَ، إِلاَّ أَنْ تَطَوَّعَ» ([صحيح البخاري 46](https://sunnah.com/bukhari:46)). وعلى كلا القولين، فقد رغّبت في الوتر أحاديث صحيحة كثيرة، فلا ينبغي التهاون بها. اتبع المذهب الذي تعلمته، واسأل عالمًا موثوقًا عن حالتك.",
+      text: "الوتر عند الحنفية واجبة: دون الفرض وفوق السنة. ويستدل المذهب بحديث «الْوِتْرُ حَقٌّ عَلَى كُلِّ مُسْلِمٍ» ([سنن أبي داود 1422](https://my.munibtracker.app/hadith/abudawud?q=1422)). وهي عند الشافعية والمالكية والحنابلة سنة مؤكدة، ويستدلون بحديث الرجل الذي سأل: هل عليّ غير الصلوات الخمس؟ فقيل له: «لاَ، إِلاَّ أَنْ تَطَوَّعَ» ([صحيح البخاري 46](https://my.munibtracker.app/hadith/bukhari?q=46)). وعلى كلا القولين، فقد رغّبت في الوتر أحاديث صحيحة كثيرة، فلا ينبغي التهاون بها. اتبع المذهب الذي تعلمته، واسأل عالمًا موثوقًا عن حالتك.",
     },
     { type: "h2", text: "متى تُصلّى الوتر" },
     {
@@ -63,11 +63,11 @@ export const article: Article = {
       kind: "hadith",
       arabic: "كُلَّ اللَّيْلِ أَوْتَرَ رَسُولُ اللَّهِ صلى الله عليه وسلم وَانْتَهَى وِتْرُهُ إِلَى السَّحَرِ",
       reference: "صحيح البخاري 996",
-      href: "https://sunnah.com/bukhari:996",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=996",
     },
     {
       type: "p",
-      text: "فأمامك خياران حسنان. إن لم تكن واثقًا من الاستيقاظ فصلِّ الوتر بعد العشاء قبل أن تنام. وإن كنت ترجو القيام لصلاة الليل فلك أن تؤخر الوتر إلى آخر ليلك، وقد بيّن النبي ﷺ أن ذلك أفضل لمن يقوم ([صحيح مسلم 755](https://sunnah.com/muslim:755a)). وإن صليت الوتر أول الليل ثم استيقظت، فالقول المشهور عند كثير من أهل العلم أنك تصلي ما شئت ركعتين ركعتين ولا تعيد الوتر، لحديث «لاَ وِتْرَانِ فِي لَيْلَةٍ» ([سنن أبي داود 1439](https://sunnah.com/abudawud:1439)، وصححه الألباني).",
+      text: "فأمامك خياران حسنان. إن لم تكن واثقًا من الاستيقاظ فصلِّ الوتر بعد العشاء قبل أن تنام. وإن كنت ترجو القيام لصلاة الليل فلك أن تؤخر الوتر إلى آخر ليلك، وقد بيّن النبي ﷺ أن ذلك أفضل لمن يقوم ([صحيح مسلم 755](https://my.munibtracker.app/hadith/muslim?q=1766)). وإن صليت الوتر أول الليل ثم استيقظت، فالقول المشهور عند كثير من أهل العلم أنك تصلي ما شئت ركعتين ركعتين ولا تعيد الوتر، لحديث «لاَ وِتْرَانِ فِي لَيْلَةٍ» ([سنن أبي داود 1439](https://my.munibtracker.app/hadith/abudawud?q=1439)، وصححه الألباني).",
     },
     {
       type: "p",
@@ -84,12 +84,12 @@ export const article: Article = {
       arabic:
         "الْوِتْرُ حَقٌّ عَلَى كُلِّ مُسْلِمٍ فَمَنْ أَحَبَّ أَنْ يُوتِرَ بِخَمْسٍ فَلْيَفْعَلْ وَمَنْ أَحَبَّ أَنْ يُوتِرَ بِثَلاَثٍ فَلْيَفْعَلْ وَمَنْ أَحَبَّ أَنْ يُوتِرَ بِوَاحِدَةٍ فَلْيَفْعَلْ",
       reference: "سنن أبي داود 1422",
-      href: "https://sunnah.com/abudawud:1422",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1422",
       note: "صححه الألباني",
     },
     {
       type: "p",
-      text: "وعلّم النبي ﷺ أن صلاة الليل مثنى مثنى، وأن ركعة واحدة في آخرها توتر ما قبلها ([صحيح البخاري 990](https://sunnah.com/bukhari:990)). وروت عائشة أن صلاته بالليل لم تكن تزيد على إحدى عشرة ركعة ([صحيح البخاري 1147](https://sunnah.com/bukhari:1147)). وفي الواقع يصلي أكثر الناس الوتر ثلاث ركعات. وهذا وصف المذاهب الأربعة لها:",
+      text: "وعلّم النبي ﷺ أن صلاة الليل مثنى مثنى، وأن ركعة واحدة في آخرها توتر ما قبلها ([صحيح البخاري 990](https://my.munibtracker.app/hadith/bukhari?q=990)). وروت عائشة أن صلاته بالليل لم تكن تزيد على إحدى عشرة ركعة ([صحيح البخاري 1147](https://my.munibtracker.app/hadith/bukhari?q=1147)). وفي الواقع يصلي أكثر الناس الوتر ثلاث ركعات. وهذا وصف المذاهب الأربعة لها:",
     },
     {
       type: "table",
@@ -163,7 +163,7 @@ export const article: Article = {
       arabic:
         "اللَّهُمَّ اهْدِنِي فِيمَنْ هَدَيْتَ وَعَافِنِي فِيمَنْ عَافَيْتَ وَتَوَلَّنِي فِيمَنْ تَوَلَّيْتَ وَبَارِكْ لِي فِيمَا أَعْطَيْتَ وَقِنِي شَرَّ مَا قَضَيْتَ إِنَّكَ تَقْضِي وَلاَ يُقْضَى عَلَيْكَ وَإِنَّهُ لاَ يَذِلُّ مَنْ وَالَيْتَ وَلاَ يَعِزُّ مَنْ عَادَيْتَ تَبَارَكْتَ رَبَّنَا وَتَعَالَيْتَ",
       reference: "سنن أبي داود 1425",
-      href: "https://sunnah.com/abudawud:1425",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1425",
       note: "صححه الألباني",
     },
     {
@@ -180,7 +180,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ نَامَ عَنْ وِتْرِهِ أَوْ نَسِيَهُ فَلْيُصَلِّهِ إِذَا ذَكَرَهُ",
       reference: "سنن أبي داود 1431",
-      href: "https://sunnah.com/abudawud:1431",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1431",
       note: "صححه الألباني، ورجّح الترمذي رواية مرسلة لهذا الحديث.",
     },
     {
@@ -205,27 +205,45 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 998 — Sunnah.com", url: "https://sunnah.com/bukhari:998" },
-    { label: "صحيح البخاري 996 — Sunnah.com", url: "https://sunnah.com/bukhari:996" },
-    { label: "صحيح البخاري 990 — Sunnah.com", url: "https://sunnah.com/bukhari:990" },
-    { label: "صحيح البخاري 1147 — Sunnah.com", url: "https://sunnah.com/bukhari:1147" },
-    { label: "صحيح البخاري 46 — Sunnah.com", url: "https://sunnah.com/bukhari:46" },
-    { label: "صحيح مسلم 755 — Sunnah.com", url: "https://sunnah.com/muslim:755a" },
     {
-      label: "سنن أبي داود 1422 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1422",
+      label: "صحيح البخاري 998 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=998",
     },
     {
-      label: "سنن أبي داود 1425 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1425",
+      label: "صحيح البخاري 996 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=996",
     },
     {
-      label: "سنن أبي داود 1431 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1431",
+      label: "صحيح البخاري 990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=990",
     },
     {
-      label: "سنن أبي داود 1439 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1439",
+      label: "صحيح البخاري 1147 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1147",
+    },
+    {
+      label: "صحيح البخاري 46 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=46",
+    },
+    {
+      label: "صحيح مسلم 755 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1766",
+    },
+    {
+      label: "سنن أبي داود 1422 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1422",
+    },
+    {
+      label: "سنن أبي داود 1425 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1425",
+    },
+    {
+      label: "سنن أبي داود 1431 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1431",
+    },
+    {
+      label: "سنن أبي داود 1439 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1439",
     },
   ],
   faqs: [

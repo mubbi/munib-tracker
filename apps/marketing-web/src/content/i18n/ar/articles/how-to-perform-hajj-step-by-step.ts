@@ -47,7 +47,7 @@ export const article: Article = {
       arabic:
         "فِيهِ ءَايَٰتُۢ بَيِّنَٰتٞ مَّقَامُ إِبۡرَٰهِيمَۖ وَمَن دَخَلَهُۥ كَانَ ءَامِنٗاۗ وَلِلَّهِ عَلَى ٱلنَّاسِ حِجُّ ٱلۡبَيۡتِ مَنِ ٱسۡتَطَاعَ إِلَيۡهِ سَبِيلٗاۚ وَمَن كَفَرَ فَإِنَّ ٱللَّهَ غَنِيٌّ عَنِ ٱلۡعَٰلَمِينَ",
       reference: "سورة آل عمران 3:97",
-      href: "https://quran.com/3/97",
+      href: "https://my.munibtracker.app/quran/3?ayah=97",
     },
     {
       type: "p",
@@ -62,7 +62,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ حَجَّ لِلَّهِ فَلَمْ يَرْفُثْ وَلَمْ يَفْسُقْ رَجَعَ كَيَوْمِ وَلَدَتْهُ أُمُّهُ",
       reference: "صحيح البخاري 1521",
-      href: "https://sunnah.com/bukhari:1521",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1521",
       note: "عن أبي هريرة رضي الله عنه",
     },
     { type: "h2", text: "أنواع الحج الثلاثة" },
@@ -86,7 +86,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "ويذكر القرآن الهدي الواجب على من جمع العمرة إلى الحج، وأن من لم يجد صام ثلاثة أيام في الحج وسبعة إذا رجع إلى أهله ([سورة البقرة 2:196](https://quran.com/2/196)).",
+      text: "ويذكر القرآن الهدي الواجب على من جمع العمرة إلى الحج، وأن من لم يجد صام ثلاثة أيام في الحج وسبعة إذا رجع إلى أهله ([سورة البقرة 2:196](https://my.munibtracker.app/quran/2?ayah=196)).",
     },
     { type: "h2", text: "أيام الحج في لمحة" },
     {
@@ -132,7 +132,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "والتلبية التي بدأتها عند الإحرام تستمر حتى ترمي جمرة العقبة يوم العاشر ([صحيح البخاري 1685](https://sunnah.com/bukhari:1685)). والترتيب كله مأخوذ من وصف جابر الطويل لحجة الوداع التي حجّها النبي محمد ﷺ ([صحيح مسلم 1218](https://sunnah.com/muslim:1218a)).",
+      text: "والتلبية التي بدأتها عند الإحرام تستمر حتى ترمي جمرة العقبة يوم العاشر ([صحيح البخاري 1685](https://my.munibtracker.app/hadith/bukhari?q=1685)). والترتيب كله مأخوذ من وصف جابر الطويل لحجة الوداع التي حجّها النبي محمد ﷺ ([صحيح مسلم 1218](https://my.munibtracker.app/hadith/muslim?q=2951)).",
     },
     { type: "h2", text: "عرفة ومزدلفة" },
     {
@@ -145,7 +145,7 @@ export const article: Article = {
       arabic:
         "الْحَجُّ الْحَجُّ يَوْمُ عَرَفَةَ مَنْ جَاءَ قَبْلَ صَلاَةِ الصُّبْحِ مِنْ لَيْلَةِ جَمْعٍ فَتَمَّ حَجُّهُ أَيَّامُ مِنًى ثَلاَثَةٌ فَمَنْ تَعَجَّلَ فِي يَوْمَيْنِ فَلاَ إِثْمَ عَلَيْهِ وَمَنْ تَأَخَّرَ فَلاَ إِثْمَ عَلَيْهِ",
       reference: "سنن أبي داود 1949",
-      href: "https://sunnah.com/abudawud:1949",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1949",
       note: "عن عبد الرحمن بن يعمر الديلي رضي الله عنه. صحّحه الألباني (Sunnah.com). المقتبس هو ما نودي به.",
     },
     {
@@ -159,11 +159,11 @@ export const article: Article = {
     { type: "h2", text: "يوم النحر وأيام التشريق" },
     {
       type: "p",
-      text: "في يوم العاشر، يوم النحر، أربعة أعمال: رمي جمرة العقبة، والهدي، والحلق أو التقصير، وطواف الإفاضة. وفي ترتيبها سعة في السنة: فلما سُئل النبي ﷺ عمّن قدّم منها شيئًا على آخر، كان جوابه أن يفعل ولا حرج عليه ([صحيح البخاري 1736](https://sunnah.com/bukhari:1736)). ومع ذلك تختلف المذاهب في الترتيب الدقيق، فاتبع مرشد مجموعتك. وفي اليوم نفسه يصلّي المسلمون في أنحاء العالم صلاة عيد الأضحى؛ اقرأ [صلاة العيد وسنن العيد](/resources/salah/eid-prayer-and-sunnahs).",
+      text: "في يوم العاشر، يوم النحر، أربعة أعمال: رمي جمرة العقبة، والهدي، والحلق أو التقصير، وطواف الإفاضة. وفي ترتيبها سعة في السنة: فلما سُئل النبي ﷺ عمّن قدّم منها شيئًا على آخر، كان جوابه أن يفعل ولا حرج عليه ([صحيح البخاري 1736](https://my.munibtracker.app/hadith/bukhari?q=1736)). ومع ذلك تختلف المذاهب في الترتيب الدقيق، فاتبع مرشد مجموعتك. وفي اليوم نفسه يصلّي المسلمون في أنحاء العالم صلاة عيد الأضحى؛ اقرأ [صلاة العيد وسنن العيد](/resources/salah/eid-prayer-and-sunnahs).",
     },
     {
       type: "p",
-      text: "والأيام الثلاثة التي تليه هي أيام التشريق، أيام أكل وشرب وذكر لله ([صحيح مسلم 1141](https://sunnah.com/muslim:1141a)). وقد ذكرها القرآن وذكر التعجّل فيها:",
+      text: "والأيام الثلاثة التي تليه هي أيام التشريق، أيام أكل وشرب وذكر لله ([صحيح مسلم 1141](https://my.munibtracker.app/hadith/muslim?q=2677)). وقد ذكرها القرآن وذكر التعجّل فيها:",
     },
     {
       type: "evidence",
@@ -171,11 +171,11 @@ export const article: Article = {
       arabic:
         "۞وَٱذۡكُرُواْ ٱللَّهَ فِيٓ أَيَّامٖ مَّعۡدُودَٰتٖۚ فَمَن تَعَجَّلَ فِي يَوۡمَيۡنِ فَلَآ إِثۡمَ عَلَيۡهِ وَمَن تَأَخَّرَ فَلَآ إِثۡمَ عَلَيۡهِۖ لِمَنِ ٱتَّقَىٰۗ وَٱتَّقُواْ ٱللَّهَ وَٱعۡلَمُوٓاْ أَنَّكُمۡ إِلَيۡهِ تُحۡشَرُونَ",
       reference: "سورة البقرة 2:203",
-      href: "https://quran.com/2/203",
+      href: "https://my.munibtracker.app/quran/2?ayah=203",
     },
     {
       type: "p",
-      text: "وكان النبي ﷺ عند الجمرتين الأوليين يرمي بسبع حصيات يكبّر مع كل حصاة، ثم يتقدّم فيستقبل القبلة ويدعو طويلًا رافعًا يديه. أما الجمرة الكبرى فكان يرميها وينصرف ولا يقف عندها ([صحيح البخاري 1753](https://sunnah.com/bukhari:1753)).",
+      text: "وكان النبي ﷺ عند الجمرتين الأوليين يرمي بسبع حصيات يكبّر مع كل حصاة، ثم يتقدّم فيستقبل القبلة ويدعو طويلًا رافعًا يديه. أما الجمرة الكبرى فكان يرميها وينصرف ولا يقف عندها ([صحيح البخاري 1753](https://my.munibtracker.app/hadith/bukhari?q=1753)).",
     },
     {
       type: "p",
@@ -186,12 +186,12 @@ export const article: Article = {
       kind: "hadith",
       arabic: "أُمِرَ النَّاسُ أَنْ يَكُونَ آخِرُ عَهْدِهِمْ بِالْبَيْتِ، إِلاَّ أَنَّهُ خُفِّفَ عَنِ الْحَائِضِ",
       reference: "صحيح البخاري 1755",
-      href: "https://sunnah.com/bukhari:1755",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1755",
       note: "عن ابن عباس رضي الله عنهما",
     },
     {
       type: "p",
-      text: "والمرأة التي يأتيها الحيض في الحج تؤدي كل المناسك إلا الطواف حتى تطهر ([صحيح البخاري 1650](https://sunnah.com/bukhari:1650)). فطواف الإفاضة ينتظرها، أما طواف الوداع فيسقط عنها. وإن اضطرت مجموعتها إلى المغادرة قبل ذلك فلتسأل عالمًا.",
+      text: "والمرأة التي يأتيها الحيض في الحج تؤدي كل المناسك إلا الطواف حتى تطهر ([صحيح البخاري 1650](https://my.munibtracker.app/hadith/bukhari?q=1650)). فطواف الإفاضة ينتظرها، أما طواف الوداع فيسقط عنها. وإن اضطرت مجموعتها إلى المغادرة قبل ذلك فلتسأل عالمًا.",
     },
     { type: "h2", text: "الأركان والواجبات" },
     {
@@ -236,21 +236,54 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة آل عمران 3:97 — Quran.com", url: "https://quran.com/3/97" },
-    { label: "سورة البقرة 2:196 — Quran.com", url: "https://quran.com/2/196" },
-    { label: "سورة البقرة 2:203 — Quran.com", url: "https://quran.com/2/203" },
-    { label: "صحيح البخاري 1521 — Sunnah.com", url: "https://sunnah.com/bukhari:1521" },
-    { label: "صحيح البخاري 1685 — Sunnah.com", url: "https://sunnah.com/bukhari:1685" },
-    { label: "صحيح مسلم 1218 — Sunnah.com", url: "https://sunnah.com/muslim:1218a" },
     {
-      label: "سنن أبي داود 1949 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1949",
+      label: "سورة آل عمران 3:97 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/3?ayah=97",
     },
-    { label: "صحيح البخاري 1736 — Sunnah.com", url: "https://sunnah.com/bukhari:1736" },
-    { label: "صحيح مسلم 1141 — Sunnah.com", url: "https://sunnah.com/muslim:1141a" },
-    { label: "صحيح البخاري 1753 — Sunnah.com", url: "https://sunnah.com/bukhari:1753" },
-    { label: "صحيح البخاري 1755 — Sunnah.com", url: "https://sunnah.com/bukhari:1755" },
-    { label: "صحيح البخاري 1650 — Sunnah.com", url: "https://sunnah.com/bukhari:1650" },
+    {
+      label: "سورة البقرة 2:196 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=196",
+    },
+    {
+      label: "سورة البقرة 2:203 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=203",
+    },
+    {
+      label: "صحيح البخاري 1521 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1521",
+    },
+    {
+      label: "صحيح البخاري 1685 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1685",
+    },
+    {
+      label: "صحيح مسلم 1218 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2951",
+    },
+    {
+      label: "سنن أبي داود 1949 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1949",
+    },
+    {
+      label: "صحيح البخاري 1736 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1736",
+    },
+    {
+      label: "صحيح مسلم 1141 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2677",
+    },
+    {
+      label: "صحيح البخاري 1753 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1753",
+    },
+    {
+      label: "صحيح البخاري 1755 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1755",
+    },
+    {
+      label: "صحيح البخاري 1650 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1650",
+    },
     {
       label: "hadith-api (fawazahmed0)، مجموعة بيانات الحديث المفتوحة المستخدمة لنصوص الأحاديث",
       url: "https://github.com/fawazahmed0/hadith-api",

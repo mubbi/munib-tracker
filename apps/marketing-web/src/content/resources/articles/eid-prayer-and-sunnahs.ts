@@ -34,7 +34,7 @@ export const article: Article = {
     { type: "h2", text: "The two Eids and when they fall" },
     {
       type: "p",
-      text: "Eid al-Fitr is the 1st of Shawwal, the day after Ramadan ends. Eid al-Adha is the 10th of Dhul-Hijjah, the day pilgrims stone Jamrat al-Aqaba and offer their sacrifice. Fasting is not allowed on either day: Umar ibn al-Khattab reported that the Prophet Muhammad ﷺ forbade fasting on the day you break your fast and on the day you eat from your sacrifice ([Sahih al-Bukhari 1990](https://sunnah.com/bukhari:1990)).",
+      text: "Eid al-Fitr is the 1st of Shawwal, the day after Ramadan ends. Eid al-Adha is the 10th of Dhul-Hijjah, the day pilgrims stone Jamrat al-Aqaba and offer their sacrifice. Fasting is not allowed on either day: Umar ibn al-Khattab reported that the Prophet Muhammad ﷺ forbade fasting on the day you break your fast and on the day you eat from your sacrifice ([Sahih al-Bukhari 1990](https://my.munibtracker.app/hadith/bukhari?q=1990)).",
     },
     {
       type: "p",
@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         "The month of Ramaḍān [is that] in which was revealed the Qur’ān, a guidance for the people and clear proofs of guidance and criterion. So whoever sights [the crescent of] the month, let him fast it; and whoever is ill or on a journey - then an equal number of other days. Allāh intends for you ease and does not intend for you hardship and [wants] for you to complete the period and to glorify Allāh for that [to] which He has guided you; and perhaps you will be grateful.",
       reference: "Qur'an 2:185",
-      href: "https://quran.com/2/185",
+      href: "https://my.munibtracker.app/quran/2?ayah=185",
       note: "Translation: Saheeh International",
     },
     {
@@ -66,12 +66,12 @@ export const article: Article = {
       arabic: "لَمْ يَكُنْ يُؤَذَّنُ يَوْمَ الْفِطْرِ وَلاَ يَوْمَ الأَضْحَى",
       translation: "There was no Adhan on the (occasion) of Id-ul-Fitr and Id-ul-Adha.",
       reference: "Sahih Muslim 886",
-      href: "https://sunnah.com/muslim:886a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2049",
       note: "Reported by Ibn 'Abbas and Jabir ibn Abdullah. English text from the open hadith-api dataset (fawazahmed0); the opening of the narration is quoted.",
     },
     {
       type: "p",
-      text: "What makes it different from other Salah is a set of extra takbirs (saying “Allahu akbar”) in each rakah, and a khutbah that comes after the prayer rather than before it, as in the same narrations of [Sahih Muslim 886](https://sunnah.com/muslim:886a). The outline below fits every school; only the number and place of the extra takbirs change.",
+      text: "What makes it different from other Salah is a set of extra takbirs (saying “Allahu akbar”) in each rakah, and a khutbah that comes after the prayer rather than before it, as in the same narrations of [Sahih Muslim 886](https://my.munibtracker.app/hadith/muslim?q=2049). The outline below fits every school; only the number and place of the extra takbirs change.",
     },
     {
       type: "steps",
@@ -113,7 +113,7 @@ export const article: Article = {
       translation:
         "The Messenger of Allah (ﷺ) would say the takbir (Allah is most great) seven times in the first rak'ah and five times in the second rak'ah on the day of the breaking of the fast and on the day of sacrifice (on the occasion of both the 'Id prayers, the two festivals)",
       reference: "Sunan Abi Dawud 1149",
-      href: "https://sunnah.com/abudawud:1149",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1149",
       note: "Narrated by Aishah. Graded Sahih by al-Albani (Sunnah.com). A similar count is reported from Abdullah ibn Amr (Sunan Abi Dawud 1151, graded Hasan). English text from the open hadith-api dataset (fawazahmed0).",
     },
     {
@@ -154,8 +154,8 @@ export const article: Article = {
       type: "ul",
       items: [
         "**Make Ghusl and wear your best clean, modest clothes.** This is a widely followed practice of the Companions on the two Eids, though no single hadith on it is as strongly graded as the others here.",
-        "**Eat before Eid al-Fitr, wait on Eid al-Adha.** The Prophet ﷺ did not leave for the Eid al-Fitr prayer until he had eaten some dates, and he ate them in an odd number ([Sahih al-Bukhari 953](https://sunnah.com/bukhari:953)). On Eid al-Adha it is recommended to wait and eat from your sacrifice after the prayer.",
-        "**Go one way and return another.** On the day of Eid the Prophet ﷺ returned from the prayer by a different route from the one he took there ([Sahih al-Bukhari 986](https://sunnah.com/bukhari:986)).",
+        "**Eat before Eid al-Fitr, wait on Eid al-Adha.** The Prophet ﷺ did not leave for the Eid al-Fitr prayer until he had eaten some dates, and he ate them in an odd number ([Sahih al-Bukhari 953](https://my.munibtracker.app/hadith/bukhari?q=953)). On Eid al-Adha it is recommended to wait and eat from your sacrifice after the prayer.",
+        "**Go one way and return another.** On the day of Eid the Prophet ﷺ returned from the prayer by a different route from the one he took there ([Sahih al-Bukhari 986](https://my.munibtracker.app/hadith/bukhari?q=986)).",
         "**Say the takbir.** Remember Allah with the takbir on the day, in line with the ayah above.",
         "**Visit family and share the day.** Eid is a day of joy and gratitude, and of greeting relatives, neighbours and friends.",
       ],
@@ -178,12 +178,12 @@ export const article: Article = {
       translation:
         "Allah's Messenger (ﷺ) enjoined the payment of one Sa' of dates or one Sa' of barley as Zakat-ul-Fitr on every Muslim slave or free, male or female, young or old, and he ordered that it be paid before the people went out to offer the `Id prayer.",
       reference: "Sahih al-Bukhari 1503",
-      href: "https://sunnah.com/bukhari:1503",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1503",
       note: "Narrated by Abdullah ibn Umar. English text from the open hadith-api dataset (fawazahmed0); the translator's note on the weight of a sa' is left out.",
     },
     {
       type: "p",
-      text: "Ibn 'Abbas reported that it was prescribed as a purification for the fasting person from idle and indecent talk and as food for the poor; given before the prayer it is accepted as zakat, and given after it, it counts as ordinary charity ([Sunan Abi Dawud 1609](https://sunnah.com/abudawud:1609), graded Hasan by al-Albani). So plan to give it in the last days of Ramadan, before you leave for the Eid prayer.",
+      text: "Ibn 'Abbas reported that it was prescribed as a purification for the fasting person from idle and indecent talk and as food for the poor; given before the prayer it is accepted as zakat, and given after it, it counts as ordinary charity ([Sunan Abi Dawud 1609](https://my.munibtracker.app/hadith/abudawud?q=1609), graded Hasan by al-Albani). So plan to give it in the last days of Ramadan, before you leave for the Eid prayer.",
     },
     {
       type: "p",
@@ -200,7 +200,7 @@ export const article: Article = {
       arabic: "فَصَلِّ لِرَبِّكَ وَٱنۡحَرۡ",
       translation: "So pray to your Lord and offer sacrifice [to Him alone].",
       reference: "Qur'an 108:2",
-      href: "https://quran.com/108/2",
+      href: "https://my.munibtracker.app/quran/108?ayah=2",
       note: "Translation: Saheeh International",
     },
     {
@@ -208,14 +208,14 @@ export const article: Article = {
       items: [
         "**Who offers it.** In the Hanafi school it is wajib on a resident who owns the nisab. In the Shafi'i, Maliki and Hanbali schools it is a strongly emphasised Sunnah.",
         "**The animal.** A sheep or goat, or a share in a cow or camel, which up to seven people may share. The schools set minimum ages and health conditions, and word them differently.",
-        "**When.** After the Eid prayer, never before it: the Prophet ﷺ told a Companion who slaughtered before the prayer that his animal was only meat, and to sacrifice again ([Sahih al-Bukhari 5556](https://sunnah.com/bukhari:5556)). It may be slaughtered until sunset on the 12th of Dhul-Hijjah in the Hanafi, Maliki and Hanbali schools, and the 13th in the Shafi'i school.",
-        "**Hair and nails.** Whoever intends to sacrifice is told to leave their hair and nails once the ten days of Dhul-Hijjah begin ([Sahih Muslim 1977](https://sunnah.com/muslim:1977a)). The Hanafi school holds it recommended to refrain, the Shafi'i and Maliki schools disliked to cut them, and the Hanbali school not permitted until the animal is slaughtered.",
+        "**When.** After the Eid prayer, never before it: the Prophet ﷺ told a Companion who slaughtered before the prayer that his animal was only meat, and to sacrifice again ([Sahih al-Bukhari 5556](https://my.munibtracker.app/hadith/bukhari?q=5556)). It may be slaughtered until sunset on the 12th of Dhul-Hijjah in the Hanafi, Maliki and Hanbali schools, and the 13th in the Shafi'i school.",
+        "**Hair and nails.** Whoever intends to sacrifice is told to leave their hair and nails once the ten days of Dhul-Hijjah begin ([Sahih Muslim 1977](https://my.munibtracker.app/hadith/muslim?q=5117)). The Hanafi school holds it recommended to refrain, the Shafi'i and Maliki schools disliked to cut them, and the Hanbali school not permitted until the animal is slaughtered.",
         "**Sharing the meat.** Many scholars recommend thirds: for your household, for relatives and friends, and for the poor. The schools differ on the exact portions.",
       ],
     },
     {
       type: "p",
-      text: "The Prophet ﷺ sacrificed two rams with his own hands, saying the name of Allah and the takbir ([Sahih al-Bukhari 5558](https://sunnah.com/bukhari:5558)), so slaughtering yourself is the better practice where you can. Having it done for you, locally or through an agency, is also valid. For the pilgrim's side of the same day, see [how to perform Hajj step by step](/resources/zakat-hajj/how-to-perform-hajj-step-by-step).",
+      text: "The Prophet ﷺ sacrificed two rams with his own hands, saying the name of Allah and the takbir ([Sahih al-Bukhari 5558](https://my.munibtracker.app/hadith/bukhari?q=5558)), so slaughtering yourself is the better practice where you can. Having it done for you, locally or through an agency, is also valid. For the pilgrim's side of the same day, see [how to perform Hajj step by step](/resources/zakat-hajj/how-to-perform-hajj-step-by-step).",
     },
     { type: "h2", text: "If you miss the Eid prayer" },
     {
@@ -230,7 +230,7 @@ export const article: Article = {
       translation:
         "Some men came riding to the Prophet (ﷺ) and testified that they had sighted the new moon the previous day. He (the Holy Prophet), therefore, commanded the people to break the fast and to go out to their place of prayer in the morning",
       reference: "Sunan Abi Dawud 1157",
-      href: "https://sunnah.com/abudawud:1157",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1157",
       note: "Narrated by Abu Umayr ibn Anas from his paternal uncles among the Companions. Graded Sahih by al-Albani (Sunnah.com). English text from the open hadith-api dataset (fawazahmed0).",
     },
     {
@@ -251,31 +251,61 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 2:185 — Quran.com (Saheeh International)", url: "https://quran.com/2/185" },
-    { label: "Qur'an 108:2 — Quran.com (Saheeh International)", url: "https://quran.com/108/2" },
-    { label: "Sahih al-Bukhari 1990 — Sunnah.com", url: "https://sunnah.com/bukhari:1990" },
-    { label: "Sahih Muslim 886 — Sunnah.com", url: "https://sunnah.com/muslim:886a" },
     {
-      label: "Sunan Abi Dawud 1149 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1149",
+      label: "Qur'an 2:185 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=185",
     },
     {
-      label: "Sunan Abi Dawud 1151 — Sunnah.com (Hasan, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1151",
+      label: "Qur'an 108:2 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/108?ayah=2",
     },
-    { label: "Sahih al-Bukhari 953 — Sunnah.com", url: "https://sunnah.com/bukhari:953" },
-    { label: "Sahih al-Bukhari 986 — Sunnah.com", url: "https://sunnah.com/bukhari:986" },
-    { label: "Sahih al-Bukhari 1503 — Sunnah.com", url: "https://sunnah.com/bukhari:1503" },
     {
-      label: "Sunan Abi Dawud 1609 — Sunnah.com (Hasan, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1609",
+      label: "Sahih al-Bukhari 1990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1990",
     },
-    { label: "Sahih al-Bukhari 5556 — Sunnah.com", url: "https://sunnah.com/bukhari:5556" },
-    { label: "Sahih Muslim 1977 — Sunnah.com", url: "https://sunnah.com/muslim:1977a" },
-    { label: "Sahih al-Bukhari 5558 — Sunnah.com", url: "https://sunnah.com/bukhari:5558" },
     {
-      label: "Sunan Abi Dawud 1157 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1157",
+      label: "Sahih Muslim 886 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2049",
+    },
+    {
+      label: "Sunan Abi Dawud 1149 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1149",
+    },
+    {
+      label: "Sunan Abi Dawud 1151 — Munib Tracker (Hasan, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1151",
+    },
+    {
+      label: "Sahih al-Bukhari 953 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=953",
+    },
+    {
+      label: "Sahih al-Bukhari 986 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=986",
+    },
+    {
+      label: "Sahih al-Bukhari 1503 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1503",
+    },
+    {
+      label: "Sunan Abi Dawud 1609 — Munib Tracker (Hasan, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1609",
+    },
+    {
+      label: "Sahih al-Bukhari 5556 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5556",
+    },
+    {
+      label: "Sahih Muslim 1977 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=5117",
+    },
+    {
+      label: "Sahih al-Bukhari 5558 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5558",
+    },
+    {
+      label: "Sunan Abi Dawud 1157 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1157",
     },
     {
       label: "hadith-api (fawazahmed0), open hadith dataset used for the hadith text",

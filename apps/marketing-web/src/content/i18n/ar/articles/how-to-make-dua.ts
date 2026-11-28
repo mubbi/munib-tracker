@@ -41,7 +41,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "وَقَالَ رَبُّكُمُ ٱدۡعُونِيٓ أَسۡتَجِبۡ لَكُمۡۚ إِنَّ ٱلَّذِينَ يَسۡتَكۡبِرُونَ عَنۡ عِبَادَتِي سَيَدۡخُلُونَ جَهَنَّمَ دَاخِرِينَ",
       reference: "سورة غافر 40:60",
-      href: "https://quran.com/40/60",
+      href: "https://my.munibtracker.app/quran/40?ayah=60",
     },
     {
       type: "p",
@@ -52,7 +52,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "الدُّعَاءُ هُوَ الْعِبَادَةُ",
       reference: "جامع الترمذي 3247",
-      href: "https://sunnah.com/tirmidhi:3247",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=3247",
       note: "درجته في Sunnah.com: صحيح (دار السلام). النص المعروض هو قول النبي ﷺ قبل تلاوة الآية.",
     },
     {
@@ -65,7 +65,7 @@ export const article: Article = {
       arabic:
         "وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌۖ أُجِيبُ دَعۡوَةَ ٱلدَّاعِ إِذَا دَعَانِۖ فَلۡيَسۡتَجِيبُواْ لِي وَلۡيُؤۡمِنُواْ بِي لَعَلَّهُمۡ يَرۡشُدُونَ",
       reference: "سورة البقرة 2:186",
-      href: "https://quran.com/2/186",
+      href: "https://my.munibtracker.app/quran/2?ayah=186",
     },
     { type: "h2", text: "كيفية الدعاء خطوة بخطوة" },
     {
@@ -78,7 +78,7 @@ export const article: Article = {
       arabic:
         "إِذَا صَلَّى أَحَدُكُمْ فَلْيَبْدَأْ بِتَحْمِيدِ اللَّهِ وَالثَّنَاءِ عَلَيْهِ ثُمَّ لِيُصَلِّ عَلَى النَّبِيِّ صلى الله عليه وسلم ثُمَّ لِيَدْعُ بَعْدُ بِمَا شَاءَ",
       reference: "جامع الترمذي 3477",
-      href: "https://sunnah.com/tirmidhi:3477",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=3477",
       note: "درجته في Sunnah.com: حسن (دار السلام)",
     },
     {
@@ -86,7 +86,7 @@ export const article: Article = {
       items: [
         {
           title: "ابدأ بالحمد والثناء",
-          text: "ابدأ بمثل «الحمد لله»، وادعُ الله بأسمائه. فالقرآن يخبر أن لله الأسماء الحسنى ويأمرنا أن ندعوه بها ([سورة الأعراف 7:180](https://quran.com/7/180)).",
+          text: "ابدأ بمثل «الحمد لله»، وادعُ الله بأسمائه. فالقرآن يخبر أن لله الأسماء الحسنى ويأمرنا أن ندعوه بها ([سورة الأعراف 7:180](https://my.munibtracker.app/quran/7?ayah=180)).",
         },
         {
           title: "صلِّ على النبي ﷺ",
@@ -94,11 +94,11 @@ export const article: Article = {
         },
         {
           title: "اسأل بوضوح ويقين",
-          text: "اذكر حاجتك. وقد علّمنا النبي ﷺ أن نعزم المسألة وألّا نقول «اللَّهُمَّ إِنْ شِئْتَ فَأَعْطِنِي» ([صحيح البخاري 6338](https://sunnah.com/bukhari:6338)).",
+          text: "اذكر حاجتك. وقد علّمنا النبي ﷺ أن نعزم المسألة وألّا نقول «اللَّهُمَّ إِنْ شِئْتَ فَأَعْطِنِي» ([صحيح البخاري 6338](https://my.munibtracker.app/hadith/bukhari?q=6338)).",
         },
         {
           title: "تضرّع ولا تستعجل",
-          text: "يأمرنا القرآن أن ندعو ربنا تضرّعًا وخفية ([سورة الأعراف 7:55](https://quran.com/7/55)). ولك أن ترفع يديك؛ ففي الحديث أن الله حييّ كريم يستحيي من عبده إذا رفع يديه إليه أن يردّهما صفرًا ([سنن أبي داود 1488](https://sunnah.com/abudawud:1488)، صحّحه الألباني).",
+          text: "يأمرنا القرآن أن ندعو ربنا تضرّعًا وخفية ([سورة الأعراف 7:55](https://my.munibtracker.app/quran/7?ayah=55)). ولك أن ترفع يديك؛ ففي الحديث أن الله حييّ كريم يستحيي من عبده إذا رفع يديه إليه أن يردّهما صفرًا ([سنن أبي داود 1488](https://my.munibtracker.app/hadith/abudawud?q=1488)، صحّحه الألباني).",
         },
         {
           title: "اسأل خير الدنيا والآخرة",
@@ -124,13 +124,22 @@ export const article: Article = {
       caption: "أوقات تُرجى فيها إجابة الدعاء",
       head: ["الوقت", "المصدر"],
       rows: [
-        ["الثلث الأخير من الليل", "[صحيح البخاري 1145](https://sunnah.com/bukhari:1145)"],
-        ["في السجود في الصلاة", "[صحيح مسلم 482](https://sunnah.com/muslim:482)"],
+        [
+          "الثلث الأخير من الليل",
+          "[صحيح البخاري 1145](https://my.munibtracker.app/hadith/bukhari?q=1145)",
+        ],
+        [
+          "في السجود في الصلاة",
+          "[صحيح مسلم 482](https://my.munibtracker.app/hadith/muslim?q=1083)",
+        ],
         [
           "بين الأذان والإقامة",
-          "[سنن أبي داود 521](https://sunnah.com/abudawud:521) (صحيح، الألباني)",
+          "[سنن أبي داود 521](https://my.munibtracker.app/hadith/abudawud?q=521) (صحيح، الألباني)",
         ],
-        ["وقت قصير من يوم الجمعة", "[صحيح البخاري 935](https://sunnah.com/bukhari:935)"],
+        [
+          "وقت قصير من يوم الجمعة",
+          "[صحيح البخاري 935](https://my.munibtracker.app/hadith/bukhari?q=935)",
+        ],
       ],
     },
     {
@@ -138,7 +147,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ فَأَكْثِرُوا الدُّعَاءَ",
       reference: "صحيح مسلم 482",
-      href: "https://sunnah.com/muslim:482",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1083",
     },
     {
       type: "p",
@@ -147,14 +156,14 @@ export const article: Article = {
     { type: "h2", text: "ماذا تقول" },
     {
       type: "p",
-      text: "لك أن تخاطب الله بكلماتك وبأي لغة. وأدعية القرآن والسنّة جديرة بالتعلّم كذلك، لأنها قصيرة وتجمع أكثر ممّا يخطر لنا أن نسأله. وقد قال أنس رضي الله عنه إن أكثر دعاء النبي ﷺ كان بهذه الكلمات من القرآن ([صحيح البخاري 6389](https://sunnah.com/bukhari:6389)):",
+      text: "لك أن تخاطب الله بكلماتك وبأي لغة. وأدعية القرآن والسنّة جديرة بالتعلّم كذلك، لأنها قصيرة وتجمع أكثر ممّا يخطر لنا أن نسأله. وقد قال أنس رضي الله عنه إن أكثر دعاء النبي ﷺ كان بهذه الكلمات من القرآن ([صحيح البخاري 6389](https://my.munibtracker.app/hadith/bukhari?q=6389)):",
     },
     {
       type: "evidence",
       kind: "quran",
       arabic: "وَمِنۡهُم مَّن يَقُولُ رَبَّنَآ ءَاتِنَا فِي ٱلدُّنۡيَا حَسَنَةٗ وَفِي ٱلۡأٓخِرَةِ حَسَنَةٗ وَقِنَا عَذَابَ ٱلنَّارِ",
       reference: "سورة البقرة 2:201",
-      href: "https://quran.com/2/201",
+      href: "https://my.munibtracker.app/quran/2?ayah=201",
     },
     {
       type: "p",
@@ -172,15 +181,15 @@ export const article: Article = {
       kind: "hadith",
       arabic: "يُسْتَجَابُ لأَحَدِكُمْ مَا لَمْ يَعْجَلْ فَيَقُولُ قَدْ دَعَوْتُ فَلاَ أَوْ فَلَمْ يُسْتَجَبْ لِي",
       reference: "صحيح مسلم 2735",
-      href: "https://sunnah.com/muslim:2735a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6934",
     },
     {
       type: "p",
-      text: "والإجابة ليست دائمًا عين ما سألت على الصورة التي تخيّلتها. ففي حديث آخر أنه ما من مسلم يدعو الله بدعوة إلا آتاه الله إياها أو صرف عنه من السوء مثلها، ما لم يدعُ بإثم أو قطيعة رحم ([جامع الترمذي 3573](https://sunnah.com/tirmidhi:3573)، حسن).",
+      text: "والإجابة ليست دائمًا عين ما سألت على الصورة التي تخيّلتها. ففي حديث آخر أنه ما من مسلم يدعو الله بدعوة إلا آتاه الله إياها أو صرف عنه من السوء مثلها، ما لم يدعُ بإثم أو قطيعة رحم ([جامع الترمذي 3573](https://my.munibtracker.app/hadith/tirmidhi?q=3573)، حسن).",
     },
     {
       type: "p",
-      text: "وتدلّ السنّة كذلك على ما قد يحول دون الإجابة. فقد ذكر النبي ﷺ الرجل يطيل السفر أشعث أغبر، يمدّ يديه إلى السماء: «يَا رَبِّ يَا رَبِّ»، ومطعمه حرام ومشربه حرام وملبسه حرام، فأنّى يُستجاب لذلك ([صحيح مسلم 1015](https://sunnah.com/muslim:1015)). فالعناية بكسبك وإنفاقك من العناية بدعائك.",
+      text: "وتدلّ السنّة كذلك على ما قد يحول دون الإجابة. فقد ذكر النبي ﷺ الرجل يطيل السفر أشعث أغبر، يمدّ يديه إلى السماء: «يَا رَبِّ يَا رَبِّ»، ومطعمه حرام ومشربه حرام وملبسه حرام، فأنّى يُستجاب لذلك ([صحيح مسلم 1015](https://my.munibtracker.app/hadith/muslim?q=2346)). فالعناية بكسبك وإنفاقك من العناية بدعائك.",
     },
     {
       type: "ul",
@@ -204,38 +213,74 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة غافر 40:60 — Quran.com", url: "https://quran.com/40/60" },
-    { label: "سورة البقرة 2:186 — Quran.com", url: "https://quran.com/2/186" },
-    { label: "سورة البقرة 2:201 — Quran.com", url: "https://quran.com/2/201" },
-    { label: "سورة الأعراف 7:180 — Quran.com", url: "https://quran.com/7/180" },
-    { label: "سورة الأعراف 7:55 — Quran.com", url: "https://quran.com/7/55" },
     {
-      label: "جامع الترمذي 3247 — Sunnah.com (صحيح، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:3247",
+      label: "سورة غافر 40:60 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/40?ayah=60",
     },
     {
-      label: "جامع الترمذي 3477 — Sunnah.com (حسن، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:3477",
+      label: "سورة البقرة 2:186 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=186",
     },
-    { label: "صحيح البخاري 6338 — Sunnah.com", url: "https://sunnah.com/bukhari:6338" },
     {
-      label: "سنن أبي داود 1488 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1488",
+      label: "سورة البقرة 2:201 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=201",
     },
-    { label: "صحيح البخاري 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
-    { label: "صحيح مسلم 482 — Sunnah.com", url: "https://sunnah.com/muslim:482" },
     {
-      label: "سنن أبي داود 521 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:521",
+      label: "سورة الأعراف 7:180 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/7?ayah=180",
     },
-    { label: "صحيح البخاري 935 — Sunnah.com", url: "https://sunnah.com/bukhari:935" },
-    { label: "صحيح البخاري 6389 — Sunnah.com", url: "https://sunnah.com/bukhari:6389" },
-    { label: "صحيح مسلم 2735 — Sunnah.com", url: "https://sunnah.com/muslim:2735a" },
     {
-      label: "جامع الترمذي 3573 — Sunnah.com (حسن، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:3573",
+      label: "سورة الأعراف 7:55 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/7?ayah=55",
     },
-    { label: "صحيح مسلم 1015 — Sunnah.com", url: "https://sunnah.com/muslim:1015" },
+    {
+      label: "جامع الترمذي 3247 — Munib Tracker (صحيح، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3247",
+    },
+    {
+      label: "جامع الترمذي 3477 — Munib Tracker (حسن، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3477",
+    },
+    {
+      label: "صحيح البخاري 6338 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6338",
+    },
+    {
+      label: "سنن أبي داود 1488 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1488",
+    },
+    {
+      label: "صحيح البخاري 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
+    {
+      label: "صحيح مسلم 482 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1083",
+    },
+    {
+      label: "سنن أبي داود 521 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=521",
+    },
+    {
+      label: "صحيح البخاري 935 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=935",
+    },
+    {
+      label: "صحيح البخاري 6389 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6389",
+    },
+    {
+      label: "صحيح مسلم 2735 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6934",
+    },
+    {
+      label: "جامع الترمذي 3573 — Munib Tracker (حسن، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3573",
+    },
+    {
+      label: "صحيح مسلم 1015 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2346",
+    },
   ],
   faqs: [
     {

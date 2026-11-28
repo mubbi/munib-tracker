@@ -158,7 +158,7 @@ export const article: Article = {
       translation:
         "So whoever among you is ill or on a journey [during them] - then an equal number of other days [are to be made up].",
       reference: "Qur'an 2:184",
-      href: "https://quran.com/2/184",
+      href: "https://my.munibtracker.app/quran/2?ayah=184",
       note: "Translation: Saheeh International",
     },
     {
@@ -177,7 +177,10 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 2:184 (Saheeh International) — Quran.com", url: "https://quran.com/2/184" },
+    {
+      label: "Qur'an 2:184 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=184",
+    },
   ],
   faqs: [
     {

@@ -41,7 +41,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6465",
-      href: "https://sunnah.com/bukhari:6465",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6465",
       note: "عن عائشة رضي الله عنها، ونحوه في صحيح مسلم 782b",
     },
     {
@@ -57,7 +57,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "لَا يُكَلِّفُ ٱللَّهُ نَفۡسًا إِلَّا وُسۡعَهَاۚ",
       reference: "سورة البقرة 2:286",
-      href: "https://quran.com/2/286",
+      href: "https://my.munibtracker.app/quran/2?ayah=286",
       note: "مطلع الآية",
     },
     {
@@ -77,7 +77,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح مسلم 2750",
-      href: "https://sunnah.com/muslim:2750b",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6967",
     },
     {
       type: "p",
@@ -140,7 +140,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "إنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
       reference: "الأربعون النووية 1",
-      href: "https://sunnah.com/nawawi40:1",
+      href: "https://my.munibtracker.app/hadith/nawawi40?q=1",
       note: "عن عمر بن الخطاب رضي الله عنه؛ رواه البخاري ومسلم",
     },
     {
@@ -177,11 +177,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 6465 — Sunnah.com", url: "https://sunnah.com/bukhari:6465" },
-    { label: "صحيح مسلم 782b — Sunnah.com", url: "https://sunnah.com/muslim:782b" },
-    { label: "سورة البقرة 2:286 — Quran.com", url: "https://quran.com/2/286" },
-    { label: "صحيح مسلم 2750b — Sunnah.com", url: "https://sunnah.com/muslim:2750b" },
-    { label: "الأربعون النووية 1 — Sunnah.com", url: "https://sunnah.com/nawawi40:1" },
+    {
+      label: "صحيح البخاري 6465 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6465",
+    },
+    {
+      label: "صحيح مسلم 782b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1828",
+    },
+    {
+      label: "سورة البقرة 2:286 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=286",
+    },
+    {
+      label: "صحيح مسلم 2750b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6967",
+    },
+    {
+      label: "الأربعون النووية 1 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/nawawi40?q=1",
+    },
   ],
   faqs: [
     {

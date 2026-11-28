@@ -47,7 +47,7 @@ export const article: Article = {
       arabic:
         "سَدِّدُوا وَقَارِبُوا، وَاعْلَمُوا أَنْ لَنْ يُدْخِلَ أَحَدَكُمْ عَمَلُهُ الْجَنَّةَ، وَأَنَّ أَحَبَّ الأَعْمَالِ أَدْوَمُهَا إِلَى اللَّهِ، وَإِنْ قَلَّ",
       reference: "صحيح البخاري 6464؛ وانظر أيضًا صحيح مسلم 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
       note: "عن عائشة رضي الله عنها",
     },
     {
@@ -59,7 +59,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "إِنَّ ٱلصَّلَوٰةَ كَانَتۡ عَلَى ٱلۡمُؤۡمِنِينَ كِتَٰبٗا مَّوۡقُوتٗا",
       reference: "سورة النساء 4:103",
-      href: "https://quran.com/4/103",
+      href: "https://my.munibtracker.app/quran/4?ayah=103",
     },
     {
       type: "p",
@@ -176,10 +176,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "صحيح مسلم 783b — Sunnah.com", url: "https://sunnah.com/muslim:783b" },
-    { label: "سورة النساء 4:103 — Quran.com", url: "https://quran.com/4/103" },
-    { label: "صحيح البخاري 597 — Sunnah.com", url: "https://sunnah.com/bukhari:597" },
+    {
+      label: "صحيح البخاري 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "صحيح مسلم 783b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1830",
+    },
+    {
+      label: "سورة النساء 4:103 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/4?ayah=103",
+    },
+    {
+      label: "صحيح البخاري 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=597",
+    },
   ],
   faqs: [
     {

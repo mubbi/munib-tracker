@@ -19,7 +19,7 @@ export const article: Article = {
   updated: "2026-11-23",
   takeaways: ["…", "…", "…"],                                     // 3–5 bullets
   body: [ { type: "p", text: "…" }, { type: "h2", text: "…" }, … ],
-  sources: [{ label: "Sahih al-Bukhari 6407 — Sunnah.com", url: "https://sunnah.com/bukhari:6407" }],
+  sources: [{ label: "Sahih al-Bukhari 6407 — Munib Tracker", url: "https://my.munibtracker.app/hadith/bukhari?q=6407" }],
   faqs: [{ question: "…", answer: "…" }],                         // 2–4, optional
   appTieIn: { feature: "zikr-tracker", text: "…" },               // one honest sentence or two
   related: ["/resources/zikr/morning-and-evening-adhkar", "/features/zikr-tracker"],
@@ -50,12 +50,23 @@ Inline markup inside strings: `[label](/path)` links and `**bold**` only. No HTM
   - Qur'an Arabic: copy verbatim from the bundled Tanzil Uthmani text at
     `apps/app/assets/data/quran/arabic/NNN.json` (keys are ayah numbers, `NNN` = zero-padded surah).
     Translation: copy the **Saheeh International** text from `https://quran.com/<surah>/<ayah>`
-    (fetch it) and set `note: "Translation: Saheeh International"`. Link `href` to that quran.com URL.
+    (fetch it) and set `note: "Translation: Saheeh International"`.
   - Hadith: fetch the sunnah.com page (e.g. `https://sunnah.com/bukhari:6464`) and copy the English
     and, if you include it, the Arabic matn verbatim. You may also use the bundled files
     `apps/app/assets/data/hadith/{riyad-as-salihin,nawawi40,zikr-sources}.json`. Give the collection and
     number (e.g. "Sahih al-Bukhari 6464; Sahih Muslim 783"). Prefer Bukhari/Muslim; if you use another
     collection, include the grading shown on sunnah.com in `note`.
+  - **Links go to our web app, never to quran.com / sunnah.com** (those are for verifying only).
+    Use them in `href`, inline `[label](…)` links and `sources` (label suffix `— Munib Tracker`):
+    - Ayah: `https://my.munibtracker.app/quran/<surah>?ayah=<ayah>`; a range:
+      `https://my.munibtracker.app/quran/passage?surah=<s>&from=<a>&to=<b>`.
+    - Hadith: `https://my.munibtracker.app/hadith/<collection>?q=<number>` — collections `bukhari`,
+      `muslim`, `abudawud`, `tirmidhi`, `nasai`, `ibnmajah`, `nawawi40`. The number equals sunnah.com's,
+      **except Sahih Muslim**: the app numbers it sequentially, so pair the Abd al-Baqi number (e.g.
+      `muslim:755a`) with the corpus `hadithnumber` via `arabicnumber` (`755.01` → `q=1766`) in
+      `cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/eng-muslim.min.json`. Keep the print number
+      in the visible label.
+    - Hisn al-Muslim dua N: `https://my.munibtracker.app/dua/detail/hisn-<N>`.
   - If you cannot fetch and confirm a text, **do not quote it.** Paraphrase without quotation marks
     and without a reference, or leave it out. Never write Arabic from memory.
 - Do not issue rulings. Where schools differ (e.g. how Qaza is made up, Witr), describe the main

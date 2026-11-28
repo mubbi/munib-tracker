@@ -43,7 +43,7 @@ export const article: Article = {
       translation:
         "O you who have believed, decreed upon you is fasting as it was decreed upon those before you that you may become righteous -",
       reference: "Qur'an 2:183",
-      href: "https://quran.com/2/183",
+      href: "https://my.munibtracker.app/quran/2?ayah=183",
       note: "Translation: Saheeh International",
     },
     {
@@ -57,7 +57,7 @@ export const article: Article = {
       translation:
         "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Whoever observes fasts during the month of Ramadan out of sincere faith, and hoping to attain Allah's rewards, then all his past sins will be forgiven.\"",
       reference: "Sahih al-Bukhari 38",
-      href: "https://sunnah.com/bukhari:38",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=38",
     },
     {
       type: "p",
@@ -74,7 +74,7 @@ export const article: Article = {
       translation:
         "Narrated `Aisha: Allah's Messenger (ﷺ) used to fast till one would say that he would never stop fasting, and he would abandon fasting till one would say that he would never fast. I never saw Allah's Messenger (ﷺ) fasting for a whole month except the month of Ramadan, and did not see him fasting in any month more than in the month of Sha'ban.",
       reference: "Sahih al-Bukhari 1969",
-      href: "https://sunnah.com/bukhari:1969",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1969",
     },
     {
       type: "p",
@@ -82,7 +82,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sha'ban is also the last chance to make up fasts missed in the previous Ramadan, whether through illness, travel or hayd. Aisha said that she sometimes could not make up her missed days until Sha'ban ([Sahih al-Bukhari 1950](https://sunnah.com/bukhari:1950)). If you owe days, count them now and spread them over the weeks you have left. These make-up fasts are called Qaza (also spelled qada or qadha).",
+      text: "Sha'ban is also the last chance to make up fasts missed in the previous Ramadan, whether through illness, travel or hayd. Aisha said that she sometimes could not make up her missed days until Sha'ban ([Sahih al-Bukhari 1950](https://my.munibtracker.app/hadith/bukhari?q=1950)). If you owe days, count them now and spread them over the weeks you have left. These make-up fasts are called Qaza (also spelled qada or qadha).",
     },
     {
       type: "p",
@@ -96,7 +96,7 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira: The Prophet (ﷺ) said, "None of you should fast a day or two before the month of Ramadan unless he has the habit of fasting (Nawafil) (and if his fasting coincides with that day) then he can fast that day."',
       reference: "Sahih al-Bukhari 1914",
-      href: "https://sunnah.com/bukhari:1914",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1914",
     },
     {
       type: "note",
@@ -111,11 +111,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "The nights of Ramadan have their own promise: whoever stands in prayer during them out of faith and hoping for reward is forgiven his past sins ([Sahih al-Bukhari 37](https://sunnah.com/bukhari:37)). This is the basis of Tarawih. Find out now where and when your Masjid prays it, and whether you will join the congregation or pray at home.",
+      text: "The nights of Ramadan have their own promise: whoever stands in prayer during them out of faith and hoping for reward is forgiven his past sins ([Sahih al-Bukhari 37](https://my.munibtracker.app/hadith/bukhari?q=37)). This is the basis of Tarawih. Find out now where and when your Masjid prays it, and whether you will join the congregation or pray at home.",
     },
     {
       type: "p",
-      text: "Jibril met the Prophet ﷺ every night of Ramadan, and the Prophet ﷺ recited the Qur'an to him ([Sahih al-Bukhari 1902](https://sunnah.com/bukhari:1902)). Decide on a daily portion you can honestly keep, whether that is a juz, a few pages or a single page with its meaning, and begin it before Ramadan so the habit is already in place. See [how to practice Qur'an reading every day](/resources/quran-learning/how-to-practice-quran-reading-every-day) for ways to fit it in.",
+      text: "Jibril met the Prophet ﷺ every night of Ramadan, and the Prophet ﷺ recited the Qur'an to him ([Sahih al-Bukhari 1902](https://my.munibtracker.app/hadith/bukhari?q=1902)). Decide on a daily portion you can honestly keep, whether that is a juz, a few pages or a single page with its meaning, and begin it before Ramadan so the habit is already in place. See [how to practice Qur'an reading every day](/resources/quran-learning/how-to-practice-quran-reading-every-day) for ways to fit it in.",
     },
     { type: "h2", text: "Prepare your conduct, not only your meals" },
     {
@@ -129,7 +129,7 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira: The Prophet (ﷺ) said, "Whoever does not give up forged speech and evil actions, Allah is not in need of his leaving his food and drink (i.e. Allah will not accept his fasting.)"',
       reference: "Sahih al-Bukhari 1903",
-      href: "https://sunnah.com/bukhari:1903",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1903",
     },
     {
       type: "p",
@@ -210,20 +210,53 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 2:183 — Quran.com (Saheeh International)", url: "https://quran.com/2/183" },
-    { label: "Qur'an 2:185 — Quran.com (Saheeh International)", url: "https://quran.com/2/185" },
-    { label: "Sahih al-Bukhari 38 — Sunnah.com", url: "https://sunnah.com/bukhari:38" },
-    { label: "Sahih al-Bukhari 1969 — Sunnah.com", url: "https://sunnah.com/bukhari:1969" },
-    { label: "Sahih al-Bukhari 1950 — Sunnah.com", url: "https://sunnah.com/bukhari:1950" },
-    { label: "Sahih al-Bukhari 1914 — Sunnah.com", url: "https://sunnah.com/bukhari:1914" },
-    { label: "Sahih al-Bukhari 37 — Sunnah.com", url: "https://sunnah.com/bukhari:37" },
-    { label: "Sahih al-Bukhari 1902 — Sunnah.com", url: "https://sunnah.com/bukhari:1902" },
-    { label: "Sahih al-Bukhari 1903 — Sunnah.com", url: "https://sunnah.com/bukhari:1903" },
-    { label: "Sahih al-Bukhari 1923 — Sunnah.com", url: "https://sunnah.com/bukhari:1923" },
-    { label: "Sahih al-Bukhari 1509 — Sunnah.com", url: "https://sunnah.com/bukhari:1509" },
     {
-      label: "Sunan Abi Dawud 2337 (fasting after mid-Sha'ban) — Sunnah.com",
-      url: "https://sunnah.com/abudawud:2337",
+      label: "Qur'an 2:183 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=183",
+    },
+    {
+      label: "Qur'an 2:185 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=185",
+    },
+    {
+      label: "Sahih al-Bukhari 38 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=38",
+    },
+    {
+      label: "Sahih al-Bukhari 1969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1969",
+    },
+    {
+      label: "Sahih al-Bukhari 1950 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1950",
+    },
+    {
+      label: "Sahih al-Bukhari 1914 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1914",
+    },
+    {
+      label: "Sahih al-Bukhari 37 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=37",
+    },
+    {
+      label: "Sahih al-Bukhari 1902 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1902",
+    },
+    {
+      label: "Sahih al-Bukhari 1903 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1903",
+    },
+    {
+      label: "Sahih al-Bukhari 1923 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1923",
+    },
+    {
+      label: "Sahih al-Bukhari 1509 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1509",
+    },
+    {
+      label: "Sunan Abi Dawud 2337 (fasting after mid-Sha'ban) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=2337",
     },
   ],
   faqs: [

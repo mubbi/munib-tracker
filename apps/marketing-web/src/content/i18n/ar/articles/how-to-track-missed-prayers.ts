@@ -160,7 +160,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "فَمَن كَانَ مِنكُم مَّرِيضًا أَوۡ عَلَىٰ سَفَرٖ فَعِدَّةٞ مِّنۡ أَيَّامٍ أُخَرَۚ",
       reference: "سورة البقرة 2:184",
-      href: "https://quran.com/2/184",
+      href: "https://my.munibtracker.app/quran/2?ayah=184",
     },
     {
       type: "p",
@@ -179,8 +179,8 @@ export const article: Article = {
   ],
   sources: [
     {
-      label: "سورة البقرة 2:184 — Quran.com",
-      url: "https://quran.com/2/184",
+      label: "سورة البقرة 2:184 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=184",
     },
   ],
   faqs: [

@@ -41,7 +41,7 @@ export const article: Article = {
       translation:
         "The reward of deeds depends upon the intentions and every person will get the reward according to what he has intended.",
       reference: "Sahih al-Bukhari 1",
-      href: "https://sunnah.com/bukhari:1",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1",
     },
     {
       type: "p",
@@ -83,7 +83,7 @@ export const article: Article = {
       translation:
         "Do good deeds properly, sincerely and moderately and know that your deeds will not make you enter Paradise, and that the most beloved deed to Allah is the most regular and constant even if it were little.",
       reference: "Sahih al-Bukhari 6464; Sahih Muslim 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
     },
     {
       type: "p",
@@ -115,7 +115,7 @@ export const article: Article = {
       translation:
         "The example of a good companion (who sits with you) in comparison with a bad one, is like that of the musk seller and the blacksmith's bellows (or furnace); from the first you would either buy musk or enjoy its good smell while the bellows would either burn your clothes or your house, or you get a bad nasty smell thereof.",
       reference: "Sahih al-Bukhari 2101; Sahih Muslim 2628",
-      href: "https://sunnah.com/bukhari:2101",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2101",
     },
     {
       type: "p",
@@ -154,11 +154,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 1 — Sunnah.com", url: "https://sunnah.com/bukhari:1" },
-    { label: "Sahih al-Bukhari 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "Sahih Muslim 783 — Sunnah.com", url: "https://sunnah.com/muslim:783" },
-    { label: "Sahih al-Bukhari 2101 — Sunnah.com", url: "https://sunnah.com/bukhari:2101" },
-    { label: "Sahih Muslim 2628 — Sunnah.com", url: "https://sunnah.com/muslim:2628" },
+    {
+      label: "Sahih al-Bukhari 1 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1",
+    },
+    {
+      label: "Sahih al-Bukhari 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "Sahih Muslim 783 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1829",
+    },
+    {
+      label: "Sahih al-Bukhari 2101 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2101",
+    },
+    {
+      label: "Sahih Muslim 2628 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6692",
+    },
   ],
   faqs: [
     {

@@ -56,7 +56,7 @@ export const article: Article = {
       translation:
         "ہم سے ابونعیم فضل بن دکین اور موسیٰ بن اسماعیل نے بیان کیا، ان دونوں نے کہا کہ ہم سے ہمام بن یحییٰ نے قتادہ سے بیان کیا، انہوں نے انس بن مالک رضی اللہ عنہ سے، انہوں نے نبی کریم صلی اللہ علیہ وسلم سے کہ آپ صلی اللہ علیہ وسلم نے فرمایا اگر کوئی نماز پڑھنا بھول جائے تو جب بھی یاد آ جائے اس کو پڑھ لے۔ اس قضاء کے سوا اور کوئی کفارہ اس کی وجہ سے نہیں ہوتا۔ اور ( اللہ تعالیٰ نے فرمایا کہ ) نماز میرے یاد آنے پر قائم کر۔ موسیٰ نے کہا کہ ہم سے ہمام نے حدیث بیان کی کہ میں نے قتادہ رضی اللہ عنہ سے سنا وہ یوں پڑھتے تھے نماز پڑھ میری یاد کے لیے۔ حبان بن ہلال نے کہا، ہم سے ہمام نے بیان کیا، کہا ہم سے قتادہ نے، کہا ہم سے انس رضی اللہ عنہ نے، انہوں نے نبی کریم صلی اللہ علیہ وسلم سے، پھر ایسی ہی حدیث بیان کی۔",
       reference: "صحیح بخاری 597",
-      href: "https://sunnah.com/bukhari:597",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=597",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 597",
     },
     {
@@ -66,7 +66,7 @@ export const article: Article = {
       translation:
         "سعید نے قتادہ سے اور انھوں نے حضرت انس بن مالک ‌رضی ‌اللہ ‌عنہ ‌ ‌ سےحدیث سنائی ‘ کہا : اللہ کے نبی ﷺ نے فرمایا : ‘ ‘ جو شخص کوئی نماز بھول گیا یا اسے ادا کرتے وقت سوتا رہ گیا تو اس ( نماز ) کا کفارہ یہی ہے کہ جب اسے یاد آئے وہ اس نماز کو پڑھ لے ۔ ‘ ‘",
       reference: "صحیح مسلم 684",
-      href: "https://sunnah.com/muslim:684c",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1568",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 684",
     },
     {
@@ -80,7 +80,7 @@ export const article: Article = {
       translation:
         "بےشک میں ہی خدا ہوں۔ میرے سوا کوئی معبود نہیں تو میری عبادت کرو اور میری یاد کے لئے نماز پڑھا کرو",
       reference: "سورۃ طٰہٰ 20:14",
-      href: "https://quran.com/20/14",
+      href: "https://my.munibtracker.app/quran/20?ayah=14",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -175,10 +175,19 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 597 — Sunnah.com", url: "https://sunnah.com/bukhari:597" },
-    { label: "صحیح مسلم 684c — Sunnah.com", url: "https://sunnah.com/muslim:684c" },
-    { label: "صحیح مسلم 684d — Sunnah.com", url: "https://sunnah.com/muslim:684d" },
-    { label: "سورۃ طٰہٰ 20:14 — Quran.com", url: "https://quran.com/20/14" },
+    {
+      label: "صحیح بخاری 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=597",
+    },
+    {
+      label: "صحیح مسلم 684c — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1568",
+    },
+    {
+      label: "صحیح مسلم 684d — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1569",
+    },
+    { label: "سورۃ طٰہٰ 20:14 — Munib Tracker", url: "https://my.munibtracker.app/quran/20?ayah=14" },
   ],
   faqs: [
     {

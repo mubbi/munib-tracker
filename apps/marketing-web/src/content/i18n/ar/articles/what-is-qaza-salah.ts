@@ -55,7 +55,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ نَسِيَ صَلاَةً فَلْيُصَلِّ إِذَا ذَكَرَهَا، لاَ كَفَّارَةَ لَهَا إِلاَّ ذَلِكَ",
       reference: "صحيح البخاري 597",
-      href: "https://sunnah.com/bukhari:597",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=597",
       note: "عن أنس رضي الله عنه",
     },
     {
@@ -63,7 +63,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ نَسِيَ صَلاَةً أَوْ نَامَ عَنْهَا فَكَفَّارَتُهَا أَنْ يُصَلِّيَهَا إِذَا ذَكَرَهَا",
       reference: "صحيح مسلم 684",
-      href: "https://sunnah.com/muslim:684c",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1568",
       note: "عن أنس بن مالك رضي الله عنه",
     },
     {
@@ -75,7 +75,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "إِنَّنِيٓ أَنَا ٱللَّهُ لَآ إِلَٰهَ إِلَّآ أَنَا۠ فَٱعۡبُدۡنِي وَأَقِمِ ٱلصَّلَوٰةَ لِذِكۡرِيٓ",
       reference: "سورة طه 20:14",
-      href: "https://quran.com/20/14",
+      href: "https://my.munibtracker.app/quran/20?ayah=14",
     },
     {
       type: "p",
@@ -169,10 +169,19 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 597 — Sunnah.com", url: "https://sunnah.com/bukhari:597" },
-    { label: "صحيح مسلم 684c — Sunnah.com", url: "https://sunnah.com/muslim:684c" },
-    { label: "صحيح مسلم 684d — Sunnah.com", url: "https://sunnah.com/muslim:684d" },
-    { label: "سورة طه 20:14 — Quran.com", url: "https://quran.com/20/14" },
+    {
+      label: "صحيح البخاري 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=597",
+    },
+    {
+      label: "صحيح مسلم 684c — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1568",
+    },
+    {
+      label: "صحيح مسلم 684d — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1569",
+    },
+    { label: "سورة طه 20:14 — Munib Tracker", url: "https://my.munibtracker.app/quran/20?ayah=14" },
   ],
   faqs: [
     {

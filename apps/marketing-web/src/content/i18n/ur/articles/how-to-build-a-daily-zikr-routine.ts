@@ -56,7 +56,7 @@ export const article: Article = {
       translation:
         "(یعنی) جو لوگ ایمان لاتے اور جن کے دل یادِ خدا سے آرام پاتے ہیں (ان کو) اور سن رکھو کہ خدا کی یاد سے دل آرام پاتے ہیں",
       reference: "سورۃ الرعد 13:28",
-      href: "https://quran.com/13/28",
+      href: "https://my.munibtracker.app/quran/13?ayah=28",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -69,7 +69,7 @@ export const article: Article = {
       arabic: "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱذۡكُرُواْ ٱللَّهَ ذِكۡرٗا كَثِيرٗا",
       translation: "اے اہل ایمان خدا کا بہت ذکر کیا کرو",
       reference: "سورۃ الاحزاب 33:41",
-      href: "https://quran.com/33/41",
+      href: "https://my.munibtracker.app/quran/33?ayah=41",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -82,7 +82,7 @@ export const article: Article = {
       translation:
         "ہم سے محمد بن علاء نے بیان کیا، کہا ہم سے ابواسامہ نے بیان کیا، ان سے یزید بن عبداللہ نے، ان سے ابوبردہ نے اور ان سے ابوموسیٰ رضی اللہ عنہ نے بیان کیا کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا ”اس شخص کی مثال جو اپنے رب کو یاد کرتا ہے اور اس کی مثال جو اپنے رب کو یاد نہیں کرتا زندہ اور مردہ جیسی ہے۔“",
       reference: "صحیح بخاری 6407",
-      href: "https://sunnah.com/bukhari:6407",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6407",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6407",
     },
     {
@@ -95,7 +95,7 @@ export const article: Article = {
       translation:
         "ہم سے زہیر بن حرب نے بیان کیا، انہوں نے کہا ہم سے ابن فضیل نے بیان کیا، ان سے عمارہ نے، ان سے ابوزرعہ نے اور ان سے ابوہریرہ رضی اللہ عنہ نے بیان کیا کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا ”دو کلمے جو زبان پر ہلکے ہیں ترازو میں بہت بھاری اور رحمان کو عزیز ہیں «سبحان الله العظيم،‏‏‏‏ سبحان الله وبحمده» ۔“",
       reference: "صحیح بخاری 6406؛ صحیح مسلم 2694",
-      href: "https://sunnah.com/bukhari:6406",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6406",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6406",
     },
     { type: "h2", text: "اپنے معمول کو نماز سے جوڑیں" },
@@ -136,7 +136,7 @@ export const article: Article = {
       translation:
         "خالد بن عبداللہ نے ہمیں سہیل سے خبر دی ، انھوں نے ابو عبید مذحجی سے روایت کی ۔ امام مسلم رحمۃ اللہ نے کہا : ابو عبید سلیمان بن عبدالملک کے مولیٰ تھے ۔ انھوں نے عطاء بن یزید لیثی سے ، انھوں نے حضرت ابو ہریرہ ‌رضی ‌اللہ ‌عنہ ‌ ‌ سے اور انھوں نے رسو ل اللہ ﷺ سے روایت کی : ’’جس نے ہر نماز کے بعد تینتیس مرتبہ سبحان اللہ تینتیس دفعہ الحمد اللہ اور تینتیس بار اللہ اکبر کہا ، یہ ننانوے ہو گے اور سو پورا کرنے کے لیے لا الہ الا اللہ وحد ہ لا شریک لہ ، لہ الملک ولاہ الحمد ، وہو علی کل شیء قدیر ‘ ‘ کیا اس کے گناہ معاف کر دیے جائیں گے ، چاہے وہ سمندر کے جھاگ کے برابر ہوں ۔ ‘ ‘",
       reference: "صحیح مسلم 597",
-      href: "https://sunnah.com/muslim:597a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1352",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 597",
     },
     {
@@ -212,7 +212,7 @@ export const article: Article = {
       translation:
         "ہم سے عبدالعزیز بن عبداللہ نے بیان کیا، کہا ہم سے سلیمان نے بیان کیا، ان سے موسیٰ بن عقبہ نے، ان سے ابوسلمہ بن عبدالرحمٰن نے اور ان سے عائشہ رضی اللہ عنہا نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا ”درمیانی چال اختیار کرو اور بلند پروازی نہ کرو اور عمل کرتے رہو، تم میں سے کسی کا عمل اسے جنت میں نہیں داخل کر سکے گا، میرے نزدیک سب سے پسندیدہ عمل وہ ہے جس پر ہمیشگی کی جائے خواہ کم ہی کیوں نہ ہو۔“",
       reference: "صحیح بخاری 6464",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6464",
     },
     {
@@ -234,15 +234,42 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ الرعد 13:28 — Quran.com", url: "https://quran.com/13/28" },
-    { label: "سورۃ الاحزاب 33:41 — Quran.com", url: "https://quran.com/33/41" },
-    { label: "صحیح بخاری 6407 — Sunnah.com", url: "https://sunnah.com/bukhari:6407" },
-    { label: "صحیح بخاری 6406 — Sunnah.com", url: "https://sunnah.com/bukhari:6406" },
-    { label: "صحیح مسلم 2694 — Sunnah.com", url: "https://sunnah.com/muslim:2694" },
-    { label: "صحیح مسلم 597 — Sunnah.com", url: "https://sunnah.com/muslim:597a" },
-    { label: "صحیح مسلم 2692 — Sunnah.com", url: "https://sunnah.com/muslim:2692" },
-    { label: "صحیح بخاری 5010 — Sunnah.com", url: "https://sunnah.com/bukhari:5010" },
-    { label: "صحیح بخاری 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
+    {
+      label: "سورۃ الرعد 13:28 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/13?ayah=28",
+    },
+    {
+      label: "سورۃ الاحزاب 33:41 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/33?ayah=41",
+    },
+    {
+      label: "صحیح بخاری 6407 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6407",
+    },
+    {
+      label: "صحیح بخاری 6406 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6406",
+    },
+    {
+      label: "صحیح مسلم 2694 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6846",
+    },
+    {
+      label: "صحیح مسلم 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1352",
+    },
+    {
+      label: "صحیح مسلم 2692 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6843",
+    },
+    {
+      label: "صحیح بخاری 5010 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5010",
+    },
+    {
+      label: "صحیح بخاری 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
   ],
   faqs: [
     {

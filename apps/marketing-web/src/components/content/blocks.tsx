@@ -1,8 +1,10 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { BookOpen, Info, Scale, Smartphone } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { ProductAppLink } from "@/components/content/product-app-link";
 import { RichText } from "@/components/content/rich-text";
 import type { Block } from "@/content/types";
+import { isProductAppHref } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
@@ -184,7 +186,14 @@ export function Blocks({ blocks }: { blocks: readonly Block[] }) {
                   </blockquote>
                 ) : null}
                 <figcaption className="mt-4 text-sm text-white/60">
-                  {block.href ? (
+                  {block.href && isProductAppHref(block.href) ? (
+                    <ProductAppLink
+                      href={block.href}
+                      className="font-medium text-brand underline decoration-brand/35 underline-offset-[3px] hover:decoration-brand"
+                    >
+                      {block.reference}
+                    </ProductAppLink>
+                  ) : block.href ? (
                     <a
                       href={block.href}
                       target="_blank"

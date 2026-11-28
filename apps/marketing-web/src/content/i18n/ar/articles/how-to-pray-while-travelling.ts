@@ -42,7 +42,7 @@ export const article: Article = {
       arabic:
         "وَإِذَا ضَرَبۡتُمۡ فِي ٱلۡأَرۡضِ فَلَيۡسَ عَلَيۡكُمۡ جُنَاحٌ أَن تَقۡصُرُواْ مِنَ ٱلصَّلَوٰةِ إِنۡ خِفۡتُمۡ أَن يَفۡتِنَكُمُ ٱلَّذِينَ كَفَرُوٓاْۚ إِنَّ ٱلۡكَٰفِرِينَ كَانُواْ لَكُمۡ عَدُوّٗا مُّبِينٗا",
       reference: "سورة النساء 4:101",
-      href: "https://quran.com/4/101",
+      href: "https://my.munibtracker.app/quran/4?ayah=101",
     },
     {
       type: "p",
@@ -54,11 +54,11 @@ export const article: Article = {
       arabic:
         'قُلْتُ لِعُمَرَ بْنِ الْخَطَّابِ ‏{‏ لَيْسَ عَلَيْكُمْ جُنَاحٌ أَنْ تَقْصُرُوا، مِنَ الصَّلاَةِ إِنْ خِفْتُمْ أَنْ يَفْتِنَكُمُ الَّذِينَ كَفَرُوا‏}‏ فَقَدْ أَمِنَ النَّاسُ فَقَالَ عَجِبْتُ مِمَّا عَجِبْتَ مِنْهُ فَسَأَلْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم عَنْ ذَلِكَ ‏.‏ فَقَالَ ‏"‏ صَدَقَةٌ تَصَدَّقَ اللَّهُ بِهَا عَلَيْكُمْ فَاقْبَلُوا صَدَقَتَهُ ‏"‏',
       reference: "صحيح مسلم 686",
-      href: "https://sunnah.com/muslim:686a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1573",
     },
     {
       type: "p",
-      text: "فالرخصة لكل مسافر، لا لمن يخاف فقط. وروت عائشة رضي الله عنها أن الصلاة فُرضت أول ما فُرضت ركعتين، فأُقرّت صلاة السفر وأُتمّت صلاة الحضر ([صحيح البخاري 1090](https://sunnah.com/bukhari:1090)). أما الذي لا يتغيّر فهو الوجوب: الصلوات الخمس واجبة في السفر، وما فاتك منها في سفرك تقضيه بعد ذلك. وانظر [ما هي صلاة القضاء](/resources/salah/what-is-qaza-salah).",
+      text: "فالرخصة لكل مسافر، لا لمن يخاف فقط. وروت عائشة رضي الله عنها أن الصلاة فُرضت أول ما فُرضت ركعتين، فأُقرّت صلاة السفر وأُتمّت صلاة الحضر ([صحيح البخاري 1090](https://my.munibtracker.app/hadith/bukhari?q=1090)). أما الذي لا يتغيّر فهو الوجوب: الصلوات الخمس واجبة في السفر، وما فاتك منها في سفرك تقضيه بعد ذلك. وانظر [ما هي صلاة القضاء](/resources/salah/what-is-qaza-salah).",
     },
     { type: "h2", text: "القصر: أيّ الصلوات وكيف" },
     {
@@ -87,7 +87,7 @@ export const article: Article = {
       arabic:
         "خَرَجْنَا مَعَ النَّبِيِّ صلى الله عليه وسلم مِنَ الْمَدِينَةِ إِلَى مَكَّةَ، فَكَانَ يُصَلِّي رَكْعَتَيْنِ رَكْعَتَيْنِ حَتَّى رَجَعْنَا إِلَى الْمَدِينَةِ‏.‏ قُلْتُ أَقَمْتُمْ بِمَكَّةَ شَيْئًا قَالَ أَقَمْنَا بِهَا عَشْرًا",
       reference: "صحيح البخاري 1081",
-      href: "https://sunnah.com/bukhari:1081",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1081",
     },
     {
       type: "note",
@@ -102,7 +102,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "وللجمع صورتان. في جمع التقديم تصلّي الصلاتين في وقت الأولى، كالظهر والعصر في وقت الظهر. وفي جمع التأخير تصلّيهما في وقت الثانية، كالمغرب والعشاء في وقت العشاء. وفي الحج فعل النبي ﷺ كلتا الصورتين: ففي عرفة صلّى العصر بعد الظهر مباشرة في وقت الظهر، وفي مزدلفة أخّر المغرب فصلّاها مع العشاء ([صحيح مسلم 1218](https://sunnah.com/muslim:1218a)). وعن أسفاره روى ابن عباس رضي الله عنهما:",
+      text: "وللجمع صورتان. في جمع التقديم تصلّي الصلاتين في وقت الأولى، كالظهر والعصر في وقت الظهر. وفي جمع التأخير تصلّيهما في وقت الثانية، كالمغرب والعشاء في وقت العشاء. وفي الحج فعل النبي ﷺ كلتا الصورتين: ففي عرفة صلّى العصر بعد الظهر مباشرة في وقت الظهر، وفي مزدلفة أخّر المغرب فصلّاها مع العشاء ([صحيح مسلم 1218](https://my.munibtracker.app/hadith/muslim?q=2951)). وعن أسفاره روى ابن عباس رضي الله عنهما:",
     },
     {
       type: "evidence",
@@ -110,13 +110,13 @@ export const article: Article = {
       arabic:
         "كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَجْمَعُ بَيْنَ صَلاَةِ الظُّهْرِ وَالْعَصْرِ إِذَا كَانَ عَلَى ظَهْرِ سَيْرٍ، وَيَجْمَعُ بَيْنَ الْمَغْرِبِ وَالْعِشَاءِ",
       reference: "صحيح البخاري 1107",
-      href: "https://sunnah.com/bukhari:1107",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1107",
     },
     {
       type: "note",
       tone: "scholar",
       title: "تختلف المذاهب في الجمع",
-      text: "لا يجيز المذهب الحنفي الجمع لأجل السفر، إلا بعرفة ومزدلفة في الحج. ويجيزه الشافعية والحنابلة في السفر جمع تقديم أو جمع تأخير. ويجيزه المالكية بشروط، ولا سيما إذا جدّ بالمسافر السير؛ وقد جمع النبي ﷺ بين المغرب والعشاء إذا جدّ به السير ([صحيح البخاري 1106](https://sunnah.com/bukhari:1106)). ولكل مذهب شروطه، فتعلّم شروط مذهبك قبل أن تعتمد على الجمع.",
+      text: "لا يجيز المذهب الحنفي الجمع لأجل السفر، إلا بعرفة ومزدلفة في الحج. ويجيزه الشافعية والحنابلة في السفر جمع تقديم أو جمع تأخير. ويجيزه المالكية بشروط، ولا سيما إذا جدّ بالمسافر السير؛ وقد جمع النبي ﷺ بين المغرب والعشاء إذا جدّ به السير ([صحيح البخاري 1106](https://my.munibtracker.app/hadith/bukhari?q=1106)). ولكل مذهب شروطه، فتعلّم شروط مذهبك قبل أن تعتمد على الجمع.",
     },
     { type: "h2", text: "كم المسافة وكم المدة: مواضع اختلاف المذاهب" },
     {
@@ -175,7 +175,7 @@ export const article: Article = {
       arabic:
         "أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ يُصَلِّي عَلَى رَاحِلَتِهِ نَحْوَ الْمَشْرِقِ فَإِذَا أَرَادَ أَنْ يُصَلِّيَ الْمَكْتُوبَةَ نَزَلَ فَاسْتَقْبَلَ الْقِبْلَةَ",
       reference: "صحيح البخاري 1099",
-      href: "https://sunnah.com/bukhari:1099",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1099",
     },
     {
       type: "p",
@@ -187,7 +187,7 @@ export const article: Article = {
       arabic:
         'كَانَتْ بِي بَوَاسِيرُ فَسَأَلْتُ النَّبِيَّ صلى الله عليه وسلم عَنِ الصَّلاَةِ فَقَالَ ‏ "‏ صَلِّ قَائِمًا، فَإِنْ لَمْ تَسْتَطِعْ فَقَاعِدًا، فَإِنْ لَمْ تَسْتَطِعْ فَعَلَى جَنْبٍ ‏"‏',
       reference: "صحيح البخاري 1117",
-      href: "https://sunnah.com/bukhari:1117",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1117",
     },
     {
       type: "p",
@@ -231,7 +231,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "إِذَا مَرِضَ الْعَبْدُ أَوْ سَافَرَ، كُتِبَ لَهُ مِثْلُ مَا كَانَ يَعْمَلُ مُقِيمًا صَحِيحًا",
       reference: "صحيح البخاري 2996",
-      href: "https://sunnah.com/bukhari:2996",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2996",
     },
     {
       type: "note",
@@ -241,16 +241,46 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة النساء 4:101 — Quran.com", url: "https://quran.com/4/101" },
-    { label: "صحيح مسلم 686 — Sunnah.com", url: "https://sunnah.com/muslim:686a" },
-    { label: "صحيح البخاري 1090 — Sunnah.com", url: "https://sunnah.com/bukhari:1090" },
-    { label: "صحيح البخاري 1081 — Sunnah.com", url: "https://sunnah.com/bukhari:1081" },
-    { label: "صحيح مسلم 1218 — Sunnah.com", url: "https://sunnah.com/muslim:1218a" },
-    { label: "صحيح البخاري 1107 — Sunnah.com", url: "https://sunnah.com/bukhari:1107" },
-    { label: "صحيح البخاري 1106 — Sunnah.com", url: "https://sunnah.com/bukhari:1106" },
-    { label: "صحيح البخاري 1099 — Sunnah.com", url: "https://sunnah.com/bukhari:1099" },
-    { label: "صحيح البخاري 1117 — Sunnah.com", url: "https://sunnah.com/bukhari:1117" },
-    { label: "صحيح البخاري 2996 — Sunnah.com", url: "https://sunnah.com/bukhari:2996" },
+    {
+      label: "سورة النساء 4:101 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/4?ayah=101",
+    },
+    {
+      label: "صحيح مسلم 686 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1573",
+    },
+    {
+      label: "صحيح البخاري 1090 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1090",
+    },
+    {
+      label: "صحيح البخاري 1081 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1081",
+    },
+    {
+      label: "صحيح مسلم 1218 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2951",
+    },
+    {
+      label: "صحيح البخاري 1107 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1107",
+    },
+    {
+      label: "صحيح البخاري 1106 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1106",
+    },
+    {
+      label: "صحيح البخاري 1099 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1099",
+    },
+    {
+      label: "صحيح البخاري 1117 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1117",
+    },
+    {
+      label: "صحيح البخاري 2996 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2996",
+    },
   ],
   faqs: [
     {

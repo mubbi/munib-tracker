@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         'Allah\'s Messenger (ﷺ) said, "Do good deeds properly, sincerely and moderately and know that your deeds will not make you enter Paradise, and that the most beloved deed to Allah is the most regular and constant even if it were little."',
       reference: "Sahih al-Bukhari 6464; see also Sahih Muslim 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
       note: "Narrated by Aisha. Translation as published on Sunnah.com.",
     },
     {
@@ -62,7 +62,7 @@ export const article: Article = {
       translation:
         "Indeed, prayer has been decreed upon the believers a decree of specified times.",
       reference: "Qur'an 4:103",
-      href: "https://quran.com/4/103",
+      href: "https://my.munibtracker.app/quran/4?ayah=103",
       note: "Translation: Saheeh International",
     },
     {
@@ -184,10 +184,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "Sahih Muslim 783b — Sunnah.com", url: "https://sunnah.com/muslim:783b" },
-    { label: "Qur'an 4:103 (Saheeh International) — Quran.com", url: "https://quran.com/4/103" },
-    { label: "Sahih al-Bukhari 597 — Sunnah.com", url: "https://sunnah.com/bukhari:597" },
+    {
+      label: "Sahih al-Bukhari 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "Sahih Muslim 783b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1830",
+    },
+    {
+      label: "Qur'an 4:103 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/4?ayah=103",
+    },
+    {
+      label: "Sahih al-Bukhari 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=597",
+    },
   ],
   faqs: [
     {

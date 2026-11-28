@@ -98,7 +98,7 @@ export const article: Article = {
       arabic: "أَفَلَا يَتَدَبَّرُونَ ٱلۡقُرۡءَانَ أَمۡ عَلَىٰ قُلُوبٍ أَقۡفَالُهَآ",
       translation: "بھلا یہ لوگ قرآن میں غور نہیں کرتے یا (ان کے) دلوں پر قفل لگ رہے ہیں",
       reference: "سورۃ محمد 47:24",
-      href: "https://quran.com/47/24",
+      href: "https://my.munibtracker.app/quran/47?ayah=24",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -155,7 +155,7 @@ export const article: Article = {
       translation:
         "ہم سے عبدالعزیز بن عبداللہ نے بیان کیا، کہا ہم سے سلیمان نے بیان کیا، ان سے موسیٰ بن عقبہ نے، ان سے ابوسلمہ بن عبدالرحمٰن نے اور ان سے عائشہ رضی اللہ عنہا نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا ”درمیانی چال اختیار کرو اور بلند پروازی نہ کرو اور عمل کرتے رہو، تم میں سے کسی کا عمل اسے جنت میں نہیں داخل کر سکے گا، میرے نزدیک سب سے پسندیدہ عمل وہ ہے جس پر ہمیشگی کی جائے خواہ کم ہی کیوں نہ ہو۔“",
       reference: "صحیح بخاری 6464؛ صحیح مسلم 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6464",
     },
     {
@@ -164,9 +164,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ محمد 47:24 — Quran.com", url: "https://quran.com/47/24" },
-    { label: "صحیح بخاری 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "صحیح مسلم 783 — Sunnah.com", url: "https://sunnah.com/muslim:783" },
+    {
+      label: "سورۃ محمد 47:24 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/47?ayah=24",
+    },
+    {
+      label: "صحیح بخاری 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "صحیح مسلم 783 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1829",
+    },
   ],
   faqs: [
     {

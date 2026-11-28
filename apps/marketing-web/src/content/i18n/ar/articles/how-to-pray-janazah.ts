@@ -46,16 +46,16 @@ export const article: Article = {
       arabic:
         'قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏"‏ مَنْ شَهِدَ الْجَنَازَةَ حَتَّى يُصَلِّيَ عَلَيْهَا فَلَهُ قِيرَاطٌ، وَمَنْ شَهِدَ حَتَّى تُدْفَنَ كَانَ لَهُ قِيرَاطَانِ ‏"‏‏.‏ قِيلَ وَمَا الْقِيرَاطَانِ قَالَ ‏"‏ مِثْلُ الْجَبَلَيْنِ الْعَظِيمَيْنِ ‏"‏',
       reference: "صحيح البخاري 1325",
-      href: "https://sunnah.com/bukhari:1325",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1325",
     },
     {
       type: "p",
-      text: "وأمر ﷺ أصحابه بالإسراع بالجنازة وعدم تأخيرها ([صحيح البخاري 1315](https://sunnah.com/bukhari:1315))، ولذلك كثيرًا ما يُعلَن عن الجنازة قبلها بوقت قصير. فإن سمعت بجنازة في مجتمعك فاحرص على حضورها ولو لم تكن تعرف صاحبها جيدًا.",
+      text: "وأمر ﷺ أصحابه بالإسراع بالجنازة وعدم تأخيرها ([صحيح البخاري 1315](https://my.munibtracker.app/hadith/bukhari?q=1315))، ولذلك كثيرًا ما يُعلَن عن الجنازة قبلها بوقت قصير. فإن سمعت بجنازة في مجتمعك فاحرص على حضورها ولو لم تكن تعرف صاحبها جيدًا.",
     },
     { type: "h2", text: "كيفية صلاة الجنازة خطوة بخطوة" },
     {
       type: "p",
-      text: "تقوم الصلاة على أربع تكبيرات، في كل واحدة منها تقول: الله أكبر. وقد روى جابر رضي الله عنه أن النبي ﷺ صلّى على النجاشي فكبّر أربعًا ([صحيح البخاري 1334](https://sunnah.com/bukhari:1334)). وبين التكبيرات تقرأ أو تدعو سرًّا، ثم يختم الإمام الصلاة بالتسليم. فإن كنت تصلّي خلف إمام فما عليك إلا متابعته.",
+      text: "تقوم الصلاة على أربع تكبيرات، في كل واحدة منها تقول: الله أكبر. وقد روى جابر رضي الله عنه أن النبي ﷺ صلّى على النجاشي فكبّر أربعًا ([صحيح البخاري 1334](https://my.munibtracker.app/hadith/bukhari?q=1334)). وبين التكبيرات تقرأ أو تدعو سرًّا، ثم يختم الإمام الصلاة بالتسليم. فإن كنت تصلّي خلف إمام فما عليك إلا متابعته.",
     },
     {
       type: "steps",
@@ -92,7 +92,7 @@ export const article: Article = {
       arabic:
         "صَلَّيْتُ خَلْفَ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ عَلَى جَنَازَةٍ فَقَرَأَ بِفَاتِحَةِ الْكِتَابِ قَالَ لِيَعْلَمُوا أَنَّهَا سُنَّةٌ",
       reference: "صحيح البخاري 1335",
-      href: "https://sunnah.com/bukhari:1335",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1335",
     },
     {
       type: "note",
@@ -111,7 +111,7 @@ export const article: Article = {
       arabic:
         "اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ وَأَكْرِمْ نُزُلَهُ وَوَسِّعْ مُدْخَلَهُ وَاغْسِلْهُ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ وَنَقِّهِ مِنَ الْخَطَايَا كَمَا نَقَّيْتَ الثَّوْبَ الأَبْيَضَ مِنَ الدَّنَسِ وَأَبْدِلْهُ دَارًا خَيْرًا مِنْ دَارِهِ وَأَهْلاً خَيْرًا مِنْ أَهْلِهِ وَزَوْجًا خَيْرًا مِنْ زَوْجِهِ وَأَدْخِلْهُ الْجَنَّةَ وَأَعِذْهُ مِنْ عَذَابِ الْقَبْرِ أَوْ مِنْ عَذَابِ النَّارِ",
       reference: "صحيح مسلم 963",
-      href: "https://sunnah.com/muslim:963a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2232",
       note: "وأورده أيضًا صاحب حصن المسلم",
     },
     {
@@ -124,7 +124,7 @@ export const article: Article = {
       arabic:
         "اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا وَشَاهِدِنَا وَغَائِبِنَا اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الإِيمَانِ وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الإِسْلاَمِ اللَّهُمَّ لاَ تَحْرِمْنَا أَجْرَهُ وَلاَ تُضِلَّنَا بَعْدَهُ",
       reference: "سنن أبي داود 3201",
-      href: "https://sunnah.com/abudawud:3201",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=3201",
       note: "صحّحه الألباني",
     },
     {
@@ -141,11 +141,11 @@ export const article: Article = {
       kind: "hadith",
       arabic: "صَلَّيْتُ وَرَاءَ النَّبِيِّ صلى الله عليه وسلم عَلَى امْرَأَةٍ مَاتَتْ فِي نِفَاسِهَا فَقَامَ عَلَيْهَا وَسَطَهَا",
       reference: "صحيح البخاري 1332",
-      href: "https://sunnah.com/bukhari:1332",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1332",
     },
     {
       type: "p",
-      text: "ورُوي عن أنس بن مالك رضي الله عنه أنه قام عند رأس الرجل وعند عجيزة المرأة، وأقرّ بأن هذا كان فعل النبي ﷺ ([سنن أبي داود 3194](https://sunnah.com/abudawud:3194)، صحّحه الألباني). وهذا من شأن الإمام لا من شأنك؛ فالمأمومون يقفون في الصفوف خلفه فحسب.",
+      text: "ورُوي عن أنس بن مالك رضي الله عنه أنه قام عند رأس الرجل وعند عجيزة المرأة، وأقرّ بأن هذا كان فعل النبي ﷺ ([سنن أبي داود 3194](https://my.munibtracker.app/hadith/abudawud?q=3194)، صحّحه الألباني). وهذا من شأن الإمام لا من شأنك؛ فالمأمومون يقفون في الصفوف خلفه فحسب.",
     },
     {
       type: "p",
@@ -177,7 +177,7 @@ export const article: Article = {
       arabic:
         "أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم نَعَى النَّجَاشِيَّ فِي الْيَوْمِ الَّذِي مَاتَ فِيهِ، خَرَجَ إِلَى الْمُصَلَّى، فَصَفَّ بِهِمْ وَكَبَّرَ أَرْبَعًا",
       reference: "صحيح البخاري 1245",
-      href: "https://sunnah.com/bukhari:1245",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1245",
     },
     {
       type: "p",
@@ -191,7 +191,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "ولبعض الحالات الأخرى أحكامها الخاصة. ففي الحكم الفقهي المأخوذ من غزوة أحد، دُفن الشهداء في ثيابهم دون الغسل المعتاد ([صحيح البخاري 1346](https://sunnah.com/bukhari:1346)). وفي السقط والمولود الميت تختلف المذاهب في متى يُغسَّل ويُصلّى عليه. وهذه مسائل حسّاسة، فتحقّق منها مع عالم أو مع لجنة الجنائز في مجتمعك بدلًا من الاجتهاد بالظن.",
+      text: "ولبعض الحالات الأخرى أحكامها الخاصة. ففي الحكم الفقهي المأخوذ من غزوة أحد، دُفن الشهداء في ثيابهم دون الغسل المعتاد ([صحيح البخاري 1346](https://my.munibtracker.app/hadith/bukhari?q=1346)). وفي السقط والمولود الميت تختلف المذاهب في متى يُغسَّل ويُصلّى عليه. وهذه مسائل حسّاسة، فتحقّق منها مع عالم أو مع لجنة الجنائز في مجتمعك بدلًا من الاجتهاد بالظن.",
     },
     { type: "h2", text: "واجب جماعي، ورعاية أهل الميت" },
     {
@@ -200,7 +200,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "وإن كنت في حزن، فالدموع ليست نقصًا في الإيمان. فحين وجد النبي ﷺ صاحبه سعد بن عبادة في شدّة المرض بكى، وبيّن أن الله لا يعذّب بدمع العين ولا بحزن القلب، وأشار إلى اللسان بأنه ما يُؤاخَذ به ([صحيح البخاري 1304](https://sunnah.com/bukhari:1304)). والذي نهى عنه هو النياحة. وعلّم كذلك كلمات تُقال عند المصيبة:",
+      text: "وإن كنت في حزن، فالدموع ليست نقصًا في الإيمان. فحين وجد النبي ﷺ صاحبه سعد بن عبادة في شدّة المرض بكى، وبيّن أن الله لا يعذّب بدمع العين ولا بحزن القلب، وأشار إلى اللسان بأنه ما يُؤاخَذ به ([صحيح البخاري 1304](https://my.munibtracker.app/hadith/bukhari?q=1304)). والذي نهى عنه هو النياحة. وعلّم كذلك كلمات تُقال عند المصيبة:",
     },
     {
       type: "evidence",
@@ -208,11 +208,11 @@ export const article: Article = {
       arabic:
         "مَا مِنْ مُسْلِمٍ تُصِيبُهُ مُصِيبَةٌ فَيَقُولُ مَا أَمَرَهُ اللَّهُ إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا ‏.‏ إِلاَّ أَخْلَفَ اللَّهُ لَهُ خَيْرًا مِنْهَا",
       reference: "صحيح مسلم 918",
-      href: "https://sunnah.com/muslim:918a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2126",
     },
     {
       type: "p",
-      text: "والعون العملي كثيرًا ما يكون أبلغ من الكلام. فحين جاء خبر وفاة جعفر، أمر النبي ﷺ أن يُصنع لأهله طعام لأنهم شُغلوا بمصابهم ([سنن أبي داود 3132](https://sunnah.com/abudawud:3132)، حسّنه الألباني). وما زال حمل وجبة إلى بيت فيه حزن من ألطف ما يمكنك فعله.",
+      text: "والعون العملي كثيرًا ما يكون أبلغ من الكلام. فحين جاء خبر وفاة جعفر، أمر النبي ﷺ أن يُصنع لأهله طعام لأنهم شُغلوا بمصابهم ([سنن أبي داود 3132](https://my.munibtracker.app/hadith/abudawud?q=3132)، حسّنه الألباني). وما زال حمل وجبة إلى بيت فيه حزن من ألطف ما يمكنك فعله.",
     },
     {
       type: "note",
@@ -222,27 +222,57 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 1325 — Sunnah.com", url: "https://sunnah.com/bukhari:1325" },
-    { label: "صحيح البخاري 1315 — Sunnah.com", url: "https://sunnah.com/bukhari:1315" },
-    { label: "صحيح البخاري 1334 — Sunnah.com", url: "https://sunnah.com/bukhari:1334" },
-    { label: "صحيح البخاري 1335 — Sunnah.com", url: "https://sunnah.com/bukhari:1335" },
-    { label: "صحيح مسلم 963 — Sunnah.com", url: "https://sunnah.com/muslim:963a" },
     {
-      label: "سنن أبي داود 3201 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:3201",
+      label: "صحيح البخاري 1325 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1325",
     },
-    { label: "صحيح البخاري 1332 — Sunnah.com", url: "https://sunnah.com/bukhari:1332" },
     {
-      label: "سنن أبي داود 3194 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:3194",
+      label: "صحيح البخاري 1315 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1315",
     },
-    { label: "صحيح البخاري 1245 — Sunnah.com", url: "https://sunnah.com/bukhari:1245" },
-    { label: "صحيح البخاري 1346 — Sunnah.com", url: "https://sunnah.com/bukhari:1346" },
-    { label: "صحيح البخاري 1304 — Sunnah.com", url: "https://sunnah.com/bukhari:1304" },
-    { label: "صحيح مسلم 918 — Sunnah.com", url: "https://sunnah.com/muslim:918a" },
     {
-      label: "سنن أبي داود 3132 — Sunnah.com (حسن، الألباني)",
-      url: "https://sunnah.com/abudawud:3132",
+      label: "صحيح البخاري 1334 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1334",
+    },
+    {
+      label: "صحيح البخاري 1335 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1335",
+    },
+    {
+      label: "صحيح مسلم 963 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2232",
+    },
+    {
+      label: "سنن أبي داود 3201 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3201",
+    },
+    {
+      label: "صحيح البخاري 1332 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1332",
+    },
+    {
+      label: "سنن أبي داود 3194 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3194",
+    },
+    {
+      label: "صحيح البخاري 1245 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1245",
+    },
+    {
+      label: "صحيح البخاري 1346 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1346",
+    },
+    {
+      label: "صحيح البخاري 1304 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1304",
+    },
+    {
+      label: "صحيح مسلم 918 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2126",
+    },
+    {
+      label: "سنن أبي داود 3132 — Munib Tracker (حسن، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3132",
     },
   ],
   faqs: [

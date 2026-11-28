@@ -41,7 +41,7 @@ export const article: Article = {
       translation:
         'Narrated `Uthman: The Prophet (ﷺ) said, "The best among you (Muslims) are those who learn the Qur\'an and teach it."',
       reference: "Sahih al-Bukhari 5027",
-      href: "https://sunnah.com/bukhari:5027",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5027",
     },
     {
       type: "p",
@@ -97,7 +97,7 @@ export const article: Article = {
       translation:
         'Narrated Anas bin Malik: The Prophet (ﷺ) said, "Make things easy for the people, and do not make it difficult for them, and make them calm (with glad tidings) and do not repulse (them ).',
       reference: "Sahih al-Bukhari 6125",
-      href: "https://sunnah.com/bukhari:6125",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6125",
     },
     {
       type: "p",
@@ -114,7 +114,7 @@ export const article: Article = {
       translation:
         "Narrated Sa`id bin Jubair: Those Suras which you people call the Mufassal, are the Muhkam. And Ibn `Abbas said, \"Allah's Apostle died when I was a boy of ten years, and I had learnt the Muhkam (of the Qur'an).",
       reference: "Sahih al-Bukhari 5035",
-      href: "https://sunnah.com/bukhari:5035",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5035",
     },
     {
       type: "steps",
@@ -170,7 +170,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "A class works best when home supports it. Ask the teacher what your child is working on, and spend a few minutes each day going over it together. If your own reading is limited, learning alongside your child can be a gift for both of you. Sahih Muslim records that tranquility and mercy descend on people who gather in a house of Allah to recite His Book and study it together ([Sahih Muslim 2699](https://sunnah.com/muslim:2699a)).",
+      text: "A class works best when home supports it. Ask the teacher what your child is working on, and spend a few minutes each day going over it together. If your own reading is limited, learning alongside your child can be a gift for both of you. Sahih Muslim records that tranquility and mercy descend on people who gather in a house of Allah to recite His Book and study it together ([Sahih Muslim 2699](https://my.munibtracker.app/hadith/muslim?q=6853)).",
     },
     {
       type: "note",
@@ -198,10 +198,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 5027 — Sunnah.com", url: "https://sunnah.com/bukhari:5027" },
-    { label: "Sahih al-Bukhari 6125 — Sunnah.com", url: "https://sunnah.com/bukhari:6125" },
-    { label: "Sahih al-Bukhari 5035 — Sunnah.com", url: "https://sunnah.com/bukhari:5035" },
-    { label: "Sahih Muslim 2699 — Sunnah.com", url: "https://sunnah.com/muslim:2699a" },
+    {
+      label: "Sahih al-Bukhari 5027 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5027",
+    },
+    {
+      label: "Sahih al-Bukhari 6125 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6125",
+    },
+    {
+      label: "Sahih al-Bukhari 5035 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5035",
+    },
+    {
+      label: "Sahih Muslim 2699 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6853",
+    },
   ],
   faqs: [
     {

@@ -45,14 +45,14 @@ export const article: Article = {
       kind: "quran",
       arabic: "وَسَبِّحُوهُ بُكۡرَةٗ وَأَصِيلًا",
       reference: "سورة الأحزاب 33:42",
-      href: "https://quran.com/33/42",
+      href: "https://my.munibtracker.app/quran/33?ayah=42",
     },
     {
       type: "evidence",
       kind: "quran",
       arabic: "فَٱصۡبِرۡ عَلَىٰ مَا يَقُولُونَ وَسَبِّحۡ بِحَمۡدِ رَبِّكَ قَبۡلَ طُلُوعِ ٱلشَّمۡسِ وَقَبۡلَ ٱلۡغُرُوبِ",
       reference: "سورة ق 50:39",
-      href: "https://quran.com/50/39",
+      href: "https://my.munibtracker.app/quran/50?ayah=39",
     },
     {
       type: "p",
@@ -79,7 +79,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "سنن أبي داود 3667",
-      href: "https://sunnah.com/abudawud:3667",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=3667",
       note: "درجته في Sunnah.com: حسن (الألباني)",
     },
     {
@@ -108,7 +108,7 @@ export const article: Article = {
       arabic:
         "اللَّهُمَّ أَنْتَ رَبِّي، لاَ إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَىَّ وَأَبُوءُ لَكَ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
       reference: "صحيح البخاري 6306",
-      href: "https://sunnah.com/bukhari:6306",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6306",
     },
     { type: "h3", text: "2. بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ… (ثلاث مرات)" },
     {
@@ -120,7 +120,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَىْءٌ فِي الأَرْضِ وَلاَ فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
       reference: "سنن أبي داود 5088؛ جامع الترمذي 3388",
-      href: "https://sunnah.com/abudawud:5088",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=5088",
       note: "درجتاه في Sunnah.com: سنن أبي داود 5088 — صحيح (الألباني)؛ جامع الترمذي 3388 — حسن (دار السلام)",
     },
     { type: "h3", text: "3. سُبْحَانَ اللَّهِ وَبِحَمْدِهِ (100 مرة)" },
@@ -133,7 +133,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
       reference: "صحيح مسلم 2692",
-      href: "https://sunnah.com/muslim:2692",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6843",
     },
     { type: "h3", text: "4. آية الكرسي" },
     {
@@ -146,11 +146,11 @@ export const article: Article = {
       arabic:
         "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ",
       reference: "سورة البقرة 2:255",
-      href: "https://quran.com/2/255",
+      href: "https://my.munibtracker.app/quran/2?ayah=255",
     },
     {
       type: "p",
-      text: "ومن أذكار الصباح والمساء المشهورة أيضًا دعاءٌ يُفتتح بذكر دخول المساء وأن الملك كله لله، يُسأل فيه الله خير الليلة ويُستعاذ به من شرها. وفي الرواية نفسها أن النبي ﷺ كان يقوله بصيغة الصباح كذلك ([صحيح مسلم 2723](https://sunnah.com/muslim:2723b)). وحين تألف الأذكار الأربعة الأولى، يكون هذا الدعاء خطوة تالية طبيعية.",
+      text: "ومن أذكار الصباح والمساء المشهورة أيضًا دعاءٌ يُفتتح بذكر دخول المساء وأن الملك كله لله، يُسأل فيه الله خير الليلة ويُستعاذ به من شرها. وفي الرواية نفسها أن النبي ﷺ كان يقوله بصيغة الصباح كذلك ([صحيح مسلم 2723](https://my.munibtracker.app/hadith/muslim?q=6908)). وحين تألف الأذكار الأربعة الأولى، يكون هذا الدعاء خطوة تالية طبيعية.",
     },
     { type: "h2", text: "كيف تجعلها جزءًا من يومك" },
     {
@@ -208,30 +208,51 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة الأحزاب 33:42 — Quran.com", url: "https://quran.com/33/42" },
-    { label: "سورة ق 50:39 — Quran.com", url: "https://quran.com/50/39" },
-    { label: "سورة البقرة 2:255 — Quran.com", url: "https://quran.com/2/255" },
     {
-      label: "سنن أبي داود 3667 — Sunnah.com (حسن، الألباني)",
-      url: "https://sunnah.com/abudawud:3667",
+      label: "سورة الأحزاب 33:42 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/33?ayah=42",
     },
-    { label: "صحيح البخاري 6306 — Sunnah.com", url: "https://sunnah.com/bukhari:6306" },
+    { label: "سورة ق 50:39 — Munib Tracker", url: "https://my.munibtracker.app/quran/50?ayah=39" },
     {
-      label: "سنن أبي داود 5088 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:5088",
+      label: "سورة البقرة 2:255 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=255",
     },
     {
-      label: "جامع الترمذي 3388 — Sunnah.com (حسن، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:3388",
+      label: "سنن أبي داود 3667 — Munib Tracker (حسن، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3667",
     },
-    { label: "صحيح مسلم 2692 — Sunnah.com", url: "https://sunnah.com/muslim:2692" },
-    { label: "صحيح مسلم 2723 — Sunnah.com", url: "https://sunnah.com/muslim:2723b" },
-    { label: "صحيح البخاري 5010 — Sunnah.com", url: "https://sunnah.com/bukhari:5010" },
     {
-      label: "حصن المسلم 75 (آية الكرسي، الصباح والمساء) — Sunnah.com",
-      url: "https://sunnah.com/hisn:75",
+      label: "صحيح البخاري 6306 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6306",
     },
-    { label: "حصن المسلم (المجموعة كاملة) — Sunnah.com", url: "https://sunnah.com/hisn" },
+    {
+      label: "سنن أبي داود 5088 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=5088",
+    },
+    {
+      label: "جامع الترمذي 3388 — Munib Tracker (حسن، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3388",
+    },
+    {
+      label: "صحيح مسلم 2692 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6843",
+    },
+    {
+      label: "صحيح مسلم 2723 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6908",
+    },
+    {
+      label: "صحيح البخاري 5010 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5010",
+    },
+    {
+      label: "حصن المسلم 75 (آية الكرسي، الصباح والمساء) — Munib Tracker",
+      url: "https://my.munibtracker.app/dua/detail/hisn-75",
+    },
+    {
+      label: "حصن المسلم (المجموعة كاملة) — Munib Tracker",
+      url: "https://my.munibtracker.app/dua",
+    },
   ],
   faqs: [
     {

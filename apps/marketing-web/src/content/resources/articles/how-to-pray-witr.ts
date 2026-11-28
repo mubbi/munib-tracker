@@ -43,7 +43,7 @@ export const article: Article = {
       translation:
         'Narrated `Abdullah bin `Umar: The Prophet (ﷺ) said, "Make witr as your last prayer at night."',
       reference: "Sahih al-Bukhari 998",
-      href: "https://sunnah.com/bukhari:998",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=998",
     },
     {
       type: "p",
@@ -53,7 +53,7 @@ export const article: Article = {
       type: "note",
       tone: "scholar",
       title: "Is Witr wajib or Sunnah?",
-      text: "In the Hanafi school Witr is wajib: below fard, above Sunnah. The school cites the hadith “The witr is a duty for every Muslim” ([Sunan Abi Dawud 1422](https://sunnah.com/abudawud:1422)). The Shafi'i, Maliki and Hanbali schools hold that it is a Sunnah mu'akkadah, a strongly emphasised Sunnah. They cite the man who asked whether anything was due beyond the five Salah and was told “No, but if you want to offer the Nawafil prayers (you can)” ([Sahih al-Bukhari 46](https://sunnah.com/bukhari:46)). Either way, many authentic hadith encourage Witr, and it is not something to leave lightly. Follow the school you learned, and ask a qualified scholar about your own situation.",
+      text: "In the Hanafi school Witr is wajib: below fard, above Sunnah. The school cites the hadith “The witr is a duty for every Muslim” ([Sunan Abi Dawud 1422](https://my.munibtracker.app/hadith/abudawud?q=1422)). The Shafi'i, Maliki and Hanbali schools hold that it is a Sunnah mu'akkadah, a strongly emphasised Sunnah. They cite the man who asked whether anything was due beyond the five Salah and was told “No, but if you want to offer the Nawafil prayers (you can)” ([Sahih al-Bukhari 46](https://my.munibtracker.app/hadith/bukhari?q=46)). Either way, many authentic hadith encourage Witr, and it is not something to leave lightly. Follow the school you learned, and ask a qualified scholar about your own situation.",
     },
     { type: "h2", text: "When to pray Witr" },
     {
@@ -67,11 +67,11 @@ export const article: Article = {
       translation:
         "Narrated `Aisha: Allah's Messenger (ﷺ) offered witr prayer at different nights at various hours extending (from the `Isha' prayer) up to the last hour of the night",
       reference: "Sahih al-Bukhari 996",
-      href: "https://sunnah.com/bukhari:996",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=996",
     },
     {
       type: "p",
-      text: "So you have two good choices. If you are not confident you will wake up, pray Witr after Isha, before you go to bed. If you expect to wake for the night prayer, you can leave Witr until the end of your night, which the Prophet ﷺ described as better for someone who will get up ([Sahih Muslim 755](https://sunnah.com/muslim:755a)). If you prayed Witr early and then wake up, a widely held view is that you may pray more in pairs but do not repeat Witr, based on the report that there are no two Witrs in one night ([Sunan Abi Dawud 1439](https://sunnah.com/abudawud:1439), graded Sahih by al-Albani).",
+      text: "So you have two good choices. If you are not confident you will wake up, pray Witr after Isha, before you go to bed. If you expect to wake for the night prayer, you can leave Witr until the end of your night, which the Prophet ﷺ described as better for someone who will get up ([Sahih Muslim 755](https://my.munibtracker.app/hadith/muslim?q=1766)). If you prayed Witr early and then wake up, a widely held view is that you may pray more in pairs but do not repeat Witr, based on the report that there are no two Witrs in one night ([Sunan Abi Dawud 1439](https://my.munibtracker.app/hadith/abudawud?q=1439), graded Sahih by al-Albani).",
     },
     {
       type: "p",
@@ -90,12 +90,12 @@ export const article: Article = {
       translation:
         "Narrated AbuAyyub al-Ansari: The Prophet (ﷺ) said: The witr is a duty for every Muslim so if anyone wishes to observe it with five rak'ahs, he may do so; if anyone wishes to observe it with three, he may do so, and if anyone wishes to observe it with one, he may do so",
       reference: "Sunan Abi Dawud 1422",
-      href: "https://sunnah.com/abudawud:1422",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1422",
       note: "Graded Sahih by al-Albani",
     },
     {
       type: "p",
-      text: "The Prophet ﷺ also taught that the night prayer is two rakahs at a time, and that a single rakah at the end makes the whole of it odd ([Sahih al-Bukhari 990](https://sunnah.com/bukhari:990)). Aishah reported that his night prayer did not go beyond eleven rakahs ([Sahih al-Bukhari 1147](https://sunnah.com/bukhari:1147)). In practice most people pray Witr as three rakahs. The four schools describe it like this:",
+      text: "The Prophet ﷺ also taught that the night prayer is two rakahs at a time, and that a single rakah at the end makes the whole of it odd ([Sahih al-Bukhari 990](https://my.munibtracker.app/hadith/bukhari?q=990)). Aishah reported that his night prayer did not go beyond eleven rakahs ([Sahih al-Bukhari 1147](https://my.munibtracker.app/hadith/bukhari?q=1147)). In practice most people pray Witr as three rakahs. The four schools describe it like this:",
     },
     {
       type: "table",
@@ -181,7 +181,7 @@ export const article: Article = {
       translation:
         'Narrated Al-Hasan ibn Ali: The Messenger of Allah (ﷺ) taught me some words that I say during the witr. (The version of Ibn Jawwas has: I say them in the supplication of the witr.) They were: "O Allah, guide me among those Thou hast guided, grant me security among those Thou hast granted security, take me into Thy charge among those Thou hast taken into Thy charge, bless me in what Thou hast given, guard me from the evil of what Thou hast decreed, for Thou dost decree, and nothing is decreed for Thee. He whom Thou befriendest is not humbled. Blessed and Exalted art Thou, our Lord."',
       reference: "Sunan Abi Dawud 1425",
-      href: "https://sunnah.com/abudawud:1425",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1425",
       note: "Graded Sahih by al-Albani",
     },
     {
@@ -200,7 +200,7 @@ export const article: Article = {
       translation:
         "Narrated AbuSa'id al-Khudri: The Prophet (ﷺ) said: If anyone oversleeps and misses the witr, or forgets it, he should pray when he remembers",
       reference: "Sunan Abi Dawud 1431",
-      href: "https://sunnah.com/abudawud:1431",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1431",
       note: "Graded Sahih by al-Albani. Al-Tirmidhi judged a mursal version of this report to be more authentic.",
     },
     {
@@ -225,27 +225,45 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 998 — Sunnah.com", url: "https://sunnah.com/bukhari:998" },
-    { label: "Sahih al-Bukhari 996 — Sunnah.com", url: "https://sunnah.com/bukhari:996" },
-    { label: "Sahih al-Bukhari 990 — Sunnah.com", url: "https://sunnah.com/bukhari:990" },
-    { label: "Sahih al-Bukhari 1147 — Sunnah.com", url: "https://sunnah.com/bukhari:1147" },
-    { label: "Sahih al-Bukhari 46 — Sunnah.com", url: "https://sunnah.com/bukhari:46" },
-    { label: "Sahih Muslim 755 — Sunnah.com", url: "https://sunnah.com/muslim:755a" },
     {
-      label: "Sunan Abi Dawud 1422 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1422",
+      label: "Sahih al-Bukhari 998 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=998",
     },
     {
-      label: "Sunan Abi Dawud 1425 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1425",
+      label: "Sahih al-Bukhari 996 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=996",
     },
     {
-      label: "Sunan Abi Dawud 1431 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1431",
+      label: "Sahih al-Bukhari 990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=990",
     },
     {
-      label: "Sunan Abi Dawud 1439 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1439",
+      label: "Sahih al-Bukhari 1147 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1147",
+    },
+    {
+      label: "Sahih al-Bukhari 46 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=46",
+    },
+    {
+      label: "Sahih Muslim 755 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1766",
+    },
+    {
+      label: "Sunan Abi Dawud 1422 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1422",
+    },
+    {
+      label: "Sunan Abi Dawud 1425 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1425",
+    },
+    {
+      label: "Sunan Abi Dawud 1431 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1431",
+    },
+    {
+      label: "Sunan Abi Dawud 1439 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1439",
     },
   ],
   faqs: [

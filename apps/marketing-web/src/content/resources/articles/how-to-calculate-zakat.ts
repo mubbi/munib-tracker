@@ -47,7 +47,7 @@ export const article: Article = {
       translation:
         "Take, [O Muḥammad], from their wealth a charity by which you purify them and cause them increase, and invoke [Allāh's blessings] upon them. Indeed, your invocations are reassurance for them. And Allāh is Hearing and Knowing.",
       reference: "Qur'an 9:103",
-      href: "https://quran.com/9/103",
+      href: "https://my.munibtracker.app/quran/9?ayah=103",
       note: "Translation: Saheeh International",
     },
     {
@@ -62,7 +62,7 @@ export const article: Article = {
       translation:
         'The Prophet (ﷺ) sent Mu`adh to Yemen and said, "Invite the people to testify that none has the right to be worshipped but Allah and I am Allah\'s Messenger (ﷺ), and if they obey you to do so, then teach them that Allah has enjoined on them five prayers in every day and night (in twenty-four hours), and if they obey you to do so, then teach them that Allah has made it obligatory for them to pay the Zakat from their property and it is to be taken from the wealthy among them and given to the poor."',
       reference: "Sahih al-Bukhari 1395",
-      href: "https://sunnah.com/bukhari:1395",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1395",
       note: "Narrated by Ibn Abbas. English text from the open hadith-api dataset (fawazahmed0).",
     },
     {
@@ -82,7 +82,7 @@ export const article: Article = {
       translation:
         'Allah\'s Messenger (ﷺ) said, "There is no Zakat on less than five camels and also there is no Zakat on less than five Awaq (of silver). […] And there is no Zakat on less than five Awsuq."',
       reference: "Sahih al-Bukhari 1447",
-      href: "https://sunnah.com/bukhari:1447",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1447",
       note: "Narrated by Abu Sa'id al-Khudri. English text from the open hadith-api dataset (fawazahmed0); the translator's bracketed notes on old coin values are left out where marked.",
     },
     {
@@ -217,7 +217,7 @@ export const article: Article = {
       translation:
         "Zakāh expenditures are only for the poor and for the needy and for those employed for it and for bringing hearts together [for Islām] and for freeing captives [or slaves] and for those in debt and for the cause of Allāh and for the [stranded] traveler - an obligation [imposed] by Allāh. And Allāh is Knowing and Wise.",
       reference: "Qur'an 9:60",
-      href: "https://quran.com/9/60",
+      href: "https://my.munibtracker.app/quran/9?ayah=60",
       note: "Translation: Saheeh International",
     },
     {
@@ -237,12 +237,21 @@ export const article: Article = {
   ],
   sources: [
     {
-      label: "Qur'an 9:103 (Saheeh International) — Quran.com",
-      url: "https://quran.com/9/103",
+      label: "Qur'an 9:103 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/9?ayah=103",
     },
-    { label: "Qur'an 9:60 (Saheeh International) — Quran.com", url: "https://quran.com/9/60" },
-    { label: "Sahih al-Bukhari 1395 — Sunnah.com", url: "https://sunnah.com/bukhari:1395" },
-    { label: "Sahih al-Bukhari 1447 — Sunnah.com", url: "https://sunnah.com/bukhari:1447" },
+    {
+      label: "Qur'an 9:60 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/9?ayah=60",
+    },
+    {
+      label: "Sahih al-Bukhari 1395 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1395",
+    },
+    {
+      label: "Sahih al-Bukhari 1447 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1447",
+    },
     {
       label: "hadith-api (fawazahmed0), open hadith dataset used for the hadith text",
       url: "https://github.com/fawazahmed0/hadith-api",

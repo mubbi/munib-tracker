@@ -56,7 +56,7 @@ export const article: Article = {
       translation:
         "Those who have believed and whose hearts are assured by the remembrance of Allāh. Unquestionably, by the remembrance of Allāh hearts are assured.",
       reference: "Qur'an 13:28",
-      href: "https://quran.com/13/28",
+      href: "https://my.munibtracker.app/quran/13?ayah=28",
       note: "Translation: Saheeh International",
     },
     {
@@ -69,7 +69,7 @@ export const article: Article = {
       arabic: "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱذۡكُرُواْ ٱللَّهَ ذِكۡرٗا كَثِيرٗا",
       translation: "O you who have believed, remember Allāh with much remembrance",
       reference: "Qur'an 33:41",
-      href: "https://quran.com/33/41",
+      href: "https://my.munibtracker.app/quran/33?ayah=41",
       note: "Translation: Saheeh International",
     },
     {
@@ -82,7 +82,7 @@ export const article: Article = {
       translation:
         'Narrated Abu Musa: The Prophet (ﷺ) said, "The example of the one who celebrates the Praises of his Lord (Allah) in comparison to the one who does not celebrate the Praises of his Lord, is that of a living creature compared to a dead one."',
       reference: "Sahih al-Bukhari 6407",
-      href: "https://sunnah.com/bukhari:6407",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6407",
     },
     {
       type: "p",
@@ -94,7 +94,7 @@ export const article: Article = {
       translation:
         "Narrated Abu Huraira: The Prophet (ﷺ) said, \"There are two expressions which are very easy for the tongue to say, but they are very heavy in the balance and are very dear to The Beneficent (Allah), and they are, 'Subhan Allah Al- `Azim and 'Subhan Allah wa bihamdihi.'\"",
       reference: "Sahih al-Bukhari 6406; Sahih Muslim 2694",
-      href: "https://sunnah.com/bukhari:6406",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6406",
     },
     { type: "h2", text: "Anchor your routine to Salah" },
     {
@@ -138,7 +138,7 @@ export const article: Article = {
       translation:
         'Abu Huraira reported Allah\'s Messenger (ﷺ) as saying: If anyone extols Allah after every prayer thirty-three times, and praises Allah thirty-three times, and declares His Greatness thirty-three times, ninety-nine times in all, and says to complete a hundred:" There is no god but Allah, having no partner with Him, to Him belongs sovereignty and to Him is praise due, and He is Potent over everything," his sins will be forgiven even If these are as abundant as the foam of the sea.',
       reference: "Sahih Muslim 597",
-      href: "https://sunnah.com/muslim:597a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1352",
     },
     {
       type: "p",
@@ -213,7 +213,7 @@ export const article: Article = {
       translation:
         'Narrated `Aisha: Allah\'s Messenger (ﷺ) said, "Do good deeds properly, sincerely and moderately and know that your deeds will not make you enter Paradise, and that the most beloved deed to Allah is the most regular and constant even if it were little."',
       reference: "Sahih al-Bukhari 6464",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
     },
     {
       type: "p",
@@ -234,15 +234,42 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 13:28 — Quran.com (Saheeh International)", url: "https://quran.com/13/28" },
-    { label: "Qur'an 33:41 — Quran.com (Saheeh International)", url: "https://quran.com/33/41" },
-    { label: "Sahih al-Bukhari 6407 — Sunnah.com", url: "https://sunnah.com/bukhari:6407" },
-    { label: "Sahih al-Bukhari 6406 — Sunnah.com", url: "https://sunnah.com/bukhari:6406" },
-    { label: "Sahih Muslim 2694 — Sunnah.com", url: "https://sunnah.com/muslim:2694" },
-    { label: "Sahih Muslim 597 — Sunnah.com", url: "https://sunnah.com/muslim:597a" },
-    { label: "Sahih Muslim 2692 — Sunnah.com", url: "https://sunnah.com/muslim:2692" },
-    { label: "Sahih al-Bukhari 5010 — Sunnah.com", url: "https://sunnah.com/bukhari:5010" },
-    { label: "Sahih al-Bukhari 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
+    {
+      label: "Qur'an 13:28 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/13?ayah=28",
+    },
+    {
+      label: "Qur'an 33:41 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/33?ayah=41",
+    },
+    {
+      label: "Sahih al-Bukhari 6407 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6407",
+    },
+    {
+      label: "Sahih al-Bukhari 6406 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6406",
+    },
+    {
+      label: "Sahih Muslim 2694 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6846",
+    },
+    {
+      label: "Sahih Muslim 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1352",
+    },
+    {
+      label: "Sahih Muslim 2692 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6843",
+    },
+    {
+      label: "Sahih al-Bukhari 5010 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5010",
+    },
+    {
+      label: "Sahih al-Bukhari 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
   ],
   faqs: [
     {

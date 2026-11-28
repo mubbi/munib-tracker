@@ -42,7 +42,7 @@ export const article: Article = {
       translation:
         "ہم سے آدم نے بیان کیا، کہا ہم سے شعبہ نے بیان کیا، کہا ہم سے قتادہ نے بیان کیا، کہا کہ میں نے زرارہ بن اوفی سے سنا، وہ سعد بن ہشام سے بیان کرتے تھے اور ان سے عائشہ رضی اللہ عنہا نے کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا کہ اس شخص کی مثال جو قرآن پڑھتا ہے اور وہ اس کا حافظ بھی ہے، مکرم اور نیک لکھنے والے ( فرشتوں ) جیسی ہے اور جو شخص قرآن مجید باربار پڑھتا ہے۔ پھر بھی وہ اس کے لیے دشوار ہے تو اسے دوگنا ثواب ملے گا۔",
       reference: "صحیح بخاری 4937",
-      href: "https://sunnah.com/bukhari:4937",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=4937",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 4937",
     },
     {
@@ -51,7 +51,7 @@ export const article: Article = {
       translation:
         'ابو عوانہ نے قتادہؒ سے روایت کی ، انھوں نے زراہ بن اوفیٰ ( عامری ) سے ، انھوں نےسعد بن ہشام سے اور انھوں نے حضرت عائشہ رضی اللہ تعالیٰ عنہا سے روایت کی ، انھوں نے کہا : رسول اللہ صلی اللہ علیہ وسلم نے فرمایا : " قرآن مجید کا مہر قرآن لکھنے والے انتہائی معزز اور اللہ تعالیٰ کے فرمانبردار فرشتوں کے ساتھ ہوگا اور جو انسان قرآن مجیدپڑھتاہے اور ہکلاتا ہے ۔ اور وہ ( پڑھنا ) اس کے لئے مشقت کا باعث ہے ، اس کے لئے دو اجر ہیں ۔',
       reference: "صحیح مسلم 798",
-      href: "https://sunnah.com/muslim:798a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1862",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 798",
     },
     {
@@ -64,7 +64,7 @@ export const article: Article = {
       translation:
         "ہم سے حجاج بن منہال نے بیان کیا، کہا ہم سے شعبہ بن حجاج نے بیان کیا، کہا کہ مجھے علقمہ بن مرثد نے خبر دی، انہوں نے سعد بن عبیدہ سے سنا، انہوں نے ابوعبدالرحمٰن سلمی سے اور انہوں نے عثمان بن عفان رضی اللہ عنہ سے، انہوں نے بیان کیا کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا کہ تم میں سب سے بہتر وہ ہے جو قرآن مجید پڑھے اور پڑھائے۔ سعد بن عبیدہ نے بیان کیا کہ ابوعبدالرحمٰن سلمی نے لوگوں کو عثمان رضی اللہ عنہ کے زمانہ خلافت سے حجاج بن یوسف کے عراق کے گورنر ہونے تک قرآن مجید کی تعلیم دی۔ وہ کہا کرتے تھے کہ یہی حدیث ہے جس نے مجھے اس جگہ ( قرآن مجید پڑھانے کے لیے ) بٹھا رکھا ہے۔",
       reference: "صحیح بخاری 5027",
-      href: "https://sunnah.com/bukhari:5027",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5027",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 5027",
     },
     {
@@ -73,7 +73,7 @@ export const article: Article = {
       arabic: "وَلَقَدۡ يَسَّرۡنَا ٱلۡقُرۡءَانَ لِلذِّكۡرِ فَهَلۡ مِن مُّدَّكِرٖ",
       translation: "اور ہم نے قرآن کو سمجھنے کے لئے آسان کردیا ہے تو کوئی ہے کہ سوچے سمجھے؟",
       reference: "سورۃ القمر 54:17",
-      href: "https://quran.com/54/17",
+      href: "https://my.munibtracker.app/quran/54?ayah=17",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     { type: "h2", text: "پہلا قدم: حروف اور ان کی شکلیں سیکھیں" },
@@ -138,7 +138,7 @@ export const article: Article = {
       arabic: "أَوۡ زِدۡ عَلَيۡهِ وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا",
       translation: "یا اس سے کچھ کم یا کچھ زیادہ اور قرآن کو ٹھہر ٹھہر کر پڑھا کرو",
       reference: "سورۃ المزمل 73:4",
-      href: "https://quran.com/73/4",
+      href: "https://my.munibtracker.app/quran/73?ayah=4",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -148,7 +148,7 @@ export const article: Article = {
     { type: "h2", text: "پانچواں قدم: استاد تلاش کریں" },
     {
       type: "p",
-      text: "قرآن سیکھنے کا روایتی طریقہ یہ ہے کہ آپ کسی مستند استاد کو بلند آواز سے پڑھ کر سنائیں جو سنے اور آپ کی اصلاح کرے۔ نبی کریم ﷺ کے زمانے سے قرآن اسی طرح، ایک شخص سے دوسرے شخص تک، منتقل ہوتا آیا ہے؛ صحیح بخاری میں مذکور ہے کہ حضرت جبریل علیہ السلام رمضان کی ہر رات آپ ﷺ سے ملتے اور آپ کو قرآن پڑھاتے تھے ([صحیح بخاری 6](https://sunnah.com/bukhari:6))۔",
+      text: "قرآن سیکھنے کا روایتی طریقہ یہ ہے کہ آپ کسی مستند استاد کو بلند آواز سے پڑھ کر سنائیں جو سنے اور آپ کی اصلاح کرے۔ نبی کریم ﷺ کے زمانے سے قرآن اسی طرح، ایک شخص سے دوسرے شخص تک، منتقل ہوتا آیا ہے؛ صحیح بخاری میں مذکور ہے کہ حضرت جبریل علیہ السلام رمضان کی ہر رات آپ ﷺ سے ملتے اور آپ کو قرآن پڑھاتے تھے ([صحیح بخاری 6](https://my.munibtracker.app/hadith/bukhari?q=6))۔",
     },
     {
       type: "p",
@@ -177,7 +177,7 @@ export const article: Article = {
       translation:
         "ہم سے محمد بن علاء نے بیان کیا، کہا ہم سے ابواسامہ نے بیان کیا، ان سے برید نے، ان سے ابوبردہ نے اور ان سے ابوموسیٰ رضی اللہ عنہ نے کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا ”قرآن مجید کا پڑھتے رہنا لازم پکڑ لو“ اس ذات کی قسم جس کے ہاتھ میں میری جان ہے وہ اونٹ کے اپنی رسی تڑوا کر بھاگ جانے سے زیادہ تیزی سے بھاگتا ہے۔",
       reference: "صحیح بخاری 5033",
-      href: "https://sunnah.com/bukhari:5033",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5033",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 5033",
     },
     {
@@ -201,13 +201,34 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 4937 — Sunnah.com", url: "https://sunnah.com/bukhari:4937" },
-    { label: "صحیح مسلم 798 — Sunnah.com", url: "https://sunnah.com/muslim:798a" },
-    { label: "صحیح بخاری 5027 — Sunnah.com", url: "https://sunnah.com/bukhari:5027" },
-    { label: "سورۃ القمر 54:17 — Quran.com", url: "https://quran.com/54/17" },
-    { label: "سورۃ المزمل 73:4 — Quran.com", url: "https://quran.com/73/4" },
-    { label: "صحیح بخاری 6 — Sunnah.com", url: "https://sunnah.com/bukhari:6" },
-    { label: "صحیح بخاری 5033 — Sunnah.com", url: "https://sunnah.com/bukhari:5033" },
+    {
+      label: "صحیح بخاری 4937 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=4937",
+    },
+    {
+      label: "صحیح مسلم 798 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1862",
+    },
+    {
+      label: "صحیح بخاری 5027 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5027",
+    },
+    {
+      label: "سورۃ القمر 54:17 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/54?ayah=17",
+    },
+    {
+      label: "سورۃ المزمل 73:4 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/73?ayah=4",
+    },
+    {
+      label: "صحیح بخاری 6 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6",
+    },
+    {
+      label: "صحیح بخاری 5033 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5033",
+    },
   ],
   faqs: [
     {

@@ -1,5 +1,7 @@
 import { Fragment, type ReactNode } from "react";
+import { ProductAppLink } from "@/components/content/product-app-link";
 import { Link } from "@/i18n/navigation";
+import { isProductAppHref } from "@/lib/site";
 
 /**
  * Renders the tiny inline markup used in `src/content` strings:
@@ -27,7 +29,11 @@ export function RichText({ text }: { text: string }): ReactNode {
       );
     } else if (label && href) {
       out.push(
-        href.startsWith("http") ? (
+        isProductAppHref(href) ? (
+          <ProductAppLink key={key++} href={href} className={linkClass}>
+            {label}
+          </ProductAppLink>
+        ) : href.startsWith("http") ? (
           <a
             key={key++}
             href={href}

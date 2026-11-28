@@ -42,7 +42,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ كُتِبَ عَلَيۡكُمُ ٱلصِّيَامُ كَمَا كُتِبَ عَلَى ٱلَّذِينَ مِن قَبۡلِكُمۡ لَعَلَّكُمۡ تَتَّقُونَ",
       reference: "سورة البقرة 2:183",
-      href: "https://quran.com/2/183",
+      href: "https://my.munibtracker.app/quran/2?ayah=183",
     },
     {
       type: "p",
@@ -53,7 +53,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
       reference: "صحيح البخاري 38",
-      href: "https://sunnah.com/bukhari:38",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=38",
     },
     {
       type: "p",
@@ -68,7 +68,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 1969",
-      href: "https://sunnah.com/bukhari:1969",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1969",
     },
     {
       type: "p",
@@ -76,7 +76,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "وشعبان هو أيضًا آخر فرصة لقضاء ما فات من صيام رمضان الماضي، بسبب مرض أو سفر أو حيض. وقد ذكرت عائشة أنها كانت أحيانًا لا تستطيع قضاء ما عليها إلا في شعبان ([صحيح البخاري 1950](https://sunnah.com/bukhari:1950)). فإن كان عليك أيام فاحسبها الآن ووزّعها على الأسابيع الباقية. وهذا الصيام يُسمّى القضاء.",
+      text: "وشعبان هو أيضًا آخر فرصة لقضاء ما فات من صيام رمضان الماضي، بسبب مرض أو سفر أو حيض. وقد ذكرت عائشة أنها كانت أحيانًا لا تستطيع قضاء ما عليها إلا في شعبان ([صحيح البخاري 1950](https://my.munibtracker.app/hadith/bukhari?q=1950)). فإن كان عليك أيام فاحسبها الآن ووزّعها على الأسابيع الباقية. وهذا الصيام يُسمّى القضاء.",
     },
     {
       type: "p",
@@ -88,7 +88,7 @@ export const article: Article = {
       arabic:
         "لاَ يَتَقَدَّمَنَّ أَحَدُكُمْ رَمَضَانَ بِصَوْمِ يَوْمٍ أَوْ يَوْمَيْنِ، إِلاَّ أَنْ يَكُونَ رَجُلٌ كَانَ يَصُومُ صَوْمَهُ فَلْيَصُمْ ذَلِكَ الْيَوْمَ",
       reference: "صحيح البخاري 1914",
-      href: "https://sunnah.com/bukhari:1914",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1914",
     },
     {
       type: "note",
@@ -103,11 +103,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "ولليالي رمضان وعدها الخاص: من قامها إيمانًا واحتسابًا غُفر له ما تقدّم من ذنبه ([صحيح البخاري 37](https://sunnah.com/bukhari:37)). وهذا أصل صلاة التراويح. فاعرف من الآن أين ومتى يصلّيها مسجدك، وهل ستصلّيها مع الجماعة أم في البيت.",
+      text: "ولليالي رمضان وعدها الخاص: من قامها إيمانًا واحتسابًا غُفر له ما تقدّم من ذنبه ([صحيح البخاري 37](https://my.munibtracker.app/hadith/bukhari?q=37)). وهذا أصل صلاة التراويح. فاعرف من الآن أين ومتى يصلّيها مسجدك، وهل ستصلّيها مع الجماعة أم في البيت.",
     },
     {
       type: "p",
-      text: "كان جبريل يلقى النبي ﷺ كل ليلة من رمضان، فيعرض عليه النبي ﷺ القرآن ([صحيح البخاري 1902](https://sunnah.com/bukhari:1902)). فحدّد وردًا يوميًا تستطيع المحافظة عليه بصدق، جزءًا كان أو صفحات قليلة أو صفحة واحدة مع معانيها، وابدأ به قبل رمضان لتكون العادة قائمة حين يدخل. وانظر [كيف تداوم على قراءة القرآن كل يوم](/resources/quran-learning/how-to-practice-quran-reading-every-day) لطرق تعينك على ذلك.",
+      text: "كان جبريل يلقى النبي ﷺ كل ليلة من رمضان، فيعرض عليه النبي ﷺ القرآن ([صحيح البخاري 1902](https://my.munibtracker.app/hadith/bukhari?q=1902)). فحدّد وردًا يوميًا تستطيع المحافظة عليه بصدق، جزءًا كان أو صفحات قليلة أو صفحة واحدة مع معانيها، وابدأ به قبل رمضان لتكون العادة قائمة حين يدخل. وانظر [كيف تداوم على قراءة القرآن كل يوم](/resources/quran-learning/how-to-practice-quran-reading-every-day) لطرق تعينك على ذلك.",
     },
     { type: "h2", text: "هيّئ سلوكك، لا طعامك فقط" },
     {
@@ -119,7 +119,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ لَمْ يَدَعْ قَوْلَ الزُّورِ وَالْعَمَلَ بِهِ فَلَيْسَ لِلَّهِ حَاجَةٌ فِي أَنْ يَدَعَ طَعَامَهُ وَشَرَابَهُ",
       reference: "صحيح البخاري 1903",
-      href: "https://sunnah.com/bukhari:1903",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1903",
     },
     {
       type: "p",
@@ -197,20 +197,53 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة البقرة 2:183 — Quran.com", url: "https://quran.com/2/183" },
-    { label: "سورة البقرة 2:185 — Quran.com", url: "https://quran.com/2/185" },
-    { label: "صحيح البخاري 38 — Sunnah.com", url: "https://sunnah.com/bukhari:38" },
-    { label: "صحيح البخاري 1969 — Sunnah.com", url: "https://sunnah.com/bukhari:1969" },
-    { label: "صحيح البخاري 1950 — Sunnah.com", url: "https://sunnah.com/bukhari:1950" },
-    { label: "صحيح البخاري 1914 — Sunnah.com", url: "https://sunnah.com/bukhari:1914" },
-    { label: "صحيح البخاري 37 — Sunnah.com", url: "https://sunnah.com/bukhari:37" },
-    { label: "صحيح البخاري 1902 — Sunnah.com", url: "https://sunnah.com/bukhari:1902" },
-    { label: "صحيح البخاري 1903 — Sunnah.com", url: "https://sunnah.com/bukhari:1903" },
-    { label: "صحيح البخاري 1923 — Sunnah.com", url: "https://sunnah.com/bukhari:1923" },
-    { label: "صحيح البخاري 1509 — Sunnah.com", url: "https://sunnah.com/bukhari:1509" },
     {
-      label: "سنن أبي داود 2337 (الصيام بعد منتصف شعبان) — Sunnah.com",
-      url: "https://sunnah.com/abudawud:2337",
+      label: "سورة البقرة 2:183 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=183",
+    },
+    {
+      label: "سورة البقرة 2:185 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=185",
+    },
+    {
+      label: "صحيح البخاري 38 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=38",
+    },
+    {
+      label: "صحيح البخاري 1969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1969",
+    },
+    {
+      label: "صحيح البخاري 1950 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1950",
+    },
+    {
+      label: "صحيح البخاري 1914 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1914",
+    },
+    {
+      label: "صحيح البخاري 37 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=37",
+    },
+    {
+      label: "صحيح البخاري 1902 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1902",
+    },
+    {
+      label: "صحيح البخاري 1903 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1903",
+    },
+    {
+      label: "صحيح البخاري 1923 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1923",
+    },
+    {
+      label: "صحيح البخاري 1509 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1509",
+    },
+    {
+      label: "سنن أبي داود 2337 (الصيام بعد منتصف شعبان) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=2337",
     },
   ],
   faqs: [

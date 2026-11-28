@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         "ہم سے عبدالعزیز بن عبداللہ نے بیان کیا، کہا ہم سے سلیمان نے بیان کیا، ان سے موسیٰ بن عقبہ نے، ان سے ابوسلمہ بن عبدالرحمٰن نے اور ان سے عائشہ رضی اللہ عنہا نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا ”درمیانی چال اختیار کرو اور بلند پروازی نہ کرو اور عمل کرتے رہو، تم میں سے کسی کا عمل اسے جنت میں نہیں داخل کر سکے گا، میرے نزدیک سب سے پسندیدہ عمل وہ ہے جس پر ہمیشگی کی جائے خواہ کم ہی کیوں نہ ہو۔“",
       reference: "صحیح بخاری 6464؛ نیز دیکھیے صحیح مسلم 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6464",
     },
     {
@@ -61,7 +61,7 @@ export const article: Article = {
       arabic: "إِنَّ ٱلصَّلَوٰةَ كَانَتۡ عَلَى ٱلۡمُؤۡمِنِينَ كِتَٰبٗا مَّوۡقُوتٗا",
       translation: "بےشک نماز کا مومنوں پر اوقات (مقررہ) میں ادا کرنا فرض ہے",
       reference: "سورۃ النساء 4:103",
-      href: "https://quran.com/4/103",
+      href: "https://my.munibtracker.app/quran/4?ayah=103",
       note: "ترجمہ: فتح محمد جالندھری (آیت کا ایک حصہ)",
     },
     {
@@ -183,10 +183,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "صحیح مسلم 783b — Sunnah.com", url: "https://sunnah.com/muslim:783b" },
-    { label: "سورۃ النساء 4:103 — Quran.com", url: "https://quran.com/4/103" },
-    { label: "صحیح بخاری 597 — Sunnah.com", url: "https://sunnah.com/bukhari:597" },
+    {
+      label: "صحیح بخاری 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "صحیح مسلم 783b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1830",
+    },
+    {
+      label: "سورۃ النساء 4:103 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/4?ayah=103",
+    },
+    {
+      label: "صحیح بخاری 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=597",
+    },
   ],
   faqs: [
     {

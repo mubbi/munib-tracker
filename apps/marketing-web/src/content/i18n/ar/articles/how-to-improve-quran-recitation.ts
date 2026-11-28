@@ -134,7 +134,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح مسلم 798؛ صحيح البخاري 4937",
-      href: "https://sunnah.com/muslim:798",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1862",
     },
     {
       type: "p",
@@ -146,7 +146,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "أَوۡ زِدۡ عَلَيۡهِ وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا",
       reference: "سورة المزمل 73:4",
-      href: "https://quran.com/73/4",
+      href: "https://my.munibtracker.app/quran/73?ayah=4",
     },
     {
       type: "p",
@@ -193,9 +193,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة المزمل 73:4 — Quran.com", url: "https://quran.com/73/4" },
-    { label: "صحيح مسلم 798 — Sunnah.com", url: "https://sunnah.com/muslim:798" },
-    { label: "صحيح البخاري 4937 — Sunnah.com", url: "https://sunnah.com/bukhari:4937" },
+    {
+      label: "سورة المزمل 73:4 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/73?ayah=4",
+    },
+    {
+      label: "صحيح مسلم 798 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1862",
+    },
+    {
+      label: "صحيح البخاري 4937 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=4937",
+    },
   ],
   faqs: [
     {

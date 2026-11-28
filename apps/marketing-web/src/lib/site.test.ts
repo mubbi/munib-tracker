@@ -3,7 +3,50 @@ import {
   OFFICIAL_IOS_APP_STORE_ID,
 } from "@munib-tracker/shared/constants";
 import { describe, expect, it } from "vitest";
-import { appQuranAyahUrl, PRODUCT_APP_URL, productAppUrl, storeUrls } from "@/lib/site";
+import {
+  appQuranAyahUrl,
+  contentAppUrl,
+  isProductAppHref,
+  PRODUCT_APP_URL,
+  productAppUrl,
+  storeUrls,
+} from "@/lib/site";
+
+describe("product-app links in content", () => {
+  const TAGS = "utm_source=munibtracker.app&utm_medium=referral&utm_campaign=content_link";
+
+  it("recognises only product web-app hrefs", () => {
+    expect(isProductAppHref("https://my.munibtracker.app/quran/2?ayah=255")).toBe(true);
+    expect(isProductAppHref("https://my.munibtracker.app")).toBe(true);
+    expect(isProductAppHref("https://my.munibtracker.app.evil.example/x")).toBe(false);
+    expect(isProductAppHref("https://sunnah.com/bukhari:1")).toBe(false);
+    expect(isProductAppHref("/features/hadith")).toBe(false);
+  });
+
+  it("opens the page's language and tags the app section", () => {
+    expect(contentAppUrl("https://my.munibtracker.app/hadith/bukhari?q=998", "en")).toBe(
+      `${PRODUCT_APP_URL}/hadith/bukhari?q=998&${TAGS}&utm_content=hadith`,
+    );
+    expect(contentAppUrl("https://my.munibtracker.app/quran/2?ayah=255", "ar")).toBe(
+      `${PRODUCT_APP_URL}/ar/quran/2?ayah=255&${TAGS}&utm_content=quran`,
+    );
+    expect(contentAppUrl("https://my.munibtracker.app/dua/detail/hisn-74", "ur")).toBe(
+      `${PRODUCT_APP_URL}/ur/dua/detail/hisn-74?${TAGS}&utm_content=dua`,
+    );
+    expect(contentAppUrl("https://my.munibtracker.app", "ar")).toBe(
+      `${PRODUCT_APP_URL}/ar?${TAGS}&utm_content=home`,
+    );
+  });
+
+  it("keeps an explicit locale, existing tags and non-app links as written", () => {
+    expect(contentAppUrl("https://my.munibtracker.app/ur/zakat", "ar")).toBe(
+      `${PRODUCT_APP_URL}/ur/zakat?${TAGS}&utm_content=zakat`,
+    );
+    const tagged = "https://my.munibtracker.app/zakat?utm_source=x";
+    expect(contentAppUrl(tagged, "ar")).toBe(tagged);
+    expect(contentAppUrl("https://quran.com/apps", "ar")).toBe("https://quran.com/apps");
+  });
+});
 
 describe("locale-aware app links", () => {
   it("opens the product web app in the visitor's language", () => {

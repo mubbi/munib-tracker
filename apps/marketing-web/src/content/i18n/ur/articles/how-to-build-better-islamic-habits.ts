@@ -41,7 +41,7 @@ export const article: Article = {
       translation:
         "کو حمیدی نے یہ حدیث بیان کی، انہوں نے کہا کہ ہم کو سفیان نے یہ حدیث بیان کی، وہ کہتے ہیں ہم کو یحییٰ بن سعید انصاری نے یہ حدیث بیان کی، انہوں نے کہا کہ مجھے یہ حدیث محمد بن ابراہیم تیمی سے حاصل ہوئی۔ انہوں نے اس حدیث کو علقمہ بن وقاص لیثی سے سنا، ان کا بیان ہے کہ میں نے مسجد نبوی میں منبر رسول صلی اللہ علیہ وسلم پر عمر بن خطاب رضی اللہ عنہ کی زبان سے سنا، وہ فرما رہے تھے کہ میں نے جناب رسول اللہ صلی اللہ علیہ وسلم سے سنا آپ صلی اللہ علیہ وسلم فرما رہے تھے کہ تمام اعمال کا دارومدار نیت پر ہے اور ہر عمل کا نتیجہ ہر انسان کو اس کی نیت کے مطابق ہی ملے گا۔ پس جس کی ہجرت ( ترک وطن ) دولت دنیا حاصل کرنے کے لیے ہو یا کسی عورت سے شادی کی غرض ہو۔ پس اس کی ہجرت ان ہی چیزوں کے لیے ہو گی جن کے حاصل کرنے کی نیت سے اس نے ہجرت کی ہے۔",
       reference: "صحیح بخاری 1",
-      href: "https://sunnah.com/bukhari:1",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1",
     },
     {
@@ -84,7 +84,7 @@ export const article: Article = {
       translation:
         "ہم سے عبدالعزیز بن عبداللہ نے بیان کیا، کہا ہم سے سلیمان نے بیان کیا، ان سے موسیٰ بن عقبہ نے، ان سے ابوسلمہ بن عبدالرحمٰن نے اور ان سے عائشہ رضی اللہ عنہا نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا ”درمیانی چال اختیار کرو اور بلند پروازی نہ کرو اور عمل کرتے رہو، تم میں سے کسی کا عمل اسے جنت میں نہیں داخل کر سکے گا، میرے نزدیک سب سے پسندیدہ عمل وہ ہے جس پر ہمیشگی کی جائے خواہ کم ہی کیوں نہ ہو۔“",
       reference: "صحیح بخاری 6464؛ صحیح مسلم 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6464",
     },
     {
@@ -117,7 +117,7 @@ export const article: Article = {
       translation:
         "ہم سے موسیٰ بن اسماعیل نے بیان کیا، انہوں نے کہا کہ ہم سے عبدالواحد نے بیان کیا، انہوں نے کہا کہ ہم سے ابوبردہ بن عبداللہ نے بیان کیا، انہوں نے کہا کہ میں نے ابوبردہ بن ابی موسیٰ سے سنا اور ان سے ان کے والد موسیٰ رضی اللہ عنہ نے بیان کیا کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا نیک ساتھی اور برے ساتھی کی مثال کستوری بیچنے والے عطار اور لوہار کی سی ہے۔ مشک بیچنے والے کے پاس سے تم دو اچھائیوں میں سے ایک نہ ایک ضرور پا لو گے۔ یا تو مشک ہی خرید لو گے ورنہ کم از کم اس کی خوشبو تو ضرور ہی پا سکو گے۔ لیکن لوہار کی بھٹی یا تمہارے بدن اور کپڑے کو جھلسا دے گی ورنہ بدبو تو اس سے تم ضرور پا لو گے۔",
       reference: "صحیح بخاری 2101؛ صحیح مسلم 2628",
-      href: "https://sunnah.com/bukhari:2101",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2101",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 2101",
     },
     {
@@ -157,11 +157,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 1 — Sunnah.com", url: "https://sunnah.com/bukhari:1" },
-    { label: "صحیح بخاری 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "صحیح مسلم 783 — Sunnah.com", url: "https://sunnah.com/muslim:783" },
-    { label: "صحیح بخاری 2101 — Sunnah.com", url: "https://sunnah.com/bukhari:2101" },
-    { label: "صحیح مسلم 2628 — Sunnah.com", url: "https://sunnah.com/muslim:2628" },
+    {
+      label: "صحیح بخاری 1 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1",
+    },
+    {
+      label: "صحیح بخاری 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "صحیح مسلم 783 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1829",
+    },
+    {
+      label: "صحیح بخاری 2101 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2101",
+    },
+    {
+      label: "صحیح مسلم 2628 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6692",
+    },
   ],
   faqs: [
     {

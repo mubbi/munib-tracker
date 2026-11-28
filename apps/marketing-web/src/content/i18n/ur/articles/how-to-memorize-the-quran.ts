@@ -36,7 +36,7 @@ export const article: Article = {
       arabic: "وَلَقَدۡ يَسَّرۡنَا ٱلۡقُرۡءَانَ لِلذِّكۡرِ فَهَلۡ مِن مُّدَّكِرٖ",
       translation: "اور ہم نے قرآن کو سمجھنے کے لئے آسان کردیا ہے تو کوئی ہے کہ سوچے سمجھے؟",
       reference: "سورۃ القمر 54:17",
-      href: "https://quran.com/54/17",
+      href: "https://my.munibtracker.app/quran/54?ayah=17",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -143,7 +143,7 @@ export const article: Article = {
       translation:
         "ہم سے محمد بن علاء نے بیان کیا، کہا ہم سے ابواسامہ نے بیان کیا، ان سے برید نے، ان سے ابوبردہ نے اور ان سے ابوموسیٰ رضی اللہ عنہ نے کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا ”قرآن مجید کا پڑھتے رہنا لازم پکڑ لو“ اس ذات کی قسم جس کے ہاتھ میں میری جان ہے وہ اونٹ کے اپنی رسی تڑوا کر بھاگ جانے سے زیادہ تیزی سے بھاگتا ہے۔",
       reference: "صحیح بخاری 5033؛ صحیح مسلم 791",
-      href: "https://sunnah.com/bukhari:5033",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5033",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 5033",
     },
     {
@@ -165,9 +165,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ القمر 54:17 — Quran.com", url: "https://quran.com/54/17" },
-    { label: "صحیح بخاری 5033 — Sunnah.com", url: "https://sunnah.com/bukhari:5033" },
-    { label: "صحیح مسلم 791 — Sunnah.com", url: "https://sunnah.com/muslim:791" },
+    {
+      label: "سورۃ القمر 54:17 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/54?ayah=17",
+    },
+    {
+      label: "صحیح بخاری 5033 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5033",
+    },
+    {
+      label: "صحیح مسلم 791 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1844",
+    },
   ],
   faqs: [
     {

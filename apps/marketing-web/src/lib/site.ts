@@ -3,7 +3,7 @@ import {
   buildLocalizedIosAppStoreUrl,
 } from "@munib-tracker/shared/constants";
 import type { FeatureIconKey } from "@/content/types";
-import { DEFAULT_LOCALE, type Locale } from "@/i18n/config";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/i18n/config";
 import type footerMessages from "@/messages/en/footer.json";
 import type navMessages from "@/messages/en/nav.json";
 
@@ -55,6 +55,45 @@ export function webAppUrl(
     ...(campaign.content ? { utm_content: campaign.content } : {}),
   });
   return `${base}${base.includes("?") ? "&" : "?"}${params.toString()}`;
+}
+
+/** Origin content data writes product-app links with (`src/content/**`). */
+const CONTENT_APP_ORIGIN = "https://my.munibtracker.app";
+
+/** Whether a content href points at the product web app. */
+export function isProductAppHref(href: string): boolean {
+  return (
+    href === CONTENT_APP_ORIGIN ||
+    href.startsWith(`${CONTENT_APP_ORIGIN}/`) ||
+    href.startsWith(`${CONTENT_APP_ORIGIN}?`) ||
+    href === PRODUCT_APP_URL ||
+    href.startsWith(`${PRODUCT_APP_URL}/`) ||
+    href.startsWith(`${PRODUCT_APP_URL}?`)
+  );
+}
+
+/**
+ * A product-app link written in content as a plain URL (e.g. a Qur'an or
+ * hadith citation `https://my.munibtracker.app/hadith/bukhari?q=998`), made
+ * ready to render: opened in the page's language (`/ar/…`, `/ur/…`) and
+ * campaign-tagged like `webAppUrl()` (`utm_content` = the app section, e.g.
+ * `hadith`). Links that already carry a locale prefix or UTM tags, and
+ * non-app hrefs, are returned unchanged. Content keeps the plain URL so the
+ * English and translated pages stay structurally identical.
+ */
+export function contentAppUrl(href: string, locale: Locale, placement = "content_link"): string {
+  if (!isProductAppHref(href)) return href;
+  const url = new URL(href);
+  if (url.searchParams.has("utm_source")) return href;
+  const path = url.pathname === "/" ? "" : url.pathname;
+  const [, first = ""] = path.split("/");
+  const prefixed = (LOCALES as readonly string[]).includes(first);
+  const section = (prefixed ? path.split("/")[2] : first) || "home";
+  const rest = `${path}${url.search}`;
+  const tagged = prefixed
+    ? webAppUrl(DEFAULT_LOCALE, rest || "/", { placement, content: section })
+    : webAppUrl(locale, rest || "/", { placement, content: section });
+  return `${tagged}${url.hash}`;
 }
 
 /** Deep link into the product app's Qur'an reader, focused on one ayah. */

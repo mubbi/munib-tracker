@@ -132,7 +132,7 @@ export const article: Article = {
       translation:
         'ابو عوانہ نے قتادہؒ سے روایت کی ، انھوں نے زراہ بن اوفیٰ ( عامری ) سے ، انھوں نےسعد بن ہشام سے اور انھوں نے حضرت عائشہ رضی اللہ تعالیٰ عنہا سے روایت کی ، انھوں نے کہا : رسول اللہ صلی اللہ علیہ وسلم نے فرمایا : " قرآن مجید کا مہر قرآن لکھنے والے انتہائی معزز اور اللہ تعالیٰ کے فرمانبردار فرشتوں کے ساتھ ہوگا اور جو انسان قرآن مجیدپڑھتاہے اور ہکلاتا ہے ۔ اور وہ ( پڑھنا ) اس کے لئے مشقت کا باعث ہے ، اس کے لئے دو اجر ہیں ۔',
       reference: "صحیح مسلم 798؛ صحیح بخاری 4937",
-      href: "https://sunnah.com/muslim:798",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1862",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 798",
     },
     {
@@ -146,7 +146,7 @@ export const article: Article = {
       arabic: "أَوۡ زِدۡ عَلَيۡهِ وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا",
       translation: "یا اس سے کچھ کم یا کچھ زیادہ اور قرآن کو ٹھہر ٹھہر کر پڑھا کرو",
       reference: "سورۃ المزمل 73:4",
-      href: "https://quran.com/73/4",
+      href: "https://my.munibtracker.app/quran/73?ayah=4",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -194,9 +194,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ المزمل 73:4 — Quran.com", url: "https://quran.com/73/4" },
-    { label: "صحیح مسلم 798 — Sunnah.com", url: "https://sunnah.com/muslim:798" },
-    { label: "صحیح بخاری 4937 — Sunnah.com", url: "https://sunnah.com/bukhari:4937" },
+    {
+      label: "سورۃ المزمل 73:4 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/73?ayah=4",
+    },
+    {
+      label: "صحیح مسلم 798 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1862",
+    },
+    {
+      label: "صحیح بخاری 4937 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=4937",
+    },
   ],
   faqs: [
     {

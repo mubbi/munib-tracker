@@ -47,7 +47,7 @@ export const article: Article = {
       translation:
         'Allah\'s Messenger (ﷺ) said, "(The performance of) `Umra is an expiation for the sins committed (between it and the previous one). And the reward of Hajj Mabrur (the one accepted by Allah) is nothing except Paradise."',
       reference: "Sahih al-Bukhari 1773",
-      href: "https://sunnah.com/bukhari:1773",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1773",
       note: "Narrated by Abu Hurayrah. English text from the open hadith-api dataset (fawazahmed0).",
     },
     {
@@ -124,7 +124,7 @@ export const article: Article = {
       translation:
         "The Talbiya of Allah's Messenger (ﷺ) was : 'Labbaika Allahumma labbaik, Labbaika la sharika Laka labbaik, Inna-l-hamda wan-ni'mata Laka walmulk, La sharika Laka' (I respond to Your call O Allah, I respond to Your call, and I am obedient to Your orders, You have no partner, I respond to Your call All the praises and blessings are for You, All the sovereignty is for You, And You have no partners with You)",
       reference: "Sahih al-Bukhari 1549",
-      href: "https://sunnah.com/bukhari:1549",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1549",
       note: "Narrated by Abdullah ibn Umar. English text from the open hadith-api dataset (fawazahmed0).",
     },
     {
@@ -161,7 +161,7 @@ export const article: Article = {
       translation:
         "Indeed, aṣ-Ṣafā and al-Marwah are among the symbols of Allāh. So whoever makes ḥajj [pilgrimage] to the House or performs ʿumrah - there is no blame upon him for walking between them. And whoever volunteers good - then indeed, Allāh is Appreciative and Knowing.",
       reference: "Qur'an 2:158",
-      href: "https://quran.com/2/158",
+      href: "https://my.munibtracker.app/quran/2?ayah=158",
       note: "Translation: Saheeh International",
     },
     {
@@ -185,7 +185,7 @@ export const article: Article = {
       translation:
         'Allah\'s Messenger (ﷺ) said, "O Allah! Be merciful to those who have their head shaved." The people said, "O Allah\'s Messenger (ﷺ)! And (invoke Allah for) those who get their hair cut short." The Prophet (ﷺ) said, "O Allah! Be merciful to those who have their head shaved." The people said, "O Allah\'s Messenger (ﷺ)! And those who get their hair cut short." The Prophet (ﷺ) said (the third time), "And to those who get their hair cut short."',
       reference: "Sahih al-Bukhari 1727",
-      href: "https://sunnah.com/bukhari:1727",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1727",
       note: "Narrated by Abdullah ibn Umar. English text from the open hadith-api dataset (fawazahmed0); the opening of the narration is quoted.",
     },
     {
@@ -240,18 +240,36 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 1773 — Sunnah.com", url: "https://sunnah.com/bukhari:1773" },
-    { label: "Sahih al-Bukhari 1549 — Sunnah.com", url: "https://sunnah.com/bukhari:1549" },
-    { label: "Sahih al-Bukhari 1727 — Sunnah.com", url: "https://sunnah.com/bukhari:1727" },
-    { label: "Sahih al-Bukhari 1524 — Sunnah.com", url: "https://sunnah.com/bukhari:1524" },
-    { label: "Sahih al-Bukhari 305 — Sunnah.com", url: "https://sunnah.com/bukhari:305" },
-    { label: "Sunan Abi Dawud 1739 — Sunnah.com", url: "https://sunnah.com/abudawud:1739" },
     {
-      label: "Qur'an 2:158 (Saheeh International) — Quran.com",
-      url: "https://quran.com/2/158",
+      label: "Sahih al-Bukhari 1773 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1773",
     },
-    { label: "Qur'an 2:125 — Quran.com", url: "https://quran.com/2/125" },
-    { label: "Qur'an 2:201 — Quran.com", url: "https://quran.com/2/201" },
+    {
+      label: "Sahih al-Bukhari 1549 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1549",
+    },
+    {
+      label: "Sahih al-Bukhari 1727 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1727",
+    },
+    {
+      label: "Sahih al-Bukhari 1524 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1524",
+    },
+    {
+      label: "Sahih al-Bukhari 305 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=305",
+    },
+    {
+      label: "Sunan Abi Dawud 1739 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1739",
+    },
+    {
+      label: "Qur'an 2:158 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=158",
+    },
+    { label: "Qur'an 2:125 — Munib Tracker", url: "https://my.munibtracker.app/quran/2?ayah=125" },
+    { label: "Qur'an 2:201 — Munib Tracker", url: "https://my.munibtracker.app/quran/2?ayah=201" },
     {
       label: "hadith-api (fawazahmed0), open hadith dataset used for the hadith text",
       url: "https://github.com/fawazahmed0/hadith-api",

@@ -41,7 +41,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "حَٰفِظُواْ عَلَى ٱلصَّلَوَٰتِ وَٱلصَّلَوٰةِ ٱلۡوُسۡطَىٰ وَقُومُواْ لِلَّهِ قَٰنِتِينَ",
       reference: "سورة البقرة 2:238",
-      href: "https://quran.com/2/238",
+      href: "https://my.munibtracker.app/quran/2?ayah=238",
     },
     { type: "h2", text: "قبل أن تبدأ: ما الذي يجب أن يتحقق" },
     {
@@ -73,7 +73,7 @@ export const article: Article = {
       arabic:
         "إِذَا قُمْتَ إِلَى الصَّلاَةِ فَكَبِّرْ، ثُمَّ اقْرَأْ مَا تَيَسَّرَ مَعَكَ مِنَ الْقُرْآنِ، ثُمَّ ارْكَعْ حَتَّى تَطْمَئِنَّ رَاكِعًا، ثُمَّ ارْفَعْ حَتَّى تَعْتَدِلَ قَائِمًا، ثُمَّ اسْجُدْ حَتَّى تَطْمَئِنَّ سَاجِدًا، ثُمَّ ارْفَعْ حَتَّى تَطْمَئِنَّ جَالِسًا، وَافْعَلْ ذَلِكَ فِي صَلاَتِكَ كُلِّهَا",
       reference: "صحيح البخاري 757",
-      href: "https://sunnah.com/bukhari:757",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=757",
       note: "عن أبي هريرة رضي الله عنه (جزء من الحديث)",
     },
     {
@@ -82,7 +82,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "وأمر ﷺ كذلك جماعة من الشباب أقاموا عنده أن يصلّوا كما رأوه يصلّي ([صحيح البخاري 631](https://sunnah.com/bukhari:631)). ولهذا ترجع التفاصيل الآتية إلى ما وصفه أصحابه من صلاته.",
+      text: "وأمر ﷺ كذلك جماعة من الشباب أقاموا عنده أن يصلّوا كما رأوه يصلّي ([صحيح البخاري 631](https://my.munibtracker.app/hadith/bukhari?q=631)). ولهذا ترجع التفاصيل الآتية إلى ما وصفه أصحابه من صلاته.",
     },
     { type: "h2", text: "كيف تصلّي ركعة واحدة خطوة بخطوة" },
     {
@@ -151,7 +151,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "لاَ صَلاَةَ لِمَنْ لَمْ يَقْرَأْ بِفَاتِحَةِ الْكِتَابِ",
       reference: "صحيح البخاري 756",
-      href: "https://sunnah.com/bukhari:756",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=756",
       note: "عن عبادة بن الصامت رضي الله عنه",
     },
     {
@@ -163,7 +163,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ فَأَكْثِرُوا الدُّعَاءَ",
       reference: "صحيح مسلم 482",
-      href: "https://sunnah.com/muslim:482",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1083",
       note: "عن أبي هريرة رضي الله عنه",
     },
     { type: "h2", text: "عدد ركعات كل صلاة" },
@@ -224,11 +224,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة البقرة 2:238 — Quran.com", url: "https://quran.com/2/238" },
-    { label: "صحيح البخاري 757 — Sunnah.com", url: "https://sunnah.com/bukhari:757" },
-    { label: "صحيح البخاري 756 — Sunnah.com", url: "https://sunnah.com/bukhari:756" },
-    { label: "صحيح البخاري 631 — Sunnah.com", url: "https://sunnah.com/bukhari:631" },
-    { label: "صحيح مسلم 482 — Sunnah.com", url: "https://sunnah.com/muslim:482" },
+    {
+      label: "سورة البقرة 2:238 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=238",
+    },
+    {
+      label: "صحيح البخاري 757 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=757",
+    },
+    {
+      label: "صحيح البخاري 756 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=756",
+    },
+    {
+      label: "صحيح البخاري 631 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=631",
+    },
+    {
+      label: "صحيح مسلم 482 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1083",
+    },
   ],
   faqs: [
     {

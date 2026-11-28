@@ -44,7 +44,7 @@ export const article: Article = {
       translation:
         "And when you travel throughout the land, there is no blame upon you for shortening the prayer, [especially] if you fear that those who disbelieve may disrupt [or attack] you. Indeed, the disbelievers are ever to you a clear enemy.",
       reference: "Qur'an 4:101",
-      href: "https://quran.com/4/101",
+      href: "https://my.munibtracker.app/quran/4?ayah=101",
       note: "Translation: Saheeh International",
     },
     {
@@ -59,11 +59,11 @@ export const article: Article = {
       translation:
         "Yahya b. Umayya said:I told 'Umar b. al-Khattab that Allah had said:\" You may shorten the prayer only if you fear that those who are unbelievers may afflict you\" (Qur'an, iv. 101), whereas the people are now safe. He replied: I wondered about it in the same way as you wonder about it, so I asked the Messenger of Allah (ﷺ) about it and he said: It is an act of charity which Allah has done to you, so accept His charity.",
       reference: "Sahih Muslim 686",
-      href: "https://sunnah.com/muslim:686a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1573",
     },
     {
       type: "p",
-      text: "So the concession is for every traveller, not only for those in danger. Aishah (may Allah be pleased with her) also reported that Salah was first prescribed as two rakahs; the travel prayer was kept at two, and the prayer at home was completed ([Sahih al-Bukhari 1090](https://sunnah.com/bukhari:1090)). What does not change is the obligation. The five daily prayers are still due on a journey, and a Salah you miss while travelling is still made up later. See [what Qaza Salah is](/resources/salah/what-is-qaza-salah).",
+      text: "So the concession is for every traveller, not only for those in danger. Aishah (may Allah be pleased with her) also reported that Salah was first prescribed as two rakahs; the travel prayer was kept at two, and the prayer at home was completed ([Sahih al-Bukhari 1090](https://my.munibtracker.app/hadith/bukhari?q=1090)). What does not change is the obligation. The five daily prayers are still due on a journey, and a Salah you miss while travelling is still made up later. See [what Qaza Salah is](/resources/salah/what-is-qaza-salah).",
     },
     { type: "h2", text: "Shortening (qasr): which prayers and how" },
     {
@@ -94,7 +94,7 @@ export const article: Article = {
       translation:
         'Narrated Yahya bin \'Is-haq:I heard Anas saying, "We traveled with the Prophet (ﷺ) from Medina to Mecca and offered two rak`at (for every prayer) till we returned to Medina." I said, "Did you stay for a while in Mecca?" He replied, "We stayed in Mecca for ten days."',
       reference: "Sahih al-Bukhari 1081",
-      href: "https://sunnah.com/bukhari:1081",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1081",
     },
     {
       type: "note",
@@ -109,7 +109,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "There are two ways to combine. In early combining (jam' al-taqdim) you pray both at the time of the first, for example Dhuhr and Asr at Dhuhr time. In delayed combining (jam' al-ta'khir) you pray both at the time of the second, for example Maghrib and Isha at Isha time. During Hajj the Prophet ﷺ did one of each: at Arafah he prayed Asr straight after Dhuhr, at Dhuhr time, and at Muzdalifah he delayed Maghrib and prayed it with Isha ([Sahih Muslim 1218](https://sunnah.com/muslim:1218a)). Of his journeys, Ibn Abbas (may Allah be pleased with him) reported:",
+      text: "There are two ways to combine. In early combining (jam' al-taqdim) you pray both at the time of the first, for example Dhuhr and Asr at Dhuhr time. In delayed combining (jam' al-ta'khir) you pray both at the time of the second, for example Maghrib and Isha at Isha time. During Hajj the Prophet ﷺ did one of each: at Arafah he prayed Asr straight after Dhuhr, at Dhuhr time, and at Muzdalifah he delayed Maghrib and prayed it with Isha ([Sahih Muslim 1218](https://my.munibtracker.app/hadith/muslim?q=2951)). Of his journeys, Ibn Abbas (may Allah be pleased with him) reported:",
     },
     {
       type: "evidence",
@@ -119,13 +119,13 @@ export const article: Article = {
       translation:
         "Narrated Ibn `Abbas: Allah's Messenger (ﷺ) used to offer the Zuhr and `Asr prayers together on journeys, and also used to offer the Maghrib and `Isha' prayers together.",
       reference: "Sahih al-Bukhari 1107",
-      href: "https://sunnah.com/bukhari:1107",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1107",
     },
     {
       type: "note",
       tone: "scholar",
       title: "The schools differ on combining",
-      text: "The Hanafi school does not allow combining for travel, except at Arafah and Muzdalifah during Hajj. The Shafi'i and Hanbali schools allow it on a journey, brought forward or delayed. The Maliki school allows it with conditions, mainly while you are on the move; the Prophet ﷺ combined Maghrib and Isha when he was in a hurry on a journey ([Sahih al-Bukhari 1106](https://sunnah.com/bukhari:1106)). Each school sets its own conditions, so learn yours before you rely on combining.",
+      text: "The Hanafi school does not allow combining for travel, except at Arafah and Muzdalifah during Hajj. The Shafi'i and Hanbali schools allow it on a journey, brought forward or delayed. The Maliki school allows it with conditions, mainly while you are on the move; the Prophet ﷺ combined Maghrib and Isha when he was in a hurry on a journey ([Sahih al-Bukhari 1106](https://my.munibtracker.app/hadith/bukhari?q=1106)). Each school sets its own conditions, so learn yours before you rely on combining.",
     },
     { type: "h2", text: "How far and how long: where the schools differ" },
     {
@@ -191,7 +191,7 @@ export const article: Article = {
       translation:
         "Narrated Jabir bin `Abdullah:The Prophet (ﷺ) used to pray (the Nawafil) on his Mount facing east and whenever he wanted to offer the compulsory prayer, he used to dismount and face the Qibla.",
       reference: "Sahih al-Bukhari 1099",
-      href: "https://sunnah.com/bukhari:1099",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1099",
     },
     {
       type: "p",
@@ -205,7 +205,7 @@ export const article: Article = {
       translation:
         'Narrated `Imran bin Husain: I had piles, so I asked the Prophet (ﷺ) about the prayer. He said, "Pray while standing and if you can\'t, pray while sitting and if you cannot do even that, then pray Lying on your side."',
       reference: "Sahih al-Bukhari 1117",
-      href: "https://sunnah.com/bukhari:1117",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1117",
     },
     {
       type: "p",
@@ -251,7 +251,7 @@ export const article: Article = {
       translation:
         "Narrated Ibrahim Abu Isma`il As-Saksaki:I heard Abu Burda who accompanied Yazid bin Abi Kabsha on a journey. Yazid used to observe fasting on journeys. Abu Burda said to him, \"I heard Abu Musa several times saying that Allah's Apostle said, 'When a slave falls ill or travels, then he will get reward similar to that he gets for good deeds practiced at home when in good health.'\"",
       reference: "Sahih al-Bukhari 2996",
-      href: "https://sunnah.com/bukhari:2996",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2996",
     },
     {
       type: "note",
@@ -261,16 +261,46 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 4:101 — Quran.com (Saheeh International)", url: "https://quran.com/4/101" },
-    { label: "Sahih Muslim 686 — Sunnah.com", url: "https://sunnah.com/muslim:686a" },
-    { label: "Sahih al-Bukhari 1090 — Sunnah.com", url: "https://sunnah.com/bukhari:1090" },
-    { label: "Sahih al-Bukhari 1081 — Sunnah.com", url: "https://sunnah.com/bukhari:1081" },
-    { label: "Sahih Muslim 1218 — Sunnah.com", url: "https://sunnah.com/muslim:1218a" },
-    { label: "Sahih al-Bukhari 1107 — Sunnah.com", url: "https://sunnah.com/bukhari:1107" },
-    { label: "Sahih al-Bukhari 1106 — Sunnah.com", url: "https://sunnah.com/bukhari:1106" },
-    { label: "Sahih al-Bukhari 1099 — Sunnah.com", url: "https://sunnah.com/bukhari:1099" },
-    { label: "Sahih al-Bukhari 1117 — Sunnah.com", url: "https://sunnah.com/bukhari:1117" },
-    { label: "Sahih al-Bukhari 2996 — Sunnah.com", url: "https://sunnah.com/bukhari:2996" },
+    {
+      label: "Qur'an 4:101 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/4?ayah=101",
+    },
+    {
+      label: "Sahih Muslim 686 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1573",
+    },
+    {
+      label: "Sahih al-Bukhari 1090 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1090",
+    },
+    {
+      label: "Sahih al-Bukhari 1081 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1081",
+    },
+    {
+      label: "Sahih Muslim 1218 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2951",
+    },
+    {
+      label: "Sahih al-Bukhari 1107 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1107",
+    },
+    {
+      label: "Sahih al-Bukhari 1106 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1106",
+    },
+    {
+      label: "Sahih al-Bukhari 1099 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1099",
+    },
+    {
+      label: "Sahih al-Bukhari 1117 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1117",
+    },
+    {
+      label: "Sahih al-Bukhari 2996 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2996",
+    },
   ],
   faqs: [
     {

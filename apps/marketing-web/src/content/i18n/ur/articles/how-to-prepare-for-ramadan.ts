@@ -44,7 +44,7 @@ export const article: Article = {
       translation:
         "مومنو! تم پر روزے فرض کئے گئے ہیں۔ جس طرح تم سے پہلے لوگوں پر فرض کئے گئے تھے تاکہ تم پرہیزگار بنو",
       reference: "سورۃ البقرہ 2:183",
-      href: "https://quran.com/2/183",
+      href: "https://my.munibtracker.app/quran/2?ayah=183",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -58,7 +58,7 @@ export const article: Article = {
       translation:
         "ہم نے ابن سلام نے بیان کیا، انہوں نے کہا کہ ہمیں محمد بن فضیل نے خبر دی، انہوں نے کہا کہ ہم سے یحییٰ بن سعید نے بیان کیا، انہوں نے ابوسلمہ سے روایت کی، وہ ابوہریرہ رضی اللہ عنہ سے نقل کرتے ہیں کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا جس نے رمضان کے روزے ایمان اور خالص نیت کے ساتھ رکھے اس کے پچھلے گناہ بخش دیئے گئے۔",
       reference: "صحیح بخاری 38",
-      href: "https://sunnah.com/bukhari:38",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=38",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 38",
     },
     {
@@ -76,7 +76,7 @@ export const article: Article = {
       translation:
         "ہم سے عبداللہ بن یوسف نے بیان کیا، کہا کہ ہم کو امام مالک رحمہ اللہ نے خبری دی، انہیں ابوالنضر نے، انہیں ابوسلمہ نے اور ان سے عائشہ رضی اللہ عنہا نے بیان کیا، کہ رسول اللہ صلی اللہ علیہ وسلم نفل روزہ رکھنے لگتے تو ہم ( آپس میں ) کہتے کہ اب آپ صلی اللہ علیہ وسلم روزہ رکھنا چھوڑیں گے ہی نہیں۔ اور جب روزہ چھوڑ دیتے تو ہم کہتے کہ اب آپ روزہ رکھیں گے ہی نہیں۔ میں نے رمضان کو چھوڑ کر رسول اللہ صلی اللہ علیہ وسلم کو کبھی پورے مہینے کا نفلی روزہ رکھتے نہیں دیکھتا اور جتنے روزے آپ شعبان میں رکھتے میں نے کسی مہینہ میں اس سے زیادہ روزے رکھتے آپ کو نہیں دیکھا۔",
       reference: "صحیح بخاری 1969",
-      href: "https://sunnah.com/bukhari:1969",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1969",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1969",
     },
     {
@@ -85,7 +85,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "شعبان پچھلے رمضان کے چھوٹے ہوئے روزوں کی قضا کا آخری موقع بھی ہے، چاہے وہ بیماری، سفر یا حیض کی وجہ سے رہ گئے ہوں۔ عائشہ رضی اللہ عنہا نے بتایا کہ بعض اوقات وہ اپنے چھوٹے ہوئے روزوں کی قضا شعبان ہی میں کر پاتی تھیں ([صحیح بخاری 1950](https://sunnah.com/bukhari:1950))۔ اگر آپ کے ذمے روزے ہیں تو ابھی گن لیں اور باقی ہفتوں پر تقسیم کر لیں۔ ان روزوں کو قضا کہا جاتا ہے۔",
+      text: "شعبان پچھلے رمضان کے چھوٹے ہوئے روزوں کی قضا کا آخری موقع بھی ہے، چاہے وہ بیماری، سفر یا حیض کی وجہ سے رہ گئے ہوں۔ عائشہ رضی اللہ عنہا نے بتایا کہ بعض اوقات وہ اپنے چھوٹے ہوئے روزوں کی قضا شعبان ہی میں کر پاتی تھیں ([صحیح بخاری 1950](https://my.munibtracker.app/hadith/bukhari?q=1950))۔ اگر آپ کے ذمے روزے ہیں تو ابھی گن لیں اور باقی ہفتوں پر تقسیم کر لیں۔ ان روزوں کو قضا کہا جاتا ہے۔",
     },
     {
       type: "p",
@@ -99,7 +99,7 @@ export const article: Article = {
       translation:
         "ہم سے مسلم بن ابراہیم نے بیان کیا، انہوں نے کہا ہم سے ہشام نے بیان کیا، ان سے یحییٰ بن ابی کثیر نے، ان سے ابوسلمہ نے اور ان سے ابوہریرہ رضی اللہ عنہ نے کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا تم میں سے کوئی شخص رمضان سے پہلے ( شعبان کی آخری تاریخوں میں ) ایک یا دو دن کے روزے نہ رکھے البتہ اگر کسی کو ان میں روزے رکھنے کی عادت ہو تو وہ اس دن بھی روزہ رکھ لے۔",
       reference: "صحیح بخاری 1914",
-      href: "https://sunnah.com/bukhari:1914",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1914",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1914",
     },
     {
@@ -115,11 +115,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "رمضان کی راتوں کا اپنا وعدہ ہے: جو ایمان اور ثواب کی امید کے ساتھ ان میں قیام کرے اس کے پچھلے گناہ معاف کر دیے جاتے ہیں ([صحیح بخاری 37](https://sunnah.com/bukhari:37))۔ تراویح کی بنیاد یہی ہے۔ ابھی معلوم کر لیں کہ آپ کی مسجد میں تراویح کہاں اور کب ہوتی ہے، اور آپ جماعت کے ساتھ پڑھیں گے یا گھر پر۔",
+      text: "رمضان کی راتوں کا اپنا وعدہ ہے: جو ایمان اور ثواب کی امید کے ساتھ ان میں قیام کرے اس کے پچھلے گناہ معاف کر دیے جاتے ہیں ([صحیح بخاری 37](https://my.munibtracker.app/hadith/bukhari?q=37))۔ تراویح کی بنیاد یہی ہے۔ ابھی معلوم کر لیں کہ آپ کی مسجد میں تراویح کہاں اور کب ہوتی ہے، اور آپ جماعت کے ساتھ پڑھیں گے یا گھر پر۔",
     },
     {
       type: "p",
-      text: "جبریل علیہ السلام رمضان کی ہر رات نبی کریم ﷺ سے ملتے تھے، اور نبی کریم ﷺ انہیں قرآن سناتے تھے ([صحیح بخاری 1902](https://sunnah.com/bukhari:1902))۔ روزانہ کا اتنا حصہ طے کریں جو آپ واقعی نبھا سکیں، چاہے ایک پارہ ہو، چند صفحات ہوں یا ترجمے کے ساتھ ایک صفحہ، اور اسے رمضان سے پہلے شروع کر دیں تاکہ عادت پہلے سے بنی ہو۔ اسے دن میں جگہ دینے کے طریقوں کے لیے [روزانہ قرآن پڑھنے کی مشق کیسے کریں](/resources/quran-learning/how-to-practice-quran-reading-every-day) دیکھیں۔",
+      text: "جبریل علیہ السلام رمضان کی ہر رات نبی کریم ﷺ سے ملتے تھے، اور نبی کریم ﷺ انہیں قرآن سناتے تھے ([صحیح بخاری 1902](https://my.munibtracker.app/hadith/bukhari?q=1902))۔ روزانہ کا اتنا حصہ طے کریں جو آپ واقعی نبھا سکیں، چاہے ایک پارہ ہو، چند صفحات ہوں یا ترجمے کے ساتھ ایک صفحہ، اور اسے رمضان سے پہلے شروع کر دیں تاکہ عادت پہلے سے بنی ہو۔ اسے دن میں جگہ دینے کے طریقوں کے لیے [روزانہ قرآن پڑھنے کی مشق کیسے کریں](/resources/quran-learning/how-to-practice-quran-reading-every-day) دیکھیں۔",
     },
     { type: "h2", text: "صرف کھانے کی نہیں، اپنے رویّے کی بھی تیاری کریں" },
     {
@@ -133,7 +133,7 @@ export const article: Article = {
       translation:
         "ہم سے آدم بن ابی ایاس نے بیان کیا، کہا ہم سے ابن ابی ذئب نے بیان کیا، ان سے سعید مقبری نے، ان سے ان کے والد کیسان نے اور ان سے ابوہریرہ رضی اللہ عنہ نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا، اگر کوئی شخص جھوٹ بولنا اور دغا بازی کرنا ( روزے رکھ کر بھی ) نہ چھوڑے تو اللہ تعالیٰ کو اس کی کوئی ضرورت نہیں کہ وہ اپنا کھانا پینا چھوڑ دے۔",
       reference: "صحیح بخاری 1903",
-      href: "https://sunnah.com/bukhari:1903",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1903",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1903",
     },
     {
@@ -215,20 +215,53 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ البقرہ 2:183 — Quran.com", url: "https://quran.com/2/183" },
-    { label: "سورۃ البقرہ 2:185 — Quran.com", url: "https://quran.com/2/185" },
-    { label: "صحیح بخاری 38 — Sunnah.com", url: "https://sunnah.com/bukhari:38" },
-    { label: "صحیح بخاری 1969 — Sunnah.com", url: "https://sunnah.com/bukhari:1969" },
-    { label: "صحیح بخاری 1950 — Sunnah.com", url: "https://sunnah.com/bukhari:1950" },
-    { label: "صحیح بخاری 1914 — Sunnah.com", url: "https://sunnah.com/bukhari:1914" },
-    { label: "صحیح بخاری 37 — Sunnah.com", url: "https://sunnah.com/bukhari:37" },
-    { label: "صحیح بخاری 1902 — Sunnah.com", url: "https://sunnah.com/bukhari:1902" },
-    { label: "صحیح بخاری 1903 — Sunnah.com", url: "https://sunnah.com/bukhari:1903" },
-    { label: "صحیح بخاری 1923 — Sunnah.com", url: "https://sunnah.com/bukhari:1923" },
-    { label: "صحیح بخاری 1509 — Sunnah.com", url: "https://sunnah.com/bukhari:1509" },
     {
-      label: "سنن ابی داود 2337 (نصف شعبان کے بعد روزہ) — Sunnah.com",
-      url: "https://sunnah.com/abudawud:2337",
+      label: "سورۃ البقرہ 2:183 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=183",
+    },
+    {
+      label: "سورۃ البقرہ 2:185 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=185",
+    },
+    {
+      label: "صحیح بخاری 38 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=38",
+    },
+    {
+      label: "صحیح بخاری 1969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1969",
+    },
+    {
+      label: "صحیح بخاری 1950 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1950",
+    },
+    {
+      label: "صحیح بخاری 1914 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1914",
+    },
+    {
+      label: "صحیح بخاری 37 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=37",
+    },
+    {
+      label: "صحیح بخاری 1902 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1902",
+    },
+    {
+      label: "صحیح بخاری 1903 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1903",
+    },
+    {
+      label: "صحیح بخاری 1923 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1923",
+    },
+    {
+      label: "صحیح بخاری 1509 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1509",
+    },
+    {
+      label: "سنن ابی داود 2337 (نصف شعبان کے بعد روزہ) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=2337",
     },
   ],
   faqs: [

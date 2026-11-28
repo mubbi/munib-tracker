@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         "In it are clear signs [such as] the standing place of Abraham. And whoever enters it [i.e., the Ḥaram] shall be safe. And [due] to Allāh from the people is a pilgrimage to the House - for whoever is able to find thereto a way. But whoever disbelieves [i.e., refuses] - then indeed, Allāh is free from need of the worlds.",
       reference: "Qur'an 3:97",
-      href: "https://quran.com/3/97",
+      href: "https://my.munibtracker.app/quran/3?ayah=97",
       note: "Translation: Saheeh International",
     },
     {
@@ -66,7 +66,7 @@ export const article: Article = {
       translation:
         "Whoever performs Hajj for Allah's pleasure and does not have sexual relations with his wife, and does not do evil or sins then he will return (after Hajj free from all sins) as if he were born anew",
       reference: "Sahih al-Bukhari 1521",
-      href: "https://sunnah.com/bukhari:1521",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1521",
       note: "Narrated by Abu Hurayrah. English text from the open hadith-api dataset (fawazahmed0).",
     },
     { type: "h2", text: "The three types of Hajj" },
@@ -94,7 +94,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "The Qur'an mentions the sacrifice owed by those who combine Umrah with Hajj, and says that someone who cannot find an animal fasts three days during Hajj and seven on returning home ([Qur'an 2:196](https://quran.com/2/196)).",
+      text: "The Qur'an mentions the sacrifice owed by those who combine Umrah with Hajj, and says that someone who cannot find an animal fasts three days during Hajj and seven on returning home ([Qur'an 2:196](https://my.munibtracker.app/quran/2?ayah=196)).",
     },
     { type: "h2", text: "The days of Hajj at a glance" },
     {
@@ -140,7 +140,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "The talbiyah, which you began when you entered ihram, continues until you stone Jamrat al-Aqaba on the 10th ([Sahih al-Bukhari 1685](https://sunnah.com/bukhari:1685)). The whole sequence follows Jabir's long description of the Prophet Muhammad's ﷺ Farewell Hajj ([Sahih Muslim 1218](https://sunnah.com/muslim:1218a)).",
+      text: "The talbiyah, which you began when you entered ihram, continues until you stone Jamrat al-Aqaba on the 10th ([Sahih al-Bukhari 1685](https://my.munibtracker.app/hadith/bukhari?q=1685)). The whole sequence follows Jabir's long description of the Prophet Muhammad's ﷺ Farewell Hajj ([Sahih Muslim 1218](https://my.munibtracker.app/hadith/muslim?q=2951)).",
     },
     { type: "h2", text: "Arafah and Muzdalifah" },
     {
@@ -155,7 +155,7 @@ export const article: Article = {
       translation:
         "I came to the Holy Prophet (ﷺ) when he was in Arafat. Some people or a group of people came from Najd. They commanded someone (to ask the Prophet about hajj). So he called the Messenger of Allah (ﷺ), saying: How is the hajj done? He (the Prophet) ordered a man (to reply). He shouted loudly: The hajj, the hajj is on the day of Arafah. If anyone comes over there before the dawn prayer on the night of al-Muzdalifah, his hajj will be complete. The period of halting at Mina is three days. Then whoever hastens (his departure) by two days, it is no sin for him, and whoever delays it there is no sin for him.",
       reference: "Sunan Abi Dawud 1949",
-      href: "https://sunnah.com/abudawud:1949",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1949",
       note: "Narrated by Abd al-Rahman ibn Ya'mar. Graded Sahih by al-Albani (Sunnah.com). English text from the open hadith-api dataset (fawazahmed0); the narration is quoted up to the words that were announced.",
     },
     {
@@ -169,11 +169,11 @@ export const article: Article = {
     { type: "h2", text: "The Day of Nahr and the days of Tashriq" },
     {
       type: "p",
-      text: "The 10th, the Day of Nahr, has four rites: stoning Jamrat al-Aqaba, the sacrifice, shaving or shortening the hair, and Tawaf al-Ifadah. The order has some flexibility in the Sunnah. When people asked the Prophet ﷺ about doing one of these before another, his reply was, “Do it (now) and there is no harm” ([Sahih al-Bukhari 1736](https://sunnah.com/bukhari:1736)). The schools still differ on the exact sequence, so follow your group's guide. On the same day, Muslims around the world pray the Eid al-Adha prayer; see [Eid Salah and the Sunnahs of Eid](/resources/salah/eid-prayer-and-sunnahs).",
+      text: "The 10th, the Day of Nahr, has four rites: stoning Jamrat al-Aqaba, the sacrifice, shaving or shortening the hair, and Tawaf al-Ifadah. The order has some flexibility in the Sunnah. When people asked the Prophet ﷺ about doing one of these before another, his reply was, “Do it (now) and there is no harm” ([Sahih al-Bukhari 1736](https://my.munibtracker.app/hadith/bukhari?q=1736)). The schools still differ on the exact sequence, so follow your group's guide. On the same day, Muslims around the world pray the Eid al-Adha prayer; see [Eid Salah and the Sunnahs of Eid](/resources/salah/eid-prayer-and-sunnahs).",
     },
     {
       type: "p",
-      text: "The three days that follow are the days of Tashriq, days of eating, drinking and remembering Allah ([Sahih Muslim 1141](https://sunnah.com/muslim:1141a)). The Qur'an speaks of them and of leaving early:",
+      text: "The three days that follow are the days of Tashriq, days of eating, drinking and remembering Allah ([Sahih Muslim 1141](https://my.munibtracker.app/hadith/muslim?q=2677)). The Qur'an speaks of them and of leaving early:",
     },
     {
       type: "evidence",
@@ -183,12 +183,12 @@ export const article: Article = {
       translation:
         "And remember Allāh during [specific] numbered days. Then whoever hastens [his departure] in two days - there is no sin upon him; and whoever delays [until the third] - there is no sin upon him - for him who fears Allāh. And fear Allāh and know that unto Him you will be gathered.",
       reference: "Qur'an 2:203",
-      href: "https://quran.com/2/203",
+      href: "https://my.munibtracker.app/quran/2?ayah=203",
       note: "Translation: Saheeh International",
     },
     {
       type: "p",
-      text: "At the first two pillars, the Prophet ﷺ would stone with seven pebbles, saying the takbir with each, then step forward, face the qiblah and make a long dua with raised hands. At the large pillar he stoned and left without stopping ([Sahih al-Bukhari 1753](https://sunnah.com/bukhari:1753)).",
+      text: "At the first two pillars, the Prophet ﷺ would stone with seven pebbles, saying the takbir with each, then step forward, face the qiblah and make a long dua with raised hands. At the large pillar he stoned and left without stopping ([Sahih al-Bukhari 1753](https://my.munibtracker.app/hadith/bukhari?q=1753)).",
     },
     {
       type: "p",
@@ -201,12 +201,12 @@ export const article: Article = {
       translation:
         "The people were ordered to perform the Tawaf of the Ka`ba (Tawaf-al-Wada`) as the lastly thing, before leaving (Mecca), except the menstruating women who were excused",
       reference: "Sahih al-Bukhari 1755",
-      href: "https://sunnah.com/bukhari:1755",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1755",
       note: "Narrated by Ibn 'Abbas. English text from the open hadith-api dataset (fawazahmed0).",
     },
     {
       type: "p",
-      text: "A woman whose period begins during Hajj does every rite except Tawaf until she is pure ([Sahih al-Bukhari 1650](https://sunnah.com/bukhari:1650)). Tawaf al-Ifadah waits for her, while the Farewell Tawaf is lifted from her. If her group must leave first, she should ask a scholar.",
+      text: "A woman whose period begins during Hajj does every rite except Tawaf until she is pure ([Sahih al-Bukhari 1650](https://my.munibtracker.app/hadith/bukhari?q=1650)). Tawaf al-Ifadah waits for her, while the Farewell Tawaf is lifted from her. If her group must leave first, she should ask a scholar.",
     },
     { type: "h2", text: "Pillars and obligations" },
     {
@@ -251,21 +251,51 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 3:97 — Quran.com (Saheeh International)", url: "https://quran.com/3/97" },
-    { label: "Qur'an 2:196 — Quran.com", url: "https://quran.com/2/196" },
-    { label: "Qur'an 2:203 — Quran.com (Saheeh International)", url: "https://quran.com/2/203" },
-    { label: "Sahih al-Bukhari 1521 — Sunnah.com", url: "https://sunnah.com/bukhari:1521" },
-    { label: "Sahih al-Bukhari 1685 — Sunnah.com", url: "https://sunnah.com/bukhari:1685" },
-    { label: "Sahih Muslim 1218 — Sunnah.com", url: "https://sunnah.com/muslim:1218a" },
     {
-      label: "Sunan Abi Dawud 1949 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1949",
+      label: "Qur'an 3:97 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/3?ayah=97",
     },
-    { label: "Sahih al-Bukhari 1736 — Sunnah.com", url: "https://sunnah.com/bukhari:1736" },
-    { label: "Sahih Muslim 1141 — Sunnah.com", url: "https://sunnah.com/muslim:1141a" },
-    { label: "Sahih al-Bukhari 1753 — Sunnah.com", url: "https://sunnah.com/bukhari:1753" },
-    { label: "Sahih al-Bukhari 1755 — Sunnah.com", url: "https://sunnah.com/bukhari:1755" },
-    { label: "Sahih al-Bukhari 1650 — Sunnah.com", url: "https://sunnah.com/bukhari:1650" },
+    { label: "Qur'an 2:196 — Munib Tracker", url: "https://my.munibtracker.app/quran/2?ayah=196" },
+    {
+      label: "Qur'an 2:203 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=203",
+    },
+    {
+      label: "Sahih al-Bukhari 1521 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1521",
+    },
+    {
+      label: "Sahih al-Bukhari 1685 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1685",
+    },
+    {
+      label: "Sahih Muslim 1218 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2951",
+    },
+    {
+      label: "Sunan Abi Dawud 1949 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1949",
+    },
+    {
+      label: "Sahih al-Bukhari 1736 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1736",
+    },
+    {
+      label: "Sahih Muslim 1141 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2677",
+    },
+    {
+      label: "Sahih al-Bukhari 1753 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1753",
+    },
+    {
+      label: "Sahih al-Bukhari 1755 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1755",
+    },
+    {
+      label: "Sahih al-Bukhari 1650 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1650",
+    },
     {
       label: "hadith-api (fawazahmed0), open hadith dataset used for the hadith text",
       url: "https://github.com/fawazahmed0/hadith-api",

@@ -29,14 +29,16 @@ const quranBlocks = TRANSLATIONS.flatMap((a) =>
 
 describe("Urdu article scripture", () => {
   it.each(quranBlocks)("%s uses the bundled Jalandhry text verbatim", (_, block) => {
-    const match = /quran\.com\/(\d+)\/(\d+)(?:-(\d+))?$/.exec(block.href ?? "");
+    const ayah = /\/quran\/(\d+)\?ayah=(\d+)$/.exec(block.href ?? "");
+    const passage = /\/quran\/passage\?surah=(\d+)&from=(\d+)&to=(\d+)$/.exec(block.href ?? "");
+    const match = ayah ?? passage;
     expect(
       match,
-      "Qur'an evidence needs a quran.com/<surah>/<ayah> or /<surah>/<from>-<to> href",
+      "Qur'an evidence needs a web-app /quran/<surah>?ayah=<n> or /quran/passage?surah=&from=&to= href",
     ).not.toBeNull();
     const surah = Number(match?.[1]);
     const from = Number(match?.[2]);
-    const to = Number(match?.[3] ?? from);
+    const to = Number(passage?.[3] ?? from);
     // A range quotes each ayah verbatim, joined with the ayah-end sign.
     const ayahs = Array.from({ length: to - from + 1 }, (_, i) => jalandhry(surah, from + i));
     const bundled = ayahs.every(Boolean) ? ayahs.join(" ۝ ") : undefined;

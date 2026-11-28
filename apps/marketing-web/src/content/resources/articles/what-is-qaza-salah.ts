@@ -56,7 +56,7 @@ export const article: Article = {
       translation:
         'The Prophet (ﷺ) said, "If anyone forgets a prayer he should pray that prayer when he remembers it. There is no expiation except to pray the same."',
       reference: "Sahih al-Bukhari 597",
-      href: "https://sunnah.com/bukhari:597",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=597",
       note: "Narrated by Anas. Translation as published on Sunnah.com.",
     },
     {
@@ -66,7 +66,7 @@ export const article: Article = {
       translation:
         "He who forgets the prayer, or he slept (and it was omitted), its expiation is (only) that he should observe it when he remembers it.",
       reference: "Sahih Muslim 684",
-      href: "https://sunnah.com/muslim:684c",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1568",
       note: "Narrated by Anas ibn Malik. Translation as published on Sunnah.com.",
     },
     {
@@ -80,7 +80,7 @@ export const article: Article = {
       translation:
         "Indeed, I am Allāh. There is no deity except Me, so worship Me and establish prayer for My remembrance.",
       reference: "Qur'an 20:14",
-      href: "https://quran.com/20/14",
+      href: "https://my.munibtracker.app/quran/20?ayah=14",
       note: "Translation: Saheeh International",
     },
     {
@@ -175,10 +175,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 597 — Sunnah.com", url: "https://sunnah.com/bukhari:597" },
-    { label: "Sahih Muslim 684c — Sunnah.com", url: "https://sunnah.com/muslim:684c" },
-    { label: "Sahih Muslim 684d — Sunnah.com", url: "https://sunnah.com/muslim:684d" },
-    { label: "Qur'an 20:14 (Saheeh International) — Quran.com", url: "https://quran.com/20/14" },
+    {
+      label: "Sahih al-Bukhari 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=597",
+    },
+    {
+      label: "Sahih Muslim 684c — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1568",
+    },
+    {
+      label: "Sahih Muslim 684d — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1569",
+    },
+    {
+      label: "Qur'an 20:14 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/20?ayah=14",
+    },
   ],
   faqs: [
     {

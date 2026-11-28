@@ -42,7 +42,7 @@ export const article: Article = {
       translation:
         'The Prophet (ﷺ) was asked, "What deeds are loved most by Allah?" He said, "The most regular constant deeds even though they may be few."',
       reference: "Sahih al-Bukhari 6465",
-      href: "https://sunnah.com/bukhari:6465",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6465",
       note: "Narrated by Aisha. Translation as published on Sunnah.com. A similar narration is in Sahih Muslim 782b.",
     },
     {
@@ -59,7 +59,7 @@ export const article: Article = {
       arabic: "لَا يُكَلِّفُ ٱللَّهُ نَفۡسًا إِلَّا وُسۡعَهَاۚ",
       translation: "Allāh does not charge a soul except [with that within] its capacity.",
       reference: "Qur'an 2:286",
-      href: "https://quran.com/2/286",
+      href: "https://my.munibtracker.app/quran/2?ayah=286",
       note: "Translation: Saheeh International (opening of the ayah)",
     },
     {
@@ -81,7 +81,7 @@ export const article: Article = {
       translation:
         "Hanzala, there is a time for worldly affairs and a time for (worship and devotion)",
       reference: "Sahih Muslim 2750",
-      href: "https://sunnah.com/muslim:2750b",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6967",
       note: "Translation as published on Sunnah.com (excerpt).",
     },
     {
@@ -147,7 +147,7 @@ export const article: Article = {
       translation:
         "Actions are (judged) by motives (niyyah), so each man will have what he intended.",
       reference: "40 Hadith an-Nawawi 1",
-      href: "https://sunnah.com/nawawi40:1",
+      href: "https://my.munibtracker.app/hadith/nawawi40?q=1",
       note: "Narrated by Umar ibn al-Khattab; recorded by al-Bukhari and Muslim. Translation as published on Sunnah.com.",
     },
     {
@@ -184,11 +184,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 6465 — Sunnah.com", url: "https://sunnah.com/bukhari:6465" },
-    { label: "Sahih Muslim 782b — Sunnah.com", url: "https://sunnah.com/muslim:782b" },
-    { label: "Qur'an 2:286 (Saheeh International) — Quran.com", url: "https://quran.com/2/286" },
-    { label: "Sahih Muslim 2750b — Sunnah.com", url: "https://sunnah.com/muslim:2750b" },
-    { label: "40 Hadith an-Nawawi 1 — Sunnah.com", url: "https://sunnah.com/nawawi40:1" },
+    {
+      label: "Sahih al-Bukhari 6465 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6465",
+    },
+    {
+      label: "Sahih Muslim 782b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1828",
+    },
+    {
+      label: "Qur'an 2:286 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=286",
+    },
+    {
+      label: "Sahih Muslim 2750b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6967",
+    },
+    {
+      label: "40 Hadith an-Nawawi 1 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/nawawi40?q=1",
+    },
   ],
   faqs: [
     {

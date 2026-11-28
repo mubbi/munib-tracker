@@ -43,7 +43,7 @@ export const article: Article = {
       translation:
         "اور تمہارے پروردگار نے کہا ہے کہ تم مجھ سے دعا کرو میں تمہاری (دعا) قبول کروں گا۔ جو لوگ میری عبادت سے ازراہ تکبر کنیاتے ہیں۔ عنقریب جہنم میں ذلیل ہو کر داخل ہوں گے",
       reference: "سورۃ غافر 40:60",
-      href: "https://quran.com/40/60",
+      href: "https://my.munibtracker.app/quran/40?ayah=60",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -57,7 +57,7 @@ export const article: Article = {
       translation:
         "نعمان بن بشیر رضی الله عنہما کہتے ہیں کہ میں نے نبی اکرم صلی اللہ علیہ وسلم کو فرماتے ہوئے سنا: دعا ہی عبادت ہے، پھر آپ نے آیت: «وقال ربكم ادعوني أستجب لكم إن الذين يستكبرون عن عبادتي سيدخلون جهنم داخرين» ( غافر: 60 ) ۱؎۔ امام ترمذی کہتے ہیں: یہ حدیث حسن صحیح ہے۔",
       reference: "جامع ترمذی 3247",
-      href: "https://sunnah.com/tirmidhi:3247",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=3247",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، جامع ترمذی 3247۔ درجہ (Sunnah.com): صحیح (دارالسلام)۔ عربی متن آیت سے پہلے نبی کریم ﷺ کا ارشاد ہے۔",
     },
     {
@@ -72,7 +72,7 @@ export const article: Article = {
       translation:
         "اور (اے پیغمبر) جب تم سے میرے بندے میرے بارے میں دریافت کریں تو (کہہ دو کہ) میں تو (تمہارے) پاس ہوں جب کوئی پکارنے والا مجھے پکارتا ہے تو میں اس کی دعا قبول کرتا ہوں تو ان کو چاہیئے کہ میرے حکموں کو مانیں اور مجھ پر ایمان لائیں تاکہ نیک رستہ پائیں",
       reference: "سورۃ البقرہ 2:186",
-      href: "https://quran.com/2/186",
+      href: "https://my.munibtracker.app/quran/2?ayah=186",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     { type: "h2", text: "دعا مانگنے کا طریقہ قدم بہ قدم" },
@@ -88,7 +88,7 @@ export const article: Article = {
       translation:
         "فضالہ بن عبید رضی الله عنہ کہتے ہیں کہ نبی اکرم صلی اللہ علیہ وسلم نے ایک شخص کو نماز کے اندر ۱؎ دعا کرتے ہوئے سنا، اس نے نبی اکرم صلی اللہ علیہ وسلم پر صلاۃ ( درود ) نہ بھیجا، نبی اکرم صلی اللہ علیہ وسلم نے فرمایا: ”اس نے جلدی کی“، پھر آپ نے اسے بلایا، اور اس سے اور اس کے علاوہ دوسروں کو خطاب کر کے فرمایا، ”جب تم میں سے کوئی بھی نماز پڑھ چکے ۲؎ تو اسے چاہیئے کہ وہ پہلے اللہ کی حمد و ثنا بیان کرے، پھر نبی صلی اللہ علیہ وسلم پر صلاۃ ( درود ) بھیجے، پھر اس کے بعد وہ جو چاہے دعا مانگے“۔ امام ترمذی کہتے ہیں: یہ حدیث حسن صحیح ہے۔",
       reference: "جامع ترمذی 3477",
-      href: "https://sunnah.com/tirmidhi:3477",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=3477",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، جامع ترمذی 3477۔ درجہ (Sunnah.com): حسن (دارالسلام)",
     },
     {
@@ -96,7 +96,7 @@ export const article: Article = {
       items: [
         {
           title: "حمد سے شروع کریں",
-          text: "الحمد للہ جیسے الفاظ سے آغاز کریں اور اللہ کو اس کے ناموں سے پکاریں۔ قرآن بتاتا ہے کہ سب اچھے نام اللہ ہی کے ہیں اور ہمیں انہی سے اسے پکارنے کا حکم دیتا ہے ([سورۃ الاعراف 7:180](https://quran.com/7/180))۔",
+          text: "الحمد للہ جیسے الفاظ سے آغاز کریں اور اللہ کو اس کے ناموں سے پکاریں۔ قرآن بتاتا ہے کہ سب اچھے نام اللہ ہی کے ہیں اور ہمیں انہی سے اسے پکارنے کا حکم دیتا ہے ([سورۃ الاعراف 7:180](https://my.munibtracker.app/quran/7?ayah=180))۔",
         },
         {
           title: "نبی کریم ﷺ پر درود بھیجیں",
@@ -104,11 +104,11 @@ export const article: Article = {
         },
         {
           title: "واضح طور پر اور یقین کے ساتھ مانگیں",
-          text: "اپنی ضرورت بیان کریں۔ نبی کریم ﷺ نے سکھایا کہ پختہ ارادے سے مانگیں اور یوں نہ کہیں کہ اے اللہ! اگر تو چاہے تو مجھے دے دے ([صحیح بخاری 6338](https://sunnah.com/bukhari:6338))۔",
+          text: "اپنی ضرورت بیان کریں۔ نبی کریم ﷺ نے سکھایا کہ پختہ ارادے سے مانگیں اور یوں نہ کہیں کہ اے اللہ! اگر تو چاہے تو مجھے دے دے ([صحیح بخاری 6338](https://my.munibtracker.app/hadith/bukhari?q=6338))۔",
         },
         {
           title: "عاجزی اور اطمینان سے مانگیں",
-          text: "قرآن ہمیں حکم دیتا ہے کہ اپنے پروردگار سے عاجزی سے اور چپکے چپکے دعا مانگیں ([سورۃ الاعراف 7:55](https://quran.com/7/55))۔ آپ ہاتھ اٹھا سکتے ہیں: ایک حدیث میں ہے کہ اللہ کریم ہے اور بندہ جب اس کی طرف ہاتھ اٹھاتا ہے تو وہ انہیں خالی نہیں لوٹاتا ([سنن ابی داود 1488](https://sunnah.com/abudawud:1488)، البانی نے صحیح کہا)۔",
+          text: "قرآن ہمیں حکم دیتا ہے کہ اپنے پروردگار سے عاجزی سے اور چپکے چپکے دعا مانگیں ([سورۃ الاعراف 7:55](https://my.munibtracker.app/quran/7?ayah=55))۔ آپ ہاتھ اٹھا سکتے ہیں: ایک حدیث میں ہے کہ اللہ کریم ہے اور بندہ جب اس کی طرف ہاتھ اٹھاتا ہے تو وہ انہیں خالی نہیں لوٹاتا ([سنن ابی داود 1488](https://my.munibtracker.app/hadith/abudawud?q=1488)، البانی نے صحیح کہا)۔",
         },
         {
           title: "دونوں جہانوں کی بھلائی مانگیں",
@@ -134,13 +134,19 @@ export const article: Article = {
       caption: "وہ اوقات جن میں دعا کی قبولیت کی خاص امید ہے",
       head: ["وقت", "ماخذ"],
       rows: [
-        ["رات کا آخری تہائی حصہ", "[صحیح بخاری 1145](https://sunnah.com/bukhari:1145)"],
-        ["نماز کے سجدے میں", "[صحیح مسلم 482](https://sunnah.com/muslim:482)"],
+        [
+          "رات کا آخری تہائی حصہ",
+          "[صحیح بخاری 1145](https://my.munibtracker.app/hadith/bukhari?q=1145)",
+        ],
+        ["نماز کے سجدے میں", "[صحیح مسلم 482](https://my.munibtracker.app/hadith/muslim?q=1083)"],
         [
           "اذان اور اقامت کے درمیان",
-          "[سنن ابی داود 521](https://sunnah.com/abudawud:521) (صحیح، البانی)",
+          "[سنن ابی داود 521](https://my.munibtracker.app/hadith/abudawud?q=521) (صحیح، البانی)",
         ],
-        ["جمعہ کے دن کا ایک مختصر وقت", "[صحیح بخاری 935](https://sunnah.com/bukhari:935)"],
+        [
+          "جمعہ کے دن کا ایک مختصر وقت",
+          "[صحیح بخاری 935](https://my.munibtracker.app/hadith/bukhari?q=935)",
+        ],
       ],
     },
     {
@@ -150,7 +156,7 @@ export const article: Article = {
       translation:
         "۔ ذکوان نے حضرت ابو ہریرہ ‌رضی ‌اللہ ‌عنہ ‌ ‌ سے روایت کی کہ رسول اللہﷺ نے فرمایا : ’’بندہ اپنے رب کے سب سے زیادہ قریب اس حالت میں ہوتا ہے جب وہ سجدے میں ہوتا ہے ، لہٰذا اس میں کثرت سے دعا کرو ۔ ‘ ‘",
       reference: "صحیح مسلم 482",
-      href: "https://sunnah.com/muslim:482",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1083",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 482",
     },
     {
@@ -160,7 +166,7 @@ export const article: Article = {
     { type: "h2", text: "دعا میں کیا کہیں" },
     {
       type: "p",
-      text: "آپ اللہ سے اپنے الفاظ میں اور کسی بھی زبان میں بات کر سکتے ہیں۔ قرآن اور سنت کی دعائیں بھی سیکھنے کے لائق ہیں، کیونکہ وہ مختصر ہیں اور ان میں اس سے زیادہ سمٹ آتا ہے جتنا مانگنے کا ہمیں خیال آئے۔ حضرت انس رضی اللہ عنہ نے بتایا کہ نبی کریم ﷺ کی اکثر دعا قرآن کے انہی الفاظ میں ہوتی تھی ([صحیح بخاری 6389](https://sunnah.com/bukhari:6389)):",
+      text: "آپ اللہ سے اپنے الفاظ میں اور کسی بھی زبان میں بات کر سکتے ہیں۔ قرآن اور سنت کی دعائیں بھی سیکھنے کے لائق ہیں، کیونکہ وہ مختصر ہیں اور ان میں اس سے زیادہ سمٹ آتا ہے جتنا مانگنے کا ہمیں خیال آئے۔ حضرت انس رضی اللہ عنہ نے بتایا کہ نبی کریم ﷺ کی اکثر دعا قرآن کے انہی الفاظ میں ہوتی تھی ([صحیح بخاری 6389](https://my.munibtracker.app/hadith/bukhari?q=6389)):",
     },
     {
       type: "evidence",
@@ -169,7 +175,7 @@ export const article: Article = {
       translation:
         "اور بعضے ایسے ہیں کہ دعا کرتے ہیں کہ پروردگار ہم کو دنیا میں بھی نعمت عطا فرما اور آخرت میں بھی نعمت بخشیو اور دوزخ کے عذاب سے محفوظ رکھیو",
       reference: "سورۃ البقرہ 2:201",
-      href: "https://quran.com/2/201",
+      href: "https://my.munibtracker.app/quran/2?ayah=201",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -190,16 +196,16 @@ export const article: Article = {
       translation:
         'امام مالک نے ابن شہاب سے ، انہوں نے ابن ازہر کے آزاد کردہ غلام ابوعبید سے اور انہوں نے حضرت ابوہریرہ رضی اللہ عنہ سے روایت کی کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا : " تم میں سے کسی شخص کی دعا اس وقت تک قبول ہوتی ہے جب تک وہ جلد بازی کرتے ہوئے یہ نہیں کہتا : میں نے دعا کی ، لیکن میرے حق میں قبول نہیں ہوتی ۔ ۔ یا نہیں ہوئی ۔',
       reference: "صحیح مسلم 2735",
-      href: "https://sunnah.com/muslim:2735a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6934",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 2735",
     },
     {
       type: "p",
-      text: "جواب ہمیشہ وہی چیز اسی شکل میں نہیں ہوتا جو آپ نے سوچی تھی۔ ایک اور حدیث میں ہے کہ جو مسلمان بھی اللہ سے کوئی دعا کرتا ہے، اللہ یا تو اسے وہ چیز دے دیتا ہے یا اس کے برابر کوئی برائی اس سے دور کر دیتا ہے، جب تک وہ گناہ یا قطع رحمی کی دعا نہ کرے ([جامع ترمذی 3573](https://sunnah.com/tirmidhi:3573)، حسن)۔",
+      text: "جواب ہمیشہ وہی چیز اسی شکل میں نہیں ہوتا جو آپ نے سوچی تھی۔ ایک اور حدیث میں ہے کہ جو مسلمان بھی اللہ سے کوئی دعا کرتا ہے، اللہ یا تو اسے وہ چیز دے دیتا ہے یا اس کے برابر کوئی برائی اس سے دور کر دیتا ہے، جب تک وہ گناہ یا قطع رحمی کی دعا نہ کرے ([جامع ترمذی 3573](https://my.munibtracker.app/hadith/tirmidhi?q=3573)، حسن)۔",
     },
     {
       type: "p",
-      text: "سنت اس چیز کی طرف بھی اشارہ کرتی ہے جو رکاوٹ بن سکتی ہے۔ نبی کریم ﷺ نے ایک مسافر کا ذکر فرمایا جو غبار آلود اور پراگندہ حال ہے، آسمان کی طرف ہاتھ اٹھا کر «یا رب، یا رب» پکارتا ہے، حالانکہ اس کا کھانا، پینا اور لباس حرام کا ہے، تو اس کی دعا کیسے قبول ہو ([صحیح مسلم 1015](https://sunnah.com/muslim:1015))۔ اپنی کمائی اور خرچ کا خیال رکھنا اپنی دعا کا خیال رکھنا ہے۔",
+      text: "سنت اس چیز کی طرف بھی اشارہ کرتی ہے جو رکاوٹ بن سکتی ہے۔ نبی کریم ﷺ نے ایک مسافر کا ذکر فرمایا جو غبار آلود اور پراگندہ حال ہے، آسمان کی طرف ہاتھ اٹھا کر «یا رب، یا رب» پکارتا ہے، حالانکہ اس کا کھانا، پینا اور لباس حرام کا ہے، تو اس کی دعا کیسے قبول ہو ([صحیح مسلم 1015](https://my.munibtracker.app/hadith/muslim?q=2346))۔ اپنی کمائی اور خرچ کا خیال رکھنا اپنی دعا کا خیال رکھنا ہے۔",
     },
     {
       type: "ul",
@@ -223,38 +229,74 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ غافر 40:60 — Quran.com", url: "https://quran.com/40/60" },
-    { label: "سورۃ البقرہ 2:186 — Quran.com", url: "https://quran.com/2/186" },
-    { label: "سورۃ البقرہ 2:201 — Quran.com", url: "https://quran.com/2/201" },
-    { label: "سورۃ الاعراف 7:180 — Quran.com", url: "https://quran.com/7/180" },
-    { label: "سورۃ الاعراف 7:55 — Quran.com", url: "https://quran.com/7/55" },
     {
-      label: "جامع ترمذی 3247 — Sunnah.com (صحیح، دارالسلام)",
-      url: "https://sunnah.com/tirmidhi:3247",
+      label: "سورۃ غافر 40:60 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/40?ayah=60",
     },
     {
-      label: "جامع ترمذی 3477 — Sunnah.com (حسن، دارالسلام)",
-      url: "https://sunnah.com/tirmidhi:3477",
+      label: "سورۃ البقرہ 2:186 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=186",
     },
-    { label: "صحیح بخاری 6338 — Sunnah.com", url: "https://sunnah.com/bukhari:6338" },
     {
-      label: "سنن ابی داود 1488 — Sunnah.com (صحیح، البانی)",
-      url: "https://sunnah.com/abudawud:1488",
+      label: "سورۃ البقرہ 2:201 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=201",
     },
-    { label: "صحیح بخاری 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
-    { label: "صحیح مسلم 482 — Sunnah.com", url: "https://sunnah.com/muslim:482" },
     {
-      label: "سنن ابی داود 521 — Sunnah.com (صحیح، البانی)",
-      url: "https://sunnah.com/abudawud:521",
+      label: "سورۃ الاعراف 7:180 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/7?ayah=180",
     },
-    { label: "صحیح بخاری 935 — Sunnah.com", url: "https://sunnah.com/bukhari:935" },
-    { label: "صحیح بخاری 6389 — Sunnah.com", url: "https://sunnah.com/bukhari:6389" },
-    { label: "صحیح مسلم 2735 — Sunnah.com", url: "https://sunnah.com/muslim:2735a" },
     {
-      label: "جامع ترمذی 3573 — Sunnah.com (حسن، دارالسلام)",
-      url: "https://sunnah.com/tirmidhi:3573",
+      label: "سورۃ الاعراف 7:55 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/7?ayah=55",
     },
-    { label: "صحیح مسلم 1015 — Sunnah.com", url: "https://sunnah.com/muslim:1015" },
+    {
+      label: "جامع ترمذی 3247 — Munib Tracker (صحیح، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3247",
+    },
+    {
+      label: "جامع ترمذی 3477 — Munib Tracker (حسن، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3477",
+    },
+    {
+      label: "صحیح بخاری 6338 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6338",
+    },
+    {
+      label: "سنن ابی داود 1488 — Munib Tracker (صحیح، البانی)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1488",
+    },
+    {
+      label: "صحیح بخاری 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
+    {
+      label: "صحیح مسلم 482 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1083",
+    },
+    {
+      label: "سنن ابی داود 521 — Munib Tracker (صحیح، البانی)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=521",
+    },
+    {
+      label: "صحیح بخاری 935 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=935",
+    },
+    {
+      label: "صحیح بخاری 6389 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6389",
+    },
+    {
+      label: "صحیح مسلم 2735 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6934",
+    },
+    {
+      label: "جامع ترمذی 3573 — Munib Tracker (حسن، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3573",
+    },
+    {
+      label: "صحیح مسلم 1015 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2346",
+    },
   ],
   faqs: [
     {

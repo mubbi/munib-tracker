@@ -41,7 +41,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "وَمِنَ ٱلَّيۡلِ فَتَهَجَّدۡ بِهِۦ نَافِلَةٗ لَّكَ عَسَىٰٓ أَن يَبۡعَثَكَ رَبُّكَ مَقَامٗا مَّحۡمُودٗا",
       reference: "سورة الإسراء 17:79",
-      href: "https://quran.com/17/79",
+      href: "https://my.munibtracker.app/quran/17?ayah=79",
     },
     {
       type: "p",
@@ -52,7 +52,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "أَفْضَلُ الصِّيَامِ بَعْدَ رَمَضَانَ شَهْرُ اللَّهِ الْمُحَرَّمُ وَأَفْضَلُ الصَّلاَةِ بَعْدَ الْفَرِيضَةِ صَلاَةُ اللَّيْلِ",
       reference: "صحيح مسلم 1163",
-      href: "https://sunnah.com/muslim:1163a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2755",
     },
     {
       type: "note",
@@ -71,7 +71,7 @@ export const article: Article = {
       arabic:
         "يَنْزِلُ رَبُّنَا تَبَارَكَ وَتَعَالَى كُلَّ لَيْلَةٍ إِلَى السَّمَاءِ الدُّنْيَا حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ يَقُولُ مَنْ يَدْعُونِي فَأَسْتَجِيبَ لَهُ مَنْ يَسْأَلُنِي فَأُعْطِيَهُ مَنْ يَسْتَغْفِرُنِي فَأَغْفِرَ لَهُ",
       reference: "صحيح البخاري 1145",
-      href: "https://sunnah.com/bukhari:1145",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1145",
     },
     {
       type: "p",
@@ -91,7 +91,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "هذه الأوقات تتغيّر كل يوم وتختلف من مدينة إلى أخرى، فاعتمد على وقتَي المغرب والفجر في بلدك. وإن شقّ عليك الثلث الأخير الآن، فالصلاة بعد العشاء قبل النوم، أو الاستيقاظ قبل الفجر بعشرين دقيقة، كلّ ذلك من صلاة الليل. وقد وصف النبي ﷺ صلاة داود عليه السلام بأنها أحبّ الصلاة إلى الله: كان ينام نصف الليل ويقوم ثلثه وينام سدسه ([صحيح البخاري 1131](https://sunnah.com/bukhari:1131)).",
+      text: "هذه الأوقات تتغيّر كل يوم وتختلف من مدينة إلى أخرى، فاعتمد على وقتَي المغرب والفجر في بلدك. وإن شقّ عليك الثلث الأخير الآن، فالصلاة بعد العشاء قبل النوم، أو الاستيقاظ قبل الفجر بعشرين دقيقة، كلّ ذلك من صلاة الليل. وقد وصف النبي ﷺ صلاة داود عليه السلام بأنها أحبّ الصلاة إلى الله: كان ينام نصف الليل ويقوم ثلثه وينام سدسه ([صحيح البخاري 1131](https://my.munibtracker.app/hadith/bukhari?q=1131)).",
     },
     { type: "h2", text: "كم عدد ركعات التهجد؟" },
     {
@@ -103,11 +103,11 @@ export const article: Article = {
       kind: "hadith",
       arabic: "صَلاَةُ اللَّيْلِ مَثْنَى مَثْنَى، فَإِذَا خَشِيَ أَحَدُكُمُ الصُّبْحَ صَلَّى رَكْعَةً وَاحِدَةً، تُوتِرُ لَهُ مَا قَدْ صَلَّى",
       reference: "صحيح البخاري 990",
-      href: "https://sunnah.com/bukhari:990",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=990",
     },
     {
       type: "p",
-      text: "وروت عائشة رضي الله عنها أن النبي ﷺ ما كان يزيد في الليل على إحدى عشرة ركعة، في رمضان ولا في غيره، ووصفت حسنهنّ وطولهنّ ([صحيح البخاري 1147](https://sunnah.com/bukhari:1147)). ويبحث العلماء هل هذا العدد حدّ لا يُتجاوز أم هو عادته الغالبة. ولمن يبدأ الآن: ركعتان بطمأنينة تهجّد كامل، ولك أن تزيد ركعتين أخريين حين يسهل عليك ذلك.",
+      text: "وروت عائشة رضي الله عنها أن النبي ﷺ ما كان يزيد في الليل على إحدى عشرة ركعة، في رمضان ولا في غيره، ووصفت حسنهنّ وطولهنّ ([صحيح البخاري 1147](https://my.munibtracker.app/hadith/bukhari?q=1147)). ويبحث العلماء هل هذا العدد حدّ لا يُتجاوز أم هو عادته الغالبة. ولمن يبدأ الآن: ركعتان بطمأنينة تهجّد كامل، ولك أن تزيد ركعتين أخريين حين يسهل عليك ذلك.",
     },
     { type: "h2", text: "كيفية صلاة التهجد خطوة بخطوة" },
     {
@@ -127,7 +127,7 @@ export const article: Article = {
         },
         {
           title: "اقرأ ما تحفظ",
-          text: "ليست هناك سور معيّنة. وقد قال الله لمن يقومون الليل: «فَٱقۡرَءُواْ مَا تَيَسَّرَ مِنَ ٱلۡقُرۡءَانِ» ([سورة المزمل 73:20](https://quran.com/73/20)). والسور القصيرة التي تتقنها تكفي. اقرأ بهدوء، جهرًا أو سرًّا.",
+          text: "ليست هناك سور معيّنة. وقد قال الله لمن يقومون الليل: «فَٱقۡرَءُواْ مَا تَيَسَّرَ مِنَ ٱلۡقُرۡءَانِ» ([سورة المزمل 73:20](https://my.munibtracker.app/quran/73?ayah=20)). والسور القصيرة التي تتقنها تكفي. اقرأ بهدوء، جهرًا أو سرًّا.",
         },
         {
           title: "زد ركعتين ركعتين إن شئت",
@@ -154,11 +154,11 @@ export const article: Article = {
       arabic:
         "مَنْ خَافَ أَنْ لاَ يَقُومَ مِنْ آخِرِ اللَّيْلِ فَلْيُوتِرْ أَوَّلَهُ وَمَنْ طَمِعَ أَنْ يَقُومَ آخِرَهُ فَلْيُوتِرْ آخِرَ اللَّيْلِ فَإِنَّ صَلاَةَ آخِرِ اللَّيْلِ مَشْهُودَةٌ وَذَلِكَ أَفْضَلُ",
       reference: "صحيح مسلم 755",
-      href: "https://sunnah.com/muslim:755a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1766",
     },
     {
       type: "p",
-      text: "وإن كنت قد أوترت بعد العشاء ثم استيقظت، فالقول الذي عليه كثير من أهل العلم أنك تصلّي التهجد ركعتين ركعتين ولا تعيد الوتر، لحديث «لاَ وِتْرَانِ فِي لَيْلَةٍ» ([سنن أبي داود 1439](https://sunnah.com/abudawud:1439)، صحّحه الألباني).",
+      text: "وإن كنت قد أوترت بعد العشاء ثم استيقظت، فالقول الذي عليه كثير من أهل العلم أنك تصلّي التهجد ركعتين ركعتين ولا تعيد الوتر، لحديث «لاَ وِتْرَانِ فِي لَيْلَةٍ» ([سنن أبي داود 1439](https://my.munibtracker.app/hadith/abudawud?q=1439)، صحّحه الألباني).",
     },
     {
       type: "note",
@@ -169,7 +169,7 @@ export const article: Article = {
     { type: "h2", text: "كيف تجعل التهجد عادة تدوم" },
     {
       type: "p",
-      text: "علّمنا النبي ﷺ أن أحبّ الأعمال إلى الله أدومها وإن قلّ ([صحيح البخاري 6464](https://sunnah.com/bukhari:6464)). وهذه أفضل طريقة تُقبل بها على التهجد.",
+      text: "علّمنا النبي ﷺ أن أحبّ الأعمال إلى الله أدومها وإن قلّ ([صحيح البخاري 6464](https://my.munibtracker.app/hadith/bukhari?q=6464)). وهذه أفضل طريقة تُقبل بها على التهجد.",
     },
     {
       type: "ul",
@@ -189,19 +189,46 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة الإسراء 17:79 — Quran.com", url: "https://quran.com/17/79" },
-    { label: "سورة المزمل 73:20 — Quran.com", url: "https://quran.com/73/20" },
-    { label: "صحيح مسلم 1163 — Sunnah.com", url: "https://sunnah.com/muslim:1163a" },
-    { label: "صحيح البخاري 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
-    { label: "صحيح البخاري 1131 — Sunnah.com", url: "https://sunnah.com/bukhari:1131" },
-    { label: "صحيح البخاري 990 — Sunnah.com", url: "https://sunnah.com/bukhari:990" },
-    { label: "صحيح البخاري 1147 — Sunnah.com", url: "https://sunnah.com/bukhari:1147" },
-    { label: "صحيح مسلم 755 — Sunnah.com", url: "https://sunnah.com/muslim:755a" },
     {
-      label: "سنن أبي داود 1439 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1439",
+      label: "سورة الإسراء 17:79 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/17?ayah=79",
     },
-    { label: "صحيح البخاري 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
+    {
+      label: "سورة المزمل 73:20 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/73?ayah=20",
+    },
+    {
+      label: "صحيح مسلم 1163 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2755",
+    },
+    {
+      label: "صحيح البخاري 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
+    {
+      label: "صحيح البخاري 1131 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1131",
+    },
+    {
+      label: "صحيح البخاري 990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=990",
+    },
+    {
+      label: "صحيح البخاري 1147 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1147",
+    },
+    {
+      label: "صحيح مسلم 755 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1766",
+    },
+    {
+      label: "سنن أبي داود 1439 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1439",
+    },
+    {
+      label: "صحيح البخاري 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
   ],
   faqs: [
     {

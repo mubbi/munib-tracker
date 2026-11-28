@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         "O you who have believed, when you rise to [perform] prayer, wash your faces and your forearms to the elbows and wipe over your heads and wash your feet to the ankles. And if you are in a state of janābah, then purify yourselves. But if you are ill or on a journey or one of you comes from the place of relieving himself or you have contacted women and do not find water, then seek clean earth and wipe over your faces and hands with it. Allāh does not intend to make difficulty for you, but He intends to purify you and complete His favor upon you that you may be grateful.",
       reference: "Qur'an 5:6",
-      href: "https://quran.com/5/6",
+      href: "https://my.munibtracker.app/quran/5?ayah=6",
       note: "Translation: Saheeh International",
     },
     {
@@ -81,7 +81,7 @@ export const article: Article = {
       translation:
         "Narrated Humran: (the slave of 'Uthman) I saw 'Uthman bin 'Affan asking for a tumbler of water (and when it was brought) he poured water over his hands and washed them thrice and then put his right hand in the water container and rinsed his mouth, washed his nose by putting water in it and then blowing it out. then he washed his face and forearms up to the elbows thrice, passed his wet hands over his head and washed his feet up to the ankles thrice. Then he said, \"Allah's Messenger (ﷺ) said 'If anyone performs ablution like that of mine and offers a two-rak'at prayer during which he does not think of anything else (not related to the present prayer) then his past sins will be forgiven.' \"",
       reference: "Sahih al-Bukhari 159",
-      href: "https://sunnah.com/bukhari:159",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=159",
       note: "Translation as published on Sunnah.com.",
     },
     {
@@ -141,7 +141,7 @@ export const article: Article = {
       translation:
         "If anyone amongst you performs the ablution, and then completes the ablution well and then says: I testify that there is no god but Allah and that Muhammad is the servant of Allah and His Messenger, the eight gates of Paradise would be opened for him and he may enter by whichever of them he wishes.",
       reference: "Sahih Muslim 234",
-      href: "https://sunnah.com/muslim:234a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=553",
       note: "Narrated by 'Uqbah ibn 'Amir from 'Umar. Excerpt; translation as published on Sunnah.com.",
     },
     { type: "h2", text: "What breaks Wudu" },
@@ -171,7 +171,7 @@ export const article: Article = {
       translation:
         "My uncle asked Allah's Messenger (ﷺ) about a person who imagined to have passed wind during the prayer. Allah' Apostle replied: \"He should not leave his prayers unless he hears sound or smells something.\"",
       reference: "Sahih al-Bukhari 137",
-      href: "https://sunnah.com/bukhari:137",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=137",
       note: "Narrated by 'Abbad ibn Tamim. Translation as published on Sunnah.com.",
     },
     { type: "h2", text: "Where the schools differ on the method" },
@@ -229,10 +229,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 5:6 (Saheeh International) — Quran.com", url: "https://quran.com/5/6" },
-    { label: "Sahih al-Bukhari 159 — Sunnah.com", url: "https://sunnah.com/bukhari:159" },
-    { label: "Sahih Muslim 234a — Sunnah.com", url: "https://sunnah.com/muslim:234a" },
-    { label: "Sahih al-Bukhari 137 — Sunnah.com", url: "https://sunnah.com/bukhari:137" },
+    {
+      label: "Qur'an 5:6 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/5?ayah=6",
+    },
+    {
+      label: "Sahih al-Bukhari 159 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=159",
+    },
+    {
+      label: "Sahih Muslim 234a — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=553",
+    },
+    {
+      label: "Sahih al-Bukhari 137 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=137",
+    },
   ],
   faqs: [
     {

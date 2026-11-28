@@ -44,13 +44,13 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 4937",
-      href: "https://sunnah.com/bukhari:4937",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=4937",
     },
     {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح مسلم 798",
-      href: "https://sunnah.com/muslim:798a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1862",
     },
     {
       type: "p",
@@ -60,14 +60,14 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 5027",
-      href: "https://sunnah.com/bukhari:5027",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5027",
     },
     {
       type: "evidence",
       kind: "quran",
       arabic: "وَلَقَدۡ يَسَّرۡنَا ٱلۡقُرۡءَانَ لِلذِّكۡرِ فَهَلۡ مِن مُّدَّكِرٖ",
       reference: "سورة القمر 54:17",
-      href: "https://quran.com/54/17",
+      href: "https://my.munibtracker.app/quran/54?ayah=17",
     },
     { type: "h2", text: "الخطوة 1: تعلّم الحروف وأشكالها" },
     {
@@ -127,7 +127,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "أَوۡ زِدۡ عَلَيۡهِ وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا",
       reference: "سورة المزمل 73:4",
-      href: "https://quran.com/73/4",
+      href: "https://my.munibtracker.app/quran/73?ayah=4",
     },
     {
       type: "p",
@@ -136,7 +136,7 @@ export const article: Article = {
     { type: "h2", text: "الخطوة 5: ابحث عن معلّم" },
     {
       type: "p",
-      text: "الطريقة المتوارثة لتعلّم القرآن أن تقرأه بصوت مسموع على معلّم مؤهل يستمع إليك ويصحّح لك. وبهذه الطريقة نُقل القرآن من شخص إلى شخص منذ زمن النبي ﷺ؛ ويروي صحيح البخاري أن جبريل عليه السلام كان يلقاه في كل ليلة من رمضان ليدارسه القرآن ([صحيح البخاري 6](https://sunnah.com/bukhari:6)).",
+      text: "الطريقة المتوارثة لتعلّم القرآن أن تقرأه بصوت مسموع على معلّم مؤهل يستمع إليك ويصحّح لك. وبهذه الطريقة نُقل القرآن من شخص إلى شخص منذ زمن النبي ﷺ؛ ويروي صحيح البخاري أن جبريل عليه السلام كان يلقاه في كل ليلة من رمضان ليدارسه القرآن ([صحيح البخاري 6](https://my.munibtracker.app/hadith/bukhari?q=6)).",
     },
     {
       type: "p",
@@ -163,7 +163,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 5033",
-      href: "https://sunnah.com/bukhari:5033",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5033",
     },
     {
       type: "ul",
@@ -186,16 +186,34 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 4937 — Sunnah.com", url: "https://sunnah.com/bukhari:4937" },
-    { label: "صحيح مسلم 798 — Sunnah.com", url: "https://sunnah.com/muslim:798a" },
-    { label: "صحيح البخاري 5027 — Sunnah.com", url: "https://sunnah.com/bukhari:5027" },
     {
-      label: "سورة القمر 54:17 — Quran.com",
-      url: "https://quran.com/54/17",
+      label: "صحيح البخاري 4937 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=4937",
     },
-    { label: "سورة المزمل 73:4 — Quran.com", url: "https://quran.com/73/4" },
-    { label: "صحيح البخاري 6 — Sunnah.com", url: "https://sunnah.com/bukhari:6" },
-    { label: "صحيح البخاري 5033 — Sunnah.com", url: "https://sunnah.com/bukhari:5033" },
+    {
+      label: "صحيح مسلم 798 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1862",
+    },
+    {
+      label: "صحيح البخاري 5027 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5027",
+    },
+    {
+      label: "سورة القمر 54:17 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/54?ayah=17",
+    },
+    {
+      label: "سورة المزمل 73:4 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/73?ayah=4",
+    },
+    {
+      label: "صحيح البخاري 6 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6",
+    },
+    {
+      label: "صحيح البخاري 5033 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5033",
+    },
   ],
   faqs: [
     {

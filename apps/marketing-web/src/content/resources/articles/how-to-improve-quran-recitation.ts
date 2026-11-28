@@ -132,7 +132,7 @@ export const article: Article = {
       translation:
         "One who is proficient in the Qur'an is associated with the noble, upright, recording angels; and he who falters in it, and finds it difficult for him, will have two rewards.",
       reference: "Sahih Muslim 798; Sahih al-Bukhari 4937",
-      href: "https://sunnah.com/muslim:798",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1862",
     },
     {
       type: "p",
@@ -145,7 +145,7 @@ export const article: Article = {
       arabic: "أَوۡ زِدۡ عَلَيۡهِ وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا",
       translation: "Or add to it, and recite the Qur’ān with measured recitation.",
       reference: "Qur'an 73:4",
-      href: "https://quran.com/73/4",
+      href: "https://my.munibtracker.app/quran/73?ayah=4",
       note: "Translation: Saheeh International",
     },
     {
@@ -193,9 +193,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 73:4 (Saheeh International) — Quran.com", url: "https://quran.com/73/4" },
-    { label: "Sahih Muslim 798 — Sunnah.com", url: "https://sunnah.com/muslim:798" },
-    { label: "Sahih al-Bukhari 4937 — Sunnah.com", url: "https://sunnah.com/bukhari:4937" },
+    {
+      label: "Qur'an 73:4 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/73?ayah=4",
+    },
+    {
+      label: "Sahih Muslim 798 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1862",
+    },
+    {
+      label: "Sahih al-Bukhari 4937 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=4937",
+    },
   ],
   faqs: [
     {

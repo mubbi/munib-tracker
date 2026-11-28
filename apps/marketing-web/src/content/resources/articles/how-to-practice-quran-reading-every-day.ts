@@ -99,7 +99,7 @@ export const article: Article = {
       translation:
         "Then do they not reflect upon the Qur’ān, or are there locks upon [their] hearts?",
       reference: "Qur'an 47:24",
-      href: "https://quran.com/47/24",
+      href: "https://my.munibtracker.app/quran/47?ayah=24",
       note: "Translation: Saheeh International",
     },
     {
@@ -156,7 +156,7 @@ export const article: Article = {
       translation:
         "Do good deeds properly, sincerely and moderately and know that your deeds will not make you enter Paradise, and that the most beloved deed to Allah is the most regular and constant even if it were little.",
       reference: "Sahih al-Bukhari 6464; Sahih Muslim 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
     },
     {
       type: "p",
@@ -164,9 +164,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 47:24 (Saheeh International) — Quran.com", url: "https://quran.com/47/24" },
-    { label: "Sahih al-Bukhari 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "Sahih Muslim 783 — Sunnah.com", url: "https://sunnah.com/muslim:783" },
+    {
+      label: "Qur'an 47:24 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/47?ayah=24",
+    },
+    {
+      label: "Sahih al-Bukhari 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "Sahih Muslim 783 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1829",
+    },
   ],
   faqs: [
     {

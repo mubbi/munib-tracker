@@ -40,7 +40,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 1",
-      href: "https://sunnah.com/bukhari:1",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1",
     },
     {
       type: "p",
@@ -80,7 +80,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6464؛ صحيح مسلم 783",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
     },
     {
       type: "p",
@@ -110,7 +110,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 2101؛ صحيح مسلم 2628",
-      href: "https://sunnah.com/bukhari:2101",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2101",
     },
     {
       type: "p",
@@ -149,11 +149,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 1 — Sunnah.com", url: "https://sunnah.com/bukhari:1" },
-    { label: "صحيح البخاري 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
-    { label: "صحيح مسلم 783 — Sunnah.com", url: "https://sunnah.com/muslim:783" },
-    { label: "صحيح البخاري 2101 — Sunnah.com", url: "https://sunnah.com/bukhari:2101" },
-    { label: "صحيح مسلم 2628 — Sunnah.com", url: "https://sunnah.com/muslim:2628" },
+    {
+      label: "صحيح البخاري 1 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1",
+    },
+    {
+      label: "صحيح البخاري 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
+    {
+      label: "صحيح مسلم 783 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1829",
+    },
+    {
+      label: "صحيح البخاري 2101 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2101",
+    },
+    {
+      label: "صحيح مسلم 2628 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6692",
+    },
   ],
   faqs: [
     {

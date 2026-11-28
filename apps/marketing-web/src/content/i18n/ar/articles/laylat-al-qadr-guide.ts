@@ -44,7 +44,7 @@ export const article: Article = {
       arabic:
         "إِنَّآ أَنزَلۡنَٰهُ فِي لَيۡلَةِ ٱلۡقَدۡرِ ۝ وَمَآ أَدۡرَىٰكَ مَا لَيۡلَةُ ٱلۡقَدۡرِ ۝ لَيۡلَةُ ٱلۡقَدۡرِ خَيۡرٞ مِّنۡ أَلۡفِ شَهۡرٖ ۝ تَنَزَّلُ ٱلۡمَلَـٰٓئِكَةُ وَٱلرُّوحُ فِيهَا بِإِذۡنِ رَبِّهِم مِّن كُلِّ أَمۡرٖ ۝ سَلَٰمٌ هِيَ حَتَّىٰ مَطۡلَعِ ٱلۡفَجۡرِ",
       reference: "سورة القدر 97:1–5",
-      href: "https://quran.com/97/1-5",
+      href: "https://my.munibtracker.app/quran/passage?surah=97&from=1&to=5",
     },
     {
       type: "p",
@@ -61,7 +61,7 @@ export const article: Article = {
       arabic:
         "مَنْ قَامَ لَيْلَةَ الْقَدْرِ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ، وَمَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
       reference: "صحيح البخاري 1901",
-      href: "https://sunnah.com/bukhari:1901",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1901",
     },
     {
       type: "p",
@@ -77,7 +77,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "تَحَرَّوْا لَيْلَةَ الْقَدْرِ فِي الْوِتْرِ مِنَ الْعَشْرِ الأَوَاخِرِ مِنْ رَمَضَانَ",
       reference: "صحيح البخاري 2017",
-      href: "https://sunnah.com/bukhari:2017",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2017",
     },
     {
       type: "p",
@@ -121,7 +121,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
       reference: "سنن ابن ماجه 3850؛ جامع الترمذي 3513",
-      href: "https://sunnah.com/ibnmajah:3850",
+      href: "https://my.munibtracker.app/hadith/ibnmajah?q=3850",
       note: "درجته في Sunnah.com: ابن ماجه 3850 — صحيح (دار السلام)؛ الترمذي 3513 — صحيح (دار السلام)",
     },
     {
@@ -138,7 +138,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "إِذَا دَخَلَ الْعَشْرُ شَدَّ مِئْزَرَهُ، وَأَحْيَا لَيْلَهُ، وَأَيْقَظَ أَهْلَهُ",
       reference: "صحيح البخاري 2024",
-      href: "https://sunnah.com/bukhari:2024",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2024",
     },
     {
       type: "steps",
@@ -167,7 +167,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "وإن كان قيام الليل جديدًا عليك، فدليل [كيف تصلي التهجد](/resources/salah/how-to-pray-tahajjud) يبيّن وقته وكيفيته. وكان النبي ﷺ يعتكف العشر الأواخر، يلزم المسجد للعبادة، كل سنة حتى توفّاه الله ([صحيح البخاري 2026](https://sunnah.com/bukhari:2026)).",
+      text: "وإن كان قيام الليل جديدًا عليك، فدليل [كيف تصلي التهجد](/resources/salah/how-to-pray-tahajjud) يبيّن وقته وكيفيته. وكان النبي ﷺ يعتكف العشر الأواخر، يلزم المسجد للعبادة، كل سنة حتى توفّاه الله ([صحيح البخاري 2026](https://my.munibtracker.app/hadith/bukhari?q=2026)).",
     },
     {
       type: "note",
@@ -201,25 +201,58 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة القدر 97:1–5 — Quran.com", url: "https://quran.com/97/1-5" },
-    { label: "صحيح البخاري 1901 — Sunnah.com", url: "https://sunnah.com/bukhari:1901" },
-    { label: "صحيح البخاري 2017 — Sunnah.com", url: "https://sunnah.com/bukhari:2017" },
-    { label: "صحيح البخاري 2020 — Sunnah.com", url: "https://sunnah.com/bukhari:2020" },
-    { label: "صحيح البخاري 2016 — Sunnah.com", url: "https://sunnah.com/bukhari:2016" },
-    { label: "صحيح البخاري 2015 — Sunnah.com", url: "https://sunnah.com/bukhari:2015" },
-    { label: "صحيح مسلم 762 — Sunnah.com", url: "https://sunnah.com/muslim:762a" },
-    { label: "صحيح مسلم 1167 — Sunnah.com", url: "https://sunnah.com/muslim:1167a" },
     {
-      label: "سنن ابن ماجه 3850 — Sunnah.com (صحيح، دار السلام)",
-      url: "https://sunnah.com/ibnmajah:3850",
+      label: "سورة القدر 97:1–5 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/passage?surah=97&from=1&to=5",
     },
     {
-      label: "جامع الترمذي 3513 — Sunnah.com (صحيح، دار السلام)",
-      url: "https://sunnah.com/tirmidhi:3513",
+      label: "صحيح البخاري 1901 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1901",
     },
-    { label: "صحيح البخاري 2024 — Sunnah.com", url: "https://sunnah.com/bukhari:2024" },
-    { label: "صحيح البخاري 1902 — Sunnah.com", url: "https://sunnah.com/bukhari:1902" },
-    { label: "صحيح البخاري 2026 — Sunnah.com", url: "https://sunnah.com/bukhari:2026" },
+    {
+      label: "صحيح البخاري 2017 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2017",
+    },
+    {
+      label: "صحيح البخاري 2020 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2020",
+    },
+    {
+      label: "صحيح البخاري 2016 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2016",
+    },
+    {
+      label: "صحيح البخاري 2015 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2015",
+    },
+    {
+      label: "صحيح مسلم 762 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1785",
+    },
+    {
+      label: "صحيح مسلم 1167 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2769",
+    },
+    {
+      label: "سنن ابن ماجه 3850 — Munib Tracker (صحيح، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/ibnmajah?q=3850",
+    },
+    {
+      label: "جامع الترمذي 3513 — Munib Tracker (صحيح، دار السلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3513",
+    },
+    {
+      label: "صحيح البخاري 2024 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2024",
+    },
+    {
+      label: "صحيح البخاري 1902 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1902",
+    },
+    {
+      label: "صحيح البخاري 2026 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2026",
+    },
   ],
   faqs: [
     {

@@ -44,12 +44,12 @@ export const article: Article = {
       translation:
         "اور جو کوئی (خدا کے حضور) نیکی لے کر آئے گا اس کو ویسی دس نیکیاں ملیں گی اور جو برائی لائے گا اسے سزا ویسے ہی ملے گی اور ان پر ظلم نہیں کیا جائے گا",
       reference: "سورۃ الانعام 6:160",
-      href: "https://quran.com/6/160",
+      href: "https://my.munibtracker.app/quran/6?ayah=160",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
       type: "p",
-      text: "نبی کریم ﷺ نے یہی اصول روزے پر لاگو فرمایا جب عبداللہ بن عمرو رضی اللہ عنہما کو ہر مہینے تین روزے رکھنے کی نصیحت کی: چونکہ نیکی کا بدلہ دس گنا ہے، اس لیے یہ پورے سال کے روزوں کے برابر ہے ([صحیح بخاری 1976](https://sunnah.com/bukhari:1976))۔ نفلی روزے ایک رمضان سے دوسرے رمضان تک جسم اور ارادے کو مشق میں بھی رکھتے ہیں، اسی لیے ان کا ذکر [رمضان کی تیاری کیسے کریں](/resources/ramadan-fasting/how-to-prepare-for-ramadan) میں بھی ہے۔",
+      text: "نبی کریم ﷺ نے یہی اصول روزے پر لاگو فرمایا جب عبداللہ بن عمرو رضی اللہ عنہما کو ہر مہینے تین روزے رکھنے کی نصیحت کی: چونکہ نیکی کا بدلہ دس گنا ہے، اس لیے یہ پورے سال کے روزوں کے برابر ہے ([صحیح بخاری 1976](https://my.munibtracker.app/hadith/bukhari?q=1976))۔ نفلی روزے ایک رمضان سے دوسرے رمضان تک جسم اور ارادے کو مشق میں بھی رکھتے ہیں، اسی لیے ان کا ذکر [رمضان کی تیاری کیسے کریں](/resources/ramadan-fasting/how-to-prepare-for-ramadan) میں بھی ہے۔",
     },
     { type: "h2", text: "مستحب روزے ایک نظر میں" },
     {
@@ -84,12 +84,12 @@ export const article: Article = {
       translation:
         "ابوہریرہ رضی الله عنہ کہتے ہیں کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا: ”اعمال سوموار ( دوشنبہ ) اور جمعرات کو اعمال ( اللہ کے حضور ) پیش کئے جاتے ہیں، میری خواہش ہے کہ میرا عمل اس حال میں پیش کیا جائے کہ میں روزے سے ہوں“۔ امام ترمذی کہتے ہیں: ابوہریرہ رضی الله عنہ کی حدیث اس باب میں حسن غریب ہے۔",
       reference: "جامع ترمذی 747",
-      href: "https://sunnah.com/tirmidhi:747",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=747",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، جامع ترمذی 747۔ درجہ (Sunnah.com): حسن (دارالسلام)",
     },
     {
       type: "p",
-      text: "جب آپ ﷺ سے پیر کے روزے کے بارے میں پوچھا گیا تو آپ نے یہ بھی بتایا کہ یہ وہ دن ہے جس میں آپ پیدا ہوئے اور جس میں آپ پر وحی نازل ہوئی ([صحیح مسلم 1162](https://sunnah.com/muslim:1162b))۔",
+      text: "جب آپ ﷺ سے پیر کے روزے کے بارے میں پوچھا گیا تو آپ نے یہ بھی بتایا کہ یہ وہ دن ہے جس میں آپ پیدا ہوئے اور جس میں آپ پر وحی نازل ہوئی ([صحیح مسلم 1162](https://my.munibtracker.app/hadith/muslim?q=2747))۔",
     },
     {
       type: "p",
@@ -103,7 +103,7 @@ export const article: Article = {
       translation:
         "جریر بن عبداللہ رضی الله عنہما کہتے ہیں کہ نبی اکرم صلی اللہ علیہ وسلم نے فرمایا: ”ہر مہینے میں تین دن کا روزے پورے سال کا روزے ہے“ ( یعنی ایام بیض کے روزے ) اور ایام بیض ( چاند کی ) تیرہویں چودہویں اور پندرہویں راتیں ہیں ۱؎۔",
       reference: "سنن نسائی 2420",
-      href: "https://sunnah.com/nasai:2420",
+      href: "https://my.munibtracker.app/hadith/nasai?q=2420",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، سنن نسائی 2420۔ درجہ (Sunnah.com): صحیح (دارالسلام)",
     },
     {
@@ -122,7 +122,7 @@ export const article: Article = {
       translation:
         'ہمیں اسما عیل بن جعفر نے حدیث سنا ئی ، ( کہا : ) مجھے سعد بن سعید قیس نے عمر بن ثا بت بن حارث خزعجی سے خبر دی ، انھوں نے حضرت ابو ایوب انصاری رضی اللہ تعالیٰ عنہ سے روایت کی انھوں نے ان کو حدیث سنا ، رسول اللہ صلی اللہ علیہ وسلم نے فر ما یا : " جس نے رمضا ن کے روزے رکھے ۔ پھر اس کے بعد شوال کے چھروزے رکھے تو یہ ( پوراسال ) مسلسل روزے رکھنے کی طرح ہے ۔',
       reference: "صحیح مسلم 1164",
-      href: "https://sunnah.com/muslim:1164a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2758",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 1164",
     },
     {
@@ -133,7 +133,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "**عرفہ اور عاشوراء۔** ابو قتادہ رضی اللہ عنہ کی طویل حدیث میں نبی کریم ﷺ نے فرمایا کہ آپ اللہ سے امید رکھتے ہیں کہ یومِ عرفہ کا روزہ پچھلے اور اگلے سال کے گناہوں کا کفارہ بنے گا، اور عاشوراء کا روزہ پچھلے سال کے گناہوں کا ([صحیح مسلم 1162](https://sunnah.com/muslim:1162a))۔ آپ ﷺ نے یہ بھی فرمایا کہ اگر آپ اگلے سال تک زندہ رہے تو 9 محرم (تاسوعاء) کا روزہ بھی رکھیں گے ([صحیح مسلم 1134](https://sunnah.com/muslim:1134b))، اسی لیے بہت سے لوگ 10 کے ساتھ 9 کا روزہ بھی رکھتے ہیں۔ عرفہ کا روزہ ان کے لیے ہے جو حج پر نہ ہوں: نبی کریم ﷺ عرفات میں وقوف کے وقت روزے سے نہیں تھے ([صحیح بخاری 1988](https://sunnah.com/bukhari:1988))۔",
+      text: "**عرفہ اور عاشوراء۔** ابو قتادہ رضی اللہ عنہ کی طویل حدیث میں نبی کریم ﷺ نے فرمایا کہ آپ اللہ سے امید رکھتے ہیں کہ یومِ عرفہ کا روزہ پچھلے اور اگلے سال کے گناہوں کا کفارہ بنے گا، اور عاشوراء کا روزہ پچھلے سال کے گناہوں کا ([صحیح مسلم 1162](https://my.munibtracker.app/hadith/muslim?q=2746))۔ آپ ﷺ نے یہ بھی فرمایا کہ اگر آپ اگلے سال تک زندہ رہے تو 9 محرم (تاسوعاء) کا روزہ بھی رکھیں گے ([صحیح مسلم 1134](https://my.munibtracker.app/hadith/muslim?q=2667))، اسی لیے بہت سے لوگ 10 کے ساتھ 9 کا روزہ بھی رکھتے ہیں۔ عرفہ کا روزہ ان کے لیے ہے جو حج پر نہ ہوں: نبی کریم ﷺ عرفات میں وقوف کے وقت روزے سے نہیں تھے ([صحیح بخاری 1988](https://my.munibtracker.app/hadith/bukhari?q=1988))۔",
     },
     {
       type: "p",
@@ -146,21 +146,21 @@ export const article: Article = {
       translation:
         'ابو بشر نے حمید بن عبد الرحمان حمیری سے اور انھوں نے حضرت ابو ہریرہ رضی اللہ تعالیٰ عنہ سے روایت کی ۔ کہا : رسول اللہ صلی اللہ علیہ وسلم نے فر ما یا : " رمضا ن کے بعد سب سے افضل روزے اللہ کے مہینے " محرم " کے ہیں اور فرض نماز کے بعد سب سے افضل نماز رات کی نماز ہے ۔',
       reference: "صحیح مسلم 1163",
-      href: "https://sunnah.com/muslim:1163a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2755",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 1163",
     },
     {
       type: "p",
-      text: "جہاں تک شعبان کا تعلق ہے، عائشہ رضی اللہ عنہا نے بتایا کہ انہوں نے رمضان کے علاوہ کسی مہینے میں نبی کریم ﷺ کو شعبان سے زیادہ روزے رکھتے نہیں دیکھا ([صحیح بخاری 1969](https://sunnah.com/bukhari:1969))۔",
+      text: "جہاں تک شعبان کا تعلق ہے، عائشہ رضی اللہ عنہا نے بتایا کہ انہوں نے رمضان کے علاوہ کسی مہینے میں نبی کریم ﷺ کو شعبان سے زیادہ روزے رکھتے نہیں دیکھا ([صحیح بخاری 1969](https://my.munibtracker.app/hadith/bukhari?q=1969))۔",
     },
     {
       type: "p",
-      text: "**ذوالحجہ کے ابتدائی دن۔** نبی کریم ﷺ نے بتایا کہ ذوالحجہ کے پہلے دس دنوں کے اعمال سے بہتر کوئی عمل نہیں ([صحیح بخاری 969](https://sunnah.com/bukhari:969))، اور روزہ بھی انہی اعمال میں سے ہے۔ سنن ابی داود کی ایک روایت (2437، Sunnah.com پر البانی کے نزدیک صحیح) میں ہے کہ آپ ﷺ پہلے نو دن روزہ رکھتے تھے، جبکہ عائشہ رضی اللہ عنہا نے بتایا کہ انہوں نے آپ کو ان دس دنوں میں کبھی روزے سے نہیں دیکھا (صحیح مسلم 1176)۔ علماء نے ان دونوں روایتوں کو مختلف انداز سے سمجھا ہے۔ دسواں دن عید ہے، جس میں روزہ جائز نہیں۔",
+      text: "**ذوالحجہ کے ابتدائی دن۔** نبی کریم ﷺ نے بتایا کہ ذوالحجہ کے پہلے دس دنوں کے اعمال سے بہتر کوئی عمل نہیں ([صحیح بخاری 969](https://my.munibtracker.app/hadith/bukhari?q=969))، اور روزہ بھی انہی اعمال میں سے ہے۔ سنن ابی داود کی ایک روایت (2437، Sunnah.com پر البانی کے نزدیک صحیح) میں ہے کہ آپ ﷺ پہلے نو دن روزہ رکھتے تھے، جبکہ عائشہ رضی اللہ عنہا نے بتایا کہ انہوں نے آپ کو ان دس دنوں میں کبھی روزے سے نہیں دیکھا (صحیح مسلم 1176)۔ علماء نے ان دونوں روایتوں کو مختلف انداز سے سمجھا ہے۔ دسواں دن عید ہے، جس میں روزہ جائز نہیں۔",
     },
     { type: "h2", text: "وہ دن جن میں روزہ جائز نہیں یا مکروہ ہے" },
     {
       type: "p",
-      text: "یہ جاننا کہ کب روزہ نہ رکھا جائے اتنا ہی اہم ہے جتنا یہ جاننا کہ کب رکھا جائے۔ دو طرح کے دنوں پر چاروں مذاہب متفق ہیں: دونوں عیدیں، جن کے روزے سے نبی کریم ﷺ نے منع فرمایا ([صحیح بخاری 1990](https://sunnah.com/bukhari:1990))، اور عید الاضحیٰ کے بعد کے تین دن:",
+      text: "یہ جاننا کہ کب روزہ نہ رکھا جائے اتنا ہی اہم ہے جتنا یہ جاننا کہ کب رکھا جائے۔ دو طرح کے دنوں پر چاروں مذاہب متفق ہیں: دونوں عیدیں، جن کے روزے سے نبی کریم ﷺ نے منع فرمایا ([صحیح بخاری 1990](https://my.munibtracker.app/hadith/bukhari?q=1990))، اور عید الاضحیٰ کے بعد کے تین دن:",
     },
     {
       type: "evidence",
@@ -169,7 +169,7 @@ export const article: Article = {
       translation:
         "سریج بن یونس ، ہشیم ، خالد ، ابی ملیح ، حضرت نبیشہ رضی اللہ تعالیٰ عنہ سے روایت ہے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا تشریق کے دن کھانے اور پینے کے دن ہیں ۔",
       reference: "صحیح مسلم 1141",
-      href: "https://sunnah.com/muslim:1141a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2677",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 1141",
     },
     {
@@ -193,7 +193,7 @@ export const article: Article = {
       translation:
         "ہم سے عمر بن حفص بن غیاث نے بیان کیا، کہا مجھ سے میرے باپ نے بیان کیا، ان سے اعمش نے بیان کیا، ان سے ابوصالح نے بیان کیا اور ان سے ابوہریرہ رضی اللہ عنہ نے بیان کیا کہ میں نے نبی کریم صلی اللہ علیہ وسلم سے سنا، آپ صلی اللہ علیہ وسلم نے فرمایا کہ کوئی بھی شخص جمعہ کے دن اس وقت تک روزہ نہ رکھے جب تک اس سے ایک دن پہلے یا اس کے ایک بعد روزہ نہ رکھتا ہو۔",
       reference: "صحیح بخاری 1985",
-      href: "https://sunnah.com/bukhari:1985",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1985",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1985",
     },
     {
@@ -205,7 +205,7 @@ export const article: Article = {
     { type: "h2", text: "روزے کی ایسی عادت کیسے بنائیں جو قائم رہے" },
     {
       type: "p",
-      text: "جب نبی کریم ﷺ سے پوچھا گیا کہ اللہ کو کون سے اعمال سب سے زیادہ پسند ہیں تو آپ نے بتایا کہ وہ جو ہمیشہ کیے جائیں، چاہے تھوڑے ہوں ([صحیح بخاری 6465](https://sunnah.com/bukhari:6465))۔ نفلی روزوں کا پیمانہ بھی یہی ہے۔",
+      text: "جب نبی کریم ﷺ سے پوچھا گیا کہ اللہ کو کون سے اعمال سب سے زیادہ پسند ہیں تو آپ نے بتایا کہ وہ جو ہمیشہ کیے جائیں، چاہے تھوڑے ہوں ([صحیح بخاری 6465](https://my.munibtracker.app/hadith/bukhari?q=6465))۔ نفلی روزوں کا پیمانہ بھی یہی ہے۔",
     },
     {
       type: "steps",
@@ -244,40 +244,94 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ الانعام 6:160 — Quran.com", url: "https://quran.com/6/160" },
-    { label: "صحیح بخاری 1976 — Sunnah.com", url: "https://sunnah.com/bukhari:1976" },
     {
-      label: "جامع ترمذی 747 — Sunnah.com (حسن، دارالسلام)",
-      url: "https://sunnah.com/tirmidhi:747",
-    },
-    { label: "صحیح مسلم 1162 (ابو قتادہ) — Sunnah.com", url: "https://sunnah.com/muslim:1162a" },
-    { label: "صحیح مسلم 1162 (پیر کا روزہ) — Sunnah.com", url: "https://sunnah.com/muslim:1162b" },
-    {
-      label: "سنن نسائی 2420 — Sunnah.com (صحیح، دارالسلام)",
-      url: "https://sunnah.com/nasai:2420",
+      label: "سورۃ الانعام 6:160 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/6?ayah=160",
     },
     {
-      label: "جامع ترمذی 761 — Sunnah.com (حسن، دارالسلام)",
-      url: "https://sunnah.com/tirmidhi:761",
+      label: "صحیح بخاری 1976 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1976",
     },
-    { label: "صحیح مسلم 1164 — Sunnah.com", url: "https://sunnah.com/muslim:1164a" },
-    { label: "صحیح بخاری 1950 — Sunnah.com", url: "https://sunnah.com/bukhari:1950" },
-    { label: "صحیح مسلم 1134 — Sunnah.com", url: "https://sunnah.com/muslim:1134b" },
-    { label: "صحیح بخاری 1988 — Sunnah.com", url: "https://sunnah.com/bukhari:1988" },
-    { label: "صحیح مسلم 1163 — Sunnah.com", url: "https://sunnah.com/muslim:1163a" },
-    { label: "صحیح بخاری 1969 — Sunnah.com", url: "https://sunnah.com/bukhari:1969" },
-    { label: "صحیح بخاری 969 — Sunnah.com", url: "https://sunnah.com/bukhari:969" },
     {
-      label: "سنن ابی داود 2437 — Sunnah.com (صحیح، البانی)",
-      url: "https://sunnah.com/abudawud:2437",
+      label: "جامع ترمذی 747 — Munib Tracker (حسن، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=747",
     },
-    { label: "صحیح مسلم 1176 — Sunnah.com", url: "https://sunnah.com/muslim:1176a" },
-    { label: "صحیح بخاری 1990 — Sunnah.com", url: "https://sunnah.com/bukhari:1990" },
-    { label: "صحیح مسلم 1141 — Sunnah.com", url: "https://sunnah.com/muslim:1141a" },
-    { label: "صحیح بخاری 1914 — Sunnah.com", url: "https://sunnah.com/bukhari:1914" },
-    { label: "صحیح بخاری 1985 — Sunnah.com", url: "https://sunnah.com/bukhari:1985" },
-    { label: "صحیح مسلم 1144 — Sunnah.com", url: "https://sunnah.com/muslim:1144b" },
-    { label: "صحیح بخاری 6465 — Sunnah.com", url: "https://sunnah.com/bukhari:6465" },
+    {
+      label: "صحیح مسلم 1162 (ابو قتادہ) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2746",
+    },
+    {
+      label: "صحیح مسلم 1162 (پیر کا روزہ) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2747",
+    },
+    {
+      label: "سنن نسائی 2420 — Munib Tracker (صحیح، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/nasai?q=2420",
+    },
+    {
+      label: "جامع ترمذی 761 — Munib Tracker (حسن، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=761",
+    },
+    {
+      label: "صحیح مسلم 1164 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2758",
+    },
+    {
+      label: "صحیح بخاری 1950 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1950",
+    },
+    {
+      label: "صحیح مسلم 1134 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2667",
+    },
+    {
+      label: "صحیح بخاری 1988 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1988",
+    },
+    {
+      label: "صحیح مسلم 1163 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2755",
+    },
+    {
+      label: "صحیح بخاری 1969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1969",
+    },
+    {
+      label: "صحیح بخاری 969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=969",
+    },
+    {
+      label: "سنن ابی داود 2437 — Munib Tracker (صحیح، البانی)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=2437",
+    },
+    {
+      label: "صحیح مسلم 1176 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2789",
+    },
+    {
+      label: "صحیح بخاری 1990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1990",
+    },
+    {
+      label: "صحیح مسلم 1141 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2677",
+    },
+    {
+      label: "صحیح بخاری 1914 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1914",
+    },
+    {
+      label: "صحیح بخاری 1985 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1985",
+    },
+    {
+      label: "صحیح مسلم 1144 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2684",
+    },
+    {
+      label: "صحیح بخاری 6465 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6465",
+    },
   ],
   faqs: [
     {

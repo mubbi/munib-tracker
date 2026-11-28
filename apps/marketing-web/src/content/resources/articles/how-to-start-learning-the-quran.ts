@@ -42,7 +42,7 @@ export const article: Article = {
       translation:
         "Narrated Aisha: The Prophet (ﷺ) said, \"Such a person as recites the Qur'an and masters it by heart, will be with the noble righteous scribes (in Heaven). And such a person exerts himself to learn the Qur'an by heart, and recites it with great difficulty, will have a double reward.\"",
       reference: "Sahih al-Bukhari 4937",
-      href: "https://sunnah.com/bukhari:4937",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=4937",
     },
     {
       type: "evidence",
@@ -50,7 +50,7 @@ export const article: Article = {
       translation:
         "`A'isha reported Allah's Messenger (ﷺ) (as saying): One who is proficient in the Qur'an is associated with the noble, upright, recording angels; and he who falters in it, and finds it difficult for him, will have two rewards.",
       reference: "Sahih Muslim 798",
-      href: "https://sunnah.com/muslim:798a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1862",
     },
     {
       type: "p",
@@ -62,7 +62,7 @@ export const article: Article = {
       translation:
         'Narrated `Uthman: The Prophet (ﷺ) said, "The best among you (Muslims) are those who learn the Qur\'an and teach it."',
       reference: "Sahih al-Bukhari 5027",
-      href: "https://sunnah.com/bukhari:5027",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5027",
     },
     {
       type: "evidence",
@@ -71,7 +71,7 @@ export const article: Article = {
       translation:
         "And We have certainly made the Qur’ān easy for remembrance, so is there any who will remember?",
       reference: "Qur'an 54:17",
-      href: "https://quran.com/54/17",
+      href: "https://my.munibtracker.app/quran/54?ayah=17",
       note: "Translation: Saheeh International",
     },
     { type: "h2", text: "Step 1: Learn the letters and their forms" },
@@ -133,7 +133,7 @@ export const article: Article = {
       arabic: "أَوۡ زِدۡ عَلَيۡهِ وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا",
       translation: "Or add to it, and recite the Qur’ān with measured recitation.",
       reference: "Qur'an 73:4",
-      href: "https://quran.com/73/4",
+      href: "https://my.munibtracker.app/quran/73?ayah=4",
       note: "Translation: Saheeh International",
     },
     {
@@ -143,7 +143,7 @@ export const article: Article = {
     { type: "h2", text: "Step 5: Find a teacher" },
     {
       type: "p",
-      text: "The traditional way to learn the Qur'an is to read it aloud to a qualified teacher who listens and corrects you. The Qur'an has been passed down this way, person to person, since the time of the Prophet ﷺ; Sahih al-Bukhari records that the angel Jibril met him every night of Ramadan to teach him the Qur'an ([Sahih al-Bukhari 6](https://sunnah.com/bukhari:6)).",
+      text: "The traditional way to learn the Qur'an is to read it aloud to a qualified teacher who listens and corrects you. The Qur'an has been passed down this way, person to person, since the time of the Prophet ﷺ; Sahih al-Bukhari records that the angel Jibril met him every night of Ramadan to teach him the Qur'an ([Sahih al-Bukhari 6](https://my.munibtracker.app/hadith/bukhari?q=6)).",
     },
     {
       type: "p",
@@ -172,7 +172,7 @@ export const article: Article = {
       translation:
         "Narrated Abu Musa: The Prophet (ﷺ) said, \"Commit yourself to the Qur'an, for by Him in whose Hand is my soul, it is surely more prone to break away than a camel in its bind.",
       reference: "Sahih al-Bukhari 5033",
-      href: "https://sunnah.com/bukhari:5033",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5033",
     },
     {
       type: "ul",
@@ -195,13 +195,34 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 4937 — Sunnah.com", url: "https://sunnah.com/bukhari:4937" },
-    { label: "Sahih Muslim 798 — Sunnah.com", url: "https://sunnah.com/muslim:798a" },
-    { label: "Sahih al-Bukhari 5027 — Sunnah.com", url: "https://sunnah.com/bukhari:5027" },
-    { label: "Qur'an 54:17 — Quran.com (Saheeh International)", url: "https://quran.com/54/17" },
-    { label: "Qur'an 73:4 — Quran.com (Saheeh International)", url: "https://quran.com/73/4" },
-    { label: "Sahih al-Bukhari 6 — Sunnah.com", url: "https://sunnah.com/bukhari:6" },
-    { label: "Sahih al-Bukhari 5033 — Sunnah.com", url: "https://sunnah.com/bukhari:5033" },
+    {
+      label: "Sahih al-Bukhari 4937 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=4937",
+    },
+    {
+      label: "Sahih Muslim 798 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1862",
+    },
+    {
+      label: "Sahih al-Bukhari 5027 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5027",
+    },
+    {
+      label: "Qur'an 54:17 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/54?ayah=17",
+    },
+    {
+      label: "Qur'an 73:4 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/73?ayah=4",
+    },
+    {
+      label: "Sahih al-Bukhari 6 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6",
+    },
+    {
+      label: "Sahih al-Bukhari 5033 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5033",
+    },
   ],
   faqs: [
     {

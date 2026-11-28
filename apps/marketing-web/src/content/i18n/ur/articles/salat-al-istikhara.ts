@@ -44,12 +44,12 @@ export const article: Article = {
         "Narrated Jabir bin `Abdullah: The Prophet (ﷺ) used to teach us the way of doing Istikhara (Istikhara means to ask Allah to guide one to the right sort of action concerning any job or a deed), in all matters as he taught us the Suras of the Qur'an. He said, \"If anyone of you thinks of doing any job he should offer a two rak`at prayer other than the compulsory ones and say (after the prayer): -- 'Allahumma inni astakhiruka bi'ilmika, Wa astaqdiruka bi-qudratika, Wa as'alaka min fadlika Al-`azlm Fa-innaka taqdiru Wala aqdiru, Wa ta'lamu Wala a'lamu, Wa anta 'allamu l-ghuyub. Allahumma, in kunta ta'lam anna hadha-lamra Khairun li fi dini wa ma'ashi wa'aqibati `Amri (or 'ajili `Amri wa'ajilihi) Faqdirhu wa yas-sirhu li thumma barik li Fihi, Wa in kunta ta'lamu anna hadha-lamra shar-run li fi dini wa ma'ashi wa'aqibati `Amri (or fi'ajili `Amri wa ajilihi) Fasrifhu anni was-rifni anhu. Waqdir li al-khaira haithu kana Thumma ardini bihi.' (O Allah! I ask guidance from Your knowledge, And Power from Your Might and I ask for Your great blessings. You are capable and I am not. You know and I do not and You know the unseen. O Allah! If You know that this job is good for my religion and my subsistence and in my Hereafter--(or said: If it is better for my present and later needs)--Then You ordain it for me and make it easy for me to get, And then bless me in it, and if You know that this job is harmful to me In my religion and subsistence and in the Hereafter--(or said: If it is worse for my present and later needs)--Then keep it away from me and let me be away from it. And ordain for me whatever is good for me, And make me satisfied with it). The Prophet (ﷺ) added that then the person should name (mention) his need.\"",
       translationLang: "en",
       reference: "صحیح بخاری 1166",
-      href: "https://sunnah.com/bukhari:1166",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1166",
       note: "اس روایت کا اردو ترجمہ hadith-api (fawazahmed0) میں دستیاب نہیں، اس لیے انگریزی ترجمہ دیا گیا ہے۔",
     },
     {
       type: "p",
-      text: "صحیح بخاری کے بعض مطبوعہ نسخوں میں اس حدیث کا نمبر 1162 ہے، اور حصن مسلم یہی نمبر دیتی ہے۔ امام بخاری نے یہی حدیث کتاب الدعوات میں حضرت جابر سے دوسری سند کے ساتھ بھی روایت کی ہے ([صحیح بخاری 6382](https://sunnah.com/bukhari:6382))، جس کا اردو ترجمہ (hadith-api، fawazahmed0) یہ ہے: ”ہم سے ابومصعب مطرف بن عبداللہ نے بیان کیا، کہا ہم سے عبدالرحمٰن بن ابی الموال نے بیان کیا، ان سے محمد بن منکدر نے اور ان سے جابر رضی اللہ عنہ نے بیان کیا کہ رسول اللہ صلی اللہ علیہ وسلم ہمیں تمام معاملات میں استخارہ کی تعلیم دیتے تھے، قرآن کی سورت کی طرح ( نبی کریم صلی اللہ علیہ وسلم نے فرمایا ) جب تم میں سے کوئی شخص کسی ( مباح ) کام کا ارادہ کرے ( ابھی پکا عزم نہ ہوا ہو ) تو دو رکعات ( نفل ) پڑھے اس کے بعد یوں دعا کرے کہ اے اللہ! میں بھلائی مانگتا ہوں ( استخارہ ) تیری بھلائی سے، تو علم والا ہے، مجھے علم نہیں اور تو تمام پوشیدہ باتوں کو جاننے والا ہے، اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے لیے بہتر ہے، میرے دین کے اعتبار سے، میری معاش اور میرے انجام کار کے اعتبار سے یا دعا میں یہ الفاظ کہے «في عاجل أمري وآجله» تو اسے میرے لیے مقدر کر دے اور اگر تو جانتا ہے کہ یہ کام میرے لیے برا ہے میرے دین کے لیے، میری زندگی کے لیے اور میرے انجام کار کے لیے یا یہ الفاظ فرمائے «في عاجل أمري وآجله» تو اسے مجھ سے پھیر دے اور مجھے اس سے پھیر دے اور میرے لیے بھلائی مقدر کر دے جہاں کہیں بھی وہ ہو اور پھر مجھے اس سے مطمئن کر دے ( یہ دعا کرتے وقت ) اپنی ضرورت کا بیان کر دینا چاہئے۔“",
+      text: "صحیح بخاری کے بعض مطبوعہ نسخوں میں اس حدیث کا نمبر 1162 ہے، اور حصن مسلم یہی نمبر دیتی ہے۔ امام بخاری نے یہی حدیث کتاب الدعوات میں حضرت جابر سے دوسری سند کے ساتھ بھی روایت کی ہے ([صحیح بخاری 6382](https://my.munibtracker.app/hadith/bukhari?q=6382))، جس کا اردو ترجمہ (hadith-api، fawazahmed0) یہ ہے: ”ہم سے ابومصعب مطرف بن عبداللہ نے بیان کیا، کہا ہم سے عبدالرحمٰن بن ابی الموال نے بیان کیا، ان سے محمد بن منکدر نے اور ان سے جابر رضی اللہ عنہ نے بیان کیا کہ رسول اللہ صلی اللہ علیہ وسلم ہمیں تمام معاملات میں استخارہ کی تعلیم دیتے تھے، قرآن کی سورت کی طرح ( نبی کریم صلی اللہ علیہ وسلم نے فرمایا ) جب تم میں سے کوئی شخص کسی ( مباح ) کام کا ارادہ کرے ( ابھی پکا عزم نہ ہوا ہو ) تو دو رکعات ( نفل ) پڑھے اس کے بعد یوں دعا کرے کہ اے اللہ! میں بھلائی مانگتا ہوں ( استخارہ ) تیری بھلائی سے، تو علم والا ہے، مجھے علم نہیں اور تو تمام پوشیدہ باتوں کو جاننے والا ہے، اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے لیے بہتر ہے، میرے دین کے اعتبار سے، میری معاش اور میرے انجام کار کے اعتبار سے یا دعا میں یہ الفاظ کہے «في عاجل أمري وآجله» تو اسے میرے لیے مقدر کر دے اور اگر تو جانتا ہے کہ یہ کام میرے لیے برا ہے میرے دین کے لیے، میری زندگی کے لیے اور میرے انجام کار کے لیے یا یہ الفاظ فرمائے «في عاجل أمري وآجله» تو اسے مجھ سے پھیر دے اور مجھے اس سے پھیر دے اور میرے لیے بھلائی مقدر کر دے جہاں کہیں بھی وہ ہو اور پھر مجھے اس سے مطمئن کر دے ( یہ دعا کرتے وقت ) اپنی ضرورت کا بیان کر دینا چاہئے۔“",
     },
     {
       type: "p",
@@ -81,7 +81,7 @@ export const article: Article = {
       translation:
         "(اے محمدﷺ) خدا کی مہربانی سے تمہاری افتاد مزاج ان لوگوں کے لئے نرم واقع ہوئی ہے۔ اور اگر تم بدخو اور سخت دل ہوتے تو یہ تمہارے پاس سے بھاگ کھڑے ہوتے۔ تو ان کو معاف کردو اور ان کے لئے (خدا سے) مغفرت مانگو۔ اور اپنے کاموں میں ان سے مشورت لیا کرو۔ اور جب (کسی کام کا) عزم مصمم کرلو تو خدا پر بھروسا رکھو۔ بےشک خدا بھروسا رکھنے والوں کو دوست رکھتا ہے",
       reference: "سورۃ آل عمران 3:159",
-      href: "https://quran.com/3/159",
+      href: "https://my.munibtracker.app/quran/3?ayah=159",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -125,7 +125,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "دن یا رات کا کوئی بھی وقت ٹھیک ہے، سوائے ان اوقات کے جن میں نفل نماز سے عموماً پرہیز کیا جاتا ہے: فجر کے بعد سورج نکلنے تک، اور عصر کے بعد سورج ڈوبنے تک۔ اگر ہو سکے تو رات بہتر ہے، کیونکہ رات کا آخری تہائی حصہ وہ وقت ہے جب اللہ پکارتا ہے کہ کون ہے جو مجھ سے دعا کرے تو میں قبول کروں ([صحیح بخاری 1145](https://sunnah.com/bukhari:1145))۔ اللہ سے اچھی طرح مانگنے کے بارے میں [دعا مانگنے کا طریقہ](/resources/zikr/how-to-make-dua) دیکھیں۔",
+      text: "دن یا رات کا کوئی بھی وقت ٹھیک ہے، سوائے ان اوقات کے جن میں نفل نماز سے عموماً پرہیز کیا جاتا ہے: فجر کے بعد سورج نکلنے تک، اور عصر کے بعد سورج ڈوبنے تک۔ اگر ہو سکے تو رات بہتر ہے، کیونکہ رات کا آخری تہائی حصہ وہ وقت ہے جب اللہ پکارتا ہے کہ کون ہے جو مجھ سے دعا کرے تو میں قبول کروں ([صحیح بخاری 1145](https://my.munibtracker.app/hadith/bukhari?q=1145))۔ اللہ سے اچھی طرح مانگنے کے بارے میں [دعا مانگنے کا طریقہ](/resources/zikr/how-to-make-dua) دیکھیں۔",
     },
     {
       type: "note",
@@ -155,10 +155,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 1166 — Sunnah.com", url: "https://sunnah.com/bukhari:1166" },
-    { label: "صحیح بخاری 6382 — Sunnah.com", url: "https://sunnah.com/bukhari:6382" },
-    { label: "سورۃ آل عمران 3:159 — Quran.com", url: "https://quran.com/3/159" },
-    { label: "صحیح بخاری 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
+    {
+      label: "صحیح بخاری 1166 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1166",
+    },
+    {
+      label: "صحیح بخاری 6382 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6382",
+    },
+    {
+      label: "سورۃ آل عمران 3:159 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/3?ayah=159",
+    },
+    {
+      label: "صحیح بخاری 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
   ],
   faqs: [
     {

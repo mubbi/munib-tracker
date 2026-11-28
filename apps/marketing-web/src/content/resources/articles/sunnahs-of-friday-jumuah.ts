@@ -40,7 +40,7 @@ export const article: Article = {
       translation:
         "Abu Huraira reported the Messenger of Allah (ﷺ) as saying: The best day on which the sun has risen is Friday; on it Adam was created. on it he was made to enter Paradise, on it he was expelled from it. And the last hour will take place on no day other than Friday.",
       reference: "Sahih Muslim 854",
-      href: "https://sunnah.com/muslim:854b",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1977",
     },
     {
       type: "p",
@@ -54,12 +54,12 @@ export const article: Article = {
       translation:
         "O you who have believed, when [the adhān] is called for the prayer on the day of Jumuʿah [Friday], then proceed to the remembrance of Allāh and leave trade. That is better for you, if you only knew.",
       reference: "Qur'an 62:9",
-      href: "https://quran.com/62/9",
+      href: "https://my.munibtracker.app/quran/62?ayah=9",
       note: "Translation: Saheeh International",
     },
     {
       type: "p",
-      text: "Jumu'ah is a khutbah in two parts followed by two rakahs prayed aloud behind the imam, and it takes the place of Dhuhr for those who attend. A hadith describes it as a duty on every Muslim in congregation, with four exceptions: a slave, a woman, a child and a sick person ([Sunan Abi Dawud 1067](https://sunnah.com/abudawud:1067), graded Sahih by al-Albani). Those who do not attend pray Dhuhr as usual.",
+      text: "Jumu'ah is a khutbah in two parts followed by two rakahs prayed aloud behind the imam, and it takes the place of Dhuhr for those who attend. A hadith describes it as a duty on every Muslim in congregation, with four exceptions: a slave, a woman, a child and a sick person ([Sunan Abi Dawud 1067](https://my.munibtracker.app/hadith/abudawud?q=1067), graded Sahih by al-Albani). Those who do not attend pray Dhuhr as usual.",
     },
     {
       type: "note",
@@ -80,7 +80,7 @@ export const article: Article = {
       translation:
         'Narrated Salman-Al-Farsi: The Prophet (p.b.u.h) said, "Whoever takes a bath on Friday, purifies himself as much as he can, then uses his (hair) oil or perfumes himself with the scent of his house, then proceeds (for the Jumua prayer) and does not separate two persons sitting together (in the mosque), then prays as much as (Allah has) written for him and then remains silent while the Imam is delivering the Khutba, his sins in-between the present and the last Friday would be forgiven."',
       reference: "Sahih al-Bukhari 883",
-      href: "https://sunnah.com/bukhari:883",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=883",
     },
     {
       type: "ul",
@@ -95,16 +95,16 @@ export const article: Article = {
       type: "note",
       tone: "scholar",
       title: "Is Friday ghusl obligatory?",
-      text: "One narration says that bathing on Friday is “essential for every adult person” ([Sahih Muslim 846](https://sunnah.com/muslim:846a)). Scholars have long discussed whether this makes it a strict obligation or a strongly emphasised Sunnah. All agree on its virtue. Follow the reliable teaching of your school or community.",
+      text: "One narration says that bathing on Friday is “essential for every adult person” ([Sahih Muslim 846](https://my.munibtracker.app/hadith/muslim?q=1957)). Scholars have long discussed whether this makes it a strict obligation or a strongly emphasised Sunnah. All agree on its virtue. Follow the reliable teaching of your school or community.",
     },
     { type: "h2", text: "Go early and listen to the khutbah" },
     {
       type: "p",
-      text: "The earlier you arrive, the greater the reward. The Prophet ﷺ compared the person who comes in the first hour to one who offers a camel, then a cow, then a horned ram, then a hen, then an egg, and said that when the imam comes out the angels are present to listen to the reminder ([Sahih al-Bukhari 881](https://sunnah.com/bukhari:881)).",
+      text: "The earlier you arrive, the greater the reward. The Prophet ﷺ compared the person who comes in the first hour to one who offers a camel, then a cow, then a horned ram, then a hen, then an egg, and said that when the imam comes out the angels are present to listen to the reminder ([Sahih al-Bukhari 881](https://my.munibtracker.app/hadith/bukhari?q=881)).",
     },
     {
       type: "p",
-      text: "Once the khutbah starts, listening is the act of worship. Even telling the person next to you to be quiet while the imam is speaking is counted as idle talk ([Sahih al-Bukhari 934](https://sunnah.com/bukhari:934)). The reward for attending properly is large: whoever bathes, comes to Jumu'ah, prays what he can, stays silent until the imam finishes and then prays with him is forgiven what lies between that Friday and the next, and three days more ([Sahih Muslim 857](https://sunnah.com/muslim:857a)).",
+      text: "Once the khutbah starts, listening is the act of worship. Even telling the person next to you to be quiet while the imam is speaking is counted as idle talk ([Sahih al-Bukhari 934](https://my.munibtracker.app/hadith/bukhari?q=934)). The reward for attending properly is large: whoever bathes, comes to Jumu'ah, prays what he can, stays silent until the imam finishes and then prays with him is forgiven what lies between that Friday and the next, and three days more ([Sahih Muslim 857](https://my.munibtracker.app/hadith/muslim?q=1987)).",
     },
     {
       type: "ul",
@@ -117,7 +117,7 @@ export const article: Article = {
     { type: "h2", text: "Sunnah Salah around Jumu'ah" },
     {
       type: "p",
-      text: "The Prophet ﷺ said that whoever prays Jumu'ah should pray four rakahs after it ([Sahih Muslim 881](https://sunnah.com/muslim:881a)). The schools describe the Sunnah Salah before and after Jumu'ah in different ways:",
+      text: "The Prophet ﷺ said that whoever prays Jumu'ah should pray four rakahs after it ([Sahih Muslim 881](https://my.munibtracker.app/hadith/muslim?q=2036)). The schools describe the Sunnah Salah before and after Jumu'ah in different ways:",
     },
     {
       type: "table",
@@ -150,7 +150,7 @@ export const article: Article = {
       translation:
         "Abu Darda' reported Allah's Apostle (ﷺ) as saying: If anyone learns by heart the first ten verses of the Surah al-Kahf, he will be protected from the Dajjal.",
       reference: "Sahih Muslim 809",
-      href: "https://sunnah.com/muslim:809a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1883",
     },
     {
       type: "p",
@@ -164,7 +164,7 @@ export const article: Article = {
       translation:
         "Narrated Aws ibn Aws: The Prophet (ﷺ) said: Among the most excellent of your days is Friday; on it Adam was created, on it he died, on it the last trumpet will be blown, and on it the shout will be made, so invoke more blessings on me that day, for your blessings will be submitted to me. The people asked: Messenger of Allah, how can it be that our blessings will be submitted to you while your body is decayed? He replied: Allah, the Exalted, has prohibited the earth from consuming the bodies of Prophets.",
       reference: "Sunan Abi Dawud 1047",
-      href: "https://sunnah.com/abudawud:1047",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1047",
       note: "Grade on Sunnah.com: Sahih (Al-Albani). The Arabic shown is the first part of the narration.",
     },
     { type: "h2", text: "The hour when Dua is answered" },
@@ -175,11 +175,11 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira: Allah\'s Messenger (ﷺ) (p.b.u.h) talked about Friday and said, "There is an hour (opportune time) on Friday and if a Muslim gets it while praying and asks something from Allah, then Allah will definitely meet his demand." And he (the Prophet) pointed out the shortness of that time with his hands.',
       reference: "Sahih al-Bukhari 935",
-      href: "https://sunnah.com/bukhari:935",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=935",
     },
     {
       type: "p",
-      text: "Another narration says that Friday is twelve hours and tells us to seek that time in the last hour after Asr ([Sunan Abi Dawud 1048](https://sunnah.com/abudawud:1048), graded Sahih by al-Albani).",
+      text: "Another narration says that Friday is twelve hours and tells us to seek that time in the last hour after Asr ([Sunan Abi Dawud 1048](https://my.munibtracker.app/hadith/abudawud?q=1048), graded Sahih by al-Albani).",
     },
     {
       type: "note",
@@ -215,27 +215,57 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 62:9 — Quran.com (Saheeh International)", url: "https://quran.com/62/9" },
-    { label: "Sahih Muslim 854 — Sunnah.com", url: "https://sunnah.com/muslim:854b" },
     {
-      label: "Sunan Abi Dawud 1067 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1067",
+      label: "Qur'an 62:9 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/62?ayah=9",
     },
-    { label: "Sahih al-Bukhari 883 — Sunnah.com", url: "https://sunnah.com/bukhari:883" },
-    { label: "Sahih Muslim 846 — Sunnah.com", url: "https://sunnah.com/muslim:846a" },
-    { label: "Sahih al-Bukhari 881 — Sunnah.com", url: "https://sunnah.com/bukhari:881" },
-    { label: "Sahih al-Bukhari 934 — Sunnah.com", url: "https://sunnah.com/bukhari:934" },
-    { label: "Sahih Muslim 857 — Sunnah.com", url: "https://sunnah.com/muslim:857a" },
-    { label: "Sahih Muslim 881 — Sunnah.com", url: "https://sunnah.com/muslim:881a" },
-    { label: "Sahih Muslim 809 — Sunnah.com", url: "https://sunnah.com/muslim:809a" },
     {
-      label: "Sunan Abi Dawud 1047 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1047",
+      label: "Sahih Muslim 854 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1977",
     },
-    { label: "Sahih al-Bukhari 935 — Sunnah.com", url: "https://sunnah.com/bukhari:935" },
     {
-      label: "Sunan Abi Dawud 1048 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1048",
+      label: "Sunan Abi Dawud 1067 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1067",
+    },
+    {
+      label: "Sahih al-Bukhari 883 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=883",
+    },
+    {
+      label: "Sahih Muslim 846 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1957",
+    },
+    {
+      label: "Sahih al-Bukhari 881 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=881",
+    },
+    {
+      label: "Sahih al-Bukhari 934 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=934",
+    },
+    {
+      label: "Sahih Muslim 857 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1987",
+    },
+    {
+      label: "Sahih Muslim 881 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2036",
+    },
+    {
+      label: "Sahih Muslim 809 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1883",
+    },
+    {
+      label: "Sunan Abi Dawud 1047 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1047",
+    },
+    {
+      label: "Sahih al-Bukhari 935 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=935",
+    },
+    {
+      label: "Sunan Abi Dawud 1048 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1048",
     },
   ],
   faqs: [

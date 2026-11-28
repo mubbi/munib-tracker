@@ -36,7 +36,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "وَلَقَدۡ يَسَّرۡنَا ٱلۡقُرۡءَانَ لِلذِّكۡرِ فَهَلۡ مِن مُّدَّكِرٖ",
       reference: "سورة القمر 54:17",
-      href: "https://quran.com/54/17",
+      href: "https://my.munibtracker.app/quran/54?ayah=17",
     },
     {
       type: "p",
@@ -140,7 +140,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 5033؛ صحيح مسلم 791",
-      href: "https://sunnah.com/bukhari:5033",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5033",
     },
     {
       type: "p",
@@ -161,9 +161,18 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة القمر 54:17 — Quran.com", url: "https://quran.com/54/17" },
-    { label: "صحيح البخاري 5033 — Sunnah.com", url: "https://sunnah.com/bukhari:5033" },
-    { label: "صحيح مسلم 791 — Sunnah.com", url: "https://sunnah.com/muslim:791" },
+    {
+      label: "سورة القمر 54:17 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/54?ayah=17",
+    },
+    {
+      label: "صحيح البخاري 5033 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5033",
+    },
+    {
+      label: "صحيح مسلم 791 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1844",
+    },
   ],
   faqs: [
     {

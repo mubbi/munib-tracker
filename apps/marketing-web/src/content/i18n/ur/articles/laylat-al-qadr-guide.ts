@@ -46,7 +46,7 @@ export const article: Article = {
       translation:
         "ہم نے اس (قرآن) کو شب قدر میں نازل (کرنا شروع) کیا ۝ اور تمہیں کیا معلوم کہ شب قدر کیا ہے؟ ۝ شب قدر ہزار مہینے سے بہتر ہے ۝ اس میں روح (الامین) اور فرشتے ہر کام کے (انتظام کے) لیے اپنے پروردگار کے حکم سے اترتے ہیں ۝ یہ (رات) طلوع صبح تک (امان اور) سلامتی ہے",
       reference: "سورۃ القدر 97:1–5",
-      href: "https://quran.com/97/1-5",
+      href: "https://my.munibtracker.app/quran/passage?surah=97&from=1&to=5",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -66,7 +66,7 @@ export const article: Article = {
       translation:
         "ہم سے مسلم بن ابراہیم نے بیان کیا، کہا ہم سے ہشام دستوائی نے بیان کیا، ان سے یحییٰ بن ابی کثیر نے بیان کیا، ان سے ابوسلمہ نے اور ان سے ابوہریرہ رضی اللہ عنہ نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا کہ جو کوئی شب قدر میں ایمان کے ساتھ اور حصول ثواب کی نیت سے عبادت میں کھڑا ہو اس کے تمام پچھلے گناہ بخش دیئے جائیں گے اور جس نے رمضان کے روزے ایمان کے ساتھ اور ثواب کی نیت سے رکھے اس کے اگلے تمام گناہ معاف کر دیئے جائیں گے۔",
       reference: "صحیح بخاری 1901",
-      href: "https://sunnah.com/bukhari:1901",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1901",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1901",
     },
     {
@@ -85,7 +85,7 @@ export const article: Article = {
       translation:
         "ہم سے قتیبہ بن سعید نے بیان کیا، کہا ہم سے اسماعیل بن جعفر نے بیان کیا، کہا کہ ہم سے ابوسہیل نے بیان کیا، ان سے ان کے باپ مالک بن عامر نے اور ان سے عائشہ رضی اللہ عنہا نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا، شب قدر کو رمضان کے آخری عشرہ کی طاق راتوں میں ڈھونڈو۔",
       reference: "صحیح بخاری 2017",
-      href: "https://sunnah.com/bukhari:2017",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2017",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 2017",
     },
     {
@@ -135,7 +135,7 @@ export const article: Article = {
       translation:
         "ام المؤمنین عائشہ رضی اللہ عنہا سے روایت ہے کہ انہوں نے عرض کیا: اللہ کے رسول! اگر مجھے شب قدر مل جائے تو کیا دعا کروں؟ آپ صلی اللہ علیہ وسلم نے فرمایا: یہ دعا کرو «اللهم إنك عفو تحب العفو فاعف عني» اے اللہ تو معاف کرنے والا ہے اور معافی و درگزر کو پسند کرتا ہے تو تو مجھ کو معاف فرما دے ۔",
       reference: "سنن ابن ماجہ 3850؛ جامع ترمذی 3513",
-      href: "https://sunnah.com/ibnmajah:3850",
+      href: "https://my.munibtracker.app/hadith/ibnmajah?q=3850",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، سنن ابن ماجہ 3850۔ درجات (Sunnah.com): ابن ماجہ 3850 — صحیح (دارالسلام)؛ ترمذی 3513 — صحیح (دارالسلام)",
     },
     {
@@ -154,7 +154,7 @@ export const article: Article = {
       translation:
         "ہم سے علی بن عبداللہ مدینی نے بیان کیا، کہا کہ ہم سے سفیان بن عیینہ نے بیان کیا، ان سے ابویعفور نے بیان کیا، ان سے ابوالضحیٰ نے، ان سے مسروق نے اور ان سے عائشہ رضی اللہ عنہا نے بیان کیا کہ جب ( رمضان کا ) آخری عشرہ آتا تو نبی کریم صلی اللہ علیہ وسلم اپنا تہبند مضبوط باندھتے ( یعنی اپنی کمر پوری طرح کس لیتے ) اور ان راتوں میں آپ خود بھی جاگتے اور اپنے گھر والوں کو بھی جگایا کرتے تھے۔",
       reference: "صحیح بخاری 2024",
-      href: "https://sunnah.com/bukhari:2024",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2024",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 2024",
     },
     {
@@ -184,7 +184,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "اگر رات کی نماز آپ کے لیے نئی ہے تو [تہجد کیسے پڑھیں](/resources/salah/how-to-pray-tahajjud) میں اس کا وقت اور طریقہ بیان ہے۔ نبی کریم ﷺ اپنی وفات تک ہر سال آخری عشرے میں اعتکاف بھی کرتے رہے، یعنی عبادت کے لیے مسجد میں ٹھہرنا ([صحیح بخاری 2026](https://sunnah.com/bukhari:2026))۔",
+      text: "اگر رات کی نماز آپ کے لیے نئی ہے تو [تہجد کیسے پڑھیں](/resources/salah/how-to-pray-tahajjud) میں اس کا وقت اور طریقہ بیان ہے۔ نبی کریم ﷺ اپنی وفات تک ہر سال آخری عشرے میں اعتکاف بھی کرتے رہے، یعنی عبادت کے لیے مسجد میں ٹھہرنا ([صحیح بخاری 2026](https://my.munibtracker.app/hadith/bukhari?q=2026))۔",
     },
     {
       type: "note",
@@ -218,25 +218,58 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورۃ القدر 97:1–5 — Quran.com", url: "https://quran.com/97/1-5" },
-    { label: "صحیح بخاری 1901 — Sunnah.com", url: "https://sunnah.com/bukhari:1901" },
-    { label: "صحیح بخاری 2017 — Sunnah.com", url: "https://sunnah.com/bukhari:2017" },
-    { label: "صحیح بخاری 2020 — Sunnah.com", url: "https://sunnah.com/bukhari:2020" },
-    { label: "صحیح بخاری 2016 — Sunnah.com", url: "https://sunnah.com/bukhari:2016" },
-    { label: "صحیح بخاری 2015 — Sunnah.com", url: "https://sunnah.com/bukhari:2015" },
-    { label: "صحیح مسلم 762 — Sunnah.com", url: "https://sunnah.com/muslim:762a" },
-    { label: "صحیح مسلم 1167 — Sunnah.com", url: "https://sunnah.com/muslim:1167a" },
     {
-      label: "سنن ابن ماجہ 3850 — Sunnah.com (صحیح، دارالسلام)",
-      url: "https://sunnah.com/ibnmajah:3850",
+      label: "سورۃ القدر 97:1–5 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/passage?surah=97&from=1&to=5",
     },
     {
-      label: "جامع ترمذی 3513 — Sunnah.com (صحیح، دارالسلام)",
-      url: "https://sunnah.com/tirmidhi:3513",
+      label: "صحیح بخاری 1901 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1901",
     },
-    { label: "صحیح بخاری 2024 — Sunnah.com", url: "https://sunnah.com/bukhari:2024" },
-    { label: "صحیح بخاری 1902 — Sunnah.com", url: "https://sunnah.com/bukhari:1902" },
-    { label: "صحیح بخاری 2026 — Sunnah.com", url: "https://sunnah.com/bukhari:2026" },
+    {
+      label: "صحیح بخاری 2017 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2017",
+    },
+    {
+      label: "صحیح بخاری 2020 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2020",
+    },
+    {
+      label: "صحیح بخاری 2016 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2016",
+    },
+    {
+      label: "صحیح بخاری 2015 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2015",
+    },
+    {
+      label: "صحیح مسلم 762 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1785",
+    },
+    {
+      label: "صحیح مسلم 1167 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2769",
+    },
+    {
+      label: "سنن ابن ماجہ 3850 — Munib Tracker (صحیح، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/ibnmajah?q=3850",
+    },
+    {
+      label: "جامع ترمذی 3513 — Munib Tracker (صحیح، دارالسلام)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3513",
+    },
+    {
+      label: "صحیح بخاری 2024 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2024",
+    },
+    {
+      label: "صحیح بخاری 1902 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1902",
+    },
+    {
+      label: "صحیح بخاری 2026 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2026",
+    },
   ],
   faqs: [
     {

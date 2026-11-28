@@ -55,7 +55,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "ٱلَّذِينَ ءَامَنُواْ وَتَطۡمَئِنُّ قُلُوبُهُم بِذِكۡرِ ٱللَّهِۗ أَلَا بِذِكۡرِ ٱللَّهِ تَطۡمَئِنُّ ٱلۡقُلُوبُ",
       reference: "سورة الرعد 13:28",
-      href: "https://quran.com/13/28",
+      href: "https://my.munibtracker.app/quran/13?ayah=28",
     },
     {
       type: "p",
@@ -66,7 +66,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱذۡكُرُواْ ٱللَّهَ ذِكۡرٗا كَثِيرٗا",
       reference: "سورة الأحزاب 33:41",
-      href: "https://quran.com/33/41",
+      href: "https://my.munibtracker.app/quran/33?ayah=41",
     },
     {
       type: "p",
@@ -76,7 +76,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6407",
-      href: "https://sunnah.com/bukhari:6407",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6407",
     },
     {
       type: "p",
@@ -86,7 +86,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6406؛ صحيح مسلم 2694",
-      href: "https://sunnah.com/bukhari:6406",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6406",
     },
     { type: "h2", text: "اربط وردك بالصلاة" },
     {
@@ -124,7 +124,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح مسلم 597",
-      href: "https://sunnah.com/muslim:597a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1352",
     },
     {
       type: "p",
@@ -197,7 +197,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6464",
-      href: "https://sunnah.com/bukhari:6464",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6464",
     },
     {
       type: "p",
@@ -218,15 +218,42 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة الرعد 13:28 — Quran.com", url: "https://quran.com/13/28" },
-    { label: "سورة الأحزاب 33:41 — Quran.com", url: "https://quran.com/33/41" },
-    { label: "صحيح البخاري 6407 — Sunnah.com", url: "https://sunnah.com/bukhari:6407" },
-    { label: "صحيح البخاري 6406 — Sunnah.com", url: "https://sunnah.com/bukhari:6406" },
-    { label: "صحيح مسلم 2694 — Sunnah.com", url: "https://sunnah.com/muslim:2694" },
-    { label: "صحيح مسلم 597 — Sunnah.com", url: "https://sunnah.com/muslim:597a" },
-    { label: "صحيح مسلم 2692 — Sunnah.com", url: "https://sunnah.com/muslim:2692" },
-    { label: "صحيح البخاري 5010 — Sunnah.com", url: "https://sunnah.com/bukhari:5010" },
-    { label: "صحيح البخاري 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
+    {
+      label: "سورة الرعد 13:28 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/13?ayah=28",
+    },
+    {
+      label: "سورة الأحزاب 33:41 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/33?ayah=41",
+    },
+    {
+      label: "صحيح البخاري 6407 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6407",
+    },
+    {
+      label: "صحيح البخاري 6406 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6406",
+    },
+    {
+      label: "صحيح مسلم 2694 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6846",
+    },
+    {
+      label: "صحيح مسلم 597 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1352",
+    },
+    {
+      label: "صحيح مسلم 2692 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6843",
+    },
+    {
+      label: "صحيح البخاري 5010 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5010",
+    },
+    {
+      label: "صحيح البخاري 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
   ],
   faqs: [
     {

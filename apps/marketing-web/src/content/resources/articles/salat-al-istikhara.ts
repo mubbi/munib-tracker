@@ -43,11 +43,11 @@ export const article: Article = {
       translation:
         "Narrated Jabir bin `Abdullah: The Prophet (ﷺ) used to teach us the way of doing Istikhara (Istikhara means to ask Allah to guide one to the right sort of action concerning any job or a deed), in all matters as he taught us the Suras of the Qur'an. He said, \"If anyone of you thinks of doing any job he should offer a two rak`at prayer other than the compulsory ones and say (after the prayer): -- 'Allahumma inni astakhiruka bi'ilmika, Wa astaqdiruka bi-qudratika, Wa as'alaka min fadlika Al-`azlm Fa-innaka taqdiru Wala aqdiru, Wa ta'lamu Wala a'lamu, Wa anta 'allamu l-ghuyub. Allahumma, in kunta ta'lam anna hadha-lamra Khairun li fi dini wa ma'ashi wa'aqibati `Amri (or 'ajili `Amri wa'ajilihi) Faqdirhu wa yas-sirhu li thumma barik li Fihi, Wa in kunta ta'lamu anna hadha-lamra shar-run li fi dini wa ma'ashi wa'aqibati `Amri (or fi'ajili `Amri wa ajilihi) Fasrifhu anni was-rifni anhu. Waqdir li al-khaira haithu kana Thumma ardini bihi.' (O Allah! I ask guidance from Your knowledge, And Power from Your Might and I ask for Your great blessings. You are capable and I am not. You know and I do not and You know the unseen. O Allah! If You know that this job is good for my religion and my subsistence and in my Hereafter--(or said: If it is better for my present and later needs)--Then You ordain it for me and make it easy for me to get, And then bless me in it, and if You know that this job is harmful to me In my religion and subsistence and in the Hereafter--(or said: If it is worse for my present and later needs)--Then keep it away from me and let me be away from it. And ordain for me whatever is good for me, And make me satisfied with it). The Prophet (ﷺ) added that then the person should name (mention) his need.\"",
       reference: "Sahih al-Bukhari 1166",
-      href: "https://sunnah.com/bukhari:1166",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1166",
     },
     {
       type: "p",
-      text: "This hadith is numbered 1162 in some printed editions of al-Bukhari, which is the number Hisnul Muslim gives. Al-Bukhari also records it in his book of invocations, through another chain from Jabir ([Sahih al-Bukhari 6382](https://sunnah.com/bukhari:6382)).",
+      text: "This hadith is numbered 1162 in some printed editions of al-Bukhari, which is the number Hisnul Muslim gives. Al-Bukhari also records it in his book of invocations, through another chain from Jabir ([Sahih al-Bukhari 6382](https://my.munibtracker.app/hadith/bukhari?q=6382)).",
     },
     {
       type: "p",
@@ -79,7 +79,7 @@ export const article: Article = {
       translation:
         "So by mercy from Allāh, [O Muḥammad], you were lenient with them. And if you had been rude [in speech] and harsh in heart, they would have disbanded from about you. So pardon them and ask forgiveness for them and consult them in the matter. And when you have decided, then rely upon Allāh. Indeed, Allāh loves those who rely [upon Him].",
       reference: "Qur'an 3:159",
-      href: "https://quran.com/3/159",
+      href: "https://my.munibtracker.app/quran/3?ayah=159",
       note: "Translation: Saheeh International",
     },
     {
@@ -123,7 +123,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Any time of day or night works, apart from the times when voluntary Salah is generally avoided: after Fajr until the sun has risen, and after Asr until sunset. The night is a good choice if you can manage it, since the last third of the night is a time when Allah asks who is calling on Him so that He may answer ([Sahih al-Bukhari 1145](https://sunnah.com/bukhari:1145)). For more on asking Allah well, see [how to make Dua](/resources/zikr/how-to-make-dua).",
+      text: "Any time of day or night works, apart from the times when voluntary Salah is generally avoided: after Fajr until the sun has risen, and after Asr until sunset. The night is a good choice if you can manage it, since the last third of the night is a time when Allah asks who is calling on Him so that He may answer ([Sahih al-Bukhari 1145](https://my.munibtracker.app/hadith/bukhari?q=1145)). For more on asking Allah well, see [how to make Dua](/resources/zikr/how-to-make-dua).",
     },
     {
       type: "note",
@@ -153,10 +153,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 1166 — Sunnah.com", url: "https://sunnah.com/bukhari:1166" },
-    { label: "Sahih al-Bukhari 6382 — Sunnah.com", url: "https://sunnah.com/bukhari:6382" },
-    { label: "Qur'an 3:159 — Quran.com (Saheeh International)", url: "https://quran.com/3/159" },
-    { label: "Sahih al-Bukhari 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
+    {
+      label: "Sahih al-Bukhari 1166 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1166",
+    },
+    {
+      label: "Sahih al-Bukhari 6382 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6382",
+    },
+    {
+      label: "Qur'an 3:159 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/3?ayah=159",
+    },
+    {
+      label: "Sahih al-Bukhari 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
   ],
   faqs: [
     {

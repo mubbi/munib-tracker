@@ -48,16 +48,16 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira:that Allah\'s Messenger (ﷺ) said, "Whoever attends the funeral procession till he offers the funeral prayer for it, will get a reward equal to one Qirat, and whoever accompanies it till burial, will get a reward equal to two Qirats." It was asked, "What are two Qirats?" He replied, "Like two huge mountains."',
       reference: "Sahih al-Bukhari 1325",
-      href: "https://sunnah.com/bukhari:1325",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1325",
     },
     {
       type: "p",
-      text: "He also told his Companions to hurry with the funeral rather than delay it ([Sahih al-Bukhari 1315](https://sunnah.com/bukhari:1315)), so a Janazah is often announced at short notice. If you hear of one in your community, it is worth going even if you did not know the person well.",
+      text: "He also told his Companions to hurry with the funeral rather than delay it ([Sahih al-Bukhari 1315](https://my.munibtracker.app/hadith/bukhari?q=1315)), so a Janazah is often announced at short notice. If you hear of one in your community, it is worth going even if you did not know the person well.",
     },
     { type: "h2", text: "How to pray Janazah step by step" },
     {
       type: "p",
-      text: "The prayer is built on four takbirs, each one saying Allahu Akbar. Jabir (may Allah be pleased with him) reported that the Prophet ﷺ prayed over the Negus and said four takbirs ([Sahih al-Bukhari 1334](https://sunnah.com/bukhari:1334)). Between the takbirs you recite or make Dua quietly, and the imam ends the prayer with the salam. If you are praying behind an imam, simply follow him.",
+      text: "The prayer is built on four takbirs, each one saying Allahu Akbar. Jabir (may Allah be pleased with him) reported that the Prophet ﷺ prayed over the Negus and said four takbirs ([Sahih al-Bukhari 1334](https://my.munibtracker.app/hadith/bukhari?q=1334)). Between the takbirs you recite or make Dua quietly, and the imam ends the prayer with the salam. If you are praying behind an imam, simply follow him.",
     },
     {
       type: "steps",
@@ -96,7 +96,7 @@ export const article: Article = {
       translation:
         'Narrated Talha bin `Abdullah bin `Auf:I offered the funeral prayer behind Ibn `Abbas and he recited Al-Fatiha and said, "You should know that it (i.e. recitation of Al-Fatiha) is the tradition of the Prophet Muhammad (ﷺ)."',
       reference: "Sahih al-Bukhari 1335",
-      href: "https://sunnah.com/bukhari:1335",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1335",
     },
     {
       type: "note",
@@ -117,7 +117,7 @@ export const article: Article = {
       translation:
         "Jubair b. Nufair says:I heard it from 'Auf b. Malik that the Prophet (ﷺ) said prayer on the dead body, and I remembered his prayer:\" O Allah! forgive him, have mercy upon him, give him peace and absolve him. Receive him with honour and make his grave spacious; wash him with water, snow and hail. Cleanse him from faults as Thou wouldst cleanse a white garment from impurity. Requite him with an abode more excellent than his abode, with a family better than his family, and with a mate better than his mate. Admit him to the Garden, and protect him from the torment of the grave and the torment of the Fire.\" ('Auf bin Malik) said: I earnestly desired that I were this dead body.",
       reference: "Sahih Muslim 963",
-      href: "https://sunnah.com/muslim:963a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2232",
       note: "Also collected in Hisnul Muslim",
     },
     {
@@ -132,7 +132,7 @@ export const article: Article = {
       translation:
         "Narrated AbuHurayrah: When the Messenger of Allah (ﷺ) prayed over a dead person, he said: O Allah, forgive those of us who are living and those of us who are dead, those of us who are present and those of us who are absent, our young and our old, our male and our female. O Allah, to whomsoever of us Thou givest life grant him life as a believer, and whomsoever of us Thou takest in death take him in death as a follower of Islam. O Allah, do not withhold from us the reward (of faith) and do not lead us astray after his death.",
       reference: "Sunan Abi Dawud 3201",
-      href: "https://sunnah.com/abudawud:3201",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=3201",
       note: "Graded Sahih by al-Albani",
     },
     {
@@ -151,11 +151,11 @@ export const article: Article = {
       translation:
         "Narrated Samura bin Jundab:I offered the funeral prayer behind the Prophet (ﷺ) for a woman who had died during childbirth and he stood up by the middle of the coffin.",
       reference: "Sahih al-Bukhari 1332",
-      href: "https://sunnah.com/bukhari:1332",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1332",
     },
     {
       type: "p",
-      text: "Anas ibn Malik (may Allah be pleased with him) is reported to have stood by the head of a man and the hips of a woman, and to have confirmed that this was the Prophet's practice ([Sunan Abi Dawud 3194](https://sunnah.com/abudawud:3194), graded Sahih by al-Albani). This is the imam's concern rather than yours. The congregation simply stands in rows behind him.",
+      text: "Anas ibn Malik (may Allah be pleased with him) is reported to have stood by the head of a man and the hips of a woman, and to have confirmed that this was the Prophet's practice ([Sunan Abi Dawud 3194](https://my.munibtracker.app/hadith/abudawud?q=3194), graded Sahih by al-Albani). This is the imam's concern rather than yours. The congregation simply stands in rows behind him.",
     },
     {
       type: "p",
@@ -192,7 +192,7 @@ export const article: Article = {
       translation:
         "Narrated Abu Huraira:Allah's Messenger (ﷺ) informed (the people) about the death of An-Najashi on the very day he died. He went towards the Musalla (praying place) and the people stood behind him in rows. He said four Takbirs (i.e. offered the Funeral prayer).",
       reference: "Sahih al-Bukhari 1245",
-      href: "https://sunnah.com/bukhari:1245",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1245",
     },
     {
       type: "p",
@@ -206,7 +206,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "A few other cases have their own rulings. In the classical ruling drawn from the Battle of Uhud, those killed in battle were buried in their clothes without the usual washing ([Sahih al-Bukhari 1346](https://sunnah.com/bukhari:1346)). For a miscarriage or a stillborn baby, the schools differ on when washing and a funeral prayer apply. These are sensitive questions, so confirm them with a scholar or your community's funeral service rather than guessing.",
+      text: "A few other cases have their own rulings. In the classical ruling drawn from the Battle of Uhud, those killed in battle were buried in their clothes without the usual washing ([Sahih al-Bukhari 1346](https://my.munibtracker.app/hadith/bukhari?q=1346)). For a miscarriage or a stillborn baby, the schools differ on when washing and a funeral prayer apply. These are sensitive questions, so confirm them with a scholar or your community's funeral service rather than guessing.",
     },
     { type: "h2", text: "A communal duty, and caring for the family" },
     {
@@ -215,7 +215,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "If you are grieving, tears are not a lack of faith. When the Prophet ﷺ found his Companion Sa'd ibn Ubadah gravely ill, he wept, and said that Allah does not punish for tears or for the grief of the heart, pointing to the tongue as what is held to account ([Sahih al-Bukhari 1304](https://sunnah.com/bukhari:1304)). What he forbade was wailing. He also taught words to say at a time of loss:",
+      text: "If you are grieving, tears are not a lack of faith. When the Prophet ﷺ found his Companion Sa'd ibn Ubadah gravely ill, he wept, and said that Allah does not punish for tears or for the grief of the heart, pointing to the tongue as what is held to account ([Sahih al-Bukhari 1304](https://my.munibtracker.app/hadith/bukhari?q=1304)). What he forbade was wailing. He also taught words to say at a time of loss:",
     },
     {
       type: "evidence",
@@ -225,11 +225,11 @@ export const article: Article = {
       translation:
         'Umm Salama reported Allah\'s Messenger (ﷺ) as saying:If any Muslim who suffers some calamity says, what Allah has commanded him," We belong to Allah and to Him shall we return; O Allah, reward me for my affliction and give me something better than it in exchange for it," Allah will give him something better than it in exchange.',
       reference: "Sahih Muslim 918",
-      href: "https://sunnah.com/muslim:918a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2126",
     },
     {
       type: "p",
-      text: "Practical help often means more than words. When news came of the death of Ja'far, the Prophet ﷺ asked for food to be prepared for his family, because they had been overwhelmed ([Sunan Abi Dawud 3132](https://sunnah.com/abudawud:3132), graded Hasan by al-Albani). Bringing a meal to a grieving household is still one of the gentlest things you can do.",
+      text: "Practical help often means more than words. When news came of the death of Ja'far, the Prophet ﷺ asked for food to be prepared for his family, because they had been overwhelmed ([Sunan Abi Dawud 3132](https://my.munibtracker.app/hadith/abudawud?q=3132), graded Hasan by al-Albani). Bringing a meal to a grieving household is still one of the gentlest things you can do.",
     },
     {
       type: "note",
@@ -239,27 +239,57 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Sahih al-Bukhari 1325 — Sunnah.com", url: "https://sunnah.com/bukhari:1325" },
-    { label: "Sahih al-Bukhari 1315 — Sunnah.com", url: "https://sunnah.com/bukhari:1315" },
-    { label: "Sahih al-Bukhari 1334 — Sunnah.com", url: "https://sunnah.com/bukhari:1334" },
-    { label: "Sahih al-Bukhari 1335 — Sunnah.com", url: "https://sunnah.com/bukhari:1335" },
-    { label: "Sahih Muslim 963 — Sunnah.com", url: "https://sunnah.com/muslim:963a" },
     {
-      label: "Sunan Abi Dawud 3201 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:3201",
+      label: "Sahih al-Bukhari 1325 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1325",
     },
-    { label: "Sahih al-Bukhari 1332 — Sunnah.com", url: "https://sunnah.com/bukhari:1332" },
     {
-      label: "Sunan Abi Dawud 3194 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:3194",
+      label: "Sahih al-Bukhari 1315 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1315",
     },
-    { label: "Sahih al-Bukhari 1245 — Sunnah.com", url: "https://sunnah.com/bukhari:1245" },
-    { label: "Sahih al-Bukhari 1346 — Sunnah.com", url: "https://sunnah.com/bukhari:1346" },
-    { label: "Sahih al-Bukhari 1304 — Sunnah.com", url: "https://sunnah.com/bukhari:1304" },
-    { label: "Sahih Muslim 918 — Sunnah.com", url: "https://sunnah.com/muslim:918a" },
     {
-      label: "Sunan Abi Dawud 3132 — Sunnah.com (Hasan, Al-Albani)",
-      url: "https://sunnah.com/abudawud:3132",
+      label: "Sahih al-Bukhari 1334 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1334",
+    },
+    {
+      label: "Sahih al-Bukhari 1335 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1335",
+    },
+    {
+      label: "Sahih Muslim 963 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2232",
+    },
+    {
+      label: "Sunan Abi Dawud 3201 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3201",
+    },
+    {
+      label: "Sahih al-Bukhari 1332 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1332",
+    },
+    {
+      label: "Sunan Abi Dawud 3194 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3194",
+    },
+    {
+      label: "Sahih al-Bukhari 1245 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1245",
+    },
+    {
+      label: "Sahih al-Bukhari 1346 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1346",
+    },
+    {
+      label: "Sahih al-Bukhari 1304 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1304",
+    },
+    {
+      label: "Sahih Muslim 918 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2126",
+    },
+    {
+      label: "Sunan Abi Dawud 3132 — Munib Tracker (Hasan, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=3132",
     },
   ],
   faqs: [

@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         "ان کے مال میں سے زکوٰة قبول کر لو کہ اس سے تم ان کو (ظاہر میں بھی) پاک اور (باطن میں بھی) پاکیزہ کرتے ہو اور ان کے حق میں دعائے خیر کرو کہ تمہاری دعا ان کے لیے موجب تسکین ہے اور خدا سننے والا اور جاننے والا ہے",
       reference: "سورۃ التوبہ 9:103",
-      href: "https://quran.com/9/103",
+      href: "https://my.munibtracker.app/quran/9?ayah=103",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -63,7 +63,7 @@ export const article: Article = {
       translation:
         "ہم سے ابوعاصم ضحاک بن مخلد نے بیان کیا ‘ ان سے زکریا بن اسحاق نے بیان کیا ‘ ان سے یحییٰ بن عبداللہ بن صیفی نے بیان کیا، ان سے ابومعبد نے اور ان سے عبداللہ بن عباس رضی اللہ عنہما نے بیان کیا کہ نبی کریم صلی اللہ علیہ وسلم نے جب معاذ رضی اللہ عنہ کو یمن ( کا حاکم بنا کر ) بھیجا تو فرمایا کہ تم انہیں اس کلمہ کی گواہی کی دعوت دینا کہ اللہ کے سوا کوئی معبود نہیں اور یہ کہ میں اللہ کا رسول ہوں۔ اگر وہ لوگ یہ بات مان لیں تو پھر انہیں بتانا کہ اللہ تعالیٰ نے ان پر روزانہ پانچ وقت کی نمازیں فرض کی ہیں۔ اگر وہ لوگ یہ بات بھی مان لیں تو پھر انہیں بتانا کہ اللہ تعالیٰ نے ان کے مال پر کچھ صدقہ فرض کیا ہے جو ان کے مالدار لوگوں سے لے کر انہیں کے محتاجوں میں لوٹا دیا جائے گا۔",
       reference: "صحیح بخاری 1395",
-      href: "https://sunnah.com/bukhari:1395",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1395",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1395",
     },
     {
@@ -83,7 +83,7 @@ export const article: Article = {
       translation:
         "ہم سے عبداللہ بن یوسف تنیسی نے بیان کیا ‘ انہوں نے کہا کہ ہمیں امام مالک نے خبر دی ‘ انہیں عمرو بن یحییٰ مازنی نے ‘ انہیں ان کے باپ یحییٰ نے۔ انہوں نے کہا کہ میں نے ابو سعید خدری رضی اللہ عنہ سے سنا ‘ انہوں نے کہا کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا کہ پانچ اونٹ سے کم میں زکوٰۃ نہیں اور پانچ اوقیہ سے کم ( چاندی ) میں زکوٰۃ نہیں۔ اسی طرح پانچ وسق سے کم ( غلہ ) میں زکوٰۃ نہیں۔",
       reference: "صحیح بخاری 1447",
-      href: "https://sunnah.com/bukhari:1447",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1447",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1447",
     },
     {
@@ -215,7 +215,7 @@ export const article: Article = {
       translation:
         "صدقات (یعنی زکوٰة وخیرات) تو مفلسوں اور محتاجوں اور کارکنان صدقات کا حق ہے اور ان لوگوں کا جن کی تالیف قلوب منظور ہے اور غلاموں کے آزاد کرانے میں اور قرضداروں (کے قرض ادا کرنے میں) اور خدا کی راہ میں اور مسافروں (کی مدد) میں (بھی یہ مال خرچ کرنا چاہیئے یہ حقوق) خدا کی طرف سے مقرر کر دیئے گئے ہیں اور خدا جاننے والا (اور) حکمت والا ہے",
       reference: "سورۃ التوبہ 9:60",
-      href: "https://quran.com/9/60",
+      href: "https://my.munibtracker.app/quran/9?ayah=60",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -235,12 +235,21 @@ export const article: Article = {
   ],
   sources: [
     {
-      label: "سورۃ التوبہ 9:103 — Quran.com",
-      url: "https://quran.com/9/103",
+      label: "سورۃ التوبہ 9:103 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/9?ayah=103",
     },
-    { label: "سورۃ التوبہ 9:60 — Quran.com", url: "https://quran.com/9/60" },
-    { label: "صحیح بخاری 1395 — Sunnah.com", url: "https://sunnah.com/bukhari:1395" },
-    { label: "صحیح بخاری 1447 — Sunnah.com", url: "https://sunnah.com/bukhari:1447" },
+    {
+      label: "سورۃ التوبہ 9:60 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/9?ayah=60",
+    },
+    {
+      label: "صحیح بخاری 1395 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1395",
+    },
+    {
+      label: "صحیح بخاری 1447 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1447",
+    },
     {
       label: "hadith-api (fawazahmed0)، حدیث کا کھلا ڈیٹا سیٹ جس سے حدیث کا متن لیا گیا",
       url: "https://github.com/fawazahmed0/hadith-api",

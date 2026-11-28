@@ -42,7 +42,7 @@ export const article: Article = {
       translation:
         "Maintain with care the [obligatory] prayers and [in particular] the middle [i.e., ʿaṣr] prayer and stand before Allāh, devoutly obedient.",
       reference: "Qur'an 2:238",
-      href: "https://quran.com/2/238",
+      href: "https://my.munibtracker.app/quran/2?ayah=238",
       note: "Translation: Saheeh International",
     },
     { type: "h2", text: "Before you start: what needs to be in place" },
@@ -77,7 +77,7 @@ export const article: Article = {
       translation:
         'The Prophet (ﷺ) said, "When you stand for Prayer say Takbir and then recite from the Holy Qur\'an (of what you know by heart) and then bow till you feel at ease. Then raise your head and stand up straight, then prostrate till you feel at ease during your prostration, then sit with calmness till you feel at ease (do not hurry) and do the same in all your prayers."',
       reference: "Sahih al-Bukhari 757",
-      href: "https://sunnah.com/bukhari:757",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=757",
       note: "Narrated by Abu Hurayrah. Excerpt; translation as published on Sunnah.com.",
     },
     {
@@ -86,7 +86,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "He ﷺ also told a group of young men who had stayed with him to pray as they had seen him praying ([Sahih al-Bukhari 631](https://sunnah.com/bukhari:631)). That is why the details below go back to how his Companions described his prayer.",
+      text: "He ﷺ also told a group of young men who had stayed with him to pray as they had seen him praying ([Sahih al-Bukhari 631](https://my.munibtracker.app/hadith/bukhari?q=631)). That is why the details below go back to how his Companions described his prayer.",
     },
     { type: "h2", text: "How to pray one rakah, step by step" },
     {
@@ -157,7 +157,7 @@ export const article: Article = {
       translation:
         'Allah\'s Messenger (ﷺ) said, "Whoever does not recite Al-Fatiha in his prayer, his prayer is invalid."',
       reference: "Sahih al-Bukhari 756",
-      href: "https://sunnah.com/bukhari:756",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=756",
       note: "Narrated by 'Ubadah ibn as-Samit. Translation as published on Sunnah.com.",
     },
     {
@@ -171,7 +171,7 @@ export const article: Article = {
       translation:
         "The Messenger of Allah (ﷺ) said: The nearest a servant comes to his Lord is when he is prostrating himself, so make supplication (in this state).",
       reference: "Sahih Muslim 482",
-      href: "https://sunnah.com/muslim:482",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1083",
       note: "Narrated by Abu Hurayrah. Translation as published on Sunnah.com.",
     },
     { type: "h2", text: "How many rakahs each Salah has" },
@@ -232,11 +232,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 2:238 (Saheeh International) — Quran.com", url: "https://quran.com/2/238" },
-    { label: "Sahih al-Bukhari 757 — Sunnah.com", url: "https://sunnah.com/bukhari:757" },
-    { label: "Sahih al-Bukhari 756 — Sunnah.com", url: "https://sunnah.com/bukhari:756" },
-    { label: "Sahih al-Bukhari 631 — Sunnah.com", url: "https://sunnah.com/bukhari:631" },
-    { label: "Sahih Muslim 482 — Sunnah.com", url: "https://sunnah.com/muslim:482" },
+    {
+      label: "Qur'an 2:238 (Saheeh International) — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=238",
+    },
+    {
+      label: "Sahih al-Bukhari 757 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=757",
+    },
+    {
+      label: "Sahih al-Bukhari 756 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=756",
+    },
+    {
+      label: "Sahih al-Bukhari 631 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=631",
+    },
+    {
+      label: "Sahih Muslim 482 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1083",
+    },
   ],
   faqs: [
     {

@@ -43,7 +43,7 @@ export const article: Article = {
       translation:
         "And from [part of] the night, pray with it [i.e., recitation of the Qur’ān] as additional [worship] for you; it is expected that your Lord will resurrect you to a praised station.",
       reference: "Qur'an 17:79",
-      href: "https://quran.com/17/79",
+      href: "https://my.munibtracker.app/quran/17?ayah=79",
       note: "Translation: Saheeh International",
     },
     {
@@ -57,7 +57,7 @@ export const article: Article = {
       translation:
         "Abu Haraira (Allah be pleased with him) reported Allah's Messenger (ﷺ) as saying: The most excellent fast after Ramadan is God's month. al-Muharram, and the most excellent prayer after what is prescribed is prayer during the night.",
       reference: "Sahih Muslim 1163",
-      href: "https://sunnah.com/muslim:1163a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2755",
     },
     {
       type: "note",
@@ -78,7 +78,7 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira: Allah\'s Messenger (ﷺ) (p.b.u.h) said, "Our Lord, the Blessed, the Superior, comes every night down on the nearest Heaven to us when the last third of the night remains, saying: "Is there anyone to invoke Me, so that I may respond to invocation? Is there anyone to ask Me, so that I may grant him his request? Is there anyone seeking My forgiveness, so that I may forgive him?"',
       reference: "Sahih al-Bukhari 1145",
-      href: "https://sunnah.com/bukhari:1145",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1145",
     },
     {
       type: "p",
@@ -98,7 +98,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "These times move every day and differ by city, so use your own local Maghrib and Fajr times. If the last third is too hard for now, praying after Isha before you sleep, or waking twenty minutes before Fajr, still counts as Salah at night. The Prophet ﷺ also described the Salah of Dawud (peace be upon him) as the most beloved to Allah: he slept half the night, stood for a third of it, then slept the last sixth ([Sahih al-Bukhari 1131](https://sunnah.com/bukhari:1131)).",
+      text: "These times move every day and differ by city, so use your own local Maghrib and Fajr times. If the last third is too hard for now, praying after Isha before you sleep, or waking twenty minutes before Fajr, still counts as Salah at night. The Prophet ﷺ also described the Salah of Dawud (peace be upon him) as the most beloved to Allah: he slept half the night, stood for a third of it, then slept the last sixth ([Sahih al-Bukhari 1131](https://my.munibtracker.app/hadith/bukhari?q=1131)).",
     },
     { type: "h2", text: "How many rakahs is Tahajjud?" },
     {
@@ -112,11 +112,11 @@ export const article: Article = {
       translation:
         "Narrated Ibn `Umar: Once a person asked Allah's Messenger (ﷺ) (ﷺ) about the night prayer. Allah's Apostle (ﷺ) replied, \"The night prayer is offered as two Rak`at followed by two Rak`at and so on and if anyone is afraid of the approaching dawn (Fajr prayer) he should pray one Rak`ah and this will be a Witr for all the Rak`at which he has prayed before.\"",
       reference: "Sahih al-Bukhari 990",
-      href: "https://sunnah.com/bukhari:990",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=990",
     },
     {
       type: "p",
-      text: "Aishah (may Allah be pleased with her) reported that the Prophet ﷺ did not go beyond eleven rakahs at night, in Ramadan or outside it, and she described how long and beautiful they were ([Sahih al-Bukhari 1147](https://sunnah.com/bukhari:1147)). Scholars discuss whether that number is a limit or simply his usual practice. For someone starting out, two unhurried rakahs are a complete Tahajjud. You can add another two when it feels natural.",
+      text: "Aishah (may Allah be pleased with her) reported that the Prophet ﷺ did not go beyond eleven rakahs at night, in Ramadan or outside it, and she described how long and beautiful they were ([Sahih al-Bukhari 1147](https://my.munibtracker.app/hadith/bukhari?q=1147)). Scholars discuss whether that number is a limit or simply his usual practice. For someone starting out, two unhurried rakahs are a complete Tahajjud. You can add another two when it feels natural.",
     },
     { type: "h2", text: "How to pray Tahajjud step by step" },
     {
@@ -136,7 +136,7 @@ export const article: Article = {
         },
         {
           title: "Recite what you know",
-          text: "There are no set surahs. The Qur'an tells those who stand at night to “recite what is easy” of it ([Qur'an 73:20](https://quran.com/73/20)). Short surahs you know well are fine. Recite calmly, aloud or quietly.",
+          text: "There are no set surahs. The Qur'an tells those who stand at night to “recite what is easy” of it ([Qur'an 73:20](https://my.munibtracker.app/quran/73?ayah=20)). Short surahs you know well are fine. Recite calmly, aloud or quietly.",
         },
         {
           title: "Add more pairs if you wish",
@@ -165,11 +165,11 @@ export const article: Article = {
       translation:
         "Jabir reported Allah's Messenger (ﷺ) as saying: If anyone is afraid that he may not get up in the latter part of the night, he should observe Witr in the first part of it; and if anyone is eager to get up in the last part of it, he should observe Witr at the end of the night, for prayer at the end of the night is witnessed (by the angels) and that is preferable.",
       reference: "Sahih Muslim 755",
-      href: "https://sunnah.com/muslim:755a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1766",
     },
     {
       type: "p",
-      text: "If you already prayed Witr after Isha and then wake up, a widely held view is that you may still pray Tahajjud in pairs of two and do not pray Witr a second time, based on the report that there are no two Witrs in one night ([Sunan Abi Dawud 1439](https://sunnah.com/abudawud:1439), graded Sahih by al-Albani).",
+      text: "If you already prayed Witr after Isha and then wake up, a widely held view is that you may still pray Tahajjud in pairs of two and do not pray Witr a second time, based on the report that there are no two Witrs in one night ([Sunan Abi Dawud 1439](https://my.munibtracker.app/hadith/abudawud?q=1439), graded Sahih by al-Albani).",
     },
     {
       type: "note",
@@ -180,7 +180,7 @@ export const article: Article = {
     { type: "h2", text: "Building a Tahajjud habit that lasts" },
     {
       type: "p",
-      text: "The Prophet ﷺ taught that the deeds most beloved to Allah are those done regularly, even if they are small ([Sahih al-Bukhari 6464](https://sunnah.com/bukhari:6464)). That is the best way to approach Tahajjud.",
+      text: "The Prophet ﷺ taught that the deeds most beloved to Allah are those done regularly, even if they are small ([Sahih al-Bukhari 6464](https://my.munibtracker.app/hadith/bukhari?q=6464)). That is the best way to approach Tahajjud.",
     },
     {
       type: "ul",
@@ -200,19 +200,46 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 17:79 — Quran.com (Saheeh International)", url: "https://quran.com/17/79" },
-    { label: "Qur'an 73:20 — Quran.com (Saheeh International)", url: "https://quran.com/73/20" },
-    { label: "Sahih Muslim 1163 — Sunnah.com", url: "https://sunnah.com/muslim:1163a" },
-    { label: "Sahih al-Bukhari 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
-    { label: "Sahih al-Bukhari 1131 — Sunnah.com", url: "https://sunnah.com/bukhari:1131" },
-    { label: "Sahih al-Bukhari 990 — Sunnah.com", url: "https://sunnah.com/bukhari:990" },
-    { label: "Sahih al-Bukhari 1147 — Sunnah.com", url: "https://sunnah.com/bukhari:1147" },
-    { label: "Sahih Muslim 755 — Sunnah.com", url: "https://sunnah.com/muslim:755a" },
     {
-      label: "Sunan Abi Dawud 1439 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1439",
+      label: "Qur'an 17:79 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/17?ayah=79",
     },
-    { label: "Sahih al-Bukhari 6464 — Sunnah.com", url: "https://sunnah.com/bukhari:6464" },
+    {
+      label: "Qur'an 73:20 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/73?ayah=20",
+    },
+    {
+      label: "Sahih Muslim 1163 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2755",
+    },
+    {
+      label: "Sahih al-Bukhari 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
+    {
+      label: "Sahih al-Bukhari 1131 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1131",
+    },
+    {
+      label: "Sahih al-Bukhari 990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=990",
+    },
+    {
+      label: "Sahih al-Bukhari 1147 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1147",
+    },
+    {
+      label: "Sahih Muslim 755 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1766",
+    },
+    {
+      label: "Sunan Abi Dawud 1439 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1439",
+    },
+    {
+      label: "Sahih al-Bukhari 6464 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6464",
+    },
   ],
   faqs: [
     {

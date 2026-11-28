@@ -43,12 +43,12 @@ export const article: Article = {
       translation:
         "Whoever comes [on the Day of Judgement] with a good deed will have ten times the like thereof [to his credit], and whoever comes with an evil deed will not be recompensed except the like thereof; and they will not be wronged.",
       reference: "Qur'an 6:160",
-      href: "https://quran.com/6/160",
+      href: "https://my.munibtracker.app/quran/6?ayah=160",
       note: "Translation: Saheeh International",
     },
     {
       type: "p",
-      text: "The Prophet ﷺ applied this to fasting when he advised Abdullah ibn Amr to fast three days a month: since a good deed is multiplied ten times, that is equal to fasting the whole year ([Sahih al-Bukhari 1976](https://sunnah.com/bukhari:1976)). Voluntary fasts also keep the body and the will in practice between one Ramadan and the next, which is one reason they feature in [how to prepare for Ramadan](/resources/ramadan-fasting/how-to-prepare-for-ramadan).",
+      text: "The Prophet ﷺ applied this to fasting when he advised Abdullah ibn Amr to fast three days a month: since a good deed is multiplied ten times, that is equal to fasting the whole year ([Sahih al-Bukhari 1976](https://my.munibtracker.app/hadith/bukhari?q=1976)). Voluntary fasts also keep the body and the will in practice between one Ramadan and the next, which is one reason they feature in [how to prepare for Ramadan](/resources/ramadan-fasting/how-to-prepare-for-ramadan).",
     },
     { type: "h2", text: "The recommended fasts at a glance" },
     {
@@ -95,12 +95,12 @@ export const article: Article = {
       translation:
         'Abu Hurairah narrated that: the Messenger of Allah said: "Deeds are presented on Monday and Thursday, and I love that my deeds be presented while I am fasting."',
       reference: "Jami' at-Tirmidhi 747",
-      href: "https://sunnah.com/tirmidhi:747",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=747",
       note: "Grade on Sunnah.com: Hasan (Darussalam)",
     },
     {
       type: "p",
-      text: "When he was asked about fasting on Monday, he also said it was the day he was born and the day revelation came to him ([Sahih Muslim 1162](https://sunnah.com/muslim:1162b)).",
+      text: "When he was asked about fasting on Monday, he also said it was the day he was born and the day revelation came to him ([Sahih Muslim 1162](https://my.munibtracker.app/hadith/muslim?q=2747)).",
     },
     {
       type: "p",
@@ -114,7 +114,7 @@ export const article: Article = {
       translation:
         'It was narrated from Jarir bin \'Abdullah that the Prophet said: "Fasting three days of each month is fasting for a lifetime, and the shining days of Al-Bid, the thirteenth, fourteenth and fifteenth."',
       reference: "Sunan an-Nasa'i 2420",
-      href: "https://sunnah.com/nasai:2420",
+      href: "https://my.munibtracker.app/hadith/nasai?q=2420",
       note: "Grade on Sunnah.com: Sahih (Darussalam)",
     },
     {
@@ -133,7 +133,7 @@ export const article: Article = {
       translation:
         "Abu Ayyub al-Ansari (Allah be pleased with him) reported Allah's Messenger (ﷺ) as saying: He who observed the fast of Ramadan and then followed it with six (fasts) of Shawwal. it would be as if he fasted perpetually.",
       reference: "Sahih Muslim 1164",
-      href: "https://sunnah.com/muslim:1164a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2758",
     },
     {
       type: "note",
@@ -143,7 +143,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "**Arafah and Ashura.** In the long hadith of Abu Qatadah, the Prophet ﷺ said he hoped from Allah that fasting the Day of Arafah would expiate the sins of the year before and the year after, and that fasting Ashura would expiate the sins of the year before ([Sahih Muslim 1162](https://sunnah.com/muslim:1162a)). He also said that if he lived to the next year he would fast the 9th of Muharram (Tasu'a) as well ([Sahih Muslim 1134](https://sunnah.com/muslim:1134b)), so many people fast the 9th together with the 10th. The Arafah fast is for those who are not on Hajj: the Prophet ﷺ was not fasting when he stood at Arafah ([Sahih al-Bukhari 1988](https://sunnah.com/bukhari:1988)).",
+      text: "**Arafah and Ashura.** In the long hadith of Abu Qatadah, the Prophet ﷺ said he hoped from Allah that fasting the Day of Arafah would expiate the sins of the year before and the year after, and that fasting Ashura would expiate the sins of the year before ([Sahih Muslim 1162](https://my.munibtracker.app/hadith/muslim?q=2746)). He also said that if he lived to the next year he would fast the 9th of Muharram (Tasu'a) as well ([Sahih Muslim 1134](https://my.munibtracker.app/hadith/muslim?q=2667)), so many people fast the 9th together with the 10th. The Arafah fast is for those who are not on Hajj: the Prophet ﷺ was not fasting when he stood at Arafah ([Sahih al-Bukhari 1988](https://my.munibtracker.app/hadith/bukhari?q=1988)).",
     },
     {
       type: "p",
@@ -156,20 +156,20 @@ export const article: Article = {
       translation:
         "Abu Haraira (Allah be pleased with him) reported Allah's Messenger (ﷺ) as saying: The most excellent fast after Ramadan is God's month. al-Muharram, and the most excellent prayer after what is prescribed is prayer during the night.",
       reference: "Sahih Muslim 1163",
-      href: "https://sunnah.com/muslim:1163a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2755",
     },
     {
       type: "p",
-      text: "As for Sha'ban, Aisha said she never saw the Prophet ﷺ fast more in any month, apart from Ramadan, than he did in Sha'ban ([Sahih al-Bukhari 1969](https://sunnah.com/bukhari:1969)).",
+      text: "As for Sha'ban, Aisha said she never saw the Prophet ﷺ fast more in any month, apart from Ramadan, than he did in Sha'ban ([Sahih al-Bukhari 1969](https://my.munibtracker.app/hadith/bukhari?q=1969)).",
     },
     {
       type: "p",
-      text: "**The first days of Dhul-Hijjah.** The Prophet ﷺ said that no good deeds are better than those done in the first ten days of Dhul-Hijjah ([Sahih al-Bukhari 969](https://sunnah.com/bukhari:969)), and fasting is one such deed. A report in Sunan Abi Dawud (2437, graded Sahih by al-Albani on Sunnah.com) says he fasted the first nine days, while Aisha said she never saw him fasting in the ten (Sahih Muslim 1176). Scholars have weighed the two reports differently. The tenth day is Eid, when fasting is not allowed.",
+      text: "**The first days of Dhul-Hijjah.** The Prophet ﷺ said that no good deeds are better than those done in the first ten days of Dhul-Hijjah ([Sahih al-Bukhari 969](https://my.munibtracker.app/hadith/bukhari?q=969)), and fasting is one such deed. A report in Sunan Abi Dawud (2437, graded Sahih by al-Albani on Sunnah.com) says he fasted the first nine days, while Aisha said she never saw him fasting in the ten (Sahih Muslim 1176). Scholars have weighed the two reports differently. The tenth day is Eid, when fasting is not allowed.",
     },
     { type: "h2", text: "Days when fasting is not allowed or is disliked" },
     {
       type: "p",
-      text: "Knowing when not to fast matters as much as knowing when to fast. Two sets of days are agreed upon by the four schools: the two Eids, which the Prophet ﷺ forbade fasting ([Sahih al-Bukhari 1990](https://sunnah.com/bukhari:1990)), and the three days after Eid al-Adha:",
+      text: "Knowing when not to fast matters as much as knowing when to fast. Two sets of days are agreed upon by the four schools: the two Eids, which the Prophet ﷺ forbade fasting ([Sahih al-Bukhari 1990](https://my.munibtracker.app/hadith/bukhari?q=1990)), and the three days after Eid al-Adha:",
     },
     {
       type: "evidence",
@@ -178,7 +178,7 @@ export const article: Article = {
       translation:
         "Nubaisha al-Hudhali reported Allah's Messenger (ﷺ) as saying: The days of Tashriq are the days of eating and drinking.",
       reference: "Sahih Muslim 1141",
-      href: "https://sunnah.com/muslim:1141a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=2677",
     },
     {
       type: "p",
@@ -201,7 +201,7 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira: I heard the Prophet (ﷺ) saying, "None of you should fast on Friday unless he fasts a day before or after it."',
       reference: "Sahih al-Bukhari 1985",
-      href: "https://sunnah.com/bukhari:1985",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1985",
     },
     {
       type: "note",
@@ -212,7 +212,7 @@ export const article: Article = {
     { type: "h2", text: "How to build a fasting habit that lasts" },
     {
       type: "p",
-      text: "When the Prophet ﷺ was asked which deeds Allah loves most, he said the most regular and constant, even if they are few ([Sahih al-Bukhari 6465](https://sunnah.com/bukhari:6465)). That is the right measure for voluntary fasting too.",
+      text: "When the Prophet ﷺ was asked which deeds Allah loves most, he said the most regular and constant, even if they are few ([Sahih al-Bukhari 6465](https://my.munibtracker.app/hadith/bukhari?q=6465)). That is the right measure for voluntary fasting too.",
     },
     {
       type: "steps",
@@ -251,43 +251,94 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 6:160 — Quran.com (Saheeh International)", url: "https://quran.com/6/160" },
-    { label: "Sahih al-Bukhari 1976 — Sunnah.com", url: "https://sunnah.com/bukhari:1976" },
     {
-      label: "Jami' at-Tirmidhi 747 — Sunnah.com (Hasan, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:747",
+      label: "Qur'an 6:160 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/6?ayah=160",
     },
     {
-      label: "Sahih Muslim 1162 (Abu Qatadah) — Sunnah.com",
-      url: "https://sunnah.com/muslim:1162a",
-    },
-    { label: "Sahih Muslim 1162 (Monday) — Sunnah.com", url: "https://sunnah.com/muslim:1162b" },
-    {
-      label: "Sunan an-Nasa'i 2420 — Sunnah.com (Sahih, Darussalam)",
-      url: "https://sunnah.com/nasai:2420",
+      label: "Sahih al-Bukhari 1976 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1976",
     },
     {
-      label: "Jami' at-Tirmidhi 761 — Sunnah.com (Hasan, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:761",
+      label: "Jami' at-Tirmidhi 747 — Munib Tracker (Hasan, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=747",
     },
-    { label: "Sahih Muslim 1164 — Sunnah.com", url: "https://sunnah.com/muslim:1164a" },
-    { label: "Sahih al-Bukhari 1950 — Sunnah.com", url: "https://sunnah.com/bukhari:1950" },
-    { label: "Sahih Muslim 1134 — Sunnah.com", url: "https://sunnah.com/muslim:1134b" },
-    { label: "Sahih al-Bukhari 1988 — Sunnah.com", url: "https://sunnah.com/bukhari:1988" },
-    { label: "Sahih Muslim 1163 — Sunnah.com", url: "https://sunnah.com/muslim:1163a" },
-    { label: "Sahih al-Bukhari 1969 — Sunnah.com", url: "https://sunnah.com/bukhari:1969" },
-    { label: "Sahih al-Bukhari 969 — Sunnah.com", url: "https://sunnah.com/bukhari:969" },
     {
-      label: "Sunan Abi Dawud 2437 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:2437",
+      label: "Sahih Muslim 1162 (Abu Qatadah) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2746",
     },
-    { label: "Sahih Muslim 1176 — Sunnah.com", url: "https://sunnah.com/muslim:1176a" },
-    { label: "Sahih al-Bukhari 1990 — Sunnah.com", url: "https://sunnah.com/bukhari:1990" },
-    { label: "Sahih Muslim 1141 — Sunnah.com", url: "https://sunnah.com/muslim:1141a" },
-    { label: "Sahih al-Bukhari 1914 — Sunnah.com", url: "https://sunnah.com/bukhari:1914" },
-    { label: "Sahih al-Bukhari 1985 — Sunnah.com", url: "https://sunnah.com/bukhari:1985" },
-    { label: "Sahih Muslim 1144 — Sunnah.com", url: "https://sunnah.com/muslim:1144b" },
-    { label: "Sahih al-Bukhari 6465 — Sunnah.com", url: "https://sunnah.com/bukhari:6465" },
+    {
+      label: "Sahih Muslim 1162 (Monday) — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2747",
+    },
+    {
+      label: "Sunan an-Nasa'i 2420 — Munib Tracker (Sahih, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/nasai?q=2420",
+    },
+    {
+      label: "Jami' at-Tirmidhi 761 — Munib Tracker (Hasan, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=761",
+    },
+    {
+      label: "Sahih Muslim 1164 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2758",
+    },
+    {
+      label: "Sahih al-Bukhari 1950 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1950",
+    },
+    {
+      label: "Sahih Muslim 1134 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2667",
+    },
+    {
+      label: "Sahih al-Bukhari 1988 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1988",
+    },
+    {
+      label: "Sahih Muslim 1163 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2755",
+    },
+    {
+      label: "Sahih al-Bukhari 1969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1969",
+    },
+    {
+      label: "Sahih al-Bukhari 969 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=969",
+    },
+    {
+      label: "Sunan Abi Dawud 2437 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=2437",
+    },
+    {
+      label: "Sahih Muslim 1176 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2789",
+    },
+    {
+      label: "Sahih al-Bukhari 1990 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1990",
+    },
+    {
+      label: "Sahih Muslim 1141 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2677",
+    },
+    {
+      label: "Sahih al-Bukhari 1914 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1914",
+    },
+    {
+      label: "Sahih al-Bukhari 1985 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1985",
+    },
+    {
+      label: "Sahih Muslim 1144 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2684",
+    },
+    {
+      label: "Sahih al-Bukhari 6465 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6465",
+    },
   ],
   faqs: [
     {

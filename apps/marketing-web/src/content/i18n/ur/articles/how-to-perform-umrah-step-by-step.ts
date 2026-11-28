@@ -48,7 +48,7 @@ export const article: Article = {
       translation:
         "ہم سے عبداللہ بن یوسف نے بیان کیا، انہوں نے کہا کہ ہم کو امام مالک نے خبر دی، انہیں ابوبکر بن عبدالرحمٰن کے غلام سمی نے خبر دی، انہیں ابوصالح سمان نے خبر دی اور انہیں ابوہریرہ رضی اللہ عنہ نے کہ رسول اللہ صلی اللہ علیہ وسلم نے فرمایا ایک عمرہ کے بعد دوسرا عمرہ دونوں کے درمیان کے گناہوں کا کفارہ ہے اور حج مبرور کی جزا جنت کے سوا اور کچھ نہیں ہے۔",
       reference: "صحیح بخاری 1773",
-      href: "https://sunnah.com/bukhari:1773",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1773",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1773",
     },
     {
@@ -125,7 +125,7 @@ export const article: Article = {
       translation:
         "ہم سے عبداللہ بن یوسف تنیسی نے بیان کیا، انہوں نے کہا کہ ہمیں امام مالک نے خبر دی، انہیں نافع نے اور انہیں عبداللہ بن عمر رضی اللہ عنہما نے کہ رسول اللہ صلی اللہ علیہ وسلم کا تلبیہ یہ تھا «لبيك اللهم لبيك،‏‏‏‏ لبيك لا شريك لك لبيك،‏‏‏‏ إن الحمد والنعمة لك والملك،‏‏‏‏ لا شريك لك‏» ”حاضر ہوں اے اللہ! حاضر ہوں میں، تیرا کوئی شریک نہیں۔ حاضر ہوں، تمام حمد تیرے ہی لیے ہے اور تمام نعمتیں تیری ہی طرف سے ہیں، بادشاہت تیری ہی ہے تیرا کوئی شریک نہیں۔“",
       reference: "صحیح بخاری 1549",
-      href: "https://sunnah.com/bukhari:1549",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1549",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1549",
     },
     {
@@ -162,7 +162,7 @@ export const article: Article = {
       translation:
         "بےشک (کوہ) صفا اور مروہ خدا کی نشانیوں میں سے ہیں۔ تو جو شخص خانہٴ کعبہ کا حج یا عمرہ کرے اس پر کچھ گناہ نہیں کہ دونوں کا طواف کرے۔ (بلکہ طواف ایک قسم کا نیک کام ہے) اور جو کوئی نیک کام کرے تو خدا قدر شناس اور دانا ہے",
       reference: "سورۃ البقرہ 2:158",
-      href: "https://quran.com/2/158",
+      href: "https://my.munibtracker.app/quran/2?ayah=158",
       note: "ترجمہ: فتح محمد جالندھری",
     },
     {
@@ -186,7 +186,7 @@ export const article: Article = {
       translation:
         "ہم سے عبداللہ بن یوسف نے بیان کیا، کہا ہم کو امام مالک نے خبر دی، انہیں نافع نے، انہیں عبداللہ بن عمر رضی اللہ عنہما نے کہ رسول اللہ صلی اللہ علیہ وسلم نے دعا کی اے اللہ! سر منڈوانے والوں پر رحم فرما! صحابہ رضی اللہ عنہم نے عرض کی اور کتروانے والوں پر؟ نبی کریم صلی اللہ علیہ وسلم نے اب بھی دعا کی اے اللہ سر منڈوانے والوں پر رحم فرما! صحابہ رضی اللہ عنہم نے پھر عرض کی اور کتروانے والوں پر؟ اب آپ صلی اللہ علیہ وسلم نے فرمایا اور کتروانے والوں پر بھی، لیث نے کہا کہ مجھ سے نافع نے بیان کیا کہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا، اللہ نے سر منڈوانے والوں پر رحم کیا ایک یا دو مرتبہ، انہوں نے بیان کیا کہ عبیداللہ نے کہا کہ مجھ سے نافع نے بیان کیا کہ چوتھی مرتبہ نبی کریم صلی اللہ علیہ وسلم نے فرمایا تھا کہ کتروانے والوں پر بھی۔",
       reference: "صحیح بخاری 1727",
-      href: "https://sunnah.com/bukhari:1727",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1727",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 1727",
     },
     {
@@ -241,18 +241,42 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 1773 — Sunnah.com", url: "https://sunnah.com/bukhari:1773" },
-    { label: "صحیح بخاری 1549 — Sunnah.com", url: "https://sunnah.com/bukhari:1549" },
-    { label: "صحیح بخاری 1727 — Sunnah.com", url: "https://sunnah.com/bukhari:1727" },
-    { label: "صحیح بخاری 1524 — Sunnah.com", url: "https://sunnah.com/bukhari:1524" },
-    { label: "صحیح بخاری 305 — Sunnah.com", url: "https://sunnah.com/bukhari:305" },
-    { label: "سنن ابی داؤد 1739 — Sunnah.com", url: "https://sunnah.com/abudawud:1739" },
     {
-      label: "سورۃ البقرہ 2:158 — Quran.com",
-      url: "https://quran.com/2/158",
+      label: "صحیح بخاری 1773 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1773",
     },
-    { label: "سورۃ البقرہ 2:125 — Quran.com", url: "https://quran.com/2/125" },
-    { label: "سورۃ البقرہ 2:201 — Quran.com", url: "https://quran.com/2/201" },
+    {
+      label: "صحیح بخاری 1549 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1549",
+    },
+    {
+      label: "صحیح بخاری 1727 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1727",
+    },
+    {
+      label: "صحیح بخاری 1524 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1524",
+    },
+    {
+      label: "صحیح بخاری 305 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=305",
+    },
+    {
+      label: "سنن ابی داؤد 1739 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1739",
+    },
+    {
+      label: "سورۃ البقرہ 2:158 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=158",
+    },
+    {
+      label: "سورۃ البقرہ 2:125 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=125",
+    },
+    {
+      label: "سورۃ البقرہ 2:201 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=201",
+    },
     {
       label: "hadith-api (fawazahmed0)، حدیث کا کھلا ڈیٹا سیٹ جس سے حدیث کا متن لیا گیا",
       url: "https://github.com/fawazahmed0/hadith-api",

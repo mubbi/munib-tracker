@@ -11,6 +11,7 @@ import {
   LinkCard,
   Screenshot,
 } from "@/components/content/primitives";
+import { ProductAppLink } from "@/components/content/product-app-link";
 import { RichText } from "@/components/content/rich-text";
 import { TryFeatureLink } from "@/components/content/try-feature";
 import { featureHref, getFeature } from "@/content/features";
@@ -21,6 +22,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { type Frame, getScreenshot } from "@/lib/screenshots";
 import { readingMinutes } from "@/lib/seo";
+import { isProductAppHref } from "@/lib/site";
 import { articleSchema, faqNodes, graph } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
@@ -181,14 +183,23 @@ export function ArticleTemplate({ article }: { article: Article }) {
             <ul className="mt-4 flex flex-col gap-2 text-[15px]">
               {article.sources.map((s) => (
                 <li key={s.url}>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-brand underline decoration-brand/35 underline-offset-[3px] hover:decoration-brand"
-                  >
-                    {s.label}
-                  </a>
+                  {isProductAppHref(s.url) ? (
+                    <ProductAppLink
+                      href={s.url}
+                      className="text-brand underline decoration-brand/35 underline-offset-[3px] hover:decoration-brand"
+                    >
+                      {s.label}
+                    </ProductAppLink>
+                  ) : (
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand underline decoration-brand/35 underline-offset-[3px] hover:decoration-brand"
+                    >
+                      {s.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

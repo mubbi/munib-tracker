@@ -40,7 +40,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 5027",
-      href: "https://sunnah.com/bukhari:5027",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5027",
     },
     {
       type: "p",
@@ -94,7 +94,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 6125",
-      href: "https://sunnah.com/bukhari:6125",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6125",
     },
     {
       type: "p",
@@ -109,7 +109,7 @@ export const article: Article = {
       type: "evidence",
       kind: "hadith",
       reference: "صحيح البخاري 5035",
-      href: "https://sunnah.com/bukhari:5035",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=5035",
     },
     {
       type: "steps",
@@ -165,7 +165,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "تنجح الحلقة أكثر حين يدعمها البيت. اسأل المعلّم عمّا يعمل عليه طفلك، وخصّص بضع دقائق كل يوم لمراجعته معًا. وإن كانت قراءتك أنت محدودة، فالتعلّم إلى جانب طفلك قد يكون هدية لكليكما. ويروي صحيح مسلم أن السكينة والرحمة تنزلان على القوم الذين يجتمعون في بيت من بيوت الله لتلاوة كتابه ومدارسته ([صحيح مسلم 2699](https://sunnah.com/muslim:2699a)).",
+      text: "تنجح الحلقة أكثر حين يدعمها البيت. اسأل المعلّم عمّا يعمل عليه طفلك، وخصّص بضع دقائق كل يوم لمراجعته معًا. وإن كانت قراءتك أنت محدودة، فالتعلّم إلى جانب طفلك قد يكون هدية لكليكما. ويروي صحيح مسلم أن السكينة والرحمة تنزلان على القوم الذين يجتمعون في بيت من بيوت الله لتلاوة كتابه ومدارسته ([صحيح مسلم 2699](https://my.munibtracker.app/hadith/muslim?q=6853)).",
     },
     {
       type: "note",
@@ -193,10 +193,22 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحيح البخاري 5027 — Sunnah.com", url: "https://sunnah.com/bukhari:5027" },
-    { label: "صحيح البخاري 6125 — Sunnah.com", url: "https://sunnah.com/bukhari:6125" },
-    { label: "صحيح البخاري 5035 — Sunnah.com", url: "https://sunnah.com/bukhari:5035" },
-    { label: "صحيح مسلم 2699 — Sunnah.com", url: "https://sunnah.com/muslim:2699a" },
+    {
+      label: "صحيح البخاري 5027 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5027",
+    },
+    {
+      label: "صحيح البخاري 6125 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6125",
+    },
+    {
+      label: "صحيح البخاري 5035 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=5035",
+    },
+    {
+      label: "صحيح مسلم 2699 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6853",
+    },
   ],
   faqs: [
     {

@@ -46,7 +46,7 @@ export const article: Article = {
       kind: "quran",
       arabic: "خُذۡ مِنۡ أَمۡوَٰلِهِمۡ صَدَقَةٗ تُطَهِّرُهُمۡ وَتُزَكِّيهِم بِهَا وَصَلِّ عَلَيۡهِمۡۖ إِنَّ صَلَوٰتَكَ سَكَنٞ لَّهُمۡۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ",
       reference: "سورة التوبة 9:103",
-      href: "https://quran.com/9/103",
+      href: "https://my.munibtracker.app/quran/9?ayah=103",
     },
     {
       type: "p",
@@ -58,7 +58,7 @@ export const article: Article = {
       arabic:
         "ادْعُهُمْ إِلَى شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ، وَأَنِّي رَسُولُ اللَّهِ، فَإِنْ هُمْ أَطَاعُوا لِذَلِكَ فَأَعْلِمْهُمْ أَنَّ اللَّهَ قَدِ افْتَرَضَ عَلَيْهِمْ خَمْسَ صَلَوَاتٍ فِي كُلِّ يَوْمٍ وَلَيْلَةٍ، فَإِنْ هُمْ أَطَاعُوا لِذَلِكَ فَأَعْلِمْهُمْ أَنَّ اللَّهَ افْتَرَضَ عَلَيْهِمْ صَدَقَةً فِي أَمْوَالِهِمْ، تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ وَتُرَدُّ عَلَى فُقَرَائِهِمْ",
       reference: "صحيح البخاري 1395",
-      href: "https://sunnah.com/bukhari:1395",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1395",
       note: "عن ابن عباس رضي الله عنهما",
     },
     {
@@ -76,7 +76,7 @@ export const article: Article = {
       arabic:
         "لَيْسَ فِيمَا دُونَ خَمْسِ ذَوْدٍ صَدَقَةٌ مِنَ الإِبِلِ، وَلَيْسَ فِيمَا دُونَ خَمْسِ أَوَاقٍ صَدَقَةٌ، وَلَيْسَ فِيمَا دُونَ خَمْسَةِ أَوْسُقٍ صَدَقَةٌ",
       reference: "صحيح البخاري 1447",
-      href: "https://sunnah.com/bukhari:1447",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1447",
       note: "عن أبي سعيد الخدري رضي الله عنه",
     },
     {
@@ -206,7 +206,7 @@ export const article: Article = {
       arabic:
         "إِنَّمَا ٱلصَّدَقَٰتُ لِلۡفُقَرَآءِ وَٱلۡمَسَٰكِينِ وَٱلۡعَٰمِلِينَ عَلَيۡهَا وَٱلۡمُؤَلَّفَةِ قُلُوبُهُمۡ وَفِي ٱلرِّقَابِ وَٱلۡغَٰرِمِينَ وَفِي سَبِيلِ ٱللَّهِ وَٱبۡنِ ٱلسَّبِيلِۖ فَرِيضَةٗ مِّنَ ٱللَّهِۗ وَٱللَّهُ عَلِيمٌ حَكِيمٞ",
       reference: "سورة التوبة 9:60",
-      href: "https://quran.com/9/60",
+      href: "https://my.munibtracker.app/quran/9?ayah=60",
     },
     {
       type: "p",
@@ -225,12 +225,21 @@ export const article: Article = {
   ],
   sources: [
     {
-      label: "سورة التوبة 9:103 — Quran.com",
-      url: "https://quran.com/9/103",
+      label: "سورة التوبة 9:103 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/9?ayah=103",
     },
-    { label: "سورة التوبة 9:60 — Quran.com", url: "https://quran.com/9/60" },
-    { label: "صحيح البخاري 1395 — Sunnah.com", url: "https://sunnah.com/bukhari:1395" },
-    { label: "صحيح البخاري 1447 — Sunnah.com", url: "https://sunnah.com/bukhari:1447" },
+    {
+      label: "سورة التوبة 9:60 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/9?ayah=60",
+    },
+    {
+      label: "صحيح البخاري 1395 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1395",
+    },
+    {
+      label: "صحيح البخاري 1447 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1447",
+    },
     {
       label: "hadith-api (fawazahmed0)، قاعدة بيانات الحديث المفتوحة المأخوذ منها نص الحديث",
       url: "https://github.com/fawazahmed0/hadith-api",

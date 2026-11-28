@@ -45,7 +45,7 @@ export const article: Article = {
       translation:
         "Indeed, We sent it [i.e., the Qur’ān] down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit [i.e., Gabriel] descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
       reference: "Qur'an 97:1–5",
-      href: "https://quran.com/97/1-5",
+      href: "https://my.munibtracker.app/quran/passage?surah=97&from=1&to=5",
       note: "Translation: Saheeh International",
     },
     {
@@ -65,7 +65,7 @@ export const article: Article = {
       translation:
         'Narrated Abu Huraira: The Prophet (ﷺ) said, "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven; and whoever fasts in the month of Ramadan out of sincere faith, and hoping for a reward from Allah, then all his previous sins will be forgiven."',
       reference: "Sahih al-Bukhari 1901",
-      href: "https://sunnah.com/bukhari:1901",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=1901",
     },
     {
       type: "p",
@@ -83,7 +83,7 @@ export const article: Article = {
       translation:
         'Narrated `Aisha: Allah\'s Messenger (ﷺ) said, "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan."',
       reference: "Sahih al-Bukhari 2017",
-      href: "https://sunnah.com/bukhari:2017",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2017",
     },
     {
       type: "p",
@@ -132,7 +132,7 @@ export const article: Article = {
       translation:
         "It was narrated from 'Aishah that she said: \"O Messenger of Allah, what do you think I should say in my supplication, if I come upon Laylatul-Qadr?\" He said: \"Say: 'Allahumma innaka 'afuwwun tuhibbul-'afwa, fa'fu 'anni (O Allah, You are Forgiving and love forgiveness, so forgive me).'\"",
       reference: "Sunan Ibn Majah 3850; Jami' at-Tirmidhi 3513",
-      href: "https://sunnah.com/ibnmajah:3850",
+      href: "https://my.munibtracker.app/hadith/ibnmajah?q=3850",
       note: "Grades on Sunnah.com: Ibn Majah 3850 — Sahih (Darussalam); Tirmidhi 3513 — Sahih (Darussalam)",
     },
     {
@@ -151,7 +151,7 @@ export const article: Article = {
       translation:
         "Narrated Aisha: With the start of the last ten days of Ramadan, the Prophet (ﷺ) used to tighten his waist belt (i.e. work hard) and used to pray all the night, and used to keep his family awake for the prayers.",
       reference: "Sahih al-Bukhari 2024",
-      href: "https://sunnah.com/bukhari:2024",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=2024",
     },
     {
       type: "steps",
@@ -180,7 +180,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "If night prayer is new to you, [how to pray Tahajjud](/resources/salah/how-to-pray-tahajjud) covers when and how. The Prophet ﷺ also spent the last ten nights in i'tikaf, staying in the Masjid for worship, every year until he died ([Sahih al-Bukhari 2026](https://sunnah.com/bukhari:2026)).",
+      text: "If night prayer is new to you, [how to pray Tahajjud](/resources/salah/how-to-pray-tahajjud) covers when and how. The Prophet ﷺ also spent the last ten nights in i'tikaf, staying in the Masjid for worship, every year until he died ([Sahih al-Bukhari 2026](https://my.munibtracker.app/hadith/bukhari?q=2026)).",
     },
     {
       type: "note",
@@ -214,25 +214,58 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 97:1–5 — Quran.com (Saheeh International)", url: "https://quran.com/97/1-5" },
-    { label: "Sahih al-Bukhari 1901 — Sunnah.com", url: "https://sunnah.com/bukhari:1901" },
-    { label: "Sahih al-Bukhari 2017 — Sunnah.com", url: "https://sunnah.com/bukhari:2017" },
-    { label: "Sahih al-Bukhari 2020 — Sunnah.com", url: "https://sunnah.com/bukhari:2020" },
-    { label: "Sahih al-Bukhari 2016 — Sunnah.com", url: "https://sunnah.com/bukhari:2016" },
-    { label: "Sahih al-Bukhari 2015 — Sunnah.com", url: "https://sunnah.com/bukhari:2015" },
-    { label: "Sahih Muslim 762 — Sunnah.com", url: "https://sunnah.com/muslim:762a" },
-    { label: "Sahih Muslim 1167 — Sunnah.com", url: "https://sunnah.com/muslim:1167a" },
     {
-      label: "Sunan Ibn Majah 3850 — Sunnah.com (Sahih, Darussalam)",
-      url: "https://sunnah.com/ibnmajah:3850",
+      label: "Qur'an 97:1–5 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/passage?surah=97&from=1&to=5",
     },
     {
-      label: "Jami' at-Tirmidhi 3513 — Sunnah.com (Sahih, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:3513",
+      label: "Sahih al-Bukhari 1901 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1901",
     },
-    { label: "Sahih al-Bukhari 2024 — Sunnah.com", url: "https://sunnah.com/bukhari:2024" },
-    { label: "Sahih al-Bukhari 1902 — Sunnah.com", url: "https://sunnah.com/bukhari:1902" },
-    { label: "Sahih al-Bukhari 2026 — Sunnah.com", url: "https://sunnah.com/bukhari:2026" },
+    {
+      label: "Sahih al-Bukhari 2017 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2017",
+    },
+    {
+      label: "Sahih al-Bukhari 2020 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2020",
+    },
+    {
+      label: "Sahih al-Bukhari 2016 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2016",
+    },
+    {
+      label: "Sahih al-Bukhari 2015 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2015",
+    },
+    {
+      label: "Sahih Muslim 762 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1785",
+    },
+    {
+      label: "Sahih Muslim 1167 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2769",
+    },
+    {
+      label: "Sunan Ibn Majah 3850 — Munib Tracker (Sahih, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/ibnmajah?q=3850",
+    },
+    {
+      label: "Jami' at-Tirmidhi 3513 — Munib Tracker (Sahih, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3513",
+    },
+    {
+      label: "Sahih al-Bukhari 2024 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2024",
+    },
+    {
+      label: "Sahih al-Bukhari 1902 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1902",
+    },
+    {
+      label: "Sahih al-Bukhari 2026 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=2026",
+    },
   ],
   faqs: [
     {

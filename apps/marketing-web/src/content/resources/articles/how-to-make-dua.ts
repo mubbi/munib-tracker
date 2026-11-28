@@ -43,7 +43,7 @@ export const article: Article = {
       translation:
         'And your Lord says, "Call upon Me; I will respond to you." Indeed, those who disdain My worship will enter Hell [rendered] contemptible.',
       reference: "Qur'an 40:60",
-      href: "https://quran.com/40/60",
+      href: "https://my.munibtracker.app/quran/40?ayah=60",
       note: "Translation: Saheeh International",
     },
     {
@@ -57,7 +57,7 @@ export const article: Article = {
       translation:
         "Narrated An-Nu'man bin Bashir: that the Prophet (ﷺ) said: \"Supplication is the worship.\" Then he recited: 'And your Lord said: 'Call upon Me, I will answer you. Verily, those who scorn my My worship, they will surely enter Hell in humiliation (40:60).'\"",
       reference: "Jami' at-Tirmidhi 3247",
-      href: "https://sunnah.com/tirmidhi:3247",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=3247",
       note: "Grade on Sunnah.com: Sahih (Darussalam). The Arabic shown is the Prophet's ﷺ statement before the ayah.",
     },
     {
@@ -72,7 +72,7 @@ export const article: Article = {
       translation:
         "And when My servants ask you, [O Muḥammad], concerning Me - indeed I am near. I respond to the invocation of the supplicant when he calls upon Me. So let them respond to Me [by obedience] and believe in Me that they may be [rightly] guided.",
       reference: "Qur'an 2:186",
-      href: "https://quran.com/2/186",
+      href: "https://my.munibtracker.app/quran/2?ayah=186",
       note: "Translation: Saheeh International",
     },
     { type: "h2", text: "How to make Dua, step by step" },
@@ -88,7 +88,7 @@ export const article: Article = {
       translation:
         "`Amr bin Malik Al-Janbi narrated that he heard Fadalah bin `Ubaid saying: “The Prophet (ﷺ) heard a man supplicating in his Salat but he did not send Salat upon the Prophet (ﷺ), so the Prophet (ﷺ) said: ‘This one has rushed.’ Then he called him and said to him, or to someone other than him: ‘When one of you performs Salat, then let him begin by expressing gratitude to Allah and praising Him. Then, let him send Salat upon the Prophet (ﷺ), then let him supplicate after that, whatever he wishes.’”",
       reference: "Jami' at-Tirmidhi 3477",
-      href: "https://sunnah.com/tirmidhi:3477",
+      href: "https://my.munibtracker.app/hadith/tirmidhi?q=3477",
       note: "Grade on Sunnah.com: Hasan (Darussalam)",
     },
     {
@@ -96,7 +96,7 @@ export const article: Article = {
       items: [
         {
           title: "Begin with praise",
-          text: "Start with words such as Alhamdulillah, and call on Allah by His names. The Qur'an says that the best names belong to Allah and tells us to call on Him by them ([Qur'an 7:180](https://quran.com/7/180)).",
+          text: "Start with words such as Alhamdulillah, and call on Allah by His names. The Qur'an says that the best names belong to Allah and tells us to call on Him by them ([Qur'an 7:180](https://my.munibtracker.app/quran/7?ayah=180)).",
         },
         {
           title: "Send salawat upon the Prophet ﷺ",
@@ -104,11 +104,11 @@ export const article: Article = {
         },
         {
           title: "Ask clearly and with certainty",
-          text: "Say what you need. The Prophet ﷺ taught us to ask with resolve and not to say “O Allah, give me if You wish” ([Sahih al-Bukhari 6338](https://sunnah.com/bukhari:6338)).",
+          text: "Say what you need. The Prophet ﷺ taught us to ask with resolve and not to say “O Allah, give me if You wish” ([Sahih al-Bukhari 6338](https://my.munibtracker.app/hadith/bukhari?q=6338)).",
         },
         {
           title: "Be humble and unhurried",
-          text: "The Qur'an tells us to call on our Lord humbly and privately ([Qur'an 7:55](https://quran.com/7/55)). You may raise your hands: a hadith says that Allah is generous and does not turn away empty the hands a servant raises to Him ([Sunan Abi Dawud 1488](https://sunnah.com/abudawud:1488), graded Sahih by al-Albani).",
+          text: "The Qur'an tells us to call on our Lord humbly and privately ([Qur'an 7:55](https://my.munibtracker.app/quran/7?ayah=55)). You may raise your hands: a hadith says that Allah is generous and does not turn away empty the hands a servant raises to Him ([Sunan Abi Dawud 1488](https://my.munibtracker.app/hadith/abudawud?q=1488), graded Sahih by al-Albani).",
         },
         {
           title: "Ask for both worlds",
@@ -134,13 +134,22 @@ export const article: Article = {
       caption: "Times when Dua is especially hoped to be answered",
       head: ["Time", "Source"],
       rows: [
-        ["The last third of the night", "[Sahih al-Bukhari 1145](https://sunnah.com/bukhari:1145)"],
-        ["In sujud during Salah", "[Sahih Muslim 482](https://sunnah.com/muslim:482)"],
+        [
+          "The last third of the night",
+          "[Sahih al-Bukhari 1145](https://my.munibtracker.app/hadith/bukhari?q=1145)",
+        ],
+        [
+          "In sujud during Salah",
+          "[Sahih Muslim 482](https://my.munibtracker.app/hadith/muslim?q=1083)",
+        ],
         [
           "Between the Adhan and the iqamah",
-          "[Sunan Abi Dawud 521](https://sunnah.com/abudawud:521) (Sahih, al-Albani)",
+          "[Sunan Abi Dawud 521](https://my.munibtracker.app/hadith/abudawud?q=521) (Sahih, al-Albani)",
         ],
-        ["A short time on Friday", "[Sahih al-Bukhari 935](https://sunnah.com/bukhari:935)"],
+        [
+          "A short time on Friday",
+          "[Sahih al-Bukhari 935](https://my.munibtracker.app/hadith/bukhari?q=935)",
+        ],
       ],
     },
     {
@@ -150,7 +159,7 @@ export const article: Article = {
       translation:
         "Abu Huraira reported: The Messenger of Allah (ﷺ) said: The nearest a servant comes to his Lord is when he is prostrating himself, so make supplication (in this state).",
       reference: "Sahih Muslim 482",
-      href: "https://sunnah.com/muslim:482",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1083",
     },
     {
       type: "p",
@@ -159,7 +168,7 @@ export const article: Article = {
     { type: "h2", text: "What to say" },
     {
       type: "p",
-      text: "You can speak to Allah in your own words and in any language. The Duas of the Qur'an and the Sunnah are worth learning as well, because they are short and they cover more than we would think to ask for. Anas (may Allah be pleased with him) said that the most frequent Dua of the Prophet ﷺ used these words from the Qur'an ([Sahih al-Bukhari 6389](https://sunnah.com/bukhari:6389)):",
+      text: "You can speak to Allah in your own words and in any language. The Duas of the Qur'an and the Sunnah are worth learning as well, because they are short and they cover more than we would think to ask for. Anas (may Allah be pleased with him) said that the most frequent Dua of the Prophet ﷺ used these words from the Qur'an ([Sahih al-Bukhari 6389](https://my.munibtracker.app/hadith/bukhari?q=6389)):",
     },
     {
       type: "evidence",
@@ -168,7 +177,7 @@ export const article: Article = {
       translation:
         'But among them is he who says, "Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire."',
       reference: "Qur'an 2:201",
-      href: "https://quran.com/2/201",
+      href: "https://my.munibtracker.app/quran/2?ayah=201",
       note: "Translation: Saheeh International",
     },
     {
@@ -189,15 +198,15 @@ export const article: Article = {
       translation:
         "Abu Huraira reported that Allah's Messenger (ﷺ) said: The supplication of every one of you is granted if he does not grow impatient and says: I supplicated but it was not granted.",
       reference: "Sahih Muslim 2735",
-      href: "https://sunnah.com/muslim:2735a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6934",
     },
     {
       type: "p",
-      text: "An answer is not always the thing you asked for, in the form you pictured. Another hadith says that no Muslim calls on Allah without Allah either granting the request or turning away a harm equal to it, as long as the person does not ask for something sinful or for the cutting of family ties ([Jami' at-Tirmidhi 3573](https://sunnah.com/tirmidhi:3573), graded Hasan).",
+      text: "An answer is not always the thing you asked for, in the form you pictured. Another hadith says that no Muslim calls on Allah without Allah either granting the request or turning away a harm equal to it, as long as the person does not ask for something sinful or for the cutting of family ties ([Jami' at-Tirmidhi 3573](https://my.munibtracker.app/hadith/tirmidhi?q=3573), graded Hasan).",
     },
     {
       type: "p",
-      text: "The Sunnah also points to what can stand in the way. The Prophet ﷺ described a traveller, dusty and worn out, raising his hands and calling “O Lord, O Lord” while his food, drink and clothing were unlawful, and asked how such a person could be answered ([Sahih Muslim 1015](https://sunnah.com/muslim:1015)). Looking after how you earn and spend is part of looking after your Dua.",
+      text: "The Sunnah also points to what can stand in the way. The Prophet ﷺ described a traveller, dusty and worn out, raising his hands and calling “O Lord, O Lord” while his food, drink and clothing were unlawful, and asked how such a person could be answered ([Sahih Muslim 1015](https://my.munibtracker.app/hadith/muslim?q=2346)). Looking after how you earn and spend is part of looking after your Dua.",
     },
     {
       type: "ul",
@@ -221,38 +230,74 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "Qur'an 40:60 — Quran.com (Saheeh International)", url: "https://quran.com/40/60" },
-    { label: "Qur'an 2:186 — Quran.com (Saheeh International)", url: "https://quran.com/2/186" },
-    { label: "Qur'an 2:201 — Quran.com (Saheeh International)", url: "https://quran.com/2/201" },
-    { label: "Qur'an 7:180 — Quran.com (Saheeh International)", url: "https://quran.com/7/180" },
-    { label: "Qur'an 7:55 — Quran.com (Saheeh International)", url: "https://quran.com/7/55" },
     {
-      label: "Jami' at-Tirmidhi 3247 — Sunnah.com (Sahih, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:3247",
+      label: "Qur'an 40:60 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/40?ayah=60",
     },
     {
-      label: "Jami' at-Tirmidhi 3477 — Sunnah.com (Hasan, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:3477",
+      label: "Qur'an 2:186 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=186",
     },
-    { label: "Sahih al-Bukhari 6338 — Sunnah.com", url: "https://sunnah.com/bukhari:6338" },
     {
-      label: "Sunan Abi Dawud 1488 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:1488",
+      label: "Qur'an 2:201 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/2?ayah=201",
     },
-    { label: "Sahih al-Bukhari 1145 — Sunnah.com", url: "https://sunnah.com/bukhari:1145" },
-    { label: "Sahih Muslim 482 — Sunnah.com", url: "https://sunnah.com/muslim:482" },
     {
-      label: "Sunan Abi Dawud 521 — Sunnah.com (Sahih, Al-Albani)",
-      url: "https://sunnah.com/abudawud:521",
+      label: "Qur'an 7:180 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/7?ayah=180",
     },
-    { label: "Sahih al-Bukhari 935 — Sunnah.com", url: "https://sunnah.com/bukhari:935" },
-    { label: "Sahih al-Bukhari 6389 — Sunnah.com", url: "https://sunnah.com/bukhari:6389" },
-    { label: "Sahih Muslim 2735 — Sunnah.com", url: "https://sunnah.com/muslim:2735a" },
     {
-      label: "Jami' at-Tirmidhi 3573 — Sunnah.com (Hasan, Darussalam)",
-      url: "https://sunnah.com/tirmidhi:3573",
+      label: "Qur'an 7:55 — Munib Tracker (Saheeh International)",
+      url: "https://my.munibtracker.app/quran/7?ayah=55",
     },
-    { label: "Sahih Muslim 1015 — Sunnah.com", url: "https://sunnah.com/muslim:1015" },
+    {
+      label: "Jami' at-Tirmidhi 3247 — Munib Tracker (Sahih, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3247",
+    },
+    {
+      label: "Jami' at-Tirmidhi 3477 — Munib Tracker (Hasan, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3477",
+    },
+    {
+      label: "Sahih al-Bukhari 6338 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6338",
+    },
+    {
+      label: "Sunan Abi Dawud 1488 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1488",
+    },
+    {
+      label: "Sahih al-Bukhari 1145 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=1145",
+    },
+    {
+      label: "Sahih Muslim 482 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1083",
+    },
+    {
+      label: "Sunan Abi Dawud 521 — Munib Tracker (Sahih, Al-Albani)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=521",
+    },
+    {
+      label: "Sahih al-Bukhari 935 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=935",
+    },
+    {
+      label: "Sahih al-Bukhari 6389 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6389",
+    },
+    {
+      label: "Sahih Muslim 2735 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6934",
+    },
+    {
+      label: "Jami' at-Tirmidhi 3573 — Munib Tracker (Hasan, Darussalam)",
+      url: "https://my.munibtracker.app/hadith/tirmidhi?q=3573",
+    },
+    {
+      label: "Sahih Muslim 1015 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2346",
+    },
   ],
   faqs: [
     {

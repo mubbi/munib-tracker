@@ -18,6 +18,8 @@ export type DownloadPlacement =
   | "audience_page"
   | "compare_page"
   | "article"
+  /** A product-app link inside page copy (Qur'an / hadith citations, inline links). */
+  | "content_link"
   | "hub_page"
   | "how_it_works_page"
   | "why_page"

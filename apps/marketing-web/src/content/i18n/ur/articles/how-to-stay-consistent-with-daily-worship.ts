@@ -42,7 +42,7 @@ export const article: Article = {
       translation:
         "مجھ سے محمد بن عرعرہ نے بیان کیا، کہا ہم سے شعبہ نے بیان کیا، ان سے سعد بن ابراہیم نے، ان سے ابوسلمہ نے اور ان سے عائشہ رضی اللہ عنہا نے بیان کیا کہ نبی کریم صلی اللہ علیہ وسلم سے پوچھا گیا کون سا عمل اللہ کے نزدیک زیادہ پسندیدہ ہے؟ فرمایا کہ جس پر ہمیشگی کی جائے، خواہ وہ تھوڑی ہی ہو اور فرمایا نیک کام کرنے میں اتنی ہی تکلیف اٹھاؤ جتنی طاقت ہے ( جو ہمیشہ نبھ سکے ) ۔",
       reference: "صحیح بخاری 6465",
-      href: "https://sunnah.com/bukhari:6465",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=6465",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح بخاری 6465۔ اسی طرح کی ایک روایت صحیح مسلم 782b میں ہے۔",
     },
     {
@@ -59,7 +59,7 @@ export const article: Article = {
       arabic: "لَا يُكَلِّفُ ٱللَّهُ نَفۡسًا إِلَّا وُسۡعَهَاۚ",
       translation: "خدا کسی شخص کو اس کی طاقت سے زیادہ تکلیف نہیں دیتا",
       reference: "سورۃ البقرہ 2:286",
-      href: "https://quran.com/2/286",
+      href: "https://my.munibtracker.app/quran/2?ayah=286",
       note: "ترجمہ: فتح محمد جالندھری (آیت کا ایک حصہ)",
     },
     {
@@ -81,7 +81,7 @@ export const article: Article = {
       translation:
         "حنظلہ ( یہ ) گھڑی گھڑی کا معاملہ ہے ( ایک گھڑی کسی طرح ہوتی ہے اور دوسری کسی اور طرح ۔ )",
       reference: "صحیح مسلم 2750",
-      href: "https://sunnah.com/muslim:2750b",
+      href: "https://my.munibtracker.app/hadith/muslim?q=6967",
       note: "اردو ترجمہ: hadith-api (fawazahmed0)، صحیح مسلم 2750 (اقتباس)",
     },
     {
@@ -148,7 +148,7 @@ export const article: Article = {
         "Actions are (judged) by motives (niyyah), so each man will have what he intended.",
       translationLang: "en",
       reference: "اربعین نووی 1",
-      href: "https://sunnah.com/nawawi40:1",
+      href: "https://my.munibtracker.app/hadith/nawawi40?q=1",
       note: "Narrated by Umar ibn al-Khattab; recorded by al-Bukhari and Muslim. Translation as published on Sunnah.com.",
     },
     {
@@ -185,11 +185,26 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "صحیح بخاری 6465 — Sunnah.com", url: "https://sunnah.com/bukhari:6465" },
-    { label: "صحیح مسلم 782b — Sunnah.com", url: "https://sunnah.com/muslim:782b" },
-    { label: "سورۃ البقرہ 2:286 — Quran.com", url: "https://quran.com/2/286" },
-    { label: "صحیح مسلم 2750b — Sunnah.com", url: "https://sunnah.com/muslim:2750b" },
-    { label: "اربعین نووی 1 — Sunnah.com", url: "https://sunnah.com/nawawi40:1" },
+    {
+      label: "صحیح بخاری 6465 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=6465",
+    },
+    {
+      label: "صحیح مسلم 782b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1828",
+    },
+    {
+      label: "سورۃ البقرہ 2:286 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/2?ayah=286",
+    },
+    {
+      label: "صحیح مسلم 2750b — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=6967",
+    },
+    {
+      label: "اربعین نووی 1 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/nawawi40?q=1",
+    },
   ],
   faqs: [
     {

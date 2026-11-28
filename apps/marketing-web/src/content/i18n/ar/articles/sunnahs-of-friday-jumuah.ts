@@ -38,7 +38,7 @@ export const article: Article = {
       arabic:
         "خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ فِيهِ خُلِقَ آدَمُ وَفِيهِ أُدْخِلَ الْجَنَّةَ وَفِيهِ أُخْرِجَ مِنْهَا وَلاَ تَقُومُ السَّاعَةُ إِلاَّ فِي يَوْمِ الْجُمُعَةِ",
       reference: "صحيح مسلم 854",
-      href: "https://sunnah.com/muslim:854b",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1977",
     },
     {
       type: "p",
@@ -50,11 +50,11 @@ export const article: Article = {
       arabic:
         "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓاْ إِذَا نُودِيَ لِلصَّلَوٰةِ مِن يَوۡمِ ٱلۡجُمُعَةِ فَٱسۡعَوۡاْ إِلَىٰ ذِكۡرِ ٱللَّهِ وَذَرُواْ ٱلۡبَيۡعَۚ ذَٰلِكُمۡ خَيۡرٞ لَّكُمۡ إِن كُنتُمۡ تَعۡلَمُونَ",
       reference: "سورة الجمعة 62:9",
-      href: "https://quran.com/62/9",
+      href: "https://my.munibtracker.app/quran/62?ayah=9",
     },
     {
       type: "p",
-      text: "صلاة الجمعة خطبة من جزأين تتبعها ركعتان جهريتان خلف الإمام، وهي تقوم مقام الظهر لمن حضرها. وفي الحديث أنها حقّ واجب على كل مسلم في جماعة إلا أربعة: عبد مملوك أو امرأة أو صبي أو مريض ([سنن أبي داود 1067](https://sunnah.com/abudawud:1067)، صحّحه الألباني). ومن لم يحضرها صلّى الظهر كعادته.",
+      text: "صلاة الجمعة خطبة من جزأين تتبعها ركعتان جهريتان خلف الإمام، وهي تقوم مقام الظهر لمن حضرها. وفي الحديث أنها حقّ واجب على كل مسلم في جماعة إلا أربعة: عبد مملوك أو امرأة أو صبي أو مريض ([سنن أبي داود 1067](https://my.munibtracker.app/hadith/abudawud?q=1067)، صحّحه الألباني). ومن لم يحضرها صلّى الظهر كعادته.",
     },
     {
       type: "note",
@@ -73,7 +73,7 @@ export const article: Article = {
       arabic:
         "لاَ يَغْتَسِلُ رَجُلٌ يَوْمَ الْجُمُعَةِ، وَيَتَطَهَّرُ مَا اسْتَطَاعَ مِنْ طُهْرٍ، وَيَدَّهِنُ مِنْ دُهْنِهِ، أَوْ يَمَسُّ مِنْ طِيبِ بَيْتِهِ ثُمَّ يَخْرُجُ، فَلاَ يُفَرِّقُ بَيْنَ اثْنَيْنِ، ثُمَّ يُصَلِّي مَا كُتِبَ لَهُ، ثُمَّ يُنْصِتُ إِذَا تَكَلَّمَ الإِمَامُ، إِلاَّ غُفِرَ لَهُ مَا بَيْنَهُ وَبَيْنَ الْجُمُعَةِ الأُخْرَى",
       reference: "صحيح البخاري 883",
-      href: "https://sunnah.com/bukhari:883",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=883",
     },
     {
       type: "ul",
@@ -88,16 +88,16 @@ export const article: Article = {
       type: "note",
       tone: "scholar",
       title: "هل غسل الجمعة واجب؟",
-      text: "جاء في الحديث: «الْغُسْلُ يَوْمَ الْجُمُعَةِ وَاجِبٌ عَلَى كُلِّ مُحْتَلِمٍ» ([صحيح مسلم 846](https://sunnah.com/muslim:846a)). وقد بحث العلماء قديمًا هل يدلّ ذلك على الوجوب الحتمي أم على سنّة مؤكّدة. والجميع متّفقون على فضله. فاتّبع ما عليه مذهبك أو أهل العلم الموثوقون في بلدك.",
+      text: "جاء في الحديث: «الْغُسْلُ يَوْمَ الْجُمُعَةِ وَاجِبٌ عَلَى كُلِّ مُحْتَلِمٍ» ([صحيح مسلم 846](https://my.munibtracker.app/hadith/muslim?q=1957)). وقد بحث العلماء قديمًا هل يدلّ ذلك على الوجوب الحتمي أم على سنّة مؤكّدة. والجميع متّفقون على فضله. فاتّبع ما عليه مذهبك أو أهل العلم الموثوقون في بلدك.",
     },
     { type: "h2", text: "بكِّر وأنصت للخطبة" },
     {
       type: "p",
-      text: "كلّما بكّرت في الحضور عظم الأجر. فقد شبّه النبي ﷺ من يأتي في الساعة الأولى بمن قرّب بدنة، ثم بقرة، ثم كبشًا أقرن، ثم دجاجة، ثم بيضة، وأخبر أن الإمام إذا خرج حضرت الملائكة يستمعون الذكر ([صحيح البخاري 881](https://sunnah.com/bukhari:881)).",
+      text: "كلّما بكّرت في الحضور عظم الأجر. فقد شبّه النبي ﷺ من يأتي في الساعة الأولى بمن قرّب بدنة، ثم بقرة، ثم كبشًا أقرن، ثم دجاجة، ثم بيضة، وأخبر أن الإمام إذا خرج حضرت الملائكة يستمعون الذكر ([صحيح البخاري 881](https://my.munibtracker.app/hadith/bukhari?q=881)).",
     },
     {
       type: "p",
-      text: "وإذا بدأت الخطبة فالإنصات هو العبادة. حتى قولك لمن بجانبك «أَنْصِتْ» والإمام يخطب يُعدّ لغوًا ([صحيح البخاري 934](https://sunnah.com/bukhari:934)). وأجر الحضور على وجهه عظيم: من اغتسل ثم أتى الجمعة فصلّى ما قُدّر له، ثم أنصت حتى يفرغ الإمام من خطبته، ثم صلّى معه، غُفر له ما بينه وبين الجمعة الأخرى وفضل ثلاثة أيام ([صحيح مسلم 857](https://sunnah.com/muslim:857a)).",
+      text: "وإذا بدأت الخطبة فالإنصات هو العبادة. حتى قولك لمن بجانبك «أَنْصِتْ» والإمام يخطب يُعدّ لغوًا ([صحيح البخاري 934](https://my.munibtracker.app/hadith/bukhari?q=934)). وأجر الحضور على وجهه عظيم: من اغتسل ثم أتى الجمعة فصلّى ما قُدّر له، ثم أنصت حتى يفرغ الإمام من خطبته، ثم صلّى معه، غُفر له ما بينه وبين الجمعة الأخرى وفضل ثلاثة أيام ([صحيح مسلم 857](https://my.munibtracker.app/hadith/muslim?q=1987)).",
     },
     {
       type: "ul",
@@ -110,7 +110,7 @@ export const article: Article = {
     { type: "h2", text: "صلاة السنّة قبل الجمعة وبعدها" },
     {
       type: "p",
-      text: "قال النبي ﷺ إن من صلّى الجمعة فليصلِّ بعدها أربعًا ([صحيح مسلم 881](https://sunnah.com/muslim:881a)). وتصف المذاهب صلاة السنّة قبل الجمعة وبعدها على أوجه مختلفة:",
+      text: "قال النبي ﷺ إن من صلّى الجمعة فليصلِّ بعدها أربعًا ([صحيح مسلم 881](https://my.munibtracker.app/hadith/muslim?q=2036)). وتصف المذاهب صلاة السنّة قبل الجمعة وبعدها على أوجه مختلفة:",
     },
     {
       type: "table",
@@ -138,7 +138,7 @@ export const article: Article = {
       kind: "hadith",
       arabic: "مَنْ حَفِظَ عَشْرَ آيَاتٍ مِنْ أَوَّلِ سُورَةِ الْكَهْفِ عُصِمَ مِنَ الدَّجَّالِ",
       reference: "صحيح مسلم 809",
-      href: "https://sunnah.com/muslim:809a",
+      href: "https://my.munibtracker.app/hadith/muslim?q=1883",
     },
     {
       type: "p",
@@ -150,7 +150,7 @@ export const article: Article = {
       arabic:
         "إِنَّ مِنْ أَفْضَلِ أَيَّامِكُمْ يَوْمَ الْجُمُعَةِ فِيهِ خُلِقَ آدَمُ وَفِيهِ قُبِضَ وَفِيهِ النَّفْخَةُ وَفِيهِ الصَّعْقَةُ فَأَكْثِرُوا عَلَىَّ مِنَ الصَّلاَةِ فِيهِ فَإِنَّ صَلاَتَكُمْ مَعْرُوضَةٌ عَلَىَّ",
       reference: "سنن أبي داود 1047",
-      href: "https://sunnah.com/abudawud:1047",
+      href: "https://my.munibtracker.app/hadith/abudawud?q=1047",
       note: "درجته في Sunnah.com: صحيح (الألباني). النص المعروض هو أول الحديث.",
     },
     { type: "h2", text: "ساعة الإجابة" },
@@ -159,11 +159,11 @@ export const article: Article = {
       kind: "hadith",
       arabic: "فِيهِ سَاعَةٌ لاَ يُوَافِقُهَا عَبْدٌ مُسْلِمٌ، وَهْوَ قَائِمٌ يُصَلِّي، يَسْأَلُ اللَّهَ تَعَالَى شَيْئًا إِلاَّ أَعْطَاهُ إِيَّاهُ",
       reference: "صحيح البخاري 935",
-      href: "https://sunnah.com/bukhari:935",
+      href: "https://my.munibtracker.app/hadith/bukhari?q=935",
     },
     {
       type: "p",
-      text: "وفي رواية أخرى أن يوم الجمعة اثنتا عشرة ساعة، وفيها الأمر بالتماس تلك الساعة آخر ساعة بعد العصر ([سنن أبي داود 1048](https://sunnah.com/abudawud:1048)، صحّحه الألباني).",
+      text: "وفي رواية أخرى أن يوم الجمعة اثنتا عشرة ساعة، وفيها الأمر بالتماس تلك الساعة آخر ساعة بعد العصر ([سنن أبي داود 1048](https://my.munibtracker.app/hadith/abudawud?q=1048)، صحّحه الألباني).",
     },
     {
       type: "note",
@@ -199,27 +199,57 @@ export const article: Article = {
     },
   ],
   sources: [
-    { label: "سورة الجمعة 62:9 — Quran.com", url: "https://quran.com/62/9" },
-    { label: "صحيح مسلم 854 — Sunnah.com", url: "https://sunnah.com/muslim:854b" },
     {
-      label: "سنن أبي داود 1067 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1067",
+      label: "سورة الجمعة 62:9 — Munib Tracker",
+      url: "https://my.munibtracker.app/quran/62?ayah=9",
     },
-    { label: "صحيح البخاري 883 — Sunnah.com", url: "https://sunnah.com/bukhari:883" },
-    { label: "صحيح مسلم 846 — Sunnah.com", url: "https://sunnah.com/muslim:846a" },
-    { label: "صحيح البخاري 881 — Sunnah.com", url: "https://sunnah.com/bukhari:881" },
-    { label: "صحيح البخاري 934 — Sunnah.com", url: "https://sunnah.com/bukhari:934" },
-    { label: "صحيح مسلم 857 — Sunnah.com", url: "https://sunnah.com/muslim:857a" },
-    { label: "صحيح مسلم 881 — Sunnah.com", url: "https://sunnah.com/muslim:881a" },
-    { label: "صحيح مسلم 809 — Sunnah.com", url: "https://sunnah.com/muslim:809a" },
     {
-      label: "سنن أبي داود 1047 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1047",
+      label: "صحيح مسلم 854 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1977",
     },
-    { label: "صحيح البخاري 935 — Sunnah.com", url: "https://sunnah.com/bukhari:935" },
     {
-      label: "سنن أبي داود 1048 — Sunnah.com (صحيح، الألباني)",
-      url: "https://sunnah.com/abudawud:1048",
+      label: "سنن أبي داود 1067 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1067",
+    },
+    {
+      label: "صحيح البخاري 883 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=883",
+    },
+    {
+      label: "صحيح مسلم 846 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1957",
+    },
+    {
+      label: "صحيح البخاري 881 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=881",
+    },
+    {
+      label: "صحيح البخاري 934 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=934",
+    },
+    {
+      label: "صحيح مسلم 857 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1987",
+    },
+    {
+      label: "صحيح مسلم 881 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=2036",
+    },
+    {
+      label: "صحيح مسلم 809 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/muslim?q=1883",
+    },
+    {
+      label: "سنن أبي داود 1047 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1047",
+    },
+    {
+      label: "صحيح البخاري 935 — Munib Tracker",
+      url: "https://my.munibtracker.app/hadith/bukhari?q=935",
+    },
+    {
+      label: "سنن أبي داود 1048 — Munib Tracker (صحيح، الألباني)",
+      url: "https://my.munibtracker.app/hadith/abudawud?q=1048",
     },
   ],
   faqs: [
