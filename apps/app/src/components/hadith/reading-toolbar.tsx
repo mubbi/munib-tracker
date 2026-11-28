@@ -162,11 +162,10 @@ export function HadithReadingToolbar({
           </PressableScale>
         ) : null}
         {/* Horizontal chip row: keep Left/Right inside, let Up/Down leave; remember the last chip. */}
-        <TvFocusGuide autoFocus trapFocusLeft trapFocusRight>
+        <TvFocusGuide autoFocus trapFocusLeft trapFocusRight style={styles.scroll}>
           <TvScrollView
             ref={scrollRef}
             horizontal
-            style={styles.scroll}
             showsHorizontalScrollIndicator={Platform.OS === "web"}
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={styles.content}

@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Hatırlatmalar telefonda en iyi çalışır",
     "locationHighlight4Tv": "Şehri istediğiniz zaman Ayarlar'dan değiştirin",
     "ctaBodyTv": "Misafir olarak başlayın veya telefonunuzla QR kodunu tarayarak giriş yapın. Bu TV'de her şey çevrimdışı çalışır.",
-    "finishLater": "Sonra bitir"
+    "finishLater": "Sonra bitir",
+    "pending": {
+      "body": "Doğru namaz vakitleri ve size göre uyarlanmış bir uygulama için konumunuzu ve hatırlatıcılarınızı ekleyin.",
+      "action": "Kurulumu tamamla",
+      "barTitle": "Kurulumunuz bekliyor",
+      "barBody": "Daha iyi ve size özel bir deneyim için tamamlayın."
+    }
   },
   "appearance": {
     "eyebrow": "Ayarlar",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Okunan toplam güncellensin mi?",
     "correctTotalConfirmMsg": "Hatim toplamı {{count}} ayet olsun mu?",
     "correctTotalConfirmMsgPages": "Hatim toplamı {{count}} sayfa olsun mu?",
-    "correctTotalConfirmAction": "Toplamı güncelle"
+    "correctTotalConfirmAction": "Toplamı güncelle",
+    "groupPromo": {
+      "title": "Başkalarıyla mı okuyorsunuz?",
+      "body": "Ailenizle, arkadaşlarınızla ya da cami cemaatinizle bir grup hatmi başlatın. Kur'an bölümlere ayrılır ve herkes kendi payını okur.",
+      "action": "Grup hatmini deneyin"
+    }
   },
   "hifz": {
     "short": "Hıfz",
@@ -11884,5 +11895,18 @@
     "moveLater": "Sona taşı",
     "handleLabel": "{{item}} sırasını değiştir",
     "handleHint": "Taşımak için sürükleyin veya yukarı ve aşağı ok tuşlarına basın"
+  },
+  "openInApp": {
+    "title": "Bunu uygulamada açın",
+    "body": "Bu telefonda Munib Tracker var mı? Bağlantı orada açılır. Yoksa mağazadan indirin — uygulama kurulumdan sonra bu bağlantıyı açar. Ya da burada tarayıcıda devam edin.",
+    "action": "Uygulamada aç",
+    "continueHere": "Tarayıcıda devam edin"
+  },
+  "deferredInvite": {
+    "title": "Bir davetten mi geldiniz?",
+    "body": "Uygulamayı bir Munib Tracker davetinden veya QR kodundan yüklediyseniz, kaldığınız yerden devam etmek için «Yapıştır»a dokunun. Pano yalnızca «Yapıştır»a dokunduğunuzda okunur.",
+    "paste": "Davet bağlantısını yapıştır",
+    "notNow": "Şimdi değil",
+    "notALink": "Bu bir Munib Tracker davet bağlantısı değil."
   }
 }

@@ -9,6 +9,7 @@ import "@/global.css";
 import { setAppVersionInfo } from "@munib-tracker/api-client";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { AppIconHost } from "@/components/app-icon/app-icon-host";
+import { DeferredInviteHost } from "@/components/app-links/deferred-invite-host";
 import { AppStack } from "@/components/app-stack";
 import { AppVersionGate } from "@/components/app-update/app-version-gate";
 import { MiniPlayerErrorBoundary } from "@/components/audio/mini-player-error-boundary";
@@ -20,7 +21,6 @@ import { FocusLockHost } from "@/components/focus-lock/focus-lock-host";
 import { IdleMount } from "@/components/idle-mount";
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { LockAwareToastHost } from "@/components/lock-aware-toast-host";
-import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
 import { TvRemoteBridge } from "@/components/tv/tv-remote-bridge";
@@ -199,7 +199,6 @@ function RootLayout() {
                                               <LocalePathBootstrap />
                                               <RtlLayoutBootstrap />
                                               <WebPwaBootstrap />
-                                              <OnboardingGate />
                                               {/* Toasts sit BELOW the PIN lock (G-92) and
                                         unmount while it is up. Outside
                                         BlurTargetView so Android can capture a
@@ -211,6 +210,8 @@ function RootLayout() {
                                               <FocusLockHost />
                                               {/* NF-3.16: kids-mode guard, fard share, D34 re-consent. */}
                                               <CirclesHost />
+                                              {/* First launch after installing from an invite / QR: open it. */}
+                                              <DeferredInviteHost />
                                               {/* NF-2.23b: seasonal launcher icon (no-op on web / TV). */}
                                               <AppIconHost />
                                               <DeferredMiniPlayer />

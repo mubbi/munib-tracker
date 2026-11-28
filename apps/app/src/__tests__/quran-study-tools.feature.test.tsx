@@ -12,7 +12,11 @@ import { quranStore } from "@/stores/quran-store";
 import { buildKhatmPlan } from "@/test-support/fixtures/khatm";
 import { seedKhatm } from "@/test-support/khatm-store";
 import { lastCallArgs } from "@/test-support/mock-calls";
-import { resetExpoRouterMock, setMockSearchParams } from "@/test-support/mocks/expo-router";
+import {
+  mockRouter,
+  resetExpoRouterMock,
+  setMockSearchParams,
+} from "@/test-support/mocks/expo-router";
 import { mockToast, resetToastMock } from "@/test-support/mocks/toast-provider";
 import { renderWithTheme } from "@/test-support/render";
 
@@ -107,6 +111,20 @@ describe("Khatm — logging and reset (G-06)", () => {
     expect(
       await screen.findByText(t("khatm.logInvalid", { max: (6236).toLocaleString() })),
     ).toBeTruthy();
+  });
+
+  it("suggests group khatm alongside a personal plan (NF-3.18)", async () => {
+    await renderKhatm();
+    expect(screen.getByText(t("khatm.groupPromo.title"))).toBeTruthy();
+    await fireEvent.press(screen.getByText(t("khatm.groupPromo.action")));
+    expect(mockRouter.push).toHaveBeenCalledWith("/khatm-groups");
+  });
+
+  it("suggests group khatm before a plan is started too", async () => {
+    await seedKhatm({ plan: null });
+    await renderKhatm();
+    expect(screen.getByText(t("khatm.startTitle"))).toBeTruthy();
+    expect(screen.getByText(t("khatm.groupPromo.action"))).toBeTruthy();
   });
 });
 

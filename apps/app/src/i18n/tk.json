@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Ýatladyjylar telefonda has gowy işleýär",
     "locationHighlight4Tv": "Şäheri islendik wagt Sazlamalarda üýtgediň",
     "ctaBodyTv": "Myhman hökmünde başlaň ýa-da telefonyňyz bilen QR kody skanirläp giriň. Bu telewizorda hemme zat oflaýn işleýär.",
-    "finishLater": "Soňra tamamla"
+    "finishLater": "Soňra tamamla",
+    "pending": {
+      "body": "Takyk namaz wagtlary we size laýyklaşdyrylan programma üçin ýerleşýän ýeriňizi we ýatlatmalary goşuň.",
+      "action": "Sazlamagy tamamla",
+      "barTitle": "Sazlamaňyz garaşýar",
+      "barBody": "Has gowy we size laýyklaşdyrylan tejribe üçin ony tamamlaň."
+    }
   },
   "appearance": {
     "eyebrow": "Sazlamalar",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Okalan jemi täzelensinmi?",
     "correctTotalConfirmMsg": "Hatym jemiňiz {{count}} aýat edilsinmi?",
     "correctTotalConfirmMsgPages": "Hatym jemiňiz {{count}} sahypa edilsinmi?",
-    "correctTotalConfirmAction": "Jemi täzele"
+    "correctTotalConfirmAction": "Jemi täzele",
+    "groupPromo": {
+      "title": "Başgalar bilen okaýarsyňyzmy?",
+      "body": "Maşgalaňyz, dostlaryňyz ýa-da metjit jemagatyňyz bilen topar hatymyny başlaň. Kuran böleklere bölünýär we her kim öz paýyny okaýar.",
+      "action": "Topar hatymyny synap görüň"
+    }
   },
   "hifz": {
     "short": "Hapyzlyk",
@@ -11884,5 +11895,18 @@
     "moveLater": "Yza geçir",
     "handleLabel": "{{item}} tertibini üýtget",
     "handleHint": "Geçirmek üçin süýräň ýa-da ýokary we aşak ok düwmelerine basyň"
+  },
+  "openInApp": {
+    "title": "Muny programmada açyň",
+    "body": "Bu telefonda Munib Tracker barmy? Bu baglanyşyk şol ýerde açylar. Ýok bolsa, ony dükandan ýükläň — gurnalandan soň programma şu baglanyşygy açar. Ýa-da şu ýerde brauzerde dowam ediň.",
+    "action": "Programmada aç",
+    "continueHere": "Brauzerde dowam et"
+  },
+  "deferredInvite": {
+    "title": "Çakylyk arkaly geldiňizmi?",
+    "body": "Programmany Munib Tracker çakylygy ýa-da QR kody arkaly gurnan bolsaňyz, galan ýeriňizden dowam etmek üçin «Goý» düwmesine basyň. Alyş-çalyş buferi diňe «Goý» basylanda okalýar.",
+    "paste": "Çakylyk baglanyşygyny goý",
+    "notNow": "Häzir däl",
+    "notALink": "Bu Munib Tracker çakylyk baglanyşygy däl."
   }
 }

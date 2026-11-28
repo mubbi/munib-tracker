@@ -5,6 +5,10 @@ import { Text } from "react-native";
 import { AppStack, TvFinanceRouteGate } from "@/components/app-stack";
 import { useNativeTabletRail, useWebGlobalRail } from "@/hooks/use-large-screen-layout";
 import { getCurrentPathname, setCurrentPathname } from "@/lib/navigation";
+import {
+  deferredOnboardingStore,
+  resetDeferredOnboarding,
+} from "@/lib/onboarding/deferred-onboarding";
 import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { devicePreferencesStore } from "@/stores/device-preferences-store";
 import { usePreferences, usePreferencesReady } from "@/stores/preferences-store";
@@ -87,6 +91,8 @@ afterEach(() => {
   devicePreferencesStore.setState({ prefs: {} });
   jest.mocked(isIndexingBot).mockReturnValue(false);
   setOnboarded(true);
+  resetExpoRouterMock();
+  resetDeferredOnboarding();
 });
 
 describe("AppStack", () => {
@@ -121,6 +127,34 @@ describe("AppStack", () => {
 
     expect(screen.getByText("redirect:/intro")).toBeTruthy();
     expect(screen.getByTestId("protected-closed")).toBeTruthy();
+  });
+
+  it("opens a deep link for first-time users instead of the intro", async () => {
+    setOnboarded(false);
+    setMockPathname("/circle/join/AB12");
+    await renderWithTheme(<AppStack />);
+
+    expect(screen.queryByText("redirect:/intro")).toBeNull();
+    expect(screen.getByTestId("protected-open")).toBeTruthy();
+    expect(deferredOnboardingStore.getState().deferred).toBe(true);
+  });
+
+  it("keeps Home open after a deep link deferred onboarding this session", async () => {
+    setOnboarded(false);
+    deferredOnboardingStore.setState({ deferred: true });
+    await renderWithTheme(<AppStack />);
+
+    expect(screen.queryByText("redirect:/intro")).toBeNull();
+    expect(screen.getByTestId("protected-open")).toBeTruthy();
+  });
+
+  it("doesn't defer onboarding from the onboarding screens themselves", async () => {
+    setOnboarded(false);
+    setMockPathname("/setup", ["(onboarding)", "setup"]);
+    await renderWithTheme(<AppStack />);
+
+    expect(screen.getByTestId("protected-closed")).toBeTruthy();
+    expect(deferredOnboardingStore.getState().deferred).toBe(false);
   });
 
   it("registers onboarding and login routes", async () => {

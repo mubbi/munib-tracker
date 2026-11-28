@@ -14,6 +14,7 @@ import { useWhiteDaysGoalReminder } from "@/components/white-days-goal-reminder"
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import en from "@/i18n/en.json";
 import { isFriday } from "@/lib/friday";
+import { useOnboardingPending } from "@/lib/onboarding/deferred-onboarding";
 import { getRamadanInfo } from "@/lib/ramadan";
 import { currentSeasonalBanner } from "@/lib/seasonal-themes";
 import { isWhiteDay } from "@/lib/white-days";
@@ -55,6 +56,14 @@ jest.mock("@/components/default-location-banner", () => ({
   DefaultLocationBanner: require("@/test-support/mocks/stub-component").stubComponent(
     "location-banner",
   ),
+}));
+jest.mock("@/components/onboarding/pending-onboarding-notice", () => ({
+  PendingOnboardingCallout: require("@/test-support/mocks/stub-component").stubComponent(
+    "pending-setup-callout",
+  ),
+}));
+jest.mock("@/lib/onboarding/deferred-onboarding", () => ({
+  useOnboardingPending: jest.fn(() => false),
 }));
 jest.mock("@/components/devotion-achievement-summary", () => ({
   DevotionAchievementSummary: () => null,
@@ -161,6 +170,7 @@ const scheduleProps = () => lastProps(PrayerScheduleCard);
 beforeEach(async () => {
   jest.clearAllMocks();
   resetExpoRouterMock();
+  jest.mocked(useOnboardingPending).mockReturnValue(false);
   jest.mocked(useShareContentCard).mockReturnValue({
     share,
     isSharing: () => false,
@@ -344,6 +354,15 @@ describe("HomeBelowFold cards", () => {
     for (const label of ["location-banner", "ramadan-card", "continue-card", "qaza-card"]) {
       expect(screen.getByText(label)).toBeTruthy();
     }
+  });
+
+  it("swaps the location prompt for one 'Finish setting up' card while onboarding is deferred", async () => {
+    jest.mocked(useOnboardingPending).mockReturnValue(true);
+    locationStore.setState({ location: buildStoredLocation({ source: "default" }) });
+    await renderFold();
+
+    expect(screen.getByText("pending-setup-callout")).toBeTruthy();
+    expect(screen.queryByText("location-banner")).toBeNull();
   });
 
   it("hides modules the user turned off", async () => {

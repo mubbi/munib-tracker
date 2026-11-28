@@ -95,6 +95,8 @@ export default function SetupScreen() {
   const finish = useCallback(async () => {
     await completeCoreSetup();
     if (rerun) goBackOrReplace(router, "/settings/about");
+    // Deferred onboarding: back to the deep-linked page the user came from.
+    else if (destination === "back") goBackOrReplace(router, "/");
     else router.replace(destination);
   }, [destination, rerun, router]);
 
@@ -115,9 +117,11 @@ export default function SetupScreen() {
     setReturnToSummary(false);
     if (previous) goTo(previous);
     else if (rerun) goBackOrReplace(router, "/settings/about");
+    // Opened from the "finish setup" notice: leave setup, back to that page.
+    else if (destination === "back") goBackOrReplace(router, "/");
     // First step of the first run: back to the welcome screen's last page.
     else router.replace({ pathname: "/intro", params: { at: "end" } });
-  }, [goTo, rerun, returnToSummary, router, step, steps]);
+  }, [destination, goTo, rerun, returnToSummary, router, step, steps]);
 
   // Android back / TV remote Back walk the steps instead of leaving setup.
   // Web has no hardware back (RN Web's BackHandler only logs an error); the

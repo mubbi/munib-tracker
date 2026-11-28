@@ -81,6 +81,52 @@ function withQuery(path: string, query: Record<string, string | number | undefin
 }
 
 /**
+ * Shared / QR link paths that should open the native app first (circle and
+ * group-khatm invites, the child-device QR, the TV sign-in QR). Phones with the
+ * app open them through Android App Links / iOS Universal Links; everyone else
+ * gets the web screen, which also offers "Open in the app" (`OpenInAppBanner`).
+ */
+export const APP_FIRST_SHARE_PATH_PREFIXES = ["/circle/join", "/kids/link", "/tv-pair"] as const;
+
+/**
+ * Every HTTPS path the native app claims on `APP_HTTPS_ORIGIN`: the share paths
+ * plus the Apple OAuth return. Mirrored by the Android `intentFilters` in
+ * `app.json` and the AASA paths in `scripts/generate-well-known.mjs` — kept in
+ * sync by `app-links.test.ts`.
+ */
+export const NATIVE_APP_LINK_PATH_PREFIXES = [
+  "/oauth/apple",
+  ...APP_FIRST_SHARE_PATH_PREFIXES,
+] as const;
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** `https://my.munibtracker.app/<path>` inside free text (a pasted invite message). */
+const ORIGIN_PATH_RE = new RegExp(`${escapeRegExp(APP_HTTPS_ORIGIN)}(/[^\\s"'<>]*)`, "i");
+
+/**
+ * The in-app path of a shared / QR link carried across an install (deferred deep
+ * link): accepts an app path or text containing our HTTPS link, and returns it
+ * only when it is one of {@link APP_FIRST_SHARE_PATH_PREFIXES} — never an
+ * arbitrary route from the clipboard or an install referrer.
+ */
+export function restorableSharePath(input: string | null | undefined): string | null {
+  const text = (input ?? "").trim();
+  if (!text) return null;
+  const candidate = text.match(ORIGIN_PATH_RE)?.[1] ?? (text.startsWith("/") ? text : null);
+  if (!candidate || /\s/.test(candidate)) return null;
+  const path = normalizeAppPath(candidate.replace(/[.,!;:)]+$/, ""));
+  const [pathname, query] = path.split("?");
+  if (pathname.includes("//") || pathname.includes("..")) return null;
+  const allowed = APP_FIRST_SHARE_PATH_PREFIXES.some(
+    (prefix) => pathname.startsWith(`${prefix}/`) || (pathname === prefix && Boolean(query)),
+  );
+  return allowed ? path : null;
+}
+
+/**
  * Static shareable destinations — supported surface for campaigns, notifications,
  * widgets, and native shortcuts. Any Expo Router path still works; this catalog
  * is the curated list we document and test.

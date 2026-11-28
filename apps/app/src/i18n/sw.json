@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Vikumbusho hufanya kazi vizuri zaidi kwenye simu",
     "locationHighlight4Tv": "Badilisha mji wakati wowote katika Mipangilio",
     "ctaBodyTv": "Anza kama mgeni, au ingia kwa kuchanganua msimbo wa QR kwa simu yako. Kila kitu kinafanya kazi nje ya mtandao kwenye TV hii.",
-    "finishLater": "Maliza baadaye"
+    "finishLater": "Maliza baadaye",
+    "pending": {
+      "body": "Ongeza mahali ulipo na vikumbusho upate nyakati sahihi za Swala na programu iliyoandaliwa kwa ajili yako.",
+      "action": "Maliza mipangilio",
+      "barTitle": "Mipangilio yako bado inasubiri",
+      "barBody": "Ikamilishe upate matumizi bora zaidi yaliyoandaliwa kwa ajili yako."
+    }
   },
   "appearance": {
     "eyebrow": "Mipangilio",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Sasisha jumla iliyosomwa?",
     "correctTotalConfirmMsg": "Weka jumla ya khitma kuwa aya {{count}}?",
     "correctTotalConfirmMsgPages": "Weka jumla ya khitma kuwa kurasa {{count}}?",
-    "correctTotalConfirmAction": "Sasisha jumla"
+    "correctTotalConfirmAction": "Sasisha jumla",
+    "groupPromo": {
+      "title": "Unasoma pamoja na wengine?",
+      "body": "Anzisha khitma ya kikundi na familia, marafiki au jamaa ya msikiti. Qur'ani hugawanywa katika sehemu na kila mmoja husoma sehemu yake.",
+      "action": "Jaribu khitma ya kikundi"
+    }
   },
   "hifz": {
     "short": "Hifdhi",
@@ -11884,5 +11895,18 @@
     "moveLater": "Hamisha nyuma",
     "handleLabel": "Panga upya {{item}}",
     "handleHint": "Buruta ili kuhamisha, au bonyeza vitufe vya mshale juu na chini"
+  },
+  "openInApp": {
+    "title": "Fungua hii kwenye programu",
+    "body": "Una Munib Tracker kwenye simu hii? Kiungo hiki kitafunguka hapo. Kama huna, ipakue dukani — programu itafungua kiungo hiki baada ya kuisakinisha. Au endelea hapa kwenye kivinjari.",
+    "action": "Fungua kwenye programu",
+    "continueHere": "Endelea kwenye kivinjari"
+  },
+  "deferredInvite": {
+    "title": "Umekuja kupitia mwaliko?",
+    "body": "Ikiwa ulisakinisha programu kupitia mwaliko au msimbo wa QR wa Munib Tracker, gusa «Bandika» ili uendelee ulipoishia. Ubao wa kunakili husomwa tu unapogusa «Bandika».",
+    "paste": "Bandika kiungo cha mwaliko",
+    "notNow": "Si sasa",
+    "notALink": "Hicho si kiungo cha mwaliko cha Munib Tracker."
   }
 }

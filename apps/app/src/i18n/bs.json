@@ -1164,7 +1164,13 @@
     "locationHighlight3Tv": "Podsjetnici najbolje rade na telefonu",
     "locationHighlight4Tv": "Promijenite grad bilo kada u Postavkama",
     "ctaBodyTv": "Počnite kao gost ili se prijavite skeniranjem QR koda telefonom. Na ovom TV-u sve radi bez interneta.",
-    "finishLater": "Završi kasnije"
+    "finishLater": "Završi kasnije",
+    "pending": {
+      "body": "Dodajte svoju lokaciju i podsjetnike za tačna vremena namaza i aplikaciju prilagođenu vama.",
+      "action": "Završi podešavanje",
+      "barTitle": "Vaše podešavanje je na čekanju",
+      "barBody": "Završite ga za bolje i vama prilagođeno iskustvo."
+    }
   },
   "appearance": {
     "eyebrow": "Postavke",
@@ -3431,7 +3437,12 @@
     "correctTotalConfirmTitle": "Ažurirati ukupno pročitano?",
     "correctTotalConfirmMsg": "Postaviti ukupan zbir hatme na {{count}} ajeta?",
     "correctTotalConfirmMsgPages": "Postaviti ukupan zbir hatme na {{count}} stranica?",
-    "correctTotalConfirmAction": "Ažuriraj ukupno"
+    "correctTotalConfirmAction": "Ažuriraj ukupno",
+    "groupPromo": {
+      "title": "Čitate s drugima?",
+      "body": "Pokrenite grupnu hatmu s porodicom, prijateljima ili džematom. Kur'an se dijeli na dijelove i svako čita svoj dio.",
+      "action": "Isprobajte grupnu hatmu"
+    }
   },
   "hifz": {
     "short": "Hifz",
@@ -11951,5 +11962,18 @@
     "moveLater": "Pomjeri nazad",
     "handleLabel": "Promijeni redoslijed: {{item}}",
     "handleHint": "Prevucite za pomjeranje ili pritisnite strelice gore i dolje"
+  },
+  "openInApp": {
+    "title": "Otvorite ovo u aplikaciji",
+    "body": "Imate li Munib Tracker na ovom telefonu? Link će se otvoriti tamo. Ako nemate, preuzmite ga iz trgovine — aplikacija će nakon instalacije otvoriti ovaj link. Ili nastavite ovdje u pregledniku.",
+    "action": "Otvori u aplikaciji",
+    "continueHere": "Nastavi u pregledniku"
+  },
+  "deferredInvite": {
+    "title": "Došli ste preko pozivnice?",
+    "body": "Ako ste instalirali aplikaciju preko Munib Tracker pozivnice ili QR koda, dodirnite «Zalijepi» da nastavite gdje ste stali. Međuspremnik se čita samo kada dodirnete «Zalijepi».",
+    "paste": "Zalijepi link pozivnice",
+    "notNow": "Ne sada",
+    "notALink": "To nije link pozivnice za Munib Tracker."
   }
 }

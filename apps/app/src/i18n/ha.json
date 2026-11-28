@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Tunatarwa sun fi aiki a waya",
     "locationHighlight4Tv": "Canza birni a kowane lokaci a Saituna",
     "ctaBodyTv": "Fara a matsayin baƙo, ko shiga ta hanyar sikanin lambar QR da wayarka. Komai yana aiki ba tare da intanet ba a wannan TV.",
-    "finishLater": "Kammala daga baya"
+    "finishLater": "Kammala daga baya",
+    "pending": {
+      "body": "Ƙara wurinka da masu tunatarwa don samun ingantattun lokutan sallah da manhaja da ta dace da kai.",
+      "action": "Kammala saitawa",
+      "barTitle": "Saitinka yana jira",
+      "barBody": "Kammala shi don samun ƙwarewa mafi kyau da ta dace da kai."
+    }
   },
   "appearance": {
     "eyebrow": "Saituna",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Sabunta jimlar da aka karanta?",
     "correctTotalConfirmMsg": "Saita jimillar saukarka zuwa ayoyi {{count}}?",
     "correctTotalConfirmMsgPages": "Saita jimillar saukarka zuwa shafuka {{count}}?",
-    "correctTotalConfirmAction": "Sabunta jimlar"
+    "correctTotalConfirmAction": "Sabunta jimlar",
+    "groupPromo": {
+      "title": "Kuna karatu tare da wasu?",
+      "body": "Fara saukar rukuni tare da iyali, abokai ko ƙungiyar masallaci. Ana raba Alƙur'ani zuwa sassa, kowa ya karanta nasa rabo.",
+      "action": "Gwada saukar rukuni"
+    }
   },
   "hifz": {
     "short": "Hadda",
@@ -11884,5 +11895,18 @@
     "moveLater": "Matsa baya",
     "handleLabel": "Sake tsara {{item}}",
     "handleHint": "Ja don matsarwa, ko danna maɓallan kibiya na sama da ƙasa"
+  },
+  "openInApp": {
+    "title": "Buɗe wannan a manhaja",
+    "body": "Kuna da Munib Tracker a wannan wayar? Wannan mahaɗin zai buɗe a can. Idan ba ku da shi, ku samo shi daga shago — manhajar za ta buɗe wannan mahaɗin bayan kun saka ta. Ko ku ci gaba a nan cikin burauza.",
+    "action": "Buɗe a manhaja",
+    "continueHere": "Ci gaba a burauza"
+  },
+  "deferredInvite": {
+    "title": "Kun zo ta gayyata?",
+    "body": "Idan kun saka manhajar ta gayyata ko lambar QR ta Munib Tracker, ku taɓa «Liƙa» don ci gaba daga inda kuka tsaya. Ana karanta allo kawai idan kun taɓa «Liƙa».",
+    "paste": "Liƙa mahaɗin gayyata",
+    "notNow": "Ba yanzu ba",
+    "notALink": "Wannan ba mahaɗin gayyata na Munib Tracker ba ne."
   }
 }

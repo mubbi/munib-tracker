@@ -3,6 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { claimTvPairing } from "@/api/endpoints";
+import { OpenInAppBanner } from "@/components/app-links/open-in-app-banner";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -100,6 +101,9 @@ export default function TvPairScreen() {
       />
 
       <View style={styles.body}>
+        {code && status !== "done" ? (
+          <OpenInAppBanner path={`/tv-pair?code=${encodeURIComponent(code)}`} />
+        ) : null}
         {!code ? (
           <EmptyState
             icon={{ ios: "qrcode.viewfinder", android: "qr_code_scanner", web: "qr_code_scanner" }}

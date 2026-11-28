@@ -422,16 +422,27 @@ export function createHadithSearch(items: HadithItem[]): FuzzyIndex<HadithItem> 
     return fuse;
   };
 
+  // A bare number ("998") is a hadith-number lookup — deep links such as
+  // `/hadith/bukhari?q=998` (marketing site, evidence links) land on it first.
+  const exactNumber = (query: string): HadithItem[] => {
+    const trimmed = query.trim();
+    if (!/^\d+$/.test(trimmed)) return [];
+    return items.filter((item) => item.number === trimmed);
+  };
+
   return {
     search(query, limit) {
+      const exact = exactNumber(query);
       const tokens = tokenize(query).filter((token) => token.length >= MIN_TOKEN_LENGTH);
-      if (tokens.length === 0) return [];
+      if (tokens.length === 0) return limit ? exact.slice(0, limit) : exact;
 
-      const fast: HadithItem[] = [];
+      const fast: HadithItem[] = [...exact];
+      const exactIds = new Set(exact.map((item) => item.id));
       for (const doc of docs) {
+        if (limit && fast.length >= limit) break;
+        if (exactIds.has(doc.item.id)) continue;
         if (!tokens.every((token) => doc.haystack.includes(token))) continue;
         fast.push(doc.item);
-        if (limit && fast.length >= limit) break;
       }
       if (fast.length > 0) return fast;
 
@@ -442,7 +453,7 @@ export function createHadithSearch(items: HadithItem[]): FuzzyIndex<HadithItem> 
     },
     count(query) {
       const tokens = tokenize(query).filter((token) => token.length >= MIN_TOKEN_LENGTH);
-      if (tokens.length === 0) return 0;
+      if (tokens.length === 0) return exactNumber(query).length;
       let n = 0;
       for (const doc of docs) {
         if (tokens.every((token) => doc.haystack.includes(token))) n += 1;

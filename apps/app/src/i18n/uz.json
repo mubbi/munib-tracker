@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Eslatmalar telefonda yaxshiroq ishlaydi",
     "locationHighlight4Tv": "Shaharni istalgan vaqtda Sozlamalarda o'zgartiring",
     "ctaBodyTv": "Mehmon sifatida boshlang yoki telefoningiz bilan QR kodni skanerlab kiring. Bu televizorda hammasi oflayn ishlaydi.",
-    "finishLater": "Keyinroq yakunlash"
+    "finishLater": "Keyinroq yakunlash",
+    "pending": {
+      "body": "Aniq namoz vaqtlari va sizga moslashtirilgan ilova uchun joylashuvingiz va eslatmalarni qo'shing.",
+      "action": "Sozlashni yakunlash",
+      "barTitle": "Sozlash kutilmoqda",
+      "barBody": "Yaxshiroq va sizga moslashtirilgan tajriba uchun uni yakunlang."
+    }
   },
   "appearance": {
     "eyebrow": "Sozlamalar",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "O'qilgan jami yangilansinmi?",
     "correctTotalConfirmMsg": "Xatm jami {{count}} oyat qilib qo'yilsinmi?",
     "correctTotalConfirmMsgPages": "Xatm jami {{count}} sahifa qilib qo'yilsinmi?",
-    "correctTotalConfirmAction": "Jamini yangilash"
+    "correctTotalConfirmAction": "Jamini yangilash",
+    "groupPromo": {
+      "title": "Boshqalar bilan o'qiysizmi?",
+      "body": "Oila, do'stlar yoki masjid jamoasi bilan guruh xatmini boshlang. Qur'on qismlarga bo'linadi va har kim o'z ulushini o'qiydi.",
+      "action": "Guruh xatmini sinab ko'ring"
+    }
   },
   "hifz": {
     "short": "Hifz",
@@ -11884,5 +11895,18 @@
     "moveLater": "Orqaga surish",
     "handleLabel": "{{item}} tartibini o‘zgartirish",
     "handleHint": "Ko‘chirish uchun torting yoki yuqoriga va pastga strelka tugmalarini bosing"
+  },
+  "openInApp": {
+    "title": "Buni ilovada oching",
+    "body": "Bu telefonda Munib Tracker bormi? Havola o'sha yerda ochiladi. Bo'lmasa, uni do'kondan o'rnating — o'rnatilgach ilova shu havolani ochadi. Yoki shu yerda brauzerda davom eting.",
+    "action": "Ilovada ochish",
+    "continueHere": "Brauzerda davom etish"
+  },
+  "deferredInvite": {
+    "title": "Taklifnoma orqali keldingizmi?",
+    "body": "Ilovani Munib Tracker taklifnomasi yoki QR kodi orqali o'rnatgan bo'lsangiz, to'xtagan joyingizdan davom etish uchun «Qo'yish» tugmasini bosing. Bufer faqat «Qo'yish» bosilganda o'qiladi.",
+    "paste": "Taklif havolasini qo'yish",
+    "notNow": "Hozir emas",
+    "notALink": "Bu Munib Tracker taklif havolasi emas."
   }
 }

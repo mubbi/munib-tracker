@@ -252,6 +252,22 @@ describe("createHadithSearch", () => {
     expect(index.search("intentions").map((h) => h.id)).toEqual(["bukhari:1"]);
     expect(index.search("belief").map((h) => h.id)).toEqual(["bukhari:2"]);
   });
+
+  it("puts the exact hadith number first for a bare-number query", () => {
+    const items = ["1", "46", "146", "460"].map((n) =>
+      buildHadithItem({
+        id: `bukhari:${n}`,
+        number: n,
+        reference: `Sahih al-Bukhari ${n}`,
+        english: n === "1" ? "Narrated 46 people" : "Text",
+      }),
+    );
+    const index = createHadithSearch(items);
+    expect(index.search("46")[0]?.id).toBe("bukhari:46");
+    // Single digits are below the token minimum but still look up the number.
+    expect(index.search("1").map((h) => h.id)).toEqual(["bukhari:1"]);
+    expect(index.count("1")).toBe(1);
+  });
 });
 
 describe("createDuaSearch", () => {

@@ -28,6 +28,7 @@ describe("QuranHubTools (C-23)", () => {
       [t("quran.hub.saved"), "/quran/bookmarks"],
       [t("learnQuran.title"), "/learn-quran"],
       [t("khatm.short"), "/quran/khatm"],
+      [t("khatmGroups.title"), "/khatm-groups"],
       [t("hifz.short"), "/quran/hifz"],
       [t("quranCompanion.entry.practise"), "/quran/practice"],
       [t("quranCompanion.entry.toRevise", { count: 3 }), "/quran/revision"],

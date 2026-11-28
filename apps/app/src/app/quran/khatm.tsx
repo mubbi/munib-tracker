@@ -1,5 +1,5 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -172,6 +172,45 @@ function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () 
           {motivation.reference}
         </ThemedText>
       ) : null}
+    </Card>
+  );
+}
+
+/** NF-3.18 cross-link: the same goal, read together — one part each. */
+function KhatmGroupPromoCard({ onOpen }: { onOpen: () => void }) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  return (
+    <Card
+      style={{
+        backgroundColor: colors.card,
+        borderColor: tokens.hairline,
+        borderWidth: BorderWidth.hairline,
+        gap: Spacing.three,
+      }}
+    >
+      <View style={styles.presetRow}>
+        <IconWell
+          icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
+          tint={colors.accent}
+          background={tokens.accentSoft}
+          well={44}
+          size={20}
+        />
+        <View style={styles.presetCopy}>
+          <ThemedText type="smallBold">{t("khatm.groupPromo.title")}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("khatm.groupPromo.body")}
+          </ThemedText>
+        </View>
+      </View>
+      <Button
+        label={t("khatm.groupPromo.action")}
+        variant="secondary"
+        onPress={onOpen}
+        icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
+        fullWidth
+      />
     </Card>
   );
 }
@@ -881,6 +920,7 @@ export default function KhatmScreen() {
       onShuffle={() => setMotivationSeed((seed) => seed + 1)}
     />
   );
+  const groupPromo = <KhatmGroupPromoCard onOpen={() => router.push("/khatm-groups" as Href)} />;
   const main = !plan ? (
     <Card>
       <SectionHeader
@@ -957,7 +997,10 @@ export default function KhatmScreen() {
             </Stagger>
           </View>
           <View style={styles.wideAside}>
-            <Stagger>{motivation}</Stagger>
+            <Stagger>
+              {motivation}
+              {groupPromo}
+            </Stagger>
           </View>
         </View>
       ) : (
@@ -965,6 +1008,7 @@ export default function KhatmScreen() {
           {main}
           {tvUndo}
           {motivation}
+          {groupPromo}
         </Stagger>
       )}
 

@@ -100,6 +100,13 @@ export function QuranHubTools({
           onPress={() => router.push("/quran/khatm")}
           href="/quran/khatm"
         />
+        {/* NF-3.18: finish the Qur'an together, one part each. */}
+        <NavRow
+          icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
+          label={t("khatmGroups.title")}
+          onPress={() => router.push("/khatm-groups" as Href)}
+          href="/khatm-groups"
+        />
         <NavRow
           icon={{ ios: "brain.head.profile", android: "psychology", web: "psychology" }}
           label={t("hifz.short")}

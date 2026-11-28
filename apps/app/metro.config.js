@@ -222,6 +222,7 @@ const tvNativeStubs = isTvMetro
         "src/lib/tv-stubs/expo-apple-authentication.ts",
       ),
       "expo-navigation-bar": path.join(projectRoot, "src/lib/tv-stubs/expo-navigation-bar.ts"),
+      "expo-clipboard": path.join(projectRoot, "src/lib/tv-stubs/expo-clipboard.ts"),
       // Qur'an practice listener runtime — phone/web only (no microphone path on TV).
       "onnxruntime-react-native": path.join(
         projectRoot,

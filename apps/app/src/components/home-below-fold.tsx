@@ -32,6 +32,7 @@ import { MadhhabPromptCard, useShowMadhhabPromptCard } from "@/components/fiqh/m
 import { useFridayGoalReminder } from "@/components/friday-goal-reminder";
 import { KhatmCard } from "@/components/khatm-card";
 import { useKhatmGoalReminder } from "@/components/khatm-goal-reminder";
+import { PendingOnboardingCallout } from "@/components/onboarding/pending-onboarding-notice";
 import type { PrayerScheduleCardProps } from "@/components/prayer-schedule-card";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
@@ -92,6 +93,7 @@ import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { khatmTodayProgress } from "@/lib/khatm";
 import { filterDestinationsForDevice, useDestinationScope } from "@/lib/library-menu";
+import { useOnboardingPending } from "@/lib/onboarding/deferred-onboarding";
 import { isTV } from "@/lib/platform/is-tv";
 import {
   buildQuickActionItems,
@@ -247,9 +249,12 @@ export function HomeBelowFold({
   const continueActivity = useContinueActivity();
   const arrowForward = useArrowForward();
   const hiddenModules = new Set(hiddenHomeModules ?? []);
-  const showDefaultLocationBanner = location.source === "default";
+  // Deferred onboarding (a deep link skipped it): one "Finish setting up" card
+  // stands in for the location / madhhab prompts — setup asks both.
+  const showPendingSetup = useOnboardingPending();
+  const showDefaultLocationBanner = !showPendingSetup && location.source === "default";
   // NF-3.0a: one-time "Choose your madhhab for rulings" for never-asked users.
-  const showMadhhabCard = useShowMadhhabPromptCard();
+  const showMadhhabCard = useShowMadhhabPromptCard() && !showPendingSetup;
   // NF-2.23: out of season, turned off in Customize home, or hidden for this season → null.
   const seasonalBanner = useSeasonalBanner(hiddenModules);
   // D75: Android-only one-time "use seasonal app icons?" offer while a season is on.
@@ -657,6 +662,7 @@ export function HomeBelowFold({
           {hero}
           <IosPwaInstallBanner />
           <Stagger entranceKey="home">
+            {showPendingSetup ? <PendingOnboardingCallout /> : null}
             {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
             {showMadhhabCard ? <MadhhabPromptCard /> : null}
             {seasonalBannerCard}
@@ -730,6 +736,7 @@ export function HomeBelowFold({
 
       <Stagger entranceKey="home">
         {/* Mount only when visible — empty Stagger wrappers still take flex `gap`. */}
+        {showPendingSetup ? <PendingOnboardingCallout /> : null}
         {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
         {showMadhhabCard ? <MadhhabPromptCard /> : null}
         {seasonalBannerCard}

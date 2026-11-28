@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Les rappels fonctionnent mieux sur un téléphone",
     "locationHighlight4Tv": "Changez de ville à tout moment dans Paramètres",
     "ctaBodyTv": "Commencez en invité, ou connectez-vous en scannant un code QR avec votre téléphone. Tout fonctionne hors ligne sur cette TV.",
-    "finishLater": "Terminer plus tard"
+    "finishLater": "Terminer plus tard",
+    "pending": {
+      "body": "Ajoutez votre position et vos rappels pour des horaires de Salah précis et une application adaptée à vous.",
+      "action": "Terminer la configuration",
+      "barTitle": "Votre configuration est en attente",
+      "barBody": "Terminez-la pour une expérience meilleure et plus personnalisée."
+    }
   },
   "appearance": {
     "eyebrow": "Paramètres",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Mettre à jour le total lu ?",
     "correctTotalConfirmMsg": "Définir le total du khatm à {{count}} versets ?",
     "correctTotalConfirmMsgPages": "Définir le total du khatm à {{count}} pages ?",
-    "correctTotalConfirmAction": "Mettre à jour le total"
+    "correctTotalConfirmAction": "Mettre à jour le total",
+    "groupPromo": {
+      "title": "Vous lisez avec d'autres ?",
+      "body": "Lancez un khatm collectif avec votre famille, vos amis ou votre cercle de la masjid. Le Coran est réparti en parties et chacun lit la sienne.",
+      "action": "Essayer le khatm collectif"
+    }
   },
   "hifz": {
     "short": "Hifz",
@@ -11900,5 +11911,18 @@
     "moveLater": "Déplacer après",
     "handleLabel": "Réorganiser {{item}}",
     "handleHint": "Faites glisser pour déplacer, ou utilisez les flèches haut et bas"
+  },
+  "openInApp": {
+    "title": "Ouvrir dans l'application",
+    "body": "Munib Tracker est installé sur ce téléphone ? Ce lien s'y ouvrira. Sinon, téléchargez-le sur le store — l'application reprendra ce lien après l'installation. Ou continuez ici dans le navigateur.",
+    "action": "Ouvrir dans l'application",
+    "continueHere": "Continuer dans le navigateur"
+  },
+  "deferredInvite": {
+    "title": "Vous venez d'une invitation ?",
+    "body": "Si vous avez installé l'application depuis une invitation ou un QR code Munib Tracker, touchez « Coller » pour reprendre là où vous en étiez. Le presse-papiers n'est lu que lorsque vous touchez « Coller ».",
+    "paste": "Coller le lien d'invitation",
+    "notNow": "Plus tard",
+    "notALink": "Ce n'est pas un lien d'invitation Munib Tracker."
   }
 }

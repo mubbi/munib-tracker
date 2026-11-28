@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Kujtesat funksionojnë më mirë në telefon",
     "locationHighlight4Tv": "Ndryshoni qytetin në çdo kohë te Cilësimet",
     "ctaBodyTv": "Filloni si vizitor ose hyni duke skanuar kodin QR me telefon. Gjithçka funksionon pa internet në këtë televizor.",
-    "finishLater": "Përfundo më vonë"
+    "finishLater": "Përfundo më vonë",
+    "pending": {
+      "body": "Shtoni vendndodhjen dhe kujtesat tuaja për kohë të sakta namazi dhe një aplikacion të përshtatur për ju.",
+      "action": "Përfundo konfigurimin",
+      "barTitle": "Konfigurimi juaj është në pritje",
+      "barBody": "Përfundojeni për një përvojë më të mirë dhe më të personalizuar."
+    }
   },
   "appearance": {
     "eyebrow": "Cilësimet",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Të përditësohet totali i lexuar?",
     "correctTotalConfirmMsg": "Të vendoset totali i hatmes në {{count}} ajete?",
     "correctTotalConfirmMsgPages": "Të vendoset totali i hatmes në {{count}} faqe?",
-    "correctTotalConfirmAction": "Përditëso totalin"
+    "correctTotalConfirmAction": "Përditëso totalin",
+    "groupPromo": {
+      "title": "Lexoni me të tjerët?",
+      "body": "Nisni një hatme në grup me familjen, miqtë ose xhematin e xhamisë. Kur'ani ndahet në pjesë dhe secili lexon pjesën e vet.",
+      "action": "Provoni hatmen në grup"
+    }
   },
   "hifz": {
     "short": "Hifz",
@@ -11884,5 +11895,18 @@
     "moveLater": "Zhvendos më pas",
     "handleLabel": "Rirendit {{item}}",
     "handleHint": "Tërhiqeni për ta zhvendosur, ose shtypni shigjetat lart dhe poshtë"
+  },
+  "openInApp": {
+    "title": "Hapeni këtë në aplikacion",
+    "body": "Keni Munib Tracker në këtë telefon? Lidhja do të hapet atje. Nëse jo, merreni nga dyqani — pas instalimit aplikacioni do ta hapë këtë lidhje. Ose vazhdoni këtu në shfletues.",
+    "action": "Hape në aplikacion",
+    "continueHere": "Vazhdo në shfletues"
+  },
+  "deferredInvite": {
+    "title": "Erdhët nga një ftesë?",
+    "body": "Nëse e instaluat aplikacionin nga një ftesë ose kod QR i Munib Tracker, prekni «Ngjit» për të vazhduar aty ku e latë. Kujtesa lexohet vetëm kur prekni «Ngjit».",
+    "paste": "Ngjit lidhjen e ftesës",
+    "notNow": "Jo tani",
+    "notALink": "Kjo nuk është lidhje ftese e Munib Tracker."
   }
 }

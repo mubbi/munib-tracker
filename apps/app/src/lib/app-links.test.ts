@@ -1,4 +1,8 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import {
+  APP_FIRST_SHARE_PATH_PREFIXES,
   APP_HTTPS_ORIGIN,
   APP_SCHEME,
   appLink,
@@ -6,6 +10,7 @@ import {
   buildHttpsAppUrl,
   DEEP_LINK_PATHS,
   formatAppLink,
+  NATIVE_APP_LINK_PATH_PREFIXES,
   normalizeAppPath,
   resolveAppLink,
 } from "@/lib/app-links";
@@ -197,6 +202,46 @@ describe("circle deep links (NF-3.16, D36)", () => {
     expect(appLink.circleJoin("abcde-fgh23").path).toBe("/circle/join/ABCDEFGH23");
     expect(appLink.circleJoin("ABCDEFGH23").httpsUrl).toMatch(/\/circle\/join\/ABCDEFGH23$/);
     expect(appLink.kidsLink("mtl_abc").path).toBe("/kids/link?token=mtl_abc");
+  });
+});
+
+describe("native App Links / Universal Links", () => {
+  const appRoot = join(__dirname, "..", "..");
+  const host = new URL(APP_HTTPS_ORIGIN).host;
+
+  it("covers every shared / QR link builder", () => {
+    const shared = [
+      appLink.circleJoin("ABCDEFGH23").path,
+      appLink.kidsLink("mtl_abc").path,
+      appLink.tvPair("XYZ123").path,
+    ];
+    for (const path of shared) {
+      expect(APP_FIRST_SHARE_PATH_PREFIXES.some((prefix) => path.startsWith(prefix))).toBe(true);
+    }
+  });
+
+  it("app.json claims exactly these paths on Android (autoVerify App Links)", () => {
+    const appJson = JSON.parse(readFileSync(join(appRoot, "app.json"), "utf8"));
+    type Filter = {
+      autoVerify?: boolean;
+      data: Array<{ scheme: string; host: string; pathPrefix?: string }>;
+    };
+    const filters = (appJson.expo.android.intentFilters as Filter[]).filter((f) =>
+      f.data.some((d) => d.scheme === "https" && d.host === host),
+    );
+    expect(filters.every((f) => f.autoVerify === true)).toBe(true);
+    const prefixes = filters.flatMap((f) => f.data.map((d) => d.pathPrefix)).sort();
+    expect(prefixes).toEqual([...NATIVE_APP_LINK_PATH_PREFIXES].sort());
+    expect(appJson.expo.ios.associatedDomains).toContain(`applinks:${host}`);
+  });
+
+  it("the AASA generator claims exactly these paths on iOS", () => {
+    const source = readFileSync(join(appRoot, "scripts", "generate-well-known.mjs"), "utf8");
+    const block = source.match(/const AASA_PATHS = \[([\s\S]*?)\];/)?.[1] ?? "";
+    const paths = [...block.matchAll(/"([^"]+)"/g)].map((m) => m[1]).sort();
+    const expected = NATIVE_APP_LINK_PATH_PREFIXES.flatMap((p) => [p, `${p}/*`]);
+    // `/circle/join` alone is never a link (the code is part of the path).
+    expect(paths).toEqual(expected.filter((p) => p !== "/circle/join").sort());
   });
 });
 

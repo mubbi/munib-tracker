@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Xusuusintu waxay ugu fiican tahay taleefanka",
     "locationHighlight4Tv": "Beddel magaalada goor kasta Dejinta",
     "ctaBodyTv": "Marti ahaan ku bilow, ama ku soo gal adigoo taleefankaaga ku iskaan gareynaya koodh QR. Wax walba waxay TV-gan ku shaqeeyaan internet la'aan.",
-    "finishLater": "Dhammee hadhow"
+    "finishLater": "Dhammee hadhow",
+    "pending": {
+      "body": "Ku dar goobtaada iyo xasuusiyeyaasha si aad u hesho waqtiyo Salaadda oo sax ah iyo app kugu habboon.",
+      "action": "Dhammee dejinta",
+      "barTitle": "Dejintaadu way sugaysaa",
+      "barBody": "Dhammee si aad u hesho khibrad ka wanaagsan oo kugu habboon."
+    }
   },
   "appearance": {
     "eyebrow": "Dejinta",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Cusbooneysii wadarta la akhriyay?",
     "correctTotalConfirmMsg": "Wadarta khatmka {{count}} aayadood ka dhig?",
     "correctTotalConfirmMsgPages": "Wadarta khatmka {{count}} bogag ka dhig?",
-    "correctTotalConfirmAction": "Cusbooneysii wadarta"
+    "correctTotalConfirmAction": "Cusbooneysii wadarta",
+    "groupPromo": {
+      "title": "Ma la akhrinaysaa dad kale?",
+      "body": "Ka bilow khatmi koox qoyskaaga, saaxiibbadaa ama xalqadda masjidka. Qur'aanka waxaa loo qaybiyaa qaybo, qof kastaana wuxuu akhriyaa qaybtiisa.",
+      "action": "Isku day khatmiga kooxda"
+    }
   },
   "hifz": {
     "short": "Xifdi",
@@ -11884,5 +11895,18 @@
     "moveLater": "Gadaal u rar",
     "handleLabel": "Dib u habee {{item}}",
     "handleHint": "Jiid si aad u rarto, ama riix furayaasha fallaarta kor iyo hoos"
+  },
+  "openInApp": {
+    "title": "Ku fur tan app-ka",
+    "body": "Munib Tracker ma ku jiraa taleefankan? Xiriirkan halkaas ayuu ka furmayaa. Haddii kale, ka soo deji dukaanka — app-ku wuxuu furi doonaa xiriirkan marka aad rakibto kadib. Ama halkan biraawsarka ku sii wad.",
+    "action": "Ku fur app-ka",
+    "continueHere": "Biraawsarka ku sii wad"
+  },
+  "deferredInvite": {
+    "title": "Ma ka timid casuumaad?",
+    "body": "Haddii aad app-ka ka rakibtay casuumaad ama koodh QR oo Munib Tracker ah, taabo «Dhaji» si aad uga sii wado meeshii aad joogtay. Kilibboodhka waxaa la akhriyaa oo keliya marka aad taabato «Dhaji».",
+    "paste": "Dhaji xiriirka casuumaadda",
+    "notNow": "Hadda maaha",
+    "notALink": "Taasi ma aha xiriir casuumaad oo Munib Tracker ah."
   }
 }

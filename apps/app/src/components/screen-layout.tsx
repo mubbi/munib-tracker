@@ -22,6 +22,10 @@ import { useSharedValue } from "react-native-reanimated";
 import { AppHeader } from "@/components/app-header";
 import { ContentReportFooterLink } from "@/components/content-report/content-report-footer-link";
 import { ErrorBoundary } from "@/components/error-boundary";
+import {
+  PendingOnboardingBar,
+  useShowSetupBar,
+} from "@/components/onboarding/pending-onboarding-notice";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
@@ -166,6 +170,7 @@ export function ScreenLayout({
   // Hide the title bar in reading fullscreen so the surface grows; keep any
   // headerAccessory (e.g. Qur'an toolbar) for exit + reading controls.
   const showAppHeader = !fullscreenActive;
+  const showSetupBar = useShowSetupBar();
 
   // Reading-progress line: driven by the built-in scroller. A plain ScrollView
   // isn't virtualized, so pixel offset over content size is accurate and stable.
@@ -468,6 +473,11 @@ export function ScreenLayout({
               blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
               contentMaxWidth={maxWidth}
             />
+          ) : null}
+          {/* Deferred onboarding: "Finish setup" bar under the title bar (part of the
+              measured header, so content clears it). */}
+          {showAppHeader && showSetupBar ? (
+            <PendingOnboardingBar contentMaxWidth={maxWidth} />
           ) : null}
           {headerAccessory}
           {trackProgress && canScroll ? (

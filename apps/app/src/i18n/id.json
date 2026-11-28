@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Pengingat paling baik di ponsel",
     "locationHighlight4Tv": "Ubah kota kapan saja di Pengaturan",
     "ctaBodyTv": "Mulai sebagai tamu, atau masuk dengan memindai kode QR menggunakan ponsel. Semuanya berjalan offline di TV ini.",
-    "finishLater": "Selesaikan nanti"
+    "finishLater": "Selesaikan nanti",
+    "pending": {
+      "body": "Tambahkan lokasi dan pengingat Anda untuk waktu salat yang akurat dan aplikasi yang disesuaikan untuk Anda.",
+      "action": "Selesaikan penyiapan",
+      "barTitle": "Penyiapan Anda belum selesai",
+      "barBody": "Selesaikan untuk pengalaman yang lebih baik dan lebih personal."
+    }
   },
   "appearance": {
     "eyebrow": "Pengaturan",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Perbarui total bacaan?",
     "correctTotalConfirmMsg": "Tetapkan total khatam menjadi {{count}} ayat?",
     "correctTotalConfirmMsgPages": "Tetapkan total khatam menjadi {{count}} halaman?",
-    "correctTotalConfirmAction": "Perbarui total"
+    "correctTotalConfirmAction": "Perbarui total",
+    "groupPromo": {
+      "title": "Membaca bersama orang lain?",
+      "body": "Mulai khatam bersama dengan keluarga, teman, atau jamaah masjid. Al-Qur'an dibagi menjadi beberapa bagian dan setiap orang membaca bagiannya.",
+      "action": "Coba khatam bersama"
+    }
   },
   "hifz": {
     "short": "Hafalan",
@@ -11884,5 +11895,18 @@
     "moveLater": "Pindah lebih akhir",
     "handleLabel": "Urutkan ulang {{item}}",
     "handleHint": "Seret untuk memindahkan, atau tekan tombol panah atas dan bawah"
+  },
+  "openInApp": {
+    "title": "Buka ini di aplikasi",
+    "body": "Punya Munib Tracker di ponsel ini? Tautan ini akan terbuka di sana. Jika belum, unduh dari toko — aplikasi akan membuka tautan ini setelah terpasang. Atau lanjutkan di browser ini.",
+    "action": "Buka di aplikasi",
+    "continueHere": "Lanjutkan di browser"
+  },
+  "deferredInvite": {
+    "title": "Datang dari undangan?",
+    "body": "Jika Anda memasang aplikasi dari undangan atau kode QR Munib Tracker, ketuk «Tempel» untuk melanjutkan dari tempat terakhir. Papan klip hanya dibaca saat Anda mengetuk «Tempel».",
+    "paste": "Tempel tautan undangan",
+    "notNow": "Nanti saja",
+    "notALink": "Itu bukan tautan undangan Munib Tracker."
   }
 }

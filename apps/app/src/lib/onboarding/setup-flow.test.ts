@@ -69,9 +69,10 @@ describe("setup steps", () => {
     expect(setupStepForItem("notifications")).toBe("reminders");
   });
 
-  it("only ever finishes on Home or sign-in", () => {
+  it("only ever finishes on Home, sign-in or back to the deep-linked page", () => {
     expect(setupDestination("/login")).toBe("/login");
     expect(setupDestination(["/login"])).toBe("/login");
+    expect(setupDestination("back")).toBe("back");
     expect(setupDestination("https://evil.example")).toBe("/");
     expect(setupDestination(undefined)).toBe("/");
   });

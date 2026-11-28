@@ -37,14 +37,21 @@ const envFingerprints = (process.env.ANDROID_APP_LINK_SHA256_FINGERPRINTS ?? "")
 
 const fingerprints = [...new Set([...DEFAULT_FINGERPRINTS, ...envFingerprints])];
 
-/** Paths Apple OAuth + future HTTPS App Links may open into the native app. */
+/**
+ * Paths that open in the native app (Universal Links). Mirrors
+ * `NATIVE_APP_LINK_PATH_PREFIXES` in `src/lib/app-links.ts` and the Android
+ * `intentFilters` in `app.json` — `app-links.test.ts` keeps all three in sync.
+ */
 const AASA_PATHS = [
   "/oauth/apple",
   "/oauth/apple/*",
-  // NF-3.16–3.18 (D36): circle invites + the child-device QR link.
+  // NF-3.16–3.18 (D36): circle + group-khatm invites and the child-device QR link.
   "/circle/join/*",
   "/kids/link",
   "/kids/link/*",
+  // TV sign-in QR scanned with the phone (`/tv-pair?code=…`).
+  "/tv-pair",
+  "/tv-pair/*",
 ];
 
 function buildAasa() {

@@ -1179,7 +1179,13 @@
     "locationHighlight3Tv": "Reminders work best on a phone",
     "locationHighlight4Tv": "Change city anytime in Settings",
     "ctaBodyTv": "Start as a guest, or sign in by scanning a QR code with your phone. Everything works offline on this TV.",
-    "finishLater": "Finish later"
+    "finishLater": "Finish later",
+    "pending": {
+      "body": "Add your location and reminders for accurate Salah times and an app personalized to you.",
+      "action": "Complete setup",
+      "barTitle": "Your setup is pending",
+      "barBody": "Complete it for a better, more personalized experience."
+    }
   },
   "appearance": {
     "eyebrow": "Settings",
@@ -3442,6 +3448,11 @@
       "ahead": "Ahead",
       "onTrack": "On track",
       "behind": "Behind"
+    },
+    "groupPromo": {
+      "title": "Reading with others?",
+      "body": "Start a group khatm with family, friends or your masjid circle. The Qur'an is split into parts and everyone reads their share.",
+      "action": "Try group khatm"
     }
   },
   "hifz": {
@@ -11937,5 +11948,18 @@
     "moveLater": "Move later",
     "handleLabel": "Reorder {{item}}",
     "handleHint": "Drag to move, or press the up and down arrow keys"
+  },
+  "openInApp": {
+    "title": "Open this in the app",
+    "body": "Have Munib Tracker on this phone? This link opens there. If not, get it from the store — the app picks up this link after you install it. Or carry on here in the browser.",
+    "action": "Open in the app",
+    "continueHere": "Continue in the browser"
+  },
+  "deferredInvite": {
+    "title": "Came from an invite?",
+    "body": "If you installed the app from a Munib Tracker invite or QR code, tap Paste to pick up where you left off. Your clipboard is only read when you tap Paste.",
+    "paste": "Paste invite link",
+    "notNow": "Not now",
+    "notALink": "That isn't a Munib Tracker invite link."
   }
 }

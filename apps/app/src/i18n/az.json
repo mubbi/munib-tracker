@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Xatırlatmalar telefondə daha yaxşı işləyir",
     "locationHighlight4Tv": "Şəhəri istənilən vaxt Parametrlərdə dəyişin",
     "ctaBodyTv": "Qonaq kimi başlayın və ya telefonunuzla QR kodu skan edərək daxil olun. Bu televizorda hər şey oflayn işləyir.",
-    "finishLater": "Sonra tamamla"
+    "finishLater": "Sonra tamamla",
+    "pending": {
+      "body": "Dəqiq namaz vaxtları və sizə uyğunlaşdırılmış tətbiq üçün yerinizi və xatırlatmaları əlavə edin.",
+      "action": "Quraşdırmanı tamamla",
+      "barTitle": "Quraşdırmanız gözləmədədir",
+      "barBody": "Daha yaxşı və sizə uyğunlaşdırılmış təcrübə üçün onu tamamlayın."
+    }
   },
   "appearance": {
     "eyebrow": "Parametrlər",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Oxunan cəm yenilənsin?",
     "correctTotalConfirmMsg": "Xətm cəmi {{count}} ayə olsun?",
     "correctTotalConfirmMsgPages": "Xətm cəmi {{count}} səhifə olsun?",
-    "correctTotalConfirmAction": "Cəmi yenilə"
+    "correctTotalConfirmAction": "Cəmi yenilə",
+    "groupPromo": {
+      "title": "Başqaları ilə oxuyursunuz?",
+      "body": "Ailə, dostlar və ya məscid dairənizlə qrup xətmi başladın. Quran hissələrə bölünür və hər kəs öz payını oxuyur.",
+      "action": "Qrup xətmini sınayın"
+    }
   },
   "hifz": {
     "short": "Hifz",
@@ -11884,5 +11895,18 @@
     "moveLater": "Sonraya keçir",
     "handleLabel": "{{item}} sırasını dəyiş",
     "handleHint": "Köçürmək üçün sürüşdürün və ya yuxarı və aşağı ox düymələrini basın"
+  },
+  "openInApp": {
+    "title": "Bunu tətbiqdə açın",
+    "body": "Bu telefonda Munib Tracker var? Bu keçid orada açılacaq. Yoxdursa, onu mağazadan yükləyin — quraşdırdıqdan sonra tətbiq bu keçidi açacaq. Ya da burada brauzerdə davam edin.",
+    "action": "Tətbiqdə açın",
+    "continueHere": "Brauzerdə davam edin"
+  },
+  "deferredInvite": {
+    "title": "Dəvətdən gəlmisiniz?",
+    "body": "Tətbiqi Munib Tracker dəvətindən və ya QR kodundan quraşdırmısınızsa, qaldığınız yerdən davam etmək üçün «Yapışdır» düyməsinə toxunun. Mübadilə buferi yalnız «Yapışdır»a toxunduqda oxunur.",
+    "paste": "Dəvət keçidini yapışdırın",
+    "notNow": "İndi yox",
+    "notALink": "Bu, Munib Tracker dəvət keçidi deyil."
   }
 }

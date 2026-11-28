@@ -30,8 +30,12 @@ export type SetupStepId = (typeof SETUP_STEP_IDS)[number];
 /** Steps that make the app ready to use; leaving the last one completes onboarding. */
 const CORE_STEPS: readonly SetupStepId[] = ["language", "location", "madhhab", "reminders"];
 
-/** Where the app goes when setup finishes (the welcome screen's guest / sign-in choice). */
-export type SetupDestination = "/" | "/login";
+/**
+ * Where the app goes when setup finishes: the welcome screen's guest / sign-in
+ * choice, or `"back"` — the page a deep-linked first-time user was on when they
+ * chose "Finish setup" (deferred onboarding).
+ */
+export type SetupDestination = "/" | "/login" | "back";
 
 /**
  * Steps shown on this device. TV has no notifications and no phone extras
@@ -98,7 +102,8 @@ export function setupStepForItem(id: SetupItemId): SetupStepId {
 
 export function setupDestination(raw: unknown): SetupDestination {
   const value = Array.isArray(raw) ? raw[0] : raw;
-  return value === "/login" ? "/login" : "/";
+  if (value === "/login" || value === "back") return value;
+  return "/";
 }
 
 /** Saved first-run progress, or `null` when nothing is in progress. */

@@ -52,6 +52,11 @@
               "scheme": "https",
               "host": "my.munibtracker.app",
               "pathPrefix": "/kids/link"
+            },
+            {
+              "scheme": "https",
+              "host": "my.munibtracker.app",
+              "pathPrefix": "/tv-pair"
             }
           ],
           "category": ["BROWSABLE", "DEFAULT"]

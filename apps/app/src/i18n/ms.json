@@ -1152,7 +1152,13 @@
     "locationHighlight3Tv": "Peringatan paling sesuai pada telefon",
     "locationHighlight4Tv": "Tukar bandar bila-bila masa dalam Tetapan",
     "ctaBodyTv": "Mula sebagai tetamu, atau log masuk dengan mengimbas kod QR menggunakan telefon. Semuanya berfungsi di luar talian pada TV ini.",
-    "finishLater": "Selesaikan kemudian"
+    "finishLater": "Selesaikan kemudian",
+    "pending": {
+      "body": "Tambah lokasi dan peringatan anda untuk waktu solat yang tepat dan aplikasi yang disesuaikan untuk anda.",
+      "action": "Lengkapkan persediaan",
+      "barTitle": "Persediaan anda belum selesai",
+      "barBody": "Lengkapkannya untuk pengalaman yang lebih baik dan lebih peribadi."
+    }
   },
   "appearance": {
     "eyebrow": "Tetapan",
@@ -3411,7 +3417,12 @@
     "correctTotalConfirmTitle": "Kemas kini jumlah bacaan?",
     "correctTotalConfirmMsg": "Tetapkan jumlah khatam anda kepada {{count}} ayat?",
     "correctTotalConfirmMsgPages": "Tetapkan jumlah khatam anda kepada {{count}} halaman?",
-    "correctTotalConfirmAction": "Kemas kini jumlah"
+    "correctTotalConfirmAction": "Kemas kini jumlah",
+    "groupPromo": {
+      "title": "Membaca bersama orang lain?",
+      "body": "Mulakan khatam berkumpulan bersama keluarga, rakan atau jemaah masjid. Al-Quran dibahagikan kepada beberapa bahagian dan setiap orang membaca bahagiannya.",
+      "action": "Cuba khatam berkumpulan"
+    }
   },
   "hifz": {
     "short": "Hafazan",
@@ -11884,5 +11895,18 @@
     "moveLater": "Alih ke belakang",
     "handleLabel": "Susun semula {{item}}",
     "handleHint": "Seret untuk mengalih, atau tekan kekunci anak panah atas dan bawah"
+  },
+  "openInApp": {
+    "title": "Buka ini dalam aplikasi",
+    "body": "Ada Munib Tracker pada telefon ini? Pautan ini akan dibuka di sana. Jika tiada, muat turun dari kedai — aplikasi akan membuka pautan ini selepas dipasang. Atau teruskan di pelayar ini.",
+    "action": "Buka dalam aplikasi",
+    "continueHere": "Teruskan dalam pelayar"
+  },
+  "deferredInvite": {
+    "title": "Datang daripada jemputan?",
+    "body": "Jika anda memasang aplikasi daripada jemputan atau kod QR Munib Tracker, ketik «Tampal» untuk menyambung dari tempat terakhir. Papan keratan hanya dibaca apabila anda mengetik «Tampal».",
+    "paste": "Tampal pautan jemputan",
+    "notNow": "Bukan sekarang",
+    "notALink": "Itu bukan pautan jemputan Munib Tracker."
   }
 }

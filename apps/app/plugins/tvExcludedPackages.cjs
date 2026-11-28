@@ -36,6 +36,9 @@ const TV_EXCLUDED_PACKAGES = [
   "expo-speech",
   "expo-apple-authentication",
   "expo-navigation-bar",
+  // Deferred-invite Paste button: no tvOS pod, and TV never opens a shared link.
+  // (expo-application stays linked — expo-auth-session needs it on TV too.)
+  "expo-clipboard",
   // Qur'an practice: on-device listener runtime (no microphone path on TV).
   "onnxruntime-react-native",
   // Local modules. Quran Lab pronunciation bridge: its AAR would merge RECORD_AUDIO

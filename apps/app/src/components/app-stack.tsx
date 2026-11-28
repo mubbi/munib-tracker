@@ -2,7 +2,7 @@ import { Redirect, Stack, ThemeProvider } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { type ReactElement, type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { TabletRail } from "@/components/app-tabs-wide";
 import { ScreenErrorBoundary } from "@/components/navigation/screen-error-boundary";
@@ -13,10 +13,10 @@ import { useNativeTabletRail, useWebGlobalRail } from "@/hooks/use-large-screen-
 import { hiddenFinanceToolForRoute, useDestinationScope } from "@/lib/library-menu";
 import { useTrackCurrentPathname } from "@/lib/navigation";
 import { createNavigationTheme } from "@/lib/navigation-theme";
+import { useOnboardingAccess } from "@/lib/onboarding/deferred-onboarding";
 import { isTV } from "@/lib/platform/is-tv";
-import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { useTheme } from "@/providers/theme-provider";
-import { usePreferences, usePreferencesReady } from "@/stores/preferences-store";
+import { usePreferencesReady } from "@/stores/preferences-store";
 
 /**
  * TV (D-UX5): a deep link or stale shortcut to a hidden finance tool shows the
@@ -71,13 +71,15 @@ function CurrentPathnameTracker() {
  * background (ScreenLayout / tab roots) to avoid light/dark flash.
  *
  * Until preferences hydrate, only a boot-colored shell is shown (splash covers
- * it). After hydrate, tabs stay protected for first-time users and we Redirect
- * to intro so home chrome never mounts underneath the splash.
+ * it). After hydrate, a first-time user landing on Home is redirected to intro
+ * (tabs stay protected so home chrome never mounts underneath the splash); a
+ * first-time user opening any other page keeps it and onboarding is deferred
+ * for the session (`lib/onboarding/deferred-onboarding.ts`).
  */
 export function AppStack() {
   const { colors, scheme } = useTheme();
   const prefsReady = usePreferencesReady();
-  const prefs = usePreferences();
+  const { showApp } = useOnboardingAccess();
 
   const navigationTheme = useMemo(() => createNavigationTheme(colors, scheme), [colors, scheme]);
   const { width: windowWidth } = useWindowDimensions();
@@ -91,8 +93,6 @@ export function AppStack() {
     }),
     [],
   );
-
-  const showApp = prefs.hasCompletedOnboarding || (Platform.OS === "web" && isIndexingBot());
 
   if (!prefsReady) {
     return <View style={[styles.bootShell, { backgroundColor: colors.background }]} />;

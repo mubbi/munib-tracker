@@ -2,6 +2,7 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { AppHeader } from "@/components/app-header";
+import { useShowSetupBar } from "@/components/onboarding/pending-onboarding-notice";
 import { READING_MEASURE, ScreenLayout } from "@/components/screen-layout";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
@@ -29,6 +30,10 @@ jest.mock("@/hooks/use-reading-fullscreen", () => ({
   useReadingFullscreen: jest.fn(() => ({ active: false })),
 }));
 jest.mock("@/components/app-header", () => ({ AppHeader: jest.fn(() => null) }));
+jest.mock("@/components/onboarding/pending-onboarding-notice", () => ({
+  PendingOnboardingBar: require("@/test-support/mocks/stub-component").stubComponent("setup-bar"),
+  useShowSetupBar: jest.fn(() => false),
+}));
 jest.mock("@/components/content-report/content-report-footer-link", () => ({
   ContentReportFooterLink: require("@/test-support/mocks/stub-component").stubComponent(
     "report-link",
@@ -62,6 +67,7 @@ beforeEach(() => {
 afterEach(() => {
   resetMockWindowSize();
   jest.mocked(useReadingFullscreen).mockReturnValue({ active: false } as never);
+  jest.mocked(useShowSetupBar).mockReturnValue(false);
 });
 
 describe("ScreenLayout", () => {
@@ -100,6 +106,23 @@ describe("ScreenLayout", () => {
     });
 
     expect(flattenStyle(scrollView().props.contentContainerStyle).paddingTop).toBeGreaterThan(90);
+  });
+
+  it("shows the pending-setup bar under the title bar, inside the measured header", async () => {
+    jest.mocked(useShowSetupBar).mockReturnValue(true);
+    await renderLayout({ headerAccessory: <Text>Toolbar</Text> });
+
+    expect(parentOf(screen.getByText("setup-bar"))).toBe(parentOf(screen.getByText("Toolbar")));
+  });
+
+  it("leaves the pending-setup bar out by default and in reading fullscreen", async () => {
+    await renderLayout();
+    expect(screen.queryByText("setup-bar")).toBeNull();
+
+    jest.mocked(useShowSetupBar).mockReturnValue(true);
+    jest.mocked(useReadingFullscreen).mockReturnValue({ active: true } as never);
+    await renderLayout();
+    expect(screen.queryByText("setup-bar")).toBeNull();
   });
 
   it("appends a report link when a report kind is set", async () => {

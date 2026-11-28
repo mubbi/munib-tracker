@@ -403,11 +403,12 @@ export function DoneStep({
   const asr = useSettingSummary("prayer-times.asr");
   const madhhab = useSettingSummary("fiqh.madhhab");
   const reminders = useSettingSummary("notifications.master");
-  const finishLabel = rerun
-    ? t("common.done")
-    : destination === "/login"
-      ? t("onboarding.signInToSync")
-      : t("onboarding.begin");
+  const finishLabel =
+    rerun || destination === "back"
+      ? t("common.done")
+      : destination === "/login"
+        ? t("onboarding.signInToSync")
+        : t("onboarding.begin");
 
   return (
     <SetupShell

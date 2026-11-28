@@ -105,6 +105,8 @@ export const DB_KEYS = {
   // LEGACY pre-D76 review funnel (persisted wake trigger, local nudge dedupe): no longer
   // read or written; kept so a data reset still clears what older builds left behind.
   reviewPendingTrigger: `${PREFIX}/review_pending_trigger_v1`,
+  /** Deferred invite (install referrer / clipboard) already checked on this install. */
+  deferredInviteChecked: `${PREFIX}/deferred_invite_checked_v1`,
   reviewReactivationDedupe: `${PREFIX}/review_reactivation_dedupe_v1`,
   // Per-entity content-hash + last-synced timestamp for blob-synced userData
   // (fasting, khatm, learning progress, …). Drives change/deletion detection for
@@ -297,6 +299,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   contentReportQueue: "deviceLocal",
   reviewGating: "deviceLocal",
   reviewPendingTrigger: "deviceLocal",
+  deferredInviteChecked: "deviceLocal",
   reviewReactivationDedupe: "deviceLocal",
   blobSyncState: "deviceLocal",
   zakatCalculator: "userData",

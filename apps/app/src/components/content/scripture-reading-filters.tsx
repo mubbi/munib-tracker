@@ -204,12 +204,14 @@ export function ScriptureReadingToolbar({
           </PressableScale>
         ) : null}
         {/* Horizontal chip row: never trap Up/Down — Down must reach the reading
-            content below (a vertical trap here was a TV dead end). */}
-        <TvFocusGuide>
+            content below (a vertical trap here was a TV dead end). The guide is
+            the row's flex child, so it must carry the flex/minWidth bounds —
+            unbounded it grows to the chips' width and the ScrollView never
+            overflows (no touch/wheel scroll on web). */}
+        <TvFocusGuide style={styles.scroll}>
           <TvScrollView
             ref={scrollRef}
             horizontal
-            style={styles.scroll}
             showsHorizontalScrollIndicator={Platform.OS === "web"}
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={styles.content}

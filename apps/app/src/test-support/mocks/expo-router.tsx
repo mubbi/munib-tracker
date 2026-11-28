@@ -59,6 +59,8 @@ export const expoRouterMock = {
   useSegments: () => routeState.segments,
   useNavigation: () => ({ setOptions: jest.fn(), addListener: jest.fn(() => jest.fn()) }),
   useIsFocused: () => true,
+  /** The root navigator is always mounted in tests. */
+  useRootNavigationState: () => ({ key: "root-test" }),
   /** Mirrors `router.canDismiss()` — both read `mockRouterCanDismiss`. */
   useCanDismiss: () => mockRouterCanDismiss(),
   /** Runs the focus callback like a mount effect (screens are "focused" in tests). */

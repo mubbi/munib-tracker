@@ -1,5 +1,6 @@
 import {
   CIRCLE_LIMITS,
+  circleJoinPath,
   formatInviteCode,
   isValidInviteCode,
   normalizeInviteCode,
@@ -9,6 +10,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { OpenInAppBanner } from "@/components/app-links/open-in-app-banner";
 import { CircleAccountGate } from "@/components/circles/account-gate";
 import { CircleCodeEntry } from "@/components/circles/code-entry";
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
@@ -89,6 +91,7 @@ export default function CircleJoinScreen() {
     >
       <Seo path="/circle/join" index={false} />
       <View style={styles.stack}>
+        {valid ? <OpenInAppBanner path={`/${circleJoinPath(code)}`} /> : null}
         {!valid || (preview.isError && isGone(circleErrorStatus(preview.error))) ? (
           // A bad, expired or used code is not a dead end: say so and offer the code field.
           <Card style={styles.gap}>

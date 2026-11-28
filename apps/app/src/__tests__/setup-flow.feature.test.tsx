@@ -123,6 +123,27 @@ describe("first-run setup wizard", () => {
     expect(preferencesStore.getState().prefs.hasCompletedOnboarding).toBe(true);
   });
 
+  it("returns to the deep-linked page when opened from the 'Finish setup' notice", async () => {
+    mockRouterCanDismiss.mockReturnValue(true);
+    setMockSearchParams({ step: "done", next: "back" });
+    await renderWithProviders(<SetupScreen />);
+    await press("Done");
+    expect(mockRouter.back).toHaveBeenCalledTimes(1);
+    expect(mockRouter.replace).not.toHaveBeenCalled();
+    expect(preferencesStore.getState().prefs.hasCompletedOnboarding).toBe(true);
+  });
+
+  it("Back from the first step leaves the notice's setup without the welcome screen", async () => {
+    mockRouterCanDismiss.mockReturnValue(true);
+    setMockSearchParams({ step: "language", next: "back" });
+    await renderWithProviders(<SetupScreen />);
+    await press("Back");
+    expect(mockRouter.back).toHaveBeenCalledTimes(1);
+    expect(mockRouter.replace).not.toHaveBeenCalledWith(
+      expect.objectContaining({ pathname: "/intro" }),
+    );
+  });
+
   it('"Decide later" leaves the madhhab unset for the checklist and home card', async () => {
     setMockSearchParams({ step: "madhhab" });
     await renderWithProviders(<SetupScreen />);

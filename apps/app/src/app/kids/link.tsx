@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { OpenInAppBanner } from "@/components/app-links/open-in-app-banner";
 import { JoinNearbyButton } from "@/components/circles/nearby/nearby-join-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
@@ -15,6 +16,7 @@ import { Spacing } from "@/constants/theme";
 import { circleErrorStatus, redeemChildLink } from "@/lib/circles/api";
 import { saveChildSession, useChildSession } from "@/lib/circles/child-session";
 import { goBackOrReplace } from "@/lib/navigation";
+import { nativeAppCandidateOs } from "@/lib/open-in-app";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
@@ -60,6 +62,9 @@ export default function KidsLinkScreen() {
   useEffect(() => {
     if (autoRan.current || !LINK_TOKEN_RE.test(fromLink)) return;
     autoRan.current = true;
+    // A phone browser that the QR opened instead of the app must not spend the
+    // one-time token: the child picks "Open in the app" (or links here) first.
+    if (nativeAppCandidateOs()) return;
     void redeem(fromLink);
   }, [fromLink]);
 
@@ -80,33 +85,38 @@ export default function KidsLinkScreen() {
             <Button label={t("kids.link.open")} onPress={() => router.replace("/kids")} />
           </Card>
         ) : (
-          <Card style={styles.gap}>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("kids.link.howTo")}
-            </ThemedText>
-            <TextField
-              label={t("kids.link.tokenLabel")}
-              value={token}
-              onChangeText={setToken}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            {status === "error" ? (
-              <ThemedText type="small" themeColor="mutedForeground">
-                {t(errorKey)}
-              </ThemedText>
+          <>
+            {LINK_TOKEN_RE.test(fromLink) && status === "idle" ? (
+              <OpenInAppBanner path={`/kids/link?token=${encodeURIComponent(fromLink)}`} />
             ) : null}
-            <Button
-              label={status === "linking" ? t("circles.common.working") : t("kids.link.cta")}
-              disabled={!valid || status === "linking"}
-              onPress={() => void redeem(token)}
-            />
-            {/* NF-3.25: find the parent's phone over Bluetooth; the parent approves (D42). */}
-            <JoinNearbyButton purpose="child_link" />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("kids.link.privacy")}
-            </ThemedText>
-          </Card>
+            <Card style={styles.gap}>
+              <ThemedText type="small" themeColor="mutedForeground">
+                {t("kids.link.howTo")}
+              </ThemedText>
+              <TextField
+                label={t("kids.link.tokenLabel")}
+                value={token}
+                onChangeText={setToken}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              {status === "error" ? (
+                <ThemedText type="small" themeColor="mutedForeground">
+                  {t(errorKey)}
+                </ThemedText>
+              ) : null}
+              <Button
+                label={status === "linking" ? t("circles.common.working") : t("kids.link.cta")}
+                disabled={!valid || status === "linking"}
+                onPress={() => void redeem(token)}
+              />
+              {/* NF-3.25: find the parent's phone over Bluetooth; the parent approves (D42). */}
+              <JoinNearbyButton purpose="child_link" />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("kids.link.privacy")}
+              </ThemedText>
+            </Card>
+          </>
         )}
       </View>
     </ScreenLayout>

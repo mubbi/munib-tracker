@@ -191,7 +191,7 @@ Configured in `apps/app/src/lib/auth/oauth-config.ts`. App Links / associated do
 
 Apple OAuth on Android (and iOS OAuth fallback) returns to **`https://my.munibtracker.app/oauth/apple`** — handled by `apps/app/src/app/oauth/apple.tsx`. Apple rejects custom URI schemes as Services ID return URLs.
 
-**Native App Links beyond OAuth** are not store-verified yet (Android filter is OAuth-only). Shareable `https://my.munibtracker.app/{path}` URLs still open the **web** product app; use `munib-tracker://` for reliable native cold-start until `.well-known` host verification is deployed (see below).
+**Native App Links** cover the Apple OAuth return plus the shared / QR paths (`/circle/join`, `/kids/link`, `/tv-pair` — see [App first, browser second](#app-first-browser-second-every-shared--qr-link)). Every other `https://my.munibtracker.app/{path}` URL opens the **web** product app; use `munib-tracker://` for native cold-start there.
 
 Host verification files are generated into `apps/app/public/.well-known/` by `scripts/generate-well-known.mjs` (runs as part of `build:web`):
 
@@ -238,6 +238,27 @@ Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
 
 - **HTTPS is the shared form** (`https://my.munibtracker.app/circle/join/<CODE>`). Devices with the app open it through App Links / Universal Links (Android `intentFilters` `pathPrefix` `/circle/join` + `/kids/link` in `app.json`; AASA paths `/circle/join/*`, `/kids/link`, `/kids/link/*` from `scripts/generate-well-known.mjs`). Without the app it opens the **Expo web join screen** — guests can join a group khatm on the web; family and partner circles ask to sign in. There is no marketing-site landing page.
 - `munib-tracker://circle/join/<CODE>` also works (the app's custom scheme is `munib-tracker://`, not `munib://`).
+
+### App first, browser second (every shared / QR link)
+
+All shared and QR links — circle + group-khatm invites (`/circle/join/<CODE>`), the child-device QR (`/kids/link?token=…`) and the TV sign-in QR (`/tv-pair?code=…`) — are listed once in `APP_FIRST_SHARE_PATH_PREFIXES` (`apps/app/src/lib/app-links.ts`). `NATIVE_APP_LINK_PATH_PREFIXES` (those + `/oauth/apple`) must match the Android `intentFilters` in `app.json` and `AASA_PATHS` in `scripts/generate-well-known.mjs`; `app-links.test.ts` fails when they drift. Adding a new shareable link = add its prefix to all three.
+
+1. **App installed, link verified** → the OS opens the app directly (Universal Links / App Links) — from Messages, WhatsApp, Mail, the camera's QR scanner, etc.
+2. **Link lands in a phone browser anyway** (in-app browsers such as Instagram/Facebook, a typed or pasted URL, failed Android verification) → the web screen shows `OpenInAppBanner` (`src/components/app-links/`): **Open in the app** hands the same path over — Android via an `intent://…;package=app.munibtracker;S.browser_fallback_url=<Play listing>` URL, iOS via `munib-tracker://…` with an App Store fallback when the page is still visible after 1.6 s (`src/lib/open-in-app.ts`). **Continue in the browser** hides it. Desktop browsers and an installed PWA never see it.
+3. **No app** → the web flow works as before (guests can join a group khatm on the web).
+4. **Installed from that link** (deferred deep link) → the first launch opens the same invite (`src/lib/deferred-invite.ts`, `DeferredInviteHost` in the root overlays):
+   - **Android:** the banner's Play fallback is `…details?id=app.munibtracker&referrer=mt_link%3D<path>`; on first launch `expo-application` `getInstallReferrerAsync()` returns it, and the app opens the path.
+   - **iOS:** no install referrer exists, so the banner copies the HTTPS link before handing off. On first launch the app only checks _whether_ the clipboard has content (`hasUrlAsync` / `hasStringAsync` — no paste prompt) and shows a "Came from an invite?" sheet with the system **Paste** control (`ClipboardPasteButton`, no permission prompt; iOS < 16 falls back to a button that reads on tap).
+   - Guards: one check per install (`DB_KEYS.deferredInviteChecked`), only before onboarding is complete, only within 24 h of install, skipped when the app was cold-started from a real link. Only `APP_FIRST_SHARE_PATH_PREFIXES` paths are ever opened (`restorableSharePath`). The invite defers onboarding like an App Link (`deferredOnboardingStore`).
+   - Not on web or TV (`expo-clipboard` is in `TV_EXCLUDED_PACKAGES` with a Metro stub; `expo-application` stays linked because `expo-auth-session` needs it).
+
+`/kids/link` does not auto-redeem its one-time token in a phone browser (it would spend the token before the app could use it); the child taps **Open in the app** or the link button.
+
+**Production checklist** (owner — the code alone doesn't make the OS hand links to the app):
+
+- Redeploy the product web (`apps/app`, manual Vercel deploy) after any change to `AASA_PATHS`, then check `curl -s https://my.munibtracker.app/.well-known/apple-app-site-association` lists every path above. iOS caches AASA via Apple's CDN — new paths can take a day to reach devices.
+- Set `ANDROID_APP_LINK_SHA256_FINGERPRINTS` on that Vercel project to the **Play App Signing** SHA-256 (Play Console → App integrity). Without it, Play Store installs never verify, and Android opens every shared link in the browser (step 2 still rescues it).
+- Ship a native build with the updated `app.json` intent filters (new paths need a new store build).
 - Both routes are `index: false` in the SEO registry.
 
 ---
@@ -245,6 +266,18 @@ Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
 ## Push notifications
 
 Local and web push use **structured route data** (screen/tab/focus fields), not URL schemes — see `apps/app/src/lib/notifications/`. Paths should match catalog destinations (e.g. `/tracker`, `/zikr/after_prayer`).
+
+---
+
+## First-time users (deferred onboarding)
+
+Onboarding only starts when a not-yet-onboarded user **lands on Home (`/`)**. Opening any other link (Circle / family / group-khatm invite, a Qur'an or hadith page, a calculator, a quick action…) goes straight to that page. Onboarding is then deferred for the rest of the session, including Home.
+
+- Every titled screen (`ScreenLayout`) shows a warning-toned bar under the title bar — **"Your setup is pending — Complete it for a better, more personalized experience. Complete setup ›"** (the whole bar is one tap target); Home shows a matching callout. Both stay until onboarding is complete.
+- **Complete setup** opens `/setup?next=back`; finishing (or Back from its first step) returns to the page the user was on.
+- Session-only: the next launch that lands on Home starts onboarding again. Web crawlers never see the bar, and TV relies on the Home callout.
+
+Code: `apps/app/src/lib/onboarding/deferred-onboarding.ts` (gate decision used by `AppStack` + `AppProviders`), `apps/app/src/components/onboarding/pending-onboarding-notice.tsx` (bar + Home callout).
 
 ---
 
